@@ -1,0 +1,1 @@
+cargo llvm-cov --locked --workspace --all-targets --json --output-path /home/me/Projects/index-qualification.iIHbKX/DevForgeAI/docs/plan/manual-index-20260914T162437-7915/coverage.json --ignore-filename-regex /\(tests\|examples\|fixtures\)/ --fail-under-lines 95 

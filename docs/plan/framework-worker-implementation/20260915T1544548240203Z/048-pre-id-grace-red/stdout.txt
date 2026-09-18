@@ -1,0 +1,20 @@
+
+running 1 test
+test cancellation_before_ids_allows_cooperative_eof_exit ... FAILED
+
+failures:
+
+---- cancellation_before_ids_allows_cooperative_eof_exit stdout ----
+
+thread 'cancellation_before_ids_allows_cooperative_eof_exit' (33024) panicked at tests\requirements.rs:87:5:
+assertion `left == right` failed: cooperative peer was forcibly killed: {"fixture_unchanged":true,"open_work":["w"],"oracle":"not_evaluated","outcome":"cancelled","reason":"user_cancel","thread_id":null,"tree_stopped":true,"turn_id":null,"usage":null,"worker_exit_code":1}
+  left: Number(1)
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    cancellation_before_ids_allows_cooperative_eof_exit
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.07s
+

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\candidate-manifest.json",
+  "manifest_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "candidate": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\harness\\packages\\qa-negative-matrix",
+  "candidate_mismatches": [],
+  "snapshot_file_set_differences": [],
+  "allowed_changes": [
+    "tests/support/final_source_check_cases.rs",
+    "tests/support/plugin_source_identity_cases.rs",
+    "tests/support/review_v2_cases.rs"
+  ],
+  "observed_changes": [
+    {
+      "path": "tests/support/final_source_check_cases.rs",
+      "original_bytes": 4409,
+      "original_sha256": "72c88bdacc68f13217dd599486cb1c3fd5a00b882aece8ebbbf585b564121bac",
+      "qa_bytes": 7224,
+      "qa_sha256": "82bcd617e7e5aa3d93f6d47651bed9bbd11aea65cd2cf8404d48ca2226e2d989"
+    },
+    {
+      "path": "tests/support/plugin_source_identity_cases.rs",
+      "original_bytes": 18893,
+      "original_sha256": "c4a9056c5196b56712d0d8293076595115c61aee327c99dfb352bd339af9a04b",
+      "qa_bytes": 24335,
+      "qa_sha256": "ca5e10dbc19eef787345e8b5222e4f80b91f4c9fa9e4db4e398827e410a59fe7"
+    },
+    {
+      "path": "tests/support/review_v2_cases.rs",
+      "original_bytes": 14954,
+      "original_sha256": "45cbb2f248b5f159e7c2fb95016f5a6bf7de4db04d1d2822b1c7c1876302b32a",
+      "qa_bytes": 16627,
+      "qa_sha256": "06975d49d6ed74d672d67c161d3985b45ea94a480cc2752f604e8a1830ad40d5"
+    }
+  ],
+  "exact_allowed_delta": true
+}

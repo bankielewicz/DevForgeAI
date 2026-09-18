@@ -1,0 +1,73 @@
+{
+  "result": "PASS",
+  "meaning": "Accounting integrity only; retained raw nonpasses are not changed to passes. Corrected harness observations are separate.",
+  "inventories": [
+    {
+      "inventory": "independent-tests",
+      "required": 35,
+      "raw_passing": 33,
+      "nonpasses": [
+        "test_independent_design.DesignTests.test_silent_legacy_downgrade",
+        "test_independent_design.DesignTests.test_valid_capture_and_publication"
+      ],
+      "accounting_errors": [],
+      "expected_ref": {
+        "path": "observations/independent-tests/expected.json",
+        "sha256": "6a2c1f35f7016b2117734e05863a78861f455772c0d976807e1b755247ecd92b"
+      },
+      "observed_ref": {
+        "path": "observations/independent-tests/results.jsonl",
+        "sha256": "378b1625b69c232677a5d9fcc40ecd70b39ce61cb35f5ccc54377d661fda63d2"
+      }
+    },
+    {
+      "inventory": "regressions",
+      "required": 71,
+      "raw_passing": 70,
+      "nonpasses": [
+        "test_authoring.AuthoringTests.test_new_record_schemas_match_actual_outputs"
+      ],
+      "accounting_errors": [],
+      "expected_ref": {
+        "path": "observations/regressions/expected.json",
+        "sha256": "412bc6422aa91ac5473c527a5617e1fce9d513741251d68c7a442a740b70ca9c"
+      },
+      "observed_ref": {
+        "path": "observations/regressions/results.jsonl",
+        "sha256": "db2f703839d8e36886b4e74aa30efbc643819ec32714b3ef777ec4ecad9cc41a"
+      }
+    },
+    {
+      "inventory": "adaptive-regressions",
+      "required": 21,
+      "raw_passing": 21,
+      "nonpasses": [],
+      "accounting_errors": [],
+      "expected_ref": {
+        "path": "observations/adaptive-regressions/plan.json",
+        "sha256": "4294e75807082b6f4d73d12ae493b23ad8eec0e66cc5f0242c65fcfc64b53812"
+      },
+      "observed_ref": {
+        "path": "observations/adaptive-regressions/results.jsonl",
+        "sha256": "4ab232a445094aa3d31d9c4930fb39a8f11646708a427a37d0dc55f80f66e9ab"
+      }
+    },
+    {
+      "inventory": "linux-checks",
+      "required": 35,
+      "raw_passing": 34,
+      "nonpasses": [
+        "test_linux_design.DesignTests.test_silent_legacy_downgrade"
+      ],
+      "accounting_errors": [],
+      "expected_ref": {
+        "path": "observations/linux-checks/plan.json",
+        "sha256": "0e205236590953ac5693575d50e8c22c1e99fd31747005bc44a26f652631552c"
+      },
+      "observed_ref": {
+        "path": "observations/linux-checks/results.jsonl",
+        "sha256": "f00ed7e237e6bb9157aedfefe53ca7617d6c6b0e2cfda9c41115f1527388c048"
+      }
+    }
+  ]
+}

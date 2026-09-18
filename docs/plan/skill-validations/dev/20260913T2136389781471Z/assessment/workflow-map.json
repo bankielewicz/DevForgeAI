@@ -1,0 +1,157 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2136389781471Z",
+  "target_name": "dev",
+  "steps": [
+    {
+      "step_id": "W1",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "locator": {
+          "line_start": 20,
+          "line_end": 20
+        }
+      },
+      "entry_conditions": "selected project/specs/current authorization",
+      "inputs": [
+        "selected project/specs/current authorization"
+      ],
+      "executor": "Codex terminal/file agent",
+      "action": "Resolve exact environment and record context",
+      "outputs": [
+        "context/input hashes/output mapping"
+      ],
+      "completion_evidence": "identity, permissions and necessary inputs observed",
+      "next_branches": [
+        "W2"
+      ],
+      "failure_route": "missing input -> precise gap; independent work continues",
+      "terminal_user_outcome": "Selected deliverables and honest completion or exact remaining dependency"
+    },
+    {
+      "step_id": "W2",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "locator": {
+          "line_start": 21,
+          "line_end": 21
+        }
+      },
+      "entry_conditions": "context and all selected docs",
+      "inputs": [
+        "context and all selected docs"
+      ],
+      "executor": "Codex terminal/file agent",
+      "action": "Inventory requirements, contracts and dependencies",
+      "outputs": [
+        "traceability, decisions, gaps"
+      ],
+      "completion_evidence": "owners and material dependencies resolved",
+      "next_branches": [
+        "W3"
+      ],
+      "failure_route": "conflicting/unselected dependency -> block affected slice",
+      "terminal_user_outcome": "Selected deliverables and honest completion or exact remaining dependency"
+    },
+    {
+      "step_id": "W3",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "locator": {
+          "line_start": 22,
+          "line_end": 22
+        }
+      },
+      "entry_conditions": "requirement inventory/current code",
+      "inputs": [
+        "requirement inventory/current code"
+      ],
+      "executor": "Codex terminal/file agent",
+      "action": "Inspect reuse and plan dependency slices",
+      "outputs": [
+        "reuse rationale and slice plan"
+      ],
+      "completion_evidence": "verification method or precise gap per requirement",
+      "next_branches": [
+        "W4"
+      ],
+      "failure_route": "absent tool -> explicit prerequisite gap",
+      "terminal_user_outcome": "Selected deliverables and honest completion or exact remaining dependency"
+    },
+    {
+      "step_id": "W4",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "locator": {
+          "line_start": 23,
+          "line_end": 23
+        }
+      },
+      "entry_conditions": "slice contract/runnable harness/authorized effects",
+      "inputs": [
+        "slice contract/runnable harness/authorized effects"
+      ],
+      "executor": "Codex terminal/file agent",
+      "action": "Run actual red, green, refactor, integration, QA",
+      "outputs": [
+        "source/tests and real receipts/metrics"
+      ],
+      "completion_evidence": "mandatory checks satisfied for coherent candidate",
+      "next_branches": [
+        "W5"
+      ],
+      "failure_route": "setup error is not red; failed tests retain evidence",
+      "terminal_user_outcome": "Selected deliverables and honest completion or exact remaining dependency"
+    },
+    {
+      "step_id": "W5",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "locator": {
+          "line_start": 24,
+          "line_end": 24
+        }
+      },
+      "entry_conditions": "current candidate/evidence and ongoing jobs",
+      "inputs": [
+        "current candidate/evidence and ongoing jobs"
+      ],
+      "executor": "Codex terminal/file agent",
+      "action": "Maintain checkpoint and verify drift on selected resume",
+      "outputs": [
+        "checkpoint, invalidations, fresh attempts"
+      ],
+      "completion_evidence": "unaffected evidence supported by unchanged prerequisites",
+      "next_branches": [
+        "W4 or W6"
+      ],
+      "failure_route": "unknown job outcome -> inspect before retry",
+      "terminal_user_outcome": "Selected deliverables and honest completion or exact remaining dependency"
+    },
+    {
+      "step_id": "W6",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "locator": {
+          "line_start": 25,
+          "line_end": 25
+        }
+      },
+      "entry_conditions": "selected requirement accounting and current verification",
+      "inputs": [
+        "selected requirement accounting and current verification"
+      ],
+      "executor": "Codex terminal/file agent",
+      "action": "Deliver actual outputs and precise partial/blocked/complete state",
+      "outputs": [
+        "delivery/checkpoint and gaps"
+      ],
+      "completion_evidence": "all selected scope accounted and usable user result",
+      "next_branches": [
+        "terminal"
+      ],
+      "failure_route": "required gap -> PARTIAL/BLOCKED and next safe action",
+      "terminal_user_outcome": "Selected deliverables and honest completion or exact remaining dependency"
+    }
+  ]
+}

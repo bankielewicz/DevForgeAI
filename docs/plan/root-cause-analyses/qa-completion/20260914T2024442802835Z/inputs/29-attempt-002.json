@@ -1,0 +1,29 @@
+{
+  "schema_version": "1",
+  "case_id": "QPV-06",
+  "attempt_id": "002",
+  "command": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-06\\project",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-06\\project\\.trial-output\\final.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-06\\project",
+  "started_at_utc": "2026-09-14T20:06:13.250937+00:00",
+  "ended_at_utc": "2026-09-14T20:08:13.529344+00:00",
+  "exit_code": 1,
+  "timeout": true,
+  "timeout_seconds": 120,
+  "stdout": "attempt-002.stdout.jsonl",
+  "stderr": "attempt-002.stderr.txt",
+  "limitations": [
+    "CLI workspace sandbox is host-controlled; task prompt is not proof of OS isolation."
+  ]
+}

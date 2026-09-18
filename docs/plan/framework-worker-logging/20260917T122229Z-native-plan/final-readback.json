@@ -1,0 +1,24 @@
+{
+  "utc": "2026-09-17T12:44:21.0879130Z",
+  "status": "READBACK_VERIFIED",
+  "command": "& 'C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\publish-planning-handoff.ps1'",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 0,
+  "handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\handoff-manifest.json",
+    "bytes": 11890,
+    "sha256": "a0341ae9f2b8431b0c8acf5e402d6c2c38f879ce5adbdff63b5fb1a0fd852891"
+  },
+  "entries_checked": 20,
+  "local_markdown_links_checked": 33,
+  "powershell_files_parsed": 5,
+  "preservation_receipt": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\readback-v2-verification.json",
+    "bytes": 15047,
+    "sha256": "6e6c7a2e0720c08f112f0800912b0248a7bebf04ffb4f777e74436c170ed02d2"
+  },
+  "native_codex": "NOT_RUN",
+  "operator_review": "PENDING",
+  "framework_acceptance": "NOT_EVALUATED",
+  "problems": []
+}

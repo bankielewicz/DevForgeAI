@@ -1,0 +1,39 @@
+{
+  "time": "2026-09-13T20:31:47.742070Z",
+  "inputs": {
+    "target": {
+      "unchanged": true,
+      "package_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+      "files": 75
+    },
+    "loaded-evaluator": {
+      "unchanged": true,
+      "package_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+      "files": 75
+    },
+    "companion": {
+      "unchanged": true,
+      "package_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+      "files": 44
+    },
+    "skill-validator-adaptive-enhancement-spec.md": {
+      "unchanged": true,
+      "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42"
+    },
+    "skill-builder-adaptive-enhancement-spec.md": {
+      "unchanged": true,
+      "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59"
+    },
+    "prior-selected": {
+      "unchanged": true,
+      "file_references": 55,
+      "extent": "Selected prior documents, receipts, outputs and four fixture inventories only; no whole historical tree claim."
+    },
+    "AGENTS.md": {
+      "unchanged": true
+    },
+    "checker": {
+      "unchanged": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\source\\scripts\\observe.py",
+    "structure",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\trials\\probes\\compatibility\\example"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "timeout_seconds": 120,
+  "start_utc": "2026-09-15T13:46:54.486504+00:00"
+}

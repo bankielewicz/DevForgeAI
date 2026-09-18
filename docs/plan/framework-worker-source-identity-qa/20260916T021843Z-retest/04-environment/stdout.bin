@@ -1,0 +1,2 @@
+{"Platform":"Win32NT","Version":"10.0.26200.0","Is64BitOperatingSystem":true,"Architecture":"X64"}
+{"PowerShell":"7.6.6","Python":"Python 3.10.11","Rustc":"rustc 1.97.1 (8bab26f4f 2026-07-14)","Cargo":"cargo 1.97.1 (c980f4866 2026-06-30)","LlvmCov":"cargo-llvm-cov 0.8.4","CargoPath":"C:\\Users\\bryan\\.cargo\\bin\\cargo.exe","RustcPath":"C:\\Users\\bryan\\.cargo\\bin\\rustc.exe","PythonPath":"C:\\Program Files\\Python310\\python.exe"}

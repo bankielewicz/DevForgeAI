@@ -1,0 +1,12 @@
+(function_item) @declaration.function
+(struct_item) @declaration.type
+(enum_item) @declaration.type
+(union_item) @declaration.type
+(type_item) @declaration.type
+(trait_item) @declaration.trait
+(mod_item) @declaration.module
+(closure_expression) @declaration.anonymous
+(use_declaration) @import
+(call_expression) @call
+(line_comment) @comment
+(block_comment) @comment

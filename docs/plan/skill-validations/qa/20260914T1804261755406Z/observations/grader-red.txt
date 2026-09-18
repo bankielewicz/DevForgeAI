@@ -1,0 +1,104 @@
+test_bound_reference (test_graders.GraderTests) ... ERROR
+test_complete_reduction_and_precedence (test_graders.GraderTests) ... ERROR
+test_exact_floors (test_graders.GraderTests) ... ERROR
+test_invalid_inventory_and_attempts (test_graders.GraderTests) ... ERROR
+test_invalid_metrics (test_graders.GraderTests) ... ERROR
+test_reduction_rejects_count_inflation (test_graders.GraderTests) ... ERROR
+test_reference_escape (test_graders.GraderTests) ... ERROR
+test_unit_retry_category_and_skip (test_graders.GraderTests) ... ERROR
+test_unresolved_metrics (test_graders.GraderTests) ... ERROR
+
+======================================================================
+ERROR: test_bound_reference (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 38, in test_bound_reference
+    self.assertTrue(verify_reference(d,ref))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 9, in verify_reference
+    raise NotImplementedError('red: byte reference grading not implemented')
+NotImplementedError: red: byte reference grading not implemented
+
+======================================================================
+ERROR: test_complete_reduction_and_precedence (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 51, in test_complete_reduction_and_precedence
+    result=reduce_cases(cases,rows)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 12, in reduce_cases
+    raise NotImplementedError('red: complete case accounting not implemented')
+NotImplementedError: red: complete case accounting not implemented
+
+======================================================================
+ERROR: test_exact_floors (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 9, in test_exact_floors
+    self.assertEqual(metric(9499,10000),'FAIL')
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 3, in metric
+    raise NotImplementedError('red: exact metric grading not implemented')
+NotImplementedError: red: exact metric grading not implemented
+
+======================================================================
+ERROR: test_invalid_inventory_and_attempts (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 29, in test_invalid_inventory_and_attempts
+    with self.assertRaises(ValueError): unit_counts([{'id':'a','platform':'W'}]*2,[])
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 6, in unit_counts
+    raise NotImplementedError('red: unit accounting not implemented')
+NotImplementedError: red: unit accounting not implemented
+
+======================================================================
+ERROR: test_invalid_metrics (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 20, in test_invalid_metrics
+    with self.assertRaises(ValueError): metric(*pair)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 3, in metric
+    raise NotImplementedError('red: exact metric grading not implemented')
+NotImplementedError: red: exact metric grading not implemented
+
+======================================================================
+ERROR: test_reduction_rejects_count_inflation (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 58, in test_reduction_rejects_count_inflation
+    with self.assertRaises(ValueError): reduce_cases(cases,rows)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 12, in reduce_cases
+    raise NotImplementedError('red: complete case accounting not implemented')
+NotImplementedError: red: complete case accounting not implemented
+
+======================================================================
+ERROR: test_reference_escape (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 46, in test_reference_escape
+    with self.assertRaises(ValueError): verify_reference(d,{'path':p,'sha256':'0'*64})
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 9, in verify_reference
+    raise NotImplementedError('red: byte reference grading not implemented')
+NotImplementedError: red: byte reference grading not implemented
+
+======================================================================
+ERROR: test_unit_retry_category_and_skip (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 26, in test_unit_retry_category_and_skip
+    self.assertEqual(unit_counts(inv,attempts),{'passing':1,'required':3,'result':'FAIL','attempts':4})
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 6, in unit_counts
+    raise NotImplementedError('red: unit accounting not implemented')
+NotImplementedError: red: unit accounting not implemented
+
+======================================================================
+ERROR: test_unresolved_metrics (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\test_graders.py", line 16, in test_unresolved_metrics
+    self.assertEqual(metric(*pair),'INCOMPLETE')
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\qa\20260914T1804261755406Z\evaluation\graders.py", line 3, in metric
+    raise NotImplementedError('red: exact metric grading not implemented')
+NotImplementedError: red: exact metric grading not implemented
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+FAILED (errors=9)

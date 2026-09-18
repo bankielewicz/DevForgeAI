@@ -1,0 +1,11 @@
+{
+  "qa_run_id": "20260915T2132038923673Z",
+  "candidate_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\candidate-manifest.json",
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "candidate_entry_count": 36,
+  "readback_observed_at": "2026-09-15T21:32:03-04:00",
+  "readback_all_paths_bytes_and_sha256_match": true,
+  "execution_status": "NOT_STARTED",
+  "cargo_hold": "Waiting for root-agent greenlight after developer coverage completes",
+  "source_mutation_by_qa": false
+}

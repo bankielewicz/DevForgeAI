@@ -1,0 +1,133 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T120847Z",
+  "target_name": "skill-creator",
+  "sources": [
+    {
+      "source_id": "validator-catalog",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\inputs\\adaptive-validation.md",
+      "retrieved_at_utc": "2026-09-15T12:11:27.879096+00:00",
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+      "snapshot_path": "inputs/adaptive-validation.md",
+      "sections": [
+        "3.1",
+        "4.1"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "user-request",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\inputs\\authorization.md",
+      "retrieved_at_utc": "2026-09-15T12:11:27.879096+00:00",
+      "sha256": "a329c9ea732966dc27d739d932be59e2099e35b15db65ed40d52cb0e61427aae",
+      "snapshot_path": "inputs/authorization.md",
+      "sections": [
+        "Selected request"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "skill-contract",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source\\SKILL.md",
+      "retrieved_at_utc": "2026-09-15T12:11:27.879096+00:00",
+      "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+      "snapshot_path": "source/SKILL.md",
+      "sections": [
+        "Core Principles",
+        "Create or Update a Skill",
+        "Independent Forward-Testing"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "ui-contract",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source\\references\\openai_yaml.md",
+      "retrieved_at_utc": "2026-09-15T12:11:27.879096+00:00",
+      "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+      "snapshot_path": "source/references/openai_yaml.md",
+      "sections": [
+        "Field descriptions and constraints"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "quick-validator",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source\\scripts\\quick_validate.py",
+      "retrieved_at_utc": "2026-09-15T12:19:55.566813+00:00",
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+      "snapshot_path": "source/scripts/quick_validate.py",
+      "sections": [
+        "complete captured source"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "initializer",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source\\scripts\\init_skill.py",
+      "retrieved_at_utc": "2026-09-15T12:19:55.566813+00:00",
+      "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9",
+      "snapshot_path": "source/scripts/init_skill.py",
+      "sections": [
+        "complete captured source"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "ui-generator",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source\\scripts\\generate_openai_yaml.py",
+      "retrieved_at_utc": "2026-09-15T12:19:55.566813+00:00",
+      "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe",
+      "snapshot_path": "source/scripts/generate_openai_yaml.py",
+      "sections": [
+        "complete captured source"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "installed-ui",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source\\agents\\openai.yaml",
+      "retrieved_at_utc": "2026-09-15T12:19:55.566813+00:00",
+      "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6",
+      "snapshot_path": "source/agents/openai.yaml",
+      "sections": [
+        "complete captured source"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "official-build-skills",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "original_path": null,
+      "retrieved_at_utc": "2026-09-15T12:08:47Z",
+      "sha256": "9461bb4f5e7d33855c4d8f73290e05660ac52617168d0c54dd02bff2463dfe38",
+      "snapshot_path": "inputs/official-web-response.json",
+      "sections": [
+        "Build skills",
+        "Optional metadata",
+        "Where Codex loads local skills"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "official-build-skills-body",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved_at_utc": "2026-09-15T12:24:55.373132+00:00",
+      "sha256": "51466ae5117ffea3bf31f557bbd31077318c487ee827cf54c9c29bb50402bb17",
+      "snapshot_path": "inputs/official-build-skills-body.txt",
+      "sections": [
+        "L873-L897",
+        "L916-L932",
+        "L958-L985"
+      ],
+      "freshness": "live_verified"
+    }
+  ]
+}

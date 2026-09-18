@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-ext-update-equivalent-bytes",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1379,
+      "sha256": "bdbf677ebbc04be051b848bde6796a3730b7abf6d5005ea631e522ee8957157e"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "79da48c3349b8b1597c66cd1d5e8a1aa09069c2c6d4fa11af0e190e207f7dbf9"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 106,
+      "sha256": "86ba599260e0dc2f782cd9489d178c223d7f16f2ed323e7b5c492768c4a6124f"
+    }
+  ]
+}

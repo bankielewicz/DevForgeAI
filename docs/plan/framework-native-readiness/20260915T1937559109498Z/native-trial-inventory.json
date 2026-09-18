@@ -1,0 +1,38 @@
+[
+  {
+    "id": "WN-01",
+    "status": "BLOCKED_NOT_RUN",
+    "request": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\request.draft.json",
+    "profile": "UNQUALIFIED",
+    "proposed_fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260915T1937559109498Z-WN-01\\fixture",
+    "proposed_run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260915T1937559109498Z-WN-01\\run",
+    "dispatch_seconds": 120,
+    "rpc_seconds": 10,
+    "grace_seconds": 5,
+    "teardown_seconds": 5,
+    "external_safety_seconds": 145,
+    "turns": 1,
+    "automatic_retries": 0,
+    "selected_model": "gpt-6-astra",
+    "selected_effort": "high",
+    "model_selection_status": "PROPOSED_FROM_CURRENT_CONFIG; user selection and protocol availability not observed"
+  },
+  {
+    "id": "WN-02",
+    "status": "BLOCKED_NOT_RUN",
+    "request": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\request.draft.json",
+    "profile": "UNQUALIFIED",
+    "proposed_fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260915T1937559109498Z-WN-02\\fixture",
+    "proposed_run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260915T1937559109498Z-WN-02\\run",
+    "dispatch_seconds": 120,
+    "rpc_seconds": 10,
+    "grace_seconds": 5,
+    "teardown_seconds": 5,
+    "external_safety_seconds": 145,
+    "turns": 1,
+    "automatic_retries": 0,
+    "selected_model": "gpt-6-astra",
+    "selected_effort": "high",
+    "model_selection_status": "PROPOSED_FROM_CURRENT_CONFIG; user selection and protocol availability not observed"
+  }
+]

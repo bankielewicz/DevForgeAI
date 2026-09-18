@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "20260916-integrity-tests",
+  "target_name": "advisor",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests-intake\\workflow-design.json",
+    "sha256": "dcf2a28cbf99d023f69a96e8eabcb60deee31968cbdbe45d6e08afa492b97c44"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\inputs\\1",
+    "sha256": "dcf2a28cbf99d023f69a96e8eabcb60deee31968cbdbe45d6e08afa492b97c44"
+  }
+}

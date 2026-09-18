@@ -1,0 +1,55 @@
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling cfg-if v1.0.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling windows-link v0.2.1
+   Compiling memchr v2.8.3
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling getrandom v0.4.3
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling windows-sys v0.61.2
+   Compiling generic-array v0.14.7
+   Compiling tempfile v3.27.0
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling syn v3.0.5
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.57s
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
+     Running unittests tests\support\console_driver.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\console_driver-288c56518b315dfe.exe)
+     Running unittests tests\support\crash_driver.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\crash_driver-b4eab878aeed91cd.exe)
+     Running unittests src\main.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\devforgeai_codex_worker_probe-960ff5c1e423ff70.exe)
+     Running unittests tests\support\profile_peer.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\profile_peer-e13029b616fcc694.exe)
+     Running unittests tests\support\peer.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\protocol_peer-f59665b8cba881b5.exe)
+     Running tests\admission.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\admission-b34a4b1a85f8fd5b.exe)
+     Running tests\cli.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\cli-855902b590f6eb6a.exe)
+     Running tests\contract.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\contract-e703c5df96677ecc.exe)
+     Running tests\effective_profile.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\effective_profile-a4f4345ca7637d34.exe)
+     Running tests\launch_policy.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\launch_policy-63708247ed9d05a9.exe)
+     Running tests\native_identity.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\native_identity-6515954549386339.exe)
+     Running tests\negative_paths.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\negative_paths-dd6faa6703f844e1.exe)
+     Running tests\oracle.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\oracle-8b2b61721d9c33b2.exe)
+     Running tests\preflight_cli.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\preflight_cli-ff1aec1374df1412.exe)
+     Running tests\preflight_recovery.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\preflight_recovery-3e92e00191364c8b.exe)
+     Running tests\process_ownership.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\process_ownership-5f057c238cf6babc.exe)
+     Running tests\process_windows.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\process_windows-5fdb0d165615cba4.exe)
+     Running tests\profile.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\profile-2758496c98ebd4e8.exe)
+     Running tests\profile_protocol.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\profile_protocol-f85f5d173ee581da.exe)
+     Running tests\protocol.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\protocol-a4a2c28667f25d30.exe)
+     Running tests\recovery.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\recovery-c54bf67da8e0f6da.exe)
+     Running tests\remediation.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\remediation-a2e1ef3946ffaa8d.exe)
+     Running tests\requirements.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\target-coverage\llvm-cov-target\debug\deps\requirements-a7b444cc1b7da383.exe)
+
+    Finished report saved to C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion-qa\20260915T2325371896643Z\08a-coverage\coverage.json

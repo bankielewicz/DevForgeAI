@@ -1,0 +1,14 @@
+{
+  "executor": "independent collaboration agent qa_routing; description-only, no expected labels in prompt",
+  "matches": 12,
+  "total": 12,
+  "actual": {
+    "path": "trials/routing/actual.json",
+    "sha256": "78ba02cefeee22adf9e0814a0d8941085009c4889fbf7ebd61037bf078fd0e51"
+  },
+  "expected": {
+    "path": "evaluation/routing-expected.json",
+    "sha256": "a887dc7b2398c00962be7526d47465b15df24e907d56c9dc015f6f72a2c989d7"
+  },
+  "limitation": "Classification does not prove native implicit activation."
+}

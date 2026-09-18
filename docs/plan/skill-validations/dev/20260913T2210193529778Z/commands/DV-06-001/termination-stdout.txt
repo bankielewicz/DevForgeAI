@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 56616 (child process of PID 58812) has been terminated.
+SUCCESS: The process with PID 67320 (child process of PID 32696) has been terminated.
+SUCCESS: The process with PID 60808 (child process of PID 22360) has been terminated.
+SUCCESS: The process with PID 58812 (child process of PID 22360) has been terminated.
+SUCCESS: The process with PID 32696 (child process of PID 22360) has been terminated.
+SUCCESS: The process with PID 97080 (child process of PID 22360) has been terminated.
+SUCCESS: The process with PID 22360 (child process of PID 69316) has been terminated.

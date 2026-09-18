@@ -1,0 +1,13 @@
+{
+  "host": "Windows native PowerShell; workspace on C:",
+  "cli": "codex-cli 0.154.0",
+  "model_selection": "Inherited existing configuration: model = gpt-6-astra; no provider/model override",
+  "child_sandbox": "workspace-write; existing windows sandbox configuration is unelevated",
+  "outer_sandbox": "First attempt failed with Access is denied during in-process app-server initialization. Host escalation approved for the subsequent launch and remaining batch.",
+  "configuration_inspection": "Selected non-secret model/sandbox/features and MCP startup settings read. No credential file was inspected or copied.",
+  "hooks": "No hooks.json at the user Codex root or selected real project .codex root; no hook override or trust bypass used. Plugin trust or all machine configuration was not exhaustively audited.",
+  "tools": {"python": "3.10.11", "node": "v20.20.0"},
+  "isolation_limits": "Fresh CLI process and fixture per trial, inherited existing user configuration and parent project instructions. Prompt boundaries and before/after manifests are not proof of complete OS isolation.",
+  "trial_scope": "No network beyond existing model connection. Product commands and edits confined to disposable fixtures. No operational skill changes, installations, plugin work, full example application or framework acceptance.",
+  "timeout": "120 seconds per attempt; owned child tree termination retained on timeout"
+}

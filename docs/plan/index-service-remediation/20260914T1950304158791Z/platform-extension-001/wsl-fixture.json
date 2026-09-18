@@ -1,0 +1,39 @@
+{
+  "configured_executable": "/tmp/dfr-wsl-20260914T1950304158791Z/bin/examples/wsl_fixture",
+  "observed_pretest_copy_hashes": [
+    {
+      "name": "devforgeai",
+      "sha256": "51a6013f96a41f5f7ccbac285596ac7594270b448bb859345d2064b6da4e1f40"
+    },
+    {
+      "name": "devforgeai-indexd",
+      "sha256": "37c4b274e7e4ad78ad1170ee3bc58e4d8513f1b559152e3506a6041dda87d01a"
+    },
+    {
+      "name": "wsl_fixture",
+      "sha256": "eb1c31135dde39c54921a97565ca682b07b4f1946a651601962475180d6c0c74"
+    }
+  ],
+  "post_test_readback": {
+    "source_drift": [],
+    "fixture_directory_exists": false,
+    "fixture_executable_exists": false,
+    "remaining_owned_processes": [],
+    "retained_builds": [
+      {
+        "path": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/release/devforgeai",
+        "sha256": "51a6013f96a41f5f7ccbac285596ac7594270b448bb859345d2064b6da4e1f40"
+      },
+      {
+        "path": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/release/devforgeai-indexd",
+        "sha256": "37c4b274e7e4ad78ad1170ee3bc58e4d8513f1b559152e3506a6041dda87d01a"
+      },
+      {
+        "path": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/release/examples/wsl_fixture",
+        "sha256": "eb1c31135dde39c54921a97565ca682b07b4f1946a651601962475180d6c0c74"
+      }
+    ]
+  },
+  "pretest_hash_source": "native copy command tool output; hashes match retained WSL release build manifest",
+  "bridge_outcome": "1 passed, 1 failed; absent fixture in post-run readback; no automatic retry"
+}

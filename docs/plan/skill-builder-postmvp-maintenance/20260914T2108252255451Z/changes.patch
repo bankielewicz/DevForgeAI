@@ -1,0 +1,806 @@
+--- before/SKILL.md
++++ after/SKILL.md
+@@ -26,6 +26,8 @@
+ 
+ ## Author the package
+ 
++For create, edit, import and specification builds, prepare the external behavior design using [workflow-design.md](references/workflow-design.md) before staging. Bind the completed design and original requirements in the contract inputs, and pass the same file to `authoring.py begin --design`. For selected adaptive sets, do this per authored member. Record observable completion, output delivery, resource consumers, relevant adverse conditions and supplied execution limits. Missing behavior decisions block dependent work; open questions do not resolve them. Custody-only adoption, proposals and update reviews retain their existing scope.
++
+ Stage under a fresh project `docs/plan/skill-authorings/<name>/<run-id>/` run, following [evidence-format.md](references/evidence-format.md). Record purpose, activation, inputs, outputs, operational constraints, dependencies, side effects and recovery, distinguishing supplied requirements from inferred defaults. A concise contract is enough for a small skill; do not impose fixed phases, output schemas or example counts.
+ 
+ Keep shared purpose and essential routing in SKILL.md. Put substantial conditional detail in focused references and output templates in assets. Add scripts only for concrete reusable automation. Inspect consumers before removing resources; preserve useful structure, domain contracts and unrelated content. Broader restructuring needs a requirement or current direction. Examples should clarify real decisions. Citation-producing skills need available sources, supported syntax, placement and missing-support behavior; other skills need no citation subsystem.
+@@ -40,4 +42,6 @@
+ 
+ Return the actual destination, changed files, history, unresolved gaps, and [manual validator request](references/validation-handoff.md). Report `Validation: NOT_PERFORMED` and `Testing: NOT_PERFORMED` unless separately referenced external results match these exact bytes. Do not invoke validator, consume its report automatically, repair findings or start another cycle. Validator absence does not block authoring or require installation.
+ 
++Report source action (created, edited or unchanged) separately from AUTHORED/PARTIAL/BLOCKED, with actual publication and design-capture references, outstanding evaluation obligations, next owner and concrete next action. Unchanged source, AUTHORED and delivered handoff do not establish evaluated-build completion. Authored design is distinct from observed behavior; validator constructs independent fixtures and oracles from original requirements.
++
+ Stop at development source. Operational .agents, .claude, .codex and personal active skills, hooks, CI, installation and Rust implementation are outside this workflow. Python custody observations are ordinary editable evidence, not framework authority.
+--- before/assets/authoring-design-template.json
++++ after/assets/authoring-design-template.json
+@@ -0,0 +1,24 @@
++{
++  "schema_version": "authoring-design-v1",
++  "target_name": "",
++  "source_refs": [],
++  "behaviors": [
++    {
++      "id": "",
++      "requirement_ids": [],
++      "trigger": "",
++      "inputs": [],
++      "completion": "",
++      "outputs": [],
++      "resource_paths": [],
++      "prerequisites": [],
++      "effects": [],
++      "failure": "",
++      "recovery": ""
++    }
++  ],
++  "resources": [],
++  "adverse_conditions": [],
++  "execution_limits": [],
++  "open_questions": []
++}
+--- before/assets/build-report-template.md
++++ after/assets/build-report-template.md
+@@ -1,7 +1,9 @@
+ # Authoring report
+ 
+-Record actual destination and identity, operation, current authorization, prior origin and preserved legacy references. List actual changed and retained paths with before/candidate/delivered manifests and applied delta.
++Record actual destination and identity, operation, source action (created, edited or unchanged), current authorization, prior origin and preserved legacy references. List actual changed and retained paths with before/candidate/delivered manifests and applied delta.
+ 
+ State AUTHORED, PARTIAL or BLOCKED with concrete unresolved authoring issues. Link authoring-record.json, successful publication readback and authoring-baseline.json when published. Validation: NOT_PERFORMED. Testing: NOT_PERFORMED. Reference separate external results only if they match these exact bytes, without rewriting earlier authoring records.
+ 
+-Return validation-request.json and validator-request.md. No automatic validation, installation or repair follows. Report publication/readback failures and partial operations honestly.
++For design-enabled runs link the actual design source path/digest, design-capture.json and its origin binding, plus original requirement sources and open questions. Report outstanding helper/native evaluation obligations and distinguish authored design from observed behavior. Unchanged source, AUTHORED and handoff delivery do not imply evaluated-build completion.
++
++Return validation-request.json and validator-request.md. Name the next owner (skill-validator for separately selected independent evaluation, or the decision owner for blocked work) and concrete next action. No automatic validation, installation or repair follows. Report publication/readback failures and partial operations honestly.
+--- before/package-manifest.json
++++ after/package-manifest.json
+@@ -1,9 +1,9 @@
+ {
+   "schema_version": "authoring-package-v1",
+   "artifacts": {
+-    "SKILL.md": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599",
+     "assets/adaptive-runtime/check_project_binding.py": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16",
+-    "assets/build-report-template.md": "d9bee08c106b5cd3df034d95574cd319330f174c5ae47090b6684144222f8bdd",
++    "assets/authoring-design-template.json": "9ee1b243b80ef29d142c3a6689bb4b83369f46a90e4678004bd985eb172a8dd2",
++    "assets/build-report-template.md": "32787d3f7e6aef385e5bc2d75e714bdb04e7580cdcb587c435a475e49e0f5ee7",
+     "assets/conversion-report-template.md": "7716a81d6d76cd67ddd04fca9f13207a1fac69e288c451ce2bea5f5326b38ffb",
+     "assets/skill-creator-license.txt": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5",
+     "assets/skill-creator-notice.md": "b5fa5a90ea317cfd8af969d0ece4545dbf4fb624d1469a2ad04a0ec0e03273e4",
+@@ -11,15 +11,16 @@
+     "references/adaptation.md": "5413c5d4fb9512a34b30c5d3c20a7c55f696874ef678bf173ea335a73644478b",
+     "references/adaptive-contracts.md": "f41dfc545d60498253b52e0d57c4a1214602d380fcc766181f960949f0e7404c",
+     "references/adoption.md": "17c69c0010976d043d00bc4707284c741bd651c0c8ca06860c69b56814c7926d",
+-    "references/authoring.md": "5e513b89d3334d945b3390c90e119ce6be0da5ab52390c012fe6bf5f4ab2ff40",
++    "references/authoring.md": "e16fcfa161a151ce18a3c7501a90258dd098f89112b4fb9a9c428bbd29455813",
+     "references/conversion-rules.md": "6b89eb700d832498a0a929d55c147a445038a7bd82992eb6120f2ddb60b4f414",
+-    "references/evidence-format.md": "28bfed7ffd8dfda8504d178333540f405f71580a1f3aa2058cf99651a836485e",
++    "references/evidence-format.md": "622c6da00b219b8829cb5643d1d06f30c6ac5988c77e9fbc6622423f195b4d90",
+     "references/openai_yaml.md": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+     "references/project-binding.md": "ebbc7d762c9a7adacd205d4711e42ab701689e2e71648d5f42cf2d3f5dc27c23",
+-    "references/regeneration.md": "4550d964c0e23a0ca0ead7fcc6bcf14be59c743dcf837a3ef0060fc0fed81ac7",
++    "references/regeneration.md": "1c3558122c1b8670e02f3ba0de1c23b675f31b0b508409635a8bf5827f45a298",
+     "references/scaffolding.md": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb",
+-    "references/spec-build.md": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2",
+-    "references/validation-handoff.md": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc",
++    "references/spec-build.md": "2b9977ccbe73249ea5820538535970e64d3c7104da8dd207acdd140bde76cc69",
++    "references/validation-handoff.md": "265d8ad543b39139667d830c39cb4cbe2b89b1b4646275b94fa9655613fe165a",
++    "references/workflow-design.md": "86c67d1b65e8c578966f9d431abc799f12962a2892354fce3d926797439de261",
+     "schemas/adaptation-proposal-v1.schema.json": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6",
+     "schemas/adaptation-selection-v1.schema.json": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1",
+     "schemas/adaptive-common.schema.json": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5",
+@@ -28,6 +29,7 @@
+     "schemas/adoption-evidence.schema.json": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f",
+     "schemas/authoring-baseline.schema.json": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746",
+     "schemas/authoring-contract.schema.json": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099",
++    "schemas/authoring-design.schema.json": "927816601efcb1bf2bbd0e03683957fe262c7ae36e4e284814e8958fcd48c608",
+     "schemas/authoring-record.schema.json": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d",
+     "schemas/binding-observation-v1.schema.json": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb",
+     "schemas/build-artifacts.schema.json": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be",
+@@ -38,11 +40,12 @@
+     "schemas/set-validation-request-v1.schema.json": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e",
+     "schemas/validation-request.schema.json": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367",
+     "scripts/adaptive.py": "aac50133eb2bf1b2c255de9a1bd0cfe5025b42252309e8e761948a0530c350be",
+-    "scripts/authoring.py": "fa08f536cc685b5d79b4dca96b165a6a6af913e8659bdcd651eb6ae51525ceb9",
++    "scripts/authoring.py": "cb55597715dc2d4d5dcdc4780ebc096eb9c3f137dbf9a853461a61c2c8b7cfc6",
+     "scripts/build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+     "scripts/custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+     "scripts/generate_openai_yaml.py": "a83d38bbb92993b7951dfef22db1eb92dd09b8a642b9cd78802d13bd6ddb8fdd",
+     "scripts/init_skill.py": "904594626f8f3e49f29d1a0cd8fac309589700c350eeec75dba40de22b37d4b5",
+-    "scripts/record_schema.py": "6e3f172e40c659ba400e4065d4020ae2157a21c2f9d086d935f607b06bce9330"
++    "scripts/record_schema.py": "6e3f172e40c659ba400e4065d4020ae2157a21c2f9d086d935f607b06bce9330",
++    "SKILL.md": "7e2353f4df2e01961f1dec88963c13d719d349fcc5722e3410e5c3e6a277ebae"
+   }
+ }
+--- before/references/authoring.md
++++ after/references/authoring.md
+@@ -8,6 +8,8 @@
+ 
+ For editing, inventory the complete allowed package and examine known provenance before writing. Capture current bytes as before and copy them to candidate. Only requested change_paths become managed for an observed first edit. Preserve every unrelated file byte, supported metadata value and useful resource. A snapshot does not authorize whole-package adoption. Use existing baseline/current/candidate history when available, even if the last authored package was untested.
+ 
+-Use the loaded package's scripts relative to its own location. Run `authoring.py begin --contract <file> --run-root <new-run>` to capture custody, edit the candidate with ordinary file tools, then run `authoring.py publish --run-root <run>`. Authoring-only means these helpers may parse, inventory, hash, plan writes and read back; they never judge quality or execute the new skill. New scaffolds can be created in a separate staging parent, with authored files copied into candidate before publication. Keep snapshots and failures in the fresh run.
++Before staging, fill the external design following [workflow-design.md](workflow-design.md), deriving completion observations from selected requirements and recording exact unresolved questions. Include its raw-byte reference in contract inputs with the original sources. Do not copy the design into runtime output or generate executable tests. A helper's runtime, effects and errors are authored contracts and unperformed validator obligations.
++
++Use the loaded package's scripts relative to its own location. Run `authoring.py begin --contract <file> --run-root <new-run> --design <file>` to capture custody, edit the candidate with ordinary file tools, then run `authoring.py publish --run-root <run>`. Authoring-only means these helpers may parse, inventory, hash, plan writes and read back; they never judge quality or execute the new skill. New scaffolds can be created in a separate staging parent, with authored files copied into candidate before publication. Keep snapshots and failures in the fresh run. Legacy CLI calls without --design remain available; enhanced authoring uses the bound design.
+ 
+ The supplied contract remains retained separately from the effective host-resolved contract. Use the effective project/target identity consistently in subsequent records; do not hand-edit either representation or an old rejected packet. See evidence-format.md for the bound original/resolved path records and fresh-run handling of inconsistent older stages.
+--- before/references/evidence-format.md
++++ after/references/evidence-format.md
+@@ -30,6 +30,12 @@
+ 
+ ## Output families
+ 
++Enhanced create/edit/import/specification authoring includes the external [workflow design](workflow-design.md) reference in `inputs` and supplies the same file through `begin --design`. Its version is `authoring-design-v1`; do not add design fields to the closed authoring contract or validation-request-v1. The capture record has exactly `schema_version: authoring-design-capture-v1`, `run_id`, `target_name`, `source_ref` and `snapshot_ref`. Both references use `{path, sha256}`. Snapshot points to the existing `inputs/<index>` copy, and internal origin metadata adds `design_capture_ref`. Original, snapshot, capture and bindings are read back before STAGED and rechecked at publication. The design input and referenced inputs share the bounded capture rules; a design-enabled input capture counts the contract within the 2,000-file/32-MiB ceiling.
++
++The completed design remains in the selected disjoint input area. A new design requires a fresh linked run after staging. Capture failure prevents publication; never remove design evidence to downgrade a run. Calls without --design and existing legacy stages keep their original contract. Custody-only adoption/proposal/update-review needs no mandatory design. CLI exit codes remain 0 for success, 1 for recorded BLOCKED/PARTIAL, and 2 for rejected input or handled command errors. Retained errors describe actual effects, not rollback.
++
++New internal origins record the boolean `design_capture_requested` to distinguish explicit --design selection from a legacy call that happens to reference a design-shaped file as ordinary input. Design-enabled origins also require `design_capture_ref`; a false mode cannot coexist with a capture record/binding. This internal marker changes neither supplied contract bytes nor validator packet fields. Older ordinary no-design stages remain readable without the marker. All such records are editable custody evidence, not protected authority.
++
+ New captures preserve the supplied contract byte-for-byte as supplied-contract.json and bind its original source in contract-source.json. contract.json is the effective contract: project_root and target_root use the same safe host-native absolute spelling emitted in the record, baseline and request. contract-paths.json retains each field's supplied and resolved values. origin.json binds the effective contract, supplied snapshot and path-resolution bytes independently. No other supplied contract values are changed. Host resolution does not rename path components, case-fold identity, follow links or translate checkouts.
+ 
+ Before publication, recheck the source, both contract representations and their resolution mapping. A previously staged contract with noncanonical project/target spelling cannot be published by this writer: retain it and start a fresh linked run. Existing canonical stages and published historical baselines remain readable; never rewrite their contracts or reinterpret their quality states. This producer-side consistency safeguard does not invoke validator or relax its exact identity and digest comparisons.
+--- before/references/regeneration.md
++++ after/references/regeneration.md
+@@ -9,3 +9,5 @@
+ Before the first write recheck all captured current bytes and original input references; recheck each changed path immediately before mutation. On drift stop remaining writes. Record actual applied_paths and after bytes as PARTIAL when any mutation occurred. Retain failed capture/publication attempts and start a fresh linked run for retries, using the last successful baseline. No automatic rollback.
+ 
+ Only successful delivery and complete readback can publish the next authoring baseline. Store generated baseline separately from actual delivered files to preserve retained user edits. Testing and validation remain NOT_PERFORMED; return the digest-bound manual handoff. Legacy COMPLETE states are never redefined by these new semantics.
++
++For enhanced edits, prepare a per-target [workflow design](workflow-design.md) and capture it through `begin --design`. Recheck the original design, normal input snapshot, design-capture record and origin/contract bindings during publication. Missing or changed evidence stops dependent publication under existing BLOCKED/PARTIAL semantics. Retain any applied deltas and failed attempts; no successful next baseline can come from failed capture/publication. Substantive design changes require a fresh linked run, never mutation of staged contracts/designs to fit later output. Old no-design stages retain their legacy behavior.
+--- before/references/spec-build.md
++++ after/references/spec-build.md
+@@ -6,4 +6,6 @@
+ 
+ The retained build_evidence.py input-record helper emits actual input hashes and optional byte spans; it does not copy files. Copy and re-read the originals independently. New completion uses authoring-v1 and a manual validation-request-v1 packet. Legacy build-contract/provenance schemas remain readers for historical evidence, not the new completion interface. Testing and profile execution are validator responsibilities.
+ 
++Before staging specification builds and imports, prepare [workflow-design.md](workflow-design.md)'s external design. Map original requirement IDs or source-qualified locators to observable behaviors and conditional resource consumers. Bind original requirements and the design as contract inputs and pass `--design`; do not substitute the design for the original specification. Record relevant adverse conditions without executable fixtures, and block dependent work on unresolved behavior decisions.
++
+ Generate worker contracts only if a selected skill's behavior requires workers; use the worker task asset for concrete inputs, outputs, ownership, effects and recovery. Do not impose delegation, fixed models, API configuration, phase registries or output JSON on ordinary skills.
+--- before/references/validation-handoff.md
++++ after/references/validation-handoff.md
+@@ -5,3 +5,7 @@
+ The packet proposes assessment. It cannot authorize network, credentials, installation or external writes. Stop after returning it, even when validator is available. If unavailable, authoring may still complete; validation/testing remain NOT_PERFORMED and the same packet can be used later.
+ 
+ A later user invocation selects skill-validator. Validator independently rereads the target, rejects stale package/request/authoring bindings and creates its own rules, cases, fixtures, expected outcomes, execution records and results. Builder never imports a result automatically or starts a repair loop. A later authorized edit can use a selected validator report as a digest-bound input. Preserve its old result as history; edits invalidate any claim that it tests the new bytes.
++
++For design-enabled authoring, the design travels through existing contract `inputs` and packet `specification_refs`; add no packet fields. The generated manual prompt identifies the design path and SHA-256, original selected requirement sources, open questions, and unperformed helper/native obligations. Require independent fixtures and oracles from original requirements. Design/adverse-condition descriptions are authored expectations, not observed behavior, executed tests or authoritative expected-result files.
++
++Report created/edited/unchanged source separately from authoring state, actual publication and design-capture references, outstanding evaluation, next owner and concrete next action. Even unchanged AUTHORED source and a delivered handoff remain unevaluated unless current user-selected external evidence binds those exact bytes. Do not search for or automatically consume validator findings. The separate evaluator must supply the mandatory external Python JSONL runner, deterministic graders, fixtures, expected results, schema, runtime/dependencies and byte bindings; their absence leaves evaluated-build completion incomplete.
+--- before/references/workflow-design.md
++++ after/references/workflow-design.md
+@@ -0,0 +1,39 @@
++# Design observable workflows before staging
++
++Use this reference for create, edit, import and specification builds, including each explicitly selected authored adaptive member. Custody-only adoption, proposals and update reviews need no design unless they also perform selected authoring. Do not expand a set to fill gaps.
++
++Fill [authoring-design-template.json](../assets/authoring-design-template.json) in the selected disjoint authoring input area. Its empty strings are fields to fill, not a valid staged design. Keep the completed design external to the generated runtime package. Bind it in the existing contract's `inputs`, alongside original requirement sources, before running `authoring.py begin --contract <file> --run-root <new-run> --design <file>`. Relative CLI arguments resolve from the command working directory; use absolute source references and quote native-shell arguments as data.
++
++## Behaviors and decisions
++
++For every selected behavior record the trigger, required inputs, source requirement IDs or source-qualified locators, observable completion, outputs and destination-selection rules, prerequisites, authorized effects, failure and recovery, and responsible package resources. A goal such as “perform QA” is not an observable completion. Derive expectations from original requirements or identify an explicit design decision; do not copy current implementation output as the oracle.
++
++Missing decisions that change required behavior block dependent authoring. Record the exact question, affected behavior IDs and decision owner in `open_questions`; continue only independent authorized work. An open question preserves a gap, not permission to invent a product fact or present the dependent design as complete.
++
++Preserve the selected task's execution semantics: planning, execution and handoff are distinct only when meaningful to that task. Complete authorized workflows through required outputs without inventing an approval boundary. Preserve actual execution limits, permissions and ownership. Do not impose QA modes, phase names, thresholds or stop classifications on other skills.
++
++## Resource consumers and helpers
++
++Each resource needs a purpose and `load_when` consumer condition. Keep shared constraints and routing in SKILL.md; put substantial branch-specific detail in the resource for that branch. Require all resources on every invocation only when all are necessary. Explain a requirement in one authoritative location. A simple skill can have one behavior, one instruction resource and empty optional arrays.
++
++Consider a helper for repeated deterministic transformations or file operations. Declare inputs, outputs, runtime/dependencies, permitted effects and write scope, error/exit behavior, caller/loading condition and concrete reuse benefit. Helpers that merely announce success, write a decorative status or wrap a trivial one-off operation have no such benefit. Author selected helpers without executing them; testing belongs in the manual validator obligations.
++
++## Delivery, interruption and adverse conditions
++
++For file-producing behavior define literal destination resolution, when each output becomes available, required content and readback, write-failure reporting and what remains incomplete. An announced path, template or intention is not delivery. Preserve meaningful intermediate outputs at their natural completion boundaries when permitted. Do not manufacture checkpoints for a simple task or silently change a destination to evade host write restrictions.
++
++For interruption or retry, identify resumable state, process/resource ownership, uncertain effects and the conditions that permit retry. A killed process may not have cleaned up; distinguish parent-owned recovery from skill-owned cleanup. Classify supplied timeouts in `execution_limits` as `specified_requirement` or `execution_ceiling`, with provenance. Ceiling exhaustion means incomplete evidence; do not invent timing measurements or turn a validator's default ceiling into a universal product requirement.
++
++Record relevant adverse conditions and requirement-derived expected observations. Consider missing/contradictory inputs, unavailable dependencies/platforms, stale evidence, partial work, announced-but-unwritten outputs, incomplete failure reports, uncertain side effects on retry and helper success mistaken for workflow completion. Include only conditions applicable to selected requirements. These are non-executable design descriptions; do not generate fixtures, graders or executable campaigns, score the candidate or claim testing. The validator must independently construct its fixtures and oracles.
++
++## Input integrity and custody
++
++The [design schema](../schemas/authoring-design.schema.json) defines `authoring-design-v1`. All object fields are closed. Required strings and string-array members are nonempty. Behaviors have unique IDs and at least one requirement locator; resource paths are unique valid package-relative paths. Adverse-condition IDs and open-question IDs are unique within their respective arrays. References to behavior IDs and resource paths resolve within the design. Only helpers have a nonnull helper contract.
++
++`source_refs` uses existing `{path, sha256}` raw-byte references to selected contract inputs other than this design. The `--design` file must resolve to exactly one contract input, with the same digest. Duplicate keys, nonfinite numbers, unknown fields, invalid paths, links/junctions and disallowed input/target/run overlaps are rejected. The input capture remains bounded to 2,000 files and 32 MiB, including the contract for design-enabled runs. Shape and reference checks establish input integrity, not the quality of a generated workflow or correctness of an oracle.
++
++The normal `inputs/<index>` snapshot is the only captured design copy. `design-capture.json` binds its original source and snapshot references, run ID and target name with version `authoring-design-capture-v1`. Internal `origin.json` binds that capture record through `design_capture_ref`. Capture/readback completes before STAGED. Existing authoring contract and validator packet field sets do not change.
++
++Publication rechecks original design, snapshot, capture record and origin/contract bindings. Missing or changed evidence blocks dependent publication; a design input cannot silently become a legacy stage by removing its capture binding. Preserve capture failures and actual applied deltas. A substantive design revision needs a fresh linked run; never edit captured inputs to fit later output. Existing no-design CLI stages remain supported for legacy input contracts. These custody checks do not execute or assess the authored skill.
++
++Return the design path/digest, original requirement references, open questions and unperformed helper/native obligations using [validation-handoff.md](validation-handoff.md). An absent validator does not block authoring. No handoff grants evaluation, installation, external-effect or repair authorization.
+--- before/schemas/authoring-design.schema.json
++++ after/schemas/authoring-design.schema.json
+@@ -0,0 +1,359 @@
++{
++  "type": "object",
++  "required": [
++    "schema_version",
++    "target_name",
++    "source_refs",
++    "behaviors",
++    "resources",
++    "adverse_conditions",
++    "execution_limits",
++    "open_questions"
++  ],
++  "additionalProperties": false,
++  "properties": {
++    "schema_version": {
++      "const": "authoring-design-v1"
++    },
++    "target_name": {
++      "type": "string",
++      "minLength": 1,
++      "pattern": "(?s).*\\S.*"
++    },
++    "source_refs": {
++      "type": "array",
++      "items": {
++        "type": "object",
++        "required": [
++          "path",
++          "sha256"
++        ],
++        "additionalProperties": false,
++        "properties": {
++          "path": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "sha256": {
++            "type": "string",
++            "pattern": "^[0-9a-f]{64}$"
++          }
++        }
++      },
++      "minItems": 0
++    },
++    "behaviors": {
++      "type": "array",
++      "items": {
++        "type": "object",
++        "required": [
++          "id",
++          "requirement_ids",
++          "trigger",
++          "inputs",
++          "completion",
++          "outputs",
++          "resource_paths",
++          "prerequisites",
++          "effects",
++          "failure",
++          "recovery"
++        ],
++        "additionalProperties": false,
++        "properties": {
++          "id": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "requirement_ids": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 1
++          },
++          "trigger": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "inputs": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 0
++          },
++          "completion": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "outputs": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 0
++          },
++          "resource_paths": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 0
++          },
++          "prerequisites": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 0
++          },
++          "effects": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 0
++          },
++          "failure": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "recovery": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          }
++        }
++      },
++      "minItems": 1
++    },
++    "resources": {
++      "type": "array",
++      "items": {
++        "type": "object",
++        "required": [
++          "path",
++          "kind",
++          "purpose",
++          "load_when",
++          "helper_contract"
++        ],
++        "additionalProperties": false,
++        "properties": {
++          "path": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "kind": {
++            "enum": [
++              "instruction",
++              "reference",
++              "template",
++              "helper"
++            ]
++          },
++          "purpose": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "load_when": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "helper_contract": {
++            "anyOf": [
++              {
++                "type": "null"
++              },
++              {
++                "type": "object",
++                "required": [
++                  "inputs",
++                  "outputs",
++                  "runtime",
++                  "effects",
++                  "errors",
++                  "reuse_reason"
++                ],
++                "additionalProperties": false,
++                "properties": {
++                  "inputs": {
++                    "type": "string",
++                    "minLength": 1,
++                    "pattern": "(?s).*\\S.*"
++                  },
++                  "outputs": {
++                    "type": "string",
++                    "minLength": 1,
++                    "pattern": "(?s).*\\S.*"
++                  },
++                  "runtime": {
++                    "type": "string",
++                    "minLength": 1,
++                    "pattern": "(?s).*\\S.*"
++                  },
++                  "effects": {
++                    "type": "string",
++                    "minLength": 1,
++                    "pattern": "(?s).*\\S.*"
++                  },
++                  "errors": {
++                    "type": "string",
++                    "minLength": 1,
++                    "pattern": "(?s).*\\S.*"
++                  },
++                  "reuse_reason": {
++                    "type": "string",
++                    "minLength": 1,
++                    "pattern": "(?s).*\\S.*"
++                  }
++                }
++              }
++            ]
++          }
++        }
++      },
++      "minItems": 0
++    },
++    "adverse_conditions": {
++      "type": "array",
++      "items": {
++        "type": "object",
++        "required": [
++          "id",
++          "behavior_id",
++          "condition",
++          "expected_observation",
++          "requirement_basis"
++        ],
++        "additionalProperties": false,
++        "properties": {
++          "id": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "behavior_id": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "condition": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "expected_observation": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "requirement_basis": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          }
++        }
++      },
++      "minItems": 0
++    },
++    "execution_limits": {
++      "type": "array",
++      "items": {
++        "type": "object",
++        "required": [
++          "behavior_id",
++          "seconds",
++          "kind",
++          "source_basis"
++        ],
++        "additionalProperties": false,
++        "properties": {
++          "behavior_id": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "seconds": {
++            "type": "integer",
++            "minimum": 1
++          },
++          "kind": {
++            "enum": [
++              "specified_requirement",
++              "execution_ceiling"
++            ]
++          },
++          "source_basis": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          }
++        }
++      },
++      "minItems": 0
++    },
++    "open_questions": {
++      "type": "array",
++      "items": {
++        "type": "object",
++        "required": [
++          "id",
++          "question",
++          "owner",
++          "affected_behavior_ids"
++        ],
++        "additionalProperties": false,
++        "properties": {
++          "id": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "question": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "owner": {
++            "type": "string",
++            "minLength": 1,
++            "pattern": "(?s).*\\S.*"
++          },
++          "affected_behavior_ids": {
++            "type": "array",
++            "items": {
++              "type": "string",
++              "minLength": 1,
++              "pattern": "(?s).*\\S.*"
++            },
++            "minItems": 1
++          }
++        }
++      },
++      "minItems": 0
++    }
++  },
++  "$schema": "https://json-schema.org/draft/2020-12/schema"
++}
+--- before/scripts/authoring.py
++++ after/scripts/authoring.py
+@@ -1,6 +1,6 @@
+ """Portable authoring custody. No quality checks, test execution or validator calls.
+ 
+-begin --contract FILE --run-root NEW_DIR
++begin --contract FILE --run-root NEW_DIR [--design FILE]
+ publish --run-root DIR
+ read --record FILE
+ Records are ordinary development evidence, not enforcement or an atomic broker.
+@@ -238,7 +238,102 @@
+         return {'kind': 'adopted', 'reference': prior}, expected
+     raise ValueError('unresolved or unsuccessful known history; cannot silently adopt')
+ 
+-def begin(contract_path, run_root):
++def design_input(contract, design_path):
++    """Check authoring input shape/bindings, never candidate quality."""
++    path = safe(design_path)
++    matches = [(i, ref) for i, ref in enumerate(contract['inputs']) if safe(ref['path']) == path]
++    if len(matches) != 1:
++        raise ValueError('design must bind exactly one contract input')
++    index, ref = matches[0]
++    value = parse(referenced(ref))
++    schema = parse(read_bytes(Path(__file__).resolve().parents[1] / 'schemas/authoring-design.schema.json'))
++    record_schema.validate(value, schema)
++    if value['target_name'] != contract['target_name']:
++        raise ValueError('design target identity mismatch')
++    for source in value['source_refs']:
++        if safe(source['path']) == path or source not in contract['inputs']:
++            raise ValueError('design source must bind another selected contract input')
++        referenced(source)
++    for rows, key in ((value['behaviors'], 'id'), (value['resources'], 'path'),
++                      (value['adverse_conditions'], 'id'), (value['open_questions'], 'id')):
++        if len({row[key] for row in rows}) != len(rows):
++            raise ValueError('duplicate design ' + key)
++    resources = {relative(row['path']) for row in value['resources']}
++    for row in value['resources']:
++        child(safe(contract['target_root'], write=True), row['path'])
++        if (row['kind'] == 'helper') != (row['helper_contract'] is not None):
++            raise ValueError('helper contract required only for helpers')
++    behaviors = {row['id'] for row in value['behaviors']}
++    for row in value['behaviors']:
++        if not set(row['resource_paths']) <= resources:
++            raise ValueError('undeclared design resource')
++    for row in value['adverse_conditions'] + value['execution_limits']:
++        if row['behavior_id'] not in behaviors:
++            raise ValueError('unknown design behavior')
++    for row in value['open_questions']:
++        if not set(row['affected_behavior_ids']) <= behaviors:
++            raise ValueError('unknown question behavior')
++    return index, ref, value
++
++
++def recheck_design(run, contract, captured):
++    """Reject missing/changed custody and loss of a design-enabled binding."""
++    capture_path = run / 'design-capture.json'
++    requested = captured.get('design_capture_requested')
++    if requested is not None and type(requested) is not bool:
++        raise ValueError('invalid design capture mode')
++    if requested is False:
++        if 'design_capture_ref' in captured or capture_path.exists():
++            raise ValueError('conflicting legacy/design capture mode')
++        return None
++    candidates = []
++    for ref in contract['inputs']:
++        raw = referenced(ref)
++        try:
++            value = parse(raw)
++        except (ValueError, UnicodeError):
++            continue
++        if isinstance(value, dict) and value.get('schema_version') == 'authoring-design-v1':
++            candidates.append(ref)
++    if requested is not True and not candidates and 'design_capture_ref' not in captured and not capture_path.exists():
++        return None
++    if parse(read_bytes(run / 'origin.json')) != captured:
++        raise ValueError('design origin changed during publication')
++    binding = captured.get('design_capture_ref')
++    if not binding or safe(binding['path']) != capture_path:
++        raise ValueError('missing or misplaced design capture binding')
++    capture = parse(referenced(binding))
++    if set(capture) != {'schema_version', 'run_id', 'target_name', 'source_ref', 'snapshot_ref'} or capture['schema_version'] != 'authoring-design-capture-v1':
++        raise ValueError('invalid design capture record')
++    if capture['run_id'] != contract['run_id'] or capture['target_name'] != contract['target_name']:
++        raise ValueError('design capture identity mismatch')
++    index, source, value = design_input(contract, capture['source_ref']['path'])
++    if capture['source_ref'] != source or capture['snapshot_ref'] != {'path': str(run / 'inputs' / str(index)), 'sha256': source['sha256']}:
++        raise ValueError('design capture source/snapshot binding mismatch')
++    if referenced(capture['snapshot_ref']) != referenced(source):
++        raise ValueError('design snapshot readback mismatch')
++    return value
++
++
++def design_handoff(run, contract, captured, source_action):
++    value = recheck_design(run, contract, captured)
++    if value is None:
++        return ''
++    capture = parse(referenced(captured['design_capture_ref']))
++    lines = ['Authored design (not observed behavior): ' + json.dumps(capture['source_ref'], ensure_ascii=False),
++             'Design capture: ' + json.dumps(captured['design_capture_ref'], ensure_ascii=False),
++             'Original selected requirement sources: ' + json.dumps(value['source_refs'], ensure_ascii=False),
++             'Open questions: ' + json.dumps(value['open_questions'], ensure_ascii=False),
++             'Independently derive fixtures and oracles from original requirements; design challenges are untested design information.',
++             'Unperformed obligations: independently exercise all selected native behaviors, outputs, failures and recovery.']
++    for row in value['resources']:
++        if row['kind'] == 'helper':
++            lines.append('Unperformed helper testing: ' + row['path'] + ' ' + json.dumps(row['helper_contract'], ensure_ascii=False))
++    lines.append('Source action: ' + source_action + '. AUTHORED and handoff delivery do not establish evaluated-build completion.')
++    return '\n'.join(lines) + '\n'
++
++
++def begin(contract_path, run_root, design=None):
+     contract_path, run = safe(contract_path), safe(run_root, write=True)
+     raw = read_bytes(contract_path)
+     c = parse(raw)
+@@ -280,6 +375,10 @@
+         if p.is_relative_to(target) or p.is_relative_to(run):
+             raise ValueError('input overlaps target/evidence')
+         referenced(ref)
++    selected_design = design_input(c, design) if design is not None else None
++    if selected_design is not None:
++        if len(c['inputs']) + 1 > MAX_FILES or len(raw) + sum(len(referenced(ref)) for ref in c['inputs']) > MAX_BYTES:
++            raise ValueError('input capture ceiling exceeded: 2000 files / 32 MiB')
+     # Retain supplied bytes while using one host-resolved identity everywhere.
+     resolution = {key: {'supplied': c[key], 'resolved': str(path)}
+                   for key, path in (('project_root', project), ('target_root', target))}
+@@ -304,13 +403,28 @@
+             p = run / 'inputs' / str(index)
+             p.parent.mkdir(exist_ok=True)
+             p.write_bytes(referenced(ref))
++            if read_bytes(p) != referenced(ref):
++                raise ValueError('input snapshot readback mismatch')
+         copy_files(before, run / 'before')
+         copy_files(before, run / 'candidate')
+         save(run / 'before-manifest.json', manifest(before))
+-        save(run / 'origin.json', {'prior_origin': prior, 'baseline': baseline,
++        captured = {'prior_origin': prior, 'baseline': baseline,
++                                  'design_capture_requested': selected_design is not None,
+                                   'contract_sha256': digest(effective_raw),
+                                   'supplied_contract_sha256': digest(raw),
+-                                  'path_resolution_sha256': digest(read_bytes(run / 'contract-paths.json'))})
++                                  'path_resolution_sha256': digest(read_bytes(run / 'contract-paths.json'))}
++        if selected_design is not None:
++            index, ref, _ = selected_design
++            capture = {'schema_version': 'authoring-design-capture-v1', 'run_id': c['run_id'],
++                       'target_name': c['target_name'], 'source_ref': ref,
++                       'snapshot_ref': reference(run / 'inputs' / str(index))}
++            save(run / 'design-capture.json', capture)
++            captured['design_capture_ref'] = reference(run / 'design-capture.json')
++        save(run / 'origin.json', captured)
++        if parse(read_bytes(run / 'origin.json')) != captured:
++            raise ValueError('origin capture readback mismatch')
++        if selected_design is not None:
++            recheck_design(run, c, captured)
+         if target.exists() and files(target) != before:
+             raise ValueError('SOURCE_CHANGED during capture')
+         return {'state': 'STAGED', 'run_root': str(run), 'candidate': str(run / 'candidate')}
+@@ -321,6 +435,8 @@
+ def publish(run_root, before_write=None):
+     """Publish once. before_write is a fault-injection seam for validator trials."""
+     run = safe(run_root, write=True)
++    if (run / 'capture-failure.json').exists():
++        raise ValueError('failed capture; retain it and start a fresh linked run')
+     if (run / 'authoring-record.json').exists():
+         raise ValueError('run already attempted; retain it and start a fresh linked run')
+     c = parse(read_bytes(run / 'contract.json'))
+@@ -352,6 +468,7 @@
+                 raise ValueError('supplied/effective contract mismatch')
+         for ref in c['inputs']:
+             referenced(ref)
++        recheck_design(run, c, captured)
+         origin(c)
+         current = files(target) if target.exists() else {}
+         if current != before or (not before and c['operation'] in ('create', 'import', 'spec_build') and target.exists()):
+@@ -396,6 +513,7 @@
+             raise ValueError('SOURCE_CHANGED staging input')
+         for ref in c['inputs']:
+             referenced(ref)
++        recheck_design(run, c, captured)
+         if (files(target) if target.exists() else {}) != before:
+             raise ValueError('SOURCE_CHANGED before first write')
+         if not target.exists():
+@@ -420,6 +538,7 @@
+         delivered = files(target)
+         if delivered != planned:
+             raise ValueError('delivered readback mismatch')
++        recheck_design(run, c, captured)
+         # Store baseline bytes separately from delivered retained user edits.
+         base_bytes = {}
+         for p, h in next_baseline.items():
+@@ -454,6 +573,7 @@
+         save(run / 'authoring-record.json', record)
+         if state == 'AUTHORED':
+             try:
++                recheck_design(run, c, captured)
+                 if files(target) != delivered:
+                     raise ValueError('SOURCE_CHANGED before baseline publication')
+                 pointer = {'schema_version': 'authoring-baseline-v1', 'record_kind': 'authoring_baseline', 'run_id': c['run_id'], 'target_root': str(target), 'target_name': c['target_name'], 'authoring_record': reference(run / 'authoring-record.json'), 'baseline_manifest': reference(run / 'baseline-manifest.json'), 'baseline_root': str(run / 'baseline')}
+@@ -463,11 +583,16 @@
+                 request = {'schema_version': 'validation-request-v1', 'record_kind': 'validation_request', 'authoring_run_id': c['run_id'], 'project_root': c['project_root'], 'target_root': str(target), 'target_name': c['target_name'], 'target_manifest': reference(run / 'delivered-manifest.json'), 'package_digest': manifest(delivered)['package_digest'], 'authoring_record': reference(run / 'authoring-record.json'), 'specification_refs': c['inputs'], 'changed_paths': applied, 'known_issues': record['unresolved_issues'], 'capabilities': c['capabilities'], 'expected_outputs': c['expected_outputs'], 'side_effects': c['side_effects'], 'permission': 'Assessment proposal only; current user invocation determines permitted effects.'}
+                 save(run / 'validation-request.json', request)
+                 message = 'Use $skill-validator to validate and test ' + str(target) + ' in project ' + c['project_root'] + '. Read validation request ' + str(run / 'validation-request.json') + ' (SHA-256 ' + digest(read_bytes(run / 'validation-request.json')) + '). Re-read the package and reject stale bindings. Select disposable tests under current authorization.\n\nValidation status: NOT_PERFORMED. Testing status: NOT_PERFORMED.\n'
++                source_action = ('created' if c['operation'] in ('create', 'import', 'spec_build') else 'edited') if applied else 'unchanged'
++                message += design_handoff(run, c, captured, source_action)
+                 (run / 'validator-request.md').write_text(message, encoding='utf-8')
++                if read_bytes(run / 'validator-request.md').decode('utf-8') != message.replace('\n', os.linesep):
++                    raise ValueError('manual handoff readback mismatch')
++                recheck_design(run, c, captured)
+                 if files(target) != delivered:
+                     raise ValueError('SOURCE_CHANGED at publication readback')
+                 save(run / 'publication-readback.json', {'state': 'PUBLISHED', 'authoring_record': reference(run / 'authoring-record.json'), 'baseline': reference(run / 'authoring-baseline.json'), 'request': reference(run / 'validation-request.json'), 'package_digest': manifest(delivered)['package_digest']})
+-            except (ValueError, OSError) as exc:
++            except (ValueError, OSError, KeyError, TypeError) as exc:
+                 save(run / 'publication-failure.json', {'state': 'PARTIAL', 'error': str(exc)})
+                 return {'state': 'PARTIAL', 'run_root': str(run), 'error': str(exc)}
+         return {'state': state, 'run_root': str(run), 'applied_paths': applied, 'issues': problems}
+@@ -489,12 +614,13 @@
+     parser = argparse.ArgumentParser(description=__doc__)
+     sub = parser.add_subparsers(dest='command', required=True)
+     p = sub.add_parser('begin'); p.add_argument('--contract', required=True); p.add_argument('--run-root', required=True)
++    p.add_argument('--design')
+     p = sub.add_parser('publish'); p.add_argument('--run-root', required=True)
+     p = sub.add_parser('read'); p.add_argument('--record', required=True)
+     args = parser.parse_args()
+     try:
+         if args.command == 'begin':
+-            value = begin(args.contract, args.run_root)
++            value = begin(args.contract, args.run_root, design=args.design)
+         elif args.command == 'publish':
+             value = publish(args.run_root)
+         else:

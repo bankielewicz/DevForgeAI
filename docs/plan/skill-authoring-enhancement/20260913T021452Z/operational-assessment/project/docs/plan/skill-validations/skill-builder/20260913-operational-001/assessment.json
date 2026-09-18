@@ -1,0 +1,36 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913-operational-001",
+  "target_name": "skill-builder",
+  "assessment_completed": true,
+  "overall_assessment": "FAIL",
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "evaluated": 1,
+      "required": 1,
+      "not_run": 0
+    },
+    "workflow": {
+      "outcome": "FAIL",
+      "evaluated": 2,
+      "required": 2,
+      "not_run": 0
+    },
+    "instructions": {
+      "outcome": "FAIL",
+      "evaluated": 2,
+      "required": 2,
+      "not_run": 0
+    },
+    "behavior": {
+      "outcome": "FAIL",
+      "evaluated": 10,
+      "required": 14,
+      "not_run": 4
+    }
+  },
+  "enforcement": "No new framework enforcement candidates; proposed ordinary helper/input corrections only.",
+  "package_digest": "df5204eb3ff53db0ff71d222bfab552170ca36950905ad9b49ea3fcbc9b6bb32",
+  "rule_set_digest": "b1949a2fb4e690e8ff347ae3d552177590fa4cacdfd13f725a644960187dd9a5"
+}

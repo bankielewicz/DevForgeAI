@@ -1,0 +1,44 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "no-native-obligations",
+  "kind": "native",
+  "started_at": "2026-09-14T23:19:57.531765+00:00",
+  "ended_at": "2026-09-14T23:19:57.672453+00:00",
+  "elapsed_seconds": 0.14099999999962165,
+  "timeout_seconds": 5,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "b5e986e718547b8acd92fb481d2f953e6c3b859cd6fb3ca7c5fe58c6562cd629",
+  "started_sha256": "a8a0eb49211c3b019e16bdbfe85416fea52927666653c1a652f00ee921c85e90",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\attempt\\before.json",
+      "sha256": "e19f798664b03d0de506b34ea0293634970b881d67a732d946529a459a02a537"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\attempt\\after.json",
+      "sha256": "45f2d406417a3615828a6156132bea1317ce6dcd1b6492b157d19e58b28e1158"
+    }
+  ],
+  "changed_paths": [],
+  "output_checks": [],
+  "artifacts": [],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\attempt\\stdout.txt",
+      "sha256": "5e1f8562208322ba8dbd7567515383ac6ebf909de2eca4b674a5bfa781adcae4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\attempt\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

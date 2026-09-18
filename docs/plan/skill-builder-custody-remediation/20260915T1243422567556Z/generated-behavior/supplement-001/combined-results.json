@@ -1,0 +1,22 @@
+{
+  "scope": "Seven locked behavior cases for the selected existing meeting-actions skill",
+  "source_sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+  "status": "PASS",
+  "passing_required_cases": 7,
+  "all_required_cases": 7,
+  "passing_percentage": 100,
+  "cases": {
+    "C1": {"status": "PASS", "passing_execution": "native chat-inline-001", "earlier_attempts": ["chat-001 infrastructure error", "chat-002 executor-reported policy block"]},
+    "C2": {"status": "PASS", "passing_execution": "native chat-inline-001", "earlier_attempts": ["chat-001 infrastructure error", "chat-002 executor-reported policy block"]},
+    "C3": {"status": "PASS", "passing_execution": "native chat-inline-001", "earlier_attempts": ["chat-001 infrastructure error", "chat-002 executor-reported policy block"]},
+    "C4": {"status": "PASS", "passing_execution": "native chat-inline-001", "earlier_attempts": ["chat-001 infrastructure error", "chat-002 executor-reported policy block"]},
+    "F1": {"status": "PASS", "passing_execution": "independent file_behavior_executor subagent plus independent artifact review", "earlier_attempts": ["native files-001 BLOCKED"]},
+    "F2": {"status": "PASS", "passing_execution": "independent file_behavior_executor subagent plus independent artifact review", "earlier_attempts": ["native files-001 BLOCKED"]},
+    "F3": {"status": "PASS", "passing_execution": "independent file_behavior_executor subagent plus independent artifact review", "earlier_attempts": ["native files-001 BLOCKED"]}
+  },
+  "native_CLI_file_execution": "INCOMPLETE",
+  "native_skill_discovery": "NOT_PROVEN",
+  "builder_package_acceptance": "NOT_EVALUATED_BY_THIS_REVIEW",
+  "framework_acceptance": "NOT_EVALUATED",
+  "limitation": "File-case final response and actual artifacts were reviewed; raw executor command receipts were unavailable. No prior failed or blocked attempt was erased."
+}

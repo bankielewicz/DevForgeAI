@@ -1,0 +1,24 @@
+{
+  "host": "me@192.168.245.128",
+  "checkout": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+  "os": "Ubuntu 26.04.1 LTS",
+  "arch": "x86_64",
+  "cargo": "1.93.1",
+  "rustc": "1.93.1",
+  "cargo_llvm_cov": "0.9.1",
+  "source_files": 48,
+  "canonical_source_manifest_sha256": "67cab74432203b4f03874d19ec0652a6dcc2903227203b5c4b521c9d74b79419",
+  "local_source_match": true,
+  "agents_match": true,
+  "agents_sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+  "remote_spec_sha256": "b1886c7bf237f823b2f83a8b37c1288ca26880ecfc58771568b38750e8855897",
+  "selected_spec_sha256": "52d33c84435da8f3442c6b1dc4c5370113ff0eb93ee5cd2801903741900c89c4",
+  "remote_spec_selected": false,
+  "remote_git_status": "UNVERIFIED; status echo shell expansion invalidated observation",
+  "product_tests": "NOT_RUN",
+  "first_ssh_attempt_exit": 1,
+  "password_only_discovery_exit": 0,
+  "identity_digest_exit": 0,
+  "remote_writes": false
+}
+

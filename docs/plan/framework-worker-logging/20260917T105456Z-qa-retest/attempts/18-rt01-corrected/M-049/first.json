@@ -1,0 +1,32 @@
+{
+  "label": "first",
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "inspect",
+    "--run-dir",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run",
+    "--after",
+    "0",
+    "--limit",
+    "1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 4,
+  "expected_state": null,
+  "expected_error": "evidence_corrupt",
+  "state": null,
+  "error": {
+    "error": "evidence_corrupt"
+  },
+  "read_only": true,
+  "expectation_met": true,
+  "elapsed_seconds": 0.031000000017229468,
+  "before_sha256": {
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run\\diagnostics-config.json": "900afa79bd391ad2a66a9f446bb29c357dbbc1d228493cd263c0b147515886c2",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run\\diagnostics.jsonl": "cd8c01e575ce98ca13c119e3e885af52211f59cb7ddb087999e1b06c9eb0b83d",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run\\inputs.json": "d2b3e466b6d963c517a862ba1bce5a1f4a868ab995e576bd4c2dd8b2aeb69d55",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run\\journal.jsonl": "ba4aa293115966844d79544232b447bc1f01270db722c949b750da69a2e3f11f",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run\\request.json": "618e9bc0167a0102d7f7919de21b72bd907fea20901129dc9c4995e62dd7c5e5",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\run\\task.json": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  }
+}

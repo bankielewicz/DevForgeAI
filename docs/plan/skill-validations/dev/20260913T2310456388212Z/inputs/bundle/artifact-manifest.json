@@ -1,0 +1,301 @@
+{
+  "schema_version": "dev-evaluation-bundle-v1",
+  "package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae",
+  "artifacts": [
+    {
+      "path": "evidence.schema.json",
+      "sha256": "e2d5e104e8520083b0a5b85fdafcf88dcc8c74e8b5112d6d322640a9509bf3fe"
+    },
+    {
+      "path": "expected-results.json",
+      "sha256": "ec3efbaeaa89565d0b3450e718aca7dd2e637dd9c46bb90452b74798e5aece07"
+    },
+    {
+      "path": "fixtures/DV-01/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-01/spec.md",
+      "sha256": "ac745ca3f6ca6c66dc8b9e6d09484f08d2e4ab3d18aa5feb492c0e8fb2d10ec3"
+    },
+    {
+      "path": "fixtures/DV-01/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-02/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-02/consumer.md",
+      "sha256": "cde954f6dd9f3c73f003ee94df9858d5a12c55383493b4c3b5621d8a044317b9"
+    },
+    {
+      "path": "fixtures/DV-02/spec.md",
+      "sha256": "ac921e1e5933a329fe87f7fcc5360d1b87a59db1a619ade86ad723b92a3d6bac"
+    },
+    {
+      "path": "fixtures/DV-02/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-03/javascript/AGENTS.md",
+      "sha256": "91511572d7246d28dfecd12258c6cbd15fe55a9afa1035fe5381d06babf63414"
+    },
+    {
+      "path": "fixtures/DV-03/javascript/spec.md",
+      "sha256": "ecc19988c59626829c7a02ef1138323b91594e94091c7daaa14a196b7916360a"
+    },
+    {
+      "path": "fixtures/DV-03/python/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-03/python/spec.md",
+      "sha256": "ac745ca3f6ca6c66dc8b9e6d09484f08d2e4ab3d18aa5feb492c0e8fb2d10ec3"
+    },
+    {
+      "path": "fixtures/DV-04/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-04/lib/fold.py",
+      "sha256": "9a4f0220ed254b50021d2b630be5712bb60977738ada3167ff4c95b7935d6f31"
+    },
+    {
+      "path": "fixtures/DV-04/spec.md",
+      "sha256": "97826a022fa64d9843f73bb91cac180a6f1433b2c2631f05c2f416881890af3d"
+    },
+    {
+      "path": "fixtures/DV-04/tests/test_fold.py",
+      "sha256": "326916335e991f6660e16bc5c1464a13c50fcbd27166a10f912baec7ff44f245"
+    },
+    {
+      "path": "fixtures/DV-04/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-05/AGENTS.md",
+      "sha256": "1992f464358bca271290683a607375fb41c643a1dd75c4fba4596e21a6a61f9a"
+    },
+    {
+      "path": "fixtures/DV-05/spec.md",
+      "sha256": "2c3a154b01d0d46f37b1b4ff60cb7c3f316eca316eb6deca91dae5b8b19a6081"
+    },
+    {
+      "path": "fixtures/DV-05/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-06/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-06/conflict.md",
+      "sha256": "dae6a67446d4377409f3b33b66c4b3f7a19a5975a1b36781b6b2dabd242ff85e"
+    },
+    {
+      "path": "fixtures/DV-06/spec.md",
+      "sha256": "0afaef05f8d5804a62b6f5bea4713483bac32eae5b09c5b3bd7475ca0e9f7e13"
+    },
+    {
+      "path": "fixtures/DV-06/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-07/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-07/dependency.md",
+      "sha256": "4f10fa50e04c4babe963b839fd8189a0e4d11cef42d1f010de3861836d273068"
+    },
+    {
+      "path": "fixtures/DV-07/spec.md",
+      "sha256": "2baab603d32e5ec5151d2b67ef31341d915c2f6186f96f52ff484c6a587cf4e0"
+    },
+    {
+      "path": "fixtures/DV-07/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-08/AGENTS.md",
+      "sha256": "f9d1cd4cffceb324eac77b64b12665e5c6050a51f7957555f327344d1629819d"
+    },
+    {
+      "path": "fixtures/DV-08/spec.md",
+      "sha256": "8a8b0968cd3b0c3f66f437379e45a46c536347ea8354b37d14a77a56b1b25ee8"
+    },
+    {
+      "path": "fixtures/DV-08/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-09/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-09/lib/arithmetic.py",
+      "sha256": "4aa1bf4e3fa71a9a654d303a535c5b0a6e9396c23a69ca050f30b17798f7d2b6"
+    },
+    {
+      "path": "fixtures/DV-09/spec.md",
+      "sha256": "ac745ca3f6ca6c66dc8b9e6d09484f08d2e4ab3d18aa5feb492c0e8fb2d10ec3"
+    },
+    {
+      "path": "fixtures/DV-09/tests/test_existing.py",
+      "sha256": "c2eee7807ea9e46b191e4c2ab717e20bc9edf4822271b7574f8231b5d3a34acc"
+    },
+    {
+      "path": "fixtures/DV-09/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-10/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-10/spec.md",
+      "sha256": "ac745ca3f6ca6c66dc8b9e6d09484f08d2e4ab3d18aa5feb492c0e8fb2d10ec3"
+    },
+    {
+      "path": "fixtures/DV-10/tests/test_broken.py",
+      "sha256": "aa5757d2d0de74cdd89c58f363d9049bb122baba3cdf3b35e72713a589f5a70a"
+    },
+    {
+      "path": "fixtures/DV-10/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-11/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-11/qa-input.json",
+      "sha256": "76d316ab0513329de2cef9e42cedfaf3ebe2652674a43f84885e97d91bc0a4d7"
+    },
+    {
+      "path": "fixtures/DV-11/spec.md",
+      "sha256": "cdbdc93e3e0397aabb47c28cfae35c8fc6e8e956e869ef2e0568c1ead61b5449"
+    },
+    {
+      "path": "fixtures/DV-11/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-12/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-12/spec.md",
+      "sha256": "7b9acb640fa9a83598177a4f48661ff87911aa367e44009745dc5527483cd8c7"
+    },
+    {
+      "path": "fixtures/DV-12/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-13/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-13/checkpoint.json",
+      "sha256": "0a9119c8749b59955dc1223d28b5b779f011b41ac92a5dfaf66d96a822453c01"
+    },
+    {
+      "path": "fixtures/DV-13/lib/arithmetic.py",
+      "sha256": "970098bcf0ec5573deee3bdb738b2329facca9a433d0715711e86c6fc5e6ad04"
+    },
+    {
+      "path": "fixtures/DV-13/old-evidence.txt",
+      "sha256": "a7cd9775e84d45154a3e64e5a70f085ac546ed349493fa0a65a316088c6e7fcc"
+    },
+    {
+      "path": "fixtures/DV-13/spec.md",
+      "sha256": "ac745ca3f6ca6c66dc8b9e6d09484f08d2e4ab3d18aa5feb492c0e8fb2d10ec3"
+    },
+    {
+      "path": "fixtures/DV-13/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-14/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-14/spec.md",
+      "sha256": "2e5f1cc9ade2a2cae072787858ba3c4fa292849e30176ec0dbf374666df530ca"
+    },
+    {
+      "path": "fixtures/DV-14/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-15/audit-scope.md",
+      "sha256": "1a76ce0892bde48e15c966491dd37753a5dd13ae8bfcbcbb4392abb01e5d308f"
+    },
+    {
+      "path": "fixtures/DV-16/ownership.md",
+      "sha256": "f46e39f073f9d7e8c9477d1133e6f397367f9e2168adda4463e041c19988ddb4"
+    },
+    {
+      "path": "fixtures/DV-17/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-17/spec.md",
+      "sha256": "d524054abf56f0e4f8d6966662fb7d902eef74e38ca98de93d2e9d264b65b9b3"
+    },
+    {
+      "path": "fixtures/DV-17/unrelated.txt",
+      "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+    },
+    {
+      "path": "fixtures/DV-18/different-root-marker.txt",
+      "sha256": "ed7e311efdbc2e51029e7dbd28356bb283951e62c5558ca7a2c8e79f51311b20"
+    },
+    {
+      "path": "fixtures/DV-18/project space Ω $literal/AGENTS.md",
+      "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+    },
+    {
+      "path": "fixtures/DV-18/project space Ω $literal/spec [input] Ω.md",
+      "sha256": "ac745ca3f6ca6c66dc8b9e6d09484f08d2e4ab3d18aa5feb492c0e8fb2d10ec3"
+    },
+    {
+      "path": "graders.py",
+      "sha256": "94b52031de5baa11f7bcf1149b961be18fe28d3d79470bb7e8b1ee7b7ef49023"
+    },
+    {
+      "path": "runner.py",
+      "sha256": "1460ee1e275623df1fb0e3609fbc415f9cfae769b47182426682ecdb5664978b"
+    },
+    {
+      "path": "runtime.json",
+      "sha256": "a303d7b400d11894174961f3f1592483efd97e3c40f33e82592bff26a78e5d52"
+    },
+    {
+      "path": "scenarios.jsonl",
+      "sha256": "9c3fa72af4cc1f2bd6459257ce5904f1d829de12550017b2373900a6a9413d83"
+    }
+  ],
+  "input_refs": [
+    {
+      "path": "source-manifest.json",
+      "sha256": "7d58f35265735fc1501dd70bc8e5c623e76a9109175295d6ccaa8fc521c39099"
+    },
+    {
+      "path": "inputs/06-dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    {
+      "path": "inputs/00-validation-request.json",
+      "sha256": "7ebe47919c03b654614dcfa5ff288c0e58a3870615582e798780c74e8cfa15d6"
+    },
+    {
+      "path": "rule-set.json",
+      "sha256": "367926bca9c569ec733f0a78fa73a972760b05edc480fd0f543951c904fb42e6"
+    }
+  ],
+  "manifest_self_exclusion": "Manifest digest is retained by enclosing receipt; it cannot hash itself."
+}

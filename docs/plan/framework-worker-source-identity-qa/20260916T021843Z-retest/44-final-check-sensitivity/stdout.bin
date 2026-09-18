@@ -1,0 +1,11 @@
+
+running 1 test
+test runner::final_source_check_cases::qa_independent_final_check_is_after_intent_and_before_spawn ... FAILED
+
+failures:
+
+failures:
+    runner::final_source_check_cases::qa_independent_final_check_is_after_intent_and_before_spawn
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 39 filtered out; finished in 0.11s
+

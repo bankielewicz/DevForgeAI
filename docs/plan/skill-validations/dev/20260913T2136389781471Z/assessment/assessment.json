@@ -1,0 +1,43 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2136389781471Z",
+  "target_name": "dev",
+  "assessment_completed": true,
+  "overall_assessment": "INCOMPLETE",
+  "dimensions": {
+    "standards": "INCOMPLETE",
+    "workflow": "INCOMPLETE",
+    "instructions": "PASS",
+    "behavior": "INCOMPLETE"
+  },
+  "required_coverage": {
+    "outcome": "INCOMPLETE",
+    "required_total": 62,
+    "required_evaluated": 42,
+    "incomplete_check_ids": [
+      "DEV-026-semantic",
+      "AV-W01-assessment",
+      "AV-W02-assessment",
+      "DV-01",
+      "DV-02",
+      "DV-03",
+      "DV-04",
+      "DV-05",
+      "DV-06",
+      "DV-07",
+      "DV-08",
+      "DV-09",
+      "DV-10",
+      "DV-11",
+      "DV-12",
+      "DV-13",
+      "DV-14",
+      "DV-16",
+      "DV-17",
+      "DV-18"
+    ]
+  },
+  "packet_status": "REJECTED",
+  "assessment_scope": "standalone exact package/specification after rejected packet",
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-selection-occupied",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1369,
+      "sha256": "213fc9613f0986157f392d0f509f69327e4b56adf6440228db644f4b686385a0"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "28ae41c96474363b988416b284a83cc8131f3867161de9c13ced55dfb287e2b2"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 130,
+      "sha256": "74b67cbe2fa083b0deeab2601b485e99f90bbb449ccaa2d4860b1ed4113921ef"
+    }
+  ]
+}

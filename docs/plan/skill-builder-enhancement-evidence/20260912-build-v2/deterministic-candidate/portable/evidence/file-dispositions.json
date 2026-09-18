@@ -1,0 +1,35 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "source_path": "schema.json",
+      "source_sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
+      "role": "schema",
+      "disposition": "PRESERVE",
+      "target_paths": [
+        "schema.json"
+      ],
+      "rationale": "Retain exact output contract.",
+      "behavior_preserved_or_changed": "Same summary object; terminal read in destination.",
+      "dependencies": [],
+      "planned_verification": "Actual file accounting and preserved schema bytes.",
+      "performed_review": "Hand-authored synthetic fixture, not a project skill conversion."
+    },
+    {
+      "source_path": "SKILL.md",
+      "source_sha256": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e",
+      "role": "entrypoint",
+      "disposition": "REWRITE",
+      "target_paths": [
+        "SKILL.md"
+      ],
+      "rationale": "Synthetic terminal adaptation.",
+      "behavior_preserved_or_changed": "Same summary object; terminal read in destination.",
+      "dependencies": [
+        "schema.json"
+      ],
+      "planned_verification": "Actual file accounting and preserved schema bytes.",
+      "performed_review": "Hand-authored synthetic fixture, not a project skill conversion."
+    }
+  ]
+}

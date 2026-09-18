@@ -1,0 +1,2 @@
+{"data":{"diagnostic":{"active_processes":0,"checkpoint":"before_send","predicate":"unexpected_process_count","rpc":"initialize","schema_version":1,"stage":"process_accounting","total_processes":1}},"elapsed_ms":0,"kind":"worker_event","observed_at":"2026-09-16T20:54:27Z","run_id":"SR-01","schema_version":1,"seq":1}
+{"data":{"diagnostic":{"predicate":"process_guard_rejected","rpc":"initialize","schema_version":1,"stage":"rpc"}},"elapsed_ms":3,"kind":"worker_event","observed_at":"2026-09-16T20:54:27Z","run_id":"SR-01","schema_version":1,"seq":2}

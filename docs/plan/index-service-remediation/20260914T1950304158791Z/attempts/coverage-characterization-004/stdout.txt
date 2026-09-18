@@ -1,0 +1,21 @@
+
+running 2 tests
+test enumeration_configuration_and_capture_failures_have_named_outcomes ... ok
+test schema_zero_backup_and_corrupt_cached_records_are_explicit ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.04s
+
+
+running 9 tests
+test automatic_file_changes_are_debounced_before_publication ... ok
+test invalid_registrations_globs_and_rebuilds_fail_without_mutation ... ok
+test lifecycle_pause_resume_index_removal_and_retry_are_real ... ok
+test mixed_file_reconciliation_has_exact_counters_reuses_bytes_and_preserves_prior_on_failure ... ok
+test paused_mode_and_jobs_survive_restart_without_hidden_resume ... ok
+test project_configuration_cancellation_and_missing_ids_have_typed_outcomes ... ok
+test restart_interrupts_jobs_expires_history_and_rotates_logs_without_source_content ... ok
+test resume_already_active_does_not_schedule_another_generation ... ok
+test unavailable_root_has_a_bounded_retry_and_visible_diagnostic ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.86s
+

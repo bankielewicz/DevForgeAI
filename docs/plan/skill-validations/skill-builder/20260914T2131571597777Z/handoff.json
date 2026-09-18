@@ -1,0 +1,46 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T2131571597777Z",
+  "target_name": "skill-builder",
+  "original_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "original_manifest": {
+    "path": "source-manifest.json",
+    "sha256": "d14982a3c62612608fb10144d82508ed540311e4d8df39783dc60e46484c8e4d"
+  },
+  "origin": {
+    "path": "origin-record.json",
+    "sha256": "d464b34beb98bf2d0aea991892c855848705f5fe504493cd6ae6f35ae8230160"
+  },
+  "proposed_spec": {
+    "path": "revision-spec.md",
+    "sha256": "3d7cfe02a620b961475e2cc6460a6d03ae0db78cbd65444aadb23b0007c270be"
+  },
+  "findings": {
+    "path": "findings.json",
+    "sha256": "fb97df9cd10c3d217687f928321f3ce5b74bae4af78898e7f00a9a69bf11285f"
+  },
+  "report": {
+    "path": "validation-report.md",
+    "sha256": "45cd52fd2b1c1bd2095da54259bf3bec5e2852934b5fda8a7f8aadf9f84ade67"
+  },
+  "selected_finding_ids": [],
+  "deferred_finding_ids": [],
+  "proposal_review_state": "pending",
+  "review_instruction": null,
+  "builder_readiness": "BLOCKED",
+  "readiness_reasons": [
+    "No selected verified legacy generated/adopted baseline for a schema-1 builder execution handoff. This does not prevent review or independently authorized skill-creator/observed-edit maintenance.",
+    "Review must explicitly select the proposed staged-run compatibility migration. No adoption is inferred."
+  ],
+  "baseline_kind": null,
+  "baseline_reference": null,
+  "adoption_required": false,
+  "adoption_capability": "Authoring observed first edit and explicit adoption implementation inspected; no adoption requested or performed.",
+  "permitted_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "preservation_requirements": [
+    "Operational copies unchanged",
+    "Validator implementation unchanged",
+    "Source specs and historical evidence unchanged",
+    "Only a new selected repair may change development source"
+  ]
+}

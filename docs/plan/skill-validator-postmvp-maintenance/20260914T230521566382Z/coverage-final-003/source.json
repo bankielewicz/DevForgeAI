@@ -1,0 +1,16 @@
+{
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_contracts.py": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py": "7bf5a96424cd9fb742e3c0aac9100180d72a7dcdcc22e79de634b1bc748674d2",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\authoring_intake.py": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py": "31cba489215197836fbb59bf098feaca8c0f9745e4edeecd18dc4fbbceed42ff",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py": "51bb2510feadd423c418adf9bbf1d312d69b2bc53a8a38c39336806b16ced7fb",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\standards_observe.py": "c2dc1ef87986c40b90fdcff313d5cefb6d2edb4e42895ce23a4d050d9faebef7",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\text_resources.py": "37113a0f62a8da5e81cee16748831ddb114eb1b69af8dd5347f8cec1eea1a638",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py": "4f5056d33cd24a115847acecb777f54cd92f4381e80441b128ac2973d94a9050",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py": "8d660067aa656f8bb4b56c94c7e9beea3f97ff3b9111625d9b3d4d0e057776dd",
+  "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\windows_trial.py": "54e337ecf52b7025467640d546be319a860a6498d318562352fae18b4547876c"
+}

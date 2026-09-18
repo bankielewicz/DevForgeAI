@@ -1,0 +1,15 @@
+{
+  "pid": 62756,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging\\Cargo.toml",
+    "--all-targets",
+    "--",
+    "--list"
+  ],
+  "started_utc": "2026-09-17T02:46:10.439390+00:00"
+}

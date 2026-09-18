@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm"
+  short_description: "Explore ideas and prepare grounded discovery briefs"
+  default_prompt: "Use $brainstorm to explore this idea, clarify its users and outcomes, and identify the next product decisions."

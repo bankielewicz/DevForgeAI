@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\evaluator\\skill-validator\\scripts\\trial_runner.py",
+    "run",
+    "--attempt",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\negative\\attempt-001"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project",
+  "start": "2026-09-15T00:22:09.427685+00:00",
+  "end": "2026-09-15T00:22:09.742066+00:00",
+  "timeout_seconds": 135,
+  "timed_out": false,
+  "exit_code": 1
+}

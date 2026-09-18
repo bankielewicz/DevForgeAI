@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "intake-set",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\I05\\standalone.json",
+    "--request-sha256",
+    "6bfee374f42e2f3b19aa013982e998da5d80a9f66415cedbe48ab13babc317d9"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-13T15:49:54.801083Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\I05",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\I05",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\I05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 36076,
+  "exit_status": 1,
+  "ended_at_utc": "2026-09-13T15:49:54.958699Z",
+  "elapsed_seconds": 0.1559999999590218
+}

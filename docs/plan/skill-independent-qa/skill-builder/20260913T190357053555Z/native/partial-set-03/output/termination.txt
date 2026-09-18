@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 103176 (child process of PID 71996) has been terminated.
+SUCCESS: The process with PID 47676 (child process of PID 105220) has been terminated.
+SUCCESS: The process with PID 107316 (child process of PID 72580) has been terminated.
+SUCCESS: The process with PID 71996 (child process of PID 72580) has been terminated.
+SUCCESS: The process with PID 105220 (child process of PID 72580) has been terminated.
+SUCCESS: The process with PID 64340 (child process of PID 72580) has been terminated.
+SUCCESS: The process with PID 72580 (child process of PID 69484) has been terminated.

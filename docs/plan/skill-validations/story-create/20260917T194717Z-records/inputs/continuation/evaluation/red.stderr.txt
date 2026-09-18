@@ -1,0 +1,71 @@
+test_checked_future_work (__main__.GraderTests) ... ok
+test_data_is_not_executed (__main__.GraderTests) ... ok
+test_duplicate_ac (__main__.GraderTests) ... ok
+test_duplicate_yaml (__main__.GraderTests) ... ok
+test_empty_then (__main__.GraderTests) ... ok
+test_good (__main__.GraderTests) ... ok
+test_longer_closures (__main__.GraderTests) ... FAIL
+test_longer_fences (__main__.GraderTests) ... FAIL
+test_malformed_xml (__main__.GraderTests) ... ok
+test_mismatched_closures (__main__.GraderTests) ... ok
+test_missing_frontmatter (__main__.GraderTests) ... ok
+test_missing_literal (__main__.GraderTests) ... ok
+test_missing_section (__main__.GraderTests) ... ok
+test_no_ac (__main__.GraderTests) ... ok
+test_scalar_frontmatter (__main__.GraderTests) ... ok
+test_shorter_closures (__main__.GraderTests) ... ok
+test_tilde_fences (__main__.GraderTests) ... FAIL
+test_unfilled_template (__main__.GraderTests) ... ok
+test_unresolved_implements (__main__.GraderTests) ... ok
+test_wrong_id (__main__.GraderTests) ... ok
+test_wrong_technical_version (__main__.GraderTests) ... ok
+
+======================================================================
+FAIL: test_longer_closures (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T194717Z\evaluation\test_graders.py", line 42, in test_longer_closures
+    def test_longer_closures(self):self.assertEqual(grade_story(GOOD.replace('\n```\n','\n````\n'),EXPECTED),[])
+AssertionError: Lists differ: ['ac_missing', 'technical_missing'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'ac_missing'
+
+- ['ac_missing', 'technical_missing']
++ []
+
+======================================================================
+FAIL: test_longer_fences (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T194717Z\evaluation\test_graders.py", line 41, in test_longer_fences
+    def test_longer_fences(self):self.assertEqual(grade_story(GOOD.replace('```','````'),EXPECTED),[])
+AssertionError: Lists differ: ['ac_missing', 'technical_missing'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'ac_missing'
+
+- ['ac_missing', 'technical_missing']
++ []
+
+======================================================================
+FAIL: test_tilde_fences (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T194717Z\evaluation\test_graders.py", line 40, in test_tilde_fences
+    def test_tilde_fences(self):self.assertEqual(grade_story(GOOD.replace('```','~~~'),EXPECTED),[])
+AssertionError: Lists differ: ['ac_missing', 'technical_missing'] != []
+
+First list contains 2 additional elements.
+First extra element 0:
+'ac_missing'
+
+- ['ac_missing', 'technical_missing']
++ []
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.009s
+
+FAILED (failures=3)

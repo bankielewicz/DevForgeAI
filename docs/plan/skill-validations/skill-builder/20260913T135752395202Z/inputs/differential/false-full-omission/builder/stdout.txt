@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["request and omissions must partition selection"], "ordered_member_ids": []}

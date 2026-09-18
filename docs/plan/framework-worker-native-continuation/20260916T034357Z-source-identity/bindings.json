@@ -1,0 +1,19 @@
+{
+  "candidate_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\candidate-manifest.json",
+  "candidate_manifest_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "candidate_files": 56,
+  "selected_input_count": 10,
+  "qa_report": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\qa-report.md",
+  "qa_report_sha256": "b2e8304c07a89a7c155669e1d0a9e9b93c8f5a0ac966b567fca1fee461b7f2d0",
+  "qa_index": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\artifact-index.json",
+  "qa_index_sha256": "cbb0f150f80282a3e3490fd4ec150c1645ab71cad026b07cfb6888b77f93eb5c",
+  "qa_index_verified_files": 310,
+  "qa_index_verified_reparses": 2,
+  "binary": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\target-original\\debug\\devforgeai-codex-worker-probe.exe",
+  "binary_sha256": "b63a0dfb0a48adfc5977a75d145fa766345a9d948e99b3a5bbdf5d5ce74079b2",
+  "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T034357Z-source-observation\\fixture",
+  "task_sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "selected_operation": "profile-sources",
+  "native_model_trial_attempts": 0,
+  "framework_acceptance": "NOT_EVALUATED"
+}

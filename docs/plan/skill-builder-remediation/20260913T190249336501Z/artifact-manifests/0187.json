@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-record-nonfinite",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1363,
+      "sha256": "0754c06c6481edfc32fa0c7d2ad3aa6098d483ab2fce7d2d6dc15a846fb7027d"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "79569bc9b080d1c9965bec07d04f24ccca79135743095dcc76bfaf2b8f8f3bfd"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 125,
+      "sha256": "9c002fb0e90159b9b8114b5b2c176384671145346253aeb8d765df9fc384dbd9"
+    }
+  ]
+}

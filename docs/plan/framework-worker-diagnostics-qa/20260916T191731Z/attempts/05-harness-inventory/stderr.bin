@@ -1,0 +1,9 @@
+   Compiling worker-independent-qa v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-diagnostics-qa\20260916T191731Z\harness)
+error[E0425]: cannot find value `JOB_OBJECT_TERMINATE` in this scope
+  --> lib.rs:31:54
+   |
+31 |                 GetCurrentProcess(), &mut duplicate, JOB_OBJECT_TERMINATE, 0, 0), 0);
+   |                                                      ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `worker-independent-qa` (lib test) due to 1 previous error

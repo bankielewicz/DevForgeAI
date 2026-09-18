@@ -1,0 +1,54 @@
+{
+  "argv": [
+    "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "-NoProfile",
+    "-File",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\run_powershell_checks.ps1",
+    "-EvidencePath",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\10-powershell-host"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness",
+  "started_utc": "2026-09-17T16:51:50.999592+00:00",
+  "budgets_seconds": {
+    "cancel_after": 50,
+    "grace": 2,
+    "reap": 1,
+    "finalize": 2
+  },
+  "total_budget_seconds": 55,
+  "stdin_held_open": false,
+  "environment_source": "inherited",
+  "environment_values_recorded": false,
+  "shell": false,
+  "timed_out": false,
+  "interrupted": false,
+  "cancellation_sent": false,
+  "cancellation_error": null,
+  "forced_termination": false,
+  "termination_error": null,
+  "reap_incomplete": false,
+  "spawn_error": null,
+  "owned_pid": 45540,
+  "worker_tree_status": "REQUIRES_RUST_EVIDENCE",
+  "framework_acceptance": "NOT_EVALUATED",
+  "process_exit_code": 1,
+  "owned_probe_stopped": true,
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\10-powershell-host\\execution\\stdout.bin",
+    "bytes": 5099,
+    "sha256": "f05b7220e17ad6410a59256cf4b5631bc0ad7871ec11403f25cf587507f0092d"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\10-powershell-host\\execution\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "recorder": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\supervisor.py",
+    "bytes": 5624,
+    "sha256": "bace72fafe66f9cd3b44afffc06bbc660a06a4419f86a919fd5e2fa247363990"
+  },
+  "ended_utc": "2026-09-17T16:52:01.816042+00:00",
+  "elapsed_before_receipt_write_seconds": 10.811999999976251,
+  "budget_exceeded_before_receipt_write": false
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/specs/framework/runtime/codex-worker-preflight-v1.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-preflight-v1.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/plan/framework-worker-native-completion/20260915T2306060954875Z/context.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\context.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/plan/framework-worker-diagnostics/20260916T181820Z-dev/diagnostic-contract.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "target": "../../../docs/plan/framework-worker-implementation/20260915T1544548240203Z/context.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\context.md",
+    "exists": true
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-runs\\20260916T185825Z-diagnostic-handoff\\qa-handoff-addendum.md",
+    "target": "../../framework-worker-diagnostics/20260916T181820Z-dev/qa-handoff.md",
+    "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\qa-handoff.md",
+    "exists": true
+  }
+]

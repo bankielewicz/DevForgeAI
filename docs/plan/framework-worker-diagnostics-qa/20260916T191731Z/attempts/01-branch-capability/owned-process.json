@@ -1,0 +1,9 @@
+{
+  "pid": 67440,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "llvm-cov",
+    "show-env",
+    "--branch"
+  ]
+}

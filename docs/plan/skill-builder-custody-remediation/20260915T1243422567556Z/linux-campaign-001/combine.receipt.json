@@ -1,0 +1,17 @@
+{
+  "name": "combine",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-X",
+    "utf8",
+    "/tmp/devforgeai-regression-v3-root-20260915T131000Z/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/regression/combine.py",
+    "linux-combined",
+    "linux-legacy",
+    "linux-authoring",
+    "linux-adaptive-stage"
+  ],
+  "cwd": "/tmp",
+  "exit_code": 2,
+  "seconds": 0.018929561999811995
+}

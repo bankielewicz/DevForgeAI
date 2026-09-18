@@ -1,0 +1,23 @@
+{
+  "qa_run_id": "20260915T2132038923673Z",
+  "completed_at_utc": "2026-09-15T21:55:32.3513379Z",
+  "execution_status": "COMPLETED",
+  "overall_verdict": "INCOMPLETE",
+  "bounded_offline_slice": "PASS",
+  "confirmed_product_defects": 0,
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "candidate_entries_rechecked": 36,
+  "candidate_mismatches": 0,
+  "qa_source_mutation": false,
+  "unit_tests": "9/9 PASS",
+  "project_tests": "62/62 PASS",
+  "wf_parent_cases": "20/20 PASS with all required subfixtures",
+  "independent_qa_cases": "7/7 PASS after one retained QA-only oracle correction",
+  "line_coverage": "1542/1602 = 96.25468164794007% PASS",
+  "branch_coverage": "NOT_RUN",
+  "native_readiness": "5/12 = 41.666666666666664%, below the 95% required-case floor; NI-T05 NOT_RUN; NI-T07 through NI-T12 BLOCKED",
+  "wn01_wn02": "conditionally selected; prerequisites blocked; no native launch",
+  "authority": "NOT_EVALUATED",
+  "evidence_retention": "INCOMPLETE: exact-suite is partial/transcribed, coverage-command is an authored summary, and helper-001 exact native Cargo exit/timing are NOT_RETAINED; prior published files preserved under prior-publication/",
+  "next_required_action": "Finalize and qualify the pinned restrictive launch policy and complete effective profile/hook/plugin/MCP/app proof before NI-T05 real pre-spawn execution or WN-01/WN-02."
+}

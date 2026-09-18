@@ -1,0 +1,278 @@
+{
+  "schema_version": "helper-evaluation-receipt-v1",
+  "state": "EVIDENCE_REDUCED",
+  "case_results": [
+    {
+      "schema_version": "helper-evidence-result-v1",
+      "case_id": "HELPER-REGRESSIONS",
+      "status": "PASS",
+      "assessment_kind": "retained_evidence_reduction",
+      "manifest_sha256": "1fe87bc375d32a8c3e02080f1790d63f73bcb705db3b175ec02d70604f47a0dd",
+      "details": {
+        "passed": 71,
+        "required": 71
+      },
+      "framework_acceptance": "NOT_EVALUATED"
+    },
+    {
+      "schema_version": "helper-evidence-result-v1",
+      "case_id": "VALIDATOR-REGRESSIONS",
+      "status": "PASS",
+      "assessment_kind": "retained_evidence_reduction",
+      "manifest_sha256": "1fe87bc375d32a8c3e02080f1790d63f73bcb705db3b175ec02d70604f47a0dd",
+      "details": {
+        "passed": 292,
+        "required": 292
+      },
+      "framework_acceptance": "NOT_EVALUATED"
+    },
+    {
+      "schema_version": "helper-evidence-result-v1",
+      "case_id": "HELPER-COVERAGE",
+      "status": "PASS",
+      "assessment_kind": "retained_evidence_reduction",
+      "manifest_sha256": "1fe87bc375d32a8c3e02080f1790d63f73bcb705db3b175ec02d70604f47a0dd",
+      "details": {
+        "executed_lines": 435,
+        "total_lines": 453,
+        "line_percent": 96.02649006622516,
+        "covered_branch_arcs": 225,
+        "total_branch_arcs": 244
+      },
+      "framework_acceptance": "NOT_EVALUATED"
+    }
+  ],
+  "references": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\expected-v2.json",
+      "sha256": "3e45fe33ddd8efd59de389b73db4d300c3ff84bc12ead710e9a2e90a91d9d8d8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\execute.py",
+      "sha256": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\package_bundle.py",
+      "sha256": "ff256579e135030c8e9c7566adf90648beace2d58050ba2a7b7ee0290d72e2ca"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\plan.json",
+      "sha256": "774df3e943f31e033636ab8fbcb1e6579c9d1c7b1a4712328955b7008fc802ae"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\receipt.json",
+      "sha256": "7f357efec87734b099a9f2a7b0e51f4543cb4962c3b1c7def6f80ce4416484ea"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\reduce.py",
+      "sha256": "6fd3136f71d5497bf0d6488f3a8217d9357b0b09bb51b7cf8ebdc7c46a67abed"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\stderr.txt",
+      "sha256": "389442351fd2fb5fa28a68b114f2776cb6e8d0e832ee24324ed89e1a2fe21335"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-001\\test_reduce.py",
+      "sha256": "9690444ca3a8493e7a887b5fa7fb87ed5681bf42266ae32dbafed8b69548d619"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\execute.py",
+      "sha256": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\package_bundle.py",
+      "sha256": "ff256579e135030c8e9c7566adf90648beace2d58050ba2a7b7ee0290d72e2ca"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\plan.json",
+      "sha256": "3ccd62a02be0244d786720a06eb50ea31f3b1215d4b13d599d061583637c43bf"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\receipt.json",
+      "sha256": "d8795e720585f3c183e415814cbd4067e9834620bdfb5f338c180dfcb5e6df03"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\reduce.py",
+      "sha256": "a274e06d953c2c3d9e226cead558fd29618d7ecfdfc0004a2d5bb6349b2ce819"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\revise_manifest.py",
+      "sha256": "3e3dc4f72ee86d2a1051bfc4797fc462bcad1202af0a57fc3c024cf857093bdb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\stderr.txt",
+      "sha256": "389442351fd2fb5fa28a68b114f2776cb6e8d0e832ee24324ed89e1a2fe21335"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\green-002\\test_reduce.py",
+      "sha256": "7bf41181dc432b805aa4768a1ec4dec22fefcce6157b01eba51a46c9651dbc52"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\manifest-v2.json",
+      "sha256": "1fe87bc375d32a8c3e02080f1790d63f73bcb705db3b175ec02d70604f47a0dd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\execute.py",
+      "sha256": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\plan.json",
+      "sha256": "9547d744b051a280a0df3e84cb5faf2821ed280f8aa79e64a78cfc8a718d4b3b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\receipt.json",
+      "sha256": "8f0854d692ef573e3c78bf95fb26168041e13b511aefed12d3879ccf4ee06324"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\reduce.py",
+      "sha256": "5c88e83999d091885116c01de70ab4811eb237bf948a665b642fa574793f981a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\stderr.txt",
+      "sha256": "6b5ca6f3c156935a943c2ddc6466fc4624c62040ce7f34a7526cb7542ad14951"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-001\\test_reduce.py",
+      "sha256": "8dcbf984511de333da1fb2ec501557e9449267e515bcd63d5eb739825a075db6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\execute.py",
+      "sha256": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\plan.json",
+      "sha256": "fa29233b839544678aa617cad8a8cd7502eecbc390370f4d7103045db3dde538"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\receipt.json",
+      "sha256": "d0180d74539651c98865fdf9881e7db4553f35d1b007642cf65e8872c1656a03"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\reduce.py",
+      "sha256": "766df349a7999157f42b4b73c0da80514ae7f4e4bd2456f2b79679e9138f4a6a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\stderr.txt",
+      "sha256": "6e0a963201d1566d079277f3114e608a141f3cd4837e8bab61068070beda4597"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\red-002\\test_reduce.py",
+      "sha256": "2803f4b78451ea3ee38635ea38a6cc5a38625dd31f51838b60252804fe2d947d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduce.py",
+      "sha256": "a274e06d953c2c3d9e226cead558fd29618d7ecfdfc0004a2d5bb6349b2ce819"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\execute.py",
+      "sha256": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\package_bundle.py",
+      "sha256": "ff256579e135030c8e9c7566adf90648beace2d58050ba2a7b7ee0290d72e2ca"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\plan.json",
+      "sha256": "7b64aba314bd00251141b470aea6dc522efb894ebf73000138b4da370e98b9ba"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\receipt.json",
+      "sha256": "3f4377d0c83ac3c4703679f7be9326a2d962c95df566461f9021e5c5f9bf72a1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\reduce.py",
+      "sha256": "6fd3136f71d5497bf0d6488f3a8217d9357b0b09bb51b7cf8ebdc7c46a67abed"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\stdout.txt",
+      "sha256": "fbb89c8d3dff71ceb2a45508014e6b598f0c1886d874fe16eff2b31165fc002e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-001\\test_reduce.py",
+      "sha256": "9690444ca3a8493e7a887b5fa7fb87ed5681bf42266ae32dbafed8b69548d619"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\execute.py",
+      "sha256": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\package_bundle.py",
+      "sha256": "ff256579e135030c8e9c7566adf90648beace2d58050ba2a7b7ee0290d72e2ca"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\plan.json",
+      "sha256": "979560ff7e9c151b95587d1beb59d3f82cbe0160ec01bcc5b0da98fcdb536ff7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\receipt.json",
+      "sha256": "6f8321b5f1585da4addf82d4993abef7ac669e521780ed52c04cf1fa83412f94"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\reduce.py",
+      "sha256": "a274e06d953c2c3d9e226cead558fd29618d7ecfdfc0004a2d5bb6349b2ce819"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\revise_manifest.py",
+      "sha256": "3e3dc4f72ee86d2a1051bfc4797fc462bcad1202af0a57fc3c024cf857093bdb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\stdout.txt",
+      "sha256": "97e53e07954c8970170bd1bfa27c69b96987db754c8db241731039c338b8cc10"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduction-002\\test_reduce.py",
+      "sha256": "7bf41181dc432b805aa4768a1ec4dec22fefcce6157b01eba51a46c9651dbc52"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\result-schema.json",
+      "sha256": "428eff84f7d470a12cf569bfa78054bd91dc832d4869cae947940404a3dcb83c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\results.jsonl",
+      "sha256": "97e53e07954c8970170bd1bfa27c69b96987db754c8db241731039c338b8cc10"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\runtime.json",
+      "sha256": "30515ea29f050d98c61d0460242d5d923ba0b5d2674bd4ef07c83aae8ad53be5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\scenarios.jsonl",
+      "sha256": "29ec1e6660b3e5b2f3ebf3fc5e7b06a4781d5460f56bcb36676b11d1df9e4ad8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\test_reduce.py",
+      "sha256": "7bf41181dc432b805aa4768a1ec4dec22fefcce6157b01eba51a46c9651dbc52"
+    }
+  ],
+  "test_accounting": "Eight reducer tests PASS in green-002; repeated attempts preserve history and do not inflate denominator. Helper71 are contained in full regression292.",
+  "limitations": [
+    "Retained-execution evidence reduction; not fresh native skill execution.",
+    "Full skill behavioral qualification not performed by this bundle.",
+    "No installation or operational changes.",
+    "Framework acceptance NOT_EVALUATED."
+  ]
+}

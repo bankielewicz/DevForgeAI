@@ -1,0 +1,5 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.91s
+     Running tests\preflight_cli.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260915T2306060954875Z\target\debug\deps\preflight_cli-ff1aec1374df1412.exe)
+     Running tests\preflight_recovery.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260915T2306060954875Z\target\debug\deps\preflight_recovery-3e92e00191364c8b.exe)
+error: test failed, to rerun pass `--test preflight_recovery`

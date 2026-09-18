@@ -1,0 +1,32 @@
+     Locking 11 packages to latest Rust 1.93 compatible versions
+      Adding itoa v1.0.18
+      Adding memchr v2.8.3
+      Adding proc-macro2 v1.0.107
+      Adding quote v1.0.47
+      Adding serde v1.0.229
+      Adding serde_core v1.0.229
+      Adding serde_derive v1.0.229
+      Adding serde_json v1.0.151
+      Adding syn v3.0.5
+      Adding unicode-ident v1.0.24
+      Adding zmij v1.0.23
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling syn v3.0.5
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+error[E0432]: unresolved import `devforgeai_index::protocol`
+ --> tests\protocol.rs:1:23
+  |
+1 | use devforgeai_index::protocol::{ErrorCode, Request, Response, read_frame, write_frame};
+  |                       ^^^^^^^^ could not find `protocol` in `devforgeai_index`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `devforgeai-index` (test "protocol") due to 1 previous error

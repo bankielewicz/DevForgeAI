@@ -1,0 +1,30 @@
+{
+  "case_id": "LEGACY-RECORDS",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\member-records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:24:48.829367Z",
+  "end": "2026-09-13T21:24:49.625876Z",
+  "elapsed_seconds": 0.7970000000204891,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/LEGACY-RECORDS/stdout.txt",
+    "sha256": "4ee8e86c05dfa11c2eaa05410bd8c42b33b53ee9099b01d8c0a2eee6b7281b24"
+  },
+  "stderr": {
+    "path": "commands/LEGACY-RECORDS/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": null,
+  "fixture_unchanged": null
+}

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="9" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2026-09-17" time="13:02:44">
+  <environment os-version="10.0.26200" nunit-version="2.5.8.0" platform="Microsoft Windows 11 Pro|C:\WINDOWS|\Device\Harddisk1\Partition3" user="bryan" machine-name="DESKTOP-88FARC5" cwd="C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness" clr-version="10.0.12" user-domain="DESKTOP-88FARC5" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="1.1321" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness\tests\OperatorHarness.Tests.ps1" executed="True" result="Success" success="True" time="1.1321" asserts="0" description="C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness\tests\OperatorHarness.Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="Operator PowerShell entrypoint" executed="True" result="Success" success="True" time="0.5703" asserts="0" description="Operator PowerShell entrypoint">
+            <results>
+              <test-case description="prepares by default with literal module arguments and no native run flag" name="Operator PowerShell entrypoint.prepares by default with literal module arguments and no native run flag" time="0.3129" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="dispatches once only with the explicit switch and preserves nonzero child exit" name="Operator PowerShell entrypoint.dispatches once only with the explicit switch and preserves nonzero child exit" time="0.0683" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="stops if the sealed runtime manifest changed" name="Operator PowerShell entrypoint.stops if the sealed runtime manifest changed" time="0.0369" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="stops on a runtime source hash mismatch" name="Operator PowerShell entrypoint.stops on a runtime source hash mismatch" time="0.0251" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="stops on a runtime source size mismatch" name="Operator PowerShell entrypoint.stops on a runtime source size mismatch" time="0.023" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="reports missing runtime inputs without invoking Python" name="Operator PowerShell entrypoint.reports missing runtime inputs without invoking Python" time="0.0285" asserts="0" success="True" result="Success" executed="True" />
+              <test-case description="reports an invocation error and never retries" name="Operator PowerShell entrypoint.reports an invocation error and never retries" time="0.0386" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Literal synthetic Python boundary" executed="True" result="Success" success="True" time="0.6525" asserts="0" description="Literal synthetic Python boundary">
+            <results>
+              <test-case description="transfers a path and argument with shell characters without changing exit status" name="Literal synthetic Python boundary.transfers a path and argument with shell characters without changing exit status" time="0.0746" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="Real entrypoint preparation stop" executed="True" result="Success" success="True" time="0.7717" asserts="0" description="Real entrypoint preparation stop">
+            <results>
+              <test-case description="returns the preparation exit and preserves the occupied reservation without dispatch" name="Real entrypoint preparation stop.returns the preparation exit and preserves the occupied reservation without dispatch" time="0.1155" asserts="0" success="True" result="Success" executed="True" />
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

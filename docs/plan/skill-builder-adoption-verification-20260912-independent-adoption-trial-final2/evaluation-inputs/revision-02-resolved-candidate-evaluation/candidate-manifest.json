@@ -1,0 +1,50 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "baseline/SKILL.md",
+      "bytes": 842,
+      "sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb"
+    },
+    {
+      "path": "baseline/scripts/receipt_totals.py",
+      "bytes": 2000,
+      "sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73"
+    },
+    {
+      "path": "destination/SKILL.md",
+      "bytes": 842,
+      "sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb"
+    },
+    {
+      "path": "destination/scripts/receipt_totals.py",
+      "bytes": 2000,
+      "sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73"
+    },
+    {
+      "path": "evidence/build-contract.json",
+      "bytes": 3882,
+      "sha256": "749ccec19058443c8a496f149e4a8e25b0788ff3bf492ddf7bea0df6305b5c2b"
+    },
+    {
+      "path": "evidence/build-provenance.json",
+      "bytes": 1675,
+      "sha256": "8a296e8fc2db58a341332b95b8c9afa0661d0c449237e6b6b1c39cec9246031c"
+    },
+    {
+      "path": "evidence/checks.json",
+      "bytes": 15910,
+      "sha256": "a261074073c66a1e47d50a24de718837d914295096a8a568be4eb339baef46f9"
+    },
+    {
+      "path": "revision-02-resolved/inputs/authorization.txt",
+      "bytes": 1132,
+      "sha256": "1f0c089b3caa854799f4aae1cf96a03701bfd5ab49c9f7d34e82cfa6f99057bb"
+    },
+    {
+      "path": "revision-02-resolved/inputs/spec.md",
+      "bytes": 1183,
+      "sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "adaptation-selection-v1",
+  "proposal": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/proposal.json",
+    "sha256": "71c5d93a11b45e2551ffab0ff2e60fcd891cf0cdd092e74e803a1fa69f69dfbe"
+  },
+  "member_ids": [
+    "A",
+    "B"
+  ],
+  "destinations": [
+    {
+      "member_id": "A",
+      "target_root": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/skills/notes-a"
+    },
+    {
+      "member_id": "B",
+      "target_root": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/skills/notes-b"
+    }
+  ],
+  "authorization": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/authorization.txt",
+    "sha256": "769ee5bdd53f0a98381ded078b6c1e9ecc4011d79948a5eda5cd7ced7ec4de17"
+  },
+  "permitted_effects": [
+    "Author selected synthetic development packages."
+  ]
+}

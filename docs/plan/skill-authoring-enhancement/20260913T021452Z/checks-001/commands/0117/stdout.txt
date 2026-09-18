@@ -1,0 +1,19 @@
+usage: observe.py [-h] {snapshot,structure,readback,records} ...
+
+Bounded, read-only development observations; never framework acceptance. Only
+snapshot creates files. Other commands print observations without mutation.
+Python 3.10+; structure additionally requires an already installed PyYAML.
+
+positional arguments:
+  {snapshot,structure,readback,records}
+    snapshot            copy bounded raw bytes into a fresh disjoint evidence
+                        directory
+    structure           observe YAML, metadata and supported local Markdown
+                        resources
+    readback            compare original permitted bytes to a recorded source
+                        manifest
+    records             inspect extant run records, references, IDs and
+                        supported reductions
+
+options:
+  -h, --help            show this help message and exit

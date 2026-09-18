@@ -1,0 +1,32 @@
+{
+  "schema_version": "trial-plan-v1",
+  "case_id": "side-effect",
+  "kind": "native",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\side-effect\\command.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\side-effect\\project",
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\side-effect\\project",
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\side-effect\\command.py",
+      "sha256": "59117807d9f696439f4ad4f3d564366ef8b28504b49f903fad6a8db96db7bfe6"
+    }
+  ],
+  "prompt": null,
+  "requirement_ids": [
+    "outcome"
+  ],
+  "dependencies": [],
+  "expected_outputs": [
+    {
+      "path": "report.json",
+      "kind": "json",
+      "requirement_id": "outcome",
+      "value": {}
+    }
+  ],
+  "timeout_seconds": 5
+}

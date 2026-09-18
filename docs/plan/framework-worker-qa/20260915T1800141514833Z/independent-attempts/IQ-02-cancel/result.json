@@ -1,0 +1,47 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-target\\debug\\qa-driver.exe",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-attempts\\IQ-02-cancel\\request.json",
+    "cancel"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-attempts\\IQ-02-cancel",
+  "started": "2026-09-15T18:17:28.238129+00:00",
+  "executable_sha256": "a4186629a2fc81c4072d246821f8eff96c545abe9e4fe15036dd7f552f6cb053",
+  "expected_exit": 5,
+  "bound_seconds": 3,
+  "owned_driver_pid": 58184,
+  "held_peer_pid": 37920,
+  "deadline_overrun": true,
+  "peer_live_before_containment": true,
+  "actual_exit": 1,
+  "elapsed_seconds": 3.0,
+  "peer_stopped_after": true,
+  "large_request_sent": true,
+  "trace": [
+    {
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "capabilities": {
+          "experimentalApi": false
+        },
+        "clientInfo": {
+          "name": "devforgeai_worker_probe",
+          "version": "0.1.0"
+        }
+      }
+    }
+  ],
+  "event_kinds": [
+    "admitted",
+    "spawn_intent",
+    "server_started"
+  ],
+  "terminal": null,
+  "pass": false,
+  "fixture_unchanged": true,
+  "candidate_manifest_sha256": "177b5894a236a02c7d322df7f04d647632094a4a3f3998e7f2a150db246e1604",
+  "fixture_sha256_after": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "stdout_sha256": "798dbc24092d05d2007c2e5327a26b20c4f98a570262d412135584099e07ea6a",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

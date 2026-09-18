@@ -1,0 +1,38 @@
+{
+  "schema_version": "2",
+  "run_id": "revision-01-conflict",
+  "status": "PLANNED",
+  "baseline": "revision-01-conflict/baseline",
+  "current": "revision-01-conflict/current",
+  "candidate": "revision-01-conflict/candidate",
+  "after": "revision-01-conflict/after",
+  "required_paths": [
+    "SKILL.md",
+    "scripts/receipt_totals.py"
+  ],
+  "owned_paths": [
+    "SKILL.md",
+    "scripts/receipt_totals.py"
+  ],
+  "applied_paths": [],
+  "baseline_advanced": false,
+  "readback_passed": false,
+  "evaluation_passed": false,
+  "prior_origin": {
+    "kind": "adopted",
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "44f43530ca0892328a54353c3eed07758f5c2626f09c87b208530970eb4f1083"
+  },
+  "adoption_origin": {
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "44f43530ca0892328a54353c3eed07758f5c2626f09c87b208530970eb4f1083"
+  },
+  "baseline_before": {
+    "path": "adoption/evidence/published-origin.json",
+    "sha256": "7312e598bd518e616636de0033cf5e09b49ef58607f63d671970cc2cc8264b3f"
+  },
+  "baseline_after": {
+    "path": "adoption/evidence/published-origin.json",
+    "sha256": "7312e598bd518e616636de0033cf5e09b49ef58607f63d671970cc2cc8264b3f"
+  }
+}

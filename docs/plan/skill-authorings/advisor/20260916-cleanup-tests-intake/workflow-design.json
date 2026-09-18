@@ -1,0 +1,64 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "advisor",
+  "source_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests-intake\\task-capture.md",
+      "sha256": "e9075a3a8990bfa08b66345e0cd5fc12b8f5684f8a17020a8efb93db0ca2ba50"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "cleanup-evidence",
+      "requirement_ids": [
+        "user-request"
+      ],
+      "trigger": "Run the advisor Python maintenance test suite",
+      "inputs": [
+        "Real local Python children, pipes and queues with controlled failure injection"
+      ],
+      "completion": "Assertions verify raw evidence retention, truthful errors, bounded cleanup and denial of advice after failure.",
+      "outputs": [
+        "unittest results and coverage in a fresh evidence directory"
+      ],
+      "resource_paths": [
+        "tests/test_cleanup.py"
+      ],
+      "prerequisites": [
+        "Native Windows Python >=3.10"
+      ],
+      "effects": [
+        "Temporary synthetic processes and files; owned resources cleaned in finally"
+      ],
+      "failure": "Retain failing assertions; do not weaken or replace actual cleanup behavior.",
+      "recovery": "Investigate retained results and fix production only when a test establishes a defect."
+    }
+  ],
+  "resources": [
+    {
+      "path": "tests/test_cleanup.py",
+      "kind": "helper",
+      "purpose": "Exercise cleanup and failure boundaries without running Claude",
+      "load_when": "unittest discovers advisor tests",
+      "helper_contract": {
+        "inputs": "Synthetic process and OS fault fixtures",
+        "outputs": "Executed assertions and unittest exit status",
+        "runtime": "Python >=3.10 standard library",
+        "effects": "Local child processes and temporary pipes only",
+        "errors": "Nonzero test exit on failed assertions or fixture errors",
+        "reuse_reason": "Regression coverage for rare cleanup paths"
+      }
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "failure",
+      "behavior_id": "cleanup-evidence",
+      "condition": "Interrupted waits, queues or closes; pipe read failures; stale process races",
+      "expected_observation": "Real resources cleaned where possible; uncertainty and failures retained; no valid advice",
+      "requirement_basis": "user-request"
+    }
+  ],
+  "execution_limits": [],
+  "open_questions": []
+}

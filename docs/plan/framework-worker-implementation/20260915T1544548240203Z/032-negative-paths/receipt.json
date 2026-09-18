@@ -1,0 +1,40 @@
+{
+  "attempt_id": "032-negative-paths",
+  "stage": "integration",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "negative_paths"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T16:20:29.988824+00:00",
+  "ended_at": "2026-09-15T16:20:35.571360+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\032-negative-paths\\candidate.json",
+    "bytes": 5492,
+    "sha256": "bfbbd1a6468c0b345f11a59eb26a85401477f5aac6c1a5f3a8c7c4cbd5a7ba89"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\032-negative-paths\\stdout.txt",
+    "bytes": 434,
+    "sha256": "817947bccfeb0d47084db953dec5568d70e69a88844b4e260904c566f020bafa"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\032-negative-paths\\stderr.txt",
+    "bytes": 283,
+    "sha256": "290711348ac3fd53e4b3b7ae3aaa88606f3fccd1997f0f9b8d6947025f18df35"
+  },
+  "outcome": "observed-exit"
+}

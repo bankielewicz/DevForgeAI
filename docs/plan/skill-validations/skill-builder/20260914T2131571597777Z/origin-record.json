@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T2131571597777Z",
+  "target_name": "skill-builder",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "d14982a3c62612608fb10144d82508ed540311e4d8df39783dc60e46484c8e4d"
+  },
+  "specification": {
+    "path": "inputs/skill-builder-postmvp-spec.md",
+    "sha256": "6ba021254eaaf152d91b968952bf235288e5338d88d842c10e9e98eb13b6314f"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": null,
+  "completeness": "complete",
+  "uncertainties": [
+    "Maintenance delivery inspected separately; no adopted/generated baseline asserted."
+  ],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "unknown"
+}

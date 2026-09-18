@@ -1,0 +1,10 @@
+{
+  "count": 36,
+  "matched": true,
+  "evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z",
+  "os": "Microsoft Windows 10.0.26200",
+  "architecture": "X64",
+  "shell": "7.6.6",
+  "filesystem": "NTFS",
+  "git_present": false
+}

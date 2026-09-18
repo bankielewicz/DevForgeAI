@@ -1,0 +1,17 @@
+[
+  {
+    "bytes": 808960,
+    "sha256": "4d48c8ce02995b910e5c8bfbea4aa0f86046b9322a9f757b390b0294c6576c8f",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\independent-target\\debug\\protocol-peer.exe"
+  },
+  {
+    "bytes": 470016,
+    "sha256": "0ab4ed9342be6e442b3af3a8f55c3566b0215885ab399b84f33957d365463802",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\independent-target\\debug\\qa-byte-peer.exe"
+  },
+  {
+    "bytes": 3361280,
+    "sha256": "6136f0564269c40adf44fce9875212e0552398ea2698ba5edbf7f2d823b57698",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\independent-target\\debug\\deps\\independent-1802c5963a21c84a.exe"
+  }
+]

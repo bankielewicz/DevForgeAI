@@ -1,0 +1,13 @@
+{
+  "pid": 51644,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--json",
+    "--output-path",
+    "C:/Projects/DevForgeAI/docs/plan/framework-worker-diagnostics-qa/20260916T191731Z/coverage.json"
+  ]
+}

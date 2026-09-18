@@ -1,0 +1,19 @@
+{
+  "intent": "run",
+  "plan_readiness": "READY",
+  "execution": "NOT_STARTED",
+  "verdict": null,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+    "bytes": 8619,
+    "sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540"
+  },
+  "plan": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\test-plan.md",
+    "bytes": 18080,
+    "sha256": "48c33e0e2a3376b63f416e7330cda6237854bad20449f51258906a4d6a6051aa"
+  },
+  "owned_processes": [],
+  "next_safe_action": "Complete integrity review then bounded offline preparation",
+  "native_codex_permitted": false
+}

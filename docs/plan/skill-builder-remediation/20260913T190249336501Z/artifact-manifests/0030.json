@@ -1,0 +1,46 @@
+{
+  "root": "commands\\focused-coverage-02",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 8982,
+      "sha256": "cc62025eeb6d8b2c5af7af2b54cbe5b8cc6737ddf6effc1bfe6f7625a6e72476"
+    },
+    {
+      "path": "evidence.py",
+      "bytes": 5332,
+      "sha256": "d6e6794a7da4fa33c3012ad64abab9acae3ef2379a78962d1a52ad80e1ec3c6e"
+    },
+    {
+      "path": "prepare_regression.py",
+      "bytes": 942,
+      "sha256": "c0ae360067d274e0025c979d1549ecf6c6da76b3e80d4fa1636917e1b20b3ced"
+    },
+    {
+      "path": "result.json",
+      "bytes": 8506,
+      "sha256": "f63c3c0b0344f094ed51af015446a89aa712542cb5d663cd73fe5a53e4572e6c"
+    },
+    {
+      "path": "run_evaluation.py",
+      "bytes": 2981,
+      "sha256": "5645257f3eb3ebaff716e87835a0eb87c1873654d33db8ad5714d24954b22173"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 3139,
+      "sha256": "fea1d09bf19b6c1f967e28eacb6ef12cb6f22167fd341b08c1762ba0c686441c"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 119,
+      "sha256": "d5a06ce63c0ee959ecfc9eac6098206173b5d97cef825973bbcd971916498182"
+    },
+    {
+      "path": "test_remediation.py",
+      "bytes": 11261,
+      "sha256": "8be258edef55ee6f21ff20f85f91ea49594c877ec1ff67cf3c7b747347e8600a"
+    }
+  ]
+}

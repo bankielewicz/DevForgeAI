@@ -1,0 +1,40 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T201813155594Z",
+  "target_name": "skill-validator",
+  "sources": [
+    {
+      "source_id": "governing",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\inputs\\skill-validator-adaptive-enhancement-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42",
+      "snapshot_path": "inputs/skill-validator-adaptive-enhancement-spec.md",
+      "sections": [
+        "Pinned focused obligations"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "companion",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\inputs\\skill-builder-adaptive-enhancement-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+      "snapshot_path": "inputs/skill-builder-adaptive-enhancement-spec.md",
+      "sections": [
+        "Pinned focused obligations"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "commonmark",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\inputs\\commonmark-notes.md",
+      "retrieved_at_utc": null,
+      "sha256": "a49ca52f19874e5dfdc8f25876221594b1b380f1ca876b295a9bf583136963d0",
+      "snapshot_path": "inputs/commonmark-notes.md",
+      "sections": [
+        "Pinned focused obligations"
+      ],
+      "freshness": "snapshot_only"
+    }
+  ]
+}

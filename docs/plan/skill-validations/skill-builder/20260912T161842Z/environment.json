@@ -1,0 +1,10 @@
+{
+  "os": "Windows-10-10.0.26200-SP0",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "python_executable": "C:\\Program Files\\Python310\\python.exe",
+  "pyyaml": "6.0.2",
+  "shell": "PowerShell 7",
+  "host": "Codex collaboration task tools available; target workflow execution prohibited in this task",
+  "checker_original": "C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+  "effects": "All assessment writes under fresh run; target and evaluator packages read-only; no dependency installation"
+}

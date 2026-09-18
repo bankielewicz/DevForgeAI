@@ -1,0 +1,95 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "qa-claude-conversion-002",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\qa",
+  "target_name": "qa",
+  "operation": "edit",
+  "authorization": "Continuation of maintainer instruction 2026-09-17 authorizing the Codex-to-Claude conversion of qa. This linked run corrects two over-conversions made in run qa-claude-conversion-001, where host-neutral domain vocabulary was transformed as if it were Codex-specific. Authorizes editing the two named paths in the selected target_root only; no other path, no installation, host configuration, mirroring into .claude/, product execution, testing or validation.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\contract.json",
+    "sha256": "179e7b1aa2423c181e9642954978ec665eac8bbbf7e9bc55f37239aa1541f4f3"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\SKILL.md",
+      "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\test-plan-template.md",
+      "sha256": "f000dc4dda27fce0e51614934385b972dbaf27f46a7d2d6d35918358362d88a7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\qa-claude-conversion\\intake-002\\design.json",
+      "sha256": "e9c3b3ceb60fb83ec585b930411f46515d1f545d2e514bc99046d054d8784575"
+    }
+  ],
+  "prior_origin": {
+    "kind": "authored",
+    "reference": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\authoring-baseline.json",
+      "sha256": "fde6dd08d2bc333d7b007fb868efeba1d4eadc188d83c7d547569b6c91926386"
+    }
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "assets/qa-fix-template.md",
+    "assets/qa-report-template.md",
+    "assets/test-plan-template.md",
+    "references/assessment.md",
+    "references/execution-integrity.md",
+    "references/intake-planning.md",
+    "references/reporting-handoff.md"
+  ],
+  "retained_user_paths": [],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\before-manifest.json",
+    "sha256": "28ab8267fb044d777932c40f7ee3ab9c7366415230bb21a94e761569fc21ce50"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\candidate-manifest.json",
+    "sha256": "15b77199f7fae0e2238d4dc4f59c0134fe08117972a6f30ecaa7472a4e531716"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\delivered-manifest.json",
+    "sha256": "15b77199f7fae0e2238d4dc4f59c0134fe08117972a6f30ecaa7472a4e531716"
+  },
+  "applied_paths": [
+    "SKILL.md",
+    "assets/test-plan-template.md"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "No bound Python evaluation artifacts exist for this package: no evals/, tests/ or scripts/ directory. AGENTS.md names such artifacts required for a skill build, and the source package's own QA-026 / QAP-014 clause states that qa's evaluated-build completeness requires exactly such a bundle. skill-builder forbids generating evaluation campaigns during authoring and the validator package is documented as owning all quality campaigns. Recorded as design open question Q1 for the maintainer; unresolved.",
+    "Task is omitted from allowed-tools, so QA independence from development completion claims remains a contract obligation of the single session rather than a fresh-context boundary the host enforces. Recorded as design open question Q2.",
+    "The >=95% coverage and unit-test pass-rate floors are preserved as written in references/assessment.md rather than converted into project-policy inputs. Recorded as design open question Q3.",
+    "Only the selected target_root is written. The ADR-073 mirror at .claude/skills/qa is not created by this run, matching the dev conversion whose authoring record shows its .claude/ copy was made outside the run. Recorded as design open question Q4 and reported as a separate pending action.",
+    "Unscoped Bash is granted. The skill's prohibitions on product repair, installation, deployment and persistent startup changes are contract obligations that the allowlist does not enforce; the SKILL.md body states this rather than implying enforcement.",
+    "Validation and testing are NOT_PERFORMED for the corrected bytes. Run 001's validation-request packet binds the superseded digest be9164d392a1932ceb7fb17611c9c3abed1eaf936d04d2653e7c8ba04baf1afe and must not be used to request assessment of these bytes; this run publishes its own packet.",
+    "The design bound to this run is run 001's design with source_refs rebound to this run's inputs. Its behaviors, resources and adverse conditions are unchanged, because this correction restores source vocabulary and does not alter the authored skill's external behavior.",
+    "Contract inputs list only the external Codex source counterparts and the design. The current target bytes are not listed as inputs because input and target roots must stay disjoint; begin captures them as the before snapshot for this edit."
+  ],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": "35c822ac83bbbeb56afc348c49dcdee7d30c5f9d699f2ec9d05ad19c3937d28c",
+      "c_sha256": "35c822ac83bbbeb56afc348c49dcdee7d30c5f9d699f2ec9d05ad19c3937d28c",
+      "n_sha256": "95a1ee1f4ca3dc26715c93c3a53d59e6cdb225828cfab541508dd0cda904afe9",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/test-plan-template.md",
+      "b_sha256": "a971e719c3c70b096b22f92da62adaf9ecd80da2a85e97bd1967a48ff7082402",
+      "c_sha256": "a971e719c3c70b096b22f92da62adaf9ecd80da2a85e97bd1967a48ff7082402",
+      "n_sha256": "0bcb49a4697691abbec543946a51caca755ec0919bcaa042ff7cbd8ec84ba9c9",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\baseline-manifest.json",
+    "sha256": "15b77199f7fae0e2238d4dc4f59c0134fe08117972a6f30ecaa7472a4e531716"
+  }
+}

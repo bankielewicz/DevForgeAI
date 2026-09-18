@@ -1,0 +1,44 @@
+{
+  "schema_version": "adaptive-check-observation-v1",
+  "command": "intake-set",
+  "status": "OBSERVED",
+  "checks": [
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-A08-9653c654d0bc",
+      "rule_id": "AV-A08",
+      "subject_path": "selected-set",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Immutable membership, handoffs, topology and bytes verified; quality unassessed.",
+      "evidence": []
+    }
+  ],
+  "observations": {
+    "input_kind": "standalone-set-input-v1",
+    "ordered_member_ids": [
+      "A",
+      "B"
+    ],
+    "member_bindings": [
+      {
+        "member_id": "A",
+        "package_digest": "14f857cbae61a8b3a5830511640efa2a36b60b64cd52d94eb0bb49b9a5ba9005",
+        "valid": true,
+        "reason": "Complete selected package/input readback verified."
+      },
+      {
+        "member_id": "B",
+        "package_digest": "2e54ea856de4c85c91c745b2a0b4860ef74398608f6b673202efb84f4cda8603",
+        "valid": true,
+        "reason": "Complete selected package/input readback verified."
+      }
+    ]
+  },
+  "limitations": [
+    "Development observations; semantic support and native behavior are not established."
+  ]
+}

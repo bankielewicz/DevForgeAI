@@ -1,0 +1,746 @@
+[
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10014-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10014-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "61b50b29e06d92b559a8d5f5852ca32019214af11478c2d9345a1d1b1036bc19"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10035-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10035-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "0a46fd8a810972cc034c8b3b7b1e343e4fd3ea8ce0a1b10568e108d6ab169af2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10056-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10056-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "b460c34553fc5d766bfee60a96a5f841d3e91fd707967587b05a4325ec6d8f74"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10077-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10077-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "a92cd71a86d17247b476002bf6af4ed43abfcbbfa1e1932127c0c88a23d68b76"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10098-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10098-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "6d253b779dffa4e8af3f4769ce2bc4d9117b93d9561db910ab7722980b62d0ee"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10119-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10119-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "8332087a9dfc06d6e5a37bb03c959c575775d146e1503da9a2eba6ebca119200"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10140-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10140-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "0fa9bf9bf640e7e18ed37d9cfa2d9394c96cd8de11e7bc95dd5cec2f98466873"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10161-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10161-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "45e10f054082a7c585388469149347b17c0247a53814006008907fe0489e60e3"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10186-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10186-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "e405ac3e15718abaf4433386b5946e5574bce0c82915769c001b3d2d4ee698c8"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10207-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10207-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "a4a92cdc9b815fd2367479898831d32367a572eee65ec07c38af8de08a5feddd"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10228-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10228-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "4423e84d4ddf8a2db6403a6acf1c739c475339d09a8f98151c9b9142540f2329"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10249-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10249-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "43f4184b1b85e86988f038290236c4c268ec5ce593209db22576c3c2257c3dd6"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10270-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10270-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "6ecce972479d9d2cd8137bc2f61f86b2f09b3cff888e914b90eaf77ddf6f3031"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10291-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10291-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "e71ecf6c59a518459cbbb81fe857ed3e1bf4f3df18c2c326efbdd28829c877db"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10312-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10312-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "69d12641c114bcc0504bac958baa3a95b65aab0ec0501d78ece3682703ac21cf"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10334-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10334-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "82f2f33052c306a0758464a9c013c27ff243f25b07a9b210a074afe1531b18d3"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10355-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10355-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "9d62ed9accb9c8f4f8bab9de5dea6f30bc6907f5232f13221e97ca8fd9bc47fc"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10376-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10376-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "47968f594e8e953028f11512c95e85d7624feb692c967475d1b751ba5ba6a2a5"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10397-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10397-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "93923bbba9604074aaf02f1698431fd865fa4720753ddc73441c03213b5e8323"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10418-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10418-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "0056b079a2c882074723fae77b1c356079a131ee84ff2a59ab63ac7c3dda3f83"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10439-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10439-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "d10a1a98696f7c1d356c6935ab2035829b651bc470c94492bae276f37537b997"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10460-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10460-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "d2e3ec3e37eb1f27d7b11455d962ddd09ee49f9f1733ad74b7478fb5074a6af2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10481-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10481-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "ee42e83205a392d6acddeb879562a0b3015a4573c37390c283c474cc92429045"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10502-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10502-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "4c84d9634b9e3c81a21d5dd8488884bba62b19dab06fd621ad380136216f9ae2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10523-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10523-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "10cb82efd1d42fa48d550f09fe1d8af06ea2590f6fc5b0f7af1b5444617c5214"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10544-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10544-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "df61f3c766bc8c2971ed1beb4a3c5f81ebfa3b6a94a9ffe59eebf9e3847fb66b"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10569-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10569-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "7e90889f1b93b9d2bc475c509380a670ca4708ac392201b61cfb898f8d6e6f40"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10570-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10570-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "0e96466864bff28a2412ba38a75a362508a4cf68f65b0c3bebb8916ecc2cd7dd"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10611-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10611-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "4fc732ce92972bef7584111113fd037455bbb015246832295abcfb09352b067f"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10612-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10612-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "d3e420ad8bde4d1bb97526f170e42211d3b3f195bafae817185a7972b50a79bf"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10658-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10658-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "328e8c1e0618912b0659270feb0034a2cb244f4b26a7b85ae5e77bd5640a3fbc"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10679-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10679-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "3436bf1b21e405a6425fbbd1cd5d3d90cabbc61c445a0afe0ec385797396b4b3"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10700-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10700-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "e7b5cfad068dadbc4c6bbce97c9b1ee26a6a87eba5efdfeb56d4a05a1239dd1d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10721-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10721-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "7307b336ca47a6a65b6b054fd545426652c136bb91f33e8d48e5e3c24548ecaf"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10742-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10742-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "55d9d760ebbe5c241cd5441037a466a9edb2fe71cb85d3d9f102da5dbdc49b5d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10764-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10764-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "134a66376e7b770d4165b4704c5777bcc2c6563c0f2653cf1492471e542e0e41"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10785-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10785-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "074b48bbfc3bbb1704ba8ebd6f3162df58eca293f2734e662f950b90a86f2695"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10806-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10806-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "806d1185ca24b987795891db2121a68689d8278e28ff4a0ef360671878626fc7"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10827-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10827-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "e2d641c9bf9a6aaf24f4d8eb3a2a96758cf458ba06fbafcd8042ddf412d9c666"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10848-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10848-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "b926a06c22df84f46b76d656087a4934289394f3901e6c4365cf1c457b6e7c26"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10869-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10869-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "f014c968f9fc9c31ebb83baefc6a6e35f7e27c197e22621e3ed7c3da52d0d42b"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10890-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10890-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "46c77ed3f4f412dfa4daae87cb3b5c4c2ad6b4a9e4d8bdbe6a17358ac72cece4"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10911-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10911-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "2cfe0111db19cce4504884fb231bff162cfaf393b87b9f4256334b8f9b68a830"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10933-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10933-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "fe7abe9ebe141520a63469eeb61336fb751e25784b9f0748aaa7e912822ef119"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10954-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10954-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "b90db9f2d4723ea5f39d7b2b03c2653c3007ff38c1069b3deb264629198c276d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-10979-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-10979-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "e66ecdc29f71b0b2e703e147c803857b2edc4cf1057e0ff8019983b1ba8afbd9"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11000-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11000-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "14c586043da00de83b8f57e7a248368680aa69d57f7a87344c5d66f449721bd0"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11023-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11023-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "7431224162dd8b1536bba874b1cd00f2beeae459cbfe710a3845236f27c20d5d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11024-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11024-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "3e68ddd70c74ee7845c7ce1142b0a0c32385c22849836ee7c226d39d7a388087"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11066-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11066-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "98f70e724771c2d46f2f430b822c65171b4f7ffc96d0280e080f432f21e75a29"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11087-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11087-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "833440bced6f1c38e319599e05e6cf723ac936112533f19159ea87b25e1f0bf0"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11108-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11108-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "65c908620652f17f2d07421aa828fc989fc508ccabb946f525b2ac4b0a14cd2c"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11129-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11129-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "1bed89262c538a213fac4b4713f00743de8c0d2651338e70e8dfd97a28972578"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11150-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11150-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "8ffe59eefe345f9c8d5971d8f48622528d2831faf881df1b054970e17166e26c"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11171-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11171-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "c7c777edbe1b4f39841385a710b4d099bfa8b50d821130d193587c1b0842ca01"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11196-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11196-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "f6eb216a59998e1b877ce008b93fcd22b887795efe338c6e9520fbb542c48e3e"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11217-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11217-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "da14eb268bc4bcbe288a5d3f3e39128537f10f75064bb88b17780103c8baa23d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11239-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11239-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "95305b66d8a1ffc6b34b602f69c4c36f0288b6b98572901f4aa9417504523eb8"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11240-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11240-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "747c7e01b6bb1ef8a083e98db3300abcca5aa4abf0c41d918abfcb2575dd683e"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11282-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11282-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "85a8f60875cd3ba7ab27b383f6f25ad94a77d67a90f83c0ee93c584b1ab90b26"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11305-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11305-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "fb46eacb90cde8cc6ea598a59091b255899a7c227acccac553d687f0e0ef954f"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11326-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11326-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "985063abef4fa5214230fd117ed71337fe2026f8d5df72937f13b0a04343f924"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11347-6374038601799828303_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11347-6374038601799828303_0.profraw",
+    "bytes": 7344,
+    "sha256": "06d496443fbb765409b73c0043ae48cbe1e96a28f3cc367920adf218895d200e"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11353-12180894950217125255_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11353-12180894950217125255_0.profraw",
+    "bytes": 15104,
+    "sha256": "d6402b30c8a8763b04907c3182cf8abed522c45db64cef2b259817bbd581bee5"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11366-14505120086242052344_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11366-14505120086242052344_0.profraw",
+    "bytes": 25104,
+    "sha256": "148ff7d7352ecb75ba9716aff06b12cb787e5981ded303e00cf93e24d6621af5"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11417-18405209413953942155_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11417-18405209413953942155_0.profraw",
+    "bytes": 160,
+    "sha256": "cddd331bb431d825a684666b70c7711c809d77eb23106f5dcb47ef93e494b36d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11418-13928507775303534788_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11418-13928507775303534788_0.profraw",
+    "bytes": 8288,
+    "sha256": "68d5eae0e8cecfe779e11ae7717464fe87c8d0a7feb85d79218a84ef08527f82"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11425-18405209413953942155_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11425-18405209413953942155_0.profraw",
+    "bytes": 160,
+    "sha256": "29c1045f3a7d6b3e90486eb7b1c8532200383e70b8895a6334076c4c9d353121"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11426-7246258467750602106_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11426-7246258467750602106_0.profraw",
+    "bytes": 6352,
+    "sha256": "875ff91722679ff57c47d02a1f2d27f07f38a99a19bb1cb97d615daa69528c28"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11431-18405209413953942155_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11431-18405209413953942155_0.profraw",
+    "bytes": 160,
+    "sha256": "3dd9b4b711fddbba992a41a0ef366acf6073f52c3508925ef7edaefc17583c25"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11432-18405314967070208651_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11432-18405314967070208651_0.profraw",
+    "bytes": 256,
+    "sha256": "f868d3a1069200c07470d5f29c6e7eef0efe79068a0620b5f0000400a5f5bb1a"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-11433-18405259991488819851_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-11433-18405259991488819851_0.profraw",
+    "bytes": 208,
+    "sha256": "6edf0fcb7f007f7d718be7843909463eca9d5f13aa273bf02b1b695453b0f0e6"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9117-6782218839418298351_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9117-6782218839418298351_0.profraw",
+    "bytes": 31424,
+    "sha256": "9502104269950d684c97a60505c872e5fcef42826d4f5cc66400ec47504817d7"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9142-18405270986605097611_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9142-18405270986605097611_0.profraw",
+    "bytes": 216,
+    "sha256": "46bca96a1e58de5faa6f658820362907cb1fba1eb0ff00d3ffb00b3bf6f50cbb"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9143-18405278683186492043_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9143-18405278683186492043_0.profraw",
+    "bytes": 224,
+    "sha256": "dd7033b69a4673e07cef21715f6b2ef6813a35894e43827f761f37d71efee4ce"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9144-18405264389535330955_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9144-18405264389535330955_0.profraw",
+    "bytes": 216,
+    "sha256": "3c8828a16089fbb986b65738b26bdcc5113f540029817b9b5a0f3e34e5258ecb"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9145-7912964630937283407_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9145-7912964630937283407_0.profraw",
+    "bytes": 760,
+    "sha256": "de3eea218e903a49bba513b9d984ac6be189384d56e1dc6736601a785b7a6660"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9147-3902849809711886451_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9147-3902849809711886451_0.profraw",
+    "bytes": 11424,
+    "sha256": "1d875adaf5fc7b7d9c56a3f6bb70954b6a99d5f7c78e0882cb1e6d4f8d82f1c2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9157-8673528299789930862_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9157-8673528299789930862_0.profraw",
+    "bytes": 6872,
+    "sha256": "51606000958a7d1699b0f0474ebf43745f426be9909eeec18ced02ca527f46b8"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9159-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9159-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "14db580e050d204b0bb94a30abaebbe12975b5fc172e21433ce3495f8fe1b0a4"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9182-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9182-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "9e464f4ecf7bfe433c8c1b6c1b97cbd47b3c0b81a19296c8b1def6930ab75ab0"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9203-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9203-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "1ff5eba1795d8fb8c5fd381ff921ceb0a376b339f9dcb18884bd484ae771244e"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9224-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9224-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "175a07de9a107507af53db90fc6501c0aa54afe7f836513298798f5f68b9a3c2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9245-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9245-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "e750b710510931f9978a2b8e4cfd1bf67c2d0c85ca18e10e99d664a2a393c188"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9266-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9266-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "7bdb5b69939814e0fdd78da4ab548015d9777fcade1a7ef5224eefb9d1002f57"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9287-18057681010005684193_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9287-18057681010005684193_0.profraw",
+    "bytes": 13144,
+    "sha256": "1362c6bfe1fa8835d34fd738dd5f3de95ae0f82fcfc9648598a770bde1883786"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9297-18405209413953942155_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9297-18405209413953942155_0.profraw",
+    "bytes": 160,
+    "sha256": "fb708eba67f49785825c7699c9a3f8b9714af7c7e28aa9b195cd0605976c663b"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9298-8887443437909569461_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9298-8887443437909569461_0.profraw",
+    "bytes": 304,
+    "sha256": "ca06e9f3f176918eed698740278bf593481cfcf7ac6b47e4344c91437e840a0f"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9300-3184366981680820203_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9300-3184366981680820203_0.profraw",
+    "bytes": 26936,
+    "sha256": "cf4388e17893289db67dc8772c6840f6a4833ab1f60de28020e402d46a8e9dff"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9306-8688492478235940938_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9306-8688492478235940938_0.profraw",
+    "bytes": 6576,
+    "sha256": "122f0d3c9ed96664d61d0fae04dd9d397a35d933c3d9a0edfcb36d9f7b4874a0"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9310-535572048674236231_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9310-535572048674236231_0.profraw",
+    "bytes": 2320,
+    "sha256": "0f43e08eb69c27503223d7ec522d9e9f212fa775b36be3ef563aed9d61085de7"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9312-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9312-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "44d1517a91735031a97f32dc597378bf89c45048c7dbdaa95148d437e1de8862"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9333-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9333-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "42bc44cb26320d667c59df215ea55f2e544fa529b63b7d57959f4f07d4819cc7"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9354-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9354-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "9618bd9f6a1fc2b11b2cc000daead4e8cd8052c7b0b57f38546fd8f5b1904137"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9375-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9375-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "218abdbc0577c8a665526541cf3878fa12969b0e11630bc99c0a1d8c570ac23f"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9396-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9396-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "256edfe7eccdca8d8b1b661e4945ab7bea3b47107ee07f978143f2bc4e4fb304"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9421-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9421-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "41ace02315cb5cc0a35643446450623e2bab11df4e085dd3b0346eb6c11b2eca"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9443-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9443-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "152f6d0d8cff55baf527ee71ccee06052c2df7cb9ff64a014e058706bf11fd05"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9444-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9444-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "14547d341777efc5fa187a85bb4de7653b9452e21513e1dfd89f2a9283acbac2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9485-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9485-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "3051eb4d7cf90aff5598ea9ccde7443b8d82eec603ee02fab88c59d49f800319"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9510-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9510-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "fdca145a2a42d617ae5e9f873827b9416a85d00d96808ab3f5d18caf4c987e2b"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9532-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9532-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "b9cb4bd1bb2f55d3dca7a7588b8150ca3b5a857b2ad3ab3cb66d0156b9716238"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9554-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9554-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "d7007ab4369d3ac9c1c0513838f0133d762c230d78408494df0282a5372ad5d2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9575-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9575-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "ef9c4ff9e0fa9af1761a5421096466f0bb1dc8c2636ede2d6cf4432d95f55510"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9600-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9600-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "66c5a735514364e984f6375a0106555a01c5dc6e2d5df841fca5dec2c75695dc"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9621-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9621-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "1c70147f46bf32fd2eeb3c92d7eeefea3b58df2581e1a3b5f7768ff6080c18a9"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9642-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9642-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "492624776b77728be65a230424f7d92b4ade3a938065b766b59fe03774a6a091"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9664-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9664-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "01e00a57aad62b4757601af22929c89bd04091de05cd8eda332bf439271434fd"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9685-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9685-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "628b1dc742855450f2a56fc6effd1609831a62209726b202ebf528c4316f3eda"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9711-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9711-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "b2f2da81067d62001576bb5d476472d48a483f49241d54979f3148766c52fe4e"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9732-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9732-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "4578cbbbb7cd25d537f254061b17288e172f39a1538f31936915da307cd2115e"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9753-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9753-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "122ed72e4b69e2de413843a7afcc1b0a98b70e403430d33a314898e0a12a79ea"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9774-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9774-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "0e2fc145aa54299b2784d0a86a2aee5d9db4a878f0b03866f5fa74a0e0954f65"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9795-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9795-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "36d1e6151ca4ea11eeb088fe3ae24e452701d172e80ce3538936bed8e7ccbb3d"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9818-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9818-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "de838fe839dd225128801288e801a29e3fe9c2c8ff13476694f35d1aca2f61d8"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9840-17957754663058466308_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9840-17957754663058466308_0.profraw",
+    "bytes": 26448,
+    "sha256": "a4de8e364cf4f12c3c20d2a76f2674a0ee8acc2adbe2e9387ea5b98abd363aed"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9865-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9865-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "b3b7851473f100a58891751bacdf1c8105d1ae47f5d7aefc88e574b8ffbb737f"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9887-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9887-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "503ec1827c9c940fb6eb1137afc4fe2f054805c1fa64a6d975e3c409adbe08b2"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9909-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9909-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "311de6e7c52828f33684e60c19a710045ce695681b4996667c8d26e8c4dcf32b"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9930-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9930-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "dc7e26f922b75cdfd7205da4757cc488f721ba8a4caf4a8a36aa68121e3cc06f"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9951-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9951-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "0b65e789f39a7a7a700c5154b9f752d299d94759bc864f1288f60bec77dc8ca4"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9972-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9972-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "f1093ae1947b028f549cca12eea1cdaf6cc683fff2d93a1d0699925eef89bd45"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai-9993-17859147525983838267_0.profraw",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai-9993-17859147525983838267_0.profraw",
+    "bytes": 32488,
+    "sha256": "568270cef4c0231c0f503f927712d9ec3e06c8a6e48bde22f5174504c0786982"
+  },
+  {
+    "source": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/llvm-cov-target/devforgeai.profdata",
+    "retained": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/profiles/devforgeai.profdata",
+    "bytes": 101400,
+    "sha256": "fc231279bf4c667424c01adc825961ca6052dee2357942d6522194dfc7cb0df4"
+  }
+]

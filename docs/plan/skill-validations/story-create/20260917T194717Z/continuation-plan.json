@@ -1,0 +1,300 @@
+{
+  "schema_version": "story-validation-continuation-v1",
+  "run_id": "20260917T194717Z",
+  "prior_report": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\validation-report.md",
+    "sha256": "b7880da66cf1d07247744f9f0f15c155c495aac35718a8baa49f189b928bfcef"
+  },
+  "target_digest": "e86c984d1ff0b7b0f0ca4c6dfa500279804ed9bfc5ad628efee7486df2bbf010",
+  "authorization": "User: continue with validation until its complete. Fresh disposable native attempts and remaining failure scenarios; no target/operational repair or installation.",
+  "timeout_selection": {
+    "old_native_seconds": 600,
+    "new_native_seconds": 1800,
+    "utility_seconds": 120,
+    "rationale": "Six retained attempts reached the default while still drafting/verifying. Select a bounded 30-minute window before fresh execution, rather than alter any started attempt. This is not a product performance criterion.",
+    "limits": "One declared fresh replay for each unfinished case; further attempts require a diagnosed localized problem and recorded selection. No silent ceiling change."
+  },
+  "required_remaining_cases": [
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N10",
+    "N12",
+    "N13",
+    "G01",
+    "G02",
+    "G03"
+  ],
+  "prior_pass_cases": [
+    "N01",
+    "N06",
+    "N07",
+    "N08",
+    "N09",
+    "N11",
+    "N14",
+    "N15"
+  ],
+  "prior_receipts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N02\\attempt-001\\result.json",
+      "sha256": "02984a666d2997ad47cc4ab26a371dd42ffa4dcdebd88b7446e4d9fa5f94194a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N03\\attempt-001\\result.json",
+      "sha256": "05f81b9c3eb5e0e806eb36f9b311974a2a2ec1c6c3e7ec680f54f3ba23acc1d9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N04\\attempt-001\\result.json",
+      "sha256": "4d110ef551b0f9eebdd62eca33ba5d1cda013bf8312eeae11e9b460259cea913"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N05\\attempt-001\\result.json",
+      "sha256": "6f066836489daece89afa104e4368152f1bffba23db118fca1ab351b466b3457"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N10\\attempt-001\\result.json",
+      "sha256": "0f842130b70de5e6069d1def38fdf745cd23559f7675f6ffdd40fc14463695dd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N12\\attempt-001\\result.json",
+      "sha256": "feacdcd0100d0f0998b863a0b0a7db25a1a039504ca0862f1ce715e6526499cd"
+    }
+  ],
+  "selected_rule_set": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\rule-set.json",
+    "sha256": "656fa58267c585cf789f0b373ecd915a4c635d13f159578839fda9e95a7f7b0b"
+  },
+  "operational_inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\enforcement-register-template.md",
+      "sha256": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\openai-yaml-guidance.md",
+      "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\origin-spec-template.md",
+      "sha256": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\revision-spec-template.md",
+      "sha256": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\rules-snapshot.json",
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\standards-catalog.json",
+      "sha256": "dd792bf522c6ac9f11e4be08e56d9202313aa69faa200071d700c6a34103bc79"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\validation-report-template.md",
+      "sha256": "c3283cc40b9853d93b70a3d80d0de81e6b5fdfc7e9151d2886361913464696f6"
+    },
+    {
+      "path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\adaptive-shared-contracts.md",
+      "sha256": "f585783c1aae41e691f9dfbb7a10969541b586a9b96b47ad85ced6571cb9a9b4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\adaptive-validation.md",
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\assessment-ownership.md",
+      "sha256": "5dd283d36cf823ce1345a7625778d5049a8f81c54348a4007a96eb6605f8cc88"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\authoring-intake.md",
+      "sha256": "7431f5e1f657cff14cadc6473fa4cfe42f5bc2a7e8192a47f56538c4fd5175e5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\evaluation.md",
+      "sha256": "16f74b8024741ba7a0fe4138503e26de7d412f0e1e7dfe632ac15a8e153105f6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\evaluator-contracts.md",
+      "sha256": "ac2043678eaaa2addb2ccd4ba2e086fcae99603ae9c3bbafbe9d1e946b17affa"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\handoff.md",
+      "sha256": "35913a5afe874f15e64e3c9a5c1c0e8641fadf9ec3626094ea85cf5e39f116ed"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\origin.md",
+      "sha256": "8300afc32f038b17a79ed2ea6d8f92ac50cdb68536f4044f2feed3cd7b87a649"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\reliable-evaluation.md",
+      "sha256": "2eef1a494978d51a54ef8abef4fbf640cb08300e954406361105712a0f65b915"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\reporting.md",
+      "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\rules.md",
+      "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\set-trials.md",
+      "sha256": "564cb9b62dd5b804d6854027258b2e347e85f776f941208777f2d49810636b11"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\text-resource-checks.md",
+      "sha256": "0fa807104b4146921fc7506fd2e4b863e1766b0c431c691884fa67fd1b641495"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\trials.md",
+      "sha256": "ea0c212748e01feb95d91f95c64e97b976228435394763c57e6462184d1e67ad"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptation-proposal-v1.schema.json",
+      "sha256": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptation-selection-v1.schema.json",
+      "sha256": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptive-check-observation-v1.schema.json",
+      "sha256": "e58827d155c1687fad6ebe92b407ba3c40c49668f74fa42e3107ead01d2f171f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptive-common.schema.json",
+      "sha256": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptive-observation-v1.schema.json",
+      "sha256": "ae335505541800dfd5819a5093829b1bc10fb604c528c7d054725656c1c6ce8c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptive-observations-v1.schema.json",
+      "sha256": "2fd2b05f41e0707a0ce4c0d07ebeb6c4848c7a42bc9bdba787a9aba2b52cc50c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\adaptive-skill-v1.schema.json",
+      "sha256": "9269b2f9ac2812bc2a826b83726a5ff249086fd7c23521c1fdb5b115b36afae7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\authoring-baseline.schema.json",
+      "sha256": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\authoring-contract.schema.json",
+      "sha256": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\authoring-record.schema.json",
+      "sha256": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\binding-observation-v1.schema.json",
+      "sha256": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\project-binding-v1.schema.json",
+      "sha256": "fb0d98d650d443ee1d613d27e632696a4422d101ce6dd37b1eca6e9189fd3399"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\project-evidence-v1.schema.json",
+      "sha256": "e8d9cbc8a6e76ba9cce5d8422dbc599673e3e489a6c25d750c1820409fc957e9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\set-assessment-v1.schema.json",
+      "sha256": "2c6d4bb5eb87e0fccf24e6e666ba52b700e8ad5fd8bd974a4228b203201de2c7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\set-authoring-v1.schema.json",
+      "sha256": "d5b9840fe7daf8ab810315d28c9c3539b3e644eb4293e0a8699364ae77981ae8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\set-validation-request-v1.schema.json",
+      "sha256": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\standalone-set-input-v1.schema.json",
+      "sha256": "bd32ea5e9b0813a7193832ed9b7aaf1d10892560477777feb7abfd12b41d54c5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\trial-plan-v1.schema.json",
+      "sha256": "89a68dc9ff09a3e987d9c52d610c79e76c389bbb9f6b56635c04aaf82ca25400"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\schemas\\validation-request.schema.json",
+      "sha256": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_contracts.py",
+      "sha256": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "sha256": "7bf5a96424cd9fb742e3c0aac9100180d72a7dcdcc22e79de634b1bc748674d2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+      "sha256": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "sha256": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\custody.py",
+      "sha256": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\graders.py",
+      "sha256": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+      "sha256": "31cba489215197836fbb59bf098feaca8c0f9745e4edeecd18dc4fbbceed42ff"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\run_evaluation.py",
+      "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "sha256": "51bb2510feadd423c418adf9bbf1d312d69b2bc53a8a38c39336806b16ced7fb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\standards_observe.py",
+      "sha256": "c2dc1ef87986c40b90fdcff313d5cefb6d2edb4e42895ce23a4d050d9faebef7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\text_resources.py",
+      "sha256": "37113a0f62a8da5e81cee16748831ddb114eb1b69af8dd5347f8cec1eea1a638"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "sha256": "4f5056d33cd24a115847acecb777f54cd92f4381e80441b128ac2973d94a9050"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "sha256": "8d660067aa656f8bb4b56c94c7e9beea3f97ff3b9111625d9b3d4d0e057776dd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\windows_trial.py",
+      "sha256": "54e337ecf52b7025467640d546be319a860a6498d318562352fae18b4547876c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\SKILL.md",
+      "sha256": "8e6676cd90d43d03b1b5ebcd8164e08b7057ea563d2ce33723c318a36094bcde"
+    }
+  ],
+  "native_concurrency": 2,
+  "source_files_unchanged": 16,
+  "original_input_files_unchanged": 109,
+  "status": "PREPARED",
+  "interpretation": "Count each logical required case once in current assessment; preserve earlier attempt outcomes and distinguish continuation evidence from historical campaign results."
+}

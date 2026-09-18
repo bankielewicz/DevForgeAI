@@ -1,0 +1,31 @@
+{
+  "root": "regression-release\\commands\\v2-binding-absent",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 2157,
+      "sha256": "428b5bc24b14fd3557075218b79c9789eea2648d8e2b42593537183d1a4b3a0f"
+    },
+    {
+      "path": "effects.json",
+      "bytes": 1333,
+      "sha256": "c4f954ca11616a150acd2cb8a7ae2630248a7ced964f92ca2e38bf009505489a"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "26268c55dcf19ec8d090bc64b5f7246a7c9c44b8ab947b604c7af58681bff67d"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 165,
+      "sha256": "e447dec4950a0127253534bd1aa4c71eef9e42abf062c00700e0ce8d38aee3cb"
+    }
+  ]
+}

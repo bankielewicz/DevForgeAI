@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "intent": "retest",
+  "verdict": "PASS",
+  "finding": "QA-F-COV-01",
+  "finding_state": "VERIFIED_FIXED",
+  "candidate_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T003840Z-dev\\candidate-manifest.json",
+  "candidate_manifest_sha256": "c27d8ce1742ba7cd0955f0bd18aded8de5f14c898c989654d7298835c3256f9e",
+  "documents": [
+    {"path":"qa-plan.md","sha256":"101a0c2292609ea740ef058ae0c27a56692e86d1cf8d40ecd5492d8b180c4d83"},
+    {"path":"qa-report.md","sha256":"e736bdfb892b17aa446137ba0a513ae30bd6d32c80bd068fb3d60da3524f23cf"},
+    {"path":"checkpoint.json","sha256":"9e712dc458e12adaa41eea198026569366f0026cede41111f9346ca785e62be5"},
+    {"path":"case-matrix.json","sha256":"5375b72c117fd46ac4fde1759f5600b8cb8444813c3e6e27c82decea552d4a60"},
+    {"path":"case-matrix-readiness.json","sha256":"85f200dc307320f7f0e24cea9e22018562d3c056dd25a1454901d1f60e335168"},
+    {"path":"case-results.json","sha256":"febba328842200f9d18d49d3ecf65a49d6a3dc1d97c2893eddfaa264f9c89c96"},
+    {"path":"source-denominator.json","sha256":"98004c1649f51899f2a083a543785bbb28c4185e64ded91af6e609beec5dd8e2"},
+    {"path":"test-denominator.json","sha256":"3c342710009b47691631d0995dad4542d3b09d4b574280f91b7c76a534773220"},
+    {"path":"test-integrity.md","sha256":"197bf29d0d714d958f7371ce8f3ae56b0e17b7e9aff785b8414ae24996d3ad64"},
+    {"path":"failed-attempts.md","sha256":"9353c494d05ca2aae2b72914afae575c05da33a44745e53d043e275a0f2affa2"},
+    {"path":"external-fixtures-after.json","sha256":"dc8163b12317dca24f869b4c6cddf075b77ebf40fc26b5bcaf3a82cce2292fcd"}
+  ],
+  "qa_fix": null,
+  "qa_fix_reason": "No new or unresolved product defect was found in the selected passing retest.",
+  "native_trials_attempted": 0,
+  "framework_acceptance": "NOT_EVALUATED"
+}

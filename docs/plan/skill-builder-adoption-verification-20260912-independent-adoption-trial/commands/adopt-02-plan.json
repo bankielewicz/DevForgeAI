@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-09-12T15:23:56.388224+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\build_evidence.py",
+    "adoption-plan",
+    "--snapshot-root",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-kto8d8pr\\docs\\plan\\skill-adoptions\\receipt-totals\\adopt-02\\snapshot",
+    "--request",
+    "adoption/evidence/adoption-request.json"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"authorization\": {\"instruction\": \"Adopt the existing development package at C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-kto8d8pr\\\\src\\\\agents\\\\skills\\\\receipt-totals. Preserve every existing byte and unknown history. The complete approved managed list is SKILL.md and scripts/receipt_totals.py. Keep notes.txt user-owned. Use the reviewed origin specification at C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-kto8d8pr\\\\docs\\\\design\\\\specs\\\\receipt-totals.md. This instruction authorizes custody recording and external pointer publication/readback only; it does not authorize repair or installation.\", \"managed_manifest_sha256\": \"04376e757fc79aa201a4d2ecfc1edf52876203916b9f74ef1f9db5089e3b5010\", \"origin_spec_sha256\": \"98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618\", \"target_root\": \"C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-kto8d8pr\\\\src\\\\agents\\\\skills\\\\receipt-totals\"}, \"captured_at_utc\": \"2026-09-12T15:23:56.034737+00:00\", \"historical_origin\": \"unknown\", \"known_defects\": [\"Observed floating point numeric output 0.30000000000000004 for the 0.1 plus 0.2 receipt, contrary to reviewed string output contract.\"], \"managed_manifest\": {\"path\": \"adoption/evidence/managed-manifest.json\", \"sha256\": \"04376e757fc79aa201a4d2ecfc1edf52876203916b9f74ef1f9db5089e3b5010\"}, \"managed_paths\": [\"SKILL.md\", \"scripts/receipt_totals.py\"], \"origin_spec\": {\"path\": \"adoption/evidence/origin-spec.md\", \"sha256\": \"98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618\"}, \"origin_spec_input\": {\"bytes\": 1183, \"resolved_path\": \"C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-kto8d8pr\\\\docs\\\\design\\\\specs\\\\receipt-totals.md\", \"sha256\": \"98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618\"}, \"prior_evidence\": [], \"project_root\": \"C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-kto8d8pr\", \"quality_evidence\": [{\"path\": \"adoption/evidence/quality-observation.json\", \"sha256\": \"5ba671834ae2c49f1eeb725877d6c7925f09cde7b8a5271880c663da0ef7c04f\"}], \"record_kind\": \"adoption\", \"recording_state\": \"ADOPTED\", \"retained_user_paths\": [\"notes.txt\"], \"run_id\": \"adopt-02\", \"schema_version\": \"1\", \"snapshot_manifest\": {\"path\": \"adoption/evidence/complete-manifest.json\", \"sha256\": \"c0298e31cc214b2345ca5b6e07ec0927782d551e9d85f3d28092d8b5df32aea1\"}, \"snapshot_root\": \"adoption/evidence/captured\", \"source_readback\": {\"path\": \"adoption/evidence/source-readback.json\", \"sha256\": \"d5a3ed95761a6444eb5086a2d21e816a5e515404cd72020998335f494d0f5471\"}, \"target_name\": \"receipt-totals\", \"target_root\": \"C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-kto8d8pr\\\\src\\\\agents\\\\skills\\\\receipt-totals\"}\n",
+  "stderr": ""
+}

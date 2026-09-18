@@ -1,0 +1,1342 @@
+[
+  {
+    "path": "AGENTS.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-mvp-next-session.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-coding-handoff.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/review.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/sources.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/verify_documents.py",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/core-workflows.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/expert-health-and-realignment.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/foundation.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/index.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/installation-and-integrations.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/knowledge-and-continuity.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/mvp/acceptance.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/mvp/scope.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/project-context-and-policy.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/quality-and-delivery.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/roadmap-and-decisions.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/architecture.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/expected.json",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/output-schema.json",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/prompt.txt",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/task.json",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/skills-and-project-expertise.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/subagents-and-context.md",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/work-items-and-dependencies.md",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ApplyPatchApprovalParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ApplyPatchApprovalResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/AttestationGenerateParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/AttestationGenerateResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ChatgptAuthTokensRefreshParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ChatgptAuthTokensRefreshResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ClientNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ClientRequest.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/codex_app_server_protocol.schemas.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/codex_app_server_protocol.v2.schemas.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/CommandExecutionRequestApprovalParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/CommandExecutionRequestApprovalResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/DynamicToolCallParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/DynamicToolCallResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ExecCommandApprovalParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ExecCommandApprovalResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/FileChangeRequestApprovalParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/FileChangeRequestApprovalResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/FuzzyFileSearchParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/FuzzyFileSearchResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/FuzzyFileSearchSessionCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/FuzzyFileSearchSessionUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/JSONRPCError.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/JSONRPCErrorError.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/JSONRPCMessage.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/JSONRPCNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/JSONRPCRequest.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/JSONRPCResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/McpServerElicitationRequestParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/McpServerElicitationRequestResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/PermissionsRequestApprovalParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/PermissionsRequestApprovalResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/RequestId.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ServerNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ServerRequest.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ToolRequestUserInputParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/ToolRequestUserInputResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v1/InitializeParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v1/InitializeResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AccountLoginCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AccountRateLimitsUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AccountUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AgentMessageDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppListUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppsInstalledParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppsInstalledResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppsListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppsListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppsReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AppsReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/AuthRecoveryNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CancelLoginAccountParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CancelLoginAccountResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecOutputDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecResizeParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecResizeResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecTerminateParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecTerminateResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecutionOutputDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecWriteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/CommandExecWriteResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigBatchWriteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigRequirementsReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigValueWriteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigWarningNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConfigWriteResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConsumeAccountRateLimitResetCreditParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ConsumeAccountRateLimitResetCreditResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ContextCompactedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/DeprecationNoticeNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/EnvironmentConnectionNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ErrorNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExperimentalFeatureEnablementSetParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExperimentalFeatureEnablementSetResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExperimentalFeatureListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExperimentalFeatureListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigDetectParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigDetectResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportHistoriesReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportHistoryRecordParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportHistoryRecordResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportProgressNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ExternalAgentConfigImportResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FeedbackUploadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FeedbackUploadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FileChangeOutputDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FileChangePatchUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsChangedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsCopyParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsCopyResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsCreateDirectoryParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsCreateDirectoryResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsGetMetadataParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsGetMetadataResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsReadDirectoryParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsReadDirectoryResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsReadFileParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsReadFileResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsRemoveParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsRemoveResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsUnwatchParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsUnwatchResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsWatchParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsWatchResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsWriteFileParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/FsWriteFileResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/GetAccountParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/GetAccountRateLimitsResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/GetAccountResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/GetAccountTokenUsageResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/GetWorkspaceMessagesResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/GuardianWarningNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/HookCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/HooksListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/HooksListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/HookStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ItemCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ItemGuardianApprovalReviewCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ItemGuardianApprovalReviewStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ItemStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ListMcpServerStatusParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ListMcpServerStatusResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/LoginAccountParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/LoginAccountResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/LogoutAccountResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/MarketplaceAddParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/MarketplaceAddResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/MarketplaceRemoveParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/MarketplaceRemoveResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/MarketplaceUpgradeParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/MarketplaceUpgradeResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpResourceReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpResourceReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerEventStreamNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerOauthLoginCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerOauthLoginParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerOauthLoginResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerRefreshResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerStatusUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerToolCallParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpServerToolCallResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/McpToolCallProgressNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelProviderCapabilitiesReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelProviderCapabilitiesReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelReroutedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelSafetyBufferingUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ModelVerificationNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/NullableGetAccountRateLimitsParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/NullableGetAccountTokenUsageParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PermissionProfileListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PermissionProfileListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PlanDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginInstalledParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginInstalledResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginInstallParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginInstallResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginReconcileParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginReconcileResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareCheckoutParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareCheckoutResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareDeleteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareDeleteResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareSaveParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareSaveResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareUpdateTargetsParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginShareUpdateTargetsResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginSkillReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginSkillReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginUninstallParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/PluginUninstallResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ProcessExitedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ProcessOutputDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ProjectChangedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/RawResponseCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/RawResponseItemCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ReasoningSummaryPartAddedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ReasoningSummaryTextDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ReasoningTextDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/RemoteControlStatusChangedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ReviewStartParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ReviewStartResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SendAddCreditsNudgeEmailParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SendAddCreditsNudgeEmailResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ServerRequestResolvedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsChangedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsConfigWriteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsConfigWriteResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsExtraRootsSetParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsExtraRootsSetResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/SkillsListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/StrictReviewRequiredNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TerminalInteractionNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadApproveGuardianDeniedActionParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadApproveGuardianDeniedActionResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadArchivedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadArchiveParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadArchiveResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadClosedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadCompactStartParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadCompactStartResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadDeletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadDeleteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadDeleteResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadForkParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadForkResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalClearedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalClearParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalClearResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalGetParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalGetResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalSetParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalSetResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadGoalUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadInjectItemsParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadInjectItemsResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadItemsListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadItemsListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadLoadedListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadLoadedListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadMetadataUpdateParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadMetadataUpdateResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadNameUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadProjectUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadQueueChangedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadReadParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadReadResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeClosedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeErrorNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeItemAddedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeItemCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeItemStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeItemTranscriptDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeOutputAudioDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeSdpNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeTranscriptDeltaNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRealtimeTranscriptDoneNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadResumeParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadResumeResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRevertedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRevertParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRevertResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRollbackParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadRollbackResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionCreateParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionCreateResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionDeleteParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionDeleteResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionMoveParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionMoveResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionUpdateParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSectionUpdateResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSetNameParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSetNameResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadSettingsUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadShellCommandParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadShellCommandResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadStartParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadStartResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadStatusChangedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadTokenUsageUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadTurnsListParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadTurnsListResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadUnarchivedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadUnarchiveParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadUnarchiveResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadUnsubscribeParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/ThreadUnsubscribeResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnDiffUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnInterruptParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnInterruptResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnModerationMetadataNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnPlanUpdatedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnStartedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnStartParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnStartResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnSteerParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/TurnSteerResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/WarningNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/WindowsSandboxReadinessResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/WindowsSandboxSetupCompletedNotification.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/WindowsSandboxSetupStartParams.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/WindowsSandboxSetupStartResponse.json",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/codex-schema/v2/WindowsWorldWritableWarningNotification.json",
+    "matches": true
+  }
+]

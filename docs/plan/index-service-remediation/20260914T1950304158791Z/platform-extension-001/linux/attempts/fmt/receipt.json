@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "cargo",
+    "fmt",
+    "--all",
+    "--",
+    "--check"
+  ],
+  "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai",
+  "started_at": "2026-09-14T21:43:10.473784+00:00",
+  "source_sha256": "9932df60539e351ea07c814437d371088d696334feadded295fb877e0bee53dd",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "/tmp/dfr-9e24514cc8b6",
+    "LLVM_COV": "/usr/bin/llvm-cov-21",
+    "LLVM_PROFDATA": "/usr/bin/llvm-profdata-21"
+  },
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "elapsed_seconds": 0.16859492799994769,
+  "ended_at": "2026-09-14T21:43:10.642378+00:00",
+  "stdout.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

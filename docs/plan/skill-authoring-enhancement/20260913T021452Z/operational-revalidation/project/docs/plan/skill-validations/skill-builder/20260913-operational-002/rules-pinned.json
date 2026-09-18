@@ -1,0 +1,8 @@
+{
+  "rule_set": {
+    "path": "rule-set.json",
+    "sha256": "6825621301c475399720364df31fb04a0518eff3aaea0906c4952e186ececf4f"
+  },
+  "pinned_at_utc": "2026-09-13T02:47:36.178998+00:00",
+  "note": "Before behavioral attempts; structural observation already collected as raw helper evidence."
+}

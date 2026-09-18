@@ -1,0 +1,7 @@
+The environment blocked reading `meeting-actions/SKILL.md` with “blocked by policy.” Filesystem access is also read-only, so I couldn’t complete the requested writes.
+
+- **CASE F1:** Not completed; `résumé actions 東京.md` was not written.
+- **CASE F2:** Not completed; no directories or contents were removed or replaced.
+- **CASE F3:** Not completed; `notes original.md` was not modified.
+
+No files were changed or external services used.

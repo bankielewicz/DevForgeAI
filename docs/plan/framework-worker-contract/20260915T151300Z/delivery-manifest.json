@@ -1,0 +1,152 @@
+[
+  {
+    "path": "AGENTS.md",
+    "bytes": 13954,
+    "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+  },
+  {
+    "path": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "bytes": 23892,
+    "sha256": "518eea9968c1cb6c6917e14a776f3b48b2f3673f19e98e4cee5ea3a6c9cda5ff"
+  },
+  {
+    "path": "docs/plan/framework-mvp-next-session.md",
+    "bytes": 7515,
+    "sha256": "7d6512b7ad1448b7d7fcc2dcb43d42da8a4415a2450949bdf5e08e83e6f52226"
+  },
+  {
+    "path": "docs/plan/framework-worker-coding-handoff.md",
+    "bytes": 4126,
+    "sha256": "d021967f59db06f108cc0c78a139ea2c380ef8cbb6d0773bc9e9631b841cd173"
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/review.md",
+    "bytes": 2014,
+    "sha256": "1ddd58f494bc07056a3cba29e17bc3e730ed908e5ce11371a2b504a799661fd7"
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/sources.md",
+    "bytes": 4125,
+    "sha256": "d1b04a0ca8e4979dddc4e404f0bd533d1cae6a1912563b72877f9f24dec5a088"
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "bytes": 1942,
+    "sha256": "e38fdbbd34a7476d1f0fd86b6da4be5155d4d7a7d901fedc0dd64028b565ef63"
+  },
+  {
+    "path": "docs/plan/framework-worker-contract/20260915T151300Z/verify_documents.py",
+    "bytes": 9857,
+    "sha256": "afe33f89eace1943c2d6fa0657fe2e112ac5ff4950977955d6c9022b9086afe5"
+  },
+  {
+    "path": "docs/specs/framework/core-workflows.md",
+    "bytes": 7798,
+    "sha256": "0d778cc5767a163590e9dfbab26de22c5e8a0cf7d1f7f13b3e46f79736c25e6c"
+  },
+  {
+    "path": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "bytes": 10561,
+    "sha256": "a9e0523ea279533673b2a7ce76a5530551dd3c9fe5fd1f9361f906e2ade7006f"
+  },
+  {
+    "path": "docs/specs/framework/expert-health-and-realignment.md",
+    "bytes": 8047,
+    "sha256": "a619003e7dd3fadee97b83c4398f4caaf4539d3ab81747ff655ed6b594e12f62"
+  },
+  {
+    "path": "docs/specs/framework/foundation.md",
+    "bytes": 9864,
+    "sha256": "9397cbf7746504669f1dc8404998003991e0e5a0a371c05d3cf031639685ea84"
+  },
+  {
+    "path": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "bytes": 7193,
+    "sha256": "3df344a0a0b682d3e738e3a029415555bb058f91730365e07b1fec4cff236685"
+  },
+  {
+    "path": "docs/specs/framework/index.md",
+    "bytes": 7787,
+    "sha256": "8811fcd162e86412a38a1374dca0378703e55dd948a20a48ed021c9769b48a19"
+  },
+  {
+    "path": "docs/specs/framework/installation-and-integrations.md",
+    "bytes": 6266,
+    "sha256": "e18279519365d3a39eba810ffd15ad868ddf720a5f19fa7f3c71bdec4ec7d458"
+  },
+  {
+    "path": "docs/specs/framework/knowledge-and-continuity.md",
+    "bytes": 5923,
+    "sha256": "557b007099481746691921328d7644e0bac437ca9385a91f3c869f562170d4da"
+  },
+  {
+    "path": "docs/specs/framework/mvp/acceptance.md",
+    "bytes": 8580,
+    "sha256": "19079baa769888c97e2da769ec1211122b06918875381cffab377c41176ba090"
+  },
+  {
+    "path": "docs/specs/framework/mvp/scope.md",
+    "bytes": 9859,
+    "sha256": "2be85f0cb83fe2b5ab76529f9335a641bbaa25fb4cec015895cf4b4966b31398"
+  },
+  {
+    "path": "docs/specs/framework/project-context-and-policy.md",
+    "bytes": 6742,
+    "sha256": "5672d3d318362e181591db7d2511f8cfd53e7f82b09376dba2dece9b015571c1"
+  },
+  {
+    "path": "docs/specs/framework/quality-and-delivery.md",
+    "bytes": 8115,
+    "sha256": "e7a73c2a0202d38c6bb4c4941cbafe60ee6cf45cc69ee1860b3bed09b2cb2547"
+  },
+  {
+    "path": "docs/specs/framework/roadmap-and-decisions.md",
+    "bytes": 16754,
+    "sha256": "8161d8e066e240f29f5d8f04184ba09f05ef1ac3ba2bf5795c8cc7991f8aa413"
+  },
+  {
+    "path": "docs/specs/framework/runtime/architecture.md",
+    "bytes": 9918,
+    "sha256": "f6751c356f7e161ef7d40773c4d2129be07055cdd055cecfafd20fb84657d7fc"
+  },
+  {
+    "path": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "bytes": 37561,
+    "sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23"
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/expected.json",
+    "bytes": 219,
+    "sha256": "6924dfd5d1b90d04fbdd6abf4ba67cd9ffce038e4440b57148882607fb3158ae"
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/output-schema.json",
+    "bytes": 334,
+    "sha256": "33bf230e62397fca3ccbdf40f94c0bfa075335035a4e274ae1f05a72a6692d0d"
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/prompt.txt",
+    "bytes": 753,
+    "sha256": "1afe6b853e1133062b095e3539b9efac66e5d6c8328c5a2fa4ca5c8c1769991d"
+  },
+  {
+    "path": "docs/specs/framework/runtime/fixtures/codex-worker-v1/task.json",
+    "bytes": 307,
+    "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  },
+  {
+    "path": "docs/specs/framework/skills-and-project-expertise.md",
+    "bytes": 7883,
+    "sha256": "5868afad84112b61c2de542f448ba74022bf9ed18d4eecc41be0fa4aa1d1d1bd"
+  },
+  {
+    "path": "docs/specs/framework/subagents-and-context.md",
+    "bytes": 11122,
+    "sha256": "3555dcf52b4e54201c9be119ff6461ac9f6ae81e1e723ff2edd02868a7c3627b"
+  },
+  {
+    "path": "docs/specs/framework/work-items-and-dependencies.md",
+    "bytes": 7997,
+    "sha256": "6440a9cbeb78445e5c0cce524c2818475de99aa15a8712f93eac7a4c73cea767"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+  "evaluations": 7,
+  "observations": 15,
+  "pass_observations": 11,
+  "expected_fail_observations": 4,
+  "all_expectations_matched": true,
+  "measured_candidate_hashes_reverified": 342,
+  "case_hashes_reverified": true
+}

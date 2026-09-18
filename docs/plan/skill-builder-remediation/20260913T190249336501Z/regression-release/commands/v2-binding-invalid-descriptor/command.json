@@ -1,0 +1,47 @@
+{
+  "case": "v2-binding-invalid-descriptor",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-invalid-descriptor\\project\\.agents\\skills\\summary-skill\\scripts\\check_project_binding.py",
+    "--project-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-invalid-descriptor\\project",
+    "--skill-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-invalid-descriptor\\project\\.agents\\skills\\summary-skill"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release",
+  "expected": {
+    "exit": 1,
+    "field": "reason_code",
+    "value": "INVALID_BINDING",
+    "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-invalid-descriptor\\project\\.agents\\skills\\summary-skill",
+    "before_manifest": [
+      {
+        "path": "SKILL.md",
+        "bytes": 330,
+        "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+      },
+      {
+        "path": "assets/devforgeai-skill.json",
+        "bytes": 3,
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      },
+      {
+        "path": "references/adaptive-contract.md",
+        "bytes": 297,
+        "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+      },
+      {
+        "path": "scripts/check_project_binding.py",
+        "bytes": 12433,
+        "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+      }
+    ]
+  },
+  "start_utc": "2026-09-13T19:47:20.867845+00:00",
+  "stdin_sha256": null
+}

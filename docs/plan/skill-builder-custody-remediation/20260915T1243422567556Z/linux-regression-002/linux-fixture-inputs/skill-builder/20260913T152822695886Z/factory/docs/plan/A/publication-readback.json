@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/A/authoring-record.json",
+    "sha256": "86caa3e2b716e18fbe9464f2f9ec5320b0b52c254d45faef3a87148e2469cfa5"
+  },
+  "baseline": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/A/authoring-baseline.json",
+    "sha256": "d7e8462c0aadf02c2712cd13ae8a828d6d3f9473cdd7ef44cd03e3c94a4676b6"
+  },
+  "request": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/A/validation-request.json",
+    "sha256": "b2f3cb188434c52d02e3fe4c8a88d9dae4fcda1773413d3ff53b2d75251846b4"
+  },
+  "package_digest": "7e57c3b426f627cdb61098d9a7c5a51f62f80b911253841f85e7bebc9e97eb35"
+}

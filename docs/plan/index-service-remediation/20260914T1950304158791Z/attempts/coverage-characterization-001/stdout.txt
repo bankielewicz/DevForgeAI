@@ -1,0 +1,36 @@
+
+running 3 tests
+test binary_emits_one_json_envelope_for_invalid_input ... ok
+test cli_maps_management_flags_to_the_shared_protocol ... ok
+test help_and_human_output_have_correct_streams_and_exit_codes ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+
+running 3 tests
+test invalid_roots_identity_and_atomic_write_errors_are_explicit ... ok
+test private_environment_identity_and_exclusive_lock_survive_reopen ... ok
+test roots_are_absolute_local_and_nonoverlapping ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+
+running 6 tests
+test bridge_input_validation_and_foreground_daemon_are_terminal_accessible ... ok
+test corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation ... ok
+test detached_daemon_does_not_keep_cli_stdout_pipe_open ... ok
+test management_errors_configuration_and_aliases_preserve_boundaries ... ok
+test simultaneous_starts_and_process_level_index_lifecycle ... ok
+test waiting_for_cancelled_or_failed_jobs_uses_exit_eleven ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.81s
+
+
+running 4 tests
+test status_view_explains_pause_freshness_counts_and_errors ... ok
+test tray_provenance_tracks_each_project_and_handles_unknown_values ... ok
+test tray_startup_defaults_are_opt_in_and_polling_is_bounded ... ok
+test tray_status_distinguishes_acknowledgment_stopping_degraded_and_details ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

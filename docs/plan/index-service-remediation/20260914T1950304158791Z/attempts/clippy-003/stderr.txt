@@ -1,0 +1,2 @@
+    Checking devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.15s

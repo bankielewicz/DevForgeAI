@@ -1,0 +1,62 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T123744Z-spec",
+  "captured_at_utc": "2026-09-12T12:46:23.324270+00:00",
+  "task": "Independent routing classification by the forward specification agent",
+  "prompt": "While final binding is held, perform a separate routing classification task using the loaded builder's actual entrypoint and raw requests at forward-inputs/routing-requests.jsonl under 20260912-build-v2. For each request, emit one observed JSONL row {case_id,route}, selecting from import/spec_build/revision/explanation/specification_authoring/installation/unrelated based on the request. Save routing-observed.jsonl in your disposable project's evidence (outside generated package), include actual prompt/request source and manifest currently observed in a separate receipt. Do not read root expected classifications or tests, and do not execute any of those seven requests. Report this as classification, not native implicit activation. Still complete the original spec build when I send the final digest.",
+  "request_source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\routing-requests.jsonl",
+  "request_source_sha256": "d9fa10e39b726f5a38081b68bf13e985c9977caee700980e7dab4d528da43d91",
+  "request_snapshot": "routing-source-routing-requests.jsonl",
+  "requests": [
+    {
+      "case_id": "route-01",
+      "request": "Convert the local Claude package at demo/.claude/skills/invoice-check into a Codex development skill."
+    },
+    {
+      "case_id": "route-02",
+      "request": "Build the invoice-check Codex skill from the approved Markdown specification at docs/plan/invoice-check.md."
+    },
+    {
+      "case_id": "route-03",
+      "request": "Regenerate the existing generated invoice-check skill from the updated approved spec. I authorize this revision; use its last successful build evidence and preserve unrelated edits."
+    },
+    {
+      "case_id": "route-04",
+      "request": "Explain how the Claude-to-Codex skill import workflow works. Do not create or modify anything."
+    },
+    {
+      "case_id": "route-05",
+      "request": "Write a specification describing the future invoice-check skill. The specification is the only deliverable."
+    },
+    {
+      "case_id": "route-06",
+      "request": "Install the already built invoice-check skill into my Codex skills directory."
+    },
+    {
+      "case_id": "route-07",
+      "request": "Correct the spelling of the introduction in the application's README. No skill changes are requested."
+    }
+  ],
+  "entrypoint": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\SKILL.md",
+  "entrypoint_sha256": "2706a219c5a4ff03478b0ec6b992f98beebce989fc4b47139a1f1e709196ae24",
+  "entrypoint_snapshot": "routing-source-SKILL.md",
+  "manifest_currently_observed_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\evals\\build-manifest.json",
+  "manifest_currently_observed_sha256": "67a8cb9116fd0d07853212ba69ec3908b5cd838a29720c251dca65921a94ff4c",
+  "manifest_status": "Digest observation only during parent binding hold; no final package-binding evaluator result claimed",
+  "observed_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\routing-observed.jsonl",
+  "observed_sha256": "21da566e60e742bc3117c8064d0f359f43fb34723d52f4c6c5d2f1342760ae9f",
+  "classification_method": "Agent read actual entrypoint and raw requests, then selected route by requested operation; mapping persisted without executing requests.",
+  "requests_executed": false,
+  "expected_classifications_read": false,
+  "tests_read": false,
+  "native_implicit_activation": "NOT_PERFORMED",
+  "rationales": {
+    "route-01": "Selected local Claude package conversion requests import.",
+    "route-02": "Selected approved Markdown requests specification build.",
+    "route-03": "Authorized existing generated output update requests revision with prior evidence.",
+    "route-04": "Explanation alone explicitly forbids mutation.",
+    "route-05": "The specification is the only requested deliverable.",
+    "route-06": "Already-built package installation is separate from development authoring.",
+    "route-07": "Application README spelling edit requests no skill changes."
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T155029Z",
+  "cases": [
+    {
+      "case_id": "V01",
+      "method": "root-supervised instruction-only fixture",
+      "observation": "Existing origin reused; real mandatory structure passes; no folders or fixes invented.",
+      "evidence": [
+        {
+          "path": "boundary-trials/attempt-001/V01-semantic-observation.json",
+          "sha256": "1b4ed60022d3c480aedd84662e6ca161e275d029e76335b25708c83984808130"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "root-supervised instruction-only fixture"
+    },
+    {
+      "case_id": "V02",
+      "method": "independent cold validator task",
+      "observation": "Exact observed origin retains defects and unknown history; no baseline manufactured.",
+      "evidence": [
+        {
+          "path": "task-trials/defect-001/results/origin-record.json",
+          "sha256": "d01412d413b1188404c955f1dcc2bc2f4852a8f6638e5e51e0348943c2b31c25"
+        },
+        {
+          "path": "task-trials/defect-001/results/origin-spec.md",
+          "sha256": "a56af217caa76a53c44f48005f71d5eba6568d5dfddb3e3ecf573f844a89f0e8"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V03",
+      "method": "independent cold validator task",
+      "observation": "Two competing specs retained; checks continue; assessment INCOMPLETE and execution BLOCKED as expected.",
+      "evidence": [
+        {
+          "path": "task-trials/ambiguity-001/results-001/validation-report.md",
+          "sha256": "0b5d3ed56467b58e2020e472ac69eff8341fb540dcae2ec77d817005523cc1bf"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V04",
+      "method": "independent deterministic CLI regressions",
+      "observation": "Invalid YAML/required metadata/missing links and anchors produce observed rejection.",
+      "evidence": [
+        {
+          "path": "helper-tests/report.md",
+          "sha256": "7887104c117183d9b16739fec7f89ac6f3966eb4750065c67b31d1f93e9b1b38"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent deterministic CLI regressions"
+    },
+    {
+      "case_id": "V05",
+      "method": "independent cold validator task",
+      "observation": "Bypassed Prepare, missing approved_order producer and false success are cited.",
+      "evidence": [
+        {
+          "path": "task-trials/defect-001/results/findings.json",
+          "sha256": "93aa4763958aa7385fe0c23acd59f29531b8d18e783a614703fc72df027368ed"
+        },
+        {
+          "path": "task-trials/defect-001/results/workflow-map.json",
+          "sha256": "f260f8f606d48d0477a0667bcd8e9765056a7e4ef391851f2d0252387ae773b1"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V06",
+      "method": "independent cold validator task",
+      "observation": "Schema contradiction retained as unresolved D1, not silently chosen.",
+      "evidence": [
+        {
+          "path": "task-trials/defect-001/results/revision-spec.md",
+          "sha256": "e1bdb79e6987570a0f2edd617d289c5149ecc2c2f799b13fb635de8d999bf3a0"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V07",
+      "method": "independent cold validator task",
+      "observation": "Useful integer MUST and service boundary preserved; self-scoring/control claim distinguished.",
+      "evidence": [
+        {
+          "path": "task-trials/defect-001/results/ceremonial-review.json",
+          "sha256": "3b7022fc681c011a7c99294a7ccdc58a8f5daa1b4521739ece2e0d5cc426c1bd"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V08",
+      "method": "root-supervised capability/fallback branch",
+      "observation": "Actual missing-executable lookup yields NOT_RUN; dated fallback retained; independent structure continues.",
+      "evidence": [
+        {
+          "path": "boundary-trials/attempt-001/V08-observation.json",
+          "sha256": "b3ffda1e66b172e4d0e55a67f64ebfd4428b7cc0d4a6ca5910abbaab0c5f2d95"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "root-supervised capability/fallback branch"
+    },
+    {
+      "case_id": "V09",
+      "method": "independent cold validator tasks and helper regressions",
+      "observation": "Actual success/malformed/partial-output trials preserved; valid-target arithmetic defect is observed, not concealed.",
+      "evidence": [
+        {
+          "path": "task-trials/valid-001/results/validation-report.md",
+          "sha256": "db8bb149577dd4925cbf1fc710cf2a196ca8a560420fba233b34ba7348adb94a"
+        },
+        {
+          "path": "task-trials/defect-001/results/validation-report.md",
+          "sha256": "99b8c9b34f6dd306813c44d93a521efb44feb57fe5c6f1f64285d7c8f2a00d67"
+        },
+        {
+          "path": "helper-tests/report.md",
+          "sha256": "7887104c117183d9b16739fec7f89ac6f3966eb4750065c67b31d1f93e9b1b38"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator tasks and helper regressions"
+    },
+    {
+      "case_id": "V10",
+      "method": "independent cold validator task",
+      "observation": "Remote capability branch not executed; static unsupported capability and source issues remain visible.",
+      "evidence": [
+        {
+          "path": "task-trials/defect-001/results/validation-report.md",
+          "sha256": "99b8c9b34f6dd306813c44d93a521efb44feb57fe5c6f1f64285d7c8f2a00d67"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V11",
+      "method": "independent missing-source task plus root semantic support case",
+      "observation": "Absent reference and extant non-supporting passage distinguished; no source fabricated.",
+      "evidence": [
+        {
+          "path": "task-trials/defect-001/results/findings.json",
+          "sha256": "93aa4763958aa7385fe0c23acd59f29531b8d18e783a614703fc72df027368ed"
+        },
+        {
+          "path": "boundary-trials/attempt-001/V11-observation.json",
+          "sha256": "f238d4960ce39b2db793bea773f28011bf84fd3a49818554d42b5fd95ff1aae5"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent missing-source task plus root semantic support case"
+    },
+    {
+      "case_id": "V12",
+      "method": "actual terminal source-change and timeout injection",
+      "observation": "SOURCE_CHANGED and timed-out partial file retained; new-run requirement explicit.",
+      "evidence": [
+        {
+          "path": "boundary-trials/attempt-001/V12-recovery.json",
+          "sha256": "33c3e884b1571a2432ed7922d687a69683ca13f63f1f22c385152723275c9de5"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "actual terminal source-change and timeout injection"
+    },
+    {
+      "case_id": "V13",
+      "method": "root-supervised full-proposal/historical-baseline case",
+      "observation": "Real prior generated baseline verified by hashes; complete proposal and pending review produce REVIEW_REQUIRED. Record helper does not invent missing check coverage.",
+      "evidence": [
+        {
+          "path": "handoff-trials/attempt-001/V13-observation.json",
+          "sha256": "d8aa5a9e03d40784b568842be92572d761166f13a3404069d2d689438ee31218"
+        },
+        {
+          "path": "handoff-trials/attempt-001/assessment/revision-spec.md",
+          "sha256": "2b771035e1a4ed32047e3c9ef3e86d3677998928ce80e430e76d3724f5ee3fe8"
+        },
+        {
+          "path": "handoff-trials/attempt-001/baseline-verification.json",
+          "sha256": "00462f2d2ddfeb4e5e640996c9033230b2437f31bf8ea8fbeae5bebbf6e36986"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "root-supervised full-proposal/historical-baseline case"
+    },
+    {
+      "case_id": "V14",
+      "method": "independent cold validator task",
+      "observation": "Reviewable complete proposal retained with execution BLOCKED for missing baseline/adoption prerequisites.",
+      "evidence": [
+        {
+          "path": "task-trials/valid-001/results/handoff.json",
+          "sha256": "48f8ae42159f177a276edf8fdd2a7aea91b26e475490d9d1e46a7cdd451cabcd"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent cold validator task"
+    },
+    {
+      "case_id": "V15",
+      "method": "root-supervised actual-byte revalidation fixture",
+      "observation": "Resolved/persistent/new findings mapped from distinct byte sets; previous findings/report unchanged. Incoming result is explicitly synthetic; no new builder execution claimed.",
+      "evidence": [
+        {
+          "path": "handoff-trials/attempt-001/V15-observation.json",
+          "sha256": "d3c90393e5419d9062b8fe851081696e5046862a1c851f1195a7ae1610fb4909"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "root-supervised actual-byte revalidation fixture"
+    },
+    {
+      "case_id": "V16",
+      "method": "validator self-review, not independent verification",
+      "observation": "Same selected checks, disjoint evidence and target readback; stale evidence digest failure retained and corrected in fresh attempt.",
+      "evidence": [
+        {
+          "path": "self-review/20260912T161000Z-retry01/validation-report.md",
+          "sha256": "d66719d6d148c3c7b1c8074f385a60341082532dc671ddfc73d9f37443950344"
+        },
+        {
+          "path": "self-review/final-receipt.json",
+          "sha256": "7c1afab29e833c6cf4ee2c5e6d55c8e6e5355ac101e01189aa0952691fa18f88"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "validator self-review, not independent verification"
+    },
+    {
+      "case_id": "V17",
+      "method": "independent description classification",
+      "observation": "12/12 matches; native implicit invocation NOT_RUN.",
+      "evidence": [
+        {
+          "path": "routing/comparison.json",
+          "sha256": "d27b4e8c23c9d5186f51e58a25ff03bcb7dfb5161597950a54208e9e425ce311"
+        },
+        {
+          "path": "routing/attempt-001/task-receipt.md",
+          "sha256": "a0827be33373cf5339e2c25d14c4bab4a7f56d39aa7bf2c7a0a3174347d8296c"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent description classification"
+    },
+    {
+      "case_id": "V18",
+      "method": "independent deterministic CLI regressions",
+      "observation": "Exclusions, file/byte ceilings, unsafe paths, duplicate/non-finite JSON and symlink cases executed.",
+      "evidence": [
+        {
+          "path": "helper-tests/report.md",
+          "sha256": "7887104c117183d9b16739fec7f89ac6f3966eb4750065c67b31d1f93e9b1b38"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent deterministic CLI regressions"
+    },
+    {
+      "case_id": "V19",
+      "method": "independent CLI status regressions and cold task",
+      "observation": "FAIL precedence preserves incomplete behavior 6/8 coverage; readiness remains separate.",
+      "evidence": [
+        {
+          "path": "helper-tests/report.md",
+          "sha256": "7887104c117183d9b16739fec7f89ac6f3966eb4750065c67b31d1f93e9b1b38"
+        },
+        {
+          "path": "task-trials/defect-001/results/validation-report.md",
+          "sha256": "99b8c9b34f6dd306813c44d93a521efb44feb57fe5c6f1f64285d7c8f2a00d67"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent CLI status regressions and cold task"
+    },
+    {
+      "case_id": "V20",
+      "method": "independent stale-authorization regressions plus changed-proposal fixture",
+      "observation": "Changed proposal/target approval binding rejected or marked fresh-review required; no prior approval reused.",
+      "evidence": [
+        {
+          "path": "helper-tests/report.md",
+          "sha256": "7887104c117183d9b16739fec7f89ac6f3966eb4750065c67b31d1f93e9b1b38"
+        },
+        {
+          "path": "handoff-trials/attempt-001/V20-observation.json",
+          "sha256": "8258e46ef1cd0fffd7b2d7ffcadd53d819587fe9f9a08cd0c1b5b3386501bf35"
+        }
+      ],
+      "execution_state": "OBSERVED",
+      "native_or_independent_limits": "independent stale-authorization regressions plus changed-proposal fixture"
+    }
+  ],
+  "interpretation": "Bounded synthetic acceptance observations; expected FAIL/INCOMPLETE target outcomes are successful validator observations. Method labels are not interchangeable with native task execution."
+}

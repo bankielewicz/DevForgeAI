@@ -1,0 +1,9 @@
+
+running 4 tests
+test paused_mode_and_jobs_survive_restart_without_hidden_resume ... ok
+test lifecycle_pause_resume_index_removal_and_retry_are_real ... ok
+test resume_already_active_does_not_schedule_another_generation ... ok
+test automatic_file_changes_are_debounced_before_publication ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.69s
+

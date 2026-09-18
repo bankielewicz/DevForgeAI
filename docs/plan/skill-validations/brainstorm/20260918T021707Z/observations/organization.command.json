@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\standards_observe.py",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\brainstorm\\20260918T021707Z\\source"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at": "2026-09-18T02:22:16.101989+00:00",
+  "ended_at": "2026-09-18T02:22:16.231291+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120
+}

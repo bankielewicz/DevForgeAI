@@ -1,0 +1,119 @@
+{
+  "case_id": "H05",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\trials\\H05\\records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T20:23:23.582968Z",
+  "end": "2026-09-13T20:23:24.009302Z",
+  "elapsed_seconds": 0.4220000000204891,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/H05/stdout.txt",
+    "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+  },
+  "stderr": {
+    "path": "commands/H05/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\trials\\H05",
+    "captured_at_utc": "2026-09-13T20:23:24.009302Z",
+    "files": [
+      {
+        "path": "inputs/alpha-manifest.json",
+        "bytes": 267,
+        "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+      },
+      {
+        "path": "inputs/authorization.txt",
+        "bytes": 44,
+        "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+      },
+      {
+        "path": "inputs/beta-manifest.json",
+        "bytes": 267,
+        "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+      },
+      {
+        "path": "inputs/selection.json",
+        "bytes": 2138,
+        "sha256": "0a2aa9177d730d84526f9efa57a09170dac0cd35b777d39ca8609a11c8a1681c"
+      },
+      {
+        "path": "integration/checks.jsonl",
+        "bytes": 321,
+        "sha256": "38769f50e933759cb5059b80fcfa8e6a59d457d8671a7053c544927ec2ba29f7"
+      },
+      {
+        "path": "member-evidence/A/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+      },
+      {
+        "path": "member-evidence/A/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/A/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "member-evidence/B/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+      },
+      {
+        "path": "member-evidence/B/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/B/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "packages/alpha/SKILL.md",
+        "bytes": 106,
+        "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+      },
+      {
+        "path": "packages/alpha/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "packages/beta/SKILL.md",
+        "bytes": 105,
+        "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+      },
+      {
+        "path": "packages/beta/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "records/set-assessment.json",
+        "bytes": 2472,
+        "sha256": "0f931c3f44e073298b9e045e353bab1e0f0e9bfb4daef7ab903da28505a0d71d"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "181ffe069599051bc983202275c11487940f6a0dbc956d4356d80acce5323e98"
+  },
+  "fixture_unchanged": true
+}

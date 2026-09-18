@@ -1,0 +1,1 @@
+{"state": "AUTHORED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-01\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\bcn-divergent-run", "applied_paths": ["SKILL.md"], "issues": []}

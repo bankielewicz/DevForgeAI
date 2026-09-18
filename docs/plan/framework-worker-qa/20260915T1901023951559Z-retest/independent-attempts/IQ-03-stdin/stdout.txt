@@ -1,0 +1,6 @@
+{"data":{"candidate_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a","checkout_id":"qa-checkout","project_id":"qa-project","work_id":"qa-work"},"elapsed_ms":0,"kind":"admitted","observed_at":"2026-09-15T19:09:13Z","run_id":"IQ-03-stdin","schema_version":1,"seq":1}
+{"data":{"adapter":"peer","worker_sha256":"c0de2c431649f281e226212e800bbc94bc717ef8abc8d54231df65328ec7e3fc"},"elapsed_ms":4,"kind":"spawn_intent","observed_at":"2026-09-15T19:09:13Z","run_id":"IQ-03-stdin","schema_version":1,"seq":2}
+{"data":{"pid_observation":38024},"elapsed_ms":15,"kind":"server_started","observed_at":"2026-09-15T19:09:13Z","run_id":"IQ-03-stdin","schema_version":1,"seq":3}
+{"data":{"reason":"user_cancel"},"elapsed_ms":48,"kind":"stop_requested","observed_at":"2026-09-15T19:09:13Z","run_id":"IQ-03-stdin","schema_version":1,"seq":4}
+{"data":{"tree_stopped":true,"worker_exit_code":0},"elapsed_ms":5051,"kind":"process_exit","observed_at":"2026-09-15T19:09:18Z","run_id":"IQ-03-stdin","schema_version":1,"seq":5}
+{"data":{"fixture_unchanged":true,"open_work":["qa-work"],"oracle":"not_evaluated","outcome":"cancelled","reason":"user_cancel","thread_id":null,"tree_stopped":true,"turn_id":null,"usage":null,"worker_exit_code":0},"elapsed_ms":5056,"kind":"terminal","observed_at":"2026-09-15T19:09:18Z","run_id":"IQ-03-stdin","schema_version":1,"seq":6}

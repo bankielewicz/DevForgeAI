@@ -1,0 +1,254 @@
+[
+  {
+    "path": "Cargo.lock",
+    "sha256": "b8932b591aa403a916c78d324964e52e2849444ebb4826c87653f40558f15b84"
+  },
+  {
+    "path": "Cargo.toml",
+    "sha256": "f6b4afc7b34fb523c78c8654e257d576339e5d78f3359c49dcd154b118d0ee03"
+  },
+  {
+    "path": "logging-contract.md",
+    "sha256": "39bd2fe1b7743e816bef16e28818c8a6ed0d61df5e8dcd61092593dbf65a1a19"
+  },
+  {
+    "path": "logging.example.json",
+    "sha256": "0e1d067d64a8f293696607c70972d672a65d75879743de5cbb9095865690127b"
+  },
+  {
+    "path": "README.md",
+    "sha256": "700a4e1799ff0e7217783beb541950d23b012c7fad8a63b5c87751a8b03b4eb8"
+  },
+  {
+    "path": "src\\capture.rs",
+    "sha256": "859e035adb303cc508a471f4a697bcf290673964f39fe7688d74d22f8a4da495"
+  },
+  {
+    "path": "src\\diagnostic.rs",
+    "sha256": "31fcdf324f27f6b85f46a46b3f54acdb558ba8e353d67a0e7f2770bb19c26529"
+  },
+  {
+    "path": "src\\effective_profile.rs",
+    "sha256": "f06073b1cc4b68ecf9dd8264ed7c53edd9c605c5a377d57e3949bea1481de874"
+  },
+  {
+    "path": "src\\journal.rs",
+    "sha256": "5c20c839f6763d08cc5719e75743bede685c7dba39d1cde282c1213b2e4e15eb"
+  },
+  {
+    "path": "src\\launch_policy.rs",
+    "sha256": "653678775f80a51ff6098871b7c1f99c915631463cb30286c3ab59e40d2709b2"
+  },
+  {
+    "path": "src\\lib.rs",
+    "sha256": "377df59732e708dbc53f68dabd239d2d3c012c676387052b7c0388359647a4cf"
+  },
+  {
+    "path": "src\\logging.rs",
+    "sha256": "e95aa4ec6e751c9e96265466021736f948f16817869ec26bf339aa6a03a9b79e"
+  },
+  {
+    "path": "src\\main.rs",
+    "sha256": "cdaea3da7598a247a718ca7568282bcb8cb7599f4925f3a2d09b833c5ddc8474"
+  },
+  {
+    "path": "src\\native-executable-identity.json",
+    "sha256": "0ddc66d726e8d862366a135170fdc82206858d48f1b343b898e671de352ae45d"
+  },
+  {
+    "path": "src\\native_identity.rs",
+    "sha256": "b268f7eedf5374b07b75e8ca59cfefe53a2282a83cacce52e16b4777a7f3a92f"
+  },
+  {
+    "path": "src\\oracle.rs",
+    "sha256": "bf11d97ec9d6082a81db68f4209db1a7e7ec3a5754d2341385f1aed4ddb44712"
+  },
+  {
+    "path": "src\\plugin-source-identity.json",
+    "sha256": "d2f9f1952262dae524930873688c54eef9fd8959ca7fa1c26e7a311ddc089b69"
+  },
+  {
+    "path": "src\\process_windows.rs",
+    "sha256": "3b436bff4437b71ff8fe70c597b9bd350886f48de88a5d5c6b4cb21500ee031f"
+  },
+  {
+    "path": "src\\profile_sources.rs",
+    "sha256": "ff43e85d0165d10d86adac72c9e9cfc55f1193738fc113924b9a13444c49b641"
+  },
+  {
+    "path": "src\\protocol.rs",
+    "sha256": "efb49d0a74b9aabecd429e804a14d3c666e7f6c1ff159d1f69f036893f2b9db3"
+  },
+  {
+    "path": "src\\request.rs",
+    "sha256": "bb952f293a0925fa4f85be6bef757f3a80075b322db2cd0daa1097af4cce121c"
+  },
+  {
+    "path": "src\\restrictive-launch-policy.json",
+    "sha256": "1dbc48c4a3627f7c5fc7a996935ec507426e4cd90adac058eb81100ac9b526b5"
+  },
+  {
+    "path": "src\\runner.rs",
+    "sha256": "30504a7854d1d2d54eaece727cb6ce8844cdd7bae9249b36178d70803c5fcd4e"
+  },
+  {
+    "path": "tests\\admission.rs",
+    "sha256": "c46b517bf5c7c27a7885415d851c56ba45f1f1ac07fbb13112539f42f7002567"
+  },
+  {
+    "path": "tests\\cli.rs",
+    "sha256": "c58e3c871f383e6857419da7a0e2fcc3d88a85d61e81b81a88baf19e2887c852"
+  },
+  {
+    "path": "tests\\contract.rs",
+    "sha256": "1334dc484c21606417f50088f713c159f00bf3c7e448ff33e17de1b8ddcebcce"
+  },
+  {
+    "path": "tests\\effective_profile.rs",
+    "sha256": "99fbade433474d3b8b36550853be94e546a995aa39a2af0424024a5ccbeeb17f"
+  },
+  {
+    "path": "tests\\effective_profile_edges.rs",
+    "sha256": "a1c8ff3852e788afba78ec66218d9c282880626e0470dde1260032c04c2b3e5c"
+  },
+  {
+    "path": "tests\\fixtures\\expected.json",
+    "sha256": "6924dfd5d1b90d04fbdd6abf4ba67cd9ffce038e4440b57148882607fb3158ae"
+  },
+  {
+    "path": "tests\\fixtures\\output-schema.json",
+    "sha256": "33bf230e62397fca3ccbdf40f94c0bfa075335035a4e274ae1f05a72a6692d0d"
+  },
+  {
+    "path": "tests\\fixtures\\prompt.txt",
+    "sha256": "1afe6b853e1133062b095e3539b9efac66e5d6c8328c5a2fa4ca5c8c1769991d"
+  },
+  {
+    "path": "tests\\fixtures\\schema-command.json",
+    "sha256": "e180b070de0f62c863a4c8886a8bb9670de90cabf2656b80c77197924bc4c0c4"
+  },
+  {
+    "path": "tests\\fixtures\\task.json",
+    "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  },
+  {
+    "path": "tests\\launch_policy.rs",
+    "sha256": "3ec1096cd7e32833ddfc0ac87678c85c66fb66577e5e646342ab53e00e7635f5"
+  },
+  {
+    "path": "tests\\logging.rs",
+    "sha256": "f1dd9c45a712591d6f2c0d784dfc6458985510886d510361c9de0972c04ad5f8"
+  },
+  {
+    "path": "tests\\native_identity.rs",
+    "sha256": "1e1a7ecddf9998e11599632d3821d91999248ea5f3bd30907a1b38281ab87ba9"
+  },
+  {
+    "path": "tests\\negative_paths.rs",
+    "sha256": "5ede6c71264ce1c3d3b245f87c2a1dd5699ba9574672ebc5a6927a967f7da6b6"
+  },
+  {
+    "path": "tests\\oracle.rs",
+    "sha256": "65a8e70bb9b93cf0f82669a0ec7917b551a05b891eb7e93b9b723aa5085803b6"
+  },
+  {
+    "path": "tests\\preflight_cli.rs",
+    "sha256": "ee96b94dc5d0429929843a5964860e7dc149923df39a1bf3c76984c679d20b14"
+  },
+  {
+    "path": "tests\\preflight_recovery.rs",
+    "sha256": "4487edf6354756b8399e351e88399c54caddad552b0f0c36e4c82ee2a7f30aba"
+  },
+  {
+    "path": "tests\\process_ownership.rs",
+    "sha256": "9b52fd226fe510007a9d07aaaea6563b39e6f659e94246cc35c7184477490008"
+  },
+  {
+    "path": "tests\\process_windows.rs",
+    "sha256": "3752fb30e08fa37e01e81f3f4da379a8bfad7ede6b7d850aff9f3d6befbc27e0"
+  },
+  {
+    "path": "tests\\profile.rs",
+    "sha256": "5cb50bc7918177c75e2272ad3a4efe81a6b4a9fe9cf05b7c193ccdf85a6762ec"
+  },
+  {
+    "path": "tests\\profile_protocol.rs",
+    "sha256": "18d16b8e0019f0edbf954817e7cad48c57cd3a6601d68c601b2ded64020ad9b1"
+  },
+  {
+    "path": "tests\\protocol.rs",
+    "sha256": "a811bda72c0ad577e94a1891ad8bd6e6d1bf3ae3d546833eb5ded1f20643576c"
+  },
+  {
+    "path": "tests\\protocol_edges.rs",
+    "sha256": "b5b0eb58b2d04b0c553d4b200fcf2353213bb8c6cd44fb01024b44778323bce0"
+  },
+  {
+    "path": "tests\\recovery.rs",
+    "sha256": "928e1f5be56fa819dbd0365a8741fb8666f7dd624521216db45b29c2bb7979b5"
+  },
+  {
+    "path": "tests\\remediation.rs",
+    "sha256": "c02e64357c1582007734ead355971d7823a78d972d4551586abe183da58024d6"
+  },
+  {
+    "path": "tests\\requirements.rs",
+    "sha256": "28a43104972426c196d451fc633dd682ad028981783f8a8f23dfd644349ab14b"
+  },
+  {
+    "path": "tests\\runtime_edges.rs",
+    "sha256": "991b420e78cee93f34ce63cb3e940d28c37ff8680cab9413cc4cf8f8d46eb821"
+  },
+  {
+    "path": "tests\\support\\console_driver.rs",
+    "sha256": "d9a1fa75bae2d817ebf3667ea71d4f85305e448cbfb908092a4908f848093974"
+  },
+  {
+    "path": "tests\\support\\crash_driver.rs",
+    "sha256": "92b699737035980ec7cda114c53d6e9e308847df0e4fae676cf8cba73df8a2e1"
+  },
+  {
+    "path": "tests\\support\\diagnostic_cases.rs",
+    "sha256": "dc1616656fe67cbfee6fc7517c88021bfb52c5f5c99a7b06706d1c29b039ad79"
+  },
+  {
+    "path": "tests\\support\\final_source_check_cases.rs",
+    "sha256": "bd7a1d2e5b810a3d21681540b31e6824df455bad94625bc8b11bbdcee6b0b2aa"
+  },
+  {
+    "path": "tests\\support\\identity_cases.rs",
+    "sha256": "97bf5a9b1cb013b94bf00530399f43032c66733765873a9f54045611d44dd93c"
+  },
+  {
+    "path": "tests\\support\\mod.rs",
+    "sha256": "ed989afcba6eb1898214c3747fb2b751d5580eef1660df62fad4389c2ca6b5b7"
+  },
+  {
+    "path": "tests\\support\\peer.rs",
+    "sha256": "d4f63d3876d6b4ce219299665198b3a09a7e100ea35e42597802d3628a22ceee"
+  },
+  {
+    "path": "tests\\support\\plugin_source_identity_cases.rs",
+    "sha256": "c4a9056c5196b56712d0d8293076595115c61aee327c99dfb352bd339af9a04b"
+  },
+  {
+    "path": "tests\\support\\profile_peer.rs",
+    "sha256": "1ea8a05092db19a16a962fd1b3765782d180be6e4b4a47460d3861ac74ac3920"
+  },
+  {
+    "path": "tests\\support\\profile_sources_cases.rs",
+    "sha256": "9d13019ef4248e0031b5884b01282039a046df01a7af553fcbf5aac6ad8d8a2d"
+  },
+  {
+    "path": "tests\\support\\profile_sources_edges.rs",
+    "sha256": "c1495fe37366d33d16b830b06d3c489253d297f62b3c217e07e97412e6d82bcd"
+  },
+  {
+    "path": "tests\\support\\protocol_edges_peer.rs",
+    "sha256": "2cdd924668cd7d841942ccd76a694c5fc85afa4f7b9b194b6adc1ff0252506fd"
+  },
+  {
+    "path": "tests\\support\\review_v2_cases.rs",
+    "sha256": "a6d903105ec30ea6420ee79e5e580dfc364aad1dab2ca17b5dd5083bfd4ae34e"
+  }
+]

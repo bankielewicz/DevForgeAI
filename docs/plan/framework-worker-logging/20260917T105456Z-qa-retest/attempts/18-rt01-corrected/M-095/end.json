@@ -1,0 +1,31 @@
+{
+  "label": "end",
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "inspect",
+    "--run-dir",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\run",
+    "--after",
+    "15",
+    "--limit",
+    "1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 4,
+  "expected_state": null,
+  "expected_error": "evidence_corrupt",
+  "state": null,
+  "error": {
+    "error": "evidence_corrupt"
+  },
+  "read_only": true,
+  "expectation_met": true,
+  "elapsed_seconds": 0.01600000000325963,
+  "before_sha256": {
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\run\\inputs.json": "9989ae2eb8897b295f7d298e4816dff6328fda92e581fe35b41a569d0bdf4729",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\run\\journal.jsonl": "6d1632fd5aca70b7fd9d16bfde3a8152221a1b7b9c08088b3283729a72fad136",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\run\\profile-review.json": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\run\\request.json": "a114b7460fda5e3b2ecb8dea673ea0681e5ee40e884625cb37ed786da4558755",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\run\\task.json": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-09-12T15:23:06.134366+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\build_evidence.py",
+    "adoption-plan",
+    "--snapshot-root",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-kto8d8pr\\docs\\plan\\skill-adoptions\\receipt-totals\\adopt-01\\snapshot",
+    "--request",
+    "adoption/evidence/adoption-request.json"
+  ],
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "{\"status\": \"ERROR\", \"error\": \"ValueError: observed rows must be sorted\"}\n"
+}

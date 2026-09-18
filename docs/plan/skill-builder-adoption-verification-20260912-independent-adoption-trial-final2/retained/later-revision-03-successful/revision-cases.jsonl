@@ -1,0 +1,3 @@
+{"case_id": "later-revision-03-package_links", "grader_id": "package_links", "params": {"path": "later-revision-03/after"}, "expected": "PASS"}
+{"case_id": "later-revision-03-build_traceability_v2", "grader_id": "build_traceability_v2", "params": {"evidence": "later-revision-03/evidence", "destination": "later-revision-03/after"}, "expected": "PASS"}
+{"case_id": "later-revision-03-revision_consistency_v2", "grader_id": "revision_consistency_v2", "params": {"path": "later-revision-03/evidence/revision-plan.json"}, "expected": "PASS"}

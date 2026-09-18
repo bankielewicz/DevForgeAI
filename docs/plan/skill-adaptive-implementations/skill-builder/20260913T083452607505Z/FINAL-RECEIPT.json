@@ -1,0 +1,17 @@
+{
+  "run_id": "20260913T083452607505Z",
+  "package_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2",
+  "file_count": 43,
+  "source_readback": "UNCHANGED",
+  "input_readback": "UNCHANGED",
+  "operational_readback": "UNCHANGED",
+  "companion": "Changed concurrently by another session; no task-owned writes.",
+  "implementation": "DELIVERED",
+  "verification": "INCOMPLETE",
+  "installation": "NOT_PERFORMED",
+  "rust_qualification": "NOT_PERFORMED",
+  "enhanced_validator_integration": "NOT_RUN",
+  "assessment_report_sha256": "9759de47b92853ff5f0cf6d0ccd1cf852a32e037ada7e58cf5ba6b637a622154",
+  "rule_set_sha256": "e78d6f0c63e75b6e80a850a32a76b5fec6dde0d49cb2612f66fbf755d8479ed3",
+  "checked_at_utc": "2026-09-13T13:47:44.120721Z"
+}

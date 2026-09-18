@@ -1,0 +1,5 @@
+{
+  "golden": "same fixed input bytes and expectations as golden-contracts/expectations.json",
+  "lineage": "same fixed inputs as lineage-fixtures/expectations.json",
+  "source_unchanged": true
+}

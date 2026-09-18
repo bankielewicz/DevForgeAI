@@ -1,0 +1,11 @@
+{
+  "published_at_utc": "2026-09-12T15:37:56.085272+00:00",
+  "external_path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03\\published-origin.json",
+  "sha256": "90b48a3fbc88a7dd5430f2b70f99df548e28878d32ff1e0cd949155790f8223a",
+  "readback_sha256": "90b48a3fbc88a7dd5430f2b70f99df548e28878d32ff1e0cd949155790f8223a",
+  "previous_pointer": {
+    "path": "revision-02-resolved/evidence/published-origin.json",
+    "sha256": "e705346015758aa977e7d2a658f193303917078cce4a2ca74e19335f5d17a1a5"
+  },
+  "outcome": "PUBLISHED_READBACK_MATCH"
+}

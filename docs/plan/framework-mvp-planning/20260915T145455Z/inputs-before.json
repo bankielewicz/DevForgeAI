@@ -1,0 +1,112 @@
+[
+  {
+    "path": "AGENTS.md",
+    "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+    "bytes": 13954
+  },
+  {
+    "path": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "sha256": "ac4f62a2e0372771f4663524922854cf27e8802d2973337158f59c08c522b0ab",
+    "bytes": 14199
+  },
+  {
+    "path": "docs/plan/devforgeai-codex-rust-enforcement-design.md",
+    "sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+    "bytes": 24617
+  },
+  {
+    "path": "docs/plan/devforgeai-index-service-mvp-spec.md",
+    "sha256": "52d33c84435da8f3442c6b1dc4c5370113ff0eb93ee5cd2801903741900c89c4",
+    "bytes": 39549
+  },
+  {
+    "path": "docs/plan/devforgeai-index-query-cli-spec.md",
+    "sha256": "65097f0bbd73869fca9e70c872e4ea27b30ed71ce5cb6db0a4ff095aaf16d702",
+    "bytes": 25923
+  },
+  {
+    "path": "devforgeai/Cargo.toml",
+    "sha256": "f6301a2d01e04ac66192c38269679b38e80aee0a20d901d86a4fdd4a42bc1e53",
+    "bytes": 1445
+  },
+  {
+    "path": "devforgeai/Cargo.lock",
+    "sha256": "f8557a6d5fa164f171177f217ddf527d49de01791829f58b2effafe5eebe206e",
+    "bytes": 30409
+  },
+  {
+    "path": "src/agents/skills/dev/SKILL.md",
+    "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562",
+    "bytes": 4659
+  },
+  {
+    "path": "src/agents/skills/qa/SKILL.md",
+    "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb",
+    "bytes": 7621
+  },
+  {
+    "path": "docs/specs/framework/core-workflows.md",
+    "sha256": "0d778cc5767a163590e9dfbab26de22c5e8a0cf7d1f7f13b3e46f79736c25e6c",
+    "bytes": 7798
+  },
+  {
+    "path": "docs/specs/framework/expert-health-and-realignment.md",
+    "sha256": "a619003e7dd3fadee97b83c4398f4caaf4539d3ab81747ff655ed6b594e12f62",
+    "bytes": 8047
+  },
+  {
+    "path": "docs/specs/framework/foundation.md",
+    "sha256": "9397cbf7746504669f1dc8404998003991e0e5a0a371c05d3cf031639685ea84",
+    "bytes": 9864
+  },
+  {
+    "path": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "sha256": "9aac82c9277625ef365b52d1b883d6f32008a62bf10f203a4cd063e99ec792e6",
+    "bytes": 6804
+  },
+  {
+    "path": "docs/specs/framework/index.md",
+    "sha256": "cfac4da473875a88fcad376182a096ee99dcca2a76af16a4dcb345a3109c792a",
+    "bytes": 6278
+  },
+  {
+    "path": "docs/specs/framework/installation-and-integrations.md",
+    "sha256": "e18279519365d3a39eba810ffd15ad868ddf720a5f19fa7f3c71bdec4ec7d458",
+    "bytes": 6266
+  },
+  {
+    "path": "docs/specs/framework/knowledge-and-continuity.md",
+    "sha256": "6d12befa6780a996427db0e9800bc4fc80077f1696cdc8e4bffdf2d50155787f",
+    "bytes": 5374
+  },
+  {
+    "path": "docs/specs/framework/project-context-and-policy.md",
+    "sha256": "5672d3d318362e181591db7d2511f8cfd53e7f82b09376dba2dece9b015571c1",
+    "bytes": 6742
+  },
+  {
+    "path": "docs/specs/framework/quality-and-delivery.md",
+    "sha256": "e7a73c2a0202d38c6bb4c4941cbafe60ee6cf45cc69ee1860b3bed09b2cb2547",
+    "bytes": 8115
+  },
+  {
+    "path": "docs/specs/framework/roadmap-and-decisions.md",
+    "sha256": "ccd31b0de3f7f7d1189ccd02d751c998ed69a7bff7016068715841764a331ad8",
+    "bytes": 11911
+  },
+  {
+    "path": "docs/specs/framework/skills-and-project-expertise.md",
+    "sha256": "5868afad84112b61c2de542f448ba74022bf9ed18d4eecc41be0fa4aa1d1d1bd",
+    "bytes": 7883
+  },
+  {
+    "path": "docs/specs/framework/subagents-and-context.md",
+    "sha256": "3555dcf52b4e54201c9be119ff6461ac9f6ae81e1e723ff2edd02868a7c3627b",
+    "bytes": 11122
+  },
+  {
+    "path": "docs/specs/framework/work-items-and-dependencies.md",
+    "sha256": "6440a9cbeb78445e5c0cce524c2818475de99aa15a8712f93eac7a4c73cea767",
+    "bytes": 7997
+  }
+]

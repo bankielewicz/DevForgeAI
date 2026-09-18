@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-validator\\validation-request.json",
+    "--request-sha256",
+    "c601bda42b8dae5929d7f197a500965e7129da0e1395c81b66a9fbe5ea77a172"
+  ],
+  "executor": "operational-validator-owned deterministic invocation of enhanced development intake",
+  "expected": "BOUND exact delivered packet; no quality verdict from intake",
+  "timeout_seconds": 120,
+  "inputs": {
+    "request": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-validator\\validation-request.json",
+    "request_sha256": "c601bda42b8dae5929d7f197a500965e7129da0e1395c81b66a9fbe5ea77a172",
+    "package_digest": "77f0eec091cb41559074296ec8b0cd7dad76329ca6647b969f0e76b49cea51a4"
+  }
+}

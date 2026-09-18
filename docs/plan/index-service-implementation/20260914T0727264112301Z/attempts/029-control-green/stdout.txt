@@ -1,0 +1,18 @@
+
+running 5 tests
+test syntax_errors_are_partial_and_cancellation_is_observed ... ok
+test file_header_is_not_documentation_and_nested_parent_is_retained ... ok
+test enumeration_observes_cooperative_stop_between_entries ... ok
+test eligibility_accounts_for_exclusions_encodings_and_untracked_files ... ok
+test adapters_extract_real_declarations_docs_and_exact_source_ranges ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 3 tests
+test lifecycle_pause_resume_index_removal_and_retry_are_real ... ok
+test paused_mode_and_jobs_survive_restart_without_hidden_resume ... ok
+test resume_already_active_does_not_schedule_another_generation ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+

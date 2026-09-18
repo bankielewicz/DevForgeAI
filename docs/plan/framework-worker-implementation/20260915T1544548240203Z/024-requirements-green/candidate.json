@@ -1,0 +1,112 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\Cargo.lock",
+    "bytes": 7360,
+    "sha256": "b8932b591aa403a916c78d324964e52e2849444ebb4826c87653f40558f15b84"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\Cargo.toml",
+    "bytes": 704,
+    "sha256": "0afb03b4ebe4063a1d84bdb3aef58a7a2935296f98c900419282b6306d48ca77"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+    "bytes": 8472,
+    "sha256": "55b06e21df3e35d5f54f78ff74b8bc081393c9d22abfb0fc560cfb3db8a0b07f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\lib.rs",
+    "bytes": 168,
+    "sha256": "b0b8cc5d4a425cb21e108caca6e611415e7e1de9c72949830df5d2927b233217"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\main.rs",
+    "bytes": 3179,
+    "sha256": "106f35e4ad1ce530137989ee028b4df84cc479492dc2816c1c159559d7f10fb2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+    "bytes": 713,
+    "sha256": "6c5dc9d781c2e96807a23ceb370bc9195ac92b3e933d6d95e70cd57ef4b6ad34"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+    "bytes": 8878,
+    "sha256": "9771d2afdc6e7ea950aaf6fbff2528417544febfbff794219f3bac2aeb0498b1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+    "bytes": 13846,
+    "sha256": "09813edfac6a4c60fc71a888b3645f3d3bc3e71cc838b3436310dc0a3576dc82"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+    "bytes": 10831,
+    "sha256": "171b932bf264e8dbdf59b2ceb17ccd72494f7f7af21999ee094a2956f6855a53"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs",
+    "bytes": 4727,
+    "sha256": "f62d03baeb5a53ef009c1dbacce3d78b04494fec78cf44865b6d77a8fd7f46bb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\admission.rs",
+    "bytes": 1904,
+    "sha256": "c623331cd8a7ac542566eb1082e39d5e9050b8b50b7a5e173a009dbbb5bb6842"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\cli.rs",
+    "bytes": 430,
+    "sha256": "2f5130faedd99fe33185d0cd66be1d039fddbea5e1675d998b897b8b56c14ab8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\contract.rs",
+    "bytes": 2321,
+    "sha256": "04b2d74776838547a2cc22c2ac6343d44592a2aa470e49d024e0c20ef266213f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\oracle.rs",
+    "bytes": 740,
+    "sha256": "4c4ff4017abd028c7557e4a4883e7e7742b8eee77ce3075307a3a681f8f24e26"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_ownership.rs",
+    "bytes": 451,
+    "sha256": "e53e7eedd7c023aaef5c0382800045e7f3a187abb84d19928b7e0f5c54330cd4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_windows.rs",
+    "bytes": 3903,
+    "sha256": "cfe7d48f9014f494ae89e1c47574543253c009fb8d59c53c82067a513c3a8880"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "bytes": 1880,
+    "sha256": "29f23acc4d08a654af4d0548a53eb1ce1f8759c70f187767390a1f0c6d3e9fde"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\recovery.rs",
+    "bytes": 3495,
+    "sha256": "97343b33e7616005bef6cf011e8839523bbb840e1c30087237508a085467eae3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "bytes": 1555,
+    "sha256": "184606db5ffc96ebac9af746ab7d1f2bd1ae20bd2f696113ed0b5ded8850d75b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\support\\console_driver.rs",
+    "bytes": 2085,
+    "sha256": "2cf091322c1e174f51351c77892c652c25d5a919eb47a273180972270faefa50"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\support\\mod.rs",
+    "bytes": 2458,
+    "sha256": "c8f8fd65c6912ae97aa406e7627fc8b6c48a807e3e8644eb42a7aaf806c2241e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\support\\peer.rs",
+    "bytes": 8639,
+    "sha256": "6f10f7300ef25aadfd96e74e61367d54dfcc8ea0e2a2767ceeb93b7c315c24d4"
+  }
+]

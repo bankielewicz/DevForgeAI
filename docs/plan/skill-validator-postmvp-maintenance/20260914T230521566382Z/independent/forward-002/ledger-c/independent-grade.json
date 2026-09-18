@@ -1,0 +1,21 @@
+{
+  "case": "ledger-c",
+  "outer_check_outcome": "PASS",
+  "elapsed_seconds": 582.3280000000013,
+  "timeout": false,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "report_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project\\docs\\plan\\skill-validations\\ledger-c\\20260915T001901336490Z\\validation-report.md",
+  "report_sha256": "d519079679535cbf960fc91f9edbc7edaa9bb681c9c0f3f238e19a60dbe99dbe",
+  "review_sha256": "b07a0f4c44a6bc41e2dececc44e7b752dc0144220be53a7b703eb76135fddc70",
+  "report_local_links": 26,
+  "missing_local_links": [],
+  "helper_results": {
+    "total": 24,
+    "passed": 24
+  },
+  "records_errors": [],
+  "target_assessment": "INCOMPLETE",
+  "independent_workflow_disposition": "PASS",
+  "qualification": "Delivered correct and honest bounded assessment; target native discovery/workflow remains unperformed"
+}

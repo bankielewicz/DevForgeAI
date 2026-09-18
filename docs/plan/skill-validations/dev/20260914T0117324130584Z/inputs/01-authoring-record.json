@@ -1,0 +1,159 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "20260914T0117324130584Z",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+  "target_name": "dev",
+  "operation": "edit",
+  "authorization": "User approved the complete remediation plan and instructed: Implement the plan. Author dev REV-001 through REV-004 in development source, then separately validate; no installation.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\contract.json",
+    "sha256": "44b07b6d39d1e509383b446ec4f6f91f81c101ceb65d5baa4d7a9ac89c481762"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation-plan.md",
+      "sha256": "9c551929df6c1023b1922663b407a9f9428e682f2ae7cd8a414ce4abe608cec7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z\\revision-spec.md",
+      "sha256": "d4fdb404ebf3e869d4d2b6f99756cf70d54a460a369a74bd3f645f5cb9cfe1b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\SKILL.md",
+      "sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "sha256": "15248bcbc89bd8ee278fee7a05079f59d407e72c986a1d793613579d27377e6b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\references\\evidence-format.md",
+      "sha256": "0621f40a6bb23b270e1cffbd0cfb8bd40f11bcb79bdbbbbd268c3b1dad7ebfae"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\approval.md",
+      "sha256": "28937919c645a35385b6b37195522caa3657ba9798fbf34175bd0ba05e92ceb0"
+    }
+  ],
+  "prior_origin": {
+    "kind": "authored",
+    "reference": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\authoring-baseline.json",
+      "sha256": "ea0091038cc9fd60d9827431926f5ee6d9b9274acef341d20e20dee6f94bd07d"
+    }
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "assets/checkpoint.md",
+    "assets/context.md",
+    "assets/delivery.md",
+    "assets/execution-record.jsonl",
+    "assets/slice-plan.md",
+    "assets/traceability.md",
+    "references/context.md",
+    "references/evidence-resume.md",
+    "references/failure-delivery.md",
+    "references/implementation.md"
+  ],
+  "retained_user_paths": [],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\before-manifest.json",
+    "sha256": "e3a8f52fe517d389408ac98e52290f47cd3b2555b9a1e8d8aff08f29b577a915"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\candidate-manifest.json",
+    "sha256": "c6d1fdaa803a72191ac8f6009acb75a0b5652f864cbde977f833e5809c86b922"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\delivered-manifest.json",
+    "sha256": "c6d1fdaa803a72191ac8f6009acb75a0b5652f864cbde977f833e5809c86b922"
+  },
+  "applied_paths": [
+    "SKILL.md",
+    "assets/checkpoint.md",
+    "assets/context.md",
+    "assets/delivery.md",
+    "assets/traceability.md",
+    "references/context.md",
+    "references/evidence-resume.md",
+    "references/failure-delivery.md"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "Quality of revised dev bytes remains unperformed during authoring; separately selected validation stage owns DV-01..DV-18 and RV-01..RV-06 with a newly bound external evaluation bundle."
+  ],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b",
+      "c_sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b",
+      "n_sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/checkpoint.md",
+      "b_sha256": "34fbc2e081217b6b34dcc1a957f1a4ac9b751cfc946097e0f51c4419a788c901",
+      "c_sha256": "34fbc2e081217b6b34dcc1a957f1a4ac9b751cfc946097e0f51c4419a788c901",
+      "n_sha256": "6e267946b5205804114e9aec87c04c386340ab9038a7475535a20abe18f2d36c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/context.md",
+      "b_sha256": "0fc1ddcd61e5501552172f07bd6c95d1554566c6591fdf01df6b14b0d313f4c7",
+      "c_sha256": "0fc1ddcd61e5501552172f07bd6c95d1554566c6591fdf01df6b14b0d313f4c7",
+      "n_sha256": "6af52c9d4209adbdfc33c6828a31dfb6f8d75bc501cc9ce4a85d1dc34d9fc069",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/delivery.md",
+      "b_sha256": "1af13297690a8c97b68206f3d0f7d661860e4ba4242d7267deed4097a5972efb",
+      "c_sha256": "1af13297690a8c97b68206f3d0f7d661860e4ba4242d7267deed4097a5972efb",
+      "n_sha256": "0a451fe72a8f3b2e82ee7ec3441dfd19ab8ba915c01547598dd88a42ca1447a8",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/traceability.md",
+      "b_sha256": "755812c3be085c859f8ec75fc1545917edc3edf7637fc7daa723fef2356a3f21",
+      "c_sha256": "755812c3be085c859f8ec75fc1545917edc3edf7637fc7daa723fef2356a3f21",
+      "n_sha256": "7499d23c38082ef2cc5bc688d60ba57bd4af40f445d20950bbcbf126b05ee889",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/context.md",
+      "b_sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142",
+      "c_sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142",
+      "n_sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/evidence-resume.md",
+      "b_sha256": "9f8810c09c448ddcf47fe68bc18e38c72ab773d15fd390ee1636a2a917affaab",
+      "c_sha256": "9f8810c09c448ddcf47fe68bc18e38c72ab773d15fd390ee1636a2a917affaab",
+      "n_sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/failure-delivery.md",
+      "b_sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44",
+      "c_sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44",
+      "n_sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\baseline-manifest.json",
+    "sha256": "c6d1fdaa803a72191ac8f6009acb75a0b5652f864cbde977f833e5809c86b922"
+  }
+}

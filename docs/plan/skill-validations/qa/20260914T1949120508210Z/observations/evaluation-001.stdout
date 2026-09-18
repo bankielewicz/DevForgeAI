@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "grader-control": {
+      "PASS": 28,
+      "FAIL": 0,
+      "NOT_RUN": 0,
+      "ERROR": 0
+    },
+    "skill-scenario": {
+      "PASS": 0,
+      "FAIL": 0,
+      "NOT_RUN": 42,
+      "ERROR": 0
+    }
+  },
+  "skill_outcome": "INCOMPLETE",
+  "framework_acceptance": "NOT_EVALUATED"
+}

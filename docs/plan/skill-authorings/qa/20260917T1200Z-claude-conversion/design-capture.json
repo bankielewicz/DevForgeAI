@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "qa-claude-conversion-001",
+  "target_name": "qa",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\qa-claude-conversion\\intake\\design.json",
+    "sha256": "c9d7c25c5f23e137b6cc3d5108be664faa91599fe86971eafeb1670668c267ed"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\inputs\\9",
+    "sha256": "c9d7c25c5f23e137b6cc3d5108be664faa91599fe86971eafeb1670668c267ed"
+  }
+}

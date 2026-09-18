@@ -1,0 +1,4 @@
+notify = ["root-notifier"]
+[history]
+persistence = "save-all"
+notify = ["ignored-notifier"]

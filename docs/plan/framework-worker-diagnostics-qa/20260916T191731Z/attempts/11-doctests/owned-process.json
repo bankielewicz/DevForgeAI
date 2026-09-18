@@ -1,0 +1,10 @@
+{
+  "pid": 58456,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--doc"
+  ]
+}

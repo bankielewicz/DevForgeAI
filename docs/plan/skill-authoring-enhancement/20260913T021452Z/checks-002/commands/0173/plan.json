@@ -1,0 +1,28 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\candidate\\skill-validator\\scripts\\build_evidence.py",
+    "input-record",
+    "--file",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\disposable\\builder-input-review-gtp39_rm\\source.txt",
+    "--id",
+    "source",
+    "--snapshot-path",
+    "inputs/source.txt",
+    "--end-byte",
+    "5"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--file": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\disposable\\builder-input-review-gtp39_rm\\source.txt",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\commands\\0173\\input-6",
+      "sha256": "6a3b3844470e683f7a512580fadff3a56d3f793f7339eef7cecddaf7a7d82b8e"
+    }
+  },
+  "start": "2026-09-13T02:34:43.984438+00:00",
+  "timeout_seconds": 30
+}

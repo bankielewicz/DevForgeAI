@@ -1,0 +1,163 @@
+--- before/package-manifest.json
++++ after/package-manifest.json
+@@ -11,12 +11,12 @@
+     "references/adaptation.md": "5413c5d4fb9512a34b30c5d3c20a7c55f696874ef678bf173ea335a73644478b",
+     "references/adaptive-contracts.md": "f41dfc545d60498253b52e0d57c4a1214602d380fcc766181f960949f0e7404c",
+     "references/adoption.md": "17c69c0010976d043d00bc4707284c741bd651c0c8ca06860c69b56814c7926d",
+-    "references/authoring.md": "e16fcfa161a151ce18a3c7501a90258dd098f89112b4fb9a9c428bbd29455813",
++    "references/authoring.md": "64be2c841feaa6e850952f47ff487951b72d0ac4ba8a11b0fbd8b9ec27370f31",
+     "references/conversion-rules.md": "6b89eb700d832498a0a929d55c147a445038a7bd82992eb6120f2ddb60b4f414",
+-    "references/evidence-format.md": "622c6da00b219b8829cb5643d1d06f30c6ac5988c77e9fbc6622423f195b4d90",
++    "references/evidence-format.md": "f5bb9109404e809c60f5a6e0c65be46713ce45d229f92d2520c3dc8e5dc0c1af",
+     "references/openai_yaml.md": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+     "references/project-binding.md": "ebbc7d762c9a7adacd205d4711e42ab701689e2e71648d5f42cf2d3f5dc27c23",
+-    "references/regeneration.md": "1c3558122c1b8670e02f3ba0de1c23b675f31b0b508409635a8bf5827f45a298",
++    "references/regeneration.md": "07e132f32ff781e025e6d659c753be112b584290e7318500c56c55e8f7b85859",
+     "references/scaffolding.md": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb",
+     "references/spec-build.md": "2b9977ccbe73249ea5820538535970e64d3c7104da8dd207acdd140bde76cc69",
+     "references/validation-handoff.md": "265d8ad543b39139667d830c39cb4cbe2b89b1b4646275b94fa9655613fe165a",
+@@ -40,7 +40,7 @@
+     "schemas/set-validation-request-v1.schema.json": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e",
+     "schemas/validation-request.schema.json": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367",
+     "scripts/adaptive.py": "aac50133eb2bf1b2c255de9a1bd0cfe5025b42252309e8e761948a0530c350be",
+-    "scripts/authoring.py": "cb55597715dc2d4d5dcdc4780ebc096eb9c3f137dbf9a853461a61c2c8b7cfc6",
++    "scripts/authoring.py": "76dbd505dfadb88cb15fc12f80584aa46fff7e5d3c67c04c122d7dce8ae415b2",
+     "scripts/build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+     "scripts/custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+     "scripts/generate_openai_yaml.py": "a83d38bbb92993b7951dfef22db1eb92dd09b8a642b9cd78802d13bd6ddb8fdd",
+--- before/references/authoring.md
++++ after/references/authoring.md
+@@ -12,4 +12,4 @@
+ 
+ Use the loaded package's scripts relative to its own location. Run `authoring.py begin --contract <file> --run-root <new-run> --design <file>` to capture custody, edit the candidate with ordinary file tools, then run `authoring.py publish --run-root <run>`. Authoring-only means these helpers may parse, inventory, hash, plan writes and read back; they never judge quality or execute the new skill. New scaffolds can be created in a separate staging parent, with authored files copied into candidate before publication. Keep snapshots and failures in the fresh run. Legacy CLI calls without --design remain available; enhanced authoring uses the bound design.
+ 
+-The supplied contract remains retained separately from the effective host-resolved contract. Use the effective project/target identity consistently in subsequent records; do not hand-edit either representation or an old rejected packet. See evidence-format.md for the bound original/resolved path records and fresh-run handling of inconsistent older stages.
++The supplied contract remains retained separately from the effective host-resolved contract. Use the effective project/target identity consistently in subsequent records; do not hand-edit either representation or an old rejected packet. Begin also binds its original mode and origin in stage-integrity.json. See evidence-format.md for the bound original/resolved path records and fresh-run handling of pre-revision stages with a mode marker but no integrity receipt.
+--- before/references/evidence-format.md
++++ after/references/evidence-format.md
+@@ -34,7 +34,11 @@
+ 
+ The completed design remains in the selected disjoint input area. A new design requires a fresh linked run after staging. Capture failure prevents publication; never remove design evidence to downgrade a run. Calls without --design and existing legacy stages keep their original contract. Custody-only adoption/proposal/update-review needs no mandatory design. CLI exit codes remain 0 for success, 1 for recorded BLOCKED/PARTIAL, and 2 for rejected input or handled command errors. Retained errors describe actual effects, not rollback.
+ 
+-New internal origins record the boolean `design_capture_requested` to distinguish explicit --design selection from a legacy call that happens to reference a design-shaped file as ordinary input. Design-enabled origins also require `design_capture_ref`; a false mode cannot coexist with a capture record/binding. This internal marker changes neither supplied contract bytes nor validator packet fields. Older ordinary no-design stages remain readable without the marker. All such records are editable custody evidence, not protected authority.
++New internal origins record the boolean `design_capture_requested` to distinguish explicit --design selection from a legacy call that happens to reference a design-shaped file as ordinary input. Design-enabled origins also require `design_capture_ref`; a false mode cannot coexist with a capture record/binding. This internal marker changes neither supplied contract bytes nor validator packet fields.
++
++Before returning STAGED, begin writes and reads back `stage-integrity.json` with exactly `schema_version: authoring-stage-integrity-v1`, `run_id`, `target_name`, `origin_ref: {path, sha256}` and boolean `design_capture_requested`. The reference binds the original origin.json bytes, including mode and design binding. Publication validates this receipt before legacy/design dispatch, before each changed path, after delivery and at baseline/handoff publication boundaries. Missing or inconsistent evidence blocks dependent writes; changes detected after delivery retain actual deltas as PARTIAL. A receipt write/readback failure retains capture-failure.json and cannot yield STAGED.
++
++Canonical historical stages without the mode marker or design evidence retain legacy handling. Pre-revision stages containing the mode marker but no receipt require a fresh linked run; never manufacture a receipt after staging. New no-design runs also carry a receipt and may reference design-shaped JSON as ordinary input. Published historical baselines keep their original meaning. These are editable consistency records, not protected authority: coordinated rewriting of all evidence is outside their protection.
+ 
+ New captures preserve the supplied contract byte-for-byte as supplied-contract.json and bind its original source in contract-source.json. contract.json is the effective contract: project_root and target_root use the same safe host-native absolute spelling emitted in the record, baseline and request. contract-paths.json retains each field's supplied and resolved values. origin.json binds the effective contract, supplied snapshot and path-resolution bytes independently. No other supplied contract values are changed. Host resolution does not rename path components, case-fold identity, follow links or translate checkouts.
+ 
+--- before/references/regeneration.md
++++ after/references/regeneration.md
+@@ -10,4 +10,6 @@
+ 
+ Only successful delivery and complete readback can publish the next authoring baseline. Store generated baseline separately from actual delivered files to preserve retained user edits. Testing and validation remain NOT_PERFORMED; return the digest-bound manual handoff. Legacy COMPLETE states are never redefined by these new semantics.
+ 
+-For enhanced edits, prepare a per-target [workflow design](workflow-design.md) and capture it through `begin --design`. Recheck the original design, normal input snapshot, design-capture record and origin/contract bindings during publication. Missing or changed evidence stops dependent publication under existing BLOCKED/PARTIAL semantics. Retain any applied deltas and failed attempts; no successful next baseline can come from failed capture/publication. Substantive design changes require a fresh linked run, never mutation of staged contracts/designs to fit later output. Old no-design stages retain their legacy behavior.
++For enhanced edits, prepare a per-target [workflow design](workflow-design.md) and capture it through `begin --design`. Recheck the original design, normal input snapshot, design-capture record and origin/contract bindings during publication. The stage-integrity receipt binds the original mode and origin before legacy/design selection and is rechecked before path writes and publication boundaries; see [evidence-format.md](evidence-format.md). Missing or changed evidence stops dependent publication under existing BLOCKED/PARTIAL semantics. Retain any applied deltas and failed attempts; no successful next baseline can come from failed capture/publication. Substantive design changes require a fresh linked run, never mutation of staged contracts/designs to fit later output.
++
++Canonical historical no-marker/no-design stages remain compatible. Pre-revision stages with a design_capture_requested marker but no stage-integrity receipt must be retained and replaced by a fresh linked run, even when the marker is false. Do not backfill receipts or rewrite published historical baselines. Fresh no-design calls remain supported with their own false-mode receipts.
+--- before/scripts/authoring.py
++++ after/scripts/authoring.py
+@@ -276,8 +276,37 @@
+     return index, ref, value
+ 
+ 
++def recheck_stage(run, contract, captured=None):
++    """Bind publication to the staged mode/origin; editable evidence, not authority."""
++    origin_path = run / 'origin.json'
++    current = parse(read_bytes(origin_path))
++    if not isinstance(current, dict):
++        raise ValueError('invalid stage origin')
++    receipt_path = run / 'stage-integrity.json'
++    if receipt_path.exists():
++        receipt = parse(read_bytes(receipt_path))
++        fields = {'schema_version', 'run_id', 'target_name', 'origin_ref',
++                  'design_capture_requested'}
++        if not isinstance(receipt, dict) or set(receipt) != fields or receipt['schema_version'] != 'authoring-stage-integrity-v1':
++            raise ValueError('invalid stage integrity receipt')
++        if receipt['run_id'] != contract['run_id'] or receipt['target_name'] != contract['target_name']:
++            raise ValueError('stage integrity identity mismatch')
++        mode = receipt['design_capture_requested']
++        if type(mode) is not bool or current.get('design_capture_requested') is not mode:
++            raise ValueError('stage integrity design mode mismatch')
++        if receipt['origin_ref'] != reference(origin_path):
++            raise ValueError('SOURCE_CHANGED stage origin binding')
++    elif ('design_capture_requested' in current or 'design_capture_ref' in current
++          or (run / 'design-capture.json').exists()):
++        raise ValueError('missing stage integrity receipt; retain stage and start a fresh linked run')
++    if captured is not None and current != captured:
++        raise ValueError('SOURCE_CHANGED stage origin during publication')
++    return current
++
++
+ def recheck_design(run, contract, captured):
+     """Reject missing/changed custody and loss of a design-enabled binding."""
++    recheck_stage(run, contract, captured)
+     capture_path = run / 'design-capture.json'
+     requested = captured.get('design_capture_requested')
+     if requested is not None and type(requested) is not bool:
+@@ -423,6 +452,12 @@
+         save(run / 'origin.json', captured)
+         if parse(read_bytes(run / 'origin.json')) != captured:
+             raise ValueError('origin capture readback mismatch')
++        save(run / 'stage-integrity.json', {
++            'schema_version': 'authoring-stage-integrity-v1',
++            'run_id': c['run_id'], 'target_name': c['target_name'],
++            'origin_ref': reference(run / 'origin.json'),
++            'design_capture_requested': selected_design is not None})
++        recheck_stage(run, c, captured)
+         if selected_design is not None:
+             recheck_design(run, c, captured)
+         if target.exists() and files(target) != before:
+@@ -437,10 +472,20 @@
+     run = safe(run_root, write=True)
+     if (run / 'capture-failure.json').exists():
+         raise ValueError('failed capture; retain it and start a fresh linked run')
+-    if (run / 'authoring-record.json').exists():
++    if (run / 'authoring-record.json').exists() or (run / 'publication-failure.json').exists():
+         raise ValueError('run already attempted; retain it and start a fresh linked run')
+     c = parse(read_bytes(run / 'contract.json'))
+-    captured = parse(read_bytes(run / 'origin.json'))
++    try:
++        captured = recheck_stage(run, c)
++    except (OSError, ValueError, KeyError, TypeError) as exc:
++        failure = {'state': 'BLOCKED', 'run_root': str(run),
++                   'applied_paths': [],
++                   'error': str(exc) + '; retain this attempt and start a fresh linked run'}
++        try:
++            save(run / 'publication-failure.json', failure)
++        except (OSError, ValueError):
++            failure['evidence_write_failed'] = True
++        return failure
+     target = safe(c['target_root'], write=True)
+     applied, problems, rows = [], [], []
+     state, delivered, baseline = 'BLOCKED', {}, captured['baseline']
+@@ -516,13 +561,14 @@
+         recheck_design(run, c, captured)
+         if (files(target) if target.exists() else {}) != before:
+             raise ValueError('SOURCE_CHANGED before first write')
+-        if not target.exists():
+-            target.mkdir(parents=True, exist_ok=False)
+         for p in sorted(set(before) | set(planned)):
+             if before.get(p) == planned.get(p):
+                 continue
+             if before_write:
+                 before_write(p)
++            recheck_design(run, c, captured)
++            if not target.exists():
++                target.mkdir(parents=True, exist_ok=False)
+             path = child(target, p)
+             actual = read_bytes(path) if path.exists() else None
+             if actual != before.get(p):
+@@ -535,6 +581,9 @@
+             else:
+                 path.unlink()
+             applied.append(p)
++        if not target.exists():
++            recheck_design(run, c, captured)
++            target.mkdir(parents=True, exist_ok=False)
+         delivered = files(target)
+         if delivered != planned:
+             raise ValueError('delivered readback mismatch')

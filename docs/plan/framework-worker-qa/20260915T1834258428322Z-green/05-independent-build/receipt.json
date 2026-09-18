@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "build",
+    "--offline",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent\\Cargo.toml"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T18:40:58.905224+00:00",
+  "candidate_manifest_sha256": "36f7893133fa03f4192abd605d898f2561031bc5ae2fe6c3a0250f2970f8931d",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\05-independent-build\\fixtures",
+  "owned_pid": 39788,
+  "exit_code": 0,
+  "elapsed_seconds": 6.780999999988126,
+  "end": "2026-09-15T18:41:05.685585+00:00",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "140ab6480bc698e065bf5b6fbd07f78a63af4ca0502f65651daeaa2433930825"
+}

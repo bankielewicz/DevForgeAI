@@ -1,0 +1,17 @@
+{
+  "before_diff": {
+    "scripts/text_resources.py": {
+      "expected": "4aa375f1a189188bbf672a1cecf95f2c7c8a69457be275ead64f2ed93a2dfd3b",
+      "actual": "0a6bb3068e8b6e71f2a62c032149e951fce7915ae54581997de27000c4303b6b"
+    },
+    "scripts/adaptive_contracts.py": {
+      "expected": "49566784cca13df853f91c87022fb2136293141aad40932e8b960894b7820b8a",
+      "actual": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0"
+    },
+    "scripts/adaptive_observe.py": {
+      "expected": "332b898be69ce114bddc8859218d4102e2428766498269bec4d51cad29174397",
+      "actual": "7551acf047f4c61b9b04557ac3260f9035cc272e8d696f7797d9fd7b94b15e7a"
+    }
+  },
+  "error": "required build artifact missing, unlisted or digest mismatch"
+}

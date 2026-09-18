@@ -1,0 +1,22 @@
+{
+  "source_drift": [],
+  "builds": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target\\release\\devforgeai-indexd.exe",
+      "sha256": "e9916b74d06405788053e845cb9f8db566d1a23372bcd8d33356166cf11ef695"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target\\release\\devforgeai-tray.exe",
+      "sha256": "91dd058baa6298e938c2cbc145a1564ab60b6ead5ac5abf73b3f1f17e8900996"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target\\release\\devforgeai.exe",
+      "sha256": "159e8e336040d394314a49fa82d28c20e1b901115705956969e12abc1c390a2d"
+    }
+  ],
+  "owned_product_processes": [],
+  "profraw_count": 54,
+  "runtime_source": "source-manifest.json",
+  "qa_test_coverage_source": "qa_independent-coverage-v1.rs.txt",
+  "qa_test_static_source": "qa_independent.rs"
+}

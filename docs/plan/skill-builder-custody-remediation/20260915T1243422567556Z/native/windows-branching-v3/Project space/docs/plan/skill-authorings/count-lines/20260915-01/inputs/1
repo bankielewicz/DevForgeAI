@@ -1,0 +1,235 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "count-lines",
+  "source_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-branching-v3\\Project space\\docs\\plan\\skill-authorings\\count-lines\\inputs-20260915-01\\user-request.txt",
+      "sha256": "7a281245db462d91b4ef6c58684870fd107a08cf402cc505a17cb4ffc653709e"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "count",
+      "requirement_ids": [
+        "user-request.txt#R1",
+        "user-request.txt#R2",
+        "user-request.txt#R4-R6",
+        "contract.json#D1-D3"
+      ],
+      "trigger": "User selects mode count",
+      "inputs": [
+        "mode count",
+        "literal input file argument",
+        "literal output directory argument"
+      ],
+      "completion": "Selected output exists with required bytes and successful byte readback; report exact path and delivered status.",
+      "outputs": [
+        "count.json in the literal output directory; on missing input or invalid UTF-8, failure.json instead"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/count.md",
+        "scripts/count_lines.py"
+      ],
+      "prerequisites": [
+        "Python 3.10+ standard library",
+        "Stable paths and single writer for output directory",
+        "Writable selected output directory or parent; no reserved output already present"
+      ],
+      "effects": [
+        "Read input only",
+        "Create selected output parents and one exclusive output file; never overwrite"
+      ],
+      "failure": "Missing input or invalid UTF-8: failure.json with exact original input argument, reason and FAILED. If output cannot be written/read back, report INCOMPLETE_DELIVERY. Collisions refuse; retain existing bytes. Other input I/O errors also attempt failure.json.",
+      "recovery": "Do not delete, overwrite or automatically retry partial files; report paths and ask for a new user-selected empty output directory after interruptions or collisions."
+    },
+    {
+      "id": "list",
+      "requirement_ids": [
+        "user-request.txt#R1",
+        "user-request.txt#R3",
+        "user-request.txt#R4-R6",
+        "contract.json#D1-D3"
+      ],
+      "trigger": "User selects mode list",
+      "inputs": [
+        "mode list",
+        "literal input file argument",
+        "literal output directory argument"
+      ],
+      "completion": "Selected output exists with required bytes and successful byte readback; report exact path and delivered status.",
+      "outputs": [
+        "lines.txt in the literal output directory; on missing input or invalid UTF-8, failure.json instead"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/list.md",
+        "scripts/count_lines.py"
+      ],
+      "prerequisites": [
+        "Python 3.10+ standard library",
+        "Stable paths and single writer for output directory",
+        "Writable selected output directory or parent; no reserved output already present"
+      ],
+      "effects": [
+        "Read input only",
+        "Create selected output parents and one exclusive output file; never overwrite"
+      ],
+      "failure": "Missing input or invalid UTF-8: failure.json with exact original input argument, reason and FAILED. If output cannot be written/read back, report INCOMPLETE_DELIVERY. Collisions refuse; retain existing bytes. Other input I/O errors also attempt failure.json.",
+      "recovery": "Do not delete, overwrite or automatically retry partial files; report paths and ask for a new user-selected empty output directory after interruptions or collisions."
+    }
+  ],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "kind": "instruction",
+      "purpose": "Shared input semantics, routing, delivery and recovery",
+      "load_when": "Every invocation",
+      "helper_contract": null
+    },
+    {
+      "path": "references/count.md",
+      "kind": "reference",
+      "purpose": "Count branch invocation and count output",
+      "load_when": "Only mode count",
+      "helper_contract": null
+    },
+    {
+      "path": "references/list.md",
+      "kind": "reference",
+      "purpose": "List branch invocation and list output",
+      "load_when": "Only mode list",
+      "helper_contract": null
+    },
+    {
+      "path": "scripts/count_lines.py",
+      "kind": "helper",
+      "purpose": "Reusable strict decoding, line transformation and no-overwrite delivery",
+      "load_when": "Execute for the selected mode; do not load helper source as instructions",
+      "helper_contract": {
+        "inputs": "--mode=count|list --input=<literal file> --output-dir=<literal directory>",
+        "outputs": "count.json or lines.txt; failure.json on input failure; ASCII-safe JSON status on stdout",
+        "runtime": "Python 3.10+ standard library, Windows or POSIX; no installation/network",
+        "effects": "Input read only; output directory creation, exclusive result creation, flush/fsync and readback; no cleanup or overwrite",
+        "errors": "0 result delivered; 1 FAILED report delivered; 2 REFUSED or INCOMPLETE_DELIVERY. Unhandled interruption means incomplete, potentially partial file retained. Unavailable interpreter means incomplete delivery without claiming failure.json exists.",
+        "reuse_reason": "Both modes share exact UTF-8 decoding, consistent line semantics, failure serialization and exclusive delivery safeguards."
+      }
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "count-missing",
+      "behavior_id": "count",
+      "condition": "Missing input",
+      "expected_observation": "failure.json delivered with FAILED and exact original input; otherwise incomplete delivery",
+      "requirement_basis": "R5"
+    },
+    {
+      "id": "count-encoding",
+      "behavior_id": "count",
+      "condition": "Invalid UTF-8 bytes",
+      "expected_observation": "No success result; failure.json or explicit incomplete delivery",
+      "requirement_basis": "R5"
+    },
+    {
+      "id": "count-collision",
+      "behavior_id": "count",
+      "condition": "Any reserved output name exists, including dangling link or directory",
+      "expected_observation": "REFUSED; no existing bytes changed; required failure cannot be delivered so report incomplete when applicable",
+      "requirement_basis": "R6"
+    },
+    {
+      "id": "count-write",
+      "behavior_id": "count",
+      "condition": "Denied path, disk error, or readback failure",
+      "expected_observation": "INCOMPLETE_DELIVERY with exact path; keep partial output; no success claim",
+      "requirement_basis": "R5,D3"
+    },
+    {
+      "id": "count-lines",
+      "behavior_id": "count",
+      "condition": "Empty input, blank lines, whitespace, duplicates, CRLF, CR, LF, Unicode and BOM",
+      "expected_observation": "Apply D1 consistently; count equals number of retained entries; preserve input bytes",
+      "requirement_basis": "R1-R3,D1"
+    },
+    {
+      "id": "count-literal",
+      "behavior_id": "count",
+      "condition": "Spaces, brackets, leading dashes or shell metacharacters in paths",
+      "expected_observation": "Pass as literal argument values with no shell interpolation or wildcard expansion",
+      "requirement_basis": "R1,D2"
+    },
+    {
+      "id": "count-interrupt",
+      "behavior_id": "count",
+      "condition": "Process interruption or concurrent output changes",
+      "expected_observation": "Incomplete or uncertain delivery; no auto retry; report retained paths. Exclusive open protects existing selected file; single-writer prerequisite applies across reserved names.",
+      "requirement_basis": "D3"
+    },
+    {
+      "id": "count-runtime",
+      "behavior_id": "count",
+      "condition": "Python unavailable or input is not a regular file",
+      "expected_observation": "Report incomplete runtime delivery; input I/O refusal may deliver failure.json if helper can run",
+      "requirement_basis": "D2-D3"
+    },
+    {
+      "id": "list-missing",
+      "behavior_id": "list",
+      "condition": "Missing input",
+      "expected_observation": "failure.json delivered with FAILED and exact original input; otherwise incomplete delivery",
+      "requirement_basis": "R5"
+    },
+    {
+      "id": "list-encoding",
+      "behavior_id": "list",
+      "condition": "Invalid UTF-8 bytes",
+      "expected_observation": "No success result; failure.json or explicit incomplete delivery",
+      "requirement_basis": "R5"
+    },
+    {
+      "id": "list-collision",
+      "behavior_id": "list",
+      "condition": "Any reserved output name exists, including dangling link or directory",
+      "expected_observation": "REFUSED; no existing bytes changed; required failure cannot be delivered so report incomplete when applicable",
+      "requirement_basis": "R6"
+    },
+    {
+      "id": "list-write",
+      "behavior_id": "list",
+      "condition": "Denied path, disk error, or readback failure",
+      "expected_observation": "INCOMPLETE_DELIVERY with exact path; keep partial output; no success claim",
+      "requirement_basis": "R5,D3"
+    },
+    {
+      "id": "list-lines",
+      "behavior_id": "list",
+      "condition": "Empty input, blank lines, whitespace, duplicates, CRLF, CR, LF, Unicode and BOM",
+      "expected_observation": "Apply D1 consistently; count equals number of retained entries; preserve input bytes",
+      "requirement_basis": "R1-R3,D1"
+    },
+    {
+      "id": "list-literal",
+      "behavior_id": "list",
+      "condition": "Spaces, brackets, leading dashes or shell metacharacters in paths",
+      "expected_observation": "Pass as literal argument values with no shell interpolation or wildcard expansion",
+      "requirement_basis": "R1,D2"
+    },
+    {
+      "id": "list-interrupt",
+      "behavior_id": "list",
+      "condition": "Process interruption or concurrent output changes",
+      "expected_observation": "Incomplete or uncertain delivery; no auto retry; report retained paths. Exclusive open protects existing selected file; single-writer prerequisite applies across reserved names.",
+      "requirement_basis": "D3"
+    },
+    {
+      "id": "list-runtime",
+      "behavior_id": "list",
+      "condition": "Python unavailable or input is not a regular file",
+      "expected_observation": "Report incomplete runtime delivery; input I/O refusal may deliver failure.json if helper can run",
+      "requirement_basis": "D2-D3"
+    }
+  ],
+  "execution_limits": [],
+  "open_questions": []
+}

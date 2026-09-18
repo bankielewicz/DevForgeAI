@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\boundary-trials\\attempt-001\\timeout-fixture.py",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\boundary-trials\\attempt-001\\partial-output.txt"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "timeout_seconds": 0.5,
+  "start_utc": "2026-09-12T16:07:01.569523+00:00"
+}

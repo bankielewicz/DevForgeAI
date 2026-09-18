@@ -1,0 +1,78 @@
+{
+  "activation": {
+    "excluded": [
+      "Install a skill."
+    ],
+    "positive": [
+      "Report fixture decimal totals."
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "SKILL.md",
+      "purpose": "Express the synthetic total contract.",
+      "requirement_ids": [
+        "req-0001"
+      ],
+      "role": "entrypoint"
+    },
+    {
+      "path": "schema.json",
+      "purpose": "Express the synthetic total contract.",
+      "requirement_ids": [
+        "req-0001"
+      ],
+      "role": "schema"
+    }
+  ],
+  "authorization": {
+    "inputs": [
+      {
+        "id": "spec",
+        "sha256": "1fe7c221eef3e2b19a117fd303aec053eabf868a1dd2535f54724d78b3c3e24b"
+      }
+    ],
+    "instruction": "Build the synthetic fixture capability from the selected input."
+  },
+  "dependencies": [],
+  "inputs": [
+    {
+      "bytes": 63,
+      "id": "spec",
+      "path": "trace/input.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\builder-v2-positive\\candidate\\trace\\input.md",
+      "role": "spec",
+      "sha256": "1fe7c221eef3e2b19a117fd303aec053eabf868a1dd2535f54724d78b3c3e24b"
+    }
+  ],
+  "mode": "spec_build",
+  "purpose": "Exercise byte-accounting evidence using fabricated data.",
+  "requirements": [
+    {
+      "artifact_paths": [
+        "SKILL.md",
+        "schema.json"
+      ],
+      "id": "req-0001",
+      "origin": "source",
+      "source_refs": [
+        {
+          "end_byte": 63,
+          "input_id": "spec",
+          "sha256": "1fe7c221eef3e2b19a117fd303aec053eabf868a1dd2535f54724d78b3c3e24b",
+          "start_byte": 0
+        }
+      ],
+      "text": "Return decimal totals as JSON strings.",
+      "verification": [
+        {
+          "expected": "total is a required string.",
+          "method": "Read generated fixture schema."
+        }
+      ]
+    }
+  ],
+  "schema_version": "1",
+  "target_name": "synthetic-total",
+  "workers": []
+}

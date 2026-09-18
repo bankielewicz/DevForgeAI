@@ -1,0 +1,48 @@
+{
+  "checks": [
+    {
+      "path": "devforgeai\\licenses\\tree-sitter-0.26.11-LICENSE",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\licenses\\tree-sitter-javascript-0.25.0-LICENSE",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\licenses\\tree-sitter-python-0.25.0-LICENSE",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\licenses\\tree-sitter-rust-0.24.2-LICENSE",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\licenses\\tree-sitter-typescript-0.23.2-LICENSE",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\queries\\javascript.scm",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\queries\\python.scm",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\queries\\rust.scm",
+      "digest_matches": true
+    },
+    {
+      "path": "devforgeai\\queries\\typescript.scm",
+      "digest_matches": true
+    },
+    {
+      "path": "Cargo.lock",
+      "digest_matches": true
+    }
+  ],
+  "all_pass": true,
+  "prior_inspection_error": "First helper invocation could not import tomllib under Python3.10; no product execution occurred. Digest-only check uses standard hashlib/json.",
+  "product_build": "attempts/build/receipt.json",
+  "external_network_or_install": "NOT_PERFORMED"
+}

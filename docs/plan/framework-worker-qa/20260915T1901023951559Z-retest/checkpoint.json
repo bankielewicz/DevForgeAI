@@ -1,0 +1,17 @@
+{
+  "intent": "retest",
+  "plan": "READY",
+  "execution": "COMPLETED",
+  "verdict": "PASS",
+  "F-01": "VERIFIED_FIXED",
+  "F-02": "VERIFIED_FIXED",
+  "owned_processes": [],
+  "fixtures": "Retained under this root; held process handles signalled and all supervisors exited.",
+  "stop_trigger": null,
+  "selected_remaining": [],
+  "unselected": "WN-01/WN-02 NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "next_owner": "User/project review of independent retest and separate native prerequisites",
+  "evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest",
+  "completed_at": "2026-09-15T19:15:25.391061+00:00"
+}

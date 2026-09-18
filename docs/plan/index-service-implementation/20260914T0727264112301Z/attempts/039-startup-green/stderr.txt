@@ -1,0 +1,55 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.96s
+     Running tests\process.rs (target\debug\deps\process-98214e18a9499ceb.exe)
+CLI begin ["daemon", "start"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI begin ["daemon", "start"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI begin ["daemon", "start"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "start"]: exit code: 0
+CLI begin ["daemon", "stop"] in C:\Users\bryan\AppData\Local\Temp\.tmpqvpvrE
+CLI end ["daemon", "start"]: exit code: 0
+CLI begin ["daemon", "pause"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["daemon", "start"]: exit code: 0
+CLI begin ["daemon", "pause"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "pause"]: exit code: 0
+CLI begin ["project", "add", "--root", "C:\\Users\\bryan\\AppData\\Local\\Temp\\.tmp6ISUcF", "--name", "Fixture Ω spaces"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "pause"]: exit code: 0
+CLI begin ["project", "add", "--root", "C:\\Users\\bryan\\AppData\\Local\\Temp\\.tmpDcrLZZ", "--name", "Recovery"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["project", "add", "--root", "C:\\Users\\bryan\\AppData\\Local\\Temp\\.tmpDcrLZZ", "--name", "Recovery"]: exit code: 0
+CLI begin ["daemon", "stop"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["daemon", "stop"]: exit code: 0
+CLI begin ["daemon", "stop"] in C:\Users\bryan\AppData\Local\Temp\.tmpqvpvrE
+CLI end ["project", "add", "--root", "C:\\Users\\bryan\\AppData\\Local\\Temp\\.tmp6ISUcF", "--name", "Fixture Ω spaces"]: exit code: 0
+CLI begin ["index", "rescan", "--project", "c5916a63-c0a5-482e-a853-b977b1c635cf"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "stop"]: exit code: 0
+CLI end ["index", "rescan", "--project", "c5916a63-c0a5-482e-a853-b977b1c635cf"]: exit code: 0
+CLI begin ["job", "status", "--job", "385545d2-72c2-44b0-9d87-dc0691f6d7ac"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["job", "status", "--job", "385545d2-72c2-44b0-9d87-dc0691f6d7ac"]: exit code: 0
+CLI begin ["daemon", "resume"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "stop"]: exit code: 0
+CLI begin ["daemon", "start"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["daemon", "resume"]: exit code: 0
+CLI begin ["job", "status", "--job", "385545d2-72c2-44b0-9d87-dc0691f6d7ac"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["job", "status", "--job", "385545d2-72c2-44b0-9d87-dc0691f6d7ac"]: exit code: 0
+CLI end ["daemon", "start"]: exit code: 0
+CLI begin ["daemon", "status"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI begin ["job", "status", "--job", "385545d2-72c2-44b0-9d87-dc0691f6d7ac"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "status"]: exit code: 0
+CLI begin ["index", "rebuild", "--project", "30cc91dc-8ff3-4ef5-9018-8d84efc575cf", "--yes", "--affected-projects", "00000000-0000-0000-0000-000000000000"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["job", "status", "--job", "385545d2-72c2-44b0-9d87-dc0691f6d7ac"]: exit code: 0
+CLI begin ["index", "reindex", "--project", "c5916a63-c0a5-482e-a853-b977b1c635cf", "--wait"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["index", "rebuild", "--project", "30cc91dc-8ff3-4ef5-9018-8d84efc575cf", "--yes", "--affected-projects", "00000000-0000-0000-0000-000000000000"]: exit code: 2
+CLI begin ["index", "rebuild", "--project", "30cc91dc-8ff3-4ef5-9018-8d84efc575cf", "--yes", "--affected-projects", "30cc91dc-8ff3-4ef5-9018-8d84efc575cf"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["index", "rebuild", "--project", "30cc91dc-8ff3-4ef5-9018-8d84efc575cf", "--yes", "--affected-projects", "30cc91dc-8ff3-4ef5-9018-8d84efc575cf"]: exit code: 0
+CLI begin ["daemon", "status"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["daemon", "status"]: exit code: 0
+CLI begin ["daemon", "stop"] in C:\Users\bryan\AppData\Local\Temp\.tmpxabje7
+CLI end ["index", "reindex", "--project", "c5916a63-c0a5-482e-a853-b977b1c635cf", "--wait"]: exit code: 0
+CLI begin ["project", "remove", "--project", "c5916a63-c0a5-482e-a853-b977b1c635cf", "--yes"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["project", "remove", "--project", "c5916a63-c0a5-482e-a853-b977b1c635cf", "--yes"]: exit code: 0
+CLI begin ["daemon", "stop"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "stop"]: exit code: 0
+CLI end ["daemon", "stop"]: exit code: 0
+CLI begin ["daemon", "status"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "status"]: exit code: 0
+CLI begin ["daemon", "stop"] in C:\Users\bryan\AppData\Local\Temp\.tmpBAiZu7
+CLI end ["daemon", "stop"]: exit code: 0

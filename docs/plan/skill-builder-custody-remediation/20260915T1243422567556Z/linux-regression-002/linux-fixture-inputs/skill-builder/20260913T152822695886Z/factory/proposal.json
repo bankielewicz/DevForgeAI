@@ -1,0 +1,94 @@
+{
+  "schema_version": "adaptation-proposal-v1",
+  "run_id": "fixture",
+  "mode": "propose",
+  "project_evidence": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/evidence.json",
+    "sha256": "190f0ff85ef5fe2f39f3ce8f5dc0f63ea453f2482ceb29b71488d79aa24ba0fe"
+  },
+  "prior_proposal": null,
+  "requirements": [
+    {
+      "id": "R1",
+      "origin": "source",
+      "statement": "Keep supplied facts.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/inputs/requirements.md",
+            "sha256": "c22356aa7c45bbff75e702821da4b22a9cd5a081f07f3f9437760b897d8e7854"
+          },
+          "start_line": 1,
+          "end_line": 2
+        }
+      ],
+      "rationale": null,
+      "verification": "Output retains supplied facts."
+    }
+  ],
+  "members": [
+    {
+      "id": "A",
+      "name": "notes-a",
+      "role": "expertise",
+      "action": "create",
+      "target_root": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/skills/notes-a",
+      "existing_package": null,
+      "parent_core": null,
+      "responsibility": "Persist supplied notes.",
+      "exclusions": [
+        "HTTP"
+      ],
+      "triggers": [
+        "Persist notes"
+      ],
+      "near_misses": [
+        "Serve HTTP"
+      ],
+      "requirement_ids": [
+        "R1"
+      ],
+      "fact_ids": [
+        "domain"
+      ],
+      "rationale": "Unmet note persistence responsibility.",
+      "depends_on": [],
+      "capabilities": [],
+      "lineage_delta": []
+    },
+    {
+      "id": "B",
+      "name": "notes-b",
+      "role": "expertise",
+      "action": "create",
+      "target_root": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/skills/notes-b",
+      "existing_package": null,
+      "parent_core": null,
+      "responsibility": "Persist supplied notes.",
+      "exclusions": [
+        "HTTP"
+      ],
+      "triggers": [
+        "Persist notes"
+      ],
+      "near_misses": [
+        "Serve HTTP"
+      ],
+      "requirement_ids": [
+        "R1"
+      ],
+      "fact_ids": [
+        "domain"
+      ],
+      "rationale": "Unmet note persistence responsibility.",
+      "depends_on": [
+        "A"
+      ],
+      "capabilities": [],
+      "lineage_delta": []
+    }
+  ],
+  "handoffs": [],
+  "gaps": [],
+  "state": "PROPOSED"
+}

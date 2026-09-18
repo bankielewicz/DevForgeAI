@@ -1,0 +1,18 @@
+{
+  "pid": 71068,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\Cargo.toml",
+    "--test",
+    "independent",
+    "--",
+    "qa_07_sink_faults_caps_and_required_write_failure",
+    "--exact",
+    "--test-threads=1"
+  ],
+  "started_utc": "2026-09-17T11:08:06.226452+00:00"
+}

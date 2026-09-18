@@ -1,0 +1,41 @@
+# Remediation Checkpoint Template (v1.0)
+# Copy and populate when creating a new remediation session
+
+checkpoint_version: "1.0"
+session_id: "FIX-{AUDIT_FILE_BASENAME}"
+timestamp: "{ISO_8601_TIMESTAMP}"
+audit_file: "{AUDIT_FILE_PATH}"
+
+mode:
+  dry_run: false
+  auto_only: false
+  finding_filter: "all"
+
+current_phase: 0
+status: "in_progress"
+
+phase_completion:
+  phase_00: false
+  phase_01: false
+  phase_02: false
+  phase_03: false
+  phase_04: false
+  phase_05: false
+
+findings: []
+  # Populated during Phase 00 with entries like:
+  # - finding_id: "F-001"
+  #   severity: "MEDIUM"
+  #   type: "quality/broken_file_reference"
+  #   classification: "pending"
+  #   status: "pending"
+  #   verification: "pending"
+  #   retry_count: 0
+  #   file_changed: null
+  #   change_summary: null
+
+user_decisions: []
+  # Populated as user makes choices:
+  # - timestamp: "2026-03-18T14:35:00Z"
+  #   finding_id: "F-001"
+  #   decision: "Apply recommended fix"

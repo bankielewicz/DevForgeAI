@@ -1,0 +1,42 @@
+[
+  {
+    "id": "R01",
+    "prompt": "Help me explore ways to make library returns easier for volunteers."
+  },
+  {
+    "id": "R02",
+    "prompt": "Compare directions for an uncertain offline field-note product."
+  },
+  {
+    "id": "R03",
+    "prompt": "Resume the selected discovery brief and revisit its open audience question."
+  },
+  {
+    "id": "R04",
+    "prompt": "Our existing billing app needs a new feature but the intended outcome is unclear. Help clarify it."
+  },
+  {
+    "id": "R05",
+    "prompt": "Implement the selected approved specification."
+  },
+  {
+    "id": "R06",
+    "prompt": "Repair the known signed-sum defect using its regression case."
+  },
+  {
+    "id": "R07",
+    "prompt": "Register and activate this project."
+  },
+  {
+    "id": "R08",
+    "prompt": "Write the PRD from these settled discovery inputs."
+  },
+  {
+    "id": "R09",
+    "prompt": "Review this PRD for contradictions."
+  },
+  {
+    "id": "R10",
+    "prompt": "Create implementation stories for the selected epic."
+  }
+]

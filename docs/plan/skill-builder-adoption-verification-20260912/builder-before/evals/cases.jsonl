@@ -1,0 +1,2 @@
+{"case_id":"builder-package-links","grader_id":"package_links","params":{"path":"."},"expected":"PASS"}
+{"case_id":"portable-file-accounting","grader_id":"manifest_accounting","params":{"source":"evals/fixtures/portable/source","destination":"evals/fixtures/portable/destination","evidence":"evals/fixtures/portable/evidence"},"expected":"PASS"}

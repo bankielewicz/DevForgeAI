@@ -1,0 +1,17 @@
+{
+  "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/usr/bin/python3",
+  "cwd": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/story-create/20260917T185301Z",
+  "fixture_filesystem": "/tmp/story-create-validation-l03co54c",
+  "run_evidence_filesystem": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/story-create/20260917T185301Z",
+  "tests": 30,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "symlink_result": "UNSAFE_PATH",
+  "elapsed_seconds": 20.261006416,
+  "coverage": "MEASURED",
+  "source_sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16",
+  "notes": "Linux Python and /tmp synthetic fixtures; captured source and retained reports cross /mnt/c. No repository relocation, dependency install or native Codex workflow."
+}

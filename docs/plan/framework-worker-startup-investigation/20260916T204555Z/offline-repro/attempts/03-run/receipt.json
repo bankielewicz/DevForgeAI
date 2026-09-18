@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "cargo",
+    "run",
+    "--locked",
+    "--offline",
+    "--bin",
+    "startup-repro"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\harness",
+  "exit_code": 101,
+  "elapsed_seconds": 1.1723570823669434,
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\stdout.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\stderr.bin",
+    "bytes": 28186,
+    "sha256": "aceef5a77930bfeb3f147e4f9c54ea9bac6cb6a46ddd6a721b976752943bc861"
+  },
+  "candidate_files_checked": 58,
+  "candidate_matches_manifest_before": true,
+  "candidate_matches_manifest_after": true
+}

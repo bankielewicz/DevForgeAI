@@ -1,0 +1,61 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T161842Z",
+  "target_name": "skill-builder",
+  "findings": [
+    {
+      "finding_id": "F-8c43eca6259d05a2153068b5d5b29495d0c208229c2a19f49bc71355d8df2d1f",
+      "rule_id": "SB-CONSISTENCY",
+      "identity": [
+        "SB-CONSISTENCY",
+        "references/evidence-format.md",
+        "| Independent forward trials | `NOT_PERFORMED`, `PASSED`, `FAILED`; builder enhancements require the three actual trials in the evaluation reference. |",
+        0
+      ],
+      "category": "instruction_issue",
+      "severity": "minor",
+      "subject_path": "references/evidence-format.md",
+      "locator": {
+        "line_start": 86,
+        "line_end": 86
+      },
+      "source_refs": [
+        {
+          "path": "inputs/specs/skill-builder-adoption-spec.md",
+          "sha256": "beebc2b97b6719fafbd1500b63e41280ddd611a3978b7d3af9b2798b7a87f095",
+          "source_id": "skill-builder-adoption-spec",
+          "locator": "9. Verification and acceptance cases"
+        }
+      ],
+      "observation_refs": [
+        {
+          "path": "source/references/evidence-format.md",
+          "sha256": "b7bf5fa09759c1f507cff2db0a387ef646ec7cf89e475371875bc17094d4b0e8",
+          "start_line": 86,
+          "end_line": 86
+        },
+        {
+          "path": "source/references/evaluation.md",
+          "sha256": "06276046f621c5a6975f43d0d46a9635a8c49e1c2f147e5f91bcea85db6bdb04",
+          "start_line": 81,
+          "end_line": 92
+        }
+      ],
+      "description": "The reporting-state table says enhancements require three actual trials, while the linked evaluation workflow enumerates four, including the explicit adoption/revision/revalidation/lineage family. This is a stale count, not evidence that the implemented fourth workflow is absent.",
+      "user_impact": "A maintainer using the summary can misstate complete enhancement coverage or overlook the adoption family. The linked detailed workflow and final retained verification mitigate this risk.",
+      "proposed_correction": "Replace the stale count with a link to all applicable independent forward trials in evaluation.md, preserving its four currently enumerated families and separate routing requirements.",
+      "preserved_requirements": [
+        "Independent task execution for substantive enhancements",
+        "All four existing forward-trial families",
+        "Required Python observations and actual readback",
+        "No authority or activation claims"
+      ],
+      "verification_cases": [
+        "Review the revised table against the four existing detailed families.",
+        "Confirm adoption lineage cannot be omitted by reading only the completion summary.",
+        "Verify all unrelated package bytes remain unchanged except the intentionally rebound build manifest."
+      ],
+      "disposition": "proposed"
+    }
+  ]
+}

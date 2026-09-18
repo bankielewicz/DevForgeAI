@@ -1,0 +1,46 @@
+{
+  "new_finding_id": "F-60c84a7e29fc2151594698f693d698226b36a90666efcf4bf2ab6cc7fe744bc8",
+  "prior_finding_id": "F-ef5e63567e75d7d4f4cd5dccefcae746b6b6ce60b27f1a2dc3e5d85ca839257a",
+  "dimensions": {
+    "standards": {
+      "outcome": "INCOMPLETE",
+      "required_total": 14,
+      "required_evaluated": 13,
+      "incomplete_check_ids": [
+        "DEV-026-semantic"
+      ]
+    },
+    "workflow": {
+      "outcome": "FAIL",
+      "required_total": 11,
+      "required_evaluated": 11,
+      "incomplete_check_ids": []
+    },
+    "instructions": {
+      "outcome": "PASS",
+      "required_total": 18,
+      "required_evaluated": 18,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "FAIL",
+      "required_total": 19,
+      "required_evaluated": 18,
+      "incomplete_check_ids": [
+        "DV-16"
+      ]
+    }
+  },
+  "metrics": {
+    "passing": 16,
+    "required": 18,
+    "pass_rate": 88.88888888888889,
+    "counts": {
+      "ERROR": 0,
+      "FAIL": 1,
+      "NOT_APPLICABLE": 0,
+      "NOT_RUN": 1,
+      "PASS": 16
+    }
+  }
+}

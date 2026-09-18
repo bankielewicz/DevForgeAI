@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+    "readback",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\validator-helper-08w5u8az\\project with spaces\\example",
+    "--manifest",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\validator-helper-08w5u8az\\absent.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--source": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\validator-helper-08w5u8az\\project with spaces\\example",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0141\\input-6"
+    }
+  },
+  "start": "2026-09-13T02:50:57.477839+00:00",
+  "timeout_seconds": 30
+}

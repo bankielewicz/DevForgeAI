@@ -1,0 +1,119 @@
+{
+  "case_id": "H07",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H07\\records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:20:19.240160Z",
+  "end": "2026-09-13T21:20:19.811667Z",
+  "elapsed_seconds": 0.5629999999655411,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/H07/stdout.txt",
+    "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+  },
+  "stderr": {
+    "path": "commands/H07/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H07",
+    "captured_at_utc": "2026-09-13T21:20:19.811667Z",
+    "files": [
+      {
+        "path": "inputs/alpha-manifest.json",
+        "bytes": 267,
+        "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+      },
+      {
+        "path": "inputs/authorization.txt",
+        "bytes": 44,
+        "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+      },
+      {
+        "path": "inputs/beta-manifest.json",
+        "bytes": 267,
+        "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+      },
+      {
+        "path": "inputs/selection.json",
+        "bytes": 1794,
+        "sha256": "c92d33245e543604bb6b156ca8ff61d069e429703da9cb6f509be2a73f5bdd05"
+      },
+      {
+        "path": "integration/checks.jsonl",
+        "bytes": 1,
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "member-evidence/A/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+      },
+      {
+        "path": "member-evidence/A/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/A/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "member-evidence/B/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+      },
+      {
+        "path": "member-evidence/B/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/B/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "packages/alpha/SKILL.md",
+        "bytes": 106,
+        "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+      },
+      {
+        "path": "packages/alpha/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "packages/beta/SKILL.md",
+        "bytes": 105,
+        "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+      },
+      {
+        "path": "packages/beta/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "records/set-assessment.json",
+        "bytes": 2466,
+        "sha256": "86694a91478f62acf95ad871f9f26184a17a9eb6ca939841fca7efa64240920e"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "594e81505d0ffac1a0a614037cbc231591cf651680e3b87f5eb1f24dad051540"
+  },
+  "fixture_unchanged": true
+}

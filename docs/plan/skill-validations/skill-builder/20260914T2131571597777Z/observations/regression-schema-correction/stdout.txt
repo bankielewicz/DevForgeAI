@@ -1,0 +1,6 @@
+test_new_record_schemas_match_actual_outputs (test_authoring.AuthoringTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.436s
+
+OK

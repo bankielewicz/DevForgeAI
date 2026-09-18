@@ -1,0 +1,30 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running tests/process.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/process-2eb60b9f5f2187e5)
+CLI begin ["daemon", "start"] in /tmp/.tmpiDGN6u
+CLI begin ["daemon", "start"] in /tmp/.tmpiDGN6u
+CLI end ["daemon", "start"]: exit status: 0
+CLI end ["daemon", "start"]: exit status: 0
+CLI begin ["daemon", "pause"] in /tmp/.tmpiDGN6u
+CLI end ["daemon", "pause"]: exit status: 0
+CLI begin ["project", "add", "--root", "/tmp/.tmpXlOrrp", "--name", "Fixture Ω spaces"] in /tmp/.tmpiDGN6u
+CLI end ["project", "add", "--root", "/tmp/.tmpXlOrrp", "--name", "Fixture Ω spaces"]: exit status: 0
+CLI begin ["index", "rescan", "--project", "ce489493-f656-45ea-9af4-bcb5257cdd25"] in /tmp/.tmpiDGN6u
+CLI end ["index", "rescan", "--project", "ce489493-f656-45ea-9af4-bcb5257cdd25"]: exit status: 0
+CLI begin ["job", "status", "--job", "c2ff80f2-a3fa-427e-8f8a-03a1dcb67e3b"] in /tmp/.tmpiDGN6u
+CLI end ["job", "status", "--job", "c2ff80f2-a3fa-427e-8f8a-03a1dcb67e3b"]: exit status: 0
+CLI begin ["daemon", "resume"] in /tmp/.tmpiDGN6u
+CLI end ["daemon", "resume"]: exit status: 0
+CLI begin ["job", "status", "--job", "c2ff80f2-a3fa-427e-8f8a-03a1dcb67e3b"] in /tmp/.tmpiDGN6u
+CLI end ["job", "status", "--job", "c2ff80f2-a3fa-427e-8f8a-03a1dcb67e3b"]: exit status: 0
+CLI begin ["job", "status", "--job", "c2ff80f2-a3fa-427e-8f8a-03a1dcb67e3b"] in /tmp/.tmpiDGN6u
+CLI end ["job", "status", "--job", "c2ff80f2-a3fa-427e-8f8a-03a1dcb67e3b"]: exit status: 0
+CLI begin ["index", "reindex", "--project", "ce489493-f656-45ea-9af4-bcb5257cdd25", "--wait"] in /tmp/.tmpiDGN6u
+CLI end ["index", "reindex", "--project", "ce489493-f656-45ea-9af4-bcb5257cdd25", "--wait"]: exit status: 0
+CLI begin ["project", "remove", "--project", "ce489493-f656-45ea-9af4-bcb5257cdd25", "--yes"] in /tmp/.tmpiDGN6u
+CLI end ["project", "remove", "--project", "ce489493-f656-45ea-9af4-bcb5257cdd25", "--yes"]: exit status: 0
+CLI begin ["daemon", "stop"] in /tmp/.tmpiDGN6u
+CLI end ["daemon", "stop"]: exit status: 0
+CLI begin ["daemon", "status"] in /tmp/.tmpiDGN6u
+CLI end ["daemon", "status"]: exit status: 0
+CLI begin ["daemon", "stop"] in /tmp/.tmpiDGN6u
+CLI end ["daemon", "stop"]: exit status: 0

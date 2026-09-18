@@ -1,0 +1,136 @@
+test_adoption_rebound_manifest_and_readback_tampering (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_adoption_record_identity_and_partition (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) ... test_build_evidence_json_and_specification_diagnostics (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_evaluation_case_limits_and_shape (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_historical_provenance_rejects_unbound_generation (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_json_protocol_and_path_rejections (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_link_and_manifest_invalid_shapes (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_observed_rows_cannot_hide_duplicates_types_or_order (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_revision_preview_preserves_current_and_ownership (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_selected_handoff_checks_bound_review_and_targets (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_snapshot_limits_and_excluded_content (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+======================================================================
+FAIL: test_build_contract_obligations_cannot_be_removed (test_postmvp_custody_quality.CustodyQualityTests) (variant=14)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 153, in test_build_contract_obligations_cannot_be_removed
+    self.assertEqual(graders.build_traceability(root,params['build_traceability']),[])
+AssertionError: {'status': 'PASS', 'observations': ['No d[3191 chars]4b'}} != []
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.379s
+
+FAILED (failures=15)

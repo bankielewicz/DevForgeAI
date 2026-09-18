@@ -1,0 +1,122 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "bytes": 18728,
+    "sha256": "3b8e2a112c438b536ab59db2abbcfd6e08ebdd7f41caa13cdf6d5c49866fab86"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+    "bytes": 8619,
+    "sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\qa-handoff.md",
+    "bytes": 4709,
+    "sha256": "6e00b019304779ded7f96e48f3f3b9574fc352d9055271009110cbd2f9efb639"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract.md",
+    "bytes": 3393,
+    "sha256": "a1c35642f3c4c5a2bf4102495cca48f791877cc9d67416cbd1179dc831ac9779"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\delivery.md",
+    "bytes": 8709,
+    "sha256": "590eef8f6001a8f0df224b04360ccf01fee26d21126a64acc87a0c744d132606"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\review-notes.md",
+    "bytes": 3024,
+    "sha256": "f266fb7cf550580f830678b5c2ec2d8cecdb2b34316a7f9f9e3cd2f285188fb6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\input-bindings.json",
+    "bytes": 26439,
+    "sha256": "99209c8a6eafca6273c8eb8293583f35e24f0900843400d574df9c82d73820fb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\baseline-manifest.json",
+    "bytes": 8318,
+    "sha256": "788ea58582151b020cd993b018f8c1425aa90ade4316ef3d6e46c149db92c50b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-test-inventory.json",
+    "bytes": 10525,
+    "sha256": "dc611e664c24644653c925bf16a1885ca56e819b04374a96cad4d2ff2b1eb205"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-coverage-analysis.json",
+    "bytes": 2759,
+    "sha256": "5b2208f2fc6a30cd7555bb527d11116f07e40e40871d7c7b46220a38c75aa049"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-runs\\20260916T185825Z-diagnostic-handoff\\qa-handoff-addendum.md",
+    "bytes": 3962,
+    "sha256": "48d4d92a960c2205bd91efd431977744619486351304f69bd450cc44c12e19ff"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\native-diagnostic-handoff.md",
+    "bytes": 4025,
+    "sha256": "2bd7a0fdfcf5967a0c669da4399b5e23e902ef42235cee684029b52162e63618"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\assets\\qa-fix-template.md",
+    "bytes": 3463,
+    "sha256": "3bccfdb11786f445d906ee7109af406ee237d436fcd1e787757a4824f538fdaf"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\assets\\qa-report-template.md",
+    "bytes": 5554,
+    "sha256": "e7184486a110673f77d37ef5211c41d47cd4d3182bb477bed4510a67f0d90036"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\assets\\test-plan-template.md",
+    "bytes": 11489,
+    "sha256": "f000dc4dda27fce0e51614934385b972dbaf27f46a7d2d6d35918358362d88a7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\assessment.md",
+    "bytes": 8871,
+    "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\execution-integrity.md",
+    "bytes": 14337,
+    "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\intake-planning.md",
+    "bytes": 15089,
+    "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\reporting-handoff.md",
+    "bytes": 13277,
+    "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\SKILL.md",
+    "bytes": 7621,
+    "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+    "bytes": 37561,
+    "sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+    "bytes": 13339,
+    "sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-preflight-v1.md",
+    "bytes": 12762,
+    "sha256": "6e781f23f221d1033896716512e9162579653b529d107e0040d49c499574afd1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+    "bytes": 9151,
+    "sha256": "34160ff675f886aeeebd3a7d131fd973b86a375fb64def7604db419c79db1f8c"
+  }
+]

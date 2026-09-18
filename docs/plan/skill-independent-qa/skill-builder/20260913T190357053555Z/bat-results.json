@@ -1,0 +1,442 @@
+[
+  {
+    "id": "BAT-01",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 1,
+        "required": 4
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 1,
+        "required": 4
+      }
+    },
+    "subcases": [
+      "BAT-01-cold-create",
+      "BAT-01-focused-edit",
+      "BAT-01-manual-handoff-byte-binding",
+      "BAT-01-no-quality-process"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-02",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 5
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 5
+      }
+    },
+    "subcases": [
+      "BAT-02-two-languages",
+      "BAT-02-unknown-manifest",
+      "BAT-02-dependency-exclusion",
+      "BAT-02-junction-exclusion",
+      "BAT-02-no-project-script"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-03",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 7
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 7
+      }
+    },
+    "subcases": [
+      "BAT-03-2000-file-boundary",
+      "BAT-03-2001-file-limit",
+      "BAT-03-32MiB-boundary",
+      "BAT-03-32MiB-plus-one-limit",
+      "BAT-03-missing-python",
+      "BAT-03-missing-rust-enforcement",
+      "BAT-03-independent-proposal-retained"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-04",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 4
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 4
+      }
+    },
+    "subcases": [
+      "BAT-04-http-retained",
+      "BAT-04-storage-evidence",
+      "BAT-04-no-redundant-persona",
+      "BAT-04-supporting-locators"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-05",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "PASS",
+        "passing": 4,
+        "required": 4
+      },
+      "linux": {
+        "status": "PASS",
+        "passing": 4,
+        "required": 4
+      }
+    },
+    "subcases": [
+      "BAT-05-missing-disposition",
+      "BAT-05-unauthorized-removal",
+      "BAT-05-complete-three-row-lineage",
+      "BAT-05-core-preserved"
+    ],
+    "status": "PASS",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-06",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 4
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 4
+      }
+    },
+    "subcases": [
+      "BAT-06-adaptive-authoring",
+      "BAT-06-relocation",
+      "BAT-06-no-concrete-identity",
+      "BAT-06-relative-runtime-paths"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-07",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 13,
+        "required": 14
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 12,
+        "required": 14
+      }
+    },
+    "subcases": [
+      "BAT-07-bound",
+      "BAT-07-missing",
+      "BAT-07-invalid",
+      "BAT-07-root-mismatch",
+      "BAT-07-unbound",
+      "BAT-07-package-changed",
+      "BAT-07-role-mismatch",
+      "BAT-07-not-selected",
+      "BAT-07-ambiguous-role",
+      "BAT-07-unsafe-path",
+      "BAT-07-capture-limit",
+      "BAT-07-io-error",
+      "BAT-07-duplicate-name",
+      "BAT-07-no-product-effects"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-08",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 7,
+        "required": 10
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 7,
+        "required": 10
+      }
+    },
+    "subcases": [
+      "BAT-08-all-valid-record-families",
+      "BAT-08-duplicate-key",
+      "BAT-08-extra-field",
+      "BAT-08-unknown-version",
+      "BAT-08-malformed-reference",
+      "BAT-08-malformed-digest",
+      "BAT-08-unresolved-id",
+      "BAT-08-boolean-integer",
+      "BAT-08-nonfinite-number",
+      "BAT-08-misleading-lineage-text"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-09",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 3,
+        "required": 4
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 3,
+        "required": 4
+      }
+    },
+    "subcases": [
+      "BAT-09-legacy-authoring-contract",
+      "BAT-09-legacy-validation-request",
+      "BAT-09-closed-top-level",
+      "BAT-09-legacy-reference-base"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-10",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 2,
+        "required": 6
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 2,
+        "required": 6
+      }
+    },
+    "subcases": [
+      "BAT-10-a-fails",
+      "BAT-10-b-dependency-blocked",
+      "BAT-10-c-authored",
+      "BAT-10-aggregate-partial",
+      "BAT-10-eligible-subset",
+      "BAT-10-subset-dependency-closure"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-11",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 4,
+        "required": 6
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 4,
+        "required": 6
+      }
+    },
+    "subcases": [
+      "BAT-11-cycle",
+      "BAT-11-missing-dependency",
+      "BAT-11-occupied-target",
+      "BAT-11-user-edited-obsolete",
+      "BAT-11-concurrent-drift",
+      "BAT-11-partial-paths"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-12",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 5,
+        "required": 7
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 7
+      }
+    },
+    "subcases": [
+      "BAT-12-positive-propose",
+      "BAT-12-positive-author-set",
+      "BAT-12-positive-review-updates",
+      "BAT-12-negative-install",
+      "BAT-12-negative-test-only",
+      "BAT-12-explicit-native",
+      "BAT-12-implicit-discovery"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-13",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 5
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 5
+      }
+    },
+    "subcases": [
+      "BAT-13-no-change",
+      "BAT-13-equal-semantics-changed-bytes",
+      "BAT-13-removed-required-contract",
+      "BAT-13-missing-parent",
+      "BAT-13-no-auto-rebase"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-14",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 4
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 4
+      }
+    },
+    "subcases": [
+      "BAT-14-python-tdd",
+      "BAT-14-rust-implementation-first",
+      "BAT-14-typescript-monorepo",
+      "BAT-14-documentation-only"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-15",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 3,
+        "required": 6
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 0,
+        "required": 6
+      }
+    },
+    "subcases": [
+      "BAT-15-spaces",
+      "BAT-15-non-ascii",
+      "BAT-15-shell-significant",
+      "BAT-15-missing-interpreter",
+      "BAT-15-offline",
+      "BAT-15-no-install"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-16",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 1,
+        "required": 3
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 1,
+        "required": 3
+      }
+    },
+    "subcases": [
+      "BAT-16-evidence-drift",
+      "BAT-16-fresh-linked-proposal",
+      "BAT-16-no-stale-approval"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  },
+  {
+    "id": "BAT-17",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "platform_results": {
+      "windows": {
+        "status": "NOT_RUN",
+        "passing": 3,
+        "required": 7
+      },
+      "linux": {
+        "status": "NOT_RUN",
+        "passing": 3,
+        "required": 7
+      }
+    },
+    "subcases": [
+      "BAT-17-claude-import",
+      "BAT-17-observed-first-edit",
+      "BAT-17-authored-baseline",
+      "BAT-17-legacy-generated",
+      "BAT-17-legacy-adopted",
+      "BAT-17-corrupt-history",
+      "BAT-17-no-fake-complete"
+    ],
+    "status": "NOT_RUN",
+    "reason": "Compound acceptance requires every applicable subcase; partial helper or timed-out native evidence does not qualify it."
+  }
+]

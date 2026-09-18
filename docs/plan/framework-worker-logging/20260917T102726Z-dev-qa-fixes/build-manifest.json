@@ -1,0 +1,671 @@
+{
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate-manifest.json",
+    "bytes": 19466,
+    "sha256": "4a25130c9353ec65553ed8c26cb75e76af5833ce4e2d80e8c62ecd9297b5d7a7"
+  },
+  "main_executable": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "bytes": 2545152,
+    "sha256": "ec2575bd4cacfce147113eee1b257d69be06b7e3d563d669e15010432e9dc3e5"
+  },
+  "executables": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\generic-array-d6e6cdbeffbb1cdb\\build-script-build.exe",
+      "bytes": 297472,
+      "sha256": "fc373ea71180bdf47d0c462181243e2aefd97219abf33c012f8bd30c51fd47a5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\generic-array-d6e6cdbeffbb1cdb\\build_script_build-d6e6cdbeffbb1cdb.exe",
+      "bytes": 297472,
+      "sha256": "fc373ea71180bdf47d0c462181243e2aefd97219abf33c012f8bd30c51fd47a5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\getrandom-9f5a587d39b0feec\\build-script-build.exe",
+      "bytes": 152576,
+      "sha256": "bb70a2cd28e81b8a275d7f662273c5af5a8336a38a64f1a9c209f401a3fc1fe0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\getrandom-9f5a587d39b0feec\\build_script_build-9f5a587d39b0feec.exe",
+      "bytes": 152576,
+      "sha256": "bb70a2cd28e81b8a275d7f662273c5af5a8336a38a64f1a9c209f401a3fc1fe0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\proc-macro2-63f79d925bc13e28\\build-script-build.exe",
+      "bytes": 306688,
+      "sha256": "b745853c786646c14a286a7e548b7ce36da7f3d472bf56d87a14c381a6e53e15"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\proc-macro2-63f79d925bc13e28\\build_script_build-63f79d925bc13e28.exe",
+      "bytes": 306688,
+      "sha256": "b745853c786646c14a286a7e548b7ce36da7f3d472bf56d87a14c381a6e53e15"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\quote-f56918f17a00ead2\\build-script-build.exe",
+      "bytes": 260096,
+      "sha256": "9a357ba9c1a492f8f0ea8fd08943f73d204d948fe2a859613904d4af0f467e62"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\quote-f56918f17a00ead2\\build_script_build-f56918f17a00ead2.exe",
+      "bytes": 260096,
+      "sha256": "9a357ba9c1a492f8f0ea8fd08943f73d204d948fe2a859613904d4af0f467e62"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\serde-da9697703d592838\\build-script-build.exe",
+      "bytes": 284672,
+      "sha256": "61f95bf7773011fbe9b465b33cc02e49b8fa466c916e8500dc804dd517ec89ff"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\serde-da9697703d592838\\build_script_build-da9697703d592838.exe",
+      "bytes": 284672,
+      "sha256": "61f95bf7773011fbe9b465b33cc02e49b8fa466c916e8500dc804dd517ec89ff"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\serde_core-a9c94a87763300d1\\build-script-build.exe",
+      "bytes": 286720,
+      "sha256": "8a7ba58765aba63ca2777922f07e3afffba4ca4b153a3f54170c08708a981b41"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\serde_core-a9c94a87763300d1\\build_script_build-a9c94a87763300d1.exe",
+      "bytes": 286720,
+      "sha256": "8a7ba58765aba63ca2777922f07e3afffba4ca4b153a3f54170c08708a981b41"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\serde_json-a6946029485c9895\\build-script-build.exe",
+      "bytes": 133632,
+      "sha256": "8b3753e4e0b98bc588815c6d9162f4e20ae0b1437daa035eb9b38ddc6a86bb5d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\serde_json-a6946029485c9895\\build_script_build-a6946029485c9895.exe",
+      "bytes": 133632,
+      "sha256": "8b3753e4e0b98bc588815c6d9162f4e20ae0b1437daa035eb9b38ddc6a86bb5d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\zmij-9a1e767e9238dcdb\\build-script-build.exe",
+      "bytes": 263168,
+      "sha256": "7c8ef78ccb26991ca14e5ca6188400cdce7b40abb20fe2edd8d8752652a981f7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\build\\zmij-9a1e767e9238dcdb\\build_script_build-9a1e767e9238dcdb.exe",
+      "bytes": 263168,
+      "sha256": "7c8ef78ccb26991ca14e5ca6188400cdce7b40abb20fe2edd8d8752652a981f7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\console-driver.exe",
+      "bytes": 288256,
+      "sha256": "5370451ad89941c19d064a12b6244a9c9bac3ea60d95e3ff353f82327b9cf1b2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\crash-driver.exe",
+      "bytes": 2310144,
+      "sha256": "4f7535794a9a31cab89f6b8cacb14aba5795212b5c110e66479db772ed9db0e6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\admission-c246834cec6ef7d8.exe",
+      "bytes": 1691136,
+      "sha256": "8bc183e095bce70f35580ebfeb3ecd6e763c6ad94983d6cf961ad6686451c865"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\cli-bd88b70ab58901a6.exe",
+      "bytes": 929792,
+      "sha256": "2630a398fd5764bb607712c21f97ba127a847e1dfe647ccf1f25050b15e8e50a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\console_driver-288c56518b315dfe.exe",
+      "bytes": 723456,
+      "sha256": "8e1b44cfe24cc1984eb409c462281b7e90a7a800137ad0e8368d2cb2dc2dd84c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\console_driver.exe",
+      "bytes": 288256,
+      "sha256": "5370451ad89941c19d064a12b6244a9c9bac3ea60d95e3ff353f82327b9cf1b2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\contract-1226a94d749c512a.exe",
+      "bytes": 2972672,
+      "sha256": "215cae2ea598070385201aa4e2f85c2aa4e939d648e6eea9f42d47f97b5cc709"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\crash_driver-b4eab878aeed91cd.exe",
+      "bytes": 723456,
+      "sha256": "b4bef6d801212b321297a69b347d0424dba4f167c92408e41a118b7038d8474f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\crash_driver.exe",
+      "bytes": 2310144,
+      "sha256": "4f7535794a9a31cab89f6b8cacb14aba5795212b5c110e66479db772ed9db0e6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\devforgeai_codex_worker_probe-960ff5c1e423ff70.exe",
+      "bytes": 723456,
+      "sha256": "8c5cda4c9c476263a60638d4bf6ed1095947883764e283a7b9e17ef7d038c2ab"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\devforgeai_codex_worker_probe-eb81978344f0e095.exe",
+      "bytes": 3799040,
+      "sha256": "3666426254308eeb3281772cfa6f21d7402bdd644d09c2beb174da66247a7045"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\devforgeai_codex_worker_probe.exe",
+      "bytes": 2545152,
+      "sha256": "ec2575bd4cacfce147113eee1b257d69be06b7e3d563d669e15010432e9dc3e5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\effective_profile-c6cd88eb21bb5ddd.exe",
+      "bytes": 1388544,
+      "sha256": "602f0b51c5768020c05181d9217df8c45725a7b06a898f389a1155894daaa612"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\effective_profile_edges-1ca36778eed9db74.exe",
+      "bytes": 1495040,
+      "sha256": "a4e17c4b425db17a97304e7d5109c9b13dac610608aec78cd3eec3f3caa324cd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\inspection_consistency-9aafb7ed2ef72ac5.exe",
+      "bytes": 3331584,
+      "sha256": "33669f4a37c4bd33cfba1f059faec248f3626c25ae489cdf082f53537590c21f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\launch_policy-a032193e06b221cc.exe",
+      "bytes": 1183744,
+      "sha256": "579f65174d7a1e87e5ba88a9307c09a6916108603dfd3bee36c851e60ceccb89"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\logging-6b96b3ef72d5426a.exe",
+      "bytes": 3257856,
+      "sha256": "756a4a5e141e3dcb191f236cc8f6de9d211ce745d3ac4f8d21c0313fc9bc4d6d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\native_identity-016048e8ab2e68a1.exe",
+      "bytes": 3086336,
+      "sha256": "aad4103efdff9f7fa3d0ebf1822fcdfdef3c6dfaf75a17599aa799e76d7f8e8b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\negative_paths-dc2fcc2973a1e9d7.exe",
+      "bytes": 3188736,
+      "sha256": "cc9c94232c8b51c28bed8811b8a3b4bd8978adb88b95766989e5a87b03b035d8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\oracle-7bfe42e1f8272a08.exe",
+      "bytes": 1016320,
+      "sha256": "c5ed9e6afdc5189ce6c191adcdbdc1d22b476d99641065ce96badabcf7a4e947"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\preflight_cli-68d267c2530df3d3.exe",
+      "bytes": 1701888,
+      "sha256": "f0d1cd53cd4e142f5c03bcecf627193d936ad9840864353e357f0f2f08776351"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\preflight_recovery-ee9f77238d3c4a8b.exe",
+      "bytes": 2084352,
+      "sha256": "6f011bf14662a9a2ac9b6c66ace2f11f654ec4b9b82e827d6bfd8958e3fad7ef"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\process_ownership-db4476d4c865b3ca.exe",
+      "bytes": 1160192,
+      "sha256": "fe117a9d9ac99aabe20672260ab8b343c1bc6b4e7dcef8007fa50fce5a1be5e0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\process_windows-4f4eb8a376530b1f.exe",
+      "bytes": 2980352,
+      "sha256": "5133e7bd63b9fd54d3d6fbb5e8a1d20bd3e8ae41c67a4e6b6b1e5a07942e1591"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\profile-bcef7d5da66ab5f6.exe",
+      "bytes": 2501632,
+      "sha256": "bcf908a1d4d075e70d537bffe04def8763cf88aa899ad5e27eafe0c406cccaa2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\profile_peer-e13029b616fcc694.exe",
+      "bytes": 723456,
+      "sha256": "d31682c449cc26e4b18028910c8639c7997fc9a781c0f78dba5985e1d0c4f447"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\profile_peer.exe",
+      "bytes": 816128,
+      "sha256": "a8115447ddb856f828a9da802bb5d281a854c0c267ecfe39fda8c72df5812601"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\profile_protocol-541708358e49d487.exe",
+      "bytes": 2454528,
+      "sha256": "1af0ad83972ffebd35903b1f7ae99fbebbd18cc3e9fcc578543e1951a4b08dba"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\protocol-63b77054b33e41d2.exe",
+      "bytes": 3139072,
+      "sha256": "89748790808523f1e94f72d9149aac2fc4c3126033505a5c90342d31de24a129"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\protocol_edges-dec5ca38feb7a642.exe",
+      "bytes": 2371072,
+      "sha256": "7a7b1bb5d972630e576342fcc67be0bb3e9fb279693304d03de3e98d1af6d4a7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\protocol_edges_peer-8946ccf8a712e412.exe",
+      "bytes": 723456,
+      "sha256": "e4d84a3b180f9a802ce29a175b16a50b0b81096ec53d650e067e0deed4c35374"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\protocol_edges_peer.exe",
+      "bytes": 662528,
+      "sha256": "3f0cf8ee9a1acd1e9e650b001f60eb2ecf80f7994b58e5303fd82093b86c7aab"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\protocol_peer-f59665b8cba881b5.exe",
+      "bytes": 723456,
+      "sha256": "e984756864abea89717fa2e62e3844fe613ab7927ce7d376cdde2d7a1c8a930c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\protocol_peer.exe",
+      "bytes": 808448,
+      "sha256": "a781d016aaf9584266f6bc901284e25adb2cee28e0b2aa2ad8083ff5aa567683"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\raw_capture_peer-268f219e0127206b.exe",
+      "bytes": 723456,
+      "sha256": "fbe0278317b5879dd4120d427735b1e4317ab60b537f8287fee6ea27743c67a3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\raw_capture_peer.exe",
+      "bytes": 138752,
+      "sha256": "6450a4c6c0189eefeed534eea33d59bb8949ce9a8ab3d60bf89dadd01e0e8268"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\raw_windows_capture-148bcc415beb7516.exe",
+      "bytes": 1432576,
+      "sha256": "eb70b02daa39d9fb748e00dfcaa484e8d787804e6bcd22f62aca478c7b671072"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\recovery-30e4ffb314995f6f.exe",
+      "bytes": 2095616,
+      "sha256": "e048ff9ab7727a4af7db756eff3ae623592dd7529f6ca7b97d710aa2d14221ae"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\remediation-08893755a6bf089d.exe",
+      "bytes": 3028480,
+      "sha256": "a6642edc69ec2e7c9a9a90694ab726c04c6a61ede4716bb0a76d99c2ebebbecd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\requirements-24defa556af1ac9d.exe",
+      "bytes": 3229696,
+      "sha256": "4872b5b44bab64e6feaa6ed8831168f217d14a1d234cbd66f5d737d1b93c6bdd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\deps\\runtime_edges-170396146f84c761.exe",
+      "bytes": 3001856,
+      "sha256": "9a0ef192edb32b4f70623bb7cf522fd86eb9cf154f369705481c09637303165c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+      "bytes": 2545152,
+      "sha256": "ec2575bd4cacfce147113eee1b257d69be06b7e3d563d669e15010432e9dc3e5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\profile-peer.exe",
+      "bytes": 816128,
+      "sha256": "a8115447ddb856f828a9da802bb5d281a854c0c267ecfe39fda8c72df5812601"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\protocol-edges-peer.exe",
+      "bytes": 662528,
+      "sha256": "3f0cf8ee9a1acd1e9e650b001f60eb2ecf80f7994b58e5303fd82093b86c7aab"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\protocol-peer.exe",
+      "bytes": 808448,
+      "sha256": "a781d016aaf9584266f6bc901284e25adb2cee28e0b2aa2ad8083ff5aa567683"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\raw-capture-peer.exe",
+      "bytes": 138752,
+      "sha256": "6450a4c6c0189eefeed534eea33d59bb8949ce9a8ab3d60bf89dadd01e0e8268"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\generic-array-d6e6cdbeffbb1cdb\\build-script-build.exe",
+      "bytes": 297472,
+      "sha256": "2ddf2557274767fbf9eb8745753a5a1e17958dab748e7d79c9bb8d4a8c8f2c2c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\generic-array-d6e6cdbeffbb1cdb\\build_script_build-d6e6cdbeffbb1cdb.exe",
+      "bytes": 297472,
+      "sha256": "2ddf2557274767fbf9eb8745753a5a1e17958dab748e7d79c9bb8d4a8c8f2c2c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\getrandom-9f5a587d39b0feec\\build-script-build.exe",
+      "bytes": 152576,
+      "sha256": "32a1d131478779b5e96868b4a8c8613f76909db3ec05c1bbab8e5e418b802b38"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\getrandom-9f5a587d39b0feec\\build_script_build-9f5a587d39b0feec.exe",
+      "bytes": 152576,
+      "sha256": "32a1d131478779b5e96868b4a8c8613f76909db3ec05c1bbab8e5e418b802b38"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\proc-macro2-63f79d925bc13e28\\build-script-build.exe",
+      "bytes": 306688,
+      "sha256": "3e6b836118c245daad80355c98a58d9acf9fd36262107aa409028284157bfece"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\proc-macro2-63f79d925bc13e28\\build_script_build-63f79d925bc13e28.exe",
+      "bytes": 306688,
+      "sha256": "3e6b836118c245daad80355c98a58d9acf9fd36262107aa409028284157bfece"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\quote-f56918f17a00ead2\\build-script-build.exe",
+      "bytes": 260096,
+      "sha256": "36433bd7894506659395415c08084f20930fbe7a7bc267c1a1f5edb5d8e14818"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\quote-f56918f17a00ead2\\build_script_build-f56918f17a00ead2.exe",
+      "bytes": 260096,
+      "sha256": "36433bd7894506659395415c08084f20930fbe7a7bc267c1a1f5edb5d8e14818"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\serde-da9697703d592838\\build-script-build.exe",
+      "bytes": 284672,
+      "sha256": "db7f1cfcd78b974f93c2f083412a63ecdf8128476a94b0604674f3940fba9f50"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\serde-da9697703d592838\\build_script_build-da9697703d592838.exe",
+      "bytes": 284672,
+      "sha256": "db7f1cfcd78b974f93c2f083412a63ecdf8128476a94b0604674f3940fba9f50"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\serde_core-a9c94a87763300d1\\build-script-build.exe",
+      "bytes": 286720,
+      "sha256": "81ca5dae2fd8b3cde7d36bd2b1dba7196b375871b765f709a9b79fa3cfb3d4e2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\serde_core-a9c94a87763300d1\\build_script_build-a9c94a87763300d1.exe",
+      "bytes": 286720,
+      "sha256": "81ca5dae2fd8b3cde7d36bd2b1dba7196b375871b765f709a9b79fa3cfb3d4e2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\serde_json-a6946029485c9895\\build-script-build.exe",
+      "bytes": 133632,
+      "sha256": "87c4e254105d4b32963a75766153ccb802af658ff9303ff3119396e5d687605b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\serde_json-a6946029485c9895\\build_script_build-a6946029485c9895.exe",
+      "bytes": 133632,
+      "sha256": "87c4e254105d4b32963a75766153ccb802af658ff9303ff3119396e5d687605b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\zmij-9a1e767e9238dcdb\\build-script-build.exe",
+      "bytes": 263168,
+      "sha256": "96393cbce2a3d1b36ca127567b11bacdf8ea56da83f2d506c7d9dbf38834fb6e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\build\\zmij-9a1e767e9238dcdb\\build_script_build-9a1e767e9238dcdb.exe",
+      "bytes": 263168,
+      "sha256": "96393cbce2a3d1b36ca127567b11bacdf8ea56da83f2d506c7d9dbf38834fb6e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\console-driver.exe",
+      "bytes": 316416,
+      "sha256": "f8408045b58cc9970eaf1e390368f1adc988cd97ae9dcafff8de07376db84e1e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\crash-driver.exe",
+      "bytes": 2511872,
+      "sha256": "f66c54769bb4097e4c2691fb9fcca4b91bc8126f8c175e4e13634d64d4177acb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\admission-c246834cec6ef7d8.exe",
+      "bytes": 1880064,
+      "sha256": "0d045b00df68dd6630bc6e7f5b114506e61c3af1e21836b5de1100d2317ee6ce"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\cli-bd88b70ab58901a6.exe",
+      "bytes": 957440,
+      "sha256": "d70f29da0f8ff32169deb6a118c4d4759c441863ae8a5bcdd3ed031c27ccf3bb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\console_driver-288c56518b315dfe.exe",
+      "bytes": 752640,
+      "sha256": "3ec3dc1c3af66d14b3f160c471c7bb37f9b0a69b12d4a5fd2497eb4da21f9d9e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\console_driver.exe",
+      "bytes": 316416,
+      "sha256": "f8408045b58cc9970eaf1e390368f1adc988cd97ae9dcafff8de07376db84e1e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\contract-1226a94d749c512a.exe",
+      "bytes": 3180032,
+      "sha256": "712e96a188eb6678c1926104e915cc1600c60ed0eb29c245ff5bfac601627e4e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\crash_driver-b4eab878aeed91cd.exe",
+      "bytes": 752128,
+      "sha256": "eb9db520f819345a0ecea6acbd9e4f3d3a809e6500de98dabe05e629aeeddbfa"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\crash_driver.exe",
+      "bytes": 2511872,
+      "sha256": "f66c54769bb4097e4c2691fb9fcca4b91bc8126f8c175e4e13634d64d4177acb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\devforgeai_codex_worker_probe-960ff5c1e423ff70.exe",
+      "bytes": 914432,
+      "sha256": "0e930e4f332dc012431379cf2db4c638e15c20cedfd2ac86fffea1bad25ab700"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\devforgeai_codex_worker_probe-eb81978344f0e095.exe",
+      "bytes": 4082176,
+      "sha256": "2a795f9c79cc4d8c0a39bbfd8b210dcdbe546c049fe657d33846e022dfbf74be"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\devforgeai_codex_worker_probe.exe",
+      "bytes": 2752512,
+      "sha256": "cc1198242ba9a480430bc669b86b929cbc20b4a2fb47bf9028c23934e09f85cc"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\effective_profile-c6cd88eb21bb5ddd.exe",
+      "bytes": 1586176,
+      "sha256": "164e4228e5f7202d2488a6f8823614509d8a8f6c449208aa140796129115ff8d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\effective_profile_edges-1ca36778eed9db74.exe",
+      "bytes": 1698304,
+      "sha256": "8d03204379b71148985092d9bf33f9be513403a288d252cb4c006ba2610b68c2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\inspection_consistency-9aafb7ed2ef72ac5.exe",
+      "bytes": 3548160,
+      "sha256": "fbddebf7bd4697fcbdb923b7abff0a8ca86a3ced82a335514220d48c6899148c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\launch_policy-a032193e06b221cc.exe",
+      "bytes": 1373696,
+      "sha256": "0a03b67dfdd6a885594abcbfa4d73bf496b36c6fe6b77b80e78527d3ec5dffc3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\logging-6b96b3ef72d5426a.exe",
+      "bytes": 3473920,
+      "sha256": "da770680df5042acb425e925ee9444255a240814b4559d400f8abd6a46a4aaf1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\native_identity-016048e8ab2e68a1.exe",
+      "bytes": 3293696,
+      "sha256": "2f260dceb49a663af536ff3c7fa761ed205c630cb3e755447374e6587dc78df0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\negative_paths-dc2fcc2973a1e9d7.exe",
+      "bytes": 3399168,
+      "sha256": "bac1a9a51cbc64dc7bb3000400f54f3fd577c5a0ae8a13030ec3b04b842173a7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\oracle-7bfe42e1f8272a08.exe",
+      "bytes": 1204736,
+      "sha256": "7896282582c9a288f8e35c027486b82811696f4e40f88eed31a8289b84518dbc"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\preflight_cli-68d267c2530df3d3.exe",
+      "bytes": 1895424,
+      "sha256": "b833be5c6b75507c402e1b870c7742e8b15fc8936aac6890708817e5c86e163e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\preflight_recovery-ee9f77238d3c4a8b.exe",
+      "bytes": 2278912,
+      "sha256": "ba10ee1636616e8de0bd55cd4acc2f4ef3bcd1a8d84142655e685c3c157e4cb4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\process_ownership-db4476d4c865b3ca.exe",
+      "bytes": 1348096,
+      "sha256": "3d06d8b66da73b8f803629a7eff1a524094e1c5f1def6557e40d5a8569bc8d3b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\process_windows-4f4eb8a376530b1f.exe",
+      "bytes": 3187200,
+      "sha256": "a16ee9be7b0bf5873e24e4a0dbad6f15e8c371c0bc0ad6b0b3acaf739cdd8678"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\profile-bcef7d5da66ab5f6.exe",
+      "bytes": 2701312,
+      "sha256": "58fc24ba8ae367ad319d6ce14204ce425cddaa00df54e71edf3e8eef21046a32"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\profile_peer-e13029b616fcc694.exe",
+      "bytes": 755200,
+      "sha256": "ff8bad212b975e34109183f18f5df587a1ba963db9af1ae0adca0ab87eb40728"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\profile_peer.exe",
+      "bytes": 850944,
+      "sha256": "3d3b50550ab945f391b7bb934ff049b856b5c7125b82dc139c3e3f4ebaedb16e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\profile_protocol-541708358e49d487.exe",
+      "bytes": 2664960,
+      "sha256": "9404b4b2287be4d8a82491d10667d56feba9e7be3849ac64ea925054d2e2729c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\protocol-63b77054b33e41d2.exe",
+      "bytes": 3348480,
+      "sha256": "eb99fddddfa8b7ea59f6fba564b1484e1f0847f7e0032301c44e16be591ef515"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\protocol_edges-dec5ca38feb7a642.exe",
+      "bytes": 2574336,
+      "sha256": "de1d143a6819c4c57513ee22ccc929e0d5e0f6e9e1986c44ab584ced7970e552"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\protocol_edges_peer-8946ccf8a712e412.exe",
+      "bytes": 754176,
+      "sha256": "18f0736184997052d34e22f717eec3ea8c84a039482af1a73e10c225d9fb7453"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\protocol_edges_peer.exe",
+      "bytes": 693760,
+      "sha256": "0ebd129110e7f98fe23bd8d78ad115220d7632315b655ce7e7a1323fc22431f0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\protocol_peer-f59665b8cba881b5.exe",
+      "bytes": 756736,
+      "sha256": "91ce1b74a63d3483293ca9db2fded8b07446e8a2242862369a60e070a3141d91"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\protocol_peer.exe",
+      "bytes": 847872,
+      "sha256": "7d3ae5c57a2a69a842535b6a6abcdb6e7e92c3e41db7ef06a301287cb567aa61"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\recovery-30e4ffb314995f6f.exe",
+      "bytes": 2292736,
+      "sha256": "14167ad1885a8b993a804ee3b4295c6097d927f884be6f21ac1aa739a2307dfb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\remediation-08893755a6bf089d.exe",
+      "bytes": 3237376,
+      "sha256": "00e430fa9d285ccaf76d7106a3d511165792b05fe87e2e4f816ba9aa3f231a2b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\requirements-24defa556af1ac9d.exe",
+      "bytes": 3440640,
+      "sha256": "9907f323fdbce3bab4cfd72c2d1b9ff703b4b88271b201d52924f690a0390935"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\deps\\runtime_edges-170396146f84c761.exe",
+      "bytes": 3209728,
+      "sha256": "182e89c9f9a37e910dd05ed1387e6ce38fbd90c8afd997a0d65d0839bb9a6153"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\devforgeai-codex-worker-probe.exe",
+      "bytes": 2752512,
+      "sha256": "cc1198242ba9a480430bc669b86b929cbc20b4a2fb47bf9028c23934e09f85cc"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\profile-peer.exe",
+      "bytes": 850944,
+      "sha256": "3d3b50550ab945f391b7bb934ff049b856b5c7125b82dc139c3e3f4ebaedb16e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\protocol-edges-peer.exe",
+      "bytes": 693760,
+      "sha256": "0ebd129110e7f98fe23bd8d78ad115220d7632315b655ce7e7a1323fc22431f0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target\\debug\\protocol-peer.exe",
+      "bytes": 847872,
+      "sha256": "7d3ae5c57a2a69a842535b6a6abcdb6e7e92c3e41db7ef06a301287cb567aa61"
+    }
+  ],
+  "toolchain": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\toolchain.json",
+    "bytes": 2143,
+    "sha256": "ccc8dfbc186583ddfa0ea131422736ecc0d3042e272ba77b21333c9f676ee7a9"
+  },
+  "attempts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\receipt.json",
+      "bytes": 2260,
+      "sha256": "3734b68e9dc55154dd97416bf56103120b59a5e285e6db8c5786674fe6b1ec93"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\receipt.json",
+      "bytes": 2271,
+      "sha256": "e7f3f8656dbe00f2933a95dc90383ac25b1520a887eedbeeb9819755f561ae83"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\03-format\\receipt.json",
+      "bytes": 2238,
+      "sha256": "8e3f4b0f217a16e4b9002bd55bb9549a819face48d6a9e7210978b90fbe5eb92"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\04-refactor\\receipt.json",
+      "bytes": 2379,
+      "sha256": "6be99d8d2f8d2134ecd0c56fb79b7a542e9c82d2b2069e0d3e388c162fb34ad5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\05-list\\receipt.json",
+      "bytes": 2329,
+      "sha256": "9f2e583580e693e94b48befcf74925945e76857c11596115a7e9f7d4b313f9ea"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\06-fmt-check\\receipt.json",
+      "bytes": 2272,
+      "sha256": "15de3bd95f66d68b253fca6e2c6042025aff975d03b8ca5b4180e6413af3cb53"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\07-clippy\\receipt.json",
+      "bytes": 2319,
+      "sha256": "c4a948b0a933689c9c3fb21ea169387aedbe107280475c25599cb486d7e06b78"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\08-coverage\\receipt.json",
+      "bytes": 2589,
+      "sha256": "97cb6fa36cdd5c509ef4b90fa121c67f4530dd1c1f462237f64e62ea5653a694"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\09-supplemental\\receipt.json",
+      "bytes": 2381,
+      "sha256": "83ad2a78b19b5870ac81fddce1871ce9a921312136c3c8f3a027cd1dff7578e5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\10-build\\receipt.json",
+      "bytes": 2266,
+      "sha256": "f7326a2603e303d779f860ed9fc36753b22164a9844d8868e38c9d981ce4c666"
+    }
+  ]
+}

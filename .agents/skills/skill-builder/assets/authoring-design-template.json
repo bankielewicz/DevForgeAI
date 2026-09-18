@@ -1,0 +1,24 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "",
+  "source_refs": [],
+  "behaviors": [
+    {
+      "id": "",
+      "requirement_ids": [],
+      "trigger": "",
+      "inputs": [],
+      "completion": "",
+      "outputs": [],
+      "resource_paths": [],
+      "prerequisites": [],
+      "effects": [],
+      "failure": "",
+      "recovery": ""
+    }
+  ],
+  "resources": [],
+  "adverse_conditions": [],
+  "execution_limits": [],
+  "open_questions": []
+}

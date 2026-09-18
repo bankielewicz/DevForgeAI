@@ -1,0 +1,9 @@
+{
+  "utc": "2026-09-16T01:30:15.063185+00:00",
+  "qa_manifest_sha256": "404cbff08f72b75402b4f5e11d01e032ea5b2311da006f2a114fd467f1391109",
+  "qa_entries_verified": 5539,
+  "candidate_files_verified": 53,
+  "qa_external_fixture_files_verified": 2,
+  "input_files_verified": 9,
+  "errors": []
+}

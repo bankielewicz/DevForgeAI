@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "C:/Projects/DevForgeAI/.agents/skills/skill-validator/scripts/adaptive_observe.py",
+    "package",
+    "--source",
+    "C:/Projects/DevForgeAI/docs/plan/skill-validations/dev/20260914T0117324130584Z/source",
+    "--tokenizer",
+    "tiktoken",
+    "--encoding",
+    "o200k_base"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-14T01:55:55.654854Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\adaptive-token-count",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\adaptive-token-count",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\adaptive-token-count",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 91864,
+  "exit_status": 2,
+  "ended_at_utc": "2026-09-14T01:55:56.321315Z",
+  "elapsed_seconds": 0.6720000000204891
+}

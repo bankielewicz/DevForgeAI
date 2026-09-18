@@ -1,0 +1,40 @@
+{
+  "schema_version": "1",
+  "run_id": "skill-validator-delivered",
+  "target_name": "skill-validator",
+  "sources": [
+    {
+      "source_id": "spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-authoring-enhancement-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+      "snapshot_path": "inputs/skill-builder-authoring-enhancement-spec.md",
+      "sections": [
+        "Selected authoring and format guidance"
+      ],
+      "freshness": "digest_verified"
+    },
+    {
+      "source_id": "creator",
+      "original_path": "C:/Users/bryan/.codex/skills/.system/skill-creator/SKILL.md",
+      "retrieved_at_utc": null,
+      "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+      "snapshot_path": "inputs/skill-creator/SKILL.md",
+      "sections": [
+        "Selected authoring and format guidance"
+      ],
+      "freshness": "installed_snapshot"
+    },
+    {
+      "source_id": "openai-skills",
+      "original_path": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved_at_utc": null,
+      "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+      "snapshot_path": "inputs/openai-build-skills-live.md",
+      "sections": [
+        "Selected authoring and format guidance"
+      ],
+      "freshness": "live_verified"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 57456 (child process of PID 73644) has been terminated.
+SUCCESS: The process with PID 71556 (child process of PID 30160) has been terminated.
+SUCCESS: The process with PID 73644 (child process of PID 72828) has been terminated.
+SUCCESS: The process with PID 21520 (child process of PID 72828) has been terminated.
+SUCCESS: The process with PID 30160 (child process of PID 72828) has been terminated.
+SUCCESS: The process with PID 57644 (child process of PID 72828) has been terminated.
+SUCCESS: The process with PID 72828 (child process of PID 69484) has been terminated.

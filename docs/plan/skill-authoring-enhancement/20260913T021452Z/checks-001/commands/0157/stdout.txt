@@ -1,0 +1,63 @@
+{
+  "schema_version": "1",
+  "command": "records",
+  "status": "MISMATCH",
+  "coverage": [
+    "strict JSON/JSONL parsing of run records (excluding raw source, input, and trial fixtures)",
+    "extant reference bytes, normalized paths, digests, supported locators, and reference cycles",
+    "check schemas and applicability",
+    "finding schemas and deterministic identity",
+    "manifest digest accounting",
+    "status reductions when dimension-tagged checks exist; basic review-readiness consistency"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement.",
+    "Only extant records are checked; absent stage artifacts and semantic evidence support require the report checklist.",
+    "Finding anchor support, historical provenance validity, rule authority/applicability, and review authorization meaning require agent review.",
+    "Checks may add dimension standards, workflow, instructions, behavior for explicit reductions; long snake_case aliases are supported; missing dimensions remain incomplete.",
+    "assessment.json is optional helper input for checking declared reductions; validation-report.md prose is not parsed as machine authority."
+  ],
+  "errors": [
+    "checks.jsonl:$[0].evidence[0]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\validator-helper-_x6n8nav\\records\\observation.txt"
+  ],
+  "records_checked": [
+    "checks.jsonl"
+  ],
+  "references_checked": 0,
+  "excluded_boundaries": [],
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "required_total": 1,
+      "required_evaluated": 1,
+      "incomplete_check_ids": []
+    },
+    "workflow": {
+      "outcome": "PASS",
+      "required_total": 1,
+      "required_evaluated": 1,
+      "incomplete_check_ids": []
+    },
+    "instructions": {
+      "outcome": "PASS",
+      "required_total": 1,
+      "required_evaluated": 1,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "PASS",
+      "required_total": 1,
+      "required_evaluated": 1,
+      "incomplete_check_ids": []
+    }
+  },
+  "overall_assessment": "PASS",
+  "required_coverage": {
+    "outcome": "PASS",
+    "required_total": 4,
+    "required_evaluated": 4,
+    "incomplete_check_ids": []
+  }
+}

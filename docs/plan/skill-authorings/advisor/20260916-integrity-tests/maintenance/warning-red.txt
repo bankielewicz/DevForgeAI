@@ -1,0 +1,11 @@
+test_continuously_filled_queue_still_obeys_cleanup_ceiling (test_streaming.StreamProcessTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 5.292s
+
+OK
+ResourceWarnings: ['unclosed file <_io.BufferedReader name=5>']
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916-integrity-tests-intake\warning_probe.py", line 22, in <module>
+    assert not leaks, 'The fixture leaked a resource: ' + repr(leaks)
+AssertionError: The fixture leaked a resource: ['unclosed file <_io.BufferedReader name=5>']

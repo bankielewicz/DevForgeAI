@@ -1,0 +1,4 @@
+interface:
+  display_name: "Advisor"
+  short_description: "Evidence-based second opinions from Claude"
+  default_prompt: "Use $advisor to review the current approach against repository evidence."

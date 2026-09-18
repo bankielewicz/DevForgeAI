@@ -1,0 +1,20 @@
+{
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "33a1275643c037442ef543c9070336a8b0476fded2f36a649cf078924e883db0"
+    },
+    {
+      "path": "schema.json",
+      "sha256": "b4120c59c1f74ae10826590f23c73479daa80192d28d36e44c1e504c0a324801"
+    }
+  ],
+  "origin": {
+    "kind": "adopted",
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "e01342468d376d2e123616fb700d26bb81f1d8c8ae08e71bf2ca4361fbb890c1"
+  },
+  "run_id": "synthetic-adoption",
+  "schema_version": "2",
+  "target_name": "synthetic-total"
+}

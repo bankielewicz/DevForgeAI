@@ -1,0 +1,16 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+warning: field `reparse_tag` is never read
+   --> src\profile_sources.rs:658:5
+    |
+655 | struct TestPluginJunction {
+    |        ------------------ field in this struct
+...
+658 |     reparse_tag: u32,
+    |     ^^^^^^^^^^^
+    |
+    = note: `TestPluginJunction` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `devforgeai-codex-worker-probe` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.55s
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity\20260916T021843Z-dev\target\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)

@@ -1,0 +1,16 @@
+{
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "08c4e9db7be050c1ba7528b474efeeb27365010b46155b41c63641bdae3a4a68"
+    }
+  ],
+  "origin": {
+    "kind": "adopted",
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "1e19da6b3c4e287a7544062328e9523ebf7adbee4d6d183de01c8ff5dca8b077"
+  },
+  "run_id": "synthetic-adoption",
+  "schema_version": "2",
+  "target_name": "synthetic-total"
+}

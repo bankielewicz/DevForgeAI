@@ -1,0 +1,4 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.42s
+     Running tests\wsl_bridge.rs (target\debug\deps\wsl_bridge-96e2cfb6954bf6ad.exe)
+error: test failed, to rerun pass `--test wsl_bridge`

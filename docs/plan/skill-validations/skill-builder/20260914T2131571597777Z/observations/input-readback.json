@@ -1,0 +1,41 @@
+{
+  "sources": [
+    {
+      "source_id": "postmvp",
+      "expected_sha256": "6ba021254eaaf152d91b968952bf235288e5338d88d842c10e9e98eb13b6314f",
+      "actual_sha256": "6ba021254eaaf152d91b968952bf235288e5338d88d842c10e9e98eb13b6314f",
+      "unchanged": true
+    },
+    {
+      "source_id": "authoring",
+      "expected_sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+      "actual_sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+      "unchanged": true
+    },
+    {
+      "source_id": "adaptive",
+      "expected_sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+      "actual_sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+      "unchanged": true
+    },
+    {
+      "source_id": "repository",
+      "expected_sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+      "actual_sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+      "unchanged": true
+    },
+    {
+      "source_id": "rust-authority",
+      "expected_sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+      "actual_sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+      "unchanged": true
+    },
+    {
+      "source_id": "av-catalog",
+      "expected_sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+      "actual_sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+      "unchanged": true
+    }
+  ],
+  "official_saved_content_unchanged": true
+}

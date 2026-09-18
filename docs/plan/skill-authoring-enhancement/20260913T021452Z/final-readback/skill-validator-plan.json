@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "readback",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+    "--manifest",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\assessments\\skill-validator\\source-manifest.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "timeout_seconds": 120
+}

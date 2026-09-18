@@ -1,0 +1,5 @@
+usage: freeze_audit.py [-h] --package PACKAGE --candidate-manifest
+                       CANDIDATE_MANIFEST --candidate-manifest-sha256
+                       CANDIDATE_MANIFEST_SHA256 --snapshot SNAPSHOT
+                       [--binding BINDING]
+freeze_audit.py: error: argument --binding: binding must be ABSOLUTE_PATH::LOWERCASE_SHA256

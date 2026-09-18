@@ -1,0 +1,167 @@
+{
+  "requirements": [
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-001 — Intent and mode.** Use these invocation intents; these are conversational selectors, not new operating-system CLI flags:",
+      "artifacts": [
+        "SKILL.md",
+        "references/intake-planning.md",
+        "agents/openai.yaml"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-002 — Intake and effects.** Discover and bind the selected project, applicable rules, specification bytes, current candidate, shell, tools, source/test inventories, platforms, evidence root, and allowed effects. Unless the user selects another candidate, the full run uses the current source in the selected project, including relevant local changes; it must record that identity rather than silently choose another checkout or artifact.",
+      "artifacts": [
+        "SKILL.md",
+        "references/intake-planning.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-003 — Plan and readiness.** Inventory every selected acceptance criterion and declare required checks, independent oracles, data, dependencies, commands, effects, cleanup, metrics, and evidence bindings before executing the associated work. Save and read back the plan in a fresh run destination when writes are allowed.",
+      "artifacts": [
+        "references/intake-planning.md",
+        "assets/test-plan-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-004 — Automatic transition.** After plan publication/readback and the applicable integrity inspection, recheck identity and effects and proceed to ready preparation/execution without asking the user to select the plan just generated. Present a brief progress update, not a final execute handoff. Complete the ready independent work unless a stop condition applies. If no permitted work remains, report the actual outcome and next owner.",
+      "artifacts": [
+        "SKILL.md",
+        "references/intake-planning.md",
+        "references/execution-integrity.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-005 — Integrity before and during execution.** Before running selected product tests, inspect their in-scope first-party source and evidence-processing path for prohibited mock decorators and result gaming under the MVP definitions. Inspect newly authored QA helpers before using them, and review resulting evidence for fabrication, weakened assertions, hidden failures, and denominator manipulation.",
+      "artifacts": [
+        "references/execution-integrity.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-006 — Issue classification and required action.** Assign each observation one of the following classes using its demonstrated behavior and governing requirement, not an unsupported severity label:",
+      "artifacts": [
+        "references/execution-integrity.md",
+        "assets/qa-report-template.md",
+        "assets/qa-fix-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-007 — Valid threshold decisions.** Preserve the MVP numerical definitions and exact count comparisons. Each required platform must independently qualify; success elsewhere does not override a valid failing platform. Declare all eligible first-party executable lines, required unit cases, exclusions, and the measurement scope before collection. Preserve all attempts and required nonpasses.",
+      "artifacts": [
+        "references/assessment.md",
+        "assets/test-plan-template.md",
+        "assets/qa-report-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-008 — Immediate-stop procedure.** Once a whole-run stop trigger is confirmed, launch no further test cases, builds, coverage campaigns, or investigative reproductions. Preserve the evidence already sufficient to establish the trigger. Cancel or contain QA-owned in-flight operations where safe, using their known ownership and cancellation contract; if abrupt cancellation would create risk, perform only the bounded shutdown/drain needed to contain them. Record already in-flight work and its observed disposition rather than claiming instant termination.",
+      "artifacts": [
+        "SKILL.md",
+        "references/execution-integrity.md",
+        "assets/test-plan-template.md",
+        "assets/qa-report-template.md",
+        "assets/qa-fix-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-009 — Localized continuation.** For nonterminal defects or gaps, record the issue promptly and exclude only affected checks and dependents. Continue authorized checks whose identity, safety, prerequisites, and oracles remain established. A known ordinary defect keeps the eventual verdict FAIL while independent evidence is collected; successful checks cannot erase it.",
+      "artifacts": [
+        "references/execution-integrity.md",
+        "references/intake-planning.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-010 — Separate progress from verdict.** Record invocation intent (`run`, `plan`, `execute`, `retest`), plan readiness, execution status, and product verdict separately. Execution status is `NOT_STARTED`, `IN_PROGRESS`, `COMPLETED`, or `STOPPED`; case status remains the MVP's PASS/FAIL/ERROR/NOT_RUN/NOT_APPLICABLE. `COMPLETED` means scheduled execution processing ended, not that QA passed.",
+      "artifacts": [
+        "SKILL.md",
+        "references/assessment.md",
+        "assets/qa-report-template.md",
+        "assets/test-plan-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-011 — Report and fix delivery.** Produce a QA report for every completed, stopped, or blocked invocation, and for explicit planning-only completion. On confirmed FAIL produce the `qa-fix` packet for all confirmed defects observed before reporting. A prerequisite-only result does not manufacture a development defect or a fix packet. Use the existing template contracts with these required additions:",
+      "artifacts": [
+        "references/reporting-handoff.md",
+        "assets/test-plan-template.md",
+        "assets/qa-report-template.md",
+        "assets/qa-fix-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-012 — Last phase and next owner.** End only after runnable work has completed or a genuine terminal/blocking condition requires a handoff. The disposition rules are:",
+      "artifacts": [
+        "SKILL.md",
+        "references/reporting-handoff.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-013 — Checkpoints and legacy plans.** Record both selected specification identities, invocation intent, candidate/plan identities, completed attempts, issue/stop decisions, per-check readiness, owned process/fixture state, remaining work, and next safe action. Recheck identities, permission scope, tools, and ownership before resuming. Invalidate affected evidence on drift without erasing it or silently restoring older source.",
+      "artifacts": [
+        "references/reporting-handoff.md",
+        "assets/test-plan-template.md"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "**QAP-014 — Authoring and evaluation.** Update the existing development entry instructions, phase references, and three consumed templates coherently. Default to instructions/templates; add no executable helper unless a concrete repeated operation requires one with declared inputs, outputs, dependencies, and failure behavior. Preserve the skill name `qa` and its product QA purpose. No new public service/API, framework validator, plugin manifest, project binding, or required application stack is introduced.",
+      "artifacts": [
+        "SKILL.md",
+        "references/reporting-handoff.md",
+        "manual-evaluation-obligations.md (external authoring input)"
+      ]
+    },
+    {
+      "origin": "user specification",
+      "outcome": "Retain all unamended QA-001 through QA-026 obligations and all QV-01 through QV-21 with explicit extension compatibility; later independent evaluation also covers QPV-01 through QPV-21.",
+      "artifacts": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "assets/qa-fix-template.md",
+        "assets/qa-report-template.md",
+        "assets/test-plan-template.md",
+        "references/assessment.md",
+        "references/execution-integrity.md",
+        "references/intake-planning.md",
+        "references/reporting-handoff.md"
+      ]
+    },
+    {
+      "origin": "inferred implementation choice",
+      "outcome": "Preserve existing nine-resource layout and supported metadata; change UI default prompt to request ordinary QA; add no runtime helper.",
+      "artifacts": [
+        "SKILL.md",
+        "agents/openai.yaml",
+        "assets/qa-fix-template.md",
+        "assets/qa-report-template.md",
+        "assets/test-plan-template.md",
+        "references/assessment.md",
+        "references/execution-integrity.md",
+        "references/intake-planning.md",
+        "references/reporting-handoff.md"
+      ]
+    }
+  ],
+  "specifications": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    }
+  ]
+}

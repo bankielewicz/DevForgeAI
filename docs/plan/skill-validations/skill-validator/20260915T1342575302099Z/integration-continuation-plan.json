@@ -1,0 +1,6 @@
+{
+  "reason": "First discovery could not import two modules with documented AUTHORING_BUILDER_ROOT dependency. These test methods have not executed; run them once with pinned dependency. No successful cases repeated. Preserve initial loader errors.",
+  "dependency_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\builder-dependency\\source-manifest.json",
+  "scope": "Validator-owned synthetic integration regressions only; companion source remains unchanged and is not assessed.",
+  "coverage": "Same predeclared validator scripts denominator; dependency code excluded as external to selected package."
+}

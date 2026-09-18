@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["exact destination membership required"], "ordered_member_ids": []}

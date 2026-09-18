@@ -1,0 +1,2 @@
+   Compiling devforgeai-index v0.1.0 (/mnt/c/Projects/DevForgeAI/devforgeai)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.46s

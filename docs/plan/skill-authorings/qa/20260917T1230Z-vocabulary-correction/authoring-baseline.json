@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "qa-claude-conversion-002",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\qa",
+  "target_name": "qa",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\authoring-record.json",
+    "sha256": "d46d74f0293d749250e70c23eadb8e638bc3c42135a296e2ede31585f077594b"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\baseline-manifest.json",
+    "sha256": "15b77199f7fae0e2238d4dc4f59c0134fe08117972a6f30ecaa7472a4e531716"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\baseline"
+}

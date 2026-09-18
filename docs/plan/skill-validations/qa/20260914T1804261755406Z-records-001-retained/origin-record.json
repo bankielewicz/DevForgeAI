@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1804261755406Z",
+  "target_name": "qa",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "2dea10da87f1efcee657f0cd55c852722defe0ce6aaec2138f93d63e8438c388"
+  },
+  "specification": {
+    "path": "inputs/qa-skill-spec.md",
+    "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": {
+    "path": "inputs/authoring/authoring-record.json",
+    "sha256": "36a301c5efc43e9df7eed50693f109d3ea3b566de4e1b8f95ee6c06e466cc18f"
+  },
+  "completeness": "complete",
+  "uncertainties": [
+    "Schema-1 history vocabulary has no authored kind; authoring-v1 custody is separately recorded, not relabeled generated or adopted."
+  ],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "Authored from selected specification in authoring run 20260914T1748018341005Z; prior target absent as recorded; custody verified in this run."
+}

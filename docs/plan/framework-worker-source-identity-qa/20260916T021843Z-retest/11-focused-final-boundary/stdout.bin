@@ -1,0 +1,7 @@
+
+running 2 tests
+test runner::final_source_check_cases::final_native_check_rejects_missing_review_for_work_and_preflight ... ok
+test runner::final_source_check_cases::si_t08_changed_source_after_intent_stops_before_real_process_creation ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 35 filtered out; finished in 0.06s
+

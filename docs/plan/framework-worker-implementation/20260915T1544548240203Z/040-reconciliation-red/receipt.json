@@ -1,0 +1,40 @@
+{
+  "attempt_id": "040-reconciliation-red",
+  "stage": "red",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "requirements"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T16:27:32.769536+00:00",
+  "ended_at": "2026-09-15T16:27:35.947301+00:00",
+  "exit_code": 101,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\040-reconciliation-red\\candidate.json",
+    "bytes": 6856,
+    "sha256": "b35aced28ee9f16fa48f521be5bb39309f3128c065394862eb6ddd6cb88c4ab8"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\040-reconciliation-red\\stdout.txt",
+    "bytes": 1662,
+    "sha256": "421cb2eb129733fde037fb2c5d96396acd6b1de8bab8c4b3a909dead30b52b27"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\040-reconciliation-red\\stderr.txt",
+    "bytes": 335,
+    "sha256": "bf6cf9b3794480cfb46cf93f1f86d6201693e76d5c09d6d258e877b9e8234e8b"
+  },
+  "outcome": "observed-exit"
+}

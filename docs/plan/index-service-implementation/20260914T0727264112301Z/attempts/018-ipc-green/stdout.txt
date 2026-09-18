@@ -1,0 +1,18 @@
+
+running 1 test
+test native_local_transport_roundtrips_and_stops_without_tcp ... FAILED
+
+failures:
+
+---- native_local_transport_roundtrips_and_stops_without_tcp stdout ----
+
+thread 'native_local_transport_roundtrips_and_stops_without_tcp' (5856) panicked at tests\ipc.rs:9:59:
+called `Result::unwrap()` on an `Err` value: ProtocolError { code: AccessDenied, message: "Access is denied. (os error 5)", details: Object {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native_local_transport_roundtrips_and_stops_without_tcp
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

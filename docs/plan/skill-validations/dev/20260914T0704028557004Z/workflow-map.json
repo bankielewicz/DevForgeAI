@@ -1,0 +1,157 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T0704028557004Z",
+  "target_name": "dev",
+  "steps": [
+    {
+      "step_id": "context",
+      "entrypoint": "SKILL.md:Workflow1 / references/context.md",
+      "entry_conditions": [
+        "selected project/specs/scope/instructions"
+      ],
+      "inputs": [
+        "selected project/specs/scope/instructions"
+      ],
+      "executor": "Codex CLI skill-following session using terminal/file operations",
+      "action": "Resolve identity, read complete inputs, inspect current tools/source, bind literal original destination and output paths before writes.",
+      "outputs": [
+        "context and exact input/output map"
+      ],
+      "completion_evidence": "Observed context and original-source path comparison precede production changes.",
+      "next_branches": [
+        "requirements"
+      ],
+      "failure_route": "Missing/ambiguous/unavailable inputs stop dependent writes; independent work continues.",
+      "terminal_user_outcome": "Selected usable product/evidence or precise material gap; implementation/QA/native/acceptance distinctly reported."
+    },
+    {
+      "step_id": "requirements",
+      "entrypoint": "SKILL.md:Workflow2 / references/context.md",
+      "entry_conditions": [
+        "context",
+        "selected specifications"
+      ],
+      "inputs": [
+        "context",
+        "selected specifications"
+      ],
+      "executor": "Codex CLI skill-following session using terminal/file operations",
+      "action": "Inventory source-qualified requirements, contracts, dependency owners, constitutional decisions and gaps.",
+      "outputs": [
+        "traceability",
+        "resolved dependency order or precise gaps"
+      ],
+      "completion_evidence": "Every selected normative requirement has source, owner and verification/gap.",
+      "next_branches": [
+        "slices"
+      ],
+      "failure_route": "Conflicts/cycles/missing unselected prerequisites require a precise decision.",
+      "terminal_user_outcome": "Selected usable product/evidence or precise material gap; implementation/QA/native/acceptance distinctly reported."
+    },
+    {
+      "step_id": "slices",
+      "entrypoint": "SKILL.md:Workflow3 / references/implementation.md",
+      "entry_conditions": [
+        "requirements",
+        "existing source/tests"
+      ],
+      "inputs": [
+        "requirements",
+        "existing source/tests"
+      ],
+      "executor": "Codex CLI skill-following session using terminal/file operations",
+      "action": "Inspect reuse candidates by responsibility, retain decision, plan observable dependency slices and real commands.",
+      "outputs": [
+        "reuse assessment",
+        "slice plan",
+        "declared checks"
+      ],
+      "completion_evidence": "Each slice binds input/output contracts, ownership and concrete expected behavior.",
+      "next_branches": [
+        "tdd-qa"
+      ],
+      "failure_route": "Missing tools or material architecture decisions block only dependent slices.",
+      "terminal_user_outcome": "Selected usable product/evidence or precise material gap; implementation/QA/native/acceptance distinctly reported."
+    },
+    {
+      "step_id": "tdd-qa",
+      "entrypoint": "SKILL.md:Workflow4 / references/implementation.md",
+      "entry_conditions": [
+        "slice plan",
+        "tool availability",
+        "authorized source/test roots"
+      ],
+      "inputs": [
+        "slice plan",
+        "tool availability",
+        "authorized source/test roots"
+      ],
+      "executor": "Codex CLI skill-following session using terminal/file operations",
+      "action": "Execute focused valid red, minimum green, justified refactor, integration and project-derived QA/native checks.",
+      "outputs": [
+        "product source/tests",
+        "actual receipts and metrics"
+      ],
+      "completion_evidence": "Real candidate-bound passing checks; no stubbed integration, weakened assertions or denominator manipulation.",
+      "next_branches": [
+        "checkpoint",
+        "delivery"
+      ],
+      "failure_route": "Setup errors are not red; unavailable required native checks remain NOT_RUN; preserve failures.",
+      "terminal_user_outcome": "Selected usable product/evidence or precise material gap; implementation/QA/native/acceptance distinctly reported."
+    },
+    {
+      "step_id": "checkpoint",
+      "entrypoint": "SKILL.md:Workflow5 / references/evidence-resume.md",
+      "entry_conditions": [
+        "current inputs/candidate",
+        "job outcomes",
+        "execution evidence"
+      ],
+      "inputs": [
+        "current inputs/candidate",
+        "job outcomes",
+        "execution evidence"
+      ],
+      "executor": "Codex CLI skill-following session using terminal/file operations",
+      "action": "Retain checkpoint and recheck hashes, destination identity, job state and ownership before resumption.",
+      "outputs": [
+        "fresh checkpoint",
+        "drift/gap record",
+        "new attempt evidence"
+      ],
+      "completion_evidence": "Changed prerequisites invalidate dependent prior claims; old work stays retained.",
+      "next_branches": [
+        "context",
+        "tdd-qa",
+        "delivery"
+      ],
+      "failure_route": "Unknown jobs inspected before retry; changed destination rebinds permitted future records without overwriting old output.",
+      "terminal_user_outcome": "Selected usable product/evidence or precise material gap; implementation/QA/native/acceptance distinctly reported."
+    },
+    {
+      "step_id": "delivery",
+      "entrypoint": "SKILL.md:Workflow6 / references/failure-delivery.md",
+      "entry_conditions": [
+        "traceability",
+        "actual checks",
+        "original destination selection"
+      ],
+      "inputs": [
+        "traceability",
+        "actual checks",
+        "original destination selection"
+      ],
+      "executor": "Codex CLI skill-following session using terminal/file operations",
+      "action": "Read back all promised files at exact selected paths, reduce every selected requirement, report COMPLETE/PARTIAL/BLOCKED and separate acceptance.",
+      "outputs": [
+        "delivery report",
+        "usable outputs or precise next gap"
+      ],
+      "completion_evidence": "Actual-versus-required path and current candidate evidence; passing tests alone cannot verify wrong locations.",
+      "next_branches": [],
+      "failure_route": "Wrong/missing outputs prevent VERIFIED/COMPLETE; external authority unavailable remains NOT_EVALUATED.",
+      "terminal_user_outcome": "Selected usable product/evidence or precise material gap; implementation/QA/native/acceptance distinctly reported."
+    }
+  ]
+}

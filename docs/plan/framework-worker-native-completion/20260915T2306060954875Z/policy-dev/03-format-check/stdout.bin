@@ -1,0 +1,78 @@
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:46:
+     policy_id: &str,
+     policy_sha256: &str,
+ ) -> Result<Vec<String>> {
+-    if adapter != ADAPTER
+-        || schema_version != 2
+-        || policy_id != ID
+-        || policy_sha256 != digest()
+-    {
++    if adapter != ADAPTER || schema_version != 2 || policy_id != ID || policy_sha256 != digest() {
+         return Err("profile_unqualified".into());
+     }
+     let policy: Policy =
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:64:
+     }
+     Ok(policy.argv)
+ }
+-
+ 
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\launch_policy.rs:130:
+             "argv": expected,
+         })
+     );
+-    assert_eq!(launch_policy::digest(), request::digest(launch_policy::RECORD.as_bytes()));
++    assert_eq!(
++        launch_policy::digest(),
++        request::digest(launch_policy::RECORD.as_bytes())
++    );
+ 
+     let argv = parsed["argv"].as_array().unwrap();
+-    assert_eq!(&argv[..4], ["app-server", "--listen", "stdio://", "--strict-config"]);
++    assert_eq!(
++        &argv[..4],
++        ["app-server", "--listen", "stdio://", "--strict-config"]
++    );
+     assert_eq!(argv[4..].len() % 2, 0);
+     assert!(argv[4..].chunks_exact(2).all(|pair| pair[0] == "-c"));
+ }
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\preflight_cli.rs:4:
+ fn preflight_is_a_closed_terminal_operation() {
+     let executable = env!("CARGO_BIN_EXE_devforgeai-codex-worker-probe");
+     let output = Command::new(executable)
+-        .args(["preflight", "--request", "C:\\definitely-absent-native-preflight-input.json"])
++        .args([
++            "preflight",
++            "--request",
++            "C:\\definitely-absent-native-preflight-input.json",
++        ])
+         .output()
+         .unwrap();
+     assert_eq!(output.status.code(), Some(2));
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\preflight_cli.rs:11:
+-    assert_eq!(serde_json::from_slice::<serde_json::Value>(&output.stderr).unwrap()["error"], "input_missing");
++    assert_eq!(
++        serde_json::from_slice::<serde_json::Value>(&output.stderr).unwrap()["error"],
++        "input_missing"
++    );
+     assert!(output.stdout.is_empty());
+     let output = Command::new(executable)
+-        .args(["preflight", "--request", "relative.json", "--config", "hooks=false"])
++        .args([
++            "preflight",
++            "--request",
++            "relative.json",
++            "--config",
++            "hooks=false",
++        ])
+         .output()
+         .unwrap();
+     assert_eq!(output.status.code(), Some(2));
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\preflight_cli.rs:18:
+-    assert_eq!(serde_json::from_slice::<serde_json::Value>(&output.stderr).unwrap()["error"], "invalid_arguments");
++    assert_eq!(
++        serde_json::from_slice::<serde_json::Value>(&output.stderr).unwrap()["error"],
++        "invalid_arguments"
++    );
+ }
+ 

@@ -1,0 +1,65 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+  "captured_at_utc": "2026-09-13T21:36:39.174973+00:00",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 4462,
+      "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+    },
+    {
+      "path": "assets/checkpoint.md",
+      "bytes": 1279,
+      "sha256": "34fbc2e081217b6b34dcc1a957f1a4ac9b751cfc946097e0f51c4419a788c901"
+    },
+    {
+      "path": "assets/context.md",
+      "bytes": 2101,
+      "sha256": "0fc1ddcd61e5501552172f07bd6c95d1554566c6591fdf01df6b14b0d313f4c7"
+    },
+    {
+      "path": "assets/delivery.md",
+      "bytes": 2136,
+      "sha256": "1af13297690a8c97b68206f3d0f7d661860e4ba4242d7267deed4097a5972efb"
+    },
+    {
+      "path": "assets/execution-record.jsonl",
+      "bytes": 1265,
+      "sha256": "6e48a8dfa018acd4332a7f75d079f3e82e1e1bbd6dc1f01aef312cea8bb351b3"
+    },
+    {
+      "path": "assets/slice-plan.md",
+      "bytes": 1503,
+      "sha256": "f7408d9b27a4d09245113da9c2abff281d1265894b14fd0deae4ca542df45421"
+    },
+    {
+      "path": "assets/traceability.md",
+      "bytes": 1029,
+      "sha256": "755812c3be085c859f8ec75fc1545917edc3edf7637fc7daa723fef2356a3f21"
+    },
+    {
+      "path": "references/context.md",
+      "bytes": 5690,
+      "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+    },
+    {
+      "path": "references/evidence-resume.md",
+      "bytes": 4327,
+      "sha256": "9f8810c09c448ddcf47fe68bc18e38c72ab773d15fd390ee1636a2a917affaab"
+    },
+    {
+      "path": "references/failure-delivery.md",
+      "bytes": 3200,
+      "sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44"
+    },
+    {
+      "path": "references/implementation.md",
+      "bytes": 7053,
+      "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae"
+}

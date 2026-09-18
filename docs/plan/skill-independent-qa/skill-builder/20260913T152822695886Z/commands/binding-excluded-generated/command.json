@@ -1,0 +1,26 @@
+{
+  "case": "binding-excluded-generated",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-excluded-generated\\project\\.agents\\skills\\summary-skill\\scripts\\check_project_binding.py",
+    "--project-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-excluded-generated\\project",
+    "--skill-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-excluded-generated\\project\\.agents\\skills\\summary-skill"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "expected": {
+    "exit": 1,
+    "field": "reason_code",
+    "value": "UNSAFE_PATH",
+    "read_only_root": null,
+    "before_manifest": null
+  },
+  "start_utc": "2026-09-13T15:50:45.176426+00:00",
+  "stdin_sha256": null
+}

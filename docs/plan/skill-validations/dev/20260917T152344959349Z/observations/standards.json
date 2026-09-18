@@ -1,0 +1,42 @@
+{
+  "schema_version": "standards-advisory-v1",
+  "authority": "NONE",
+  "excluded_boundaries": [],
+  "entrypoint_lines": 50,
+  "over_500_lines": false,
+  "reference_depths": {
+    "SKILL.md": 0,
+    "references/implementation.md": 1,
+    "references/failure-delivery.md": 1,
+    "references/evidence-resume.md": 1,
+    "references/context.md": 1,
+    "assets/traceability.md": 4,
+    "assets/slice-plan.md": 2,
+    "assets/context.md": 4,
+    "assets/delivery.md": 2,
+    "assets/checkpoint.md": 4
+  },
+  "cycles": [
+    [
+      "references/failure-delivery.md",
+      "references/evidence-resume.md",
+      "references/failure-delivery.md"
+    ],
+    [
+      "references/failure-delivery.md",
+      "references/evidence-resume.md",
+      "references/context.md",
+      "references/failure-delivery.md"
+    ],
+    [
+      "references/evidence-resume.md",
+      "references/context.md",
+      "references/evidence-resume.md"
+    ]
+  ],
+  "limitations": [
+    "Advisory graph observations, not actual loads or semantic defects.",
+    "Depths are observed traversal distances; cycles have no finite maximum depth.",
+    "Token counts require the separately selected installed tokenizer."
+  ]
+}

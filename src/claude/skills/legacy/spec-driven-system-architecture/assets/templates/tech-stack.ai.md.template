@@ -1,0 +1,63 @@
+# tech-stack.ai.md
+# DERIVED from tech-stack.md | ADR-052
+# Regenerate: /create-system-architecture
+# Generated: {{generated_at}} | Hash: {{source_hash}}
+---
+critical_rules:
+  severity: CRITICAL
+  locked_principle: "DevForgeAI is a meta-framework that works with ANY technology stack"
+  platform: {name: "Claude Code Terminal", version: "1.0+"}
+  components:
+    skills: ".claude/skills/[skill-name]/SKILL.md (Markdown + YAML frontmatter)"
+    subagents: ".claude/agents/[agent-name].md (Markdown + YAML frontmatter)"
+    commands: ".claude/commands/[command-name].md (Markdown + YAML frontmatter)"
+  prohibited_formats:
+    - "HTML files for framework documentation"
+    - "JSON/YAML files for instructions (Markdown only)"
+    - "Language-specific code in framework docs"
+  native_tools:
+    status: LOCKED
+    required: ['Read(file_path="...")', 'Write(file_path="...")', 'Edit(file_path="...")', 'Glob(pattern="...")', 'Grep(pattern="...")']
+  prohibited_bash_file_ops:
+    - 'Bash(command="cat file.txt") -> Use Read()'
+    - 'Bash(command="echo content > file.txt") -> Use Write()'
+    - 'Bash(command="find . -name *.md") -> Use Glob()'
+    - 'Bash(command="grep pattern file.txt") -> Use Grep()'
+    - 'Bash(command="sed -i s/old/new/ file.txt") -> Use Edit()'
+  skill_invocation:
+    status: LOCKED
+    invoke_skill: 'Skill(command="spec-driven-qa --mode=light --story=STORY-001")'
+    invoke_subagent: 'Task(subagent_type="test-automator", prompt="...")'
+    prohibited: ["Skills calling Bash to invoke skills", "Circular skill dependencies"]
+  context_file_format:
+    status: LOCKED
+    required: "Markdown with LOCKED status, version, date"
+    prohibited: ["JSON context files", "YAML context files (except frontmatter)", "Missing LOCKED status", "Missing version/date"]
+  static_analysis:
+    prohibited: "ast-grep (REMOVED per ADR-007)"
+    approved: "Treelint v0.12.0+ (ADR-013)"
+  token_budget:
+    status: LOCKED
+    skills: {target: "500-800 lines", max: "1000 lines"}
+    commands: {target: "200-400 lines", max: "500 lines"}
+    subagents: {target: "100-300 lines", max: "500 lines"}
+    context_files: {target: "200-400 lines", max: "600 lines"}
+high_rules:
+  severity: HIGH
+  npm_deps_locked:
+    Commander: "^11.0.0"
+    Inquirer: "8.x (last CommonJS per ADR-006)"
+    Ora: "5.x (last CommonJS per ADR-006)"
+    Chalk: "4.x (last CommonJS per ADR-006)"
+    cli_progress: "^3.12.0"
+  npm_deps_prohibited: ["Yargs", "Prompts", "cli-spinners", "colors"]
+  bash_exceptions: ["tests (npm test, pytest)", "builds (npm run build)", "git ops", "package managers"]
+  tech_debt_thresholds: {warning: 5, critical: 10, blocking: 15}
+on_violation: "HALT + AskUserQuestion for technology decisions not in this file"
+
+# --- Extracted rules from parent .md file (auto-populated by ai-rule-extractor agents) ---
+extracted_critical_rules:
+{{critical_rules}}
+
+extracted_high_rules:
+{{high_rules}}

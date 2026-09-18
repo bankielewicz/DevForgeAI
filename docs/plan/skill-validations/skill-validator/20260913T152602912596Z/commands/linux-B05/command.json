@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-X",
+    "utf8",
+    "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-validator/20260913T152602912596Z/trials/linux-independent/linux-B05/project space café & (local)/.agents/skills/core-note/scripts/check_project_binding.py",
+    "--project-root",
+    "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-validator/20260913T152602912596Z/trials/linux-independent/linux-B05/project space café & (local)",
+    "--skill-root",
+    "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-validator/20260913T152602912596Z/trials/linux-independent/linux-B05/project space café & (local)/.agents/skills/core-note"
+  ],
+  "cwd": "/mnt/c/Projects/DevForgeAI",
+  "started_at_utc": "2026-09-13T16:21:10.085636Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-validator/20260913T152602912596Z/trials/temp/linux-B05",
+    "TMP": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-validator/20260913T152602912596Z/trials/temp/linux-B05",
+    "TMPDIR": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-validator/20260913T152602912596Z/trials/temp/linux-B05",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 587334,
+  "exit_status": 1,
+  "ended_at_utc": "2026-09-13T16:21:11.066933Z",
+  "elapsed_seconds": 0.9676761589944363
+}

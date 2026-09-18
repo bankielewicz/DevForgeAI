@@ -1,0 +1,364 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T155029Z",
+  "mode": "spec_build",
+  "target_name": "skill-validator",
+  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+  "contract_sha256": "592592b6e53837d97884e81663e9dc7494a50077274182c95ddaac8e52cad9ad",
+  "inputs": [
+    {
+      "id": "approved-spec",
+      "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053"
+    },
+    {
+      "id": "current-authorization",
+      "sha256": "35470b2b44ddf49c1ab012602b93290b084a5c9e3038cb618f90e7356d9f440e"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "Python",
+      "available": true,
+      "observed_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+      "role": "3.10+ helper/evaluator"
+    },
+    {
+      "name": "PyYAML",
+      "available": true,
+      "observed_version": "6.0.2",
+      "role": "YAML parsing"
+    },
+    {
+      "name": "installed Skill Creator checker",
+      "available": true,
+      "path": "C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+    },
+    {
+      "name": "Codex subagents",
+      "available": true,
+      "role": "independent build trials; host-provided capability, no separate filesystem isolation claimed"
+    },
+    {
+      "name": "official docs connector",
+      "available": true,
+      "role": "optional freshness transport; retain fallback"
+    },
+    {
+      "name": "Rust enforcement",
+      "available": false,
+      "role": "outside scope, no dependency"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "SKILL.md",
+      "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/SKILL.md",
+      "baseline_sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+    },
+    {
+      "path": "assets/enforcement-register-template.md",
+      "sha256": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/assets/enforcement-register-template.md",
+      "baseline_sha256": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c"
+    },
+    {
+      "path": "assets/origin-spec-template.md",
+      "sha256": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/assets/origin-spec-template.md",
+      "baseline_sha256": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902"
+    },
+    {
+      "path": "assets/revision-spec-template.md",
+      "sha256": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/assets/revision-spec-template.md",
+      "baseline_sha256": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e"
+    },
+    {
+      "path": "assets/rules-snapshot.json",
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/assets/rules-snapshot.json",
+      "baseline_sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+    },
+    {
+      "path": "assets/validation-report-template.md",
+      "sha256": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/assets/validation-report-template.md",
+      "baseline_sha256": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab"
+    },
+    {
+      "path": "evals/README.md",
+      "sha256": "9c1f946bf568f9d3f6695c8226b29ea20a1ce3fc7c3967d6423f8c7556d9330e",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/evals/README.md",
+      "baseline_sha256": "9c1f946bf568f9d3f6695c8226b29ea20a1ce3fc7c3967d6423f8c7556d9330e"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "sha256": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/evals/cases.jsonl",
+      "baseline_sha256": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a"
+    },
+    {
+      "path": "references/handoff.md",
+      "sha256": "d923cebb61067278bdd19808f6063df15c81425d58afdc1f2b6c805755620a91",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/references/handoff.md",
+      "baseline_sha256": "d923cebb61067278bdd19808f6063df15c81425d58afdc1f2b6c805755620a91"
+    },
+    {
+      "path": "references/origin.md",
+      "sha256": "992fdad9cd83c49c13ade01178f24b66d958b2c07b3030a26395c3d667057e0f",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/references/origin.md",
+      "baseline_sha256": "992fdad9cd83c49c13ade01178f24b66d958b2c07b3030a26395c3d667057e0f"
+    },
+    {
+      "path": "references/reporting.md",
+      "sha256": "c0e423a468385a4d220610ffd33f1b8e4fd5ac53e82755f63dae1794a393bd22",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/references/reporting.md",
+      "baseline_sha256": "c0e423a468385a4d220610ffd33f1b8e4fd5ac53e82755f63dae1794a393bd22"
+    },
+    {
+      "path": "references/rules.md",
+      "sha256": "113ed216ad8ce3f281c5b32f4443fa64a85ad2475f742142581aa266748a090a",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/references/rules.md",
+      "baseline_sha256": "113ed216ad8ce3f281c5b32f4443fa64a85ad2475f742142581aa266748a090a"
+    },
+    {
+      "path": "references/trials.md",
+      "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/references/trials.md",
+      "baseline_sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0"
+    },
+    {
+      "path": "scripts/observe.py",
+      "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/scripts/observe.py",
+      "baseline_sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"
+    },
+    {
+      "path": "tests/test_observe.py",
+      "sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef",
+      "ownership": "generated",
+      "baseline_path": "generated-baseline/tests/test_observe.py",
+      "baseline_sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef"
+    }
+  ],
+  "mappings": [
+    {
+      "requirement_id": "SV-001",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/origin.md",
+        "assets/origin-spec-template.md",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-002",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/origin.md",
+        "scripts/observe.py",
+        "tests/test_observe.py",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-003",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/rules.md",
+        "assets/rules-snapshot.json",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-004",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/rules.md",
+        "scripts/observe.py",
+        "tests/test_observe.py",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-005",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/rules.md",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-006",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/rules.md",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-007",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/rules.md",
+        "assets/validation-report-template.md",
+        "assets/enforcement-register-template.md",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-008",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/trials.md",
+        "evals/cases.jsonl",
+        "evals/README.md"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-009",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/reporting.md",
+        "assets/validation-report-template.md",
+        "assets/enforcement-register-template.md",
+        "scripts/observe.py",
+        "tests/test_observe.py",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-010",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/handoff.md",
+        "assets/revision-spec-template.md",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-011",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/handoff.md",
+        "scripts/observe.py",
+        "tests/test_observe.py",
+        "evals/cases.jsonl"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-012",
+      "artifact_paths": [
+        "SKILL.md",
+        "evals/cases.jsonl",
+        "evals/README.md"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-013",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/rules.md",
+        "evals/cases.jsonl",
+        "evals/README.md"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    },
+    {
+      "requirement_id": "SV-014",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/origin.md",
+        "references/trials.md",
+        "tests/test_observe.py",
+        "evals/cases.jsonl",
+        "evals/README.md"
+      ],
+      "evidence_ids": [
+        "preceding-observations",
+        "build-verification"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "preceding-observations",
+      "path": "evidence/preceding-observations.json",
+      "sha256": "7e013014b1dde1e150b7a60b6a8853a8ff43e6f8ef8bdb84617b8ecdc7bff3fb"
+    },
+    {
+      "id": "build-verification",
+      "path": "evidence/build-verification-observations.json",
+      "sha256": "a9346dd16ab86a1a73afe9bf3fb42a1d364fa1259d42a95ed3dd78928697b73e"
+    }
+  ],
+  "prior_build": null,
+  "result": "COMPLETE"
+}

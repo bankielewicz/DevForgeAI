@@ -1,0 +1,34 @@
+FF
+======================================================================
+FAIL: test_mandatory_artifacts_and_bindings (__main__.BundleContract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\dev\20260913T2136389781471Z\test_bundle.py", line 16, in test_mandatory_artifacts_and_bindings
+    self.assertEqual([], [name for name in REQUIRED if not (BUNDLE/name).is_file()], 'DEV-026 requires an external executable bundle')
+AssertionError: Lists differ: [] != ['runner.py', 'graders.py', 'scenarios.jso[90 chars]son']
+
+Second list contains 7 additional elements.
+First extra element 0:
+'runner.py'
+
+- []
++ ['runner.py',
++  'graders.py',
++  'scenarios.jsonl',
++  'expected-results.json',
++  'evidence.schema.json',
++  'runtime.json',
++  'artifact-manifest.json'] : DEV-026 requires an external executable bundle
+
+======================================================================
+FAIL: test_required_cases_exact_once_and_predeclared (__main__.BundleContract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\dev\20260913T2136389781471Z\test_bundle.py", line 23, in test_required_cases_exact_once_and_predeclared
+    self.assertTrue((BUNDLE/'scenarios.jsonl').is_file(),'Required DV scenarios are missing')
+AssertionError: False is not true : Required DV scenarios are missing
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)

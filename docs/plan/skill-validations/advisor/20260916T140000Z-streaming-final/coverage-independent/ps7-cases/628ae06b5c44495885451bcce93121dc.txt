@@ -1,0 +1,1 @@
+-B -X utf8 C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py run --request "C:\synthetic request.json" --briefing "C:\synthetic briefing.md" --run-dir "C:\synthetic run" --reason retry --show-progress

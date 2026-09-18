@@ -1,0 +1,3111 @@
+[
+  {
+    "case": "v2-author-create-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\authoring\\docs\\plan\\authoring-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\authoring\\docs\\plan\\authoring-run\\candidate"
+    },
+    "evidence": "commands/v2-author-create-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-create-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\authoring\\docs\\plan\\authoring-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-author-create-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "author-request-readback",
+    "status": "PASS",
+    "evidence": "fixtures\\followup-02\\authoring\\docs\\plan\\authoring-run"
+  },
+  {
+    "case": "v2-author-edit-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\authoring\\docs\\plan\\edit-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\authoring\\docs\\plan\\edit-run\\candidate"
+    },
+    "evidence": "commands/v2-author-edit-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-edit-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\authoring\\docs\\plan\\edit-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-author-edit-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-observed-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-observed\\docs\\plan\\author-observed-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-observed\\docs\\plan\\author-observed-run\\candidate"
+    },
+    "evidence": "commands/v2-author-observed-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-observed-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-observed\\docs\\plan\\author-observed-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-author-observed-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-import-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-import\\docs\\plan\\author-import-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-import\\docs\\plan\\author-import-run\\candidate"
+    },
+    "evidence": "commands/v2-author-import-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-import-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-import\\docs\\plan\\author-import-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-author-import-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-spec_build-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-spec_build\\docs\\plan\\author-spec_build-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-spec_build\\docs\\plan\\author-spec_build-run\\candidate"
+    },
+    "evidence": "commands/v2-author-spec_build-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-spec_build-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-spec_build\\docs\\plan\\author-spec_build-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-author-spec_build-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-adopt-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-adopt\\docs\\plan\\author-adopt-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-adopt\\docs\\plan\\author-adopt-run\\candidate"
+    },
+    "evidence": "commands/v2-author-adopt-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-adopt-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-adopt\\docs\\plan\\author-adopt-run",
+      "applied_paths": [],
+      "issues": []
+    },
+    "evidence": "commands/v2-author-adopt-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-corrupt-history",
+    "status": "PASS",
+    "expected": {
+      "exit": 2,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 2,
+    "observed": null,
+    "evidence": "commands/v2-author-corrupt-history",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-drift-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-drift\\docs\\plan\\author-drift-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-drift\\docs\\plan\\author-drift-run\\candidate"
+    },
+    "evidence": "commands/v2-author-drift-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-drift-publish",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "state",
+      "value": "BLOCKED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "state": "PARTIAL",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-drift\\docs\\plan\\author-drift-run",
+      "applied_paths": [],
+      "issues": [
+        "SOURCE_CHANGED live target differs from captured current"
+      ]
+    },
+    "evidence": "commands/v2-author-drift-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-outside-scope-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-outside-scope\\docs\\plan\\author-outside-scope-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-outside-scope\\docs\\plan\\author-outside-scope-run\\candidate"
+    },
+    "evidence": "commands/v2-author-outside-scope-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-outside-scope-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "state",
+      "value": "BLOCKED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "state": "BLOCKED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-outside-scope\\docs\\plan\\author-outside-scope-run",
+      "applied_paths": [],
+      "issues": [
+        "candidate changes outside authorized paths: user.txt"
+      ]
+    },
+    "evidence": "commands/v2-author-outside-scope-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-author-extra-contract-field",
+    "status": "PASS",
+    "expected": {
+      "exit": 2,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 2,
+    "observed": null,
+    "evidence": "commands/v2-author-extra-contract-field",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-base-seed-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-base\\docs\\plan\\bcn-equal-base-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-base\\docs\\plan\\bcn-equal-base-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-equal-base-seed-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-base-seed-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-base\\docs\\plan\\bcn-equal-base-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-equal-base-seed-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-base-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-base\\docs\\plan\\second-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-base\\docs\\plan\\second-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-equal-base-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-base-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-base\\docs\\plan\\second-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-equal-base-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-new-seed-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-new\\docs\\plan\\bcn-equal-new-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-new\\docs\\plan\\bcn-equal-new-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-equal-new-seed-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-new-seed-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-new\\docs\\plan\\bcn-equal-new-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-equal-new-seed-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-new-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-new\\docs\\plan\\second-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-new\\docs\\plan\\second-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-equal-new-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-equal-new-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-equal-new\\docs\\plan\\second-run",
+      "applied_paths": [],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-equal-new-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-new-equal-base-seed-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-new-equal-base\\docs\\plan\\bcn-new-equal-base-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-new-equal-base\\docs\\plan\\bcn-new-equal-base-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-new-equal-base-seed-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-new-equal-base-seed-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-new-equal-base\\docs\\plan\\bcn-new-equal-base-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-new-equal-base-seed-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-new-equal-base-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-new-equal-base\\docs\\plan\\second-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-new-equal-base\\docs\\plan\\second-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-new-equal-base-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-new-equal-base-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-new-equal-base\\docs\\plan\\second-run",
+      "applied_paths": [],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-new-equal-base-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-divergent-seed-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\bcn-divergent-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\bcn-divergent-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-divergent-seed-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-divergent-seed-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\bcn-divergent-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-divergent-seed-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-divergent-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\second-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\second-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-divergent-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-divergent-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "state",
+      "value": "BLOCKED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "state": "BLOCKED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\second-run",
+      "applied_paths": [],
+      "issues": [
+        "REVISION_CONFLICT: SKILL.md",
+        "REVISION_CONFLICT: SKILL.md"
+      ]
+    },
+    "evidence": "commands/v2-bcn-divergent-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-obsolete-user-edit-seed-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-obsolete-user-edit\\docs\\plan\\bcn-obsolete-user-edit-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-obsolete-user-edit\\docs\\plan\\bcn-obsolete-user-edit-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-obsolete-user-edit-seed-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-obsolete-user-edit-seed-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-obsolete-user-edit\\docs\\plan\\bcn-obsolete-user-edit-run",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-bcn-obsolete-user-edit-seed-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-obsolete-user-edit-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-obsolete-user-edit\\docs\\plan\\second-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-obsolete-user-edit\\docs\\plan\\second-run\\candidate"
+    },
+    "evidence": "commands/v2-bcn-obsolete-user-edit-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-bcn-obsolete-user-edit-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "state",
+      "value": "BLOCKED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "state": "BLOCKED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-obsolete-user-edit\\docs\\plan\\second-run",
+      "applied_paths": [],
+      "issues": [
+        "REVISION_CONFLICT: SKILL.md",
+        "REVISION_CONFLICT: SKILL.md"
+      ]
+    },
+    "evidence": "commands/v2-bcn-obsolete-user-edit-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-A-preflight-fails",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "occupied destination"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-A-preflight-fails",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-C-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\records\\docs\\plan\\set-c-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\records\\docs\\plan\\set-c-run\\candidate"
+    },
+    "evidence": "commands/v2-set-C-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-C-complete-begin",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "STAGED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\records\\docs\\plan\\set-c-complete-run",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\records\\docs\\plan\\set-c-complete-run\\candidate"
+    },
+    "evidence": "commands/v2-set-C-complete-begin",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-C-publish",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "state",
+      "value": "AUTHORED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "AUTHORED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\records\\docs\\plan\\set-c-complete-run",
+      "applied_paths": [
+        "SKILL.md",
+        "assets/devforgeai-skill.json",
+        "references/adaptive-contract.md",
+        "scripts/check_project_binding.py"
+      ],
+      "issues": []
+    },
+    "evidence": "commands/v2-set-C-publish",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-partial-result-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-partial-result-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-subset-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-subset-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-false-full",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "full_set/subset scope mismatch"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-false-full",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-missing-omission",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "request and omissions must partition selection"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-missing-omission",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-extra-member",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "request and omissions must partition selection"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-extra-member",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-false-aggregate",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "aggregate state mismatch"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-false-aggregate",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-set-forged-legacy-fields",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.record_kind: wrong constant/version"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-set-forged-legacy-fields",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-correct",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "reason_code",
+      "value": "BOUND",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-correct\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MATCH",
+      "reason_code": "BOUND",
+      "binding_sha256": "22c60c8233e9bb72dc163477e1f17836536ab1f63eb4452934113252eb571eeb",
+      "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-correct",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-absent",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "MISSING_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-absent\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "MISSING_BINDING",
+      "binding_sha256": null,
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-absent",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-wrong-root",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "ROOT_MISMATCH",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-wrong-root\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "ROOT_MISMATCH",
+      "binding_sha256": "b6daff0c859edc9a080c1f0b783738f9a453dc5f2425ac674a1ca1a64e9bcc2a",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-wrong-root",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-inactive",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "NOT_SELECTED",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-inactive\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "NOT_SELECTED",
+      "binding_sha256": "aab5f0ea141a0ab2767dfb33855a0cc021188f3835e2830aad19747c33702253",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-inactive",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-changed",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "PACKAGE_CHANGED",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-changed\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "new.txt",
+          "bytes": 7,
+          "sha256": "d67e2e944994496c8d8ec76eed0cf9f09679448d584b532bebf941852a37f5ed"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "PACKAGE_CHANGED",
+      "binding_sha256": "a54a63e6a286e414d3146559489d5f3330aa60d3f8adfe756d938c72d668bb3e",
+      "package_digest": "5976384ecc5601f671bb8282079901801710987a4b6dea39c3194188cb45eb5e",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-changed",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-duplicate-name",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-duplicate-name\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "f8d96f10542ec7dd40246a2394bef9dee5e8562058ddb50ba2edaeb77e64feef",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-duplicate-name",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-role",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "ROLE_MISMATCH",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-role\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "ROLE_MISMATCH",
+      "binding_sha256": "87e44f6f704e6d1efcdd6bde9e3c26e54b07523963ab02db35d5d895b87c0b20",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-role",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-unbound",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "UNBOUND_SKILL",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-unbound\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "UNBOUND_SKILL",
+      "binding_sha256": "9ff48198aa450bb928674cc2011f5fbc8fbe9a2ce56409ea9bd78275da0e5ef9",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-unbound",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-unknown-version",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-unknown-version\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "5bff61f163f61bd785f920080d6ec1be23fc34076cac54ab277a5d12860302ee",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-unknown-version",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-extra-field",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-extra-field\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "4e261a79d7feb5b50402901d4d5ee20ffd0ea406a96778098ad41bd814cc55cb",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-extra-field",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-boolean-revision",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-boolean-revision\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "9afe64d2e86490e54d86134d81b500045cdf8e059dde9ac8471b18dd190337da",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-boolean-revision",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-bad-date",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-bad-date\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "3f5b2a49feabb51865c1ec39e7be3d65e3f0ce47f3b6c0e128884cb3b0edb599",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-bad-date",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-invalid-descriptor",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-invalid-descriptor\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 3,
+          "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "604d2b6cc5ccdbce97ae6b187f3e3a156abd9bfef839706f3a21036dc7409f6d",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-invalid-descriptor",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-missing-resource",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-missing-resource\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 409,
+          "sha256": "430da4d3572f503e1bc8cc62a1834cff2fdb2367831fa65642beef75f0e8e6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "6a938976506d3790ffab2f08f68e70dccc345033f7b377d82aa8bae83378d92c",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-missing-resource",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-core-variant",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "AMBIGUOUS_ROLE",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-core-variant\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 426,
+          "sha256": "bfb2faa90c47d6104067af8135ae8a453b84a03c19840aea79f9b673eed3d3f0"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "AMBIGUOUS_ROLE",
+      "binding_sha256": "3118c848afd75be0bd3d12048612fc000156db0158a9c2a653dd6758582cfd88",
+      "package_digest": "132ce5a70b73f0fddd4ab9b735930b4a31fe56a1dfa81b3c486a76eec798554b",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-core-variant",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-two-variants",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "AMBIGUOUS_ROLE",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-two-variants\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "AMBIGUOUS_ROLE",
+      "binding_sha256": "829835b8eb4d6f47e6f3563329c1c5e7072917ccb0c1017272049cc106419e20",
+      "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-two-variants",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-invalid-related",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-invalid-related\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "4fdc76bd702d018610cd0e87060af66ff0df4c37e0ce74242400ea826dbf0910",
+      "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-invalid-related",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-excluded-generated",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "UNSAFE_PATH",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "UNSAFE_PATH",
+      "binding_sha256": "6dc34f7d53d4e4ca00a67d6128c15929c306c1c57df863d8324d6a0b88110f8b",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-excluded-generated",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-hostile-path",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "reason_code",
+      "value": "BOUND",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-hostile-path\\space café & $ ; ' (project)\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MATCH",
+      "reason_code": "BOUND",
+      "binding_sha256": "935beb5efe2c0a1c0c9809727fa062b0d9294bc072f98a599008ac40fc9a07aa",
+      "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-hostile-path",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-case-root",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "reason_code",
+      "value": "BOUND",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\binding-case-root\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12422,
+          "sha256": "36590efc1f3ea1ea14a474852bf681744e0cace87c0f446d3f2d6613e6c9d825"
+        }
+      ]
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "MATCH",
+      "reason_code": "BOUND",
+      "binding_sha256": "dd750e36332fbf64c54bc01144071ba7ff09f6aa18a14d9609d950a7be936125",
+      "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34",
+      "details": []
+    },
+    "evidence": "commands/v2-binding-case-root",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-file-limit",
+    "status": "PASS",
+    "expected": {
+      "exit": 2,
+      "field": "reason_code",
+      "value": "CAPTURE_LIMIT",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 2,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "UNAVAILABLE",
+      "reason_code": "CAPTURE_LIMIT",
+      "binding_sha256": "715b78d0737651d920289389a0ded9576de72f172936b54b2851636ce8781ce9",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-file-limit",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-binding-byte-limit",
+    "status": "PASS",
+    "expected": {
+      "exit": 2,
+      "field": "reason_code",
+      "value": "CAPTURE_LIMIT",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 2,
+    "observed": {
+      "schema_version": "binding-observation-v1",
+      "status": "UNAVAILABLE",
+      "reason_code": "CAPTURE_LIMIT",
+      "binding_sha256": "f57fa30cb256e39f752dc324da9ef69ba947e1d166647bf99d8131fbaf8d6b7a",
+      "package_digest": null,
+      "details": []
+    },
+    "evidence": "commands/v2-binding-byte-limit",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-missing-python-child",
+    "status": "PASS",
+    "expected": {
+      "exit": null,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": null,
+    "observed": null,
+    "evidence": "commands/v2-missing-python-child",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-evidence-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-evidence-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-proposal-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-proposal-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-selection-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "evidence": "commands/v2-record-selection-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-extra-field",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$: extra field extra"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-extra-field",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-unknown-version",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "unknown adaptive schema version"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-unknown-version",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-bad-digest",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.inputs[0].sha256: invalid string"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-bad-digest",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-bad-locator",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "locator outside retained text"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-bad-locator",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-bool-line",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.facts[0].sources[0].start_line: wrong type"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-bool-line",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-duplicate-fact",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "duplicate id"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-duplicate-fact",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-material-omission",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "material omission cannot be complete"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-material-omission",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-duplicate-key",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "INVALID_BINDING"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-duplicate-key",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-nonfinite",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "INVALID_BINDING"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-nonfinite",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-overflow",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "INVALID_BINDING"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-overflow",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-invalid-utf8",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "INVALID_BINDING"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-invalid-utf8",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-missing-dependency",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "missing dependency/selection closure"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-missing-dependency",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-cycle",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "dependency cycle"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-cycle",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-unknown-requirement",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "unresolved requirement/fact ID"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-unknown-requirement",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-unknown-fact",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "unresolved requirement/fact ID"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-unknown-fact",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-invalid-name",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.members[0].name: invalid string"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-invalid-name",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-variant-no-parent",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "distinct variant/parent required"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-variant-no-parent",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-core-with-lineage",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "nonvariant lineage not permitted"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-core-with-lineage",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-proposal-json-no-schema",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "JSON handoff needs schema"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-proposal-json-no-schema",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-selection-missing-selected-dependency",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "missing dependency/selection closure"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-selection-missing-selected-dependency",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-selection-missing-destination",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "exact destination membership required"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-selection-missing-destination",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-selection-duplicate-selection",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.member_ids: duplicate items"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-selection-duplicate-selection",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-selection-occupied",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "occupied destination"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-selection-occupied",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-selection-missing-capability",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "essential member capability unavailable"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-selection-missing-capability",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-record-stale-reference",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "STALE_REFERENCE: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extra\\records\\inputs\\domain.txt"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-record-stale-reference",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-descriptor-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-descriptor-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-fence-lf",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-fence-lf",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-missing-fence-lf",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "incomplete parent requirement dispositions"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-missing-fence-lf",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-removal-fence-lf",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "removed parent lacks current user requirement linkage"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-removal-fence-lf",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-fence-crlf",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-fence-crlf",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-missing-fence-crlf",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "incomplete parent requirement dispositions"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-missing-fence-crlf",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-removal-fence-crlf",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "removed parent lacks current user requirement linkage"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-removal-fence-crlf",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-table-other-resource",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-table-other-resource",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-missing-table-other-resource",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "incomplete parent requirement dispositions"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-missing-table-other-resource",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-lineage-removal-table-other-resource",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "removed parent lacks current user requirement linkage"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-lineage-removal-table-other-resource",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-linked-valid",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-linked-valid",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-linked-quality",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.validation_status: wrong constant/version"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-linked-quality",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-linked-kind",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.record_kind: wrong constant/version"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-linked-kind",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-linked-request-identity",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "per-member request identity mismatch"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-linked-request-identity",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-linked-request-type",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "$.changed_paths: wrong type"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-linked-request-type",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-linked-request-manifest",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "legacy manifest differs from delivered rows"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-linked-request-manifest",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-legacy-generated",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\legacy-generated\\docs\\plan\\edit",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\legacy-generated\\docs\\plan\\edit\\candidate"
+    },
+    "evidence": "commands/v2-ext-legacy-generated",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-legacy-adopted",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "state": "STAGED",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\legacy-adopted\\docs\\plan\\edit",
+      "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\legacy-adopted\\docs\\plan\\edit\\candidate"
+    },
+    "evidence": "commands/v2-ext-legacy-adopted",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-legacy-wrong-pointer",
+    "status": "PASS",
+    "expected": {
+      "exit": 2,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 2,
+    "observed": null,
+    "evidence": "commands/v2-ext-legacy-wrong-pointer",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-legacy-corrupt-generated",
+    "status": "PASS",
+    "expected": {
+      "exit": 2,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 2,
+    "observed": null,
+    "evidence": "commands/v2-ext-legacy-corrupt-generated",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-update-unchanged",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-update-unchanged",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-update-equivalent-bytes",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "VALID",
+      "errors": [],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-update-equivalent-bytes",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-update-false-no-change",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "proposal state disagrees with gaps/actions"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-update-false-no-change",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-update-missing-history",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "schema_version": "adaptive-observation-v1",
+      "status": "INVALID",
+      "errors": [
+        "STALE_REFERENCE: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\updates\\new-core-manifest.json"
+      ],
+      "ordered_member_ids": []
+    },
+    "evidence": "commands/v2-ext-update-missing-history",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-metadata-preserve",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": null,
+    "evidence": "commands/v2-ext-metadata-preserve",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "metadata-unrelated-fields",
+    "status": "PASS"
+  },
+  {
+    "case": "v2-ext-initializer-occupied",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/v2-ext-initializer-occupied",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-initializer-new",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": null,
+    "evidence": "commands/v2-ext-initializer-new",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-spec-ambiguous",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "AMBIGUOUS_INPUT",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "candidates": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\resolver\\docs\\plan\\one.md",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\resolver\\docs\\plan\\two.md"
+      ],
+      "excluded_boundaries": [],
+      "reason_code": "AMBIGUOUS_INPUT",
+      "status": "SPEC_GAPS"
+    },
+    "evidence": "commands/v2-ext-spec-ambiguous",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  },
+  {
+    "case": "v2-ext-spec-explicit",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "RESOLVED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "bytes": 35,
+      "excluded_boundaries": [],
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\resolver\\docs\\plan\\one.md",
+      "sha256": "f3366f57c9e51c6179f0b62e83847562ec70bed0e8ed12de7f9d0a8c1226e7ce",
+      "skill_name": "requested",
+      "status": "RESOLVED"
+    },
+    "evidence": "commands/v2-ext-spec-explicit",
+    "target_digest": "ecb5f8056f18e1d9889de0c829a7e8e48a6feafe1b8f29bc09718d226eb20099"
+  }
+]

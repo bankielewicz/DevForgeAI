@@ -1,0 +1,6 @@
+Environment: local
+Paused — indexing waits for Resume
+
+Native UI fixture — \\?\C:\Users\bryan\AppData\Local\Temp\.tmpQIlmej
+Coverage: complete   Freshness: observed_current
+1 text / 1 structural / 0 excluded / 0 skipped / 0 failed

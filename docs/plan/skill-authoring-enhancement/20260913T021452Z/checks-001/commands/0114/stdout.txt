@@ -1,0 +1,40 @@
+{
+  "schema_version": "1",
+  "command": "snapshot",
+  "status": "INCOMPLETE",
+  "coverage": [
+    "bounded inventory",
+    "raw-byte copy",
+    "source readback"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement."
+  ],
+  "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\validator-helper-vm93foh8\\snapshot output",
+  "manifest": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\validator-helper-vm93foh8\\project with spaces\\example",
+    "captured_at_utc": "2026-09-13T02:29:45.910891+00:00",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 127,
+        "sha256": "42e2516c9c45cc018b4549cc3aa2592b2204768500661de1e8d1c78989c53c03"
+      }
+    ],
+    "excluded_boundaries": [
+      {
+        "path": "backup",
+        "reason": "excluded backup or generated cache boundary"
+      },
+      {
+        "path": "devforgeai_cli",
+        "reason": "excluded legacy implementation or repository metadata boundary"
+      }
+    ],
+    "complete": false,
+    "package_digest": "1053d807b836690c75625945821415623225e8fe5199b114b810a26317a9384b"
+  }
+}

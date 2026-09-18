@@ -1,0 +1,31 @@
+{
+  "schema_version": "2",
+  "python": {
+    "minimum": "3.10",
+    "observed": "3.10.11"
+  },
+  "runner_dependencies": [],
+  "evidence_schema_version": "2",
+  "default_profile": "legacy-import-v1",
+  "enhanced_profiles": [
+    "import-v2",
+    "spec-v1",
+    "revision-import-v2",
+    "revision-spec-v1",
+    "builder-v2"
+  ],
+  "structural_check": {
+    "provider": "installed skill-creator/scripts/quick_validate.py",
+    "observed_dependency": {
+      "PyYAML": "6.0.2"
+    },
+    "included_in_runner": false
+  },
+  "network": "No runner or grader network operations",
+  "limits": {
+    "max_snapshot_files": 2000,
+    "max_snapshot_bytes": 33554432,
+    "max_cases": 1000,
+    "max_cases_bytes": 1048576
+  }
+}

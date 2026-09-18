@@ -1,0 +1,22 @@
+{
+  "DV-01": {
+    "result": "PASS",
+    "reason": "Fresh cold Windows session reconstructed the empty project, retained importable harness setup and a genuine missing-behavior red, passed the same six unittest methods through final QA, delivered a complete report, and preserved protected inputs. Independent audit matched 12 receipt references and 21 destination readback rows."
+  },
+  "DV-02": {
+    "result": "PASS",
+    "reason": "Fresh cold dependent-spec session established protocol ownership before its consumer, retained separate producer/consumer red-green runs, passed all 11 integrated unittest methods, and completed final delivery. All protected inputs remained unchanged; 18 receipt references and 32 destination readback rows matched."
+  },
+  "DV-05": {
+    "result": "PASS",
+    "reason": "Fresh session identified the missing storage backend and language/runtime, asked the precise decisions, and completed independent R-2 requirement inventory and acceptance proposals. It created no product implementation or constitution, preserved all protected bytes, and delivered an honest BLOCKED checkpoint/report with product QA NOT_RUN. The three supported receipt references matched; its preliminary separator-comparison failure is explicitly retained as pre-write tooling evidence."
+  },
+  "DV-08": {
+    "result": "PASS",
+    "reason": "Fresh session used ordinary terminal discovery without an optional index, implemented the independently permitted arithmetic with genuine red-green and five passing QA methods, and kept the absent-authority publication requirement blocked. No publication or fallback acceptance was attempted. Final PARTIAL delivery distinguishes R-1 success from R-2 NOT_RUN; 12 receipt references and 18 destination rows matched."
+  },
+  "DV-14": {
+    "result": "PASS",
+    "reason": "Fresh plan-only session delivered a source-qualified plan with 24 proposed future cases and exact planning scope, deferred installer/startup work, and performed actual input/preservation and output readback. Only three new evidence files and the CLI final message were written; no product source/tests or operational effects. The initial verification command error remains in raw native evidence; no red-green/product qualification was fabricated."
+  }
+}

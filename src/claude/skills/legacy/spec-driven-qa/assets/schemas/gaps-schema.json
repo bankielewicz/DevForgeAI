@@ -1,0 +1,389 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevForgeAI gaps.json Schema",
+  "description": "Schema for QA gaps.json output files. Defines required fields, enum constraints, and entry structures for blocking_issues, non_blocking_findings, coverage_gaps, anti_pattern_violations, and remediation_sequence.",
+  "type": "object",
+  "required": [
+    "story_id",
+    "qa_result",
+    "timestamp",
+    "blocking_issues",
+    "non_blocking_findings",
+    "coverage_gaps",
+    "anti_pattern_violations",
+    "remediation_sequence"
+  ],
+  "properties": {
+    "story_id": {
+      "type": "string",
+      "description": "Story identifier (e.g., STORY-562)"
+    },
+    "qa_result": {
+      "type": "string",
+      "enum": ["PASSED", "FAILED", "PASS WITH WARNINGS"],
+      "description": "Overall QA validation result"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "ISO date or datetime of QA run"
+    },
+    "story_title": {
+      "type": "string",
+      "description": "Human-readable story title (optional)"
+    },
+    "qa_run": {
+      "type": "integer",
+      "description": "QA run number (optional)"
+    },
+    "validator": {
+      "type": "string",
+      "description": "Validator that produced this report (optional)"
+    },
+    "deliverable_type": {
+      "type": "string",
+      "description": "Type of deliverable: code, non-code, etc. (optional)"
+    },
+    "story_type": {
+      "type": "string",
+      "description": "Story type: feature, bugfix, refactor, documentation (optional)"
+    },
+    "validation_mode": {
+      "type": "string",
+      "description": "QA mode: light or deep (optional)"
+    },
+    "phase_results": {
+      "type": "object",
+      "description": "Per-phase result details (optional)"
+    },
+    "deferral_issues": {
+      "type": "array",
+      "description": "Deferred DoD items with justification (optional)",
+      "items": {
+        "type": "object"
+      }
+    },
+    "regression_findings": {
+      "type": "array",
+      "description": "Diff regression findings (optional)",
+      "items": {
+        "type": "object"
+      }
+    },
+    "test_integrity": {
+      "description": "Test integrity check result (optional)"
+    },
+    "test_quality": {
+      "description": "Test quality metrics (optional)"
+    },
+    "diagnosis": {
+      "description": "Diagnostic analysis results (optional)"
+    },
+    "blocking_issues": {
+      "type": "array",
+      "description": "Issues that block QA approval",
+      "items": {
+        "$ref": "#/definitions/blocking_issue_entry"
+      }
+    },
+    "non_blocking_findings": {
+      "type": "array",
+      "description": "Findings that do not block QA approval",
+      "items": {
+        "$ref": "#/definitions/non_blocking_finding_entry"
+      }
+    },
+    "coverage_gaps": {
+      "type": "array",
+      "description": "Test coverage gaps by file",
+      "items": {
+        "$ref": "#/definitions/coverage_gap_entry"
+      }
+    },
+    "anti_pattern_violations": {
+      "type": "array",
+      "description": "Anti-pattern violations detected",
+      "items": {
+        "$ref": "#/definitions/anti_pattern_violation_entry"
+      }
+    },
+    "remediation_sequence": {
+      "type": "array",
+      "description": "Ordered steps for remediation",
+      "items": {
+        "$ref": "#/definitions/remediation_sequence_entry"
+      }
+    }
+  },
+  "definitions": {
+    "blocking_issue_entry": {
+      "type": "object",
+      "required": [
+        "id",
+        "severity",
+        "category",
+        "provenance",
+        "title",
+        "description",
+        "files",
+        "root_cause",
+        "remediation"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique issue identifier (e.g., BLOCK-001)"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+        },
+        "category": {
+          "type": "string",
+          "description": "Issue category (e.g., test_quality, coverage, anti_pattern)"
+        },
+        "provenance": {
+          "type": "string",
+          "enum": ["GROUNDED", "DERIVED", "INCONCLUSIVE"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Short descriptive title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the issue"
+        },
+        "files": {
+          "type": "array",
+          "description": "Affected files with optional line numbers",
+          "items": {
+            "type": "object"
+          }
+        },
+        "root_cause": {
+          "type": "string",
+          "description": "Root cause analysis"
+        },
+        "remediation": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Remediation instructions (minimum 10 characters)"
+        },
+        "evidence": {
+          "description": "Supporting evidence (optional)"
+        },
+        "fix": {
+          "type": "object",
+          "description": "Before/after fix details (optional)"
+        }
+      }
+    },
+    "non_blocking_finding_entry": {
+      "type": "object",
+      "required": [
+        "id",
+        "severity",
+        "category",
+        "provenance",
+        "title",
+        "file",
+        "action"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique finding identifier (e.g., WARN-001)"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+        },
+        "category": {
+          "type": "string",
+          "description": "Finding category"
+        },
+        "provenance": {
+          "type": "string",
+          "enum": ["GROUNDED", "DERIVED", "INCONCLUSIVE"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Short descriptive title"
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Affected file path (must not be 'various files')"
+        },
+        "action": {
+          "type": "string",
+          "description": "Recommended action"
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Supporting evidence (optional)"
+        },
+        "line": {
+          "type": "integer",
+          "description": "Line number (optional, 0 for module-level)"
+        },
+        "original_severity": {
+          "type": "string",
+          "description": "Original severity before downgrade (optional)"
+        },
+        "downgrade_rationale": {
+          "type": "string",
+          "description": "Reason for severity downgrade (optional)"
+        },
+        "provenance_justification": {
+          "type": "string",
+          "description": "Justification for DERIVED provenance (optional)"
+        }
+      }
+    },
+    "coverage_gap_entry": {
+      "type": "object",
+      "required": [
+        "file",
+        "layer",
+        "coverage_pct",
+        "threshold_pct",
+        "uncovered_lines",
+        "severity",
+        "remediation"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "description": "File path with coverage gap"
+        },
+        "layer": {
+          "type": "string",
+          "enum": ["business", "application", "infrastructure"]
+        },
+        "coverage_pct": {
+          "type": "number",
+          "description": "Actual coverage percentage"
+        },
+        "threshold_pct": {
+          "type": "number",
+          "description": "Required coverage threshold"
+        },
+        "uncovered_lines": {
+          "type": "array",
+          "description": "List of uncovered line numbers",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+        },
+        "remediation": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Remediation instructions (minimum 10 characters)"
+        },
+        "uncovered_functions": {
+          "type": "array",
+          "description": "Uncovered functions with line ranges (optional)",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "anti_pattern_violation_entry": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "File containing violation"
+        },
+        "line": {
+          "type": "integer",
+          "description": "Line number of violation"
+        },
+        "category": {
+          "type": "string",
+          "description": "Anti-pattern category"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+        },
+        "provenance": {
+          "type": "string",
+          "enum": ["GROUNDED", "DERIVED", "INCONCLUSIVE"]
+        },
+        "description": {
+          "type": "string",
+          "description": "Violation description"
+        },
+        "evidence": {
+          "type": "string",
+          "description": "Supporting evidence"
+        },
+        "remediation": {
+          "type": "string",
+          "description": "Fix instructions"
+        },
+        "classification": {
+          "type": "string",
+          "description": "REGRESSION or PRE_EXISTING"
+        }
+      }
+    },
+    "remediation_sequence_entry": {
+      "type": "object",
+      "required": [
+        "step",
+        "action",
+        "estimated_time"
+      ],
+      "properties": {
+        "step": {
+          "type": "integer",
+          "description": "Step number in sequence"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action to perform"
+        },
+        "estimated_time": {
+          "type": "string",
+          "description": "Estimated time to complete"
+        },
+        "command": {
+          "type": "string",
+          "description": "CLI command to run (optional)"
+        },
+        "expected": {
+          "type": "string",
+          "description": "Expected outcome (optional)"
+        },
+        "file": {
+          "type": "string",
+          "description": "Target file (optional)"
+        },
+        "lines": {
+          "type": "string",
+          "description": "Target line range (optional)"
+        },
+        "severity": {
+          "type": "string",
+          "description": "Step severity (optional)"
+        },
+        "blocks": {
+          "type": "array",
+          "description": "Blocking dependencies (optional)",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

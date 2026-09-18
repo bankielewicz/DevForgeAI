@@ -1,0 +1,27 @@
+test_complete_source_read (__main__.FaultControls) ... FAIL
+test_denial_and_restore (__main__.FaultControls) ... FAIL
+test_failed_read (__main__.FaultControls) ... ok
+test_other_root_rejected (__main__.FaultControls) ... ok
+test_prose_is_not_read (__main__.FaultControls) ... ok
+test_started_is_not_read (__main__.FaultControls) ... ok
+
+======================================================================
+FAIL: test_complete_source_read (__main__.FaultControls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T194717Z\test_fault_controls.py", line 40, in test_complete_source_read
+    self.assertTrue(observes_selected_epic(event,'Copper owl 73.'))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_denial_and_restore (__main__.FaultControls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T194717Z\test_fault_controls.py", line 29, in test_denial_and_restore
+    with self.assertRaises(PermissionError):(target/'blocked.txt').write_text('must be denied',encoding='utf-8')
+AssertionError: PermissionError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.145s
+
+FAILED (failures=2)

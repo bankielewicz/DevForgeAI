@@ -1,0 +1,1 @@
+Fixed section 5.4 project fixtures retained; native adaptation tasks must be separately observed.

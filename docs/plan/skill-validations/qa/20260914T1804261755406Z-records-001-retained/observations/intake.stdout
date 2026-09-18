@@ -1,0 +1,21 @@
+{
+  "schema_version": "1",
+  "status": "BOUND",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa",
+  "target_name": "qa",
+  "package_digest": "2ba0d049f58360a0360031789bce5c9045153540e200d363c8caa4f5c7be2db7",
+  "authoring_run_id": "20260914T1748018341005Z",
+  "history": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "coverage": [
+    "manual request byte bindings",
+    "independent complete target readback"
+  ],
+  "quality_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "limitations": [
+    "No semantic assessment, native activation, or external-effect authorization."
+  ]
+}

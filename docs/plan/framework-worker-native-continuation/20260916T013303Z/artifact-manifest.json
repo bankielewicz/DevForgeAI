@@ -1,0 +1,70 @@
+{
+  "entries": [
+    {
+      "path": "bindings.json",
+      "bytes": 1093,
+      "sha256": "07bac49b0754e29c877f401bb530d1e5110c3812ff868f51d1de49c0bf67fac8"
+    },
+    {
+      "path": "context.md",
+      "bytes": 1777,
+      "sha256": "b974c5d9847860fcb95a2b866f6752527fa1da9f8a9ab28084c842f0dc583509"
+    },
+    {
+      "path": "continuation-audit.md",
+      "bytes": 3351,
+      "sha256": "e08664f3e5e81d69346597c5c6d4f0b4dba274d27594d7deeef2ce7ed79bebf4"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 2291,
+      "sha256": "321f6e3cd238304e3ffe43eee92173f80bb8698702f4c9deb0adda525ebbd76d"
+    },
+    {
+      "path": "record.py",
+      "bytes": 7554,
+      "sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c"
+    },
+    {
+      "path": "seal.py",
+      "bytes": 1222,
+      "sha256": "42f2cd81a540472cdd6e60b83d221f66a259a2a88768c7f16ffc6fe15f140b2e"
+    },
+    {
+      "path": "source-inventory-proposal.md",
+      "bytes": 3678,
+      "sha256": "7832f32fcc1a0a4be59458b8c1202937fcfdcecda18a944612f51e6b7a7b63e2"
+    },
+    {
+      "path": "source-observation-001/candidate-after.json",
+      "bytes": 9206,
+      "sha256": "05ef5b93f6e050668a7e9b4b333a715172ae2183ae65a7686618f10ca4736b87"
+    },
+    {
+      "path": "source-observation-001/candidate-before.json",
+      "bytes": 9206,
+      "sha256": "05ef5b93f6e050668a7e9b4b333a715172ae2183ae65a7686618f10ca4736b87"
+    },
+    {
+      "path": "source-observation-001/receipt.json",
+      "bytes": 1610,
+      "sha256": "3b58737c619ed6341c85981f24b254c533c01e9f542a4a17c4d195896b58151f"
+    },
+    {
+      "path": "source-observation-001/stderr.bin",
+      "bytes": 115,
+      "sha256": "e116b6965ab13926fa3d596e5b5bba2709081e17401bef3994154e466a903579"
+    },
+    {
+      "path": "source-observation-001/stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "external_fixture": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T013303Z-source-observation\\fixture\\task.json",
+    "bytes": 307,
+    "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  },
+  "self_exclusion": "artifact-manifest.json"
+}

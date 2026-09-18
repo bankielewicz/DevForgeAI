@@ -1,0 +1,14 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\13-identity-negative-red\\fixtures\\NI-T04-extra-reparse-zTgwGZ\\release-link",
+    "attributes": 9232,
+    "target": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\13-identity-negative-red\\fixtures\\NI-T04-extra-reparse-zTgwGZ\\real-release",
+    "note": "retained fixture link; never traversed"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\13-identity-negative-red\\fixtures\\NI-T04-loop-I5y8Z4\\loop-root\\again",
+    "attributes": 9232,
+    "target": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\13-identity-negative-red\\fixtures\\NI-T04-loop-I5y8Z4\\loop-root",
+    "note": "retained fixture link; never traversed"
+  }
+]

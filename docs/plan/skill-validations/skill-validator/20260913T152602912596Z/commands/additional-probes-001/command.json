@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "docs/plan/skill-validations/skill-validator/20260913T152602912596Z/additional_probes.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-13T16:22:29.305699Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\additional-probes-001",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\additional-probes-001",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\additional-probes-001",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 27492,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T16:22:35.067856Z",
+  "elapsed_seconds": 5.765999999945052
+}

@@ -1,0 +1,17 @@
+
+running 12 tests
+test captured_native_launcher_reparse_is_rejected_without_launching ... ok
+test duplicate_nested_profile_is_rejected ... ok
+test home_boundary_only_allows_peer_temporary_roots ... ok
+test unapproved_peer_executable_is_rejected_before_spawn ... ok
+test terminal_claim_requires_observed_result ... ok
+test lost_interrupt_transport_still_waits_for_owned_process ... ok
+test cancellation_before_ids_allows_cooperative_eof_exit ... ok
+test valid_output_cannot_override_nonzero_worker_exit ... ok
+test usage_retains_only_typed_counters ... ok
+test successful_peer_has_observed_zero_exit ... ok
+test all_pre_response_notifications_are_reconciled ... ok
+test duplicate_completions_are_idempotent_and_conflicts_fail ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+

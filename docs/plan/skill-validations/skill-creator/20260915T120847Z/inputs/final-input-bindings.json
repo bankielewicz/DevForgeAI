@@ -1,0 +1,8 @@
+{
+  "source-manifest.json": "2a91ae3264e2346eec7a12b823c89504963085a01a8d3bf9505551d1912185fc",
+  "rule-set.json": "e6aae3af79286efaa718a34cf1eee0a9a9b8566fd2e01a9852b8996c9ee06a42",
+  "inputs/adaptive-validation.md": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+  "source/SKILL.md": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+  "source/references/openai_yaml.md": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+  "trials/helpers/frozen-plan.json": "f636997b796739013892d4e0ab6fb3e08b4970d9aa13d3f192b3329040f42d09"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T135752395202Z",
+  "scope": "Updated validator compatibility with updated builder; self-assessment plus independent differential tests. No package changes.",
+  "selected_rules_sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+  "cases": [
+    {
+      "id": "C01",
+      "oracle": "Shared schemas have identical declared contracts; positive and negative records agree."
+    },
+    {
+      "id": "C02",
+      "oracle": "Changed core bytes with equal requirements allow review_updates PROPOSED and reject NO_CHANGE."
+    },
+    {
+      "id": "C03",
+      "oracle": "Existing core with explicit Markdown requirement inventory is consumed without a new core resource requirement."
+    },
+    {
+      "id": "C04",
+      "oracle": "Delivered role and parent lineage must agree with selected proposal."
+    },
+    {
+      "id": "C05",
+      "oracle": "Actual authored member manual packet is consumed; stale target rejects."
+    },
+    {
+      "id": "C06",
+      "oracle": "Full set and eligible subset preserve exact members, dependencies and omissions."
+    },
+    {
+      "id": "C07",
+      "oracle": "Required failure dominates incomplete; counts include unknown exactly once; schema families remain distinct."
+    },
+    {
+      "id": "C08",
+      "oracle": "Cold updated validator reaches a truthful bounded intake/report from a supplied raw handoff, no repairs."
+    }
+  ],
+  "timeout_seconds": 120,
+  "native_policy": "Existing auth/model, supported flags, workspace-write; retain timeouts, no bypass.",
+  "scope_note": "This is compatibility validation, not rerunning builder authoring campaigns or closing every prior builder-native gap."
+}

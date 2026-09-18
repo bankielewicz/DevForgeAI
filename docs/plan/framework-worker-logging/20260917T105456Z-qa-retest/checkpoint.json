@@ -1,0 +1,77 @@
+{
+  "intent": "retest",
+  "plan_readiness": "READY",
+  "execution_status": "COMPLETED",
+  "verdict": "PASS",
+  "timestamp_utc": "2026-09-17T11:25:05.967005+00:00",
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\candidate-manifest.json",
+    "bytes": 16170,
+    "sha256": "44dcb32397b479506ae84b85fa536f40f4bf5234a7647c4e86d160507926761d"
+  },
+  "input_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\input-manifest.json",
+    "bytes": 24899,
+    "sha256": "21c139a83cf14b4178b1796219fd99876192f6001a28b5cbea005339bf018618"
+  },
+  "plan_binding": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan-binding.json",
+    "bytes": 490,
+    "sha256": "961598faf1514f33a4ab5f39ad61d2837a81400e71bbb233950c7df505ff9a7b"
+  },
+  "specifications": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\specification-bindings.json",
+    "bytes": 1813,
+    "sha256": "d4368d0dcc4039bcd8c162f020dd1bb7a862f76b737c3978c4924d623d604108"
+  },
+  "case_results": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\case-results.json",
+    "bytes": 55896,
+    "sha256": "60990b5f982dade62c212fc0ab0054d173140c201895c03457bf380e8e8e56e3"
+  },
+  "attempt_index": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempt-index.json",
+    "bytes": 8848,
+    "sha256": "646d09413962ad86d271122e520b2109d23f7ac3717c2128b03931c2c00443fd"
+  },
+  "completed_attempts": 23,
+  "retained_harness_error": "QA-H01: attempts/18-rt01; resolved by one permitted preparation correction",
+  "required_cases": 178,
+  "passed_cases": 178,
+  "defect_states": {
+    "QA-LOG-01": "VERIFIED_FIXED",
+    "QA-LOG-02": "VERIFIED_FIXED"
+  },
+  "defect_lifecycle": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\defect-lifecycle.json",
+    "bytes": 3895,
+    "sha256": "3346d347541f3f78a945fed3ab32fa5e703005b79e4faefe42b7e7923c5ffb34"
+  },
+  "criterion_results": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\criterion-results.json",
+    "bytes": 24825,
+    "sha256": "25efe60b3aedc71fb85d22b4a0a95111aee257faf5ff03b1f89e816c74cbfcc0"
+  },
+  "owned_pending_invocations": [],
+  "owned_operation_disposition": "All command receipts terminal; no known pending invocation. No global process-absence claim.",
+  "retained_owned_state": [
+    "attempts and fixtures including failed preparation",
+    "QA-owned junctions recorded without traversal",
+    "build-target",
+    "coverage-target",
+    "independent-target",
+    "supplemental-target"
+  ],
+  "remaining_required_cases": [],
+  "stop_trigger": null,
+  "report": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-report.md",
+    "bytes": 33598,
+    "sha256": "4e161af4f429dc0bf4ddd7363ee54c968fef655ae6d483e2fdb0bd835708ccc0"
+  },
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "delivery_readback": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\final-readback.json",
+  "next_safe_action": "No offline retest work remains. Optional separately selected native diagnostic planning/review only; no automatic launch or product repair.",
+  "resume_rule": "Verify current source, specs, evidence, permissions, tools and owned state before any separately selected new work; never replay old attempts or restore drift silently."
+}

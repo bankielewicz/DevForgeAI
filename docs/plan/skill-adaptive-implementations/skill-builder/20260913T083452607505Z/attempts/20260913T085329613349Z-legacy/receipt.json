@@ -1,0 +1,23 @@
+{
+  "suite": "legacy",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests",
+    "-v"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "timeout_seconds": 120,
+  "started_at_utc": "20260913T085329613349Z",
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\attempts\\20260913T085329613349Z-legacy",
+  "executor": "C:\\Program Files\\Python310\\python.exe",
+  "exit_code": 1,
+  "timed_out": false,
+  "ended_at_utc": "2026-09-13T08:54:18.396320Z"
+}

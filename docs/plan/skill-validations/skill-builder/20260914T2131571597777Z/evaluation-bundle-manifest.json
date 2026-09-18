@@ -1,0 +1,93 @@
+{
+  "schema_version": "validation-evaluation-bundle-v1",
+  "purpose": "External Python runners, deterministic reductions, independent assertions/fixture builders, expected case inventories, schema and runtime. Builder-generated runtime candidates did not complete.",
+  "artifacts": [
+    {
+      "path": "test_independent_design.py",
+      "sha256": "73f1a37901e4bc72126aa84b3b06a54bac2c9d52e03923c0abb63947b442feb1"
+    },
+    {
+      "path": "run_tests.py",
+      "sha256": "be454395d9d67c3ea4c4bc79ebe98e51985b3b020ccecaf617edfeba2e69e4f7"
+    },
+    {
+      "path": "run_regressions.py",
+      "sha256": "705a54a138b25f1836a6b2bb2ea654149856a93ae3b38f75ae447d2deec7d068"
+    },
+    {
+      "path": "run_adaptive_regressions.py",
+      "sha256": "5fba9d184fe105e914ef911e70fe4bde540bc3824ac287378c65f70742c653ef"
+    },
+    {
+      "path": "linux_checks.py",
+      "sha256": "1f50333aaf0df0da60509cd33f06f0a60f5882c842e45ab7c12dc11aa6ad71b7"
+    },
+    {
+      "path": "native_trial.py",
+      "sha256": "3ec386843562935bf38891a9e0acea3e6238a0e88caa3e8e29d90face780fa11"
+    },
+    {
+      "path": "check_handoff_readback.py",
+      "sha256": "49b0d5fb0a965eff75794986404e91ff89804e7f8a25bf5ae53a2186f17d390f"
+    },
+    {
+      "path": "focused_regression.py",
+      "sha256": "440fafa0cf26016b29e12f0f2b30268a8ba8dec977aba933f6fe16b045685020"
+    },
+    {
+      "path": "evaluation-result.schema.json",
+      "sha256": "494458e93274ecfb1c0f9b66dee8d5b9901f74911f752ce3e5630db7781c82f4"
+    },
+    {
+      "path": "runtime-dependencies.json",
+      "sha256": "0d1041d545062abd941f5b3298389f2cefc91a07cbcae4b9c8a60c9d71912232"
+    },
+    {
+      "path": "campaign-plan.json",
+      "sha256": "7acb83b4c15f7e4c5bd80862100403ee89207a86221b778616db0efd3dd630a6"
+    },
+    {
+      "path": "inputs/skill-builder-postmvp-spec.md",
+      "sha256": "6ba021254eaaf152d91b968952bf235288e5338d88d842c10e9e98eb13b6314f"
+    },
+    {
+      "path": "observations/independent-tests/expected.json",
+      "sha256": "6a2c1f35f7016b2117734e05863a78861f455772c0d976807e1b755247ecd92b"
+    },
+    {
+      "path": "observations/regressions/expected.json",
+      "sha256": "412bc6422aa91ac5473c527a5617e1fce9d513741251d68c7a442a740b70ca9c"
+    },
+    {
+      "path": "observations/adaptive-regressions/plan.json",
+      "sha256": "4294e75807082b6f4d73d12ae493b23ad8eec0e66cc5f0242c65fcfc64b53812"
+    },
+    {
+      "path": "observations/linux-checks/plan.json",
+      "sha256": "0e205236590953ac5693575d50e8c22c1e99fd31747005bc44a26f652631552c"
+    },
+    {
+      "path": "grade_evidence.py",
+      "sha256": "258c4594d71b22619b77a20630aab346df724f4acecdbec968a90b34209d033a"
+    }
+  ],
+  "fixture_binding": "Each retained case uses run-local requirements/design/contracts with raw-byte refs. Source manifest independently binds product snapshot.",
+  "graded_observations": [
+    {
+      "path": "observations/independent-tests/results.jsonl",
+      "sha256": "378b1625b69c232677a5d9fcc40ecd70b39ce61cb35f5ccc54377d661fda63d2"
+    },
+    {
+      "path": "observations/regressions/results.jsonl",
+      "sha256": "db2f703839d8e36886b4e74aa30efbc643819ec32714b3ef777ec4ecad9cc41a"
+    },
+    {
+      "path": "observations/adaptive-regressions/results.jsonl",
+      "sha256": "4ab232a445094aa3d31d9c4930fb39a8f11646708a427a37d0dc55f80f66e9ab"
+    },
+    {
+      "path": "observations/linux-checks/results.jsonl",
+      "sha256": "f00ed7e237e6bb9157aedfefe53ca7617d6c6b0e2cfda9c41115f1527388c048"
+    }
+  ]
+}

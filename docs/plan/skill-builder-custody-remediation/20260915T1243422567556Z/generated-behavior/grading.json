@@ -1,0 +1,31 @@
+{
+  "artifact_checks": {
+    "C1_columns": true,
+    "C2_columns": true,
+    "C3_columns": true,
+    "C4_columns": true,
+    "C1_missing_values": true,
+    "C1_no_discussion_task": true,
+    "C2_condition_uncertainty": true,
+    "C2_no_invented_purchase": true,
+    "C3_conflict_retained": true,
+    "C4_literal_pipe_content": true,
+    "selected_skill_unchanged": true,
+    "input_unchanged_after_blocked_file_attempt": true
+  },
+  "all_artifact_checks_pass": true,
+  "case_status": {
+    "C1": "PASS",
+    "C2": "PASS",
+    "C3": "PASS",
+    "C4": "PASS",
+    "F1": "BLOCKED",
+    "F2": "BLOCKED",
+    "F3": "BLOCKED"
+  },
+  "overall": "INCOMPLETE",
+  "required_case_count": 7,
+  "passing_case_count": 4,
+  "passing_percentage": 57.142857142857146,
+  "semantic_review": "C1 preserves both supported tasks and missing fields. C2 preserves proposed participant, condition, question mark, and relative date without inventing an assigned asker. C3 preserves both unresolved alternatives without synthesizing a decision. C4 retains literal pipe content as valid three-cell Markdown. F1-F3 were not substantively exercised because the executor stopped before reading the skill; their unchanged fixtures are not passing behavior evidence."
+}

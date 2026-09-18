@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\target\\debug\\console-driver.exe",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\target\\debug\\devforgeai-codex-worker-probe.exe",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\IQ-03-ctrlc\\request.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\IQ-03-ctrlc",
+  "started": "2026-09-15T19:09:18.666437+00:00",
+  "executable_sha256": "f3ce9639b36bfcdff729e0d7e237736c9c726fe3010404ca26e275e96a155135",
+  "owned_driver_pid": 28960,
+  "held_processes": {
+    "descendant": 62580,
+    "peer": 16124
+  },
+  "initial_waits": [
+    258,
+    258
+  ],
+  "exit_code": 5,
+  "waits": [
+    0,
+    0
+  ],
+  "elapsed_seconds": 5.014999999999418,
+  "pass": true,
+  "candidate_manifest_sha256": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+  "fixture_sha256_after": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,304 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://devforgeai.local/schemas/brainstorm-2.0.json",
+  "title": "DevForgeAI Brainstorm Business-Analysis Data Island Schema",
+  "description": "JSON Schema (v2.0) for the structured data emitted by spec-driven-brainstorming Phase 11. The object is embedded in the output HTML document as <script type=\"application/json\" id=\"brainstorm-data\">...</script> and replaces the v1.0 YAML frontmatter. Governed by ADR-065. v2.0 covers the 11-phase Business Analysis workflow.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "status",
+    "created",
+    "problem_statement",
+    "confidence_level",
+    "handoff"
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "deferred_idea": {
+      "type": "object",
+      "description": "An idea raised during the session but intentionally not in the MVP — retained for later evaluation.",
+      "required": ["id", "description", "status"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^DEF-[0-9]{3,}$" },
+        "description": { "type": "string", "minLength": 1 },
+        "why_deferred": { "type": "string" },
+        "business_value": { "type": "string" },
+        "mvp_dependency": { "type": "string", "description": "How this depends on or extends the MVP." },
+        "revisit_when": { "type": "string", "description": "Trigger condition for re-evaluating this idea." },
+        "source_phase": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "promoted", "rejected"] }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "required": ["id", "description", "likelihood", "impact"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^RISK-[0-9]{3,}$" },
+        "description": { "type": "string", "minLength": 1 },
+        "likelihood": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "impact": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "severity": { "type": "string", "enum": ["Low", "Medium", "High", "Critical"] },
+        "mitigation": { "type": "string" },
+        "owner": { "type": "string" },
+        "source": { "type": "string", "description": "e.g. 'premortem', 'constraint-discovery'." }
+      }
+    },
+    "functional_requirement": {
+      "type": "object",
+      "required": ["id", "statement"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^FR-[0-9]{3,}$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "priority": { "type": "string", "enum": ["Must", "Should", "Could", "Won't"] },
+        "source": { "type": "string" },
+        "acceptance_note": { "type": "string" }
+      }
+    },
+    "nfr": {
+      "type": "object",
+      "required": ["id", "category", "statement"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^NFR-[0-9]{3,}$" },
+        "category": {
+          "type": "string",
+          "enum": ["performance", "scalability", "availability", "security", "usability", "maintainability", "compliance", "other"]
+        },
+        "statement": { "type": "string", "minLength": 1 },
+        "metric": { "type": "string", "description": "Measurable target, where one exists." },
+        "source": { "type": "string" }
+      }
+    },
+    "stakeholder": {
+      "type": "object",
+      "required": ["id", "name_or_role", "category"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "name_or_role": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "enum": ["Primary", "Secondary", "Tertiary"] },
+        "influence": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "interest": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "raci": { "type": "string", "enum": ["Responsible", "Accountable", "Consulted", "Informed"] },
+        "goals": { "type": "array", "items": { "type": "string" } },
+        "concerns": { "type": "array", "items": { "type": "string" } },
+        "voice": { "type": "string", "description": "Stakeholder Voice role-play insistence/veto (Z18)." }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "description": "Brainstorm data-island schema version. Const 2.0 for this schema file.",
+      "const": "2.0"
+    },
+    "id": {
+      "description": "Brainstorm identifier matching filesystem path pattern BRAINSTORM-NNN.",
+      "type": "string",
+      "pattern": "^BRAINSTORM-[0-9]{3,}$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["Draft", "In Progress", "Complete", "Archived"] },
+    "created": { "type": "string", "format": "date" },
+    "facilitator": { "type": "string" },
+    "session_duration": { "type": "string" },
+    "question_count": { "type": "integer", "minimum": 0 },
+    "problem_statement": { "type": "string", "minLength": 1 },
+    "confidence_level": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW", "High", "Medium", "Low"] },
+
+    "ba_planning": {
+      "description": "Phase 01 — analysis scope, approach, and session success definition.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "analysis_scope": { "type": "string" },
+        "approach": { "type": "string" },
+        "session_success_definition": { "type": "string" }
+      }
+    },
+    "stakeholders": {
+      "description": "Phase 02 — stakeholder analysis, power/interest, RACI, engagement, voices.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "primary_stakeholder": { "type": "string" },
+        "registry": { "type": "array", "items": { "$ref": "#/$defs/stakeholder" } },
+        "conflicts": { "type": "array", "items": { "type": "string" } },
+        "engagement_plan": { "type": "string" }
+      }
+    },
+    "problem_analysis": {
+      "description": "Phase 03 — problem statement, root cause, current state, pain points, reframings.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "root_causes": { "type": "array", "items": { "type": "string" } },
+        "current_state": { "type": "string" },
+        "as_is_process_model": { "type": "string" },
+        "pain_points": { "type": "array", "items": { "type": "string" } },
+        "failed_solutions": { "type": "array", "items": { "type": "string" } },
+        "hmw_reframings": { "type": "array", "items": { "type": "string" } },
+        "cross_industry_analogies": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "opportunity": {
+      "description": "Phase 04 — future-state vision and opportunity generation (incl. Stream C divergent/combination).",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "target_outcome": { "type": "string" },
+        "ideal_state": { "type": "string" },
+        "opportunities": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "divergent_ideas": { "type": "array", "items": { "type": "string" } },
+        "combined_opportunities": { "type": "array", "items": { "type": "string" } },
+        "adjacent_opportunities": { "type": "array", "items": { "type": "string" } },
+        "to_be_process_sketch": { "type": "string" }
+      }
+    },
+    "business_case": {
+      "description": "Phase 05 — cost-benefit, expected value, funding justification, feasibility.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "cost_benefit": { "type": "string" },
+        "expected_value": { "type": "string" },
+        "funding_justification": { "type": "string" },
+        "feasibility": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "technical": { "type": "string" },
+            "operational": { "type": "string" },
+            "economic": { "type": "string" }
+          }
+        }
+      }
+    },
+    "risk_analysis": {
+      "description": "Phase 06 — risk register and pre-mortem findings.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "risks": { "type": "array", "items": { "$ref": "#/$defs/risk" } },
+        "premortem": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+      }
+    },
+    "constraints_scope": {
+      "description": "Phase 07 — constraints, out-of-scope anti-features, solution context boundary.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "budget_range": { "type": "string" },
+        "timeline": { "type": "string" },
+        "hard_constraints": { "type": "array", "items": { "type": "string" } },
+        "out_of_scope": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "item": { "type": "string" },
+              "rationale": { "type": "string" }
+            }
+          }
+        },
+        "context_boundary": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "inside": { "type": "array", "items": { "type": "string" } },
+            "outside": { "type": "array", "items": { "type": "string" } },
+            "external_interfaces": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "requirements": {
+      "description": "Phase 08 — functional requirements, NFRs, glossary, assumptions.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "functional": { "type": "array", "items": { "$ref": "#/$defs/functional_requirement" } },
+        "nfrs": { "type": "array", "items": { "$ref": "#/$defs/nfr" } },
+        "glossary": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "term": { "type": "string" },
+              "definition": { "type": "string" }
+            }
+          }
+        },
+        "assumptions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "prioritization": {
+      "description": "Phase 09 — MoSCoW, impact-effort, sequence, Deferred Ideas Register, roadmap.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "must_have_capabilities": { "type": "array", "items": { "type": "string" } },
+        "should_have": { "type": "array", "items": { "type": "string" } },
+        "could_have": { "type": "array", "items": { "type": "string" } },
+        "wont_have": { "type": "array", "items": { "type": "string" } },
+        "recommended_sequence": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+        "deferred_ideas": {
+          "description": "The Deferred Ideas Register — ideas retained for later evaluation (ADR-065).",
+          "type": "array",
+          "items": { "$ref": "#/$defs/deferred_idea" }
+        },
+        "release_roadmap": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+      }
+    },
+    "change_strategy": {
+      "description": "Phase 10 — adoption approach, transition plan, change management, training.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "adoption_approach": { "type": "string" },
+        "transition_plan": { "type": "string" },
+        "change_management": { "type": "string" },
+        "training_needs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "handoff": {
+      "description": "Phase 11 — the AI-consumable conduit core read by the downstream skill.",
+      "type": "object",
+      "required": ["recommended_approach"],
+      "additionalProperties": true,
+      "properties": {
+        "recommended_approach": { "type": "string", "minLength": 1 },
+        "critical_assumptions": { "type": "array", "items": { "type": "string" } },
+        "open_questions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "design_artifacts": {
+      "description": "Visual design context populated when UI was discussed. All sub-fields nullable.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "has_mockup": { "type": ["boolean", "null"] },
+        "mockup_path": { "type": ["string", "null"] },
+        "design_source_of_truth": { "type": ["string", "null"] },
+        "aesthetic_vibe": { "type": ["string", "null"] },
+        "ui_complexity": { "type": ["string", "null"], "enum": ["low", "medium", "high", null] },
+        "suggested_extract_command": { "type": ["string", "null"] },
+        "screenshots": {
+          "type": ["object", "null"],
+          "properties": {
+            "desktop": { "type": ["string", "null"] },
+            "tablet": { "type": ["string", "null"] },
+            "mobile": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "selected_scope": "profile-source inventory schema and bounded compiled plugin-cache junction identity",
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T013303Z\\source-inventory-proposal.md",
+      "sha256": "7832f32fcc1a0a4be59458b8c1202937fcfdcecda18a944612f51e6b7a7b63e2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+      "sha256": "34160ff675f886aeeebd3a7d131fd973b86a375fb64def7604db419c79db1f8c"
+    }
+  ],
+  "platform": "native Windows x64",
+  "installed_state_mutated": false,
+  "framework_acceptance": "NOT_EVALUATED"
+}

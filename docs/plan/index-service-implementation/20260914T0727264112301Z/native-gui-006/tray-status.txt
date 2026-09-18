@@ -1,0 +1,7 @@
+Environment: local
+Paused — indexing waits for Resume
+
+Native UI fixture — \\?\C:\Users\bryan\AppData\Local\Temp\.tmpGUGNcB
+Coverage: unknown   Freshness: dirty
+0 text / 0 structural / 0 excluded / 0 skipped / 0 failed
+rescan: running

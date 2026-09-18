@@ -1,0 +1,558 @@
+{
+  "timestamp_utc": "2026-09-17T11:27:35.114159+00:00",
+  "report": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-report.md",
+    "bytes": 33598,
+    "sha256": "4e161af4f429dc0bf4ddd7363ee54c968fef655ae6d483e2fdb0bd835708ccc0"
+  },
+  "criteria": 21,
+  "case_ids_verified": 178,
+  "local_links": [
+    {
+      "destination": "plan-binding.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan-binding.json",
+      "exists": true
+    },
+    {
+      "destination": "checkpoint.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\checkpoint.json",
+      "exists": true
+    },
+    {
+      "destination": "changed-files.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\changed-files.json",
+      "exists": true
+    },
+    {
+      "destination": "binary-manifest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\binary-manifest.json",
+      "exists": true
+    },
+    {
+      "destination": "independent-binary-manifest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\independent-binary-manifest.json",
+      "exists": true
+    },
+    {
+      "destination": "specification-bindings.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\specification-bindings.json",
+      "exists": true
+    },
+    {
+      "destination": "criterion-results.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\criterion-results.json",
+      "exists": true
+    },
+    {
+      "destination": "required-cases.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\required-cases.json",
+      "exists": true
+    },
+    {
+      "destination": "case-results.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\case-results.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/13-qa09/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-02-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-02-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/05-qa01/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\05-qa01\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/06-qa02/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\06-qa02\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/07-qa03/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\07-qa03\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/08-qa04/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\08-qa04\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/08-qa04/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\08-qa04\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/09-qa05/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\09-qa05\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/20-supplement/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\20-supplement\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/10-qa06/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\10-qa06\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/11-qa07/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\11-qa07\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/12-qa08/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\12-qa08\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/07-qa03/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\07-qa03\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/08-qa04/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\08-qa04\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/09-qa05/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\09-qa05\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/14-qa10/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\14-qa10\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-02-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/15-qa11/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\15-qa11\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "case-results.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\case-results.json",
+      "exists": true
+    },
+    {
+      "destination": "metrics.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\metrics.json",
+      "exists": true
+    },
+    {
+      "destination": "attempt-index.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempt-index.json",
+      "exists": true
+    },
+    {
+      "destination": "coverage-analysis.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-analysis.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/12-qa08/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\12-qa08\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/15-qa11/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\15-qa11\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/16-qa12/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\16-qa12\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-02-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/07-qa03/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\07-qa03\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/08-qa04/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\08-qa04\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/09-qa05/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\09-qa05\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/05-qa01/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\05-qa01\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/06-qa02/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\06-qa02\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/11-qa07/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\11-qa07\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/16-qa12/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\16-qa12\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/15-qa11/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\15-qa11\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/16-qa12/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\16-qa12\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/15-qa11/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\15-qa11\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/17-qa13/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\17-qa13\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-02-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/17-qa13/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\17-qa13\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "final-preservation.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\final-preservation.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/12-qa08/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\12-qa08\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/16-qa12/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\16-qa12\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "integrity.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\integrity.md",
+      "exists": true
+    },
+    {
+      "destination": "documentation-review.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\documentation-review.json",
+      "exists": true
+    },
+    {
+      "destination": "plan.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan.md",
+      "exists": true
+    },
+    {
+      "destination": "integrity.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\integrity.md",
+      "exists": true
+    },
+    {
+      "destination": "helper-provenance.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\helper-provenance.json",
+      "exists": true
+    },
+    {
+      "destination": "cli-matrix-plan-v2.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-matrix-plan-v2.json",
+      "exists": true
+    },
+    {
+      "destination": "coverage.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage.json",
+      "exists": true
+    },
+    {
+      "destination": "coverage-analysis.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-analysis.json",
+      "exists": true
+    },
+    {
+      "destination": "package-results.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\package-results.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/stdout.txt",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\stdout.txt",
+      "exists": true
+    },
+    {
+      "destination": "case-results.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\case-results.json",
+      "exists": true
+    },
+    {
+      "destination": "metrics.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\metrics.json",
+      "exists": true
+    },
+    {
+      "destination": "source-denominator.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\source-denominator.json",
+      "exists": true
+    },
+    {
+      "destination": "attempt-index.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempt-index.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/03-coverage/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "findings.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\findings.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-01-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "findings.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\findings.json",
+      "exists": true
+    },
+    {
+      "destination": "original-defect-retest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "exists": true
+    },
+    {
+      "destination": "rt-02-observations.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "exists": true
+    },
+    {
+      "destination": "harness-gap-01.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\harness-gap-01.md",
+      "exists": true
+    },
+    {
+      "destination": "attempts/18-rt01/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "attempts/18-rt01-corrected/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\receipt.json",
+      "exists": true
+    },
+    {
+      "destination": "defect-lifecycle.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\defect-lifecycle.json",
+      "exists": true
+    },
+    {
+      "destination": "harness-gap-01.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\harness-gap-01.md",
+      "exists": true
+    },
+    {
+      "destination": "final-preservation.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\final-preservation.json",
+      "exists": true
+    },
+    {
+      "destination": "next-review-prompt.txt",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\next-review-prompt.txt",
+      "exists": true
+    }
+  ],
+  "broken_links": [],
+  "lifecycle_bindings_verified": true,
+  "prior_evidence_verified": [
+    {
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa",
+      "verified_regular_files": 3689,
+      "verified_binaries": 90
+    },
+    {
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes",
+      "verified_regular_files": 9691,
+      "verified_binaries": 0
+    }
+  ],
+  "protected_seed_files_verified": 212,
+  "problems": []
+}

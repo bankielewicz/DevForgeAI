@@ -1,0 +1,12 @@
+{
+  "publication_state": "PUBLISHED",
+  "reference_checks": {
+    "authoring_record": true,
+    "baseline": true,
+    "request": true
+  },
+  "candidate_equals_delivered": true,
+  "retained_copy_exact": true,
+  "begin_exit": "0",
+  "publish_exit": "0"
+}

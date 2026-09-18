@@ -1,0 +1,16 @@
+{
+  "schema_version": "project-binding-v1",
+  "project_id": "6d8ccc06-6448-4ad7-b53b-7a4615928829",
+  "project_root": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/binding-linux/stale/space é & (shell)",
+  "revision": 1,
+  "bindings": [
+    {
+      "name": "core-skill",
+      "package_path": ".agents/skills/core-skill",
+      "package_digest": "6cd0e28f2138d701924a17cabe7aba56458ca20e52a6a21d179e5fe70aaea581",
+      "role": "core",
+      "selected": true
+    }
+  ],
+  "updated_at_utc": "2026-09-13T13:22:43.228532Z"
+}

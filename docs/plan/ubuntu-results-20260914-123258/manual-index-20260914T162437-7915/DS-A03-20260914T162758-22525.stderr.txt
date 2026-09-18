@@ -1,0 +1,6 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running tests/process.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/process-2eb60b9f5f2187e5)
+CLI begin ["daemon", "stop"] in /tmp/.tmpLDqmhB
+CLI end ["daemon", "stop"]: exit status: 0
+CLI begin ["daemon", "stop"] in /tmp/.tmpLDqmhB
+CLI end ["daemon", "stop"]: exit status: 0

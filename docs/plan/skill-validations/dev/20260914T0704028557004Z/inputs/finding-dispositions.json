@@ -1,0 +1,43 @@
+{
+  "prior_findings": [
+    {
+      "finding_id": "F-61e172ccd1ce4fde8d9102c3b76562776857dabae3bf74c5917e13951f1eec8e",
+      "classification": "resolved_for_current_assessment",
+      "reason": "Fresh supported evidence layout passed unchanged whole-run and external-family verifiers.",
+      "evidence": [
+        {
+          "path": "commands/records-complete-initial/stdout.txt",
+          "sha256": "c8710ef40cbc7e83f8a45794c8790b7ba81cc126bda69f6ee387802e7693e06d"
+        },
+        {
+          "path": "inputs/evaluation-summary.json",
+          "sha256": "0346cc6d708c43507558f86df79b765fff933750a62f5f210b22b6718f4f5c93"
+        },
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        }
+      ]
+    },
+    {
+      "finding_id": "F-771cb887852f4693a8ea2f0bd1e3ea2c8ea58603b082f16f3f034d326b208147",
+      "classification": "resolved_for_current_assessment",
+      "reason": "All seven interrupted cases completed under disclosed fresh execution and authorized JavaScript host/warm continuation; historical failures remain unchanged.",
+      "evidence": [
+        {
+          "path": "commands/records-complete-initial/stdout.txt",
+          "sha256": "c8710ef40cbc7e83f8a45794c8790b7ba81cc126bda69f6ee387802e7693e06d"
+        },
+        {
+          "path": "inputs/evaluation-summary.json",
+          "sha256": "0346cc6d708c43507558f86df79b765fff933750a62f5f210b22b6718f4f5c93"
+        },
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        }
+      ]
+    }
+  ],
+  "historical_result": "Unchanged; previous INCOMPLETE and 184 record errors are preserved."
+}

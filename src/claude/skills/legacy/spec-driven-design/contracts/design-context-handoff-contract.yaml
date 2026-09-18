@@ -1,0 +1,245 @@
+# UI Context Handoff Contract
+# Version: 1.0
+# Purpose: Define producer/consumer relationships for all UI context fields
+#          across all DevForgeAI skills. Ensures zero data loss at skill boundaries.
+#
+# Anti-Silo Guarantee: Every field listed here has both a PRODUCER and at least
+# one CONSUMER. No dead documents, no orphaned fields.
+#
+# Validation: Run /audit-alignment to detect contract violations.
+
+contract_version: "1.0"
+document: "ui-context-handoff-contract"
+created: "2026-03-25"
+
+# ============================================================
+# ARTIFACTS: Files produced and consumed
+# ============================================================
+artifacts:
+
+  design_md:
+    name: "UI Design Source of Truth"
+    path: "devforgeai/specs/ui/design.md"
+    schema: "design-source-of-truth-schema.md"
+    format: "YAML frontmatter + structured markdown"
+    producer: "spec-driven-design"
+    producer_phase: "Phase 06 Step 6.2.5 (generated) or Phase 02a (extracted)"
+    consumers:
+      - skill: "spec-driven-stories"
+        phase: "Phase 04 Step 4.0.5"
+        fields_consumed: ["components", "layouts", "interactions", "accessibility", "tokens"]
+        fallback: "ASCII mockup generation if design.md absent"
+      - skill: "spec-driven-dev"
+        phase: "Phase 01 (Pre-Flight)"
+        fields_consumed: ["components", "tokens", "interactions", "animations"]
+        fallback: "Story UI spec section only if design.md absent"
+      - skill: "spec-driven-qa"
+        phase: "Phase 2 (Deep Analysis)"
+        fields_consumed: ["components.data.props", "components.accessibility", "tokens"]
+        fallback: "Skip UI design validation if design.md absent"
+      - skill: "spec-driven-ideation"
+        phase: "Phase 02 (Discovery)"
+        fields_consumed: ["ui_design_context", "components (count)", "design_doc_path"]
+        fallback: "Proceed without UI design context if design.md absent"
+      - skill: "external-ai"
+        phase: "N/A — manual consumption"
+        fields_consumed: ["full document"]
+        fallback: "N/A"
+
+  ui_spec_summary:
+    name: "UI Specification Summary"
+    path: "devforgeai/specs/ui/UI-SPEC-SUMMARY.md"
+    format: "YAML frontmatter + markdown body"
+    producer: "spec-driven-design"
+    producer_phase: "Phase 06 Step 6.2"
+    consumers:
+      - skill: "spec-driven-dev"
+        fields_consumed: ["components_generated", "framework", "styling"]
+      - skill: "spec-driven-qa"
+        fields_consumed: ["validation_status", "components_generated"]
+
+# ============================================================
+# FIELD FLOWS: Data fields that flow between skills
+# ============================================================
+field_flows:
+
+  # --- Brainstorm → Ideation ---
+  brainstorm_to_ideation:
+    source_skill: "spec-driven-brainstorming"
+    source_artifact: "brainstorm.md YAML frontmatter"
+    target_skill: "spec-driven-ideation"
+    target_location: "session.ui_context"
+    fields:
+      - source: "design_artifacts.has_mockup"
+        target: "session.ui_context.has_mockup"
+        type: "bool|null"
+        required: false
+        default: "null"
+      - source: "design_artifacts.mockup_path"
+        target: "session.ui_context.mockup_path"
+        type: "string|null"
+        required: false
+        default: "null"
+      - source: "design_artifacts.design_source_of_truth"
+        target: "session.ui_context.design_doc_path"
+        type: "string|null"
+        required: false
+        default: "null"
+      - source: "design_artifacts.aesthetic_vibe"
+        target: "session.ui_context.aesthetic_vibe"
+        type: "string|null"
+        required: false
+        default: "null"
+      - source: "design_artifacts.ui_complexity"
+        target: "session.ui_context.complexity"
+        type: "enum(low|medium|high)|null"
+        required: false
+        default: "null"
+    graceful_degradation: "All fields default to null if design_artifacts key is missing"
+
+  # --- Ideation → Architecture ---
+  ideation_to_architecture:
+    source_skill: "spec-driven-ideation"
+    source_artifact: "requirements.md F4 schema"
+    target_skill: "spec-driven-solution-architecture"
+    target_location: "Phase 07"
+    fields:
+      - source: "ui_design_context.has_mockup"
+        target: "requirements.ui_design_context.has_mockup"
+        type: "bool|null"
+        required: false
+      - source: "ui_design_context.design_source_of_truth"
+        target: "requirements.ui_design_context.design_source_of_truth"
+        type: "string|null"
+        required: false
+      - source: "ui_design_context.mockup_type"
+        target: "requirements.ui_design_context.mockup_type"
+        type: "enum|null"
+        required: false
+      - source: "ui_design_context.aesthetic_direction"
+        target: "requirements.ui_design_context.aesthetic_direction"
+        type: "string|null"
+        required: false
+      - source: "ui_design_context.ui_complexity"
+        target: "requirements.ui_design_context.ui_complexity"
+        type: "enum|null"
+        required: false
+      - source: "ui_design_context.component_count_estimate"
+        target: "requirements.ui_design_context.component_count_estimate"
+        type: "number|null"
+        required: false
+      - source: "ui_design_context.design_decisions"
+        target: "requirements.ui_design_context.design_decisions"
+        type: "array"
+        required: false
+    graceful_degradation: "All fields default to null if ui_design_context key is missing"
+
+  # --- Architecture → Epic ---
+  architecture_to_epic:
+    source_skill: "spec-driven-solution-architecture"
+    source_artifact: "Phase 07 + design.md"
+    target_skill: "epic document"
+    target_location: "## UI Design Context section"
+    fields:
+      - source: "session.ui_design_summary.design_doc_path"
+        target: "epic.ui_design_context.design_source_of_truth"
+      - source: "session.ui_design_summary.component_count"
+        target: "epic.ui_design_context.component_count"
+      - source: "session.ui_design_summary.aesthetic_vibe"
+        target: "epic.ui_design_context.aesthetic_vibe"
+      - source: "session.ui_design_summary.accessibility_level"
+        target: "epic.ui_design_context.accessibility_level"
+    graceful_degradation: "Epic section shows 'N/A' or 'Pending' if data unavailable"
+
+# ============================================================
+# VALIDATION RULES
+# ============================================================
+validation:
+
+  # Rule 1: No orphaned producers
+  no_orphaned_producers:
+    description: "Every artifact with a producer must have at least one consumer"
+    enforcement: "alignment-auditor detects artifacts with producers but no consumers"
+
+  # Rule 2: No missing consumers
+  no_missing_consumers:
+    description: "Every consumer listed must reference a valid producer artifact"
+    enforcement: "alignment-auditor detects consumers referencing non-existent artifacts"
+
+  # Rule 3: Graceful degradation required
+  graceful_degradation_required:
+    description: "Every consumer must have a fallback when the artifact is absent"
+    enforcement: "Each consumer entry has a 'fallback' field that is non-empty"
+
+  # Rule 4: Field type consistency
+  field_type_consistency:
+    description: "Source field type must match target field type"
+    enforcement: "Schema validation at each skill boundary"
+
+# ============================================================
+# LATE-BINDING SUPPORT
+# ============================================================
+late_binding:
+  description: >
+    UI design context can enter the chain at ANY point.
+    The framework accommodates late decisions through deferred/null fields.
+
+  entry_points:
+    brainstorm:
+      when: "User discusses UI during brainstorm"
+      what: "design_artifacts fields populated in brainstorm.md frontmatter"
+    ideation:
+      when: "User decides on UI during ideation Phase 2"
+      what: "ui_design_context populated in requirements.md F4 schema"
+    architecture:
+      when: "User provides UI context during /create-solution-architecture"
+      what: "design.md auto-detected or generated via the explicit extract mode"
+    story:
+      when: "design.md exists when /create-story runs"
+      what: "Story Phase 04 populates UI spec from design.md"
+    dev:
+      when: "design.md exists when /dev runs"
+      what: "Dev Phase 01 loads design.md as implementation reference"
+
+  deferred_handling:
+    - "null values propagate safely through the chain"
+    - "Each skill checks for null and falls back to default behavior"
+    - "User-confirmation gates at ideation and architecture catch deferred decisions"
+
+# ============================================================
+# VISUAL CAPTURE ARTIFACTS (from --url parameter)
+# ============================================================
+visual_capture:
+  name: "Visual Capture Artifacts"
+  path: "devforgeai/specs/ui/visual-capture/"
+  files: ["desktop.png", "tablet.png", "mobile.png", "computed-tokens.json", "dom-structure.json", "discovered-links.json"]
+  producer: "spec-driven-design (Phase 02a Step 2a.8 via Playwright)"
+  optional: true  # Only created when --url parameter provided
+  consumers:
+    - { skill: "spec-driven-dev", phase: "Phase 01/03", usage: "Frontend-developer sees target screenshots", fallback: "Text specs only" }
+    - { skill: "spec-driven-qa", phase: "Phase 2", usage: "Visual baseline comparison (Check 6)", fallback: "Skip visual check" }
+    - { skill: "spec-driven-stories", phase: "Phase 04", usage: "Visual Reference section in UI spec", fallback: "No screenshot section" }
+    - { skill: "spec-driven-solution-architecture", phase: "Phase 07", usage: "Screenshots in epic UI Design Context", fallback: "No screenshot reference" }
+    - { skill: "spec-driven-documentation", phase: "Content generation", usage: "Embed screenshots in user guides", fallback: "Text-only docs" }
+    - { skill: "spec-driven-collaboration", phase: "Context packaging", usage: "Include screenshots for UI issues", fallback: "Text-only context" }
+    - { subagent: "ui-spec-formatter", usage: "Visual fidelity validation", fallback: "Skip visual fidelity check" }
+    - { subagent: "frontend-developer", usage: "Read target screenshots during implementation", fallback: "Implement from text specs" }
+    - { subagent: "documentation-writer", usage: "Embed screenshots in docs", fallback: "Text-only docs" }
+    - { subagent: "code-reviewer", usage: "Visual correctness in review (future)", fallback: "Code-only review" }
+
+# ============================================================
+# ORIGIN ROUTING (return-address from punting skills)
+# ============================================================
+origin_routing:
+  description: >
+    When a skill punts the user to explicit extract mode, it passes --origin=<skill:id>.
+    Phase 08 reads the origin and routes the user back to the originating skill.
+
+  supported_origins:
+    - { origin: "ideation:IDEATION-NNN", return_command: "/ideate --resume IDEATION-NNN" }
+    - { origin: "architecture:create-epic", return_command: "/create-solution-architecture <epic-name>" }
+    - { origin: "brainstorm:BRAINSTORM-NNN", return_command: "/ideate (brainstorm auto-detected)" }
+
+  punt_points:
+    - { skill: "spec-driven-ideation", phase: "Phase 02 Step 2.8.5", type: "non-blocking fork" }
+    - { skill: "spec-driven-solution-architecture", phase: "Phase 07", type: "blocking HALT" }

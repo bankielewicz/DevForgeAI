@@ -1,0 +1,16 @@
+Initializing skill: new-sample
+   Location: C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T152822695886Z\fixtures\extended-04\metadata
+   Resources: none (create as needed)
+
+[OK] Created skill directory: C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T152822695886Z\fixtures\extended-04\metadata\new-sample
+[OK] Created SKILL.md
+[OK] Created agents/openai.yaml
+
+[OK] Skill 'new-sample' initialized successfully at C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T152822695886Z\fixtures\extended-04\metadata\new-sample
+
+Next steps:
+1. Edit SKILL.md to complete the TODO items and update the description
+2. Create resource directories only if needed (scripts/, references/, assets/)
+3. Update agents/openai.yaml if the UI metadata should differ
+4. Complete authoring custody and return the manual validator request.
+Validation and testing: NOT_PERFORMED. This helper does not run checks.

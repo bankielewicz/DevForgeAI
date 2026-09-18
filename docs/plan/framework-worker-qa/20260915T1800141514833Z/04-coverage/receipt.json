@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--json",
+    "--output-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\coverage.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T18:13:46.620806+00:00",
+  "candidate_manifest_sha256": "177b5894a236a02c7d322df7f04d647632094a4a3f3998e7f2a150db246e1604",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\04-coverage\\fixtures",
+  "owned_pid": 34568,
+  "exit_code": 0,
+  "elapsed_seconds": 145.35899999999674,
+  "end": "2026-09-15T18:16:11.986102+00:00",
+  "stdout_sha256": "c693f8f5f3c90f60e95f5aa32fcf061af7901dcf9122817fafc0868c7d955deb",
+  "stderr_sha256": "ef3d19abc7aef39b513f2ed5460a0ba348bc1ee5d51cdf0637f296367bf0d2a3"
+}

@@ -1,0 +1,9 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running tests\profile_protocol.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260915T2306060954875Z\target\debug\deps\profile_protocol-f85f5d173ee581da.exe)
+
+thread 'preflight_accepts_schema_valid_omitted_final_cursors' (60456) panicked at tests\profile_protocol.rs:247:5:
+assertion `left == right` failed
+  left: Err("protocol_error")
+ right: Ok(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `--test profile_protocol`

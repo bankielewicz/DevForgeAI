@@ -1,0 +1,40 @@
+{
+  "attempt_id": "010-recovery-green",
+  "stage": "green",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "recovery"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T15:53:17.570070+00:00",
+  "ended_at": "2026-09-15T15:53:18.664748+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\010-recovery-green\\candidate.json",
+    "bytes": 2370,
+    "sha256": "09e58d4f9d7ad532175892c6a8400b4486fc5c78b3478f50644f1cea44438790"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\010-recovery-green\\stdout.txt",
+    "bytes": 185,
+    "sha256": "f2a5d0c24d9639962f2f71c88e163a1251d0a1c7858aca677bde08d57e6bb42e"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\010-recovery-green\\stderr.txt",
+    "bytes": 683,
+    "sha256": "a96cb8f9e6b18aa98f7e221863ef1a525075eadbb2505d2c9d85a81c95f41dd3"
+  },
+  "outcome": "observed-exit"
+}

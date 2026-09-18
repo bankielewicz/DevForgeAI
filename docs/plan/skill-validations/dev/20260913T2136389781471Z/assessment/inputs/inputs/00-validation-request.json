@@ -1,0 +1,111 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "20260913T2114525120037Z",
+  "project_root": "C:/Projects/DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+  "target_name": "dev",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\delivered-manifest.json",
+    "sha256": "e3a8f52fe517d389408ac98e52290f47cd3b2555b9a1e8d8aff08f29b577a915"
+  },
+  "package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\authoring-record.json",
+    "sha256": "1402cca8a7a365ff75d16f21a5e54bff6d3ce4558d75aed169370e4b1cdd2210"
+  },
+  "specification_refs": [
+    {
+      "path": "C:/Projects/DevForgeAI/docs/specs/dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/docs/plan/skill-authorings/dev/20260913T2114525120037Z-intake/user-request.md",
+      "sha256": "7bec90b9d8b4f6bea92bcbf8861a040e4cda02b939df560d08ff9e9cbb2fa31c"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/AGENTS.md",
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/SKILL.md",
+      "sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/references/authoring.md",
+      "sha256": "5e513b89d3334d945b3390c90e119ce6be0da5ab52390c012fe6bf5f4ab2ff40"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/references/spec-build.md",
+      "sha256": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/references/evidence-format.md",
+      "sha256": "28bfed7ffd8dfda8504d178333540f405f71580a1f3aa2058cf99651a836485e"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/references/validation-handoff.md",
+      "sha256": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/references/scaffolding.md",
+      "sha256": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/scripts/authoring.py",
+      "sha256": "fa08f536cc685b5d79b4dca96b165a6a6af913e8659bdcd651eb6ae51525ceb9"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/scripts/record_schema.py",
+      "sha256": "6e3f172e40c659ba400e4065d4020ae2157a21c2f9d086d935f607b06bce9330"
+    },
+    {
+      "path": "C:/Projects/DevForgeAI/.agents/skills/skill-builder/schemas/authoring-contract.schema.json",
+      "sha256": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099"
+    }
+  ],
+  "changed_paths": [
+    "SKILL.md",
+    "assets/checkpoint.md",
+    "assets/context.md",
+    "assets/delivery.md",
+    "assets/execution-record.jsonl",
+    "assets/slice-plan.md",
+    "assets/traceability.md",
+    "references/context.md",
+    "references/evidence-resume.md",
+    "references/failure-delivery.md",
+    "references/implementation.md"
+  ],
+  "known_issues": [
+    "DEV-026: Mandatory external validator-owned Python JSONL runner, deterministic graders, fixtures/scenario definitions, expected results, evidence schema, runtime/dependency declarations, and digest manifest remain pending creation and execution in a separately selected validation task. Evaluated build is incomplete.",
+    "Skill-quality checks, semantic assessment, DV-01 through DV-18 behavioral cases and cold-session trials are NOT_PERFORMED.",
+    "Plugin namespaced invocation is UNVERIFIED; packaging and host verification are separate work."
+  ],
+  "capabilities": [
+    "Terminal-based cold-session discovery",
+    "Single and dependent multi-document implementation",
+    "Evidence-based constitutional resolution and reuse assessment",
+    "Product red/green/refactor/integration/QA",
+    "Digest-aware checkpoint and resumption"
+  ],
+  "expected_outputs": [
+    "SKILL.md",
+    "references/context.md",
+    "references/implementation.md",
+    "references/evidence-resume.md",
+    "references/failure-delivery.md",
+    "assets/context.md",
+    "assets/traceability.md",
+    "assets/slice-plan.md",
+    "assets/execution-record.jsonl",
+    "assets/checkpoint.md",
+    "assets/delivery.md"
+  ],
+  "side_effects": [
+    "Runtime ordinary authorized product source/test/evidence edits",
+    "Runtime product command execution subject to host permissions and actual scope",
+    "No implied installation, deployment, merge, irreversible migration or protected acceptance"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

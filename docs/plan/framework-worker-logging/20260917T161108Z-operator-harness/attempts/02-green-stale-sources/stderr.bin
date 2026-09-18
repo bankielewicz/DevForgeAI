@@ -1,0 +1,16 @@
+test_selected_current_sources_do_not_require_removed_historical_sites (__main__.SelectedPreparationTests) ... ERROR
+
+======================================================================
+ERROR: test_selected_current_sources_do_not_require_removed_historical_sites (__main__.SelectedPreparationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness\tests\test_selected_preparation.py", line 27, in test_selected_current_sources_do_not_require_removed_historical_sites
+    result = module.verify_preservation()
+  File "C:\Projects\DevForgeAI\docs\plan\framework-worker-trials\20260917T122229Z-logging-diagnostic\operator-harness-001\diagnostic.py", line 45, in verify_preservation
+    rows = rows[key]
+KeyError: 'binaries'
+
+----------------------------------------------------------------------
+Ran 1 test in 1.809s
+
+FAILED (errors=1)

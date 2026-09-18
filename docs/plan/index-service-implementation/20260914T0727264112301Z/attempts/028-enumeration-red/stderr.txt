@@ -1,0 +1,9 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+error[E0425]: cannot find function `enumerate_controlled` in module `devforgeai_index::index`
+   --> tests\capture.rs:171:41
+    |
+171 |     let result=devforgeai_index::index::enumerate_controlled(directory.path(),&ProjectConfig::default(),&[],&||{
+    |                                         ^^^^^^^^^^^^^^^^^^^^ not found in `devforgeai_index::index`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `devforgeai-index` (test "capture") due to 1 previous error

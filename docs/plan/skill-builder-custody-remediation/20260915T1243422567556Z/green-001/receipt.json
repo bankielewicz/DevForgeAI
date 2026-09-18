@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\test_stage_integrity.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 0,
+  "seconds": 11.046999999991385
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+  DevForgeAI Business Analysis Document — HTML output template (skeleton).
+  Governed by ADR-065. Emitted by spec-driven-brainstorming Phase 11.
+  Phase 11 substitutes every placeholder token and replaces each
+  data-phase section body with rendered content. The file is self-contained:
+  inline CSS, inline SVG, no external assets. The machine-readable conduit is
+  the <script type="application/json" id="brainstorm-data"> island at the end,
+  validated against references/brainstorm.schema.json (v2.0).
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} — Business Analysis</title>
+<style>
+  :root {
+    --bg: #f7f8fa; --card: #ffffff; --ink: #1a1f2b; --muted: #5b6472;
+    --line: #e2e6ec; --accent: #2d5bd7; --accent-soft: #eaf0fd;
+    --sev-low: #2e7d32; --sev-med: #ed8b00; --sev-high: #d84315; --sev-crit: #b00020;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 96px; }
+  header.doc { background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; }
+  header.doc h1 { margin: 0 0 8px; font-size: 28px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+  .badge { background: var(--accent-soft); color: var(--accent); border-radius: 999px;
+    padding: 3px 12px; font-size: 13px; font-weight: 600; }
+  .problem { background: var(--accent-soft); border-left: 4px solid var(--accent);
+    padding: 12px 16px; border-radius: 6px; margin-top: 12px; }
+  nav.toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 24px; margin-bottom: 24px; }
+  nav.toc ol { margin: 8px 0 0; padding-left: 22px; columns: 2; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  details.phase { background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; margin-bottom: 14px; padding: 0 24px; }
+  details.phase > summary { cursor: pointer; font-size: 18px; font-weight: 700;
+    padding: 18px 0; list-style: none; }
+  details.phase > summary::before { content: "▸ "; color: var(--accent); }
+  details.phase[open] > summary::before { content: "▾ "; }
+  .phase-body { padding: 0 0 20px; border-top: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f0f2f6; }
+  .sev-Low { color: var(--sev-low); font-weight: 600; }
+  .sev-Medium { color: var(--sev-med); font-weight: 600; }
+  .sev-High { color: var(--sev-high); font-weight: 600; }
+  .sev-Critical { color: var(--sev-crit); font-weight: 700; }
+  figure { margin: 16px 0; }
+  figcaption { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .muted { color: var(--muted); }
+  footer.doc { margin-top: 32px; color: var(--muted); font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <h1>{{TITLE}}</h1>
+    <div class="badges">
+      <span class="badge">{{BRAINSTORM_ID}}</span>
+      <span class="badge">Created {{CREATED}}</span>
+      <span class="badge">Confidence: {{CONFIDENCE}}</span>
+      <span class="badge">Business Analysis</span>
+    </div>
+    <div class="problem"><strong>Problem:</strong> {{PROBLEM_STATEMENT}}</div>
+  </header>
+
+  <nav class="toc">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#p01">BA Planning &amp; Approach</a></li>
+      <li><a href="#p02">Stakeholder Analysis</a></li>
+      <li><a href="#p03">Problem &amp; Current-State Analysis</a></li>
+      <li><a href="#p04">Future-State &amp; Opportunity Mapping</a></li>
+      <li><a href="#p05">Business Case &amp; Feasibility</a></li>
+      <li><a href="#p06">Risk Analysis</a></li>
+      <li><a href="#p07">Constraints &amp; Solution Scope</a></li>
+      <li><a href="#p08">Requirements Definition</a></li>
+      <li><a href="#p09">Prioritization &amp; Roadmap</a></li>
+      <li><a href="#p10">Change &amp; Transition Strategy</a></li>
+      <li><a href="#p11">Synthesis &amp; Handoff</a></li>
+    </ol>
+  </nav>
+
+  <details class="phase" id="p01" open><summary>01 · BA Planning &amp; Approach</summary>
+    <div class="phase-body" data-phase="01">{{PHASE_01_CONTENT}}</div></details>
+
+  <details class="phase" id="p02"><summary>02 · Stakeholder Analysis</summary>
+    <div class="phase-body" data-phase="02">{{PHASE_02_CONTENT}}</div></details>
+
+  <details class="phase" id="p03"><summary>03 · Problem &amp; Current-State Analysis</summary>
+    <div class="phase-body" data-phase="03">{{PHASE_03_CONTENT}}</div></details>
+
+  <details class="phase" id="p04"><summary>04 · Future-State &amp; Opportunity Mapping</summary>
+    <div class="phase-body" data-phase="04">{{PHASE_04_CONTENT}}</div></details>
+
+  <details class="phase" id="p05"><summary>05 · Business Case &amp; Feasibility</summary>
+    <div class="phase-body" data-phase="05">{{PHASE_05_CONTENT}}</div></details>
+
+  <details class="phase" id="p06"><summary>06 · Risk Analysis</summary>
+    <div class="phase-body" data-phase="06">{{PHASE_06_CONTENT}}</div></details>
+
+  <details class="phase" id="p07"><summary>07 · Constraints &amp; Solution Scope</summary>
+    <div class="phase-body" data-phase="07">{{PHASE_07_CONTENT}}</div></details>
+
+  <details class="phase" id="p08"><summary>08 · Requirements Definition</summary>
+    <div class="phase-body" data-phase="08">{{PHASE_08_CONTENT}}</div></details>
+
+  <details class="phase" id="p09"><summary>09 · Prioritization &amp; Roadmap</summary>
+    <div class="phase-body" data-phase="09">{{PHASE_09_CONTENT}}</div></details>
+
+  <details class="phase" id="p10"><summary>10 · Change &amp; Transition Strategy</summary>
+    <div class="phase-body" data-phase="10">{{PHASE_10_CONTENT}}</div></details>
+
+  <details class="phase" id="p11"><summary>11 · Synthesis &amp; Handoff</summary>
+    <div class="phase-body" data-phase="11">{{PHASE_11_CONTENT}}</div></details>
+
+  <details class="phase" id="transcript"><summary>Appendix · Session Transcript</summary>
+    <div class="phase-body" data-phase="transcript">
+      <p class="muted">Per-phase human-in-the-loop Q&amp;A, accumulated across the session
+      from the conversation checkpoints. See references/conversation-checkpoint-format.md.</p>
+      {{TRANSCRIPT}}
+    </div>
+  </details>
+
+  <footer class="doc">
+    Generated by DevForgeAI spec-driven-brainstorming · Business Analysis workflow (ADR-065)
+  </footer>
+
+</div>
+
+<!--
+  MACHINE-READABLE CONDUIT — do not remove.
+  Schema-validated structured handoff data (references/brainstorm.schema.json v2.0).
+  Downstream skills parse this island instead of YAML frontmatter.
+-->
+<script type="application/json" id="brainstorm-data">
+{{DATA_ISLAND_JSON}}
+</script>
+</body>
+</html>

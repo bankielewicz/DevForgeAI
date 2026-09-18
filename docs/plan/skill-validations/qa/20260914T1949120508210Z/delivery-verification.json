@@ -1,0 +1,45 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1949120508210Z",
+  "target_name": "qa",
+  "jsonl_schema_rows": 70,
+  "jsonl_schema_status": "PASS",
+  "bundle_inputs_verified": 121,
+  "literal_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z",
+  "target_readback": "UNCHANGED",
+  "delivered_artifacts": [
+    {
+      "path": "validation-report.md",
+      "sha256": "7b2bb32f6cb7f96b8df78a1fd7aa0490e7deced8d36aa738377a670ac54b8146"
+    },
+    {
+      "path": "checks.jsonl",
+      "sha256": "67bda725907eeb5ce55990d2bb1a19c2d3c382445fd9417a12880ed9da146597"
+    },
+    {
+      "path": "findings.json",
+      "sha256": "fd83923e0ae7e9216c0ac488b3d57f12edfff83dbe789c87b9ea6794b0dfa610"
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "5cbfb514dc71b01bfce81d188a932ab770b65ae884ed50016cfe04993f65ea2d"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "1c7e6719f06b90a7048c433905a192e9c30e50dfada6c32d6665545d9c1f527f"
+    },
+    {
+      "path": "source-after-manifest.json",
+      "sha256": "0d1f88397fbdc24c06c7c92bda8e3017b9be9a294cce26eafa63009ce1625470"
+    },
+    {
+      "path": "evaluation/bundle-manifest.json",
+      "sha256": "4273b21a5564fbdbde42c6bd3c64bb34ba39c440838db5b5a5a1c3bfe861142b"
+    },
+    {
+      "path": "evaluation/results-001.jsonl",
+      "sha256": "ffb43e2123993e8370d9e2f20c2fb813b7c2d1bc4d516323d1423d0151ec2418"
+    }
+  ],
+  "limits": "Schema/reference checks do not establish semantic or native skill acceptance. Corrected one finding source ID to identify the runtime file actually cited; no finding content or outcome changed."
+}

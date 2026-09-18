@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "upstream_source": "apps/daemon/src/lint-artifact.ts",
+  "upstream_commit": "10adca2cbf47be61829c74e21158ecccddf4c1cd",
+  "findings": {
+    "purple-gradient": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "trust-gradient": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "ai-default-indigo": "tests/design_quality/test_lint_design_artifact.py::test_brand_declared_indigo_accent_is_exempt_but_hardcoded_use_is_not",
+    "emoji-icon": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "left-accent-card": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "sans-display": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "invented-metric": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "filler-copy": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "scroll-into-view": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "all-caps-no-tracking": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "external-image": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "raw-hex": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "accent-overuse": "tests/design_quality/test_lint_design_artifact.py::test_accent_overuse_is_documented_as_source_approximation",
+    "missing-section-anchor": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "slide-theme-missing": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported",
+    "slide-rhythm": "tests/design_quality/test_lint_design_artifact.py::test_every_applicable_upstream_finding_is_ported"
+  }
+}

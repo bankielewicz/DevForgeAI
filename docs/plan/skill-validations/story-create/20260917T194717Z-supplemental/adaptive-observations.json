@@ -1,0 +1,694 @@
+{
+  "schema_version": "adaptive-observations-v1",
+  "run_id": "20260917T194717Z",
+  "target_digest": "e86c984d1ff0b7b0f0ca4c6dfa500279804ed9bfc5ad628efee7486df2bbf010",
+  "unicode_candidates": [],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "assets/devforgeai-skill.json",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "assets/templates/session-record.md",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "assets/templates/story-template.md",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/acceptance-criteria.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/adaptive-contract.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/architecture-seeds.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/batch-and-dependencies.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/delivery-and-resume.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/domain-patterns.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/intake-and-scope.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/recommendations-and-gaps.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/story-contract.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/technical-specification.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "references/ui-specification.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        }
+      ],
+      "reason": "Reviewed entry routing or downstream consumer instruction; static usage does not claim every branch executed."
+    },
+    {
+      "path": "scripts/check_project_binding.py",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\semantic-review.md",
+          "sha256": "02033d25228d960f9f8fde385a1c2f19c3d96d567d5c5c7feadcc377ac3de3f9"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\results.jsonl",
+          "sha256": "758864d686aec055e05e4514ea3692c5cb84173b4bf4913e49b0e25f59821cda"
+        }
+      ],
+      "reason": "Explicit command at SKILL.md line 17; runtime helper checked on Windows and Linux."
+    }
+  ],
+  "edges": [
+    {
+      "source": "SKILL.md",
+      "line": 14,
+      "target": "assets/devforgeai-skill.json",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 14,
+      "target": "references/adaptive-contract.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 26,
+      "target": "references/intake-and-scope.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 32,
+      "target": "references/batch-and-dependencies.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 33,
+      "target": "references/recommendations-and-gaps.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 34,
+      "target": "references/architecture-seeds.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 36,
+      "target": "references/acceptance-criteria.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 36,
+      "target": "references/domain-patterns.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 37,
+      "target": "references/technical-specification.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 37,
+      "target": "references/ui-specification.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 38,
+      "target": "assets/templates/story-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 38,
+      "target": "references/story-contract.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 39,
+      "target": "references/delivery-and-resume.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/acceptance-criteria.md",
+      "line": 37,
+      "target": "domain-patterns.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/adaptive-contract.md",
+      "line": 35,
+      "target": "../assets/templates/story-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/adaptive-contract.md",
+      "line": 35,
+      "target": "story-contract.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/adaptive-contract.md",
+      "line": 35,
+      "target": "../assets/templates/session-record.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/adaptive-contract.md",
+      "line": 37,
+      "target": "delivery-and-resume.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/adaptive-contract.md",
+      "line": 56,
+      "target": "../assets/devforgeai-skill.json",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/architecture-seeds.md",
+      "line": 19,
+      "target": "batch-and-dependencies.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/batch-and-dependencies.md",
+      "line": 36,
+      "target": "../assets/templates/session-record.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/delivery-and-resume.md",
+      "line": 25,
+      "target": "recommendations-and-gaps.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/delivery-and-resume.md",
+      "line": 31,
+      "target": "../assets/templates/session-record.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/intake-and-scope.md",
+      "line": 48,
+      "target": "delivery-and-resume.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/recommendations-and-gaps.md",
+      "line": 17,
+      "target": "batch-and-dependencies.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/story-contract.md",
+      "line": 5,
+      "target": "../assets/templates/story-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/story-contract.md",
+      "line": 26,
+      "target": "recommendations-and-gaps.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/story-contract.md",
+      "line": 32,
+      "target": "acceptance-criteria.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/story-contract.md",
+      "line": 32,
+      "target": "technical-specification.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 17,
+      "target": "scripts/check_project_binding.py",
+      "kind": "script_call",
+      "resolution": "resolved"
+    }
+  ],
+  "context": {
+    "tokenizer": null,
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 5624,
+        "characters": 5624,
+        "lines": 49,
+        "tokens": null
+      },
+      {
+        "path": "assets/devforgeai-skill.json",
+        "bytes": 3608,
+        "characters": 3608,
+        "lines": 95,
+        "tokens": null
+      },
+      {
+        "path": "assets/templates/session-record.md",
+        "bytes": 2336,
+        "characters": 2336,
+        "lines": 43,
+        "tokens": null
+      },
+      {
+        "path": "assets/templates/story-template.md",
+        "bytes": 10361,
+        "characters": 10361,
+        "lines": 312,
+        "tokens": null
+      },
+      {
+        "path": "references/acceptance-criteria.md",
+        "bytes": 5105,
+        "characters": 5093,
+        "lines": 41,
+        "tokens": null
+      },
+      {
+        "path": "references/adaptive-contract.md",
+        "bytes": 8643,
+        "characters": 8643,
+        "lines": 58,
+        "tokens": null
+      },
+      {
+        "path": "references/architecture-seeds.md",
+        "bytes": 3476,
+        "characters": 3472,
+        "lines": 25,
+        "tokens": null
+      },
+      {
+        "path": "references/batch-and-dependencies.md",
+        "bytes": 4862,
+        "characters": 4862,
+        "lines": 40,
+        "tokens": null
+      },
+      {
+        "path": "references/delivery-and-resume.md",
+        "bytes": 6990,
+        "characters": 6990,
+        "lines": 43,
+        "tokens": null
+      },
+      {
+        "path": "references/domain-patterns.md",
+        "bytes": 4936,
+        "characters": 4932,
+        "lines": 32,
+        "tokens": null
+      },
+      {
+        "path": "references/intake-and-scope.md",
+        "bytes": 6209,
+        "characters": 6209,
+        "lines": 48,
+        "tokens": null
+      },
+      {
+        "path": "references/recommendations-and-gaps.md",
+        "bytes": 6397,
+        "characters": 6397,
+        "lines": 37,
+        "tokens": null
+      },
+      {
+        "path": "references/story-contract.md",
+        "bytes": 5951,
+        "characters": 5951,
+        "lines": 42,
+        "tokens": null
+      },
+      {
+        "path": "references/technical-specification.md",
+        "bytes": 7641,
+        "characters": 7633,
+        "lines": 49,
+        "tokens": null
+      },
+      {
+        "path": "references/ui-specification.md",
+        "bytes": 3175,
+        "characters": 3175,
+        "lines": 23,
+        "tokens": null
+      },
+      {
+        "path": "scripts/check_project_binding.py",
+        "bytes": 12433,
+        "characters": 12433,
+        "lines": 298,
+        "tokens": null
+      }
+    ],
+    "loads": [],
+    "budget": null,
+    "budget_result": "NOT_APPLICABLE",
+    "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+  },
+  "bindings": [
+    {
+      "case_id": "H01",
+      "binding_sha256": "2be529d5c9643131a4124f28654bcc1bbe950f66c323fc719959c30a82813903",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H01\\stdout.txt",
+        "sha256": "a3036b07e3999388ae305bbdf40f6ee8bb058deb8d34e8ac0fd6f12c87305cf6"
+      },
+      "expected": "MATCH",
+      "observed": "MATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H02",
+      "binding_sha256": null,
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H02\\stdout.txt",
+        "sha256": "e447dec4950a0127253534bd1aa4c71eef9e42abf062c00700e0ce8d38aee3cb"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H03",
+      "binding_sha256": "021fb596db81e6d02bf3d2586ee3981fe519f275c0ac9ca76bbcf2ebb4097d96",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H03\\stdout.txt",
+        "sha256": "e9e682a79b88aab2be49be74e93e4a1988a9824e64041d12692d84690d11b71c"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H04",
+      "binding_sha256": "d38245cfdb5d2239d67fe2a719312768b668a6928d8d97d04fbce83215e50b44",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H04\\stdout.txt",
+        "sha256": "14146eea1c1b5e47350135a0d30b2046aa63cab7539321e391704bdf50adfa95"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H05",
+      "binding_sha256": "68bbfd4e8ef888354af18dddfa403335b31c333d60cd69191902b997cf8c8b25",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H05\\stdout.txt",
+        "sha256": "af2ccf3a2188862c15319aaab4c9c63acb16d0005810e0319331d5729d4c6598"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H06",
+      "binding_sha256": "d6b8882650175d4befbfeb5e570b1d281fa2971418e8294f2e005571a44dcc2e",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H06\\stdout.txt",
+        "sha256": "548c58daf14a5797b161e795348e60485778be080aa8cad1504d393b5a9b2871"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H07",
+      "binding_sha256": "8730cf46395a21e1ee33c1de69c08746d063605e7a0f03a795d3d5cef2a3f8c4",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H07\\stdout.txt",
+        "sha256": "fa7b91e892f1f4a5d2cae00dd0db7694b3a5bb3d186a71e2eaa34b8ad8d8409f"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H08",
+      "binding_sha256": "7349158189bed238b07ae4f4b76841d5d83ea87bd684cb884f44106dcd2372ac",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H08\\stdout.txt",
+        "sha256": "f263a7f8d30ecf932590a8b018f087147b681344ecbc0c8216299eaf434cc552"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H09",
+      "binding_sha256": "c9c470271b77027d275d7c8d1eba82a2d23af1a0c05fdaeedb9ef8515db6191b",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H09\\stdout.txt",
+        "sha256": "34ebe4104b2fe6ac800c7f428e82d9e217a50a2bb9b7c0fc54320047f75cf740"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H10",
+      "binding_sha256": "07e3b815afd8bc46638403bdc988ef46fadb669a12a81d4da1a31e0a2c1132d3",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H10\\stdout.txt",
+        "sha256": "5b69813ac7889300a6105bb04a3aa51c960dd8794fd65c15888e701de6381587"
+      },
+      "expected": "MATCH",
+      "observed": "MATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H11",
+      "binding_sha256": "c0456a474e1f5313211f9ffb677ff57ae6af661faf3a48bfae2f1100c7dae414",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H11\\stdout.txt",
+        "sha256": "3dc8f0cc1909f42094dd29e3237a01286b57e9b8cf1be043135e2f4c24d123dd"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    },
+    {
+      "case_id": "H12",
+      "binding_sha256": "c238cb6e9ac5407491b0988102620ab9445290d2ed7713c516a2b28bd2388968",
+      "observation": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\attempt-001\\H12\\stdout.txt",
+        "sha256": "317b9960495e4f5dd91a6a27d11e85461077450a4f0d6847eaad5ef2af55582b"
+      },
+      "expected": "MISMATCH",
+      "observed": "MISMATCH",
+      "effects_match": true
+    }
+  ],
+  "limitations": [
+    "Resource usage is a semantic review of captured instructions, not all native branch coverage.",
+    "No selected context budget; token counting and model-load accounting NOT_RUN.",
+    "Binding records observe fixtures only and convey no protected authorization.",
+    "Raw package observations remain unchanged; snapshot-name and quoted-placeholder items were manually adjudicated.",
+    "Resource/binding observations reused for verified identical bytes and pinned rules; new native completion evidence resides in the continuation capsule."
+  ]
+}

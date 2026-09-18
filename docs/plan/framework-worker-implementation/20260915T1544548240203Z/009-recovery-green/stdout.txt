@@ -1,0 +1,23 @@
+
+running 4 tests
+test wf_09 ... ok
+test wf_12 ... FAILED
+test wf_11 ... ok
+test wf_10 ... ok
+
+failures:
+
+---- wf_12 stdout ----
+
+thread 'wf_12' (25100) panicked at tests\recovery.rs:72:27:
+assertion `left == right` failed
+  left: Number(9)
+ right: 8
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    wf_12
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+

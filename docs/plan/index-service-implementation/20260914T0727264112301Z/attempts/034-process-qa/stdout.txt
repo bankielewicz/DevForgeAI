@@ -1,0 +1,29 @@
+
+running 2 tests
+test corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation ... FAILED
+test simultaneous_starts_and_process_level_index_lifecycle ... FAILED
+
+failures:
+
+---- corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation stdout ----
+
+thread 'corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation' (35400) panicked at tests\process.rs:39:5:
+assertion `left == right` failed
+  left: 10
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- simultaneous_starts_and_process_level_index_lifecycle stdout ----
+
+thread 'simultaneous_starts_and_process_level_index_lifecycle' (95820) panicked at tests\process.rs:19:53:
+assertion `left == right` failed: Object {"data": Null, "environment_id": Null, "error": Object {"code": String("ACCESS_DENIED"), "details": Object {}, "message": String("Access is denied. (os error 5)")}, "ok": Bool(false), "protocol_version": Number(1), "request_id": String("9b7f4546-77b5-4f48-a0fe-9d72f3a37aab"), "service_version": Null}
+  left: 10
+ right: 0
+
+
+failures:
+    corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation
+    simultaneous_starts_and_process_level_index_lifecycle
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

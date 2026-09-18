@@ -1,0 +1,20 @@
+{
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "5ff71952955ddc7fd9f2f541a7ff1fd77e78ed59a2c1204d8499f520243efada"
+    },
+    {
+      "path": "schema.json",
+      "sha256": "b4120c59c1f74ae10826590f23c73479daa80192d28d36e44c1e504c0a324801"
+    }
+  ],
+  "origin": {
+    "kind": "generated",
+    "path": "trace/evidence/build-provenance.json",
+    "sha256": "90c9160df54f5e2353b04dd4e5e705fd7092a5177a14152d4421b8b7448a735c"
+  },
+  "run_id": "synthetic-build",
+  "schema_version": "2",
+  "target_name": "synthetic-total"
+}

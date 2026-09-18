@@ -1,0 +1,273 @@
+{
+  "schema_version": "story-eval-result-v1",
+  "case_id": "H05",
+  "result": "PASS",
+  "issues": [],
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\scripts\\check_project_binding.py",
+    "--project-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project",
+    "--skill-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project",
+  "started_at": "2026-09-17T19:08:28.270096+00:00",
+  "elapsed_seconds": 0.25,
+  "exit_code": 1,
+  "observation": {
+    "schema_version": "binding-observation-v1",
+    "status": "MISMATCH",
+    "reason_code": "PACKAGE_CHANGED",
+    "binding_sha256": "68bbfd4e8ef888354af18dddfa403335b31c333d60cd69191902b997cf8c8b25",
+    "package_digest": "e86c984d1ff0b7b0f0ca4c6dfa500279804ed9bfc5ad628efee7486df2bbf010",
+    "details": []
+  },
+  "before": [
+    {
+      "path": ".agents/devforgeai/project-binding.json",
+      "bytes": 501,
+      "sha256": "68bbfd4e8ef888354af18dddfa403335b31c333d60cd69191902b997cf8c8b25"
+    },
+    {
+      "path": ".agents/skills/story-create/assets/devforgeai-skill.json",
+      "bytes": 3608,
+      "sha256": "2d2f9d42d048ad2c0ebad024532f0c2c0c54e7468678ecb84c8315034aebe4a6"
+    },
+    {
+      "path": ".agents/skills/story-create/assets/templates/session-record.md",
+      "bytes": 2336,
+      "sha256": "ddf9329578a2addd8cc533ef9d6738431b73be24f50f406e91988a6119adec55"
+    },
+    {
+      "path": ".agents/skills/story-create/assets/templates/story-template.md",
+      "bytes": 10361,
+      "sha256": "629e10179b8c052b749b59b725dd7a39ff0ab17c005c368b969606889bae67b9"
+    },
+    {
+      "path": ".agents/skills/story-create/references/acceptance-criteria.md",
+      "bytes": 5105,
+      "sha256": "ec97c9fcf35b83486c095ea93cac3275de43dc77fe7728575c9326e833459d34"
+    },
+    {
+      "path": ".agents/skills/story-create/references/adaptive-contract.md",
+      "bytes": 8643,
+      "sha256": "e6b5a914bda6402248e681042f342da15bc55642e34f93f10761bb323223cb41"
+    },
+    {
+      "path": ".agents/skills/story-create/references/architecture-seeds.md",
+      "bytes": 3476,
+      "sha256": "af24e57e9c4091e4b8f58955ff0b62a357ac1e87f2cb3eb86b61a9c6ba8c0b2b"
+    },
+    {
+      "path": ".agents/skills/story-create/references/batch-and-dependencies.md",
+      "bytes": 4862,
+      "sha256": "5f7c4f6f84e208a9f4d759fc4dfb07406bf7a6e0d3942b9ffaa5a7bc0d23b47c"
+    },
+    {
+      "path": ".agents/skills/story-create/references/delivery-and-resume.md",
+      "bytes": 6990,
+      "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc"
+    },
+    {
+      "path": ".agents/skills/story-create/references/domain-patterns.md",
+      "bytes": 4936,
+      "sha256": "37fdf8c2296e2ac56823d4b8ad582dab5b1957bb1a8cd6fbf1ab0a3c5d2c3286"
+    },
+    {
+      "path": ".agents/skills/story-create/references/intake-and-scope.md",
+      "bytes": 6209,
+      "sha256": "6473e00bcdf4ac28716610fb7308a44e3f320d0e211fcea2bf6ee16ff138dc86"
+    },
+    {
+      "path": ".agents/skills/story-create/references/recommendations-and-gaps.md",
+      "bytes": 6397,
+      "sha256": "a1d108ceeb8cef51f0187bb2846bfea6a010fa824840e7d6c2ad907c8e4ad525"
+    },
+    {
+      "path": ".agents/skills/story-create/references/story-contract.md",
+      "bytes": 5951,
+      "sha256": "67c715828367b4d813b5c2a46fd3211359374855b917c37eb6287b722202521c"
+    },
+    {
+      "path": ".agents/skills/story-create/references/technical-specification.md",
+      "bytes": 7641,
+      "sha256": "ffa3b5dc0818828b57ac311a16e06222cb14cf2a0f4f6e628eca7740a5532a7d"
+    },
+    {
+      "path": ".agents/skills/story-create/references/ui-specification.md",
+      "bytes": 3175,
+      "sha256": "000fcd1acb65e73555842e99b4a0cbfd27716de92df997496573d86ba6121774"
+    },
+    {
+      "path": ".agents/skills/story-create/scripts/check_project_binding.py",
+      "bytes": 12433,
+      "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+    },
+    {
+      "path": ".agents/skills/story-create/SKILL.md",
+      "bytes": 5624,
+      "sha256": "98a5ddf0249448969d528b3fa8a4e676794f441f18f8749ee9ce62d0ae549848"
+    }
+  ],
+  "after": [
+    {
+      "path": ".agents/devforgeai/project-binding.json",
+      "bytes": 501,
+      "sha256": "68bbfd4e8ef888354af18dddfa403335b31c333d60cd69191902b997cf8c8b25"
+    },
+    {
+      "path": ".agents/skills/story-create/assets/devforgeai-skill.json",
+      "bytes": 3608,
+      "sha256": "2d2f9d42d048ad2c0ebad024532f0c2c0c54e7468678ecb84c8315034aebe4a6"
+    },
+    {
+      "path": ".agents/skills/story-create/assets/templates/session-record.md",
+      "bytes": 2336,
+      "sha256": "ddf9329578a2addd8cc533ef9d6738431b73be24f50f406e91988a6119adec55"
+    },
+    {
+      "path": ".agents/skills/story-create/assets/templates/story-template.md",
+      "bytes": 10361,
+      "sha256": "629e10179b8c052b749b59b725dd7a39ff0ab17c005c368b969606889bae67b9"
+    },
+    {
+      "path": ".agents/skills/story-create/references/acceptance-criteria.md",
+      "bytes": 5105,
+      "sha256": "ec97c9fcf35b83486c095ea93cac3275de43dc77fe7728575c9326e833459d34"
+    },
+    {
+      "path": ".agents/skills/story-create/references/adaptive-contract.md",
+      "bytes": 8643,
+      "sha256": "e6b5a914bda6402248e681042f342da15bc55642e34f93f10761bb323223cb41"
+    },
+    {
+      "path": ".agents/skills/story-create/references/architecture-seeds.md",
+      "bytes": 3476,
+      "sha256": "af24e57e9c4091e4b8f58955ff0b62a357ac1e87f2cb3eb86b61a9c6ba8c0b2b"
+    },
+    {
+      "path": ".agents/skills/story-create/references/batch-and-dependencies.md",
+      "bytes": 4862,
+      "sha256": "5f7c4f6f84e208a9f4d759fc4dfb07406bf7a6e0d3942b9ffaa5a7bc0d23b47c"
+    },
+    {
+      "path": ".agents/skills/story-create/references/delivery-and-resume.md",
+      "bytes": 6990,
+      "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc"
+    },
+    {
+      "path": ".agents/skills/story-create/references/domain-patterns.md",
+      "bytes": 4936,
+      "sha256": "37fdf8c2296e2ac56823d4b8ad582dab5b1957bb1a8cd6fbf1ab0a3c5d2c3286"
+    },
+    {
+      "path": ".agents/skills/story-create/references/intake-and-scope.md",
+      "bytes": 6209,
+      "sha256": "6473e00bcdf4ac28716610fb7308a44e3f320d0e211fcea2bf6ee16ff138dc86"
+    },
+    {
+      "path": ".agents/skills/story-create/references/recommendations-and-gaps.md",
+      "bytes": 6397,
+      "sha256": "a1d108ceeb8cef51f0187bb2846bfea6a010fa824840e7d6c2ad907c8e4ad525"
+    },
+    {
+      "path": ".agents/skills/story-create/references/story-contract.md",
+      "bytes": 5951,
+      "sha256": "67c715828367b4d813b5c2a46fd3211359374855b917c37eb6287b722202521c"
+    },
+    {
+      "path": ".agents/skills/story-create/references/technical-specification.md",
+      "bytes": 7641,
+      "sha256": "ffa3b5dc0818828b57ac311a16e06222cb14cf2a0f4f6e628eca7740a5532a7d"
+    },
+    {
+      "path": ".agents/skills/story-create/references/ui-specification.md",
+      "bytes": 3175,
+      "sha256": "000fcd1acb65e73555842e99b4a0cbfd27716de92df997496573d86ba6121774"
+    },
+    {
+      "path": ".agents/skills/story-create/scripts/check_project_binding.py",
+      "bytes": 12433,
+      "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+    },
+    {
+      "path": ".agents/skills/story-create/SKILL.md",
+      "bytes": 5624,
+      "sha256": "98a5ddf0249448969d528b3fa8a4e676794f441f18f8749ee9ce62d0ae549848"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\devforgeai\\project-binding.json",
+      "sha256": "68bbfd4e8ef888354af18dddfa403335b31c333d60cd69191902b997cf8c8b25"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\SKILL.md",
+      "sha256": "98a5ddf0249448969d528b3fa8a4e676794f441f18f8749ee9ce62d0ae549848"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\assets\\devforgeai-skill.json",
+      "sha256": "2d2f9d42d048ad2c0ebad024532f0c2c0c54e7468678ecb84c8315034aebe4a6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\assets\\templates\\session-record.md",
+      "sha256": "ddf9329578a2addd8cc533ef9d6738431b73be24f50f406e91988a6119adec55"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\assets\\templates\\story-template.md",
+      "sha256": "629e10179b8c052b749b59b725dd7a39ff0ab17c005c368b969606889bae67b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\acceptance-criteria.md",
+      "sha256": "ec97c9fcf35b83486c095ea93cac3275de43dc77fe7728575c9326e833459d34"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\adaptive-contract.md",
+      "sha256": "e6b5a914bda6402248e681042f342da15bc55642e34f93f10761bb323223cb41"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\architecture-seeds.md",
+      "sha256": "af24e57e9c4091e4b8f58955ff0b62a357ac1e87f2cb3eb86b61a9c6ba8c0b2b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\batch-and-dependencies.md",
+      "sha256": "5f7c4f6f84e208a9f4d759fc4dfb07406bf7a6e0d3942b9ffaa5a7bc0d23b47c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\delivery-and-resume.md",
+      "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\domain-patterns.md",
+      "sha256": "37fdf8c2296e2ac56823d4b8ad582dab5b1957bb1a8cd6fbf1ab0a3c5d2c3286"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\intake-and-scope.md",
+      "sha256": "6473e00bcdf4ac28716610fb7308a44e3f320d0e211fcea2bf6ee16ff138dc86"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\recommendations-and-gaps.md",
+      "sha256": "a1d108ceeb8cef51f0187bb2846bfea6a010fa824840e7d6c2ad907c8e4ad525"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\story-contract.md",
+      "sha256": "67c715828367b4d813b5c2a46fd3211359374855b917c37eb6287b722202521c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\technical-specification.md",
+      "sha256": "ffa3b5dc0818828b57ac311a16e06222cb14cf2a0f4f6e628eca7740a5532a7d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\references\\ui-specification.md",
+      "sha256": "000fcd1acb65e73555842e99b4a0cbfd27716de92df997496573d86ba6121774"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\evaluation\\fixtures\\H05\\project\\.agents\\skills\\story-create\\scripts\\check_project_binding.py",
+      "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+    }
+  ]
+}

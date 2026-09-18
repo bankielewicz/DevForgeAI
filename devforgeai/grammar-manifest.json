@@ -1,0 +1,54 @@
+{
+  "grammars": [
+    {
+      "package": "tree-sitter-0.26.11",
+      "license_path": "licenses/tree-sitter-0.26.11-LICENSE",
+      "sha256": "c5cfb43042b6b72045f4ba997834d0a7786d2793d91680868b5815b39f14fc78"
+    },
+    {
+      "package": "tree-sitter-javascript-0.25.0",
+      "license_path": "licenses/tree-sitter-javascript-0.25.0-LICENSE",
+      "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1"
+    },
+    {
+      "package": "tree-sitter-python-0.25.0",
+      "license_path": "licenses/tree-sitter-python-0.25.0-LICENSE",
+      "sha256": "d724405ce238a22c0d35769c5a36b386ad5958192efe8bbb304fb2896254575f"
+    },
+    {
+      "package": "tree-sitter-rust-0.24.2",
+      "license_path": "licenses/tree-sitter-rust-0.24.2-LICENSE",
+      "sha256": "31d5b6f4243d5c7c6e1c4ebbbb9f6407bd1457a08bcc4f706521710341acba36"
+    },
+    {
+      "package": "tree-sitter-typescript-0.23.2",
+      "license_path": "licenses/tree-sitter-typescript-0.23.2-LICENSE",
+      "sha256": "49bf33cf78ef5897e4e161ce1517df7de1ae5042a65b6bcfd44401e0fc606559"
+    }
+  ],
+  "queries": [
+    {
+      "path": "queries/javascript.scm",
+      "version": "1",
+      "sha256": "f2d7c391b09bf0516e490c4614c0a007f323d147744790a09589f63ccb95eb45"
+    },
+    {
+      "path": "queries/python.scm",
+      "version": "1",
+      "sha256": "d31d96db77ccfec40a4fcc59edd4b80a0880f45e766368de72983abf43d9ea08"
+    },
+    {
+      "path": "queries/rust.scm",
+      "version": "1",
+      "sha256": "7615ec3825b48e7e3040261ca3f4f46d04fd4196b5a83d4d315a079953f49e3e"
+    },
+    {
+      "path": "queries/typescript.scm",
+      "version": "1",
+      "sha256": "fa209f12818d219207e37ea3029864daaefde5019156be1657ced40744ee5c0d"
+    }
+  ],
+  "typescript_license_source": "https://raw.githubusercontent.com/tree-sitter/tree-sitter-typescript/v0.23.2/LICENSE",
+  "lockfile": "Cargo.lock",
+  "lockfile_sha256": "f8557a6d5fa164f171177f217ddf527d49de01791829f58b2effafe5eebe206e"
+}

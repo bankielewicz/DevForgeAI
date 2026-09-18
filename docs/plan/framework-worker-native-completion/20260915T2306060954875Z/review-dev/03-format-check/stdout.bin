@@ -1,0 +1,77 @@
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:391:
+         }
+         let inventory: crate::profile_sources::Inventory = serde_json::from_slice(&inventory_bytes)
+             .map_err(|_| "profile_unqualified".to_owned())?;
+-        if inventory.fixture_cwd() != self.checkout_root
+-            || verify_inventory(&inventory).is_err()
+-        {
++        if inventory.fixture_cwd() != self.checkout_root || verify_inventory(&inventory).is_err() {
+             return Err("profile_unqualified".into());
+         }
+ 
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:465:
+ fn forbidden_source_name(name: &str) -> bool {
+     matches!(
+         name,
+-        "auth.json"
+-            | "credentials.json"
+-            | "credentials"
+-            | "tokens.json"
+-            | "id_rsa"
+-            | "id_ed25519"
++        "auth.json" | "credentials.json" | "credentials" | "tokens.json" | "id_rsa" | "id_ed25519"
+     )
+ }
+ 
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\support\review_v2_cases.rs:166:
+         let original = case.review[field].clone();
+         case.review[field] = bad;
+         case.bind();
+-        assert_eq!(case.verify(false).unwrap_err(), "profile_unqualified", "{field}");
++        assert_eq!(
++            case.verify(false).unwrap_err(),
++            "profile_unqualified",
++            "{field}"
++        );
+         case.review[field] = original;
+     }
+     for field in [
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\support\review_v2_cases.rs:178:
+         let mut value = case.review.clone();
+         value.as_object_mut().unwrap().remove(field);
+         case.bind_bytes(serde_json::to_vec(&value).unwrap());
+-        assert_eq!(case.verify(false).unwrap_err(), "profile_unqualified", "{field}");
++        assert_eq!(
++            case.verify(false).unwrap_err(),
++            "profile_unqualified",
++            "{field}"
++        );
+     }
+     let mut extra = case.review.clone();
+     extra["unexpected"] = json!(true);
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\support\review_v2_cases.rs:166:
+         let original = case.review[field].clone();
+         case.review[field] = bad;
+         case.bind();
+-        assert_eq!(case.verify(false).unwrap_err(), "profile_unqualified", "{field}");
++        assert_eq!(
++            case.verify(false).unwrap_err(),
++            "profile_unqualified",
++            "{field}"
++        );
+         case.review[field] = original;
+     }
+     for field in [
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\tests\support\review_v2_cases.rs:178:
+         let mut value = case.review.clone();
+         value.as_object_mut().unwrap().remove(field);
+         case.bind_bytes(serde_json::to_vec(&value).unwrap());
+-        assert_eq!(case.verify(false).unwrap_err(), "profile_unqualified", "{field}");
++        assert_eq!(
++            case.verify(false).unwrap_err(),
++            "profile_unqualified",
++            "{field}"
++        );
+     }
+     let mut extra = case.review.clone();
+     extra["unexpected"] = json!(true);

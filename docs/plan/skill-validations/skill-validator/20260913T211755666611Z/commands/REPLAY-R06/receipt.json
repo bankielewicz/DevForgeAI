@@ -1,0 +1,109 @@
+{
+  "case_id": "REPLAY-R06",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\R06"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:20:26.700877Z",
+  "end": "2026-09-13T21:20:27.247499Z",
+  "elapsed_seconds": 0.5470000000204891,
+  "exit": 1,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/REPLAY-R06/stdout.txt",
+    "sha256": "9e10204cede1aabfa52872d3fd5e475710890ae537cbe184cea34838429e4ff1"
+  },
+  "stderr": {
+    "path": "commands/REPLAY-R06/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\R06",
+    "captured_at_utc": "2026-09-13T21:20:27.247499Z",
+    "files": [
+      {
+        "path": "inputs/authorization.txt",
+        "bytes": 71,
+        "sha256": "df4496079c986502c8c95de2d9718f6a885a0e2d40aa369c16e7c4b7dbfa13b9"
+      },
+      {
+        "path": "inputs/consumer-manifest.json",
+        "bytes": 142,
+        "sha256": "e0dabc94081ce1c20390661238262a433d097092fbb174b4cfe24301a6a78b29"
+      },
+      {
+        "path": "inputs/consumer/SKILL.md",
+        "bytes": 110,
+        "sha256": "043a976cae29a6f49aae024415b1bf60543ee79e09e89adc214b74fb75de1a68"
+      },
+      {
+        "path": "inputs/producer-manifest.json",
+        "bytes": 142,
+        "sha256": "8bec2f8259d69217a4b5fadc3502b9b1bec1b82391fbb32a5cb540963561e078"
+      },
+      {
+        "path": "inputs/producer/SKILL.md",
+        "bytes": 110,
+        "sha256": "3ac842144d4370bb263f9464e07e599bdc8bed3f536e89ae19342fba42952d71"
+      },
+      {
+        "path": "inputs/standalone.json",
+        "bytes": 2531,
+        "sha256": "d87f148bc62d18687eaeda1b2c0826b9929cdbfe5dd16fc02ddb148f9d7d7dff"
+      },
+      {
+        "path": "inputs/task-card.schema.json",
+        "bytes": 532,
+        "sha256": "1f89fbebd058d684c850ca8602ac8ed3a050dccced93f82344ed669ec1098349"
+      },
+      {
+        "path": "integration/checks.jsonl",
+        "bytes": 330,
+        "sha256": "ef96ba035bc91ebc47b7a7a9632897b03bf30b0f3e510667d46e949a9b8271c2"
+      },
+      {
+        "path": "member-evidence/A/checks.jsonl",
+        "bytes": 9338,
+        "sha256": "cb5d60797a3de5024500acd81341671b792c3d15b6c8c6c9637aa46f6de88d7a"
+      },
+      {
+        "path": "member-evidence/A/report.md",
+        "bytes": 86,
+        "sha256": "eb83c4cde7ca63471101e2c48cddffe8c1ad82b8eb0c888ec3fa1ef3b61eef15"
+      },
+      {
+        "path": "member-evidence/B/checks.jsonl",
+        "bytes": 9193,
+        "sha256": "37fdb8dcf84f3a866c9dc4c81d340801a6758fe8ebb4f59a8e4a4d4a37dba9aa"
+      },
+      {
+        "path": "member-evidence/B/report.md",
+        "bytes": 86,
+        "sha256": "eb83c4cde7ca63471101e2c48cddffe8c1ad82b8eb0c888ec3fa1ef3b61eef15"
+      },
+      {
+        "path": "set-assessment.json",
+        "bytes": 2644,
+        "sha256": "a64481f10913d4e840fe0ba5f6a8aa28975f4c5c422fd57a23c7539af6e7ec1b"
+      },
+      {
+        "path": "trials/fixture/findings.json",
+        "bytes": 25,
+        "sha256": "970505fcb2efedef013bf5b4cebf1ebcb2ab1ef2e669b8cb1abdc55b80155ec5"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "f5dad9b4a0b9a232999469b309f5e1d17c49ad16a9bfa9c59b01258c08887137"
+  },
+  "fixture_unchanged": true
+}

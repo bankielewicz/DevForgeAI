@@ -1,0 +1,10 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.57s
+     Running tests\service.rs (target\debug\deps\service-4b6e15b47fd9de4f.exe)
+
+thread 'unavailable_root_has_a_bounded_retry_and_visible_diagnostic' (53996) panicked at tests\service.rs:31:5:
+assertion `left == right` failed
+  left: String("idle")
+ right: "failed"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `--test service`

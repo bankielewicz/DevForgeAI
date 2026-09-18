@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "cargo",
+    "build",
+    "--locked",
+    "--offline",
+    "--bins"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\harness",
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+    "bytes": 8619,
+    "sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540"
+  },
+  "shell": false,
+  "network_mode": "cargo_offline"
+}

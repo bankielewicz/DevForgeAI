@@ -1,0 +1,14 @@
+test_bound_reference (test_graders.GraderTests) ... ok
+test_complete_reduction_and_precedence (test_graders.GraderTests) ... ok
+test_exact_floors (test_graders.GraderTests) ... ok
+test_invalid_inventory_and_attempts (test_graders.GraderTests) ... ok
+test_invalid_metrics (test_graders.GraderTests) ... ok
+test_reduction_rejects_count_inflation (test_graders.GraderTests) ... ok
+test_reference_escape (test_graders.GraderTests) ... ok
+test_unit_retry_category_and_skip (test_graders.GraderTests) ... ok
+test_unresolved_metrics (test_graders.GraderTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.006s
+
+OK

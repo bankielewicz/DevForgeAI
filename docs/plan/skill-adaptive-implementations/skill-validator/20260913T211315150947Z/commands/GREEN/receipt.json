@@ -1,0 +1,34 @@
+{
+  "case_id": "GREEN",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "src/agents/skills/skill-validator/tests",
+    "-p",
+    "test_confirmed_findings.py",
+    "-v"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:17:30.239396Z",
+  "end": "2026-09-13T21:17:33.955874Z",
+  "elapsed_seconds": 3.702999999979511,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/GREEN/stdout.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "commands/GREEN/stderr.txt",
+    "sha256": "3a311c776386f0a7ffc353e46d1de83a86d183f171170fceb0bfa78de67dfdac"
+  },
+  "fixture_after": null,
+  "fixture_unchanged": null
+}

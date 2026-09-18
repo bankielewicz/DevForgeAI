@@ -1,0 +1,64 @@
+{
+  "platform": "Windows x64",
+  "overall_platforms": [
+    "Windows x64"
+  ],
+  "required_cases": 178,
+  "passed": 178,
+  "pass_percent": "100",
+  "unit_required": 49,
+  "unit_passed": 49,
+  "unit_percent": "100",
+  "package_integration": {
+    "passed": 113,
+    "required": 113
+  },
+  "supplemental": {
+    "passed": 1,
+    "required": 1
+  },
+  "independent_original": {
+    "passed": 13,
+    "required": 13
+  },
+  "independent_cli": {
+    "passed": 2,
+    "required": 2,
+    "subcases": 145,
+    "observations": 435
+  },
+  "line_covered": 3872,
+  "line_count": 4057,
+  "line_percent": "95.43998028099580971160956372",
+  "thresholds": {
+    "line": 95,
+    "unit": 95,
+    "project_suite": 95
+  },
+  "all_numeric_floors": "PASS",
+  "coverage_collection": "Complete162-case package campaign only; no supplemental/independent coverage credit",
+  "coverage_sha256": "5765b6fc92f554c63c7015060c9a90dc24da00f07f58507f407f804d6b647ae3",
+  "branch_coverage": "NOT_RUN",
+  "metric_stop": null,
+  "retained_harness_error": "QA-H01,18-rt01",
+  "product_failures": [],
+  "unexecuted_required_cases": [],
+  "verdict": "PASS",
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "coverage_development_comparison": [
+    {
+      "file": "protocol.rs",
+      "development": {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\src\\protocol.rs",
+        "covered": 678,
+        "count": 716
+      },
+      "independent": {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\src\\protocol.rs",
+        "covered": 679,
+        "count": 716
+      }
+    }
+  ]
+}

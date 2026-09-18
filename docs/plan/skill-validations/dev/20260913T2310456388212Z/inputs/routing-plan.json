@@ -1,0 +1,14 @@
+{
+  "method": "Independent description-only classification; not native implicit activation",
+  "expected": {"R1": true, "R2": false, "R3": true, "R4": false, "R5": false, "R6": true, "R7": false, "R8": false},
+  "prompts": {
+    "R1": "Implement the software described in the selected api-spec.md in this project and complete its tests.",
+    "R2": "Draft a specification for a new monitoring application; do not implement it.",
+    "R3": "Finish the two explicitly selected component specifications and verify their integration.",
+    "R4": "Review this pull request for correctness; make no changes.",
+    "R5": "Install this development skill into my operational skills directory.",
+    "R6": "Resume the implementation selected by checkpoint.md, following the selected feature specification through QA.",
+    "R7": "Create a reusable skill that writes changelogs.",
+    "R8": "Research architecture alternatives and recommend a storage strategy; no implementation."
+  }
+}

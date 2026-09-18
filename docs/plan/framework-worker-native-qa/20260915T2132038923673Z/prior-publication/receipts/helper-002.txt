@@ -1,0 +1,19 @@
+command=cargo test --locked --offline --lib -- --test-threads=1
+cwd=C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\work\experiments\codex-worker-probe
+exit_code=0
+wall_time_seconds=4.9160752
+capture=combined terminal output retained from executed attempt
+relationship_to_attempt_001=QA-only oracle corrected to compare product-returned and expected paths after resolving Windows extended-path spelling; no product source or expected behavior changed
+
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\work\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.85s
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\target-independent\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
+
+running 5 tests
+test native_identity::tests::qa_actual_record_admits_only_the_selected_physical_identity ... ok
+test native_identity::tests::qa_exact_synthetic_mapping_and_same_bytes_elsewhere_are_distinguished ... ok
+test native_identity::tests::qa_mapping_target_order_and_reparse_kind_substitutions_fail ... ok
+test native_identity::tests::qa_second_verification_detects_independent_byte_and_mapping_drift ... ok
+test native_identity::tests::qa_third_reparse_component_is_not_hidden_by_two_approved_substitutions ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.93s

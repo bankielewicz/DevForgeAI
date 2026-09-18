@@ -1,0 +1,14 @@
+{
+  "artifact_index": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\artifact-index.json",
+    "bytes": 3304272,
+    "sha256": "1777a3b174085f2ec806851b09527fb694bb49c8eda7364c4e6158c527624c0c"
+  },
+  "verified_artifacts": 11045,
+  "candidate_files_verified": 67,
+  "prior_indexes_verified": 2,
+  "required_candidate_path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "observed_candidate_path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "required_evidence_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev",
+  "observed_evidence_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev"
+}

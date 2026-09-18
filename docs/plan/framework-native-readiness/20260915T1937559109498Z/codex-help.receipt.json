@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "--help"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-15T19:39:05.944089+00:00",
+  "seconds": 0.043451600009575486,
+  "exit": 0,
+  "executable_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "stdout_sha256": "4abfbbaee583f6d8c3fa45fd751a138b2b8fdac68f651ac444aa36599629acb7",
+  "stderr_sha256": "276b8daa6a12bb784d828e6cb8410f951f20ed073f73e51e87faa22ae65f635a"
+}

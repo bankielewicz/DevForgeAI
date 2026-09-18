@@ -1,0 +1,14 @@
+(function_declaration) @declaration.function
+(generator_function_declaration) @declaration.function
+(function_signature) @declaration.function
+(method_definition) @declaration.method
+(method_signature) @declaration.method
+(class_declaration) @declaration.class
+(interface_declaration) @declaration.interface
+(type_alias_declaration) @declaration.type
+(internal_module) @declaration.module
+(arrow_function) @declaration.anonymous
+(function_expression) @declaration.anonymous
+(import_statement) @import
+(call_expression) @call
+(comment) @comment

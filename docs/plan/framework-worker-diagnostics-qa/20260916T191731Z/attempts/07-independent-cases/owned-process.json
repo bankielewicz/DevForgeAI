@@ -1,0 +1,13 @@
+{
+  "pid": 21860,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--lib",
+    "qa_",
+    "--",
+    "--test-threads=1"
+  ]
+}

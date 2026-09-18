@@ -1,0 +1,522 @@
+[
+  {
+    "requirement": "QA-001",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 3,
+      "line_end": 6
+    },
+    "reason": "Explicit selected product QA scope, positive modes and excluded repair/skill-validation/install/deploy/research routing; discovery does not expand story selection.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-002",
+    "static_result": "PASS",
+    "subject_path": "SKILL.md",
+    "locator": {
+      "line_start": 1,
+      "line_end": 4
+    },
+    "reason": "Defaults to plan, bars tests/builds/executable harnesses during planning, honors host Plan mode, and requires selected plan/candidate/effects for execute or retest.",
+    "evidence": [
+      {
+        "path": "source/SKILL.md",
+        "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-003",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 11,
+      "line_end": 14
+    },
+    "reason": "Mandatory project/specification/scope/rules and optional handoff/baseline/results/checkpoint inputs are separated; missing candidate is a planning prerequisite, not fabricated readiness.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-004",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 15,
+      "line_end": 18
+    },
+    "reason": "Literal output precedence and full components bound before writes; tools, layout and platform discovered; no intrinsic Git/MCP/framework or checkout relocation requirement.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-005",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 23,
+      "line_end": 26
+    },
+    "reason": "Dirty/untracked Git or no-Git manifest, source/artifact correspondence, supplied evidence provenance and command effect inspection are explicit.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-006",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 29,
+      "line_end": 32
+    },
+    "reason": "Every selected clause inventoried; duplicate IDs source-qualified; dependency context does not select dependency deliverables.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-007",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 33,
+      "line_end": 36
+    },
+    "reason": "Conflicting or missing oracles, SLOs and prerequisites are owned decisions; no speculative requirements or root causes.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-008",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 41,
+      "line_end": 44
+    },
+    "reason": "Cases carry criterion, fixture, environment, procedure, independent expected result, actual field, cleanup and evidence; metrics do not substitute for acceptance traceability.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-009",
+    "static_result": "PASS",
+    "subject_path": "references/intake-planning.md",
+    "locator": {
+      "line_start": 45,
+      "line_end": 48
+    },
+    "reason": "Inspect assertion claims and plan justified negative controls in disposable copies without rewriting product or requiring exhaustive mutation testing.",
+    "evidence": [
+      {
+        "path": "source/references/intake-planning.md",
+        "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-010",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 5,
+      "line_end": 8
+    },
+    "reason": "Mock decorators including aliases/wrappers/analogous attributes fail; syntax/import inspection required; vendor/text controls excluded; unknown dynamic code remains incomplete.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-011",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 11,
+      "line_end": 14
+    },
+    "reason": "Vacuous assertions, swallowed failures, fake boundaries, denominator manipulation, unjustified exclusions and altered expectations require evidence-backed failure; ordinary setup is distinguished.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-012",
+    "static_result": "PASS",
+    "subject_path": "assets/test-plan-template.md",
+    "locator": {
+      "line_start": 1,
+      "line_end": 4
+    },
+    "reason": "Template has identities, criterion/case maps, risk, tools, effect boundaries, oracles, metrics, cleanup, entry/exit rules and handoff; ready steps cannot have unresolved slots.",
+    "evidence": [
+      {
+        "path": "source/assets/test-plan-template.md",
+        "sha256": "7115eaf01073bcd2489858140adb380f0b6f8daeef12962d1fae34fd6f0410a1"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-013",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 25,
+      "line_end": 28
+    },
+    "reason": "Reread selected plan/candidate; stop affected checks on drift; only authorized independent QA tests/fixtures and disposable instrumentation may be written.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-014",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 29,
+      "line_end": 32
+    },
+    "reason": "Real build/function/contract/integration behavior selected from actual specifications; help or compilation is not complete behavior.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-015",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 31,
+      "line_end": 34
+    },
+    "reason": "Relevant unit/regression/consumer/platform cases required and platform evidence kept distinct.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-016",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 33,
+      "line_end": 36
+    },
+    "reason": "Specification-driven recovery/security/performance/usability; actual rendered UI evidence distinct from CLI; missing budgets not invented.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-017",
+    "static_result": "PASS",
+    "subject_path": "references/execution-integrity.md",
+    "locator": {
+      "line_start": 37,
+      "line_end": 40
+    },
+    "reason": "Receipts identify case/attempt, command/cwd/platform, fixtures/timing/exit/raw evidence/cleanup; statuses and retries preserved, no skipped credit.",
+    "evidence": [
+      {
+        "path": "source/references/execution-integrity.md",
+        "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-018",
+    "static_result": "PASS",
+    "subject_path": "references/assessment.md",
+    "locator": {
+      "line_start": 3,
+      "line_end": 6
+    },
+    "reason": "Independent >=95% executed-line and required-unit floors, stricter policy, predeclared first-party/unit denominators, integer exact comparison, no rounding or retry/category inflation.",
+    "evidence": [
+      {
+        "path": "source/references/assessment.md",
+        "sha256": "38a3aaa0483538000b553ea35bbb8749362bccd2fe7e28401cb49ffb1d73c080"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-019",
+    "static_result": "PASS",
+    "subject_path": "references/assessment.md",
+    "locator": {
+      "line_start": 11,
+      "line_end": 14
+    },
+    "reason": "Confirmed failure dominates missing evidence; PASS needs all mandatory obligations and both metrics; no phase/release authority claim.",
+    "evidence": [
+      {
+        "path": "source/references/assessment.md",
+        "sha256": "38a3aaa0483538000b553ea35bbb8749362bccd2fe7e28401cb49ffb1d73c080"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-020",
+    "static_result": "PASS",
+    "subject_path": "references/reporting-handoff.md",
+    "locator": {
+      "line_start": 3,
+      "line_end": 6
+    },
+    "reason": "Required report template bound to actual plan/candidate/specification and read back at literal selected destination.",
+    "evidence": [
+      {
+        "path": "source/references/reporting-handoff.md",
+        "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-021",
+    "static_result": "PASS",
+    "subject_path": "assets/qa-fix-template.md",
+    "locator": {
+      "line_start": 1,
+      "line_end": 4
+    },
+    "reason": "Distinct complete fix packet captures exact clause, reproduction, expected/actual evidence, scope, correction, preservation and retest oracle; dev owns remediation.",
+    "evidence": [
+      {
+        "path": "source/assets/qa-fix-template.md",
+        "sha256": "d1670e38979fb8ab29d80afce6c58496e84599167e4001f1e649e887481d8199"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-022",
+    "static_result": "PASS",
+    "subject_path": "references/reporting-handoff.md",
+    "locator": {
+      "line_start": 11,
+      "line_end": 14
+    },
+    "reason": "OPEN/FIX_REPORTED/VERIFIED_FIXED/REOPENED states; only independently selected QA retest closes findings; preserve original evidence.",
+    "evidence": [
+      {
+        "path": "source/references/reporting-handoff.md",
+        "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-023",
+    "static_result": "PASS",
+    "subject_path": "references/reporting-handoff.md",
+    "locator": {
+      "line_start": 15,
+      "line_end": 18
+    },
+    "reason": "All outcomes end in actual paths, project/environment, next owner/action and usable prompt where appropriate.",
+    "evidence": [
+      {
+        "path": "source/references/reporting-handoff.md",
+        "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-024",
+    "static_result": "PASS",
+    "subject_path": "references/reporting-handoff.md",
+    "locator": {
+      "line_start": 25,
+      "line_end": 28
+    },
+    "reason": "Eight-field resolved dev prompt, actual host discovery, no guessed namespaces/install/auto-send, pending prerequisite when unavailable, conversation not shell syntax.",
+    "evidence": [
+      {
+        "path": "source/references/reporting-handoff.md",
+        "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-025",
+    "static_result": "PASS",
+    "subject_path": "references/reporting-handoff.md",
+    "locator": {
+      "line_start": 42,
+      "line_end": 45
+    },
+    "reason": "All nine resources have consumers; checkpoints own only recorded processes/state; final external manifest avoids circular report/fix hashes while preserving literal paths.",
+    "evidence": [
+      {
+        "path": "source/references/reporting-handoff.md",
+        "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  },
+  {
+    "requirement": "QA-026",
+    "static_result": "PASS",
+    "subject_path": "SKILL.md",
+    "locator": {
+      "line_start": 1,
+      "line_end": 4
+    },
+    "reason": "Entrypoint preserves separate package validation ownership; authoring notes and bound manual packet assign evaluation to validator. Bundle execution is assessed separately in QV-21.",
+    "evidence": [
+      {
+        "path": "source/SKILL.md",
+        "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86"
+      },
+      {
+        "path": "inputs/qa-skill-spec.md",
+        "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+      }
+    ]
+  }
+]

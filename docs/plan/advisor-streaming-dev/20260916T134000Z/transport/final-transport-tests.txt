@@ -1,0 +1,26 @@
+test_concurrently_drains_and_retains_exact_raw_bytes (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_keyboard_interrupt_from_progress_triggers_cleanup (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_nonzero_child_is_transport_complete_but_not_process_success (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_progress_discloses_only_allowlisted_metadata (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_timeout_covers_process_exit_and_bounded_cleanup (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_accepts_utf8_bom_only_at_stream_start (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) ... ok
+test_rejects_invalid_stream_framing (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) ... ok
+test_returns_the_single_last_result_envelope (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) ... ok
+test_continuously_filled_queue_does_not_extend_cleanup_ceiling (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.TransportFaultTests) ... ok
+test_pipe_read_error_is_reported_before_eof (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.TransportFaultTests) ... ERROR
+test_wait_error_is_retained_and_bounded (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.TransportFaultTests) ... ok
+
+======================================================================
+ERROR: test_pipe_read_error_is_reported_before_eof (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.TransportFaultTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\advisor-streaming-dev\20260916T134000Z\transport\test_transport.py", line 157, in test_pipe_read_error_is_reported_before_eof
+    advisor_stream._read_pipe("stdout", BrokenPipe(), events)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916T134000Z-streaming\candidate\scripts\advisor_stream.py", line 150, in _read_pipe
+    reader = getattr(pipe, "read1", pipe.read)
+AttributeError: 'BrokenPipe' object has no attribute 'read'
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.644s
+
+FAILED (errors=1)

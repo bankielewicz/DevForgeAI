@@ -1,0 +1,20 @@
+{
+  "command": "python -B -X utf8 .agents/skills/skill-builder/scripts/authoring.py publish --run-root C:/Projects/DevForgeAI/docs/plan/skill-authorings/dev/20260913T2114525120037Z",
+  "working_directory": "C:/Projects/DevForgeAI",
+  "shell": "7.6.6",
+  "platform": "Microsoft Windows NT 10.0.26200.0",
+  "python": "C:/Program Files/Python310/python.exe",
+  "python_version": "3.10.11",
+  "started_at": "2026-09-13T21:21:17.3537264Z",
+  "ended_at": "2026-09-13T21:21:18.1934981Z",
+  "exit_code": 0,
+  "stdout": {
+    "path": "C:/Projects/DevForgeAI/docs/plan/skill-authorings/dev/20260913T2114525120037Z/publish.stdout.txt",
+    "sha256": "b45e0d82074a945dae66b5e2001e71b3a2cce3332d7f296921bb2b2e6d200086"
+  },
+  "stderr": {
+    "path": "C:/Projects/DevForgeAI/docs/plan/skill-authorings/dev/20260913T2114525120037Z/publish.stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "interpretation": "Authoring custody publication and byte readback only; no skill-quality evaluation or tests."
+}

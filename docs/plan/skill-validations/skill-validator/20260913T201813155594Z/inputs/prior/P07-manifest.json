@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P07",
+  "captured_at_utc": "2026-09-13T20:19:58.218750Z",
+  "files": [
+    {
+      "path": "sample/SKILL.md",
+      "bytes": 108,
+      "sha256": "ea38f4b95ebf2c39fc7090544dcc6d94eb2ce678472aded88ecddccc01890a3a"
+    },
+    {
+      "path": "sample/example.md",
+      "bytes": 56,
+      "sha256": "7f33255d278b64f99a7ed9da03a0d7837269c22df925e2e28fbc77c73bc40b7d"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "c87beb0fa1ecab0f3fbfd8b96e3ba0c29eca2a53e24a9ce88f790e0714a1c6ec"
+}

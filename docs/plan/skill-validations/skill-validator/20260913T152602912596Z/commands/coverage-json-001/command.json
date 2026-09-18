@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "coverage",
+    "json",
+    "--rcfile",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\coverage\\coverage.ini",
+    "-o",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\coverage\\coverage.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-13T15:53:48.448045Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\coverage-json-001",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\coverage-json-001",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\coverage-json-001",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 63148,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T15:53:48.970657Z",
+  "elapsed_seconds": 0.5310000000754371
+}

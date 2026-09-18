@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["INVALID_BINDING"], "ordered_member_ids": []}

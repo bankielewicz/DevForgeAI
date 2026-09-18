@@ -1,0 +1,31 @@
+{
+  "root": "regression-release\\commands\\v2-binding-core-variant",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 2186,
+      "sha256": "3385e5516fbbc5ee2d5d5538f8eefca33c14f6db354dc32876f18d7af574ae43"
+    },
+    {
+      "path": "effects.json",
+      "bytes": 1333,
+      "sha256": "691bc88bf30da365bbec48b517ae585c60081d1c4f2ad8276d7804893eab1fa2"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "69b1769fa072e0ff073412278eccc242fbc5654d867e4242522ee753b9111977"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 288,
+      "sha256": "92ddd24657b82434cc6ff29f803678bb1b248c9df896612473ac357b09fb81ff"
+    }
+  ]
+}

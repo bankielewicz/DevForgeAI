@@ -1,0 +1,110 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "20260916-api-retry-progress-02",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "operation": "edit",
+  "authorization": "User selected src/ tree only in response to apply-and-test scope question.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\contract.json",
+    "sha256": "338e7d9b9f907dffb8ada7b27d821aaf2255dd5719c19da9ee86b5ddaa72c15c"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-intake\\task-capture.md",
+      "sha256": "8dd22c94c8f806cd9424a5101ebb1cffea5c2b035d6445b4830696cb44d333c0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-intake\\workflow-design.json",
+      "sha256": "39ace305ece45197183656addd12c659a975021dbbbe7a9e34aa5a03f8db3759"
+    }
+  ],
+  "prior_origin": {
+    "kind": "authored",
+    "reference": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress\\authoring-baseline.json",
+      "sha256": "788035712b2ebeb4aaf939c13c71351ee38fc6b77cb4c11e1907684efa8122ea"
+    }
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "artifact-manifest.json",
+    "evals/case.schema.json",
+    "evals/cases.jsonl",
+    "evals/run_evaluation.py",
+    "references/evaluation.md",
+    "references/execution.md",
+    "scripts/advisor.ps1",
+    "scripts/advisor_run.py",
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py"
+  ],
+  "retained_user_paths": [
+    "agents/openai.yaml",
+    "assets/briefing-template.md",
+    "assets/request.schema.json",
+    "references/briefing-rules.md",
+    "references/response-format.md",
+    "tests/test_advisor.py",
+    "tests/test_auth.py",
+    "tests/test_extended.py"
+  ],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\before-manifest.json",
+    "sha256": "15ec77e93d8904a63c18d52cc26f9acdb8d4f1c725a034713386ba18e31e168f"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\candidate-manifest.json",
+    "sha256": "43eaed271b34a16dcfbde1efc7fa0af03697a8611fdbaa805f5b3203f3ca9706"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\delivered-manifest.json",
+    "sha256": "43eaed271b34a16dcfbde1efc7fa0af03697a8611fdbaa805f5b3203f3ca9706"
+  },
+  "applied_paths": [
+    "artifact-manifest.json",
+    "tests/test_streaming.py"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "Independent skill validation and live native retry qualification are not part of this focused maintenance fix."
+  ],
+  "rows": [
+    {
+      "path": "artifact-manifest.json",
+      "b_sha256": "470e5c135ec06cec155e77515d87e42cf264c88840eb7acd7f0b197cb21eb176",
+      "c_sha256": "470e5c135ec06cec155e77515d87e42cf264c88840eb7acd7f0b197cb21eb176",
+      "n_sha256": "24ab41c3de8056964b83648127c069b92b07006254b9c0ace4a439790202547e",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/execution.md",
+      "b_sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444",
+      "c_sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444",
+      "n_sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor_stream.py",
+      "b_sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9",
+      "c_sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9",
+      "n_sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_streaming.py",
+      "b_sha256": "47fbbd404ea5fdfc942015504b6d4a00835d621d0440a50042f13048035dc42d",
+      "c_sha256": "47fbbd404ea5fdfc942015504b6d4a00835d621d0440a50042f13048035dc42d",
+      "n_sha256": "93cd768391a09fbc766c304fe4c0917ef0bff15f7f6e9b56cabb2eaf76550419",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\baseline-manifest.json",
+    "sha256": "36b87a1aa8c7a813d826b829a0e730b382da62080cce6306607fc4e238ee7df6"
+  }
+}

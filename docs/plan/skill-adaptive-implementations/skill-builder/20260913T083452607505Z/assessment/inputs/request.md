@@ -1,0 +1,13 @@
+# Current request capture
+
+The user selected the installed `$skill-creator` at `C:\Users\bryan\.codex\skills\.system\skill-creator\SKILL.md` to implement BA-001 through BA-014 and all behavior of `docs/plan/skill-builder-adaptive-enhancement-spec.md` (SHA-256 `8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59`). Companion interface/assessment input is `docs/plan/skill-validator-adaptive-enhancement-spec.md` (SHA-256 `f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42`).
+
+Authorized: development edits only in `C:\Projects\DevForgeAI\src\agents\skills\skill-builder`, fresh UTC evidence under this implementation run, bounded synthetic testing, existing skill-validator assessment, independent terminal tests and applicable bounded cold Codex tasks. This file captures the operative request and constraints; the conversation retains the verbatim instruction.
+
+Preserve baseline/current/candidate custody, existing create/edit/import/adopt/spec modes, manual validation-request-v1 handoff, old evidence and failed attempts. Read applicable instructions and complete specifications; verify hashes before mutation. Capture bounded bytes/manifests and environment; enumerate before recursion, exclude secrets/bindings/backups/build trees and refuse links. Do not capture any actual project identity.
+
+Implement proposals, sequential selected sets, explicit update review, exact closed schemas and read-only inspect/plan-set, domain-grounded roles, core variants with complete lineage, portable descriptors/contracts and generic binding template. No normal authoring quality execution. No generic workflow dispatcher, fake CLI/gate/acceptance, installation or automatic repair loop.
+
+Use existing validator and inspect its entrypoint; supplement unsupported new checks with retained independent BAT-01 through BAT-17 oracles/harness. Inspect scripts before running. Run actual installed quick_validate.py, meaningful Python -B -X utf8 tests and discover real regressions. CLI attempts use existing supported auth/model, sandbox/trust controls and 120 seconds; preserve failures/retries. Unavailable coverage is NOT_RUN; actual enhanced-validator integration is separate from shared fixture tests.
+
+Recheck delivered bytes, specs, links, identity separation and preservation boundaries. Return changed paths, exact digest, log, assessment, requirement/case coverage, commands/results and unresolved/native/integration gaps. Do not modify companion, operational/personal skills, either specification, old evidence, hooks, CI, plugins or Rust; do not install or publish anything or start another enhancement.

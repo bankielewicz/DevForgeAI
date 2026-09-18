@@ -1,0 +1,90 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "qa-claude-conversion-001",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\qa",
+  "target_name": "qa",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\delivered-manifest.json",
+    "sha256": "28ab8267fb044d777932c40f7ee3ab9c7366415230bb21a94e761569fc21ce50"
+  },
+  "package_digest": "be9164d392a1932ceb7fb17611c9c3abed1eaf936d04d2653e7c8ba04baf1afe",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\authoring-record.json",
+    "sha256": "e225ba97c7a08b6dbd2bb019203efec1d24f8864b284c5e4f19380b69db9fdf2"
+  },
+  "specification_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\SKILL.md",
+      "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\agents\\openai.yaml",
+      "sha256": "4fe069f60649fbf249916b5719e9f94983754ea69dc2a32a99bd0db2bb4daa21"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\assessment.md",
+      "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\execution-integrity.md",
+      "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\intake-planning.md",
+      "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\reporting-handoff.md",
+      "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\qa-fix-template.md",
+      "sha256": "3bccfdb11786f445d906ee7109af406ee237d436fcd1e787757a4824f538fdaf"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\qa-report-template.md",
+      "sha256": "e7184486a110673f77d37ef5211c41d47cd4d3182bb477bed4510a67f0d90036"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\test-plan-template.md",
+      "sha256": "f000dc4dda27fce0e51614934385b972dbaf27f46a7d2d6d35918358362d88a7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\qa-claude-conversion\\intake\\design.json",
+      "sha256": "c9d7c25c5f23e137b6cc3d5108be664faa91599fe86971eafeb1670668c267ed"
+    }
+  ],
+  "changed_paths": [
+    "SKILL.md",
+    "assets/qa-fix-template.md",
+    "assets/qa-report-template.md",
+    "assets/test-plan-template.md",
+    "references/assessment.md",
+    "references/execution-integrity.md",
+    "references/intake-planning.md",
+    "references/reporting-handoff.md"
+  ],
+  "known_issues": [
+    "No bound Python evaluation artifacts were created for this package: no evals/, tests/ or scripts/ directory exists. AGENTS.md names such artifacts required for a skill build, and the source package's own QA-026 / QAP-014 clause states that qa's evaluated-build completeness requires exactly such a bundle. skill-builder forbids generating evaluation campaigns during authoring and the validator package is documented as owning all quality campaigns. Recorded as design open question Q1 for the maintainer; the conversion did not resolve it.",
+    "Task is omitted from allowed-tools, so QA independence from development completion claims remains a contract obligation of the single session rather than a fresh-context boundary the host enforces. Recorded as design open question Q2.",
+    "The >=95% coverage and unit-test pass-rate floors are preserved as written in references/assessment.md rather than converted into project-policy inputs. Recorded as design open question Q3.",
+    "Only the selected target_root is written. The ADR-073 mirror at .claude/skills/qa is not created by this run, matching the dev conversion whose authoring record shows its .claude/ copy was made outside the run. Recorded as design open question Q4 and reported as a separate pending action.",
+    "Unscoped Bash is granted. The skill's prohibitions on product repair, installation, deployment and persistent startup changes are contract obligations that the allowlist does not enforce; the SKILL.md body states this rather than implying enforcement.",
+    "Validation and testing are NOT_PERFORMED for the converted bytes.",
+    "The two prior runs under docs/plan/skill-authorings/qa/ (20260914T1748018341005Z and 20260914T193851Z) were inspected before staging: both bind target_root C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa with operation edit, which is the Codex source package and a different target_root from this Claude target. They are authoring history for the source, not for this destination, and no run under this target_root exists, so history_review is no_known_history. Those runs remain in place as append-only evidence."
+  ],
+  "capabilities": [
+    "Claude Code file tools (Read, Write, Edit, Glob, Grep) for inspecting the candidate and writing QA plans, reports, fix packets and evidence records",
+    "Unscoped Bash, because the authored skill derives build, test, coverage and static-analysis commands from runtime project inputs and no command-name pattern can be fixed in advance",
+    "AskUserQuestion for bounded decisions with known options"
+  ],
+  "expected_outputs": [
+    "Converted Claude Code skill package at the target root, comprising SKILL.md, four references and three asset templates"
+  ],
+  "side_effects": [
+    "The authored skill, when later run by a user, creates isolated QA-owned fixtures and harnesses, runs local builds, tests and instrumentation, and writes plan, report, fix-packet, checkpoint and manifest files inside the selected evidence destination"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

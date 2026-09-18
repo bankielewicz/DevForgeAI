@@ -1,0 +1,38 @@
+{
+  "builder_manifest_sha256": "fcef77def723a1fc2f2fc5e49285830eb9f79cc6cf832beb7861a17522c965cc",
+  "cases_sha256": "63d47ae0eb15db93f020d8d095ee373f999a604aee0ae57d36caae7955942a43",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "--candidate-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\routing-adoption-negative\\candidate",
+    "--cases",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\routing-adoption-negative\\cases.jsonl",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\routing-adoption-negative\\evaluation.jsonl",
+    "--run-id",
+    "routing-adoption-negative",
+    "--profile",
+    "routing-adoption-v1"
+  ],
+  "exit_code": 0,
+  "name": "routing-adoption-negative",
+  "profile": "routing-adoption-v1",
+  "results": [
+    {
+      "error": null,
+      "expectation_met": true,
+      "expected": "FAIL",
+      "grader_id": "routing_outcomes_v2",
+      "observations": [
+        "route mismatch: r1"
+      ],
+      "status": "FAIL"
+    }
+  ]
+}

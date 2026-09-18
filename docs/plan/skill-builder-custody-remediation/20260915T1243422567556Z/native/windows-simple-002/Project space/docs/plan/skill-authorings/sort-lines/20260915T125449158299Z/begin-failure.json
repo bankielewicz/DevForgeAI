@@ -1,0 +1,10 @@
+{
+  "state": "BLOCKED",
+  "exit_code": 1,
+  "error": "known history must be resolved before observed editing",
+  "source_contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authoring-inputs\\sort-lines\\20260915T125449158299Z\\authoring-contract.json",
+    "sha256": "e053c73d7378cddba6063332ef9a4b1ddf0a8b83c47672506f5852f774a7b3af"
+  },
+  "effects": "Rejected before run staging or target writes."
+}

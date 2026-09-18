@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_selected_preparation_stop_is_preserved_without_spending_native_budget (test_operator_harness.OperatorTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness\tests\test_operator_harness.py", line 233, in test_selected_preparation_stop_is_preserved_without_spending_native_budget
+    self.assertEqual(0, self.invoke())
+AssertionError: 0 != 3
+
+----------------------------------------------------------------------
+Ran 1 test in 0.015s
+
+FAILED (failures=1)

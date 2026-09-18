@@ -1,0 +1,12 @@
+{
+  "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\rule-set.json",
+  "sha256": "7efd45f8b6c62791db13084732531d6b2d5caaa752b273d9a6fb6be1ed866109",
+  "official_refresh": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\inputs\\official-build-skills.md",
+    "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+    "url": "https://learn.chatgpt.com/docs/build-skills",
+    "retrieved_at_utc": "2026-09-14T07:09:59.496191Z",
+    "transport": "OpenAI Docs search then fetch"
+  },
+  "freshness": "Existing frozen rules retained; refreshed official guidance corroborates metadata, disclosure, optional resources and triggering boundaries."
+}

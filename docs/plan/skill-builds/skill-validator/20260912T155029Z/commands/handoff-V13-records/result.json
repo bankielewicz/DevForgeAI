@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\candidate\\scripts\\observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\handoff-trials\\attempt-001\\assessment"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start_utc": "2026-09-12T16:09:38.610497+00:00",
+  "end_utc": "2026-09-12T16:09:38.877523+00:00",
+  "exit_code": 0,
+  "state": "exited",
+  "stdout": {
+    "path": "commands/handoff-V13-records/stdout.txt",
+    "sha256": "9abd070212a84d06a5aa9907b033231ab789a5795fe132e8c97f157f525fd49a"
+  },
+  "stderr": {
+    "path": "commands/handoff-V13-records/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,1 @@
+{"records": 3, "exit_code": 0, "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-final-bound\\revision-v2-negative\\evaluation.jsonl", "authority": "NONE"}

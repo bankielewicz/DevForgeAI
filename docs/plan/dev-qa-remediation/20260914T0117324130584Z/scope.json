@@ -1,0 +1,14 @@
+{
+  "authorization": "User: Implement the plan; permanent fixes for both causes.",
+  "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation-plan.md",
+  "coverage_denominator": [
+    "src/agents/skills/skill-builder/scripts/authoring.py"
+  ],
+  "coverage_exclusions": [],
+  "coverage_floor": 95,
+  "pass_rate_floor": 95,
+  "interpretation": "Supporting custody helper executed lines; not framework Rust qualification.",
+  "platform": "win32",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Program Files\\Python310\\python.exe"
+}

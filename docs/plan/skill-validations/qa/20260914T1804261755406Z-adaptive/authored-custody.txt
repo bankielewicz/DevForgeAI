@@ -1,0 +1,1 @@
+Authoring-v1 baseline verified by main run observations/publication-binding.json; schema-1 history remains observed rather than invented generated/adopted. No repair or adoption is proposed.

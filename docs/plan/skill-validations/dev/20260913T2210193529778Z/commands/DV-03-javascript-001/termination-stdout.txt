@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 4632 (child process of PID 38316) has been terminated.
+SUCCESS: The process with PID 44356 (child process of PID 23412) has been terminated.
+SUCCESS: The process with PID 23412 (child process of PID 45800) has been terminated.
+SUCCESS: The process with PID 10640 (child process of PID 45800) has been terminated.
+SUCCESS: The process with PID 38316 (child process of PID 45800) has been terminated.
+SUCCESS: The process with PID 26712 (child process of PID 45800) has been terminated.
+SUCCESS: The process with PID 45800 (child process of PID 69316) has been terminated.

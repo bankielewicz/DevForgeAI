@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\supplemental-records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at": "2026-09-13T20:32:20.471263Z",
+  "timeout_seconds": 120,
+  "fixture_before": null,
+  "permitted_effects": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\temporary\\ADAPTIVE-RECORDS",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\commands\\ADAPTIVE-RECORDS"
+  ],
+  "environment_overrides": {
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\temporary\\ADAPTIVE-RECORDS",
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\temporary\\ADAPTIVE-RECORDS",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUTF8": "1"
+  }
+}

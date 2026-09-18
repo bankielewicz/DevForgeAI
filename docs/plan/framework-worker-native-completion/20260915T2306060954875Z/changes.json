@@ -1,0 +1,28 @@
+{
+  "added": [
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\effective_profile.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\launch_policy.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\profile_sources.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\restrictive-launch-policy.json",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\effective_profile.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\launch_policy.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\preflight_cli.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\preflight_recovery.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\profile_protocol.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\support\\profile_peer.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\support\\profile_sources_cases.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\support\\review_v2_cases.rs"
+  ],
+  "removed": [],
+  "changed": [
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\Cargo.toml",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\lib.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\main.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs"
+  ]
+}

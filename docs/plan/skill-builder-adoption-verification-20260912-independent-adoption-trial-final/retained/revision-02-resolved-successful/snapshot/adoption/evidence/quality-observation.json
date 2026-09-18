@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-09-12T15:29:24.077256+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\src\\agents\\skills\\receipt-totals\\scripts\\receipt_totals.py",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final\\behavior-inputs\\origin-decimal.csv"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"total\": 0.30000000000000004, \"line_count\": 2}\n",
+  "stderr": ""
+}

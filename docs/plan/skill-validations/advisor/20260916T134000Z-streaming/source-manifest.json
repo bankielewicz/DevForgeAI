@@ -1,0 +1,90 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "captured_at_utc": "2026-09-16T13:43:08.705853+00:00",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 6869,
+      "sha256": "44f90610313a398e7a24a698824d35d8a7c4676c0fac062aa21e4c4a696094cd"
+    },
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 200,
+      "sha256": "11ff7c5fda697804bcbd7241eae9134e3cd6512f95499a48b86b7ce937951eec"
+    },
+    {
+      "path": "artifact-manifest.json",
+      "bytes": 1823,
+      "sha256": "05dc0249ef343ff283aca04e9041fd72fcd06f6f470b72f7d23a7a65d8c699cf"
+    },
+    {
+      "path": "assets/briefing-template.md",
+      "bytes": 1339,
+      "sha256": "f19b25173b819de2a26dbd9a47c5e3f2928947d488e6a37a720a218ec144aded"
+    },
+    {
+      "path": "assets/request.schema.json",
+      "bytes": 1516,
+      "sha256": "0addc19175144b7082df4db94647fccaae5784956aae3834ac2def843af88b3d"
+    },
+    {
+      "path": "evals/case.schema.json",
+      "bytes": 429,
+      "sha256": "b14641e5b564ddc4a5cf7ee13add5095dad33b490e79e47996d4f777e521628c"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "bytes": 13623,
+      "sha256": "b1ec1092e5fec5ce4fe967beea0fb6ff408273ac80111eddbb7ac777afe30cf9"
+    },
+    {
+      "path": "evals/run_evaluation.py",
+      "bytes": 3681,
+      "sha256": "2849dd2b5c6a6c7257ceb4c8b331fb4395407a005dba2859f97807b1c372316a"
+    },
+    {
+      "path": "references/briefing-rules.md",
+      "bytes": 2427,
+      "sha256": "ebee76fd01441f8cc90c8df12382a9f852ff706befffa17feab35702f1b959b9"
+    },
+    {
+      "path": "references/evaluation.md",
+      "bytes": 3201,
+      "sha256": "9b292d41b14c504c1d0c4cd71736133c7cf47828730e687ba35f8c5cace20f06"
+    },
+    {
+      "path": "references/execution.md",
+      "bytes": 7236,
+      "sha256": "84853a4e5b1c922ae2d98e9b2b24fe3de43bb60fca40ccaf9468746f690c9cd4"
+    },
+    {
+      "path": "references/response-format.md",
+      "bytes": 2601,
+      "sha256": "88e98e588f7243630e06f4ad004b2b1563bcd675e87c955653466b68fc34eef9"
+    },
+    {
+      "path": "scripts/advisor_run.py",
+      "bytes": 18406,
+      "sha256": "753beb0ebf4142f32985c0ef8f50cca8273d4be727932aa96718f673cd5a6675"
+    },
+    {
+      "path": "tests/test_advisor.py",
+      "bytes": 7933,
+      "sha256": "d9c25290564c10d6a23c5f05d644be41f3520b9f674eec0ac774351bf25fa9a1"
+    },
+    {
+      "path": "tests/test_auth.py",
+      "bytes": 8721,
+      "sha256": "decdf9adcd7b3acc60f9a74b786b972bc9a97dd642f584de28ca84fa6380249f"
+    },
+    {
+      "path": "tests/test_extended.py",
+      "bytes": 13366,
+      "sha256": "631abe0cfd3afaf88077484f1c39fcfcba08be2176c471282832659820cb02f6"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "3421375172a40ede80bed73fe05d24ee1611089e853bfe3d4a8a80dc1871ba51"
+}

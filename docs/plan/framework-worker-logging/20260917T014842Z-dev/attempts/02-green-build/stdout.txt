@@ -1,0 +1,8 @@
+
+running 3 tests
+test delayed_consumer_drains_more_than_32_chunks_without_deadlock ... ok
+test early_stderr_and_silent_exit_survive_without_protocol_receive ... ok
+test levels_preserve_mandatory_evidence_and_never_store_child_canaries ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.34s
+

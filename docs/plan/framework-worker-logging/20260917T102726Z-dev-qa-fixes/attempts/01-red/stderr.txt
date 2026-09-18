@@ -1,0 +1,49 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling cfg-if v1.0.4
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling windows-link v0.2.1
+   Compiling memchr v2.8.3
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling getrandom v0.4.3
+   Compiling once_cell v1.21.4
+   Compiling fastrand v2.5.0
+   Compiling windows-sys v0.61.2
+   Compiling generic-array v0.14.7
+   Compiling tempfile v3.27.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling syn v3.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe-logging-qa-fixes)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.55s
+     Running tests\inspection_consistency.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T102726Z-dev-qa-fixes\build-target\debug\deps\inspection_consistency-9aafb7ed2ef72ac5.exe)
+
+thread 'current_schema_one_capture_cannot_bypass_success_checks' (70016) panicked at tests\inspection_consistency.rs:320:5:
+current schema 1 bypassed checks: ["drain", "missing", "nonzero"]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'qa_log_01_completed_requires_complete_capture_at_every_level' (50432) panicked at tests\inspection_consistency.rs:196:5:
+incomplete success accepted: [("off", "drain"), ("off", "stdout_eof"), ("off", "stderr_eof"), ("off", "stdout_error"), ("off", "stderr_error"), ("off", "stdout_overflow"), ("off", "stderr_overflow"), ("minimal", "drain"), ("minimal", "stdout_eof"), ("minimal", "stderr_eof"), ("minimal", "stdout_error"), ("minimal", "stderr_error"), ("minimal", "stdout_overflow"), ("minimal", "stderr_overflow"), ("verbose", "drain"), ("verbose", "stdout_eof"), ("verbose", "stderr_eof"), ("verbose", "stdout_error"), ("verbose", "stderr_error"), ("verbose", "stdout_overflow"), ("verbose", "stderr_overflow"), ("debug", "drain"), ("debug", "stdout_eof"), ("debug", "stderr_eof"), ("debug", "stdout_error"), ("debug", "stderr_error"), ("debug", "stdout_overflow"), ("debug", "stderr_overflow")]
+
+thread 'qa_log_01_preflight_requires_complete_capture' (63968) panicked at tests\inspection_consistency.rs:209:5:
+incomplete preflight accepted: [(2, "drain"), (2, "stdout_eof"), (2, "stderr_eof"), (2, "stdout_error"), (2, "stderr_error"), (2, "stdout_overflow"), (2, "stderr_overflow"), (3, "drain"), (3, "stdout_eof"), (3, "stderr_eof"), (3, "stdout_error"), (3, "stderr_error"), (3, "stdout_overflow"), (3, "stderr_overflow")]
+
+thread 'qa_log_02_completed_requires_present_typed_matching_exit' (15796) panicked at tests\inspection_consistency.rs:222:5:
+invalid exit accepted: [("off", "missing"), ("off", "null"), ("off", "nonzero"), ("debug", "missing"), ("debug", "null"), ("debug", "nonzero")]
+
+thread 'qa_log_02_failed_run_still_requires_post_stop_field_presence' (52188) panicked at tests\inspection_consistency.rs:244:5:
+assertion failed: observation(&f, "missing", "evidence_corrupt")
+
+thread 'qa_log_02_preflight_requires_present_typed_matching_exit' (59416) panicked at tests\inspection_consistency.rs:235:5:
+invalid preflight exit accepted: [(2, "missing"), (2, "null"), (2, "nonzero"), (3, "missing"), (3, "null"), (3, "nonzero")]
+error: test failed, to rerun pass `--test inspection_consistency`

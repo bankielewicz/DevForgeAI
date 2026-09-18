@@ -1,0 +1,15 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "design_capture_requested": true,
+  "contract_sha256": "e21a95e6368c3b84b9e06aefaa571b63637896009783bfbcbb060745c4612fb7",
+  "supplied_contract_sha256": "e21a95e6368c3b84b9e06aefaa571b63637896009783bfbcbb060745c4612fb7",
+  "path_resolution_sha256": "1efb527753c7ab7685164c89fd2052085ed0ec2c5cb691f3c2ec941e6d7a7351",
+  "design_capture_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\brainstorm\\20260918T020654Z\\design-capture.json",
+    "sha256": "82789fe3cbf050de388657ef6779f70965e65de2e0c155bdb51e46f23839823e"
+  }
+}

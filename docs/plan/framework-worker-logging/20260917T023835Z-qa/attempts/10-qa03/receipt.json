@@ -1,0 +1,48 @@
+{
+  "attempt": "10-qa03",
+  "action": "independent",
+  "case": "qa_03_early_exit_classification",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\Cargo.toml",
+    "--test",
+    "independent",
+    "--",
+    "qa_03_early_exit_classification",
+    "--exact",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "platform": "Windows x64, native C: filesystem",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\independent-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\attempts\\10-qa03\\fixtures",
+    "QA_PEER": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\build-target\\debug\\protocol-peer.exe",
+    "QA_PROBE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\build-target\\debug\\devforgeai-codex-worker-probe.exe"
+  },
+  "started_utc": "2026-09-17T02:56:35.329514+00:00",
+  "timeout_seconds": 180,
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "plan_sha256": "fa4f60fb553ed7521c7091c5f10b095cceefc19ab4e3e2aa9d8e863687580263",
+  "owned_pid": 41524,
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_utc": "2026-09-17T02:56:35.913573+00:00",
+  "elapsed_seconds": 0.5780000000086147,
+  "outputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\attempts\\10-qa03\\stdout.txt",
+      "bytes": 157,
+      "sha256": "61b7337ac06d360e435ae6b18fce52562c5d3f306dab76056e0e2dcb5337c0df"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\attempts\\10-qa03\\stderr.txt",
+      "bytes": 244,
+      "sha256": "cc969641572333b4502087a3186f7c53d875881d6356bd729be122ec90f0b430"
+    }
+  ]
+}

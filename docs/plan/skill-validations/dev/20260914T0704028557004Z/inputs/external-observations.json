@@ -1,0 +1,1405 @@
+{
+  "package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c",
+  "cases": [
+    {
+      "case_id": "DV-01",
+      "result": "PASS",
+      "reason": "Fresh cold Windows session reconstructed the empty project, retained importable harness setup and a genuine missing-behavior red, passed the same six unittest methods through final QA, delivered a complete report, and preserved protected inputs. Independent audit matched 12 receipt references and 21 destination readback rows.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-01"
+      ],
+      "native_attempts": {
+        "DV-01": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/DV-01/plan.json",
+          "sha256": "a9cec1f0fa59a7bd57701110975d546ead546f6de38ec0d8a751c9367212c7f8"
+        },
+        {
+          "path": "trials/DV-01/prompt.txt",
+          "sha256": "9700f88d28a5bc012e46278642d8e6d5327278742b2dc1667c3566d07abe20e3"
+        },
+        {
+          "path": "trials/DV-01/attempt-001/result.json",
+          "sha256": "4abde7bbc156b1e83791d26a61a38874dff98e11ee7efd9de2e3a2b6d83df019"
+        },
+        {
+          "path": "trials/DV-01/attempt-001/effects.json",
+          "sha256": "89c42706667b852bbd8e129f35e6f6b8089e05644e1f8a19cb5c516f8ebe6f3c"
+        },
+        {
+          "path": "trials/DV-01/attempt-002/before.json",
+          "sha256": "6b9011af9974b70c01a8582d48267b5f6437b0580a0275435a795b6c34c9d9cc"
+        },
+        {
+          "path": "trials/DV-01/attempt-002/after.json",
+          "sha256": "b2eb831de7e1bf08f94bc40baf95dd7c9d29aa74ff06d0773bff56e22e51aa3f"
+        },
+        {
+          "path": "trials/DV-01/attempt-002/effects.json",
+          "sha256": "db91781e2144a1e5263ac2e99e4d1553780653c212c481927f4c427680408703"
+        },
+        {
+          "path": "trials/DV-01/attempt-002/result.json",
+          "sha256": "b1602e8dd67cdbe2fc415113fbc41584b4dbc2ebbe516643fc60bcac042204dd"
+        },
+        {
+          "path": "commands/DV-01-002/command.json",
+          "sha256": "efca31f2e20c3b659d8dec38986165011e567309b72c121d26680541cb4b2083"
+        },
+        {
+          "path": "commands/DV-01-002/stdout.txt",
+          "sha256": "52fe2ff7b107c3739f8f51ad00b33f1ab9ef70aef1a3b832502675fe57702613"
+        },
+        {
+          "path": "commands/DV-01-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-01/project/.trial-output/final-002.txt",
+          "sha256": "11e408210aec376c091a919d817590f33981bfc67461093068a1c4e0447a50cc"
+        },
+        {
+          "path": "inputs/native-audits/DV-01/audit.json",
+          "sha256": "7b440644b9aeb61580dabf80787459a8850acef681dddd0779bf1a2fbaced02d"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-02",
+      "result": "PASS",
+      "reason": "Fresh cold dependent-spec session established protocol ownership before its consumer, retained separate producer/consumer red-green runs, passed all 11 integrated unittest methods, and completed final delivery. All protected inputs remained unchanged; 18 receipt references and 32 destination readback rows matched.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-02"
+      ],
+      "native_attempts": {
+        "DV-02": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/DV-02/plan.json",
+          "sha256": "87c121c6ff11bcfe5e4dfd564bab8a034ed8cbf0e476633bdced3a5bebf80df2"
+        },
+        {
+          "path": "trials/DV-02/prompt.txt",
+          "sha256": "69bef06567ad48512ee891b419f96e533bca892f950e319a242e480bd7b8d8bc"
+        },
+        {
+          "path": "trials/DV-02/attempt-001/result.json",
+          "sha256": "5e1c9a3dc13d7017e4d8f710ea9adec82420d65de6dec4819e7beb1a7f62bfb8"
+        },
+        {
+          "path": "trials/DV-02/attempt-001/effects.json",
+          "sha256": "25dbc7913746a7a52d64e1728eb5f30e7adf57c6070e3f63994959aac71da055"
+        },
+        {
+          "path": "trials/DV-02/attempt-002/before.json",
+          "sha256": "a37754edf4dd5045890a0eebe2754a62e4b9501874217f5bef23a4757743e811"
+        },
+        {
+          "path": "trials/DV-02/attempt-002/after.json",
+          "sha256": "0a701fbe2e44ab2c3830b2567c58bfdb00acf95a007243c54fafc9d89fc54c84"
+        },
+        {
+          "path": "trials/DV-02/attempt-002/effects.json",
+          "sha256": "b402ac42607acc506784fe1fdc2b3e64fa6619877bea9a9cc57eaa8299c4eb68"
+        },
+        {
+          "path": "trials/DV-02/attempt-002/result.json",
+          "sha256": "1af680785a4bed2b222c1bbdc0f829fc146914a9ca52551e59e9653c3031e021"
+        },
+        {
+          "path": "commands/DV-02-002/command.json",
+          "sha256": "3f4d9f2c04d906b6b339c43337a116879f0d75ca95cd47ee60190631266ff20a"
+        },
+        {
+          "path": "commands/DV-02-002/stdout.txt",
+          "sha256": "50071509323cc3633a46c2b215aea6dc1505a7d67c955d3cb4f898e1ba99621d"
+        },
+        {
+          "path": "commands/DV-02-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-02/project/.trial-output/final-002.txt",
+          "sha256": "ece9713080ef77ac49fce9898383c236e2336ee42144b6a634ebe88dfdc537a9"
+        },
+        {
+          "path": "inputs/native-audits/DV-02/audit.json",
+          "sha256": "43c9bcc957ef4f8a823281302237b388fac362f5eda6eef82b29dd03214e5435"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-03",
+      "result": "PASS",
+      "reason": "Composite scoped portability evidence: Python cold session completed ten unittest methods plus five integration cases. JavaScript cold session retained genuine direct-node red/green and correctly reported required node --test worker EPERM as incomplete. A separately authorized exact host node --test run passed six of six tests on the unchanged candidate. One explicitly approved 600-second warm continuation verified actual host streams, all 41 prior project files and prerequisites, preserved every earlier file and four host receipts, then completed delivery using five new evidence files only. Warm continuation exited in 193.641 seconds; no model/product changes or further test reruns. This does not establish JavaScript worker execution inside the sandbox or an entirely cold successful JavaScript delivery.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-03-python",
+        "DV-03-javascript"
+      ],
+      "native_attempts": {
+        "DV-03-python": "002",
+        "DV-03-javascript": "003"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/DV-03-python/plan.json",
+          "sha256": "bd75b74032ae6ec3aa8b22992627b5d608814906a8ac2d5cec7ad8f167f391f1"
+        },
+        {
+          "path": "trials/DV-03-python/prompt.txt",
+          "sha256": "22f0a5d663020db9ead01528a06346349876d56a9f9e9362c7aafe64efd7a2ad"
+        },
+        {
+          "path": "trials/DV-03-python/attempt-001/result.json",
+          "sha256": "096c1fc840ab2d5f66c72f6562b008e8719f8eaa8c6c6dfad6c5baa721761184"
+        },
+        {
+          "path": "trials/DV-03-python/attempt-001/effects.json",
+          "sha256": "cc6b1950a2faeff5f40bdd8c60666038fbe451226cca6e106d3a96ad0c19b58e"
+        },
+        {
+          "path": "trials/DV-03-python/attempt-002/before.json",
+          "sha256": "22f0ec09116cc09b43f15e1570c139be3735b15c7d2efdcc286b20ae7a993c43"
+        },
+        {
+          "path": "trials/DV-03-python/attempt-002/after.json",
+          "sha256": "f708d0ae5ffde1bdf93465134153cfcc9087bb0c5920a5046248cbfd96e4c404"
+        },
+        {
+          "path": "trials/DV-03-python/attempt-002/effects.json",
+          "sha256": "65fe6093e101c261dae4a07d04df2ed11bf4697407348be5092bb61a323f552c"
+        },
+        {
+          "path": "trials/DV-03-python/attempt-002/result.json",
+          "sha256": "b0bb24b51ce6a90709bed94030ee919ad08db47e8be3eccf76897afb3f38cb30"
+        },
+        {
+          "path": "commands/DV-03-python-002/command.json",
+          "sha256": "0784af566a8c86f6879744ab880981ccaa8f79d3f7f2ffeaac5d99a7bc74378c"
+        },
+        {
+          "path": "commands/DV-03-python-002/stdout.txt",
+          "sha256": "d53f11d421edb1d6d16799669e5c560f4df5987a5f7015071dbfd0e6fb23795a"
+        },
+        {
+          "path": "commands/DV-03-python-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-03-python/project/.trial-output/final-002.txt",
+          "sha256": "8c0031bff155ce49a2854ae2639f0036616f1e24ffa06328e6c3c7f66539d119"
+        },
+        {
+          "path": "inputs/native-audits/DV-03-python/audit.json",
+          "sha256": "9b5d49e3a4b583ef13f05688f0edb9c2ee16f3d9e2b9d3022f2e8f770059e79e"
+        },
+        {
+          "path": "trials/DV-03-javascript/plan.json",
+          "sha256": "f3d479fcc261db0a53703ac413a02b4ef32d9751ec0cb130db0f41cd87455b9e"
+        },
+        {
+          "path": "trials/DV-03-javascript/prompt.txt",
+          "sha256": "bf7e0c67326e575ef72ca60f2d51dd74776c9d44b2ad342b0a26c167bf0e0409"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-001/result.json",
+          "sha256": "afb1beb5bb766ade8a9e9a28c273c6e65053e26b45184168b001ec029fe91991"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-001/effects.json",
+          "sha256": "760a1d5437100bbfff18f9d26be1b29da33346e4783aca5aa12eb8c14470ceb5"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-002/before.json",
+          "sha256": "7b0d5067f6553f0257c0e5ac8cbfb2ece575f46b581d98391b567a2159de33de"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-002/after.json",
+          "sha256": "5d102711d5590e5cd23409c612a27e0a91c355d092ce2b8a3d7c313095ea9de1"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-002/effects.json",
+          "sha256": "e45bb6d42ee415f2f940fbe5381b0ad9481913b61ceb04178ba59ca75c3f58ad"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-002/result.json",
+          "sha256": "3f69272d9ca245dfce726abb34ae679086cccc9a2fca1fb70f19e7e837ac3473"
+        },
+        {
+          "path": "commands/DV-03-javascript-002/command.json",
+          "sha256": "3f54e73a0c5b6b8523e2ceef4bf446e67eeca3b9517f4e7819af824de28d6ced"
+        },
+        {
+          "path": "commands/DV-03-javascript-002/stdout.txt",
+          "sha256": "777d0efaf55a60b21ff997387298192317e9c406eb66757a31093edf302cf401"
+        },
+        {
+          "path": "commands/DV-03-javascript-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-003/before.json",
+          "sha256": "5d102711d5590e5cd23409c612a27e0a91c355d092ce2b8a3d7c313095ea9de1"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-003/after.json",
+          "sha256": "e0d9af416be8624b997ac677f27fde3992b2dfa8e2e04585056037136904d01e"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-003/effects.json",
+          "sha256": "28e1e94eec8bf8b6d7d3cc503ef4f67bb47bc02128ea6de02d3ecad8a5fd32ff"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-003/result.json",
+          "sha256": "27e6bcd23909f107186f2b1e4c7128db74ecc96e16af3901981badb3469f4561"
+        },
+        {
+          "path": "trials/DV-03-javascript/attempt-003/plan.json",
+          "sha256": "180c3c0bc5cf7ebc2b314390d5862f3ab0b9f927dba28608930b7c48ae49393e"
+        },
+        {
+          "path": "commands/DV-03-javascript-003/command.json",
+          "sha256": "699edc76f4a0bf3f01b97e5e8d267af66be1c6fce6a3bd278802ed0875b3825b"
+        },
+        {
+          "path": "commands/DV-03-javascript-003/stdout.txt",
+          "sha256": "5b33ff43168f84c3c93a8a94f808602f1b196b58e78b1fadae76718a476c802f"
+        },
+        {
+          "path": "commands/DV-03-javascript-003/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "commands/javascript-host-qa-002/command.json",
+          "sha256": "c9cdd2d3b337f6bbde671dff230eed4ad3666ec9c09eacc84ba72adabd6dfb4b"
+        },
+        {
+          "path": "commands/javascript-host-qa-002/stdout.txt",
+          "sha256": "4cd9307045db9a4582f0322c265d428425070335ec6ce8a8c5c0cd1a6a62dee9"
+        },
+        {
+          "path": "commands/javascript-host-qa-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/javascript-host-qa/readback-002.json",
+          "sha256": "02070a065f52579afcac3128a48620021d3145152ed32839a756688601c2892f"
+        },
+        {
+          "path": "inputs/javascript-continuation-authorization.json",
+          "sha256": "6db016428425552b7221dc486f68dc5d89e6839732d8b1e17d51631f3323d0c7"
+        },
+        {
+          "path": "trials/DV-03-javascript/project/.trial-output/final-003.txt",
+          "sha256": "be7fc189ac1b22e910fc01f035196d29eea6079524a64a3cc200ff92bc7bc282"
+        },
+        {
+          "path": "inputs/native-audits/DV-03-javascript-warm/audit.json",
+          "sha256": "0e269cace39f722254a150c185c0fdf501442e4c99a5f421a3ad4eb67aa983f2"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-04",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Read and reused existing differently named accumulate helper in lib/fold.py; extended batch_total with retained focused red/green and eight integrated passing tests. Existing test and protected inputs unchanged; exact evidence readback completed and twelve receipt references independently matched.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-04"
+      ],
+      "native_attempts": {
+        "DV-04": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-04/plan.json",
+          "sha256": "6e494b786fc7a7512eea015cf4e0946103d3918d5e5db6dd950c01376f3780c7"
+        },
+        {
+          "path": "inputs/carried/trials/DV-04/attempt-001/after.json",
+          "sha256": "2df1e626dd3066ace102c846f02ebe310d2fd79a7245881e895b372db2a1371c"
+        },
+        {
+          "path": "inputs/carried/trials/DV-04/attempt-001/before.json",
+          "sha256": "7f313d8475da0a0cf22bbb351f70ce41954486ce873b7dff0a3433ac87551ee6"
+        },
+        {
+          "path": "inputs/carried/trials/DV-04/attempt-001/effects.json",
+          "sha256": "7bd44ddd0874e4709a9a2124e1673edca353024cb7b690940e71e287812e8626"
+        },
+        {
+          "path": "inputs/carried/trials/DV-04/attempt-001/result.json",
+          "sha256": "0be0977af187433ed4732fe3bf2d00f86a9e4b3f4bc44aa3e3719eeb7d28863c"
+        },
+        {
+          "path": "inputs/carried/commands/DV-04-001/command.json",
+          "sha256": "7c2627bc5c7356e3c4240c8f10af774bee6ec23bf56421ee7b561115c0448719"
+        },
+        {
+          "path": "inputs/carried/commands/DV-04-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-04-001/stdout.txt",
+          "sha256": "05c2d2c277af47eb939f349a646fd9fc8d6e53f720567d525402415d02c5b848"
+        },
+        {
+          "path": "inputs/carried/trials/DV-04/project/.trial-output/final-001.txt",
+          "sha256": "9899bfdd1d60f9858e13a71027db92e3721fb9f7149bb6d744358128ddb2e6cf"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-05",
+      "result": "PASS",
+      "reason": "Fresh session identified the missing storage backend and language/runtime, asked the precise decisions, and completed independent R-2 requirement inventory and acceptance proposals. It created no product implementation or constitution, preserved all protected bytes, and delivered an honest BLOCKED checkpoint/report with product QA NOT_RUN. The three supported receipt references matched; its preliminary separator-comparison failure is explicitly retained as pre-write tooling evidence.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-05"
+      ],
+      "native_attempts": {
+        "DV-05": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/DV-05/plan.json",
+          "sha256": "c047fa9b0a8610cfa32b6c6f0edcc0757850d3b40032140c76151b4237019b40"
+        },
+        {
+          "path": "trials/DV-05/prompt.txt",
+          "sha256": "e7beffeb7f5aa6d2a099437264488713692e943cf28d5394995351d21e8b621b"
+        },
+        {
+          "path": "trials/DV-05/attempt-001/result.json",
+          "sha256": "be84afd9c01cbe6f315c327ef5c0eefe93e2912a06fd88f060511804ed1e1989"
+        },
+        {
+          "path": "trials/DV-05/attempt-001/effects.json",
+          "sha256": "729f218038a95df5daf2043464481642c02652bc7969853921cf3ad603b42d94"
+        },
+        {
+          "path": "trials/DV-05/attempt-002/before.json",
+          "sha256": "52a332c3e3ffdcd2511f19f333c212ccdc6756d9042a74f37483690488898549"
+        },
+        {
+          "path": "trials/DV-05/attempt-002/after.json",
+          "sha256": "78f68c4b2af3efb5f1c3b8222ddcb7479311b0748bc3b727fd759a3028a5b30b"
+        },
+        {
+          "path": "trials/DV-05/attempt-002/effects.json",
+          "sha256": "3191054123f9d25028930ce5f9892d3ef2d700adb99694087da0129d6fe25885"
+        },
+        {
+          "path": "trials/DV-05/attempt-002/result.json",
+          "sha256": "8eb710bef9227beb9e83891cc943357e9a6bbead5cb8f6c3a153eedb30a1497e"
+        },
+        {
+          "path": "commands/DV-05-002/command.json",
+          "sha256": "647658ff414a8dcf48f5e6c9f3e3a008c40e8ba5220b139ddd8332b73ee4c802"
+        },
+        {
+          "path": "commands/DV-05-002/stdout.txt",
+          "sha256": "882eb16b50d84ca497077ffc2fe0dd866d8864c7532a4458e436a18eab1266c5"
+        },
+        {
+          "path": "commands/DV-05-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-05/project/.trial-output/final-002.txt",
+          "sha256": "9395dfb4f8a23f2db62087958e711bebb963709b79bf3d515931ebda1ce6a5a4"
+        },
+        {
+          "path": "inputs/native-audits/DV-05/audit.json",
+          "sha256": "e0df56ffa60c8bf6beff5027add8c49cdd31ff98c0ea7fd4844cecc7540fbdf4"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-06",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Identified exact unresolved A-1 string versus B-1 integer return-contract conflict, requested the governing decision, and stopped dependent product implementation. Preserved inputs and delivered a source-qualified BLOCKED checkpoint; incidental record-command errors were corrected without claiming product QA.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-06"
+      ],
+      "native_attempts": {
+        "DV-06": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-06/plan.json",
+          "sha256": "d719137ae2bc96370fa2cf70d8e0f96bdd02bb19072031b77f5d043c39260046"
+        },
+        {
+          "path": "inputs/carried/trials/DV-06/attempt-001/after.json",
+          "sha256": "d93083873adb808e3990e38a76ea2d36f38745883adadd9661af21ec3e3f1c20"
+        },
+        {
+          "path": "inputs/carried/trials/DV-06/attempt-001/before.json",
+          "sha256": "d5e51fbaefc2a86005c141dc0695a732bcf6708247a419572d800a6b7d602618"
+        },
+        {
+          "path": "inputs/carried/trials/DV-06/attempt-001/effects.json",
+          "sha256": "52d60186e40059f4a53e6fa17320ea47f2b2ece507d4c79a23db4fdc37c92499"
+        },
+        {
+          "path": "inputs/carried/trials/DV-06/attempt-001/result.json",
+          "sha256": "1c369a34ccd9bfe3cc26389cd7c5793d73c0b8398bffd4891a14af67fd25971e"
+        },
+        {
+          "path": "inputs/carried/commands/DV-06-001/command.json",
+          "sha256": "ab0d873d7008354284430c1365d56d43f95801d330e4c3f2b0f225444325a6c4"
+        },
+        {
+          "path": "inputs/carried/commands/DV-06-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-06-001/stdout.txt",
+          "sha256": "ef952a416863f14907f4251dd6e32516b73245803cf6fad8c6abac9fe1088c11"
+        },
+        {
+          "path": "inputs/carried/trials/DV-06/project/.trial-output/final-001.txt",
+          "sha256": "3180d18baca2add2cfd2fd096bfb39b8a5adee2c79608164472d6bfbebf71dc5"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-07",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Reported missing separately owned service and absent socket/client interface contract, without treating dependency reading as authorization to implement/install it. No product implementation; precise BLOCKED delivery, pinned inputs unchanged, and tool receipt references matched.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-07"
+      ],
+      "native_attempts": {
+        "DV-07": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-07/plan.json",
+          "sha256": "aae5eae9d1d8d1c716432a81343f0574ff5081f1d150d1904e1090f67ffc2c93"
+        },
+        {
+          "path": "inputs/carried/trials/DV-07/attempt-001/after.json",
+          "sha256": "3ff15d852678045d6f807bfb9546028d7b6e7bc56852eccd4f6ffc571fdedee8"
+        },
+        {
+          "path": "inputs/carried/trials/DV-07/attempt-001/before.json",
+          "sha256": "3bcc7e966038ae54cf6a1a12f116fe78a36fd0b204bd6cf164b91c8393ab16a8"
+        },
+        {
+          "path": "inputs/carried/trials/DV-07/attempt-001/effects.json",
+          "sha256": "a041e4cb1f9c28185139f36ad3ca54a1cdf7530a26ee4765ff22b832cab031c0"
+        },
+        {
+          "path": "inputs/carried/trials/DV-07/attempt-001/result.json",
+          "sha256": "37f188bd5d5447b4211a7ce051b09b90d0d25cb38962a4db1fce6458392dbac2"
+        },
+        {
+          "path": "inputs/carried/commands/DV-07-001/command.json",
+          "sha256": "1b34a002f4a96685543539ee4fb7a1ddf735dd8ec75afa35658d50ed820be84e"
+        },
+        {
+          "path": "inputs/carried/commands/DV-07-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-07-001/stdout.txt",
+          "sha256": "20e55781827a0cff0f6e930d18582e0461a9595a01fb56bcaba959cb5d97a5f3"
+        },
+        {
+          "path": "inputs/carried/trials/DV-07/project/.trial-output/final-001.txt",
+          "sha256": "91bc8a7a5878d044b93bed69af7da0a0c91c58499c614b37b49d3d23e99bdf0e"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-08",
+      "result": "PASS",
+      "reason": "Fresh session used ordinary terminal discovery without an optional index, implemented the independently permitted arithmetic with genuine red-green and five passing QA methods, and kept the absent-authority publication requirement blocked. No publication or fallback acceptance was attempted. Final PARTIAL delivery distinguishes R-1 success from R-2 NOT_RUN; 12 receipt references and 18 destination rows matched.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-08"
+      ],
+      "native_attempts": {
+        "DV-08": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/DV-08/plan.json",
+          "sha256": "4fb6b76206349f6feae09ce35158170445e6d98fd23c7bdbc8452ed99c1f89a5"
+        },
+        {
+          "path": "trials/DV-08/prompt.txt",
+          "sha256": "cb5a1b114d81484f7ae1e0e046b97c4e875593c04e4e2bf269619985d123156b"
+        },
+        {
+          "path": "trials/DV-08/attempt-001/result.json",
+          "sha256": "01a678dc5a20a46455fb7b4648464924309fe605bfa9652b600e2e3754c58d95"
+        },
+        {
+          "path": "trials/DV-08/attempt-001/effects.json",
+          "sha256": "b779d829265dd21fb299c1b15ab20a1ce5dc15b4d239826976ea8bc61dce3d4f"
+        },
+        {
+          "path": "trials/DV-08/attempt-002/before.json",
+          "sha256": "32e690dbc675d8a4d548df2c181610ead2a362f3e5dcb209fc191a916e219cf4"
+        },
+        {
+          "path": "trials/DV-08/attempt-002/after.json",
+          "sha256": "a2c65850edeb48496966116c50ea5dcee22881612976aa288cbb7b96b7364ac6"
+        },
+        {
+          "path": "trials/DV-08/attempt-002/effects.json",
+          "sha256": "230925ddc6b825997c5d993bb14cdbcfc29dcf57632848e31a0b4a941f4955dd"
+        },
+        {
+          "path": "trials/DV-08/attempt-002/result.json",
+          "sha256": "d6a64afdc03084c7666cf2361ed0ccae0ae89308b398efd13ede0f9f9fd75d61"
+        },
+        {
+          "path": "commands/DV-08-002/command.json",
+          "sha256": "bf3db13f3496f840a99e704297d60df13cb9f318d812479e7f636d70b9869869"
+        },
+        {
+          "path": "commands/DV-08-002/stdout.txt",
+          "sha256": "da69b29107e2e47bfa118c6b79f240b398b30c93eca71690694d9a0dd21d5524"
+        },
+        {
+          "path": "commands/DV-08-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-08/project/.trial-output/final-002.txt",
+          "sha256": "ddf1e7d023738ac96662e86d49c0b954cd8b4bad9bd048e3bdd481efe303079d"
+        },
+        {
+          "path": "inputs/native-audits/DV-08/audit.json",
+          "sha256": "b14754bff3246133484c3f6bc10fbbcd291cdf039e08f0f99ba16084d80b5886"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-09",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Retained intended red with fourteen failing invalid-input subcases, five focused green tests, justified no further refactor for a single guard, and six-test post-review regression QA. Supplied positive characterization was not mislabeled red. Protected files unchanged; nine receipt references and exact final evidence readback matched.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-09"
+      ],
+      "native_attempts": {
+        "DV-09": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-09/plan.json",
+          "sha256": "9ff17775e3a9ad427bd73ef4008c2f3f0c0528c7bda1daa1f4c19460250fb90d"
+        },
+        {
+          "path": "inputs/carried/trials/DV-09/attempt-001/after.json",
+          "sha256": "2563e27326ed0bfa252cc43f352f943166b4bc44808f974b0693f12e78fa48de"
+        },
+        {
+          "path": "inputs/carried/trials/DV-09/attempt-001/before.json",
+          "sha256": "fc9bd512197f686bddfc9ad9076d98357b1c139392b72b9b304c22db32f74cfe"
+        },
+        {
+          "path": "inputs/carried/trials/DV-09/attempt-001/effects.json",
+          "sha256": "78c6053ccfaf7bccd466c5578f9bfbbf5ef196481f49d33864ee65643e3df34f"
+        },
+        {
+          "path": "inputs/carried/trials/DV-09/attempt-001/result.json",
+          "sha256": "f4e05297b8ef4f64db6cc710a93505e07d88b3870e0297880b0df5c75a872179"
+        },
+        {
+          "path": "inputs/carried/commands/DV-09-001/command.json",
+          "sha256": "b5afb03e12a1f344744045e1c522c8ca8c95f23263b5f7d4dd4e6e8bff7a5592"
+        },
+        {
+          "path": "inputs/carried/commands/DV-09-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-09-001/stdout.txt",
+          "sha256": "9562f54f8ac24adfe97d3354c174e572e5d170563bf6e6797cf8912e78c63417"
+        },
+        {
+          "path": "inputs/carried/trials/DV-09/project/.trial-output/final-001.txt",
+          "sha256": "669257655554e3ba2aa3a31ae793040b5a9c3a6fbcaead8c31ef672bc9743cc0"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-10",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Diagnosed supplied missing-dependency baseline as prerequisite ERROR, never valid behavioral red; executed separate focused missing-contract red and seven green tests. Full QA retained seven PASS plus one existing ERROR (87.5%), preserved the broken test, and delivered PARTIAL with precise unresolved dependency and twelve matching receipt references.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-10"
+      ],
+      "native_attempts": {
+        "DV-10": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-10/plan.json",
+          "sha256": "6970c8f8532aabe9b80fe2610eec2d5dcd265430b3aea8bf9f4589a269495100"
+        },
+        {
+          "path": "inputs/carried/trials/DV-10/attempt-001/after.json",
+          "sha256": "298df2ab2601cd32ee17908a2b294dff943cbaae4121208026a6db5f2d744fd0"
+        },
+        {
+          "path": "inputs/carried/trials/DV-10/attempt-001/before.json",
+          "sha256": "0321e3ca83fb515f63ead352fccf23622676f26a12786cd84162441fd2c9debd"
+        },
+        {
+          "path": "inputs/carried/trials/DV-10/attempt-001/effects.json",
+          "sha256": "c76f865304b6bc3c672066c3e85b8d504829fdfeee47fbcd898b2df0935d346b"
+        },
+        {
+          "path": "inputs/carried/trials/DV-10/attempt-001/result.json",
+          "sha256": "aea723843a1fc62c2ec9adb41118dc807d3f25d92e16d08961e053f253d2f0ab"
+        },
+        {
+          "path": "inputs/carried/commands/DV-10-001/command.json",
+          "sha256": "f47293813c24f429271695c78074a34565c2c80aa08f6d38b42038572f1183ec"
+        },
+        {
+          "path": "inputs/carried/commands/DV-10-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-10-001/stdout.txt",
+          "sha256": "f9c83036c6c8cea2d73ed8b532ba7f6f1042204706da91bc8ce17ffa78007b36"
+        },
+        {
+          "path": "inputs/carried/trials/DV-10/project/.trial-output/final-001.txt",
+          "sha256": "22b50dd358fc00743e5606ed5039f92534f7a80f1de17ac5b8997c3e353ad7b5"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-11",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Analyzed supplied synthetic evidence only: one PASS, one NOT_RUN, one mandatory FAIL; pass rate exactly one-third and coverage 94.9%, both below 95%. Preserved denominator and mandatory failure, performed no product changes/tests, and reported PARTIAL with actual calculation/readback receipts.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-11"
+      ],
+      "native_attempts": {
+        "DV-11": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-11/plan.json",
+          "sha256": "00133dd0bb6b8ec9d4460e38e3f24f06a82b98657cb73ac42185c69bed3f9084"
+        },
+        {
+          "path": "inputs/carried/trials/DV-11/attempt-001/after.json",
+          "sha256": "9732c1f0a9e87d470fb65cdc0e542bfc17339b415aa45580d2cbc9a0b3acff9e"
+        },
+        {
+          "path": "inputs/carried/trials/DV-11/attempt-001/before.json",
+          "sha256": "c02e7727ba4ea8c240fdf7d9f5ea12225ea67ad7b40ba7df0304a8e324783408"
+        },
+        {
+          "path": "inputs/carried/trials/DV-11/attempt-001/effects.json",
+          "sha256": "72d10d6ca3c702e646a01ea5fa69ef5829cee820b32745554791e1c52e8acfea"
+        },
+        {
+          "path": "inputs/carried/trials/DV-11/attempt-001/result.json",
+          "sha256": "1cc241120c9e8cb8ed7e0d504ff7288a745d884055298e31da331e764600d484"
+        },
+        {
+          "path": "inputs/carried/commands/DV-11-001/command.json",
+          "sha256": "f97a489fe7d0ac51721e31be14407ffd67aecaf00f32ef6c306791c5b59af986"
+        },
+        {
+          "path": "inputs/carried/commands/DV-11-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-11-001/stdout.txt",
+          "sha256": "1a1c01f82ad7fc81c0b735032703ccf2b1d963304b6b3be26cb449c5b8106168"
+        },
+        {
+          "path": "inputs/carried/trials/DV-11/project/.trial-output/final-001.txt",
+          "sha256": "66e036f660f9e6037b758047ff16c77c5271d448dcf4ea09f8688da58eacf99d"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-12",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Executed genuine Windows setup/red/green with six passing product tests; separately retained mandatory macOS-only GUI check as NOT_RUN and overall PARTIAL. No simulated GUI or protected acceptance, exact delivery readback and protected inputs unchanged.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-12"
+      ],
+      "native_attempts": {
+        "DV-12": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-12/plan.json",
+          "sha256": "c0fd4450e51a12870d1eb38aa5fd0ef0a1aca7f93dab3dcfcaf3f1d5f3851292"
+        },
+        {
+          "path": "inputs/carried/trials/DV-12/attempt-001/after.json",
+          "sha256": "6b6c69f963836880ae70d94b443b32d85be83f55e8435f8d9be187e5eeb621a4"
+        },
+        {
+          "path": "inputs/carried/trials/DV-12/attempt-001/before.json",
+          "sha256": "fc9f68770fe3d922ad03e7e55cde3fa57fad4534a8fdbc88a0d2c6c23e351b36"
+        },
+        {
+          "path": "inputs/carried/trials/DV-12/attempt-001/effects.json",
+          "sha256": "13ea0e593bf5bedbe8193fafb8edbfc374cabeaf2f257ac2d2836383fb430d58"
+        },
+        {
+          "path": "inputs/carried/trials/DV-12/attempt-001/result.json",
+          "sha256": "ded390185c0aa2b8f0ef5113dbb86afd9f3e2747cdfcd1a123787db4210227ae"
+        },
+        {
+          "path": "inputs/carried/commands/DV-12-001/command.json",
+          "sha256": "1868ef194a7f853b04e94215b57227dab18c1bbbdcb3cd44622bca0bcb3e0ddf"
+        },
+        {
+          "path": "inputs/carried/commands/DV-12-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-12-001/stdout.txt",
+          "sha256": "6a07225dcbc769b698eac822b101b4e273f34262cb58897ab5ffd53d868275e3"
+        },
+        {
+          "path": "inputs/carried/trials/DV-12/project/.trial-output/final-001.txt",
+          "sha256": "fe7f1270aa373b99a3f440c54289b5dfaab7ade03e84ae38f1499f0899947d3e"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-13",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Detected checkpoint/specification digest drift and invalidated historical execution claims. Preserved old evidence/checkpoint and existing source comment, inspected but did not replay the unidentified job, then obtained fresh six-test verification and exact evidence readback.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-13"
+      ],
+      "native_attempts": {
+        "DV-13": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-13/plan.json",
+          "sha256": "abf12d52dd8b3ef1edfd0843b1dd22f0f1362c94cfeec2f5c47df54998fb1170"
+        },
+        {
+          "path": "inputs/carried/trials/DV-13/attempt-001/after.json",
+          "sha256": "73181b1878549b22b6d3a3365f3eedacb90bd63adbb903baf958f5468e586f8c"
+        },
+        {
+          "path": "inputs/carried/trials/DV-13/attempt-001/before.json",
+          "sha256": "ebd262a272585731a91b14ed4773890ed4d3527fd58b371148d6205d19de367a"
+        },
+        {
+          "path": "inputs/carried/trials/DV-13/attempt-001/effects.json",
+          "sha256": "27adaded1cbe306608e640ed57c6dc59b8d7f5f51c1bbe923fd2f0f6f83e7a07"
+        },
+        {
+          "path": "inputs/carried/trials/DV-13/attempt-001/result.json",
+          "sha256": "84d438df6e5ae662311192b91f97b9b4c5dbd5deb5b0e953067debe4d5f3bd2e"
+        },
+        {
+          "path": "inputs/carried/commands/DV-13-001/command.json",
+          "sha256": "3a8ae20edaa9e38e8a378bcada270a80514824a615ef4a10f657060050b4e6b8"
+        },
+        {
+          "path": "inputs/carried/commands/DV-13-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-13-001/stdout.txt",
+          "sha256": "7e8347d7488b46e44fce3d31b226d0f8fdfef29c0c05933d03b3c401ff9b4c10"
+        },
+        {
+          "path": "inputs/carried/trials/DV-13/project/.trial-output/final-001.txt",
+          "sha256": "1a9d3aee01e24996d0449d63a9f940497561ff127fd0ee5968242b977a0cc57a"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-14",
+      "result": "PASS",
+      "reason": "Fresh plan-only session delivered a source-qualified plan with 24 proposed future cases and exact planning scope, deferred installer/startup work, and performed actual input/preservation and output readback. Only three new evidence files and the CLI final message were written; no product source/tests or operational effects. The initial verification command error remains in raw native evidence; no red-green/product qualification was fabricated.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-14"
+      ],
+      "native_attempts": {
+        "DV-14": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/DV-14/plan.json",
+          "sha256": "f5c114fbf4a8cc415e4ec2db5c3d8f5ce48f4e9d6048acfee24c68c851a84bc9"
+        },
+        {
+          "path": "trials/DV-14/prompt.txt",
+          "sha256": "a65683c7d4a9d4046dbd95b8e557dc681a4162723282cb3a2338680570fccc3f"
+        },
+        {
+          "path": "trials/DV-14/attempt-001/result.json",
+          "sha256": "aba7e37c455be0e76b36cd2829cbb349ea27941f63544a7f6e43272297bc8bc8"
+        },
+        {
+          "path": "trials/DV-14/attempt-001/effects.json",
+          "sha256": "ed02f9ac3a5618cdc321e0285bb6f628dab8683a1dfb71661b656f0e2b1e1235"
+        },
+        {
+          "path": "trials/DV-14/attempt-002/before.json",
+          "sha256": "f8d913ba8365142063b6965f7283b1b9d58a3f5925e9fe9a882f1adcdbd10198"
+        },
+        {
+          "path": "trials/DV-14/attempt-002/after.json",
+          "sha256": "eba09c18aceb7da9907a8d236dfa59903d65a3b6e5a5d80adab3f9cb36e567a9"
+        },
+        {
+          "path": "trials/DV-14/attempt-002/effects.json",
+          "sha256": "60a056e3ac8eaa5e7c3453d36a8380896ac01312a6a706d8824f6eaff7949b9c"
+        },
+        {
+          "path": "trials/DV-14/attempt-002/result.json",
+          "sha256": "b5211df4f092c31f5f286fea15b1db5af8148a1c82836b3fe463a43cd2e46fb3"
+        },
+        {
+          "path": "commands/DV-14-002/command.json",
+          "sha256": "c0fa3552e7b7759cfbb011701f949904e4d361f9d0abfdff1e8e79e99d8ab1f5"
+        },
+        {
+          "path": "commands/DV-14-002/stdout.txt",
+          "sha256": "02ee4ad883ea46e1f08534f18514a670f4811d75002039ab22aa235529929c3c"
+        },
+        {
+          "path": "commands/DV-14-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/DV-14/project/.trial-output/final-002.txt",
+          "sha256": "e8c1b1b327ae8d40f43348f60a096c530038ed9d99eb70ff07b944f17558e1b2"
+        },
+        {
+          "path": "inputs/native-audits/DV-14/audit.json",
+          "sha256": "f8c2248e31324f2cbeecb756307f8e87d26762162693fd20083640a0da7c4654"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-15",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: All eleven current-byte resources manually read; standalone project-derived language, layout, thresholds, commands and roots. Complete deterministic portability scan corroborates no forbidden concrete roots or bootstrap; no runtime scripts or plugin artifacts.",
+      "method": "deterministic",
+      "native_trials": [],
+      "native_attempts": {},
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/semantic-review-initial.json",
+          "sha256": "b0d8e020e42dfba242225c9819c78c9720bb5b35dc9b5266a3fb306cede8375d"
+        },
+        {
+          "path": "inputs/carried/source-manifest.json",
+          "sha256": "c5345079da862476bcd3cbbc51487ab1dfd8e639bf94db633d4e95a5e5e2e42a"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-16",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: New authoring packet independently BOUND with unchanged validator intake; external Python runner/graders/fixtures/expected/schema/runtime/manifest bound to exact package. DV17 and RV02 demonstrate authorized product TDD/QA despite package-authoring separation. This runner invocation records actual evaluation execution; no framework acceptance.",
+      "method": "deterministic",
+      "native_trials": [],
+      "native_attempts": {},
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/commands/intake/stdout.txt",
+          "sha256": "b4c4e49cd8553156917971b56d81d37bcedbdceeadb03a6690099bb3b75de68b"
+        },
+        {
+          "path": "inputs/carried/bundle/artifact-manifest.json",
+          "sha256": "5673f7a44339ea131d440b5ca7a44e9565d128608a26342cf5f8b5be7863c2e3"
+        },
+        {
+          "path": "inputs/carried/commands/audit-dv17-rv02/stdout.txt",
+          "sha256": "36f7b9f8f3a8b344141fe04a6341f97b33c5955a02036102fc5411d806fb946d"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-17",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Original unquoted custom receipts/ trigger preserved. Native task retained raw selection and exact path, performed intended red and nine passing tests, read back promised outputs against original selection, and finished with verified delivery. Independent audit checked all nine execution refs with no problems and immutable changes empty. Startup-denied attempt001 retained; approved attempt002 completed.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-17"
+      ],
+      "native_attempts": {
+        "DV-17": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-17/plan.json",
+          "sha256": "7e990b2d519343da1ce8fe403e1d85e744e7cee03536068935d4ea1ad4f2eb47"
+        },
+        {
+          "path": "inputs/carried/trials/DV-17/attempt-002/after.json",
+          "sha256": "1bff58493b1155c29fceab2a66dca9b26b422dbd1bb1ad89fd95976581226631"
+        },
+        {
+          "path": "inputs/carried/trials/DV-17/attempt-002/before.json",
+          "sha256": "c6eb57738791e015f38fb627e045c3a15e04dadd60f10b58a8ddf218141bdbec"
+        },
+        {
+          "path": "inputs/carried/trials/DV-17/attempt-002/effects.json",
+          "sha256": "b9447345ad1ab49b1317cfaa81b4adf512e3aae2c9d62bcdcefa72824b6cc430"
+        },
+        {
+          "path": "inputs/carried/trials/DV-17/attempt-002/result.json",
+          "sha256": "0e0f793ca9c5c49570afad075d4188d5273ce7fb7e1065dcb8e5c5c3ea9c47fb"
+        },
+        {
+          "path": "inputs/carried/commands/DV-17-002/command.json",
+          "sha256": "6157428a0b0815ba07d009a80e6c01253089fefb5c4bb26b243f135aaf2e0e2a"
+        },
+        {
+          "path": "inputs/carried/commands/DV-17-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-17-002/stdout.txt",
+          "sha256": "af45c96c28d9a23e87f334feceebab0af8d9cb317a64286d90ce431f51ad7eb5"
+        },
+        {
+          "path": "inputs/carried/trials/DV-17/project/.trial-output/final-002.txt",
+          "sha256": "b467d4ec3ac76f6a409c419dedc14b1af375ae77f5be1b242dd8e2851185e6f8"
+        }
+      ]
+    },
+    {
+      "case_id": "DV-18",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Literal Unicode/metacharacter project root and selected spec [input] Ω.md remained intact. Real eight-test red/green and exact output readback completed on Windows; console-encoding setup failure remained disclosed and all protected inputs unchanged. No alternate checkout/platform qualification inferred.",
+      "method": "behavioral",
+      "native_trials": [
+        "DV-18"
+      ],
+      "native_attempts": {
+        "DV-18": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/DV-18/plan.json",
+          "sha256": "3e2a09be0bf936fb909dd4aedf932367b99e31760266cdff8e695b8bbf1757a5"
+        },
+        {
+          "path": "inputs/carried/trials/DV-18/attempt-001/after.json",
+          "sha256": "1d0a96fc045efefdd9fe29b74920caeeb0142a410ab70ea91b0ca4eacddfa165"
+        },
+        {
+          "path": "inputs/carried/trials/DV-18/attempt-001/before.json",
+          "sha256": "aa459635a6bd3e46e31a6cf0506f0f54048e56274d322e233949c52df0d4a0a9"
+        },
+        {
+          "path": "inputs/carried/trials/DV-18/attempt-001/effects.json",
+          "sha256": "634b776405e27a1c75ddac41420f42bb4ae975b65f628b78ec3936b4f8b29022"
+        },
+        {
+          "path": "inputs/carried/trials/DV-18/attempt-001/result.json",
+          "sha256": "e7d04cf6af428fc1b8cadb26a93c422f57ad60c624b409846ca91e650b40da5f"
+        },
+        {
+          "path": "inputs/carried/commands/DV-18-001/command.json",
+          "sha256": "182c9e445eb97bb75bd2e8a1926ce17ce58932094e2853c21a815194c743d682"
+        },
+        {
+          "path": "inputs/carried/commands/DV-18-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/DV-18-001/stdout.txt",
+          "sha256": "03876a13a2dc478a224dedc360bfdfb5ccabd5cd769cfc559ba9d94784862169"
+        },
+        {
+          "path": "inputs/carried/trials/DV-18/project space Ω $literal/.trial-output/final-001.txt",
+          "sha256": "ea54032f49518a1f436021093a38e7e13fd78e693ada9695cf8962bbc3e10348"
+        }
+      ]
+    },
+    {
+      "case_id": "RV-02",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Quoted custom receipts Ω [$literal]/ stayed a single literal path. Native task retained eight-test red/green, explicit final exact-destination readback and all required outputs; independent audit checked seven refs and unchanged protected inputs. Setup console encoding ERROR was disclosed with actual partial-write outcome, not relabeled PASS. Startup-denied attempt001 retained; approved attempt002 completed.",
+      "method": "behavioral",
+      "native_trials": [
+        "RV-02"
+      ],
+      "native_attempts": {
+        "RV-02": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/RV-02/plan.json",
+          "sha256": "feab558e645ea0b210457c995bcf01ef28565e8169d9b07cf86e7f5ac1ef0560"
+        },
+        {
+          "path": "inputs/carried/trials/RV-02/attempt-002/after.json",
+          "sha256": "db38ef9f5597c92822d06cecf03b76e4c2fbe6f95df0b758f1dd6fdab90ba23b"
+        },
+        {
+          "path": "inputs/carried/trials/RV-02/attempt-002/before.json",
+          "sha256": "ff366196d6af0756f7016a68ad395ed44448278e75c939cf53635b2c206d8716"
+        },
+        {
+          "path": "inputs/carried/trials/RV-02/attempt-002/effects.json",
+          "sha256": "f1a37a997988d80ab317618eef2a0da4b78beaca427c2b99b750ce4c5879f963"
+        },
+        {
+          "path": "inputs/carried/trials/RV-02/attempt-002/result.json",
+          "sha256": "8563394bfceb3f11e31cd1aef82c0cfeb60f729585839f2ef676a016efbac040"
+        },
+        {
+          "path": "inputs/carried/commands/RV-02-002/command.json",
+          "sha256": "e2fbf0166a10eea810cbb2cc7ca507bf755e1aebba532177b4fc04c67104c775"
+        },
+        {
+          "path": "inputs/carried/commands/RV-02-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/RV-02-002/stdout.txt",
+          "sha256": "08c7d3332ea4ae540fcfebd93d26b4577ee9287c7bf7a9f164c0a6003e084512"
+        },
+        {
+          "path": "inputs/carried/trials/RV-02/project/.trial-output/final-002.txt",
+          "sha256": "9353a6fdaecb90149de617176eedbda7f889446de39d09a3c94a5df8d6177fca"
+        }
+      ]
+    },
+    {
+      "case_id": "RV-03",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Preserved existing evidence/sentinel.txt byte-for-byte, produced new receipts under exactly selected receipts/, executed six-test red/green/QA with real coverage measurement, and read back promised outputs without redundant permission or silently selecting the default directory.",
+      "method": "behavioral",
+      "native_trials": [
+        "RV-03"
+      ],
+      "native_attempts": {
+        "RV-03": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/RV-03/plan.json",
+          "sha256": "1d7470f2c684e3b31fb521a32290da1015a999ae043b0e6b5af2573b7ed2deac"
+        },
+        {
+          "path": "inputs/carried/trials/RV-03/attempt-001/after.json",
+          "sha256": "6538300f40adab42645ad44fe510414860ef4740f369fe2a3e7043543232ffee"
+        },
+        {
+          "path": "inputs/carried/trials/RV-03/attempt-001/before.json",
+          "sha256": "43676934a26a470d06ff8990f309c3e1f28909ee759f20512bd6a67922e37730"
+        },
+        {
+          "path": "inputs/carried/trials/RV-03/attempt-001/effects.json",
+          "sha256": "e7d56ceac82d2baab187bd0fafedae4feb609a2b097cbebe96d92ba62f86894b"
+        },
+        {
+          "path": "inputs/carried/trials/RV-03/attempt-001/result.json",
+          "sha256": "c0dd452153453a66514991ac66c5dbf2e455028e31d33aeded3b559f2f58efd7"
+        },
+        {
+          "path": "inputs/carried/commands/RV-03-001/command.json",
+          "sha256": "5501536da029df11c49fa23c4bba7091d5a46d6b1a607c147e13ab42ce59ef7a"
+        },
+        {
+          "path": "inputs/carried/commands/RV-03-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/RV-03-001/stdout.txt",
+          "sha256": "446d924f9e385fd7fa8b94bedb7b002084e7fa5b7f806a1cdd95bf6f0056135a"
+        },
+        {
+          "path": "inputs/carried/trials/RV-03/project/.trial-output/final-001.txt",
+          "sha256": "4cbbda842275da2fc228b91ba82a10eac95509e1b56d3fa14e45bffd5bff8fa9"
+        }
+      ]
+    },
+    {
+      "case_id": "RV-04",
+      "result": "PASS",
+      "reason": "Fresh cold session rejected the supplied unverified COMPLETE draft and stale receipts/ mapping, reread original custom receipts/ selection, retained draft and all protected inputs, completed real missing-behavior red then unchanged eight-method green/QA, and delivered under the exact required root with independent literal-path and digest readback.",
+      "method": "behavioral",
+      "native_trials": [
+        "RV-04"
+      ],
+      "native_attempts": {
+        "RV-04": "002"
+      },
+      "evidence": [
+        {
+          "path": "inputs/native-decisions.json",
+          "sha256": "fd351c39468aa1ad6f850e254439dd46dc31d7cc39721f1d5c637d31652085b3"
+        },
+        {
+          "path": "trials/RV-04/plan.json",
+          "sha256": "088c2f94e6ca0ca034814b5de0735cfaacccdce902db55bc82e525ed5c01e737"
+        },
+        {
+          "path": "trials/RV-04/prompt.txt",
+          "sha256": "1d2ac59d2ed21af3038bceeb77770e89e775efd1aab00d223236806298d416de"
+        },
+        {
+          "path": "trials/RV-04/attempt-001/result.json",
+          "sha256": "15a6bd125462018d209e3e0ef00735280c6e1e6f3f61bb9b26df87aee57cc57b"
+        },
+        {
+          "path": "trials/RV-04/attempt-001/effects.json",
+          "sha256": "f580012dd9111e6c9515c7b09c8f8f85f4152661e881717f3ff882d9fd808133"
+        },
+        {
+          "path": "trials/RV-04/attempt-002/before.json",
+          "sha256": "b6c2a5208eab5435fe3606616aa983dc41c4da729ec2fb403fb1cef53b3392ed"
+        },
+        {
+          "path": "trials/RV-04/attempt-002/after.json",
+          "sha256": "48d72d7478be64726430e27bd3a0d38304a25c2c83cc85c13d255661bdc62095"
+        },
+        {
+          "path": "trials/RV-04/attempt-002/effects.json",
+          "sha256": "468cb6c3fe1d43f543826b316c7a60476eeaaae6ab596e5af5ea33474706eb32"
+        },
+        {
+          "path": "trials/RV-04/attempt-002/result.json",
+          "sha256": "b823abd8185961914ba3d63ffeb9fcac089c1a19d82b3d13f8528e65b8e9de6d"
+        },
+        {
+          "path": "commands/RV-04-002/command.json",
+          "sha256": "5be07d2c114bb77e1cafb79c6a3bb58fe720fe32c69955f82a75673cc212a595"
+        },
+        {
+          "path": "commands/RV-04-002/stdout.txt",
+          "sha256": "c5630b7a829c07a8960ff31bdc6b919cb3b1df35d5c732d8b57299eadc4ab62a"
+        },
+        {
+          "path": "commands/RV-04-002/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "trials/RV-04/project/.trial-output/final-002.txt",
+          "sha256": "e1e714d640d4d7d02228ad2ff82b330b4d17ccc6777e0012135d013fa7c26420"
+        },
+        {
+          "path": "inputs/native-audits/RV-04/audit.json",
+          "sha256": "e1056f4994bcb203ce868633f3f78df1271d975dd86e0c544623328b4f6e7aaa"
+        }
+      ]
+    },
+    {
+      "case_id": "RV-05",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Detected the exact immutable regular file blocking unavailable receipts/child/, performed read-only inspection, reported precise BLOCKED and product QA NOT_RUN, and requested a new explicit writable selection instead of altering the blocker or creating alternate evidence.",
+      "method": "behavioral",
+      "native_trials": [
+        "RV-05"
+      ],
+      "native_attempts": {
+        "RV-05": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/RV-05/plan.json",
+          "sha256": "35010fcb38a8e38391edb76c12eaa13d481ab9dc702405495b653c75cb7e42fb"
+        },
+        {
+          "path": "inputs/carried/trials/RV-05/attempt-001/after.json",
+          "sha256": "cb5eb1e92f9f5a474573e34f1544906eaf57620001d32f981bab37103601d6a8"
+        },
+        {
+          "path": "inputs/carried/trials/RV-05/attempt-001/before.json",
+          "sha256": "88a97dab4e2f2e86b59c381c67c9bdf21fa9a1f62314c96ef7a06cd906a31df4"
+        },
+        {
+          "path": "inputs/carried/trials/RV-05/attempt-001/effects.json",
+          "sha256": "dc9d78665048aaec8f78c3d8d28ec53be148bbd2321584618b66c2aaf19ff4ad"
+        },
+        {
+          "path": "inputs/carried/trials/RV-05/attempt-001/result.json",
+          "sha256": "06a5b7de64b2446e6af92b777828f20c2e3d820bdcf2dc6e3654ec920f8c639e"
+        },
+        {
+          "path": "inputs/carried/commands/RV-05-001/command.json",
+          "sha256": "808560f1e168f186f11816bb7bc72a80e47610e4390a41342cc63b00a18a5c1d"
+        },
+        {
+          "path": "inputs/carried/commands/RV-05-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/RV-05-001/stdout.txt",
+          "sha256": "376af19c83cdb459935efb480bb2385361ccc536c4d67ac3ead0e4c41500353b"
+        },
+        {
+          "path": "inputs/carried/trials/RV-05/project/.trial-output/final-001.txt",
+          "sha256": "aaad65c023453b57bc3d8b684849f4454363ffa6ced32e74314bb49daa731921"
+        }
+      ]
+    },
+    {
+      "case_id": "RV-06",
+      "result": "PASS",
+      "reason": "CARRIED_FORWARD: Detected checkpoint evidence destination change from old receipts/ to new receipts/, invalidated the stale placement claim, preserved all sixteen protected files and old receipts, and completed fresh six-test verification plus exact final output readback in the new selected root.",
+      "method": "behavioral",
+      "native_trials": [
+        "RV-06"
+      ],
+      "native_attempts": {
+        "RV-06": "001"
+      },
+      "evidence": [
+        {
+          "path": "inputs/carried/bundle/expected-results.json",
+          "sha256": "50361dcb3f84e9a4480996a5a93adbdd8d83c405b3c28fdcfaacdc52ebd82c72"
+        },
+        {
+          "path": "inputs/carried/trials/RV-06/plan.json",
+          "sha256": "8165a3a08998d6269c82ef8ac2125a0f0bfb0698a6ed768fd45cf11bcc1d96b9"
+        },
+        {
+          "path": "inputs/carried/trials/RV-06/attempt-001/after.json",
+          "sha256": "ede916d95abce20a078d1b8132a9d072f903a09093c306f15f005d19f6d46409"
+        },
+        {
+          "path": "inputs/carried/trials/RV-06/attempt-001/before.json",
+          "sha256": "115b95a19e7d25b4f55451a86a48e57f613357ca42bd4291a878fe0ba880f164"
+        },
+        {
+          "path": "inputs/carried/trials/RV-06/attempt-001/effects.json",
+          "sha256": "f77ff167d636daee12cb59415a178c8da92f57dc2ccf35a432c151d77b90216b"
+        },
+        {
+          "path": "inputs/carried/trials/RV-06/attempt-001/result.json",
+          "sha256": "c6a16a22d2dff30e759b8856e92fef0d006b8b84f1aa290dad9bbe3c27e524c2"
+        },
+        {
+          "path": "inputs/carried/commands/RV-06-001/command.json",
+          "sha256": "3c3a6a0ab0089bae1700ed4e6f6b3c97e61737eb24a8a6366b34b1ecbc4160d0"
+        },
+        {
+          "path": "inputs/carried/commands/RV-06-001/stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/carried/commands/RV-06-001/stdout.txt",
+          "sha256": "9c6c7cefe3eab5a4cad8ca3097d69474805d8abd879d10427b8f80390538b1c8"
+        },
+        {
+          "path": "inputs/carried/trials/RV-06/project/.trial-output/final-001.txt",
+          "sha256": "6898714d14d680daa5fba1590391e527e875ac2d0acda8c9b3d20ee853b3f385"
+        }
+      ]
+    }
+  ]
+}

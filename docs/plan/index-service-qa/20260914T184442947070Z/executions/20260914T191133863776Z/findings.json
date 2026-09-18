@@ -1,0 +1,61 @@
+{
+  "verdict": "FAIL",
+  "defects": [
+    {
+      "id": "QA-D01",
+      "state": "OPEN",
+      "owner": "dev",
+      "criterion": "DS-025",
+      "evidence": [
+        "attempts/coverage-002/stdout.txt",
+        "ubuntu/attempts/coverage-002/stdout.txt",
+        "attempts/coverage-002/gui/tray-paused.bmp"
+      ],
+      "summary": "Current generation and reconciliation time omitted from native management status"
+    },
+    {
+      "id": "QA-D02",
+      "state": "OPEN",
+      "owner": "dev",
+      "criterion": "section1.4;DS-A19",
+      "evidence": [
+        "coverage.json",
+        "ubuntu/coverage.json",
+        "metrics.json"
+      ],
+      "summary": "Executed-line coverage below95% on both measured platforms"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "QA-G01",
+      "owner": "platform owner/QA",
+      "criteria": "DS-003,005,006; DS-A05,A06,A16",
+      "detail": "WSL2 target left NOT_RUN by selected scope; two Windows WSL test functions ignored, not credited as passes."
+    },
+    {
+      "id": "QA-G02",
+      "owner": "user/platform owner",
+      "criteria": "DS-026; DS-A16,A19",
+      "detail": "Startup/systemd changes explicitly excluded; no settings/Run key/unit installation or WSL startup changes."
+    },
+    {
+      "id": "QA-G03",
+      "owner": "QA/platform owner",
+      "criteria": "DS-004,007,010,011,012,016,018,019,021,022,025",
+      "detail": "Remaining native/negative/race acceptance subcases listed per criterion in report; no cross-account fixture, no deterministic crash-at-commit/overflow/unstable-capture campaign or complete UI matrix."
+    },
+    {
+      "id": "QA-G04",
+      "owner": "QA",
+      "criteria": "DS-A18; DS-017,020",
+      "detail": "Three fixed-seed indexing benchmark repetitions completed per tested host, but CPU/RAM and sustained idle collection not instrumented; concurrent benchmark uses daemon.status, not content queries. Real read-transaction concurrency separately tested in N05."
+    },
+    {
+      "id": "QA-G05",
+      "owner": "QA",
+      "criteria": "QA-010,011,018; DS-A19",
+      "detail": "31 first-party Rust files/192 attribute locators inventoried; relevant syntax/imports and assertions inspected. No mocking/gaming confirmed. Complete macro/re-export/dependency and helper audit and historical TDD chronology not established. Full requirement-derived unit inventory remains incomplete; report18 declared units as bounded metrics, never complete inventory."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "case_id": "COVERAGE-COMBINE",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "coverage",
+    "combine",
+    "--rcfile",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\coverage\\coverage.ini",
+    "--keep"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:21:20.927697Z",
+  "end": "2026-09-13T21:21:21.414299Z",
+  "elapsed_seconds": 0.48400000005494803,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/COVERAGE-COMBINE/stdout.txt",
+    "sha256": "015abcb9ade449873e50a66627365ae74e00775ea11b0411cccf44135e96204a"
+  },
+  "stderr": {
+    "path": "commands/COVERAGE-COMBINE/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": null,
+  "fixture_unchanged": null
+}

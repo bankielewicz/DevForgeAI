@@ -1,0 +1,15 @@
+{
+  "reviewer": "/root/description_routing",
+  "context": "Fresh sub-agent with only skill description and unlabeled prompts; no tools, file reads, expected labels or parent conversation supplied.",
+  "results": {
+    "R1": {"select": true, "reason": "Requests software implementation from an explicitly selected specification and completion of tests."},
+    "R2": {"select": false, "reason": "Requests specification drafting and explicitly excludes implementation."},
+    "R3": {"select": true, "reason": "Requests completion of work from two explicitly selected component specifications and integration verification."},
+    "R4": {"select": false, "reason": "Requests review only, with no changes."},
+    "R5": {"select": false, "reason": "Requests skill installation, which is excluded."},
+    "R6": {"select": true, "reason": "Requests resuming checkpoint-selected implementation through QA using the selected feature specification."},
+    "R7": {"select": false, "reason": "Requests skill authoring, which is excluded."},
+    "R8": {"select": false, "reason": "Requests architecture research without implementation."}
+  },
+  "native_implicit_activation": "NOT_RUN"
+}

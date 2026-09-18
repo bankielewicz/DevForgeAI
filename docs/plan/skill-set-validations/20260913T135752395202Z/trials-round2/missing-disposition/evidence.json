@@ -1,0 +1,36 @@
+{
+  "schema_version": "project-evidence-v1",
+  "run_id": "fixture",
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\missing-disposition",
+  "scope_roots": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\missing-disposition"
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\missing-disposition\\authorization.txt",
+      "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+    }
+  ],
+  "facts": [
+    {
+      "id": "domain",
+      "category": "domain",
+      "statement": "Summarize selected notes.",
+      "basis": "user_supplied",
+      "sources": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\missing-disposition\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "complete": true,
+  "capabilities": [],
+  "gaps": []
+}

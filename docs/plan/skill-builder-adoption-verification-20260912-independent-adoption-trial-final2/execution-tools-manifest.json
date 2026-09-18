@@ -1,0 +1,35 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\driver-executed.py",
+      "sha256": "fc516b1c004e32f7ad5af16af93824ff90dcd2ce130b5496060678c3a53a89b6",
+      "bytes": 36270
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\behavior-check-executed.py",
+      "sha256": "2c88c918cf6d6b00968f0e8dd1b096ce5b0ebc3e1108990b5da1b6d942aeb81a",
+      "bytes": 3010
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\build_evidence.py",
+      "sha256": "e0413d6784499edae3cb3e76cb210a25f60d7f3cfbd9b75c253284f529ef4ce2",
+      "bytes": 15653
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\run_evaluation.py",
+      "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8",
+      "bytes": 11106
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\evals\\build-manifest.json",
+      "sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+      "bytes": 5651
+    },
+    {
+      "path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+      "bytes": 4376
+    }
+  ]
+}

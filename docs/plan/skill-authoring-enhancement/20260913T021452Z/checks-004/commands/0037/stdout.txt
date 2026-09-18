@@ -1,0 +1,1 @@
+{"records": 3, "exit_code": 0, "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\builder-enhancement-test-at14eo5j\\results-1.jsonl", "authority": "NONE"}

@@ -1,0 +1,2350 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project",
+  "captured_at_utc": "2026-09-15T00:28:12.195671+00:00",
+  "files": [
+    {
+      "path": ".validation-run-path",
+      "bytes": 195,
+      "sha256": "c69d4daa0b3cc45fe7c739a63d6494fe716fbc2e579a5e39cad2829b618ea758"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/adaptive-validation.md",
+      "bytes": 26699,
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/environment.json",
+      "bytes": 792,
+      "sha256": "a60b050b43981c59a540feaa7085732a5bf5409a47cd3cc919cd21e5a4c0a16e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/live-guidance-retrieval.txt",
+      "bytes": 15590,
+      "sha256": "fff432c0ff60523c4b5ef55ff25c2d1a6f230368c70f36ddafccfd91fbb11846"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-check/command.json",
+      "bytes": 872,
+      "sha256": "e132e9ba91616f191453e400eaf002108fe75b67d273de7530846962cf2c7f55"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-check/stdout.txt",
+      "bytes": 2362,
+      "sha256": "438d005d38e04a94381cbd7d2bef31523a878aa2f598e6b18d692bd809f894a5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-run/command.json",
+      "bytes": 870,
+      "sha256": "f499dc9eb822ff010ef0e8f48712c36eae45aea2a24e6e028014a46e391014f0"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-run/stdout.txt",
+      "bytes": 2362,
+      "sha256": "438d005d38e04a94381cbd7d2bef31523a878aa2f598e6b18d692bd809f894a5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-seal/command.json",
+      "bytes": 1129,
+      "sha256": "2be1312a56539dfbbe43960d50cf246fa944a02c190a70b250f968f3879488f1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/boolean-seal/stdout.txt",
+      "bytes": 571,
+      "sha256": "84197a0eca6e888e77c54f60cc99991c3c99ab40683c93ca38f3a6cf2aa270db"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/codex-help/command.json",
+      "bytes": 370,
+      "sha256": "f7381163a63a3bf6ecf344d06c6132b7b6e88b7913b8ec3941216c1b41a21551"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/codex-help/stderr.txt",
+      "bytes": 243,
+      "sha256": "e63c170b682700bb908bb68136cd2bd145d4cd0c584ff4bf14c67cc357c98033"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/codex-help/stdout.txt",
+      "bytes": 4031,
+      "sha256": "0e82cfde0122715250e93dc65866caa956b2ac5b9d0b20ec4ad4f9e81486509e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/codex-version/command.json",
+      "bytes": 361,
+      "sha256": "03ce460673413462b2b327becd0ccdd997a264813c2f83a99a087702942ce94b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/codex-version/stderr.txt",
+      "bytes": 243,
+      "sha256": "56a978cd80c5bddf6cebb702b611768d6249235e50ec141b925c9704f15dc0e1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/codex-version/stdout.txt",
+      "bytes": 18,
+      "sha256": "5efa0283757c66156d45d082b4e2e8afb881de3a97862bc03aed7fb34f45df7b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/creator/command.json",
+      "bytes": 727,
+      "sha256": "4fead67a38bbef967ee89ff02854f47770b01517bae1a688680613e6ced41483"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/creator/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/creator/stdout.txt",
+      "bytes": 17,
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-check/command.json",
+      "bytes": 870,
+      "sha256": "3d0dfd72918f682b427bdfb3510350cda801e262e29656eeb239fed94c0c90d1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-check/stdout.txt",
+      "bytes": 2959,
+      "sha256": "8ff1ec262026ea8a62d57dc6d96804e7ba0f6639202ee947e7b8e054d33ba45e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-run/command.json",
+      "bytes": 868,
+      "sha256": "7e94e069d01dea82515e1660407dc2eb8c101e657f43846eb7c08b5164bf3992"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-run/stdout.txt",
+      "bytes": 2959,
+      "sha256": "8ff1ec262026ea8a62d57dc6d96804e7ba0f6639202ee947e7b8e054d33ba45e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-seal/command.json",
+      "bytes": 1125,
+      "sha256": "d76baad6fcafe0610f431aa90c24065c6469af142928c6bf3302fa8affb3caee"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/empty-seal/stdout.txt",
+      "bytes": 569,
+      "sha256": "fc9e68113fdd64aa94419f4722c3a3c1988d1257575bf29953fae0cf29fdd084"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-check/command.json",
+      "bytes": 870,
+      "sha256": "cacbff08b56296e071f35255b895484c354ff14060e7c709f1effec6f4221019"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-check/stdout.txt",
+      "bytes": 2352,
+      "sha256": "e42b1fcfca3eb3560b24381114b38b21fe77f115b88b2eb840469a62e07085bc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-run/command.json",
+      "bytes": 868,
+      "sha256": "65a4300e97bead2202a491f43caf33c16f9b0c0428c83d41d9eeb8308b0ce604"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-run/stdout.txt",
+      "bytes": 2352,
+      "sha256": "e42b1fcfca3eb3560b24381114b38b21fe77f115b88b2eb840469a62e07085bc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-seal/command.json",
+      "bytes": 1125,
+      "sha256": "3d53ff4d287fb10456255847d5deebde1397ad2034cefc12c6b7dec154df0a1c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/float-seal/stdout.txt",
+      "bytes": 569,
+      "sha256": "46f509ee2610316a2d0abc9e51da9cbdf38a0ef14e050401cdc30a3fe6ccfce6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-check/command.json",
+      "bytes": 869,
+      "sha256": "0d91786127a72e6e601dc6bcd6cef364546cdd43ed9531d88a79b7e3ec2a05b2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-check/stdout.txt",
+      "bytes": 2344,
+      "sha256": "53611ee6c5ff4edc714376b7c50a46fc481eb98c938f37c661c636ba10f493a5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-run/command.json",
+      "bytes": 867,
+      "sha256": "cf71122a80fd6b7433764d7cc52138d4c6fb98e1f9b9ea5ac7b0e88087bdcdae"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-run/stdout.txt",
+      "bytes": 2344,
+      "sha256": "53611ee6c5ff4edc714376b7c50a46fc481eb98c938f37c661c636ba10f493a5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-seal/command.json",
+      "bytes": 1123,
+      "sha256": "c7907b8dbcb2955cd18b71eccae0cd34d25c1495c24db09d355860138599d973"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/help-seal/stdout.txt",
+      "bytes": 568,
+      "sha256": "b1c314cfb7778a7097178d24b4ffeeb8292ba8b21072b8b596bae1903189447a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-check/command.json",
+      "bytes": 874,
+      "sha256": "4f1102ec5ff0a8f4aff2ef5db255c2c3921aea3d084cf46916f348260732294d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-check/stdout.txt",
+      "bytes": 2372,
+      "sha256": "e35a9156341297df9cff4662f0b94d2935478e60747413d851a2f97c3d705493"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-run/command.json",
+      "bytes": 872,
+      "sha256": "98dbd0106186acf7099cfa2c884854659398e472cdaadffbcf9064d826aba4c8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-run/stdout.txt",
+      "bytes": 2372,
+      "sha256": "e35a9156341297df9cff4662f0b94d2935478e60747413d851a2f97c3d705493"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-seal/command.json",
+      "bytes": 1133,
+      "sha256": "f8523fbe70a632432392e0b8563283538e999b06a9b3c5166c436003f9da96f9"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/injection-seal/stdout.txt",
+      "bytes": 573,
+      "sha256": "9f5bee27f82a9fcde2902381eb73125231cbddedbae882db929c97048e8d7bff"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-check/command.json",
+      "bytes": 881,
+      "sha256": "34fcf62df74d1a089f477035c461fb8df93f12f44f77d1439d50bd4196e6d405"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-check/stdout.txt",
+      "bytes": 2407,
+      "sha256": "533f1e3f8e5940449020aea2195555f42a460aa720e57f3a1175ad17e6df164a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-run/command.json",
+      "bytes": 879,
+      "sha256": "2d960de757df16a76cf01579ea95fba8979b4088477eebef025044bb08cb1607"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-run/stdout.txt",
+      "bytes": 2407,
+      "sha256": "533f1e3f8e5940449020aea2195555f42a460aa720e57f3a1175ad17e6df164a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-seal/command.json",
+      "bytes": 1147,
+      "sha256": "96dc9311a76c173e33c2b34144f30d347a5bae188316e5d7893c74df64d7dbe8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/invalid-existing-seal/stdout.txt",
+      "bytes": 580,
+      "sha256": "a7fec65f075c3434282622df818fa3aa01f355576a059fc6f760fa7add36309c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-check/command.json",
+      "bytes": 870,
+      "sha256": "10e4dd4d791a3e1c2b668e2316d7043ecc43436fcaba86cb30073bdff5fb58c6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-check/stdout.txt",
+      "bytes": 2963,
+      "sha256": "bc98168054473bcb4385fa093653420dc2abecd60b781d9e4133e36a79b22292"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-run/command.json",
+      "bytes": 868,
+      "sha256": "e9fde8e26f92693a1305a891dfa745c7b617324c6f5a8d02d516d4521dbb6c9b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-run/stdout.txt",
+      "bytes": 2963,
+      "sha256": "bc98168054473bcb4385fa093653420dc2abecd60b781d9e4133e36a79b22292"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-seal/command.json",
+      "bytes": 1125,
+      "sha256": "c65a9182164342cdb6475a81a75f03c2cb82321d7d28591b60da34f8a2e7a843"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/large-seal/stdout.txt",
+      "bytes": 569,
+      "sha256": "22e13f9bd8035a6d9d29661e611fc0b5b6dd8a144dafcaf9c41b36672729b0b6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-check/command.json",
+      "bytes": 874,
+      "sha256": "50c7b4f0c6a8aec4f8aca5480a82cf44e8244fdcaf489f10c0a7173da313bf7d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-check/stdout.txt",
+      "bytes": 2372,
+      "sha256": "bba3ac4091f3289a818790eaab0b24649777892e50822b0fd556fb21a297ce09"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-run/command.json",
+      "bytes": 872,
+      "sha256": "78c9c744a21e914589d05a11dfb91f466746af8d84e15c62bd5d8f3abe56b3c5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-run/stdout.txt",
+      "bytes": 2372,
+      "sha256": "bba3ac4091f3289a818790eaab0b24649777892e50822b0fd556fb21a297ce09"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-seal/command.json",
+      "bytes": 1133,
+      "sha256": "fd918fdd99b79230c2b7221e124133e6c912d4fa7008187baa50e186a85d03d7"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/malformed-seal/stdout.txt",
+      "bytes": 573,
+      "sha256": "b44dc5141810d917f5367cb663b160898b0b7e306116c87129a26f836d6b5434"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-check/command.json",
+      "bytes": 877,
+      "sha256": "a75dbf487882a8dee67f2a3dd712e098fcbbfcca8cfa18d8f1393c137af21818"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-check/stdout.txt",
+      "bytes": 2387,
+      "sha256": "6d857b4d47071fbc255bcf8de046f034a12cfe5130777f3b302c4be4b16a6fcc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-run/command.json",
+      "bytes": 875,
+      "sha256": "76e1987ee36d577d1d20e94c60a92a03e37d3eec5dedc72dac6a82b492935d34"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-run/stdout.txt",
+      "bytes": 2387,
+      "sha256": "6d857b4d47071fbc255bcf8de046f034a12cfe5130777f3b302c4be4b16a6fcc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-seal/command.json",
+      "bytes": 1139,
+      "sha256": "19c752d012d3d45ec885e1fe9b70b468e3130a199da01cbdf52fa048efc8c8c9"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/missing-args-seal/stdout.txt",
+      "bytes": 576,
+      "sha256": "fca0fb9898b646b3848d30c14f8793fcc66d56be3d116b2099ff665db9eb614c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-check/command.json",
+      "bytes": 870,
+      "sha256": "d22e09f1f370080423048bc90f84c6e08c5c4f48edaca543918827a4d8c852ab"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-check/stdout.txt",
+      "bytes": 2949,
+      "sha256": "d83446c1a60688428aa421d672020c834c37bbef0582a4115487fdd63bc5d33f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-run/command.json",
+      "bytes": 868,
+      "sha256": "9f6503b7a517b4e0838a316d14eb13f63ae36a485ca071d3b8f5063ee63ff6e4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-run/stdout.txt",
+      "bytes": 2949,
+      "sha256": "d83446c1a60688428aa421d672020c834c37bbef0582a4115487fdd63bc5d33f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-seal/command.json",
+      "bytes": 1125,
+      "sha256": "5575f0aa1b75604ab45c2bf82c6876876c014c04d6d1e97a435030f257f50965"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/mixed-seal/stdout.txt",
+      "bytes": 569,
+      "sha256": "de365f094318c5cb216df7be8aa1706e8c2463994ea669e7638cbfd33f9629b4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-check/command.json",
+      "bytes": 873,
+      "sha256": "ef0ef59c6bfd0a42d7962f63e0e7f7f9a2fe68ff78b716d56681162f5df67ecd"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-check/stdout.txt",
+      "bytes": 2968,
+      "sha256": "c9367d50575c1c2896a4920c7179add75b640524807e251756f9b828b6b45666"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-run/command.json",
+      "bytes": 871,
+      "sha256": "d43121b1848f6fc59615ea7540a30fa270ef5c3c93ecbb84ed78d56086c052c4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-run/stdout.txt",
+      "bytes": 2968,
+      "sha256": "c9367d50575c1c2896a4920c7179add75b640524807e251756f9b828b6b45666"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-seal/command.json",
+      "bytes": 1131,
+      "sha256": "99802f8ed2e57dc90d1284cd89cd989943267b838823688c5514dea60240910f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/negative-seal/stdout.txt",
+      "bytes": 572,
+      "sha256": "97e62d3042192f97c287710982c150a22e91be35eae29efdc17dbde0beda3415"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-check/command.json",
+      "bytes": 871,
+      "sha256": "491244ef714c724895beb7c75cf6d1fdc2f28b2593a5a4b9fd2358fbd4eab0e9"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-check/stdout.txt",
+      "bytes": 2357,
+      "sha256": "0bdd841173ca7928bc0a404dbc1e9e3b7ef8adf97c80de450570fb3a14135aa4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-run/command.json",
+      "bytes": 869,
+      "sha256": "25cb492b54a7d6f01de4e21aebd37e2600ce38f94d52abff8ae8fd0ebc749d4b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-run/stdout.txt",
+      "bytes": 2357,
+      "sha256": "0bdd841173ca7928bc0a404dbc1e9e3b7ef8adf97c80de450570fb3a14135aa4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-seal/command.json",
+      "bytes": 1127,
+      "sha256": "da7aabdaa63eb4fce4527407c08c095e044093ae4a6f1a1121c3a5930147eb08"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/nested-seal/stdout.txt",
+      "bytes": 570,
+      "sha256": "ff0ee14957f1b0ae5f5bbe72d2958bc4f8c16c6e896287204d2061c8d6ae267a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-check/command.json",
+      "bytes": 869,
+      "sha256": "2ea4074e252a76d77068759863b1974469ba1bd6e89cf54e65f9b2b124d999f8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-check/stdout.txt",
+      "bytes": 2347,
+      "sha256": "2c8cf842ddb40c33b4a26c9ec2852b442ebb334e77b376ed28640c090fdb1da4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-run/command.json",
+      "bytes": 867,
+      "sha256": "4a8de672db3a0293cad07c1e45abadfc4d8c24c93caab9233b963d113ff2bff6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-run/stdout.txt",
+      "bytes": 2347,
+      "sha256": "2c8cf842ddb40c33b4a26c9ec2852b442ebb334e77b376ed28640c090fdb1da4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-seal/command.json",
+      "bytes": 1123,
+      "sha256": "94d8dfb702c947c3abfe896d97d5d617d392da4af9e636db03811bb22a06fcd3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/null-seal/stdout.txt",
+      "bytes": 568,
+      "sha256": "f9b9a6c3368d9ea5607ec8d0017db4c9cfbecbc7e31dc7c3ffcab07ede30c14c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-check/command.json",
+      "bytes": 871,
+      "sha256": "ca9cc71ac65d969d5cf000c667638aad0c4f4860cdd5640e45f10b97da5e4803"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-check/stdout.txt",
+      "bytes": 2356,
+      "sha256": "284c3df04f0e764f5d06f8444e16931214bf285c1a300662c2cd51a6cd2a5b11"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-run/command.json",
+      "bytes": 869,
+      "sha256": "e68b1a81691825d92c34a167d24b8ba73f9cafd245b52c984e37c56c4d880681"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-run/stdout.txt",
+      "bytes": 2356,
+      "sha256": "284c3df04f0e764f5d06f8444e16931214bf285c1a300662c2cd51a6cd2a5b11"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-seal/command.json",
+      "bytes": 1127,
+      "sha256": "fe433381cfb9bbdf1c7ebe26300ae49d6672ff546f3605176e85f42f1cc7e6c1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/object-seal/stdout.txt",
+      "bytes": 570,
+      "sha256": "1e7e39a0ca236be46172b9856a8604a5b4cf0fbf8c14e498350783952532c611"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/package/command.json",
+      "bytes": 855,
+      "sha256": "3df3cd2b36ce5ab6887e22ebc658f031e07ddb45b01da780af2a63384361a6fa"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/package/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/package/stdout.txt",
+      "bytes": 3353,
+      "sha256": "89c8396cb3c1ad91b06a49983f9f721d1698dd276b4a9b6de54602f8a93e420b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-check/command.json",
+      "bytes": 873,
+      "sha256": "d75c49d410b02a07748d80894c63c1e6830e37917285cb8636bdabb7df3a972b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-check/stdout.txt",
+      "bytes": 2967,
+      "sha256": "dbe22f0eb44d575eab118e001bc355a7a2c2d7deb52a0af50cd45ac4baf4931b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-run/command.json",
+      "bytes": 871,
+      "sha256": "ab9b7ce821f417a501889dccd41eed903351c995de501a7c4614f07cf48d6955"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-run/stdout.txt",
+      "bytes": 2967,
+      "sha256": "dbe22f0eb44d575eab118e001bc355a7a2c2d7deb52a0af50cd45ac4baf4931b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-seal/command.json",
+      "bytes": 1131,
+      "sha256": "0c1d0f3a1831ac3a1277994ab6d1cc3238ae2e2b54802ab78f190965c914a683"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/positive-seal/stdout.txt",
+      "bytes": 572,
+      "sha256": "1d10d914943866cefbee215916fe145c9c55eb92af511ee60fc94c5f6921d662"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-check/command.json",
+      "bytes": 874,
+      "sha256": "da04fb7733669180fa549ba3e5675e8dccd0f6e14e6f9e191b7633a3045370c1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-check/stdout.txt",
+      "bytes": 2372,
+      "sha256": "d8bf3a807a784951c9f9b7c10b98c908b6dbf2465f026c0781e6205c0795a572"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-run/command.json",
+      "bytes": 872,
+      "sha256": "210e2f8421d1d9430ed20b7e5017cbf9a06767b2638dffacdf6c2a6a160fb949"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-run/stdout.txt",
+      "bytes": 2372,
+      "sha256": "d8bf3a807a784951c9f9b7c10b98c908b6dbf2465f026c0781e6205c0795a572"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-seal/command.json",
+      "bytes": 1133,
+      "sha256": "c4844aeb12baff07ad0ef981972b6727446ab4d6f79b22407ecd310f54733961"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/same-path-seal/stdout.txt",
+      "bytes": 573,
+      "sha256": "e7ba5f0b7e7ff9b0274016e2962d8508d812194280cdd7339a3204a3c3c11dde"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-check/command.json",
+      "bytes": 871,
+      "sha256": "0297c5477af733df4c1f5256dcf8b7af67558aeca7690c03e3f6f02142d68546"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-check/stdout.txt",
+      "bytes": 2357,
+      "sha256": "6e77a18cef9ff89fbaa44c01b1221cbaec3f83cff25d685fcb05dd39a868bd68"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-run/command.json",
+      "bytes": 869,
+      "sha256": "45640f2768c973802b9e316656f656e5fd2911619b6b36c61733d3b416b6b418"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-run/stdout.txt",
+      "bytes": 2357,
+      "sha256": "6e77a18cef9ff89fbaa44c01b1221cbaec3f83cff25d685fcb05dd39a868bd68"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-seal/command.json",
+      "bytes": 1127,
+      "sha256": "bcd12e03cbebffeb9535457f8951b3fd9c473e6705ebbb901c5c719dac104042"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/scalar-seal/stdout.txt",
+      "bytes": 570,
+      "sha256": "a5c73740e3094ce4f653d69d1dc4a7a746986ec72f9c9d5349b25f1f2033a0a2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/standards/command.json",
+      "bytes": 841,
+      "sha256": "01a12c39e077fc600daadd1e1bc4b7552e87c0d9dba78a2280588af93926e17d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/standards/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/standards/stdout.txt",
+      "bytes": 486,
+      "sha256": "59f6e4c4161311734156f2e8ce2c594ec51ee55e14da6e92758f9481de8344a5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-check/command.json",
+      "bytes": 871,
+      "sha256": "b24f2c149b787713e5537772b10eb5a5b91fdd2e54a1a161f3a7df173e044b8f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-check/stdout.txt",
+      "bytes": 2357,
+      "sha256": "67d730867a3d7cf0e7b409ff558ae9697b3679fa89d149534b04441c782171ee"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-run/command.json",
+      "bytes": 869,
+      "sha256": "e56d7d1fff4e9fa3f447fb24e82c5054a9d23120620dca435e8b8215d8ffb480"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-run/stdout.txt",
+      "bytes": 2357,
+      "sha256": "67d730867a3d7cf0e7b409ff558ae9697b3679fa89d149534b04441c782171ee"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-seal/command.json",
+      "bytes": 1127,
+      "sha256": "2b06f9be055531aa5aec3bf44fc93ccd7a427e01fb3aa802241f0250e3991d04"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/string-seal/stdout.txt",
+      "bytes": 570,
+      "sha256": "1157d6e1909511dd468b2952484a5df23f04c5b1ed86be5767262cb20249e7e4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/structure/command.json",
+      "bytes": 848,
+      "sha256": "282dadf88b07efb2ac955ce064dba5b51d7acbf02509c18c6a20a496f9eb5b4d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/structure/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/structure/stdout.txt",
+      "bytes": 2130,
+      "sha256": "ecb5aaf6abe96ea25dbfecbb8aaef84d1117e5d31b8189b86bee8456d89f9ec5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-check/command.json",
+      "bytes": 869,
+      "sha256": "bf26944607e3648c992742aeb752381208e320a2af13306c982570fdef48f98e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-check/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-check/stdout.txt",
+      "bytes": 2953,
+      "sha256": "8aa615eee6e8587ed9bf9258573d619ed935c88e85c26e01e278fe88aee994f5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-run/command.json",
+      "bytes": 867,
+      "sha256": "cb980a408e7b04c54cd4456e64917875574720472932dfb5819628be54989e30"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-run/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-run/stdout.txt",
+      "bytes": 2953,
+      "sha256": "8aa615eee6e8587ed9bf9258573d619ed935c88e85c26e01e278fe88aee994f5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-seal/command.json",
+      "bytes": 1123,
+      "sha256": "cffc0c72b5be7990a86e21fc095e52d681284087cd3c50b1a3a44adb56bf1465"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-seal/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/observations/zero-seal/stdout.txt",
+      "bytes": 568,
+      "sha256": "7ba942b16221d529dcbb6c1f0ca046384089f056d09ad68961b5023554159a8f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/quick_validate.py",
+      "bytes": 4376,
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/reliable-evaluation.md",
+      "bytes": 8616,
+      "sha256": "2eef1a494978d51a54ef8abef4fbf640cb08300e954406361105712a0f65b915"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/reporting.md",
+      "bytes": 10397,
+      "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/rules-snapshot.json",
+      "bytes": 21220,
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/rules.md",
+      "bytes": 13302,
+      "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/specification.md",
+      "bytes": 963,
+      "sha256": "7fbad949b9f04c9a5c4321b51dceb5b10a9587f6b03d5cdcf191edaec5c03296"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/standards-catalog.json",
+      "bytes": 5875,
+      "sha256": "dd792bf522c6ac9f11e4be08e56d9202313aa69faa200071d700c6a34103bc79"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/trial-plan-v1.schema.json",
+      "bytes": 3312,
+      "sha256": "89a68dc9ff09a3e987d9c52d610c79e76c389bbb9f6b56635c04aaf82ca25400"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/trials.md",
+      "bytes": 3713,
+      "sha256": "ea0c212748e01feb95d91f95c64e97b976228435394763c57e6462184d1e67ad"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/validation_driver.py",
+      "bytes": 11112,
+      "sha256": "0408ecda50d1ffb78d715cf7f512c1e6be6da19b65ea4c043e1e98ffeaa6c887"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/inputs/validator-manifest.json",
+      "bytes": 15192,
+      "sha256": "caebc28fdbfff60d67cb9173857ba0b45f3bdc8c4c7df252b5ac410c31d6b929"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/rule-set.json",
+      "bytes": 27635,
+      "sha256": "d022a4bf27fcfac54085693fc6f9b963063bc3976da1f145a665e081c36ac733"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/source-manifest.json",
+      "bytes": 705,
+      "sha256": "81530a4b1f19ebff62418984dcb235b9caf369fd547274542c11ff194ce83c41"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/source/SKILL.md",
+      "bytes": 585,
+      "sha256": "af81717f49df28f13833f15cfc60ceebb38ed0e11b1e1ff8c41f7565da9dbbbf"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/source/scripts/total.py",
+      "bytes": 842,
+      "sha256": "9a268ca0f2c4c93958e08946096729e7fde3e425afa25b8a10b1fe28d98923ba"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/sources.json",
+      "bytes": 1736,
+      "sha256": "89f61cb8d54c8cedf9022da6c84d573884270cd53e0f6fa1aa3611ed44acef65"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/after.json",
+      "bytes": 777,
+      "sha256": "354f731621679ade7afe402275c0f0b836eb9a2857a1f541be889d2dedee1787"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/before.json",
+      "bytes": 777,
+      "sha256": "1d7d9df9e4e6c0ac9047d266d66c810d7a03e072027cdefd8cf05b69cbb76fef"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/plan.json",
+      "bytes": 3382,
+      "sha256": "226730d0ef28eb0b692ce305d3daa97b7bb3f3579ea40d90fbc8bc69cbe2fd71"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "7dd7953debd1e4875721a598016d1c4b32d80fb3c7262ba3f9fcd0aed02c6ad3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/result.json",
+      "bytes": 2317,
+      "sha256": "991eb17769484ecd06921665c1bfdd98ff3f784d9e106985f8ce7f36f805d3f6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/seal.json",
+      "bytes": 560,
+      "sha256": "6d314e327dfed9d37436eaaf7b5c433dcb4a7224d9821620c99d569390c35b12"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "20244ba84312f2da1fad6b3da9552da9558ee344cdbe485a25e0d13c6583e761"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/plan.json",
+      "bytes": 3382,
+      "sha256": "226730d0ef28eb0b692ce305d3daa97b7bb3f3579ea40d90fbc8bc69cbe2fd71"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/workspace/input.json",
+      "bytes": 10,
+      "sha256": "cf1fed8e18a6f0ed928360c6592aa87bdd84f1163fbd6fdef26e859ba4c1bfe3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/boolean/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/after.json",
+      "bytes": 918,
+      "sha256": "b941d36a96d2f5544b3a3ea0c7799260fb9a18e2feb1ad143678fd6e6ee6d107"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/before.json",
+      "bytes": 774,
+      "sha256": "20a7bc8cb8c773c23c93e3b7d9218a3043185ccef9e20a3ef244a62c14f6d4d8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/plan.json",
+      "bytes": 3508,
+      "sha256": "10092e1ca3ae9358d99722f812d7d995591e785e94d2a104782ce502b395d712"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "74e139565fef3322c044f628c0411ae32b24fc782b00e15a779ebbde6b7094ab"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/result.json",
+      "bytes": 2896,
+      "sha256": "1fb0b5a1f8ae7f45461e9072f44748f24fc83cd96d3b97e96ebbdd936d9c5e07"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/seal.json",
+      "bytes": 558,
+      "sha256": "7a803296c3d268df550c0ca8123f980e7e590574291cda356aefad284313113b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "392ad711c987e0c3360b38ffd214f7ffaae6bdb90dc1a2c0d73ace00222503f8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/plan.json",
+      "bytes": 3508,
+      "sha256": "10092e1ca3ae9358d99722f812d7d995591e785e94d2a104782ce502b395d712"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/workspace/input.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/empty/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/after.json",
+      "bytes": 774,
+      "sha256": "eaa3c3f9beed69f413f3651ba8b9cc3066f6e9333776a362ffd577ec709ee435"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/before.json",
+      "bytes": 774,
+      "sha256": "3fa19532db41c6ba76a56297bb3f0f29ae65adc90afe8e50f6957ba27d7af7d4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/plan.json",
+      "bytes": 3368,
+      "sha256": "3bcb164b394fa127c3c21c8984caf427aa6b971da21b6d9365e1fbb00c687c5e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/process.json",
+      "bytes": 77,
+      "sha256": "1471f23f696271c2712d01139691684097d0303f5f1ec8fe7d8132ac68f74d9c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/result.json",
+      "bytes": 2307,
+      "sha256": "2bb5dc3a42af289276cec918adeaea51f92f62bd15734c000c1145ff3218a4c5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/seal.json",
+      "bytes": 558,
+      "sha256": "0e20a3874486a2656eb1b7d8f006cfac7ab66e7c01c42f1a0c33d8cb6628a065"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "14bc27468c899b63cef3138b24ab3a9dc8eb2b32c4e401cc1e86c8e424e642ff"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/plan.json",
+      "bytes": 3368,
+      "sha256": "3bcb164b394fa127c3c21c8984caf427aa6b971da21b6d9365e1fbb00c687c5e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/workspace/input.json",
+      "bytes": 9,
+      "sha256": "56178c13b09e36f961660b0685e6663d7831c1e9ed66030883be6c836b99ef89"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/float/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/after.json",
+      "bytes": 773,
+      "sha256": "68bbd16db3f9ede1d86778349301df98960211e752c13a83cdb56f99cf027d7a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/before.json",
+      "bytes": 773,
+      "sha256": "b5361847ed2981fd9c11c79e6c3358e5ff0b476082dce9d06446396f50524808"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/plan.json",
+      "bytes": 2858,
+      "sha256": "49c29a8b36ab3913dffe1c39dfe83af20ed8c54cb7b49bc13175be565a6569d7"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "f2cdb2349baad2cfaedca702e7fb231a2a5efc6e591acd99bcdf71e54d3f2723"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/result.json",
+      "bytes": 2299,
+      "sha256": "7b2db88050bdcb00e7f02cb7b075dde7427761095950ff998acc8a503c6c48dc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/seal.json",
+      "bytes": 557,
+      "sha256": "40c28b7e2d7d94c34b31538cc3d350ad97b715010c8875a3e691025d72b78a03"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "cf6372c3be9d73521b8aa17aae963176f48871ae3bdbb5fde3b71fa7c314bbb5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/attempt-001/stdout.txt",
+      "bytes": 169,
+      "sha256": "a4dcc8bc7a8355ea8bec54f70cc9276547f83d1feb3aae2f57dbebaa198fecbe"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/plan.json",
+      "bytes": 2858,
+      "sha256": "49c29a8b36ab3913dffe1c39dfe83af20ed8c54cb7b49bc13175be565a6569d7"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/workspace/input.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/help/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/independent-expectations.json",
+      "bytes": 4800,
+      "sha256": "72e5b2e865d8e87280aafde5480b14927326e6af3d6e77cfd3b030a2e03391f3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/after.json",
+      "bytes": 779,
+      "sha256": "eb12a6ea64d53c3ae4d8cf5d224d9faca143188581c7b078b58222b6d658cdef"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/before.json",
+      "bytes": 779,
+      "sha256": "da0961d459b562548798d5e90ebf1175f617d2e3b7ec64b8566720e4357eb75b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/plan.json",
+      "bytes": 3396,
+      "sha256": "6bdf5a3bb6c2d22a7bcbac3654ce3ddf7c2364707138021b1cc2482ef923c33d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "ae8ed5078a05aff8df538739e78bc5152edc5d0ef7f1972e3847fc597797f8c8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/result.json",
+      "bytes": 2327,
+      "sha256": "35831e28c48c70db47d144db768227a6af2bfeb2c79cc00c046ca808fde5a6f1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/seal.json",
+      "bytes": 562,
+      "sha256": "9f6c0f729a1ba5073b589da51f7f9eef18d9bf40d2247c84e2a4f62971637467"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "3b8f7cece650f51900d498ead4417bb1c86f76be201a863fd2a06504864841e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/plan.json",
+      "bytes": 3396,
+      "sha256": "6bdf5a3bb6c2d22a7bcbac3654ce3ddf7c2364707138021b1cc2482ef923c33d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/workspace/input.json",
+      "bytes": 46,
+      "sha256": "072682aaac68ba6b23c659fdafb386377de1286528589dc6df03a6d305300c5e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/injection/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/after.json",
+      "bytes": 929,
+      "sha256": "4f0bf67fd879d0a0361d985b10484bfb3587e402082fcb6de783c88925916b21"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/before.json",
+      "bytes": 929,
+      "sha256": "680caad0f210dec243b32ba6df9ea1ca14c1a53a59f1055a30faba90fabe58a4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/plan.json",
+      "bytes": 3817,
+      "sha256": "ecd127a8ac1f00d68f51579d86d2d40fae6bca00fd71543f442467ba48aecb89"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "e24408c1b1910bf096fd52221357455f10f6396daa5a930f59e9620c2b114c45"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/result.json",
+      "bytes": 2362,
+      "sha256": "01f9489f0272da9dc7bd35426e654857aa0004d14f3b421ec25d78f9f909f704"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/seal.json",
+      "bytes": 569,
+      "sha256": "6f72eef6e7d1e1fc24216b1848978961eb356a0844d806d3ed45f9eee042f76d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "0f61a36909fc1acb124bf8b302fb78cc503203a0813f856db3c611830a49d7cf"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/plan.json",
+      "bytes": 3817,
+      "sha256": "ecd127a8ac1f00d68f51579d86d2d40fae6bca00fd71543f442467ba48aecb89"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/workspace/input.json",
+      "bytes": 8,
+      "sha256": "36be22c6b18efbdf02214faa388c5abfbb304f923f38a4439e50a3d3e6856b63"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/workspace/result.json",
+      "bytes": 19,
+      "sha256": "003b8acf72a0b003f87043a2fb8bf9ab607aae911b60dbd474ff507e57d122c5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/invalid-existing/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/after.json",
+      "bytes": 919,
+      "sha256": "5c6e27fee9bf736748374c6d7f14d3b76c566e4c3cd3ee0532aa1012db94260e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/before.json",
+      "bytes": 775,
+      "sha256": "aaea416387015c19e4667cf692f111361c5c8d58e3e191dc045a6f624fb0d326"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/plan.json",
+      "bytes": 3523,
+      "sha256": "f0fa27a273209ffd2432a18df7d1e3bd8d8741e396bc50f20d75e5bd08519b20"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "257a2a262ab1dfaf9fb52c69ac8dc326eca478e6994626228ac34545048fef45"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/result.json",
+      "bytes": 2900,
+      "sha256": "45f272099080e48ca1d2ef9d4a49f1904a5f18c14ce774a1a8deba0dfe1fe410"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/seal.json",
+      "bytes": 558,
+      "sha256": "a92f1e2822b92410f0ad39d904854c65eed4bf78c629d77a74d9fd345bbb9ddf"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "2f4ca43bafba427c88915439590f092d7ad6c7df2895282f6a79de47696ab414"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/plan.json",
+      "bytes": 3523,
+      "sha256": "f0fa27a273209ffd2432a18df7d1e3bd8d8741e396bc50f20d75e5bd08519b20"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/workspace/input.json",
+      "bytes": 22,
+      "sha256": "cc8e10c559c35747f1009e307f7ce4bbe06f1efff6edcd4fffc25f9d7fa685a4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/large/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/after.json",
+      "bytes": 778,
+      "sha256": "b00d4996aa56febe34a2cab2cbfb881c90d7ec84962ef72746939f3d5e94f284"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/before.json",
+      "bytes": 778,
+      "sha256": "e3441a0ecf3ccf758adcf93d03aeab4200769b19275514048755f3e9fe6ca815"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/plan.json",
+      "bytes": 3396,
+      "sha256": "5cbf5dbf5587a63c933d6d4b9291ceaab3ab64e93365b0236fab9bc6efd16071"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "6e1d38c0fc4bf8ecd9c21a169ce14662d969dda54e9ba934c5cd80f82edd398d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/result.json",
+      "bytes": 2327,
+      "sha256": "c50139be7717ab1536335f1678d31eef6006403cc7ee0aca77c4b5732c20f5d2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/seal.json",
+      "bytes": 562,
+      "sha256": "b10386a3456ffba9b22f3f2f80a2a373f7372b218d3323d2f45d389fd0b5feec"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "19b35ff46dbd2815236e1e04a77bed38a15e4dfaaba3adc0d91ad6e5e144d24d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/stderr.txt",
+      "bytes": 43,
+      "sha256": "0e18f8c90ce20d3667dda35ae35b505fe4707f624b88fb32dbc4ff45fc169493"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/plan.json",
+      "bytes": 3396,
+      "sha256": "5cbf5dbf5587a63c933d6d4b9291ceaab3ab64e93365b0236fab9bc6efd16071"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/workspace/input.json",
+      "bytes": 4,
+      "sha256": "aea01e396a64e2924763292b5177ef0e98e032dd1cc4ed1cf350e1552c9ef92e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/malformed/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/after.json",
+      "bytes": 781,
+      "sha256": "a56622edd76e8cad166ca482636c717c9b020a3b47cc9f497bb088d30a59645e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/before.json",
+      "bytes": 781,
+      "sha256": "2e589b7ac96557ece5417e5f747ea45e8f60ede3e36639395e119ef4a7d652f6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/plan.json",
+      "bytes": 2884,
+      "sha256": "b61ebf578725de4e9d10f258ee3ad149f8a0a977ddbb0174b5f13c9b4befa4d3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "7f0f12ebd9c72cb914a5dcfd8f98205daf1a0b585bd935730e78e71bc03b2ad8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/result.json",
+      "bytes": 2342,
+      "sha256": "d50b3942ac77c78085b1e3b3d9802324b4db4b116bdfdb17756bde4a3c65398a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/seal.json",
+      "bytes": 565,
+      "sha256": "f2ce9c4ab6585b4af657774781b10e6b75a1103081db3e4d361d6e79c47aa1c7"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "50fb9ac5c77f52072dc59ad13df0762d98473a69f491948415bb96feeeb7dfc3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/stderr.txt",
+      "bytes": 105,
+      "sha256": "ae274e8665757b26862834d2b1c49377b2f0cc5888c7ed6c19e2c8a6209fe0a3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/plan.json",
+      "bytes": 2884,
+      "sha256": "b61ebf578725de4e9d10f258ee3ad149f8a0a977ddbb0174b5f13c9b4befa4d3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/workspace/input.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/missing-args/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/after.json",
+      "bytes": 919,
+      "sha256": "d37ed56a4901c1c086c4dea653a160f9cd716e7e8e1b5ca30254a755ac3f5e13"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/before.json",
+      "bytes": 775,
+      "sha256": "0942685f85a2fab103f2180091074dabbe0853582380f77c537066faced98ce3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/plan.json",
+      "bytes": 3509,
+      "sha256": "f9ea0dc7b438cb3a9243f8489a99e5860316a086add058e05016ca61c21e1c4d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "7de63e8650b70790e60b883f495d4b7c3e62e033794d55b5a8a6917d2ae487f0"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/result.json",
+      "bytes": 2886,
+      "sha256": "968b739e44b6e504c40424689e562bed30106db404f156af26af039f368a1e44"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/seal.json",
+      "bytes": 558,
+      "sha256": "8e619502ed501384d856783f665b68be93e0610c067923c85fab93bd45c6333d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "ad489eb33b2be84977cbd0b858fdc98e5b9502d8a5bfdb2c8d74812ce74206c4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/plan.json",
+      "bytes": 3509,
+      "sha256": "f9ea0dc7b438cb3a9243f8489a99e5860316a086add058e05016ca61c21e1c4d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/workspace/input.json",
+      "bytes": 11,
+      "sha256": "9c8cb61c211cbcbe34d2916dfe547cf7136a2fdd76f574cad3ca596d2c3e587d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/mixed/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/before.json",
+      "bytes": 1107,
+      "sha256": "52b8718f244d9f7b72e0e04a74e4a1b46f46cf31af3acaf931939446c1afa3df"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/host-plan.json",
+      "bytes": 2546,
+      "sha256": "b2870c32e4e391aeb94148b4783fc682dae4496b34c6c0394be33cac25332a2f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/prompt.txt",
+      "bytes": 1203,
+      "sha256": "675ece6efce9981fd3886da0d378f821b83880809545aaee9d73b909eb7ce752"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/workspace/input.json",
+      "bytes": 10,
+      "sha256": "cf1fed8e18a6f0ed928360c6592aa87bdd84f1163fbd6fdef26e859ba4c1bfe3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/workspace/skills/ledger-d/SKILL.md",
+      "bytes": 585,
+      "sha256": "af81717f49df28f13833f15cfc60ceebb38ed0e11b1e1ff8c41f7565da9dbbbf"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/workspace/skills/ledger-d/scripts/total.py",
+      "bytes": 842,
+      "sha256": "9a268ca0f2c4c93958e08946096729e7fde3e425afa25b8a10b1fe28d98923ba"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-invalid/workspace/unrelated.txt",
+      "bytes": 6,
+      "sha256": "e9de6d76830686297d286076637427a820c1b7a4424c80d62e1e36f1f4edc234"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-inventory.json",
+      "bytes": 262,
+      "sha256": "35907800f0a9e16f4d2cdd833d0b85eb8fdbae5cf98ce3d4cee1abb20dd18cb3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/before.json",
+      "bytes": 1108,
+      "sha256": "e1d6641d1be9938df5c5e50ee5de84534977ca356c6581765932ac1d7bcd0825"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/host-plan.json",
+      "bytes": 2519,
+      "sha256": "9e9a0e0c703101aad3e3ecc13dd48d8152df3008965e2e8dba044a92e53fb23d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/prompt.txt",
+      "bytes": 1207,
+      "sha256": "689e000ecba00095eb9646df2e115ae740aad08662dc857c43b380099d19d632"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/workspace/input.json",
+      "bytes": 10,
+      "sha256": "eb9954f24d51e7926bfb77da613aaf2e9c86a7793bc0816905d35a4e8e07efc6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/workspace/skills/ledger-d/SKILL.md",
+      "bytes": 585,
+      "sha256": "af81717f49df28f13833f15cfc60ceebb38ed0e11b1e1ff8c41f7565da9dbbbf"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/workspace/skills/ledger-d/scripts/total.py",
+      "bytes": 842,
+      "sha256": "9a268ca0f2c4c93958e08946096729e7fde3e425afa25b8a10b1fe28d98923ba"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/native-positive/workspace/unrelated.txt",
+      "bytes": 6,
+      "sha256": "e9de6d76830686297d286076637427a820c1b7a4424c80d62e1e36f1f4edc234"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/after.json",
+      "bytes": 921,
+      "sha256": "972490bf84af62f646f2392cbd9abd6eb29c4cf7f5272a23dac5cf4785efeb88"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/before.json",
+      "bytes": 777,
+      "sha256": "228ada1cc0d4529b836bd51921be6687b49215148f3d547fb3dacfca5a30fe1d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/plan.json",
+      "bytes": 3531,
+      "sha256": "6004186b31dcf2ae5dac34e912b52c92f082ba0a82475b17cc641ef216545759"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "957993131af88824bed0b59b1c76c024de1ad1a1e06a95fff8371e5d115b3c9c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/result.json",
+      "bytes": 2905,
+      "sha256": "0d2bdea5748a8f70358bde9fd87178ec4f45e0e033ba1887f125f027c54c2a01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/seal.json",
+      "bytes": 561,
+      "sha256": "0bee70ec9b7acf7989a98f55f3918ab94132e9c38563a947854f8d44bf9541c9"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "b2fc85862af87824fa8ed6f67ec71ab79cff027526aaf7ac4d34e06c957ca00a"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/plan.json",
+      "bytes": 3531,
+      "sha256": "6004186b31dcf2ae5dac34e912b52c92f082ba0a82475b17cc641ef216545759"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/workspace/input.json",
+      "bytes": 9,
+      "sha256": "812473c892714a9d9ba10c1ee95075fd38eff1f5a1af42a8db5abb62ed1c00b0"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/negative/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/after.json",
+      "bytes": 775,
+      "sha256": "afc1f759ec73317f8e7a2457cb3bdb6e213ede73098aa70c8bbfad58f494a92c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/before.json",
+      "bytes": 775,
+      "sha256": "1ba6c5a39279734aa4a75c39bbdeddf46a747caf7a3d05f435b241611ddab7f5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/plan.json",
+      "bytes": 3375,
+      "sha256": "88211e5313b21a81a38b68191a6b1f4c9fc1c7db6b7173ed4ccf2ec7fc26fbe9"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "08552c078ffe9360221098da225d3dffdc8485f200fcfe9962fb75fb2674c529"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/result.json",
+      "bytes": 2312,
+      "sha256": "9dd35df11a1acae7bca2f441895c33a8c517dfd0ad27fe0e3226a4a008bc88b2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/seal.json",
+      "bytes": 559,
+      "sha256": "fd3be036ba45facde6a3dbae354b0417aaf1d8d5a05b0a2947b0e9b1e9b83aa2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "d640dc460849fd81228e0b5db5a4e0e39dcbcd4f405a13629718bf43f75e4c6f"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/plan.json",
+      "bytes": 3375,
+      "sha256": "88211e5313b21a81a38b68191a6b1f4c9fc1c7db6b7173ed4ccf2ec7fc26fbe9"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/workspace/input.json",
+      "bytes": 6,
+      "sha256": "89fab4268dfb17a5b0e4e0c8886fed603bab63412f144371754c36e7a2b6d316"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/nested/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/after.json",
+      "bytes": 773,
+      "sha256": "cc60500b3898f6975d1860f92109c06c563d2bf9324444ba4efa8751366f8755"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/before.json",
+      "bytes": 773,
+      "sha256": "06119f88741a4914181ce19fd1c1251417d35fd91839bdea0806252a3308073b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/plan.json",
+      "bytes": 3361,
+      "sha256": "4d0f6a8552fcf417ebec0c41c0b28e09a2896fb3820a25c6868b22081b69d734"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "764c21bd453ae81dc8decf011dda43973f95d3ab070891583bd92706d6de201d"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/result.json",
+      "bytes": 2302,
+      "sha256": "df352b0d4c2324cc08a233510a28f63d9d8c4784e9c4628b8012ce909ccbd710"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/seal.json",
+      "bytes": 557,
+      "sha256": "7ac31638bde96c43979409e9b6473b49d3249fb0177d33d46eb2da9b9611b966"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "7bc478cb77b0d3bcd83387c5060f1a5d78a53c7d4a136ded09b7c35383f83522"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/plan.json",
+      "bytes": 3361,
+      "sha256": "4d0f6a8552fcf417ebec0c41c0b28e09a2896fb3820a25c6868b22081b69d734"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/workspace/input.json",
+      "bytes": 7,
+      "sha256": "161a1bfffa621be8ff92c3a770b613a877f77c8a2d865342c10988ae7f72aa6b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/null/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/after.json",
+      "bytes": 775,
+      "sha256": "896601ee83613925062d916dc76abf58824445798e7104f38a13f7c1d44278d6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/before.json",
+      "bytes": 775,
+      "sha256": "b8605a3a283d43ada48a1c387096b604d3d6d5a3aa8054dcc88efc8f8f187e80"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/plan.json",
+      "bytes": 3375,
+      "sha256": "7730aa6542c56ccd60aa9b739b90166754fc7dcd9902176fe26a6b1d048812da"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "9fea633481d06858c65a99abe90e135145594b9a07d42912a124484d041c24e5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/result.json",
+      "bytes": 2311,
+      "sha256": "c269bc5b3d05b9962a80bcfbdd4f72c7a5c5ddbc40ea6b62b3e40740c8281310"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/seal.json",
+      "bytes": 559,
+      "sha256": "c3967d7f818e2f0ebbf0da63f4500ca44dd760e4a6e65e3039598d5ea4f4eadf"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "fa04f54f704794e62718a15a9898d869597b5c11753673fe700f89e04e914658"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/plan.json",
+      "bytes": 3375,
+      "sha256": "7730aa6542c56ccd60aa9b739b90166754fc7dcd9902176fe26a6b1d048812da"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/workspace/input.json",
+      "bytes": 9,
+      "sha256": "936353965b4ba9180e3acb781d81aa634390ac95fd2874a9cbc4c4846b49fbd4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/object/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/after.json",
+      "bytes": 922,
+      "sha256": "68b55c2665f5eb9059ff27bbbf4fa5833dbb1342daa36add38ee5d0d859e7cef"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/before.json",
+      "bytes": 778,
+      "sha256": "28d834b36bd5835f2f77aabfb88062d2e29cc059c4136419056d1e77733a0e32"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/plan.json",
+      "bytes": 3530,
+      "sha256": "f932f74ba830614eca79f24ed980653afcea604af2a18c1b1c2dc19801956ebe"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "4226b87e642df75690a9a61e6e014e826917495cb9b384e47e7c4c547de803c1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/result.json",
+      "bytes": 2904,
+      "sha256": "b8938b3e494d8fec3f6b28c80a17bb033fb48269329d7f06312e48026dca42ca"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/seal.json",
+      "bytes": 561,
+      "sha256": "664b2c4fab919ec1815bc83d27c96e6a06a72585c59a9908c35de7ea345aa354"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "b3d4631c74a201d2cbee372278d6cf1ec714a94d572e0d981f429396c65de164"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/plan.json",
+      "bytes": 3530,
+      "sha256": "f932f74ba830614eca79f24ed980653afcea604af2a18c1b1c2dc19801956ebe"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/workspace/input.json",
+      "bytes": 10,
+      "sha256": "eb9954f24d51e7926bfb77da613aaf2e9c86a7793bc0816905d35a4e8e07efc6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/positive/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/results.jsonl",
+      "bytes": 15177,
+      "sha256": "70cb0972fc4971507beb33eaef28c124d967ec9ce0f2b904e515c94ff912decd"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/routing-plan.json",
+      "bytes": 316,
+      "sha256": "4e3f3e07697d81336e51bd1f94c190f860b9ccc1c4ca83fadea3ddc594c44ad1"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/routing-result.json",
+      "bytes": 467,
+      "sha256": "ab6ef7b9bba0262f8e5cdee12b6b0149adf1141d3964b7a0eef7c1fedf4f9623"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/after.json",
+      "bytes": 778,
+      "sha256": "0e06f798a2faaf340b473bde01bcad6d9d8e556b1109ebb9f7f02fdc3c135887"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/before.json",
+      "bytes": 778,
+      "sha256": "6224bc0ab7d5432e1d22d69d2ae450d538848dcf6432ce941bb1aa96ae483381"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/plan.json",
+      "bytes": 3385,
+      "sha256": "b528f7dd9d8706ae7a64d3733e09f224a21a19ddaa89e99fa415e4a17c519646"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "ce86600d0b13e7ed72e79afa5d42f838258e414095a74f9fa20b6627895a0cd4"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/result.json",
+      "bytes": 2327,
+      "sha256": "93984226fafcd28c10fdbbbc1134f275334bd29d22180e76f9e231e09c681c7b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/seal.json",
+      "bytes": 562,
+      "sha256": "d8c3ea24c47a7704a9073bf4dc93353237b80a452b0b27e017617499da35266b"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "72bf3208b878ac8b9032f90badc10005878fcf882307f1ad9304a7d0ececb335"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/stderr.txt",
+      "bytes": 48,
+      "sha256": "f3188c4780afc34a7c3a86692cd08cd92af2c56360f10e68ba24417ab119caf5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/plan.json",
+      "bytes": 3385,
+      "sha256": "b528f7dd9d8706ae7a64d3733e09f224a21a19ddaa89e99fa415e4a17c519646"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/workspace/input.json",
+      "bytes": 7,
+      "sha256": "ffe49be4516a8b9709cd0a351d523f89e21f09e82b932ddcf08d85b22db2c60e"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/same-path/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/after.json",
+      "bytes": 775,
+      "sha256": "f2a42620393f78fa4d05bac4d5f14423a5337adc932f1c9e921e0429538435cc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/before.json",
+      "bytes": 775,
+      "sha256": "048e4bf41ff201f5b739587e01da21bcf678fb1eab6ddad618996d5a04db5893"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/plan.json",
+      "bytes": 3375,
+      "sha256": "8c680e26ce51b33aa0ea1385a1734a485ac5d247908c216e6cab8d0104da28c8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "69d473fe8143db9cb9ecddc22fccc4bdd798a9e18c9aba02d402cfcb21ae84e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/result.json",
+      "bytes": 2312,
+      "sha256": "7a6391b2f8d53e3e065ef0c52a833d6812d73709963292a8e23c27f83f53cbd6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/seal.json",
+      "bytes": 559,
+      "sha256": "048eda457fe5414d5721af69e83e8832e668cbb612b54f61eadaa5784b4aba39"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "360658674b327eede9fb1120d7d435c5f62a7db3389df8d6805edda6cce45448"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/plan.json",
+      "bytes": 3375,
+      "sha256": "8c680e26ce51b33aa0ea1385a1734a485ac5d247908c216e6cab8d0104da28c8"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/workspace/input.json",
+      "bytes": 2,
+      "sha256": "10159baf262b43a92d95db59dae1f72c645127301661e0a3ce4e38b295a97c58"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/scalar/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/after.json",
+      "bytes": 775,
+      "sha256": "c143b1395f6b63531b87f86e0a70da3641fda2bcac16f3d9801816e97388598c"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/before.json",
+      "bytes": 775,
+      "sha256": "48ff0706aeddcf5b67c09358f027b703a94bb7dabcf3672766455571cc4ceec5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/plan.json",
+      "bytes": 3375,
+      "sha256": "409218c0a05d30c57f1228a79527cf8644d59edf55daf1f55b61988bb1f87870"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/process.json",
+      "bytes": 77,
+      "sha256": "6457c828c44d9e5e990b582a954ccf8d9d56d03f36bc952595443193adbd3386"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/result.json",
+      "bytes": 2312,
+      "sha256": "368d3ffc55104a251e0e40b895c1ac3bf4e7b455bb3fc73de6578dd4a00faded"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/seal.json",
+      "bytes": 559,
+      "sha256": "68da528cde365215ba1b384643fba6e433f1cbc24e900ffdf1e10790465b3eee"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "4fc4224d5de2610f5de8f30d6bbf1babd6e01a6932e848d8b0f18bfd2dfd9e34"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/stderr.txt",
+      "bytes": 44,
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/plan.json",
+      "bytes": 3375,
+      "sha256": "409218c0a05d30c57f1228a79527cf8644d59edf55daf1f55b61988bb1f87870"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/workspace/input.json",
+      "bytes": 6,
+      "sha256": "266ca90a6e20654d4c02de7a26ae82f41e2cb10211ada29fbc90f38a8a5ca514"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/string/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/after.json",
+      "bytes": 917,
+      "sha256": "8eabedf149bc1ac0a65c96ab5f871ec8376560c9e160a8811ba53261fb10ad92"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/before.json",
+      "bytes": 773,
+      "sha256": "bd936272d836cf46830fd2f4c4f19867f3f232e2740d2b6b8ff27d8c4b1e7c18"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/plan.json",
+      "bytes": 3501,
+      "sha256": "0b7951dfae4a6cfc5559b6d1937a42196c1b04b9aad66d1ab4e83f1e6c410ae6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/process.json",
+      "bytes": 78,
+      "sha256": "5c69f75eec3c33a113f60f50f718e48e6f4b3e9e0e0a7984e585aa8015dc97c7"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/result.json",
+      "bytes": 2890,
+      "sha256": "6c7e47bc13d100a14bb16a0bf6b42a95678003e2e4baac341b2388797d8adf45"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/seal.json",
+      "bytes": 557,
+      "sha256": "d6ee86e0587c4467e048fe44ee439b9b0d1d800ed6d10962c11e286114658fad"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/started.json",
+      "bytes": 224,
+      "sha256": "9b7015f33a8fe13c20bae08e4d6a86aea6efbc6aab5fede8cd4bb374692691cc"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/attempt-001/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/plan.json",
+      "bytes": 3501,
+      "sha256": "0b7951dfae4a6cfc5559b6d1937a42196c1b04b9aad66d1ab4e83f1e6c410ae6"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/workspace/input.json",
+      "bytes": 8,
+      "sha256": "17d03d526e713d5bb8325c9733ab418b5ae0a6d10d9e72f5bcfe2309cd4a4bb3"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/workspace/result.json",
+      "bytes": 12,
+      "sha256": "210856e2000cebdd2e270c40b5b17efcc74613babad67ed8bee0eb3a93973d01"
+    },
+    {
+      "path": "docs/plan/skill-validations/ledger-d/20260915T0019597340114Z/trials/zero/workspace/unrelated.txt",
+      "bytes": 10,
+      "sha256": "daa8d0d04547804125e07fdab738fd220a137b1892a41b6e238d9ac3935e2fe5"
+    },
+    {
+      "path": "skills/ledger-d/SKILL.md",
+      "bytes": 585,
+      "sha256": "af81717f49df28f13833f15cfc60ceebb38ed0e11b1e1ff8c41f7565da9dbbbf"
+    },
+    {
+      "path": "skills/ledger-d/scripts/total.py",
+      "bytes": 842,
+      "sha256": "9a268ca0f2c4c93958e08946096729e7fde3e425afa25b8a10b1fe28d98923ba"
+    },
+    {
+      "path": "specification.md",
+      "bytes": 963,
+      "sha256": "7fbad949b9f04c9a5c4321b51dceb5b10a9587f6b03d5cdcf191edaec5c03296"
+    },
+    {
+      "path": "validation_driver.py",
+      "bytes": 11112,
+      "sha256": "0408ecda50d1ffb78d715cf7f512c1e6be6da19b65ea4c043e1e98ffeaa6c887"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "16f8b25311d87b3fa65a990fbe7b1e8fef91c118d2759a7639fdd7a0a77183fb"
+}

@@ -1,0 +1,11 @@
+[Unit]
+Description=DevForgeAI per-user source index
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/devforgeai daemon run
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

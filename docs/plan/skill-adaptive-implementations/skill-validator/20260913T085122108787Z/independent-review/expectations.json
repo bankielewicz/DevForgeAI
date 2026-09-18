@@ -1,0 +1,20 @@
+{
+  "authority": "Frozen validator spec sections 3.2, 4.2, 6, 7; expected outcomes fixed before candidate execution.",
+  "cases": [
+    {"id":"IR-01", "case":"VAT-08", "input":"Ordinary valid inline/reference Markdown resources, image, heading anchors", "expect":"No FAIL; actual resource graph resolves targets"},
+    {"id":"IR-02", "case":"VAT-08", "input":"An inline code span documenting Markdown syntax for a nonexistent example", "expect":"No FAIL for example; this is not an actual resource consumer"},
+    {"id":"IR-03", "case":"VAT-08", "input":"Ordinary link to existing filename containing balanced parentheses", "expect":"No missing resource FAIL; resolve or mark unsupported parser syntax"},
+    {"id":"IR-04", "case":"VAT-08", "input":"Actual inline link to absent local resource", "expect":"MISMATCH and AV-R01 FAIL"},
+    {"id":"IR-05", "case":"VAT-06", "input":"Multilingual prose and legitimate variation selector", "expect":"No FAIL; exact-byte unresolved candidate at variation selector"},
+    {"id":"IR-06", "case":"VAT-06", "input":"Malformed UTF-8 in .md", "expect":"MISMATCH and AV-F01 FAIL"},
+    {"id":"IR-07", "case":"VAT-24", "input":"Well-shaped helper records with honest OBSERVED and PASS", "expect":"records OBSERVED"},
+    {"id":"IR-08", "case":"VAT-24", "input":"Helper record status OBSERVED but required check FAIL and nonempty records errors", "expect":"records detects inconsistent helper status"},
+    {"id":"IR-09", "case":"VAT-24", "input":"Helper package record claims semantic Unicode disposition defect and inverted byte interval", "expect":"records rejects incompatible raw deterministic record"},
+    {"id":"IR-10", "case":"VAT-24", "input":"Malformed findings.json nested under fixture directory beside valid helper record", "expect":"fixture never interpreted as evaluator authority"},
+    {"id":"IR-11", "case":"VAT-03", "input":"Complete synthetic two-member standalone input with A before dependent B", "expect":"intake OBSERVED and order A,B"},
+    {"id":"IR-12", "case":"VAT-03", "input":"Duplicate A member", "expect":"intake MISMATCH"},
+    {"id":"IR-13", "case":"VAT-03", "input":"B dependency C absent from selection", "expect":"intake MISMATCH"},
+    {"id":"IR-14", "case":"VAT-02", "input":"Valid standalone request plus unknown property", "expect":"intake MISMATCH"},
+    {"id":"IR-15", "case":"VAT-02", "input":"Valid standalone request with stale package digest", "expect":"intake MISMATCH"}
+  ]
+}

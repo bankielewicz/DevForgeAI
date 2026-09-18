@@ -1,0 +1,20 @@
+ext-linked-valid FAIL
+ext-linked-quality FAIL
+ext-linked-kind FAIL
+ext-linked-request-identity FAIL
+ext-linked-request-type FAIL
+ext-linked-request-manifest FAIL
+ext-legacy-generated FAIL
+ext-legacy-adopted FAIL
+ext-legacy-wrong-pointer FAIL
+ext-legacy-corrupt-generated FAIL
+ext-update-unchanged FAIL
+ext-update-equivalent-bytes FAIL
+ext-update-false-no-change FAIL
+ext-update-missing-history FAIL
+ext-metadata-preserve FAIL
+ext-initializer-occupied PASS
+ext-initializer-new FAIL
+ext-spec-ambiguous PASS
+ext-spec-explicit PASS
+{"count": 20, "failures": ["ext-linked-valid", "ext-linked-quality", "ext-linked-kind", "ext-linked-request-identity", "ext-linked-request-type", "ext-linked-request-manifest", "ext-legacy-generated", "ext-legacy-adopted", "ext-legacy-wrong-pointer", "ext-legacy-corrupt-generated", "ext-update-unchanged", "ext-update-equivalent-bytes", "ext-update-false-no-change", "ext-update-missing-history", "ext-metadata-preserve", "ext-initializer-new"]}

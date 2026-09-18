@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\handoff",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\handoff\\.trial-output\\native-handoff-producer-002.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\handoff",
+  "started_at_utc": "2026-09-13T15:46:38.590584Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-handoff-producer-002",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-handoff-producer-002",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-handoff-producer-002",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": "Use $card-producer at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\handoff\\skills\\card-producer\\SKILL.md to complete its local task-card workflow. Allowed product write: out/task-card.json. All other inputs are read-only. Deliver the artifact path or concrete failure.",
+  "termination": "exited",
+  "pid": 87128,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T15:47:12.874854Z",
+  "elapsed_seconds": 34.28099999995902
+}

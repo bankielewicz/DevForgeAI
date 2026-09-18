@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\test_binding.py", line 14, in <module>
+    from prepare_trials import binding, RUN
+ModuleNotFoundError: No module named 'prepare_trials'
+C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\coverage\control.py:915: CoverageWarning: No data was collected. (no-data-collected)
+  self._warn("No data was collected.", slug="no-data-collected")

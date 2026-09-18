@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:devforgeai:index:response:1",
+  "type": "object",
+  "required": ["protocol_version", "request_id", "service_version", "environment_id", "ok", "data", "error"],
+  "properties": {
+    "protocol_version": {"const": 1}, "request_id": {"type": "string"},
+    "service_version": {"type": ["string", "null"]}, "environment_id": {"type": ["string", "null"]},
+    "ok": {"type": "boolean"}, "data": {},
+    "error": {"oneOf": [{"type": "null"}, {"type": "object", "required": ["code", "message", "details"], "properties": {"code": {"type": "string"}, "message": {"type": "string"}, "details": {"type": "object"}}}]}
+  },
+  "oneOf": [
+    {"properties": {"ok": {"const": true}, "error": {"type": "null"}}},
+    {"properties": {"ok": {"const": false}, "data": {"type": "null"}, "error": {"type": "object"}}}
+  ]
+}

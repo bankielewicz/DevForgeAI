@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "label": "actual-partial-custody-subset-validator",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "intake-set",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\attempts\\20260913T133923855869Z-helpers\\fixtures\\test_BAT10_independent_continuation_and_subset\\record-1.json",
+    "--request-sha256",
+    "26792f9cb5f9cbe6600e0dcc0a08e52f9cde644b3e32218bfe73238fd2bfde40"
+  ],
+  "expected": "Exit 0 from governing contract.",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140224289267Z-actual-partial-custody-subset-validator",
+  "started_at_utc": "20260913T140224289267Z"
+}

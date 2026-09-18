@@ -1,0 +1,49 @@
+{
+  "case_id": "REPLAY-P07",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "package",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P07\\sample"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:20:27.913112Z",
+  "end": "2026-09-13T21:20:28.168626Z",
+  "elapsed_seconds": 0.25,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/REPLAY-P07/stdout.txt",
+    "sha256": "050308e192eb88903173d2639b7e676ae48ccc53195c7a429f084f1a5a08d788"
+  },
+  "stderr": {
+    "path": "commands/REPLAY-P07/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P07",
+    "captured_at_utc": "2026-09-13T21:20:28.168626Z",
+    "files": [
+      {
+        "path": "sample/SKILL.md",
+        "bytes": 108,
+        "sha256": "ea38f4b95ebf2c39fc7090544dcc6d94eb2ce678472aded88ecddccc01890a3a"
+      },
+      {
+        "path": "sample/example.md",
+        "bytes": 56,
+        "sha256": "7f33255d278b64f99a7ed9da03a0d7837269c22df925e2e28fbc77c73bc40b7d"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "c87beb0fa1ecab0f3fbfd8b96e3ba0c29eca2a53e24a9ce88f790e0714a1c6ec"
+  },
+  "fixture_unchanged": true
+}

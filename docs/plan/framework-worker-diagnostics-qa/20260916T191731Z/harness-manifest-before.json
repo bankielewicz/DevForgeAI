@@ -1,0 +1,32 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\Cargo.toml",
+    "bytes": 721,
+    "sha256": "1b75d65c774500295fe08e1e277197e3b1dfa9c3fa7d9a1e0ed9068fbfae2c1f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\config_cases.rs",
+    "bytes": 8939,
+    "sha256": "b8d903df6421bd8907aa23386f5983ad69011ee33c26bc554e9cbe8a3653478f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\fixture_config.rs",
+    "bytes": 2839,
+    "sha256": "8cf0624d0f36b8561854fb3a3409d52c9627a46e7503d7a9dd9c6cf8a1383a46"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\lib.rs",
+    "bytes": 2613,
+    "sha256": "9e42ecfaa7523b11bec93112827bfa341aa21970e386a36509eeebcdea8b31ae"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\peer.rs",
+    "bytes": 2748,
+    "sha256": "ceb2c5ecb68bd6eeb78436a62f4276cbf580a906e7e10769ea66038cccd319f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\session_cases.rs",
+    "bytes": 13668,
+    "sha256": "a53ba602b025bfe0db88ae8d788824868c58e1e67bab07d4b9e9cba20161c065"
+  }
+]

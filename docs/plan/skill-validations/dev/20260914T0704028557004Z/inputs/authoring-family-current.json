@@ -1,0 +1,18 @@
+{
+  "schema_version": "authoring-family-assessment-v1",
+  "basis": "Exact current request and original target BOUND by unchanged intake; authoring lineage is custody evidence, not quality or framework acceptance.",
+  "request": {
+    "path": "inputs/validation-request.json",
+    "sha256": "034887a39a8b5f12e0ca3bb27e2f87cba48b4f0f74335071ef2baf6b77d525af"
+  },
+  "intake": {
+    "path": "commands/intake/stdout.txt",
+    "sha256": "b4c4e49cd8553156917971b56d81d37bcedbdceeadb03a6690099bb3b75de68b"
+  },
+  "authoring_record": {
+    "path": "inputs/prior-inputs/01-authoring-record.json",
+    "sha256": "5bc55a98da496dc449b9467e80a29418c89253f999abc9e180cf1318561f7c6e"
+  },
+  "package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c",
+  "adoption_required": false
+}

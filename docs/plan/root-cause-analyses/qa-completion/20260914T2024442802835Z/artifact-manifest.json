@@ -1,0 +1,27 @@
+[
+  {
+    "path": "analysis.md",
+    "bytes": 27970,
+    "sha256": "f59f751634f4b5f157b6bee8b0838a7d0343b96707a6e95a2ba402a120104cb7"
+  },
+  {
+    "path": "capture.py",
+    "bytes": 4231,
+    "sha256": "5d636af81ffaa5e5b860fff5531985986d302a0d9a471ea0ea3e2e5003e454a6"
+  },
+  {
+    "path": "review.ps1",
+    "bytes": 4277,
+    "sha256": "d3fc965c5847048f278165a9e0d8dd6a3fa975d8b4d61ef3766288a8153c89e3"
+  },
+  {
+    "path": "source-manifest.json",
+    "bytes": 13295,
+    "sha256": "6f3286eb68c0c23ab4fbcd054f30387339378348f79e20c26317148914697416"
+  },
+  {
+    "path": "review.json",
+    "bytes": 14526,
+    "sha256": "ea64fdd509ad6cd247e92912b2cef79263dda11aeebb6924d96812378037dda1"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "test_selected_preparation",
+    "test_prepare_cli"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests",
+  "started_utc": "2026-09-17T17:09:23.093677+00:00",
+  "budgets_seconds": {
+    "cancel_after": 20,
+    "grace": 2,
+    "reap": 1,
+    "finalize": 2
+  },
+  "total_budget_seconds": 25,
+  "stdin_held_open": false,
+  "environment_source": "caller_copy",
+  "environment_values_recorded": false,
+  "shell": false,
+  "timed_out": false,
+  "interrupted": false,
+  "cancellation_sent": false,
+  "cancellation_error": null,
+  "forced_termination": false,
+  "termination_error": null,
+  "reap_incomplete": false,
+  "spawn_error": null,
+  "owned_pid": null,
+  "worker_tree_status": "REQUIRES_RUST_EVIDENCE",
+  "framework_acceptance": "NOT_EVALUATED"
+}

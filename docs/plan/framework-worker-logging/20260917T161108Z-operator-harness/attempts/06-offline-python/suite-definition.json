@@ -1,0 +1,84 @@
+{
+  "platform": "win32",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness",
+  "required_cases": [
+    "suite_0.OperatorTests.test_absence_or_membership_drift_stops_before_dispatch",
+    "suite_0.OperatorTests.test_changed_and_missing_preserved_files_stop",
+    "suite_0.OperatorTests.test_child_environment_omits_only_approved_name_without_values",
+    "suite_0.OperatorTests.test_cleanup_unknown_or_interrupt_never_reports_success",
+    "suite_0.OperatorTests.test_console_backpressure_does_not_delay_process_cleanup",
+    "suite_0.OperatorTests.test_each_occupied_path_prevents_dispatch",
+    "suite_0.OperatorTests.test_failure_receipts_are_unique_and_keep_secret_values_out",
+    "suite_0.OperatorTests.test_fixture_membership_drift_stops",
+    "suite_0.OperatorTests.test_junction_metadata_is_checked_without_traversal",
+    "suite_0.OperatorTests.test_main_requires_exact_mode_and_has_no_implicit_launch",
+    "suite_0.OperatorTests.test_monitor_escapes_through_emit_and_does_not_change_files",
+    "suite_0.OperatorTests.test_native_synthetic_failure_retains_streams_exit_and_open_stdin",
+    "suite_0.OperatorTests.test_native_timeout_is_distinct_and_never_retried",
+    "suite_0.OperatorTests.test_positive_findings_cannot_be_silently_introduced",
+    "suite_0.OperatorTests.test_prepare_binds_exact_bytes_and_launches_only_collector",
+    "suite_0.OperatorTests.test_preservation_checks_root_arrays_and_nested_dicts",
+    "suite_0.OperatorTests.test_recording_exception_leaves_consumed_latch_and_stop",
+    "suite_0.OperatorTests.test_retained_reparse_target_drift_stops",
+    "suite_0.OperatorTests.test_size_binding_drift_stops",
+    "suite_0.OperatorTests.test_source_collection_failures_are_not_ready",
+    "suite_0.OperatorTests.test_source_outer_budget_includes_receipt_write",
+    "suite_0.OperatorTests.test_worker_observation_is_explicitly_not_inspection",
+    "suite_1.SelectedPreparationTests.test_selected_current_sources_do_not_require_removed_historical_sites",
+    "suite_2.PreparationCliTests.test_prepare_emits_bound_packet_without_native_dispatch",
+    "suite_3.RecorderTests.test_arguments_with_shell_characters_remain_literal",
+    "suite_3.RecorderTests.test_closed_stdin_does_not_prevent_containment_or_receipt",
+    "suite_3.RecorderTests.test_complete_invocation_respects_outer_budget",
+    "suite_3.RecorderTests.test_cooperative_timeout_receives_exact_cancel",
+    "suite_3.RecorderTests.test_devnull_has_immediate_eof",
+    "suite_3.RecorderTests.test_environment_copy_does_not_mutate_parent_or_log_values",
+    "suite_3.RecorderTests.test_existing_attempt_is_not_replayed_or_modified",
+    "suite_3.RecorderTests.test_ignored_cancel_terminates_only_owned_process",
+    "suite_3.RecorderTests.test_invalid_budgets_do_not_create_attempt_or_spawn",
+    "suite_3.RecorderTests.test_keyboard_interrupt_requests_cancel_and_preserves_receipt",
+    "suite_3.RecorderTests.test_large_binary_streams_are_exact_and_do_not_deadlock",
+    "suite_3.RecorderTests.test_missing_program_retains_error_and_empty_streams",
+    "suite_3.RecorderTests.test_nonexecutable_file_retains_spawn_error",
+    "suite_3.RecorderTests.test_nonzero_exit_is_preserved",
+    "suite_3.RecorderTests.test_real_windows_denied_termination_reports_uncertain_cleanup",
+    "suite_3.RecorderTests.test_stdin_remains_open_without_early_eof",
+    "suite_3.RecorderTests.test_timeout_without_stdin_still_contains_owned_process"
+  ],
+  "runtime_sources": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+      "bytes": 14170,
+      "sha256": "5f4710cc871d2472ad52d88944052140a6cf65dff3a68775ab227381a3f90fb7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\supervisor.py",
+      "bytes": 5624,
+      "sha256": "bace72fafe66f9cd3b44afffc06bbc660a06a4419f86a919fd5e2fa247363990"
+    }
+  ],
+  "tests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\test_operator_harness.py",
+      "bytes": 20041,
+      "sha256": "0e391c53bcf005bd7feba54d879e42209fdd2be6cb52e81431e209788415ffec"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\test_selected_preparation.py",
+      "bytes": 1646,
+      "sha256": "6c5ee2a4238083fa24fee87c48f6f44a80ca639f89e85d2ea2fd6a1ea279c5b6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\test_prepare_cli.py",
+      "bytes": 1643,
+      "sha256": "f00fe6f47d5b1a2d0bd13f42562a60d5684b8c58b15d5638f8836cc39050ab8c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\test_supervisor.py",
+      "bytes": 11601,
+      "sha256": "39ea646c36650844957d25f1b10673bcea8674e63b94b6be0859ee4c6edf0ce4"
+    }
+  ],
+  "denominator": "All executed lines of diagnostic.py and unchanged supervisor.py; no runtime exclusions",
+  "excluded": "Tests, synthetic fixtures, evidence-only runner; PowerShell measured separately"
+}

@@ -1,0 +1,13 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+    "src\\agents\\skills\\skill-builder"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "timeout_seconds": 120,
+  "start_utc": "2026-09-12T16:00:33.438690+00:00"
+}

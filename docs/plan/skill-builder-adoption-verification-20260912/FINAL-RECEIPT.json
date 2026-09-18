@@ -1,0 +1,78 @@
+{
+  "status": "DEVELOPMENT_ENHANCEMENT_VERIFICATION_COMPLETE",
+  "authority": "NONE",
+  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+  "specification_sha256": "beebc2b97b6719fafbd1500b63e41280ddd611a3978b7d3af9b2798b7a87f095",
+  "regression": {
+    "tests": 140,
+    "exit_code": 0
+  },
+  "structural_check": "PASS",
+  "profiles": "POSITIVE_AND_NEGATIVE_EXPECTATIONS_MATCHED",
+  "independent_import_specification_regeneration": "COMPLETE",
+  "independent_adoption_revision_revalidation_lineage": "COMPLETE",
+  "independent_partial_delivery_and_publication_faults": "COMPLETE_WITH_RETAINED_EXPECTED_FAILURES",
+  "source_manifest_and_archive_readback": "PASS",
+  "report_links_readback": "PASS",
+  "operational_skill_writes": "NOT_PERFORMED",
+  "installation": "NOT_PERFORMED",
+  "rust_qualification": "NOT_PERFORMED",
+  "selected_evidence": [
+    {
+      "path": "REPORT.md",
+      "sha256": "d53d0a019e20e79e53cad3a0b21dbb16d9716551c3b63b35b4a6d9a969a1fe86"
+    },
+    {
+      "path": "source-change-receipt-release.json",
+      "sha256": "d6a2d0552881145694508137ed363ad081a197783f6ec2b04ba4e28271fd5476"
+    },
+    {
+      "path": "profile-readback-audit-release.json",
+      "sha256": "0ba2b324e8c555de94e22eb21fed38b8b363c397df0976bc61b44f18b6d56fde"
+    },
+    {
+      "path": "regression-release.txt",
+      "sha256": "363f8ba35990491685ef5a167133b411b4ce523d2b1fe51a9e084931c7a44dad"
+    },
+    {
+      "path": "structural-check-release.txt",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": "handoff-release-output.txt",
+      "sha256": "f1c183463a31850cc0f06c3b55f7f7c2a2120806bc5942008cf97f1761c19b00"
+    },
+    {
+      "path": "profile-checks-release/summary.json",
+      "sha256": "a920065344010f67e3b038f80e39dc6104681a99c35e30d00e9b0d3ff5570c0f"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-build-trials-final2/REPORT.md",
+      "sha256": "e6ef3ef4b8dcff1ed3e6dc694d4f5cd65a74f28cbd0de0eac1fb736526934f2a"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-build-trials-final2/final-readback-audit.json",
+      "sha256": "93b2a05cce96b8ddce9dbffc36666246ef055aad604590ba9329fe13e3b9b84a"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-adoption-trial-final2/report.md",
+      "sha256": "f70b4886b28b0e640984d4f17318dbd4d65d89a639ddb8f017375ed88b0ffc08"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-adoption-trial-final2/measured-input-readback-audit.json",
+      "sha256": "9c5350e8ba13b708f51f15be50c74f02cf7c9631d7f68a2ff5b27bfb6fbe43a1"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-adoption-trial-final2/original-input-locator-audit.json",
+      "sha256": "bfbc8d4331369d07c2616f85b4f793e4bf98fae33ca06494bfaef258a71c342f"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-failure-trials/REPORT-FINAL.md",
+      "sha256": "b763ed6b19a5385a7b9bee1992cec8d6ebdc07013d6a2c3e309dad3459e35362"
+    },
+    {
+      "path": "../skill-builder-adoption-verification-20260912-independent-failure-trials/final-snapshot-case-hash-audit.json",
+      "sha256": "ad31263e9c4a073d73ff6cab360cb3f8fb12ebc9d0da6c2cbed85f58948c810c"
+    }
+  ]
+}

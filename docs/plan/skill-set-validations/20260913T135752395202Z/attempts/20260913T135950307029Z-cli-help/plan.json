@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "label": "cli-help",
+  "command": [
+    "codex",
+    "exec",
+    "--help"
+  ],
+  "expected": "observation",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T135950307029Z-cli-help",
+  "started_at_utc": "20260913T135950307029Z"
+}

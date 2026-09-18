@@ -1,0 +1,4 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.19s
+     Running tests\profile_protocol.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-diagnostics\20260916T181820Z-dev\target\debug\deps\profile_protocol-541708358e49d487.exe)
+error: test failed, to rerun pass `--test profile_protocol`

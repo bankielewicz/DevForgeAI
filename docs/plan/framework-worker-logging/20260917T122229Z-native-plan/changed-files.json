@@ -1,0 +1,109 @@
+{
+  "scope": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan",
+  "operation": "Create fresh planning packet",
+  "created_bindings_before_sealing": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\collect-planning-evidence-v2.ps1",
+      "bytes": 9923,
+      "sha256": "52a99921f3deedd88b0ea9c8057288e2e9964c53ee50ec7abab26a124b4dcc69"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\collect-planning-evidence.ps1",
+      "bytes": 9449,
+      "sha256": "d15020693dfe8e58acdf440f7bd28834da879bbe6eeb8af6cc4162553e82fc6b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\command-plan.json",
+      "bytes": 4990,
+      "sha256": "93237d19d95823e56634b2d9ce109bd13990fc5638a98a78a947c457a0868645"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\inputs\\diagnostics.json",
+      "bytes": 68,
+      "sha256": "36963fd35a9774f5ce4cd966090e44995d960863e4bfd68ac65a763edf1bef87"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\inputs\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\intake-v2-verification.json",
+      "bytes": 15044,
+      "sha256": "f6a1644850d3d9236efc1aadbd4f1a994506e697d55ba113a520f0aea10764b1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\intake-verification.json",
+      "bytes": 14629,
+      "sha256": "eecd11fc324a2d5d18c34108b952dd1fb8f01cd808292566de68b1c557cafc37"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\native-diagnostic-plan.md",
+      "bytes": 15766,
+      "sha256": "bc425706c8c729f63ff7f98017f1e22bc81ea1337db030de79e4a0f9e145137e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\next-native-trial-prompt.txt",
+      "bytes": 4976,
+      "sha256": "d3d2c3d8602ad55f8e95160e6f75872863a902a3886b57054505b3be2840028b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\operator-review-handoff.md",
+      "bytes": 9103,
+      "sha256": "877c8142b4b271c5a4edd9658cf5d8f4606d87ca51748736119cef272cf27cf4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\planning-checks.json",
+      "bytes": 11802,
+      "sha256": "427c7d89152d2c170a034272e065eef4fd5aacd6e71863247ae64f2354a0da73"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\planning-input-manifest.json",
+      "bytes": 1219,
+      "sha256": "a539ed991bbc30d9d769e81d7a9983eeb4f119d855f96da130e5b19bfd84f9ba"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\planning-review.md",
+      "bytes": 7018,
+      "sha256": "3682713e5b6e7a07575e317d389fe73738950d25aff1b5d3c403bf554ed1f217"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\prepare-planning-inputs.ps1",
+      "bytes": 6163,
+      "sha256": "4e54d553853c86451f9926d53178ba3e6098ebdb13427a9893d576fe94040d2d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\publish-planning-handoff.ps1",
+      "bytes": 5932,
+      "sha256": "7275830658bff8573819d48bfad2ae7032c8f3fe7d0036f65981e5c8a5655895"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\readback-v2-verification.json",
+      "bytes": 15047,
+      "sha256": "6e6c7a2e0720c08f112f0800912b0248a7bebf04ffb4f777e74436c170ed02d2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\request.template.json",
+      "bytes": 1492,
+      "sha256": "3d7dec2e1f780df9727a6a3dc9a1df3e7057e61e10ccfb46a80ac20ab4504efd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\review.template.json",
+      "bytes": 919,
+      "sha256": "a92ca237a443be08f863ee16ddd58b0819ab0c101842cd3cbbf63683b6bfffee"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\verify-planning-documents.ps1",
+      "bytes": 9208,
+      "sha256": "b57d55f147fa55dd30086648dbe4bafea2dd5e449d79acbe4a9aaf0eebf14f9f"
+    }
+  ],
+  "additional_created_seal_files": [
+    "changed-files.json",
+    "handoff-manifest.json",
+    "final-readback.json"
+  ],
+  "modified_existing_files": [],
+  "deleted_files": [],
+  "note": "Seal files are bound by handoff/final readback; no recursive self-hash. All candidate, operational and prior evidence paths remain outside the write scope."
+}

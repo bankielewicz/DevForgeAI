@@ -1,0 +1,11 @@
+
+running 1 test
+test detached_daemon_does_not_keep_cli_stdout_pipe_open ... FAILED
+
+failures:
+
+failures:
+    detached_daemon_does_not_keep_cli_stdout_pipe_open
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 2.16s
+

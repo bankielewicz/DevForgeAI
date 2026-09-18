@@ -1,0 +1,21 @@
+{
+  "captured_at_utc": "2026-09-12T15:35:49.447763+00:00",
+  "evaluation_invocations": 13,
+  "grader_observations": 35,
+  "by_profile": {
+    "revision-spec-v1": 18,
+    "spec-v1": 8,
+    "import-v2": 9
+  },
+  "all_observations_passed": true,
+  "retained_files": 553,
+  "retained_copy_digests_verified": true,
+  "all_evaluator_candidate_and_case_digests_verified": true,
+  "live_import_source_files_and_digests_unchanged": true,
+  "terminal_commands": 89,
+  "structural_checks": 9,
+  "script_executions": 63,
+  "expected_conflict_proposals": 1,
+  "unexpected_exit_codes": 0,
+  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620"
+}

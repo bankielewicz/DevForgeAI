@@ -1,0 +1,128 @@
+{
+  "selected_evidence_value": "docs/plan/index-service-qa/20260914T184442947070Z",
+  "resolved_evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z",
+  "planning_status": "NEEDS_INPUT",
+  "product_qa": "NOT_EXECUTED",
+  "artifacts": [
+    {
+      "role": "build-manifest.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\build-manifest.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\build-manifest.json",
+      "bytes": 727,
+      "sha256": "f269dbe0c8af57e5a2458c64855a622b67e50e39c09522560c17cf918d35fd8b",
+      "readback": true
+    },
+    {
+      "role": "cases.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\cases.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\cases.json",
+      "bytes": 22523,
+      "sha256": "a6731e3f38df2db9fcd81beec16568059932e03c910e2504e65fcd15e2578444",
+      "readback": true
+    },
+    {
+      "role": "checkpoint.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\checkpoint.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\checkpoint.json",
+      "bytes": 1797,
+      "sha256": "062d49ba08ef4e385a096edc6efbcd501d39af6b756534f0217d32749ab879f0",
+      "readback": true
+    },
+    {
+      "role": "criteria.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\criteria.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\criteria.json",
+      "bytes": 33733,
+      "sha256": "1b8606a86aafea37fc14d81acd76ef006d6cea7fe5d40b54e38a4a94a8a7f1b0",
+      "readback": true
+    },
+    {
+      "role": "developer-test-inventory.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\developer-test-inventory.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\developer-test-inventory.json",
+      "bytes": 13334,
+      "sha256": "1cb9476086b4fbf4affb2086f3d3572beca4f5bbd7519dc00f38ae2d3e923272",
+      "readback": true
+    },
+    {
+      "role": "discovery.md",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\discovery.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\discovery.md",
+      "bytes": 5037,
+      "sha256": "858584571c48a38703734b0a61cbf230184006f530058ee02b87a441cbe693f4",
+      "readback": true
+    },
+    {
+      "role": "findings.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\findings.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\findings.json",
+      "bytes": 2852,
+      "sha256": "7df3c6ec5d0e8124ffc35fdd8e43533d4f22b3c9440b40e5956716f556738357",
+      "readback": true
+    },
+    {
+      "role": "handoff.md",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\handoff.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\handoff.md",
+      "bytes": 2226,
+      "sha256": "8ac89b2be03da49aa5c0a87509845d70a84b02d189e778eef7e176c6ee09fa8c",
+      "readback": true
+    },
+    {
+      "role": "inputs.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\inputs.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\inputs.json",
+      "bytes": 3326,
+      "sha256": "df650d9098d71a302589d76bf868436b1b5caba0d251e3ad0c1e4c3a89e46fa9",
+      "readback": true
+    },
+    {
+      "role": "publication-check.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\publication-check.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\publication-check.json",
+      "bytes": 2206,
+      "sha256": "ab03025a672c11ee15a71f6ecd621cf568eabea33ae2af447440154c2c72a844",
+      "readback": true
+    },
+    {
+      "role": "qa-report.md",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\qa-report.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\qa-report.md",
+      "bytes": 4495,
+      "sha256": "74d6e5e22a6f112fe51fe13830e8d9a3fb0dc8bc361eed701fda787d1feafd1c",
+      "readback": true
+    },
+    {
+      "role": "scenario-case-map.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\scenario-case-map.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\scenario-case-map.json",
+      "bytes": 3172,
+      "sha256": "ce589e433c17edd971c3cff0602a46d5a0cdcef41de59444b87995cc70b7be5b",
+      "readback": true
+    },
+    {
+      "role": "source-manifest.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\source-manifest.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\source-manifest.json",
+      "bytes": 9386,
+      "sha256": "43b63b5a9496b9d5374996d274cf5b852e2301ba23a87490717c786f71790343",
+      "readback": true
+    },
+    {
+      "role": "ssh-discovery.json",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\ssh-discovery.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\ssh-discovery.json",
+      "bytes": 972,
+      "sha256": "9514b2405e41922e422bd0400d556a50b3f585a118fb1338c92280a553fa0871",
+      "readback": true
+    },
+    {
+      "role": "test-plan.md",
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\test-plan.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\test-plan.md",
+      "bytes": 56786,
+      "sha256": "432649b12605ee0cfb043870854b0ad29e21970f9f5c1daebaa0fd4e2bd1d378",
+      "readback": true
+    }
+  ]
+}

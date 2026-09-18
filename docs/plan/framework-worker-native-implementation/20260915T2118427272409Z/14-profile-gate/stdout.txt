@@ -1,0 +1,8 @@
+
+running 3 tests
+test schema_two_peer_and_legacy_profile_extensions_are_rejected ... ok
+test native_profile_schema_is_closed_and_requires_both_policy_fields ... ok
+test v2_pinned_physical_identity_is_admitted ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 14.94s
+

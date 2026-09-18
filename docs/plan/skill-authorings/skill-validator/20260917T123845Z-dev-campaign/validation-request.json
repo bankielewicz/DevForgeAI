@@ -1,0 +1,66 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "validator-dev-campaign-001",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\skill-validator",
+  "target_name": "skill-validator",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T123845Z-dev-campaign\\delivered-manifest.json",
+    "sha256": "312fee7e5df868dbf3475024dd87059cfcfff3d1c89696ba58edafa0b099fbc3"
+  },
+  "package_digest": "b1a5a9181f1bd409c0a45f3897cefa6b755aaad717c3ce040afc6a56f13607b4",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T123845Z-dev-campaign\\authoring-record.json",
+    "sha256": "be7a35aa3cddfcd191aef8c52fe45c0bcac49a14cbe057be5d45962908d1446e"
+  },
+  "specification_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev\\SKILL.md",
+      "sha256": "ec47a6826276edc93675b0631d01aaa388f01d4fc0c68c71adf673e3ab27763f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev\\references\\context.md",
+      "sha256": "847c9fe40022bb9d488647880ad58b82c5b3fd97e1756c660eb31c9e98325fb0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev\\references\\implementation.md",
+      "sha256": "a083a54036b397568170175e18bea9d49b51f0d1cc433c6aa4f37d947b6804fd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev\\references\\evidence-resume.md",
+      "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev\\references\\failure-delivery.md",
+      "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-claude-conversion\\intake\\validator-dev-campaign-design.json",
+      "sha256": "8832e235b041091251792dc52cc3547422c9f68159d49142cafa8b3fb20b5714"
+    }
+  ],
+  "changed_paths": [
+    "evals/README.md",
+    "evals/build-manifest.json",
+    "evals/dev-cases.jsonl"
+  ],
+  "known_issues": [
+    "D01-D20 are builder-authored declarative expectations derived from the dev package. They are not independently derived oracles: an assessor must still construct its own fixtures and expected results from the original dev requirements rather than treating this file as an answer key.",
+    "No deterministic grader campaign exists for dev. Adding one needs a new profile, a matching PROFILES entry in scripts/run_evaluation.py and a grader suited to assessing a product-implementation workflow. That is executable-campaign work and was deliberately not attempted. Recorded as design open question Q1.",
+    "The Codex validator at src/agents/skills/skill-validator did not receive this campaign, and the Codex dev package still has no eval coverage. Recorded as design open question Q2.",
+    "The validator's own unittest suite was NOT_RUN for these bytes; running it belongs to the validator's workflow, not to authoring. The package binding was instead verified read-only by recomputing every artifact digest and comparing the result with both the manifest and the published baseline."
+  ],
+  "capabilities": [
+    "Python 3.10+ standard library for digest computation"
+  ],
+  "expected_outputs": [
+    "evals/dev-cases.jsonl holding D01-D20 in the validator-cases.jsonl observation shape",
+    "evals/README.md naming the new campaign",
+    "evals/build-manifest.json rebound over 89 artifacts"
+  ],
+  "side_effects": [
+    "An assessment that selects the dev skill now finds a retained case registry in the validator package"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

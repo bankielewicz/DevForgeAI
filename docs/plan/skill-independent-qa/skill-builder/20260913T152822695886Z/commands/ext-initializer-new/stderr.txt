@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\init_skill.py", line 21, in <module>
+    from generate_openai_yaml import write_openai_yaml
+ModuleNotFoundError: No module named 'generate_openai_yaml'

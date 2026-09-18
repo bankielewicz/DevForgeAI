@@ -1,0 +1,31 @@
+test_a01_accounting_and_helper_leave_target_unchanged (test_adoption.AdoptionTests) ... ok
+test_a02_quality_failure_does_not_become_a_pass (test_adoption.AdoptionTests) ... ok
+test_a03_validation_operation_and_unbound_authorization_rejected (test_adoption.AdoptionTests) ... ok
+test_a04_identical_unowned_collision_is_conflict (test_adoption.AdoptionTests) ... ok
+test_a05_retained_edit_has_distinct_generated_baseline (test_adoption.AdoptionTests) ... ok
+test_a06_source_and_spec_and_snapshot_drift_rejected (test_adoption.AdoptionTests) ... ok
+test_a06_stale_pointer_and_missing_pointer_refuse_revision (test_adoption.AdoptionTests) ... ok
+test_a07_full_ordered_three_way_table (test_adoption.AdoptionTests) ... ok
+test_a08_partial_actual_delta_and_retry_use_same_origin (test_adoption.AdoptionTests) ... ok
+test_a09_delivered_failure_cannot_publish (test_adoption.AdoptionTests) ... ok
+test_a10_adoption_is_not_schema_one_generated_provenance (test_adoption.AdoptionTests) ... ok
+test_a11_published_generation_passes_both_v2_graders (test_adoption.AdoptionTests) ... ok
+test_a11_subsequent_origin_uses_new_baseline_and_adoption_link (test_adoption.AdoptionTests) ... ok
+test_a12_corrupt_selected_history_is_not_erased (test_adoption.AdoptionTests) ... ok
+test_a13_duplicate_json_and_nonfinite_rejected (test_adoption.AdoptionTests) ... ok
+test_a13_link_boundary_rejected (test_adoption.AdoptionTests) ... ok
+test_a13_missing_duplicate_unobserved_unsafe_management (test_adoption.AdoptionTests) ... ok
+test_a13_snapshot_limits_enforced (test_adoption.AdoptionTests) ... ok
+test_a14_operational_target_rejected (test_adoption.AdoptionTests) ... ok
+test_a15_ready_handoff_does_not_override_selected_digests (test_adoption.AdoptionTests) ... ok
+test_a16_unpublished_record_cannot_start_revision (test_adoption.AdoptionTests) ... ok
+test_adoption_snapshot_and_destination_cannot_overlap (test_adoption.AdoptionTests) ... ok
+test_candidate_unjustified_ownership_fails_traceability (test_adoption.AdoptionTests) ... ok
+test_unknown_versions_rejected (test_adoption.AdoptionTests) ... ok
+test_v2_helper_preview_rejects_bad_origin_without_mutation (test_adoption.AdoptionTests) ... ok
+test_v2_routing_adds_only_adoption_and_preserves_legacy (test_adoption.AdoptionTests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 1.917s
+
+OK

@@ -1,0 +1,20 @@
+ext2-linked-valid PASS
+ext2-linked-quality FAIL
+ext2-linked-kind FAIL
+ext2-linked-request-identity FAIL
+ext2-linked-request-type FAIL
+ext2-linked-request-manifest FAIL
+ext2-legacy-generated PASS
+ext2-legacy-adopted PASS
+ext2-legacy-wrong-pointer FAIL
+ext2-legacy-corrupt-generated PASS
+ext2-update-unchanged PASS
+ext2-update-equivalent-bytes PASS
+ext2-update-false-no-change PASS
+ext2-update-missing-history PASS
+ext2-metadata-preserve PASS
+ext2-initializer-occupied PASS
+ext2-initializer-new PASS
+ext2-spec-ambiguous PASS
+ext2-spec-explicit PASS
+{"count": 20, "failures": ["ext2-linked-quality", "ext2-linked-kind", "ext2-linked-request-identity", "ext2-linked-request-type", "ext2-linked-request-manifest", "ext2-legacy-wrong-pointer"]}

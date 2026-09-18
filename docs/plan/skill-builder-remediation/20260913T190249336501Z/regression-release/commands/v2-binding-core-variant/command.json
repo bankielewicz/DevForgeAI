@@ -1,0 +1,47 @@
+{
+  "case": "v2-binding-core-variant",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-core-variant\\project\\.agents\\skills\\summary-skill\\scripts\\check_project_binding.py",
+    "--project-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-core-variant\\project",
+    "--skill-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-core-variant\\project\\.agents\\skills\\summary-skill"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release",
+  "expected": {
+    "exit": 1,
+    "field": "reason_code",
+    "value": "AMBIGUOUS_ROLE",
+    "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-core-variant\\project\\.agents\\skills\\summary-skill",
+    "before_manifest": [
+      {
+        "path": "SKILL.md",
+        "bytes": 330,
+        "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+      },
+      {
+        "path": "assets/devforgeai-skill.json",
+        "bytes": 426,
+        "sha256": "bfb2faa90c47d6104067af8135ae8a453b84a03c19840aea79f9b673eed3d3f0"
+      },
+      {
+        "path": "references/adaptive-contract.md",
+        "bytes": 297,
+        "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+      },
+      {
+        "path": "scripts/check_project_binding.py",
+        "bytes": 12433,
+        "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+      }
+    ]
+  },
+  "start_utc": "2026-09-13T19:47:21.094492+00:00",
+  "stdin_sha256": null
+}

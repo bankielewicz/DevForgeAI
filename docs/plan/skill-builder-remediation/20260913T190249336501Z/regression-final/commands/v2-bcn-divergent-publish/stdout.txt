@@ -1,0 +1,1 @@
+{"state": "BLOCKED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\bcn-divergent\\docs\\plan\\second-run", "applied_paths": [], "issues": ["REVISION_CONFLICT: SKILL.md", "REVISION_CONFLICT: SKILL.md"]}

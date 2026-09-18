@@ -1,0 +1,42 @@
+{
+  "attempt_id": "038-clippy",
+  "stage": "qa",
+  "argv": [
+    "cargo",
+    "clippy",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T16:23:50.080533+00:00",
+  "ended_at": "2026-09-15T16:23:50.975137+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\038-clippy\\candidate.json",
+    "bytes": 6856,
+    "sha256": "f0730ae498c4c3815baad07cb43235e6e15ad8319287e6828dd6d0b1a96a3089"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\038-clippy\\stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\038-clippy\\stderr.txt",
+    "bytes": 189,
+    "sha256": "854fa376a0a48a590575308378d5b6a87a58a6acb10f5f1271b01169131ef5c3"
+  },
+  "outcome": "observed-exit"
+}

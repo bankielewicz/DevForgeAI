@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\companion-final\\skill-builder\\scripts\\adaptive.py",
+    "inspect",
+    "--record",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\unknown-version.json"
+  ],
+  "timeout_seconds": 120,
+  "start": "2026-09-13T13:40:27.779294+00:00"
+}

@@ -1,0 +1,477 @@
+[
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-09Gg7Pj",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-09Gg7Pj\\observed.json",
+      "bytes": 1003,
+      "sha256": "43b0aa2bc96e0466861d64155b497b94e0457ac084d344931cdf70bd0e17bfa8"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-09Gg7Pj\\run\\journal.jsonl",
+      "bytes": 534,
+      "sha256": "1d183c5a0942938d97103643ccbd6508b6f1b4032583fad0c58a64d5e71db798"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-09Gg7Pj\\stimulus.json",
+      "bytes": 79,
+      "sha256": "0c59b35428043a8a3b0d0c4a7f6d9cd9bf809e241aa39ff0508b3c4e27c2baf6"
+    },
+    "result": {
+      "Err": "windows_error_5"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-1eVDij6",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-1eVDij6\\observed.json",
+      "bytes": 1005,
+      "sha256": "7856dd5f30dbd51d0f59fed6533d5c2a18311f1df76386375a5381f0c01cf26a"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-1eVDij6\\run\\journal.jsonl",
+      "bytes": 536,
+      "sha256": "9863f10c46a05c9e1c923f11854c3e119dd85e398496c0a4a71981d52ad92ca7"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-1eVDij6\\stimulus.json",
+      "bytes": 79,
+      "sha256": "af4eeefd629170f3877fecf4276275570cad0a504087d963b4e96fd6b8cf9a9d"
+    },
+    "result": {
+      "Err": "windows_error_5"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-2HF93t7",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-2HF93t7\\observed.json",
+      "bytes": 640,
+      "sha256": "6483d61b45d34c85910b3518601b81c88d21c632dcba7a3652d401e4582c7fa8"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-2HF93t7\\run\\journal.jsonl",
+      "bytes": 312,
+      "sha256": "210cd602629de790ed9a1aa73dcefd1dded25afe804773fda9103a6603a6309b"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-2HF93t7\\stimulus.json",
+      "bytes": 79,
+      "sha256": "6b3df30c19013088ee53b4005ceaa057ef010c4ab10508a69b479c9267b02c14"
+    },
+    "result": {
+      "Err": "windows_error_5"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-3WLClFd",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-3WLClFd\\observed.json",
+      "bytes": 638,
+      "sha256": "f7b2ec7b74c8573b189d058d9566af0cbfb1057b4462fdbd73209b3989710647"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-3WLClFd\\run\\journal.jsonl",
+      "bytes": 310,
+      "sha256": "2ac4277071c6051c3ec471452fc37538870130e0000746116f9f7af2d06e31d1"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI01-3WLClFd\\stimulus.json",
+      "bytes": 79,
+      "sha256": "b66b1f6cc774816466b5745d93b3d9732f06283da7a6de05d415d6ec2dce2e6a"
+    },
+    "result": {
+      "Err": "windows_error_5"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI029kRwvA",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI029kRwvA\\observed.json",
+      "bytes": 156,
+      "sha256": "ceadaa042a3fe65de173d85a079796e8d883ea3332152881f10f0ffab657651e"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI029kRwvA\\run\\journal.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI029kRwvA\\stimulus.json",
+      "bytes": 74,
+      "sha256": "d6801e146f93eef9bacc637449dd5450c8bf30dc45c91bd789fb1cd32aa69b2c"
+    },
+    "result": {
+      "Err": "evidence_write_failed"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03-write2ub2XY",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03-write2ub2XY\\observed.json",
+      "bytes": 156,
+      "sha256": "ceadaa042a3fe65de173d85a079796e8d883ea3332152881f10f0ffab657651e"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03-write2ub2XY\\run\\journal.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03-write2ub2XY\\stimulus.json",
+      "bytes": 80,
+      "sha256": "02239af0a88806b8b38406c21388a3780490260cfcde590a5a7bec27af664af2"
+    },
+    "result": {
+      "Err": "evidence_write_failed"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03yUOrT6",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03yUOrT6\\observed.json",
+      "bytes": 917,
+      "sha256": "964004ad398456953ed6af3ab63d1b40283ccdec7f0cb0c525fbd73cf86fc8e3"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03yUOrT6\\run\\journal.jsonl",
+      "bytes": 480,
+      "sha256": "12e9eec3ef1f9530b4484cf716a3d77ffea1131b671440c4c642ed9e7ac775be"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI03yUOrT6\\stimulus.json",
+      "bytes": 77,
+      "sha256": "6b5acdf4cd655ddba5d23416d538ceb507f467bc22d8375c2f6aaaa4891925c5"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-denialGCS5Hx",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-denialGCS5Hx\\observed.json",
+      "bytes": 3066,
+      "sha256": "018544d3282dab5983e380c901527fadc98b8b5a1f370ac336717b7b54f3fb40"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-denialGCS5Hx\\run\\journal.jsonl",
+      "bytes": 1455,
+      "sha256": "01951f86abf90325f964bd1b9537898eb72e21047a642f5509a57dc086ec34d5"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-denialGCS5Hx\\stimulus.json",
+      "bytes": 92,
+      "sha256": "d645f2059101c2cd3ec995ac0570963ae84a377d4be47c29bcdfc131075a580a"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 3,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-configF4yCGl",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-configF4yCGl\\observed.json",
+      "bytes": 3310,
+      "sha256": "9a785e30e38533c0449a3fca47e5bbf92a301820e31f0fa379591a9c90f1cda8"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-configF4yCGl\\run\\journal.jsonl",
+      "bytes": 1600,
+      "sha256": "55fc503dfa68797e258930e8a09b028c1aabbf6eb53a415dfecc5785564eff80"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-configF4yCGl\\stimulus.json",
+      "bytes": 100,
+      "sha256": "bf1c744b14180edc7dc62b9299a10c4ac3c6e27b78eed365b5c3c0d69aa2ea24"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 3,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-initMRVgEM",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-initMRVgEM\\observed.json",
+      "bytes": 1986,
+      "sha256": "4ed0220e54f00453171a914e494785eec97670a7b5adcf26412367d1926fc288"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-initMRVgEM\\run\\journal.jsonl",
+      "bytes": 988,
+      "sha256": "07da64141e9208e862c65fceb8ea7ec6dccdee94c901efd8890a72e6306d836c"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-error-initMRVgEM\\stimulus.json",
+      "bytes": 96,
+      "sha256": "c61bbab028e89d91459990eda4a558e1afb500a48d74859b0d490de4a3a6af03"
+    },
+    "result": {
+      "Err": "rpc_error"
+    },
+    "trace_messages": 1,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-projectionUlqVNt",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-projectionUlqVNt\\observed.json",
+      "bytes": 3667,
+      "sha256": "6eb768a81e558cca9b3355226c159f85129e6657fd654a5d977760e4aae46fab"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-projectionUlqVNt\\run\\journal.jsonl",
+      "bytes": 1799,
+      "sha256": "0d69d9592a7bbda52ecb1be0e6887b3e6d1395cfd53c45547af896440180fe0a"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-projectionUlqVNt\\stimulus.json",
+      "bytes": 88,
+      "sha256": "b3cadd3ab52a02afecefc1c7f3391beaf9b43a634d712ad521c23f3205938a3c"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 4,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-server-request0BkqAS",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-server-request0BkqAS\\observed.json",
+      "bytes": 1704,
+      "sha256": "e68fd4b68edf9f9984282b2479f7b064d01cfc896081d1e04e30e959a60a9dae"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-server-request0BkqAS\\run\\journal.jsonl",
+      "bytes": 725,
+      "sha256": "7cb73516b85a13d4cf354b97855b80ef7e3437ea69209974afaa10895e1537b1"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI04-server-request0BkqAS\\stimulus.json",
+      "bytes": 104,
+      "sha256": "f8e6adad5695c95b8bfbe1b62a32b7a39cf64f4bc6c910b2134ffb6eb9b3154b"
+    },
+    "result": {
+      "Err": "unsupported_request"
+    },
+    "trace_messages": 2,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-config_read0lCoyG",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-config_read0lCoyG\\observed.json",
+      "bytes": 3076,
+      "sha256": "562964ec239dae978ba7db56fda2255eaff1eeacaa39bf1f7b77d78cfa69eba7"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-config_read0lCoyG\\run\\journal.jsonl",
+      "bytes": 1460,
+      "sha256": "8ad5a1b681e0d342331bc3671ac1554a420fa6b9e77b9b8f43841b0403225c4c"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-config_read0lCoyG\\stimulus.json",
+      "bytes": 104,
+      "sha256": "d20f61b3a9e1b5d81fc5c4574e44713e1ddf90b5a5d79fb1b815e19eea2a1678"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 3,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-initializezlZU0I",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-initializezlZU0I\\observed.json",
+      "bytes": 1766,
+      "sha256": "1d5db95635f0da1142de66c05845b481020fb0b6132864d1a6de0069899bf0c5"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-initializezlZU0I\\run\\journal.jsonl",
+      "bytes": 851,
+      "sha256": "932f916a585f3ae6e8bfe46447f872c998f6b1653708d9e32b404e6c1f50c47e"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI05-initializezlZU0I\\stimulus.json",
+      "bytes": 101,
+      "sha256": "bf0659d36827d907dfd37b8e1ab7fc015bb4c534b5ab14f189cebe3a20ffe4e1"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 1,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-control_error1AKB8z",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-control_error1AKB8z\\observed.json",
+      "bytes": 513,
+      "sha256": "4a287f03b5183112d0f5eb8b54ccf870bc38e90e138387e8af62cb5b9a4a42fe"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-control_error1AKB8z\\run\\journal.jsonl",
+      "bytes": 221,
+      "sha256": "703ef1a8da69cfbc7ac8973154c25052a1cedec9e26c3b3a4e3ec41e7c472970"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-control_error1AKB8z\\stimulus.json",
+      "bytes": 91,
+      "sha256": "d122326bd095151181037f80918260f33bb747d08e0a8f0a1243428342e1a9ad"
+    },
+    "result": {
+      "Err": "invalid_control"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-deadlineJJmOLG",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-deadlineJJmOLG\\observed.json",
+      "bytes": 1249,
+      "sha256": "04bf4ca5874a00abc529063ff2ca6aba5a5c7c9a809ee28d3b18a539bd34249f"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-deadlineJJmOLG\\run\\journal.jsonl",
+      "bytes": 520,
+      "sha256": "72929721177335bd3faf8759aa30aa86b9cba31b895341b35f74b53049f61a8b"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-deadlineJJmOLG\\stimulus.json",
+      "bytes": 88,
+      "sha256": "2cfd5fc264e5ab17f9d84e3c570f0733e0d35a252eccd9efcf9039108a71abfc"
+    },
+    "result": {
+      "Err": "deadline"
+    },
+    "trace_messages": 1,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-user_cancelcJnXEO",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-user_cancelcJnXEO\\observed.json",
+      "bytes": 507,
+      "sha256": "791afc64bb3edcbb28e7cb3d99aba8104d1079e07e8e310294c94a916cd561e8"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-user_cancelcJnXEO\\run\\journal.jsonl",
+      "bytes": 219,
+      "sha256": "fdc21658ab70bb15796442d05249d2ef7ee6b72aa8c78dde8468c770c0be2249"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-user_cancelcJnXEO\\stimulus.json",
+      "bytes": 89,
+      "sha256": "ea7cbe77fc7b67ab4a5eb76ab00b9cdfae6cc4d099e6137a6b33c9adbf7b561e"
+    },
+    "result": {
+      "Err": "user_cancel"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-writesaFZM3",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-writesaFZM3\\observed.json",
+      "bytes": 156,
+      "sha256": "ceadaa042a3fe65de173d85a079796e8d883ea3332152881f10f0ffab657651e"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-writesaFZM3\\run\\journal.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI06-writesaFZM3\\stimulus.json",
+      "bytes": 80,
+      "sha256": "4c26614b388a17dfd9a3cfabcf5f2c9ede87cb9b5ed8006b350980289fb69d84"
+    },
+    "result": {
+      "Err": "evidence_write_failed"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  },
+  {
+    "fixture": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI070vxqkc",
+    "observed": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI070vxqkc\\observed.json",
+      "bytes": 1017,
+      "sha256": "7a61f9b8d07638f12affcb041b78c0dea720971e7886ba7d2330424c99032a23"
+    },
+    "journal": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI070vxqkc\\run\\journal.jsonl",
+      "bytes": 544,
+      "sha256": "2192f9b0a1bfda463bee710368062921d032349add8eb865e32cb1c076d22dbf"
+    },
+    "stimulus": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\07-independent-cases\\QI070vxqkc\\stimulus.json",
+      "bytes": 77,
+      "sha256": "3d1e29a7d9b5cbc6d9a4e725ee766da871bccddceabcb4f6828aec1b9dfd3743"
+    },
+    "result": {
+      "Err": "profile_unqualified"
+    },
+    "trace_messages": 0,
+    "stopped": true,
+    "active": 0,
+    "canary_absent": true
+  }
+]

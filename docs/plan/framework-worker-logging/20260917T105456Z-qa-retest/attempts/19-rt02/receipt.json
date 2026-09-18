@@ -1,0 +1,12 @@
+{
+  "case": "RT-02",
+  "action": "CLI matrix compatibility",
+  "status": "PASS",
+  "observations": 84,
+  "passed_observations": 84,
+  "failed": [],
+  "elapsed_seconds": 2.812999999994645,
+  "ended_utc": "2026-09-17T11:11:21.571078+00:00",
+  "read_only": true,
+  "native_codex": "NOT_RUN"
+}

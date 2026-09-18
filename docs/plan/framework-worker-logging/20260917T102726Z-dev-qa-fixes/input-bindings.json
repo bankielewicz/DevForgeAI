@@ -1,0 +1,132 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\checkpoint.md",
+    "bytes": 1513,
+    "sha256": "6e267946b5205804114e9aec87c04c386340ab9038a7475535a20abe18f2d36c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\context.md",
+    "bytes": 2538,
+    "sha256": "6af52c9d4209adbdfc33c6828a31dfb6f8d75bc501cc9ce4a85d1dc34d9fc069"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\delivery.md",
+    "bytes": 2797,
+    "sha256": "0a451fe72a8f3b2e82ee7ec3441dfd19ab8ba915c01547598dd88a42ca1447a8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\slice-plan.md",
+    "bytes": 1503,
+    "sha256": "f7408d9b27a4d09245113da9c2abff281d1265894b14fd0deae4ca542df45421"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\traceability.md",
+    "bytes": 1309,
+    "sha256": "7499d23c38082ef2cc5bc688d60ba57bd4af40f445d20950bbcbf126b05ee889"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\context.md",
+    "bytes": 7009,
+    "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\evidence-resume.md",
+    "bytes": 5098,
+    "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\failure-delivery.md",
+    "bytes": 3871,
+    "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\implementation.md",
+    "bytes": 7053,
+    "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\SKILL.md",
+    "bytes": 4659,
+    "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "bytes": 18728,
+    "sha256": "3b8e2a112c438b536ab59db2abbcfd6e08ebdd7f41caa13cdf6d5c49866fab86"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging\\logging-contract.md",
+    "bytes": 5002,
+    "sha256": "39bd2fe1b7743e816bef16e28818c8a6ed0d61df5e8dcd61092593dbf65a1a19"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract.md",
+    "bytes": 3393,
+    "sha256": "a1c35642f3c4c5a2bf4102495cca48f791877cc9d67416cbd1179dc831ac9779"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\candidate-manifest.json",
+    "bytes": 15321,
+    "sha256": "95a013a233fb74c168d0eb7d45a8732cdfffa3420b9bf63c1fe2b993c3351677"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\handoff-manifest.json",
+    "bytes": 10117,
+    "sha256": "0c6949f4379e7c469643f34ad6d4b1f664f48177f8865d12dfedd7cbe901019e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\input-manifest.json",
+    "bytes": 8141,
+    "sha256": "56f87de5a57400a376a453a540a813f24312a5d940dce8bda4d874b9fb5dd49e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\preserved-manifest.json",
+    "bytes": 28053,
+    "sha256": "982ac4a2d39b4c372707274f30a392e8086a60010fdca67641c23f4a32768149"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-fix.md",
+    "bytes": 15340,
+    "sha256": "37840c9cb486d9bde9b8f08e84a1d87568b30eae936198dac401872285a4d335"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-report.md",
+    "bytes": 23639,
+    "sha256": "b0895a1a6a09dfb8d43241256769ca085dd272d0ea7e15b9a41e40ec034edfc2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\specification-bindings.json",
+    "bytes": 1813,
+    "sha256": "d4368d0dcc4039bcd8c162f020dd1bb7a862f76b737c3978c4924d623d604108"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\investigation-report.md",
+    "bytes": 12924,
+    "sha256": "415663379d3782afd45a49dd13e976421f1bcafe03355aacd25b46143f08052d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\logging-design.md",
+    "bytes": 19134,
+    "sha256": "ef48a57d46e535e3311b2a468657ae4729b9cc77b541cc5778493f0a00530389"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+    "bytes": 37561,
+    "sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+    "bytes": 13339,
+    "sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-preflight-v1.md",
+    "bytes": 12762,
+    "sha256": "6e781f23f221d1033896716512e9162579653b529d107e0040d49c499574afd1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+    "bytes": 9151,
+    "sha256": "34160ff675f886aeeebd3a7d131fd973b86a375fb64def7604db419c79db1f8c"
+  }
+]

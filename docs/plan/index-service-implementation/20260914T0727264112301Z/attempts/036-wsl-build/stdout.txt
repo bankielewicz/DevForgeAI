@@ -1,0 +1,86 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test enumeration_observes_cooperative_stop_between_entries ... ok
+test eligibility_accounts_for_exclusions_encodings_and_untracked_files ... ok
+test file_header_is_not_documentation_and_nested_parent_is_retained ... ok
+test syntax_errors_are_partial_and_cancellation_is_observed ... ok
+test two_parser_workers_preserve_snapshot_bytes_and_cancellation ... ok
+test adapters_extract_real_declarations_docs_and_exact_source_ranges ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 2 tests
+test cli_maps_management_flags_to_the_shared_protocol ... ok
+test binary_emits_one_json_envelope_for_invalid_input ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 1 test
+test rust_test_harness_executes ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test native_local_transport_roundtrips_and_stops_without_tcp ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 2 tests
+test roots_are_absolute_local_and_nonoverlapping ... ok
+test private_environment_identity_and_exclusive_lock_survive_reopen ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 2 tests
+test simultaneous_starts_and_process_level_index_lifecycle ... FAILED
+test corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation ... FAILED
+
+failures:
+
+---- simultaneous_starts_and_process_level_index_lifecycle stdout ----
+
+thread 'simultaneous_starts_and_process_level_index_lifecycle' (711069) panicked at tests/process.rs:28:5:
+assertion `left == right` failed
+  left: 9
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation stdout ----
+
+thread 'corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation' (711068) panicked at tests/process.rs:45:5:
+assertion `left == right` failed
+  left: 7
+ right: 0
+
+
+failures:
+    corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation
+    simultaneous_starts_and_process_level_index_lifecycle
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.22s
+

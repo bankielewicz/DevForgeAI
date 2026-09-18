@@ -1,0 +1,62 @@
+{
+  "unchanged": [
+    {
+      "original": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\qa-harness\\Cargo.lock",
+        "bytes": 7493,
+        "sha256": "6a341d519e8c7cb051fe021867ec90f50eab86795ebe1ad5af436ffaef5959ee"
+      },
+      "current": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-harness\\Cargo.lock",
+        "bytes": 7493,
+        "sha256": "6a341d519e8c7cb051fe021867ec90f50eab86795ebe1ad5af436ffaef5959ee"
+      },
+      "same_bytes": true
+    },
+    {
+      "original": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\qa-harness\\cases.rs",
+        "bytes": 1744,
+        "sha256": "5b143797563870cd7c1d820865180571173ca9c8e1df719ab8250967fd49db3c"
+      },
+      "current": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-harness\\cases.rs",
+        "bytes": 1744,
+        "sha256": "5b143797563870cd7c1d820865180571173ca9c8e1df719ab8250967fd49db3c"
+      },
+      "same_bytes": true
+    },
+    {
+      "original": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\qa-harness\\peer.rs",
+        "bytes": 418,
+        "sha256": "d6e5eababdf2ded3e815c4cd14b6b6ac1fc0648e6814286eaae5dad8e26a7b8a"
+      },
+      "current": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-harness\\peer.rs",
+        "bytes": 418,
+        "sha256": "d6e5eababdf2ded3e815c4cd14b6b6ac1fc0648e6814286eaae5dad8e26a7b8a"
+      },
+      "same_bytes": true
+    },
+    {
+      "original": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\qa-harness\\expected.json",
+        "bytes": 226,
+        "sha256": "c101aa5b135858f47f059aca0c92bed956eea1044070084ef306e7c06088264f"
+      },
+      "current": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-harness\\expected.json",
+        "bytes": 226,
+        "sha256": "c101aa5b135858f47f059aca0c92bed956eea1044070084ef306e7c06088264f"
+      },
+      "same_bytes": true
+    }
+  ],
+  "manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-harness\\Cargo.toml",
+    "bytes": 429,
+    "sha256": "03f1fb29c3a530ceb173d21200b949df559f99ff182f6b01e8511b766f5f6922"
+  },
+  "difference": "Only dependency path selects corrected candidate; separately executed inherited developer regression"
+}

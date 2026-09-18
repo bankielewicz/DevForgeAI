@@ -1,0 +1,30 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.24
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling cfg-if v1.0.4
+   Compiling serde_json v1.0.151
+   Compiling getrandom v0.4.3
+   Compiling serde v1.0.229
+   Compiling windows-link v0.2.1
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling once_cell v1.21.4
+   Compiling fastrand v2.5.0
+   Compiling windows-sys v0.61.2
+   Compiling generic-array v0.14.7
+   Compiling tempfile v3.27.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling syn v3.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe-logging-qa-fixes)
+   Compiling logging-windows-evidence v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T102726Z-dev-qa-fixes\supplemental-harness)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.78s
+     Running cases.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T105456Z-qa-retest\supplemental-target\debug\deps\raw_windows_capture-148bcc415beb7516.exe)

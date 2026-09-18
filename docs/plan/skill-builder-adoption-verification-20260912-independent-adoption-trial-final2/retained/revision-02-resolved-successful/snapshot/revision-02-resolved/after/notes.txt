@@ -1,0 +1,2 @@
+User-maintained: compare September receipts with the paper ledger.
+Do not rewrite this note during skill maintenance.

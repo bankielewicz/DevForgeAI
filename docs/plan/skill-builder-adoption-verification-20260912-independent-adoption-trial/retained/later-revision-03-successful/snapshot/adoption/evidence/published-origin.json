@@ -1,0 +1,20 @@
+{
+  "schema_version": "2",
+  "run_id": "adopt-02",
+  "target_name": "receipt-totals",
+  "origin": {
+    "kind": "adopted",
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "d84eaf213b36ac28f24e49cd492d7d446a0d24083f4fa750c0102d1ec2aa602b"
+  },
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a"
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "sha256": "c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0"
+    }
+  ]
+}

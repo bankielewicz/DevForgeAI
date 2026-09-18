@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "helper_attempts": 51,
+  "raw_streams": 102,
+  "frozen_plan_unchanged": true,
+  "pinned_input_digests_unchanged": true,
+  "rule_source_copies_match_current_validator": true,
+  "limits": "No product retry; no semantic acceptance inferred."
+}

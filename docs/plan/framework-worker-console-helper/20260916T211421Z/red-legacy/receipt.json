@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "-NoLogo",
+    "-NoProfile",
+    "-NonInteractive",
+    "-File",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-console-helper\\20260916T211421Z\\legacy-argument-repro.ps1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 1
+}

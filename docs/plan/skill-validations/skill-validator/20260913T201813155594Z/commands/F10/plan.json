@@ -1,0 +1,50 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "package",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\trials\\F10\\sample"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at": "2026-09-13T20:23:29.177439Z",
+  "timeout_seconds": 120,
+  "fixture_before": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\trials\\F10",
+    "captured_at_utc": "2026-09-13T20:23:29.177439Z",
+    "files": [
+      {
+        "path": "sample/SKILL.md",
+        "bytes": 107,
+        "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+      },
+      {
+        "path": "sample/example.md",
+        "bytes": 59,
+        "sha256": "d33295c0494b12a4a802d18ac5faa31da34d05210eeaa8ea76e657ca88964468"
+      },
+      {
+        "path": "sample/guide.md",
+        "bytes": 42,
+        "sha256": "121b64deaceba8fd554df33c236afe65e81ed968fdd61fe7b58156ffc962de3c"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "0ba8f8404fb23677a16edaac2989fd5826fa2a4b254c42e08c127cb3fad54ff0"
+  },
+  "permitted_effects": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\temporary\\F10",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\commands\\F10"
+  ],
+  "environment_overrides": {
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\temporary\\F10",
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\temporary\\F10",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUTF8": "1"
+  }
+}

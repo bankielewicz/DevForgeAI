@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-c",
+    "import importlib.metadata as m; print({p:m.version(p) for p in ['PyYAML','coverage']})"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 0
+}

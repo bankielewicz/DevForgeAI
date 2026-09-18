@@ -1,0 +1,579 @@
+# test-plan.ai.yaml
+# AI-optimized context template — GENERATED artifact (7th constitutional companion).
+#
+# Unlike the other 6 `.ai.yaml` siblings in this folder, this file has NO parent
+# `test-plan.md`. Its source of truth is the `test-plan-architect` subagent's
+# v2.0.0 JSON output contract at:
+#   src/claude/agents/test-plan-architect.md (lines 107-220)
+#
+# This file is a SHELL with placeholders. When `/create-system-architecture` runs against a
+# new project, Phase 03 of the `spec-driven-system-architecture` skill:
+#   1. Invokes `test-plan-architect` + `tech-stack-detector (--extract-test-patterns)`
+#      in parallel (single Task message, 2 Task calls).
+#   2. Merges the architect fragment into
+#      devforgeai/workflows/test-plan-manifest.json under the `_test_plan_fragment` key.
+#   3. Calls `devforgeai-validate render-ai-companion --all` to atomically write
+#      devforgeai/specs/context/test-plan.ai.yaml using this template as the schema.
+#
+# The 12 top-level sections below EXACTLY mirror the agent's v2.0.0 output
+# contract. Fields 1-5 are baseline (no provenance required). Fields 6-12 are
+# the v2.0.0 strategic additions and EACH carry a `_provenance` block with
+# exactly one of 3 attribution tiers populated.
+#
+# Consumer pattern:
+#   import yaml
+#   plan = yaml.safe_load(open("devforgeai/specs/context/test-plan.ai.yaml"))
+#   framework  = plan["test_conventions"]["primary_framework"]
+#   never_mock = plan["mocking_strategy"]["never_mock"]
+#   thresholds = plan["coverage_thresholds"]
+#   retry      = plan["flakiness_policy"]["retry_enabled"]
+#
+# Downstream consumers (see Consumer Landscape in the plan file):
+#   - test-plan-architect    (producer — emits this shape)
+#   - test-automator         (via build_test_contract → contract.inputs.test_plan_subset)
+#   - backend-architect      (test file paths + layer thresholds during implementation)
+#   - spec-driven-dev skill  (Phase 02/05 references)
+#   - spec-driven-qa skill   (coverage + flakiness + isolation policy)
+#   - integration-tester     (integration_boundaries + mocking_strategy.never_mock)
+#   - alignment-auditor      (_cache_metadata + _provenance drift detection)
+
+_meta:
+  purpose: "Canonical schema contract for the generated test plan artifact"
+  companion_of: "(generated artifact — no parent .md)"
+  generated_by: "test-plan-architect subagent v2.0.0"
+  schema_contract: "src/claude/agents/test-plan-architect.md lines 107-220"
+  fill_in_by: "spec-driven-system-architecture skill Phase 03"
+  fill_in_protocol: "3-tier gap handling — Inferred → AskUserQuestion → WebFetch (per ADR-054)"
+  locked_after_fill: true
+  schema_version: "2.0.0"
+  editability: "IMMUTABLE after generation — regenerate via /create-system-architecture"
+  adr_references:
+    - "ADR-053 (hybrid agent+CLI pipeline)"
+    - "ADR-054 (test-plan constitutional artifact)"
+  story_references:
+    - "STORY-634 (dual-parent hash, 12-section schema, QA Approved)"
+
+frontmatter:
+  last_updated: "${DATE}"                     # ISO 8601, e.g., "2026-04-23"
+  status: LOCKED
+  generator_version: "2.0.0"
+  project: "${PROJECT_NAME}"
+  source_story: "STORY-634"
+  dual_parent_sources:
+    - "devforgeai/specs/context/tech-stack.md"
+    - "devforgeai/specs/context/coding-standards.md"
+
+enforcement_notice:
+  severity: CRITICAL
+  rule: "This document defines the complete, authoritative test strategy for this project."
+  agent_constraint: "AI agents MUST read this file before generating tests, configuring coverage thresholds, or selecting mocking boundaries. Agents MUST NOT deviate from these decisions without explicit user approval via AskUserQuestion + ADR."
+  regeneration_trigger: "Parent-file drift (tech-stack.md or coding-standards.md SHA-256 hash change) or explicit /create-system-architecture invocation."
+
+# ===========================================================================
+# PRIMARY INFERENCE — top-level attribution for primary_framework detection
+# (mirrors test-plan-architect JSON fragment lines 109-111)
+# ===========================================================================
+primary_framework: "${PRIMARY_FRAMEWORK}"     # enum: pytest | jest | vitest | xunit | nunit | mstest | cargo_test | go_test | rspec | other
+inferred: true
+inference_rationale: "${INFERENCE_RATIONALE}" # 1-2 sentences tying the inference to tech-stack.md / coding-standards.md evidence
+
+# ===========================================================================
+# SECTION 1 of 12 — test_conventions  [BASELINE, no _provenance required]
+# ===========================================================================
+test_conventions:
+  severity: CRITICAL
+  primary_framework: "${PRIMARY_FRAMEWORK}"   # enum: pytest | jest | vitest | xunit | nunit | mstest | cargo_test | go_test | rspec | other
+  secondary_frameworks: []                    # list of framework identifiers, often empty
+  # test_location_rule values:
+  #   - "co-located"   : tests live next to source files (e.g., foo.py + test_foo.py)
+  #   - "centralized"  : tests live under a top-level tests/ directory mirroring src/
+  #   - "hybrid"       : mix of co-located unit + centralized integration
+  test_location_rule: "${TEST_LOCATION_RULE}" # enum: co-located | centralized | hybrid
+
+# ===========================================================================
+# SECTION 2 of 12 — test_file_patterns  [BASELINE]
+# ===========================================================================
+test_file_patterns:
+  severity: CRITICAL
+  patterns:                                   # Glob patterns used by the test runner to discover tests
+    - "${TEST_GLOB_1}"                        # e.g., "test_*.py", "*.test.ts", "*Tests.cs", "tests/**/*.rs"
+    - "${TEST_GLOB_2}"                        # optional secondary pattern; remove if unused
+  examples_by_language:                       # Map of language → canonical example patterns
+    "${LANGUAGE_KEY}":                        # e.g., "python", "typescript", "rust", "csharp", "go"
+      - "${LANGUAGE_SPECIFIC_PATTERN}"        # e.g., "test_*.py", "*.test.ts", "*_test.rs"
+
+# ===========================================================================
+# SECTION 3 of 12 — test_locations  [BASELINE]
+# ===========================================================================
+test_locations:
+  severity: HIGH
+  primary: "${PRIMARY_TEST_DIR}"              # e.g., "tests/", "src/__tests__/", "spec/"
+  story_scoped: "${STORY_SCOPED_TEST_DIR}"    # e.g., "tests/STORY-NNN/" — set to null if project does not use story-scoped tests
+  secondary: "${SECONDARY_TEST_DIR}"          # e.g., "integration-tests/" — set to null if unused
+
+# ===========================================================================
+# SECTION 4 of 12 — naming_conventions  [BASELINE]
+# ===========================================================================
+naming_conventions:
+  severity: HIGH
+  test_files: "${TEST_FILE_REGEX}"            # e.g., "^test_.+\\.py$", "^.+\\.test\\.ts$", "^.+Tests\\.cs$"
+  test_functions: "${TEST_FUNCTION_REGEX}"    # e.g., "^test_.+$", "^it\\(.+\\)$", "^\\[Test\\] .+$"
+  test_classes: "${TEST_CLASS_REGEX}"         # e.g., "^Test.+$", "^.+Tests$" — use null if language/framework does not use test classes
+  fixtures: "${FIXTURE_REGEX}"                # e.g., "^fixture_.+$", "^use.+Fixture$" — use null if no fixture pattern
+
+# ===========================================================================
+# SECTION 5 of 12 — coverage_thresholds  [BASELINE]
+# ===========================================================================
+# Per DevForgeAI ADR-010: coverage gaps are CRITICAL blockers, not warnings.
+# The 3 canonical layers map to Clean Architecture / DDD concentric rings.
+# Adjust values to project requirements. Integer percentages, 0-100.
+coverage_thresholds:
+  severity: CRITICAL
+  business_logic: "${BUSINESS_LOGIC_THRESHOLD}"   # integer 0-100, DevForgeAI default 95
+  application: "${APPLICATION_THRESHOLD}"         # integer 0-100, DevForgeAI default 85
+  infrastructure: "${INFRASTRUCTURE_THRESHOLD}"   # integer 0-100, DevForgeAI default 80
+  enforcement: "CI pipeline fails if any layer falls below its threshold. No deferral path (ADR-010)."
+
+# ===========================================================================
+# SECTION 6 of 12 — testing_philosophy  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+testing_philosophy:
+  severity: HIGH
+  unit_test_purpose: "${UNIT_TEST_PURPOSE}"            # 40-400 chars. What unit tests prove.
+  integration_test_purpose: "${INTEGRATION_TEST_PURPOSE}" # 40-400 chars. What integration tests prove.
+  e2e_test_purpose: "${E2E_TEST_PURPOSE}"              # 40-400 chars OR null if no e2e layer
+  non_goals:                                           # Explicit list of things tests do NOT prove
+    - "${NON_GOAL_1}"                                  # e.g., "We do not test third-party library internals"
+    - "${NON_GOAL_2}"                                  # e.g., "Not in scope: browser compatibility matrix"
+  primary_quality_attribute: "${PRIMARY_QUALITY_ATTRIBUTE}" # enum: correctness | reliability | performance | security | usability
+  secondary_quality_attributes:                        # List of enum values; exclude the primary
+    - "${SECONDARY_QUALITY_ATTRIBUTE_1}"               # enum: correctness | reliability | performance | security | usability
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier. Remove (or keep commented) the others.
+    # --- Tier 1 (inferred from constitutional files): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"      # 1-2 sentences tying the decision to context file evidence
+    # --- Tier 2 (user_confirmed via AskUserQuestion): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched — whitelisted hosts only, per NFR-005): ---
+    # evidence_sources:
+    #   - url: "${URL}"                                # MUST be one of the 8 whitelisted hosts
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"     # ISO 8601 UTC
+    #     quoted_passage: "${QUOTED_PASSAGE}"          # Verbatim quote supporting the decision
+
+# ===========================================================================
+# SECTION 7 of 12 — mocking_strategy  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+mocking_strategy:
+  severity: HIGH
+  library: "${MOCK_LIBRARY}"                           # e.g., "unittest.mock", "pytest-mock", "jest", "Moq", "mockito"
+  mock_boundaries:                                     # What layers/boundaries SHOULD be mocked in unit tests
+    - "${MOCK_BOUNDARY}"                               # enum examples: external-network | database | filesystem | time | randomness | thirdparty-sdk | inter-service-messaging | cryptography | subprocess
+  never_mock:                                          # Layers that MUST NEVER be mocked (usually domain/core)
+    - "${NEVER_MOCK_GLOB}"                             # e.g., "src/domain/**", "crates/core/**", "src/services/order/domain/**"
+  mock_naming_pattern: "${MOCK_NAMING_REGEX}"          # e.g., "^mock_(.+)$", "^Mock(.+)$"
+  auto_spec_required: "${AUTO_SPEC_REQUIRED}"          # boolean: true | false — whether to enforce autospec/typed mocks
+  inter_test_isolation: "${INTER_TEST_ISOLATION}"      # enum: reset-per-test | reset-per-class | no-reset
+  verification_policy: "${VERIFICATION_POLICY}"        # enum: strict | lenient
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier. Remove (or keep commented) the others.
+    # --- Tier 1 (inferred from constitutional files): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"
+    # --- Tier 2 (user_confirmed via AskUserQuestion): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched): ---
+    # evidence_sources:
+    #   - url: "${URL}"
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"
+    #     quoted_passage: "${QUOTED_PASSAGE}"
+
+# ===========================================================================
+# SECTION 8 of 12 — fixture_management  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+fixture_management:
+  severity: MEDIUM
+  fixture_system: "${FIXTURE_SYSTEM}"                  # e.g., "pytest fixtures (@pytest.fixture)", "Jest beforeEach/afterEach", "[SetUp]/[TearDown]", "#[cfg(test)] modules"
+  scope_policy: "${FIXTURE_SCOPE_POLICY}"              # enum: per-test | per-class | per-module | per-session
+  shared_fixtures_location: "${SHARED_FIXTURES_PATH}"  # e.g., "tests/conftest.py", "tests/setup.ts", "tests/common/fixtures.rs"
+  fixture_naming_pattern: "${FIXTURE_NAMING_REGEX}"    # e.g., "^fixture_(.+)$", "^use(.+)Fixture$"
+  fixture_cleanup_strategy: "${FIXTURE_CLEANUP_STRATEGY}" # enum: teardown-reverse-setup | context-manager | rollback-transaction | garbage-collected
+  seed_data_path: "${SEED_DATA_PATH}"                  # e.g., "tests/fixtures/seed.json" OR null if no static seed data
+  parametrize_policy: "${PARAMETRIZE_POLICY}"          # enum: explicit-only | data-driven | property-based | none
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier.
+    # --- Tier 1 (inferred): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"
+    # --- Tier 2 (user_confirmed): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched): ---
+    # evidence_sources:
+    #   - url: "${URL}"
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"
+    #     quoted_passage: "${QUOTED_PASSAGE}"
+
+# ===========================================================================
+# SECTION 9 of 12 — test_data_strategy  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+test_data_strategy:
+  severity: MEDIUM
+  factory_pattern: "${FACTORY_PATTERN}"                # enum: faker | factory-boy | custom | none
+  custom_implementation_reference: "${CUSTOM_FACTORY_PATH}" # e.g., "src/tests/factories/" OR null
+  synthetic_data_library: "${SYNTHETIC_DATA_LIBRARY}"  # e.g., "faker", "factory_boy", "@faker-js/faker", "Bogus" OR null
+  database_reset_strategy: "${DB_RESET_STRATEGY}"      # enum: ephemeral | truncate-between-tests | rollback | ephemeral-container | none
+  large_fixture_threshold_bytes: "${LARGE_FIXTURE_THRESHOLD}" # integer bytes, default 4096 — fixtures above this size should live in files, not inline
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier.
+    # --- Tier 1 (inferred): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"
+    # --- Tier 2 (user_confirmed): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched): ---
+    # evidence_sources:
+    #   - url: "${URL}"
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"
+    #     quoted_passage: "${QUOTED_PASSAGE}"
+
+# ===========================================================================
+# SECTION 10 of 12 — integration_boundaries  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+integration_boundaries:
+  severity: HIGH
+  requires_integration_tests:                          # Globs of code paths that MUST have integration test coverage
+    - "${REQUIRES_INTEGRATION_GLOB}"                   # e.g., "src/api/**", "src/persistence/**", "crates/adapters/**"
+  excluded_from_integration:                           # Globs that should NOT have integration tests (pure utilities, etc.)
+    - "${EXCLUDED_GLOB}"                               # e.g., "src/utils/**", "src/dto/**"
+  integration_depth: "${INTEGRATION_DEPTH}"            # enum: adjacent-component | full-stack | external-facing-only
+  cross_service_policy: "${CROSS_SERVICE_POLICY}"      # enum: mocked-external | real-adjacent-only | testcontainers | full-mesh
+  max_integration_test_runtime_seconds: "${MAX_INTEGRATION_RUNTIME_S}" # integer seconds per individual integration test
+  max_suite_runtime_seconds: "${MAX_SUITE_RUNTIME_S}"  # integer seconds for full integration suite
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier.
+    # --- Tier 1 (inferred): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"
+    # --- Tier 2 (user_confirmed): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched): ---
+    # evidence_sources:
+    #   - url: "${URL}"
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"
+    #     quoted_passage: "${QUOTED_PASSAGE}"
+
+# ===========================================================================
+# SECTION 11 of 12 — test_isolation_policy  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+test_isolation_policy:
+  severity: HIGH
+  parallel_execution: "${PARALLEL_EXECUTION}"          # boolean: true | false
+  parallel_worker_count: "${PARALLEL_WORKER_COUNT}"    # integer OR null if parallel_execution=false
+  shared_state_prohibited: "${SHARED_STATE_PROHIBITED}" # boolean — tests may not share module-level state
+  random_seed_policy: "${RANDOM_SEED_POLICY}"          # enum: fixed-seed | random-per-run | random-per-test
+  fixed_seed_value: "${FIXED_SEED_VALUE}"              # integer, used only when random_seed_policy=fixed-seed; otherwise null
+  environment_variable_policy: "${ENV_VAR_POLICY}"     # enum: isolated | shared | per-suite
+  current_directory_policy: "${CWD_POLICY}"            # enum: per-test | per-suite | never-change
+  global_mocks_allowed: "${GLOBAL_MOCKS_ALLOWED}"      # boolean — whether module-level patching is permitted
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier.
+    # --- Tier 1 (inferred): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"
+    # --- Tier 2 (user_confirmed): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched): ---
+    # evidence_sources:
+    #   - url: "${URL}"
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"
+    #     quoted_passage: "${QUOTED_PASSAGE}"
+
+# ===========================================================================
+# SECTION 12 of 12 — flakiness_policy  [STRATEGIC, _provenance REQUIRED]
+# ===========================================================================
+flakiness_policy:
+  severity: MEDIUM
+  retry_enabled: "${RETRY_ENABLED}"                    # boolean
+  retry_count: "${RETRY_COUNT}"                        # integer (0 if retry_enabled=false)
+  retry_scope: "${RETRY_SCOPE}"                        # enum: none | flaky-marker-only | integration-only | all
+  retry_strategy: "${RETRY_STRATEGY}"                  # enum: immediate-retry | backoff-exponential | reshuffle-and-retry — REQUIRED only when retry_enabled=true, otherwise null
+  quarantine_enabled: "${QUARANTINE_ENABLED}"          # boolean — whether to move repeatedly-failing tests to a quarantine file
+  quarantine_path: "${QUARANTINE_PATH}"                # e.g., "tests/quarantined/" OR null if quarantine_enabled=false
+  auto_skip_after_failures: "${AUTO_SKIP_AFTER_FAILURES}" # integer threshold OR null
+  observed_flake_tracking: "${OBSERVED_FLAKE_TRACKING}" # boolean — whether CI records flake rates per test
+  _provenance:
+    # REQUIRED. Populate exactly ONE tier.
+    # --- Tier 1 (inferred): ---
+    inferred: true
+    inference_rationale: "${INFERENCE_RATIONALE}"
+    # --- Tier 2 (user_confirmed): ---
+    # user_confirmed: true
+    # askuserquestion_session: "${SESSION_ID}"
+    # --- Tier 3 (web_fetched): ---
+    # evidence_sources:
+    #   - url: "${URL}"
+    #     retrieved_at_iso8601: "${TIMESTAMP_UTC}"
+    #     quoted_passage: "${QUOTED_PASSAGE}"
+
+# ===========================================================================
+# Ambiguity Resolution Protocol
+# ===========================================================================
+ambiguity_resolution_protocol:
+  severity: CRITICAL
+  enforcement: "When encountering ANY ambiguity in test strategy (framework choice, mocking boundary, coverage threshold, fixture scope), AI agents MUST follow this protocol. Silent fallback is forbidden — every strategic-section field MUST carry provenance."
+  steps:
+    - step: 1
+      name: "Check this file"
+      description: "Before generating tests or configuring runners, read this file."
+      actions:
+        - "Look up the field by key path (e.g., mocking_strategy.never_mock)"
+        - "If populated → use it verbatim"
+        - "If placeholder-only → proceed to step 2"
+    - step: 2
+      name: "Check constitutional context files"
+      applies_to: "tech-stack.md + coding-standards.md (the 2 dual-parent sources)"
+      actions:
+        - "Search tech-stack.md for test framework declarations"
+        - "Search coding-standards.md for naming / assertion / mocking conventions"
+        - "If convention is unambiguous → Tier 1 (inferred) in _provenance"
+        - "If convention is ambiguous → proceed to step 3"
+    - step: 3
+      name: "Use AskUserQuestion (Tier 2)"
+      mandatory: "Never assume a test strategy. Always ask."
+      question_template:
+        question: "The test strategy for ${AMBIGUOUS_FIELD} cannot be inferred from tech-stack.md or coding-standards.md. Which convention applies?"
+        header: "${STRATEGIC_SECTION_NAME}"
+        options_count: "2-4 industry-standard options"
+        description: "This decision will be locked in test-plan.ai.yaml with user_confirmed provenance."
+        multi_select: false
+      on_answer: "Populate the field + set _provenance to Tier 2 (user_confirmed) with askuserquestion_session id"
+    - step: 4
+      name: "Use WebFetch on whitelist (Tier 3)"
+      applies_to: "Exotic or rapidly-evolving framework conventions only"
+      whitelisted_hosts:
+        - "docs.python.org"
+        - "nodejs.org"
+        - "doc.rust-lang.org"
+        - "learn.microsoft.com"
+        - "martinfowler.com"
+        - "docs.pytest.org"
+        - "factoryboy.readthedocs.io"
+        - "testcontainers-python.readthedocs.io"
+      actions:
+        - "Fetch authoritative documentation page"
+        - "Quote the passage verbatim into evidence_sources[].quoted_passage"
+        - "Record url + retrieved_at_iso8601 + quoted_passage"
+      forbidden: "Fetching from any host not on the 8-host whitelist. NFR-005 violation."
+
+# ===========================================================================
+# Regeneration Triggers (adapted "change control" for generated artifacts)
+# ===========================================================================
+# This file is REGENERATED, not hand-edited. Modifications via direct Edit/Write
+# are forbidden (see .claude/rules/workflow/configuration-layer-mutability.md).
+regeneration_triggers:
+  status: GENERATED_ARTIFACT
+  principle: "The content of this file is derived from agent reasoning; regeneration is the only sanctioned update path."
+  triggers:
+    - trigger: "Parent-file drift"
+      detection: "SHA-256 hash mismatch on either tech-stack.md or coding-standards.md vs. cached parent_hashes in test-plan-manifest.json"
+      action: "Phase 02 Step 2.9 cold-start — re-invokes test-plan-architect + tech-stack-detector"
+    - trigger: "Explicit regeneration"
+      command: "/create-system-architecture"
+      action: "Phase 02 Step 2.9 cold-start regardless of cache state"
+    - trigger: "Generator version bump"
+      detection: "test-plan-manifest.json _cache_metadata.generator_version < current agent version"
+      action: "Cold-start regeneration; update generator_version in manifest"
+  cache_location: "devforgeai/workflows/test-plan-manifest.json"
+  cache_structure:
+    _cache_metadata:
+      generated_at: "ISO 8601 UTC timestamp"
+      generator_version: "semver string (e.g., 2.0.0)"
+      parent_hashes:
+        "devforgeai/specs/context/tech-stack.md": "<sha256>"
+        "devforgeai/specs/context/coding-standards.md": "<sha256>"
+      dual_parent_hash: "<sha256 of concatenated tech-stack.md + coding-standards.md bytes>"
+      agents_invoked:
+        - "test-plan-architect"
+        - "tech-stack-detector (--extract-test-patterns)"
+      schema_version: "1.0"
+      source_story: "STORY-634"
+    _test_plan_fragment: "<merged architect JSON fragment — the 12 sections above>"
+
+# ===========================================================================
+# Language Profile Examples (TEACHING data, is_normative: false)
+# ===========================================================================
+# The entries below are PREVENTIVE TEACHING. They show concrete fills for 4
+# canonical language profiles so AI agents can pattern-match during generation.
+# Consumers MUST NOT enforce these as rules — the project's actual values live
+# in the 12 sections above. These examples are reference shapes only.
+language_profile_examples:
+  purpose: "Reference shapes for 4 canonical language profiles — use as hints only."
+  is_normative: false
+  profiles:
+    - id: LPE-001
+      language: python
+      framework: pytest
+      test_conventions:
+        primary_framework: "pytest"
+        test_location_rule: "centralized"
+      test_file_patterns:
+        patterns: ["test_*.py", "*_test.py"]
+      naming_conventions:
+        test_files: "^test_.+\\.py$"
+        test_functions: "^test_.+$"
+        fixtures: "^fixture_.+$"
+      fixture_management:
+        fixture_system: "pytest fixtures (@pytest.fixture)"
+        shared_fixtures_location: "tests/conftest.py"
+      mocking_strategy:
+        library: "unittest.mock"
+
+    - id: LPE-002
+      language: typescript
+      framework: jest
+      test_conventions:
+        primary_framework: "jest"
+        test_location_rule: "co-located"
+      test_file_patterns:
+        patterns: ["*.test.ts", "*.spec.ts"]
+      naming_conventions:
+        test_files: "^.+\\.test\\.ts$"
+        test_functions: "^it\\(.+\\)$"
+      fixture_management:
+        fixture_system: "Jest beforeEach / afterEach"
+        shared_fixtures_location: "tests/setup.ts"
+      mocking_strategy:
+        library: "jest.mock"
+
+    - id: LPE-003
+      language: rust
+      framework: cargo_test
+      test_conventions:
+        primary_framework: "cargo_test"
+        test_location_rule: "co-located"
+      test_file_patterns:
+        patterns: ["tests/**/*.rs", "src/**/*.rs"]
+      naming_conventions:
+        test_files: "^.+\\.rs$"
+        test_functions: "^#\\[test\\].+$"
+      fixture_management:
+        fixture_system: "#[cfg(test)] modules with helper functions"
+        shared_fixtures_location: "tests/common/mod.rs"
+      mocking_strategy:
+        library: "mockall"
+
+    - id: LPE-004
+      language: csharp
+      framework: xunit
+      test_conventions:
+        primary_framework: "xunit"
+        test_location_rule: "centralized"
+      test_file_patterns:
+        patterns: ["*Tests.cs", "*Test.cs"]
+      naming_conventions:
+        test_files: "^.+Tests\\.cs$"
+        test_functions: "^\\[Fact\\] .+$|^\\[Theory\\] .+$"
+      fixture_management:
+        fixture_system: "IClassFixture / ICollectionFixture"
+        shared_fixtures_location: "Tests/Fixtures/"
+      mocking_strategy:
+        library: "Moq"
+
+# ===========================================================================
+# Common AI Mistakes (TEACHING data, is_normative: false)
+# ===========================================================================
+common_ai_mistakes:
+  purpose: "Teaching data — help AI agents avoid known anti-patterns during test generation and test plan interpretation."
+  is_normative: false
+  mistakes:
+    - id: TPM-001
+      title: "Populating strategic sections without _provenance"
+      scenario: "Agent emits testing_philosophy or mocking_strategy values without attaching a _provenance block."
+      wrong_approach: "Agent silently guesses values (e.g., picks 'correctness' as primary_quality_attribute) and writes them without any tier attribution."
+      correct_approach: "Agent populates the section AND sets exactly one of Tier 1 (inferred with rationale), Tier 2 (user_confirmed via AskUserQuestion), or Tier 3 (web_fetched from 8-host whitelist)."
+      lesson: "Silent fallback is forbidden (NFR-006). Validation gate raises ValidationError if any strategic section lacks provenance."
+
+    - id: TPM-002
+      title: "Mocking the domain layer"
+      scenario: "Agent generating unit tests mocks entities or aggregates from the domain/core layer to simplify setup."
+      wrong_approach: "Agent creates mocks for domain entities, bypassing real business logic in tests."
+      correct_approach: "Agent consults mocking_strategy.never_mock; if the path is listed there, uses real domain objects with test data builders (see test_data_strategy.factory_pattern)."
+      lesson: "never_mock paths are canonical. Mocking the domain inverts the dependency rule and produces tests that validate mocks, not behavior."
+
+    - id: TPM-003
+      title: "Ignoring coverage thresholds by layer"
+      scenario: "Agent reports 'coverage acceptable' after hitting an aggregate number without checking per-layer thresholds."
+      wrong_approach: "Agent sees 85% overall coverage and declares the QA gate passed."
+      correct_approach: "Agent checks each layer separately against coverage_thresholds: business_logic (95), application (85), infrastructure (80). Any layer below its threshold is a CRITICAL blocker (ADR-010, no deferral path)."
+      lesson: "ADR-010 classifies coverage gaps as CRITICAL, not warnings. Aggregate averaging hides critical business-logic gaps behind well-covered infrastructure."
+
+    - id: TPM-004
+      title: "Substituting test framework on failure"
+      scenario: "Agent hits an obscure pytest-collection error and switches the project to unittest instead."
+      wrong_approach: "Agent rewrites tests in a different framework to work around the error."
+      correct_approach: "Agent consults test_conventions.primary_framework; if locked, uses AskUserQuestion to surface the blocker rather than substituting. Framework substitution requires an ADR + tech-stack.md update."
+      lesson: "Test framework is part of the locked tech stack. Swapping frameworks fragments the test harness and breaks CI parallelization contracts."
+
+# ===========================================================================
+# Related Documents
+# ===========================================================================
+related_documents:
+  tech_stack:
+    path: "./tech-stack.md"
+    purpose: "Dual-parent source #1 — declares approved test framework + coverage tool"
+  coding_standards:
+    path: "./coding-standards.md"
+    purpose: "Dual-parent source #2 — declares naming conventions + assertion patterns + mocking discipline"
+  architecture_constraints:
+    path: "./architecture-constraints.md"
+    purpose: "Defines the 3-layer coverage taxonomy (business_logic / application / infrastructure)"
+  anti_patterns:
+    path: "./anti-patterns.md"
+    purpose: "Forbidden test patterns (mocking domain, SQL in tests, hardcoded secrets in fixtures)"
+  source_tree:
+    path: "./source-tree/_manifest.json"
+    purpose: "Canonical test location patterns (tests/, tests/STORY-NNN/, co-located *.test.ts) — source-tree/ is a generated folder per ADR-071; _manifest.json is the entry point"
+  dependencies:
+    path: "./dependencies.md"
+    purpose: "Approved test library versions (mocking, fixtures, factories, assertion)"
+  adr_054:
+    path: "./../adrs/ADR-054-test-plan-constitutional-artifact.md"
+    purpose: "Architectural decision establishing test-plan.ai.yaml as 7th constitutional artifact"
+  adr_053:
+    path: "./../adrs/ADR-053-hybrid-agent-cli-pipeline.md"
+    purpose: "Hybrid agent+CLI generation pattern reused for this artifact"
+  manifest:
+    path: "./../../workflows/test-plan-manifest.json"
+    purpose: "Cache metadata + dual-parent hashes + _test_plan_fragment merge target"
+  agent_contract:
+    path: "./../../../src/claude/agents/test-plan-architect.md"
+    purpose: "Source of truth for the 12-section schema (lines 107-220)"
+
+# ===========================================================================
+# Change Log
+# ===========================================================================
+change_log:
+  - date: "${DATE}"
+    change: "Initial generation"
+    approver: "(generated — no human approver; regenerate via /create-system-architecture)"
+    reason: "Project setup — Phase 02 Step 2.9 cold-start"
+    adr: "ADR-054"
+    generator_version: "2.0.0"
+  # Subsequent entries follow the same shape; one map per regeneration event.
+  # Hand-edits are forbidden — see regeneration_triggers above.
+
+# ===========================================================================
+# Notes (free-form)
+# ===========================================================================
+# Use the `notes:` field below for any project-specific context that doesn't
+# fit the structured sections above. Examples:
+#   - Temporary flakiness quarantine policy during platform migration
+#   - Coverage waiver for deprecated modules pending removal (with ADR reference)
+#   - Integration environment constraints (WSL filesystem behaviors, Docker limits)
+notes: "${FREEFORM_NOTES}"

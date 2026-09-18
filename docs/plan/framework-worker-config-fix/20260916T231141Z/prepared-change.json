@@ -1,0 +1,13 @@
+{
+  "config": "C:\\Users\\bryan\\.codex\\config.toml",
+  "backup": "C:\\Users\\bryan\\.codex\\config.toml.before-history-notify-fix-20260916T231141Z.bak",
+  "before_sha256": "96cd4027e5007bebca8a3237603fd096342091307b7c44a8a4a8a7e1046d76c1",
+  "after_sha256": "beb5cf499ca174940f8f5c91455e54b93d5c2a32f45e1837f5e134c0e10e99cd",
+  "remove_byte_offset": 2718,
+  "remove_byte_length": 183,
+  "removed_original_line": 90,
+  "top_level_notify_unchanged": true,
+  "all_other_parsed_values_unchanged": true,
+  "remaining_bytes_unchanged": true,
+  "native_launches": 0
+}

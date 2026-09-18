@@ -1,0 +1,183 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "20260916T134000Z-streaming",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "operation": "edit",
+  "authorization": "User selected proceed for development-only streaming progress integration followed by independent skill-validator evaluation; no operational installation or paid reviewer invocation.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming\\contract.json",
+    "sha256": "81cb2094f931c69299c8fb3de1ab7384c5c882cf964fdedc33635dde0ae265b5"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming-intake\\task-capture.md",
+      "sha256": "95f9dd8312927a9c6ae0f415a3d5f7179b5f9518ad099ce4a274b715f7b9b8c9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\advisor-test.ps1",
+      "sha256": "c6d75efbd5f04c6db02767c826fc181c54c4dc3d9c6bd0b0d069d1e0532ec25f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\report.md",
+      "sha256": "8f8d965251f4bf70294f9e79e42e99623bc98a824cc794778c5731a10cd82d85"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-auth-fix\\20260916T033234Z\\report.md",
+      "sha256": "d9f51afb68b8c3094b7d3d939964776673042b84a0a2ce8644a326e3e7dffe0f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "3b8e2a112c438b536ab59db2abbcfd6e08ebdd7f41caa13cdf6d5c49866fab86"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming-intake\\workflow-design.json",
+      "sha256": "b42144a40453dedfa199522b48ec7d680ea6b73fb59de058122d7881b12b7390"
+    }
+  ],
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "artifact-manifest.json",
+    "evals/case.schema.json",
+    "evals/cases.jsonl",
+    "evals/run_evaluation.py",
+    "references/evaluation.md",
+    "references/execution.md",
+    "scripts/advisor.ps1",
+    "scripts/advisor_run.py",
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py"
+  ],
+  "retained_user_paths": [
+    "agents/openai.yaml",
+    "assets/briefing-template.md",
+    "assets/request.schema.json",
+    "references/briefing-rules.md",
+    "references/response-format.md",
+    "tests/test_advisor.py",
+    "tests/test_auth.py",
+    "tests/test_extended.py"
+  ],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming\\before-manifest.json",
+    "sha256": "875bc2fd514e4af5cef49f7f2141923a68350ff80c4b9cb089dc3286c8ae1e04"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming\\candidate-manifest.json",
+    "sha256": "567d95e12bdb1c1ac1750a9e213fb40770237c61b3bd5835942fa2bd0a364b62"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming\\delivered-manifest.json",
+    "sha256": "567d95e12bdb1c1ac1750a9e213fb40770237c61b3bd5835942fa2bd0a364b62"
+  },
+  "applied_paths": [
+    "SKILL.md",
+    "artifact-manifest.json",
+    "evals/case.schema.json",
+    "evals/cases.jsonl",
+    "evals/run_evaluation.py",
+    "references/evaluation.md",
+    "references/execution.md",
+    "scripts/advisor.ps1",
+    "scripts/advisor_run.py",
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "No live Claude qualification selected; shell/subprocess validation uses synthetic native fixtures.",
+    "No independent billing enforcement; configured CLI caps and reported cost may differ.",
+    "No protected framework authority or operational installation in this assignment."
+  ],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": "44f90610313a398e7a24a698824d35d8a7c4676c0fac062aa21e4c4a696094cd",
+      "c_sha256": "44f90610313a398e7a24a698824d35d8a7c4676c0fac062aa21e4c4a696094cd",
+      "n_sha256": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "artifact-manifest.json",
+      "b_sha256": "05dc0249ef343ff283aca04e9041fd72fcd06f6f470b72f7d23a7a65d8c699cf",
+      "c_sha256": "05dc0249ef343ff283aca04e9041fd72fcd06f6f470b72f7d23a7a65d8c699cf",
+      "n_sha256": "081dc331c1557a06fddce4ac13bf4737b23912c755184965e6cc697b3f7f3f13",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/case.schema.json",
+      "b_sha256": "b14641e5b564ddc4a5cf7ee13add5095dad33b490e79e47996d4f777e521628c",
+      "c_sha256": "b14641e5b564ddc4a5cf7ee13add5095dad33b490e79e47996d4f777e521628c",
+      "n_sha256": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "b_sha256": "b1ec1092e5fec5ce4fe967beea0fb6ff408273ac80111eddbb7ac777afe30cf9",
+      "c_sha256": "b1ec1092e5fec5ce4fe967beea0fb6ff408273ac80111eddbb7ac777afe30cf9",
+      "n_sha256": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/run_evaluation.py",
+      "b_sha256": "2849dd2b5c6a6c7257ceb4c8b331fb4395407a005dba2859f97807b1c372316a",
+      "c_sha256": "2849dd2b5c6a6c7257ceb4c8b331fb4395407a005dba2859f97807b1c372316a",
+      "n_sha256": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/evaluation.md",
+      "b_sha256": "9b292d41b14c504c1d0c4cd71736133c7cf47828730e687ba35f8c5cace20f06",
+      "c_sha256": "9b292d41b14c504c1d0c4cd71736133c7cf47828730e687ba35f8c5cace20f06",
+      "n_sha256": "99458bee70a490fd93a94f1d32989b8d5bdf37ed91d5e7d0d075f8800c736158",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/execution.md",
+      "b_sha256": "84853a4e5b1c922ae2d98e9b2b24fe3de43bb60fca40ccaf9468746f690c9cd4",
+      "c_sha256": "84853a4e5b1c922ae2d98e9b2b24fe3de43bb60fca40ccaf9468746f690c9cd4",
+      "n_sha256": "d83feab917a2b4bee2b9112224e487b659396a08b6ab1f283f6661f0e463ca5c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor.ps1",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor_run.py",
+      "b_sha256": "753beb0ebf4142f32985c0ef8f50cca8273d4be727932aa96718f673cd5a6675",
+      "c_sha256": "753beb0ebf4142f32985c0ef8f50cca8273d4be727932aa96718f673cd5a6675",
+      "n_sha256": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor_stream.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "a6730035eca344b3f200c0e074ba19d2e08bbcb057a5b7a9542c53367a887fec",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_streaming.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "9a2e157e4319975d3b910123ef7aa994ab6d29e77a6151ddafc9b6c37674a611",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming\\baseline-manifest.json",
+    "sha256": "2919f32511c1bc05ff06eb62d5f68135731b6d7faeebd32b3bf49d6daa9cd284"
+  }
+}

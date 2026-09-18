@@ -1,0 +1,17 @@
+{
+  "project": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x",
+  "target": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\src\\agents\\skills\\receipt-totals",
+  "spec": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\design\\specs\\receipt-totals.md",
+  "managed": [
+    "SKILL.md",
+    "scripts/receipt_totals.py"
+  ],
+  "adoption_instruction": "Adopt the existing development package at C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\src\\agents\\skills\\receipt-totals. Preserve every existing byte and unknown history. The complete approved managed list is SKILL.md and scripts/receipt_totals.py. Keep notes.txt user-owned. Use the reviewed origin specification at C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\design\\specs\\receipt-totals.md. This instruction authorizes custody recording and external pointer publication/readback only; it does not authorize repair or installation.",
+  "adoption_run": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-adoptions\\receipt-totals\\adopt-01",
+  "adoption_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-adoptions\\receipt-totals\\adopt-01\\snapshot",
+  "revision_run": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\revision-01-conflict",
+  "revision_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\revision-01-conflict\\snapshot",
+  "successful_run": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03",
+  "successful_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03\\snapshot",
+  "successful_run_id": "later-revision-03"
+}

@@ -1,0 +1,212 @@
+# Phase 04: Template & Best Practices Loading
+
+**Purpose:** Load framework-specific templates and UI type-specific best practices.
+
+**Pre-Flight:** Verify Phase 03 completed.
+
+---
+
+## Reference Loading [MANDATORY]
+
+```
+Read(file_path=".claude/skills/spec-driven-design/references/template-loading.md")
+Read(file_path=".claude/skills/spec-driven-design/references/web-best-practices.md")
+Read(file_path=".claude/skills/spec-driven-design/references/gui-best-practices.md")
+Read(file_path=".claude/skills/spec-driven-design/references/tui-best-practices.md")
+Read(file_path=".claude/skills/spec-driven-design/references/design-system-rules.md")
+Read(file_path=".claude/skills/spec-driven-design/references/accessibility-guidelines.md")
+Read(file_path=".claude/skills/spec-driven-design/references/component-anatomy.md")
+Read(file_path=".claude/skills/spec-driven-design/references/devforgeai-integration-guide.md")
+```
+
+IF any Read fails: HALT -- "Phase 04 reference files not loaded."
+
+Load the progressive Web craft contract only for Web generation:
+
+```
+IF PLATFORM == "web":
+    Read(file_path=".claude/skills/spec-driven-design/references/design-craft.md")
+```
+
+IF the conditional Read fails: HALT -- "Web design craft contract not loaded."
+
+---
+
+## Step 4.1: Load Template Loading Reference
+
+**EXECUTE:**
+```
+Read(file_path=".claude/skills/spec-driven-design/references/template-loading.md")
+```
+
+**VERIFY:**
+- File content loaded into context
+- Content contains template file mappings
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.1 --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.2: Determine Template File
+
+**EXECUTE:**
+Map FRAMEWORK (from Phase 03) to template file:
+
+| Framework | Template File |
+|-----------|--------------|
+| React | `assets/web-template.jsx` |
+| Blazor | `assets/web-template.blazor.razor` |
+| ASP.NET MVC | `assets/web-template.aspnet.cshtml` |
+| Plain HTML | `assets/web-template.html` |
+| WPF | `assets/gui-template.wpf.xaml` |
+| Tkinter | `assets/gui-template.py` |
+| Terminal | `assets/tui-template.py` |
+
+**VERIFY:**
+- Template file path determined
+- Framework has a matching template
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.2 --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.3: Load Template File
+
+**EXECUTE:**
+```
+Read(file_path=".claude/skills/spec-driven-design/${TEMPLATE_PATH}")
+```
+
+**VERIFY:**
+- Template content loaded into context
+- Content is non-empty and contains component structure
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.3 --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.4: Load UI Type-Specific Best Practices
+
+**EXECUTE:**
+Load ONLY the best practices file matching UI_TYPE (from Phase 03):
+
+```
+IF UI_TYPE == "web":
+    Read(file_path=".claude/skills/spec-driven-design/references/web-best-practices.md")
+ELIF UI_TYPE == "gui":
+    Read(file_path=".claude/skills/spec-driven-design/references/gui-best-practices.md")
+ELIF UI_TYPE == "tui":
+    Read(file_path=".claude/skills/spec-driven-design/references/tui-best-practices.md")
+```
+If Read fails, try fallback path with `.claude/skills/...`
+
+**VERIFY:**
+- Best practices file loaded
+- Content contains guidelines relevant to the UI type
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.4 --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.4a: Load Design System Rules (Web + GUI Only)
+
+**EXECUTE:**
+```
+IF UI_TYPE == "web" OR UI_TYPE == "gui":
+    Read(file_path=".claude/skills/spec-driven-design/references/design-system-rules.md")
+ELSE:
+    SKIP — design system rules not applicable for Terminal UI
+```
+
+**VERIFY:**
+- Web/GUI: File content loaded into context, contains 8-point grid and semantic color tokens
+- TUI: Step marked as skipped (valid)
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.4a --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.4b: Load Accessibility Guidelines (All UI Types)
+
+**EXECUTE:**
+```
+Read(file_path=".claude/skills/spec-driven-design/references/accessibility-guidelines.md")
+```
+
+**VERIFY:**
+- File content loaded into context
+- Content contains WCAG compliance rules and verification checklist
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.4b --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.4c: Load Component Anatomy Standards (Web + GUI Only)
+
+**EXECUTE:**
+```
+IF UI_TYPE == "web" OR UI_TYPE == "gui":
+    Read(file_path=".claude/skills/spec-driven-design/references/component-anatomy.md")
+ELSE:
+    SKIP — component anatomy not applicable for Terminal UI
+```
+
+**VERIFY:**
+- Web/GUI: File content loaded into context, contains Smart/Dumb classification and file structure patterns
+- TUI: Step marked as skipped (valid)
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.4c --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.5: Load Integration Guide
+
+**EXECUTE:**
+```
+Read(file_path=".claude/skills/spec-driven-design/references/devforgeai-integration-guide.md")
+```
+
+**VERIFY:**
+- File content loaded into context
+- Content contains framework integration patterns
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --step=4.5 --project-root=. 2>&1")
+```
+
+---
+
+## Phase 04 Completion
+
+**EXECUTE:**
+```
+Bash(command="devforgeai-validate validate-design-phase ${IDENTIFIER} ${WORKFLOW_FLAG} --mode=${MODE} --phase=04 --project-root=. 2>&1")
+Bash(command="devforgeai-validate phase-complete ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=04 --project-root=. 2>&1")
+```
+
+**VERIFY:**
+- Exit code 0; any non-zero result blocks completion
+
+**NEXT:** Proceed to Phase 05 (Code Generation).

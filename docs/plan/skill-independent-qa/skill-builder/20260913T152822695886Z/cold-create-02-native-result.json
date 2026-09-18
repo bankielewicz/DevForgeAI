@@ -1,0 +1,60 @@
+{
+  "result": {
+    "exit": 1,
+    "timeout": true,
+    "end_utc": "2026-09-13T15:48:01.401328+00:00",
+    "elapsed_seconds": 120.40600000007544,
+    "stdout_sha256": "28a74cbd72dc806a21ba84d2eaa45a565299c60249e1f3370a1534f13eb1353f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "before": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 202,
+      "sha256": "31c006fdedba259528defff8225109a1111b5a40f53c57d86d28afc440c9f495"
+    }
+  ],
+  "after": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 202,
+      "sha256": "31c006fdedba259528defff8225109a1111b5a40f53c57d86d28afc440c9f495"
+    },
+    {
+      "path": "docs/plan/skill-authoring-inputs/meeting-summary/create-01/authoring-contract.json",
+      "bytes": 4121,
+      "sha256": "11b0fb7fb33de53d36ad2ec572431558a73f25f1d498a36098b23aea1e7672f1"
+    },
+    {
+      "path": "docs/plan/skill-authoring-inputs/meeting-summary/create-01/user-request.txt",
+      "bytes": 955,
+      "sha256": "75d945d43b8cfb50d71fa1e79de3409e106812483a8e18ac07edf3834d4a5c80"
+    },
+    {
+      "path": "docs/plan/skill-authorings/meeting-summary/create-01/before-manifest.json",
+      "bytes": 131,
+      "sha256": "d0b5c38956e8f3631903ede7d30cff006b4945f1664061453e3ff0ac256c189f"
+    },
+    {
+      "path": "docs/plan/skill-authorings/meeting-summary/create-01/contract-source.json",
+      "bytes": 307,
+      "sha256": "c9a263e7980e526a2ab8a40b5f002a5cd1708808405e86b4d729c0233e0f763b"
+    },
+    {
+      "path": "docs/plan/skill-authorings/meeting-summary/create-01/contract.json",
+      "bytes": 4121,
+      "sha256": "11b0fb7fb33de53d36ad2ec572431558a73f25f1d498a36098b23aea1e7672f1"
+    },
+    {
+      "path": "docs/plan/skill-authorings/meeting-summary/create-01/inputs/0",
+      "bytes": 955,
+      "sha256": "75d945d43b8cfb50d71fa1e79de3409e106812483a8e18ac07edf3834d4a5c80"
+    },
+    {
+      "path": "docs/plan/skill-authorings/meeting-summary/create-01/origin.json",
+      "bytes": 194,
+      "sha256": "5ac5c5b02c7c612f50366d4c40fb356782aa0ab25c3cce92dc1c0b1a68cf9937"
+    }
+  ],
+  "omissions": []
+}

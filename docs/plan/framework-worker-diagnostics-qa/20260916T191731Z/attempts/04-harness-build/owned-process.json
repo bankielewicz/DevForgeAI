@@ -1,0 +1,10 @@
+{
+  "pid": 40096,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "build",
+    "--locked",
+    "--offline",
+    "--bins"
+  ]
+}

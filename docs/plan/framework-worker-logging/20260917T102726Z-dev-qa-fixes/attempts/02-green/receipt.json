@@ -1,0 +1,49 @@
+{
+  "attempt_id": "02-green",
+  "stage": "green",
+  "check": "focused",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+  "argv": [
+    "test",
+    "--locked",
+    "--offline",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\Cargo.toml",
+    "--test",
+    "inspection_consistency",
+    "--",
+    "--test-threads=1",
+    "--nocapture"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "platform": "Windows x64, native C: filesystem",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "shell_version": "7.6.6",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "source_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\source-manifest.json",
+  "source_manifest_sha256": "df3e6b191c7c3df1966847bd62b6a7b85590349a4caf238e96cc4818e4fa209e",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\fixtures"
+  },
+  "timeout_seconds": 420,
+  "started_utc": "2026-09-17T10:36:33.6201469Z",
+  "owned_pid": 59484,
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_utc": "2026-09-17T10:36:51.8778697Z",
+  "elapsed_seconds": 18.2452233,
+  "outputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\stdout.txt",
+      "bytes": 816,
+      "sha256": "777f24c180a5e9b0fbbe2923e079cf374c5c508677b535d4b32042d65229efff"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\stderr.txt",
+      "bytes": 410,
+      "sha256": "7e691d15f70c8e7bf482f6619eb353bc54ae05775ad2a070d3c2ffff5299c419"
+    }
+  ]
+}

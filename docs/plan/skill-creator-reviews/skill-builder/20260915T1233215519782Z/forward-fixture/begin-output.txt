@@ -1,0 +1,1 @@
+{"state": "STAGED", "run_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001", "candidate": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\candidate"}

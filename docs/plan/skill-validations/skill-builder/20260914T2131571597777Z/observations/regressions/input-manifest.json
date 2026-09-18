@@ -1,0 +1,22 @@
+[
+  {
+    "original": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\adoption_fixture.py",
+    "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z\\inputs\\regressions\\adoption_fixture.py",
+    "sha256": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60"
+  },
+  {
+    "original": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\fixture_data.py",
+    "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z\\inputs\\regressions\\fixture_data.py",
+    "sha256": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291"
+  },
+  {
+    "original": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring.py",
+    "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z\\inputs\\regressions\\test_authoring.py",
+    "sha256": "0b5b64305973c18e311615ac18f84f76a6271139bcdaeb504acc9460ef241a3d"
+  },
+  {
+    "original": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring_safeguards.py",
+    "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z\\inputs\\regressions\\test_authoring_safeguards.py",
+    "sha256": "b1fedf9a7a4a6cc94b8c9439f5e22f351f3821e564e3d22afec94b172add0885"
+  }
+]

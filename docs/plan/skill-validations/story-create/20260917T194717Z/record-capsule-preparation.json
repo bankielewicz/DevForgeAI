@@ -1,0 +1,10 @@
+{
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z-records",
+  "reused_prior_input_files": 574,
+  "prior_assessment": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\assessment.json",
+    "sha256": "147b843ae2c6468f58985b0d59c08f113e5766d4c0a2eb22d8e8dddab932c672"
+  },
+  "rule_set_unchanged": true,
+  "scope": "Static/source/helper/routing results will be carried forward with original timestamps and exact evidence. New native/artifact/semantic observations will be retained under inputs/continuation."
+}

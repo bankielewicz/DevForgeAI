@@ -1,0 +1,22 @@
+{
+  "selected_evidence_value": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev",
+  "selection_source": "AGENTS.md docs/plan distinct evidence rule; approved source-inventory-proposal selected by user ok - i approve then",
+  "resolved_evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "candidate": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "utc": "2026-09-16T02:19:44.204853+00:00",
+  "git_metadata_present": false,
+  "baseline_files": 53,
+  "manifest_sha256": "05ef5b93f6e050668a7e9b4b333a715172ae2183ae65a7686618f10ca4736b87",
+  "scope": "Approved companion contract, compiled Rust bounded plugin junction identity, developer checks and separate independent QA; after PASS compiled source observation.",
+  "preserve": "Old contracts/evidence and all installed/operational state. Native trials remain subject to profile prerequisites. Authority excluded.",
+  "output_mapping": {
+    "baseline": "baseline/",
+    "inputs": "input-manifest.json",
+    "commands": "unique attempt directories/receipt.json + raw streams",
+    "plan": "plan.md",
+    "delivery": "delivery.md",
+    "final_binding": "candidate-manifest.json",
+    "seal": "artifact-manifest.json (write once)"
+  }
+}

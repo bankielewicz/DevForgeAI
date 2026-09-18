@@ -1,0 +1,45 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "evals/adoption-evidence.schema.json",
+      "bytes": 13887,
+      "sha256": "63d1c2bdff97ecfd3c53ade8a7f38f3afb80a822f014fb80932baed630d49ffb"
+    },
+    {
+      "path": "references/adoption.md",
+      "bytes": 9856,
+      "sha256": "10758622da9d5ad8c1e7fa3c9a77e6d8a9d243d379c5fbf4fbea578fca188a70"
+    },
+    {
+      "path": "references/evaluation.md",
+      "bytes": 11123,
+      "sha256": "06276046f621c5a6975f43d0d46a9635a8c49e1c2f147e5f91bcea85db6bdb04"
+    },
+    {
+      "path": "references/evaluator-contracts.md",
+      "bytes": 10908,
+      "sha256": "df090f6c217945487dcae9b90dfd53e4465f2b81ec3a8ddc5da77e694c6ac67f"
+    },
+    {
+      "path": "references/evidence-format.md",
+      "bytes": 10790,
+      "sha256": "b7bf5fa09759c1f507cff2db0a387ef646ec7cf89e475371875bc17094d4b0e8"
+    },
+    {
+      "path": "references/regeneration.md",
+      "bytes": 5793,
+      "sha256": "9ddb061d18689859e1a69149d8ff38f556bc9bf8d61122321809932530c19790"
+    },
+    {
+      "path": "references/spec-build.md",
+      "bytes": 8912,
+      "sha256": "26dd6df102570cce71d36166d4e9b4b3474b8f8839fe00c98e2794bb25befe30"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 8406,
+      "sha256": "96881f3ad173c4d46f2e486b8ee1b14fa1e00eab9a8c03ebcf93813c8270ada7"
+    }
+  ]
+}

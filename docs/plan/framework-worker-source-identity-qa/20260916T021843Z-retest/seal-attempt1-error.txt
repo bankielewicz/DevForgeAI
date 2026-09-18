@@ -1,0 +1,4 @@
+Command: python -B -X utf8 harness/seal_artifacts.py --root <QA-root> --output <QA-root>/artifact-index.json
+Exit code: 1
+Observed error: unexpected reparse artifact: independent-public-attempt2/negative-user/.codex/plugins/cache/openai-bundled/chrome/latest
+Classification: QA seal-helper setup gap. The path is the intentionally retained real-junction negative fixture. No artifact-index.json was created.

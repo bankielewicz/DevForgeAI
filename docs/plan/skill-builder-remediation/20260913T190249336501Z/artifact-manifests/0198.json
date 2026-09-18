@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-set-A-preflight-fails",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1378,
+      "sha256": "20f2c89363e2bff952cb44f1211cc884e6a2da621aae37991cae401a3ca82ddb"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "962c89fab26a4ff971a91691ce18adffbe46b8c2f28562e3f3a8e46da8648b23"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 130,
+      "sha256": "74b67cbe2fa083b0deeab2601b485e99f90bbb449ccaa2d4860b1ed4113921ef"
+    }
+  ]
+}

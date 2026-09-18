@@ -1,0 +1,17 @@
+{
+  "group": "compatibility",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-03-1lXE2vF",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-03-1lXE2vF\\run",
+    "state": "blocked",
+    "schema": 3,
+    "level": "off",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-03-1lXE2vF\\control-stdout.txt",
+    "control_sha256": "3cac733079a5f27663f0c830d4fd1027c58d211ba9212cd92b538f14ddae5af5"
+  },
+  "mutation": "failure-stdout",
+  "expected_error": null,
+  "expected_state": "blocked",
+  "views": "first-and-end",
+  "id": "M-118"
+}

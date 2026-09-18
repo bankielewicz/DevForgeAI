@@ -1,0 +1,117 @@
+{
+  "utc": "2026-09-17T17:14:23.873035+00:00",
+  "handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\handoff-manifest.json",
+    "bytes": 6687,
+    "sha256": "95b7edc2e738d08c27e6583e068a03051fb6088203ad506ccfcfe2f06f24b92c"
+  },
+  "handoff_entries": 24,
+  "handoff_matches": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\source-identities.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\quality-summary.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\traceability-final.md",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\checkpoint-003.md",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\changed-file-manifest.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\delivery-verification.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\preservation-final.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\config-drift.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\operator-selection.proposed.md",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\configuration.proposed.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\proposal-result.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\comparison.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\permission-rule-addition.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\15-python-final\\test-results.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\15-python-final\\coverage.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\16-powershell-final\\test-results.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\16-powershell-final\\coverage.xml",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\17-readiness-review-blocked\\interpretation.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\recorder.py",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\Invoke-CodexWorkerDiagnostic.ps1",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\configuration.json",
+      "match": true
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\runtime-manifest.json",
+      "match": true
+    }
+  ],
+  "original_scoped_bindings": 393,
+  "preservation_drift": [],
+  "proposed_source_drift": [],
+  "native_attempt_exists": false,
+  "native_run_exists": false,
+  "fresh_reservation_exists": false,
+  "review_status": "PENDING_BRYAN_RESPONSE_TO_EXISTING_REQUEST",
+  "previous_goal_turn": "PROGRESS: implementation, regression evidence and concrete review proposal delivered",
+  "current_next_action": "Await the existing concrete source-review decision; no running job exists to poll",
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,83 @@
+{
+  "checked_at": "2026-09-17T10:50:28.420455+00:00",
+  "checks": [
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\candidate-manifest.json",
+        "bytes": 15321,
+        "sha256": "95a013a233fb74c168d0eb7d45a8732cdfffa3420b9bf63c1fe2b993c3351677"
+      },
+      "files": 67,
+      "mismatches": []
+    },
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\input-manifest.json",
+        "bytes": 8141,
+        "sha256": "56f87de5a57400a376a453a540a813f24312a5d940dce8bda4d874b9fb5dd49e"
+      },
+      "files": 37,
+      "mismatches": []
+    },
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\specification-bindings.json",
+        "bytes": 1813,
+        "sha256": "d4368d0dcc4039bcd8c162f020dd1bb7a862f76b737c3978c4924d623d604108"
+      },
+      "files": 8,
+      "mismatches": []
+    },
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\preserved-manifest.json",
+        "bytes": 28053,
+        "sha256": "982ac4a2d39b4c372707274f30a392e8086a60010fdca67641c23f4a32768149"
+      },
+      "files": 116,
+      "mismatches": []
+    },
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\binary-manifest.json",
+        "bytes": 1558,
+        "sha256": "2c37bb5ed300e53980f33028ddb5cfdb615870b0effc7f45314ae40abbe948bc"
+      },
+      "files": 6,
+      "mismatches": []
+    },
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\handoff-manifest.json",
+        "bytes": 10117,
+        "sha256": "0c6949f4379e7c469643f34ad6d4b1f664f48177f8865d12dfedd7cbe901019e"
+      },
+      "files": 24,
+      "mismatches": []
+    },
+    {
+      "manifest": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\evidence-manifest.json",
+        "bytes": 1087509,
+        "sha256": "ab3094365c7f74f8f73b9883d7195e32047ef160da1a68eb9424641d15150f40"
+      },
+      "files": 3689,
+      "reparse_points": 2,
+      "mismatches": []
+    }
+  ],
+  "current_inputs": 26,
+  "corrected_files": 68,
+  "main_executable": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "bytes": 2545152,
+    "sha256": "ec2575bd4cacfce147113eee1b257d69be06b7e3d563d669e15010432e9dc3e5"
+  },
+  "corrected_membership_unchanged": true,
+  "powershell_helper": {
+    "path": "C:\\Projects\\DevForgeAI\\Start-CodexAppServerDiagnostic.ps1",
+    "bytes": 7054,
+    "sha256": "f69da72fb44737127dcfde3607fb0e027e4afeb2463a78ac8f844bc3abfc58a0"
+  },
+  "method": "Actual literal regular-file readback, lengths and SHA256; reparse targets checked without traversal"
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": "1",
+  "command": "records",
+  "status": "INCOMPLETE",
+  "coverage": [
+    "strict JSON/JSONL parsing of run records (excluding raw source, input, and trial fixtures)",
+    "extant reference bytes, normalized paths, digests, supported locators, and reference cycles",
+    "check schemas and applicability",
+    "finding schemas and deterministic identity",
+    "manifest digest accounting",
+    "status reductions when dimension-tagged checks exist; basic review-readiness consistency"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement.",
+    "Only extant records are checked; absent stage artifacts and semantic evidence support require the report checklist.",
+    "Finding anchor support, historical provenance validity, rule authority/applicability, and review authorization meaning require agent review.",
+    "Checks may add dimension standards, workflow, instructions, behavior for explicit reductions; long snake_case aliases are supported; missing dimensions remain incomplete.",
+    "assessment.json is optional helper input for checking declared reductions; validation-report.md prose is not parsed as machine authority."
+  ],
+  "errors": [],
+  "records_checked": [
+    "checks.jsonl",
+    "findings.json",
+    "handoff.json",
+    "observations/adaptive-package.json",
+    "observations/authoring-intake.json",
+    "observations/standards.json",
+    "observations/structure.json",
+    "origin-record.json",
+    "rule-set.json",
+    "source-after-manifest.json",
+    "source-manifest.json",
+    "sources.json",
+    "sources/rules-snapshot.json",
+    "workflow-map.json"
+  ],
+  "references_checked": 154,
+  "excluded_boundaries": [
+    {
+      "path": "trials/D19/workspace/src/__pycache__",
+      "reason": "excluded backup or generated cache boundary"
+    },
+    {
+      "path": "trials/D19/workspace/tests/__pycache__",
+      "reason": "excluded backup or generated cache boundary"
+    }
+  ],
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "required_total": 7,
+      "required_evaluated": 7,
+      "incomplete_check_ids": []
+    },
+    "workflow": {
+      "outcome": "PASS",
+      "required_total": 1,
+      "required_evaluated": 1,
+      "incomplete_check_ids": []
+    },
+    "instructions": {
+      "outcome": "FAIL",
+      "required_total": 1,
+      "required_evaluated": 1,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "INCOMPLETE",
+      "required_total": 21,
+      "required_evaluated": 6,
+      "incomplete_check_ids": [
+        "C022",
+        "C024",
+        "C026",
+        "C027",
+        "C028",
+        "C029",
+        "C032",
+        "C033",
+        "C034",
+        "C035",
+        "C036",
+        "C037",
+        "C038",
+        "C039",
+        "C041"
+      ]
+    }
+  },
+  "overall_assessment": "FAIL",
+  "required_coverage": {
+    "outcome": "FAIL",
+    "required_total": 30,
+    "required_evaluated": 15,
+    "incomplete_check_ids": [
+      "C022",
+      "C024",
+      "C026",
+      "C027",
+      "C028",
+      "C029",
+      "C032",
+      "C033",
+      "C034",
+      "C035",
+      "C036",
+      "C037",
+      "C038",
+      "C039",
+      "C041"
+    ]
+  }
+}

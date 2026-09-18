@@ -1,0 +1,7 @@
+# Future enforcement recommendations
+
+One guidance-only candidate is justified. No hook, CI, GitHub check, CLI, installation, or Rust control was implemented.
+
+ENF-01 references F-8c43eca6259d05a2153068b5d5b29495d0c208229c2a19f49bc71355d8df2d1f. Destination: `guidance_only`. Trigger: editing builder completion/reporting requirements. Invariant: summary wording must preserve every applicable trial family in the detailed evaluation contract. Inputs: the proposed diff, `references/evaluation.md`, and selected approved requirement changes. Intended action: inspect the summary against detailed requirements; use a link instead of a duplicated count. Current evidence: `references/evidence-format.md:86` says three, while `references/evaluation.md:87-90` enumerates four. Failure behavior: retain the discrepancy as an unresolved editorial finding; do not silently drop a trial. Coverage limits: prose and reviewer attention do not enforce execution, chronology, consent or immutable evidence. Dependencies: ordinary document review, no unavailable hook event or future command. Future verification: a proposed omission of adoption lineage must be detected while all four families remain present in the detailed reference. Keep all substantive independent-trial safeguards.
+
+The existing package already labels pointer publication, source immutability and worker isolation as ordinary workflow properties with limits. This bounded assessment establishes no additional mechanism defect requiring a framework design expansion.

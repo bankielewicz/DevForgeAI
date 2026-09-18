@@ -1,0 +1,53 @@
+{
+  "authorization": {
+    "instruction": "Adopt this synthetic development target using the reviewed origin and selected managed manifest; preserve all bytes and unknown history.",
+    "managed_manifest_sha256": "7010653f109650c44cef8f6cdf4f0e9fbe6cc5dca51aaba5e1854ab61310e847",
+    "origin_spec_sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210",
+    "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-positive\\candidate\\project\\src\\agents\\skills\\synthetic-total"
+  },
+  "captured_at_utc": "2026-09-12T14:00:00Z",
+  "historical_origin": "unknown",
+  "managed_manifest": {
+    "path": "adoption/evidence/managed-manifest.json",
+    "sha256": "7010653f109650c44cef8f6cdf4f0e9fbe6cc5dca51aaba5e1854ab61310e847"
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "schema.json"
+  ],
+  "origin_spec": {
+    "path": "adoption/evidence/origin.md",
+    "sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210"
+  },
+  "origin_spec_input": {
+    "bytes": 79,
+    "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-positive\\candidate\\reviewed-origin.md",
+    "sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210"
+  },
+  "prior_evidence": [],
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-positive\\candidate\\project",
+  "quality_evidence": [
+    {
+      "path": "adoption/evidence/quality.json",
+      "sha256": "d35ad2f5fa38805c420584bbbfd4a89f4d22b90de2757f1b88ec4e35ae73327d"
+    }
+  ],
+  "record_kind": "adoption",
+  "recording_state": "ADOPTED",
+  "retained_user_paths": [
+    "notes.txt"
+  ],
+  "run_id": "synthetic-adoption",
+  "schema_version": "1",
+  "snapshot_manifest": {
+    "path": "adoption/evidence/snapshot-manifest.json",
+    "sha256": "85ecc76334cdfa3d4f911136fb01a56a655639ba0ec952132243126e3b33758c"
+  },
+  "snapshot_root": "adoption/evidence/snapshot",
+  "source_readback": {
+    "path": "adoption/evidence/source-readback.json",
+    "sha256": "699c9b8970dddb0aa71e99343c3fbf174eb0325f4dab9a054d93be6325b639f6"
+  },
+  "target_name": "synthetic-total",
+  "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-positive\\candidate\\project\\src\\agents\\skills\\synthetic-total"
+}

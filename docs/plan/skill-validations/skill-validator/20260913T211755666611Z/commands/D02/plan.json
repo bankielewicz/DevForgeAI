@@ -1,0 +1,115 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D02\\records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at": "2026-09-13T21:20:11.922547Z",
+  "timeout_seconds": 120,
+  "fixture_before": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D02",
+    "captured_at_utc": "2026-09-13T21:20:11.921547Z",
+    "files": [
+      {
+        "path": "inputs/alpha-manifest.json",
+        "bytes": 267,
+        "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+      },
+      {
+        "path": "inputs/authorization.txt",
+        "bytes": 44,
+        "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+      },
+      {
+        "path": "inputs/beta-manifest.json",
+        "bytes": 267,
+        "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+      },
+      {
+        "path": "inputs/selection.json",
+        "bytes": 1794,
+        "sha256": "bbe8250d0645a964baaaf9d6c68aab012e7290d1e9ca950f00d0351004e58a98"
+      },
+      {
+        "path": "integration/checks.jsonl",
+        "bytes": 8729,
+        "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+      },
+      {
+        "path": "member-evidence/A/checks.jsonl",
+        "bytes": 8729,
+        "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+      },
+      {
+        "path": "member-evidence/A/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/A/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "member-evidence/B/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+      },
+      {
+        "path": "member-evidence/B/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/B/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "packages/alpha/SKILL.md",
+        "bytes": 106,
+        "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+      },
+      {
+        "path": "packages/alpha/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "packages/beta/SKILL.md",
+        "bytes": 105,
+        "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+      },
+      {
+        "path": "packages/beta/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "records/set-assessment.json",
+        "bytes": 2473,
+        "sha256": "b018f9d56183ba8ab26aaf5ae78fbf5a4302f5bb8bd1a7269e6280014da5864b"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "b68002f45e744937447b0bc5a2276115f2391bb86098ff67438d57df762c4484"
+  },
+  "permitted_effects": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\temporary\\D02",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\commands\\D02"
+  ],
+  "environment_overrides": {
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\temporary\\D02",
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\temporary\\D02",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUTF8": "1"
+  }
+}

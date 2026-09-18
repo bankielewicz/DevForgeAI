@@ -1,0 +1,15 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "design_capture_requested": true,
+  "contract_sha256": "19a16373c9358fc0ec0162fcf304c6daca66e65159a712512bd6834a9f61a8b1",
+  "supplied_contract_sha256": "19a16373c9358fc0ec0162fcf304c6daca66e65159a712512bd6834a9f61a8b1",
+  "path_resolution_sha256": "fbdc941c9b69afbbd62245a16473a2fa3cd49193a9cffccea60a0d90d2f10adc",
+  "design_capture_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\design-capture.json",
+    "sha256": "2fcb0b5d9ce16447bb3385d3757eea94e1d7f102c6a0c09dc392deec2aa382c4"
+  }
+}

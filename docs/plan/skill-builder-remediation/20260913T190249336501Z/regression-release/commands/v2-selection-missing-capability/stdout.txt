@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["essential member capability unavailable"], "ordered_member_ids": []}

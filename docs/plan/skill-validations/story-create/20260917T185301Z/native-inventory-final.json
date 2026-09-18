@@ -1,0 +1,83 @@
+[
+  {
+    "case_id": "N01",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N01\\attempt-002",
+    "dependencies": []
+  },
+  {
+    "case_id": "N02",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N02\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N03",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N03\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N04",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N04\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N05",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N05\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N06",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N06\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N07",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N07\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N08",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N08\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N09",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N09\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N10",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N10\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N11",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N11\\attempt-001",
+    "dependencies": [
+      "N01"
+    ]
+  },
+  {
+    "case_id": "N12",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N12\\attempt-001",
+    "dependencies": [
+      "N01"
+    ]
+  },
+  {
+    "case_id": "N13",
+    "attempt": null,
+    "dependencies": [
+      "N12"
+    ]
+  },
+  {
+    "case_id": "N14",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N14\\attempt-001",
+    "dependencies": []
+  },
+  {
+    "case_id": "N15",
+    "attempt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N15\\attempt-001",
+    "dependencies": []
+  }
+]

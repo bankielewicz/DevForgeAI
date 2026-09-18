@@ -1,0 +1,15 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "design_capture_requested": true,
+  "contract_sha256": "04845863338d63b02f6862e5c288f4c35e01e2d8ec00b295f5c903ff7f608b45",
+  "supplied_contract_sha256": "04845863338d63b02f6862e5c288f4c35e01e2d8ec00b295f5c903ff7f608b45",
+  "path_resolution_sha256": "0ce612b4ffb065ec8691dcfc12a6f82d0100016f4761d716fc4f632aa30de468",
+  "design_capture_ref": {
+    "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/docs/plan/skill-authorings/count-lines/20260915-02/design-capture.json",
+    "sha256": "c91e32277a38a2fb91da7303c1af7ee49faac70d7380812bee40432116bd8221"
+  }
+}

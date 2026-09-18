@@ -1,0 +1,202 @@
+--- prior/package-manifest.json
++++ current/package-manifest.json
+@@ -8,7 +8,7 @@
+     "assets/worker-task-template.md": "e6bd435b1dec6f5fe3196885b90d28e15c0cf3d37065a47555e0fe85661a139a",
+     "references/adoption.md": "17c69c0010976d043d00bc4707284c741bd651c0c8ca06860c69b56814c7926d",
+     "references/authoring.md": "5e513b89d3334d945b3390c90e119ce6be0da5ab52390c012fe6bf5f4ab2ff40",
+-    "references/conversion-rules.md": "8503ca4d093c550b8abd83eda8fd7fbe744fb99931f3c53283bf81d21eea6a62",
++    "references/conversion-rules.md": "6b89eb700d832498a0a929d55c147a445038a7bd82992eb6120f2ddb60b4f414",
+     "references/evidence-format.md": "28bfed7ffd8dfda8504d178333540f405f71580a1f3aa2058cf99651a836485e",
+     "references/openai_yaml.md": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+     "references/regeneration.md": "4550d964c0e23a0ca0ead7fcc6bcf14be59c743dcf837a3ef0060fc0fed81ac7",
+@@ -16,11 +16,15 @@
+     "references/spec-build.md": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2",
+     "references/validation-handoff.md": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc",
+     "schemas/adoption-evidence.schema.json": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f",
++    "schemas/authoring-baseline.schema.json": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746",
++    "schemas/authoring-contract.schema.json": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099",
++    "schemas/authoring-record.schema.json": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d",
+     "schemas/build-artifacts.schema.json": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be",
+     "schemas/evidence.schema.json": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3",
+-    "scripts/authoring.py": "6a7369dc2fe295ddb14b692e4c064d854a6c98ba5ae10f2561eadb071f68c7da",
++    "schemas/validation-request.schema.json": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367",
++    "scripts/authoring.py": "4ea452db3a7815755e35f87d97a0324734760d5c176ff746678d095545083378",
+     "scripts/build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+-    "scripts/custody.py": "ed882f4fb95f43a44eb5330b4758f54aca7fe42472ebd794a05d09b7e769cfe1",
++    "scripts/custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+     "scripts/generate_openai_yaml.py": "a83d38bbb92993b7951dfef22db1eb92dd09b8a642b9cd78802d13bd6ddb8fdd",
+     "scripts/init_skill.py": "904594626f8f3e49f29d1a0cd8fac309589700c350eeec75dba40de22b37d4b5",
+     "SKILL.md": "17539f04d7b64db2540cdde06e41c1c3ad78a5d0223a59f478ad79926335a82a"
+
+--- prior/references/conversion-rules.md
++++ current/references/conversion-rules.md
+@@ -14,8 +14,8 @@
+ 
+ | Claude feature | Codex treatment |
+ | --- | --- |
+-| `name`, `description` | Keep the capability identity; describe what it does and when it applies. Use lowercase letters/digits and single hyphens for a normalized name; no leading/trailing hyphens; keep it under 64 characters. Record normalization. |
+-| Other metadata | Preserve useful fields supported by the target and its required structural checker. Move unsupported top-level fields into the conversion record; retain compatibility requirements in the instructions when the checker does not accept a `compatibility` field. |
++| `name`, `description` | Preserve valid existing identities, including the 64-character boundary. For a new name, prefer concise lowercase letters/digits and single hyphens with no leading/trailing hyphens. Describe the capability and trigger; record any authorized normalization. |
++| Other metadata | Preserve useful fields supported by the selected target format, including supported `compatibility` metadata. Record unsupported provider fields and preserve their substantive requirements in the contract. A checker-specific disagreement belongs to later validator assessment and is not a reason to discard supported metadata or run a checker during authoring. |
+ | `model`, `effort` | Remove Claude-specific overrides and inherit the configured session. An explicitly requested override needs target-host support; do not invent a model mapping. |
+ | `allowed-tools` | Record required capabilities and side effects. Copied metadata does not grant or enforce Codex permissions. Preserve actual scope limits in the task contract. |
+ | `Read`, `Glob`, `Grep` | Describe the needed file read or search using available tools. Prefer `rg` for scoped searches. |
+
+--- prior/schemas/authoring-contract.schema.json
++++ current/schemas/authoring-contract.schema.json
+@@ -96,7 +96,19 @@
+     },
+     "retry_of": {
+       "$ref": "#/$defs/reference"
+-    }
++    },
++    "purpose": {
++      "type": "string",
++      "minLength": 1
++    },
++    "activation": {},
++    "dependencies": {
++      "type": "array"
++    },
++    "operational_constraints": {
++      "type": "array"
++    },
++    "recovery": {}
+   },
+   "additionalProperties": false,
+   "$defs": {
+
+--- prior/scripts/authoring.py
++++ current/scripts/authoring.py
+@@ -182,17 +182,18 @@
+             raise ValueError('legacy target mismatch')
+         base = safe(contract.get('legacy_root', safe(prior['path']).parent))
+         custody.prior_provenance_record(value, value['schema_version'])
+-        captured_files = files(base)
+         prior_path = safe(prior['path']).relative_to(base).as_posix()
+         problems = []
+         if value['schema_version'] == '2':
++            captured_files = files(base)
+             adopted = custody.reference_json(base, captured_files, value['adoption_origin'], problems)
+             custody.adoption_record(base, captured_files, adopted, problems)
+             custody.generated_origin_record(base, captured_files, value, value['adoption_origin'], problems, prior_path)
+         else:
+             cp = (Path(prior_path).parent / 'build-contract.json').as_posix()
+-            historical_contract = parse(captured_files[cp])
+-            if digest(captured_files[cp]) != value['contract_sha256'] or historical_contract.get('target_name') != value['target_name']:
++            contract_bytes = read_bytes(child(base, cp))
++            historical_contract = parse(contract_bytes)
++            if digest(contract_bytes) != value['contract_sha256'] or historical_contract.get('target_name') != value['target_name']:
+                 problems.append('legacy contract identity/digest mismatch')
+             inputs = {r['id']: r['sha256'] for r in historical_contract['inputs']}
+             if inputs != {r['id']: r['sha256'] for r in value['inputs']} or inputs != {r['id']: r['sha256'] for r in historical_contract['authorization']['inputs']}:
+@@ -242,14 +243,22 @@
+     raw = read_bytes(contract_path)
+     c = parse(raw)
+     required = {'schema_version', 'run_id', 'project_root', 'target_root', 'target_name', 'operation', 'authorization', 'history_review', 'change_paths', 'requirements', 'capabilities', 'expected_outputs', 'side_effects', 'inputs', 'known_issues'}
+-    if not required <= set(c) or c['schema_version'] != 'authoring-contract-v1':
++    if not isinstance(c, dict) or not required <= set(c) or c['schema_version'] != 'authoring-contract-v1':
+         raise ValueError('authoring contract fields missing or wrong version')
++    for key in ('run_id', 'project_root', 'target_root', 'target_name', 'operation', 'authorization', 'history_review'):
++        if not isinstance(c[key], str) or not c[key].strip():
++            raise ValueError('contract ' + key + ' must be a nonempty string')
++    for key in ('change_paths', 'requirements', 'capabilities', 'expected_outputs', 'side_effects', 'inputs', 'known_issues'):
++        if not isinstance(c[key], list):
++            raise ValueError('contract ' + key + ' must be an array')
++    if any(not isinstance(x, str) for x in c['known_issues'] + c['change_paths']):
++        raise ValueError('known_issues and change_paths must contain strings')
+     target, project = safe(c['target_root'], write=True), safe(c['project_root'])
+     if not project.is_dir() or not run.is_relative_to(project / 'docs/plan'):
+         raise ValueError('run must be under selected project docs/plan')
+     if target == project or project.is_relative_to(target) or target.is_relative_to(run) or run.is_relative_to(target):
+         raise ValueError('overlapping project/target/evidence roots')
+-    if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', c['target_name']) or len(c['target_name']) >= 64 or target.name != c['target_name']:
++    if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', c['target_name']) or len(c['target_name']) > 64 or target.name != c['target_name']:
+         raise ValueError('resolve valid skill identity and final destination')
+     if not c['authorization'] or not c['requirements'] or c['operation'] not in ('create', 'edit', 'import', 'spec_build', 'adopt'):
+         raise ValueError('missing authorization/requirements or unsupported operation')
+@@ -406,30 +415,44 @@
+         except (OSError, ValueError) as read_error:
+             problems.append('after capture unavailable: ' + str(read_error))
+         state = 'PARTIAL' if applied or delivered != before else 'BLOCKED'
+-    save(run / 'delivered-manifest.json', manifest(delivered))
+-    record = {'schema_version': 'authoring-v1', 'record_kind': 'authoring', 'run_id': c['run_id'], 'project_root': c['project_root'], 'target_root': str(target), 'target_name': c['target_name'], 'operation': c['operation'], 'authorization': c['authorization'], 'contract': reference(run / 'contract.json'), 'inputs': c['inputs'], 'prior_origin': captured['prior_origin'], 'managed_paths': sorted(next_baseline) if state == 'AUTHORED' else sorted(baseline), 'retained_user_paths': sorted(set(delivered) - (set(next_baseline) if state == 'AUTHORED' else set(baseline))), 'before_manifest': reference(run / 'before-manifest.json'), 'candidate_manifest': reference(run / 'candidate-manifest.json') if (run / 'candidate-manifest.json').exists() else None, 'delivered_manifest': reference(run / 'delivered-manifest.json'), 'applied_paths': applied, 'authoring_state': state, 'validation_status': 'NOT_PERFORMED', 'testing_status': 'NOT_PERFORMED', 'unresolved_issues': c['known_issues'] + problems, 'rows': rows}
+-    if state == 'AUTHORED':
+-        record['baseline_manifest'] = reference(run / 'baseline-manifest.json')
+-    save(run / 'authoring-record.json', record)
+-    if state == 'AUTHORED':
++    try:
++        save(run / 'delivered-manifest.json', manifest(delivered))
++        record = {'schema_version': 'authoring-v1', 'record_kind': 'authoring', 'run_id': c['run_id'], 'project_root': c['project_root'], 'target_root': str(target), 'target_name': c['target_name'], 'operation': c['operation'], 'authorization': c['authorization'], 'contract': reference(run / 'contract.json'), 'inputs': c['inputs'], 'prior_origin': captured['prior_origin'], 'managed_paths': sorted(next_baseline) if state == 'AUTHORED' else sorted(baseline), 'retained_user_paths': sorted(set(delivered) - (set(next_baseline) if state == 'AUTHORED' else set(baseline))), 'before_manifest': reference(run / 'before-manifest.json'), 'candidate_manifest': reference(run / 'candidate-manifest.json') if (run / 'candidate-manifest.json').exists() else None, 'delivered_manifest': reference(run / 'delivered-manifest.json'), 'applied_paths': applied, 'authoring_state': state, 'validation_status': 'NOT_PERFORMED', 'testing_status': 'NOT_PERFORMED', 'unresolved_issues': c['known_issues'] + problems, 'rows': rows}
++        if state == 'AUTHORED':
++            record['baseline_manifest'] = reference(run / 'baseline-manifest.json')
++        save(run / 'authoring-record.json', record)
++        if state == 'AUTHORED':
++            try:
++                if files(target) != delivered:
++                    raise ValueError('SOURCE_CHANGED before baseline publication')
++                pointer = {'schema_version': 'authoring-baseline-v1', 'record_kind': 'authoring_baseline', 'run_id': c['run_id'], 'target_root': str(target), 'target_name': c['target_name'], 'authoring_record': reference(run / 'authoring-record.json'), 'baseline_manifest': reference(run / 'baseline-manifest.json'), 'baseline_root': str(run / 'baseline')}
++                save(run / 'authoring-baseline.json', pointer)
++                if parse(read_bytes(run / 'authoring-baseline.json')) != pointer:
++                    raise ValueError('pointer readback mismatch')
++                request = {'schema_version': 'validation-request-v1', 'record_kind': 'validation_request', 'authoring_run_id': c['run_id'], 'project_root': c['project_root'], 'target_root': str(target), 'target_name': c['target_name'], 'target_manifest': reference(run / 'delivered-manifest.json'), 'package_digest': manifest(delivered)['package_digest'], 'authoring_record': reference(run / 'authoring-record.json'), 'specification_refs': c['inputs'], 'changed_paths': applied, 'known_issues': record['unresolved_issues'], 'capabilities': c['capabilities'], 'expected_outputs': c['expected_outputs'], 'side_effects': c['side_effects'], 'permission': 'Assessment proposal only; current user invocation determines permitted effects.'}
++                save(run / 'validation-request.json', request)
++                message = 'Use $skill-validator to validate and test ' + str(target) + ' in project ' + c['project_root'] + '. Read validation request ' + str(run / 'validation-request.json') + ' (SHA-256 ' + digest(read_bytes(run / 'validation-request.json')) + '). Re-read the package and reject stale bindings. Select disposable tests under current authorization.\n\nValidation status: NOT_PERFORMED. Testing status: NOT_PERFORMED.\n'
++                (run / 'validator-request.md').write_text(message, encoding='utf-8')
++                if files(target) != delivered:
++                    raise ValueError('SOURCE_CHANGED at publication readback')
++                save(run / 'publication-readback.json', {'state': 'PUBLISHED', 'authoring_record': reference(run / 'authoring-record.json'), 'baseline': reference(run / 'authoring-baseline.json'), 'request': reference(run / 'validation-request.json'), 'package_digest': manifest(delivered)['package_digest']})
++            except (ValueError, OSError) as exc:
++                save(run / 'publication-failure.json', {'state': 'PARTIAL', 'error': str(exc)})
++                return {'state': 'PARTIAL', 'run_root': str(run), 'error': str(exc)}
++        return {'state': state, 'run_root': str(run), 'applied_paths': applied, 'issues': problems}
++    except (OSError, ValueError, KeyError, TypeError) as exc:
++        # A failed record write after destination effects must not escape as a
++        # misleading no-write BLOCKED response. Preserve the observed delta in
++        # a separate attempt file when possible, and always return it on stdout.
++        failure = {'state': 'PARTIAL' if applied or delivered != before else 'BLOCKED',
++                   'run_root': str(run), 'applied_paths': applied,
++                   'delivered_manifest': manifest(delivered), 'error': str(exc)}
+         try:
+-            if files(target) != delivered:
+-                raise ValueError('SOURCE_CHANGED before baseline publication')
+-            pointer = {'schema_version': 'authoring-baseline-v1', 'record_kind': 'authoring_baseline', 'run_id': c['run_id'], 'target_root': str(target), 'target_name': c['target_name'], 'authoring_record': reference(run / 'authoring-record.json'), 'baseline_manifest': reference(run / 'baseline-manifest.json'), 'baseline_root': str(run / 'baseline')}
+-            save(run / 'authoring-baseline.json', pointer)
+-            if parse(read_bytes(run / 'authoring-baseline.json')) != pointer:
+-                raise ValueError('pointer readback mismatch')
+-            request = {'schema_version': 'validation-request-v1', 'record_kind': 'validation_request', 'authoring_run_id': c['run_id'], 'project_root': c['project_root'], 'target_root': str(target), 'target_name': c['target_name'], 'target_manifest': reference(run / 'delivered-manifest.json'), 'package_digest': manifest(delivered)['package_digest'], 'authoring_record': reference(run / 'authoring-record.json'), 'specification_refs': c['inputs'], 'changed_paths': applied, 'known_issues': record['unresolved_issues'], 'capabilities': c['capabilities'], 'expected_outputs': c['expected_outputs'], 'side_effects': c['side_effects'], 'permission': 'Assessment proposal only; current user invocation determines permitted effects.'}
+-            save(run / 'validation-request.json', request)
+-            message = 'Use $skill-validator to validate and test ' + str(target) + ' in project ' + c['project_root'] + '. Read validation request ' + str(run / 'validation-request.json') + ' (SHA-256 ' + digest(read_bytes(run / 'validation-request.json')) + '). Re-read the package and reject stale bindings. Select disposable tests under current authorization.\n\nValidation status: NOT_PERFORMED. Testing status: NOT_PERFORMED.\n'
+-            (run / 'validator-request.md').write_text(message, encoding='utf-8')
+-            if files(target) != delivered:
+-                raise ValueError('SOURCE_CHANGED at publication readback')
+-            save(run / 'publication-readback.json', {'state': 'PUBLISHED', 'authoring_record': reference(run / 'authoring-record.json'), 'baseline': reference(run / 'authoring-baseline.json'), 'request': reference(run / 'validation-request.json'), 'package_digest': manifest(delivered)['package_digest']})
+-        except (ValueError, OSError) as exc:
+-            save(run / 'publication-failure.json', {'state': 'PARTIAL', 'error': str(exc)})
+-            return {'state': 'PARTIAL', 'run_root': str(run), 'error': str(exc)}
+-    return {'state': state, 'run_root': str(run), 'applied_paths': applied, 'issues': problems}
++            save(run / 'publication-failure.json', failure)
++        except (OSError, ValueError):
++            failure['evidence_write_failed'] = True
++        return failure
++
+ 
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+
+--- prior/scripts/custody.py
++++ current/scripts/custody.py
+@@ -100,12 +100,6 @@
+     walk(root)
+     return files
+ 
+-def result(problems, files):
+-    return {
+-        "status": "FAIL" if problems else "PASS",
+-        "observations": problems or ["No discrepancy in the measured properties."],
+-        "candidate_digests": {name: digest(data) for name, data in sorted(files.items())},
+-    }
+ 
+ def fields(value, required, optional=()):
+     if not isinstance(value, dict) or not set(required) <= set(value) or set(value) - set(required) - set(optional):
+

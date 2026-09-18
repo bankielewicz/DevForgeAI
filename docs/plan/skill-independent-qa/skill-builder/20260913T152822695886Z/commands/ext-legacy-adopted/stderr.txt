@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\authoring.py", line 478, in <module>
+    sys.exit(main())
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\authoring.py", line 466, in main
+    value = begin(args.contract, args.run_root)
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\authoring.py", line 281, in begin
+    prior, baseline = origin(c)
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\authoring.py", line 222, in origin
+    import custody
+ModuleNotFoundError: No module named 'custody'

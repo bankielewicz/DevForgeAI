@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "20260913T021452Z-skill-validator",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+  "target_name": "skill-validator",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-validator\\authoring-record.json",
+    "sha256": "c3f84a78cee0a6f1be45468b70383c7c8dd50ea96688eb3c10840d2174f72e59"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-validator\\baseline-manifest.json",
+    "sha256": "c51d65d9bbb8a9d1e536ab34fa545daa96d7b306f5c325a8dcbd4628a7983f1a"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-validator\\baseline"
+}

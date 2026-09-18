@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\side-effect\\project",
+  "captured_at_utc": "2026-09-14T23:19:57.202579+00:00",
+  "files": [
+    {
+      "path": "report.json",
+      "bytes": 2,
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "unexpected.txt",
+      "bytes": 11,
+      "sha256": "7106fc2760fbbc51fed4be749f108b374809c5d3dce9860535e7ec7d7bd23004"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "c75641e570ac9686f447e6a31f84e60dc9eea25fce617ccce492c04c7baf7973"
+}

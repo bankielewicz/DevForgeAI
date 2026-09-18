@@ -1,0 +1,1 @@
+{"schema_version": "binding-observation-v1", "status": "UNAVAILABLE", "reason_code": "CAPTURE_LIMIT", "binding_sha256": "bfcfa5205322622b073fbf8a896150566e8c6c388713aaf781717f8154d960ab", "package_digest": null, "details": []}

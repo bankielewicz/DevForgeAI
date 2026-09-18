@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\helper-tests\\attempt-003\\input\\tests",
+    "-v"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\helper-tests\\attempt-003",
+  "environment": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\helper-tests\\attempt-003\\temporary",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\helper-tests\\attempt-003\\temporary",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\helper-tests\\attempt-003\\temporary",
+    "SV_TEST_RECEIPT_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\helper-tests\\attempt-003\\cases"
+  }
+}

@@ -1,0 +1,30 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+warning: unused import: `null_mut`
+ --> tests\support\console_driver.rs:2:99
+  |
+2 | use std::{ffi::OsStr,fs,os::windows::ffi::OsStrExt,path::Path,process::{Command,Stdio},ptr::{null,null_mut},time::{Duration,Instant}};
+  |                                                                                                   ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `request` is never read
+ --> tests\support\mod.rs:4:55
+  |
+4 | pub struct Fixture { pub root: tempfile::TempDir, pub request: Request, pub input: PathBuf }
+  |            ------- field in this struct               ^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: method `run` is never used
+  --> tests\support\mod.rs:21:12
+   |
+ 5 | impl Fixture {
+   | ------------ method in this implementation
+...
+21 |     pub fn run(&self) -> (i32,serde_json::Value) {
+   |            ^^^
+
+warning: `devforgeai-codex-worker-probe` (bin "console-driver") generated 1 warning (run `cargo fix --bin "console-driver" -p devforgeai-codex-worker-probe` to apply 1 suggestion)
+warning: `devforgeai-codex-worker-probe` (test "process_windows") generated 2 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.26s
+     Running tests\process_windows.rs (target\debug\deps\process_windows-26ec28efc4e9b6f3.exe)

@@ -1,0 +1,10 @@
+{
+  "raw_families": [
+    "inputs/",
+    "trials/"
+  ],
+  "outer_records": "Only schema-1 records and run-relative references.",
+  "external_bundle": "Separate sibling evaluation root with its own verifier; no change to evaluator source.",
+  "record_checker": "Unchanged loaded observe.py records over whole new schema-1 run.",
+  "carry_forward": "Only byte-verified prior PASS cases, same candidate, inputs, fixtures and prerequisites; explicitly labeled historical executions."
+}

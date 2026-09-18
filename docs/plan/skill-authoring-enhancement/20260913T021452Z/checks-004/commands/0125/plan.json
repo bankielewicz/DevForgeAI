@@ -1,0 +1,28 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\candidate\\skill-validator\\scripts\\observe.py",
+    "readback",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\validator-helper-dpj7nwlj\\project with spaces\\example",
+    "--manifest",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\validator-helper-dpj7nwlj\\snapshot output\\source-manifest.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--source": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\validator-helper-dpj7nwlj\\project with spaces\\example",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\commands\\0125\\input-6"
+    },
+    "--manifest": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\validator-helper-dpj7nwlj\\snapshot output\\source-manifest.json",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\commands\\0125\\input-8",
+      "sha256": "158999901ca0fbc0f4f8779b6ac6935bf862e0f6f5ad4181b776b536adeb5235"
+    }
+  },
+  "start": "2026-09-13T02:46:50.127303+00:00",
+  "timeout_seconds": 30
+}

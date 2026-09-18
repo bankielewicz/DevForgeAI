@@ -1,0 +1,29 @@
+{
+  "schema_version": "dev-evaluation-summary-v2",
+  "run_id": "20260913T2310456388212Z",
+  "metrics": {
+    "passing": 16,
+    "required": 18,
+    "pass_rate": 88.88888888888889,
+    "counts": {
+      "ERROR": 0,
+      "FAIL": 1,
+      "NOT_APPLICABLE": 0,
+      "NOT_RUN": 1,
+      "PASS": 16
+    }
+  },
+  "bundle_artifacts_verified": 69,
+  "bundle_status": "CREATED_AND_EXECUTED",
+  "native_model_sessions": 17,
+  "native_model_sessions_exited_zero": 17,
+  "native_timeouts_this_run": 0,
+  "prior_model_timeouts": 17,
+  "prior_host_start_errors": 1,
+  "independent_description_classification": "8/8",
+  "native_implicit_activation": "NOT_RUN",
+  "assessment": "FAIL",
+  "evaluated_build_complete": false,
+  "framework_acceptance": "NOT_EVALUATED",
+  "grading": "Primary validator semantic adjudication of retained native streams/artifacts; original deterministic graders verify bundle/package bindings and reduce required cases. Python results have no framework authority."
+}

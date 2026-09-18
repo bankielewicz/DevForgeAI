@@ -1,0 +1,1 @@
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "ROLE_MISMATCH", "binding_sha256": "017555a9d44ed08a1b0c12f8249097708fb762ae9a9c5c2b355a8dfae1b96d74", "package_digest": null, "details": []}

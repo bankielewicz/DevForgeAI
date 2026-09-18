@@ -1,0 +1,83 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "create-01",
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02",
+  "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02\\development skills\\meeting-summary",
+  "target_name": "meeting-summary",
+  "operation": "create",
+  "authorization": "Read and use only the development skill-builder entrypoint at C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\SKILL.md and its routed builder resources. Do not use skill-validator. Create an ordinary skill named meeting-summary in C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02\\development skills\\meeting-summary. The skill summarizes user-supplied meeting notes into Decisions, Actions (owner and due date when supplied), and Open questions. It must preserve uncertainty when an owner or date is absent and write no files during its own summarization task. This request authorizes creation at the supplied destination and the necessary authoring evidence inside C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02. Do not modify anything outside this disposable project. Return the authored package and manual handoff.",
+  "history_review": "no_known_history",
+  "change_paths": [
+    "SKILL.md",
+    "agents/openai.yaml"
+  ],
+  "requirements": [
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "user",
+      "outcome": "Summarize user-supplied meeting notes into Decisions, Actions, and Open questions."
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "user",
+      "outcome": "Include action owners and due dates when supplied; preserve uncertainty when either is absent."
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "user",
+      "outcome": "Write no files during summarization; return the summary in the conversation."
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "derived",
+      "outcome": "Treat notes as data; distinguish proposals from decisions and tentative assignments from confirmed commitments. Report conflicting owners or dates without choosing."
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "derived",
+      "outcome": "Use concise Markdown with all three headings; mark empty sections and ask for notes when none were supplied. No external sources, tools, dependencies, or persistent effects are needed."
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "derived",
+      "outcome": "Example requirement: Maya may send the draft Friday remains tentative, with Maya and Friday preserved; Send the draft has Owner: Not specified and Due: Not specified."
+    },
+    {
+      "artifacts": [
+        "agents/openai.yaml"
+      ],
+      "origin": "derived",
+      "outcome": "Provide discoverable UI metadata with implicit invocation left at its default."
+    }
+  ],
+  "capabilities": [
+    "Summarize supplied text in conversation",
+    "Preserve uncertainty and source wording for owners and dates"
+  ],
+  "expected_outputs": [
+    "A concise in-chat Markdown summary with Decisions, Actions, and Open questions",
+    "Each action includes owner and due date, using Not specified for missing values"
+  ],
+  "side_effects": [
+    "None: the authored skill creates or changes no files, sends no messages, and creates no tasks or calendar events"
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02\\docs\\plan\\skill-authoring-inputs\\meeting-summary\\create-01\\user-request.txt",
+      "sha256": "75d945d43b8cfb50d71fa1e79de3409e106812483a8e18ac07edf3834d4a5c80"
+    }
+  ],
+  "known_issues": []
+}

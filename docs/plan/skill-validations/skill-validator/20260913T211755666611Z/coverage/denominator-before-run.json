@@ -1,0 +1,21 @@
+{
+  "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts",
+  "files": [
+    "scripts/adaptive_contracts.py",
+    "scripts/adaptive_observe.py",
+    "scripts/authoring_intake.py",
+    "scripts/build_evidence.py",
+    "scripts/custody.py",
+    "scripts/graders.py",
+    "scripts/observe.py",
+    "scripts/run_evaluation.py",
+    "scripts/text_resources.py"
+  ],
+  "exclusions": [],
+  "baseline": "All first-party executable Python support scripts; executed-line baseline and branches separately. No coverage aliasing of temporary copies to original paths. Native Windows only; not Rust coverage.",
+  "collector": "Already installed coverage.py 7.9.0; startup hook under synthetic QA root only.",
+  "thresholds": {
+    "line": 95,
+    "required_case_pass_rate": 95
+  }
+}

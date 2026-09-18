@@ -1,0 +1,42 @@
+{
+  "attempt_id": "059-final-coverage",
+  "stage": "qa",
+  "argv": [
+    "cargo",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--json",
+    "--output-path",
+    "C:/Projects/DevForgeAI/docs/plan/framework-worker-implementation/20260915T1544548240203Z/coverage-04.json"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T16:40:04.457935+00:00",
+  "ended_at": "2026-09-15T16:42:25.060356+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\059-final-coverage\\candidate.json",
+    "bytes": 6856,
+    "sha256": "bd90e1161015553b7325bfa65ee64f8a04b57938894ee9aa68b4b4855a02384c"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\059-final-coverage\\stdout.txt",
+    "bytes": 3594,
+    "sha256": "2e9a79ee37d09978be0dcd885468784007813d42725188a9cfbf1fab7b836df0"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\059-final-coverage\\stderr.txt",
+    "bytes": 2142,
+    "sha256": "f9d60306ec88a49913c4c2f9ea97d566d3c68c88c021b8b1bbf3dc298d0c46e0"
+  },
+  "outcome": "observed-exit"
+}

@@ -1,0 +1,18 @@
+test_transport (unittest.loader._FailedTest) ... ERROR
+
+======================================================================
+ERROR: test_transport (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_transport
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\unittest\loader.py", line 154, in loadTestsFromName
+    module = __import__(module_name)
+  File "C:\Projects\DevForgeAI\docs\plan\advisor-streaming-dev\20260916T134000Z\transport\test_transport.py", line 16, in <module>
+    import advisor_stream  # noqa: E402
+ModuleNotFoundError: No module named 'advisor_stream'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

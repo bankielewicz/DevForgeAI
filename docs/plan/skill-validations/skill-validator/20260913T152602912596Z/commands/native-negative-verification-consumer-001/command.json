@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\negative-verification",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\negative-verification\\.trial-output\\native-negative-verification-consumer-001.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\negative-verification",
+  "started_at_utc": "2026-09-13T15:51:08.971207Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-negative-verification-consumer-001",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-negative-verification-consumer-001",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-negative-verification-consumer-001",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": "Use $card-consumer at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\negative-verification\\skills\\card-consumer\\SKILL.md to complete its local task-card workflow. Allowed product write: out/receipt.json. All other inputs are read-only. Deliver the artifact path or concrete failure.",
+  "termination": "exited",
+  "pid": 79736,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T15:51:42.221459Z",
+  "elapsed_seconds": 33.25
+}

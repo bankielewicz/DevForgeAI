@@ -1,0 +1,257 @@
+{
+  "utc": "2026-09-17T12:41:23.4500066Z",
+  "command": "& 'C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\verify-planning-documents.ps1'",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 0,
+  "scope": "Documentation, static template consistency, exact bytes and local links only",
+  "checks": [
+    {
+      "name": "intake_and_preservation",
+      "result": "PASS",
+      "detail": "Corrected intake after retained display-prefix comparison error."
+    },
+    {
+      "name": "task_exact_bytes",
+      "result": "PASS",
+      "detail": "Task digest is separate from candidate source-manifest identity."
+    },
+    {
+      "name": "request_document_fields",
+      "result": "PASS",
+      "detail": "Static field comparison with Request in current request.rs; not runtime admission."
+    },
+    {
+      "name": "review_document_fields",
+      "result": "PASS",
+      "detail": "Static field comparison with ReviewV2 in current request.rs; not runtime admission."
+    },
+    {
+      "name": "templates_deliberately_incomplete",
+      "result": "PASS",
+      "detail": "Null placeholders remain unresolved, not fabricated findings or launch-ready inputs."
+    },
+    {
+      "name": "schema_and_profile_bindings",
+      "result": "PASS",
+      "detail": "Logging request 3, review 2 and exact native profile; inventory 2 remains future evidence."
+    },
+    {
+      "name": "fixed_policy",
+      "result": "PASS",
+      "detail": "Exact compiled v3 record and all argument positions retained."
+    },
+    {
+      "name": "closed_diagnostics_selection",
+      "result": "PASS",
+      "detail": "Selected byte-bound config only; no operational configuration write."
+    },
+    {
+      "name": "one_preflight_no_work_command",
+      "result": "PASS",
+      "detail": "Five planned observations/invocations; only one native preflight, none executed."
+    },
+    {
+      "name": "supervisor_and_rust_bounds",
+      "result": "PASS",
+      "detail": "Proposed outer budget and unchanged compiled bounds; supervisor implementation/checks remain pending."
+    },
+    {
+      "name": "selected_probe_identity",
+      "result": "PASS",
+      "detail": "All planned product invocations use the QA-built probe on the selected host/cwd."
+    },
+    {
+      "name": "future_layout_absent",
+      "result": "PASS",
+      "detail": "No native runtime fixture or run created during planning."
+    },
+    {
+      "name": "local_markdown_links",
+      "result": "PASS",
+      "detail": {
+        "checked": 27,
+        "links": [
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../20260917T105456Z-qa-retest/handoff-manifest.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\handoff-manifest.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../20260917T105456Z-qa-retest/next-review-prompt.txt",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\next-review-prompt.txt",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../20260917T105456Z-qa-retest/qa-report.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-report.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../20260917T105456Z-qa-retest/defect-lifecycle.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\defect-lifecycle.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../20260917T105456Z-qa-retest/candidate-manifest.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\candidate-manifest.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../20260917T105456Z-qa-retest/specification-bindings.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\specification-bindings.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../../../specs/framework/runtime/codex-worker-native-readiness-v1.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../../../specs/framework/runtime/codex-worker-preflight-v1.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-preflight-v1.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../../../specs/framework/runtime/codex-worker-source-identity-v1.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../../../../devforgeai/experiments/codex-worker-probe-logging-qa-fixes/logging-contract.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\logging-contract.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "intake-v2-verification.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\intake-v2-verification.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "../../framework-worker-native-diagnostics/20260916T202125Z/diagnostic-report.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "inputs/task.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\inputs\\task.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "operator-review-handoff.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\operator-review-handoff.md",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "review.template.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\review.template.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "inputs/diagnostics.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\inputs\\diagnostics.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "request.template.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\request.template.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "command-plan.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\command-plan.json",
+            "exists": true
+          },
+          {
+            "document": "native-diagnostic-plan.md",
+            "target": "next-native-trial-prompt.txt",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\next-native-trial-prompt.txt",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "native-diagnostic-plan.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\native-diagnostic-plan.md",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "../20260917T105456Z-qa-retest/qa-report.md",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-report.md",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "review.template.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\review.template.json",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "../../../../devforgeai/experiments/codex-worker-probe-logging-qa-fixes/src/native-executable-identity.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\src\\native-executable-identity.json",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "inputs/diagnostics.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\inputs\\diagnostics.json",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "request.template.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\request.template.json",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "command-plan.json",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\command-plan.json",
+            "exists": true
+          },
+          {
+            "document": "operator-review-handoff.md",
+            "target": "next-native-trial-prompt.txt",
+            "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T122229Z-native-plan\\next-native-trial-prompt.txt",
+            "exists": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "prepared_input_manifest",
+      "result": "PASS",
+      "detail": "All five prepared input/template/command files reread by literal path."
+    },
+    {
+      "name": "planning_helper_powershell_syntax",
+      "result": "PASS",
+      "detail": []
+    }
+  ],
+  "failures": 0,
+  "native_codex": "NOT_RUN",
+  "rust_profile_sources": "NOT_RUN",
+  "new_product_tests": "NOT_RUN",
+  "new_coverage": "NOT_RUN",
+  "operator_review": "PENDING",
+  "framework_acceptance": "NOT_EVALUATED"
+}

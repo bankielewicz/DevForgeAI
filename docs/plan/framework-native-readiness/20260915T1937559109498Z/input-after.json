@@ -1,0 +1,44 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "expected": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+    "actual": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+    "expected": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23",
+    "actual": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\roadmap-and-decisions.md",
+    "expected": "8161d8e066e240f29f5d8f04184ba09f05ef1ac3ba2bf5795c8cc7991f8aa413",
+    "actual": "8161d8e066e240f29f5d8f04184ba09f05ef1ac3ba2bf5795c8cc7991f8aa413",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\guardrails-and-rust-runtime.md",
+    "expected": "3df344a0a0b682d3e738e3a029415555bb058f91730365e07b1fec4cff236685",
+    "actual": "3df344a0a0b682d3e738e3a029415555bb058f91730365e07b1fec4cff236685",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+    "expected": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+    "actual": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\mvp\\acceptance.md",
+    "expected": "19079baa769888c97e2da769ec1211122b06918875381cffab377c41176ba090",
+    "actual": "19079baa769888c97e2da769ec1211122b06918875381cffab377c41176ba090",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\fixtures\\schema-command.json",
+    "expected": "e180b070de0f62c863a4c8886a8bb9670de90cabf2656b80c77197924bc4c0c4",
+    "actual": "e180b070de0f62c863a4c8886a8bb9670de90cabf2656b80c77197924bc4c0c4",
+    "matches": true
+  }
+]

@@ -1,0 +1,1 @@
+SUCCESS: The process with PID 68036 (child process of PID 69316) has been terminated.

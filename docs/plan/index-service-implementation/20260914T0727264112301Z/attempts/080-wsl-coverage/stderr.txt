@@ -1,0 +1,116 @@
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+I will run `rustup component add llvm-tools-preview --toolchain stable-x86_64-unknown-linux-gnu` to install the `llvm-tools-preview` component for the selected toolchain.
+Proceed? [Y/n] info: downloading component llvm-tools
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.12
+   Compiling libc v0.2.189
+   Compiling tree-sitter-language v0.1.8
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling memchr v2.8.3
+   Compiling zmij v1.0.23
+   Compiling version_check v0.9.5
+   Compiling bitflags v2.13.2
+   Compiling serde_core v1.0.229
+   Compiling equivalent v1.0.2
+   Compiling itoa v1.0.18
+   Compiling hashbrown v0.17.1
+   Compiling typenum v1.20.1
+   Compiling serde_json v1.0.151
+   Compiling regex-syntax v0.8.11
+   Compiling log v0.4.34
+   Compiling crossbeam-utils v0.8.23
+   Compiling cfg-if v1.0.4
+   Compiling cc v1.4.6
+   Compiling inotify-sys v0.1.8
+   Compiling crossbeam-epoch v0.9.21
+   Compiling utf8parse v0.2.2
+   Compiling vcpkg v0.2.15
+   Compiling getrandom v0.4.3
+   Compiling generic-array v0.14.7
+   Compiling aho-corasick v1.1.5
+   Compiling indexmap v2.14.2
+   Compiling pkg-config v0.3.34
+   Compiling anstyle-parse v1.0.0
+   Compiling crossbeam-deque v0.8.8
+   Compiling foldhash v0.2.0
+   Compiling anstyle-query v1.1.5
+   Compiling anstyle v1.0.14
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling same-file v1.0.6
+   Compiling colorchoice v1.0.5
+   Compiling bstr v1.13.1
+   Compiling strsim v0.11.1
+   Compiling walkdir v2.5.0
+   Compiling anstream v1.0.0
+   Compiling heck v0.5.0
+   Compiling serde v1.0.229
+   Compiling clap_lex v1.1.0
+   Compiling notify-types v2.1.0
+   Compiling libsqlite3-sys v0.38.2
+   Compiling tree-sitter-rust v0.24.2
+   Compiling tree-sitter-typescript v0.23.2
+   Compiling tree-sitter-javascript v0.25.0
+   Compiling tree-sitter-python v0.25.0
+   Compiling clap_builder v4.6.6
+   Compiling regex-automata v0.4.18
+   Compiling hashlink v0.12.2
+   Compiling cpufeatures v0.2.17
+   Compiling bytes v1.12.1
+   Compiling smallvec v1.16.1
+   Compiling syn v3.0.5
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling fallible-iterator v0.3.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling pin-project-lite v0.2.17
+   Compiling streaming-iterator v0.1.9
+   Compiling rustix v1.1.4
+   Compiling sha2 v0.10.9
+   Compiling linux-raw-sys v0.12.1
+   Compiling once_cell v1.21.4
+   Compiling fastrand v2.5.0
+   Compiling errno v0.3.14
+   Compiling mio v1.2.3
+   Compiling socket2 v0.6.5
+   Compiling fs2 v0.4.3
+   Compiling inotify v0.11.5
+   Compiling signal-hook-registry v1.4.8
+   Compiling notify v8.2.0
+   Compiling uuid v1.26.1
+   Compiling regex v1.13.1
+   Compiling globset v0.4.20
+   Compiling ignore v0.4.33
+   Compiling tree-sitter v0.26.11
+   Compiling serde_derive v1.0.229
+   Compiling clap_derive v4.6.4
+   Compiling tokio-macros v2.7.2
+   Compiling tempfile v3.27.0
+   Compiling tokio v1.53.1
+   Compiling clap v4.6.6
+   Compiling rusqlite v0.40.2
+   Compiling devforgeai-index v0.1.0 (/mnt/c/Projects/DevForgeAI/devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 14.73s
+     Running unittests src/lib.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/devforgeai_index-6f69077260c005b8)
+     Running unittests src/bin/devforgeai.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/devforgeai-62a598625ed54b25)
+     Running unittests src/bin/devforgeai-indexd.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/devforgeai_indexd-fb58b289bdab90da)
+     Running unittests src/bin/devforgeai-tray.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/devforgeai_tray-1a901ec284261bc4)
+     Running tests/benchmark_fixture.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/benchmark_fixture-1fdb6c525edfea06)
+     Running tests/capture.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/capture-ec1ef611bcbfb040)
+     Running tests/cli.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/cli-40653ee886d34b7e)
+     Running tests/gui.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/gui-dc2608066963d417)
+     Running tests/harness.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/harness-5c6618aa5a6464be)
+     Running tests/ipc.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/ipc-d2e6f7b6c0c25082)
+     Running tests/platform.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/platform-8a58ccbd49d88bb5)
+     Running tests/process.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/process-f20cc0576ea5b6ac)
+     Running tests/protocol.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/protocol-e1f8d3f5724653ce)
+     Running tests/service.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/service-03091b2adf535cb9)
+     Running tests/storage.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/storage-456fbc813b895365)
+     Running tests/tray.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/tray-e16d1e99e33b60bf)
+     Running tests/wsl_bridge.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/deps/wsl_bridge-29e5eb6f397c6336)
+     Running unittests examples/benchmark.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/examples/benchmark-29347c914302c7ed)
+     Running unittests examples/wsl_fixture.rs (/tmp/devforgeai-index-20260914T0727264112301Z/llvm-cov-target/debug/examples/wsl_fixture-e93bac977607d73d)
+
+    Finished report saved to /mnt/c/Projects/DevForgeAI/docs/plan/index-service-implementation/20260914T0727264112301Z/wsl-coverage-001.json

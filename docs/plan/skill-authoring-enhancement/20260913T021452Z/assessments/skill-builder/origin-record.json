@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "run_id": "skill-builder-delivered",
+  "target_name": "skill-builder",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "b00c583ab116b0ce2576a229cfcd334fa3b26cc50d37f6fc39fbc5e9f0826323"
+  },
+  "specification": {
+    "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+    "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": {
+    "path": "inputs/authoring-record-raw.json",
+    "sha256": "3d99eae85c37e0f9ca75d435290432f09be336a267994579ace2175cfec27a34"
+  },
+  "completeness": "complete",
+  "uncertainties": [
+    "Operational schema-1 uses observed for this current-byte assessment. The separately retained authoring-v1 record provides the actual authored lineage and verified legacy_generated predecessor; this does not assert missing history or adoption."
+  ],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "Verified legacy_generated predecessor; current authoring-v1 lineage retained without rewriting historical records."
+}

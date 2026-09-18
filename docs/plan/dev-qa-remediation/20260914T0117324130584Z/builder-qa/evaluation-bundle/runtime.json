@@ -1,0 +1,12 @@
+{
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "win32",
+  "runner_dependencies": {
+    "jsonschema": "4.24.0"
+  },
+  "underlying_qa_dependencies": {
+    "coverage": "7.9.0",
+    "PyYAML": "6.0.2"
+  },
+  "installation": "No installation performed; existing runtime only."
+}

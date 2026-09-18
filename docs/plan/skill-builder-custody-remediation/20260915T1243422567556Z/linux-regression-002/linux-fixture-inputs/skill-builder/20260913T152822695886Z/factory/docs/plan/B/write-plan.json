@@ -1,0 +1,58 @@
+{
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "0048733a382ab2b14c6e11900ac89476e25cbdee092b60379509709540d22425",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/devforgeai-skill.json",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "f7a907a2811925dee007ecc94b952246a0d1221fc48b5ce1e6bf5c4e376ebc62",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/adaptive-contract.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "ef96409a3337a0fec527731cd2602eb83ebd62e0b858fd04f597ead59ed7c7e8",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/check_project_binding.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16",
+      "action": "USE_NEW"
+    }
+  ],
+  "planned_manifest": {
+    "schema_version": "1",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 247,
+        "sha256": "0048733a382ab2b14c6e11900ac89476e25cbdee092b60379509709540d22425"
+      },
+      {
+        "path": "assets/devforgeai-skill.json",
+        "bytes": 416,
+        "sha256": "f7a907a2811925dee007ecc94b952246a0d1221fc48b5ce1e6bf5c4e376ebc62"
+      },
+      {
+        "path": "references/adaptive-contract.md",
+        "bytes": 332,
+        "sha256": "ef96409a3337a0fec527731cd2602eb83ebd62e0b858fd04f597ead59ed7c7e8"
+      },
+      {
+        "path": "scripts/check_project_binding.py",
+        "bytes": 12433,
+        "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+      }
+    ],
+    "package_digest": "a5a13e7bbcfe63c29202615d620059ab784aeb2a06064a333b4b9de7e87f8a7b"
+  }
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\evidence.py",
+    "source_sha256": "d6e6794a7da4fa33c3012ad64abab9acae3ef2379a78962d1a52ad80e1ec3c6e",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\evidence.py",
+    "copy_sha256": "ba1eacfc9b938be73dbd14bacbc266c519eec108281c2340f39c18abdbbbcf15",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\test_remediation.py",
+    "source_sha256": "25e222a382b6088e1c69cfcaa3d5a4f84ae0a28ab60b3ea002612152650208bd",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_remediation.py",
+    "copy_sha256": "25e222a382b6088e1c69cfcaa3d5a4f84ae0a28ab60b3ea002612152650208bd",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\test_legacy_maintenance.py",
+    "source_sha256": "8c22fd4fcbd7558ea3d8b608ecbb9e700dd315fda76aafa48ac963143ba000bb",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_legacy_maintenance.py",
+    "copy_sha256": "8c22fd4fcbd7558ea3d8b608ecbb9e700dd315fda76aafa48ac963143ba000bb",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\test_acceptance_edges.py",
+    "source_sha256": "3c800b1c77b483a91ca3a79c206013c2b7c28d63a010f6c7a56f1394a344c7c4",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_acceptance_edges.py",
+    "copy_sha256": "3c800b1c77b483a91ca3a79c206013c2b7c28d63a010f6c7a56f1394a344c7c4",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\test_final_contract_edges.py",
+    "source_sha256": "4ce2b1fa332bd7b30668b585bf3b40b591ced91fe689cd75f84c43b3f4513017",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_final_contract_edges.py",
+    "copy_sha256": "4ce2b1fa332bd7b30668b585bf3b40b591ced91fe689cd75f84c43b3f4513017",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\test_design.py",
+    "source_sha256": "94b7c814dacfd92d1dc01b8002ebbde775fc81d9cbc207cf148dd35100c7815e",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_design.py",
+    "copy_sha256": "fe3c1d0a3d1d4f1074fbb30faea5831c7d21b0be191fd152500f4af61f423adb",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\test_builder_adaptive.py",
+    "source_sha256": "6f9a49587783af02a897fe9b4e440decefecb57082333a4ae55d0554eae89b9c",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_builder_adaptive.py",
+    "copy_sha256": "60c6aa550799a1e9f42481e45dcf9e6431ea591e63ab3d53dd23241a97dcd594",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring.py",
+    "source_sha256": "0b5b64305973c18e311615ac18f84f76a6271139bcdaeb504acc9460ef241a3d",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_authoring.py",
+    "copy_sha256": "a57326e66b1217ad6fe3de30e96d9448a842416b35e912b8a08f8bca589facad",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring_safeguards.py",
+    "source_sha256": "b1fedf9a7a4a6cc94b8c9439f5e22f351f3821e564e3d22afec94b172add0885",
+    "copy": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\test_authoring_safeguards.py",
+    "copy_sha256": "b1fedf9a7a4a6cc94b8c9439f5e22f351f3821e564e3d22afec94b172add0885",
+    "adaptation": "Only repository ancestry changed for rehosting; test assertions unchanged."
+  }
+]

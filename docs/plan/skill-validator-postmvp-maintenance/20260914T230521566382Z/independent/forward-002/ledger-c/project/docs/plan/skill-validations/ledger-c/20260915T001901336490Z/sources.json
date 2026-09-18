@@ -1,0 +1,51 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T001901336490Z",
+  "target_name": "ledger-c",
+  "sources": [
+    {
+      "source_id": "av",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\evaluator\\skill-validator\\references\\adaptive-validation.md",
+      "retrieved_at_utc": "2026-09-15T00:19:01.517563+00:00",
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+      "snapshot_path": "inputs/adaptive-validation.md",
+      "sections": [
+        "whole document"
+      ],
+      "freshness": "local_verified"
+    },
+    {
+      "source_id": "spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project\\specification.md",
+      "retrieved_at_utc": "2026-09-15T00:19:01.517563+00:00",
+      "sha256": "66df398d2b01b2cf3d6ebc990d0032f7946f68bab13a40bf306b462416b83130",
+      "snapshot_path": "inputs/specification.md",
+      "sections": [
+        "whole document"
+      ],
+      "freshness": "local_verified"
+    },
+    {
+      "source_id": "checker",
+      "original_path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "retrieved_at_utc": "2026-09-15T00:19:01.517563+00:00",
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+      "snapshot_path": "inputs/quick_validate.py",
+      "sections": [
+        "whole document"
+      ],
+      "freshness": "local_verified"
+    },
+    {
+      "source_id": "fallback",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\evaluator\\skill-validator\\assets\\rules-snapshot.json",
+      "retrieved_at_utc": "2026-09-15T00:19:01.517563+00:00",
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
+      "snapshot_path": "inputs/rules-snapshot.json",
+      "sections": [
+        "whole document"
+      ],
+      "freshness": "snapshot_only"
+    }
+  ]
+}

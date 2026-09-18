@@ -1,0 +1,49 @@
+{
+  "attempt_id": "01-red",
+  "stage": "red",
+  "check": "focused",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+  "argv": [
+    "test",
+    "--locked",
+    "--offline",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\Cargo.toml",
+    "--test",
+    "inspection_consistency",
+    "--",
+    "--test-threads=1",
+    "--nocapture"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "platform": "Windows x64, native C: filesystem",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "shell_version": "7.6.6",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "source_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\source-manifest.json",
+  "source_manifest_sha256": "1ace931deeab214f2f6e375385296586ebb0f0e02793b9e4dbcc9f68d1cf9936",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\fixtures"
+  },
+  "timeout_seconds": 420,
+  "started_utc": "2026-09-17T10:35:33.5978353Z",
+  "owned_pid": 2824,
+  "exit_code": 101,
+  "timed_out": false,
+  "ended_utc": "2026-09-17T10:35:57.5400919Z",
+  "elapsed_seconds": 23.93051,
+  "outputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\stdout.txt",
+      "bytes": 1227,
+      "sha256": "21759aaf9b08c0576c2ae2edf1be5597146458d2941783c59bc6907e7b9185db"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\stderr.txt",
+      "bytes": 3595,
+      "sha256": "695c83fa6e586521a5c09914c103210b3a5efc51a6c591bfb4213c7c0514337f"
+    }
+  ]
+}

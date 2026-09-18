@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "project_root",
+    "target_root",
+    "target_name",
+    "operation",
+    "authorization",
+    "history_review",
+    "change_paths",
+    "requirements",
+    "capabilities",
+    "expected_outputs",
+    "side_effects",
+    "inputs",
+    "known_issues"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "authoring-contract-v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operation": {
+      "enum": [
+        "create",
+        "edit",
+        "import",
+        "spec_build",
+        "adopt"
+      ]
+    },
+    "authorization": {
+      "type": "string",
+      "minLength": 1
+    },
+    "history_review": {
+      "type": "string",
+      "minLength": 1
+    },
+    "change_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1
+    },
+    "capabilities": {
+      "type": "array"
+    },
+    "expected_outputs": {
+      "type": "array"
+    },
+    "side_effects": {
+      "type": "array"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "known_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prior": {
+      "$ref": "#/$defs/reference"
+    },
+    "legacy_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retry_of": {
+      "$ref": "#/$defs/reference"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "activation": {},
+    "dependencies": {
+      "type": "array"
+    },
+    "operational_constraints": {
+      "type": "array"
+    },
+    "recovery": {}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

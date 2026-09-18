@@ -1,0 +1,15 @@
+{
+  "path": "C:\\Users\\bryan\\.codex\\config.toml",
+  "approved_sha256": "beb5cf499ca174940f8f5c91455e54b93d5c2a32f45e1837f5e134c0e10e99cd",
+  "approved_bytes": 27374,
+  "observed_sha256": "39d7a2d006e25cfe494cf349d124b18598542ac253a1f9a264fd75e89c7926ef",
+  "observed_bytes": 27430,
+  "only_added_section": {
+    "features.context_management": {
+      "experimental_mode": true
+    }
+  },
+  "exact_approved_bytes_reconstructed_in_memory": true,
+  "configuration_modified": false,
+  "approval": "PENDING_MATERIAL_SOURCE_REVIEW"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "standards-advisory-v1",
+  "authority": "NONE",
+  "excluded_boundaries": [],
+  "entrypoint_lines": 49,
+  "over_500_lines": false,
+  "reference_depths": {
+    "SKILL.md": 0,
+    "references/ui-specification.md": 1,
+    "references/technical-specification.md": 1,
+    "references/story-contract.md": 1,
+    "references/recommendations-and-gaps.md": 1,
+    "references/batch-and-dependencies.md": 1,
+    "assets/templates/session-record.md": 2,
+    "references/acceptance-criteria.md": 1,
+    "references/domain-patterns.md": 1,
+    "assets/templates/story-template.md": 1,
+    "references/intake-and-scope.md": 1,
+    "references/delivery-and-resume.md": 1,
+    "references/architecture-seeds.md": 1,
+    "references/adaptive-contract.md": 1
+  },
+  "cycles": [],
+  "limitations": [
+    "Advisory graph observations, not actual loads or semantic defects.",
+    "Depths are observed traversal distances; cycles have no finite maximum depth.",
+    "Token counts require the separately selected installed tokenizer."
+  ]
+}

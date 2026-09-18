@@ -1,0 +1,12 @@
+{
+  "required": 35,
+  "passing": 34,
+  "nonpasses": [
+    {
+      "case_id": "test_linux_design.DesignTests.test_silent_legacy_downgrade",
+      "result": "FAIL",
+      "detail": "Traceback (most recent call last):\n  File \"/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-builder/20260914T2131571597777Z/observations/linux-checks/test_linux_design.py\", line 131, in test_silent_legacy_downgrade\n    self.stage(); p=self.run/'origin.json'; value=json.loads(p.read_bytes()); value['design_capture_requested']=False; del value['design_capture_ref']; write(p,value); (self.run/'design-capture.json').unlink(); (self.run/'inputs/1').write_bytes(b'changed'); self.blocked()\n                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^\n  File \"/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-builder/20260914T2131571597777Z/observations/linux-checks/test_linux_design.py\", line 47, in blocked\n    self.assertIn(result['state'],['BLOCKED','PARTIAL'])\nAssertionError: 'AUTHORED' not found in ['BLOCKED', 'PARTIAL']\n"
+    }
+  ],
+  "line_coverage": "NOT_RUN on Linux; Windows measurement is separate"
+}

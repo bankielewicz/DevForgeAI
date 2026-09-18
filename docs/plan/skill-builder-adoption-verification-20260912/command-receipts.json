@@ -1,0 +1,69 @@
+{
+  "workspace": "C:/Projects/DevForgeAI",
+  "specification": "docs/plan/skill-builder-adoption-spec.md",
+  "specification_sha256": "beebc2b97b6719fafbd1500b63e41280ddd611a3978b7d3af9b2798b7a87f095",
+  "final_builder_manifest_sha256": "60522daaff9000367beacb7b5a6fb03cd90caeb93ac829bc13bba98c2d3b31a9",
+  "commands": [
+    {
+      "command": "python -B -X utf8 -m unittest discover -s src/agents/skills/skill-builder/tests -v",
+      "stage": "before source edits",
+      "exit_code": 0,
+      "tests": 112,
+      "seconds": 23.131,
+      "output_location": "conversation tool transcript; original source retained in builder-before"
+    },
+    {
+      "command": "python -B -X utf8 -m unittest discover -s src/agents/skills/skill-builder/tests -p test_adoption.py -v",
+      "stage": "legacy retry regression reproduction",
+      "exit_code": 1,
+      "tests": 28,
+      "failures": 1,
+      "output_location": "legacy-retry-red.txt"
+    },
+    {
+      "command": "python -B -X utf8 -m unittest discover -s src/agents/skills/skill-builder/tests -p test_adoption.py -v",
+      "stage": "legacy retry correction",
+      "exit_code": 0,
+      "tests": 28,
+      "output_location": "legacy-retry-green.txt"
+    },
+    {
+      "command": "python -B -X utf8 -m unittest discover -s src/agents/skills/skill-builder/tests -v",
+      "stage": "final bound package",
+      "exit_code": 0,
+      "tests": 140,
+      "seconds": 26.491,
+      "output_location": "regression-final-bound.txt"
+    },
+    {
+      "command": "python -B -X utf8 C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py src/agents/skills/skill-builder",
+      "stage": "final structural check",
+      "exit_code": 0,
+      "output_location": "structural-check-final.txt"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/skill-builder-adoption-verification-20260912/run-profile-checks.py --final",
+      "stage": "seven explicit profile suites",
+      "exit_code": 0,
+      "output_location": "profile-checks-final-output.txt",
+      "actual_runner_argument_arrays": "profile-checks-final-bound/*/command.json"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/skill-builder-adoption-verification-20260912/audit-profile-results.py",
+      "stage": "final evaluator readback",
+      "exit_code": 0,
+      "output_location": "profile-readback-audit.json"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/skill-builder-adoption-verification-20260912/audit-source.py",
+      "stage": "source preservation and manifest readback",
+      "exit_code": 0,
+      "output_location": "source-change-receipt.json"
+    }
+  ],
+  "independent_trial_commands": [
+    "../skill-builder-adoption-verification-20260912-independent-build-trials-final/commands.jsonl",
+    "../skill-builder-adoption-verification-20260912-independent-adoption-trial-final/",
+    "../skill-builder-adoption-verification-20260912-independent-failure-trials/"
+  ]
+}

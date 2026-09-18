@@ -1,0 +1,26 @@
+test_BAT02_link_rejection (__main__.AdaptiveTests) ... ok
+test_BAT03_capture_ceilings (__main__.AdaptiveTests) ... ok
+test_BAT03_evidence_gap_blocks_selection (__main__.AdaptiveTests) ... ok
+test_BAT03_required_capability (__main__.AdaptiveTests) ... ok
+test_BAT05_ordinary_parent_index_and_BAT16_readback (__main__.AdaptiveTests) ... ok
+test_BAT05_parent_full_dispositions_and_preservation (__main__.AdaptiveTests) ... ok
+test_BAT06_portability_identity_and_unbound (__main__.AdaptiveTests) ... ok
+test_BAT07_ambiguous_core_variants (__main__.AdaptiveTests) ... ok
+test_BAT07_malformed_descriptor_and_extra_package_files (__main__.AdaptiveTests) ... ok
+test_BAT07_runtime_binding_matrix (__main__.AdaptiveTests) ... ok
+test_BAT08_full_set_and_handoff_omissions (__main__.AdaptiveTests) ... ok
+test_BAT08_schema_paths_dates (__main__.AdaptiveTests) ... ok
+test_BAT08_strict_json (__main__.AdaptiveTests) ... ok
+test_BAT08_valid_and_closed_records (__main__.AdaptiveTests) ... ok
+test_BAT09_legacy_schema_bytes_preserved (__main__.AdaptiveTests) ... ok
+test_BAT10_independent_continuation_and_subset (__main__.AdaptiveTests) ... ok
+test_BAT11_cycle_missing_and_occupied (__main__.AdaptiveTests) ... ok
+test_BAT11_deterministic_order_and_aggregate (__main__.AdaptiveTests) ... ok
+test_BAT13_equivalent_parent_change_then_missing_requirement (__main__.AdaptiveTests) ... ok
+test_BAT15_excluded_file_and_usage (__main__.AdaptiveTests) ... ok
+test_BAT16_stale_locator_and_evidence (__main__.AdaptiveTests) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 27.042s
+
+OK

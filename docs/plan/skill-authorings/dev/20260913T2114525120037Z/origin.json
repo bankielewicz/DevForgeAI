@@ -1,0 +1,8 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "contract_sha256": "837c2a8aecd0d9a4ce9ee3a6b6d6d30a372d04bb424aa24a69cf4cf0437c8ed5"
+}

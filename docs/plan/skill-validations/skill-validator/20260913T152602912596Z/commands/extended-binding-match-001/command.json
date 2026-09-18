@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native-extended\\binding-match",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native-extended\\binding-match\\.trial-output\\final.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native-extended\\binding-match",
+  "started_at_utc": "2026-09-13T16:25:22.701858Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\extended-binding-match-001",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\extended-binding-match-001",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\extended-binding-match-001",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": "Use $bound-note at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native-extended\\binding-match\\.agents\\skills\\bound-note\\SKILL.md to complete its synthetic note task for this selected project. All inputs and bindings are read-only.",
+  "termination": "exited",
+  "pid": 100068,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T16:25:49.526686Z",
+  "elapsed_seconds": 26.813000000081956
+}

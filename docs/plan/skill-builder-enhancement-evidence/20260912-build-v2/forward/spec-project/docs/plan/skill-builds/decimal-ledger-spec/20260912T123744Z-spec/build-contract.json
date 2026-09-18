@@ -1,0 +1,258 @@
+{
+  "schema_version": "1",
+  "mode": "spec_build",
+  "target_name": "decimal-ledger-spec",
+  "inputs": [
+    {
+      "bytes": 2625,
+      "id": "selected-spec",
+      "path": "inputs/decimal-ledger-spec.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\decimal-ledger-spec.md",
+      "role": "spec",
+      "sha256": "9f096f495eaa7c3523538f6be7a2546acb129c2967451baa1b261a6ce5947e14"
+    }
+  ],
+  "authorization": {
+    "instruction": "Explicit independent forward trial: build from the selected approved specification in this disposable project; bounded local exercises authorized; no installation or writes outside project.",
+    "inputs": [
+      {
+        "id": "selected-spec",
+        "sha256": "9f096f495eaa7c3523538f6be7a2546acb129c2967451baa1b261a6ce5947e14"
+      }
+    ]
+  },
+  "purpose": "Summarize the amount column of a supplied local CSV using exact decimal arithmetic.",
+  "activation": {
+    "positive": [
+      "Total the amount column in this local CSV into a new JSON file."
+    ],
+    "excluded": [
+      "explanation alone",
+      "transaction categorization",
+      "network data retrieval",
+      "editing the original CSV"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "REQ-01",
+      "origin": "source",
+      "text": "REQ-01 Inputs: Accept an input CSV path and an output JSON path. Read CSV as UTF-8 with optional BOM and support ordinary quoted CSV fields. Require the amount column. Each row must have a nonempty, finite decimal amount with at most two decimal places. Negative amounts are valid.",
+      "source_refs": [
+        {
+          "input_id": "selected-spec",
+          "start_byte": 397,
+          "end_byte": 678,
+          "sha256": "a9715d46f934d37031aa4e807236eeee6eca945105c2d3e3723f2b8cf0faa78e"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py"
+      ],
+      "verification": [
+        {
+          "method": "bounded script exercises plus editorial readback",
+          "expected": "Execute BOM, quoted fields, negative amounts, missing header, empty/nonfinite/overprecision values."
+        }
+      ]
+    },
+    {
+      "id": "REQ-02",
+      "origin": "source",
+      "text": "REQ-02 Output: Write exactly an object with integer count (number of data rows) and string total (decimal sum formatted with exactly two places), with no extra fields. Empty CSV with the required header yields count 0 and total \"0.00\". Use decimal arithmetic; do not sum binary floats.",
+      "source_refs": [
+        {
+          "input_id": "selected-spec",
+          "start_byte": 680,
+          "end_byte": 965,
+          "sha256": "9f4a44d5f1b1d44736cca7e4afc6f81f08f0cbf1068e468e38eda08e986f0af2"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py",
+        "assets/result.schema.json"
+      ],
+      "verification": [
+        {
+          "method": "bounded script exercises plus editorial readback",
+          "expected": "Observe exact count/total fields and decimal result 2.65; header-only CSV gives 0 and 0.00; large decimal total remains exact."
+        }
+      ]
+    },
+    {
+      "id": "REQ-03",
+      "origin": "source",
+      "text": "REQ-03 Resource contract: Deliver SKILL.md, scripts/sum_amounts.py, assets/result.schema.json, and references/workers/result-review.md. The helper accepts required --input and --output arguments, exits 0 on success and 2 for invalid input, invalid arguments, or output conflicts, emits success JSON on stdout and diagnostics on stderr, and never overwrites an existing output. Document its actual invocation in SKILL.md. The JSON schema enforces the exact output fields/types and a two-place decimal total string.",
+      "source_refs": [
+        {
+          "input_id": "selected-spec",
+          "start_byte": 967,
+          "end_byte": 1480,
+          "sha256": "a6d53cac90c838bf8599fba4875a84d79cb50866ec2ee0486854e3e2d223ddff"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py",
+        "assets/result.schema.json",
+        "references/workers/result-review.md"
+      ],
+      "verification": [
+        {
+          "method": "bounded script exercises plus editorial readback",
+          "expected": "Structural checker and resource links pass; required args, success stdout, stderr diagnostics, exit 2 and no-overwrite cases executed; inspect schema."
+        }
+      ]
+    },
+    {
+      "id": "REQ-04",
+      "origin": "source",
+      "text": "REQ-04 Effects and recovery: Preserve input bytes; write only the explicitly selected new output file. No network calls or external packages. Reject missing amounts, NaN, infinity and precision beyond two decimal places. On invalid input or output conflict leave existing output bytes unchanged and report the reason. Do not install this skill or change runtime configuration.",
+      "source_refs": [
+        {
+          "input_id": "selected-spec",
+          "start_byte": 1482,
+          "end_byte": 1858,
+          "sha256": "f94150a45f6bcb2f2ed046ae5521474ce5e4a4250bad201d29185d9bc5b65d5b"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py"
+      ],
+      "verification": [
+        {
+          "method": "bounded script exercises plus editorial readback",
+          "expected": "Input raw-byte digests match before/after; invalid input and output conflicts preserve previous output; inspect standard-library-only helper."
+        }
+      ]
+    },
+    {
+      "id": "REQ-05",
+      "origin": "source",
+      "text": "REQ-05 Worker task: The result-review task checks actual produced JSON against the stated fields and verifies that the input digest is unchanged. It returns findings and the inspected input/output paths. It has no assigned write paths. It may be performed sequentially by the main agent; independent identity/isolation is not required. This task contract is advisory work organization and does not supply a framework gate or acceptance decision.",
+      "source_refs": [
+        {
+          "input_id": "selected-spec",
+          "start_byte": 1860,
+          "end_byte": 2305,
+          "sha256": "150d4e5e0a8736495e7361c07c86a6fe214232075f22ba8a832fdf36bfeefceb"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "references/workers/result-review.md"
+      ],
+      "verification": [
+        {
+          "method": "bounded script exercises plus editorial readback",
+          "expected": "Run sequential read-only result review against produced JSON and before/after original input digests."
+        }
+      ]
+    },
+    {
+      "id": "REQ-06",
+      "origin": "source",
+      "text": "REQ-06 Environment and dependencies: Python 3.10+ standard library only, Windows PowerShell terminal. No desktop, browser, hooks, registry, services, or other skills required by the generated skill's runtime. Frontmatter needs name and description only; no UI metadata or explicit-only invocation policy is requested.",
+      "source_refs": [
+        {
+          "input_id": "selected-spec",
+          "start_byte": 2307,
+          "end_byte": 2625,
+          "sha256": "efb5d1b80ae25f13f0ef1695b2acf477b0ad8cce966ed89ff35417d04c8673a3"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py"
+      ],
+      "verification": [
+        {
+          "method": "bounded script exercises plus editorial readback",
+          "expected": "Observe Python >=3.10 and PowerShell; inspect imports and frontmatter; no install or runtime config changes."
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "SKILL.md",
+      "role": "entrypoint",
+      "requirement_ids": [
+        "REQ-01",
+        "REQ-02",
+        "REQ-03",
+        "REQ-04",
+        "REQ-05",
+        "REQ-06"
+      ],
+      "purpose": "Select CSV-total tasks and route invocation/resources/review"
+    },
+    {
+      "path": "scripts/sum_amounts.py",
+      "role": "supporting script",
+      "requirement_ids": [
+        "REQ-01",
+        "REQ-02",
+        "REQ-03",
+        "REQ-04",
+        "REQ-06"
+      ],
+      "purpose": "Exact decimal CSV sum and exclusive JSON creation"
+    },
+    {
+      "path": "assets/result.schema.json",
+      "role": "schema",
+      "requirement_ids": [
+        "REQ-02",
+        "REQ-03"
+      ],
+      "purpose": "Exact count and two-place total output contract"
+    },
+    {
+      "path": "references/workers/result-review.md",
+      "role": "reference",
+      "requirement_ids": [
+        "REQ-03",
+        "REQ-05"
+      ],
+      "purpose": "Advisory read-only output and input-preservation review"
+    }
+  ],
+  "workers": [
+    {
+      "role": "result-review",
+      "requirement_ids": [
+        "REQ-05"
+      ],
+      "inputs": [
+        "actual produced JSON path",
+        "original input path and pre-run SHA-256"
+      ],
+      "output": "findings and inspected paths with observed input digest comparison",
+      "assigned_write_paths": [],
+      "tools": [
+        "Python standard library or PowerShell read-only terminal"
+      ],
+      "independent_execution": "optional; sequential main-agent execution explicitly allowed",
+      "isolation": "none required",
+      "failure_behavior": "Report mismatch or missing evidence; no repair or acceptance decision"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "Python",
+      "requirement": "3.10+ standard library only",
+      "availability": "3.10.11",
+      "digest_verification": "Runtime identity observed; binary digest qualification not claimed"
+    },
+    {
+      "name": "Windows PowerShell terminal",
+      "requirement": "terminal execution",
+      "availability": "PowerShell 7.6.6 on Windows, observed",
+      "digest_verification": "Not required by source contract"
+    }
+  ]
+}

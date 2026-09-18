@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\B01\\project space café & (local)\\.agents\\skills\\core-note\\scripts\\check_project_binding.py",
+    "--project-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\B01\\project space café & (local)",
+    "--skill-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\B01\\project space café & (local)\\.agents\\skills\\core-note"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-13T15:50:52.252160Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\B01",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\B01",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\B01",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 55552,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T15:50:52.486666Z",
+  "elapsed_seconds": 0.23499999998603016
+}

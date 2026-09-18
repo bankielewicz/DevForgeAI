@@ -1,0 +1,313 @@
+{
+  "cases": [
+    {
+      "id": "Q-01",
+      "criterion": "DS-001",
+      "title": "Architecture and deliverables",
+      "category": "review",
+      "platforms": "all",
+      "procedure": "Review Cargo manifest, bins, imports and runtime dependency resolution; inspect CLI/tray call paths and database opens. Compare grammar-manifest entries, shipped query bytes and licenses to Cargo.lock. Inspect packaged release directory on each native host.",
+      "oracle": "Three binaries on Windows, CLI/daemon on Linux, shared Rust client/protocol/index/platform ownership; daemon sole writer and CLI/tray never directly open SQLite. No Python, browser runtime, network listener/upload, operational skill or source mutation; bundled/pinned grammars and query versions.",
+      "gap": "Package dependency and binary correspondence audit remains pending.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-02",
+      "criterion": "DS-002",
+      "title": "Capture-to-publication ownership",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Create an independently specified multibyte fixture, capture then change the live file before extraction; inspect published record and snapshot through a Rust QA reader. Run concurrent publication/readers in disposable state.",
+      "oracle": "Hash, length, parse ranges and text derive from the same captured bytes; only daemon writes application database; readers observe published state or typed management jobs.",
+      "gap": "Requires independent QA orchestration and verified source-to-build mapping.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-03",
+      "criterion": "DS-003",
+      "title": "Native platform qualification",
+      "category": "native",
+      "platforms": "all",
+      "procedure": "Record native OS/release/architecture, binary hashes and source manifest on Windows 11, standalone Ubuntu 26.04.1, and Ubuntu 24.04 WSL2. Run applicable full suites separately. Inspect artifacts without installing.",
+      "oracle": "Separate native builds and results; no WSL substitution for standalone Linux, no Windows build for Linux qualification; unsupported targets remain deferred.",
+      "gap": "Standalone host/evidence selection and WSL native path/user/release verification needed.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-04",
+      "criterion": "DS-004",
+      "title": "Peer isolation and instance locking",
+      "category": "native",
+      "platforms": "all",
+      "procedure": "Start two owned clients concurrently; attempt local handshake as authorized alternate OS principal and malformed/remote peer. Inspect Windows DACL, remote-pipe rejection, Linux 0700 runtime/0600 socket and peer UID. Exercise XDG fallback, stale PID and conflicting authenticated instance.",
+      "oracle": "Exactly one daemon owner per user/environment; unauthorized peers denied before effects. Stale PID never sufficient to kill a process; no TCP listener or cross-environment DB.",
+      "gap": "Alternate-principal fixture and permissions not supplied; no user-account creation authorized.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-05",
+      "criterion": "DS-005",
+      "title": "WSL argument-vector bridge",
+      "category": "native",
+      "platforms": "windows+wsl",
+      "procedure": "Bind real installed WSL distribution, user, absolute CLI and source/build hashes. Register synthetic alias; send valid and invalid known operations and quote/metacharacter-bearing arguments via bridge stdin. Capture stdout/stderr, child argument vectors and Linux state.",
+      "oracle": "One unframed bounded JSON request/response, no banner/prompts or arbitrary shell/source writes; owning Linux user and DB only; bridge validates same protocol. Missing CLI has typed error.",
+      "gap": "Distribution Ubuntu exists but is stopped; user, fixture path and Ubuntu release not currently verified.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-06",
+      "criterion": "DS-006",
+      "title": "WSL polling and lifetime",
+      "category": "native",
+      "platforms": "windows+wsl",
+      "procedure": "On an explicitly selected installed-stopped test distribution, observe inventory before and after >30 seconds of hidden-window polling and >5 seconds visible polling; verify no Linux invocation. Explicitly Start, Stop only owned daemon, and observe unrelated process survival. Exercise failed probes/backoff and simultaneous polls.",
+      "oracle": "No intentional wake by polling; second inventory check precedes invocation; race acknowledged. Explicit Start may wake, Stop never shuts down WSL. One poll per environment; visible 5s, hidden/backoff 30s.",
+      "gap": "Requires explicit lifecycle test effects and prepared stopped distribution; absent-distribution developer test is not this oracle.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-07",
+      "criterion": "DS-007",
+      "title": "Native roots and traversal",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Create sibling/overlapping roots, case variants under actual filesystem semantics, directory symlinks/junctions, inside/outside regular links, escape paths, UNC and WSL /mnt/drive roots. Try registration and capture including root without Git; include non-UTF8 Linux name.",
+      "oracle": "Duplicate/overlap/escape and unsupported roots rejected; no directory-link traversal; outside regular links excluded; non-UTF8 paths skipped with reason. No silent environment translation.",
+      "gap": "Native links/permissions and WSL root fixtures require scoped effects; existing Unix link test does not prove Windows reparse behavior.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-08",
+      "criterion": "DS-008",
+      "title": "State and accounting",
+      "category": "acceptance",
+      "platforms": "all",
+      "procedure": "Observe all lifecycle/index/job dimensions before first scan, midscan, paused, idle with dirty source, partial extraction and missing root. Compare counters to independent fixture ledger.",
+      "oracle": "Daemon/indexing/activity/coverage distinct; idle never implies complete/current. Complete only after successful reconciliation of eligible files; structural/text/excluded/skipped/error counts remain separate.",
+      "gap": "Construct complete state/counter fixtures; existing single-file status assertions cover only subsets.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-09",
+      "criterion": "DS-009",
+      "title": "Start/run semantics",
+      "category": "native",
+      "platforms": "all",
+      "procedure": "Run foreground host then ordinary termination; separately launch detached Start twice concurrently, Start while paused, restart paused state and Start already running. Collect PID/lock/handshake timelines and Windows console behavior.",
+      "oracle": "One owner; 10s default handshake deadline; already_running accurate; paused persisted; new environment active; Windows detached child has no visible console or held CLI pipe.",
+      "gap": "Native terminal session and owned process capture needed; default startup settings untouched.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-10",
+      "criterion": "DS-010",
+      "title": "Pause/resume boundary",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Pause during actual multi-file scan while querying existing generation; wait for paused then verify writer inactivity. Make many fixture edits while paused, repeat Pause/Resume, and inspect resume reconciliation and dirty sequence.",
+      "oracle": "New scheduling stops immediately; paused only after writer quiescence; bounded dirty markers, IPC readable; full eligible-file reconciliation before caught-up; no duplicate work for already-active Resume.",
+      "gap": "Independent file-boundary/writer observation required; developer sleep-based tests do not prove all races.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-11",
+      "criterion": "DS-011",
+      "title": "Stop, crash and uncertainty",
+      "category": "native",
+      "platforms": "all",
+      "procedure": "Stop during queued/running work; observe commits, endpoint and PID for 10s. Create controlled delayed stop to observe TIMEOUT without auto-kill; inspect state before next action. Restart after graceful stop and separately authorized process interruption.",
+      "oracle": "Pending work cancelled; unpublished transaction rolled back; published data preserved; clean cancellations distinct from interrupted jobs; stopped target succeeds already_stopped. Timeout means uncertain continued stop.",
+      "gap": "Delayed-stop/crash fixture and explicit owned-process interruption effects must be bound; no automatic retry.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-12",
+      "criterion": "DS-012",
+      "title": "Job semantics and retention",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Submit rescan/reindex concurrently, cancel queued/running/succeeded/cancelled jobs, scan same-content changed-mtime files then changed-content same-mtime files. Force extraction versus storage/scan failure; inspect 7-day expiry with controlled QA time/state fixture.",
+      "oracle": "Immediate opaque job IDs; one indexing job per project; JOB_CONFLICT existing ID; background coalescing, idempotent cancel, success unchanged, terminal records expire after 7 days. Rescan hash reuse; reindex parses all atomically; file gaps partial, job storage/scan failure no publish.",
+      "gap": "Clock/expiry injection mechanism must be reviewed in disposable test code; no system clock changes.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-13",
+      "criterion": "DS-013",
+      "title": "Project registration/update/removal",
+      "category": "acceptance",
+      "platforms": "all",
+      "procedure": "Add synthetic roots, update each typed setting, attempt unknown config, inspect opaque IDs/timestamps. Remove with/without --yes and via named UI cache-confirmation; hash source before/after. Unregister a WSL alias with daemon running.",
+      "oracle": "Canonical roots and independent IDs; no indexed-root config writes; removal cancels jobs and deletes only cache/registration; UI names target and effect; CLI requires --yes; alias removal does not stop/delete projects.",
+      "gap": "Native dialog and mixed-environment fixture still needed; source manifest is independent oracle.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-14",
+      "criterion": "DS-014",
+      "title": "Eligibility and byte encoding",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Build ledger for .gitignore and .git/info/exclude, synthetic global-ignore rule, all mandatory exclusions, every configurable build default, sensitive patterns, hidden files, all listed extensions/names, untracked files. Test 1KiB/5MiB/50MiB boundaries, UTF8/BOM, binary/UTF16 and invalid bytes.",
+      "oracle": "Exact inclusion/reason/counters from DS-014 clauses; global Git ignore not used; immutable BOM byte coordinates, no transcoding; mandatory exclusions not overrideable; oversized skipped.",
+      "gap": "Do not change real global Git config; use a disposable user/config environment after verifying isolation.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-15",
+      "criterion": "DS-015",
+      "title": "Language extraction and documentation",
+      "category": "unit+integration",
+      "platforms": "all",
+      "procedure": "Independently author byte-exact golden fixtures for every structural extension, named kinds, imports/calls, nested/anonymous declarations and signatures. Include multibyte/BOM offsets, headers/adjacent/internal comments, Python docstrings, ERROR/MISSING with unaffected captures.",
+      "oracle": "Exact captures/ranges/parent and association kinds, no header misattachment or invented summaries; anonymous outline without named identity; partial parse status, syntactic-only resolution. Compare to manually specified ranges, never parser output reused as expectation.",
+      "gap": "Current assertions often test substring containment; missing extension/kind/range cases need independent fixtures and capability review.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-16",
+      "criterion": "DS-016",
+      "title": "Watcher/reconciliation races",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Record 500ms debounce with monotonic clock; exercise full 5-minute reconciliation, restart/resume/config triggers, overflow/failure, atomic save, delete/rename, permission loss and unavailable root. Inject edit during reconciliation and unstable capture across initial attempt plus at most two retries.",
+      "oracle": "Hash-driven convergence, no deleted-symbol orphans, newer dirty marker retained; bounded event memory; captured bytes and hash consistent; unstable source leaves dirty with reason; changing filesystem not claimed atomic.",
+      "gap": "Deterministic event/capture scheduling fixture and native watcher overflow procedure unresolved; no guessed timing acceptance margin.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-17",
+      "criterion": "DS-017",
+      "title": "Resource bounds",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Record worker/coordinator concurrency and admitted source queue bytes under large/slow files; cancel during parser work. Separate queue accounting from current file/parser allocation, record per-file duration and progress. Run benchmark case Q-BEN separately.",
+      "oracle": "Default two parse workers and one coordinator; cooperative 2s parse budget, timed-out file partial and work continues; queued captured bytes <=64MiB excluding stated allocations; cancellation checked at files/parser callbacks.",
+      "gap": "Need observable queue/parser instrumentation in independent disposable fixture; cannot infer allocation bound from process RSS alone.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-18",
+      "criterion": "DS-018",
+      "title": "Storage and schema recovery",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Inspect default/override data paths and ownership, FTS5 and single-writer behavior; reject indexed-root/shared-mount storage. Create disposable older/current/newer schema and corrupt DB; compare bytes/metadata backups before/after open and migration.",
+      "oracle": "Private native local storage, no cross-env DB; metadata backup before migration; unsupported newer schema refused without destructive downgrade; FTS5 available.",
+      "gap": "Migration fixture/schema support must be derived from inspected current storage code, not invented versions.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-19",
+      "criterion": "DS-019",
+      "title": "Generation consistency and GC",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Publish three generations with distinct hand-authored snapshots; hold a real read transaction across publication/GC; read current and preceding generations plus old record versions. Cancel/fail staged reindex and interrupt during publication at controlled points.",
+      "oracle": "Atomic pointer, no mixed generation IDs; current/previous retained with snapshots; active reader survives GC; old version provenance retained; failed/cancelled publication preserves prior pointer and bytes.",
+      "gap": "Direct read-only Rust QA Store/SQLite inspection permitted as oracle, never a new product CLI DB path; crash-boundary trigger still needed.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-20",
+      "criterion": "DS-020",
+      "title": "Coverage/freshness diagnostics",
+      "category": "acceptance",
+      "platforms": "all",
+      "procedure": "Reconcile a known eligibility ledger including parse timeout, unavailable root, unsupported extension and watcher/storage failures. Observe before/after edits, partial success and recovery; compare fields and timestamps.",
+      "oracle": "All DS-020 counts, jobs, generation and reconciliation time present; current/dirty/unknown with observation timestamp and coverage; gaps never complete.",
+      "gap": "Fixture ledger and exact counter convention must be compared to all DS-014 rules; not inferred from status output itself.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-21",
+      "criterion": "DS-021",
+      "title": "Logs and corrupt rebuild",
+      "category": "integration",
+      "platforms": "all",
+      "procedure": "Use synthetic source/query markers, inspect default logs and >10MiB rotation boundary with five-file retention. Corrupt only owned DB; call status/diagnostics, preview rebuild across two projects, reject mismatched confirmation then explicitly rebuild. Compare corrupt bytes in quarantine and recover registrations.",
+      "oracle": "Operation IDs/durations/counts/codes, no default source/query contents; bounded diagnostics, degraded status available, quarantine preserved and exact affected projects confirmed, no arbitrary deletion path.",
+      "gap": "Log generation fixture and rebuild effects pending; no modification of current user state or preexisting evidence.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-22",
+      "criterion": "DS-022",
+      "title": "Protocol and retry boundaries",
+      "category": "unit+integration",
+      "platforms": "all",
+      "procedure": "Exercise raw framed transport and bridge with 0/limit/limit+1/truncated payloads, invalid UTF8/JSON, UUID/version/operation/params/budget boundaries. Reuse request ID identical then changed payload before/after restart and at 24h expiry; timeout after accepted mutation then observe without replay.",
+      "oracle": "4-byte big-endian, request <=1MiB/response <=8MiB, one message pair; typed validation, version rejection before effect, all response fields/null rules; 100..120000ms/default10000 both service and end-to-end enforced; durable idempotent replay/conflict and unknown outcome retained.",
+      "gap": "Raw transport/clock fixtures to author; existing framing test uses size 3/4 not full-size allocation boundary.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-23",
+      "criterion": "DS-023",
+      "title": "Management CLI completeness",
+      "category": "acceptance",
+      "platforms": "all",
+      "procedure": "Enumerate every DS-023 command, global flag, config schema and internal operation; inspect parser plus native outputs. Run add/list/update/remove, rescan/reindex --wait and paused queue, job status/cancel, rebuild preview and exact list. Use literal spaces/Unicode/metacharacters in native shell arguments.",
+      "oracle": "Shared registry including handshake/reconcile/rebuild; explicit project IDs; one schema/examples set; immediate job ID versus --wait; wait timeout never cancels; no hidden Resume. Lifecycle controls independent of companion query implementation.",
+      "gap": "Independent command matrix to bind at execute; IDs are values obtained from receipts, not fixed source constants.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-24",
+      "criterion": "DS-024",
+      "title": "JSON, errors and exit codes",
+      "category": "unit+native",
+      "platforms": "all",
+      "procedure": "Capture stdout/stderr and OS exit for every DS-024 category and successful no-op, malformed CLI, stopped status and stopped request. Validate JSON strictly as exactly one complete envelope, no prompts, and run both PowerShell/POSIX argument cases.",
+      "oracle": "Exact exits 0,2..11; error data null and success error null; diagnostics stderr; job status failed outcome exit0 versus waited failure exit11; stopped daemon status exit0 vs unavailable operation exit3.",
+      "gap": "Full emitted error matrix and deadline fixtures still required; schema serialization tests alone insufficient.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-25",
+      "criterion": "DS-025",
+      "title": "Native tray interactions",
+      "category": "native+visual",
+      "platforms": "windows",
+      "procedure": "Capture screenshots/actions for tray/tooltips and compact window in disconnected/active/paused/error states; attempt second instance; exercise environment/project selection and all controls, root picker/WSL text, repeated clicks, slow IPC and inapplicable actions.",
+      "oracle": "One tray/session, text distinguishes state, required status fields/coverage/jobs/errors; shared async client and responsive UI; explanatory disabled controls, no premature success/duplicate jobs, correct native folder versus WSL entry.",
+      "gap": "Visible Windows session and explicit GUI test effects needed; existing native smoke does not establish full visual/menu/multi-env behavior.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "Q-26",
+      "criterion": "DS-026",
+      "title": "Startup, settings and exit",
+      "category": "native",
+      "platforms": "all",
+      "procedure": "In an explicitly authorized disposable account/VM snapshot original startup state; inspect both defaults, run tray settings show/set while daemon unavailable, toggle opt-ins and read back registry/settings. Verify exit alone and selected stop-and-exit including timeout choice. On Linux inspect/run optional user unit under one supervisor and explicitly Stop.",
+      "oracle": "Both settings default off; only per-user tray entry, no elevation/WSL wake; separate daemon-start setting; exit keeps all daemons, stop-and-exit only selected target after confirmation/choice. Unit foreground Restart=on-failure, clean Stop not restarted; no linger/WSL config changes.",
+      "gap": "Startup mutation/systemd installation are separate explicit authorizations, not included in generic test permission; qualified disposable host/user and restoration observation required.",
+      "status": "NOT_RUN"
+    }
+  ],
+  "additional_cases": [
+    {
+      "id": "Q-BEN",
+      "status": "NOT_RUN",
+      "procedure": "test-plan.md corresponding titled case"
+    },
+    {
+      "id": "Q-POL",
+      "status": "NOT_RUN",
+      "procedure": "test-plan.md corresponding titled case"
+    },
+    {
+      "id": "Q-DEL",
+      "status": "NOT_RUN",
+      "procedure": "test-plan.md corresponding titled case"
+    },
+    {
+      "id": "Q-MET",
+      "status": "NOT_RUN",
+      "procedure": "test-plan.md corresponding titled case"
+    }
+  ]
+}
+

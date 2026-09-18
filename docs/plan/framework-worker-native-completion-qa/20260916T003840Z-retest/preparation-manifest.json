@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "phase": "prepared-awaiting-frozen-candidate",
+  "evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260916T003840Z-retest",
+  "product_commands_run": 0,
+  "native_trial_attempts_consumed": 0,
+  "entries": [
+    {"path":"case-matrix.json","bytes":11575,"sha256":"5375b72c117fd46ac4fde1759f5600b8cb8444813c3e6e27c82decea552d4a60"},
+    {"path":"checkpoint.json","bytes":1299,"sha256":"3962bbc2999515e3dfa908ef18cb18558d4be37b7928d0a8e4a5206b52679902"},
+    {"path":"context.md","bytes":3953,"sha256":"330d8bc7f96de95d9ac9f802105821e018d6feef692163b4f1de936f07e454ba"},
+    {"path":"coverage_analysis.py","bytes":5962,"sha256":"d745bab28ad2a42445583604275385c6947a8ab4d60fd35731f39c34f2574cc1"},
+    {"path":"focused_f02.py","bytes":6586,"sha256":"6413ae3afc78426c5d29fe5436ba4c3c39ac75ba98c1f313ba87d8335c9bf6df"},
+    {"path":"freeze_audit.py","bytes":5369,"sha256":"c6853751d2242cc29141a867c9279aac9a81760398b735f25bac726026ecbc19"},
+    {"path":"helper-integrity.md","bytes":3241,"sha256":"8cc5c979bb32508dc79dca314bc9fb6f7e5aa6f09ca815d5b1edd5a46008dfde"},
+    {"path":"independent_policy_oracle.py","bytes":4813,"sha256":"1112cce2b231f1f5a68dfdc79264d26330d3f97ae9f23caa797f8b68b7eff59e"},
+    {"path":"initial-environment.json","bytes":869,"sha256":"5a0a2bdfbb19227017757321460d2ec52b0b0e25fa03014e30c408574bcc6984"},
+    {"path":"input-bindings.json","bytes":3082,"sha256":"816c388e53a82830a3074d05a296aca6b1fb1386e423c813ed5f971cb68e49f9"},
+    {"path":"integrity_locators.py","bytes":4246,"sha256":"0437982a33d1d0fd3ab558df9b083b5667f25c5cb667e94cbacb7483f77e808b"},
+    {"path":"qa-plan.md","bytes":11785,"sha256":"0996547718052ad1acaa251411ab9280f90142d7340c1ba55f1250ce06f26514"},
+    {"path":"record.py","bytes":11232,"sha256":"ed57083e9bad6eb5bf4f29c483e72909c5084cc5bd4208739712c77813429f13"},
+    {"path":"seal_manifest.py","bytes":2252,"sha256":"755714ce559f2deebd04d6b450ce7748bdf0fec5de87d2916cf321b5c093dbcf"}
+  ],
+  "next_safe_action": "Verify the developer-frozen corrected manifest/snapshot/handoff, then finalize denominators and integrity review before any product command."
+}

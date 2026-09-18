@@ -1,0 +1,27 @@
+{
+  "prior_origin": {
+    "kind": "legacy_generated",
+    "reference": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\build-provenance.json",
+      "sha256": "3db8ff6dba99cc891891214be7389c164632237b6bd4c4c6191f51026969cd38"
+    }
+  },
+  "baseline": {
+    "SKILL.md": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c",
+    "assets/enforcement-register-template.md": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c",
+    "assets/origin-spec-template.md": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902",
+    "assets/revision-spec-template.md": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e",
+    "assets/rules-snapshot.json": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
+    "assets/validation-report-template.md": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab",
+    "evals/README.md": "9c1f946bf568f9d3f6695c8226b29ea20a1ce3fc7c3967d6423f8c7556d9330e",
+    "evals/cases.jsonl": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a",
+    "references/handoff.md": "d923cebb61067278bdd19808f6063df15c81425d58afdc1f2b6c805755620a91",
+    "references/origin.md": "992fdad9cd83c49c13ade01178f24b66d958b2c07b3030a26395c3d667057e0f",
+    "references/reporting.md": "c0e423a468385a4d220610ffd33f1b8e4fd5ac53e82755f63dae1794a393bd22",
+    "references/rules.md": "113ed216ad8ce3f281c5b32f4443fa64a85ad2475f742142581aa266748a090a",
+    "references/trials.md": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0",
+    "scripts/observe.py": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f",
+    "tests/test_observe.py": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef"
+  },
+  "contract_sha256": "333af8ef89654fc8eb3605d87b56472d4132b7ee567a419c1f95bd808ba98b3f"
+}

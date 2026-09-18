@@ -1,0 +1,12 @@
+{
+  "pid": 66048,
+  "start_utc": "2026-09-16T20:28:01.540651+00:00",
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\target\\debug\\devforgeai-codex-worker-probe.exe",
+    "profile-sources",
+    "--checkout-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T202125Z-diagnostic\\fixture"
+  ],
+  "ownership": "live subprocess handle",
+  "window": "inherited terminal"
+}

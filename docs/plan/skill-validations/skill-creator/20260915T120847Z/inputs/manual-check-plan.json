@@ -1,0 +1,20 @@
+{
+  "cases": [
+    {
+      "id": "UI-LENGTH",
+      "source": "source/references/openai_yaml.md",
+      "expected": "Present short_description meets documented 25..64 character constraint",
+      "method": "independent YAML parse and Unicode length"
+    },
+    {
+      "id": "CONTEXT",
+      "expected": "all source text counted without truncation; binary excluded from text counts but inventoried"
+    },
+    {
+      "id": "NAME-LIMIT",
+      "expected": "documented bound and helper behavior agree",
+      "method": "semantic review plus helper boundary case"
+    }
+  ],
+  "expected_before_execution": true
+}

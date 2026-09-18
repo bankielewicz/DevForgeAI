@@ -1,0 +1,62 @@
+{
+  "mode": "plan",
+  "product_qa": "NOT_EXECUTED",
+  "items": [
+    {
+      "id": "E-01",
+      "classification": "execution selection",
+      "owner": "user/QA",
+      "affected": "all",
+      "detail": "Later concrete execute invocation and exact allowed effects remain required; current invocation prepares a plan."
+    },
+    {
+      "id": "E-02",
+      "classification": "platform identity prerequisite",
+      "owner": "platform owner/QA",
+      "affected": "Q-03,Q-05,Q-06 and Linux/WSL cases",
+      "detail": "SSH verified Ubuntu26.04.1 x64 at me@192.168.245.128, /home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai; Rust/Cargo1.93.1 and cargo-llvm-cov0.9.1. All48 application source files and AGENTS.md match; remote specification hash differs. See ssh-discovery.json. Remote build correspondence and collector isolation remain pending. WSL release/user/native fixture remains unverified."
+    },
+    {
+      "id": "E-03",
+      "classification": "native effect prerequisite",
+      "owner": "user/platform owner",
+      "affected": "Q-04,Q-11,Q-25,Q-26",
+      "detail": "Bind alternate-principal fixtures, native GUI access, deliberate owned-process crash and separate startup/systemd settings effects/restoration."
+    },
+    {
+      "id": "E-04",
+      "classification": "QA preparation prerequisite",
+      "owner": "QA",
+      "affected": "all",
+      "detail": "Complete independently specified fixture/subcase map, required unit inventory, timing/expiry/overflow mechanisms, exact native collector commands and source/build correspondence."
+    },
+    {
+      "id": "E-05",
+      "classification": "inspection/evidence gap",
+      "owner": "QA",
+      "affected": "Q-POL,Q-MET and all integrity claims",
+      "detail": "Full syntax/alias/first-party integrity audit and historical TDD evidence validity remain incomplete."
+    },
+    {
+      "id": "OBS-01",
+      "classification": "confirmed planning observation, not product failure",
+      "owner": "QA",
+      "affected": "test accounting",
+      "detail": "devforgeai/tests/harness.rs asserts only size_of::<u32>() == 4; count as setup, no product credit. Benchmark fixture test is setup too."
+    },
+    {
+      "id": "OBS-02",
+      "classification": "confirmed planning observation, not product failure",
+      "owner": "QA",
+      "affected": "DS-A06,Q-06",
+      "detail": "WSL stopped-distribution test uses deliberately absent distribution and is ignored by default. Cannot establish installed-stopped no-wake behavior."
+    },
+    {
+      "id": "OBS-03",
+      "classification": "developer-reported prior gaps, not fresh QA finding",
+      "owner": "QA",
+      "affected": "Q-MET",
+      "detail": "Delivery/platform reports contain historical subthreshold coverage and missing cases; no result admitted as candidate-bound current evidence."
+    }
+  ]
+}

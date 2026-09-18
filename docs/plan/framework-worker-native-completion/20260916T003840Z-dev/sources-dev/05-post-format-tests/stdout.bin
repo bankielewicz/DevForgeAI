@@ -1,0 +1,13 @@
+
+running 8 tests
+test profile_sources::edges::closed_inventory_shape_rejects_invalid_state_tuples_and_version ... ok
+test profile_sources::edges::collector_enforces_entry_and_aggregate_byte_bounds ... ok
+test profile_sources::edges::credential_like_and_non_unicode_names_fail_closed ... ok
+test profile_sources::edges::directory_member_bound_and_required_file_type_are_enforced ... ok
+test profile_sources::edges::hash_size_drift_and_non_absolute_paths_fail_closed ... ok
+test profile_sources::edges::missing_paths_are_explicit_and_directory_order_is_stable ... ok
+test profile_sources::edges::plugin_tree_grammar_rejects_unknown_members_and_indexes_controls ... ok
+test profile_sources::edges::rule_and_ancestor_depth_bounds_fail_closed ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 20 filtered out; finished in 0.33s
+

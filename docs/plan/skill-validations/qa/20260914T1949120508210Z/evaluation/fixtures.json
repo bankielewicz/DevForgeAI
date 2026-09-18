@@ -1,0 +1,408 @@
+[
+  {
+    "id": "CTRL-test_boundary_below",
+    "function": "metric",
+    "args": [
+      9499,
+      10000
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_boundary_exact",
+    "function": "metric",
+    "args": [
+      9500,
+      10000
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_stricter_policy",
+    "function": "metric",
+    "args": [
+      97,
+      100
+    ],
+    "kwargs": {
+      "floor": 98
+    },
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_partial_not_failure",
+    "function": "metric",
+    "args": [
+      1,
+      100
+    ],
+    "kwargs": {
+      "complete": false
+    },
+    "expected": "NOT_RUN"
+  },
+  {
+    "id": "CTRL-test_missing_denominator",
+    "function": "metric",
+    "args": [
+      0,
+      0
+    ],
+    "kwargs": {},
+    "expected": "NOT_RUN"
+  },
+  {
+    "id": "CTRL-test_crashed_collector",
+    "function": "metric",
+    "args": [
+      99,
+      100
+    ],
+    "kwargs": {
+      "collector_ok": false
+    },
+    "expected": "NOT_RUN"
+  },
+  {
+    "id": "CTRL-test_launch_after_terminal",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "plan_readback",
+        "terminal_stop",
+        "test_launch"
+      ]
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_launch_before_plan",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "test_launch",
+        "plan_readback",
+        "finished"
+      ]
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_normal_run",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "plan_readback",
+        "test_launch",
+        "finished"
+      ],
+      true
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_ordinary_defect_continues",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "plan_readback",
+        "ordinary_defect",
+        "test_launch",
+        "finished"
+      ],
+      true
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_static_stop",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "terminal_stop",
+        "report",
+        "finished"
+      ]
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_missing_required_launch",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "plan_readback",
+        "finished"
+      ],
+      true
+    ],
+    "kwargs": {},
+    "expected": "NOT_RUN"
+  },
+  {
+    "id": "CTRL-test_partial_trace",
+    "function": "ordered_trace",
+    "args": [
+      [
+        "plan_readback",
+        "test_launch"
+      ],
+      true
+    ],
+    "kwargs": {},
+    "expected": "NOT_RUN"
+  },
+  {
+    "id": "CTRL-test_failure_precedes_gap",
+    "function": "reduce_cases",
+    "args": [
+      [
+        [
+          "A",
+          "FAIL"
+        ],
+        [
+          "B",
+          "NOT_RUN"
+        ]
+      ]
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_gap_prevents_pass",
+    "function": "reduce_cases",
+    "args": [
+      [
+        [
+          "A",
+          "PASS"
+        ],
+        [
+          "B",
+          "ERROR"
+        ]
+      ]
+    ],
+    "kwargs": {},
+    "expected": "INCOMPLETE"
+  },
+  {
+    "id": "CTRL-test_duplicate_cannot_inflate",
+    "function": "reduce_cases",
+    "args": [
+      [
+        [
+          "A",
+          "PASS"
+        ],
+        [
+          "A",
+          "PASS"
+        ]
+      ]
+    ],
+    "kwargs": {},
+    "expected": "ERROR"
+  },
+  {
+    "id": "CTRL-test_empty_not_passing",
+    "function": "reduce_cases",
+    "args": [
+      []
+    ],
+    "kwargs": {},
+    "expected": "INCOMPLETE"
+  },
+  {
+    "id": "CTRL-test_all_pass",
+    "function": "reduce_cases",
+    "args": [
+      [
+        [
+          "A",
+          "PASS"
+        ],
+        [
+          "B",
+          "PASS"
+        ]
+      ]
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_invalid_result",
+    "function": "reduce_cases",
+    "args": [
+      [
+        [
+          "A",
+          "SKIP_AS_PASS"
+        ]
+      ]
+    ],
+    "kwargs": {},
+    "expected": "ERROR"
+  },
+  {
+    "id": "CTRL-test_plan_is_nonverdict",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "plan",
+        "execution": "NOT_STARTED",
+        "verdict": "NOT_EVALUATED",
+        "owner": "user",
+        "fix": false,
+        "remaining": [
+          "A"
+        ]
+      }
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_plan_cannot_pass",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "plan",
+        "execution": "NOT_STARTED",
+        "verdict": "PASS",
+        "owner": "user",
+        "fix": false,
+        "remaining": []
+      }
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_static_fail_has_fix_owner",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "run",
+        "execution": "NOT_STARTED",
+        "verdict": "FAIL",
+        "owner": "dev",
+        "fix": true,
+        "remaining": [
+          "A"
+        ]
+      }
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_qa_cannot_own_repair",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "run",
+        "execution": "STOPPED",
+        "verdict": "FAIL",
+        "owner": "qa",
+        "fix": true,
+        "remaining": [
+          "A"
+        ]
+      }
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_gap_not_invented_fix",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "run",
+        "execution": "COMPLETED",
+        "verdict": "INCOMPLETE",
+        "owner": "environment",
+        "fix": false,
+        "remaining": [
+          "A"
+        ]
+      }
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_unperformed_prevents_pass",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "run",
+        "execution": "COMPLETED",
+        "verdict": "PASS",
+        "owner": "reviewer",
+        "fix": false,
+        "remaining": [
+          "A"
+        ]
+      }
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_complete_pass",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "run",
+        "execution": "COMPLETED",
+        "verdict": "PASS",
+        "owner": "reviewer",
+        "fix": false,
+        "remaining": []
+      }
+    ],
+    "kwargs": {},
+    "expected": "PASS"
+  },
+  {
+    "id": "CTRL-test_fail_requires_packet",
+    "function": "report_contract",
+    "args": [
+      {
+        "intent": "run",
+        "execution": "STOPPED",
+        "verdict": "FAIL",
+        "owner": "dev",
+        "fix": false,
+        "remaining": [
+          "A"
+        ]
+      }
+    ],
+    "kwargs": {},
+    "expected": "FAIL"
+  },
+  {
+    "id": "CTRL-test_missing_fields",
+    "function": "report_contract",
+    "args": [
+      {
+        "verdict": "PASS"
+      }
+    ],
+    "kwargs": {},
+    "expected": "ERROR"
+  }
+]

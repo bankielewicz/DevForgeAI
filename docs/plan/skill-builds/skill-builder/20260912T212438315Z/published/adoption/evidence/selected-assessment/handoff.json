@@ -1,0 +1,48 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T161842Z",
+  "target_name": "skill-builder",
+  "original_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "target_package_digest": "dab87685715689251365514f5c0f3df5c2a9b66c5367bf065ad62c903e8dfca3",
+  "original_manifest": {
+    "path": "source-manifest.json",
+    "sha256": "b6f1611978c00ec7a9898e01d93fe83a4f06bf4ad8a7d4a4f3931f9d421c81a6"
+  },
+  "origin": {
+    "path": "origin-record.json",
+    "sha256": "db4507cfb4f686f30546ba8a43f2977a297fe374c51a5dd3864f8c28cda44644"
+  },
+  "proposed_spec": {
+    "path": "revision-spec.md",
+    "sha256": "9b8570392db9ed2128a71d820ba3710f58a000749db3f0ca0b780e33da28248c"
+  },
+  "findings": {
+    "path": "findings.json",
+    "sha256": "56158ec6cb2f94ba6b3d2033be87653ab433b34d404d6632d21450c45deb8a07"
+  },
+  "report": {
+    "path": "validation-report.md",
+    "sha256": "1ca9a180c94a476dc9379334ceb1674f08ee930e20cb2fbffe37caab022ee3cf"
+  },
+  "selected_finding_ids": [],
+  "deferred_finding_ids": [],
+  "proposal_review_state": "pending",
+  "review_instruction": null,
+  "builder_readiness": "BLOCKED",
+  "readiness_reasons": [
+    "No verified successful generated or published adoption baseline for skill-builder itself. Enhancement verification is not that baseline.",
+    "Explicit managed-path adoption authorization is absent; validation-only request preserves target bytes.",
+    "The complete editorial proposal is reviewable; pending review is tracked separately."
+  ],
+  "baseline_kind": null,
+  "baseline_reference": null,
+  "adoption_required": true,
+  "adoption_capability": "available",
+  "managed_path_authorization": null,
+  "permitted_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "preservation_requirements": [
+    "Do not edit target or existing evidence during validation.",
+    "Future change, if authorized, is restricted to REV-001 wording and corresponding manifest binding.",
+    "Retain all source, known history, user-owned paths and failed attempts."
+  ]
+}

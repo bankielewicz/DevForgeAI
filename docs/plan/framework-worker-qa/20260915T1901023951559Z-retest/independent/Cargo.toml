@@ -1,0 +1,19 @@
+[workspace]
+
+[package]
+name = "worker-independent-qa"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+devforgeai-codex-worker-probe = { path = "../../../../../devforgeai/experiments/codex-worker-probe" }
+serde_json = "=1.0.151"
+windows-sys = { version = "=0.61.2", features = ["Win32_Foundation", "Win32_System_Threading"] }
+
+[[bin]]
+name = "qa-driver"
+path = "driver.rs"
+
+[[bin]]
+name = "protocol-peer"
+path = "peer.rs"

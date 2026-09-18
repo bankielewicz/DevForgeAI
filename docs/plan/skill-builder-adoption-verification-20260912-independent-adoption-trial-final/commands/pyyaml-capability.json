@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-09-12T15:29:24.011190+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-c",
+    "import yaml; print(yaml.__version__)"
+  ],
+  "exit_code": 0,
+  "stdout": "6.0.2\n",
+  "stderr": ""
+}

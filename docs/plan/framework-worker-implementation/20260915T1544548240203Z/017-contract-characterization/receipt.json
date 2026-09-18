@@ -1,0 +1,40 @@
+{
+  "attempt_id": "017-contract-characterization",
+  "stage": "integration",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "contract"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T16:02:46.592171+00:00",
+  "ended_at": "2026-09-15T16:02:47.853903+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\017-contract-characterization\\candidate.json",
+    "bytes": 3916,
+    "sha256": "55b1ae619087528e0bf8573c04a1313d983a87123e7a4ec0f44002ffdb1039fd"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\017-contract-characterization\\stdout.txt",
+    "bytes": 185,
+    "sha256": "c0df7be9d0ea9cf6c71f1878d5f788934a3dfb421a81d3100b0b250aa36945c8"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\017-contract-characterization\\stderr.txt",
+    "bytes": 657,
+    "sha256": "244f6f2fce46249e76aa7d26582aad2c2128f2dec0ed0371a708aa71c0f9432b"
+  },
+  "outcome": "observed-exit"
+}

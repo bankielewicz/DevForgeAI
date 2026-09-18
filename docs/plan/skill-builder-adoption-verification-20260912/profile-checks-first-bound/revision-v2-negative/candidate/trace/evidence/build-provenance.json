@@ -1,0 +1,67 @@
+{
+  "adoption_origin": {
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "5687b7c98052f0dc20060f9c3782bf4a42c3ef146437469fae017993e5f90698"
+  },
+  "builder_manifest_sha256": "fcef77def723a1fc2f2fc5e49285830eb9f79cc6cf832beb7861a17522c965cc",
+  "contract_sha256": "394464918952d812a620f8aee53975ff9e63b53151d685abed5bc0d57095f5f9",
+  "dependencies": [],
+  "evidence": [
+    {
+      "id": "construction",
+      "path": "trace/evidence/construction-observation.json",
+      "sha256": "59da3a49edd503257752b1f3346c0b07580b56de425e3fd93b9d86a5a849b07c"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "spec",
+      "sha256": "1fe7c221eef3e2b19a117fd303aec053eabf868a1dd2535f54724d78b3c3e24b"
+    }
+  ],
+  "mappings": [
+    {
+      "artifact_paths": [
+        "SKILL.md",
+        "schema.json"
+      ],
+      "evidence_ids": [
+        "construction"
+      ],
+      "requirement_id": "req-0001"
+    }
+  ],
+  "mode": "spec_build",
+  "outputs": [
+    {
+      "baseline_path": "trace/baseline/SKILL.md",
+      "baseline_sha256": "5ff71952955ddc7fd9f2f541a7ff1fd77e78ed59a2c1204d8499f520243efada",
+      "ownership": "generated",
+      "path": "SKILL.md",
+      "sha256": "5ff71952955ddc7fd9f2f541a7ff1fd77e78ed59a2c1204d8499f520243efada"
+    },
+    {
+      "baseline_path": null,
+      "baseline_sha256": null,
+      "ownership": "retained_user",
+      "path": "notes.txt",
+      "sha256": "0495c2e05ae0b5b59a2667bf18893129a3bb91399feb0e3b3783b703ca38a577"
+    },
+    {
+      "baseline_path": "trace/baseline/schema.json",
+      "baseline_sha256": "b4120c59c1f74ae10826590f23c73479daa80192d28d36e44c1e504c0a324801",
+      "ownership": "generated",
+      "path": "schema.json",
+      "sha256": "b4120c59c1f74ae10826590f23c73479daa80192d28d36e44c1e504c0a324801"
+    }
+  ],
+  "prior_origin": {
+    "kind": "adopted",
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "5687b7c98052f0dc20060f9c3782bf4a42c3ef146437469fae017993e5f90698"
+  },
+  "result": "COMPLETE",
+  "run_id": "synthetic-build",
+  "schema_version": "2",
+  "target_name": "synthetic-total"
+}

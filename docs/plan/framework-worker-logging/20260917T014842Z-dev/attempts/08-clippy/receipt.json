@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "cargo",
+    "clippy",
+    "--offline",
+    "--locked",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "started_utc": "2026-09-17T02:06:37.646618+00:00",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\attempts\\08-clippy\\fixtures"
+  },
+  "exit_code": 101,
+  "elapsed_seconds": 3.0780000000086147
+}

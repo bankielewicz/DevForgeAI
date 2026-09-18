@@ -1,0 +1,926 @@
+{
+  "baseline": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\before-source",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 9721,
+        "sha256": "14277fb47dd8ab4e0357b0a590c39098d453c65706f3917961442a917329a7fe"
+      },
+      {
+        "path": "assets/enforcement-register-template.md",
+        "bytes": 657,
+        "sha256": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c"
+      },
+      {
+        "path": "assets/origin-spec-template.md",
+        "bytes": 1564,
+        "sha256": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902"
+      },
+      {
+        "path": "assets/revision-spec-template.md",
+        "bytes": 2076,
+        "sha256": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e"
+      },
+      {
+        "path": "assets/rules-snapshot.json",
+        "bytes": 21220,
+        "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+      },
+      {
+        "path": "assets/validation-report-template.md",
+        "bytes": 1632,
+        "sha256": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab"
+      },
+      {
+        "path": "evals/README.md",
+        "bytes": 1727,
+        "sha256": "9f4358c910ebbf719db3d1fce7dd72621cea82122850c81449258c709cab8917"
+      },
+      {
+        "path": "evals/adoption-evidence.schema.json",
+        "bytes": 27634,
+        "sha256": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f"
+      },
+      {
+        "path": "evals/build-artifacts.schema.json",
+        "bytes": 4326,
+        "sha256": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be"
+      },
+      {
+        "path": "evals/build-manifest.json",
+        "bytes": 7207,
+        "sha256": "48d624c29fe9153e263dfb722fe7d09d58b14b4635a65a46d43502962257d163"
+      },
+      {
+        "path": "evals/builder-cases.jsonl",
+        "bytes": 803,
+        "sha256": "de1fc28e754c2f28b5fb838258ce66eb6f258e93ace87a2db6a2685464bb277c"
+      },
+      {
+        "path": "evals/cases.jsonl",
+        "bytes": 346,
+        "sha256": "554b9d00519e1fbc297e298223c01edd1fe8f91a98e92a0ea8cdcf92d0a1c96c"
+      },
+      {
+        "path": "evals/evidence.schema.json",
+        "bytes": 2675,
+        "sha256": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3"
+      },
+      {
+        "path": "evals/fixtures/portable/destination/SKILL.md",
+        "bytes": 207,
+        "sha256": "f9c929003cb7ea451b8d99f33ba8da6aae7a0d1f830e820b3236a6fa53f73071"
+      },
+      {
+        "path": "evals/fixtures/portable/destination/schema.json",
+        "bytes": 113,
+        "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+      },
+      {
+        "path": "evals/fixtures/portable/evidence/destination-manifest.json",
+        "bytes": 532,
+        "sha256": "4829e16fa497c5b5b7a48ce9b0ec5d0f37f1d2b37d65ce1c775160950e6bb2b2"
+      },
+      {
+        "path": "evals/fixtures/portable/evidence/file-dispositions.json",
+        "bytes": 1272,
+        "sha256": "d6eff48694bf737732d4dd0915f4673ecf8caaaa4596761312c1a774e372950c"
+      },
+      {
+        "path": "evals/fixtures/portable/evidence/source-manifest.json",
+        "bytes": 527,
+        "sha256": "69e6d3c1d21a1e17f76f90dab241ad863edf7f2acf904cbbccd81742abf04158"
+      },
+      {
+        "path": "evals/fixtures/portable/source/SKILL.md",
+        "bytes": 189,
+        "sha256": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e"
+      },
+      {
+        "path": "evals/fixtures/portable/source/schema.json",
+        "bytes": 113,
+        "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+      },
+      {
+        "path": "evals/profiles.json",
+        "bytes": 1533,
+        "sha256": "dc673745727537ca90761d9b3df6f3c477aea8e6e80c6560e225e010f0196cf0"
+      },
+      {
+        "path": "evals/runtime.json",
+        "bytes": 715,
+        "sha256": "ee3f67492dd9e964befc4038ccdd5d03d282b288eb90f142114798c3a394ea46"
+      },
+      {
+        "path": "evals/validator-cases.jsonl",
+        "bytes": 6760,
+        "sha256": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a"
+      },
+      {
+        "path": "references/assessment-ownership.md",
+        "bytes": 1134,
+        "sha256": "5dd283d36cf823ce1345a7625778d5049a8f81c54348a4007a96eb6605f8cc88"
+      },
+      {
+        "path": "references/authoring-intake.md",
+        "bytes": 2182,
+        "sha256": "7431f5e1f657cff14cadc6473fa4cfe42f5bc2a7e8192a47f56538c4fd5175e5"
+      },
+      {
+        "path": "references/evaluation.md",
+        "bytes": 4202,
+        "sha256": "16f74b8024741ba7a0fe4138503e26de7d412f0e1e7dfe632ac15a8e153105f6"
+      },
+      {
+        "path": "references/evaluator-contracts.md",
+        "bytes": 11174,
+        "sha256": "ac2043678eaaa2addb2ccd4ba2e086fcae99603ae9c3bbafbe9d1e946b17affa"
+      },
+      {
+        "path": "references/handoff.md",
+        "bytes": 5639,
+        "sha256": "35913a5afe874f15e64e3c9a5c1c0e8641fadf9ec3626094ea85cf5e39f116ed"
+      },
+      {
+        "path": "references/origin.md",
+        "bytes": 4519,
+        "sha256": "8300afc32f038b17a79ed2ea6d8f92ac50cdb68536f4044f2feed3cd7b87a649"
+      },
+      {
+        "path": "references/reporting.md",
+        "bytes": 10397,
+        "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb"
+      },
+      {
+        "path": "references/rules.md",
+        "bytes": 13302,
+        "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b"
+      },
+      {
+        "path": "references/trials.md",
+        "bytes": 3592,
+        "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0"
+      },
+      {
+        "path": "schemas/authoring-baseline.schema.json",
+        "bytes": 1319,
+        "sha256": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746"
+      },
+      {
+        "path": "schemas/authoring-contract.schema.json",
+        "bytes": 2587,
+        "sha256": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099"
+      },
+      {
+        "path": "schemas/authoring-record.schema.json",
+        "bytes": 3376,
+        "sha256": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d"
+      },
+      {
+        "path": "schemas/validation-request.schema.json",
+        "bytes": 2189,
+        "sha256": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367"
+      },
+      {
+        "path": "scripts/authoring_intake.py",
+        "bytes": 4603,
+        "sha256": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99"
+      },
+      {
+        "path": "scripts/build_evidence.py",
+        "bytes": 15985,
+        "sha256": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3"
+      },
+      {
+        "path": "scripts/custody.py",
+        "bytes": 24168,
+        "sha256": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e"
+      },
+      {
+        "path": "scripts/graders.py",
+        "bytes": 55913,
+        "sha256": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c"
+      },
+      {
+        "path": "scripts/observe.py",
+        "bytes": 44583,
+        "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"
+      },
+      {
+        "path": "scripts/run_evaluation.py",
+        "bytes": 11106,
+        "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8"
+      },
+      {
+        "path": "tests/adoption_fixture.py",
+        "bytes": 7774,
+        "sha256": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60"
+      },
+      {
+        "path": "tests/fixture_data.py",
+        "bytes": 13816,
+        "sha256": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291"
+      },
+      {
+        "path": "tests/test_adoption.py",
+        "bytes": 17196,
+        "sha256": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093"
+      },
+      {
+        "path": "tests/test_authoring.py",
+        "bytes": 17307,
+        "sha256": "78a4dd5377e38fe6230564116ce2c88239ec000c118b64ad9cbdee64464a1177"
+      },
+      {
+        "path": "tests/test_enhancements.py",
+        "bytes": 25123,
+        "sha256": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2"
+      },
+      {
+        "path": "tests/test_evaluation.py",
+        "bytes": 18037,
+        "sha256": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0"
+      },
+      {
+        "path": "tests/test_observe.py",
+        "bytes": 22811,
+        "sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef"
+      },
+      {
+        "path": "tests/test_review_inputs.py",
+        "bytes": 3629,
+        "sha256": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658"
+      },
+      {
+        "path": "tests/test_review_provenance.py",
+        "bytes": 8583,
+        "sha256": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065"
+      }
+    ],
+    "package_digest": "77f0eec091cb41559074296ec8b0cd7dad76329ca6647b969f0e76b49cea51a4",
+    "file_count": 51,
+    "bytes": 449795,
+    "exclusions": [],
+    "enumerations": [
+      {
+        "directory": ".",
+        "entries": [
+          "SKILL.md",
+          "assets",
+          "evals",
+          "references",
+          "schemas",
+          "scripts",
+          "tests"
+        ]
+      },
+      {
+        "directory": "assets",
+        "entries": [
+          "enforcement-register-template.md",
+          "origin-spec-template.md",
+          "revision-spec-template.md",
+          "rules-snapshot.json",
+          "validation-report-template.md"
+        ]
+      },
+      {
+        "directory": "evals",
+        "entries": [
+          "README.md",
+          "adoption-evidence.schema.json",
+          "build-artifacts.schema.json",
+          "build-manifest.json",
+          "builder-cases.jsonl",
+          "cases.jsonl",
+          "evidence.schema.json",
+          "fixtures",
+          "profiles.json",
+          "runtime.json",
+          "validator-cases.jsonl"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures",
+        "entries": [
+          "portable"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable",
+        "entries": [
+          "destination",
+          "evidence",
+          "source"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable\\destination",
+        "entries": [
+          "SKILL.md",
+          "schema.json"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable\\evidence",
+        "entries": [
+          "destination-manifest.json",
+          "file-dispositions.json",
+          "source-manifest.json"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable\\source",
+        "entries": [
+          "SKILL.md",
+          "schema.json"
+        ]
+      },
+      {
+        "directory": "references",
+        "entries": [
+          "assessment-ownership.md",
+          "authoring-intake.md",
+          "evaluation.md",
+          "evaluator-contracts.md",
+          "handoff.md",
+          "origin.md",
+          "reporting.md",
+          "rules.md",
+          "trials.md"
+        ]
+      },
+      {
+        "directory": "schemas",
+        "entries": [
+          "authoring-baseline.schema.json",
+          "authoring-contract.schema.json",
+          "authoring-record.schema.json",
+          "validation-request.schema.json"
+        ]
+      },
+      {
+        "directory": "scripts",
+        "entries": [
+          "authoring_intake.py",
+          "build_evidence.py",
+          "custody.py",
+          "graders.py",
+          "observe.py",
+          "run_evaluation.py"
+        ]
+      },
+      {
+        "directory": "tests",
+        "entries": [
+          "adoption_fixture.py",
+          "fixture_data.py",
+          "test_adoption.py",
+          "test_authoring.py",
+          "test_enhancements.py",
+          "test_evaluation.py",
+          "test_observe.py",
+          "test_review_inputs.py",
+          "test_review_provenance.py"
+        ]
+      }
+    ]
+  },
+  "delivered": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\self-review\\source",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 11907,
+        "sha256": "9e572b2ddfb67279f9cf5006cc5bba4cd73edb66728ff769fa9b0ae6fd981fdf"
+      },
+      {
+        "path": "assets/enforcement-register-template.md",
+        "bytes": 657,
+        "sha256": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c"
+      },
+      {
+        "path": "assets/openai-yaml-guidance.md",
+        "bytes": 2405,
+        "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+      },
+      {
+        "path": "assets/origin-spec-template.md",
+        "bytes": 1564,
+        "sha256": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902"
+      },
+      {
+        "path": "assets/revision-spec-template.md",
+        "bytes": 2076,
+        "sha256": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e"
+      },
+      {
+        "path": "assets/rules-snapshot.json",
+        "bytes": 21220,
+        "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+      },
+      {
+        "path": "assets/validation-report-template.md",
+        "bytes": 1632,
+        "sha256": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab"
+      },
+      {
+        "path": "evals/README.md",
+        "bytes": 1727,
+        "sha256": "9f4358c910ebbf719db3d1fce7dd72621cea82122850c81449258c709cab8917"
+      },
+      {
+        "path": "evals/adoption-evidence.schema.json",
+        "bytes": 27634,
+        "sha256": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f"
+      },
+      {
+        "path": "evals/build-artifacts.schema.json",
+        "bytes": 4326,
+        "sha256": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be"
+      },
+      {
+        "path": "evals/build-manifest.json",
+        "bytes": 9917,
+        "sha256": "5f75a4c8a83029c20666d0fbb163bbb6f8866c8aaf61c07bc15e50861831c8dc"
+      },
+      {
+        "path": "evals/builder-cases.jsonl",
+        "bytes": 803,
+        "sha256": "de1fc28e754c2f28b5fb838258ce66eb6f258e93ace87a2db6a2685464bb277c"
+      },
+      {
+        "path": "evals/cases.jsonl",
+        "bytes": 346,
+        "sha256": "554b9d00519e1fbc297e298223c01edd1fe8f91a98e92a0ea8cdcf92d0a1c96c"
+      },
+      {
+        "path": "evals/evidence.schema.json",
+        "bytes": 2675,
+        "sha256": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3"
+      },
+      {
+        "path": "evals/fixtures/portable/destination/SKILL.md",
+        "bytes": 207,
+        "sha256": "f9c929003cb7ea451b8d99f33ba8da6aae7a0d1f830e820b3236a6fa53f73071"
+      },
+      {
+        "path": "evals/fixtures/portable/destination/schema.json",
+        "bytes": 113,
+        "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+      },
+      {
+        "path": "evals/fixtures/portable/evidence/destination-manifest.json",
+        "bytes": 532,
+        "sha256": "4829e16fa497c5b5b7a48ce9b0ec5d0f37f1d2b37d65ce1c775160950e6bb2b2"
+      },
+      {
+        "path": "evals/fixtures/portable/evidence/file-dispositions.json",
+        "bytes": 1272,
+        "sha256": "d6eff48694bf737732d4dd0915f4673ecf8caaaa4596761312c1a774e372950c"
+      },
+      {
+        "path": "evals/fixtures/portable/evidence/source-manifest.json",
+        "bytes": 527,
+        "sha256": "69e6d3c1d21a1e17f76f90dab241ad863edf7f2acf904cbbccd81742abf04158"
+      },
+      {
+        "path": "evals/fixtures/portable/source/SKILL.md",
+        "bytes": 189,
+        "sha256": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e"
+      },
+      {
+        "path": "evals/fixtures/portable/source/schema.json",
+        "bytes": 113,
+        "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+      },
+      {
+        "path": "evals/profiles.json",
+        "bytes": 1533,
+        "sha256": "dc673745727537ca90761d9b3df6f3c477aea8e6e80c6560e225e010f0196cf0"
+      },
+      {
+        "path": "evals/runtime.json",
+        "bytes": 715,
+        "sha256": "ee3f67492dd9e964befc4038ccdd5d03d282b288eb90f142114798c3a394ea46"
+      },
+      {
+        "path": "evals/validator-cases.jsonl",
+        "bytes": 6760,
+        "sha256": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a"
+      },
+      {
+        "path": "references/adaptive-shared-contracts.md",
+        "bytes": 13298,
+        "sha256": "f585783c1aae41e691f9dfbb7a10969541b586a9b96b47ad85ced6571cb9a9b4"
+      },
+      {
+        "path": "references/adaptive-validation.md",
+        "bytes": 26699,
+        "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+      },
+      {
+        "path": "references/assessment-ownership.md",
+        "bytes": 1134,
+        "sha256": "5dd283d36cf823ce1345a7625778d5049a8f81c54348a4007a96eb6605f8cc88"
+      },
+      {
+        "path": "references/authoring-intake.md",
+        "bytes": 2182,
+        "sha256": "7431f5e1f657cff14cadc6473fa4cfe42f5bc2a7e8192a47f56538c4fd5175e5"
+      },
+      {
+        "path": "references/evaluation.md",
+        "bytes": 4202,
+        "sha256": "16f74b8024741ba7a0fe4138503e26de7d412f0e1e7dfe632ac15a8e153105f6"
+      },
+      {
+        "path": "references/evaluator-contracts.md",
+        "bytes": 11174,
+        "sha256": "ac2043678eaaa2addb2ccd4ba2e086fcae99603ae9c3bbafbe9d1e946b17affa"
+      },
+      {
+        "path": "references/handoff.md",
+        "bytes": 5639,
+        "sha256": "35913a5afe874f15e64e3c9a5c1c0e8641fadf9ec3626094ea85cf5e39f116ed"
+      },
+      {
+        "path": "references/origin.md",
+        "bytes": 4519,
+        "sha256": "8300afc32f038b17a79ed2ea6d8f92ac50cdb68536f4044f2feed3cd7b87a649"
+      },
+      {
+        "path": "references/reporting.md",
+        "bytes": 10397,
+        "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb"
+      },
+      {
+        "path": "references/rules.md",
+        "bytes": 13302,
+        "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b"
+      },
+      {
+        "path": "references/set-trials.md",
+        "bytes": 18525,
+        "sha256": "afd81fdee6f4b6b37f04b26d66f705690c5d8ab69affe286b81743fcd132a4e9"
+      },
+      {
+        "path": "references/text-resource-checks.md",
+        "bytes": 9100,
+        "sha256": "0fa807104b4146921fc7506fd2e4b863e1766b0c431c691884fa67fd1b641495"
+      },
+      {
+        "path": "references/trials.md",
+        "bytes": 3592,
+        "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0"
+      },
+      {
+        "path": "schemas/adaptation-proposal-v1.schema.json",
+        "bytes": 1549,
+        "sha256": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6"
+      },
+      {
+        "path": "schemas/adaptation-selection-v1.schema.json",
+        "bytes": 1015,
+        "sha256": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1"
+      },
+      {
+        "path": "schemas/adaptive-check-observation-v1.schema.json",
+        "bytes": 17769,
+        "sha256": "e58827d155c1687fad6ebe92b407ba3c40c49668f74fa42e3107ead01d2f171f"
+      },
+      {
+        "path": "schemas/adaptive-common.schema.json",
+        "bytes": 16453,
+        "sha256": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5"
+      },
+      {
+        "path": "schemas/adaptive-observation-v1.schema.json",
+        "bytes": 735,
+        "sha256": "ae335505541800dfd5819a5093829b1bc10fb604c528c7d054725656c1c6ce8c"
+      },
+      {
+        "path": "schemas/adaptive-observations-v1.schema.json",
+        "bytes": 11645,
+        "sha256": "2fd2b05f41e0707a0ce4c0d07ebeb6c4848c7a42bc9bdba787a9aba2b52cc50c"
+      },
+      {
+        "path": "schemas/adaptive-skill-v1.schema.json",
+        "bytes": 1228,
+        "sha256": "9269b2f9ac2812bc2a826b83726a5ff249086fd7c23521c1fdb5b115b36afae7"
+      },
+      {
+        "path": "schemas/authoring-baseline.schema.json",
+        "bytes": 1319,
+        "sha256": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746"
+      },
+      {
+        "path": "schemas/authoring-contract.schema.json",
+        "bytes": 2587,
+        "sha256": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099"
+      },
+      {
+        "path": "schemas/authoring-record.schema.json",
+        "bytes": 3376,
+        "sha256": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d"
+      },
+      {
+        "path": "schemas/binding-observation-v1.schema.json",
+        "bytes": 1076,
+        "sha256": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb"
+      },
+      {
+        "path": "schemas/project-binding-v1.schema.json",
+        "bytes": 1012,
+        "sha256": "fb0d98d650d443ee1d613d27e632696a4422d101ce6dd37b1eca6e9189fd3399"
+      },
+      {
+        "path": "schemas/project-evidence-v1.schema.json",
+        "bytes": 1472,
+        "sha256": "e8d9cbc8a6e76ba9cce5d8422dbc599673e3e489a6c25d750c1820409fc957e9"
+      },
+      {
+        "path": "schemas/set-assessment-v1.schema.json",
+        "bytes": 3590,
+        "sha256": "2c6d4bb5eb87e0fccf24e6e666ba52b700e8ad5fd8bd974a4228b203201de2c7"
+      },
+      {
+        "path": "schemas/set-authoring-v1.schema.json",
+        "bytes": 1293,
+        "sha256": "d5b9840fe7daf8ab810315d28c9c3539b3e644eb4293e0a8699364ae77981ae8"
+      },
+      {
+        "path": "schemas/set-validation-request-v1.schema.json",
+        "bytes": 1527,
+        "sha256": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e"
+      },
+      {
+        "path": "schemas/standalone-set-input-v1.schema.json",
+        "bytes": 2298,
+        "sha256": "bd32ea5e9b0813a7193832ed9b7aaf1d10892560477777feb7abfd12b41d54c5"
+      },
+      {
+        "path": "schemas/validation-request.schema.json",
+        "bytes": 2189,
+        "sha256": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367"
+      },
+      {
+        "path": "scripts/adaptive_contracts.py",
+        "bytes": 28641,
+        "sha256": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0"
+      },
+      {
+        "path": "scripts/adaptive_observe.py",
+        "bytes": 18903,
+        "sha256": "7551acf047f4c61b9b04557ac3260f9035cc272e8d696f7797d9fd7b94b15e7a"
+      },
+      {
+        "path": "scripts/authoring_intake.py",
+        "bytes": 4603,
+        "sha256": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99"
+      },
+      {
+        "path": "scripts/build_evidence.py",
+        "bytes": 15985,
+        "sha256": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3"
+      },
+      {
+        "path": "scripts/custody.py",
+        "bytes": 24168,
+        "sha256": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e"
+      },
+      {
+        "path": "scripts/graders.py",
+        "bytes": 55913,
+        "sha256": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c"
+      },
+      {
+        "path": "scripts/observe.py",
+        "bytes": 44583,
+        "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"
+      },
+      {
+        "path": "scripts/run_evaluation.py",
+        "bytes": 11106,
+        "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8"
+      },
+      {
+        "path": "scripts/text_resources.py",
+        "bytes": 20401,
+        "sha256": "2bb076d3920414a1171dd4492fe7d4dd74458f7a9dcc4bd7bc30bbf40248b293"
+      },
+      {
+        "path": "tests/adaptive_fixtures.py",
+        "bytes": 5418,
+        "sha256": "da278f1bed3e8a147b90acc76025afe2a4f7a0cbb9a590bb3659d896c7cc666e"
+      },
+      {
+        "path": "tests/adoption_fixture.py",
+        "bytes": 7774,
+        "sha256": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60"
+      },
+      {
+        "path": "tests/fixture_data.py",
+        "bytes": 13816,
+        "sha256": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291"
+      },
+      {
+        "path": "tests/test_adaptive.py",
+        "bytes": 11300,
+        "sha256": "49d87a9fcf51fe60e9d66df1994d1d8adc4bc7684dc6e28311b4f56e4d45ecfa"
+      },
+      {
+        "path": "tests/test_adoption.py",
+        "bytes": 17196,
+        "sha256": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093"
+      },
+      {
+        "path": "tests/test_authoring.py",
+        "bytes": 17307,
+        "sha256": "78a4dd5377e38fe6230564116ce2c88239ec000c118b64ad9cbdee64464a1177"
+      },
+      {
+        "path": "tests/test_enhancements.py",
+        "bytes": 25123,
+        "sha256": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2"
+      },
+      {
+        "path": "tests/test_evaluation.py",
+        "bytes": 18037,
+        "sha256": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0"
+      },
+      {
+        "path": "tests/test_observe.py",
+        "bytes": 22811,
+        "sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef"
+      },
+      {
+        "path": "tests/test_review_inputs.py",
+        "bytes": 3629,
+        "sha256": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658"
+      },
+      {
+        "path": "tests/test_review_provenance.py",
+        "bytes": 8583,
+        "sha256": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065"
+      }
+    ],
+    "package_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+    "file_count": 75,
+    "bytes": 672043,
+    "exclusions": [],
+    "enumerations": [
+      {
+        "directory": ".",
+        "entries": [
+          "SKILL.md",
+          "assets",
+          "evals",
+          "references",
+          "schemas",
+          "scripts",
+          "tests"
+        ]
+      },
+      {
+        "directory": "assets",
+        "entries": [
+          "enforcement-register-template.md",
+          "openai-yaml-guidance.md",
+          "origin-spec-template.md",
+          "revision-spec-template.md",
+          "rules-snapshot.json",
+          "validation-report-template.md"
+        ]
+      },
+      {
+        "directory": "evals",
+        "entries": [
+          "README.md",
+          "adoption-evidence.schema.json",
+          "build-artifacts.schema.json",
+          "build-manifest.json",
+          "builder-cases.jsonl",
+          "cases.jsonl",
+          "evidence.schema.json",
+          "fixtures",
+          "profiles.json",
+          "runtime.json",
+          "validator-cases.jsonl"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures",
+        "entries": [
+          "portable"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable",
+        "entries": [
+          "destination",
+          "evidence",
+          "source"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable\\destination",
+        "entries": [
+          "SKILL.md",
+          "schema.json"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable\\evidence",
+        "entries": [
+          "destination-manifest.json",
+          "file-dispositions.json",
+          "source-manifest.json"
+        ]
+      },
+      {
+        "directory": "evals\\fixtures\\portable\\source",
+        "entries": [
+          "SKILL.md",
+          "schema.json"
+        ]
+      },
+      {
+        "directory": "references",
+        "entries": [
+          "adaptive-shared-contracts.md",
+          "adaptive-validation.md",
+          "assessment-ownership.md",
+          "authoring-intake.md",
+          "evaluation.md",
+          "evaluator-contracts.md",
+          "handoff.md",
+          "origin.md",
+          "reporting.md",
+          "rules.md",
+          "set-trials.md",
+          "text-resource-checks.md",
+          "trials.md"
+        ]
+      },
+      {
+        "directory": "schemas",
+        "entries": [
+          "adaptation-proposal-v1.schema.json",
+          "adaptation-selection-v1.schema.json",
+          "adaptive-check-observation-v1.schema.json",
+          "adaptive-common.schema.json",
+          "adaptive-observation-v1.schema.json",
+          "adaptive-observations-v1.schema.json",
+          "adaptive-skill-v1.schema.json",
+          "authoring-baseline.schema.json",
+          "authoring-contract.schema.json",
+          "authoring-record.schema.json",
+          "binding-observation-v1.schema.json",
+          "project-binding-v1.schema.json",
+          "project-evidence-v1.schema.json",
+          "set-assessment-v1.schema.json",
+          "set-authoring-v1.schema.json",
+          "set-validation-request-v1.schema.json",
+          "standalone-set-input-v1.schema.json",
+          "validation-request.schema.json"
+        ]
+      },
+      {
+        "directory": "scripts",
+        "entries": [
+          "adaptive_contracts.py",
+          "adaptive_observe.py",
+          "authoring_intake.py",
+          "build_evidence.py",
+          "custody.py",
+          "graders.py",
+          "observe.py",
+          "run_evaluation.py",
+          "text_resources.py"
+        ]
+      },
+      {
+        "directory": "tests",
+        "entries": [
+          "adaptive_fixtures.py",
+          "adoption_fixture.py",
+          "fixture_data.py",
+          "test_adaptive.py",
+          "test_adoption.py",
+          "test_authoring.py",
+          "test_enhancements.py",
+          "test_evaluation.py",
+          "test_observe.py",
+          "test_review_inputs.py",
+          "test_review_provenance.py"
+        ]
+      }
+    ]
+  },
+  "expected_baseline": "77f0eec091cb41559074296ec8b0cd7dad76329ca6647b969f0e76b49cea51a4",
+  "expected_delivery": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+  "baseline_matches": true,
+  "delivered_matches": true
+}

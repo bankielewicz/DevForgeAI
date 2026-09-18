@@ -1,0 +1,260 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1949120508210Z",
+  "target_name": "qa",
+  "trials": [
+    {
+      "case_id": "QPV-01",
+      "attempts": [
+        {
+          "receipt": {
+            "path": "trials/QPV-01/attempt-001.json",
+            "sha256": "fca045a4584e262f34d9ecca4c887b5f86f1df2f8bfedf414cedfd0f8a709ff9"
+          },
+          "events": {
+            "path": "trials/QPV-01/attempt-001.stdout.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "timed_out": false,
+          "exit_code": 1,
+          "messages": [],
+          "completed_commands": [],
+          "fixture_file_set_unchanged": true,
+          "final_artifact_present": false
+        },
+        {
+          "receipt": {
+            "path": "trials/QPV-01/attempt-002.json",
+            "sha256": "d63df55e2ed34ea7aca19170590bb77336d9e3d8adc78f7f9f4c2cfedd32d9e1"
+          },
+          "events": {
+            "path": "trials/QPV-01/attempt-002.stdout.jsonl",
+            "sha256": "537b1a348e4a09e9e0fed90e16d903e752a7060653dce3920a99d9b118ff5a8b"
+          },
+          "timed_out": true,
+          "exit_code": 1,
+          "messages": [
+            {
+              "sequence": 2,
+              "text": "I’m using the selected qa skill to assess the fixture against `docs/spec.md`, preserve the candidate and developer tests, and write evidence under `qa evidence Ω`.\n"
+            },
+            {
+              "sequence": 13,
+              "text": "The fixture specifies three increment results on Windows Python. Python 3.10.11 and coverage.py are available, so no installation is needed. I’ll bind the input files, publish the plan, and inspect test integrity before execution.\n"
+            }
+          ],
+          "completed_commands": [
+            {
+              "sequence": 4,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\SKILL.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\intake-planning.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\assessment.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\reporting-handoff.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 8,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\assessment.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 9,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\test-plan-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-report-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-fix-template.md'; Get-Content -LiteralPath 'docs\\\\spec.md'; rg --files --hidden -g '\"'!.git/**'\"' -g '\"'!.agents/skills/**'\"'; Get-Command python | Select-Object Source\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 10,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\intake-planning.md' | Select-Object -Last 30; git status --short; git rev-parse HEAD\"",
+              "exit_code": 1
+            },
+            {
+              "sequence": 12,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\test-plan-template.md'; Get-Content -LiteralPath 'AGENTS.md'; Get-Content -LiteralPath 'README.md'; Get-Item -LiteralPath '.', 'docs', '.agents', 'qa evidence Ω' -ErrorAction SilentlyContinue | Select-Object FullName,Attributes,LinkType,Target; Get-FileHash -Algorithm SHA256 -LiteralPath 'inc.py','test_inc.py','docs\\\\spec.md','AGENTS.md','README.md'; python --version; python -B -c \\\"import importlib.util; print('coverage_available=' + str(importlib.util.find_spec('coverage') is not None))\\\"\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 15,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'inc.py'; Get-Content -LiteralPath 'test_inc.py'; Get-FileHash -Algorithm SHA256 -LiteralPath 'inc.py','test_inc.py','docs\\\\spec.md','AGENTS.md','README.md' | ConvertTo-Json; python -B -m coverage --version\"",
+              "exit_code": 0
+            }
+          ],
+          "fixture_file_set_unchanged": true,
+          "final_artifact_present": false
+        }
+      ],
+      "whole_scenario": "NOT_RUN",
+      "reason": "No completed native workflow and artifact delivery within 120-second case limit. Initialization failure and timeout retained, not counted as skill defects."
+    },
+    {
+      "case_id": "QPV-02",
+      "attempts": [
+        {
+          "receipt": {
+            "path": "trials/QPV-02/attempt-001.json",
+            "sha256": "eb2497366f945c16723f2df6f78f4320fea73687884c61a0ba9210c221c1224f"
+          },
+          "events": {
+            "path": "trials/QPV-02/attempt-001.stdout.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "timed_out": false,
+          "exit_code": 1,
+          "messages": [],
+          "completed_commands": [],
+          "fixture_file_set_unchanged": true,
+          "final_artifact_present": false
+        },
+        {
+          "receipt": {
+            "path": "trials/QPV-02/attempt-002.json",
+            "sha256": "d0b3136de2a1d341cf82f4b4c05a43408b06564b859e67ad2fd9e958eef90858"
+          },
+          "events": {
+            "path": "trials/QPV-02/attempt-002.stdout.jsonl",
+            "sha256": "c8d156a34f6e801295ccf10ca90bef1249e1845d084fcbc5a07cd6a12f472521"
+          },
+          "timed_out": true,
+          "exit_code": 1,
+          "messages": [
+            {
+              "sequence": 2,
+              "text": "I’m using the selected qa skill in planning-only mode. I’ll inspect the specification and candidate, then save and read back the test plan and planning report in `qa evidence Ω`.\n\n"
+            },
+            {
+              "sequence": 17,
+              "text": "The specification has three exact input/output requirements, all for Windows Python. The developer tests cover those values and write a launch log, so the plan will place any future execution in a disposable QA copy. No tests or builds have run.\n\n"
+            }
+          ],
+          "completed_commands": [
+            {
+              "sequence": 4,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\SKILL.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\intake-planning.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\assessment.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\reporting-handoff.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\test-plan-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-report-template.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 9,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\intake-planning.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 10,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\assessment.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 11,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\reporting-handoff.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 12,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Location; rg --files --hidden -g '\"'!.git/**'\"'; Get-Content -LiteralPath 'docs\\\\spec.md'; Get-Content -LiteralPath 'AGENTS.md'; Get-Command python,py,coverage -ErrorAction SilentlyContinue | Select-Object Name,Source; Get-Item -LiteralPath '.' | Select-Object FullName,Attributes,LinkType,Target; if (Test-Path -LiteralPath 'qa evidence Ω') { Get-Item -LiteralPath 'qa evidence Ω' | Select-Object FullName,Attributes,LinkType,Target; Get-ChildItem -LiteralPath 'qa evidence Ω' -Force }\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 14,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\assessment.md'; Get-Content -LiteralPath 'README.md'; \"'$PSVersionTable.PSVersion.ToString(); Get-Item -LiteralPath '\"'C:\\\\Program Files\\\\Python310\\\\python.exe' | Select-Object FullName,@{Name='FileVersion';Expression={\"'$_.VersionInfo.FileVersion}}; Get-ChildItem -Force -LiteralPath '\"'.' | Select-Object Name,Attributes; Get-FileHash -Algorithm SHA256 -LiteralPath 'inc.py','test_inc.py','docs\\\\spec.md','AGENTS.md','README.md' | Format-List\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 16,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$files = '\"'inc.py','test_inc.py','docs\\\\spec.md','README.md'; foreach (\"'$file in $files) { Write-Output $file; $line = 0; Get-Content -LiteralPath $file | ForEach-Object { $line++; '\"'{0}: {1}' -f \"'$line,$_ } }; Get-ChildItem -LiteralPath '\"'.' -Force | Format-Table Name,Attributes; Test-Path -LiteralPath '.git'; Get-Date -Format 'yyyyMMddTHHmmssfffffffZ'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 19,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"& 'C:\\\\Program Files\\\\Python310\\\\python.exe' -B -m coverage --version\"",
+              "exit_code": 0
+            }
+          ],
+          "fixture_file_set_unchanged": true,
+          "final_artifact_present": false
+        }
+      ],
+      "whole_scenario": "NOT_RUN",
+      "reason": "No completed native workflow and artifact delivery within 120-second case limit. Initialization failure and timeout retained, not counted as skill defects."
+    },
+    {
+      "case_id": "QPV-06",
+      "attempts": [
+        {
+          "receipt": {
+            "path": "trials/QPV-06/attempt-001.json",
+            "sha256": "b4b6e719a4ab538563ea4d76d398ec1d0cee565f16853528e156bb7e83ab555e"
+          },
+          "events": {
+            "path": "trials/QPV-06/attempt-001.stdout.jsonl",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "timed_out": false,
+          "exit_code": 1,
+          "messages": [],
+          "completed_commands": [],
+          "fixture_file_set_unchanged": true,
+          "final_artifact_present": false
+        },
+        {
+          "receipt": {
+            "path": "trials/QPV-06/attempt-002.json",
+            "sha256": "da4b2a94bbc60edd0c612d081f4b931bd3331455242b535ef1ce1ace38aa94b2"
+          },
+          "events": {
+            "path": "trials/QPV-06/attempt-002.stdout.jsonl",
+            "sha256": "f27ad855ff7a376cbf63ad112aff6a26b3e5c43508c706631e512bef6efe2cd5"
+          },
+          "timed_out": true,
+          "exit_code": 1,
+          "messages": [
+            {
+              "sequence": 2,
+              "text": "I’m using the specified **qa** skill to assess the candidate against `docs/spec.md`, preserving the immutable inputs and writing evidence to `qa evidence Ω`."
+            },
+            {
+              "sequence": 11,
+              "text": "The specification requires three exact results on the current Windows Python host. I’ve bound the source and specification hashes; next I’ll review test integrity and record the independent cases and metric collection scope."
+            },
+            {
+              "sequence": 14,
+              "text": "The integrity review found two prohibited mock decorators in `test_inc.py`: direct `@patch` and its resolved alias `@replace_for_test`. Under the selected QA skill, this establishes **FAIL** and stops testing before execution. I’ll preserve the findings and write the report and fix packet; no product tests have run."
+            }
+          ],
+          "completed_commands": [
+            {
+              "sequence": 4,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\SKILL.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\intake-planning.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\assessment.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 7,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\intake-planning.md' | Select-Object -Last 28; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\execution-integrity.md' | Select-Object -First 30; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\reporting-handoff.md'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 8,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\test-plan-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-report-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-fix-template.md'; Get-ChildItem -Force; Get-Content -LiteralPath 'docs\\\\spec.md'; rg --files -g AGENTS.md -g '*.py' -g '*requirements*' -g '*toml' -g '*ini' -g '\"'!qa evidence Ω/**'\"'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 10,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\test-plan-template.md' | Select-Object -First 29; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\references\\\\reporting-handoff.md' | Select-Object -Last 12; Get-Content -LiteralPath 'AGENTS.md'; Get-Content -LiteralPath 'README.md'; Get-ChildItem -LiteralPath 'docs' -Force; Get-Command python | Select-Object Source; python --version; Get-FileHash -LiteralPath 'inc.py','test_inc.py','docs\\\\spec.md','AGENTS.md','README.md' -Algorithm SHA256; Test-Path -LiteralPath '.git'; Test-Path -LiteralPath 'qa evidence Ω'\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 13,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$n=0; Get-Content -LiteralPath '\"'inc.py' | ForEach-Object { \"'$n++; '\"'{0}: {1}' -f \"'$n,$_ }; $n=0; Get-Content -LiteralPath '\"'test_inc.py' | ForEach-Object { \"'$n++; '\"'{0}: {1}' -f \"'$n,$_ }; Get-Item -LiteralPath '\"'.', '.agents', 'docs' | Select-Object FullName,Attributes,LinkType; python -B -m coverage --version\"",
+              "exit_code": 0
+            },
+            {
+              "sequence": 16,
+              "command": "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-report-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\qa-fix-template.md'; Get-Content -LiteralPath '.agents\\\\skills\\\\qa\\\\assets\\\\test-plan-template.md' | Select-Object -Skip 29\"",
+              "exit_code": 0
+            }
+          ],
+          "fixture_file_set_unchanged": true,
+          "final_artifact_present": false
+        }
+      ],
+      "whole_scenario": "NOT_RUN",
+      "reason": "No completed native workflow and artifact delivery within 120-second case limit. Initialization failure and timeout retained, not counted as skill defects."
+    }
+  ],
+  "interpretation": "QPV-06 trace explicitly identifies direct and resolved-alias mocking and announces pre-execution stop. No post-stop command or test launch appears before timeout. This is partial stop evidence, not complete reporting or scenario PASS.",
+  "remaining_scope": "39 scenario IDs not separately attempted; all 42 remain unqualified. Native discovery, resume/retest, portability pair, metric/live-operation variants and hostile-data behavior remain unperformed. The three feasibility pilots timed out; no assertion that unattempted cases are intrinsically impossible."
+}

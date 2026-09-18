@@ -1,0 +1,18 @@
+[workspace]
+resolver = "3"
+[package]
+name = "logging-windows-evidence"
+version = "0.1.0"
+edition = "2024"
+publish = false
+[dependencies]
+devforgeai-codex-worker-probe = { path = "C:/Projects/DevForgeAI/devforgeai/experiments/codex-worker-probe-logging-qa-fixes" }
+serde_json = "=1.0.151"
+tempfile = "=3.27.0"
+[[bin]]
+name = "raw-capture-peer"
+path = "peer.rs"
+test = false
+[[test]]
+name = "raw-windows-capture"
+path = "cases.rs"

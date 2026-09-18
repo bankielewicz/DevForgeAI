@@ -1,0 +1,59 @@
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling cfg-if v1.0.4
+   Compiling zmij v1.0.23
+   Compiling windows-link v0.2.1
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling getrandom v0.4.3
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling windows-sys v0.61.2
+   Compiling generic-array v0.14.7
+   Compiling tempfile v3.27.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling syn v3.0.5
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.31s
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
+     Running unittests tests\support\console_driver.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\console_driver-288c56518b315dfe.exe)
+     Running unittests tests\support\crash_driver.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\crash_driver-b4eab878aeed91cd.exe)
+     Running unittests src\main.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\devforgeai_codex_worker_probe-960ff5c1e423ff70.exe)
+     Running unittests tests\support\profile_peer.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\profile_peer-e13029b616fcc694.exe)
+     Running unittests tests\support\protocol_edges_peer.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\protocol_edges_peer-8946ccf8a712e412.exe)
+     Running unittests tests\support\peer.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\protocol_peer-f59665b8cba881b5.exe)
+     Running tests\admission.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\admission-c246834cec6ef7d8.exe)
+     Running tests\cli.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\cli-bd88b70ab58901a6.exe)
+     Running tests\contract.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\contract-1226a94d749c512a.exe)
+     Running tests\effective_profile.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\effective_profile-c6cd88eb21bb5ddd.exe)
+     Running tests\effective_profile_edges.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\effective_profile_edges-1ca36778eed9db74.exe)
+     Running tests\launch_policy.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\launch_policy-a032193e06b221cc.exe)
+     Running tests\native_identity.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\native_identity-016048e8ab2e68a1.exe)
+     Running tests\negative_paths.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\negative_paths-dc2fcc2973a1e9d7.exe)
+     Running tests\oracle.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\oracle-7bfe42e1f8272a08.exe)
+     Running tests\preflight_cli.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\preflight_cli-68d267c2530df3d3.exe)
+     Running tests\preflight_recovery.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\preflight_recovery-ee9f77238d3c4a8b.exe)
+     Running tests\process_ownership.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\process_ownership-db4476d4c865b3ca.exe)
+     Running tests\process_windows.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\process_windows-4f4eb8a376530b1f.exe)
+     Running tests\profile.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\profile-bcef7d5da66ab5f6.exe)
+     Running tests\profile_protocol.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\profile_protocol-541708358e49d487.exe)
+     Running tests\protocol.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\protocol-63b77054b33e41d2.exe)
+     Running tests\protocol_edges.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\protocol_edges-dec5ca38feb7a642.exe)
+     Running tests\recovery.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\recovery-30e4ffb314995f6f.exe)
+     Running tests\remediation.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\remediation-08893755a6bf089d.exe)
+     Running tests\requirements.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\requirements-24defa556af1ac9d.exe)
+     Running tests\runtime_edges.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\target-coverage\llvm-cov-target\debug\deps\runtime_edges-170396146f84c761.exe)
+
+    Finished report saved to C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\coverage\coverage.json

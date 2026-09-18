@@ -1,0 +1,28 @@
+{
+  "mode": "execute",
+  "assessment": "FAIL",
+  "full_qualification": "INCOMPLETE",
+  "evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\executions\\20260914T191133863776Z",
+  "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\test-plan.md",
+  "candidate_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\executions\\20260914T191133863776Z\\source-manifest.json",
+  "report": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\executions\\20260914T191133863776Z\\qa-report.md",
+  "fix_packet": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\executions\\20260914T191133863776Z\\qa-fix.md",
+  "confirmed_open_defects": [
+    "QA-D01",
+    "QA-D02"
+  ],
+  "gaps": [
+    "QA-G01",
+    "QA-G02",
+    "QA-G03",
+    "QA-G04",
+    "QA-G05"
+  ],
+  "owned_product_processes_at_native_completion": [],
+  "retained_windows_scratch": "C:/Projects/DevForgeAI/tmp/qa-20260914T191133863776Z",
+  "retained_ubuntu_scratch": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z",
+  "remote_sessions": "ended after evidence transfer",
+  "next_owner": "dev",
+  "next_safe_action": "User selects dev remediation of QA-D01 and QA-D02 using byte-bound handoff. No automatic repair or retest.",
+  "framework_acceptance": "NOT_EVALUATED"
+}

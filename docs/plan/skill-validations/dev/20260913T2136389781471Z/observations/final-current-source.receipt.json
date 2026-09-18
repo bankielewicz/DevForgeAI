@@ -1,0 +1,27 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "readback",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+    "--manifest",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2136389781471Z\\source-manifest.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:52:14.040384+00:00",
+  "end": "2026-09-13T21:52:14.183976+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120,
+  "stdout": {
+    "path": "observations/final-current-source.stdout",
+    "sha256": "c09a655e7503b26a21558972a05bd0c35ca112a8f8d5a6d58a8b6470c24b2c91"
+  },
+  "stderr": {
+    "path": "observations/final-current-source.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

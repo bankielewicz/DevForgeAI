@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: empty array returns zero
+ok 1 - empty array returns zero
+  ---
+  duration_ms: 0.6459
+  ...
+# Subtest: sums positive integers
+ok 2 - sums positive integers
+  ---
+  duration_ms: 0.0874
+  ...
+# Subtest: sums signed numbers and fractions
+ok 3 - sums signed numbers and fractions
+  ---
+  duration_ms: 0.2274
+  ...
+# Subtest: does not mutate its input
+ok 4 - does not mutate its input
+  ---
+  duration_ms: 0.3718
+  ...
+# Subtest: rejects invalid and nonfinite items with TypeError
+ok 5 - rejects invalid and nonfinite items with TypeError
+  ---
+  duration_ms: 0.2933
+  ...
+# Subtest: rejects sparse arrays as invalid items
+ok 6 - rejects sparse arrays as invalid items
+  ---
+  duration_ms: 0.0637
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 89.5984

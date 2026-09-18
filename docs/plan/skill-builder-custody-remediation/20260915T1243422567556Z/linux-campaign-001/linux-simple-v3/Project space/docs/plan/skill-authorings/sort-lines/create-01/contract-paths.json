@@ -1,0 +1,10 @@
+{
+  "project_root": {
+    "supplied": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-simple-v3/Project space",
+    "resolved": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-simple-v3/Project space"
+  },
+  "target_root": {
+    "supplied": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-simple-v3/Project space/result-skill/sort-lines",
+    "resolved": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-simple-v3/Project space/result-skill/sort-lines"
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "operation": "Rename builder identity and project references",
+  "original_files_archive": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-rename-originals-9bef0e164cae49d8acd51f1c772ab8f2",
+  "changed_reference_files": [
+    {
+      "path": "AGENTS.md",
+      "before_sha256": "4010a4e84f78ccdbf357794b80afebbf0c709b6759e0da845c45ff7d9178385b"
+    },
+    {
+      "path": ".agents\\skills\\skill-builder\\SKILL.md",
+      "before_sha256": "2706a219c5a4ff03478b0ec6b992f98beebce989fc4b47139a1f1e709196ae24"
+    },
+    {
+      "path": ".agents\\skills\\skill-builder\\evals\\fixtures\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": ".agents\\skills\\skill-builder\\evals\\fixtures\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\claude-to-codex-skill-import-spec.md",
+      "before_sha256": "54215624771df345d4f983f5ea0f0863c8275c83119d86dba4a299ce085da530"
+    },
+    {
+      "path": "docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+      "before_sha256": "99cd920800612daf7bd3d5b6e388a38907ec358faf6396d3f34b58ecbae83bfb"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-authoring-log.md",
+      "before_sha256": "03ab1bcc0ee89ddd29177d14bb334b37ff366cf738beb1511dadee7bf1e70105"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-implementation-log.md",
+      "before_sha256": "1d6114dff554307c6fca0c7475a2b1d1914a4b5bb6f341eb94f4d5889b5b54f0"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-research-log.md",
+      "before_sha256": "0407952c06fcd55aae6628d6ecc921a2041ebf11ce236147c8a497574cc119cd"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-spec.md",
+      "before_sha256": "f387f9cf6a9ce537dea105411846c85339abf45310aaa7561f59381b10c4b95d"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-mandatory-evaluation-log.md",
+      "before_sha256": "d23ed519b71431b67d005d87b3fa088027f92231ebf4a3e92b67dc4db6258267"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\completion-receipt.json",
+      "before_sha256": "e53043721fecaf560ec5d64ff3d75ec66a03ec6f7efe11fa3d079df34440a7a3"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\docs-agent-log.json",
+      "before_sha256": "7dbeff5ce9186c705560e657b4659d4eb5dd44d542b715552736a75991079b54"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\evaluator-agent-log.json",
+      "before_sha256": "28ddc36397bdf13c2e0f47762a472892ca0bff1d95eb4ee37d4c4ad3b89d488d"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\finalization-log.json",
+      "before_sha256": "1ce413f127c00e55345526609cbde2a39711e57fd4f7648153efd97aaac64792"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\regressions-final.txt",
+      "before_sha256": "8a2db4bbec149bf52c293f9ab6998913ac7a2f7a0b8892dcec3c3b42f3691f94"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\reviewer-repair-agent-log.json",
+      "before_sha256": "62a84912f8538d1d99ebbadcbbd33c7af2fc56e7a550b77b60b3296fc1031110"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\root-command-log-final.json",
+      "before_sha256": "9735a8c35bf4a22493bcd5f649eb18552c64f97cade792408b5c80a673948975"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\root-command-log-through-verification.json",
+      "before_sha256": "f6395e98dfd086d3ed5a3f83798d9f622c823582451dd228b7e6411fdb90d993"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\root-command-log.json",
+      "before_sha256": "b15d58af90b477b74dbd69375843b800f5b3faaac3539f8efa80d6e71b9e9d11"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\tests-agent-log.json",
+      "before_sha256": "34219734caea6ba7571ef6c6a4a7447d6b655907d37f379920c28b752183eb95"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\baseline\\SKILL.md",
+      "before_sha256": "d56c4fc525a10ffef3d7f543182d1d030af27c259489ccc375bb6aee7eb36a57"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\baseline\\evals\\fixtures\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\baseline\\evals\\fixtures\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\baseline\\references\\evaluation.md",
+      "before_sha256": "ac54faf1d43df9398c7098d89116823ed9c2545fabc522386a5f58f397fe5488"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\deterministic-candidate\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\deterministic-candidate\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\deterministic-candidate-03\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\deterministic-candidate-03\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\deterministic-candidate-final\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\deterministic-candidate-final\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\trial.py",
+      "before_sha256": "c696de6ab87c3b43ef1104768af6ec003b31c80a782ebdfbc2551625541a4adc"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-builds\\gaps-capability\\20260912T124514789089Z\\build-report.md",
+      "before_sha256": "b9bdcbd4ff0f3ea43d18c7500d9a09285e44151ae864a59d30365077f05bdcc2"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-builds\\gaps-capability\\20260912T124514789089Z\\command-log.md",
+      "before_sha256": "21978de1a5e9f820d2feeb05e465ddca946d6fba9893e7a5374149cff2a89fcb"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-builds\\gaps-contradictory\\20260912T124514344397Z\\build-report.md",
+      "before_sha256": "62d987c8df5d6cedd6c0d253491fffdb73521f18c1bfbca5621ba03e8d1cacab"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-builds\\gaps-contradictory\\20260912T124514344397Z\\command-log.md",
+      "before_sha256": "f5700bac5162f2ea3699f4dfae8fc8bbcf6b5e3a8e052d1389faff62ab515090"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-builds\\gaps-missing\\20260912T124513892019Z\\build-report.md",
+      "before_sha256": "00c9d4c6dc1d223dc8a4342bddcb3ba9c85af6384aad8658bbf7fe5b5b9de19b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-builds\\gaps-missing\\20260912T124513892019Z\\command-log.md",
+      "before_sha256": "7bbfeccfcf5de7dd96753a1672a8a34e8fe84fcba9a46de2523a1af2814da6c7"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\20260912T123934371592Z\\builder-binding.json",
+      "before_sha256": "de7f101f56d0debdaf898303d5873a6b499bdf3a043f631c0cdaa28dd7a2638f"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\import-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\20260912T123934371592Z\\command-log.md",
+      "before_sha256": "4aa3fa2df43bbcb586af42f14d569a502aad48978ecf443eb501079fdd5d8429"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\20260912T123934371592Z\\builder-binding.json",
+      "before_sha256": "de7f101f56d0debdaf898303d5873a6b499bdf3a043f631c0cdaa28dd7a2638f"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\20260912T123934371592Z\\command-log.md",
+      "before_sha256": "4aa3fa2df43bbcb586af42f14d569a502aad48978ecf443eb501079fdd5d8429"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-01\\builder-resources-readback.txt",
+      "before_sha256": "10cd10901b011290830731ab9b260e2051111fbaab08d9a2cc6a46bc03318274"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-01\\command-log.md",
+      "before_sha256": "32642edc2f93ae0acd8b48d5fb177dd3774f28ab34b90fdadf2f01e8986b8822"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-01\\commands.jsonl",
+      "before_sha256": "a2b85b13ba45867d19ca180f40868bc645367df42473bd01c79f6d50565b73f1"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-01\\finish_conflict.py",
+      "before_sha256": "a3ebc0e527e0e880767c6c127b54d5cab8c057d1a0ce639cd8a7cd45f02364e8"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-01\\inspect_inputs.py",
+      "before_sha256": "9b5019dbdd391f55a6eb1a44c3411d39161748b2ad45aa44400222998ecde1ef"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-01\\prepare_revision.py",
+      "before_sha256": "77b25b06eab29825a169adf25d0daf52ddb7b668198be89d469d72e35a5a8f22"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-02\\command-log.md",
+      "before_sha256": "fac0daf184dd0363ff4de2ce5bdd209bd9daab1477cc6812828c0561c1ef4bf4"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-02\\commands.jsonl",
+      "before_sha256": "e6b61c4750ad7f2e44ed4ff1df28270bdfbba6aeceb5ea448065585fa7ad6ab8"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-02\\delivery.py",
+      "before_sha256": "23ff8df97312b228d754898bb6de500c4ada17cbee652f825e1a7c6755ac6bfb"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import\\revision-20260912-independent-02\\prepare_revision.py",
+      "before_sha256": "9f482a29376482a0db24af28b33f07a7c6851ab99cedcb67d33dc00cf2e519f0"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\trial_support.py",
+      "before_sha256": "fab1872a1eddb6cdff49ecf29417ccde744424cabb8b3c8626671a515f3149ce"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\command-log.jsonl",
+      "before_sha256": "a1d1521092462275246cefec655c12b1ab510c9dd356199bf2e2bc8fe627dac7"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\command-log.md",
+      "before_sha256": "3e4aceee2f682586891265d881fb6184c88500a8dbffd5a8d6154bb2000a7ee3"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\routing-classification-receipt-original.json",
+      "before_sha256": "fe7ea9b92ce492dfdd13eb6b9d0de33df574198c4fe9818c1489f0cc54092bb1"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\routing-classification-receipt.json",
+      "before_sha256": "d81a3585beb950a5eecf305bef71c3a8d820669de96f0234f57dd8d8599e39c1"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\routing-source-SKILL.md",
+      "before_sha256": "2706a219c5a4ff03478b0ec6b992f98beebce989fc4b47139a1f1e709196ae24"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\routing-candidate\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\routing-candidate\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\routing-candidate-02\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\routing-candidate-02\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-evaluation\\command-results.json",
+      "before_sha256": "d5e60008d4250ac804ed9d400790f8d501853af528bf52397ab2b54d644fb4bf"
+    },
+    {
+      "path": "docs\\plan\\skill-builder-evaluation\\documentation-command-results.json",
+      "before_sha256": "40c5deed665ae9cebf9cdc652b416f4559aa4fc1d689c2f1af3f90719359104a"
+    },
+    {
+      "path": "docs\\plan\\skill-builds\\skill-validator\\20260912T140148003Z\\command-log.md",
+      "before_sha256": "57599777d2e64ee5b2b6652045aaa933f494145d59bb55a7082454c1ad446238"
+    },
+    {
+      "path": "src\\agents\\skills\\skill-builder\\SKILL.md",
+      "before_sha256": "2706a219c5a4ff03478b0ec6b992f98beebce989fc4b47139a1f1e709196ae24"
+    },
+    {
+      "path": "src\\agents\\skills\\skill-builder\\evals\\fixtures\\portable\\evidence\\destination-manifest.json",
+      "before_sha256": "536be4fe61a01a653e3260a022c5e171ea144276e19a814272c86a511d9a8c13"
+    },
+    {
+      "path": "src\\agents\\skills\\skill-builder\\evals\\fixtures\\portable\\evidence\\source-manifest.json",
+      "before_sha256": "ccbbcd51c6cbaf26b4ba768191143026a84c43eb7b411c487b1c868be2b55b6b"
+    }
+  ],
+  "renamed_items": 7,
+  "historical_evidence_status": "Historical text and paths were updated by request. Original hashes and outcomes were not reissued; modified historical evidence is not valid as an unchanged sealed baseline. Original affected bytes are retained in the external archive.",
+  "verification": {
+    "regression_command": "python -B -X utf8 -m unittest discover -s src/agents/skills/skill-builder/tests -v",
+    "regression_tests": 112,
+    "regression_result": "OK",
+    "structural_checks": "Source and local .agents packages valid",
+    "manifest_checks": "31 entries per package; zero mismatches",
+    "old_identity_content_matches": 0,
+    "old_identity_path_matches": 0
+  }
+}

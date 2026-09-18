@@ -1,0 +1,62 @@
+{
+  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+  "files": [
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-adoptions\\receipt-totals\\adopt-01\\evaluation-results.jsonl",
+      "sha256": "df50bb531069aa18f3d15bea55e01e1767f6b9b1ed49ea1ad4597387c3cd37ba",
+      "profile": "adoption-v1",
+      "count": 1,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03\\candidate-results.jsonl",
+      "sha256": "de08bdcce830656c580395d53a4dd940143c480de71f76b1fa6d3100fdd5948e",
+      "profile": "spec-v1",
+      "count": 2,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03\\delivered-results.jsonl",
+      "sha256": "cda0ab63934986ab4f77e349a684d6449c4e8755acbfc32f53edf5898f03f1c7",
+      "profile": "revision-spec-v2",
+      "count": 3,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03\\published-results.jsonl",
+      "sha256": "fa28e8549ea8a60ff81182a7befa5365fb8f413a06babbc514de59b4425d8a49",
+      "profile": "revision-spec-v2",
+      "count": 3,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-01-conflict\\candidate-results.jsonl",
+      "sha256": "cdf26a71d21aad281feb19dab298e3c7b24876a9e31a61823c638469dcff9fa8",
+      "profile": "spec-v1",
+      "count": 2,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\candidate-results.jsonl",
+      "sha256": "0c8c41fafc409ebe9f613d8ac030561c8e296ec59363a0d505baa6be3ec953f0",
+      "profile": "spec-v1",
+      "count": 2,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\delivered-results.jsonl",
+      "sha256": "2444fe8fff4580bdb9a113ead7faf137dd65aad121e3d2caa121ba6963afbbc3",
+      "profile": "revision-spec-v2",
+      "count": 3,
+      "all_passed": true
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\published-results.jsonl",
+      "sha256": "c03239e42fb25af63c4d86c874d25e7102ce78feb959ceb46d7e535b91339a63",
+      "profile": "revision-spec-v2",
+      "count": 3,
+      "all_passed": true
+    }
+  ],
+  "record_count": 19
+}

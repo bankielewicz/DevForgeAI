@@ -1,0 +1,17 @@
+{
+  "group": "success",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-011VbSsg",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-011VbSsg\\run",
+    "state": "completed",
+    "schema": 3,
+    "level": "minimal",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-011VbSsg\\control-stdout.txt",
+    "control_sha256": "2e69b4cde61ce4d9cf36175a30228bab33775697f16f9b867bd0275412b795c4"
+  },
+  "mutation": "stderr-error",
+  "expected_error": "evidence_corrupt",
+  "expected_state": null,
+  "views": "first-and-end",
+  "id": "M-024"
+}

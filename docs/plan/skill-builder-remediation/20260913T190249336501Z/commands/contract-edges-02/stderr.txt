@@ -1,0 +1,13 @@
+test_corrupted_capture_blocks_before_write (__main__.FinalEdges) ... ok
+test_invalid_legacy_revision_requests (__main__.FinalEdges) ... ok
+test_metadata_concurrent_edit_preserved (__main__.FinalEdges) ... ok
+test_metadata_invalid_requests (__main__.FinalEdges) ... ok
+test_out_of_scope_user_edit_keeps_prior_baseline (__main__.FinalEdges) ... ok
+test_owned_deletion (__main__.FinalEdges) ... ok
+test_revision_required_user_deletion_conflict (__main__.FinalEdges) ... ok
+test_spec_lookup_excluded_and_nested (__main__.FinalEdges) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.124s
+
+OK

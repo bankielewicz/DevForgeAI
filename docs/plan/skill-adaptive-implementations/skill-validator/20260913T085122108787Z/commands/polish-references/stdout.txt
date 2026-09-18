@@ -1,0 +1,1 @@
+Focused read-only contract reference; removed maintenance imperatives and corrected missing-report coverage explanation.

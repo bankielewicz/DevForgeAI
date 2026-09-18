@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["delivered role differs from selection"], "ordered_member_ids": []}

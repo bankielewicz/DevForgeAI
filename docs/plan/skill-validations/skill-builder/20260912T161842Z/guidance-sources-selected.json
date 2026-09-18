@@ -1,0 +1,35 @@
+{
+  "sources": [
+    {
+      "source_id": "openai-skills",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+      "snapshot_path": "guidance/openai-build-skills.md",
+      "sections": [
+        "Build skills",
+        "How ChatGPT and Codex use skills",
+        "Optional metadata",
+        "Best practices"
+      ],
+      "freshness": "snapshot_only",
+      "representation": "documentation connector Markdown"
+    },
+    {
+      "source_id": "agent-skills",
+      "url": "https://agentskills.io/specification",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "3f0e6c9b997f072d5cad0bc1a9bec716b7adb79cc3038e506a8260a38570c7e3",
+      "snapshot_path": "guidance/agentskills-specification-retrieval.json",
+      "sections": [
+        "Directory structure",
+        "Frontmatter",
+        "name field",
+        "Optional directories",
+        "Progressive disclosure"
+      ],
+      "freshness": "snapshot_only",
+      "representation": "web extracted page and retrieval metadata, JSON string; not raw HTTP bytes"
+    }
+  ]
+}

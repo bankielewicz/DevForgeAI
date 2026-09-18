@@ -1,0 +1,603 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "20260917T182711Z-02",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\story-create",
+  "target_name": "story-create",
+  "operation": "import",
+  "authorization": "User selected legacy source clarified in user-request.md, destination src/agents/skills/story-create, excluded legacy CLI and authorized new version 0.1.0. Development authoring only.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\contract.json",
+    "sha256": "d86ef970627b78069634a39aaec926838646a117e8c06a51b35ab5d6dcf8e768"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\user-request.md",
+      "sha256": "d3797551f37838e27097e0fdb68ba6485d0576d45c5b9a4237cca3ed2b635a30"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\source-manifest.json",
+      "sha256": "8e4a4756f4ae998b61dfd2be1996eacf88f31d4ddcf503f501e5b850e4589044"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\source-dispositions.json",
+      "sha256": "0972f2569671c19d221a30582a57c3de8de27e3b1b4930579e6c7279b4a77b57"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\requirements.json",
+      "sha256": "e4907fdff37cdc09ded0db79004288141d9686e3d0deacc7d01f10d252109af1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\import-decisions.md",
+      "sha256": "e98713072558d5651224edce74ebd1dc5853de0707ae14296b8005aae1c023a0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "3b8e2a112c438b536ab59db2abbcfd6e08ebdd7f41caa13cdf6d5c49866fab86"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\core-workflows.md",
+      "sha256": "0d778cc5767a163590e9dfbab26de22c5e8a0cf7d1f7f13b3e46f79736c25e6c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\work-items-and-dependencies.md",
+      "sha256": "6440a9cbeb78445e5c0cce524c2818475de99aa15a8712f93eac7a4c73cea767"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\skills-and-project-expertise.md",
+      "sha256": "5868afad84112b61c2de542f448ba74022bf9ed18d4eecc41be0fa4aa1d1d1bd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\guardrails-and-rust-runtime.md",
+      "sha256": "3df344a0a0b682d3e738e3a029415555bb058f91730365e07b1fec4cff236685"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\SKILL.md",
+      "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\SKILL.md",
+      "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\assets\\adaptive-runtime\\check_project_binding.py",
+      "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\adaptive-contracts.md",
+      "sha256": "f41dfc545d60498253b52e0d57c4a1214602d380fcc766181f960949f0e7404c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\project-binding.md",
+      "sha256": "ebbc7d762c9a7adacd205d4711e42ab701689e2e71648d5f42cf2d3f5dc27c23"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\validation-handoff.md",
+      "sha256": "265d8ad543b39139667d830c39cb4cbe2b89b1b4646275b94fa9655613fe165a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\assets\\templates\\command-template.md",
+      "sha256": "a886f2e48244aa70b7596b12c5efc075df795b978d164ba8b3cc291feefc68e1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\assets\\templates\\story-template.md",
+      "sha256": "8f349dd11dae1d4adfeaebc8047c33ed68bf3ac8edc244b6874dca71e4d9031b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\contracts\\api-designer-contract.yaml",
+      "sha256": "3f95021896cd393139ce7c17e6cbf903bf04ac515efb8ffd673405df18065e0a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\contracts\\phase-output-schema.json",
+      "sha256": "996a98bbde32edf2649bcee374d847652cb7b1e4919d3a487db78728e07ea005"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\contracts\\requirements-analyst-contract.yaml",
+      "sha256": "141365010ba11c190aac813c41108073494189964a70bf55b2cda56e8264eaa9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\contracts\\template-consumer-contract.yaml",
+      "sha256": "a4294c51cc58d1d5ab78e4d87a5ec04cb07ec8d4807b40519e0896f96277bc91"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\MIGRATION-NOTES.md",
+      "sha256": "60f2b000b7c685b8dda2b8e4e433891d831106874cdf2c8fd9010f583aa9fcc0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-01-story-discovery.md",
+      "sha256": "c9884dfca38edfd3d4d7691c9862e11125fb4bbb6a313c61bed016dba68a38f6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-02-requirements-analysis.md",
+      "sha256": "97556a711aad344afd23ccde291304ebe0cc0b28bf57cc9cb1404794226b2816"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-03-technical-specification.md",
+      "sha256": "ecbfc34d2514d1cc1c3a72e24ea8dfad287d25f40412e0d5e148614408fec2a9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-04-ui-specification.md",
+      "sha256": "1553d50b47f540ce4195066a7caabe019e62e2394557f878871e23102cb37837"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-05-story-file-creation.md",
+      "sha256": "d05767f38cca662ab35789fc6794122d10b4b09f05acd633fcf25f7b46cdf61d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-06-epic-sprint-linking.md",
+      "sha256": "b655cfb6431cae6120234904363f0c95ba9f0d907bc949af124b1f10d4a50665"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-07-self-validation.md",
+      "sha256": "d0897024894b5b8261592488a35e2e6aab68cef5b3701f3bd632e55e95f1b3aa"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\phases\\phase-08-completion-report.md",
+      "sha256": "96b097c746801649d5507925558320a9ad167a3e16d550a4e9ef2740a834df61"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\acceptance-criteria-core.md",
+      "sha256": "3d1c6063dea7d717442f21648e92db96aa0872a5c0ff85a841e93f0bef6e0f62"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\acceptance-criteria-domains.md",
+      "sha256": "fc5c75af7c33e3ae295816d31f36f3878534a452dd6e4b587f73bbff8a8f36e0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\acceptance-criteria-patterns.md",
+      "sha256": "a84b8c1524c1db7a536335636cb9ee8ca46db445d0f59d6126ef45888013343a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\acceptance-criteria-refactor.md",
+      "sha256": "4b59f9fd6b5cc696fbd183352cca96995e5bf2ad73856597d6edf0478e91d317"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\batch-mode-configuration.md",
+      "sha256": "1d8317cff4c4501488efc294d963353586b2be61237fd8d82c7db73268bf663d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\checkpoint-schema.md",
+      "sha256": "e237aa1bccc899777898919c82ab507db0877a608759e79b4c66b939ec5f4c4f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\completion-report.md",
+      "sha256": "e865e7e0d261f75e9a7898fd52ed9a3e2bcd24a170850a7adb164f09bea62618"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\context-validation.md",
+      "sha256": "8e1bc0fca09dc461628c5db1a23c0879cdede4a9fe09dfcd40e89ae887e72817"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\contract-schema.md",
+      "sha256": "86965236c0009ad3161300b55eaf7a89afecbf221f6c2e6877039aa1320ee5a6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\custody-chain-workflow.md",
+      "sha256": "14f479bf8fe4729a82306a73f049f59e38b18f5b1445cfa1ff0e1d62a342a8c2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\epic-sprint-linking.md",
+      "sha256": "166f545d6cfd2a7859b97b81ec6a873b4609819a47f71125bb6b7cd1152ffbc8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\error-handling.md",
+      "sha256": "ce8029b3e3e254c2ffb786bea1aa70010e5a8873966e575f2db8d8da3e4316b4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\examples\\current-story-v3.1.story.md",
+      "sha256": "22396d9c445f93d3eff5dc2fae26e088e4edcbcfede258892fa64620d7d62dc9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\examples\\old-story-v2.0.story.md",
+      "sha256": "9b32a8e53d590e7de1cdbee20c00ae299c8765bbd51e43e5babee4a4bbc23d18"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\examples\\old-story-v2.7.story.md",
+      "sha256": "3620472339efcd0a00123c5763da7c0c45a344951684d51c64c43496ca4fbcc2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\fix-resolution-patterns.md",
+      "sha256": "3db648f4fe598cf21b807800d20f6859674f647d81981a18903e0eab9ecc272c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\gap-to-story-conversion.md",
+      "sha256": "cee05e9ef21082db966bb62583d97589b0e4adce1944291394e8375dba862074"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\integration-guide.md",
+      "sha256": "9e908747d83a2f3ab2eccc9409ff8e980a2cb10513de6fd16095ca7b43bc5748"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\parameter-extraction.md",
+      "sha256": "536b2586e614f313b4bdf69dc721ce1906924e21f5762790589980fb39d6b155"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\refactor-quality-checks.md",
+      "sha256": "883d17d81449089609b4b0f4b94e4c906015447b7ee3901f5472e545de085056"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\requirements-analysis.md",
+      "sha256": "246d446c554a0f73d3dcb270fd3e0df420ca9a14b47ad8593d3cc480544bf91f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-discovery-batch.md",
+      "sha256": "ffceb0767aaa396dcff1cefbf5340ebe4873ea20ba686b888a8e05fd7d6e1684"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-discovery-from-recommendations.md",
+      "sha256": "e59be837754985ce7e853d72d9b3e441ea049cce1aaf3101db08d76bf96bd0da"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-discovery-interactive.md",
+      "sha256": "fc5a6f8cb0e2cd90e6cddcbf6bc020db3fee71d17476faee8005a6498a38b03d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-discovery.md",
+      "sha256": "57a0564d0d42b65e81f7677488ccd2ad7db2cb277e8ad1832bcaa813ad40b387"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-examples.md",
+      "sha256": "8b69d3b0e6bea1908ea8de5cb610fde292a6a86c6c5ca3cba32e49e75f021bac"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-file-creation.md",
+      "sha256": "83ad8a1e97c148af6069df8e61b072cad5812f37b7a4f13c21a4e2372292a9d5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-structure-guide.md",
+      "sha256": "111fe51b052d29a36d3ba471bc90403749b06597cfc26d8eb927a405e9d5d16e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-type-classification.md",
+      "sha256": "0ddecd47f1aef49fa8c674a9efb7ba44d0fa23bf2d18ff6ef1eea919eac65ce2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\story-validation-workflow.md",
+      "sha256": "78f632f26564852e82473bcaf535f8544cff4c47f83252037bf8762d2818533f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\technical-specification-creation.md",
+      "sha256": "88e0268c27359701c980859a29f1519ad0a484419bb7807ed361ef15f06dcbce"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\technical-specification-guide-graphql.md",
+      "sha256": "a89d3e5e02da49154b13501ed0320841bc6fe2b9808bc4cbcced2114a73b9b65"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\technical-specification-guide-grpc.md",
+      "sha256": "48c6ee4fcf38ae54527afff0e9dd3a5872b33370495dc2f596c44dc71eb8d953"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\technical-specification-guide-rest.md",
+      "sha256": "a54b50f5c63b06bc5b6d545cbe2ebd76ca7b9acd72b7b84e71860adf999befe1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\technical-specification-guide.md",
+      "sha256": "424d4ea9bd4acb79415359589186a4aaf646f243c88f45c40740eb981c0e2455"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\template-version-validation.md",
+      "sha256": "affe80fcde9e0318a6416b09b8bd51237a9c34a54fee5a1cd8b2d9161bc67eaa"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\ui-specification-creation.md",
+      "sha256": "69f4ad56adcf4a6892c1ce9064e1d7b4d707cb24058098e51fbc7bef63804173"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\ui-specification-guide.md",
+      "sha256": "c7421e6c22a252c79cbb7fc714ecc6388ac51cbe4e4524e601d363e2e6a45cb2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\user-input-integration-guide.md",
+      "sha256": "5d7a9e95bcb75e295066f3139c9c814584e51d9c69ddc083a27c904d69bef6ca"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\validation-checklists.md",
+      "sha256": "d2728b00076fdc576356e501d958ac8f71b7a56005a087f64c3ca2858037c4d5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\references\\validator-traps.md",
+      "sha256": "d4db0ce6d1d6b436207e17ad6c853ff4b582997a8229cb3c293ea1debab41b37"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\conversion_prompt_template.txt",
+      "sha256": "479383f62c094f78e8396e679d72d47494103c700425de9d97c4b51eaf162734"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\migrate_story_v1_to_v2.py",
+      "sha256": "0bcbe9c439a9669e76ed4456c531addfa34944382aa0b5ce74a1ac01eac74249"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\expected\\test-story-1-ground-truth.yaml",
+      "sha256": "a550a7628add7831748b3255923409e5ebd61dac25fa215c3405c7956f3a7a63"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\expected\\test-story-2-ground-truth.yaml",
+      "sha256": "048ed1ecc160c3ac43a8779924a1b32cdc22614e5f054917e4e3ff53bc4e4ab7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\expected\\test-story-3-ground-truth.yaml",
+      "sha256": "71dd500a1951968e2ca69fef0b9290615ab39053518121b8e68c53686bb16c0d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\expected\\test-story-4-ground-truth.yaml",
+      "sha256": "e22119606975dda3000de6288724ac2d9992c93d20c59e25f866b80a0e7f120b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\expected\\test-story-5-ground-truth.yaml",
+      "sha256": "12e0ae28443ba7a34741e4bac1745f0653c8f42e3266c7f63accc747b47d71ab"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V1-valid-v2.story.md",
+      "sha256": "815a15875a8c2b069bf53f99fb15f619eb7063ae2f5c81a7d31ca2561fcfbe08"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V10-bad-yaml.story.md",
+      "sha256": "6995bd80905e0b3b90dc4aee733fd16a538181db4c37f3df9a618cffbb8667e7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V11-vague-metric.story.md",
+      "sha256": "f39ae45ed141fddd4c4df3cb6a0664f86b2ada32ac980fcfeacc7d707b7deef1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V12-v1-story.story.md",
+      "sha256": "059e90750b6646a27d4d02815f962cdac06f74aeed3abdf08518bb10a078fdf2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V2-missing-version.story.md",
+      "sha256": "1e7fd61111b87c37057735466a32dfd849705da14237de7060a75c87b62a7605"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V3-invalid-type.story.md",
+      "sha256": "f1c9f7e40e2d18488e71fa9defb1ab43b22d00fd69c2650a7a492d2a4a0c6cdb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V4-missing-field.story.md",
+      "sha256": "d7b1439f9142f660661d9246301021570e52a4378658c0acdcfa3cdfc727ba84"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V5-no-test-req.story.md",
+      "sha256": "9534c06739831a17bdd52901ec0381e40b4e11b33fc9501831f1769aaefd1519"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V6-bad-test-format.story.md",
+      "sha256": "bfb6537ca8453aca8c6b8cebfe2736b546743969cb75054194471024a0ccfffa"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V7-duplicate-ids.story.md",
+      "sha256": "56b482cd3251a9e7ea1060f88591cc89531554228fab8313389fd575cde3ab3e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V8-all-types.story.md",
+      "sha256": "cf232eeed4070a010fa27575a41e74f4b03d9db1a0d0c8bd850b1b1969ad581e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\TC-V9-empty-components.story.md",
+      "sha256": "f0aa53f6058716ed54908dcac6b5a2d0ebeca4ebd8bd4fb0723983be00bd719f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\test-story-1-simple-v1.md",
+      "sha256": "ffa5d89d137f527b171cef308009c4606bc1f8327ddae63098396d8c26a25905"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\test-story-2-medium-v1.md",
+      "sha256": "3682d3cdf074ef135a66ce1d885d7ceccb9b0c24eceef201fcfe938011a4d499"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\test-story-3-medium-v1.md",
+      "sha256": "a62c05cc2c47d1290d178e07f2c1c5a2ade68812a084604103b83a5237968f5f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\test-story-4-complex-v1.md",
+      "sha256": "e617d8f614b62b2bd17f702189d590aa8f5b9a99d38aed36eda34f5600a4c650"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\fixtures\\test-story-5-edge-v1.md",
+      "sha256": "91b2ad882db788d1b28257fb5cb007141a7c8baba680dd6467958e8960d340fd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\measure_accuracy.py",
+      "sha256": "5b2ec847da3a9ad1c3659ca2593f6ef9ea9eb536e611e86c7e8b54e5ac7e1a5c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\tests\\run_all_tests.sh",
+      "sha256": "f715fec1f075120d41c2897719131befd3c23fff02ef2652ad0e8148b4ca0e6a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\validate_contract.py",
+      "sha256": "af35167802b7d28d299f7e0d49443c555ca8875c5ea85ce8a187b406604e8798"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\scripts\\validate_tech_spec.py",
+      "sha256": "537e1c5491eaa0aa6d6c7215b2e348999a52a0dffe9cfc1cd60e460cfb335b81"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\legacy\\spec-driven-stories\\SKILL.md",
+      "sha256": "026c9d82bb4be2b5a483fd3ba0f6f1d649d6cc703d249b129d6a1541995cc9ed"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\authoring-design.json",
+      "sha256": "3c10c553ac9e7238f02d709805dbaac220bf42fa5857490afacb91556d79c3d6"
+    }
+  ],
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "assets/devforgeai-skill.json",
+    "assets/templates/session-record.md",
+    "assets/templates/story-template.md",
+    "references/acceptance-criteria.md",
+    "references/adaptive-contract.md",
+    "references/architecture-seeds.md",
+    "references/batch-and-dependencies.md",
+    "references/delivery-and-resume.md",
+    "references/domain-patterns.md",
+    "references/intake-and-scope.md",
+    "references/recommendations-and-gaps.md",
+    "references/story-contract.md",
+    "references/technical-specification.md",
+    "references/ui-specification.md",
+    "scripts/check_project_binding.py"
+  ],
+  "retained_user_paths": [],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\before-manifest.json",
+    "sha256": "d0b5c38956e8f3631903ede7d30cff006b4945f1664061453e3ff0ac256c189f"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\candidate-manifest.json",
+    "sha256": "6e7164434dacc61742660cdb21fdb916d663c6b0562bbc9767349c56449ac8d8"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\delivered-manifest.json",
+    "sha256": "6e7164434dacc61742660cdb21fdb916d663c6b0562bbc9767349c56449ac8d8"
+  },
+  "applied_paths": [
+    "SKILL.md",
+    "assets/devforgeai-skill.json",
+    "assets/templates/session-record.md",
+    "assets/templates/story-template.md",
+    "references/acceptance-criteria.md",
+    "references/adaptive-contract.md",
+    "references/architecture-seeds.md",
+    "references/batch-and-dependencies.md",
+    "references/delivery-and-resume.md",
+    "references/domain-patterns.md",
+    "references/intake-and-scope.md",
+    "references/recommendations-and-gaps.md",
+    "references/story-contract.md",
+    "references/technical-specification.md",
+    "references/ui-specification.md",
+    "scripts/check_project_binding.py"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "Validation and testing NOT_PERFORMED; separate skill-validator must author and run the mandatory external Python JSONL runner, deterministic graders, fixtures, expected results, schema, dependency/runtime declarations and digest-bound manifests.",
+    "No native workflow qualification or downstream parser compatibility claim; adaptive runtime requires separately installed and bound package.",
+    "Legacy source version/manifest/phase discrepancies are resolved explicitly in import-decisions.md; historical files remain unchanged."
+  ],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "98a5ddf0249448969d528b3fa8a4e676794f441f18f8749ee9ce62d0ae549848",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/devforgeai-skill.json",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "2d2f9d42d048ad2c0ebad024532f0c2c0c54e7468678ecb84c8315034aebe4a6",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/templates/session-record.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "ddf9329578a2addd8cc533ef9d6738431b73be24f50f406e91988a6119adec55",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/templates/story-template.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "629e10179b8c052b749b59b725dd7a39ff0ab17c005c368b969606889bae67b9",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/acceptance-criteria.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "ec97c9fcf35b83486c095ea93cac3275de43dc77fe7728575c9326e833459d34",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/adaptive-contract.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "e6b5a914bda6402248e681042f342da15bc55642e34f93f10761bb323223cb41",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/architecture-seeds.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "af24e57e9c4091e4b8f58955ff0b62a357ac1e87f2cb3eb86b61a9c6ba8c0b2b",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/batch-and-dependencies.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "5f7c4f6f84e208a9f4d759fc4dfb07406bf7a6e0d3942b9ffaa5a7bc0d23b47c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/delivery-and-resume.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/domain-patterns.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "37fdf8c2296e2ac56823d4b8ad582dab5b1957bb1a8cd6fbf1ab0a3c5d2c3286",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/intake-and-scope.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "6473e00bcdf4ac28716610fb7308a44e3f320d0e211fcea2bf6ee16ff138dc86",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/recommendations-and-gaps.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "a1d108ceeb8cef51f0187bb2846bfea6a010fa824840e7d6c2ad907c8e4ad525",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/story-contract.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "67c715828367b4d813b5c2a46fd3211359374855b917c37eb6287b722202521c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/technical-specification.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "ffa3b5dc0818828b57ac311a16e06222cb14cf2a0f4f6e628eca7740a5532a7d",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/ui-specification.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "000fcd1acb65e73555842e99b4a0cbfd27716de92df997496573d86ba6121774",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/check_project_binding.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\baseline-manifest.json",
+    "sha256": "6e7164434dacc61742660cdb21fdb916d663c6b0562bbc9767349c56449ac8d8"
+  }
+}

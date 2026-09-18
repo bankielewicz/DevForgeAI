@@ -1,0 +1,85 @@
+# DevForgeAI spec-driven-qa Audit Policy (Plan D2 D4 — STORY-622)
+#
+# Per-phase declaration of which QA phases get adversarial audit gates and how.
+# Loaded by audit-gate CLI (--workflow=qa) and consulted by spec-driven-qa
+# orchestration loop.
+#
+# Mutability: this file is MUTABLE. Edits should be code-reviewed.
+# Sibling: src/claude/skills/spec-driven-dev/audit-policy.yaml (Plan D).
+# Governance: ADR-059 (this file), ADR-058 (sibling dev policy precedent).
+
+version: 1
+
+global:
+  # Plan D2 D13 — ASYMMETRIC vs dev: QA never bypasses audit even in
+  # remediation mode. Rationale: QA's purpose IS adversarial verification;
+  # suppressing audit during /qa --fix defeats the gate.
+  respect_remediation_mode: false
+
+  # Env var that, when set to 1, bypasses audit (logged for audit trail).
+  bypass_env_var: DEVFORGEAI_AUDIT_BYPASS
+
+  # Bypass log location (append-only JSONL). Shared with dev workflow;
+  # records gain a "workflow" field per Plan D2 D7.
+  bypass_log: devforgeai/audit/log/bypasses.jsonl
+
+  # Plan D2 D2 — workflow namespace for fixture paths
+  # (devforgeai/audit/qa/<STORY>-phase<NN>/). Asymmetric: dev uses legacy
+  # devforgeai/audit/phases/. Symmetric migration deferred per ADR-059.
+  workflow_namespace: qa
+
+  # Plan D2 D4 — light mode skips audit; deep mode required for gate to fire.
+  # /qa light mode is fast feedback during dev; adversarial audit belongs at
+  # the QA gate transition (deep mode).
+  light_mode_audit: false
+
+phases:
+  "01":
+    audit: false
+    reason: "Setup — pre-flight; no findings to verify"
+
+  "02":
+    audit: true
+    mode: single
+    fail_mode: closed
+    reason: "Validation — coverage claims (uncovered_lines, coverage_pct, threshold) deterministically verifiable against coverage XML"
+
+  "03":
+    audit: true
+    mode: single
+    fail_mode: closed
+    reason: "Diff Regression — git diff is ground truth for regression findings. RCA-046 forcing function: orchestrator rationalized CRITICAL test-integrity mismatches as 'WSL line endings' and downgraded status. Audit independently verifies file:line citations match diff hunks"
+
+  "04":
+    audit: true
+    mode: single
+    fail_mode: open
+    reason: "Analysis — audit role is INVOCATION + OUTPUT PRESERVATION ONLY (per deferral-validator advisor). Verifies subagents were invoked and their JSON output is preserved verbatim. Does NOT re-judge deferral semantics or anti-pattern severity. fail_mode=open mirrors dev Phase 06 (deferral-validator authoritative; audit advisory)"
+    audit_scope:
+      - "verify anti-pattern-scanner subagent invoked (artifact existence at devforgeai/feedback/ai-analysis/${STORY_ID}/phase-04-anti-pattern-scanner.json)"
+      - "verify deferral-validator invoked iff deferrals exist in story (artifact at phase-04-deferral-validator.json)"
+      - "verify validator subagents (test-automator, code-reviewer, security-auditor) invoked per story type"
+      - "verify each anti-pattern violation cites anti-patterns.md with line range"
+    audit_excluded_scope:
+      - "MUST NOT re-derive deferral severity (deferral-validator authoritative)"
+      - "MUST NOT contradict deferral-validator JSON output"
+      - "MUST NOT downgrade test-integrity verdicts to environmental causes (CLAUDE.md HALT trigger #10)"
+
+  "05":
+    audit: true
+    mode: consensus_when_available
+    fail_mode: closed
+    reason: "Reporting — highest blast radius. gaps.json fidelity propagates to /dev --fix. Consensus mode (when OPENAI_API_KEY available) catches judge-prior bias. ADR-010 enforcement: coverage gap → FAILED (no exceptions). Carve-out: audit verifies field-presence + transcription fidelity, NOT deferral severity re-derivation"
+    audit_scope:
+      - "verify overall_status==FAILED implies gaps.json exists with all required fields per qa-output-fidelity.md"
+      - "verify ADR-010: coverage below threshold → overall_status==FAILED (never PASS_WITH_WARNINGS)"
+      - "verify each coverage_gap entry has all 7 required fields (file, layer, coverage_pct, threshold_pct, uncovered_lines, severity, remediation)"
+      - "verify no prohibited patterns (qa-output-fidelity.md): 'various files', null line, empty remediation, empty uncovered_lines when coverage < threshold"
+      - "verify deferral_issues[] severity matches phase-04-deferral-validator.json verbatim (transcription fidelity, NOT semantic re-derivation)"
+    audit_excluded_scope:
+      - "MUST NOT re-derive severity classification"
+      - "MUST NOT override deferral-validator semantic verdicts"
+
+  "06":
+    audit: false
+    reason: "Cleanup — terminal phase; feedback hooks + summary; no claims to verify"

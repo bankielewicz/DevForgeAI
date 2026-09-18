@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 93436 (child process of PID 21528) has been terminated.
+SUCCESS: The process with PID 65828 (child process of PID 17740) has been terminated.
+SUCCESS: The process with PID 17740 (child process of PID 18024) has been terminated.
+SUCCESS: The process with PID 62836 (child process of PID 18024) has been terminated.
+SUCCESS: The process with PID 21528 (child process of PID 18024) has been terminated.
+SUCCESS: The process with PID 105140 (child process of PID 18024) has been terminated.
+SUCCESS: The process with PID 18024 (child process of PID 69316) has been terminated.

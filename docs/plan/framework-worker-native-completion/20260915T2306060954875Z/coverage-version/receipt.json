@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "llvm-cov",
+    "--version"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T23:06:59.464371+00:00",
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\coverage-version\\fixtures",
+  "owned_pid": 62424,
+  "exit_code": 0,
+  "elapsed_seconds": 0.062000000005355105,
+  "end": "2026-09-15T23:06:59.532928+00:00",
+  "stdout_sha256": "e4ab4bfc959991a09c77b7e54cd48e3559bae39fbe2bafdf6cbcc8e5cb6c65fe",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

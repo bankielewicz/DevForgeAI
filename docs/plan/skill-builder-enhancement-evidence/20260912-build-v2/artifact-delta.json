@@ -1,0 +1,45 @@
+{
+  "schema_version": "1",
+  "before_manifest_sha256": "5b39ca1a7e2833fa147101aa42d6ba6b185932b419bb457f811117f9e2ec5519",
+  "after_manifest_sha256": "0e900c38e64efbf09de889e234eea091524cdc8d67c7a4aa3626c4b5bb956096",
+  "changes": {
+    "added": [
+      "assets/build-report-template.md",
+      "assets/worker-task-template.md",
+      "evals/build-artifacts.schema.json",
+      "evals/builder-cases.jsonl",
+      "evals/profiles.json",
+      "references/evaluator-contracts.md",
+      "references/regeneration.md",
+      "references/spec-build.md",
+      "scripts/build_evidence.py",
+      "tests/fixture_data.py",
+      "tests/test_enhancements.py",
+      "tests/test_review_inputs.py",
+      "tests/test_review_provenance.py"
+    ],
+    "modified": [
+      "SKILL.md",
+      "assets/conversion-report-template.md",
+      "evals/evidence.schema.json",
+      "evals/runtime.json",
+      "references/conversion-rules.md",
+      "references/evaluation.md",
+      "references/evidence-format.md",
+      "scripts/graders.py",
+      "scripts/run_evaluation.py",
+      "tests/test_evaluation.py"
+    ],
+    "removed": [],
+    "unchanged": [
+      "evals/cases.jsonl",
+      "evals/fixtures/portable/destination/SKILL.md",
+      "evals/fixtures/portable/destination/schema.json",
+      "evals/fixtures/portable/evidence/destination-manifest.json",
+      "evals/fixtures/portable/evidence/file-dispositions.json",
+      "evals/fixtures/portable/evidence/source-manifest.json",
+      "evals/fixtures/portable/source/SKILL.md",
+      "evals/fixtures/portable/source/schema.json"
+    ]
+  }
+}

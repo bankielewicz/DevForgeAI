@@ -1,0 +1,52 @@
+test_F01_extra (__main__.Regression) ... ok
+test_F01_kind (__main__.Regression) ... ok
+test_F01_quality (__main__.Regression) ... ok
+test_F01_record_manifest (__main__.Regression) ... ok
+test_F01_request_kind (__main__.Regression) ... ok
+test_F01_request_manifest (__main__.Regression) ... ok
+test_F01_request_name (__main__.Regression) ... ok
+test_F01_request_paths (__main__.Regression) ... ok
+test_F01_request_project (__main__.Regression) ... ok
+test_F01_request_root (__main__.Regression) ... ok
+test_F01_request_run (__main__.Regression) ... ok
+test_F01_request_type (__main__.Regression) ... ok
+test_F01_valid (__main__.Regression) ... ok
+test_F02_bad_optional_ref (__main__.Regression) ... ok
+test_F02_bad_optional_type (__main__.Regression) ... ok
+test_F02_duplicate_paths (__main__.Regression) ... ok
+test_F02_missing (__main__.Regression) ... ok
+test_F02_optional_valid (__main__.Regression) ... ok
+test_F02_unknown (__main__.Regression) ... ok
+test_F02_valid (__main__.Regression) ... ok
+test_F03_excluded_IDENTITY_PFX (__main__.Regression) ... ok
+test_F03_excluded_ID_RSA (__main__.Regression) ... ok
+test_F03_excluded__env (__main__.Regression) ... ok
+test_F03_excluded_id_dsa (__main__.Regression) ... ok
+test_F03_excluded_id_ecdsa (__main__.Regression) ... ok
+test_F03_excluded_id_ecdsa_sk (__main__.Regression) ... ok
+test_F03_excluded_id_ed25519 (__main__.Regression) ... ok
+test_F03_excluded_id_ed25519_sk (__main__.Regression) ... ok
+test_F03_excluded_id_rsa (__main__.Regression) ... ok
+test_F03_excluded_identity_p12 (__main__.Regression) ... ok
+test_F03_excluded_identity_pfx (__main__.Regression) ... ok
+test_F03_excluded_identity_ppk (__main__.Regression) ... ok
+test_F03_excluded_private_key (__main__.Regression) ... ok
+test_F03_excluded_private_pem (__main__.Regression) ... ok
+test_F03_permitted_certificate_cer (__main__.Regression) ... ok
+test_F03_permitted_certificate_crt (__main__.Regression) ... ok
+test_F03_permitted_id_rsa_pub (__main__.Regression) ... ok
+test_F03_permitted_normal_txt (__main__.Regression) ... ok
+test_F03_permitted_public_pub (__main__.Regression) ... ok
+test_F04_baseline (__main__.Regression) ... ok
+test_F04_digest (__main__.Regression) ... ok
+test_F04_duplicate (__main__.Regression) ... ok
+test_F04_extra (__main__.Regression) ... ok
+test_F04_missing (__main__.Regression) ... ok
+test_F04_valid (__main__.Regression) ... ok
+test_F04_wrong_name (__main__.Regression) ... ok
+test_F04_wrong_run (__main__.Regression) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 4.924s
+
+OK

@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-lineage-missing-fence-crlf",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1383,
+      "sha256": "6b7e11a6bc27ce8f6e1a22daf7b383bad4603f0d5a6dfd85182b90baccf1d592"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "67bc9b87631848f5877fba19612b0fc3bbf577b63c9f7a9d8e308a6a2d877664"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 152,
+      "sha256": "b9912a4181ba9b0dedef58f40b4465289de11680671f75dec926c16ca42d2169"
+    }
+  ]
+}

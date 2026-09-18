@@ -1,0 +1,17 @@
+{
+  "case_id": "F08",
+  "finding": "QA-04",
+  "expected_exit": 1,
+  "actual_exit": 1,
+  "matched": true,
+  "checks": {
+    "exit": true,
+    "completed": true,
+    "preserved": true,
+    "missing_lines": true
+  },
+  "evidence": {
+    "path": "commands/F08/receipt.json",
+    "sha256": "63d4d3a5ed01920b6264cc7ed02d28daa0afe93e68fdd6b36f5578bebd9b1f63"
+  }
+}

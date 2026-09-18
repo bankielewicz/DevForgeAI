@@ -1,0 +1,92 @@
+[
+  {
+    "attempt": "trials\\DV-01\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 0
+  },
+  {
+    "attempt": "trials\\DV-01\\attempt-002\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 13
+  },
+  {
+    "attempt": "trials\\DV-02\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 10
+  },
+  {
+    "attempt": "trials\\DV-03-javascript\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 9
+  },
+  {
+    "attempt": "trials\\DV-03-python\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 13
+  },
+  {
+    "attempt": "trials\\DV-04\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 11
+  },
+  {
+    "attempt": "trials\\DV-05\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 3
+  },
+  {
+    "attempt": "trials\\DV-06\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 7
+  },
+  {
+    "attempt": "trials\\DV-07\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 6
+  },
+  {
+    "attempt": "trials\\DV-08\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 10
+  },
+  {
+    "attempt": "trials\\DV-09\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 14
+  },
+  {
+    "attempt": "trials\\DV-10\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 11
+  },
+  {
+    "attempt": "trials\\DV-11\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 6
+  },
+  {
+    "attempt": "trials\\DV-12\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 9
+  },
+  {
+    "attempt": "trials\\DV-13\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 7
+  },
+  {
+    "attempt": "trials\\DV-14\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 6
+  },
+  {
+    "attempt": "trials\\DV-17\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 4
+  },
+  {
+    "attempt": "trials\\DV-18\\attempt-001\\effects.json",
+    "immutable_changes": [],
+    "changed_count": 9
+  }
+]

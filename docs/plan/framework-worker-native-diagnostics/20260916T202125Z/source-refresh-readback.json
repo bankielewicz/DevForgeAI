@@ -1,0 +1,41 @@
+{
+  "initial": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-001\\stdout.bin",
+    "bytes": 30686,
+    "sha256": "7634b82934fbe56d639c41b1d776f36d4e4e48ff44c09184ee2ba3ac87eab164"
+  },
+  "prelaunch": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-002-prelaunch\\stdout.bin",
+    "bytes": 30686,
+    "sha256": "f98ed9c6e8146082055dc065a4145571c15c9310f21318e53819a6dc37103352"
+  },
+  "after": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-003-after\\stdout.bin",
+    "bytes": 30686,
+    "sha256": "f98ed9c6e8146082055dc065a4145571c15c9310f21318e53819a6dc37103352"
+  },
+  "changed_entries_before_launch": [
+    {
+      "path": "\\\\?\\C:\\Users\\bryan\\.codex\\rules\\default.rules",
+      "before": {
+        "bytes": 106309,
+        "family": "rules",
+        "items": null,
+        "path": "\\\\?\\C:\\Users\\bryan\\.codex\\rules\\default.rules",
+        "sha256": "87d52f99fe1d29fb42f0c8c9972353fefa549d5963503e4bbf96c733de26736b",
+        "state": "file"
+      },
+      "prelaunch": {
+        "bytes": 106469,
+        "family": "rules",
+        "items": null,
+        "path": "\\\\?\\C:\\Users\\bryan\\.codex\\rules\\default.rules",
+        "sha256": "225422aae41a012e65631d2bbe33414c33ef7e6e6692e69c73a11dad267d4f1d",
+        "state": "file"
+      }
+    }
+  ],
+  "prelaunch_after_bytes_equal": true,
+  "entry_count": 137,
+  "scope": "Inventoried control inputs only; credential contents and unrelated runtime bookkeeping not inspected"
+}

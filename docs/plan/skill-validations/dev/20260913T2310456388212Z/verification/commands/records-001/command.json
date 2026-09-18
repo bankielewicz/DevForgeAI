@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-14T00:13:53.025376Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z\\verification\\trials\\temp\\records-001",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z\\verification\\trials\\temp\\records-001",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z\\verification\\trials\\temp\\records-001",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 59252,
+  "exit_status": 1,
+  "ended_at_utc": "2026-09-14T00:13:57.021832Z",
+  "elapsed_seconds": 4.0
+}

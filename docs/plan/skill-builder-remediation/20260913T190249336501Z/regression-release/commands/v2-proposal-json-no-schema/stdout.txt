@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["JSON handoff needs schema"], "ordered_member_ids": []}

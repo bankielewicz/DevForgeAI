@@ -1,0 +1,51 @@
+{
+  "attempt": "03-coverage",
+  "action": "coverage",
+  "case": null,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "llvm-cov",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\Cargo.toml",
+    "--all-targets",
+    "--json",
+    "--output-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage.json",
+    "--ignore-filename-regex",
+    "[/\\\\]tests[/\\\\]",
+    "--fail-under-lines",
+    "95",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "platform": "Windows x64, native C: filesystem",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-target"
+  },
+  "started_utc": "2026-09-17T11:02:39.997578+00:00",
+  "timeout_seconds": 420,
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "plan_sha256": "ba861353e765a1161a5a024d4a26f95623f6dbb14ac2bdb14c98745c5c3463c4",
+  "owned_pid": 50364,
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_utc": "2026-09-17T11:06:18.226657+00:00",
+  "elapsed_seconds": 218.21899999998277,
+  "outputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\stdout.txt",
+      "bytes": 15023,
+      "sha256": "50f9b40a65294386e0ba9963727a6f67fb2c517f12cd5c4aeb5d98f144a97f02"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\stderr.txt",
+      "bytes": 6883,
+      "sha256": "baa38a644045b227162fbf7ea3780ada03cdcf8e661aa4f9be90e49aa71aeee2"
+    }
+  ]
+}

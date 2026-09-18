@@ -1,0 +1,26 @@
+{
+  "schema_version": "adaptive-skill-v1",
+  "name": "notes-variant",
+  "role": "project_variant",
+  "binding_required": true,
+  "parent_core": {
+    "name": "notes-core",
+    "package_digest": "7e0503499fc86a151b752227ca4aa78a985eae10715554173fd5a9c1c5e51e71",
+    "requirement_ids": [
+      "R1",
+      "R2",
+      "R3"
+    ]
+  },
+  "contract_path": "references/adaptive-contract.md",
+  "required_capabilities": [
+    "Python 3.10+"
+  ],
+  "resource_roles": [
+    {
+      "path": "scripts/check_project_binding.py",
+      "role": "runtime",
+      "reason": "Checks before product actions."
+    }
+  ]
+}

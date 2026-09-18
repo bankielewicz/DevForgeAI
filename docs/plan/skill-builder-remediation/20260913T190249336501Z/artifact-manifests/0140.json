@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-descriptor-valid",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1398,
+      "sha256": "7a063f651b2dd6eaffb52027368989cd96988b07549e3cf6355e84d44ef02bb5"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "f245390f598890c939629fb8cebcb1e29df5fc26443532f8cd253bf1489f2c27"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 106,
+      "sha256": "86ba599260e0dc2f782cd9489d178c223d7f16f2ed323e7b5c492768c4a6124f"
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\crossbeam-deque-735e7bb94967a33b\\build-script-build.exe",
+    "bytes": 155648,
+    "sha256": "418c70d46d808537fa9b43e16b934bb7b4d49e34a1c32e246dcefb01de8529c7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\crossbeam-deque-735e7bb94967a33b\\build_script_build-735e7bb94967a33b.exe",
+    "bytes": 155648,
+    "sha256": "418c70d46d808537fa9b43e16b934bb7b4d49e34a1c32e246dcefb01de8529c7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\crossbeam-epoch-597f005f9c96ce80\\build-script-build.exe",
+    "bytes": 155648,
+    "sha256": "ba59d2f1394990cad95b54800483d425e3dbeb790bd5c0ad27bc9db99da69520"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\crossbeam-epoch-597f005f9c96ce80\\build_script_build-597f005f9c96ce80.exe",
+    "bytes": 155648,
+    "sha256": "ba59d2f1394990cad95b54800483d425e3dbeb790bd5c0ad27bc9db99da69520"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\crossbeam-utils-79275a9b78a6780f\\build-script-build.exe",
+    "bytes": 180224,
+    "sha256": "e3e50a8da35334546450d23499224c31cf0d1d63ea49284265e1be7fdef0012a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\crossbeam-utils-79275a9b78a6780f\\build_script_build-79275a9b78a6780f.exe",
+    "bytes": 180224,
+    "sha256": "e3e50a8da35334546450d23499224c31cf0d1d63ea49284265e1be7fdef0012a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\generic-array-d6e6cdbeffbb1cdb\\build-script-build.exe",
+    "bytes": 297472,
+    "sha256": "0bda27ff0d1f9b210dae68a9db7f5cfe6ea2b3c6d6f033cd1eb149daddb1273d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\generic-array-d6e6cdbeffbb1cdb\\build_script_build-d6e6cdbeffbb1cdb.exe",
+    "bytes": 297472,
+    "sha256": "0bda27ff0d1f9b210dae68a9db7f5cfe6ea2b3c6d6f033cd1eb149daddb1273d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\getrandom-9f5a587d39b0feec\\build-script-build.exe",
+    "bytes": 152576,
+    "sha256": "0a7597ac020370a45e80650b2656455d582e8a4681568b8e33c384fd2ff3de55"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\getrandom-9f5a587d39b0feec\\build_script_build-9f5a587d39b0feec.exe",
+    "bytes": 152576,
+    "sha256": "0a7597ac020370a45e80650b2656455d582e8a4681568b8e33c384fd2ff3de55"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\libc-f79f3a367fa62b89\\build-script-build.exe",
+    "bytes": 321024,
+    "sha256": "c9ea79c265e86a80410a9bcb55e4b129411acb0b733a0c4e6fda34c4a355d36d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\libc-f79f3a367fa62b89\\build_script_build-f79f3a367fa62b89.exe",
+    "bytes": 321024,
+    "sha256": "c9ea79c265e86a80410a9bcb55e4b129411acb0b733a0c4e6fda34c4a355d36d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\libsqlite3-sys-79e3a46fa27b407a\\build-script-build.exe",
+    "bytes": 1524736,
+    "sha256": "f92a650ac7b0526592b49144cd454094db2067bde5baaca206b6937a1579fdc6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\libsqlite3-sys-79e3a46fa27b407a\\build_script_build-79e3a46fa27b407a.exe",
+    "bytes": 1524736,
+    "sha256": "f92a650ac7b0526592b49144cd454094db2067bde5baaca206b6937a1579fdc6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\proc-macro2-4df66588f001c127\\build-script-build.exe",
+    "bytes": 306688,
+    "sha256": "1a26200fb7fd671debdbed373bd0cb1e1c0d1bed0540308edd183f75bd50013a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\proc-macro2-4df66588f001c127\\build_script_build-4df66588f001c127.exe",
+    "bytes": 306688,
+    "sha256": "1a26200fb7fd671debdbed373bd0cb1e1c0d1bed0540308edd183f75bd50013a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\quote-91fffa6232de600c\\build-script-build.exe",
+    "bytes": 260096,
+    "sha256": "701540ab37508e5a94db3ef98c8229c85d310fe8788a5d383e4a21cb5770540d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\quote-91fffa6232de600c\\build_script_build-91fffa6232de600c.exe",
+    "bytes": 260096,
+    "sha256": "701540ab37508e5a94db3ef98c8229c85d310fe8788a5d383e4a21cb5770540d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde-da9697703d592838\\build-script-build.exe",
+    "bytes": 284672,
+    "sha256": "25b72f197ed31cbc2ef6c3cfca66a17c491e6633265a63b50497cb2d81d82adc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde-da9697703d592838\\build_script_build-da9697703d592838.exe",
+    "bytes": 284672,
+    "sha256": "25b72f197ed31cbc2ef6c3cfca66a17c491e6633265a63b50497cb2d81d82adc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_core-a9c94a87763300d1\\build-script-build.exe",
+    "bytes": 286720,
+    "sha256": "5738109a92ab8c0e54661d660945d1e2ff227c438436ecd9316942f752f6d777"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_core-a9c94a87763300d1\\build_script_build-a9c94a87763300d1.exe",
+    "bytes": 286720,
+    "sha256": "5738109a92ab8c0e54661d660945d1e2ff227c438436ecd9316942f752f6d777"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_core-f646f2c27ea89bc6\\build-script-build.exe",
+    "bytes": 286720,
+    "sha256": "5df9686473f1056295f41b5c179a8d4aaaf9bd58b53f50471de36e5fbf0c8d06"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_core-f646f2c27ea89bc6\\build_script_build-f646f2c27ea89bc6.exe",
+    "bytes": 286720,
+    "sha256": "5df9686473f1056295f41b5c179a8d4aaaf9bd58b53f50471de36e5fbf0c8d06"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_json-a18c01dc4610e77f\\build-script-build.exe",
+    "bytes": 133632,
+    "sha256": "4846daa0aa2053daf4c4884af664a728bd29cefb351db2807b1874a8d295c8bb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_json-a18c01dc4610e77f\\build_script_build-a18c01dc4610e77f.exe",
+    "bytes": 133632,
+    "sha256": "4846daa0aa2053daf4c4884af664a728bd29cefb351db2807b1874a8d295c8bb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_json-a6946029485c9895\\build-script-build.exe",
+    "bytes": 133632,
+    "sha256": "d82ae616180a3566dfa2d5aa335bc940a30f543e8962be5ca63e85716890c2c3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\serde_json-a6946029485c9895\\build_script_build-a6946029485c9895.exe",
+    "bytes": 133632,
+    "sha256": "d82ae616180a3566dfa2d5aa335bc940a30f543e8962be5ca63e85716890c2c3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-32383fdcc1fb988f\\build-script-build.exe",
+    "bytes": 1231872,
+    "sha256": "387d47a89d30951c06c2f9305b3edfdf5a578a7781ada16396cc90ad8af8a4bc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-32383fdcc1fb988f\\build_script_build-32383fdcc1fb988f.exe",
+    "bytes": 1231872,
+    "sha256": "387d47a89d30951c06c2f9305b3edfdf5a578a7781ada16396cc90ad8af8a4bc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-javascript-a29bcb78c7b5d5dd\\build-script-build.exe",
+    "bytes": 1218048,
+    "sha256": "7f4eedeb267f69e00305d8e4b3f9675150aa441d16c27ce24292b3c48f8e9aa8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-javascript-a29bcb78c7b5d5dd\\build_script_build-a29bcb78c7b5d5dd.exe",
+    "bytes": 1218048,
+    "sha256": "7f4eedeb267f69e00305d8e4b3f9675150aa441d16c27ce24292b3c48f8e9aa8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-language-a96aeff420015e9c\\build-script-build.exe",
+    "bytes": 143872,
+    "sha256": "96fb826758db0666104da7fbe93202e2d15a2c551782f0f76db8251a507e0fe5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-language-a96aeff420015e9c\\build_script_build-a96aeff420015e9c.exe",
+    "bytes": 143872,
+    "sha256": "96fb826758db0666104da7fbe93202e2d15a2c551782f0f76db8251a507e0fe5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-python-c7cb9bda391d0e12\\build-script-build.exe",
+    "bytes": 1218048,
+    "sha256": "7c98c822afde17db5899e34a2cf52f3c0d7e475eeec0614109a9f7cc64aa3358"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-python-c7cb9bda391d0e12\\build_script_build-c7cb9bda391d0e12.exe",
+    "bytes": 1218048,
+    "sha256": "7c98c822afde17db5899e34a2cf52f3c0d7e475eeec0614109a9f7cc64aa3358"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-rust-b3636fbd1947e40e\\build-script-build.exe",
+    "bytes": 1217536,
+    "sha256": "f3de27044339379cc06b7527a4b851b6c4ba33a71a29af1beee0afc1799f7ed4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-rust-b3636fbd1947e40e\\build_script_build-b3636fbd1947e40e.exe",
+    "bytes": 1217536,
+    "sha256": "f3de27044339379cc06b7527a4b851b6c4ba33a71a29af1beee0afc1799f7ed4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-typescript-ca86f2397bb4f347\\build-script-build.exe",
+    "bytes": 1219072,
+    "sha256": "205f26152d32ae1721c8593b11790336279518b6decd52fd7366abf6a47d7279"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\tree-sitter-typescript-ca86f2397bb4f347\\build_script_build-ca86f2397bb4f347.exe",
+    "bytes": 1219072,
+    "sha256": "205f26152d32ae1721c8593b11790336279518b6decd52fd7366abf6a47d7279"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\winapi-91cd6d2bb1376ac7\\build-script-build.exe",
+    "bytes": 278528,
+    "sha256": "33b8a041d5f9d7d7c17b0bc8447728eacf3e3de089e06813240df28c26ffd346"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\winapi-91cd6d2bb1376ac7\\build_script_build-91cd6d2bb1376ac7.exe",
+    "bytes": 278528,
+    "sha256": "33b8a041d5f9d7d7c17b0bc8447728eacf3e3de089e06813240df28c26ffd346"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\windows_x86_64_msvc-4b8016a6cf1a744e\\build-script-build.exe",
+    "bytes": 141824,
+    "sha256": "46d5ebfbed80e20773355a3664ac765112199c0073664f42b205665ece8ac3b9"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\windows_x86_64_msvc-4b8016a6cf1a744e\\build_script_build-4b8016a6cf1a744e.exe",
+    "bytes": 141824,
+    "sha256": "46d5ebfbed80e20773355a3664ac765112199c0073664f42b205665ece8ac3b9"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\zmij-9a1e767e9238dcdb\\build-script-build.exe",
+    "bytes": 263168,
+    "sha256": "aa9eaee0977685d91cfe09cc98aa8919f33d222253f50d7d343b1f75d0fdec9d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\build\\zmij-9a1e767e9238dcdb\\build_script_build-9a1e767e9238dcdb.exe",
+    "bytes": 263168,
+    "sha256": "aa9eaee0977685d91cfe09cc98aa8919f33d222253f50d7d343b1f75d0fdec9d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\benchmark_fixture-dbc5209c5e97da58.exe",
+    "bytes": 972800,
+    "sha256": "00983a70b352e2c4a6ea4e38bcf1b2866d6ce9972295ac5fe0e609d7b9bdbe44"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\capture-6f5074142ff4f5f3.exe",
+    "bytes": 12537856,
+    "sha256": "7c033e821d914ad3c5480473b39b696cfd7bb44fef7f0c91c470aebb5236ade5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\cli-4e41baf39293de40.exe",
+    "bytes": 10293248,
+    "sha256": "0f2ad2a9a71eabf71127f2e987a887075f0cfa0d956bd7d16c11b8e7a414affc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\coverage_edges-5a3470871154fd18.exe",
+    "bytes": 13159936,
+    "sha256": "02a40a28d98715323bd56928b1e48366dcb1422423669c752924bdd38f335901"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai-fe60619f6950fc54.exe",
+    "bytes": 752128,
+    "sha256": "d8424d736a9ab80001e99626f2c2c6a68e380d2b0cc640177d2cd34126aef3e7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai.exe",
+    "bytes": 16848384,
+    "sha256": "0db80da11140338de7d5281f818aa418bfe7c25ffca0d097785b29728e47084d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai_index-faf573f5296ba913.exe",
+    "bytes": 17721856,
+    "sha256": "5a3c170e86725b866765774e84556486caa5123a3cd864ffedee29d2d02f79b2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai_indexd-5fbe7ec14c340dfa.exe",
+    "bytes": 752128,
+    "sha256": "46be8e9f67539ab3d9b57a8a69c2991b0147614822224b48424c1a80ed993b42"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai_indexd.exe",
+    "bytes": 15055872,
+    "sha256": "fae05b9631b6b7014f4b845447893a8f47f224c9eef697678245a8a243724360"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai_tray-56ab3ebf96ffca64.exe",
+    "bytes": 752128,
+    "sha256": "e798c6453416653d98777c598b9b7d342c6e432451d88ad6fc607db304b9c85b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\devforgeai_tray.exe",
+    "bytes": 9932288,
+    "sha256": "5ad96a1b474e67758293a8e1afffaf0a4b809962859242776fe5b1aa4f945bc3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\gui-62fe3cc90ba97aa7.exe",
+    "bytes": 8342528,
+    "sha256": "84ac671a5a109c84250721b91c83141ab44def811926e21deb181dae6599b0fd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\harness-3f63b2832aecc360.exe",
+    "bytes": 759296,
+    "sha256": "dd6e17a601a53e98996211cdc5a7d73c82b2c33a3dafc4233140673d99add6bd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\ipc-f47b70076535bac4.exe",
+    "bytes": 15736832,
+    "sha256": "30a10ea82cbb8f2f094a4ae062be5b9769398d8ecc726ae23527ce00e0b8ebf7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\platform-a936fe3300570cb9.exe",
+    "bytes": 8259072,
+    "sha256": "f98e6d3a12103bfe3bba1e5b43ffd905a27414ff6edb7b2580c3d2411526f890"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\process-42de953f51f65ca0.exe",
+    "bytes": 1412096,
+    "sha256": "74f7ba5c079d1aa2933b42132e6b879bb382a2d1f3e496667c4bde48ad287b2b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\protocol-465102923c580a60.exe",
+    "bytes": 8814592,
+    "sha256": "0f90986dbec38e3e9786c77c9515386f7ba24b681e70b9ee74f74fa55d93e8c3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\qa_independent-b6c595794f9eb127.exe",
+    "bytes": 13430784,
+    "sha256": "4aca9cf8a16bf2c8c7da52866ebe93b07bc744da722d43e0106d044ec7fd92c7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\service-4b6e15b47fd9de4f.exe",
+    "bytes": 14860800,
+    "sha256": "2e28f336c36fd23b4f5b72812af1c15bfecb91fa6fb686afb220affbb3077269"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\storage-4fb3c6e493bc2721.exe",
+    "bytes": 8646656,
+    "sha256": "7df0fc2a25b64f34da1e513fb52bdbf089b5945d9820ad5df602bbdb2bdf7f80"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\transport_edges-5c9fc26cdda06c63.exe",
+    "bytes": 10108928,
+    "sha256": "70fd756da908403ba066ffbf28fad39f605c503270e4ce7ff7bfdb789db5a9f4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\tray-d093761c717358fb.exe",
+    "bytes": 8138240,
+    "sha256": "b5dc3f12fdfa0b8a1d3eef2179de85af001e44ffde2db982425e65cddbbb7699"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\deps\\wsl_bridge-96e2cfb6954bf6ad.exe",
+    "bytes": 9247232,
+    "sha256": "5acb52ba6b2d608218d9ec9149d1851f9f3031a8a296d7dd5cb7f0e713f1c840"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\devforgeai-indexd.exe",
+    "bytes": 15055872,
+    "sha256": "fae05b9631b6b7014f4b845447893a8f47f224c9eef697678245a8a243724360"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\devforgeai-tray.exe",
+    "bytes": 9932288,
+    "sha256": "5ad96a1b474e67758293a8e1afffaf0a4b809962859242776fe5b1aa4f945bc3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\devforgeai.exe",
+    "bytes": 16848384,
+    "sha256": "0db80da11140338de7d5281f818aa418bfe7c25ffca0d097785b29728e47084d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\examples\\benchmark-88fd360817b14e29.exe",
+    "bytes": 753664,
+    "sha256": "1861635af8d3e19fa7915a526e94a889ba36064ae280af5c6d28e467607a406c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\debug\\examples\\wsl_fixture-cd239e2515734d53.exe",
+    "bytes": 752128,
+    "sha256": "432abc61b32f62573e67bcd313239be4b57b8c9e5f24860490eefdb935ecb023"
+  }
+]

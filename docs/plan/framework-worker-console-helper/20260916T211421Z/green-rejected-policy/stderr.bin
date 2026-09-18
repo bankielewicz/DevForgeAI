@@ -1,0 +1,5 @@
+Exception: C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\rejected-policy-fixture\Start-CodexAppServerDiagnostic.ps1:56
+Line |
+  56 |          throw "$Label SHA256 mismatch. Nothing was launched."
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Saved launch policy SHA256 mismatch. Nothing was launched.

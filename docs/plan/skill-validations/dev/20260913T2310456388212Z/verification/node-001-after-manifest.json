@@ -1,0 +1,316 @@
+{
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z\\trials\\DV-03-javascript\\project",
+  "files": [
+    {
+      "path": ".trial-output/final-001.txt",
+      "bytes": 392,
+      "sha256": "15104c27081a1bc3527bebc08399ad917a5fdfedb2c21523b93f8a8bf854a500"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 143,
+      "sha256": "91511572d7246d28dfecd12258c6cbd15fe55a9afa1035fe5381d06babf63414"
+    },
+    {
+      "path": "checks/sum.test.mjs",
+      "bytes": 822,
+      "sha256": "03b9e572f77af53fafa89a271010074bf7f16a3bd816d8e8e3678606e09960db"
+    },
+    {
+      "path": "engine/sum.mjs",
+      "bytes": 226,
+      "sha256": "03f2f8fbbb662126b5889e69b591c2f4823fbeb763aafbe9100e448ff0674870"
+    },
+    {
+      "path": "evidence/checkpoint.md",
+      "bytes": 1355,
+      "sha256": "63e4c3bf24d12978eb743b3880cc97100c11ece2e71823b96aeda0f027ee09a6"
+    },
+    {
+      "path": "evidence/context.md",
+      "bytes": 3699,
+      "sha256": "778b773a690f674d56c2471c3c867cfe83cf158dac21588d12a4021eb66753f7"
+    },
+    {
+      "path": "evidence/delivery.md",
+      "bytes": 5582,
+      "sha256": "03680cdf172b081f569e35f494fa9fb9d1f9bd097829deaf1b215bc1eeb68761"
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "bytes": 10089,
+      "sha256": "2beef1629552c2c586145e3fdf7d6ccd6798ba23d815ac1b3c55df48053cee2b"
+    },
+    {
+      "path": "evidence/input-parity.json",
+      "bytes": 4865,
+      "sha256": "0698c5a52bf65ef57a85316f3c0c3e5b4fd4e0a15d02db25ba186927fd680132"
+    },
+    {
+      "path": "evidence/inputs-before.json",
+      "bytes": 3487,
+      "sha256": "94bfd6018a2c549fe81b6f4463db7ec3d74e65b246d4743540a20b5dd73b947f"
+    },
+    {
+      "path": "evidence/run-check.mjs",
+      "bytes": 2977,
+      "sha256": "8d7921d1d3aa0416b9cd881abce026b1053b5212f8a1055ed99bc5cc6980e7ad"
+    },
+    {
+      "path": "evidence/run-direct.ps1",
+      "bytes": 2312,
+      "sha256": "a1acf83fd0e16c67b33a770e30a1911aabafffb77fb3151c301e22b2add4d4b7"
+    },
+    {
+      "path": "evidence/s1-final-required.candidate.json",
+      "bytes": 893,
+      "sha256": "dd388dd3e54fc27cc4605d47599f40918a91a10df8adc2352b6f92dc6548405c"
+    },
+    {
+      "path": "evidence/s1-final-required.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-final-required.stdout.txt",
+      "bytes": 1220,
+      "sha256": "5541376c1702bb0bbcbfb0e6a96163411172ef92a27df2c9b96dccd70f3b9b36"
+    },
+    {
+      "path": "evidence/s1-green.candidate.json",
+      "bytes": 893,
+      "sha256": "dd388dd3e54fc27cc4605d47599f40918a91a10df8adc2352b6f92dc6548405c"
+    },
+    {
+      "path": "evidence/s1-green.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-green.stdout.txt",
+      "bytes": 666,
+      "sha256": "5722037d73d23dfb8585caf64e82349a39eacf62572395340cea1aad20d47ff9"
+    },
+    {
+      "path": "evidence/s1-red-direct.observation.json",
+      "bytes": 350,
+      "sha256": "877c53ae740e1ffe7d5ef29f6e075b74b40a5189e185499c84810a6edcb3040d"
+    },
+    {
+      "path": "evidence/s1-red-direct.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-red-direct.stdout.txt",
+      "bytes": 1220,
+      "sha256": "98b09e8c3b0d464d63541e9eeeb8195fce8e07578b6fb197fee131b3cb7e4dc6"
+    },
+    {
+      "path": "evidence/s1-red-inprocess.candidate.json",
+      "bytes": 893,
+      "sha256": "1c4682d5243d1be32f778afd2c108ac6d912d54ebae85e8ef46da94580aa2e46"
+    },
+    {
+      "path": "evidence/s1-red-inprocess.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-red-inprocess.stdout.txt",
+      "bytes": 4396,
+      "sha256": "91691aa151d15af5735f7c2378df385422689391633ce18107a347428a671387"
+    },
+    {
+      "path": "evidence/s1-red.candidate.json",
+      "bytes": 862,
+      "sha256": "1b41958c3a98eb7e9587db6d835d8a82094da7d0cb00196fd555fc66bb2419a8"
+    },
+    {
+      "path": "evidence/s1-red.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-red.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-syntax.candidate.json",
+      "bytes": 893,
+      "sha256": "dd388dd3e54fc27cc4605d47599f40918a91a10df8adc2352b6f92dc6548405c"
+    },
+    {
+      "path": "evidence/s1-syntax.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/s1-syntax.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "spec.md",
+      "bytes": 158,
+      "sha256": "ecc19988c59626829c7a02ef1138323b91594e94091c7daaa14a196b7916360a"
+    },
+    {
+      "path": "trial-skill/dev/SKILL.md",
+      "bytes": 4462,
+      "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+    },
+    {
+      "path": "trial-skill/dev/assets/checkpoint.md",
+      "bytes": 1279,
+      "sha256": "34fbc2e081217b6b34dcc1a957f1a4ac9b751cfc946097e0f51c4419a788c901"
+    },
+    {
+      "path": "trial-skill/dev/assets/context.md",
+      "bytes": 2101,
+      "sha256": "0fc1ddcd61e5501552172f07bd6c95d1554566c6591fdf01df6b14b0d313f4c7"
+    },
+    {
+      "path": "trial-skill/dev/assets/delivery.md",
+      "bytes": 2136,
+      "sha256": "1af13297690a8c97b68206f3d0f7d661860e4ba4242d7267deed4097a5972efb"
+    },
+    {
+      "path": "trial-skill/dev/assets/execution-record.jsonl",
+      "bytes": 1265,
+      "sha256": "6e48a8dfa018acd4332a7f75d079f3e82e1e1bbd6dc1f01aef312cea8bb351b3"
+    },
+    {
+      "path": "trial-skill/dev/assets/slice-plan.md",
+      "bytes": 1503,
+      "sha256": "f7408d9b27a4d09245113da9c2abff281d1265894b14fd0deae4ca542df45421"
+    },
+    {
+      "path": "trial-skill/dev/assets/traceability.md",
+      "bytes": 1029,
+      "sha256": "755812c3be085c859f8ec75fc1545917edc3edf7637fc7daa723fef2356a3f21"
+    },
+    {
+      "path": "trial-skill/dev/references/context.md",
+      "bytes": 5690,
+      "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+    },
+    {
+      "path": "trial-skill/dev/references/evidence-resume.md",
+      "bytes": 4327,
+      "sha256": "9f8810c09c448ddcf47fe68bc18e38c72ab773d15fd390ee1636a2a917affaab"
+    },
+    {
+      "path": "trial-skill/dev/references/failure-delivery.md",
+      "bytes": 3200,
+      "sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44"
+    },
+    {
+      "path": "trial-skill/dev/references/implementation.md",
+      "bytes": 7053,
+      "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+    }
+  ],
+  "package_digest": "3c6ae10908c324f923269d25104a0b489fe8b9d1486449b1a7d3e32f026d2726",
+  "file_count": 42,
+  "bytes": 82438,
+  "exclusions": [],
+  "enumerations": [
+    {
+      "directory": ".",
+      "entries": [
+        ".trial-output",
+        "AGENTS.md",
+        "checks",
+        "engine",
+        "evidence",
+        "spec.md",
+        "trial-skill"
+      ]
+    },
+    {
+      "directory": ".trial-output",
+      "entries": [
+        "final-001.txt"
+      ]
+    },
+    {
+      "directory": "checks",
+      "entries": [
+        "sum.test.mjs"
+      ]
+    },
+    {
+      "directory": "engine",
+      "entries": [
+        "sum.mjs"
+      ]
+    },
+    {
+      "directory": "evidence",
+      "entries": [
+        "checkpoint.md",
+        "context.md",
+        "delivery.md",
+        "executions.jsonl",
+        "input-parity.json",
+        "inputs-before.json",
+        "run-check.mjs",
+        "run-direct.ps1",
+        "s1-final-required.candidate.json",
+        "s1-final-required.stderr.txt",
+        "s1-final-required.stdout.txt",
+        "s1-green.candidate.json",
+        "s1-green.stderr.txt",
+        "s1-green.stdout.txt",
+        "s1-red-direct.observation.json",
+        "s1-red-direct.stderr.txt",
+        "s1-red-direct.stdout.txt",
+        "s1-red-inprocess.candidate.json",
+        "s1-red-inprocess.stderr.txt",
+        "s1-red-inprocess.stdout.txt",
+        "s1-red.candidate.json",
+        "s1-red.stderr.txt",
+        "s1-red.stdout.txt",
+        "s1-syntax.candidate.json",
+        "s1-syntax.stderr.txt",
+        "s1-syntax.stdout.txt"
+      ]
+    },
+    {
+      "directory": "trial-skill",
+      "entries": [
+        "dev"
+      ]
+    },
+    {
+      "directory": "trial-skill\\dev",
+      "entries": [
+        "SKILL.md",
+        "assets",
+        "references"
+      ]
+    },
+    {
+      "directory": "trial-skill\\dev\\assets",
+      "entries": [
+        "checkpoint.md",
+        "context.md",
+        "delivery.md",
+        "execution-record.jsonl",
+        "slice-plan.md",
+        "traceability.md"
+      ]
+    },
+    {
+      "directory": "trial-skill\\dev\\references",
+      "entries": [
+        "context.md",
+        "evidence-resume.md",
+        "failure-delivery.md",
+        "implementation.md"
+      ]
+    }
+  ]
+}

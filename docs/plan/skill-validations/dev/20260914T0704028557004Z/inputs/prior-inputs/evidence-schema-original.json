@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Dev evaluation result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "required",
+    "result",
+    "method",
+    "reason",
+    "package_digest",
+    "scenario_sha256",
+    "started_at",
+    "ended_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "dev-evaluation-v1"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^DV-(0[1-9]|1[0-8])$"
+    },
+    "required": {
+      "const": true
+    },
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "ERROR",
+        "NOT_RUN",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "method": {
+      "enum": [
+        "deterministic",
+        "behavioral",
+        "unperformed"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "package_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "scenario_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "started_at": {
+      "type": "string"
+    },
+    "ended_at": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "attempt": "12-original-all-targets",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--all-targets"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "scope": "original",
+  "env_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\12-original-all-targets",
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TERM_COLOR": "never"
+  },
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+    "bytes": 8619,
+    "sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540"
+  },
+  "plan": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\test-plan.md",
+    "bytes": 18080,
+    "sha256": "48c33e0e2a3376b63f416e7330cda6237854bad20449f51258906a4d6a6051aa"
+  },
+  "start_utc": "2026-09-16T19:34:23.824190+00:00",
+  "outer_timeout_seconds": 600,
+  "native_codex_authorized": false,
+  "end_utc": "2026-09-16T19:37:04.482607+00:00",
+  "elapsed_seconds": 160.65599999998813,
+  "exit_code": 0,
+  "timeout": false,
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\12-original-all-targets\\stdout.bin",
+    "bytes": 12562,
+    "sha256": "51a2d5427490454f56c13b5033b5adb3e6e362cc3b3221d9060a5850819edaf0"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\12-original-all-targets\\stderr.bin",
+    "bytes": 5011,
+    "sha256": "ca8b8d0dc5b0d5aee8e07e5ac04121595c3336741bc6ae5f7462c63266a3e7b2"
+  }
+}

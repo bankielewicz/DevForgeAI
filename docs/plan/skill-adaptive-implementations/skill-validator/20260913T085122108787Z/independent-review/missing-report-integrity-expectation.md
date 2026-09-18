@@ -1,0 +1,1 @@
+IR-23, VAT-24, VA-014, AV-E01: A present checks Ref bound to malformed JSONL must be rejected even when the member report is null. Missing report requires INCOMPLETE, but does not authorize accepting malformed referenced check records. Expect records MISMATCH. This expectation is retained before executing the new fixture.

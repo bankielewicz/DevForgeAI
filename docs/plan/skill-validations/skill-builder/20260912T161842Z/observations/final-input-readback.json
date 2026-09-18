@@ -1,0 +1,470 @@
+{
+  "state": "MATCH",
+  "count": 77,
+  "validator_package_digest": "d26a45e994d3ea386ec43657fe4a7ab9c431ec5b3be9412e6b59f1f5e022b5f0",
+  "validator_file_set_match": true,
+  "rows": [
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\SKILL.md",
+      "retained_path": "inputs/validator/SKILL.md",
+      "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\assets\\enforcement-register-template.md",
+      "retained_path": "inputs/validator/assets/enforcement-register-template.md",
+      "sha256": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\assets\\origin-spec-template.md",
+      "retained_path": "inputs/validator/assets/origin-spec-template.md",
+      "sha256": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\assets\\revision-spec-template.md",
+      "retained_path": "inputs/validator/assets/revision-spec-template.md",
+      "sha256": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\assets\\rules-snapshot.json",
+      "retained_path": "inputs/validator/assets/rules-snapshot.json",
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\assets\\validation-report-template.md",
+      "retained_path": "inputs/validator/assets/validation-report-template.md",
+      "sha256": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\evals\\README.md",
+      "retained_path": "inputs/validator/evals/README.md",
+      "sha256": "9c1f946bf568f9d3f6695c8226b29ea20a1ce3fc7c3967d6423f8c7556d9330e",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\evals\\cases.jsonl",
+      "retained_path": "inputs/validator/evals/cases.jsonl",
+      "sha256": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\references\\handoff.md",
+      "retained_path": "inputs/validator/references/handoff.md",
+      "sha256": "d923cebb61067278bdd19808f6063df15c81425d58afdc1f2b6c805755620a91",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\references\\origin.md",
+      "retained_path": "inputs/validator/references/origin.md",
+      "sha256": "992fdad9cd83c49c13ade01178f24b66d958b2c07b3030a26395c3d667057e0f",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\references\\reporting.md",
+      "retained_path": "inputs/validator/references/reporting.md",
+      "sha256": "c0e423a468385a4d220610ffd33f1b8e4fd5ac53e82755f63dae1794a393bd22",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\references\\rules.md",
+      "retained_path": "inputs/validator/references/rules.md",
+      "sha256": "113ed216ad8ce3f281c5b32f4443fa64a85ad2475f742142581aa266748a090a",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\references\\trials.md",
+      "retained_path": "inputs/validator/references/trials.md",
+      "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "retained_path": "inputs/validator/scripts/observe.py",
+      "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_observe.py",
+      "retained_path": "inputs/validator/tests/test_observe.py",
+      "sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "retained_path": "inputs/quick_validate.py",
+      "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-spec.md",
+      "retained_path": "inputs/specs/skill-builder-adoption-spec.md",
+      "sha256": "beebc2b97b6719fafbd1500b63e41280ddd611a3978b7d3af9b2798b7a87f095",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-spec.md",
+      "retained_path": "inputs/specs/skill-builder-enhancement-spec.md",
+      "sha256": "96ffc443743591875fed4a35454da7ea58cda0ae2f2d87237aded3261f7d72a7",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\claude-to-codex-skill-import-spec.md",
+      "retained_path": "inputs/specs/claude-to-codex-skill-import-spec.md",
+      "sha256": "bc57a0e60908df067782af2900a29bae66dae11b3dff64cf3b67b756d5667194",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\publication-receipt.json",
+      "retained_path": "inputs/validator-publication-receipt.json",
+      "sha256": "1ad5756c5261ae280b54e35d83f6c8fccf1bbd2c7140bf67f03e9bfbf7e1f154",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\build-provenance.json",
+      "retained_path": "inputs/validator-build/build-provenance.json",
+      "sha256": "3db8ff6dba99cc891891214be7389c164632237b6bd4c4c6191f51026969cd38",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\evaluations\\final-publication-001\\snapshot\\evidence\\build-provenance.json",
+      "retained_path": "inputs/validator-build/evaluations/final-publication-001/snapshot/evidence/build-provenance.json",
+      "sha256": "3db8ff6dba99cc891891214be7389c164632237b6bd4c4c6191f51026969cd38",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\evaluations\\final-publication-001\\results.jsonl",
+      "retained_path": "inputs/validator-build/evaluations/final-publication-001/results.jsonl",
+      "sha256": "575846657f73a552e91edbc2a815f4b4e0cf6b9526c9d85d7bca0c7ec1e992ff",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\FINAL-RECEIPT.json",
+      "retained_path": "inputs/prior/FINAL-RECEIPT.json",
+      "sha256": "186c71143f74dd915fb094d0860dd8fdfa264ac928803412c9e06f33be3bca0d",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\REPORT.md",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/REPORT.md",
+      "sha256": "d53d0a019e20e79e53cad3a0b21dbb16d9716551c3b63b35b4a6d9a969a1fe86",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\source-change-receipt-release.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/source-change-receipt-release.json",
+      "sha256": "d6a2d0552881145694508137ed363ad081a197783f6ec2b04ba4e28271fd5476",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-readback-audit-release.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/profile-readback-audit-release.json",
+      "sha256": "0ba2b324e8c555de94e22eb21fed38b8b363c397df0976bc61b44f18b6d56fde",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\regression-release.txt",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/regression-release.txt",
+      "sha256": "363f8ba35990491685ef5a167133b411b4ce523d2b1fe51a9e084931c7a44dad",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\structural-check-release.txt",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/structural-check-release.txt",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\handoff-release-output.txt",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/handoff-release-output.txt",
+      "sha256": "f1c183463a31850cc0f06c3b55f7f7c2a2120806bc5942008cf97f1761c19b00",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-release\\summary.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912/profile-checks-release/summary.json",
+      "sha256": "a920065344010f67e3b038f80e39dc6104681a99c35e30d00e9b0d3ff5570c0f",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-build-trials-final2\\REPORT.md",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-build-trials-final2/REPORT.md",
+      "sha256": "e6ef3ef4b8dcff1ed3e6dc694d4f5cd65a74f28cbd0de0eac1fb736526934f2a",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-build-trials-final2\\final-readback-audit.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-build-trials-final2/final-readback-audit.json",
+      "sha256": "93b2a05cce96b8ddce9dbffc36666246ef055aad604590ba9329fe13e3b9b84a",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\report.md",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-adoption-trial-final2/report.md",
+      "sha256": "f70b4886b28b0e640984d4f17318dbd4d65d89a639ddb8f017375ed88b0ffc08",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\measured-input-readback-audit.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-adoption-trial-final2/measured-input-readback-audit.json",
+      "sha256": "9c5350e8ba13b708f51f15be50c74f02cf7c9631d7f68a2ff5b27bfb6fbe43a1",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\original-input-locator-audit.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-adoption-trial-final2/original-input-locator-audit.json",
+      "sha256": "bfbc8d4331369d07c2616f85b4f793e4bf98fae33ca06494bfaef258a71c342f",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-failure-trials\\REPORT-FINAL.md",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-failure-trials/REPORT-FINAL.md",
+      "sha256": "b763ed6b19a5385a7b9bee1992cec8d6ebdc07013d6a2c3e309dad3459e35362",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-failure-trials\\final-snapshot-case-hash-audit.json",
+      "retained_path": "inputs/prior-selected/skill-builder-adoption-verification-20260912-independent-failure-trials/final-snapshot-case-hash-audit.json",
+      "sha256": "ad31263e9c4a073d73ff6cab360cb3f8fb12ebc9d0da6c2cbed85f58948c810c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\SKILL.md",
+      "retained_path": "inputs/prior-builder-final-release/SKILL.md",
+      "sha256": "96881f3ad173c4d46f2e486b8ee1b14fa1e00eab9a8c03ebcf93813c8270ada7",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\assets\\build-report-template.md",
+      "retained_path": "inputs/prior-builder-final-release/assets/build-report-template.md",
+      "sha256": "ab841608ec2c5ae0c1f4bf7518f8ccdb59d85706087c6f3a329c633ade466bb9",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\assets\\conversion-report-template.md",
+      "retained_path": "inputs/prior-builder-final-release/assets/conversion-report-template.md",
+      "sha256": "0a18bba11955eca81e86ce5e802e19ea5b952fbb6550826b16b0d9d366984c13",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\assets\\worker-task-template.md",
+      "retained_path": "inputs/prior-builder-final-release/assets/worker-task-template.md",
+      "sha256": "e6bd435b1dec6f5fe3196885b90d28e15c0cf3d37065a47555e0fe85661a139a",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\adoption-evidence.schema.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/adoption-evidence.schema.json",
+      "sha256": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\build-artifacts.schema.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/build-artifacts.schema.json",
+      "sha256": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\build-manifest.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/build-manifest.json",
+      "sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\builder-cases.jsonl",
+      "retained_path": "inputs/prior-builder-final-release/evals/builder-cases.jsonl",
+      "sha256": "de1fc28e754c2f28b5fb838258ce66eb6f258e93ace87a2db6a2685464bb277c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\cases.jsonl",
+      "retained_path": "inputs/prior-builder-final-release/evals/cases.jsonl",
+      "sha256": "554b9d00519e1fbc297e298223c01edd1fe8f91a98e92a0ea8cdcf92d0a1c96c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\evidence.schema.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/evidence.schema.json",
+      "sha256": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\destination\\SKILL.md",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/destination/SKILL.md",
+      "sha256": "f9c929003cb7ea451b8d99f33ba8da6aae7a0d1f830e820b3236a6fa53f73071",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\destination\\schema.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/destination/schema.json",
+      "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\evidence\\destination-manifest.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/evidence/destination-manifest.json",
+      "sha256": "4829e16fa497c5b5b7a48ce9b0ec5d0f37f1d2b37d65ce1c775160950e6bb2b2",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\evidence\\file-dispositions.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/evidence/file-dispositions.json",
+      "sha256": "d6eff48694bf737732d4dd0915f4673ecf8caaaa4596761312c1a774e372950c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\evidence\\source-manifest.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/evidence/source-manifest.json",
+      "sha256": "69e6d3c1d21a1e17f76f90dab241ad863edf7f2acf904cbbccd81742abf04158",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\source\\SKILL.md",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/source/SKILL.md",
+      "sha256": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\fixtures\\portable\\source\\schema.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/fixtures/portable/source/schema.json",
+      "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\profiles.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/profiles.json",
+      "sha256": "dc673745727537ca90761d9b3df6f3c477aea8e6e80c6560e225e010f0196cf0",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\evals\\runtime.json",
+      "retained_path": "inputs/prior-builder-final-release/evals/runtime.json",
+      "sha256": "ee3f67492dd9e964befc4038ccdd5d03d282b288eb90f142114798c3a394ea46",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\adoption.md",
+      "retained_path": "inputs/prior-builder-final-release/references/adoption.md",
+      "sha256": "9ec7f53d72dd7961265ea568a4348b5d724896c60af8060eb952256518d1e3df",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\conversion-rules.md",
+      "retained_path": "inputs/prior-builder-final-release/references/conversion-rules.md",
+      "sha256": "4a7469557bc56f32a61fa744d26c14dc7861819d9271c3d25cefa5ba333e4a69",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\evaluation.md",
+      "retained_path": "inputs/prior-builder-final-release/references/evaluation.md",
+      "sha256": "06276046f621c5a6975f43d0d46a9635a8c49e1c2f147e5f91bcea85db6bdb04",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\evaluator-contracts.md",
+      "retained_path": "inputs/prior-builder-final-release/references/evaluator-contracts.md",
+      "sha256": "df090f6c217945487dcae9b90dfd53e4465f2b81ec3a8ddc5da77e694c6ac67f",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\evidence-format.md",
+      "retained_path": "inputs/prior-builder-final-release/references/evidence-format.md",
+      "sha256": "b7bf5fa09759c1f507cff2db0a387ef646ec7cf89e475371875bc17094d4b0e8",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\regeneration.md",
+      "retained_path": "inputs/prior-builder-final-release/references/regeneration.md",
+      "sha256": "9ddb061d18689859e1a69149d8ff38f556bc9bf8d61122321809932530c19790",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\references\\spec-build.md",
+      "retained_path": "inputs/prior-builder-final-release/references/spec-build.md",
+      "sha256": "26dd6df102570cce71d36166d4e9b4b3474b8f8839fe00c98e2794bb25befe30",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\scripts\\build_evidence.py",
+      "retained_path": "inputs/prior-builder-final-release/scripts/build_evidence.py",
+      "sha256": "e0413d6784499edae3cb3e76cb210a25f60d7f3cfbd9b75c253284f529ef4ce2",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\scripts\\graders.py",
+      "retained_path": "inputs/prior-builder-final-release/scripts/graders.py",
+      "sha256": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\scripts\\run_evaluation.py",
+      "retained_path": "inputs/prior-builder-final-release/scripts/run_evaluation.py",
+      "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\adoption_fixture.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/adoption_fixture.py",
+      "sha256": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\fixture_data.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/fixture_data.py",
+      "sha256": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\test_adoption.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/test_adoption.py",
+      "sha256": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\test_enhancements.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/test_enhancements.py",
+      "sha256": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\test_evaluation.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/test_evaluation.py",
+      "sha256": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\test_review_inputs.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/test_review_inputs.py",
+      "sha256": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\builder-final-release\\tests\\test_review_provenance.py",
+      "retained_path": "inputs/prior-builder-final-release/tests/test_review_provenance.py",
+      "sha256": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\guidance\\sources.json",
+      "retained_path": "inputs/build-guidance-sources.json",
+      "sha256": "05c29357d4b6ee9c5cbb1891a26862df97a2e35bd37f9cf5563a3b1a67db9a51",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\guidance\\openai-build-skills.md",
+      "retained_path": "guidance/openai-build-skills.md",
+      "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+      "state": "MATCH"
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\guidance\\agentskills-specification-retrieval.json",
+      "retained_path": "guidance/agentskills-specification-retrieval.json",
+      "sha256": "3f0e6c9b997f072d5cad0bc1a9bec716b7adb79cc3038e506a8260a38570c7e3",
+      "state": "MATCH"
+    }
+  ]
+}

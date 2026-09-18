@@ -1,0 +1,7 @@
+# QA-H01: copied control path preparation
+
+RT-01 attempt18-rt01 ended before its first negative mutation. Its single copied control returned exit4/evidence_corrupt, read-only, rather than completed. Original files, cli_matrix.py, cli-matrix-plan.json and M-001/control outputs remain unchanged. This is a QA setup ERROR, not a product defect or a completed subthreshold case collection.
+
+Verified cause: request::resolve (request.rs:178..188) returns fs::canonicalize's Windows verbatim path. inspect (journal.rs:309..314) requires request.run_dir to equal that resolved path. The source request has the \\?\ drive prefix; the independently copied request had a plain C:\ path. The QA helper recomputed the request digest but omitted the canonical spelling, making its own control invalid before the selected capture/exit predicate could be evaluated.
+
+The one bounded QA-only correction authorized in plan.md uses the observed canonical drive prefix for the new run path and recomputes its request digest. It preserves all original acceptance assertions, mutation cases, seed selection and product bytes. cli_matrix_v2.py and cli-matrix-plan-v2.json are new retained artifacts; the corrected RT-01 attempt is18-rt01-corrected. RT-02 has not executed yet and uses the corrected helper on its first attempt. No product source or developer test changes, no metric rerun, and no terminal stop occurred. A second unexplained setup fault would remain an explicit gap rather than triggering an automatic retry.

@@ -1,0 +1,48 @@
+{
+  "attempt_id": "024-requirements-green",
+  "stage": "green",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "requirements",
+    "--test",
+    "protocol",
+    "--test",
+    "recovery",
+    "--test",
+    "contract",
+    "--test",
+    "admission"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T16:10:53.509877+00:00",
+  "ended_at": "2026-09-15T16:10:58.049472+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\024-requirements-green\\candidate.json",
+    "bytes": 4815,
+    "sha256": "906682f50420165830cf695897f7f412b34c49122c08466592a1bc27055008e7"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\024-requirements-green\\stdout.txt",
+    "bytes": 1138,
+    "sha256": "1b57cf19d65b2a8f1a415df239475d7020134f7bf4b49b6d8842ef39b3b48577"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\024-requirements-green\\stderr.txt",
+    "bytes": 605,
+    "sha256": "d560a342e45c2997281d87fd8ecf8c99eabd217b5c1076215f35938aaa04adc0"
+  },
+  "outcome": "observed-exit"
+}

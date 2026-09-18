@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T135752395202Z",
+  "target_name": "skill-builder",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "0f83bed8a92950047b3fcebc3334cb1adec450f85e27d2cc3d7a607d43ede361"
+  },
+  "specification": {
+    "path": "inputs/governing-spec.md",
+    "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "historical_origin": "unknown",
+  "prior_evidence": null,
+  "completeness": "complete",
+  "uncertainties": [
+    "Scope is compatibility; snapshot does not invent generated/adopted origin."
+  ],
+  "source_readback_state": "UNCHANGED"
+}

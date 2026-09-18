@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "case_id": "R01",
+      "route": "validate"
+    },
+    {
+      "case_id": "R02",
+      "route": "validate"
+    },
+    {
+      "case_id": "R03",
+      "route": "validate"
+    },
+    {
+      "case_id": "R04",
+      "route": "validate"
+    },
+    {
+      "case_id": "R05",
+      "route": "validate"
+    },
+    {
+      "case_id": "R06",
+      "route": "outside_scope"
+    },
+    {
+      "case_id": "R07",
+      "route": "outside_scope"
+    },
+    {
+      "case_id": "R08",
+      "route": "outside_scope"
+    },
+    {
+      "case_id": "R09",
+      "route": "outside_scope"
+    },
+    {
+      "case_id": "R10",
+      "route": "outside_scope"
+    },
+    {
+      "case_id": "R11",
+      "route": "outside_scope"
+    },
+    {
+      "case_id": "R12",
+      "route": "validate"
+    }
+  ]
+}

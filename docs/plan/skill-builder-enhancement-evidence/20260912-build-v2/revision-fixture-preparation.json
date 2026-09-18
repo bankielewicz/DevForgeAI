@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "purpose": "Synthetic authorized regeneration fixture; original successful trial preserved",
+  "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\src\\agents\\skills\\decimal-ledger-import",
+  "selected_source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\inputs\\claude-package",
+  "copied_history": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\docs\\plan\\skill-imports\\decimal-ledger-import",
+  "owned_entry_baseline_sha256": "21964b18d4c024d6bd2f2ff8e4f854ff26d5a58cb324bab77d8da7eea84ff718",
+  "owned_entry_current_sha256": "82afe8c638d126d9517f468140e63ae210a9e24bfd5fe4babd4d6c50c0f09d4a",
+  "unrelated_file": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\revision-project\\src\\agents\\skills\\decimal-ledger-import\\personal.txt",
+  "unrelated_sha256": "777caeab42a140af2ee88bac4acf26025537f8047674da521784a2a6fd373274",
+  "selected_source_entry_sha256": "014c85414a98f1e8d6fc672b8914bfd22928e840fe49cf3e6753a2dfa81de611"
+}

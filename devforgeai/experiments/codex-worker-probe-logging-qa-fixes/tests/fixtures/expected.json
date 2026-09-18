@@ -1,0 +1,1 @@
+{"results":[{"id":"A","final_state":"cancelled","outcomes":["applied","conflict"]},{"id":"B","final_state":"dispatched","outcomes":["applied","conflict"]},{"id":"C","final_state":"dispatched","outcomes":["conflict"]}]}

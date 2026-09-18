@@ -1,0 +1,32 @@
+{
+  "skill_name": "github-incident-from-recommendations",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "medium-batch-post",
+      "prompt": "I just ran /qa on STORY-661 and got 4 advisory recommendations (2 MEDIUM + 2 LOW). I want to draft GitHub issues for the 2 MEDIUM ones. Both are at file src/claude/scripts/devforgeai_cli/commands/emit_conviction_worklog.py — REC-STORY-661-M-001 at line 623 (sys.exit(1) inconsistency, prefer return 1), and REC-STORY-661-M-002 at line 213 (Windows fcntl fallback WARNING noise, demote to debug). Both have category=anti_pattern, classification=REGRESSION, severity=MEDIUM. The QA recs file is at src/claude/skills/github-incident-from-recommendations/evals/fixtures/STORY-661-qa-recommendations.md. Use --eval mode so we don't post anything real. Process both recommendations, default to 'Post all' at the approval gate.",
+    "expected_output": "Two issue drafts produced at tmp/STORY-661/drafts/draft-REC-STORY-661-M-001.md and draft-REC-STORY-661-M-002.md. Each draft has imperative title (≤80 chars, verb-first), populated Files-to-change section with file:line references, severity:medium label, regression label, before_code/after_code visible in body, verification.command in Test plan. Mock URLs returned via --eval stub. tmp/eval-mock/posted.json contains 2 entries. No real gh CLI call.",
+      "files": [
+        "src/claude/skills/github-incident-from-recommendations/evals/fixtures/STORY-661-qa-recommendations.md"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "idempotency-detect",
+      "prompt": "Re-running for STORY-660 — looking at src/claude/skills/github-incident-from-recommendations/evals/fixtures/STORY-660-qa-recommendations.md. There are 2 advisory recs: REC-STORY-660-L-001 (already posted as Issue-42 last week — note the **Posted as:** Issue-42 marker in the file) and REC-STORY-660-M-001 (new this cycle, no Issue marker yet). I want to handle the new MEDIUM without re-posting the LOW. Use --eval mode. When you detect the already-posted LOW, default to 'Skip already-linked' and post only the MEDIUM as a mock issue.",
+    "expected_output": "Skill detects pre-existing 'Issue-42' marker for REC-STORY-660-L-001 in idempotency check (Phase 1.5). Emits AskUserQuestion with skip/repost/cancel options; default 'Skip already-linked' for --eval. Processes only REC-STORY-660-M-001. tmp/eval-mock/posted.json has exactly 1 entry (the MEDIUM). LOW rec NOT re-posted. QA recs file gets new Issue-mock-N marker for the MEDIUM only; LOW's Issue-42 marker untouched.",
+      "files": [
+        "src/claude/skills/github-incident-from-recommendations/evals/fixtures/STORY-660-qa-recommendations.md"
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "remediation-steps-expansion",
+      "prompt": "Post the LOW recommendation REC-STORY-700-L-001 from src/claude/skills/github-incident-from-recommendations/evals/fixtures/STORY-700-qa-recommendations.md. It uses remediation_steps (3 numbered steps) instead of before_code/after_code. Category=documentation. No classification (documentation findings don't carry one). Use --eval mode. Default to 'Post all' at the approval gate.",
+    "expected_output": "Single draft at tmp/STORY-700/drafts/draft-REC-STORY-700-L-001.md. Body has '## Acceptance criteria' checklist with exactly 3 items, each one a literal copy of a remediation_step from input. before_code section absent or marked N/A (no code-change diff for documentation rec). severity:low label present. NO 'regression' label and NO 'pre-existing' label (no classification field). documentation-related label may be present. Mock URL returned. tmp/eval-mock/posted.json has 1 entry.",
+      "files": [
+        "src/claude/skills/github-incident-from-recommendations/evals/fixtures/STORY-700-qa-recommendations.md"
+      ]
+    }
+  ]
+}

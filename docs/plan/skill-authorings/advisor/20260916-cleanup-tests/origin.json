@@ -1,0 +1,30 @@
+{
+  "prior_origin": {
+    "kind": "authored",
+    "reference": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\authoring-baseline.json",
+      "sha256": "8609f4752719fbfeb31faf27c52b40f3e6a296c80fe2eb751cb31508d7b1acb1"
+    }
+  },
+  "baseline": {
+    "SKILL.md": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e",
+    "artifact-manifest.json": "24ab41c3de8056964b83648127c069b92b07006254b9c0ace4a439790202547e",
+    "evals/case.schema.json": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94",
+    "evals/cases.jsonl": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735",
+    "evals/run_evaluation.py": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63",
+    "references/evaluation.md": "99458bee70a490fd93a94f1d32989b8d5bdf37ed91d5e7d0d075f8800c736158",
+    "references/execution.md": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444",
+    "scripts/advisor.ps1": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789",
+    "scripts/advisor_run.py": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8",
+    "scripts/advisor_stream.py": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9",
+    "tests/test_streaming.py": "93cd768391a09fbc766c304fe4c0917ef0bff15f7f6e9b56cabb2eaf76550419"
+  },
+  "design_capture_requested": true,
+  "contract_sha256": "e5e4a206083fb53b169d1e47a4a529f584fac6d813bad295362143df7f7ef5e3",
+  "supplied_contract_sha256": "e5e4a206083fb53b169d1e47a4a529f584fac6d813bad295362143df7f7ef5e3",
+  "path_resolution_sha256": "6af54e865de175ee09126e9097e3d82c14806fc4697d9c7f84d68d748c4bfe7a",
+  "design_capture_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\design-capture.json",
+    "sha256": "caf9779c62cca3265881fd7b61cbc01ac7c9032700b199f8fe13b9e673ab4042"
+  }
+}

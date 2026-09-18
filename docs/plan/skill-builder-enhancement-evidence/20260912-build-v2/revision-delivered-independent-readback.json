@@ -1,0 +1,12 @@
+{
+  "schema_version": "1",
+  "phase": "Delivered bytes independently read back; pointer result pending",
+  "package_file_hashes": {
+    "personal.txt": "777caeab42a140af2ee88bac4acf26025537f8047674da521784a2a6fd373274",
+    "SKILL.md": "9f6b859acb9fdccb8e4e776e99546682481d158ca9310f060998835b446ed287",
+    "assets/result.schema.json": "aff5218204de853ad0fab4379477812870c40b45e5680dd85d044a8a771b4f64",
+    "scripts/sum_amounts.py": "e65083f229e4eb7cabefa1be8373cc5fac0632818a4b7c8766ef989daf9f24fe"
+  },
+  "selected_source_unchanged": true,
+  "authority": "NONE"
+}

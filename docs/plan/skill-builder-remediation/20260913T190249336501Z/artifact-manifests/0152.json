@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-ext-linked-valid",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1359,
+      "sha256": "0e073556b4efd61cdb5a6e441dd3d064bfb5c98d5c7836810c1c02dfb67a5514"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "0b28c1db782410e6a2463a0565708c5f21983ae02c3ce30ab94287c1f4b7a4d9"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 106,
+      "sha256": "86ba599260e0dc2f782cd9489d178c223d7f16f2ed323e7b5c492768c4a6124f"
+    }
+  ]
+}

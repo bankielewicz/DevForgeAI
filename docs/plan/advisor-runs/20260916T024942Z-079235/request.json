@@ -1,0 +1,13 @@
+{
+  "type": "approach",
+  "model": "opus",
+  "effort": "high",
+  "total_budget_usd": "2.00",
+  "timeout_seconds": 300,
+  "schema": "advisor-request-v1",
+  "ask": "Read devforgeai/src/source_file.rs using your file tools and provide a concise summary of its purpose, flow, platform differences, and errors with source citations. This is a test of the advisor skill, not a request for changes or acceptance.",
+  "repo_root": "C:\\Projects\\DevForgeAI",
+  "claude_path": "C:\\Users\\bryan\\.local\\bin\\claude.exe",
+  "contract_path": "C:\\Users\\bryan\\.codex\\advisor\\contract.md",
+  "contract_sha256": "af4cd7f0505c92a186c29edc17328107ac2103f6069109c5aacac04da32b18ab"
+}

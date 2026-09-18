@@ -1,0 +1,66 @@
+# coding-standards.ai.md
+# DERIVED from coding-standards.md | ADR-052
+# Regenerate: /create-system-architecture
+# Generated: {{generated_at}} | Hash: {{source_hash}}
+---
+native_tool_usage:
+  severity: CRITICAL
+  status: LOCKED
+  correct: ["Read()", "Write()", "Edit()", "Glob()", "Grep()"]
+  forbidden: ["Bash(cat)", "Bash(echo >)", "Bash(sed)", "Bash(find)", "Bash(grep)"]
+  exception: "Bash allowed for: tests, builds, git, package managers"
+
+ambiguity_resolution:
+  severity: CRITICAL
+  status: LOCKED
+  rule: "AskUserQuestion for ALL ambiguities"
+
+documentation_style:
+  severity: CRITICAL
+  correct: "Direct instructions (imperative commands)"
+  forbidden: "Narrative prose ('The system should...')"
+
+skill_naming:
+  severity: HIGH
+  convention: "Gerund form without framework prefix (per ADR-017)"
+  correct: "spec-driven-system-architecture, spec-driven-dev"
+  forbidden: "devforgeai-[name] (old convention)"
+
+yaml_frontmatter:
+  severity: HIGH
+  rule: "Required on ALL skills, agents, and commands"
+  fields: ["name", "description", "tools (optional)", "model (optional)"]
+
+file_size_limits:
+  severity: HIGH
+  skills: "Target 500-800, Max 1000 lines"
+  commands: "Target 200-400, Max 500 lines"
+  agents: "Target 100-300, Max 500 lines"
+  context_files: "Target 200-400, Max 600 lines"
+  enforcement: "Extract to references/ when exceeding target"
+
+naming_conventions:
+  severity: HIGH
+  files: "kebab-case (lowercase-with-hyphens.md)"
+  skills: "gerund-phrase (spec-driven-dev, spec-driven-qa)"
+  agents: "domain-role pattern"
+  commands: "action or action-object pattern"
+
+progressive_disclosure:
+  severity: HIGH
+  rule: "SKILL.md concise + references/ for deep docs"
+  forbidden: "Monolithic 1000+ line SKILL.md with inline details"
+
+phase_naming:
+  severity: HIGH
+  format: "Phase NN (Phase 01, Phase 02, ... Phase 10)"
+  substeps: "Phase 01.X or Phase 01.X.Y (Phase 01 only)"
+  headings: "Phase NN: Full Name (no color suffixes)"
+on_violation: "Report + severity-based action (CRITICAL: HALT, HIGH: warn, MEDIUM: log)"
+
+# --- Extracted rules from parent .md file (auto-populated by ai-rule-extractor agents) ---
+extracted_critical_rules:
+{{critical_rules}}
+
+extracted_high_rules:
+{{high_rules}}

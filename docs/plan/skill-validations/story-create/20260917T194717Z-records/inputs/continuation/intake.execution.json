@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\validation-request.json",
+    "--request-sha256",
+    "ab83db7725bd07ed97210a7f5d1032922813ac94433210a1651e23f45d5bab27"
+  ],
+  "exit_code": 0,
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\validation-request.json",
+    "sha256": "ab83db7725bd07ed97210a7f5d1032922813ac94433210a1651e23f45d5bab27"
+  }
+}

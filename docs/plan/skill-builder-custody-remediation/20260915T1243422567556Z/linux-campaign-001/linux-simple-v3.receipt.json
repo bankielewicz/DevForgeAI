@@ -1,0 +1,21 @@
+{
+  "name": "linux-simple-v3",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-X",
+    "utf8",
+    "/mnt/c/Projects/DevForgeAI/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/native/native_trials.py",
+    "--root",
+    "/tmp/devforgeai-custody-native-20260915T1243422567556Z",
+    "--source",
+    "/mnt/c/Projects/DevForgeAI/src/agents/skills/skill-builder",
+    "--codex",
+    "/home/bryan/.local/bin/codex",
+    "--case",
+    "linux-simple-v3"
+  ],
+  "cwd": "/tmp",
+  "exit_code": 0,
+  "seconds": 107.88268076600002
+}

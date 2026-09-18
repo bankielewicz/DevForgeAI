@@ -1,0 +1,31 @@
+{
+  "attempt_id": "parser-characterization-002",
+  "stage": "green",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "coverage_edges",
+    "extraction_keeps_import_ranges_and_interrupts_long_parser_work",
+    "--",
+    "--exact",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\parser-characterization-002\\gui"
+  },
+  "source_manifest_sha256": "64ef791613987ba37b762b27c6a5cfe50507be4eafa54efe6e1bb9621ebbd578",
+  "started_at": "2026-09-14T20:17:36.660501+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T20:17:36.925996+00:00",
+  "elapsed_seconds": 0.26599999999962165,
+  "stdout.txt_sha256": "3029ec9ca06523c6b36655a9ae69c4780aa3684482527a78787cc1e7e76bed20",
+  "stderr.txt_sha256": "a0dc19c76fc2b276d9ab6976ebd521e8710437c0cd245e3d8a9c6c2ea807bf90"
+}

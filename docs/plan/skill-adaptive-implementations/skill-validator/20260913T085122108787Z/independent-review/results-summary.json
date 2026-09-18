@@ -1,0 +1,1180 @@
+[
+  {
+    "id": "IR-01",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-01\\example-skill"
+    ],
+    "started": "2026-09-13T09:04:54.027080+00:00",
+    "exit_code": 0,
+    "expected": "No FAIL; actual resource graph resolves targets",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "package",
+      "status": "OBSERVED",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-0e95f5a36660",
+          "rule_id": "AV-F01",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F02-0e95f5a36660",
+          "rule_id": "AV-F02",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Name/directory identity; semantic routing and selected limits require review.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-U01-7bb2bb4f93d4",
+          "rule_id": "AV-U01",
+          "subject_path": "text-scan",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-C01-557324939184",
+          "rule_id": "AV-C01",
+          "subject_path": "text-counts",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "unicode_candidates": [],
+        "resources": [
+          {
+            "path": "SKILL.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          },
+          {
+            "path": "assets/image.svg",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          },
+          {
+            "path": "references/guide.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          }
+        ],
+        "edges": [
+          {
+            "source": "SKILL.md",
+            "line": 6,
+            "target": "references/guide.md#alpha",
+            "kind": "link",
+            "resolution": "resolved"
+          },
+          {
+            "source": "SKILL.md",
+            "line": 7,
+            "target": "references/guide.md#alpha-1",
+            "kind": "link",
+            "resolution": "resolved"
+          },
+          {
+            "source": "SKILL.md",
+            "line": 8,
+            "target": "assets/image.svg",
+            "kind": "image",
+            "resolution": "resolved"
+          }
+        ],
+        "context": {
+          "tokenizer": null,
+          "files": [
+            {
+              "path": "SKILL.md",
+              "bytes": 217,
+              "characters": 217,
+              "lines": 10,
+              "tokens": null
+            },
+            {
+              "path": "assets/image.svg",
+              "bytes": 6,
+              "characters": 6,
+              "lines": 1,
+              "tokens": null
+            },
+            {
+              "path": "references/guide.md",
+              "bytes": 16,
+              "characters": 16,
+              "lines": 2,
+              "tokens": null
+            }
+          ],
+          "loads": [],
+          "budget": null,
+          "budget_result": "NOT_APPLICABLE",
+          "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+        }
+      },
+      "limitations": [
+        "Tokenizer not selected; token counts NOT_RUN.",
+        "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+        "No semantic, native activation, project-binding or security approval is inferred."
+      ]
+    }
+  },
+  {
+    "id": "IR-02",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-02\\example-skill"
+    ],
+    "started": "2026-09-13T09:04:54.181080+00:00",
+    "exit_code": 1,
+    "expected": "No FAIL for example; this is not an actual resource consumer",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "package",
+      "status": "MISMATCH",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-0e95f5a36660",
+          "rule_id": "AV-F01",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F02-0e95f5a36660",
+          "rule_id": "AV-F02",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Name/directory identity; semantic routing and selected limits require review.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-R01-9c72ea0ec662",
+          "rule_id": "AV-R01",
+          "subject_path": "SKILL.md:6:absent-example.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "FAIL",
+          "reason": "Referenced local resource is missing.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-U01-7bb2bb4f93d4",
+          "rule_id": "AV-U01",
+          "subject_path": "text-scan",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-C01-557324939184",
+          "rule_id": "AV-C01",
+          "subject_path": "text-counts",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "unicode_candidates": [],
+        "resources": [
+          {
+            "path": "SKILL.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          }
+        ],
+        "edges": [
+          {
+            "source": "SKILL.md",
+            "line": 6,
+            "target": "absent-example.md",
+            "kind": "link",
+            "resolution": "missing"
+          }
+        ],
+        "context": {
+          "tokenizer": null,
+          "files": [
+            {
+              "path": "SKILL.md",
+              "bytes": 184,
+              "characters": 184,
+              "lines": 6,
+              "tokens": null
+            }
+          ],
+          "loads": [],
+          "budget": null,
+          "budget_result": "NOT_APPLICABLE",
+          "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+        }
+      },
+      "limitations": [
+        "Tokenizer not selected; token counts NOT_RUN.",
+        "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+        "No semantic, native activation, project-binding or security approval is inferred."
+      ]
+    }
+  },
+  {
+    "id": "IR-03",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-03\\example-skill"
+    ],
+    "started": "2026-09-13T09:04:54.320385+00:00",
+    "exit_code": 1,
+    "expected": "No missing resource FAIL; resolve or mark unsupported parser syntax",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "package",
+      "status": "MISMATCH",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-0e95f5a36660",
+          "rule_id": "AV-F01",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F02-0e95f5a36660",
+          "rule_id": "AV-F02",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Name/directory identity; semantic routing and selected limits require review.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-R01-a9cc7734f4d4",
+          "rule_id": "AV-R01",
+          "subject_path": "SKILL.md:6:references/guide(v1",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "FAIL",
+          "reason": "Referenced local resource is missing.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-U01-7bb2bb4f93d4",
+          "rule_id": "AV-U01",
+          "subject_path": "text-scan",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-C01-557324939184",
+          "rule_id": "AV-C01",
+          "subject_path": "text-counts",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "unicode_candidates": [],
+        "resources": [
+          {
+            "path": "SKILL.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          },
+          {
+            "path": "references/guide(v1).md",
+            "role": "unknown",
+            "reachable": false,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          }
+        ],
+        "edges": [
+          {
+            "source": "SKILL.md",
+            "line": 6,
+            "target": "references/guide(v1",
+            "kind": "link",
+            "resolution": "missing"
+          }
+        ],
+        "context": {
+          "tokenizer": null,
+          "files": [
+            {
+              "path": "SKILL.md",
+              "bytes": 135,
+              "characters": 135,
+              "lines": 6,
+              "tokens": null
+            },
+            {
+              "path": "references/guide(v1).md",
+              "bytes": 8,
+              "characters": 8,
+              "lines": 1,
+              "tokens": null
+            }
+          ],
+          "loads": [],
+          "budget": null,
+          "budget_result": "NOT_APPLICABLE",
+          "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+        }
+      },
+      "limitations": [
+        "Tokenizer not selected; token counts NOT_RUN.",
+        "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+        "No semantic, native activation, project-binding or security approval is inferred."
+      ]
+    }
+  },
+  {
+    "id": "IR-04",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-04\\example-skill"
+    ],
+    "started": "2026-09-13T09:04:54.462994+00:00",
+    "exit_code": 1,
+    "expected": "MISMATCH and AV-R01 FAIL",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "package",
+      "status": "MISMATCH",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-0e95f5a36660",
+          "rule_id": "AV-F01",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F02-0e95f5a36660",
+          "rule_id": "AV-F02",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Name/directory identity; semantic routing and selected limits require review.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-R01-e8186b79a1fb",
+          "rule_id": "AV-R01",
+          "subject_path": "SKILL.md:6:references/absent.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "FAIL",
+          "reason": "Referenced local resource is missing.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-U01-7bb2bb4f93d4",
+          "rule_id": "AV-U01",
+          "subject_path": "text-scan",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-C01-557324939184",
+          "rule_id": "AV-C01",
+          "subject_path": "text-counts",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "unicode_candidates": [],
+        "resources": [
+          {
+            "path": "SKILL.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          }
+        ],
+        "edges": [
+          {
+            "source": "SKILL.md",
+            "line": 6,
+            "target": "references/absent.md",
+            "kind": "link",
+            "resolution": "missing"
+          }
+        ],
+        "context": {
+          "tokenizer": null,
+          "files": [
+            {
+              "path": "SKILL.md",
+              "bytes": 141,
+              "characters": 141,
+              "lines": 6,
+              "tokens": null
+            }
+          ],
+          "loads": [],
+          "budget": null,
+          "budget_result": "NOT_APPLICABLE",
+          "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+        }
+      },
+      "limitations": [
+        "Tokenizer not selected; token counts NOT_RUN.",
+        "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+        "No semantic, native activation, project-binding or security approval is inferred."
+      ]
+    }
+  },
+  {
+    "id": "IR-05",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-05\\example-skill"
+    ],
+    "started": "2026-09-13T09:04:54.596989+00:00",
+    "exit_code": 2,
+    "expected": "No FAIL; exact-byte unresolved candidate at variation selector",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "package",
+      "status": "INCOMPLETE",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-0e95f5a36660",
+          "rule_id": "AV-F01",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F02-0e95f5a36660",
+          "rule_id": "AV-F02",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Name/directory identity; semantic routing and selected limits require review.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-U01-7bb2bb4f93d4",
+          "rule_id": "AV-U01",
+          "subject_path": "text-scan",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "NOT_RUN",
+          "reason": "Whole captured text scanned; candidate adjudication pending.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-C01-557324939184",
+          "rule_id": "AV-C01",
+          "subject_path": "text-counts",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "unicode_candidates": [
+          {
+            "path": "SKILL.md",
+            "start_byte": 162,
+            "end_byte": 165,
+            "line": 6,
+            "column": 41,
+            "codepoint": "U+FE0F",
+            "unicode_name": "VARIATION SELECTOR-16",
+            "escaped_excerpt": "\\ufe0f",
+            "context": "prose",
+            "disposition": "unresolved",
+            "reason": "Candidate only; inspect behavioral ambiguity and legitimate context."
+          }
+        ],
+        "resources": [
+          {
+            "path": "SKILL.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          }
+        ],
+        "edges": [],
+        "context": {
+          "tokenizer": null,
+          "files": [
+            {
+              "path": "SKILL.md",
+              "bytes": 180,
+              "characters": 158,
+              "lines": 6,
+              "tokens": null
+            }
+          ],
+          "loads": [],
+          "budget": null,
+          "budget_result": "NOT_APPLICABLE",
+          "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+        }
+      },
+      "limitations": [
+        "Tokenizer not selected; token counts NOT_RUN.",
+        "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+        "No semantic, native activation, project-binding or security approval is inferred."
+      ]
+    }
+  },
+  {
+    "id": "IR-06",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-06\\example-skill"
+    ],
+    "started": "2026-09-13T09:04:54.729990+00:00",
+    "exit_code": 1,
+    "expected": "MISMATCH and AV-F01 FAIL",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "package",
+      "status": "MISMATCH",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-3f77ece2b707",
+          "rule_id": "AV-F01",
+          "subject_path": "references/invalid.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "FAIL",
+          "reason": "Declared text cannot decode as UTF-8.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F01-0e95f5a36660",
+          "rule_id": "AV-F01",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-F02-0e95f5a36660",
+          "rule_id": "AV-F02",
+          "subject_path": "SKILL.md",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Name/directory identity; semantic routing and selected limits require review.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-U01-7bb2bb4f93d4",
+          "rule_id": "AV-U01",
+          "subject_path": "text-scan",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+          "evidence": []
+        },
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-C01-557324939184",
+          "rule_id": "AV-C01",
+          "subject_path": "text-counts",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "unicode_candidates": [],
+        "resources": [
+          {
+            "path": "SKILL.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          },
+          {
+            "path": "references/invalid.md",
+            "role": "unknown",
+            "reachable": true,
+            "usage": "unresolved_usage",
+            "evidence": [],
+            "reason": "text (known extension); consumers require review."
+          }
+        ],
+        "edges": [
+          {
+            "source": "SKILL.md",
+            "line": 6,
+            "target": "references/invalid.md",
+            "kind": "link",
+            "resolution": "resolved"
+          }
+        ],
+        "context": {
+          "tokenizer": null,
+          "files": [
+            {
+              "path": "SKILL.md",
+              "bytes": 133,
+              "characters": 133,
+              "lines": 6,
+              "tokens": null
+            }
+          ],
+          "loads": [],
+          "budget": null,
+          "budget_result": "NOT_APPLICABLE",
+          "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+        }
+      },
+      "limitations": [
+        "Tokenizer not selected; token counts NOT_RUN.",
+        "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+        "No semantic, native activation, project-binding or security approval is inferred."
+      ]
+    }
+  },
+  {
+    "id": "IR-07",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-07\\run"
+    ],
+    "started": "2026-09-13T09:04:54.870500+00:00",
+    "exit_code": 0,
+    "expected": "records OBSERVED",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "records",
+      "status": "OBSERVED",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-E01-a94e7bcfcbed",
+          "rule_id": "AV-E01",
+          "subject_path": "records",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Supported record shapes, references, coverage and reductions verified.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "checked_records": [
+          "helper.json"
+        ],
+        "errors": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established."
+      ]
+    }
+  },
+  {
+    "id": "IR-08",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-08\\run"
+    ],
+    "started": "2026-09-13T09:04:55.006500+00:00",
+    "exit_code": 0,
+    "expected": "records detects inconsistent helper status",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "records",
+      "status": "OBSERVED",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-E01-a94e7bcfcbed",
+          "rule_id": "AV-E01",
+          "subject_path": "records",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Supported record shapes, references, coverage and reductions verified.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "checked_records": [
+          "helper.json"
+        ],
+        "errors": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established."
+      ]
+    }
+  },
+  {
+    "id": "IR-09",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-09\\run"
+    ],
+    "started": "2026-09-13T09:04:55.133500+00:00",
+    "exit_code": 0,
+    "expected": "records rejects incompatible raw deterministic record",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "records",
+      "status": "OBSERVED",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-E01-a94e7bcfcbed",
+          "rule_id": "AV-E01",
+          "subject_path": "records",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Supported record shapes, references, coverage and reductions verified.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "checked_records": [
+          "helper.json"
+        ],
+        "errors": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established."
+      ]
+    }
+  },
+  {
+    "id": "IR-10",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-10\\run"
+    ],
+    "started": "2026-09-13T09:04:55.263500+00:00",
+    "exit_code": 0,
+    "expected": "fixture never interpreted as evaluator authority",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "records",
+      "status": "OBSERVED",
+      "checks": [
+        {
+          "schema_version": "1",
+          "run_id": "helper",
+          "check_id": "AV-E01-a94e7bcfcbed",
+          "rule_id": "AV-E01",
+          "subject_path": "records",
+          "method": "deterministic",
+          "required": true,
+          "applicability": "applicable",
+          "result": "PASS",
+          "reason": "Supported record shapes, references, coverage and reductions verified.",
+          "evidence": []
+        }
+      ],
+      "observations": {
+        "checked_records": [
+          "helper.json"
+        ],
+        "errors": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established."
+      ]
+    }
+  },
+  {
+    "id": "IR-11",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "intake-set",
+      "--request",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-11\\request.json",
+      "--request-sha256",
+      "4617005e54a66bac82cf5ebdd407b3358f595c705acaced318b15c4af6661cc7"
+    ],
+    "started": "2026-09-13T09:04:55.399975+00:00",
+    "exit_code": 1,
+    "expected": "intake OBSERVED and order A,B",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "intake-set",
+      "status": "MISMATCH",
+      "checks": [],
+      "observations": {
+        "input_kind": "standalone-set-input-v1",
+        "ordered_member_ids": [],
+        "member_bindings": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established.",
+        "Input mismatch: STALE_PACKAGE / incomplete manifest"
+      ]
+    }
+  },
+  {
+    "id": "IR-12",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "intake-set",
+      "--request",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-12\\request.json",
+      "--request-sha256",
+      "c95a2e39feef61d117a9b4609f0855770fc24ae8222b02c6c2b5a0c1f413d87f"
+    ],
+    "started": "2026-09-13T09:04:55.558975+00:00",
+    "exit_code": 1,
+    "expected": "intake MISMATCH",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "intake-set",
+      "status": "MISMATCH",
+      "checks": [],
+      "observations": {
+        "input_kind": "standalone-set-input-v1",
+        "ordered_member_ids": [],
+        "member_bindings": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established.",
+        "Input mismatch: duplicate member_id"
+      ]
+    }
+  },
+  {
+    "id": "IR-13",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "intake-set",
+      "--request",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-13\\request.json",
+      "--request-sha256",
+      "12aa7c955aed0f5d42ddbe3f6f33659cdf53bc8e76cf614645ef6648416baff1"
+    ],
+    "started": "2026-09-13T09:04:55.721024+00:00",
+    "exit_code": 1,
+    "expected": "intake MISMATCH",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "intake-set",
+      "status": "MISMATCH",
+      "checks": [],
+      "observations": {
+        "input_kind": "standalone-set-input-v1",
+        "ordered_member_ids": [],
+        "member_bindings": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established.",
+        "Input mismatch: unknown dependency / incomplete selection"
+      ]
+    }
+  },
+  {
+    "id": "IR-14",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "intake-set",
+      "--request",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-14\\request.json",
+      "--request-sha256",
+      "54a2352c410e39bba4e5cabd3e86fc0f3b1c89e3d341336c5bcb46eaaa595cd4"
+    ],
+    "started": "2026-09-13T09:04:55.869306+00:00",
+    "exit_code": 1,
+    "expected": "intake MISMATCH",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "intake-set",
+      "status": "MISMATCH",
+      "checks": [],
+      "observations": {
+        "input_kind": "standalone-set-input-v1",
+        "ordered_member_ids": [],
+        "member_bindings": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established.",
+        "Input mismatch: extra fields"
+      ]
+    }
+  },
+  {
+    "id": "IR-15",
+    "command": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "intake-set",
+      "--request",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-15\\request.json",
+      "--request-sha256",
+      "e3d807e43443df62b9e13882880ca1254f81f14558286cf55e004d2a816064db"
+    ],
+    "started": "2026-09-13T09:04:55.993304+00:00",
+    "exit_code": 1,
+    "expected": "intake MISMATCH",
+    "observation": {
+      "schema_version": "adaptive-check-observation-v1",
+      "command": "intake-set",
+      "status": "MISMATCH",
+      "checks": [],
+      "observations": {
+        "input_kind": "standalone-set-input-v1",
+        "ordered_member_ids": [],
+        "member_bindings": []
+      },
+      "limitations": [
+        "Development observations; semantic support and native behavior are not established.",
+        "Input mismatch: STALE_PACKAGE / incomplete manifest"
+      ]
+    }
+  }
+]

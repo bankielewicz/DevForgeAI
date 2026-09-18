@@ -1,0 +1,44 @@
+test_absence_or_membership_drift_stops_before_dispatch (suite_0.OperatorTests) ... ok
+test_changed_and_missing_preserved_files_stop (suite_0.OperatorTests) ... ok
+test_child_environment_omits_only_approved_name_without_values (suite_0.OperatorTests) ... ok
+test_cleanup_unknown_or_interrupt_never_reports_success (suite_0.OperatorTests) ... ok
+test_console_backpressure_does_not_delay_process_cleanup (suite_0.OperatorTests) ... ok
+test_each_occupied_path_prevents_dispatch (suite_0.OperatorTests) ... ok
+test_failure_receipts_are_unique_and_keep_secret_values_out (suite_0.OperatorTests) ... ok
+test_fixture_membership_drift_stops (suite_0.OperatorTests) ... ok
+test_junction_metadata_is_checked_without_traversal (suite_0.OperatorTests) ... ok
+test_main_requires_exact_mode_and_has_no_implicit_launch (suite_0.OperatorTests) ... ok
+test_monitor_escapes_through_emit_and_does_not_change_files (suite_0.OperatorTests) ... ok
+test_native_synthetic_failure_retains_streams_exit_and_open_stdin (suite_0.OperatorTests) ... ok
+test_native_timeout_is_distinct_and_never_retried (suite_0.OperatorTests) ... ok
+test_positive_findings_cannot_be_silently_introduced (suite_0.OperatorTests) ... ok
+test_prepare_binds_exact_bytes_and_launches_only_collector (suite_0.OperatorTests) ... ok
+test_preservation_checks_root_arrays_and_nested_dicts (suite_0.OperatorTests) ... ok
+test_recording_exception_leaves_consumed_latch_and_stop (suite_0.OperatorTests) ... ok
+test_retained_reparse_target_drift_stops (suite_0.OperatorTests) ... ok
+test_size_binding_drift_stops (suite_0.OperatorTests) ... ok
+test_source_collection_failures_are_not_ready (suite_0.OperatorTests) ... ok
+test_source_outer_budget_includes_receipt_write (suite_0.OperatorTests) ... ok
+test_worker_observation_is_explicitly_not_inspection (suite_0.OperatorTests) ... ok
+test_arguments_with_shell_characters_remain_literal (suite_1.RecorderTests) ... ok
+test_closed_stdin_does_not_prevent_containment_or_receipt (suite_1.RecorderTests) ... ok
+test_complete_invocation_respects_outer_budget (suite_1.RecorderTests) ... ok
+test_cooperative_timeout_receives_exact_cancel (suite_1.RecorderTests) ... ok
+test_devnull_has_immediate_eof (suite_1.RecorderTests) ... ok
+test_environment_copy_does_not_mutate_parent_or_log_values (suite_1.RecorderTests) ... ok
+test_existing_attempt_is_not_replayed_or_modified (suite_1.RecorderTests) ... ok
+test_ignored_cancel_terminates_only_owned_process (suite_1.RecorderTests) ... ok
+test_invalid_budgets_do_not_create_attempt_or_spawn (suite_1.RecorderTests) ... ok
+test_keyboard_interrupt_requests_cancel_and_preserves_receipt (suite_1.RecorderTests) ... ok
+test_large_binary_streams_are_exact_and_do_not_deadlock (suite_1.RecorderTests) ... ok
+test_missing_program_retains_error_and_empty_streams (suite_1.RecorderTests) ... ok
+test_nonexecutable_file_retains_spawn_error (suite_1.RecorderTests) ... ok
+test_nonzero_exit_is_preserved (suite_1.RecorderTests) ... ok
+test_real_windows_denied_termination_reports_uncertain_cleanup (suite_1.RecorderTests) ... ok
+test_stdin_remains_open_without_early_eof (suite_1.RecorderTests) ... ok
+test_timeout_without_stdin_still_contains_owned_process (suite_1.RecorderTests) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 7.189s
+
+OK

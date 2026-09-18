@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "candidate_manifest_sha256": "c27d8ce1742ba7cd0955f0bd18aded8de5f14c898c989654d7298835c3256f9e",
+  "status": "FROZEN",
+  "developer_declared_required_functions": 114,
+  "independent_physical_test_attributes": 114,
+  "developer_declared_unit_functions": 28,
+  "developer_declared_integration_functions": 86,
+  "mandatory_wf_parents": 20,
+  "focused_regression_groups": 2,
+  "new_functions": 25,
+  "counting_rule": "Each unique executable Rust test function is counted once. WF parents, F-01/F-02 and new requirement tests are subsets, not additive. All subfixture assertions must pass. Instrumented coverage repetitions are attempts, not extra cases.",
+  "nonpasses": "failed, errored, ignored, skipped, blocked and unexecuted required functions",
+  "required_unit_floor_percent": "95",
+  "project_suite_floor_percent": "95",
+  "mandatory_failure_waiver": false,
+  "independent_executable_list": {
+    "receipt": "02-test-list/receipt.json",
+    "stdout_sha256": "77ce28e38492f9c7fdea144c8af38121324ac7a4353fbcb9bdd97e48ce70d99f",
+    "functions": 114,
+    "unique_functions": 114,
+    "ignored": 0,
+    "developer_only": 0,
+    "independent_only": 0
+  },
+  "independent_unit_list": {
+    "receipt": "02a-unit-list/receipt.json",
+    "stdout_sha256": "6f18c1743bda982f8866edd9570390ea6498802c7dfabeadbaffb7f1ece74ebd",
+    "functions": 28,
+    "unique_functions": 28,
+    "ignored": 0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": "authoring-stage-integrity-v1",
+  "run_id": "qa-claude-conversion-002",
+  "target_name": "qa",
+  "origin_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\origin.json",
+    "sha256": "5b3c26d5cd2df330e65b8826ab0a851332241802bbb85f1567c4834c0dc78438"
+  },
+  "design_capture_requested": true
+}

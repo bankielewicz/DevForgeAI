@@ -1,0 +1,27 @@
+{
+  "schema_version": "1",
+  "run_id": "20260917T185301Z",
+  "target_name": "story-create",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\story-create",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "a1ed7e831384b611c0cb18e720887ef00edc00c060f84e98232ace4b40c73f27"
+  },
+  "specification": {
+    "path": "inputs/repository/docs/plan/skill-authorings/story-create/20260917T182711Z-02/contract.json",
+    "sha256": "d86ef970627b78069634a39aaec926838646a117e8c06a51b35ab5d6dcf8e768"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": {
+    "path": "inputs/repository/docs/plan/skill-authorings/story-create/20260917T182711Z-02/authoring-record.json",
+    "sha256": "2fcf6902f03002dffdb51a85afd4c579a8e55035d8008813b1b2d2b5e0a00d37"
+  },
+  "completeness": "complete",
+  "uncertainties": [
+    "Authored 0.1.0 baseline is custody, not generated/adopted quality history.",
+    "Raw execution evidence remains in sibling run; this capsule binds retained copies without reinterpreting target/fixture JSON as schema-1 records."
+  ],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "Verified authored import; legacy generated/adopted quality history not claimed."
+}

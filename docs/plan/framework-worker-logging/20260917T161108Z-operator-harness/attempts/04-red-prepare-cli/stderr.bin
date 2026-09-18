@@ -1,0 +1,14 @@
+test_prepare_emits_bound_packet_without_native_dispatch (__main__.PreparationCliTests) ... FAIL
+
+======================================================================
+FAIL: test_prepare_emits_bound_packet_without_native_dispatch (__main__.PreparationCliTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness\tests\test_prepare_cli.py", line 23, in test_prepare_emits_bound_packet_without_native_dispatch
+    self.assertEqual(1, len(ready), "Preparation must produce a concrete bound packet, not exit silently")
+AssertionError: 1 != 0 : Preparation must produce a concrete bound packet, not exit silently
+
+----------------------------------------------------------------------
+Ran 1 test in 0.083s
+
+FAILED (failures=1)

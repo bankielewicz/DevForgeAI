@@ -1,0 +1,49 @@
+{
+  "case": "cold-propose-typescript",
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 269,
+      "sha256": "3e2852d80f6002d5021b1cf8ec222cd7ff46bfb0576886030f9739608eb4bdcb"
+    },
+    {
+      "path": "docs/domain.md",
+      "bytes": 127,
+      "sha256": "c882dcac76aaec5e264deb587cce2768548965800ec2287273ee49ac96671a1d"
+    },
+    {
+      "path": "docs/requirements.md",
+      "bytes": 70,
+      "sha256": "8ce1f8d7ea2c43be5217a4ef789f9179f57af449f51d3e36de241a8fd4e7f628"
+    },
+    {
+      "path": "existing/http-guide/SKILL.md",
+      "bytes": 166,
+      "sha256": "7f20aab13fafa8b953c84e3aaa3c4f45052d6503248e7dcb6b51c8ded47c09e1"
+    },
+    {
+      "path": "mystery.manifest",
+      "bytes": 27,
+      "sha256": "fe84b045dea03fec572194e805fefa2b33565e72b15ca982e4a54bf19cb0695b"
+    },
+    {
+      "path": "package.json",
+      "bytes": 46,
+      "sha256": "9bcbfcf223e6aed380ddb9ecf645a861479271a442b4d929275fa974e4519779"
+    },
+    {
+      "path": "packages/service/package.json",
+      "bytes": 53,
+      "sha256": "7881794cea9e7ac10de52b4404e0879a66bff55814fecdaa161b60cf5b1b1c03"
+    },
+    {
+      "path": "packages/storage/storage.py",
+      "bytes": 34,
+      "sha256": "a994208088f70be185b5206fe5f474cc0cbedd32f5c453de718cec6dc5260dab"
+    }
+  ],
+  "expected": "Cited fixture conventions and requirements; no invented tools or project execution; complete proposal/evidence or precise unresolved gaps; no skill packages",
+  "timeout": 120,
+  "write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-propose-typescript",
+  "method": "native explicit"
+}

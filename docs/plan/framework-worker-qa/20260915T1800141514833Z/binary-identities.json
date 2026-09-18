@@ -1,0 +1,32 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\debug\\devforgeai-codex-worker-probe.exe",
+    "bytes": 1505792,
+    "sha256": "4a0cdf4ebf08568d5f96d1e8d6828617a30435e1b6bb929cf0062ba66f3fde2a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\debug\\protocol-peer.exe",
+    "bytes": 778240,
+    "sha256": "fe92c51313a2769bbfc34b16e77f2f70ff4514af78a5ea41150d67eddcf19511"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\debug\\console-driver.exe",
+    "bytes": 288256,
+    "sha256": "74148fe77bcc6f3876925b56adbc2e04371b38fabe7051146f8ee0c05815d3f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\debug\\crash-driver.exe",
+    "bytes": 1406464,
+    "sha256": "73df71c16d0c7839930fdb8ad4a1c3a28fe628d23e0f335c057f95502907e0eb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-target\\debug\\qa-driver.exe",
+    "bytes": 1422336,
+    "sha256": "a4186629a2fc81c4072d246821f8eff96c545abe9e4fe15036dd7f552f6cb053"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-target\\debug\\protocol-peer.exe",
+    "bytes": 602112,
+    "sha256": "64c611d2efb4d6251dd20a188d9f796ee48eeb893b29b1e342f3200a5494ce06"
+  }
+]

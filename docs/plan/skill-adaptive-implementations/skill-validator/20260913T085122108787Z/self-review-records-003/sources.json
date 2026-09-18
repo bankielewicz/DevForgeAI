@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T085122108787Z",
+  "target_name": "skill-validator",
+  "sources": [
+    {
+      "source_id": "selected-adaptive-spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-adaptive-enhancement-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42",
+      "snapshot_path": "inputs/governing-spec.md",
+      "sections": [
+        "3",
+        "4",
+        "8"
+      ],
+      "freshness": "snapshot_only"
+    }
+  ]
+}

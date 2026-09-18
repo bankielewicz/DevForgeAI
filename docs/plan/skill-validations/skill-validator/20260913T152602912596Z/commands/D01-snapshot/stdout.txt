@@ -1,0 +1,31 @@
+{
+  "schema_version": "1",
+  "command": "snapshot",
+  "status": "COMPLETE",
+  "coverage": [
+    "bounded inventory",
+    "raw-byte copy",
+    "source readback"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement."
+  ],
+  "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\budget-drift\\drift\\capture",
+  "manifest": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\budget-drift\\drift\\source-skill",
+    "captured_at_utc": "2026-09-13T16:25:35.238927+00:00",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 71,
+        "sha256": "f40059959e2d1f08b65d5d9624bdb6caf4c21fec12e77b690387bceb7199507d"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "9372515225f29b6aff94cbb8347d067e48addb2bdcea0cf56194edb4a32927d4"
+  }
+}

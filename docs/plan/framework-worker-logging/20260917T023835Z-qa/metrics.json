@@ -1,0 +1,60 @@
+{
+  "platform": "Windows x64",
+  "overall_platforms": [
+    "Windows x64"
+  ],
+  "line_coverage": {
+    "passing": 3858,
+    "required": 4041,
+    "percent": "95.47141796585003711952487008",
+    "floor": 95,
+    "status": "PASS",
+    "scope": "complete152-case package campaign; no supplemental or independent cases contribute"
+  },
+  "unit_test_rate": {
+    "passing": 49,
+    "required": 49,
+    "percent": "100",
+    "floor": 95,
+    "status": "PASS"
+  },
+  "project_suite_rate": {
+    "passing": 165,
+    "required": 166,
+    "percent": "99.39759036144578313253012048",
+    "floor": 95,
+    "status": "PASS"
+  },
+  "package_integration": {
+    "passing": 103,
+    "required": 103
+  },
+  "supplemental_integration": {
+    "passing": 1,
+    "required": 1
+  },
+  "independent_acceptance": {
+    "passing": 12,
+    "required": 13,
+    "percent": "92.30769230769230769230769231",
+    "separate_numeric_floor": null,
+    "conformance_status": "FAIL"
+  },
+  "unique_case_status_counts": {
+    "PASS": 165,
+    "FAIL": 1
+  },
+  "retained_prior_harness_errors": [
+    "06-qa01"
+  ],
+  "skipped_or_unexecuted_required_cases": [],
+  "metric_stop_trigger": null,
+  "verdict": "FAIL",
+  "basis": [
+    "QA-LOG-01",
+    "QA-LOG-02"
+  ],
+  "native_codex": "NOT_RUN",
+  "branch_coverage": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED"
+}

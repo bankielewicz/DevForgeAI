@@ -1,0 +1,39 @@
+
+running 3 tests
+test diagnostic_rpc_denial_never_retains_server_message ... FAILED
+test diagnostic_config_denial_is_closed_and_preserves_rejection ... FAILED
+test diagnostic_initialize_counts_include_exited_descendant ... FAILED
+
+failures:
+
+---- diagnostic_rpc_denial_never_retains_server_message stdout ----
+
+thread 'diagnostic_rpc_denial_never_retains_server_message' (48944) panicked at tests\profile_protocol.rs:369:5:
+assertion failed: diagnostics(&observation).contains(&json!({
+                "schema_version":1,"stage":"rpc","rpc":"config_read","predicate":"rpc_error"
+            }))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- diagnostic_config_denial_is_closed_and_preserves_rejection stdout ----
+
+thread 'diagnostic_config_denial_is_closed_and_preserves_rejection' (61064) panicked at tests\profile_protocol.rs:348:5:
+assertion failed: diagnostics(&observation).contains(&json!({
+                "schema_version":1,"stage":"config_validation","section":"effective","predicate":"sandbox_mode"
+            }))
+
+---- diagnostic_initialize_counts_include_exited_descendant stdout ----
+
+thread 'diagnostic_initialize_counts_include_exited_descendant' (65628) panicked at tests\profile_protocol.rs:359:5:
+assertion failed: diagnostics(&observation).contains(&json!({
+                "schema_version":1,"stage":"process_accounting","rpc":"initialize","checkpoint":"after_receive",
+                "predicate":"unexpected_process_count","total_processes":2,"active_processes":1
+            }))
+
+
+failures:
+    diagnostic_config_denial_is_closed_and_preserves_rejection
+    diagnostic_initialize_counts_include_exited_descendant
+    diagnostic_rpc_denial_never_retains_server_message
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.32s
+

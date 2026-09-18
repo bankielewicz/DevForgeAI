@@ -1,0 +1,58 @@
+{
+  "kind": "supplemental-manual-handoff",
+  "scope": "QA-F-COV-01",
+  "entries": {
+    "qa_report": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\qa-report.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\qa-report.md",
+      "bytes": 11180,
+      "sha256": "0cea59ae0461aec0530ee144d8bae340dba7208bec9ad03c97bb8cd1802d1095",
+      "required_equals_actual": true
+    },
+    "original_fix_handoff": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\dev-handoff.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\dev-handoff.md",
+      "bytes": 3366,
+      "sha256": "fbb6926a4b3a67433f06a7c12e48a24a013249402c2cc7e1b868eb3e2c4c075c",
+      "required_equals_actual": true
+    },
+    "qa_fix": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\qa-fix.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\qa-fix.md",
+      "bytes": 9180,
+      "sha256": "e64f2a857efdf2140f7bc9516279c03d64586084e09b1d5b4fb4edb82c356b1f",
+      "required_equals_actual": true
+    },
+    "dev_invocation": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\dev-invocation.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\dev-invocation.md",
+      "bytes": 6028,
+      "sha256": "3346d454583ee6e96b2391d91a153a0950c6880f3c99f21354d00da1f915c478",
+      "required_equals_actual": true
+    },
+    "identity_readback": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\readback.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\readback.json",
+      "bytes": 21558,
+      "sha256": "98dd75c39fff9a99187ae596127443f760ec70c8c37d246f29fd524590b2c5b1",
+      "required_equals_actual": true
+    },
+    "readback_helper": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\readback.py",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\readback.py",
+      "bytes": 2515,
+      "sha256": "4a4f18fc612c463716703a3dbd51e4590ddb78227e527284085fba9eae9604ea",
+      "required_equals_actual": true
+    },
+    "manifest_helper": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\seal.py",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T000205Z-resume-audit\\seal.py",
+      "bytes": 1590,
+      "sha256": "3e1f1e4e88fd83af06f407089a6c07c0ffb63bbbdfa93c38e8301cad9e3572db",
+      "required_equals_actual": true
+    }
+  },
+  "original_campaign_status": "STOPPED/FAIL",
+  "new_assignment_selected": false,
+  "self_exclusion": "This manifest cannot contain its own digest."
+}

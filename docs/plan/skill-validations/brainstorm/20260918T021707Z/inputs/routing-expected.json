@@ -1,0 +1,42 @@
+[
+  {
+    "id": "R01",
+    "activate": true
+  },
+  {
+    "id": "R02",
+    "activate": true
+  },
+  {
+    "id": "R03",
+    "activate": true
+  },
+  {
+    "id": "R04",
+    "activate": true
+  },
+  {
+    "id": "R05",
+    "activate": false
+  },
+  {
+    "id": "R06",
+    "activate": false
+  },
+  {
+    "id": "R07",
+    "activate": false
+  },
+  {
+    "id": "R08",
+    "activate": false
+  },
+  {
+    "id": "R09",
+    "activate": false
+  },
+  {
+    "id": "R10",
+    "activate": false
+  }
+]

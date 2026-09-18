@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-09-12T15:24:00.639582+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial\\behavior_check.py",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-kto8d8pr\\docs\\plan\\skill-builds\\receipt-totals\\revision-01-conflict\\snapshot\\revision-01-conflict\\candidate\\scripts\\receipt_totals.py",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial\\behavior-inputs\\revision-01-conflict",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial\\behavior-results\\revision-01-conflict-candidate.json",
+    "revision-01-conflict"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"cases\": 15, \"passed\": true}\n",
+  "stderr": ""
+}

@@ -1,0 +1,214 @@
+Build skills | ChatGPT Learn (https://learn.chatgpt.com/docs/build-skills)
+citeturn2view0 [wordlim: 200] Crawled: today; Content type: text/html; Source: find({"ref_id":"https://learn.chatgpt.com/docs/build-skills","pattern":"name:"}); Total lines: 994
+L688: ### Community
+L689: 
+L690:   * cite414†Codex Ambassadors†developers.openai.com L691:   * cite415†Codex for Students†developers.openai.com L692:   * cite416†Codex for Open Source†developers.openai.com L693:   * cite417†Meetups†developers.openai.com L694: 
+L695: ### Blog
+L696: 
+L697:   * cite418†Company blog†openai.com L698:   * cite419†Developer blog†developers.openai.com L699: 
+L708: ### Community
+L709: 
+L710:   * cite414†Codex Ambassadors†developers.openai.com L711:   * cite415†Codex for Students†developers.openai.com L712:   * cite416†Codex for Open Source†developers.openai.com L713:   * cite417†Meetups†developers.openai.com L714: 
+L715: ### Blog
+L716: 
+L717:   * cite418†Company blog†openai.com L718:   * cite419†Developer blog†developers.openai.com L719: 
+L720: cite420†Showcase [Button: Blog ][Button: Cookbook ][Button: Learn ][Button: Community ]
+L721: 
+L722: [Select]Docs Select...
+L723: 
+L724:   * cite421†All posts L725: ### Recent
+L726: 
+L727:   * cite422†Rethinking skills and prompts for GPT-6 Astra L728:   * cite423†Architectural visualization with Astra L729:   * cite424†Building games with Astra L730:   * cite425†Meet Rosalind Workbench: Empowering every scientist to be their own research team L731:   * cite426†Automating repetitive work at OpenAI with Codex L732: 
+L733: ### Topics
+L734: 
+L735:   * cite427†General L736:   * cite428†API L737:   * cite429†Apps SDK L738:   * cite430†Audio L739:   * cite431†Codex L740:   * cite432†Life sciences L741: 
+L742:   * cite433†Home L743: ### Topics
+L744: 
+L745:   * cite434†Agents L746:   * cite435†Evals L747:   * cite436†Multimodal L748:   * cite437†Text L749:   * cite438†Guardrails L750:   * cite439†Optimization L751:   * cite440†ChatGPT L752:   * cite441†Codex L753:   * cite442†gpt-oss L754: 
+L755: ### Contribute
+L756: 
+L757:   * cite443†Cookbook on GitHub†github.com L758: 
+L759:   * cite9†Home L760:   * cite444†OpenAI Developers plugin L761:   * cite445†Docs MCP L762: 
+L763: ### Categories
+L764: 
+L765:   * cite446†Demo apps L766:   * cite447†Videos L767: ### Topics
+L768: 
+L769:   * cite448†Agents L770:   * cite449†Audio & Voice L771:   * cite450†Computer Use L772:   * cite451†Codex L773:   * cite452†Evals L774:   * cite453†gpt-oss L775:   * cite454†Fine-tuning L776:   * cite455†Image generation L777:   * cite456†Scaling L778:   * cite457†Tools L779:   * cite458†Video generation L780: 
+L781:   * cite459†Community L782: 
+L783: ### Programs
+L784: 
+L785:   * cite460†Codex Ambassadors L786:   * cite461†Codex for Students L787:   * cite462†Codex for Open Source L788:   * cite463†OpenAI for Startups†openai.com L789: 
+L790: ### Events
+L791: 
+L792:   * cite464†Meetups L793: ### Spaces
+L794: 
+L795:   * cite465†Developer Forum†community.openai.com L796:   * cite466†Discord†discord.com L797:   * cite467†Reddit†www.reddit.com L798:   * cite468†X†x.com L799: 
+L800: cite469†API Dashboard†platform.openai.com L801: 
+L802: cite470†Try ChatGPT†chatgpt.com L803: 
+L804:   * cite12†Overview L805: 
+L806: ### Development workflows
+L807: 
+L808:   * cite329†Code review L809:   * cite330†Integrated terminal L810: 
+L811: ### Extend and automate
+L812: 
+L813:   * cite331†Build skills L814:   * cite332†Build plugins L815:   * cite333†Site tools (WebMCP) L816:   * cite334†Hooks L817: ### Environments
+L818: 
+L819:   * cite335†Modes L820:   * cite336†Local environments L821:   * cite337†Cloud environment L822:   * cite338†Git worktrees L823: 
+L824: ### Build with Codex
+L825: 
+L826:   * cite339†Codex SDK L827:   * cite340†App Server L828:   * cite341†GitHub Action L829:   * cite342†Non-interactive mode L830: 
+L831: ### Third-party integrations
+L832: 
+L833:   * cite343†GitHub L834:   * cite344†GitLab (Beta) L835:   * cite345†Slack L836:   * cite346†Linear L837: 
+L838: ### Reference
+L839: 
+L840:   * cite347†CLI customization L841:   * cite348†Developer commands L842:   * cite349†Developer settings L843: # Build skills
+L844: 
+L845: Give ChatGPT and Codex new capabilities and expertise
+L846: 
+L847: Copy Page
+L848: 
+L849: Use agent skills to extend ChatGPT and Codex with task-specific capabilities. A skill packages instructions, resources, and optional scripts so either product can follow a workflow reliably. Skills build on the cite471†open agent skills standard†agentskills.io .
+L850: Skills are the authoring format for reusable workflows. Plugins distribute reusable skills and connectors through the universal plugin directory shared by ChatGPT and Codex. Plugins work in Chat and Work across ChatGPT on the web, desktop, and mobile, in Codex in the ChatGPT desktop app, and through Codex CLI. Use skills to design the workflow itself, then package it as a cite472†plugin†developers.openai.com when you want other people to install it.
+L851: Standalone skills are available in the ChatGPT desktop app, Codex CLI, and IDE extension. Skills bundled in plugins are also available in Chat and Work across ChatGPT on the web, desktop, and mobile.
+L852: 
+L853: In the ChatGPT desktop app, open Skills in the sidebar to view and explore skills created across your projects.
+L854: 
+L855: Atlas Control (macOS)Use the bundled CLI to control Atlas and inspect local browser data.Personal
+L856: Exec Plan Create, maintain, and execute long-form execution plans ("ExecPlans") for complex work.Personal
+L857: 
+L858: GitHub Fix CI Debug failing GitHub Actions CI Personal
+L859: 
+L860: Linear Manage Linear issues in Codex Personal
+L861: 
+L862: OpenAI Docs Reference the official OpenAI Developer docs Personal
+L863: 
+L864: Yeet Stage, commit, and open PR Personal
+L865: 
+L866: cite473†Image Skill Creator Create or update a skill System
+L867: 
+L868: Skill Installer Install curated skills from openai/skills or other repos System
+L869: 
+L870: $
+L871: 
+L872: 5.6 Sol Extra Highcite474†Image cite475†Image L873: Skills use progressive disclosure to manage context efficiently. ChatGPT and Codex start with each skill's name and description, then load the full `SKILL.md` instructions when they decide to use that skill.
+L874: In Codex, the initial list also includes each skill's file path. To avoid crowding out the rest of the prompt, this list uses at most 2% of the model's context window, or 8,000 characters when the context window is unknown. If many skills are installed, Codex shortens skill descriptions first. For large skill sets, Codex may omit some skills from the initial list and show a warning.
+L875: This budget applies only to the initial skills list. When Codex selects a skill, it still reads the full SKILL.md instructions for that skill.
+L876: 
+L877: A skill is a directory with a `SKILL.md` file plus optional scripts and references. The `SKILL.md` file must include `name` and `description`.
+L878: 
+L879:   * my-skill/
+L880: 
+L881:     * SKILL.md Required: instructions + metadata
+L882: 
+L883:     * scripts/ Optional: executable code
+L884: 
+L885:     * references/ Optional: documentation
+L886: 
+L887:     * assets/ Optional: templates, resources
+L888: 
+L889:     * agents/
+L890:       * openai.yaml Optional: appearance and dependencies
+L891: ## How ChatGPT and Codex use skills
+L892: 
+L893: ChatGPT and Codex can activate skills in two ways:
+L894: 
+L895:   1. Explicit invocation: Include the skill directly in your prompt. In ChatGPT, type `@` to select a skill. In Codex CLI or the IDE extension, run `/skills` or type `$` to mention a skill.
+L896:   2. Implicit invocation: ChatGPT or Codex can choose a skill when your task matches the skill `description`.
+L897: Because implicit matching depends on `description`, write concise descriptions with clear scope and boundaries. Front-load the key use case and trigger words so a host can still match the skill if descriptions are shortened.
+L898: ## Create a skill
+L899: 
+L900: If you already know the workflow and it's easier to show than describe, use cite323†Record & Replay . The recorder captures the workflow, inspects the steps, and drafts a reusable skill from the demonstration.
+L901: 
+L902: If you want to describe the skill instead, use the built-in creator. In ChatGPT Work, invoke it as `@skill-creator`. In Codex, invoke it as:
+L903: 
+L904:     `$skill-creator`
+L905: The creator asks what the skill does, when it should trigger, and whether it should stay instruction-only or include scripts. Instruction-only is the default.
+L906: 
+L907: You can also create a skill manually by creating a folder with a `SKILL.md` file:
+L908: 
+L909:     `---
+L910:     name: skill-name
+L911:     description: Explain exactly when this skill should and should not trigger.
+L912:     ---
+L913: 
+L914:     Skill instructions for ChatGPT or Codex to follow.`
+L915: Codex detects skill changes automatically. If an update doesn't appear, restart Codex.
+L916: ## Where Codex loads local skills
+L917: 
+L918: Codex reads skills from repository, user, admin, and system locations. For repositories, Codex scans `.agents/skills` in every directory from your current working directory up to the repository root. If two skills share the same `name`, Codex doesn't merge them; both can appear in skill selectors.
+L919: Skill Scope  | Location  | Suggested use
+L920: --- | --- | ---
+L921: `REPO`  | `$CWD/.agents/skills`
+L922: Current working directory: where you launch Codex.  | If you're in a repository or code environment, teams can check in skills relevant to a working folder. For example, skills only relevant to a microservice or a module.
+L923: `REPO`  | `$CWD/../.agents/skills`
+L924: A folder above CWD when you launch Codex inside a Git repository.  | If you're in a repository with nested folders, organizations can check in skills relevant to a shared area in a parent folder.
+L925: `REPO`  | `$REPO_ROOT/.agents/skills`
+L926: The topmost root folder when you launch Codex inside a Git repository.  | If you're in a repository with nested folders, organizations can check in skills relevant to everyone using the repository. These serve as root skills available to any subfolder in the repository.
+L927: `USER`  | `$HOME/.agents/skills`
+L928: Any skills checked into the user's personal folder.  | Use to curate skills relevant to a user that apply to any repository the user may work in.
+L929: `ADMIN`  | `/etc/codex/skills`
+L930: Any skills checked into the machine or container in a shared, system location.  | Use for SDK scripts, automation, and for checking in default admin skills available to each user on the machine.
+L931: `SYSTEM`  | Bundled with Codex by OpenAI.  | Useful skills relevant to a broad audience such as the skill-creator and plan skills. Available to everyone when they start Codex.
+L932: Codex supports symlinked skill folders and follows the symlink target when scanning these locations.
+L933: 
+L934: These locations are for authoring and local discovery. When you want to distribute reusable skills beyond a single repo, or optionally bundle them with connectors, use cite472†plugins†developers.openai.com .
+L935: ## Distribute skills with plugins
+L936: 
+L937: Direct skill folders are best for local authoring and repo-scoped workflows. If you want to distribute a reusable skill, bundle two or more skills together, or ship a skill alongside a connector, package them as a cite472†plugin†developers.openai.com .
+L938: 
+L939: Plugins can include one or more skills. They can also optionally bundle registered MCP server connections, bundled MCP server configuration, and presentation assets in a single package.
+L940: ## Install curated skills for local use
+L941: 
+L942: To add curated skills beyond the built-ins for your own local Codex setup, use `$skill-installer`. For example, to install the `$linear` skill:
+L943: 
+L944:     `$skill-installer linear`
+L945: 
+L946: You can also prompt the installer to download skills from other repositories. Codex detects newly installed skills automatically; if one doesn't appear, restart Codex.
+L947: 
+L948: Use this for local setup and experimentation. For reusable distribution of your own skills, prefer plugins.
+L949: ## Enable or disable local Codex skills
+L950: 
+L951: Use `[[skills.config]]` entries in `~/.codex/config.toml` to disable a skill without deleting it:
+L952: 
+L953:     `[[skills.config]]
+L954:     path = "/path/to/skill/SKILL.md"
+L955:     enabled = false`
+L956: 
+L957: Restart Codex after changing `~/.codex/config.toml`.
+L958: ## Optional metadata
+L959: Add `agents/openai.yaml` to configure UI metadata in the cite280†ChatGPT desktop app , to set invocation policy, and to declare tool dependencies for a more seamless experience with using the skill.
+L960: 
+L961:     `interface:
+L962:       display_name: "Optional user-facing name"
+L963:       short_description: "Optional user-facing description"
+L964:       icon_small: "./assets/small-logo.svg"
+L965:       icon_large: "./assets/large-logo.png"
+L966:       brand_color: "#3B82F6"
+L967:       default_prompt: "Optional surrounding prompt to use the skill with"
+L968: 
+L969:     policy:
+L970:       allow_implicit_invocation: false
+L971: 
+L972:     dependencies:
+L973:       tools:
+L974:         - type: "mcp"
+L975:           value: "openaiDeveloperDocs"
+L976:           description: "OpenAI Docs MCP server"
+L977:           transport: "streamable_http"
+L978:           url: "https://developers.openai.com/mcp"`
+L979: `allow_implicit_invocation` (default: `true`): When `false`, Codex won't implicitly invoke the skill based on user prompt; explicit `$skill` invocation still works.
+L980: ## Best practices
+L981: 
+L982:   * Keep each skill focused on one job.
+L983:   * Prefer instructions over scripts unless you need deterministic behavior or external tooling.
+L984:   * Write imperative steps with explicit inputs and outputs.
+L985:   * Test prompts against the skill description to confirm the right trigger behavior.
+L986: For more examples, see cite476†GitHub CI repair†github.com , cite477†PDF†github.com , cite478†Linear†github.com , cite479†openai/skills†github.com , and the cite480†agent skills specification†agentskills.io . For installable distribution, prefer cite472†plugins†developers.openai.com .
+L987: 
+L988: cite332†Next Build plugins L989: 
+L990: Ask AI
+L991: ## Docs agent
+L992: 
+L993: Loading docs agent...
+

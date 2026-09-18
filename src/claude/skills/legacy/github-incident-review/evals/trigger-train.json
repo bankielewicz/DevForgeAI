@@ -1,0 +1,62 @@
+[
+  {
+    "query": "Review https://github.com/bankielewicz/DevForgeAI/issues/907 and verify whether it has merit.",
+    "should_trigger": true,
+    "rationale": "Explicit GitHub issue URL plus incident merit review."
+  },
+  {
+    "query": "Validate issue 1001 in bankielewicz/DevForgeAI, including downstream coupling and scope.",
+    "should_trigger": true,
+    "rationale": "Repository and issue number with validation and coupling scope."
+  },
+  {
+    "query": "Triage this GitHub incident and tell me whether its claims are grounded or ambiguous.",
+    "should_trigger": true,
+    "rationale": "Natural-language incident triage request focused on evidence quality."
+  },
+  {
+    "query": "Audit issue #1006 for duplicates, related incidents, and cross-matching likelihood before we act.",
+    "should_trigger": true,
+    "rationale": "Duplicate-aware incident audit is a core workflow."
+  },
+  {
+    "query": "Resolve the scope fork in this GitHub bug and produce a provenance-backed copy-ready ruling.",
+    "should_trigger": true,
+    "rationale": "Scope fork plus the skill's fixed review output."
+  },
+  {
+    "query": "Review the incident and its linked PR at the exact head, including CI test collection and mirrors.",
+    "should_trigger": true,
+    "rationale": "Incident review with linked implementation verification."
+  },
+  {
+    "query": "Create a new GitHub issue from this root-cause analysis and apply the bug label.",
+    "should_trigger": false,
+    "rationale": "Incident creation and labeling require a creation workflow, not review."
+  },
+  {
+    "query": "Review pull request 1216 and post a changes-requested verdict.",
+    "should_trigger": false,
+    "rationale": "Standalone pull request review is outside the incident-review trigger."
+  },
+  {
+    "query": "Summarize the comments on this issue in three bullets.",
+    "should_trigger": false,
+    "rationale": "A summary request does not ask for merit, provenance, duplication, or scope analysis."
+  },
+  {
+    "query": "Diagnose why my local pytest command fails without looking at GitHub.",
+    "should_trigger": false,
+    "rationale": "Local diagnosis without a GitHub incident belongs to RCA or debugging."
+  },
+  {
+    "query": "Turn these QA recommendations into separate GitHub issues.",
+    "should_trigger": false,
+    "rationale": "Recommendation-to-incident conversion is an issue creation workflow."
+  },
+  {
+    "query": "Close issue 42 as not planned and leave a comment linking issue 41.",
+    "should_trigger": false,
+    "rationale": "A direct mutation request without a review asks for GitHub operations, not incident validation."
+  }
+]

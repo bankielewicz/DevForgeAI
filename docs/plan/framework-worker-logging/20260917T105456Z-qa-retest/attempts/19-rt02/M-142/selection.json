@@ -1,0 +1,17 @@
+{
+  "group": "compatibility",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-019iqsTa",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-019iqsTa\\run",
+    "state": "completed",
+    "schema": 1,
+    "level": "off",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-019iqsTa\\control-stdout.txt",
+    "control_sha256": "2095226310cf4d392fbb18c6af74ed4dce663154a78ad6a3f326111519ffa1b5"
+  },
+  "mutation": "nonzero-post",
+  "expected_error": "evidence_corrupt",
+  "expected_state": null,
+  "views": "first-and-end",
+  "id": "M-142"
+}

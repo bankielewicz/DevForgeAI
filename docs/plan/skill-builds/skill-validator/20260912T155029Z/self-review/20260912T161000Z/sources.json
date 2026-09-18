@@ -1,0 +1,39 @@
+{
+  "schema_version": "1",
+  "run_id": "V16",
+  "target_name": "skill-validator",
+  "sources": [
+    {
+      "source_id": "approved-spec",
+      "snapshot_path": "inputs/spec.md",
+      "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+      "retrieved_at_utc": null,
+      "freshness": "snapshot_only",
+      "sections": [
+        "1-12"
+      ]
+    },
+    {
+      "source_id": "openai-skills",
+      "snapshot_path": "inputs/openai-build-skills.md",
+      "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+      "retrieved_at_utc": "2026-09-12T15:50:29Z",
+      "freshness": "live_verified",
+      "sections": [
+        "Build skills",
+        "Best practices"
+      ]
+    },
+    {
+      "source_id": "agent-skills",
+      "snapshot_path": "inputs/agentskills-specification-retrieval.json",
+      "sha256": "3f0e6c9b997f072d5cad0bc1a9bec716b7adb79cc3038e506a8260a38570c7e3",
+      "retrieved_at_utc": "2026-09-12T15:53:00Z",
+      "freshness": "live_verified",
+      "sections": [
+        "Frontmatter"
+      ]
+    }
+  ],
+  "limitation": "Live extraction was actually retrieved earlier in this same build; timestamps identify session observation, not upstream publication."
+}

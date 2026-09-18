@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "disposition": "BLOCKED",
+  "scope": "codex-0.154.0 restrictive profile compatibility; app-server help only, with no transport/session, thread/turn/inventory/model RPC, or native trial",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "version": "codex-cli 0.154.0",
+    "sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde"
+  },
+  "proposed_policy": {
+    "path": "docs/plan/framework-native-readiness/20260915T1937559109498Z/restrictive-launch-policy.proposed.json",
+    "sha256": "5744b73169784ef8bba9f87a46ab611828aa14fb4da8d5441354e715b9bd4d0e",
+    "qualified": false
+  },
+  "local_probes": {
+    "help_override_syntax": "PASS",
+    "help_strict_config_available": "PASS",
+    "typed_setting_form_recognition": "PASS_9_OF_9",
+    "unknown_control_ignored_without_strict": "OBSERVED",
+    "strict_config_features_list": "UNSUPPORTED_EXIT_1",
+    "effect_capable_features_initially_enabled": 14,
+    "effect_capable_features_reported_false_with_overrides": 14,
+    "runtime_inactivity_proven": false,
+    "process_or_network_side_effect_instrumentation": false
+  },
+  "required_policy_additions": [
+    "features.hooks=false",
+    "features.plugins=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "features.shell_tool=false",
+    "features.tool_suggest=false",
+    "features.view_image=false"
+  ],
+  "unchanged_user_config": {
+    "path": "C:\\Users\\bryan\\.codex\\config.toml",
+    "sha256": "b438f4fbd9ed78c2fb1878b3f75a61a921eebe8180eac4f786d3d1db8ab32d13",
+    "matches_preparation_review": true,
+    "retained_readback": "17-config-layer-readback"
+  },
+  "protocol_schema_review": {
+    "status": "VERSION_BOUND_STATIC_SCHEMA_ONLY",
+    "client_request_sha256": "da767fedd73502ceb644f5d7974927e1a6b7f1917b092aaa029e81949abf0125",
+    "combined_v2_schema_sha256": "f3487938786b729cb6773dbc9e83a7efab9c78c845db7094e8f539f373cbacc9",
+    "verified_methods": [
+      "config/read",
+      "configRequirements/read",
+      "experimentalFeature/list",
+      "plugin/list",
+      "app/list",
+      "app/installed",
+      "mcpServerStatus/list",
+      "model/list"
+    ],
+    "app_installed_is_effective_runtime_state": true,
+    "app_list_is_experimental_catalog_metadata": true,
+    "preflight_status": "PROPOSED_UNEXECUTED"
+  },
+  "not_run": [
+    "app-server transport/session",
+    "initialize",
+    "thread/start",
+    "turn/start",
+    "model/list",
+    "plugin/list",
+    "app/installed",
+    "mcpServerStatus/list",
+    "native WN-01",
+    "native WN-02"
+  ],
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,10 @@
+{
+  "utc": "2026-09-16T20:28:01.284498+00:00",
+  "maximum_native_attempts": 1,
+  "retry_permitted": false,
+  "recorder": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic.py",
+    "bytes": 11661,
+    "sha256": "f3f01f661e22d8f11a10d07ebbe140921072ef54b237883c250ed4b267ca03e6"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "advisor-launcher-probe-v1",
+  "started_at": "2026-09-16T13:47:05.564158Z",
+  "launcher": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming\\candidate\\scripts\\advisor.ps1",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "docs/plan/advisor-streaming-dev/20260916T134000Z/launcher/launcher_probe.py",
+    "--launcher",
+    "docs/plan/skill-authorings/advisor/20260916T134000Z-streaming/candidate/scripts/advisor.ps1",
+    "--output",
+    "docs/plan/advisor-streaming-dev/20260916T134000Z/launcher/green-result.json"
+  ],
+  "status": "PASS",
+  "checks": [
+    {
+      "powershell": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "version": "5.1.26100.9444",
+      "explicit_argument_forwarding": "PASS",
+      "default_reason": "PASS",
+      "stdout_stderr_preservation": "PASS",
+      "exit_status_propagation": "PASS",
+      "invocation_failure_exit_2": "PASS"
+    },
+    {
+      "powershell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+      "version": "7.6.6",
+      "explicit_argument_forwarding": "PASS",
+      "default_reason": "PASS",
+      "stdout_stderr_preservation": "PASS",
+      "exit_status_propagation": "PASS",
+      "invocation_failure_exit_2": "PASS"
+    }
+  ],
+  "finished_at": "2026-09-16T13:47:07.912657Z",
+  "duration_seconds": 2.36
+}

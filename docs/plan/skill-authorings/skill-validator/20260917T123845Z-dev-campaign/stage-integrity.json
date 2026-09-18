@@ -1,0 +1,10 @@
+{
+  "schema_version": "authoring-stage-integrity-v1",
+  "run_id": "validator-dev-campaign-001",
+  "target_name": "skill-validator",
+  "origin_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T123845Z-dev-campaign\\origin.json",
+    "sha256": "4f963a16d3005d3cd987b7a244e70b63fca476deedd4f12c9fabcc7339f76391"
+  },
+  "design_capture_requested": true
+}

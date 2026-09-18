@@ -1,0 +1,104 @@
+{
+  "before": {
+    "root": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/binding-linux/relocated/space é & (shell)",
+    "files": [
+      {
+        "path": ".agents/skills/core-skill/SKILL.md",
+        "bytes": 170,
+        "sha256": "189a39bbd45645ffacf7cffdfa87e7dcf77b8b17b18168390e6da020ed8e1909"
+      },
+      {
+        "path": ".agents/skills/core-skill/assets/devforgeai-skill.json",
+        "bytes": 411,
+        "sha256": "79cff2fc0557ff463f5319107534b16d4a18fa7831b417206ada71acc1ec741b"
+      },
+      {
+        "path": ".agents/skills/core-skill/references/adaptive-contract.md",
+        "bytes": 28,
+        "sha256": "b896c952875f68284b0a319c45f8d247f89f531e0c9a25b3fad6508428d982b0"
+      },
+      {
+        "path": ".agents/skills/core-skill/scripts/check_project_binding.py",
+        "bytes": 12148,
+        "sha256": "d39e6fc3add57fdd03e3897004da15048ac5f95c60659fb8d524c7ada10fa5f0"
+      },
+      {
+        "path": "development/core-skill/SKILL.md",
+        "bytes": 170,
+        "sha256": "189a39bbd45645ffacf7cffdfa87e7dcf77b8b17b18168390e6da020ed8e1909"
+      },
+      {
+        "path": "development/core-skill/assets/devforgeai-skill.json",
+        "bytes": 411,
+        "sha256": "79cff2fc0557ff463f5319107534b16d4a18fa7831b417206ada71acc1ec741b"
+      },
+      {
+        "path": "development/core-skill/references/adaptive-contract.md",
+        "bytes": 28,
+        "sha256": "b896c952875f68284b0a319c45f8d247f89f531e0c9a25b3fad6508428d982b0"
+      },
+      {
+        "path": "development/core-skill/scripts/check_project_binding.py",
+        "bytes": 12148,
+        "sha256": "d39e6fc3add57fdd03e3897004da15048ac5f95c60659fb8d524c7ada10fa5f0"
+      }
+    ],
+    "excluded": [
+      ".agents/devforgeai"
+    ],
+    "package_digest": "7f5cae301b218e54e867456ae0f65d4dfac9b7f36316a3023a842ece54450c60"
+  },
+  "after": {
+    "root": "/mnt/c/Projects/DevForgeAI/docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/binding-linux/relocated/space é & (shell)",
+    "files": [
+      {
+        "path": ".agents/skills/core-skill/SKILL.md",
+        "bytes": 170,
+        "sha256": "189a39bbd45645ffacf7cffdfa87e7dcf77b8b17b18168390e6da020ed8e1909"
+      },
+      {
+        "path": ".agents/skills/core-skill/assets/devforgeai-skill.json",
+        "bytes": 411,
+        "sha256": "79cff2fc0557ff463f5319107534b16d4a18fa7831b417206ada71acc1ec741b"
+      },
+      {
+        "path": ".agents/skills/core-skill/references/adaptive-contract.md",
+        "bytes": 28,
+        "sha256": "b896c952875f68284b0a319c45f8d247f89f531e0c9a25b3fad6508428d982b0"
+      },
+      {
+        "path": ".agents/skills/core-skill/scripts/check_project_binding.py",
+        "bytes": 12148,
+        "sha256": "d39e6fc3add57fdd03e3897004da15048ac5f95c60659fb8d524c7ada10fa5f0"
+      },
+      {
+        "path": "development/core-skill/SKILL.md",
+        "bytes": 170,
+        "sha256": "189a39bbd45645ffacf7cffdfa87e7dcf77b8b17b18168390e6da020ed8e1909"
+      },
+      {
+        "path": "development/core-skill/assets/devforgeai-skill.json",
+        "bytes": 411,
+        "sha256": "79cff2fc0557ff463f5319107534b16d4a18fa7831b417206ada71acc1ec741b"
+      },
+      {
+        "path": "development/core-skill/references/adaptive-contract.md",
+        "bytes": 28,
+        "sha256": "b896c952875f68284b0a319c45f8d247f89f531e0c9a25b3fad6508428d982b0"
+      },
+      {
+        "path": "development/core-skill/scripts/check_project_binding.py",
+        "bytes": 12148,
+        "sha256": "d39e6fc3add57fdd03e3897004da15048ac5f95c60659fb8d524c7ada10fa5f0"
+      }
+    ],
+    "excluded": [
+      ".agents/devforgeai"
+    ],
+    "package_digest": "7f5cae301b218e54e867456ae0f65d4dfac9b7f36316a3023a842ece54450c60"
+  },
+  "changed": [],
+  "identity_leaked": false,
+  "oracle_match": true,
+  "category": "terminal helper plus synthetic caller, not native skill selection"
+}

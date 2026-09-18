@@ -1,0 +1,18 @@
+
+running 13 tests
+test config_cases::qa_u01_config_shape_and_absence ... ok
+test config_cases::qa_u02_policy_precedence ... ok
+test config_cases::qa_u03_session_keys_and_count ... ok
+test config_cases::qa_u04_origin_layer_paths ... ok
+test config_cases::qa_u05_projection_privacy ... ok
+test config_cases::qa_u06_rpc_closed_labels ... ok
+test protocol::qa_cases::qa_i01_query_failed_runtime ... ok
+test protocol::qa_cases::qa_i02_query_failed_write_precedence ... ok
+test protocol::qa_cases::qa_i03_source_review_boundaries ... ok
+test protocol::qa_cases::qa_i04_rpc_and_config_privacy ... ok
+test protocol::qa_cases::qa_i05_exited_descendant ... ok
+test protocol::qa_cases::qa_i06_cancel_deadline ... ok
+test protocol::qa_cases::qa_i07_false_review_no_authority ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 40 filtered out; finished in 1.10s
+

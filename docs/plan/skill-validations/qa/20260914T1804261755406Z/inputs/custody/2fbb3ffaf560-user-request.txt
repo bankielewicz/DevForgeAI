@@ -1,0 +1,1 @@
+$skill-builder C:\Projects\DevForgeAI\docs\specs\qa-skill-spec.md

@@ -1,0 +1,86 @@
+[
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\validation-request.json",
+    "snapshot": {
+      "path": "inputs/00-validation-request.json",
+      "sha256": "7ebe47919c03b654614dcfa5ff288c0e58a3870615582e798780c74e8cfa15d6"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\manual-validator-prompt.md",
+    "snapshot": {
+      "path": "inputs/01-manual-validator-prompt.md",
+      "sha256": "124eab51192b46727cf52587a54f872758b75c72f4f6f8edeea4507e0a367cc8"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\validation-obligations.md",
+    "snapshot": {
+      "path": "inputs/02-validation-obligations.md",
+      "sha256": "47deb2dcc4831bb416773324b20d5ca1c9aea04be5482f8556d8ceac55ee7224"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\authoring-record.json",
+    "snapshot": {
+      "path": "inputs/03-authoring-record.json",
+      "sha256": "1402cca8a7a365ff75d16f21a5e54bff6d3ce4558d75aed169370e4b1cdd2210"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\contract.json",
+    "snapshot": {
+      "path": "inputs/04-contract.json",
+      "sha256": "837c2a8aecd0d9a4ce9ee3a6b6d6d30a372d04bb424aa24a69cf4cf0437c8ed5"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\baseline-manifest.json",
+    "snapshot": {
+      "path": "inputs/05-baseline-manifest.json",
+      "sha256": "e3a8f52fe517d389408ac98e52290f47cd3b2555b9a1e8d8aff08f29b577a915"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+    "snapshot": {
+      "path": "inputs/06-dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "snapshot": {
+      "path": "inputs/07-AGENTS.md",
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\SKILL.md",
+    "snapshot": {
+      "path": "inputs/08-SKILL.md",
+      "sha256": "9e572b2ddfb67279f9cf5006cc5bba4cd73edb66728ff769fa9b0ae6fd981fdf"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\adaptive-validation.md",
+    "snapshot": {
+      "path": "inputs/09-adaptive-validation.md",
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\rules.md",
+    "snapshot": {
+      "path": "inputs/10-rules.md",
+      "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b"
+    }
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\rules-snapshot.json",
+    "snapshot": {
+      "path": "inputs/11-rules-snapshot.json",
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+    }
+  }
+]

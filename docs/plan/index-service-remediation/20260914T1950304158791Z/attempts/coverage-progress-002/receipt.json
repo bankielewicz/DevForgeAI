@@ -1,0 +1,36 @@
+{
+  "attempt_id": "coverage-progress-002",
+  "stage": "qa",
+  "argv": [
+    "cargo",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--ignore-run-fail",
+    "--json",
+    "--output-path",
+    "C:/Projects/DevForgeAI/docs/plan/index-service-remediation/20260914T1950304158791Z/coverage-progress-002.json",
+    "--fail-under-lines",
+    "95",
+    "--ignore-filename-regex",
+    "[/\\\\](tests|examples|fixtures)[/\\\\]",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-progress-002\\gui"
+  },
+  "source_manifest_sha256": "6040be19311c10cddf237c606964b34654c03c211ff8908265cc3dda2f317065",
+  "started_at": "2026-09-14T20:15:03.290979+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 101,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T20:15:40.333733+00:00",
+  "elapsed_seconds": 37.03100000000268,
+  "stdout.txt_sha256": "5e0099ad59a26d9b41e238fadb7a6084d5cc9739136bdec21fbdcc3e01f241a0",
+  "stderr.txt_sha256": "2f1763f1ac0f7af75e40e99a9a29f424fa0adc3333bdb5926ea02909c310e820"
+}

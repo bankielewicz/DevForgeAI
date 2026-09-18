@@ -1,0 +1,37 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\builder",
+    "--candidate-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\candidate",
+    "--cases",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\cases.jsonl",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\results\\observations.jsonl",
+    "--run-id",
+    "unittest-run"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--package-root": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\builder",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\commands\\0095\\input-5"
+    },
+    "--candidate-root": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\candidate",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\commands\\0095\\input-7"
+    },
+    "--cases": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\skill-evaluation-test-34o3f58n\\cases.jsonl",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\commands\\0095\\input-9",
+      "sha256": "024f1c54deac9f45c80cb34b6b45ad50f17a5464d1c72f523207d05020c4cd76"
+    }
+  },
+  "start": "2026-09-13T02:29:41.698072+00:00",
+  "timeout_seconds": 30
+}

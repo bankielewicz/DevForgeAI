@@ -1,0 +1,116 @@
+[
+  {
+    "case": "positive-output",
+    "expected": "PASS",
+    "observed": "PASS",
+    "passed": true
+  },
+  {
+    "case": "receipt-missing-streams",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "receipt-changed-timeout",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "receipt-wrong-schema",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "receipt-boolean-exit",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "receipt-negative-duration",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "receipt-missing-manifests",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "receipt-hidden-changes",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "omitted-dependency",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "side-effect-observed",
+    "expected": true,
+    "observed": true,
+    "passed": true
+  },
+  {
+    "case": "side-effect-valid-readback",
+    "expected": "PASS",
+    "observed": "PASS",
+    "passed": true
+  },
+  {
+    "case": "unlisted-output-drift",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "clarified-inside-input-unchanged",
+    "expected": "PASS",
+    "observed": "PASS",
+    "passed": true
+  },
+  {
+    "case": "inside-input-drift",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "plan-drift-prelaunch",
+    "expected": "REJECTED",
+    "observed": "REJECTED",
+    "passed": true
+  },
+  {
+    "case": "plan-drift-no-start",
+    "expected": false,
+    "observed": false,
+    "passed": true
+  },
+  {
+    "case": "native-no-obligations",
+    "expected": "REJECTED",
+    "observed": "PASS",
+    "passed": false
+  },
+  {
+    "case": "preexisting-output-not-proven-delivered",
+    "expected": "REJECTED",
+    "observed": "PASS",
+    "passed": false
+  },
+  {
+    "case": "boolean-not-json-number",
+    "expected": "FAIL",
+    "observed": "PASS",
+    "passed": false
+  }
+]

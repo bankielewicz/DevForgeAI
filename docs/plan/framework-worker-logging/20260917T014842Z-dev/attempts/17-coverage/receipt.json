@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "cargo",
+    "llvm-cov",
+    "--offline",
+    "--locked",
+    "--all-targets",
+    "--json",
+    "--output-path",
+    "C:/Projects/DevForgeAI/docs/plan/framework-worker-logging/20260917T014842Z-dev/coverage.json",
+    "--ignore-filename-regex",
+    "[/\\\\]tests[/\\\\]",
+    "--fail-under-lines",
+    "95",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "started_utc": "2026-09-17T02:12:30.740473+00:00",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\attempts\\17-coverage\\fixtures"
+  },
+  "exit_code": 101,
+  "elapsed_seconds": 57.937000000005355
+}

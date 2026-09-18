@@ -1,0 +1,132 @@
+{
+  "schema_version": "1",
+  "cases": [
+    {
+      "case": "baseline-variant",
+      "expected_exit": 0,
+      "builder_exit": 0,
+      "validator_exit": 0,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140302791855Z-baseline-variant-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140303169579Z-baseline-variant-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\records\\prior\\record.json",
+        "sha256": "0873d0d12286660766789e1a0d153fef56f682c5546bfb0246cc32ac21e4517f"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "changed-equivalent-proposed",
+      "expected_exit": 0,
+      "builder_exit": 0,
+      "validator_exit": 1,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140303571610Z-changed-equivalent-proposed-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140304211689Z-changed-equivalent-proposed-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\records\\changed\\record.json",
+        "sha256": "2dc38d9e5f334ad1026ad5298d573f1c0506bc44d32ffa181f38e6115d82f959"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "changed-false-no-change",
+      "expected_exit": 1,
+      "builder_exit": 1,
+      "validator_exit": 0,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140304821201Z-changed-false-no-change-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140305326260Z-changed-false-no-change-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\records\\false-no-change\\record.json",
+        "sha256": "d8a7ee689df269e37645d4c8a903f16dcec5c22152d27c1418c134734d0d7721"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "review-nonvariant",
+      "expected_exit": 1,
+      "builder_exit": 1,
+      "validator_exit": 0,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140305941769Z-review-nonvariant-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140306084769Z-review-nonvariant-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\records\\nonvariant\\record.json",
+        "sha256": "a39130a36e377abe3bc52a8149ba5bed13463db398e84f0b69227d213e33eafc"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "ordinary-parent",
+      "expected_exit": 0,
+      "builder_exit": 0,
+      "validator_exit": 1,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140306380774Z-ordinary-parent-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140306667281Z-ordinary-parent-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\records\\proposal\\record.json",
+        "sha256": "81b377464a313f325952654878bcf2cdc0707b207e395d3607cab3903f854887"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "crlf-parent",
+      "expected_exit": 0,
+      "builder_exit": 0,
+      "validator_exit": 1,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140307005282Z-crlf-parent-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140307385642Z-crlf-parent-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\crlf-parent\\records\\proposal\\record.json",
+        "sha256": "e204d8cdbe4b372cacdb7b7a00d589e7816490e83fde41862e6d83a3cfc5ac69"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "wrong-delivered-role",
+      "expected_exit": 1,
+      "builder_exit": 1,
+      "validator_exit": 0,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140307797811Z-wrong-delivered-role-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140308151810Z-wrong-delivered-role-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\selected-role\\records\\request\\record.json",
+        "sha256": "e8e7ae79086a26e33a69479bd5339b3135393cd1b3120b075e305066cf27c2b4"
+      },
+      "kind": "set"
+    },
+    {
+      "case": "missing-parent-disposition",
+      "expected_exit": 1,
+      "builder_exit": 1,
+      "validator_exit": 0,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140308771768Z-missing-parent-disposition-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140308874265Z-missing-parent-disposition-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\missing-disposition\\skills\\notes-variant\\assets\\devforgeai-skill.json",
+        "sha256": "4979451eaa54eea99e9b9a883c7a83ad996347ead15b764a46932e0672f34e4b"
+      },
+      "kind": "record"
+    },
+    {
+      "case": "actual-partial-custody-subset",
+      "expected_exit": 0,
+      "builder_exit": 0,
+      "validator_exit": 0,
+      "builder_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140309062271Z-actual-partial-custody-subset-builder",
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140309791896Z-actual-partial-custody-subset-validator",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\attempts\\20260913T133923855869Z-helpers\\fixtures\\test_BAT10_independent_continuation_and_subset\\record-1.json",
+        "sha256": "26792f9cb5f9cbe6600e0dcc0a08e52f9cde644b3e32218bfe73238fd2bfde40"
+      },
+      "kind": "set"
+    },
+    {
+      "case": "actual-native-manual-request",
+      "expected_exit": 0,
+      "validator_exit": 0,
+      "validator_evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140310683371Z-actual-native-manual-request",
+      "input": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\native\\20260913T131539650116Z-ordinary\\project\\docs\\plan\\skill-authorings\\release-brief\\20260913T1330251688074Z\\validation-request.json",
+        "sha256": "2037bf9319528196be841254af518951140bf21cbbe55f7fd95bcb1ae1a3cc5f"
+      }
+    }
+  ]
+}

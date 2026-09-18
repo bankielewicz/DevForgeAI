@@ -1,0 +1,59 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "N06",
+  "kind": "native",
+  "started_at": "2026-09-17T19:21:54.767266+00:00",
+  "ended_at": "2026-09-17T19:22:43.286255+00:00",
+  "elapsed_seconds": 48.51600000000326,
+  "timeout_seconds": 600,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "fc1fa04c5056dc4925ae2ba92a55b7dbe24e65ca42794bd836a7e4f385bce265",
+  "started_sha256": "5a0ad6aa63b445449b258b5ba9d919da400e118b3bfab37d7480bbdd6ea97abf",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N06\\attempt-001\\before.json",
+      "sha256": "9171a14d16e262ee9a232691e54350d9179870caa8e63963bf76d842b98a8b99"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N06\\attempt-001\\after.json",
+      "sha256": "24d3235e5846c9cb1f3f00366000dd997b70738c97bd690e78a84c2ac2cf0069"
+    }
+  ],
+  "changed_paths": [
+    ".trial-output/final.txt"
+  ],
+  "output_checks": [
+    {
+      "path": ".trial-output/final.txt",
+      "kind": "exists",
+      "requirement_id": "SC-003",
+      "result": "PASS",
+      "reason": "Declared output observed"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N06\\project\\.trial-output\\final.txt",
+      "sha256": "cd9f4bedfc8bc9cd5017debae5c2dea826ce73492f6dbd4ec958904388626f95"
+    }
+  ],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N06\\attempt-001\\stdout.txt",
+      "sha256": "e5d2838b4fa127d28d69d85b3fb2a377b3db015b87dfd9991941e173330e600f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\trials\\N06\\attempt-001\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

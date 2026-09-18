@@ -1,0 +1,1 @@
+{"events":[{"data":{"candidate_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a","checkout_id":"c","project_id":"p","work_id":"w"},"elapsed_ms":0,"kind":"admitted","observed_at":"2026-09-17T11:03:11Z","run_id":"r","schema_version":1,"seq":1}],"next_after":1,"run_id":"r","state":"interrupted_unknown","truncated_tail":11}

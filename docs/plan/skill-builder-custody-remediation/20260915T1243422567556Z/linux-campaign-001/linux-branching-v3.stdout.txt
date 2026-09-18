@@ -1,0 +1,1 @@
+{"started_at_utc": "2026-09-15T13:13:21.805252+00:00", "elapsed_seconds": 120.03955085800021, "exit_code": -9, "timed_out": true, "pid": 620, "cleanup": {"method": "killpg SIGKILL", "process_group": 620}, "source_fixture_unchanged": true, "source_unchanged": true, "destination_exists": false, "status": "INCOMPLETE"}

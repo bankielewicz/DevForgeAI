@@ -1,0 +1,490 @@
+{
+  "schema_version": "1",
+  "mode": "spec_build",
+  "target_name": "skill-builder",
+  "inputs": [
+    {
+      "id": "approved-spec",
+      "path": "revision/inputs/revision-spec.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260912T161842Z\\revision-spec.md",
+      "role": "spec",
+      "bytes": 12175,
+      "sha256": "9b8570392db9ed2128a71d820ba3710f58a000749db3f0ca0b780e33da28248c"
+    },
+    {
+      "id": "selected-handoff",
+      "path": "revision/inputs/handoff.json",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260912T161842Z\\handoff.json",
+      "role": "handoff",
+      "bytes": 2091,
+      "sha256": "a149f4d7b19db52d55cfa92db4ff761c4bc12149046c7d08749fb0e4bf3b1ec6"
+    },
+    {
+      "id": "approved-manifest",
+      "path": "revision/inputs/source-manifest.json",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260912T161842Z\\source-manifest.json",
+      "role": "manifest",
+      "bytes": 6248,
+      "sha256": "b6f1611978c00ec7a9898e01d93fe83a4f06bf4ad8a7d4a4f3931f9d421c81a6"
+    },
+    {
+      "id": "authorization",
+      "path": "revision/inputs/authorization.txt",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-builder\\20260912T212438315Z\\working\\revision\\inputs\\authorization.txt",
+      "role": "authorization",
+      "bytes": 1875,
+      "sha256": "dae7101709fc3954db8f26d0f47c6265525d13767cd52c80ad4761ddc57ba9e9"
+    }
+  ],
+  "authorization": {
+    "instruction": "Use $skill-builder from C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\SKILL.md. Complete the reviewed correction to the skill-builder development package, establish the required provenance through the applicable workflow, and then revalidate the delivered result.\nI approve the exact revision specification identified above, including REV-001 through REV-003.\nThis instruction authorizes: The specified development-package revision. Required evidence capture, evaluation, disposable verification trials, and readback. Explicit adoption if the applicable verified history requires that operation. Fresh validation after successful delivery.\nIf no valid baseline exists and adoption is appropriate, this instruction explicitly authorizes adoption and management of the exact 36 paths listed in the digest-bound source manifest. Preserve all target bytes during adoption.\nUse the assessment's origin record and retained specifications. If adoption requires a standalone as-observed origin specification, prepare it from the verified current bytes, retain the known defect, and have an independent agent review its fidelity before using it.\nMake only the correction prescribed by the approved specification: Replace the stale three actual trials summary in references/evidence-format.md with the specified reference to all applicable required independent forward trials. Update only the corresponding artifact digest in evals/build-manifest.json.\nApproved revision specification SHA-256: 9b8570392db9ed2128a71d820ba3710f58a000749db3f0ca0b780e33da28248c. Recorded manifest SHA-256: b6f1611978c00ec7a9898e01d93fe83a4f06bf4ad8a7d4a4f3931f9d421c81a6. Recorded target package digest: dab87685715689251365514f5c0f3df5c2a9b66c5367bf065ad62c903e8dfca3.\nSelected verbatim authorization passages plus exact user-selected identities; the full conversation is the authorization source.",
+    "inputs": [
+      {
+        "id": "approved-spec",
+        "sha256": "9b8570392db9ed2128a71d820ba3710f58a000749db3f0ca0b780e33da28248c"
+      },
+      {
+        "id": "selected-handoff",
+        "sha256": "a149f4d7b19db52d55cfa92db4ff761c4bc12149046c7d08749fb0e4bf3b1ec6"
+      },
+      {
+        "id": "approved-manifest",
+        "sha256": "b6f1611978c00ec7a9898e01d93fe83a4f06bf4ad8a7d4a4f3931f9d421c81a6"
+      },
+      {
+        "id": "authorization",
+        "sha256": "dae7101709fc3954db8f26d0f47c6265525d13767cd52c80ad4761ddc57ba9e9"
+      }
+    ]
+  },
+  "purpose": "Apply only approved REV-001 wording correction and REV-003 manifest digest while preserving the entire observed package contract under REV-002. Adopted origin supplies B; no optional enhancements.",
+  "activation": {
+    "positive": [
+      "Explicit approved specification revision of existing skill-builder from verified published adoption."
+    ],
+    "excluded": [
+      "Validation-only invocation",
+      "New-package spec-v1 build",
+      "Optional enhancements",
+      "Operational installation"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "REV-001",
+      "origin": "source",
+      "text": "REV-001 (required editorial fix): remove the stale summary cardinality while preserving all current trial families and routing. File: references/evidence-format.md; finding above; verify by contextual review against evaluation.md.",
+      "source_refs": [
+        {
+          "input_id": "approved-spec",
+          "start_byte": 8871,
+          "end_byte": 9102,
+          "sha256": "d03f7977a011977fc79fb0958986489461746648fdd151cb34efa7cd49b87f51"
+        }
+      ],
+      "artifact_paths": [
+        "references/evidence-format.md"
+      ],
+      "verification": [
+        {
+          "method": "Contextual review and exact literal delta",
+          "expected": "Approved row links all applicable required independent trials; detailed four families and routing unchanged."
+        }
+      ]
+    },
+    {
+      "id": "REV-002",
+      "origin": "source",
+      "text": "REV-002 (required preservation): every existing behavior/interface/resource remains byte-identical except the REV-001 table wording and the intentional corresponding evals/build-manifest.json artifact digest. Files: all 36 paths in source-manifest.json; verify complete file-set/hash comparison and review exact two-file delta. No optional enhancements are selected.",
+      "source_refs": [
+        {
+          "input_id": "approved-spec",
+          "start_byte": 9105,
+          "end_byte": 9472,
+          "sha256": "ae5805fb7704c239a2ee40e6dc559d67becbb9297db291fb0358613cdb7ba3a3"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "assets/build-report-template.md",
+        "assets/conversion-report-template.md",
+        "assets/worker-task-template.md",
+        "evals/adoption-evidence.schema.json",
+        "evals/build-artifacts.schema.json",
+        "evals/build-manifest.json",
+        "evals/builder-cases.jsonl",
+        "evals/cases.jsonl",
+        "evals/evidence.schema.json",
+        "evals/fixtures/portable/destination/SKILL.md",
+        "evals/fixtures/portable/destination/schema.json",
+        "evals/fixtures/portable/evidence/destination-manifest.json",
+        "evals/fixtures/portable/evidence/file-dispositions.json",
+        "evals/fixtures/portable/evidence/source-manifest.json",
+        "evals/fixtures/portable/source/SKILL.md",
+        "evals/fixtures/portable/source/schema.json",
+        "evals/profiles.json",
+        "evals/runtime.json",
+        "references/adoption.md",
+        "references/conversion-rules.md",
+        "references/evaluation.md",
+        "references/evaluator-contracts.md",
+        "references/evidence-format.md",
+        "references/regeneration.md",
+        "references/spec-build.md",
+        "scripts/build_evidence.py",
+        "scripts/graders.py",
+        "scripts/run_evaluation.py",
+        "tests/adoption_fixture.py",
+        "tests/fixture_data.py",
+        "tests/test_adoption.py",
+        "tests/test_enhancements.py",
+        "tests/test_evaluation.py",
+        "tests/test_review_inputs.py",
+        "tests/test_review_provenance.py"
+      ],
+      "verification": [
+        {
+          "method": "Complete B/C/N/delivered path and byte comparison",
+          "expected": "Exactly two authorized files differ, no additions/removals, all other bytes preserved."
+        }
+      ]
+    },
+    {
+      "id": "REV-003",
+      "origin": "source",
+      "text": "REV-003 (required binding): keep the evaluator manifest coherent with delivered bytes; retain existing schema/profile/grader/test identities. File: evals/build-manifest.json. Verify manifest accounting and the existing required structural/deterministic checks. Historical receipts are not edited or relabeled.",
+      "source_refs": [
+        {
+          "input_id": "approved-spec",
+          "start_byte": 9475,
+          "end_byte": 9785,
+          "sha256": "b3ffe123572642cf91fffae6eb3685e532d7041a9e9c1441a6b81320728e69bf"
+        }
+      ],
+      "artifact_paths": [
+        "evals/build-manifest.json"
+      ],
+      "verification": [
+        {
+          "method": "Installed structural checker and explicit revision-spec-v2 evaluation",
+          "expected": "Manifest changes only corresponding artifact digest; profile/grader/script/schema identities retained."
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "SKILL.md",
+      "role": "entrypoint",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "assets/build-report-template.md",
+      "role": "assets",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "assets/conversion-report-template.md",
+      "role": "assets",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "assets/worker-task-template.md",
+      "role": "assets",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/adoption-evidence.schema.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/build-artifacts.schema.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/build-manifest.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002",
+        "REV-003"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/builder-cases.jsonl",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/evidence.schema.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/destination/SKILL.md",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/destination/schema.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/evidence/destination-manifest.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/evidence/file-dispositions.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/evidence/source-manifest.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/source/SKILL.md",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/fixtures/portable/source/schema.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/profiles.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "evals/runtime.json",
+      "role": "evals",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/adoption.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/conversion-rules.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/evaluation.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/evaluator-contracts.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/evidence-format.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-001",
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/regeneration.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "references/spec-build.md",
+      "role": "references",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "role": "scripts",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "scripts/graders.py",
+      "role": "scripts",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "scripts/run_evaluation.py",
+      "role": "scripts",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/adoption_fixture.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/fixture_data.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/test_adoption.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/test_enhancements.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/test_evaluation.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/test_review_inputs.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    },
+    {
+      "path": "tests/test_review_provenance.py",
+      "role": "tests",
+      "requirement_ids": [
+        "REV-002"
+      ],
+      "purpose": "Preserve exact observed interface and behavior; only selected editorial row and corresponding digest may change."
+    }
+  ],
+  "workers": [
+    {
+      "role": "origin_fidelity",
+      "responsibility": "Independent byte-bound as-observed origin review before adoption",
+      "write_scope": "external review evidence only",
+      "isolation": "Task assignment, not enforced process isolation."
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "Python",
+      "observed": "3.10.11",
+      "purpose": "Required existing evaluator; no new runtime behavior."
+    },
+    {
+      "name": "PyYAML",
+      "purpose": "Already available for installed checker."
+    },
+    {
+      "name": "host delegation",
+      "purpose": "Independent fidelity review and bounded fresh validation trials available."
+    }
+  ]
+}

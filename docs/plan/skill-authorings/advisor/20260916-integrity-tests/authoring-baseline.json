@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "20260916-integrity-tests",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\authoring-record.json",
+    "sha256": "f6b39fb779a72d12f8d230366e6d162660bd721ceb6cc560a4dbec1ac8dcc141"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\baseline-manifest.json",
+    "sha256": "cb5eb8f5e0c74076a6a7c0bc82bce0b36b6feaac85ae3ce3c95a480645491a3f"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\baseline"
+}

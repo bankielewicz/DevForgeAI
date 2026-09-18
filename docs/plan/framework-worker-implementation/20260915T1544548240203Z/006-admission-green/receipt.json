@@ -1,0 +1,40 @@
+{
+  "attempt_id": "006-admission-green",
+  "stage": "green",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "admission"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T15:50:13.115743+00:00",
+  "ended_at": "2026-09-15T15:50:13.534777+00:00",
+  "exit_code": 101,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\006-admission-green\\candidate.json",
+    "bytes": 1711,
+    "sha256": "2bad08d6e6e44d7a7e8bf9bc9ab08ad97df220946a8c7c8200ca003c571d08e9"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\006-admission-green\\stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\006-admission-green\\stderr.txt",
+    "bytes": 1347,
+    "sha256": "dcf5e671b9faf16c2edc8e7e731aff499bc601bec5920037f1a5592596bb3482"
+  },
+  "outcome": "observed-exit"
+}

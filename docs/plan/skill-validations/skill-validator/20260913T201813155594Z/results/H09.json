@@ -1,0 +1,16 @@
+{
+  "case_id": "H09",
+  "finding": "QA-02",
+  "expected_exit": 0,
+  "actual_exit": 0,
+  "matched": true,
+  "checks": {
+    "exit": true,
+    "completed": true,
+    "preserved": true
+  },
+  "evidence": {
+    "path": "commands/H09/receipt.json",
+    "sha256": "1fbc9f2c6de310e2c4b5ef6fc3e19d6ee33dfb92141610e01b676916198ff400"
+  }
+}

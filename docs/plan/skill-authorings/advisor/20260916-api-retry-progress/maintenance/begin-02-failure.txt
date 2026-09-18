@@ -1,0 +1,1 @@
+Begin blocked before staging: generated scripts/__pycache__ was an excluded boundary. Preserved generated cache in maintenance/generated-cache; no candidate/source mutation occurred. Resume after moving only that generated cache.

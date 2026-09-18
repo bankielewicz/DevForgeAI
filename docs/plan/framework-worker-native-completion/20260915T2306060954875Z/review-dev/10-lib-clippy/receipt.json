@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "clippy",
+    "--locked",
+    "--offline",
+    "--lib",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T23:22:38.104394+00:00",
+  "candidate_manifest_sha256": "b81f036b8633f26a8529bb826a1bf436cac2fb6f84c71febed0edf6fb6633da9",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\review-dev\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\review-dev\\10-lib-clippy\\fixtures",
+  "owned_pid": 52648,
+  "exit_code": 0,
+  "elapsed_seconds": 0.9379999999946449,
+  "end": "2026-09-15T23:22:39.036563+00:00",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "b1cc945a9a78600d81da04ac6b4666f8db89474828284fdf82988b196cfb63dd"
+}

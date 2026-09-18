@@ -1,0 +1,1 @@
+{"required": 57, "observed": 57, "passed": 57, "pass_rate": 100.0, "covered_lines": 1090, "statements": 2299, "line_percent": 47.411918225315354, "covered_branches": 381, "branches": 1046, "source_unchanged": true, "duplicate_cases": false, "nonpasses": []}

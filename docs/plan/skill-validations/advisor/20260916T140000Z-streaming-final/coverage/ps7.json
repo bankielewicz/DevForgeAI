@@ -1,0 +1,52 @@
+{
+  "schema_version": "advisor-launcher-line-coverage-v1",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "pester": "C:\\Users\\bryan\\OneDrive\\Documents\\PowerShell\\Modules\\Pester\\5.7.1\\Pester.psd1",
+  "pester_version": "5.7.1",
+  "launcher": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\advisor\\20260916T140000Z-streaming-final\\source\\scripts\\advisor.ps1",
+  "denominator_lines": [
+    26,
+    27,
+    28,
+    42,
+    43,
+    46,
+    48,
+    49,
+    50,
+    51,
+    53,
+    56,
+    57
+  ],
+  "executed_lines": [
+    26,
+    27,
+    42,
+    43,
+    46,
+    48,
+    49,
+    50,
+    51,
+    53,
+    56,
+    57
+  ],
+  "missed_lines": [
+    28
+  ],
+  "executed_line_numerator": 12,
+  "executed_line_denominator": 13,
+  "executed_line_percent": 92.3076923076923,
+  "pester_inventory_passed": 0,
+  "pester_inventory_failed": 1,
+  "behavior_exit_codes": {
+    "success-progress": 0,
+    "failure-quiet": 0,
+    "no-native-status": 0,
+    "invocation-error": 0
+  },
+  "behavior_exit_codes_matched": false,
+  "method": "Pester command inventory supplies unique executable source lines; native Set-PSDebug traces from isolated child shells supply executed lines. Trace-launcher padding prevents its own line numbers from overlapping the target."
+}

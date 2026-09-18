@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T152602912596Z",
+  "target_name": "skill-validator",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "a766cbbe85dbeabe43eb8b7e9202c78dec8649ba6852e8a013ced28807643011"
+  },
+  "specification": {
+    "path": "inputs/skill-validator-adaptive-enhancement-spec.md",
+    "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": null,
+  "completeness": "complete",
+  "uncertainties": [
+    "Maintenance delivery and original baseline snapshot verified; no generated/adopted baseline claimed."
+  ],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "unknown"
+}

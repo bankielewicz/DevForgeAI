@@ -1,0 +1,4 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.23s
+     Running tests\qa_independent.rs (target\debug\deps\qa_independent-b6c595794f9eb127.exe)
+     Running tests\tray.rs (target\debug\deps\tray-d093761c717358fb.exe)

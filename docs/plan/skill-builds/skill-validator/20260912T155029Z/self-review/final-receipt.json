@@ -1,0 +1,12 @@
+{
+  "case_id": "V16",
+  "review_kind": "self_review",
+  "report": {
+    "path": "self-review/20260912T161000Z-retry01/validation-report.md",
+    "sha256": "d66719d6d148c3c7b1c8074f385a60341082532dc671ddfc73d9f37443950344"
+  },
+  "record_integrity_exit": 0,
+  "target_readback_unchanged": true,
+  "no_independent_self_verification_claim": true,
+  "retry_reason": "Retained stale evidence digest failure; correction changed only external evidence."
+}

@@ -1,0 +1,22 @@
+﻿[
+    {
+        "Scope":  4,
+        "ExecutionPolicy":  5
+    },
+    {
+        "Scope":  3,
+        "ExecutionPolicy":  5
+    },
+    {
+        "Scope":  0,
+        "ExecutionPolicy":  5
+    },
+    {
+        "Scope":  1,
+        "ExecutionPolicy":  1
+    },
+    {
+        "Scope":  2,
+        "ExecutionPolicy":  5
+    }
+]

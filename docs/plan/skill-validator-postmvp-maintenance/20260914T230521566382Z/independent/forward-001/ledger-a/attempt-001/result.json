@@ -1,0 +1,52 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "ledger-a",
+  "kind": "native",
+  "started_at": "2026-09-14T23:22:38.861418+00:00",
+  "ended_at": "2026-09-14T23:22:41.236811+00:00",
+  "elapsed_seconds": 2.375,
+  "timeout_seconds": 600,
+  "timeout": false,
+  "exit_code": 1,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "NOT_RUN",
+  "error": null,
+  "plan_sha256": "16497b450d442c5eeeb284b3c1ee5cb03666bf00f691c67f5ed8bdb40f0f92e2",
+  "started_sha256": "a92f4ab442e47205a44d2d3afec744d7f8b9f276affd7f0845345e47dce01eb4",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-001\\ledger-a\\attempt-001\\before.json",
+      "sha256": "65291e590df8a3777644f4b664f2ce9d3e107a97b97658004db872a943102cd1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-001\\ledger-a\\attempt-001\\after.json",
+      "sha256": "6b8c755e23bfda0714e5fa7aea57ee0bdb4214aec99c9b3672f5d020274f4ab4"
+    }
+  ],
+  "changed_paths": [],
+  "output_checks": [
+    {
+      "path": "review.md",
+      "kind": "exists",
+      "requirement_id": "SVE-09",
+      "result": "FAIL",
+      "reason": "Required output absent"
+    }
+  ],
+  "artifacts": [],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-001\\ledger-a\\attempt-001\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-001\\ledger-a\\attempt-001\\stderr.txt",
+      "sha256": "10cbc616eb406975df794937f4411cc400635d86e33537c4bf10dfe5202a2511"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

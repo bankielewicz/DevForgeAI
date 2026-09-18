@@ -1,0 +1,5 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe-logging-qa-fixes)
+   Compiling logging-windows-evidence v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T102726Z-dev-qa-fixes\supplemental-harness)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.11s
+     Running unittests peer.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T102726Z-dev-qa-fixes\build-target\debug\deps\raw_capture_peer-268f219e0127206b.exe)
+     Running cases.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T102726Z-dev-qa-fixes\build-target\debug\deps\raw_windows_capture-148bcc415beb7516.exe)

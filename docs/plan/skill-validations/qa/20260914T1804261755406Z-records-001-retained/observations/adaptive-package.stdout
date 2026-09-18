@@ -1,0 +1,381 @@
+{
+  "schema_version": "adaptive-check-observation-v1",
+  "command": "package",
+  "status": "INCOMPLETE",
+  "checks": [
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F01-0e95f5a36660",
+      "rule_id": "AV-F01",
+      "subject_path": "SKILL.md",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F02-0e95f5a36660",
+      "rule_id": "AV-F02",
+      "subject_path": "SKILL.md",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "NOT_RUN",
+      "reason": "Name/directory identity; a source-named snapshot needs its original bound identity; semantic routing and selected limits require review.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F05-0444f8b597c6",
+      "rule_id": "AV-F05",
+      "subject_path": "references/reporting-handoff.md-placeholders",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "NOT_RUN",
+      "reason": "Placeholder candidates present; distinguish production gaps from quoted fixtures.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F04-deb9755d273f",
+      "rule_id": "AV-F04",
+      "subject_path": "agents/openai.yaml",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Supported optional shapes and local icons checked.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-U01-7bb2bb4f93d4",
+      "rule_id": "AV-U01",
+      "subject_path": "text-scan",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-C01-557324939184",
+      "rule_id": "AV-C01",
+      "subject_path": "text-counts",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+      "evidence": []
+    }
+  ],
+  "observations": {
+    "unicode_candidates": [],
+    "resources": [
+      {
+        "path": "SKILL.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "agents/openai.yaml",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/qa-fix-template.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/qa-report-template.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/test-plan-template.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/assessment.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/execution-integrity.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/intake-planning.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/reporting-handoff.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      }
+    ],
+    "edges": [
+      {
+        "source": "SKILL.md",
+        "line": 20,
+        "target": "references/intake-planning.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 20,
+        "target": "assets/test-plan-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 21,
+        "target": "references/execution-integrity.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 21,
+        "target": "references/assessment.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 24,
+        "target": "references/reporting-handoff.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 24,
+        "target": "assets/qa-report-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 24,
+        "target": "assets/qa-fix-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/assessment.md",
+        "line": 29,
+        "target": "../assets/qa-report-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/assessment.md",
+        "line": 29,
+        "target": "reporting-handoff.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/execution-integrity.md",
+        "line": 49,
+        "target": "assessment.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/execution-integrity.md",
+        "line": 49,
+        "target": "reporting-handoff.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/intake-planning.md",
+        "line": 61,
+        "target": "../assets/test-plan-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/intake-planning.md",
+        "line": 63,
+        "target": "execution-integrity.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/intake-planning.md",
+        "line": 63,
+        "target": "assessment.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/intake-planning.md",
+        "line": 63,
+        "target": "reporting-handoff.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/reporting-handoff.md",
+        "line": 3,
+        "target": "../assets/qa-report-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/reporting-handoff.md",
+        "line": 5,
+        "target": "../assets/qa-fix-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/reporting-handoff.md",
+        "line": 44,
+        "target": "../assets/test-plan-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/reporting-handoff.md",
+        "line": 44,
+        "target": "../assets/qa-report-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/reporting-handoff.md",
+        "line": 44,
+        "target": "../assets/qa-fix-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      }
+    ],
+    "context": {
+      "tokenizer": null,
+      "files": [
+        {
+          "path": "SKILL.md",
+          "bytes": 5360,
+          "characters": 5360,
+          "lines": 34,
+          "tokens": null
+        },
+        {
+          "path": "agents/openai.yaml",
+          "bytes": 226,
+          "characters": 226,
+          "lines": 4,
+          "tokens": null
+        },
+        {
+          "path": "assets/qa-fix-template.md",
+          "bytes": 2606,
+          "characters": 2606,
+          "lines": 46,
+          "tokens": null
+        },
+        {
+          "path": "assets/qa-report-template.md",
+          "bytes": 2956,
+          "characters": 2956,
+          "lines": 53,
+          "tokens": null
+        },
+        {
+          "path": "assets/test-plan-template.md",
+          "bytes": 8364,
+          "characters": 8364,
+          "lines": 108,
+          "tokens": null
+        },
+        {
+          "path": "references/assessment.md",
+          "bytes": 4900,
+          "characters": 4896,
+          "lines": 30,
+          "tokens": null
+        },
+        {
+          "path": "references/execution-integrity.md",
+          "bytes": 8012,
+          "characters": 7998,
+          "lines": 50,
+          "tokens": null
+        },
+        {
+          "path": "references/intake-planning.md",
+          "bytes": 10486,
+          "characters": 10458,
+          "lines": 63,
+          "tokens": null
+        },
+        {
+          "path": "references/reporting-handoff.md",
+          "bytes": 8953,
+          "characters": 8943,
+          "lines": 54,
+          "tokens": null
+        }
+      ],
+      "loads": [],
+      "budget": null,
+      "budget_result": "NOT_APPLICABLE",
+      "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+    }
+  },
+  "limitations": [
+    "Tokenizer not selected; token counts NOT_RUN.",
+    "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+    "No semantic, native activation, project-binding or security approval is inferred."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-set-subset-valid",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1369,
+      "sha256": "5508a162995d0933b0a2fc55394a044552dd790e4dc7a24a13707fce0e264a67"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "aac11abf864a516b9c7cf55ed1b0c647e47e9201109d32e83cd4a6f54ca0ca90"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 106,
+      "sha256": "86ba599260e0dc2f782cd9489d178c223d7f16f2ed323e7b5c492768c4a6124f"
+    }
+  ]
+}

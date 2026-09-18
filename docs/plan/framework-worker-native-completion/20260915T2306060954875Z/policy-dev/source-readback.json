@@ -1,0 +1,23 @@
+[
+  {
+    "path": "devforgeai/experiments/codex-worker-probe/src/lib.rs",
+    "bytes": 268,
+    "sha256": "dabf0d9ad4efd3168d5116ea4a878c1925a41b520eb0bcbcca41c5024bde6685",
+    "owned_change": "pub mod launch_policy; only; effective_profile and profile_sources exports are concurrent work"
+  },
+  {
+    "path": "devforgeai/experiments/codex-worker-probe/src/launch_policy.rs",
+    "bytes": 2301,
+    "sha256": "9071b6aa06c99f052979d2209c95f3bc2d97027c7005b865355636d59a40ab10"
+  },
+  {
+    "path": "devforgeai/experiments/codex-worker-probe/src/restrictive-launch-policy.json",
+    "bytes": 3194,
+    "sha256": "1dbc48c4a3627f7c5fc7a996935ec507426e4cd90adac058eb81100ac9b526b5"
+  },
+  {
+    "path": "devforgeai/experiments/codex-worker-probe/tests/launch_policy.rs",
+    "bytes": 6680,
+    "sha256": "3ec1096cd7e32833ddfc0ac87678c85c66fb66577e5e646342ab53e00e7635f5"
+  }
+]

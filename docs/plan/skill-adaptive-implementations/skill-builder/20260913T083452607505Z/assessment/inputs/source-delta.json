@@ -1,0 +1,24 @@
+{
+  "changed": [
+    "SKILL.md",
+    "package-manifest.json"
+  ],
+  "added": [
+    "assets/adaptive-runtime/check_project_binding.py",
+    "references/adaptation.md",
+    "references/adaptive-contracts.md",
+    "references/project-binding.md",
+    "schemas/adaptation-proposal-v1.schema.json",
+    "schemas/adaptation-selection-v1.schema.json",
+    "schemas/adaptive-common.schema.json",
+    "schemas/adaptive-observation-v1.schema.json",
+    "schemas/adaptive-skill-v1.schema.json",
+    "schemas/binding-observation-v1.schema.json",
+    "schemas/project-binding-v1.schema.json",
+    "schemas/project-evidence-v1.schema.json",
+    "schemas/set-authoring-v1.schema.json",
+    "schemas/set-validation-request-v1.schema.json",
+    "scripts/adaptive.py"
+  ],
+  "removed": []
+}

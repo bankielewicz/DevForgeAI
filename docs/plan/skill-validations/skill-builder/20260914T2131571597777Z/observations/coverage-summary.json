@@ -1,0 +1,16 @@
+{
+  "platform": "Windows",
+  "totals": {
+    "covered_lines": 835,
+    "executable_lines": 2264,
+    "covered_branches": 431,
+    "branches": 1030,
+    "line_percent": 36.881625441696116,
+    "branch_percent": 41.84466019417476
+  },
+  "result": "FAIL",
+  "denominator": "All eight first-party executable Python files, no first-party exclusions",
+  "tool": "coverage.py native combine/report; statement denominator excludes nonstatement line events",
+  "limitations": "Uninstrumented execution receives no credit; Linux coverage NOT_RUN",
+  "original_reduction_correction": "Initial manual set union included two nonstatement line events; original reduction retained under inputs."
+}

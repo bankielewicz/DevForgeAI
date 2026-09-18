@@ -1,0 +1,105 @@
+{
+  "status": "PLANNED_NOT_EXECUTED",
+  "commands": [
+    {
+      "id": "sources-001",
+      "operation": "profile-sources",
+      "argv": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+        "profile-sources",
+        "--checkout-root",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\fixture"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "timeout_seconds": 30,
+      "native_launch": false,
+      "stdin": "DEVNULL",
+      "evidence_directory": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\sources-001"
+    },
+    {
+      "id": "sources-002-prelaunch",
+      "operation": "profile-sources",
+      "argv": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+        "profile-sources",
+        "--checkout-root",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\fixture"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "timeout_seconds": 30,
+      "native_launch": false,
+      "stdin": "DEVNULL",
+      "evidence_directory": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\sources-002-prelaunch"
+    },
+    {
+      "id": "native-001",
+      "operation": "preflight",
+      "argv": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+        "preflight",
+        "--request",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\inputs-001\\request.json"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "timeout_seconds": 145,
+      "cancel_if_still_running_at_seconds": 135,
+      "containment_and_finalization_reserve_seconds": 10,
+      "native_launch": true,
+      "stdin": "PIPE held open with no input except explicit bounded cancellation",
+      "evidence_directory": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\native-001"
+    },
+    {
+      "id": "sources-003-after",
+      "operation": "profile-sources",
+      "argv": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+        "profile-sources",
+        "--checkout-root",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\fixture"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "timeout_seconds": 30,
+      "native_launch": false,
+      "stdin": "DEVNULL",
+      "evidence_directory": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\sources-003-after"
+    },
+    {
+      "id": "inspect-001",
+      "operation": "inspect",
+      "argv": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+        "inspect",
+        "--run-dir",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\run",
+        "--after",
+        "0",
+        "--limit",
+        "100"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "timeout_seconds": 30,
+      "native_launch": false,
+      "stdin": "DEVNULL",
+      "evidence_directory": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\inspect-001"
+    }
+  ],
+  "native_invocation_limit": 1,
+  "automatic_retries": 0,
+  "thread_starts": 0,
+  "turn_starts": 0,
+  "binary_sha256": "cdd7de15eece11ad4c6f8b910ddca947bcc0ca0e98cd1ed939e61ddd73975bcd",
+  "rust_deadlines_seconds": {
+    "total": 120,
+    "rpc": 10,
+    "grace": 5,
+    "teardown": 5
+  },
+  "input_version_rule": "If prelaunch refresh requires different review/request bytes, preserve inputs-001 and operator review; bind a distinct inputs-002 before dispatch and record the final exact argv. Stop on unreviewed drift.",
+  "inspection_pagination": "Use next_after with a fresh receipt per read-only page until an empty events page; preserve truncated_tail/state and all nonzero exits. Never replay native invocation.",
+  "output_rule": "Create-new stdout.bin/stderr.bin and receipts; inventory hash refers to exact stdout bytes. Capture probe streams only, no additional raw worker logging.",
+  "supervisor_status": "NOT_PREPARED_OR_TESTED",
+  "launch_authorization": "NOT_SELECTED",
+  "operator_review": "PENDING",
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED"
+}

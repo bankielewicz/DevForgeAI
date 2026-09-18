@@ -1,0 +1,172 @@
+{
+  "utc": "2026-09-16T20:34:42.025316+00:00",
+  "index": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\artifact-index.json",
+    "bytes": 19790,
+    "sha256": "1a22ca36d2fe92f86b7ebded1c6345db0d969ee39e600d5d79502fed1d708750"
+  },
+  "artifacts_checked": 67,
+  "all_indexed_hashes_match": true,
+  "documentation_links": [
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "../../../../devforgeai/experiments/codex-worker-probe/src/protocol.rs",
+      "resolved": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "observed-result.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\observed-result.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "native-001/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\native-001\\receipt.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "native-001/stdout.bin",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\native-001\\stdout.bin",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "../../framework-worker-trials/20260916T202125Z-diagnostic/run/journal.jsonl",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T202125Z-diagnostic\\run\\journal.jsonl",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "inspect-001/stdout.bin",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\inspect-001\\stdout.bin",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "../../framework-worker-diagnostics-qa/20260916T191731Z/native-diagnostic-handoff.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\native-diagnostic-handoff.md",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "inputs-002-prelaunch/input-bindings.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\inputs-002-prelaunch\\input-bindings.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "../../framework-worker-trials/20260916T202125Z-diagnostic/fixture/task.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T202125Z-diagnostic\\fixture\\task.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "inputs-002-prelaunch/request.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\inputs-002-prelaunch\\request.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "inputs-002-prelaunch/review.unqualified.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\inputs-002-prelaunch\\review.unqualified.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "sources-002-prelaunch/stdout.bin",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-002-prelaunch\\stdout.bin",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "environment.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\environment.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "host-processes-before.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\host-processes-before.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "host-processes-after.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\host-processes-after.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "diagnostic.py",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic.py",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "sources-001/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-001\\receipt.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "sources-002-prelaunch/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-002-prelaunch\\receipt.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "native-001/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\native-001\\receipt.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "sources-003-after/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\sources-003-after\\receipt.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "inspect-001/receipt.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\inspect-001\\receipt.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "preparation-observation.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\preparation-observation.md",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "source-refresh-readback.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\source-refresh-readback.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "permission-refresh.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\permission-refresh.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "preservation-readback.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\preservation-readback.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\diagnostic-report.md",
+      "target": "artifact-index.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\artifact-index.json",
+      "exists": true
+    }
+  ],
+  "initial_helper_archive_matches_executed_digest": true,
+  "native_helper_matches_executed_digest": true,
+  "no_launch_performed_by_this_check": true,
+  "framework_acceptance": "NOT_EVALUATED"
+}

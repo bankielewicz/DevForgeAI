@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 986,
+      "sha256": "ae560a929b32afff9e85a5bf706526d843140b6378d96dadfb6b6b48652a33b4"
+    },
+    {
+      "path": "notes.txt",
+      "bytes": 118,
+      "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94"
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "bytes": 2129,
+      "sha256": "b6148a15f3ba564c01a5c3e661bde783cb129eca98a924f0a4712aee01e13260"
+    }
+  ]
+}

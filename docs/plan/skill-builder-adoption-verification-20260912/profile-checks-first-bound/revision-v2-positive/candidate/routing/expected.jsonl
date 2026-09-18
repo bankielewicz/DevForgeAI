@@ -1,0 +1,7 @@
+{"case_id": "synthetic-route-import", "route": "import", "request": "Synthetic route fixture: import"}
+{"case_id": "synthetic-route-spec_build", "route": "spec_build", "request": "Synthetic route fixture: spec_build"}
+{"case_id": "synthetic-route-revision", "route": "revision", "request": "Synthetic route fixture: revision"}
+{"case_id": "synthetic-route-explanation", "route": "explanation", "request": "Synthetic route fixture: explanation"}
+{"case_id": "synthetic-route-specification_authoring", "route": "specification_authoring", "request": "Synthetic route fixture: specification_authoring"}
+{"case_id": "synthetic-route-installation", "route": "installation", "request": "Synthetic route fixture: installation"}
+{"case_id": "synthetic-route-unrelated", "route": "unrelated", "request": "Synthetic route fixture: unrelated"}

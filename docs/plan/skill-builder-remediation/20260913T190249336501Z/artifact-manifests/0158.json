@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-ext-update-missing-history",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1377,
+      "sha256": "4443dbd55859d4e06187103ddc293ad0293a3110ba715d9c835949a32f7059c5"
+    },
+    {
+      "path": "result.json",
+      "bytes": 294,
+      "sha256": "05cebf07d5d71e8ab3a2e7c0daa7391e4abbc2c90be66f942be312a9d0e3ae4f"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 290,
+      "sha256": "e7fb39f4ba36ebc19e3345afd496a259ef33a4ed7cac2afff081db92575d0206"
+    }
+  ]
+}

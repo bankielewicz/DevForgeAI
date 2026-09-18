@@ -1,0 +1,58 @@
+[
+  {
+    "case_id": "valid",
+    "expected_reason": "BOUND",
+    "product_effects": [
+      "out/product.txt"
+    ],
+    "host": "linux"
+  },
+  {
+    "case_id": "missing",
+    "expected_reason": "MISSING_BINDING",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "stale",
+    "expected_reason": "PACKAGE_CHANGED",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "wrong-root",
+    "expected_reason": "ROOT_MISMATCH",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "inactive",
+    "expected_reason": "NOT_SELECTED",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "conflict",
+    "expected_reason": "AMBIGUOUS_ROLE",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "duplicate",
+    "expected_reason": "INVALID_BINDING",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "relocated",
+    "expected_reason": "UNBOUND_SKILL",
+    "product_effects": [],
+    "host": "linux"
+  },
+  {
+    "case_id": "unknown-version",
+    "expected_reason": "INVALID_BINDING",
+    "product_effects": [],
+    "host": "linux"
+  }
+]

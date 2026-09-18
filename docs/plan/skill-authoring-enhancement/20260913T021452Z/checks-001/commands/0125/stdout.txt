@@ -1,0 +1,41 @@
+{
+  "schema_version": "1",
+  "command": "snapshot",
+  "status": "COMPLETE",
+  "coverage": [
+    "bounded inventory",
+    "raw-byte copy",
+    "source readback"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement."
+  ],
+  "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\validator-helper-exfs8s4h\\snapshot output",
+  "manifest": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\validator-helper-exfs8s4h\\project with spaces\\example",
+    "captured_at_utc": "2026-09-13T02:29:46.970887+00:00",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 127,
+        "sha256": "42e2516c9c45cc018b4549cc3aa2592b2204768500661de1e8d1c78989c53c03"
+      },
+      {
+        "path": "assets/binary.dat",
+        "bytes": 260,
+        "sha256": "11a20732404dc4f347f44babdff26628334d23cb3ab09e682f96b1e57a20d67b"
+      },
+      {
+        "path": "references/café 日本語.md",
+        "bytes": 32,
+        "sha256": "65f5587123d39b749207940a1a48b236ea99751413b3b9cae70d3cd8502c4523"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "be405e3a72568ab3bd03955e3ec09d61c5de037b5ea58df169296ddf7d1db6f3"
+  }
+}

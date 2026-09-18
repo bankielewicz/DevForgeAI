@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "project_root",
+    "target_root",
+    "target_name",
+    "record_kind",
+    "operation",
+    "authorization",
+    "contract",
+    "inputs",
+    "prior_origin",
+    "managed_paths",
+    "retained_user_paths",
+    "before_manifest",
+    "candidate_manifest",
+    "delivered_manifest",
+    "applied_paths",
+    "authoring_state",
+    "validation_status",
+    "testing_status",
+    "unresolved_issues",
+    "rows"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "authoring-v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "record_kind": {
+      "const": "authoring"
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authorization": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract": {
+      "$ref": "#/$defs/reference"
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "prior_origin": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "observed",
+            "adopted",
+            "legacy_generated",
+            "authored"
+          ]
+        },
+        "reference": {
+          "$ref": "#/$defs/reference"
+        },
+        "historical_origin": {
+          "const": "unknown"
+        }
+      }
+    },
+    "managed_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "retained_user_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "before_manifest": {
+      "$ref": "#/$defs/reference"
+    },
+    "candidate_manifest": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/reference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "delivered_manifest": {
+      "$ref": "#/$defs/reference"
+    },
+    "baseline_manifest": {
+      "$ref": "#/$defs/reference"
+    },
+    "applied_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authoring_state": {
+      "enum": [
+        "AUTHORED",
+        "PARTIAL",
+        "BLOCKED"
+      ]
+    },
+    "validation_status": {
+      "const": "NOT_PERFORMED"
+    },
+    "testing_status": {
+      "const": "NOT_PERFORMED"
+    },
+    "unresolved_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rows": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

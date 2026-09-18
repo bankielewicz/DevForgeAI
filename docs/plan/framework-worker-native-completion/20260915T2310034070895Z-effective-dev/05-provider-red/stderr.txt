@@ -1,0 +1,4 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.40s
+     Running tests\effective_profile.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260915T2310034070895Z-effective-dev\target\debug\deps\effective_profile-a4f4345ca7637d34.exe)
+error: test failed, to rerun pass `--test effective_profile`

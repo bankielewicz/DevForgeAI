@@ -1,0 +1,2098 @@
+--- baseline/Cargo.toml
++++ candidate/Cargo.toml
+@@ -36,3 +36,8 @@
+ name = "profile-peer"
+ path = "tests/support/profile_peer.rs"
+ test = false
++
++[[bin]]
++name = "protocol-edges-peer"
++path = "tests/support/protocol_edges_peer.rs"
++test = false
+--- baseline/src/profile_sources.rs
++++ candidate/src/profile_sources.rs
+@@ -641,3 +641,7 @@
+ #[cfg(test)]
+ #[path = "../tests/support/profile_sources_cases.rs"]
+ mod cases;
++
++#[cfg(test)]
++#[path = "../tests/support/profile_sources_edges.rs"]
++mod edges;
+--- baseline/tests/effective_profile_edges.rs
++++ candidate/tests/effective_profile_edges.rs
+@@ -0,0 +1,920 @@
++use devforgeai_codex_worker_probe::{effective_profile, launch_policy};
++use serde_json::{Map, Value, json};
++use std::path::{Path, PathBuf};
++
++const MCP_NAMES: &[&str] = &["node_repl", "openaiDeveloperDocs"];
++const APP_NAME: &str = "connector_openai_codex_document_control";
++const PLUGIN_NAMES: &[&str] = &[
++    "documents@openai-primary-runtime",
++    "pdf@openai-primary-runtime",
++    "spreadsheets@openai-primary-runtime",
++    "presentations@openai-primary-runtime",
++    "template-creator@openai-primary-runtime",
++    "sites@openai-bundled",
++    "visualize@openai-bundled",
++    "codex-app-tools@openai-bundled",
++    "computer-use@openai-bundled",
++    "unified-computer-use@openai-bundled",
++    "browser@openai-bundled",
++    "chrome@openai-bundled",
++];
++const ALLOWED_ENABLED_FEATURES: &[&str] = &[
++    "collaboration_modes",
++    "compaction_image_budget",
++    "content_item_kinds",
++    "enable_request_compression",
++    "fast_mode",
++    "item_ids",
++    "mentions_v2",
++    "personality",
++    "remote_compaction_v2",
++    "resize_all_images",
++    "secret_auth_storage",
++    "steer",
++    "terminal_resize_reflow",
++    "tool_search_always_defer_mcp_tools",
++    "tui_app_server",
++    "unbounded_connection_retries",
++    "unified_exec_zsh_fork",
++];
++
++fn disabled_feature_config() -> Value {
++    Value::Object(
++        launch_policy::REQUIRED_DISABLED_FEATURES
++            .iter()
++            .map(|name| ((*name).to_owned(), Value::Bool(false)))
++            .collect(),
++    )
++}
++
++fn disabled_entries(names: &[&str]) -> Value {
++    Value::Object(
++        names
++            .iter()
++            .map(|name| ((*name).to_owned(), json!({"enabled":false})))
++            .collect(),
++    )
++}
++
++fn restrictive_config() -> Value {
++    json!({
++        "model_provider":"openai",
++        "forced_login_method":"chatgpt",
++        "web_search":"disabled",
++        "sandbox_mode":"read-only",
++        "approval_policy":"never",
++        "features":disabled_feature_config(),
++        "apps":{
++            "_default":{"enabled":false},
++            APP_NAME:{"enabled":false}
++        },
++        "mcp_servers":disabled_entries(MCP_NAMES),
++        "plugins":disabled_entries(PLUGIN_NAMES)
++    })
++}
++
++fn session_origin() -> Value {
++    json!({"name":{"type":"sessionFlags"},"version":"1"})
++}
++
++fn disk_layer(source: Value) -> Value {
++    json!({
++        "config":{"sensitive_input":"not retained"},
++        "disabledReason":null,
++        "name":source,
++        "version":"1"
++    })
++}
++
++fn session_layer() -> Value {
++    json!({
++        "config":restrictive_config(),
++        "disabledReason":null,
++        "name":{"type":"sessionFlags"},
++        "version":"1"
++    })
++}
++
++fn config_response(user_config: &Path) -> Value {
++    let mut origins = Map::new();
++    for key in [
++        "model_provider",
++        "forced_login_method",
++        "web_search",
++        "sandbox_mode",
++        "approval_policy",
++    ] {
++        origins.insert(key.to_owned(), session_origin());
++    }
++    json!({
++        "config":restrictive_config(),
++        "origins":origins,
++        "layers":[
++            disk_layer(json!({"type":"user","file":user_config,"profile":null})),
++            session_layer()
++        ]
++    })
++}
++
++fn assert_error(actual: Result<Value, String>, expected: &str) {
++    assert_eq!(actual.unwrap_err(), expected);
++}
++
++fn feature(name: &str, enabled: bool) -> Value {
++    json!({
++        "name":name,
++        "enabled":enabled,
++        "defaultEnabled":false,
++        "stage":"stable"
++    })
++}
++
++fn complete_feature_data() -> Vec<Value> {
++    launch_policy::REQUIRED_DISABLED_FEATURES
++        .iter()
++        .map(|name| feature(name, false))
++        .collect()
++}
++
++fn hook(key: &str, event: &str, source: &str, trust: &str, handler: &str) -> Value {
++    let mut value = json!({
++        "key":key,
++        "currentHash":format!("hash-{key}"),
++        "displayOrder":0,
++        "enabled":false,
++        "eventName":event,
++        "isManaged":false,
++        "source":source,
++        "sourcePath":format!(r"C:\reviewed\{key}.json"),
++        "timeoutSec":5,
++        "trustStatus":trust,
++        "handlerType":handler
++    });
++    match handler {
++        "command" => value["command"] = json!(format!("sensitive-command-{key}")),
++        "mcpTool" => {
++            value["server"] = json!(format!("sensitive-server-{key}"));
++            value["tool"] = json!(format!("sensitive-tool-{key}"));
++        }
++        _ => {}
++    }
++    value
++}
++
++fn plugin(id: &str, source: Value, auth: &str, install: &str, installed: bool) -> Value {
++    json!({
++        "id":id,
++        "name":format!("sensitive-name-{id}"),
++        "enabled":false,
++        "installed":installed,
++        "source":source,
++        "authPolicy":auth,
++        "installPolicy":install
++    })
++}
++
++fn mcp(name: &str, auth: &str) -> Value {
++    json!({
++        "name":name,
++        "authStatus":auth,
++        "runtimeStatus":"disabled",
++        "tools":{},
++        "toolsError":null,
++        "resources":[],
++        "resourceTemplates":[]
++    })
++}
++
++#[test]
++fn reviewed_config_sources_and_single_session_layer_are_enforced() {
++    let cwd = PathBuf::from(r"C:\qa\fixture\child");
++    let packaged = PathBuf::from(r"C:\Program Files\Codex\defaults.toml");
++    let system = PathBuf::from(r"C:\ProgramData\OpenAI\Codex\config.toml");
++    let legacy = PathBuf::from(r"C:\ProgramData\OpenAI\Codex\legacy.toml");
++    let user = PathBuf::from(r"C:\Users\qa\.codex\config.toml");
++    let project = PathBuf::from(r"C:\qa\fixture\.codex\config.toml");
++    let covered = vec![
++        packaged.clone(),
++        system.clone(),
++        legacy.clone(),
++        user.clone(),
++        project.clone(),
++    ];
++
++    let disk_sources = [
++        json!({"type":"packagedDefaults","file":packaged}),
++        json!({"type":"system","file":system}),
++        json!({"type":"legacyManagedConfigTomlFromFile","file":legacy}),
++        json!({"type":"user","file":user,"profile":null}),
++        json!({"type":"project","dotCodexFolder":r"C:\qa\fixture\.codex"}),
++    ];
++    let mut origins = Map::new();
++    for key in [
++        "model_provider",
++        "forced_login_method",
++        "web_search",
++        "sandbox_mode",
++        "approval_policy",
++    ] {
++        origins.insert(key.to_owned(), session_origin());
++    }
++    for (index, source) in disk_sources.iter().enumerate() {
++        origins.insert(
++            format!("reviewed_source_{index}"),
++            json!({"name":source,"version":"1"}),
++        );
++    }
++    let mut layers: Vec<Value> = disk_sources.into_iter().map(disk_layer).collect();
++    layers.push(session_layer());
++    let valid = json!({
++        "config":restrictive_config(),
++        "origins":origins,
++        "layers":layers
++    });
++    assert_eq!(
++        effective_profile::validate_config(&valid, &cwd, &covered).unwrap(),
++        json!({
++            "approval_policy":"never",
++            "apps_default_enabled":false,
++            "config_layer_count":6,
++            "covered_disk_layer_count":5,
++            "forced_login_method":"chatgpt",
++            "model_provider":"openai",
++            "sandbox_mode":"read-only",
++            "session_flags_layers":1,
++            "web_search":"disabled"
++        })
++    );
++
++    let mut case = valid.clone();
++    case["layers"][3]["name"]["profile"] = json!("unexpected-profile");
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "profile_unqualified",
++    );
++
++    let mut case = valid.clone();
++    case["layers"][4]["name"]["dotCodexFolder"] = json!(r"C:\outside\.codex");
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "profile_unqualified",
++    );
++
++    for source_type in [
++        "mdm",
++        "enterpriseManaged",
++        "legacyManagedConfigTomlFromMdm",
++        "futureUnknownSource",
++    ] {
++        let mut case = valid.clone();
++        case["layers"][0]["name"] = json!({"type":source_type});
++        assert_error(
++            effective_profile::validate_config(&case, &cwd, &covered),
++            "profile_unqualified",
++        );
++    }
++
++    let mut case = valid.clone();
++    case["layers"] = json!([]);
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "protocol_error",
++    );
++
++    let mut case = valid.clone();
++    case["layers"] = Value::Array((0..65).map(|_| session_layer()).collect());
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "protocol_error",
++    );
++
++    let mut case = valid.clone();
++    case["layers"].as_array_mut().unwrap().pop();
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "profile_unqualified",
++    );
++
++    let mut case = valid.clone();
++    case["layers"].as_array_mut().unwrap().push(session_layer());
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "profile_unqualified",
++    );
++
++    let mut case = valid.clone();
++    case["layers"][0]["disabledReason"] = json!(17);
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "protocol_error",
++    );
++
++    let mut case = valid.clone();
++    let excessive_origins: Map<String, Value> = (0..1_001)
++        .map(|index| (format!("origin_{index}"), session_origin()))
++        .chain([
++            ("model_provider".to_owned(), session_origin()),
++            ("forced_login_method".to_owned(), session_origin()),
++            ("web_search".to_owned(), session_origin()),
++            ("sandbox_mode".to_owned(), session_origin()),
++            ("approval_policy".to_owned(), session_origin()),
++        ])
++        .collect();
++    case["origins"] = Value::Object(excessive_origins);
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, &covered),
++        "protocol_error",
++    );
++
++    assert_error(
++        effective_profile::validate_config(&valid, Path::new("relative-fixture"), &covered),
++        "profile_unqualified",
++    );
++}
++
++#[test]
++fn provider_endpoints_and_closed_session_policy_fail_closed() {
++    let cwd = PathBuf::from(r"C:\qa\fixture");
++    let user = PathBuf::from(r"C:\Users\qa\.codex\config.toml");
++    let mut inert = config_response(&user);
++    inert["config"]["model_providers"] = Value::Null;
++    inert["config"]["chatgpt_base_url"] = Value::Null;
++    inert["config"]["openai_base_url"] = json!("");
++    inert["config"]["api_base"] = Value::Null;
++    inert["config"]["base_url"] = json!("");
++    assert!(effective_profile::validate_config(&inert, &cwd, std::slice::from_ref(&user)).is_ok());
++    inert["config"]["model_providers"] = json!({});
++    assert!(effective_profile::validate_config(&inert, &cwd, std::slice::from_ref(&user)).is_ok());
++
++    let valid = config_response(&user);
++    for (field, value, expected) in [
++        ("model_providers", json!([]), "protocol_error"),
++        (
++            "model_providers",
++            json!({"alternate":{"base_url":"https://provider.invalid"}}),
++            "profile_unqualified",
++        ),
++        (
++            "chatgpt_base_url",
++            json!("https://provider.invalid"),
++            "profile_unqualified",
++        ),
++        ("openai_base_url", json!(42), "protocol_error"),
++        ("api_base", json!(true), "protocol_error"),
++    ] {
++        let mut case = valid.clone();
++        case["config"][field] = value;
++        assert_error(
++            effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++            expected,
++        );
++    }
++
++    let mut case = valid.clone();
++    case["layers"][1]["config"]["unexpected"] = json!(false);
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++        "profile_unqualified",
++    );
++
++    let mut case = valid.clone();
++    case["layers"][1]["config"]
++        .as_object_mut()
++        .unwrap()
++        .remove("apps");
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++        "profile_unqualified",
++    );
++
++    for pointer in [
++        "/layers/1/config/apps/_default/enabled",
++        "/layers/1/config/apps/connector_openai_codex_document_control/enabled",
++        "/layers/1/config/mcp_servers/node_repl/enabled",
++        "/layers/1/config/plugins/chrome@openai-bundled/enabled",
++        "/layers/1/config/features/hooks",
++    ] {
++        let mut case = valid.clone();
++        *case.pointer_mut(pointer).unwrap() = json!(true);
++        assert_error(
++            effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++            "profile_unqualified",
++        );
++    }
++
++    let mut case = valid.clone();
++    case["layers"][1]["config"]["apps"]
++        .as_object_mut()
++        .unwrap()
++        .remove(APP_NAME);
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++        "profile_unqualified",
++    );
++
++    let mut case = valid.clone();
++    case["layers"][1]["config"]["mcp_servers"]["extra"] = json!({"enabled":false});
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++        "profile_unqualified",
++    );
++
++    let mut case = valid.clone();
++    case["layers"][1]["config"]["plugins"]["chrome@openai-bundled"] = json!(false);
++    assert_error(
++        effective_profile::validate_config(&case, &cwd, std::slice::from_ref(&user)),
++        "profile_unqualified",
++    );
++}
++
++#[test]
++fn feature_pages_accept_only_complete_bounded_closed_state() {
++    assert_eq!(launch_policy::REQUIRED_DISABLED_FEATURES.len(), 35);
++    assert_eq!(ALLOWED_ENABLED_FEATURES.len(), 17);
++    let mut data = complete_feature_data();
++    data.extend(
++        ALLOWED_ENABLED_FEATURES
++            .iter()
++            .map(|name| feature(name, true)),
++    );
++    let split = data.len() / 2;
++    let pages = vec![
++        json!({"data":data[..split],"nextCursor":"page-two"}),
++        json!({"data":data[split..],"nextCursor":null}),
++    ];
++    assert_eq!(
++        effective_profile::validate_feature_pages(
++            &pages,
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        )
++        .unwrap(),
++        json!({"disabled_required":35,"feature_count":52,"pages":2})
++    );
++
++    assert_error(
++        effective_profile::validate_feature_pages(&[], launch_policy::REQUIRED_DISABLED_FEATURES),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_feature_pages(&pages, &[]),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_feature_pages(&pages, &["hooks"]),
++        "protocol_error",
++    );
++
++    let eleven_pages = vec![json!({"data":[],"nextCursor":null}); 11];
++    assert_error(
++        effective_profile::validate_feature_pages(
++            &eleven_pages,
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        ),
++        "protocol_error",
++    );
++
++    let oversized = vec![json!({
++        "data":(0..101).map(|index| feature(&format!("inactive-{index}"),false)).collect::<Vec<_>>(),
++        "nextCursor":null
++    })];
++    assert_error(
++        effective_profile::validate_feature_pages(
++            &oversized,
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        ),
++        "protocol_error",
++    );
++
++    let mut case = vec![json!({"data":complete_feature_data(),"nextCursor":null})];
++    case[0]["data"][0]["stage"] = json!("future-stage");
++    assert_error(
++        effective_profile::validate_feature_pages(&case, launch_policy::REQUIRED_DISABLED_FEATURES),
++        "protocol_error",
++    );
++
++    let mut duplicate = complete_feature_data();
++    duplicate.push(duplicate[0].clone());
++    assert_error(
++        effective_profile::validate_feature_pages(
++            &[json!({"data":duplicate,"nextCursor":null})],
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        ),
++        "protocol_error",
++    );
++
++    let repeated_cursor = vec![
++        json!({"data":[],"nextCursor":"repeat"}),
++        json!({"data":[],"nextCursor":"repeat"}),
++        json!({"data":complete_feature_data(),"nextCursor":null}),
++    ];
++    assert_error(
++        effective_profile::validate_feature_pages(
++            &repeated_cursor,
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        ),
++        "protocol_error",
++    );
++
++    let unfinished = vec![json!({"data":complete_feature_data(),"nextCursor":"more"})];
++    assert_error(
++        effective_profile::validate_feature_pages(
++            &unfinished,
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        ),
++        "protocol_error",
++    );
++
++    let mut unknown_enabled = complete_feature_data();
++    unknown_enabled.push(feature("future_effectful_feature", true));
++    assert_error(
++        effective_profile::validate_feature_pages(
++            &[json!({"data":unknown_enabled,"nextCursor":null})],
++            launch_policy::REQUIRED_DISABLED_FEATURES,
++        ),
++        "profile_unqualified",
++    );
++}
++
++#[test]
++fn hooks_cover_supported_shapes_without_retaining_payloads() {
++    let cwd = PathBuf::from(r"C:\qa\fixture");
++    let events = [
++        "preToolUse",
++        "permissionRequest",
++        "postToolUse",
++        "preCompact",
++        "postCompact",
++        "sessionStart",
++        "sessionEnd",
++        "userPromptSubmit",
++        "subagentStart",
++        "subagentStop",
++        "stop",
++        "interrupt",
++    ];
++    let sources = [
++        "system",
++        "user",
++        "project",
++        "mdm",
++        "sessionFlags",
++        "plugin",
++        "cloudRequirements",
++        "cloudManagedConfig",
++        "legacyManagedConfigFile",
++        "legacyManagedConfigMdm",
++        "unknown",
++    ];
++    let trusts = ["managed", "untrusted", "trusted", "modified"];
++    let handlers = ["command", "mcpTool", "prompt", "agent"];
++    let hooks: Vec<Value> = events
++        .iter()
++        .enumerate()
++        .map(|(index, event)| {
++            hook(
++                &format!("hook-{index}"),
++                event,
++                sources[index % sources.len()],
++                trusts[index % trusts.len()],
++                handlers[index % handlers.len()],
++            )
++        })
++        .collect();
++    let value = json!({"data":[{"cwd":cwd,"errors":[],"warnings":[],"hooks":hooks}]});
++    let projection = effective_profile::validate_hooks(&value, &cwd).unwrap();
++    assert_eq!(
++        projection,
++        json!({"configured_hook_count":12,"cwd_count":1,"errors":0,"warnings":0})
++    );
++    let text = projection.to_string();
++    for forbidden in ["sensitive", "hook-", "reviewed"] {
++        assert!(!text.contains(forbidden));
++    }
++
++    let mut case = value.clone();
++    case["data"][0]["hooks"][1]["key"] = case["data"][0]["hooks"][0]["key"].clone();
++    assert_error(
++        effective_profile::validate_hooks(&case, &cwd),
++        "profile_unqualified",
++    );
++
++    let mut case = value.clone();
++    case["data"][0]["hooks"][0]["enabled"] = json!(true);
++    assert_error(
++        effective_profile::validate_hooks(&case, &cwd),
++        "profile_unqualified",
++    );
++
++    for (field, bad) in [
++        ("eventName", "futureEvent"),
++        ("source", "futureSource"),
++        ("trustStatus", "futureTrust"),
++        ("handlerType", "futureHandler"),
++    ] {
++        let mut case = value.clone();
++        case["data"][0]["hooks"][0][field] = json!(bad);
++        assert_error(
++            effective_profile::validate_hooks(&case, &cwd),
++            "protocol_error",
++        );
++    }
++
++    let mut case = value.clone();
++    case["data"][0]["hooks"][1]
++        .as_object_mut()
++        .unwrap()
++        .remove("tool");
++    assert_error(
++        effective_profile::validate_hooks(&case, &cwd),
++        "protocol_error",
++    );
++
++    let oversized = json!({"data":[{
++        "cwd":cwd,"errors":[],"warnings":[],"hooks":vec![Value::Null;1_001]
++    }]});
++    assert_error(
++        effective_profile::validate_hooks(&oversized, &cwd),
++        "protocol_error",
++    );
++}
++
++#[test]
++fn plugins_cover_supported_sources_and_reject_active_or_unbounded_state() {
++    let plugins = vec![
++        plugin(
++            "local-plugin",
++            json!({"type":"local","path":r"C:\reviewed\local"}),
++            "ON_INSTALL",
++            "NOT_AVAILABLE",
++            false,
++        ),
++        plugin(
++            "git-plugin",
++            json!({"type":"git","url":"https://example.invalid/repository"}),
++            "ON_USE",
++            "AVAILABLE",
++            true,
++        ),
++        plugin(
++            "npm-plugin",
++            json!({"type":"npm","package":"@reviewed/package"}),
++            "ON_INSTALL",
++            "INSTALLED_BY_DEFAULT",
++            true,
++        ),
++        plugin(
++            "remote-plugin",
++            json!({"type":"remote"}),
++            "ON_USE",
++            "AVAILABLE",
++            false,
++        ),
++    ];
++    let value = json!({
++        "marketplaces":[{"name":"reviewed-market","path":null,"plugins":plugins}],
++        "marketplaceLoadErrors":[],
++        "featuredPluginIds":["local-plugin"]
++    });
++    let projection = effective_profile::validate_plugins(&value).unwrap();
++    assert_eq!(
++        projection,
++        json!({"enabled_plugin_count":0,"installed_plugin_count":2,"marketplace_count":1,"plugin_count":4})
++    );
++    let text = projection.to_string();
++    for forbidden in ["reviewed-market", "local-plugin", "example.invalid"] {
++        assert!(!text.contains(forbidden));
++    }
++
++    let too_many_markets = json!({
++        "marketplaces":vec![json!({"name":"m","plugins":[]});101],
++        "marketplaceLoadErrors":[]
++    });
++    assert_error(
++        effective_profile::validate_plugins(&too_many_markets),
++        "protocol_error",
++    );
++
++    let mut case = value.clone();
++    case["marketplaceLoadErrors"] = json!([{"message":"load failed"}]);
++    assert_error(
++        effective_profile::validate_plugins(&case),
++        "profile_unqualified",
++    );
++
++    let mut case = value.clone();
++    case["marketplaces"][0]["path"] = json!(7);
++    assert_error(effective_profile::validate_plugins(&case), "protocol_error");
++
++    let mut case = value.clone();
++    case["marketplaces"][0]["plugins"][1]["id"] = json!("local-plugin");
++    assert_error(
++        effective_profile::validate_plugins(&case),
++        "profile_unqualified",
++    );
++
++    let mut case = value.clone();
++    case["marketplaces"][0]["plugins"][0]["enabled"] = json!(true);
++    assert_error(
++        effective_profile::validate_plugins(&case),
++        "profile_unqualified",
++    );
++
++    for (field, bad) in [("authPolicy", "SOMEDAY"), ("installPolicy", "SECRET")] {
++        let mut case = value.clone();
++        case["marketplaces"][0]["plugins"][0][field] = json!(bad);
++        assert_error(effective_profile::validate_plugins(&case), "protocol_error");
++    }
++
++    for source in [
++        json!({"type":"local"}),
++        json!({"type":"git"}),
++        json!({"type":"npm"}),
++        json!({"type":"future"}),
++    ] {
++        let mut case = value.clone();
++        case["marketplaces"][0]["plugins"][0]["source"] = source;
++        assert_error(effective_profile::validate_plugins(&case), "protocol_error");
++    }
++
++    let many_plugins: Vec<Value> = (0..1_001)
++        .map(|index| {
++            plugin(
++                &format!("plugin-{index}"),
++                json!({"type":"remote"}),
++                "ON_USE",
++                "AVAILABLE",
++                false,
++            )
++        })
++        .collect();
++    let oversized = json!({
++        "marketplaces":[{"name":"m","plugins":many_plugins}],
++        "marketplaceLoadErrors":[]
++    });
++    assert_error(
++        effective_profile::validate_plugins(&oversized),
++        "protocol_error",
++    );
++}
++
++#[test]
++fn apps_require_unique_disabled_non_callable_bounded_state() {
++    let valid = json!({"apps":[
++        {"id":"missing-runtime","enabled":false,"callable":false},
++        {"id":"null-runtime","enabled":false,"callable":false,"runtimeName":null},
++        {"id":"named-runtime","enabled":false,"callable":false,"runtimeName":"sensitive-runtime"}
++    ]});
++    let projection = effective_profile::validate_apps(&valid).unwrap();
++    assert_eq!(
++        projection,
++        json!({"app_count":3,"callable_app_count":0,"enabled_app_count":0})
++    );
++    assert!(!projection.to_string().contains("sensitive-runtime"));
++
++    let mut case = valid.clone();
++    case["apps"][1]["id"] = json!("missing-runtime");
++    assert_error(
++        effective_profile::validate_apps(&case),
++        "profile_unqualified",
++    );
++
++    for field in ["enabled", "callable"] {
++        let mut case = valid.clone();
++        case["apps"][0][field] = json!(true);
++        assert_error(
++            effective_profile::validate_apps(&case),
++            "profile_unqualified",
++        );
++    }
++
++    let mut case = valid.clone();
++    case["apps"][0]["runtimeName"] = json!(42);
++    assert_error(effective_profile::validate_apps(&case), "protocol_error");
++
++    let oversized = json!({"apps":vec![Value::Null;1_001]});
++    assert_error(
++        effective_profile::validate_apps(&oversized),
++        "protocol_error",
++    );
++}
++
++#[test]
++fn mcp_pages_require_inactive_empty_unique_complete_state() {
++    let auth_states = [
++        "unknown",
++        "unsupported",
++        "notLoggedIn",
++        "bearerToken",
++        "oAuth",
++    ];
++    let servers: Vec<Value> = auth_states
++        .iter()
++        .enumerate()
++        .map(|(index, auth)| mcp(&format!("server-{index}"), auth))
++        .collect();
++    let pages = vec![json!({"data":servers,"nextCursor":null})];
++    assert_eq!(
++        effective_profile::validate_mcp_pages(&pages).unwrap(),
++        json!({"disabled_server_count":5,"pages":1,"server_count":5})
++    );
++
++    assert_error(effective_profile::validate_mcp_pages(&[]), "protocol_error");
++    assert_error(
++        effective_profile::validate_mcp_pages(&vec![json!({"data":[],"nextCursor":null}); 11]),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_mcp_pages(&[json!({
++            "data":(0..101).map(|index| mcp(&format!("server-{index}"),"unknown")).collect::<Vec<_>>(),
++            "nextCursor":null
++        })]),
++        "protocol_error",
++    );
++
++    let mut case = pages.clone();
++    case[0]["data"][1]["name"] = json!("server-0");
++    assert_error(
++        effective_profile::validate_mcp_pages(&case),
++        "protocol_error",
++    );
++
++    let mut case = pages.clone();
++    case[0]["data"][0]["runtimeStatus"] = json!("starting");
++    assert_error(
++        effective_profile::validate_mcp_pages(&case),
++        "profile_unqualified",
++    );
++
++    let mut case = pages.clone();
++    case[0]["data"][0]["authStatus"] = json!("futureAuth");
++    assert_error(
++        effective_profile::validate_mcp_pages(&case),
++        "protocol_error",
++    );
++
++    for (field, value) in [
++        ("tools", json!({"danger":{"description":"tool"}})),
++        ("resources", json!([{"uri":"secret"}])),
++        ("resourceTemplates", json!([{"uriTemplate":"secret"}])),
++        ("toolsError", json!({"message":"secret"})),
++    ] {
++        let mut case = pages.clone();
++        case[0]["data"][0][field] = value;
++        assert_error(
++            effective_profile::validate_mcp_pages(&case),
++            "profile_unqualified",
++        );
++    }
++
++    let repeated_cursor = vec![
++        json!({"data":[],"nextCursor":"same"}),
++        json!({"data":[],"nextCursor":"same"}),
++        json!({"data":[],"nextCursor":null}),
++    ];
++    assert_error(
++        effective_profile::validate_mcp_pages(&repeated_cursor),
++        "protocol_error",
++    );
++}
++
++#[test]
++fn requirements_and_public_roots_preserve_typed_error_boundaries() {
++    assert_eq!(
++        effective_profile::validate_requirements(&json!({"requirements":null})).unwrap(),
++        json!({"requirements_present":false})
++    );
++    assert_error(
++        effective_profile::validate_requirements(&json!({"requirements":{}})),
++        "profile_unqualified",
++    );
++    assert_error(
++        effective_profile::validate_requirements(&json!({})),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_requirements(&json!([])),
++        "protocol_error",
++    );
++
++    let cwd = Path::new(r"C:\qa\fixture");
++    assert_error(
++        effective_profile::validate_config(&json!([]), cwd, &[]),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_hooks(&json!([]), cwd),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_plugins(&json!([])),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_apps(&json!([])),
++        "protocol_error",
++    );
++    assert_error(
++        effective_profile::validate_mcp_pages(&[json!([])]),
++        "protocol_error",
++    );
++}
+--- baseline/tests/protocol_edges.rs
++++ candidate/tests/protocol_edges.rs
+@@ -0,0 +1,235 @@
++mod support;
++
++use devforgeai_codex_worker_probe::{
++    journal::Journal, process_windows::OwnedProcess, protocol::Session, request, runner::Options,
++};
++use serde_json::{Value, json};
++use std::{
++    fs,
++    path::PathBuf,
++    time::{Duration, Instant},
++};
++
++struct Observation {
++    result: Result<(), String>,
++    trace: Vec<Value>,
++    events: Vec<Value>,
++    evidence: String,
++}
++
++fn run(case: &str) -> Observation {
++    let fixture = support::Fixture::new("WF-01");
++    let trace_path = fixture.root.path().join("protocol-edges-trace.jsonl");
++    let exe = PathBuf::from(env!("CARGO_BIN_EXE_protocol-edges-peer"));
++    let args = vec![
++        "--case".to_owned(),
++        case.to_owned(),
++        "--trace".to_owned(),
++        trace_path.to_string_lossy().into_owned(),
++        "--fixture-root".to_owned(),
++        fixture.request.checkout_root.to_string_lossy().into_owned(),
++    ];
++    let mut process = OwnedProcess::spawn(&exe, &args, &fixture.request.checkout_root).unwrap();
++    let options = Options {
++        total: Duration::from_secs(3),
++        rpc: Duration::from_millis(500),
++        teardown: Duration::from_secs(1),
++        ..Default::default()
++    };
++    let mut journal = Journal::create(&fixture.request).unwrap();
++    let mut emitted = Vec::new();
++    let result = {
++        let mut emit = |value: &Value| emitted.push(value.clone());
++        let mut session = Session::new(
++            &mut process,
++            &mut journal,
++            &mut emit,
++            &options,
++            Instant::now() + options.total,
++        );
++        session.preflight(
++            &fixture.request,
++            &[fixture.request.checkout_root.join("peer-case.txt")],
++        )
++    };
++    assert!(
++        process.stop(options.teardown),
++        "{case}: process tree not stopped"
++    );
++    assert_eq!(process.active(), Ok(0), "{case}: active process remained");
++    drop(journal);
++
++    assert_eq!(
++        fs::read(fixture.request.checkout_root.join("task.json")).unwrap(),
++        request::TASK,
++        "{case}: fixture task changed"
++    );
++    assert_eq!(
++        fs::read_to_string(fixture.request.checkout_root.join("peer-case.txt")).unwrap(),
++        "WF-01\n",
++        "{case}: fixture selector changed"
++    );
++    let trace = fs::read_to_string(trace_path)
++        .unwrap()
++        .lines()
++        .map(|line| serde_json::from_str(line).unwrap())
++        .collect();
++    let journal_text = fs::read_to_string(fixture.request.run_dir.join("journal.jsonl")).unwrap();
++    let events = journal_text
++        .lines()
++        .map(|line| serde_json::from_str(line).unwrap())
++        .collect();
++    let mut evidence = String::new();
++    evidence.push_str(&fs::read_to_string(&fixture.input).unwrap());
++    evidence
++        .push_str(&fs::read_to_string(fixture.request.checkout_root.join("task.json")).unwrap());
++    for name in ["request.json", "task.json", "inputs.json", "journal.jsonl"] {
++        let path = fixture.request.run_dir.join(name);
++        if path.exists() {
++            evidence.push_str(&fs::read_to_string(path).unwrap());
++        }
++    }
++    Observation {
++        result,
++        trace,
++        events,
++        evidence,
++    }
++}
++
++fn assert_no_work(observation: &Observation, case: &str) {
++    assert_eq!(
++        observation
++            .trace
++            .first()
++            .and_then(|message| message.get("method"))
++            .and_then(Value::as_str),
++        Some("initialize"),
++        "{case}: mandatory trace was empty or did not start at initialize"
++    );
++    assert!(
++        !observation.trace.iter().any(|message| matches!(
++            message.get("method").and_then(Value::as_str),
++            Some("thread/start" | "turn/start")
++        )),
++        "{case}: preflight started work"
++    );
++}
++
++#[test]
++fn server_requests_are_denied_with_the_captured_response_and_never_granted() {
++    let approval = run("approval-request");
++    assert_eq!(
++        approval.result,
++        Err("approval_required".to_owned()),
++        "PE-01"
++    );
++    assert_eq!(
++        approval.trace.last(),
++        Some(&json!({"id":"server-approval","result":{"decision":"cancel"}})),
++        "PE-01"
++    );
++    assert_no_work(&approval, "PE-01");
++    assert!(
++        !approval.evidence.contains("PRIVATE_APPROVAL_REQUEST"),
++        "PE-01"
++    );
++
++    let unsupported = run("unsupported-request");
++    assert_eq!(
++        unsupported.result,
++        Err("unsupported_request".to_owned()),
++        "PE-02"
++    );
++    assert_eq!(
++        unsupported.trace.last(),
++        Some(&json!({"id":77,"error":{"code":-32601,"message":"Method not supported"}})),
++        "PE-02"
++    );
++    assert_no_work(&unsupported, "PE-02");
++    assert!(
++        !unsupported.evidence.contains("PRIVATE_UNSUPPORTED_REQUEST"),
++        "PE-02"
++    );
++
++    let malformed = run("malformed-request-id");
++    assert_eq!(malformed.result, Err("protocol_error".to_owned()), "PE-03");
++    assert_eq!(
++        malformed.trace.len(),
++        1,
++        "PE-03: malformed ID received a response"
++    );
++    assert_no_work(&malformed, "PE-03");
++}
++
++#[test]
++fn stderr_is_drained_as_omitted_content_without_persisting_private_bytes() {
++    let observation = run("stderr");
++    assert_eq!(observation.result, Ok(()), "PE-04");
++    assert_no_work(&observation, "PE-04");
++    let stderr_events: Vec<_> = observation
++        .events
++        .iter()
++        .filter(|event| event["data"]["stream"] == "stderr")
++        .collect();
++    assert!(!stderr_events.is_empty(), "PE-04");
++    assert!(
++        stderr_events
++            .iter()
++            .all(|event| event["data"]["content"] == "omitted"),
++        "PE-04"
++    );
++    let observed_bytes: u64 = stderr_events
++        .iter()
++        .map(|event| event["data"]["bytes"].as_u64().expect("PE-04 byte count"))
++        .sum();
++    assert_eq!(
++        observed_bytes,
++        b"PRIVATE_STDERR_SENTINEL\n".len() as u64,
++        "PE-04"
++    );
++    assert!(
++        stderr_events.iter().all(|event| event["data"]["sha256"]
++            .as_str()
++            .is_some_and(|s| s.len() == 64)),
++        "PE-04"
++    );
++    assert!(
++        !observation.evidence.contains("PRIVATE_STDERR_SENTINEL"),
++        "PE-04"
++    );
++}
++
++#[test]
++fn feature_pagination_enforces_page_size_repeated_cursor_and_page_count_bounds() {
++    for (case, expected, id) in [
++        ("feature-overflow", "protocol_error", "PE-05"),
++        ("feature-repeat-cursor", "profile_unqualified", "PE-06"),
++        ("feature-ten-pages", "profile_unqualified", "PE-09"),
++    ] {
++        let observation = run(case);
++        assert_eq!(observation.result, Err(expected.to_owned()), "{id}");
++        assert_no_work(&observation, id);
++    }
++}
++
++#[test]
++fn unavailable_or_invalid_rate_limit_measurements_are_explicit_and_sanitized() {
++    for (case, private, id) in [
++        ("rate-limit-rpc-error", "PRIVATE_RATE_LIMIT_ERROR", "PE-07"),
++        ("rate-limit-negative", "", "PE-08"),
++    ] {
++        let observation = run(case);
++        assert_eq!(observation.result, Ok(()), "{id}");
++        assert_no_work(&observation, id);
++        let measurements: Vec<_> = observation
++            .events
++            .iter()
++            .filter_map(|event| event["data"].get("rate_limits"))
++            .collect();
++        assert_eq!(measurements, [&json!("not_measured")], "{id}");
++        if !private.is_empty() {
++            assert!(!observation.evidence.contains(private), "{id}");
++        }
++    }
++}
+--- baseline/tests/runtime_edges.rs
++++ candidate/tests/runtime_edges.rs
+@@ -0,0 +1,229 @@
++mod support;
++
++use devforgeai_codex_worker_probe::{
++    journal::{self, Journal},
++    request,
++    runner::{self, Options},
++};
++use serde_json::{Value, json};
++use std::{fs, path::PathBuf, process::Command, time::Duration};
++
++#[test]
++fn disappearing_fixture_after_admission_cannot_be_a_successful_run() {
++    let fixture = support::Fixture::new("WF-19-1");
++    let moved = fixture.root.path().join("preserved-missing-fixture");
++    let sentinel = fixture.root.path().join("outside-sentinel.txt");
++    fs::write(&sentinel, b"unchanged outside fixture").unwrap();
++    let resolved_root = request::resolve(fixture.root.path()).unwrap();
++    assert!(fixture.request.checkout_root.starts_with(&resolved_root));
++    assert_eq!(
++        request::resolve(moved.parent().unwrap()).unwrap(),
++        resolved_root
++    );
++    assert!(!moved.exists());
++    let mut events = Vec::new();
++    let (code, terminal) = runner::run(
++        &fixture.input,
++        Options {
++            total: Duration::from_secs(2),
++            rpc: Duration::from_millis(500),
++            grace: Duration::from_millis(100),
++            teardown: Duration::from_secs(1),
++            ..Default::default()
++        },
++        &mut |event| {
++            events.push(event.clone());
++            if event["kind"] == "admitted" {
++                fs::rename(&fixture.request.checkout_root, &moved).unwrap();
++            }
++        },
++    )
++    .unwrap();
++    assert_eq!(code, 4);
++    assert_eq!(terminal["reason"], "fixture_changed");
++    assert_eq!(terminal["fixture_unchanged"], false);
++    assert_eq!(terminal["oracle"], "not_evaluated");
++    assert_eq!(terminal["tree_stopped"], true);
++    assert_eq!(terminal["worker_exit_code"], Value::Null);
++    assert_eq!(terminal["thread_id"], Value::Null);
++    assert_eq!(terminal["turn_id"], Value::Null);
++    assert_eq!(
++        events
++            .iter()
++            .filter(|e| e["kind"] == "spawn_intent")
++            .count(),
++        1
++    );
++    assert!(!events.iter().any(|e| e["kind"] == "server_started"));
++    assert!(!fixture.root.path().join("peer-trace.jsonl").exists());
++    assert_eq!(fs::read(moved.join("task.json")).unwrap(), request::TASK);
++    assert_eq!(fs::read(sentinel).unwrap(), b"unchanged outside fixture");
++}
++
++#[test]
++fn journal_creation_and_exclusive_writes_preserve_existing_bytes_on_failure() {
++    let fixture = support::Fixture::new("WF-19-2");
++    let parent_file = fixture.root.path().join("file-is-not-a-directory");
++    fs::write(&parent_file, b"preserve parent").unwrap();
++    let mut request = fixture.request.clone();
++    request.run_dir = parent_file.join("run");
++    assert_eq!(
++        Journal::create(&request).err().as_deref(),
++        Some("evidence_write_failed")
++    );
++    assert_eq!(fs::read(&parent_file).unwrap(), b"preserve parent");
++    assert!(!fixture.request.run_dir.exists());
++    let existing = fixture.root.path().join("existing-evidence.json");
++    fs::write(&existing, b"original evidence\n").unwrap();
++    assert_eq!(
++        journal::write_new(&existing, b"replacement").unwrap_err(),
++        "evidence_write_failed"
++    );
++    assert_eq!(fs::read(existing).unwrap(), b"original evidence\n");
++    assert!(!fixture.root.path().join("peer-trace.jsonl").exists());
++}
++
++#[test]
++fn source_cli_distinguishes_invalid_paths_from_unqualified_source_types() {
++    let executable = env!("CARGO_BIN_EXE_devforgeai-codex-worker-probe");
++    let relative = Command::new(executable)
++        .args(["profile-sources", "--checkout-root", "relative-fixture"])
++        .output()
++        .unwrap();
++    assert_eq!(relative.status.code(), Some(2));
++    assert!(relative.stdout.is_empty());
++    assert_eq!(
++        serde_json::from_slice::<Value>(&relative.stderr).unwrap(),
++        json!({"error":"invalid_path"})
++    );
++
++    let storage = support::Fixture::new("WF-17");
++    let workspace = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
++        .ancestors()
++        .nth(3)
++        .unwrap()
++        .to_path_buf();
++    let trial_parent = workspace.join("docs/plan/framework-worker-trials");
++    let trial = tempfile::Builder::new()
++        .prefix("RT-source-type-")
++        .tempdir_in(&trial_parent)
++        .unwrap();
++    let fixture = trial.path().join("fixture");
++    fs::create_dir(&fixture).unwrap();
++    fs::write(fixture.join("task.json"), request::TASK).unwrap();
++    let user = storage.root.path().join("synthetic-user");
++    let system = storage.root.path().join("synthetic-system");
++    let wrong_type = user.join(".codex/config.toml");
++    fs::create_dir_all(&wrong_type).unwrap();
++    fs::create_dir(&system).unwrap();
++    let output = Command::new(executable)
++        .args(["profile-sources", "--checkout-root"])
++        .arg(&fixture)
++        .env("USERPROFILE", &user)
++        .env("PROGRAMDATA", &system)
++        .output()
++        .unwrap();
++    assert_eq!(output.status.code(), Some(3));
++    assert!(output.stdout.is_empty());
++    assert_eq!(
++        serde_json::from_slice::<Value>(&output.stderr).unwrap(),
++        json!({"error":"profile_source_type"})
++    );
++    assert!(wrong_type.is_dir());
++    assert_eq!(fs::read(fixture.join("task.json")).unwrap(), request::TASK);
++    assert!(!trial.path().join("run").exists());
++    fs::write(
++        storage.root.path().join("source-cli.stdout.bin"),
++        output.stdout,
++    )
++    .unwrap();
++    fs::write(
++        storage.root.path().join("source-cli.stderr.bin"),
++        output.stderr,
++    )
++    .unwrap();
++    if std::env::var_os("WF_TEST_EVIDENCE").is_some() {
++        let _ = trial.keep();
++    }
++}
++
++#[test]
++fn public_preflight_review_rejects_a_peer_without_native_profile() {
++    let fixture = support::Fixture::new("WF-01");
++    assert_eq!(
++        fixture.request.verify_preflight_review().unwrap_err(),
++        "profile_unqualified"
++    );
++    assert!(!fixture.request.run_dir.exists());
++    assert!(!fixture.root.path().join("peer-trace.jsonl").exists());
++    assert_eq!(
++        fs::read(fixture.request.checkout_root.join("task.json")).unwrap(),
++        request::TASK
++    );
++}
++
++#[test]
++fn public_review_entrypoints_reject_untrusted_bytes_before_work() {
++    for case in ["missing", "oversized", "digest-mismatch", "malformed"] {
++        let fixture = support::Fixture::new("WF-17");
++        let review_path = fixture.root.path().join("untrusted-review.json");
++        let bytes = match case {
++            "oversized" => vec![b' '; 65_537],
++            "digest-mismatch" | "malformed" => b"not valid JSON".to_vec(),
++            "missing" => Vec::new(),
++            _ => unreachable!(),
++        };
++        if case != "missing" {
++            fs::write(&review_path, &bytes).unwrap();
++        }
++        let mut native_request = fixture.request.clone();
++        native_request.schema_version = 2;
++        native_request.adapter = "codex-0.154.0-stdio".into();
++        native_request.profile = json!({
++            "model": "gpt-6-astra",
++            "effort": "high",
++            "review_ref": review_path,
++            "review_sha256": if case == "digest-mismatch" {
++                "0".repeat(64)
++            } else {
++                request::digest(&bytes)
++            },
++            "launch_policy_id": "codex-0.154.0-readonly-no-external-tools-v2",
++            "launch_policy_sha256": "1dbc48c4a3627f7c5fc7a996935ec507426e4cd90adac058eb81100ac9b526b5"
++        });
++        assert!(native_request.profile().unwrap().is_some());
++        devforgeai_codex_worker_probe::launch_policy::args(
++            &native_request.adapter,
++            native_request.schema_version,
++            native_request.profile["launch_policy_id"].as_str().unwrap(),
++            native_request.profile["launch_policy_sha256"]
++                .as_str()
++                .unwrap(),
++        )
++        .expect("review test requires an otherwise qualified launch policy");
++        assert_eq!(
++            native_request.verify_preflight_review().unwrap_err(),
++            "profile_unqualified",
++            "{case}"
++        );
++        assert_eq!(
++            native_request.verify_review().unwrap_err(),
++            "profile_unqualified",
++            "{case}"
++        );
++        assert!(!fixture.request.run_dir.exists(), "{case}");
++        assert!(
++            !fixture.root.path().join("peer-trace.jsonl").exists(),
++            "{case}"
++        );
++        if case == "missing" {
++            assert!(!review_path.exists());
++        } else {
++            assert_eq!(fs::read(review_path).unwrap(), bytes);
++        }
++        assert_eq!(
++            fs::read(fixture.request.checkout_root.join("task.json")).unwrap(),
++            request::TASK
++        );
++    }
++}
+--- baseline/tests/support/profile_sources_edges.rs
++++ candidate/tests/support/profile_sources_edges.rs
+@@ -0,0 +1,390 @@
++use super::*;
++use std::{
++    ffi::OsString,
++    fs,
++    os::windows::ffi::OsStringExt,
++    path::{Path, PathBuf},
++};
++
++const SPEC_MAX_FILE_BYTES: u64 = 1_048_576;
++const SPEC_MAX_TOTAL_BYTES: u64 = 8_388_608;
++const SPEC_MAX_ENTRIES: usize = 2_048;
++const SPEC_MAX_DIRECTORY_CHILDREN: usize = 1_024;
++const SPEC_MAX_ANCESTOR_LEVELS: usize = 32;
++const SPEC_MAX_RULE_LEVELS: usize = 8;
++
++struct EdgeContext {
++    root: Option<tempfile::TempDir>,
++}
++
++impl EdgeContext {
++    fn new(case: &str) -> Self {
++        let base = std::env::var_os("WF_TEST_EVIDENCE")
++            .map(PathBuf::from)
++            .unwrap_or_else(std::env::temp_dir);
++        fs::create_dir_all(&base).unwrap();
++        Self {
++            root: Some(
++                tempfile::Builder::new()
++                    .prefix(&format!("{case}-"))
++                    .tempdir_in(base)
++                    .unwrap(),
++            ),
++        }
++    }
++
++    fn root(&self) -> &Path {
++        self.root.as_ref().unwrap().path()
++    }
++
++    fn path(&self, relative: impl AsRef<Path>) -> PathBuf {
++        self.root().join(relative)
++    }
++
++    fn write(&self, relative: impl AsRef<Path>, bytes: &[u8]) -> PathBuf {
++        let path = self.path(relative);
++        fs::create_dir_all(path.parent().unwrap()).unwrap();
++        fs::write(&path, bytes).unwrap();
++        path
++    }
++}
++
++impl Drop for EdgeContext {
++    fn drop(&mut self) {
++        if std::env::var_os("WF_TEST_EVIDENCE").is_some() {
++            let _ = self.root.take().unwrap().keep();
++        }
++    }
++}
++
++fn absent_entry() -> SourceEntry {
++    SourceEntry {
++        family: SourceFamily::User,
++        path: PathBuf::from(r"C:\absent"),
++        state: SourceState::Absent,
++        sha256: None,
++        bytes: None,
++        items: None,
++    }
++}
++
++fn valid_inventory() -> Inventory {
++    Inventory {
++        schema_version: 1,
++        fixture_cwd: PathBuf::from(r"C:\fixture"),
++        roots: InventoryRoots {
++            ancestor_root: PathBuf::from(r"C:\"),
++            workspace_root: PathBuf::from(r"C:\workspace"),
++            user_codex_root: PathBuf::from(r"C:\user\.codex"),
++            program_data_codex_root: PathBuf::from(r"C:\ProgramData\OpenAI\Codex"),
++            plugin_cache_root: PathBuf::from(r"C:\user\.codex\plugins\cache"),
++        },
++        entries: vec![
++            SourceEntry {
++                family: SourceFamily::User,
++                path: PathBuf::from(r"C:\user\.codex\config.toml"),
++                state: SourceState::File,
++                sha256: Some("a".repeat(64)),
++                bytes: Some(SPEC_MAX_FILE_BYTES),
++                items: None,
++            },
++            absent_entry(),
++            SourceEntry {
++                family: SourceFamily::Rules,
++                path: PathBuf::from(r"C:\user\.codex\rules"),
++                state: SourceState::DirectoryIndex,
++                sha256: Some("b".repeat(64)),
++                bytes: None,
++                items: Some(SPEC_MAX_DIRECTORY_CHILDREN as u32),
++            },
++        ],
++    }
++}
++
++#[test]
++fn closed_inventory_shape_rejects_invalid_state_tuples_and_version() {
++    assert_eq!(MAX_FILE_BYTES, SPEC_MAX_FILE_BYTES);
++    assert_eq!(MAX_DIRECTORY_CHILDREN, SPEC_MAX_DIRECTORY_CHILDREN);
++    assert!(valid_inventory().valid_shape());
++
++    let mut invalid = Vec::new();
++
++    let mut value = valid_inventory();
++    value.schema_version = 2;
++    invalid.push(value);
++
++    let mut value = valid_inventory();
++    value.entries[0].sha256 = Some("not-a-digest".into());
++    invalid.push(value);
++
++    let mut value = valid_inventory();
++    value.entries[0].bytes = Some(SPEC_MAX_FILE_BYTES + 1);
++    invalid.push(value);
++
++    let mut value = valid_inventory();
++    value.entries[0].items = Some(0);
++    invalid.push(value);
++
++    let mut value = valid_inventory();
++    value.entries[1].sha256 = Some("c".repeat(64));
++    invalid.push(value);
++
++    let mut value = valid_inventory();
++    value.entries[2].bytes = Some(0);
++    invalid.push(value);
++
++    let mut value = valid_inventory();
++    value.entries[2].items = Some((SPEC_MAX_DIRECTORY_CHILDREN + 1) as u32);
++    invalid.push(value);
++
++    for inventory in invalid {
++        assert!(!inventory.valid_shape());
++    }
++}
++
++#[test]
++fn collector_enforces_entry_and_aggregate_byte_bounds() {
++    assert_eq!(MAX_ENTRIES, SPEC_MAX_ENTRIES);
++    assert_eq!(MAX_TOTAL_BYTES, SPEC_MAX_TOTAL_BYTES);
++
++    let mut entries = Collector {
++        entries: vec![absent_entry(); SPEC_MAX_ENTRIES],
++        total_bytes: 0,
++    };
++    assert_eq!(
++        entries.push(absent_entry()).unwrap_err(),
++        "profile_source_limit"
++    );
++
++    let context = EdgeContext::new("SI-E02-total-bytes");
++    let mut bytes = Collector::default();
++    for index in 0..8 {
++        let source = context.write(
++            format!("source-{index}.toml"),
++            &vec![b'x'; SPEC_MAX_FILE_BYTES as usize],
++        );
++        bytes.add_file(SourceFamily::User, &source).unwrap();
++    }
++    assert_eq!(bytes.total_bytes, SPEC_MAX_TOTAL_BYTES);
++    let next = context.write("one-byte-over.toml", b"x");
++    assert_eq!(
++        bytes.add_file(SourceFamily::User, &next).unwrap_err(),
++        "profile_source_limit"
++    );
++}
++
++#[test]
++fn rule_and_ancestor_depth_bounds_fail_closed() {
++    assert_eq!(MAX_RULE_DEPTH, SPEC_MAX_RULE_LEVELS);
++    assert_eq!(MAX_ANCESTOR_DEPTH, SPEC_MAX_ANCESTOR_LEVELS);
++
++    let context = EdgeContext::new("SI-E03-rule-depth");
++    let rules = context.path("rules");
++    let mut deepest = rules.clone();
++    for index in 0..=SPEC_MAX_RULE_LEVELS {
++        deepest = deepest.join(format!("level-{index}"));
++    }
++    fs::create_dir_all(&deepest).unwrap();
++    assert_eq!(
++        Collector::default().walk_rules(&rules, 0).unwrap_err(),
++        "profile_source_limit"
++    );
++
++    let root = context.path("ancestors");
++    let mut accepted = root.clone();
++    for index in 0..(SPEC_MAX_ANCESTOR_LEVELS - 1) {
++        accepted = accepted.join(format!("a-{index}"));
++    }
++    assert_eq!(
++        scoped_ancestors(&root, &accepted).unwrap().len(),
++        SPEC_MAX_ANCESTOR_LEVELS
++    );
++    let too_deep = accepted.join("one-too-many");
++    assert_eq!(
++        scoped_ancestors(&root, &too_deep).unwrap_err(),
++        "profile_source_limit"
++    );
++    assert_eq!(
++        scoped_ancestors(
++            &context.path("different-root"),
++            &context.path("outside-root/leaf"),
++        )
++        .unwrap_err(),
++        "profile_source_fixture_scope"
++    );
++}
++
++#[test]
++fn directory_member_bound_and_required_file_type_are_enforced() {
++    let context = EdgeContext::new("SI-E04-directory-bound");
++    let crowded = context.path("crowded");
++    fs::create_dir_all(&crowded).unwrap();
++    for index in 0..=SPEC_MAX_DIRECTORY_CHILDREN {
++        fs::write(crowded.join(format!("member-{index:04}")), b"").unwrap();
++    }
++    assert_eq!(
++        directory_snapshot(&crowded).unwrap_err(),
++        "profile_source_limit"
++    );
++
++    let wrong_type = context.path("config.toml");
++    fs::create_dir_all(&wrong_type).unwrap();
++    assert_eq!(
++        Collector::default()
++            .add_file_or_absent(SourceFamily::User, &wrong_type)
++            .unwrap_err(),
++        "profile_source_type"
++    );
++    assert_eq!(
++        require_directory(&context.write("ordinary-file", b"x")).unwrap_err(),
++        "profile_source_type"
++    );
++}
++
++#[test]
++fn plugin_tree_grammar_rejects_unknown_members_and_indexes_controls() {
++    let provider_file = EdgeContext::new("SI-E05-provider-file");
++    let cache = provider_file.path("cache");
++    fs::create_dir_all(&cache).unwrap();
++    fs::write(cache.join("provider"), b"not a directory").unwrap();
++    assert_eq!(
++        Collector::default().walk_plugins(&cache).unwrap_err(),
++        "profile_source_unrecognized"
++    );
++
++    let plugin_file = EdgeContext::new("SI-E05-plugin-file");
++    let cache = plugin_file.path("cache");
++    fs::create_dir_all(cache.join("provider")).unwrap();
++    fs::write(cache.join("provider/plugin"), b"not a directory").unwrap();
++    assert_eq!(
++        Collector::default().walk_plugins(&cache).unwrap_err(),
++        "profile_source_unrecognized"
++    );
++
++    let unknown_plugin_member = EdgeContext::new("SI-E05-plugin-member");
++    let cache = unknown_plugin_member.path("cache");
++    fs::create_dir_all(cache.join("provider/plugin")).unwrap();
++    fs::write(cache.join("provider/plugin/unexpected.json"), b"{}").unwrap();
++    assert_eq!(
++        Collector::default().walk_plugins(&cache).unwrap_err(),
++        "profile_source_unrecognized"
++    );
++
++    let unknown_control = EdgeContext::new("SI-E05-control-member");
++    let cache = unknown_control.path("cache");
++    fs::create_dir_all(cache.join("provider/plugin/1.0/.codex-plugin")).unwrap();
++    fs::write(
++        cache.join("provider/plugin/1.0/.codex-plugin/unexpected.json"),
++        b"{}",
++    )
++    .unwrap();
++    assert_eq!(
++        Collector::default().walk_plugins(&cache).unwrap_err(),
++        "profile_source_unrecognized"
++    );
++
++    let accepted = EdgeContext::new("SI-E05-controls");
++    let cache = accepted.path("cache");
++    let plugin = cache.join("provider/plugin");
++    let version = plugin.join("1.0");
++    fs::create_dir_all(version.join(".codex-plugin")).unwrap();
++    fs::write(
++        plugin.join(".codex-remote-plugin-install.json"),
++        b"{\"installed\":true}",
++    )
++    .unwrap();
++    fs::write(version.join("README.md"), b"payload, not a control input").unwrap();
++    fs::write(version.join(".codex-plugin/plugin.json"), b"{}").unwrap();
++    let mut collector = Collector::default();
++    collector.walk_plugins(&cache).unwrap();
++    assert!(collector.entries.iter().any(|entry| {
++        entry.state == SourceState::File
++            && entry.path.ends_with(".codex-remote-plugin-install.json")
++    }));
++    assert!(
++        collector.entries.iter().any(|entry| {
++            entry.state == SourceState::File && entry.path.ends_with("plugin.json")
++        })
++    );
++    assert!(
++        !collector
++            .entries
++            .iter()
++            .any(|entry| { entry.state == SourceState::File && entry.path.ends_with("README.md") })
++    );
++}
++
++#[test]
++fn credential_like_and_non_unicode_names_fail_closed() {
++    for name in [
++        "auth.json",
++        "AUTH.JSON",
++        ".env",
++        ".env.production",
++        "client-credential.toml",
++        "secret-store.json",
++        "access-token.txt",
++    ] {
++        assert!(forbidden_name(OsString::from(name).as_os_str()), "{name}");
++    }
++    assert!(!forbidden_name(OsString::from("config.toml").as_os_str()));
++
++    let invalid_unicode = OsString::from_wide(&[0xd800]);
++    assert!(forbidden_name(&invalid_unicode));
++}
++
++#[test]
++fn hash_size_drift_and_non_absolute_paths_fail_closed() {
++    let context = EdgeContext::new("SI-E07-hash-path");
++    let small = context.write("small.toml", b"abc");
++    assert_eq!(hash_once(&small, 4).unwrap_err(), "profile_source_drift");
++
++    let oversized = context.write(
++        "oversized.toml",
++        &vec![b'x'; (SPEC_MAX_FILE_BYTES + 1) as usize],
++    );
++    assert_eq!(
++        hash_once(&oversized, SPEC_MAX_FILE_BYTES + 1).unwrap_err(),
++        "profile_source_limit"
++    );
++
++    assert_eq!(
++        expected_path(Path::new("relative/config.toml")).unwrap_err(),
++        "profile_source_path"
++    );
++    assert_eq!(
++        expected_path(Path::new(r"C:\source\..\escape.toml")).unwrap_err(),
++        "profile_source_path"
++    );
++    assert!(
++        strict_resolve(Path::new("relative"))
++            .unwrap_err()
++            .starts_with("profile_source_path:")
++    );
++}
++
++#[test]
++fn missing_paths_are_explicit_and_directory_order_is_stable() {
++    let context = EdgeContext::new("SI-E08-absence-order");
++    let missing = context.path("missing/deeper/config.toml");
++    let (resolved_missing, exists) = expected_path(&missing).unwrap();
++    assert!(!exists);
++    assert_eq!(
++        resolved_missing,
++        strict_resolve(context.root())
++            .unwrap()
++            .join("missing/deeper/config.toml")
++    );
++
++    let directory = context.path("ordered");
++    fs::create_dir_all(&directory).unwrap();
++    for name in ["zeta", "Alpha", "beta"] {
++        fs::write(directory.join(name), b"").unwrap();
++    }
++    let names: Vec<_> = directory_snapshot(&directory)
++        .unwrap()
++        .into_iter()
++        .map(|member| member.name)
++        .collect();
++    assert_eq!(names, ["Alpha", "beta", "zeta"]);
++}
+--- baseline/tests/support/protocol_edges_peer.rs
++++ candidate/tests/support/protocol_edges_peer.rs
+@@ -0,0 +1,288 @@
++// Independent protocol-edge peer for pre-thread preflight tests.
++use serde_json::{Value, json};
++use std::{
++    fs::OpenOptions,
++    io::{self, BufRead, Write},
++    path::PathBuf,
++    time::Duration,
++};
++
++const FEATURES: &[&str] = &[
++    "memories",
++    "hooks",
++    "plugins",
++    "apps",
++    "browser_use",
++    "browser_use_external",
++    "browser_use_full_cdp_access",
++    "computer_use",
++    "image_generation",
++    "in_app_browser",
++    "multi_agent",
++    "shell_tool",
++    "tool_suggest",
++    "view_image",
++    "auth_elicitation",
++    "code_mode_host",
++    "goals",
++    "guardian_approval",
++    "in_app_chat",
++    "in_app_dictation",
++    "in_app_local_automation",
++    "in_app_updates",
++    "plugin_sharing",
++    "prevent_idle_sleep",
++    "remote_plugin",
++    "shell_snapshot",
++    "skill_mcp_dependency_install",
++    "skill_search",
++    "sleep_tool",
++    "sqlite",
++    "tool_call_mcp_elicitation",
++    "unified_exec",
++    "unified_exec_tty",
++    "workspace_dependencies",
++    "worktrees",
++];
++
++const PLUGINS: &[&str] = &[
++    "documents@openai-primary-runtime",
++    "pdf@openai-primary-runtime",
++    "spreadsheets@openai-primary-runtime",
++    "presentations@openai-primary-runtime",
++    "template-creator@openai-primary-runtime",
++    "sites@openai-bundled",
++    "visualize@openai-bundled",
++    "codex-app-tools@openai-bundled",
++    "computer-use@openai-bundled",
++    "unified-computer-use@openai-bundled",
++    "browser@openai-bundled",
++    "chrome@openai-bundled",
++];
++
++fn send(value: Value) {
++    println!("{value}");
++    io::stdout().flush().unwrap();
++}
++
++fn result(id: &Value, value: Value) {
++    send(json!({"id":id,"result":value}));
++}
++
++fn fixed_config() -> Value {
++    json!({
++        "model_provider":"openai",
++        "forced_login_method":"chatgpt",
++        "web_search":"disabled",
++        "sandbox_mode":"read-only",
++        "approval_policy":"never",
++        "features":FEATURES.iter().map(|name| ((*name).to_owned(), Value::Bool(false))).collect::<serde_json::Map<String,Value>>(),
++        "apps":{"_default":{"enabled":false},"connector_openai_codex_document_control":{"enabled":false}},
++        "mcp_servers":{"node_repl":{"enabled":false},"openaiDeveloperDocs":{"enabled":false}},
++        "plugins":PLUGINS.iter().map(|name| ((*name).to_owned(), json!({"enabled":false}))).collect::<serde_json::Map<String,Value>>()
++    })
++}
++
++fn main() {
++    let args: Vec<_> = std::env::args().collect();
++    assert_eq!(args.len(), 7);
++    assert_eq!(args[1], "--case");
++    let case = &args[2];
++    assert_eq!(args[3], "--trace");
++    let trace_path = PathBuf::from(&args[4]);
++    assert_eq!(args[5], "--fixture-root");
++    let root = PathBuf::from(&args[6]);
++    let covered = root.join("peer-case.txt");
++    let mut trace = OpenOptions::new()
++        .create_new(true)
++        .write(true)
++        .open(trace_path)
++        .unwrap();
++    let mut expected_id = 1_u64;
++    let mut feature_pages = 0_u8;
++    let mut awaiting_server_response: Option<&str> = None;
++
++    for line in io::stdin().lock().lines() {
++        let line = line.unwrap();
++        writeln!(trace, "{line}").unwrap();
++        trace.sync_all().unwrap();
++        let value: Value = serde_json::from_str(&line).unwrap();
++
++        if let Some(expected) = awaiting_server_response.take() {
++            match expected {
++                "approval" => assert_eq!(
++                    value,
++                    json!({"id":"server-approval","result":{"decision":"cancel"}})
++                ),
++                "unsupported" => assert_eq!(
++                    value,
++                    json!({"id":77,"error":{"code":-32601,"message":"Method not supported"}})
++                ),
++                _ => unreachable!(),
++            }
++            return;
++        }
++
++        let method = value["method"].as_str().unwrap();
++        let params = &value["params"];
++        if method == "initialized" {
++            assert_eq!(params, &json!({}));
++            continue;
++        }
++        let id = &value["id"];
++        assert_eq!(id, &json!(expected_id));
++        expected_id += 1;
++
++        if method == "initialize" {
++            assert_eq!(
++                params,
++                &json!({"clientInfo":{"name":"devforgeai_worker_probe","version":"0.1.0"},"capabilities":{"experimentalApi":false}})
++            );
++            match case.as_str() {
++                "approval-request" => {
++                    awaiting_server_response = Some("approval");
++                    send(
++                        json!({"id":"server-approval","method":"item/commandExecution/requestApproval","params":{"private":"PRIVATE_APPROVAL_REQUEST"}}),
++                    );
++                    continue;
++                }
++                "unsupported-request" => {
++                    awaiting_server_response = Some("unsupported");
++                    send(
++                        json!({"id":77,"method":"account/login/start","params":{"private":"PRIVATE_UNSUPPORTED_REQUEST"}}),
++                    );
++                    continue;
++                }
++                "malformed-request-id" => {
++                    send(
++                        json!({"id":{"invalid":true},"method":"item/fileChange/requestApproval","params":{}}),
++                    );
++                    std::thread::sleep(Duration::from_secs(30));
++                    continue;
++                }
++                "stderr" => {
++                    eprintln!("PRIVATE_STDERR_SENTINEL");
++                    io::stderr().flush().unwrap();
++                    std::thread::sleep(Duration::from_millis(50));
++                }
++                _ => {}
++            }
++            result(id, json!({"userAgent":"synthetic-protocol-edges-peer"}));
++            continue;
++        }
++
++        match method {
++            "config/read" => {
++                assert_eq!(params, &json!({"cwd":root,"includeLayers":true}));
++                let fixed = fixed_config();
++                result(
++                    id,
++                    json!({
++                        "config":fixed,
++                        "layers":[
++                            {"name":{"type":"user","file":covered,"profile":null},"version":"1","disabledReason":null,"config":{}},
++                            {"name":{"type":"sessionFlags"},"version":"1","disabledReason":null,"config":fixed}
++                        ],
++                        "origins":{
++                            "model_provider":{"name":{"type":"sessionFlags"},"version":"1"},
++                            "forced_login_method":{"name":{"type":"sessionFlags"},"version":"1"},
++                            "web_search":{"name":{"type":"sessionFlags"},"version":"1"},
++                            "sandbox_mode":{"name":{"type":"sessionFlags"},"version":"1"},
++                            "approval_policy":{"name":{"type":"sessionFlags"},"version":"1"}
++                        }
++                    }),
++                );
++            }
++            "configRequirements/read" => {
++                assert_eq!(params, &json!({}));
++                result(id, json!({"requirements":null}));
++            }
++            "experimentalFeature/list" => {
++                feature_pages += 1;
++                assert_eq!(params["limit"], 100);
++                assert!(params["threadId"].is_null());
++                let mut data: Vec<Value> = FEATURES
++                    .iter()
++                    .map(|name| json!({"name":name,"enabled":false,"defaultEnabled":false,"stage":"stable"}))
++                    .collect();
++                let next = match case.as_str() {
++                    "feature-overflow" => {
++                        for index in 0..66 {
++                            data.push(json!({"name":format!("extra-{index}"),"enabled":false,"defaultEnabled":false,"stage":"stable"}));
++                        }
++                        Value::Null
++                    }
++                    "feature-repeat-cursor" => json!("repeat"),
++                    "feature-ten-pages" => json!(format!("page-{feature_pages}")),
++                    _ => Value::Null,
++                };
++                result(id, json!({"data":data,"nextCursor":next}));
++            }
++            "hooks/list" => {
++                assert_eq!(params, &json!({"cwds":[root]}));
++                result(
++                    id,
++                    json!({"data":[{"cwd":root,"errors":[],"hooks":[],"warnings":[]}]}),
++                );
++            }
++            "plugin/list" => {
++                assert_eq!(
++                    params,
++                    &json!({"cwds":[root],"forceRefetch":false,"marketplaceKinds":["local"]})
++                );
++                result(
++                    id,
++                    json!({"marketplaces":[],"marketplaceLoadErrors":[],"featuredPluginIds":[]}),
++                );
++            }
++            "app/installed" => {
++                assert_eq!(params, &json!({"forceRefresh":false,"threadId":null}));
++                result(
++                    id,
++                    json!({"apps":[{"id":"connector_openai_codex_document_control","enabled":false,"callable":false,"runtimeName":null}]}),
++                );
++            }
++            "mcpServerStatus/list" => {
++                assert_eq!(params["limit"], 100);
++                assert!(params["threadId"].is_null());
++                assert_eq!(params["detail"], "toolsAndAuthOnly");
++                let data = ["node_repl", "openaiDeveloperDocs"]
++                    .into_iter()
++                    .map(|name| json!({"name":name,"authStatus":"unknown","resourceTemplates":[],"resources":[],"tools":{},"toolsError":null,"runtimeStatus":"disabled","serverInfo":null,"pluginId":null}))
++                    .collect::<Vec<_>>();
++                result(id, json!({"data":data,"nextCursor":null}));
++            }
++            "account/read" => {
++                assert_eq!(params, &json!({"refreshToken":false}));
++                result(
++                    id,
++                    json!({"account":{"type":"chatgpt","email":"PRIVATE_EMAIL","planType":"pro"},"requiresOpenaiAuth":true}),
++                );
++            }
++            "model/list" => {
++                assert_eq!(params["limit"], 100);
++                result(
++                    id,
++                    json!({"data":[{"id":"test-model","model":"test-model","description":"test","displayName":"test","hidden":false,"isDefault":true,"defaultReasoningEffort":"test-effort","supportedReasoningEfforts":[{"reasoningEffort":"test-effort","description":"test"}]}],"nextCursor":null}),
++                );
++            }
++            "account/rateLimits/read" => {
++                assert_eq!(params, &json!({}));
++                match case.as_str() {
++                    "rate-limit-rpc-error" => send(
++                        json!({"id":id,"error":{"code":-32000,"message":"PRIVATE_RATE_LIMIT_ERROR"}}),
++                    ),
++                    "rate-limit-negative" => result(
++                        id,
++                        json!({"rateLimits":{"primary":{"usedPercent":-1},"secondary":{"usedPercent":0}}}),
++                    ),
++                    _ => result(
++                        id,
++                        json!({"rateLimits":{"primary":{"usedPercent":0},"secondary":{"usedPercent":0}}}),
++                    ),
++                }
++            }
++            _ => panic!("unexpected outbound method: {method}"),
++        }
++    }
++}

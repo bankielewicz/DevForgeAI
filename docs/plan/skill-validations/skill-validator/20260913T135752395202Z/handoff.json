@@ -1,0 +1,47 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T135752395202Z",
+  "target_name": "skill-validator",
+  "original_target_root": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator",
+  "original_manifest": {
+    "path": "source-manifest.json",
+    "sha256": "01e3e640c186f03ff84246e0561f1d03d428e8ee07cdff8f69171055a411a5a8"
+  },
+  "origin": {
+    "path": "origin-record.json",
+    "sha256": "eb221525cce29f50e661d1ff149fbf346f42a4ce98eeef6e6ca475cab093327b"
+  },
+  "proposed_spec": {
+    "path": "inputs/proposed-revision.md",
+    "sha256": "0f88d1211351ebb03bc9ec76a39072a180189ccf8f2fe099ebe2044a66c61ec6"
+  },
+  "findings": {
+    "path": "findings.json",
+    "sha256": "d081566618ceff2ab734db5f7abc13e0717f9af5a6299d2dab983f5a7cad5944"
+  },
+  "report": {
+    "path": "validation-report.md",
+    "sha256": "cd61dc006aeb609ec6aa323a03ed183260f6736d341b41fc3adb1a85924a2ade"
+  },
+  "selected_finding_ids": [],
+  "deferred_finding_ids": [],
+  "proposal_review_state": "pending",
+  "review_instruction": null,
+  "builder_readiness": "BLOCKED",
+  "readiness_reasons": [
+    "Proposed validator maintenance; no repair selected. Observed scoped edit is supported; known custody must be rechecked before any future edit.",
+    "No baseline/adoption reference selected for schema-1 execution handoff. Proposal review remains pending; no repair authorization."
+  ],
+  "baseline_kind": null,
+  "baseline_reference": null,
+  "adoption_required": false,
+  "adoption_capability": "Existing observed scoped edit is supported; no adoption occurred.",
+  "permitted_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+  "preservation_requirements": [
+    "Operational packages",
+    "Specifications",
+    "Prior evidence",
+    "Unrelated bytes"
+  ],
+  "target_package_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1"
+}

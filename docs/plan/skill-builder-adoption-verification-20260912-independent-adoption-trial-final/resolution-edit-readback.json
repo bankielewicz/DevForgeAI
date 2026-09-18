@@ -1,0 +1,55 @@
+{
+  "instruction": "Distinct disposable-trial resolution authorization: retain the injected edited script bytes and conflict receipts, restore only scripts/receipt_totals.py to its exact adopted snapshot bytes, then recapture current C and recompute/apply the already reviewed candidate using the same published adopted origin. Preserve notes and every other path. Bind this instruction to the exact conflicted script, adopted digest and candidate specification; do not re-adopt or advance B from the failed attempt. After successful delivered checks/publication, prepare the concrete later behavior change for separate trial-controller authorization.\n",
+  "before": {
+    "schema_version": "1",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 285,
+        "sha256": "7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a"
+      },
+      {
+        "path": "notes.txt",
+        "bytes": 118,
+        "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94"
+      },
+      {
+        "path": "scripts/receipt_totals.py",
+        "bytes": 335,
+        "sha256": "abb242b7a32728d9037277813e37b6b1358811c0f6a5a22e9dadab8b37eee308"
+      }
+    ]
+  },
+  "after": {
+    "schema_version": "1",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 285,
+        "sha256": "7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a"
+      },
+      {
+        "path": "notes.txt",
+        "bytes": 118,
+        "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94"
+      },
+      {
+        "path": "scripts/receipt_totals.py",
+        "bytes": 279,
+        "sha256": "c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0"
+      }
+    ]
+  },
+  "restored_path": "scripts/receipt_totals.py",
+  "restored_sha256": "c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0",
+  "adoption_origin": {
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "44f43530ca0892328a54353c3eed07758f5c2626f09c87b208530970eb4f1083"
+  },
+  "conflict_plan": {
+    "path": "revision-01-conflict/evidence/revision-plan.json",
+    "sha256": "056067e150b22578c3d4f508e2b367365003f37a85c4804441a1a03380b464f3"
+  },
+  "candidate_spec_sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618",
+  "timestamp": "2026-09-12T15:29:47.212582+00:00"
+}

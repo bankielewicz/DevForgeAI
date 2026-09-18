@@ -1,0 +1,266 @@
+[
+  {
+    "source": "SKILL.md",
+    "line": 16,
+    "target": "references/authoring.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 17,
+    "target": "references/spec-build.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 18,
+    "target": "references/conversion-rules.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 19,
+    "target": "references/regeneration.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 20,
+    "target": "references/adoption.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 21,
+    "target": "references/adaptation.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 23,
+    "target": "references/adaptive-contracts.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 23,
+    "target": "references/project-binding.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 29,
+    "target": "references/evidence-format.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 33,
+    "target": "references/scaffolding.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "SKILL.md",
+    "line": 41,
+    "target": "references/validation-handoff.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "assets/conversion-report-template.md",
+    "line": 3,
+    "target": "build-report-template.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "assets/skill-creator-notice.md",
+    "line": 3,
+    "target": "skill-creator-license.txt",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptation.md",
+    "line": 13,
+    "target": "adaptive-contracts.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptation.md",
+    "line": 25,
+    "target": "regeneration.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 7,
+    "target": "../schemas/project-evidence-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 8,
+    "target": "../schemas/adaptation-proposal-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 9,
+    "target": "../schemas/adaptation-selection-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 10,
+    "target": "../schemas/set-authoring-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 11,
+    "target": "../schemas/set-validation-request-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 12,
+    "target": "../schemas/adaptive-skill-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 13,
+    "target": "../schemas/project-binding-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 14,
+    "target": "../schemas/adaptive-observation-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 15,
+    "target": "../schemas/binding-observation-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 35,
+    "target": "../assets/adaptive-runtime/check_project_binding.py",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/adaptive-contracts.md",
+    "line": 35,
+    "target": "project-binding.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/authoring.md",
+    "line": 7,
+    "target": "evidence-format.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/conversion-rules.md",
+    "line": 43,
+    "target": "spec-build.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/project-binding.md",
+    "line": 3,
+    "target": "../assets/adaptive-runtime/check_project_binding.py",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/project-binding.md",
+    "line": 17,
+    "target": "../schemas/project-binding-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/project-binding.md",
+    "line": 25,
+    "target": "../schemas/binding-observation-v1.schema.json",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/scaffolding.md",
+    "line": 3,
+    "target": "../assets/skill-creator-notice.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  },
+  {
+    "source": "references/scaffolding.md",
+    "line": 13,
+    "target": "openai_yaml.md",
+    "exists": true,
+    "in_package": true,
+    "anchor_review": "not needed"
+  }
+]

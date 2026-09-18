@@ -1,0 +1,24 @@
+{
+  "schema_version": "adaptive-skill-v1",
+  "name": "variant-skill",
+  "role": "project_variant",
+  "binding_required": true,
+  "parent_core": {
+    "name": "core-skill",
+    "package_digest": "6cd0e28f2138d701924a17cabe7aba56458ca20e52a6a21d179e5fe70aaea581",
+    "requirement_ids": [
+      "R1"
+    ]
+  },
+  "contract_path": "references/adaptive-contract.md",
+  "required_capabilities": [
+    "Python 3.10+"
+  ],
+  "resource_roles": [
+    {
+      "path": "scripts/check_project_binding.py",
+      "role": "runtime",
+      "reason": "Check local binding before effects."
+    }
+  ]
+}

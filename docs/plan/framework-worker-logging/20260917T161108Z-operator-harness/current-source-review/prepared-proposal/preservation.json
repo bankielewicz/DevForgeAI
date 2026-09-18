@@ -1,0 +1,10 @@
+{
+  "unique_files_hashed": 21828,
+  "current_reviewed_files_hashed": 26,
+  "approved_inventory": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\collection\\stdout.bin",
+    "bytes": 25935,
+    "sha256": "e0ea8f1ec76e39c663694d5b6366541a17c9ae2811fa7ea420c296f23f591a73"
+  },
+  "framework_acceptance": "NOT_EVALUATED"
+}

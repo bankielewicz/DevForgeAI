@@ -1,0 +1,3 @@
+{"case_id": "build_traceability", "grader_id": "build_traceability", "params": {"evidence": "trace/evidence", "destination": "trace/destination"}, "expected": "PASS"}
+{"case_id": "manifest_accounting", "grader_id": "manifest_accounting", "params": {"source": "portable/source", "destination": "portable/destination", "evidence": "portable/evidence"}, "expected": "PASS"}
+{"case_id": "package_links", "grader_id": "package_links", "params": {"path": "trace/destination"}, "expected": "PASS"}

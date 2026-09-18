@@ -1,0 +1,29 @@
+{
+  "case_id": "fmt",
+  "argv": [
+    "cargo",
+    "fmt",
+    "--all",
+    "--",
+    "--check"
+  ],
+  "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/candidate",
+  "platform": "linux",
+  "start": "2026-09-14T19:24:20.330540+00:00",
+  "environment_overrides": {
+    "TEMP": "/tmp/devforgeai-qa-20260914T191133863776Z",
+    "TMP": "/tmp/devforgeai-qa-20260914T191133863776Z",
+    "TMPDIR": "/tmp/devforgeai-qa-20260914T191133863776Z",
+    "CARGO_TARGET_DIR": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/target",
+    "CARGO_LLVM_COV_TARGET_DIR": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/coverage-target",
+    "DEVFORGEAI_INDEX_DATA": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/attempts/fmt/gui"
+  },
+  "timeout_seconds": 1800,
+  "pid": 28695,
+  "exit_code": 0,
+  "end": "2026-09-14T19:24:20.447579+00:00",
+  "elapsed_seconds": 0.11704144999930577,
+  "stdout.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

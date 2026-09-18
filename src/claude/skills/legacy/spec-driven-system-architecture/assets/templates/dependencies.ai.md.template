@@ -1,0 +1,66 @@
+# dependencies.ai.md
+# DERIVED from dependencies.md | ADR-052
+# Regenerate: /create-system-architecture
+# Generated: {{generated_at}} | Hash: {{source_hash}}
+---
+core_framework:
+  severity: CRITICAL
+  rule: "ZERO external package dependencies for core framework"
+  prohibited:
+    - "NO npm packages for core framework (skills, subagents, commands)"
+    - "NO Python packages for core framework"
+    - "NO .NET packages for core framework"
+    - "NO executable code dependencies in core framework"
+
+dependency_addition_protocol:
+  severity: CRITICAL
+  steps:
+    - "Check if core Claude Code functionality covers the need"
+    - "Evaluate if Markdown documentation suffices"
+    - "AskUserQuestion for user approval"
+    - "Create ADR (Architecture Decision Record)"
+    - "Update tech-stack.md and this file"
+
+npm_locked_versions:
+  severity: HIGH
+  scope: "Installer only (not core framework)"
+  packages:
+    commander: "^11.0.0 (CommonJS compatible)"
+    inquirer: "^8.2.6 (LOCKED 8.x -- last CommonJS, 9.x is ESM-only per ADR-006)"
+    ora: "^5.4.1 (LOCKED 5.x -- last CommonJS, 6.x+ is ESM-only per ADR-006)"
+    chalk: "^4.1.2 (LOCKED 4.x -- last CommonJS, 5.x+ is ESM-only per ADR-006)"
+    cli_progress: "^3.12.0 (CommonJS compatible)"
+
+npm_forbidden_alternatives:
+  severity: HIGH
+  forbidden:
+    - "Yargs (use Commander.js only)"
+    - "Prompts (use Inquirer.js only)"
+    - "cli-spinners (use Ora only)"
+    - "colors (use Chalk only)"
+
+python_requirements:
+  severity: HIGH
+  python: "3.10+ (LOCKED)"
+  pyyaml: "6.0+ (LOCKED -- configuration file parsing)"
+  jsonschema: "4.0+ (LOCKED -- JSON Schema validation, STORY-245)"
+
+binary_dependencies:
+  severity: HIGH
+  treelint:
+    version: "v0.12.0+ (LOCKED per ADR-013)"
+    distribution: "Bundled binary, SHA256 verified"
+    install_path: ".treelint/bin/treelint (project-local)"
+
+platform_support:
+  severity: HIGH
+  required: ["Windows 10+", "macOS 11+", "Linux", "WSL 1/2"]
+  rule: "Use path.join() / os.path.join() -- never hardcode separators"
+on_violation: "HALT + require ADR for any new dependency"
+
+# --- Extracted rules from parent .md file (auto-populated by ai-rule-extractor agents) ---
+extracted_critical_rules:
+{{critical_rules}}
+
+extracted_high_rules:
+{{high_rules}}

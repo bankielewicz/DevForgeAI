@@ -1,0 +1,407 @@
+[
+  {
+    "id": "BAT-01.01",
+    "parent": "BAT-01",
+    "required_behavior": "ordinary helper create/edit and exact manual request",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "v2-author-create-publish, v2-author-edit-publish; followup-results.json",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-01.02",
+    "parent": "BAT-01",
+    "required_behavior": "cold ordinary create and focused edit with no quality process",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "cold-create-01 host failure; cold-create-02 timeout before delivery; edit dependent on complete create",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-02.01",
+    "parent": "BAT-02",
+    "required_behavior": "junction/link refusal by runtime helper",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "windows-symlink, linux-symlink",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-02.02",
+    "parent": "BAT-02",
+    "required_behavior": "monorepo facts, unknown manifest, exclusions, no project execution and citations in completed proposal",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "cold-propose-typescript timed out; raw inputs preserved",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-02.03",
+    "parent": "BAT-02",
+    "required_behavior": "default discovery aggregate budgets and secret exclusions in autonomous discovery",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "No completed bounded discovery result",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-03.01",
+    "parent": "BAT-03",
+    "required_behavior": "Windows independent count and byte capture ceiling and exact boundary values",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "binding-file-limit, binding-byte-limit, windows-exact-files, windows-over-files, windows-exact-bytes, windows-over-bytes",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-03.02",
+    "parent": "BAT-03",
+    "required_behavior": "Linux byte ceilings",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "linux-exact-bytes, linux-over-bytes",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-03.03",
+    "parent": "BAT-03",
+    "required_behavior": "Linux count ceilings",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "linux-exact-files and linux-over-files timed out at 120 seconds on /mnt/c; no output",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-03.04",
+    "parent": "BAT-03",
+    "required_behavior": "missing Python isolated child and required unavailable Rust capability preflight",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "missing-python-child, selection-missing-capability",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-03.05",
+    "parent": "BAT-03",
+    "required_behavior": "independent prose retained and dependent authoring blocked after unavailable capability; shared-original discovery accounting",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "No cold capability-failure proposal or explicit shared-original boundary fixture",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-04.01",
+    "parent": "BAT-04",
+    "required_behavior": "HTTP retained and storage justified with actual supporting sources",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Cold TypeScript/domain fixture included existing HTTP skill; proposal not completed",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-05.01",
+    "parent": "BAT-05",
+    "required_behavior": "three-parent full inventory, missing row, unauthorized removal linkage; LF/CRLF and older Markdown resource",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "lineage-fence-lf, lineage-fence-crlf, lineage-table-other-resource and associated negatives",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-05.02",
+    "parent": "BAT-05",
+    "required_behavior": "semantic equivalence and real current authorization adjudication in authored variant",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Helpers check shape/linkage; no completed cold variant/removal case",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-06.01",
+    "parent": "BAT-06",
+    "required_behavior": "portable template and source identity review, synthetic relocation",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "source-text-inventory.json; windows-relocated, linux-relocated; generated fixture copies generic helper",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-06.02",
+    "parent": "BAT-06",
+    "required_behavior": "cold adaptive authoring and relocated package completion",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "No completed native adaptive authoring; scripted C publication is separate evidence",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-07.01",
+    "parent": "BAT-07",
+    "required_behavior": "correct/missing/root/inactive/changed/duplicate/role/unbound/unknown-version/descriptor/core-variant/two-variant results",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "binding-* ordinary matrix; initial-suite-results.json",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-07.02",
+    "parent": "BAT-07",
+    "required_behavior": "excluded private-key filenames rejected",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-03",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-07.03",
+    "parent": "BAT-07",
+    "required_behavior": "no UUID output, no helper writes, unsafe junctions and POSIX I/O failure",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "binding-* effects; windows-symlink, linux-symlink, linux-io-error",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-07.04",
+    "parent": "BAT-07",
+    "required_behavior": "actual generated-skill no-product-write/no-downstream behavior on rejection and resume",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Independent controller and read-only helper do not prove agent enforcement",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-08.01",
+    "parent": "BAT-08",
+    "required_behavior": "new evidence/proposal/selection/descriptor/set shapes; duplicate keys/nonfinite/extra fields/invalid IDs/stale refs/locator bounds",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "record-*, proposal-*, selection-*, descriptor-valid; ordinary positives and negatives",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-08.02",
+    "parent": "BAT-08",
+    "required_behavior": "strict linked legacy records and target bindings",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-01, F-02",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-08.03",
+    "parent": "BAT-08",
+    "required_behavior": "all new record families complete positive/negative semantic cross-reference grid",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "No exhaustive per-field matrix for project-binding/adaptive-observation/binding-observation inspect dispatch, or every misleading citation",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-09.01",
+    "parent": "BAT-09",
+    "required_behavior": "legacy schema bytes unchanged; valid arbitrary legacy requirement objects and manual requests",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "legacy-byte-comparison.json; v2-author-*; author-request-readback",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-09.02",
+    "parent": "BAT-09",
+    "required_behavior": "closed legacy top-level interpretation",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-02; F-01 linked reader",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-10.01",
+    "parent": "BAT-10",
+    "required_behavior": "A occupied preflight, B blocked, real C publication; PARTIAL and eligible subset omissions",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "v2-set-A-preflight-fails, v2-set-C-publish, v2-set-partial-result-valid, v2-set-subset-valid and omission negatives",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-10.02",
+    "parent": "BAT-10",
+    "required_behavior": "exact linked per-member custody",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-01",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-10.03",
+    "parent": "BAT-10",
+    "required_behavior": "autonomous continuation, all retained/full-set/handoff omission permutations and interrupted C writes",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Auditor scripted controller; no new cold set trial or complete fault-injection/full-set grid",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-11.01",
+    "parent": "BAT-11",
+    "required_behavior": "cycles, missing/unselected dependency, occupied destination, user-edited obsolete file, divergent B/C/N, shared input stale ref",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "proposal-cycle, selection-*, v2-bcn-*, record-stale-reference",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-11.02",
+    "parent": "BAT-11",
+    "required_behavior": "conflicting known adoption pointer identity",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-04",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-11.03",
+    "parent": "BAT-11",
+    "required_behavior": "concurrent drift no overwrite",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "v2-author-drift-publish retains changed user.txt with applied_paths empty; status ambiguity D-01",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-11.04",
+    "parent": "BAT-11",
+    "required_behavior": "destination ancestor overlaps, unowned collision, per-path interruption and all handoff-cycle variants",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Source branches reviewed; no complete fresh executed grid",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-12.01",
+    "parent": "BAT-12",
+    "required_behavior": "description semantic classification and progressive routing",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "source-review.md routing table; description-only manual analysis",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-12.02",
+    "parent": "BAT-12",
+    "required_behavior": "completed native mode invocation/implicit selection and handoff stopping",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "All applicable cold attempts timed out; implicit activation not executed",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-13.01",
+    "parent": "BAT-13",
+    "required_behavior": "unchanged/equivalent-byte-changed review, false NO_CHANGE rejection and missing parent reference",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "ext2-update-*",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-13.02",
+    "parent": "BAT-13",
+    "required_behavior": "materially removed core requirement and native revision-impact proposal",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "No completed cold update review; no executed material-removal proposal",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-14.01",
+    "parent": "BAT-14",
+    "required_behavior": "all four convention fixtures specified and cold attempts retained",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "proposal_trials.py; cold-propose-*-plan.json",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-14.02",
+    "parent": "BAT-14",
+    "required_behavior": "completed four-project adaptation and contradictory same-scope convention",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "All four proposals timed out; ambiguous-convention cold variant not run",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-15.01",
+    "parent": "BAT-15",
+    "required_behavior": "Windows/POSIX hostile paths and offline standard-library helper; isolated missing executable",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "binding-hostile-path, windows-valid, linux-valid, missing-python-child; source call review",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-15.02",
+    "parent": "BAT-15",
+    "required_behavior": "private-key exclusion in portable helper",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-03",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-15.03",
+    "parent": "BAT-15",
+    "required_behavior": "cold missing-interpreter reporting and OS network isolation qualification",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Only child launch failure and source-local network-free execution observed",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-16.01",
+    "parent": "BAT-16",
+    "required_behavior": "stale input digest rejection",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "record-stale-reference; ext2-update-missing-history",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-16.02",
+    "parent": "BAT-16",
+    "required_behavior": "native resume with changed original evidence and fresh linked proposal; runtime match invalidation",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "No native resume trial; instructions reviewed, no cached-authority claim credited",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-17.01",
+    "parent": "BAT-17",
+    "required_behavior": "ordinary import/spec-build, observed edit, authored baseline, explicit new adoption, legacy generated/adopted baseline, corrupt baseline",
+    "status": "PASS",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "v2-author-*; ext2-legacy-generated, ext2-legacy-adopted, ext2-legacy-corrupt-generated",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-17.02",
+    "parent": "BAT-17",
+    "required_behavior": "wrong known legacy pointer",
+    "status": "FAIL",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "F-04",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "id": "BAT-17.03",
+    "parent": "BAT-17",
+    "required_behavior": "complete Claude conversion dispositions and schema-2 generated-after-adoption lineage/retry histories",
+    "status": "NOT_RUN",
+    "method": "native/helper/static/semantic as expressly identified in evidence",
+    "evidence": "Import helper operation is not a complete semantic conversion or all legacy ancestry modes",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  }
+]

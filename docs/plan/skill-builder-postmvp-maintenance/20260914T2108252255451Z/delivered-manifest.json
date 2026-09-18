@@ -1,0 +1,241 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 7657,
+      "sha256": "7e2353f4df2e01961f1dec88963c13d719d349fcc5722e3410e5c3e6a277ebae"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "bytes": 12433,
+      "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+    },
+    {
+      "path": "assets/authoring-design-template.json",
+      "bytes": 492,
+      "sha256": "9ee1b243b80ef29d142c3a6689bb4b83369f46a90e4678004bd985eb172a8dd2"
+    },
+    {
+      "path": "assets/build-report-template.md",
+      "bytes": 1347,
+      "sha256": "32787d3f7e6aef385e5bc2d75e714bdb04e7580cdcb587c435a475e49e0f5ee7"
+    },
+    {
+      "path": "assets/conversion-report-template.md",
+      "bytes": 414,
+      "sha256": "7716a81d6d76cd67ddd04fca9f13207a1fac69e288c451ce2bea5f5326b38ffb"
+    },
+    {
+      "path": "assets/skill-creator-license.txt",
+      "bytes": 11560,
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+    },
+    {
+      "path": "assets/skill-creator-notice.md",
+      "bytes": 528,
+      "sha256": "b5fa5a90ea317cfd8af969d0ece4545dbf4fb624d1469a2ad04a0ec0e03273e4"
+    },
+    {
+      "path": "assets/worker-task-template.md",
+      "bytes": 985,
+      "sha256": "e6bd435b1dec6f5fe3196885b90d28e15c0cf3d37065a47555e0fe85661a139a"
+    },
+    {
+      "path": "package-manifest.json",
+      "bytes": 5061,
+      "sha256": "e723dafa694abe884d1d07045185ec2893b10d960e1a2b59dfb2c9829199157f"
+    },
+    {
+      "path": "references/adaptation.md",
+      "bytes": 10444,
+      "sha256": "5413c5d4fb9512a34b30c5d3c20a7c55f696874ef678bf173ea335a73644478b"
+    },
+    {
+      "path": "references/adaptive-contracts.md",
+      "bytes": 7135,
+      "sha256": "f41dfc545d60498253b52e0d57c4a1214602d380fcc766181f960949f0e7404c"
+    },
+    {
+      "path": "references/adoption.md",
+      "bytes": 1785,
+      "sha256": "17c69c0010976d043d00bc4707284c741bd651c0c8ca06860c69b56814c7926d"
+    },
+    {
+      "path": "references/authoring.md",
+      "bytes": 3239,
+      "sha256": "e16fcfa161a151ce18a3c7501a90258dd098f89112b4fb9a9c428bbd29455813"
+    },
+    {
+      "path": "references/conversion-rules.md",
+      "bytes": 8647,
+      "sha256": "6b89eb700d832498a0a929d55c147a445038a7bd82992eb6120f2ddb60b4f414"
+    },
+    {
+      "path": "references/evidence-format.md",
+      "bytes": 6758,
+      "sha256": "622c6da00b219b8829cb5643d1d06f30c6ac5988c77e9fbc6622423f195b4d90"
+    },
+    {
+      "path": "references/openai_yaml.md",
+      "bytes": 2405,
+      "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+    },
+    {
+      "path": "references/project-binding.md",
+      "bytes": 4895,
+      "sha256": "ebbc7d762c9a7adacd205d4711e42ab701689e2e71648d5f42cf2d3f5dc27c23"
+    },
+    {
+      "path": "references/regeneration.md",
+      "bytes": 2650,
+      "sha256": "1c3558122c1b8670e02f3ba0de1c23b675f31b0b508409635a8bf5827f45a298"
+    },
+    {
+      "path": "references/scaffolding.md",
+      "bytes": 1962,
+      "sha256": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb"
+    },
+    {
+      "path": "references/spec-build.md",
+      "bytes": 2488,
+      "sha256": "2b9977ccbe73249ea5820538535970e64d3c7104da8dd207acdd140bde76cc69"
+    },
+    {
+      "path": "references/validation-handoff.md",
+      "bytes": 2488,
+      "sha256": "265d8ad543b39139667d830c39cb4cbe2b89b1b4646275b94fa9655613fe165a"
+    },
+    {
+      "path": "references/workflow-design.md",
+      "bytes": 7004,
+      "sha256": "86c67d1b65e8c578966f9d431abc799f12962a2892354fce3d926797439de261"
+    },
+    {
+      "path": "schemas/adaptation-proposal-v1.schema.json",
+      "bytes": 1549,
+      "sha256": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6"
+    },
+    {
+      "path": "schemas/adaptation-selection-v1.schema.json",
+      "bytes": 1015,
+      "sha256": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1"
+    },
+    {
+      "path": "schemas/adaptive-common.schema.json",
+      "bytes": 16453,
+      "sha256": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5"
+    },
+    {
+      "path": "schemas/adaptive-observation-v1.schema.json",
+      "bytes": 735,
+      "sha256": "ae335505541800dfd5819a5093829b1bc10fb604c528c7d054725656c1c6ce8c"
+    },
+    {
+      "path": "schemas/adaptive-skill-v1.schema.json",
+      "bytes": 1228,
+      "sha256": "9269b2f9ac2812bc2a826b83726a5ff249086fd7c23521c1fdb5b115b36afae7"
+    },
+    {
+      "path": "schemas/adoption-evidence.schema.json",
+      "bytes": 27634,
+      "sha256": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f"
+    },
+    {
+      "path": "schemas/authoring-baseline.schema.json",
+      "bytes": 1319,
+      "sha256": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746"
+    },
+    {
+      "path": "schemas/authoring-contract.schema.json",
+      "bytes": 2587,
+      "sha256": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099"
+    },
+    {
+      "path": "schemas/authoring-design.schema.json",
+      "bytes": 9167,
+      "sha256": "927816601efcb1bf2bbd0e03683957fe262c7ae36e4e284814e8958fcd48c608"
+    },
+    {
+      "path": "schemas/authoring-record.schema.json",
+      "bytes": 3376,
+      "sha256": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d"
+    },
+    {
+      "path": "schemas/binding-observation-v1.schema.json",
+      "bytes": 1076,
+      "sha256": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb"
+    },
+    {
+      "path": "schemas/build-artifacts.schema.json",
+      "bytes": 4326,
+      "sha256": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be"
+    },
+    {
+      "path": "schemas/evidence.schema.json",
+      "bytes": 2675,
+      "sha256": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3"
+    },
+    {
+      "path": "schemas/project-binding-v1.schema.json",
+      "bytes": 1012,
+      "sha256": "fb0d98d650d443ee1d613d27e632696a4422d101ce6dd37b1eca6e9189fd3399"
+    },
+    {
+      "path": "schemas/project-evidence-v1.schema.json",
+      "bytes": 1472,
+      "sha256": "e8d9cbc8a6e76ba9cce5d8422dbc599673e3e489a6c25d750c1820409fc957e9"
+    },
+    {
+      "path": "schemas/set-authoring-v1.schema.json",
+      "bytes": 1293,
+      "sha256": "d5b9840fe7daf8ab810315d28c9c3539b3e644eb4293e0a8699364ae77981ae8"
+    },
+    {
+      "path": "schemas/set-validation-request-v1.schema.json",
+      "bytes": 1527,
+      "sha256": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e"
+    },
+    {
+      "path": "schemas/validation-request.schema.json",
+      "bytes": 2189,
+      "sha256": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "bytes": 31183,
+      "sha256": "aac50133eb2bf1b2c255de9a1bd0cfe5025b42252309e8e761948a0530c350be"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "bytes": 38172,
+      "sha256": "cb55597715dc2d4d5dcdc4780ebc096eb9c3f137dbf9a853461a61c2c8b7cfc6"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "bytes": 15985,
+      "sha256": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3"
+    },
+    {
+      "path": "scripts/custody.py",
+      "bytes": 24168,
+      "sha256": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "bytes": 8630,
+      "sha256": "a83d38bbb92993b7951dfef22db1eb92dd09b8a642b9cd78802d13bd6ddb8fdd"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "bytes": 10650,
+      "sha256": "904594626f8f3e49f29d1a0cd8fac309589700c350eeec75dba40de22b37d4b5"
+    },
+    {
+      "path": "scripts/record_schema.py",
+      "bytes": 3263,
+      "sha256": "6e3f172e40c659ba400e4065d4020ae2157a21c2f9d086d935f607b06bce9330"
+    }
+  ],
+  "package_digest": "ecb01ece2c38443e58fe7a5b307e9d0de22a1fa9b9ec1f726b79cfa328cb9c9e"
+}

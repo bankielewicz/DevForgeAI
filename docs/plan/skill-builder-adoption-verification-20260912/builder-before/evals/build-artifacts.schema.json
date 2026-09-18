@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Required development evaluator build binding; no acceptance authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "graders", "profiles", "artifacts"],
+  "properties": {
+    "schema_version": {"const": "2"},
+    "graders": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package_links", "manifest_accounting", "build_traceability", "revision_consistency", "routing_outcomes"],
+      "properties": {
+        "package_links": {"const": "2.0.0"},
+        "manifest_accounting": {"const": "2.0.0"},
+        "build_traceability": {"const": "2.0.0"},
+        "revision_consistency": {"const": "2.0.0"},
+        "routing_outcomes": {"const": "2.0.0"}
+      }
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["legacy-import-v1", "import-v2", "spec-v1", "revision-import-v2", "revision-spec-v1", "builder-v2"],
+      "properties": {
+        "legacy-import-v1": {"const": {"version":"1","graders":["package_links","manifest_accounting"]}},
+        "import-v2": {"const": {"version":"2","graders":["package_links","manifest_accounting","build_traceability"]}},
+        "spec-v1": {"const": {"version":"1","graders":["package_links","build_traceability"]}},
+        "revision-import-v2": {"const": {"version":"2","graders":["package_links","manifest_accounting","build_traceability","revision_consistency"]}},
+        "revision-spec-v1": {"const": {"version":"1","graders":["package_links","build_traceability","revision_consistency"]}},
+        "builder-v2": {"const": {"version":"2","graders":["package_links","manifest_accounting","build_traceability","revision_consistency","routing_outcomes"]}}
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"type":"string","pattern":"^[^\\\\:]+$"},
+      "additionalProperties": {"type":"string","pattern":"^[0-9a-f]{64}$"}
+    }
+  }
+}

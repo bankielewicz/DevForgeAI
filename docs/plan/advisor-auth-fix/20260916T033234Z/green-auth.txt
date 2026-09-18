@@ -1,0 +1,14 @@
+test_absent_key_case_variants_and_independent_copy (test_auth.AuthTests) ... ok
+test_auth_fixture_has_independent_expected_output (test_auth.AuthTests) ... ok
+test_legacy_request_and_receipt_preserve_bytes (test_auth.AuthTests) ... ok
+test_mode_change_is_immutable_and_receipt_mismatch_blocks (test_auth.AuthTests) ... ok
+test_preflight_cli_forwards_selected_mode (test_auth.AuthTests) ... ok
+test_real_children_and_parent_environment (test_auth.AuthTests) ... ok
+test_request_modes_and_invalid_values (test_auth.AuthTests) ... ok
+test_standalone_preflight_filters_environment (test_auth.AuthTests) ... ok
+test_subscription_request_excludes_key_from_every_child (test_auth.AuthTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.177s
+
+OK

@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\authoring-record.json",
+    "sha256": "f6b39fb779a72d12f8d230366e6d162660bd721ceb6cc560a4dbec1ac8dcc141"
+  },
+  "baseline": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\authoring-baseline.json",
+    "sha256": "c158324767a5a4897663a645bbff63d4bd3621a8ba66fab30ff5de8d1752cebd"
+  },
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests\\validation-request.json",
+    "sha256": "aa3e0120f483649ef14d55b0e8751dbe0d7fc1abf112fef6fa877f4205e7ff86"
+  },
+  "package_digest": "987d9e6e798a676da214f1450a34c2d009b7b82a7b9517a87e3e2c4e26276674"
+}

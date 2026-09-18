@@ -1,0 +1,96 @@
+{
+  "record_kind": "specification_document_review",
+  "recorded_utc": "2026-09-14T20:56:57.6726314Z",
+  "command": "& .\\docs\\plan\\specification-reviews\\skill-builder-postmvp\\20260914T2052234323802Z\\review.ps1",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "shell_version": "7.6.6",
+  "scope": "Documentation-only save and review; no skill implementation or validation",
+  "specification": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\skill-builder-postmvp-spec.md",
+    "bytes": 27983,
+    "sha256": "6ba021254eaaf152d91b968952bf235288e5338d88d842c10e9e98eb13b6314f"
+  },
+  "requirement_ids": [
+    "SBP-001",
+    "SBP-002",
+    "SBP-003",
+    "SBP-004",
+    "SBP-005",
+    "SBP-006",
+    "SBP-007",
+    "SBP-008",
+    "SBP-009",
+    "SBP-010",
+    "SBP-011",
+    "SBP-012",
+    "SBP-013",
+    "SBP-014",
+    "SBP-015",
+    "SBP-016"
+  ],
+  "scenario_ids": [
+    "SBPV-01",
+    "SBPV-02",
+    "SBPV-03",
+    "SBPV-04",
+    "SBPV-05",
+    "SBPV-06",
+    "SBPV-07",
+    "SBPV-08",
+    "SBPV-09",
+    "SBPV-10",
+    "SBPV-11",
+    "SBPV-12",
+    "SBPV-13",
+    "SBPV-14",
+    "SBPV-15",
+    "SBPV-16",
+    "SBPV-17",
+    "SBPV-18"
+  ],
+  "local_links": [
+    {
+      "reference": "../plan/skill-validations/qa/20260914T1949120508210Z/validation-report.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\validation-report.md",
+      "exists": true
+    },
+    {
+      "reference": "../plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\root-cause-analyses\\qa-completion\\20260914T2024442802835Z\\analysis.md",
+      "exists": true
+    },
+    {
+      "reference": "../../src/agents/skills/skill-builder/SKILL.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\SKILL.md",
+      "exists": true
+    },
+    {
+      "reference": "../plan/skill-builder-authoring-enhancement-spec.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-authoring-enhancement-spec.md",
+      "exists": true
+    },
+    {
+      "reference": "../plan/skill-builder-adaptive-enhancement-spec.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adaptive-enhancement-spec.md",
+      "exists": true
+    },
+    {
+      "reference": "../../AGENTS.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "exists": true
+    },
+    {
+      "reference": "../plan/devforgeai-codex-rust-enforcement-design.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+      "exists": true
+    }
+  ],
+  "readback": "IDENTICAL",
+  "document_checks": "Completed: UTF-8 decoding, exact requirement/scenario inventories, defined requirement references, local link existence, implementation-status boundary, no skill-name lookup collision, byte readback",
+  "manual_consistency_review": "Reviewed design field types, authoring-only versus input-custody checks, legacy and validator packet compatibility, terminal argument semantics, failure/readback handling, requirement-to-scenario mapping, proposed versus implemented claims",
+  "limitations": "Link existence and document review do not establish runtime conformance or validation success",
+  "builder_implementation": "NOT_PERFORMED",
+  "runtime_testing": "NOT_PERFORMED",
+  "skill_validation": "NOT_PERFORMED",
+  "framework_acceptance": "NOT_EVALUATED"
+}

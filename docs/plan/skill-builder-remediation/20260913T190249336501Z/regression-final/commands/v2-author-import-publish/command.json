@@ -1,0 +1,33 @@
+{
+  "case": "v2-author-import-publish",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "coverage",
+    "run",
+    "--append",
+    "--branch",
+    "--data-file=C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\coverage-data",
+    "--source=C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\coverage_driver.py",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+    "publish",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-import\\docs\\plan\\author-import-run"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final",
+  "expected": {
+    "exit": 0,
+    "field": "state",
+    "value": "AUTHORED",
+    "read_only_root": null,
+    "before_manifest": null
+  },
+  "start_utc": "2026-09-13T19:22:25.073709+00:00",
+  "stdin_sha256": null
+}

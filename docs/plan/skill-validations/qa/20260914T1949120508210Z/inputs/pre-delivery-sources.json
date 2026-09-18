@@ -1,0 +1,77 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1949120508210Z",
+  "target_name": "qa",
+  "sources": [
+    {
+      "source_id": "qa-skill-postmvp-spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-postmvp-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a",
+      "snapshot_path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sections": [
+        "Selected contract"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "qa-skill-spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03",
+      "snapshot_path": "inputs/05-qa-skill-spec.md",
+      "sections": [
+        "Selected contract"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "manual-evaluation-obligations",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z-inputs\\manual-evaluation-obligations.md",
+      "retrieved_at_utc": null,
+      "sha256": "d571e335501c20cb8d7dca43afcfcc47185c7cbf9c0e5a6e7490a10f63f97f82",
+      "snapshot_path": "inputs/07-manual-evaluation-obligations.md",
+      "sections": [
+        "Selected contract"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "AGENTS",
+      "original_path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "retrieved_at_utc": null,
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+      "snapshot_path": "inputs/09-AGENTS.md",
+      "sections": [
+        "Selected contract"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "AV-catalog",
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\adaptive-validation.md",
+      "retrieved_at_utc": null,
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+      "snapshot_path": "inputs/validator/references/adaptive-validation.md",
+      "sections": [
+        "3.1",
+        "4.1"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "openai-live",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved_at_utc": "2026-09-14T20:12:05.144094+00:00",
+      "sha256": "2622b63534dd671ef680c9bf60b145fe6a59b655049ed0d4ee6deb30160dd955",
+      "snapshot_path": "inputs/openai-guidance-retrieval.json",
+      "sections": [
+        "Required SKILL.md metadata",
+        "How ChatGPT and Codex use skills",
+        "Optional metadata",
+        "Best practices"
+      ],
+      "freshness": "live_verified"
+    }
+  ]
+}

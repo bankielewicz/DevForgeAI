@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\target-original\\debug\\devforgeai-codex-worker-probe.exe",
+    "preflight",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-request.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "executable_sha256": "b63a0dfb0a48adfc5977a75d145fa766345a9d948e99b3a5bbdf5d5ce74079b2",
+  "recorder_sha256": "5ba73e6a8eaafc0673c4e1b30149f04bee0a3a261af18bd5144612ac8124e325",
+  "request_sha256": "098bdfe8c4b8122fea35bc67a4581c839fe7789daec9c0946ed7dd6d24cf0e6b",
+  "start_utc": "2026-09-16T12:05:19.625095+00:00",
+  "stdin": "PIPE held open without input until process exits",
+  "outer_timeout_seconds": 145,
+  "environment_mode": "omit-anthropic-key",
+  "parent_guard_matched_names": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "removed_child_only_names": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "child_guard_matched_names": [],
+  "credential_values_logged": false,
+  "saved_credentials_modified": false,
+  "native_model_trial_attempts": 0,
+  "framework_acceptance": "NOT_EVALUATED"
+}

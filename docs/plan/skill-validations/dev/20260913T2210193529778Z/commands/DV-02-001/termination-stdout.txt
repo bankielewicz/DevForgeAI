@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 107112 (child process of PID 78532) has been terminated.
+SUCCESS: The process with PID 47980 (child process of PID 89140) has been terminated.
+SUCCESS: The process with PID 80760 (child process of PID 94520) has been terminated.
+SUCCESS: The process with PID 78532 (child process of PID 94520) has been terminated.
+SUCCESS: The process with PID 89140 (child process of PID 94520) has been terminated.
+SUCCESS: The process with PID 72480 (child process of PID 94520) has been terminated.
+SUCCESS: The process with PID 94520 (child process of PID 69316) has been terminated.

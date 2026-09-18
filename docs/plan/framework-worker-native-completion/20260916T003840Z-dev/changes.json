@@ -1,0 +1,14 @@
+{
+  "added": [
+    "tests/effective_profile_edges.rs",
+    "tests/protocol_edges.rs",
+    "tests/runtime_edges.rs",
+    "tests/support/profile_sources_edges.rs",
+    "tests/support/protocol_edges_peer.rs"
+  ],
+  "removed": [],
+  "changed": [
+    "Cargo.toml",
+    "src/profile_sources.rs"
+  ]
+}

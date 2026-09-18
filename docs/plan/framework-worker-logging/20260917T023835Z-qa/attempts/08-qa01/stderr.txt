@@ -1,0 +1,2 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running independent.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T023835Z-qa\independent-target\debug\deps\independent-614fb6185e5955ca.exe)

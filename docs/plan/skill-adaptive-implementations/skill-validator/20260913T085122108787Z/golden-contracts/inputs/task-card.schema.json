@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "requirement_id",
+    "task",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "task-card-v1"
+    },
+    "requirement_id": {
+      "const": "REQ-7"
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

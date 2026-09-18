@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "documents": [
+    "validation-report.md",
+    "revision-spec.md"
+  ],
+  "missing": [],
+  "remote_links": "Official documentation fetched separately; this check is local."
+}

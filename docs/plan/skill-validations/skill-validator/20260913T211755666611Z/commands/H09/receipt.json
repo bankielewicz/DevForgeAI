@@ -1,0 +1,119 @@
+{
+  "case_id": "H09",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H09\\records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:20:20.590939Z",
+  "end": "2026-09-13T21:20:21.158035Z",
+  "elapsed_seconds": 0.5620000000344589,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/H09/stdout.txt",
+    "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+  },
+  "stderr": {
+    "path": "commands/H09/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H09",
+    "captured_at_utc": "2026-09-13T21:20:21.158035Z",
+    "files": [
+      {
+        "path": "inputs/alpha-manifest.json",
+        "bytes": 267,
+        "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+      },
+      {
+        "path": "inputs/authorization.txt",
+        "bytes": 44,
+        "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+      },
+      {
+        "path": "inputs/beta-manifest.json",
+        "bytes": 267,
+        "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+      },
+      {
+        "path": "inputs/selection.json",
+        "bytes": 1794,
+        "sha256": "be36d00778753d807c4a40f2734337e6dc74a7161cdad64df7572a3d69a8a906"
+      },
+      {
+        "path": "integration/checks.jsonl",
+        "bytes": 1,
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "member-evidence/A/checks.jsonl",
+        "bytes": 8610,
+        "sha256": "20cd124a261d959b2c28fb57c75ac19b0935a89c9f487659ec049e2fab863423"
+      },
+      {
+        "path": "member-evidence/A/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/A/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "member-evidence/B/checks.jsonl",
+        "bytes": 8610,
+        "sha256": "0d6c9a098116ec311d04e9e17f51c5bd6c3530f51137445417f8c52a830bab89"
+      },
+      {
+        "path": "member-evidence/B/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/B/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "packages/alpha/SKILL.md",
+        "bytes": 106,
+        "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+      },
+      {
+        "path": "packages/alpha/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "packages/beta/SKILL.md",
+        "bytes": 105,
+        "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+      },
+      {
+        "path": "packages/beta/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "records/set-assessment.json",
+        "bytes": 2466,
+        "sha256": "0aef319ed289fc79bb1c8fb9b89d02a0110c099758abf1a5598738af045f7b56"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "ffd1b219c8a92255420d929df99e195323e0a4a303df4c564b3c753ba081ba64"
+  },
+  "fixture_unchanged": true
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "freeze_declared": true,
+  "candidate_root": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "candidate_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\candidate-manifest.json",
+  "candidate_manifest_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "candidate_files": 56,
+  "independent_live_manifest_comparison": "EXACT_MATCH_56",
+  "candidate_reparse_entries": 0,
+  "selected_inputs": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\selected-inputs-final.json",
+    "sha256": "91eea226854223076cb1bea8acd858af04a7976767954f8d39da666c96243776"
+  },
+  "coverage_source_denominator": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\coverage-source-denominator.json",
+    "sha256": "d907fdf7fe040b125a30b009501c61b77a22d7132efa28f270f128815fcfd7b0",
+    "source_files": 12,
+    "first_party_exclusions": []
+  },
+  "specifications": [
+    {
+      "path": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+      "sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23"
+    },
+    {
+      "path": "docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+      "sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d"
+    },
+    {
+      "path": "docs/specs/framework/runtime/codex-worker-preflight-v1.md",
+      "sha256": "6e781f23f221d1033896716512e9162579653b529d107e0040d49c499574afd1"
+    },
+    {
+      "path": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+      "sha256": "34160ff675f886aeeebd3a7d131fd973b86a375fb64def7604db419c79db1f8c"
+    }
+  ],
+  "recorder_source": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\record.py",
+    "sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c"
+  },
+  "execution_hold": "Product build/test/coverage waits for explicit GO after developer full-suite and coverage completion.",
+  "native_codex_attempts": 0,
+  "framework_acceptance": "NOT_EVALUATED"
+}

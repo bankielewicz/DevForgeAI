@@ -1,0 +1,66 @@
+{
+  "trial_id": "DV-02",
+  "attempts": [
+    "attempt-001",
+    "attempt-002"
+  ],
+  "termination": "exited",
+  "exit_status": 0,
+  "immutable_changes": [],
+  "selected_evidence_value": "evidence/",
+  "selected_root_is_directory": true,
+  "receipt_count": 6,
+  "references_checked": 18,
+  "unsupported_rows": [],
+  "problems": [],
+  "receipts": [
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 1,
+      "attempt_id": "setup-01",
+      "stage": "setup",
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 2,
+      "attempt_id": "producer-red-01",
+      "stage": "red",
+      "result": "FAIL",
+      "exit_code": 1
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 3,
+      "attempt_id": "producer-green-01",
+      "stage": "green",
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 4,
+      "attempt_id": "consumer-red-01",
+      "stage": "red",
+      "result": "FAIL",
+      "exit_code": 1
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 5,
+      "attempt_id": "consumer-green-01",
+      "stage": "green",
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 6,
+      "attempt_id": "qa-01",
+      "stage": "qa",
+      "result": "PASS",
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-09-12T15:37:47.456016+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "--candidate-root",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\snapshot",
+    "--cases",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\revision-cases.jsonl",
+    "--output",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\published-results.jsonl",
+    "--run-id",
+    "revision-02-resolved-published",
+    "--profile",
+    "revision-spec-v2"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"records\": 3, \"exit_code\": 0, \"output\": \"C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-my5s7hbx\\\\docs\\\\plan\\\\skill-builds\\\\receipt-totals\\\\revision-02-resolved\\\\published-results.jsonl\", \"authority\": \"NONE\"}\n",
+  "stderr": "",
+  "evaluation_input_snapshot": {
+    "captured_at_utc": "2026-09-12T15:37:47.571542+00:00",
+    "original_candidate_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\snapshot",
+    "preserved_candidate_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\evaluation-inputs\\revision-02-resolved-published\\candidate-root",
+    "full_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\evaluation-inputs\\revision-02-resolved-published\\candidate-manifest.json",
+    "full_manifest_sha256": "e00c221f84d53939d0c94f656bed6e255a9c317575ec7b32369bafce02206942",
+    "original_cases": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\revision-cases.jsonl",
+    "preserved_cases": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2\\evaluation-inputs\\revision-02-resolved-published\\cases-input.jsonl",
+    "cases_sha256": "210ba0e6f353df003783be8f4dad1a1e4d5cc793c718744c0242b691f544468d",
+    "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+    "outcome": "PRE_EVALUATION_COPY_AND_LIVE_READBACK_MATCH"
+  }
+}

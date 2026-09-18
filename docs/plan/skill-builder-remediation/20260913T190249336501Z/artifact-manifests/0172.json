@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-proposal-invalid-name",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1380,
+      "sha256": "cccb7d9a77c58d2c776219924056606f899dc8db5ad423e34dc8c8d378152867"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "6d820187f08816d14119c4eee2109917d9195096a5791a475a55287e428c7884"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 143,
+      "sha256": "7e5fb31459bcc7e652761c679e46d3912d62e6b81d270513fabed24c52ee9995"
+    }
+  ]
+}

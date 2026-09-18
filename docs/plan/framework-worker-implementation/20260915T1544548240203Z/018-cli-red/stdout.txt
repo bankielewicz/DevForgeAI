@@ -1,0 +1,20 @@
+
+running 1 test
+test invalid_cli_is_json_and_nonzero ... FAILED
+
+failures:
+
+---- invalid_cli_is_json_and_nonzero stdout ----
+
+thread 'invalid_cli_is_json_and_nonzero' (20616) panicked at tests\cli.rs:6:9:
+assertion `left == right` failed
+  left: Some(0)
+ right: Some(2)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    invalid_cli_is_json_and_nonzero
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "case": "C08",
+  "command": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\native\\20260913T140355050430Z\\project",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\native\\20260913T140355050430Z\\project\\.trial-output\\final.txt",
+    "-"
+  ],
+  "prompt_sha256": "fb5ba615f271abf6cbe8d30f00db3cd3c72933b62ebc90f86aed21d4dbbdc922",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\native\\20260913T140355050430Z\\project",
+  "input_sha256": "e8e7ae79086a26e33a69479bd5339b3135393cd1b3120b075e305066cf27c2b4",
+  "expected": "Assess actual selected/delivered agreement; expected labels are absent from cold prompt.",
+  "boundary": "Child workspace-write; no OS isolation claim."
+}

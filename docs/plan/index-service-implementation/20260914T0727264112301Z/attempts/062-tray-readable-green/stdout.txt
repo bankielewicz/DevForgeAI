@@ -1,0 +1,7 @@
+
+running 2 tests
+test tray_startup_defaults_are_opt_in_and_polling_is_bounded ... ok
+test status_view_explains_pause_freshness_counts_and_errors ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

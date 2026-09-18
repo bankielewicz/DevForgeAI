@@ -1,0 +1,13 @@
+command=cargo llvm-cov --locked --offline --all-targets --json --output-path C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\coverage.json -- --test-threads=1
+cwd=C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe
+exit_code=0
+output_path=C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\coverage.json
+output_sha256=06659994c45ab3602c2f8f7d7a8e8117a6a2eff7295d10544ceff2c573ecf5ac
+
+info: cargo-llvm-cov currently setting cfg(coverage); you can opt-out it by passing --no-cfg-coverage
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.17s
+All 62 test-bearing functions passed with 0 failed and 0 ignored during collection.
+process_windows.rs: wf_13, wf_14, wf_15 and the 120-second wf_16 production-watchdog variant passed; finished in 143.39s.
+    Finished report saved to C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\coverage.json
+
+The raw LLVM JSON is the authoritative coverage stream. This command receipt does not replace it.

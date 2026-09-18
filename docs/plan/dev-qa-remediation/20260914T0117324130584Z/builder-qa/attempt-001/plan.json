@@ -1,0 +1,53 @@
+{
+  "inputs": {
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py": "15248bcbc89bd8ee278fee7a05079f59d407e72c986a1d793613579d27377e6b",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring.py": "0b5b64305973c18e311615ac18f84f76a6271139bcdaeb504acc9460ef241a3d",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring_safeguards.py": "f9e6c92c37c720328509db6ecf0c9bd8067be3381e33e962594b0a3f077efb01"
+  },
+  "commands": [
+    [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "run",
+      "--branch",
+      "--data-file",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\attempt-001\\coverage.data",
+      "--include",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests",
+      "-p",
+      "test_authoring*.py",
+      "-v"
+    ],
+    [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-m",
+      "coverage",
+      "json",
+      "--data-file",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\attempt-001\\coverage.data",
+      "-o",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\attempt-001\\coverage.json"
+    ]
+  ],
+  "timeout_seconds": 120,
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "platform": "win32",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "source_denominator": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+  "exclusions": [],
+  "expected": "All declared authoring regression cases pass; >=95% executed-line coverage. No Rust acceptance claim.",
+  "allowed_writes": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\attempt-001",
+    "synthetic temporary fixtures only"
+  ]
+}

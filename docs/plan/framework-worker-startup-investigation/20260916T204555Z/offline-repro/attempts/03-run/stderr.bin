@@ -1,0 +1,719 @@
+   Compiling worker-independent-qa v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-startup-investigation\20260916T204555Z\offline-repro\harness)
+warning: variants `PostSpawn` and `PostPreflight` are never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\diagnostic.rs:38:5
+   |
+37 | pub(crate) enum SourceBoundary {
+   |                 -------------- variants in this enum
+38 |     PostSpawn,
+   |     ^^^^^^^^^
+39 |     PostPreflight,
+   |     ^^^^^^^^^^^^^
+   |
+   = note: `SourceBoundary` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: variant `SourceReview` is never constructed
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\diagnostic.rs:107:5
+    |
+106 | pub(crate) enum Diagnostic {
+    |                 ---------- variant in this enum
+107 |     SourceReview {
+    |     ^^^^^^^^^^^^
+
+warning: variant `ReviewRejected` is never constructed
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\diagnostic.rs:131:5
+    |
+130 | pub(crate) enum SourcePredicate {
+    |                 --------------- variant in this enum
+131 |     ReviewRejected,
+    |     ^^^^^^^^^^^^^^
+
+warning: function `validate_config` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\effective_profile.rs:316:8
+    |
+316 | pub fn validate_config(
+    |        ^^^^^^^^^^^^^^^
+
+warning: method `inject_write_failure_after` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\journal.rs:135:12
+    |
+ 86 | impl Journal {
+    | ------------ method in this implementation
+...
+135 |     pub fn inject_write_failure_after(&mut self, seq: u64) {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `inspect` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\journal.rs:165:8
+    |
+165 | pub fn inspect(dir: &Path, after: u64, limit: usize) -> Result<Value> {
+    |        ^^^^^^^
+
+warning: constant `ID` is never used
+ --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:5:11
+  |
+5 | pub const ID: &str = "codex-0.154.0-readonly-no-external-tools-v2";
+  |           ^^
+
+warning: constant `ADAPTER` is never used
+ --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:6:11
+  |
+6 | pub const ADAPTER: &str = "codex-0.154.0-stdio";
+  |           ^^^^^^^
+
+warning: constant `RECORD` is never used
+ --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:7:11
+  |
+7 | pub const RECORD: &str = include_str!("restrictive-launch-policy.json");
+  |           ^^^^^^
+
+warning: struct `Policy` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:50:8
+   |
+50 | struct Policy {
+   |        ^^^^^^
+
+warning: function `digest` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:58:8
+   |
+58 | pub fn digest() -> String {
+   |        ^^^^^^
+
+warning: function `args` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\launch_policy.rs:64:8
+   |
+64 | pub fn args(
+   |        ^^^^
+
+warning: constant `RECORD` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:18:11
+   |
+18 | pub const RECORD: &str = include_str!("native-executable-identity.json");
+   |           ^^^^^^
+
+warning: struct `Junction` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:21:8
+   |
+21 | struct Junction {
+   |        ^^^^^^^^
+
+warning: struct `Identity` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:27:8
+   |
+27 | struct Identity {
+   |        ^^^^^^^^
+
+warning: function `normalized` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:36:15
+   |
+36 | pub(crate) fn normalized(path: &Path) -> PathBuf {
+   |               ^^^^^^^^^^
+
+warning: function `same` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:44:15
+   |
+44 | pub(crate) fn same(a: &Path, b: &Path) -> bool {
+   |               ^^^^
+
+warning: function `local_absolute` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:49:15
+   |
+49 | pub(crate) fn local_absolute(path: &Path) -> bool {
+   |               ^^^^^^^^^^^^^^
+
+warning: function `first_reparse` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:54:15
+   |
+54 | pub(crate) fn first_reparse(path: &Path) -> Result<Option<PathBuf>> {
+   |               ^^^^^^^^^^^^^
+
+warning: function `directory_junction` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:71:15
+   |
+71 | pub(crate) fn directory_junction(path: &Path) -> Result<bool> {
+   |               ^^^^^^^^^^^^^^^^^^
+
+warning: methods `verify` and `verify_inner` are never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:105:8
+    |
+104 | impl Identity {
+    | ------------- methods in this implementation
+105 |     fn verify(&self, supplied: &Path, digest: &str, adapter: &str) -> Result<PathBuf> {
+    |        ^^^^^^
+...
+110 |     fn verify_inner(&self, supplied: &Path, digest: &str, adapter: &str) -> Result<PathBuf> {
+    |        ^^^^^^^^^^^^
+
+warning: function `verify` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\native_identity.rs:151:8
+    |
+151 | pub fn verify(path: &Path, digest: &str, adapter: &str) -> Result<PathBuf> {
+    |        ^^^^^^
+
+warning: struct `ResultSet` is never constructed
+ --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\oracle.rs:5:8
+  |
+5 | struct ResultSet {
+  |        ^^^^^^^^^
+
+warning: struct `Entry` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\oracle.rs:11:8
+   |
+11 | struct Entry {
+   |        ^^^^^
+
+warning: function `matches` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\oracle.rs:18:8
+   |
+18 | pub fn matches(text: &str) -> bool {
+   |        ^^^^^^^
+
+warning: constant `PLUGIN_SOURCE_RECORD` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:15:11
+   |
+15 | pub const PLUGIN_SOURCE_RECORD: &[u8] = include_bytes!("plugin-source-identity.json");
+   |           ^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `SCHEMA_VERSION` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:16:7
+   |
+16 | const SCHEMA_VERSION: u32 = 2;
+   |       ^^^^^^^^^^^^^^
+
+warning: constant `SOURCE_IDENTITY_SCHEMA_VERSION` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:17:7
+   |
+17 | const SOURCE_IDENTITY_SCHEMA_VERSION: u32 = 1;
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `SOURCE_IDENTITY_ADAPTER` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:18:7
+   |
+18 | const SOURCE_IDENTITY_ADAPTER: &str = "codex-0.154.0-stdio";
+   |       ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `DIRECTORY_JUNCTION_TAG` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:19:7
+   |
+19 | const DIRECTORY_JUNCTION_TAG: u32 = 0xa0000003;
+   |       ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `SELECTED_LOGICAL_PATH` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:20:7
+   |
+20 | const SELECTED_LOGICAL_PATH: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `SELECTED_PHYSICAL_TARGET` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:22:7
+   |
+22 | const SELECTED_PHYSICAL_TARGET: &str =
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MAX_FILE_BYTES` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:24:7
+   |
+24 | const MAX_FILE_BYTES: u64 = 1_048_576;
+   |       ^^^^^^^^^^^^^^
+
+warning: constant `MAX_TOTAL_BYTES` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:25:7
+   |
+25 | const MAX_TOTAL_BYTES: u64 = 8_388_608;
+   |       ^^^^^^^^^^^^^^^
+
+warning: constant `MAX_ENTRIES` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:26:7
+   |
+26 | const MAX_ENTRIES: usize = 2_048;
+   |       ^^^^^^^^^^^
+
+warning: constant `MAX_DIRECTORY_CHILDREN` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:27:7
+   |
+27 | const MAX_DIRECTORY_CHILDREN: usize = 1_024;
+   |       ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: constant `MAX_ANCESTOR_DEPTH` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:28:7
+   |
+28 | const MAX_ANCESTOR_DEPTH: usize = 32;
+   |       ^^^^^^^^^^^^^^^^^^
+
+warning: constant `MAX_RULE_DEPTH` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:29:7
+   |
+29 | const MAX_RULE_DEPTH: usize = 8;
+   |       ^^^^^^^^^^^^^^
+
+warning: struct `Inventory` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:33:12
+   |
+33 | pub struct Inventory {
+   |            ^^^^^^^^^
+
+warning: struct `PluginJunction` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:44:8
+   |
+44 | struct PluginJunction {
+   |        ^^^^^^^^^^^^^^
+
+warning: struct `PluginSourceIdentity` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:52:8
+   |
+52 | struct PluginSourceIdentity {
+   |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `PluginSourcePolicy` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:59:8
+   |
+59 | struct PluginSourcePolicy {
+   |        ^^^^^^^^^^^^^^^^^^
+
+warning: struct `InventoryRoots` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:66:8
+   |
+66 | struct InventoryRoots {
+   |        ^^^^^^^^^^^^^^
+
+warning: struct `SourceEntry` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:76:8
+   |
+76 | struct SourceEntry {
+   |        ^^^^^^^^^^^
+
+warning: enum `SourceFamily` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:87:6
+   |
+87 | enum SourceFamily {
+   |      ^^^^^^^^^^^^
+
+warning: enum `SourceState` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:97:6
+   |
+97 | enum SourceState {
+   |      ^^^^^^^^^^^
+
+warning: struct `Roots` is never constructed
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:104:8
+    |
+104 | struct Roots {
+    |        ^^^^^
+
+warning: associated function `actual` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:113:8
+    |
+112 | impl Roots {
+    | ---------- associated function in this implementation
+113 |     fn actual(fixture_cwd: &Path) -> Result<Self> {
+    |        ^^^^^^
+
+warning: associated functions `compiled` and `from_record` are never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:140:8
+    |
+139 | impl PluginSourcePolicy {
+    | ----------------------- associated functions in this implementation
+140 |     fn compiled(roots: &Roots) -> Result<Self> {
+    |        ^^^^^^^^
+...
+144 |     fn from_record(record: &[u8], plugin_cache_root: &Path) -> Result<Self> {
+    |        ^^^^^^^^^^^
+
+warning: function `plain_local_path` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:193:4
+    |
+193 | fn plain_local_path(path: &Path) -> bool {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: methods `fixture_cwd`, `file_paths`, `file_bindings`, and `verify` are never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:201:12
+    |
+200 | impl Inventory {
+    | -------------- methods in this implementation
+201 |     pub fn fixture_cwd(&self) -> &Path {
+    |            ^^^^^^^^^^^
+...
+205 |     pub fn file_paths(&self) -> Vec<PathBuf> {
+    |            ^^^^^^^^^^
+...
+212 |     pub fn file_bindings(&self) -> Vec<(PathBuf, String)> {
+    |            ^^^^^^^^^^^^^
+...
+231 |     pub fn verify(&self) -> Result<()> {
+    |            ^^^^^^
+
+warning: function `collect` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:238:8
+    |
+238 | pub fn collect(fixture_cwd: &Path) -> Result<Inventory> {
+    |        ^^^^^^^
+
+warning: function `collect_with_policy` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:244:4
+    |
+244 | fn collect_with_policy(
+    |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `collect_with_policy_using` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:252:4
+    |
+252 | fn collect_with_policy_using<F>(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `verify_policy_mappings` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:346:4
+    |
+346 | fn verify_policy_mappings(policy: &PluginSourcePolicy) -> Result<()> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `verify_with_policy` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:353:4
+    |
+353 | fn verify_with_policy(
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: method `valid_shape` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:391:8
+    |
+390 | impl Inventory {
+    | -------------- method in this implementation
+391 |     fn valid_shape(&self) -> bool {
+    |        ^^^^^^^^^^^
+
+warning: function `valid_junction_shape` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:415:4
+    |
+415 | fn valid_junction_shape(junctions: &[PluginJunction]) -> bool {
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `Collector` is never constructed
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:431:8
+    |
+431 | struct Collector {
+    |        ^^^^^^^^^
+
+warning: multiple methods are never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:438:8
+    |
+437 | impl Collector {
+    | -------------- methods in this implementation
+438 |     fn push(&mut self, entry: SourceEntry) -> Result<()> {
+    |        ^^^^
+...
+446 |     fn add_file_or_absent(&mut self, family: SourceFamily, path: &Path) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^^^
+...
+461 |     fn add_file(&mut self, family: SourceFamily, path: &Path) -> Result<()> {
+    |        ^^^^^^^^
+...
+496 |     fn add_directory_index(
+    |        ^^^^^^^^^^^^^^^^^^^
+...
+523 |     fn walk_rules(&mut self, directory: &Path, depth: usize) -> Result<()> {
+    |        ^^^^^^^^^^
+...
+553 |     fn walk_plugins(&mut self, cache: &Path, policy: &PluginSourcePolicy) -> Result<()> {
+    |        ^^^^^^^^^^^^
+...
+577 |     fn walk_plugin_provider(&mut self, provider: &Path, policy: &PluginSourcePolicy) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^^^^^
+...
+589 |     fn walk_plugin(&mut self, plugin: &Path, policy: &PluginSourcePolicy) -> Result<()> {
+    |        ^^^^^^^^^^^
+...
+630 |     fn walk_plugin_version(&mut self, version: &Path) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^^^^
+...
+648 |     fn walk_plugin_control(&mut self, directory: &Path) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: struct `Member` is never constructed
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:665:8
+    |
+665 | struct Member {
+    |        ^^^^^^
+
+warning: enum `MemberKind` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:672:6
+    |
+672 | enum MemberKind {
+    |      ^^^^^^^^^^
+
+warning: function `stable_directory` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:678:4
+    |
+678 | fn stable_directory(directory: &Path) -> Result<Vec<Member>> {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `stable_plugin_directory` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:687:4
+    |
+687 | fn stable_plugin_directory(directory: &Path, policy: &PluginSourcePolicy) -> Result<Vec<Member>> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `directory_snapshot` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:696:4
+    |
+696 | fn directory_snapshot(directory: &Path) -> Result<Vec<Member>> {
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: function `directory_snapshot_with_policy` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:700:4
+    |
+700 | fn directory_snapshot_with_policy(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `verify_reviewed_junction` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:752:4
+    |
+752 | fn verify_reviewed_junction(path: &Path, mapping: &PluginJunction) -> Result<()> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `hash_once` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:788:4
+    |
+788 | fn hash_once(path: &Path, expected_bytes: u64) -> Result<String> {
+    |    ^^^^^^^^^
+
+warning: function `strict_resolve` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:814:4
+    |
+814 | fn strict_resolve(path: &Path) -> Result<PathBuf> {
+    |    ^^^^^^^^^^^^^^
+
+warning: function `expected_path` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:824:4
+    |
+824 | fn expected_path(path: &Path) -> Result<(PathBuf, bool)> {
+    |    ^^^^^^^^^^^^^
+
+warning: function `require_directory` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:853:4
+    |
+853 | fn require_directory(path: &Path) -> Result<()> {
+    |    ^^^^^^^^^^^^^^^^^
+
+warning: function `required_absolute_env` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:864:4
+    |
+864 | fn required_absolute_env(name: &str) -> Result<PathBuf> {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `scoped_ancestors` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:877:4
+    |
+877 | fn scoped_ancestors(root: &Path, leaf: &Path) -> Result<Vec<PathBuf>> {
+    |    ^^^^^^^^^^^^^^^^
+
+warning: function `forbidden_name` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\profile_sources.rs:894:4
+    |
+894 | fn forbidden_name(name: &OsStr) -> bool {
+    |    ^^^^^^^^^^^^^^
+
+warning: constant `PROMPT` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:11:11
+   |
+11 | pub const PROMPT: &str = include_str!("../tests/fixtures/prompt.txt");
+   |           ^^^^^^
+
+warning: constant `OUTPUT_SCHEMA` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:12:11
+   |
+12 | pub const OUTPUT_SCHEMA: &str = include_str!("../tests/fixtures/output-schema.json");
+   |           ^^^^^^^^^^^^^
+
+warning: struct `Source` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:84:8
+   |
+84 | struct Source {
+   |        ^^^^^^
+
+warning: struct `Findings` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:90:8
+   |
+90 | struct Findings {
+   |        ^^^^^^^^
+
+warning: struct `ReviewV1` is never constructed
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:98:8
+   |
+98 | struct ReviewV1 {
+   |        ^^^^^^^^
+
+warning: struct `ReviewV2` is never constructed
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:112:8
+    |
+112 | struct ReviewV2 {
+    |        ^^^^^^^^
+
+warning: function `overlaps` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:187:4
+    |
+187 | fn overlaps(a: &Path, b: &Path) -> bool {
+    |    ^^^^^^^^
+
+warning: function `check_home_boundary` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:193:8
+    |
+193 | pub fn check_home_boundary(
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: methods `review_bytes`, `verify_review_v1`, `verify_review_v2_using`, `verify_preflight_review`, and `verify_review` are never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:283:8
+    |
+208 | impl Request {
+    | ------------ methods in this implementation
+...
+283 |     fn review_bytes(&self, profile: &Profile) -> Result<Vec<u8>> {
+    |        ^^^^^^^^^^^^
+...
+292 |     fn verify_review_v1(&self, p: &Profile) -> Result<()> {
+    |        ^^^^^^^^^^^^^^^^
+...
+334 |     fn verify_review_v2_using<F>(
+    |        ^^^^^^^^^^^^^^^^^^^^^^
+...
+439 |     pub fn verify_preflight_review(&self) -> Result<Vec<PathBuf>> {
+    |            ^^^^^^^^^^^^^^^^^^^^^^^
+...
+455 |     pub fn verify_review(&self) -> Result<()> {
+    |            ^^^^^^^^^^^^^
+
+warning: function `forbidden_source_name` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:468:4
+    |
+468 | fn forbidden_source_name(name: &str) -> bool {
+    |    ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `validate` is never used
+   --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\request.rs:475:8
+    |
+475 | pub fn validate(path: &Path) -> Result<Request> {
+    |        ^^^^^^^^
+
+warning: fields `grace`, `fail_write_after`, and `uncertain_cleanup` are never read
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\runner.rs:16:9
+   |
+13 | pub struct Options {
+   |            ------- fields in this struct
+...
+16 |     pub grace: Duration,
+   |         ^^^^^
+...
+19 |     pub fail_write_after: Option<u64>,
+   |         ^^^^^^^^^^^^^^^^
+20 |     pub uncertain_cleanup: bool,
+   |         ^^^^^^^^^^^^^^^^^
+
+warning: function `run` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\runner.rs:35:8
+   |
+35 | pub fn run(input: &Path, options: Options, emit: &mut dyn FnMut(&Value)) -> Result<(i32, Value)> {
+   |        ^^^
+
+warning: function `preflight` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\runner.rs:38:8
+   |
+38 | pub fn preflight(
+   |        ^^^^^^^^^
+
+warning: function `execute` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\runner.rs:45:4
+   |
+45 | fn execute(
+   |    ^^^^^^^
+
+warning: function `verify_before_spawn` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\runner.rs:56:4
+   |
+56 | fn verify_before_spawn(r: &request::Request, preflight: bool) -> Result<()> {
+   |    ^^^^^^^^^^^^^^^^^^^
+
+warning: function `execute_with_final_check` is never used
+  --> C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\runner.rs:69:4
+   |
+69 | fn execute_with_final_check(
+   |    ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: field `pid` is never read
+  --> C:/Projects/DevForgeAI/devforgeai/experiments/codex-worker-probe/src/process_windows.rs:41:9
+   |
+33 | pub struct OwnedProcess {
+   |            ------------ field in this struct
+...
+41 |     pub pid: u32,
+   |         ^^^
+
+warning: methods `send`, `process_ids`, `only_worker_started`, and `close_input` are never used
+   --> C:/Projects/DevForgeAI/devforgeai/experiments/codex-worker-probe/src/process_windows.rs:305:12
+    |
+194 | impl OwnedProcess {
+    | ----------------- methods in this implementation
+...
+305 |     pub fn send(&mut self, value: &serde_json::Value) -> Result<()> {
+    |            ^^^^
+...
+357 |     pub fn process_ids(&self) -> Result<Vec<u32>> {
+    |            ^^^^^^^^^^^
+...
+401 |     pub fn only_worker_started(&self) -> Result<bool> {
+    |            ^^^^^^^^^^^^^^^^^^^
+...
+430 |     pub fn close_input(&mut self) {
+    |            ^^^^^^^^^^^
+
+warning: function `error_category` is never used
+  --> C:/Projects/DevForgeAI/devforgeai/experiments/codex-worker-probe/src/protocol.rs:25:4
+   |
+25 | fn error_category(value: &Value) -> Result<Value> {
+   |    ^^^^^^^^^^^^^^
+
+warning: fields `usage`, `items`, and `completed_observation` are never read
+   --> C:/Projects/DevForgeAI/devforgeai/experiments/codex-worker-probe/src/protocol.rs:96:9
+    |
+ 88 | pub struct Session<'a> {
+    |            ------- fields in this struct
+...
+ 96 |     pub usage: Value,
+    |         ^^^^^
+...
+100 |     items: HashMap<String, Value>,
+    |     ^^^^^
+101 |     completed_observation: Option<Value>,
+    |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: associated items `source_review`, `bind_id`, `dispatch`, `item`, `event`, and `interrupt` are never used
+   --> C:/Projects/DevForgeAI/devforgeai/experiments/codex-worker-probe/src/protocol.rs:235:19
+    |
+104 | impl<'a> Session<'a> {
+    | -------------------- associated items in this implementation
+...
+235 |     pub(crate) fn source_review<T>(
+    |                   ^^^^^^^^^^^^^
+...
+330 |     fn bind_id(v: &Value) -> Result<String> {
+    |        ^^^^^^^
+...
+551 |     pub fn dispatch(&mut self, r: &Request) -> Result<()> {
+    |            ^^^^^^^^
+...
+606 |     fn item(&mut self, item: &Value) -> Result<()> {
+    |        ^^^^
+...
+629 |     fn event(&mut self, v: Value) -> Result<bool> {
+    |        ^^^^^
+...
+767 |     pub fn interrupt(&mut self) {
+    |            ^^^^^^^^^
+
+warning: `worker-independent-qa` (bin "startup-repro") generated 96 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.05s
+     Running `C:\Projects\DevForgeAI\docs\plan\framework-worker-startup-investigation\20260916T204555Z\offline-repro\target\debug\startup-repro.exe`
+
+thread 'main' (43948) panicked at main.rs:167:5:
+assertion `left == right` failed
+  left: [Object {"active_processes": Number(0), "checkpoint": String("before_send"), "predicate": String("unexpected_process_count"), "rpc": String("initialize"), "schema_version": Number(1), "stage": String("process_accounting"), "total_processes": Number(1)}, Object {"predicate": String("process_guard_rejected"), "rpc": String("initialize"), "schema_version": Number(1), "stage": String("rpc")}]
+ right: [Object {"active_processes": Number(0), "checkpoint": String("before_send"), "predicate": String("unexpected_process_count"), "rpc": String("initialize"), "schema_version": Number(1), "stage": String("process_accounting"), "total_processes": Number(1)}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: process didn't exit successfully: `C:\Projects\DevForgeAI\docs\plan\framework-worker-startup-investigation\20260916T204555Z\offline-repro\target\debug\startup-repro.exe` (exit code: 101)

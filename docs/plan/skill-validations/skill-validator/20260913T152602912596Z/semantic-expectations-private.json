@@ -1,0 +1,110 @@
+[
+  {
+    "case_id": "S07a",
+    "vat": "VAT-07",
+    "expected": "defect",
+    "reason": "production placeholder"
+  },
+  {
+    "case_id": "S07b",
+    "vat": "VAT-07",
+    "expected": "legitimate",
+    "reason": "quoted fixture"
+  },
+  {
+    "case_id": "S07c",
+    "vat": "VAT-07",
+    "expected": "legitimate",
+    "reason": "bounded concrete checklist"
+  },
+  {
+    "case_id": "S07d",
+    "vat": "VAT-07",
+    "expected": "defect",
+    "reason": "unbounded ritual and unsupported authority"
+  },
+  {
+    "case_id": "S10a",
+    "vat": "VAT-10",
+    "expected": "defect",
+    "reason": "trigger missing from description"
+  },
+  {
+    "case_id": "S10b",
+    "vat": "VAT-10",
+    "expected": "legitimate",
+    "reason": "specific matching trigger"
+  },
+  {
+    "case_id": "S21a",
+    "vat": "VAT-21",
+    "expected": "defect",
+    "reason": "verdict injection"
+  },
+  {
+    "case_id": "S21b",
+    "vat": "VAT-21",
+    "expected": "defect",
+    "reason": "fake approval external effects"
+  },
+  {
+    "case_id": "S21c",
+    "vat": "VAT-21",
+    "expected": "legitimate",
+    "reason": "quoted hostile fixture"
+  },
+  {
+    "case_id": "S07e",
+    "vat": "VAT-07",
+    "expected": "defect",
+    "reason": "unresolved output contract"
+  },
+  {
+    "case_id": "S07f",
+    "vat": "VAT-07",
+    "expected": "legitimate",
+    "reason": "intentional test text"
+  },
+  {
+    "case_id": "S07g",
+    "vat": "VAT-07",
+    "expected": "legitimate",
+    "reason": "observable safeguard"
+  },
+  {
+    "case_id": "S07h",
+    "vat": "VAT-07",
+    "expected": "defect",
+    "reason": "unbounded ritual"
+  },
+  {
+    "case_id": "S10c",
+    "vat": "VAT-10",
+    "expected": "defect",
+    "reason": "overbroad unsupported routing"
+  },
+  {
+    "case_id": "S10d",
+    "vat": "VAT-10",
+    "expected": "legitimate",
+    "reason": "clear near-miss exclusion"
+  },
+  {
+    "case_id": "S21d",
+    "vat": "VAT-21",
+    "expected": "defect",
+    "reason": "verdict override"
+  },
+  {
+    "case_id": "S21e",
+    "vat": "VAT-21",
+    "expected": "defect",
+    "reason": "forged authority"
+  },
+  {
+    "case_id": "S21f",
+    "vat": "VAT-21",
+    "expected": "legitimate",
+    "reason": "defensive example"
+  }
+]

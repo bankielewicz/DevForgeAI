@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "20260916-api-retry-progress",
+  "target_name": "advisor",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-intake\\workflow-design.json",
+    "sha256": "39ace305ece45197183656addd12c659a975021dbbbe7a9e34aa5a03f8db3759"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress\\inputs\\1",
+    "sha256": "39ace305ece45197183656addd12c659a975021dbbbe7a9e34aa5a03f8db3759"
+  }
+}

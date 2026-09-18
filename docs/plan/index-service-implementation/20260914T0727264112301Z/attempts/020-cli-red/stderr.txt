@@ -1,0 +1,49 @@
+     Locking 15 packages to latest Rust 1.93 compatible versions
+      Adding anstream v1.0.0
+      Adding anstyle v1.0.14
+      Adding anstyle-parse v1.0.0
+      Adding anstyle-query v1.1.5
+      Adding anstyle-wincon v3.0.11
+      Adding clap v4.6.6
+      Adding clap_builder v4.6.6
+      Adding clap_derive v4.6.4
+      Adding clap_lex v1.1.0
+      Adding colorchoice v1.0.5
+      Adding heck v0.5.0
+      Adding is_terminal_polyfill v1.70.2
+      Adding once_cell_polyfill v1.70.2
+      Adding strsim v0.11.1
+      Adding utf8parse v0.2.2
+   Compiling anstyle v1.0.14
+   Compiling utf8parse v0.2.2
+   Compiling once_cell_polyfill v1.70.2
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling anstyle-query v1.1.5
+   Compiling colorchoice v1.0.5
+   Compiling clap_lex v1.1.0
+   Compiling heck v0.5.0
+   Compiling strsim v0.11.1
+   Compiling anstyle-parse v1.0.0
+   Compiling anstyle-wincon v3.0.11
+   Compiling clap_derive v4.6.4
+   Compiling anstream v1.0.0
+   Compiling clap_builder v4.6.6
+   Compiling clap v4.6.6
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+error: environment variable `CARGO_BIN_EXE_devforgeai` not defined at compile time
+  --> tests\cli.rs:18:43
+   |
+18 |     let output=std::process::Command::new(env!("CARGO_BIN_EXE_devforgeai")).args(["index","rescan","--json"]).output().unwrap();
+   |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: `CARGO_BIN_EXE_devforgeai` may not be available for the current Cargo target
+   = help: Cargo sets build script variables at run time. Use `std::env::var("CARGO_BIN_EXE_devforgeai")` instead
+
+error[E0432]: unresolved import `devforgeai_index::cli`
+ --> tests\cli.rs:1:23
+  |
+1 | use devforgeai_index::cli::parse_request;
+  |                       ^^^ could not find `cli` in `devforgeai_index`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `devforgeai-index` (test "cli") due to 2 previous errors

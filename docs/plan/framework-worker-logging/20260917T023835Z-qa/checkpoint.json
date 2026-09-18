@@ -1,0 +1,42 @@
+{
+  "intent": "run",
+  "plan_readiness": "READY",
+  "execution_status": "COMPLETED",
+  "verdict": "FAIL",
+  "timestamp_utc": "2026-09-17T03:11:34.592055+00:00",
+  "candidate_manifest": "candidate-manifest.json",
+  "input_manifest": "input-manifest.json",
+  "specification_manifest": "specification-bindings.json",
+  "plan_binding": "plan-binding.json",
+  "case_results": "case-results.json",
+  "criterion_results": "criterion-results.json",
+  "attempts": "attempt-index.json",
+  "completed_command_receipts": 24,
+  "stop_trigger": null,
+  "findings": [
+    {
+      "id": "QA-LOG-01",
+      "state": "OPEN",
+      "class": "MANDATORY_PRODUCT_DEFECT",
+      "terminal_stop": false
+    },
+    {
+      "id": "QA-LOG-02",
+      "state": "OPEN",
+      "class": "MANDATORY_PRODUCT_DEFECT",
+      "terminal_stop": false
+    }
+  ],
+  "owned_processes": [],
+  "owned_process_basis": "All24 invocation/confirmation receipts ended without timeout; real test-held handles and successful stopped-tree checks provide bounded child cleanup evidence. No repository-wide PID absence claim.",
+  "retained_fixtures": "attempts/*/fixtures and QA-owned Cargo targets remain preserved; no automatic replay or deletion",
+  "remaining_required_offline_cases": [],
+  "native_codex": "NOT_RUN",
+  "branch_coverage": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "next_owner": "dev",
+  "next_safe_action": "Manual dev remediation for QA-LOG-01 and QA-LOG-02; no automatic repair/retest. Verify current rules and all bound identities first; report drift.",
+  "report": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-report.md",
+  "fix": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-fix.md",
+  "handoff_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\handoff-manifest.json"
+}

@@ -1,0 +1,122 @@
+{
+  "output_readbacks": 18,
+  "source_files": 31,
+  "input_and_preservation_entries": 337,
+  "local_links": [
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "final-source-test-manifest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\final-source-test-manifest.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "063-clippy/candidate.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\063-clippy\\candidate.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "candidate-readback.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\candidate-readback.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "binary-manifest.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\binary-manifest.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "tool-identities.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\tool-identities.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "fixture-provenance.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\fixture-provenance.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "traceability.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\traceability.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "executions.jsonl",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\executions.jsonl"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "independent-qa-handoff.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\independent-qa-handoff.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "input-final-checks.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\input-final-checks.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "final-test-inventory.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\final-test-inventory.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "coverage-05.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\coverage-05.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "coverage-05.summary.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\coverage-05.summary.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "development-notes.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\development-notes.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "context.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\context.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "output-readback.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\output-readback.json"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "independent-qa-handoff.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\independent-qa-handoff.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+      "target": "checkpoint.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\checkpoint.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+      "target": "../../../docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\README.md",
+      "target": "../../../docs/plan/framework-worker-implementation/20260915T1544548240203Z/context.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\context.md"
+    }
+  ],
+  "delivery": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\delivery.md",
+    "bytes": 7412,
+    "sha256": "eb622f08f5ea17b299c2a917cfbdb90346695dc0956b58678268e7ef44411881"
+  },
+  "handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\independent-qa-handoff.md",
+    "bytes": 4696,
+    "sha256": "cb840412c73198db0cc71e9c5cf87c977ef36a93b20fce8d28d6bff70b6b676f"
+  },
+  "output_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\output-readback.json",
+    "bytes": 7412,
+    "sha256": "a5b0d5de2c40e5acde4edf473632d11f19d5080332ab25f6ee2be8b7b31707a4"
+  }
+}

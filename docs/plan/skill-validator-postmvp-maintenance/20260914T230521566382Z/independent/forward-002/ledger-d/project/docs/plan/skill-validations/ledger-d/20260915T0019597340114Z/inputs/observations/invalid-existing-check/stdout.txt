@@ -1,0 +1,44 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "invalid-existing",
+  "kind": "utility",
+  "started_at": "2026-09-15T00:22:17.647138+00:00",
+  "ended_at": "2026-09-15T00:22:17.851250+00:00",
+  "elapsed_seconds": 0.20300000000133878,
+  "timeout_seconds": 120,
+  "timeout": false,
+  "exit_code": 2,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "NOT_RUN",
+  "error": null,
+  "plan_sha256": "ecd127a8ac1f00d68f51579d86d2d40fae6bca00fd71543f442467ba48aecb89",
+  "started_sha256": "0f61a36909fc1acb124bf8b302fb78cc503203a0813f856db3c611830a49d7cf",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\invalid-existing\\attempt-001\\before.json",
+      "sha256": "680caad0f210dec243b32ba6df9ea1ca14c1a53a59f1055a30faba90fabe58a4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\invalid-existing\\attempt-001\\after.json",
+      "sha256": "4f0bf67fd879d0a0361d985b10484bfb3587e402082fcb6de783c88925916b21"
+    }
+  ],
+  "changed_paths": [],
+  "output_checks": [],
+  "artifacts": [],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\invalid-existing\\attempt-001\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\invalid-existing\\attempt-001\\stderr.txt",
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

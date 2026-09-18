@@ -1,0 +1,206 @@
+[
+  {
+    "path": "C:\\Users\\bryan\\.codex\\AGENTS.md",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\config.toml",
+    "sha256": "b438f4fbd9ed78c2fb1878b3f75a61a921eebe8180eac4f786d3d1db8ab32d13",
+    "bytes": 27276
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\managed_config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+    "bytes": 13954
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\AGENTS.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\AGENTS.override.md",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\.codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\.codex\\hooks.json",
+    "exists": false
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\.codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\rules\\default.rules",
+    "sha256": "37bf70278955fee8ce51a5526b06f694308ce3db2087513e99e92de5706f7967",
+    "bytes": 103876
+  },
+  {
+    "path": "C:\\ProgramData\\OpenAI\\Codex\\config.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\ProgramData\\OpenAI\\Codex\\requirements.toml",
+    "exists": false
+  },
+  {
+    "path": "C:\\ProgramData\\OpenAI\\Codex\\hooks.json",
+    "exists": false
+  }
+]

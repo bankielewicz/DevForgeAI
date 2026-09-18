@@ -1,0 +1,43 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling cfg-if v1.0.4
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling windows-link v0.2.1
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cpufeatures v0.2.17
+   Compiling getrandom v0.4.3
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling windows-sys v0.61.2
+   Compiling generic-array v0.14.7
+   Compiling tempfile v3.27.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling syn v3.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+warning: unused return value of `TempDir::keep` that must be used
+  --> tests\native_identity.rs:29:57
+   |
+29 |     if std::env::var_os("WF_TEST_EVIDENCE").is_some() { temp.keep(); }
+   |                                                         ^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_must_use)]` (part of `#[warn(unused)]`) on by default
+help: use `let _ = ...` to ignore the resulting value
+   |
+29 |     if std::env::var_os("WF_TEST_EVIDENCE").is_some() { let _ = temp.keep(); }
+   |                                                         +++++++
+
+warning: `devforgeai-codex-worker-probe` (test "native_identity") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.33s
+     Running tests\native_identity.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-implementation\20260915T2118427272409Z\target\debug\deps\native_identity-b0c361473e3bdc9e.exe)
+error: test failed, to rerun pass `--test native_identity`

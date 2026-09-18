@@ -1,0 +1,29 @@
+{
+  "attempt_id": "watcher-refactor",
+  "stage": "refactor",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--lib",
+    "service::repair_tests",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\watcher-refactor\\gui"
+  },
+  "source_manifest_sha256": "a1494ec4f1c40855dd868f0556b6bc5b0e043197d09866041ad16178e823b117",
+  "started_at": "2026-09-14T21:09:45.226164+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T21:09:52.355341+00:00",
+  "elapsed_seconds": 7.139999999999418,
+  "stdout.txt_sha256": "bca3c4a1a580255901f7a4f5fd46ea718aadec838deaa126312730cb04fea421",
+  "stderr.txt_sha256": "f79696893ea57241fefa7a60e51e065f31b4ca5d5a9ebe989eced4feceed65a5"
+}

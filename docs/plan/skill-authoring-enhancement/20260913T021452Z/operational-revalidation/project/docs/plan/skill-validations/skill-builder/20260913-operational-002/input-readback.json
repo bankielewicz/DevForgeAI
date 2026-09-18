@@ -1,0 +1,76 @@
+{
+  "schema_version": "1",
+  "checked_at_utc": "2026-09-13T02:55:04.550267+00:00",
+  "specification_original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\skill-builder-authoring-enhancement-spec.md",
+  "specification": {
+    "path": "inputs/enhancement-spec.md",
+    "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14"
+  },
+  "specification_unchanged": true,
+  "validator_inputs": [
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\SKILL.md",
+      "retained": {
+        "path": "inputs/validator/SKILL.md",
+        "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\scripts\\observe.py",
+      "retained": {
+        "path": "inputs/validator/scripts/observe.py",
+        "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\references\\origin.md",
+      "retained": {
+        "path": "inputs/validator/references/origin.md",
+        "sha256": "992fdad9cd83c49c13ade01178f24b66d958b2c07b3030a26395c3d667057e0f"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\references\\rules.md",
+      "retained": {
+        "path": "inputs/validator/references/rules.md",
+        "sha256": "113ed216ad8ce3f281c5b32f4443fa64a85ad2475f742142581aa266748a090a"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\references\\trials.md",
+      "retained": {
+        "path": "inputs/validator/references/trials.md",
+        "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\references\\reporting.md",
+      "retained": {
+        "path": "inputs/validator/references/reporting.md",
+        "sha256": "c0e423a468385a4d220610ffd33f1b8e4fd5ac53e82755f63dae1794a393bd22"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\references\\handoff.md",
+      "retained": {
+        "path": "inputs/validator/references/handoff.md",
+        "sha256": "d923cebb61067278bdd19808f6063df15c81425d58afdc1f2b6c805755620a91"
+      },
+      "same_as_previously_loaded": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\inputs\\operational-validator\\assets\\rules-snapshot.json",
+      "retained": {
+        "path": "inputs/validator/assets/rules-snapshot.json",
+        "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+      },
+      "same_as_previously_loaded": true
+    }
+  ]
+}

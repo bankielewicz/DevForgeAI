@@ -1,0 +1,33 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "unexpected-side-effect",
+  "kind": "native",
+  "started_at": "2026-09-14T23:13:06.084283+00:00",
+  "ended_at": "2026-09-14T23:13:06.224043+00:00",
+  "elapsed_seconds": 0.14099999999962165,
+  "timeout_seconds": 5,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "83a079b9cce4db80f35969900550f689bf90e1f27cd4f0c7e24b60be1a7734ac",
+  "started_sha256": "52f54b41e373e44f64549dd6a0cebfd8171b57739ea937077cfe7d0bdcd25182",
+  "output_checks": [],
+  "artifacts": [],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\unexpected-side-effect\\attempt\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\unexpected-side-effect\\attempt\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

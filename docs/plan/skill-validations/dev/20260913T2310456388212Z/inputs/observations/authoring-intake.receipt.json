@@ -1,0 +1,26 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260913T2114525120037Z\\validation-request.json",
+    "--request-sha256",
+    "7ebe47919c03b654614dcfa5ff288c0e58a3870615582e798780c74e8cfa15d6"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:38:10.697102+00:00",
+  "end": "2026-09-13T21:38:10.857101+00:00",
+  "exit_code": 1,
+  "timeout_seconds": 120,
+  "stdout": {
+    "path": "observations/authoring-intake.stdout",
+    "sha256": "0d69176d30df277a91064c4cd428feffcadf898afdc87f5246ffe483bb2ef4f3"
+  },
+  "stderr": {
+    "path": "observations/authoring-intake.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

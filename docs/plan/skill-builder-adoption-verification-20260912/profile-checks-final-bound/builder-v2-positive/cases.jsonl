@@ -1,0 +1,5 @@
+{"case_id": "builder-v2-positive-package_links", "grader_id": "package_links", "params": {"path": "trace/destination"}, "expected": "PASS"}
+{"case_id": "builder-v2-positive-manifest_accounting", "grader_id": "manifest_accounting", "params": {"source": "portable/source", "destination": "portable/destination", "evidence": "portable/evidence"}, "expected": "PASS"}
+{"case_id": "builder-v2-positive-build_traceability", "grader_id": "build_traceability", "params": {"evidence": "trace/evidence", "destination": "trace/destination"}, "expected": "PASS"}
+{"case_id": "builder-v2-positive-revision_consistency", "grader_id": "revision_consistency", "params": {"path": "revision/revision-plan.json"}, "expected": "PASS"}
+{"case_id": "builder-v2-positive-routing_outcomes", "grader_id": "routing_outcomes", "params": {"expected": "routing/expected.jsonl", "observed": "routing/observed.jsonl"}, "expected": "PASS"}

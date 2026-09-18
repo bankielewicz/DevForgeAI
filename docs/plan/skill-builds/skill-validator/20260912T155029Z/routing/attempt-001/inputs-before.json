@@ -1,0 +1,10 @@
+{
+  "SKILL.md": "f48294770a6ba815b86688d12bca6d3ad2f4792b374fb553129ea19c2e8a6d1f",
+  "prompts.json": "23cf9b6485852b5191dd6ed3852f86b6f3319d4ad00a26ebeb3a2b61e9a5ac03",
+  "expected_snapshot": {
+    "path": "../expected.json",
+    "sha256": "e2f3a558b1e630d4444900759b9c53ee7c12dc201aad11a54ca4934bf812a22a"
+  },
+  "native_invocation": "NOT_RUN",
+  "purpose": "Independent description classification; no discovery activation claim"
+}

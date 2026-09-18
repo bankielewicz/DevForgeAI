@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "label": "02-environment",
+  "argv": [
+    "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "-NoProfile",
+    "-File",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\harness\\environment.ps1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "environment_overrides": {},
+  "stdin": "DEVNULL",
+  "executable": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "executable_sha256": "bfb46af89433268872ddb43d1ca7a3f433452ee91ed356a9786940f90118e285",
+  "recorder_sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+  "candidate_before_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "start_utc": "2026-09-16T03:05:39.287345+00:00",
+  "timeout_seconds": 60,
+  "owned_pid": 38328,
+  "end_utc": "2026-09-16T03:05:39.759074+00:00",
+  "duration_monotonic_ns": 437000000,
+  "native_exit_code": 1,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_bytes": 264,
+  "stderr_sha256": "3346f2b98049ef164dff91a890c9439d9b81f3b9b120da5fee50bac7e984029c",
+  "candidate_after_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "candidate_unchanged": true
+}

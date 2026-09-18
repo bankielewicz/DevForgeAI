@@ -1,0 +1,132 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T123744Z-spec",
+  "mode": "spec_build",
+  "target_name": "decimal-ledger-spec",
+  "builder_manifest_sha256": "0e900c38e64efbf09de889e234eea091524cdc8d67c7a4aa3626c4b5bb956096",
+  "contract_sha256": "12f6e546adbc97f46e377ad593758ce90b6279199be5ea5e9184416a98132444",
+  "inputs": [
+    {
+      "id": "selected-spec",
+      "sha256": "9f096f495eaa7c3523538f6be7a2546acb129c2967451baa1b261a6ce5947e14"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "Python",
+      "requirement": "3.10+ standard library only",
+      "availability": "3.10.11",
+      "digest_verification": "Runtime identity observed; binary digest qualification not claimed"
+    },
+    {
+      "name": "Windows PowerShell terminal",
+      "requirement": "terminal execution",
+      "availability": "PowerShell 7.6.6 on Windows, observed",
+      "digest_verification": "Not required by source contract"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "assets/result.schema.json",
+      "sha256": "89c54ab80ca0a983bcb0cb18fffc99dd4f21c439fb1a4a3860d5e3079f593f1e",
+      "ownership": "generated",
+      "baseline_path": "baseline/assets/result.schema.json",
+      "baseline_sha256": "89c54ab80ca0a983bcb0cb18fffc99dd4f21c439fb1a4a3860d5e3079f593f1e"
+    },
+    {
+      "path": "references/workers/result-review.md",
+      "sha256": "d66bf11c856838c8886fa6ffbbc421c45fcdf08ead1733925ed683d8eaa1aa2c",
+      "ownership": "generated",
+      "baseline_path": "baseline/references/workers/result-review.md",
+      "baseline_sha256": "d66bf11c856838c8886fa6ffbbc421c45fcdf08ead1733925ed683d8eaa1aa2c"
+    },
+    {
+      "path": "scripts/sum_amounts.py",
+      "sha256": "b77a481591cb8a27fb7be445d16b5cbaaab08eaae0438aa9508567222607ba73",
+      "ownership": "generated",
+      "baseline_path": "baseline/scripts/sum_amounts.py",
+      "baseline_sha256": "b77a481591cb8a27fb7be445d16b5cbaaab08eaae0438aa9508567222607ba73"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "654441830a06c6d1933c419896c824209fde9ce7cd6b36c69400e00cd953b447",
+      "ownership": "generated",
+      "baseline_path": "baseline/SKILL.md",
+      "baseline_sha256": "654441830a06c6d1933c419896c824209fde9ce7cd6b36c69400e00cd953b447"
+    }
+  ],
+  "mappings": [
+    {
+      "requirement_id": "REQ-01",
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py"
+      ],
+      "evidence_ids": [
+        "executed-observations"
+      ]
+    },
+    {
+      "requirement_id": "REQ-02",
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py",
+        "assets/result.schema.json"
+      ],
+      "evidence_ids": [
+        "executed-observations"
+      ]
+    },
+    {
+      "requirement_id": "REQ-03",
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py",
+        "assets/result.schema.json",
+        "references/workers/result-review.md"
+      ],
+      "evidence_ids": [
+        "executed-observations"
+      ]
+    },
+    {
+      "requirement_id": "REQ-04",
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py"
+      ],
+      "evidence_ids": [
+        "executed-observations"
+      ]
+    },
+    {
+      "requirement_id": "REQ-05",
+      "artifact_paths": [
+        "SKILL.md",
+        "references/workers/result-review.md"
+      ],
+      "evidence_ids": [
+        "executed-observations"
+      ]
+    },
+    {
+      "requirement_id": "REQ-06",
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/sum_amounts.py"
+      ],
+      "evidence_ids": [
+        "executed-observations"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "executed-observations",
+      "path": "evidence/observations-candidate.json",
+      "sha256": "e28da97c1857e13d34ccd779a2ff50376eb84e068353d1f2ece23d58b660e45f"
+    }
+  ],
+  "prior_build": null,
+  "result": "INCOMPLETE"
+}

@@ -1,0 +1,3 @@
+{"id": "HELPER-REGRESSIONS", "kind": "retained_unittest", "receipt": "helper_receipt", "stderr": "helper_stderr"}
+{"id": "VALIDATOR-REGRESSIONS", "kind": "retained_unittest", "receipt": "regression_receipt", "stderr": "regression_stderr"}
+{"id": "HELPER-COVERAGE", "kind": "retained_coverage", "coverage": "coverage"}

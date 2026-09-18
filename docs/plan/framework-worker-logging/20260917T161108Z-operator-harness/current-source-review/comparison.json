@@ -1,0 +1,53 @@
+{
+  "approved_inventory": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\approved-sources\\stdout.bin",
+    "bytes": 25935,
+    "sha256": "d531c3b62b790c4df035916f26d848775597c4c198e688b17b62e0a3d0fd7268"
+  },
+  "observed_inventory": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\collection\\stdout.bin",
+    "bytes": 25935,
+    "sha256": "e0ea8f1ec76e39c663694d5b6366541a17c9ae2811fa7ea420c296f23f591a73"
+  },
+  "changes": [
+    {
+      "before": {
+        "bytes": 27374,
+        "family": "user",
+        "items": null,
+        "path": "\\\\?\\C:\\Users\\bryan\\.codex\\config.toml",
+        "sha256": "beb5cf499ca174940f8f5c91455e54b93d5c2a32f45e1837f5e134c0e10e99cd",
+        "state": "file"
+      },
+      "after": {
+        "bytes": 27430,
+        "family": "user",
+        "items": null,
+        "path": "\\\\?\\C:\\Users\\bryan\\.codex\\config.toml",
+        "sha256": "39d7a2d006e25cfe494cf349d124b18598542ac253a1f9a264fd75e89c7926ef",
+        "state": "file"
+      }
+    },
+    {
+      "before": {
+        "bytes": 107054,
+        "family": "rules",
+        "items": null,
+        "path": "\\\\?\\C:\\Users\\bryan\\.codex\\rules\\default.rules",
+        "sha256": "bf2d26e5ab4d413d3b3f8db3eee1d58b52813a55431902b8e53891a0d54a34fa",
+        "state": "file"
+      },
+      "after": {
+        "bytes": 107314,
+        "family": "rules",
+        "items": null,
+        "path": "\\\\?\\C:\\Users\\bryan\\.codex\\rules\\default.rules",
+        "sha256": "19744d34a8fa4aacfc623770dc27be6493236e253d9b4ccafec338eb9a7ad3d8",
+        "state": "file"
+      }
+    }
+  ],
+  "source_collector_exit": 0,
+  "native_codex": "NOT_RUN",
+  "selection_status": "MATERIAL_SOURCE_REVIEW_PENDING"
+}

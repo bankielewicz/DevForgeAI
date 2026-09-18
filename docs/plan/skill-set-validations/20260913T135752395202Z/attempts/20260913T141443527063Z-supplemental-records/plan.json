@@ -1,0 +1,18 @@
+{
+  "schema_version": "1",
+  "label": "supplemental-records",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\supplemental"
+  ],
+  "expected": "Closed supplemental observations, selected-pair assessment, exact coverage totals and FAIL reduction accepted; exit 0.",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T141443527063Z-supplemental-records",
+  "started_at_utc": "20260913T141443527063Z"
+}

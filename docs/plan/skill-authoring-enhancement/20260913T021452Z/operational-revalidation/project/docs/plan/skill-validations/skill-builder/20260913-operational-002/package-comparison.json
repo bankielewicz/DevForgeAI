@@ -1,0 +1,30 @@
+{
+  "schema_version": "1",
+  "prior_run": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-assessment\\project\\docs\\plan\\skill-validations\\skill-builder\\20260913-operational-001",
+  "prior_manifest": {
+    "path": "inputs/prior/source-manifest.json",
+    "sha256": "dd577c879dabb3cc923d384820d0c8264608a16ada560d4a8fbf675687797d70"
+  },
+  "current_manifest": {
+    "path": "source-manifest.json",
+    "sha256": "11b773983de066df16127eea94d9104025acbf104795de02f55a6768de83cbe7"
+  },
+  "prior_digest": "df5204eb3ff53db0ff71d222bfab552170ca36950905ad9b49ea3fcbc9b6bb32",
+  "current_digest": "65e5513cdb531cbfb1d9ef3eb9a1665f4221b1993ea0e5fbd1eb8e20fa6cc680",
+  "changed_paths": [
+    "package-manifest.json",
+    "references/conversion-rules.md",
+    "schemas/authoring-contract.schema.json",
+    "scripts/authoring.py",
+    "scripts/custody.py"
+  ],
+  "added_paths": [],
+  "removed_paths": [],
+  "diff": {
+    "path": "inputs/package-diff.txt",
+    "sha256": "aea859a23eca0e34e53f8816dce96dd1988f4ed19bb35c2c40bd9eba7a3c0d7a"
+  },
+  "limitations": [
+    "Compared actual selected snapshots. Builder delivery evidence was not selected; do not claim an independently verified build/delivery manifest chain."
+  ]
+}

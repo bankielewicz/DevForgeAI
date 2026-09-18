@@ -1,0 +1,53 @@
+{
+  "schema_version": "1",
+  "cases": [
+    {
+      "case_id": "R01",
+      "request": "Validate the Codex skill at src/agents/skills/ledger."
+    },
+    {
+      "case_id": "R02",
+      "request": "Audit this skill workflow for unreachable steps."
+    },
+    {
+      "case_id": "R03",
+      "request": "Review whether the checklist in this skill is ceremonial."
+    },
+    {
+      "case_id": "R04",
+      "request": "I edited SKILL.md by hand; assess its resources and behavior."
+    },
+    {
+      "case_id": "R05",
+      "request": "Revalidate the skill delivered by the builder."
+    },
+    {
+      "case_id": "R06",
+      "request": "Explain what a Codex skill is."
+    },
+    {
+      "case_id": "R07",
+      "request": "Build a new skill from this approved specification."
+    },
+    {
+      "case_id": "R08",
+      "request": "Fix the application Python parser."
+    },
+    {
+      "case_id": "R09",
+      "request": "Install this skill into my user skill folder."
+    },
+    {
+      "case_id": "R10",
+      "request": "Configure GitHub CI for this repository."
+    },
+    {
+      "case_id": "R11",
+      "request": "Write a product requirements specification for a shopping app."
+    },
+    {
+      "case_id": "R12",
+      "request": "Inspect progressive disclosure in the named development skill before adoption."
+    }
+  ]
+}

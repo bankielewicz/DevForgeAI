@@ -1,0 +1,45 @@
+{
+  "confirmed_product_defects": [],
+  "gaps": [
+    {
+      "id": "QA-GAP-01",
+      "class": "PREREQUISITE_OR_HARNESS_GAP",
+      "requirement": "NI-T05",
+      "status": "NOT_RUN",
+      "detail": "Synthetic library-level repeated verification caught byte and junction-target drift, but the real native runner pre-spawn recheck is unreachable because schema-2 profile qualification deliberately fails before spawn while NI-02 is unqualified. The synthetic case does not establish the full criterion."
+    },
+    {
+      "id": "QA-GAP-02",
+      "class": "PREREQUISITE_OR_HARNESS_GAP",
+      "requirement": "NI-T07 through NI-T10",
+      "status": "BLOCKED",
+      "detail": "No approved, pinned-version-qualified restrictive argv/policy and no complete effective hook/plugin/MCP/app inactivity proof exist. Schema 2 correctly fails closed."
+    },
+    {
+      "id": "QA-GAP-03",
+      "class": "PREREQUISITE_OR_HARNESS_GAP",
+      "requirement": "NI-T11/NI-T12 and WN-01/WN-02",
+      "status": "BLOCKED",
+      "detail": "The two trials are conditionally selected but their NI-02/NI-03 prerequisites are blocked. No Codex process or native trial was launched."
+    },
+    {
+      "id": "QA-GAP-04",
+      "class": "PREREQUISITE_OR_HARNESS_GAP",
+      "requirement": "protected compiled-Rust authority",
+      "status": "NOT_EVALUATED",
+      "detail": "No qualified authority decision was supplied or invoked."
+    },
+    {
+      "id": "QA-GAP-05",
+      "class": "EVIDENCE_RETENTION_GAP",
+      "requirement": "durable command evidence",
+      "status": "INCOMPLETE",
+      "detail": "The exact-suite receipt is a partial/transcribed terminal summary with dependency compilation output omitted. The coverage-command receipt is an authored summary with selected status lines and no retained elapsed duration; coverage.json itself is genuine raw LLVM JSON. Helper attempt 001 retains partial terminal output and wrapper status 1, but the exact native Cargo exit code and Cargo-only duration were not retained. These limits do not change product counts or coverage, but the affected receipts are not full raw stdout/stderr streams."
+    }
+  ],
+  "resolved_qa_harness_attempt": {
+    "id": "QA-HARNESS-01",
+    "status": "RESOLVED",
+    "detail": "Attempt 001 compared equivalent Windows physical paths before normalization. The QA-only oracle was corrected to resolve the expected path; attempt 002 passed 5/5. Candidate bytes were unchanged."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "binary": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\target-original\\debug\\devforgeai-codex-worker-probe.exe",
+  "binary_sha256": "b63a0dfb0a48adfc5977a75d145fa766345a9d948e99b3a5bbdf5d5ce74079b2",
+  "package": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "plugin_source_identity_sha256": "d2f9f1952262dae524930873688c54eef9fd8959ca7fa1c26e7a311ddc089b69",
+  "positive": {
+    "exit_code": 0,
+    "schema_version": 2,
+    "junctions": [],
+    "stdout_sha256": "bf29263b84d979c68d638415f2231786b47f4093303a02f2f8c4d8ff2f156a71",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "relocated_alias": {
+    "exit_code": 3,
+    "diagnostic": {
+      "error": "profile_source_reparse:\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\independent-public-attempt2\\negative-user\\.codex\\plugins\\cache\\openai-bundled\\chrome\\latest"
+    },
+    "junction_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\independent-public-attempt2\\negative-user\\.codex\\plugins\\cache\\openai-bundled\\chrome\\latest",
+    "junction_target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\independent-public-attempt2\\negative-user\\.codex\\plugins\\cache\\openai-bundled\\chrome\\26.908.70816",
+    "junction_target_observed": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\independent-public-attempt2\\negative-user\\.codex\\plugins\\cache\\openai-bundled\\chrome\\26.908.70816",
+    "junction_reparse_attribute": 9232,
+    "fsutil_stdout_sha256": "301fd97075247004b74692ccb45c08875b2d37470425228d5a016c32552e43df"
+  },
+  "codex_started": false,
+  "installed_profile_collected": false
+}

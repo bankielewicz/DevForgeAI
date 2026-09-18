@@ -1,0 +1,103 @@
+[
+  {
+    "query": "/create-incident-from-recommendations STORY-661",
+    "should_trigger": true,
+    "rationale": "direct slash command invocation"
+  },
+  {
+    "query": "Convert my QA recommendations into GitHub issues",
+    "should_trigger": true,
+    "rationale": "natural-language paraphrase of the skill's primary purpose"
+  },
+  {
+    "query": "Post the MEDIUM advisories from STORY-661's QA recs as issues to bankielewicz/DevForgeAI",
+    "should_trigger": true,
+    "rationale": "specific request matching the skill's input/output shape"
+  },
+  {
+    "query": "Create incidents from the QA recommendations in devforgeai/qa/recommendations/STORY-660-qa-recommendations.md",
+    "should_trigger": true,
+    "rationale": "explicit reference to the QA-recs file path the skill consumes"
+  },
+  {
+    "query": "Turn my QA recommendations file into GitHub issues so I can assign them",
+    "should_trigger": true,
+    "rationale": "user goal phrased without naming the skill"
+  },
+  {
+    "query": "I have STORY-700 QA recs ready, can you post them as GitHub issues?",
+    "should_trigger": true,
+    "rationale": "conversational invocation"
+  },
+  {
+    "query": "Take the qa-recommendations.md output and create GitHub work-orders for each MEDIUM rec",
+    "should_trigger": true,
+    "rationale": "matches the 'work-order' framing in the skill description"
+  },
+  {
+    "query": "Convert STORY-661-qa-recommendations.md findings into actionable issues on the DevForgeAI repo",
+    "should_trigger": true,
+    "rationale": "specific filename + repo target — exact match for the skill's contract"
+  },
+  {
+    "query": "Run /create-incident-from-recommendations on the latest QA validation output",
+    "should_trigger": true,
+    "rationale": "command + workflow context"
+  },
+  {
+    "query": "I want to post the 4 advisory recommendations from /qa as GitHub issues",
+    "should_trigger": true,
+    "rationale": "QA workflow handoff to issue creation"
+  },
+
+  {
+    "query": "/create-incident-from-rca RCA-067",
+    "should_trigger": false,
+    "rationale": "near miss — sibling skill (RCA path), not QA-recs path"
+  },
+  {
+    "query": "Convert the recommendations from RCA-067 into GitHub issues",
+    "should_trigger": false,
+    "rationale": "near miss — RCA recommendations belong to github-incident-from-rca, not this skill"
+  },
+  {
+    "query": "Create user stories from STORY-661's QA recommendations",
+    "should_trigger": false,
+    "rationale": "near miss — different sink (user stories via /create-stories-from-rca, not GitHub issues)"
+  },
+  {
+    "query": "Run /qa on STORY-700 and generate the recommendations file",
+    "should_trigger": false,
+    "rationale": "near miss — produces QA recs (upstream), doesn't post issues"
+  },
+  {
+    "query": "Show me the contents of devforgeai/qa/recommendations/STORY-661-qa-recommendations.md",
+    "should_trigger": false,
+    "rationale": "near miss — read-only file inspection, no issue creation intent"
+  },
+  {
+    "query": "Post a GitHub issue about a flaky test I just found",
+    "should_trigger": false,
+    "rationale": "near miss — GitHub issue creation but NOT QA-recs-derived"
+  },
+  {
+    "query": "Generate a release plan for STORY-700",
+    "should_trigger": false,
+    "rationale": "unrelated workflow (release, not issue creation)"
+  },
+  {
+    "query": "Help me write better QA recommendation entries in my findings-input.json",
+    "should_trigger": false,
+    "rationale": "meta question about the QA recs format, not posting"
+  },
+  {
+    "query": "Update the bankielewicz/DevForgeAI repo with new commits from my feature branch",
+    "should_trigger": false,
+    "rationale": "near miss — same repo target but git operation, not issue creation"
+  },
+  {
+    "query": "What labels should I add to GitHub issues I create manually?",
+    "should_trigger": false,
+    "rationale": "near miss — labels question but no posting workflow invocation"
+  }
+]

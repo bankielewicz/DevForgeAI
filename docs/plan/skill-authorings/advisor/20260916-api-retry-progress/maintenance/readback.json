@@ -1,0 +1,11 @@
+{
+  "operational_files_unchanged": 19,
+  "manifest_files_verified": 18,
+  "changed_paths": [
+    "artifact-manifest.json",
+    "references/execution.md",
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py"
+  ],
+  "syntax": "PASS"
+}

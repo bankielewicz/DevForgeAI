@@ -1,0 +1,53 @@
+{
+  "method": "Original absolute path/include source; no production copy or replacement",
+  "mapped": [
+    {
+      "depfile": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness-target\\debug\\deps\\worker_independent_qa-d633315cc841ae20.d",
+        "bytes": 7557,
+        "sha256": "1f4f7e1417f63dad81185a01f37f7a0010073ca86cfde0fd883500c55c86cc70"
+      },
+      "production_modules": [
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\diagnostic.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\effective_profile.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\launch_policy.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\native_identity.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\profile_sources.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs"
+      ],
+      "count": 11
+    },
+    {
+      "depfile": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness-target\\debug\\deps\\worker_independent_qa-f516fd0197a66bac.d",
+        "bytes": 8399,
+        "sha256": "162434d8a11ac2d78ae7a09cc47a8dacf9385a1bd9eb95128ce250eca7a34dc8"
+      },
+      "production_modules": [
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\diagnostic.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\effective_profile.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\launch_policy.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\native_identity.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\profile_sources.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+        "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs"
+      ],
+      "count": 11
+    }
+  ],
+  "original_production_files_verified": 58,
+  "entrypoints_measured_on_original": [
+    "src/lib.rs",
+    "src/main.rs"
+  ],
+  "path_sensitive_scope_limit": "Wrapper evidence does not qualify native root derivation, CLI/admission paths or public runner end-to-end; original campaign supplies those offline results"
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "Read-only Windows Application Error/Windows Error Reporting events in the retained attempt interval",
+  "start_utc": "2026-09-16T20:27:55Z",
+  "end_utc": "2026-09-16T20:28:25Z",
+  "filter_ids": [
+    1000,
+    1001
+  ],
+  "matching_rows": [],
+  "query_error_id": "NoMatchingEventsFound,Microsoft.PowerShell.Commands.GetWinEventCommand",
+  "native_launches": 0,
+  "meaning": "Absence of an event cannot exclude a clean error exit or a crash without a retained Application event"
+}

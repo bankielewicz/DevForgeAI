@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-author-extra-contract-field",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1583,
+      "sha256": "7508af8452415d44fcd370a92c8580b1377d643c582b9145e8418157529af771"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "46f9c8f5c0692434b15b32df1829cba1f886efc2e0c3a57c656eec4174344867"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 64,
+      "sha256": "f2cbc0c95a17be979e425e3b607dd5b6779218c97d06479105992ca3333f3dcd"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

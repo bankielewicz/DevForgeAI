@@ -1,0 +1,30 @@
+{
+  "label": "control",
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "inspect",
+    "--run-dir",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run",
+    "--after",
+    "0",
+    "--limit",
+    "100"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "exit_code": 0,
+  "expected_state": "completed",
+  "expected_error": null,
+  "state": "completed",
+  "error": null,
+  "read_only": true,
+  "expectation_met": true,
+  "elapsed_seconds": 0.03200000000651926,
+  "before_sha256": {
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run\\diagnostics-config.json": "900afa79bd391ad2a66a9f446bb29c357dbbc1d228493cd263c0b147515886c2",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run\\diagnostics.jsonl": "cd8c01e575ce98ca13c119e3e885af52211f59cb7ddb087999e1b06c9eb0b83d",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run\\inputs.json": "4264ec6519cc54d264963f1c25641be86339748a5caa6a5673160f8394787322",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run\\journal.jsonl": "0e9c61d51582316a154b95045d8a86aff8d9fa54eb23b80b8c470e5c59c8108a",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run\\request.json": "63fa70de7cfa93a3ce2d506249d35feadd4e2a6f72e6be62a62fdaabd99e86cb",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\run\\task.json": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  }
+}

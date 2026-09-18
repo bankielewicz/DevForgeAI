@@ -1,0 +1,1 @@
+{"protocol_version":1,"request_id":"91068266-8209-4500-a9c5-b3b6fab085f8","service_version":"0.1.0","environment_id":"b127c49e-6389-4b4a-84f0-ce15d92da6ed","ok":true,"data":{"already_running":true,"daemon_state":"running","degraded":false,"indexing_mode":"active","parse_workers":2,"projects":0},"error":null}

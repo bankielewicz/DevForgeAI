@@ -1,0 +1,69 @@
+{
+  "activation": {
+    "excluded": [
+      "Install a skill."
+    ],
+    "positive": [
+      "Construct the fixture."
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "SKILL.md",
+      "purpose": "Carry the supplied previous-generation bytes.",
+      "requirement_ids": [
+        "previous-requirement"
+      ],
+      "role": "fixture"
+    }
+  ],
+  "authorization": {
+    "inputs": [
+      {
+        "id": "previous-input",
+        "sha256": "eb569a25e37fbcc7337a4ab18bf3959d8c3503d2cabddf4c54752046c1ee11d4"
+      }
+    ],
+    "instruction": "Construct the bounded previous-generation byte fixture."
+  },
+  "dependencies": [],
+  "inputs": [
+    {
+      "bytes": 67,
+      "id": "previous-input",
+      "path": "revision/previous-input.md",
+      "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-negative\\candidate\\revision\\previous-input.md",
+      "role": "spec",
+      "sha256": "eb569a25e37fbcc7337a4ab18bf3959d8c3503d2cabddf4c54752046c1ee11d4"
+    }
+  ],
+  "mode": "spec_build",
+  "purpose": "Exercise historical byte accounting, including empty ownership boundary fixtures.",
+  "requirements": [
+    {
+      "artifact_paths": [
+        "SKILL.md"
+      ],
+      "id": "previous-requirement",
+      "origin": "source",
+      "source_refs": [
+        {
+          "end_byte": 67,
+          "input_id": "previous-input",
+          "sha256": "eb569a25e37fbcc7337a4ab18bf3959d8c3503d2cabddf4c54752046c1ee11d4",
+          "start_byte": 0
+        }
+      ],
+      "text": "Synthetic previous generation: retain the supplied baseline bytes.",
+      "verification": [
+        {
+          "expected": "Baseline byte equality.",
+          "method": "Compare supplied fixture bytes."
+        }
+      ]
+    }
+  ],
+  "schema_version": "1",
+  "target_name": "synthetic-total",
+  "workers": []
+}

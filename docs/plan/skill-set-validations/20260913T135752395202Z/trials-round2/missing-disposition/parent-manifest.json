@@ -1,0 +1,22 @@
+[
+  {
+    "path": "SKILL.md",
+    "bytes": 255,
+    "sha256": "d40266f5a81455019a26cfc243ab5207c0f2057bb844ca267df02616cc4f7b97"
+  },
+  {
+    "path": "assets/devforgeai-skill.json",
+    "bytes": 407,
+    "sha256": "d1050c7accfd514b3d16d183a5e86986e98cf917dea60cb768419e2195cc19cc"
+  },
+  {
+    "path": "references/adaptive-contract.md",
+    "bytes": 261,
+    "sha256": "0c54f5a17ddee4896166cd4c9385c919dca6e83b4a670fb7f4c4a8b1d6110b55"
+  },
+  {
+    "path": "scripts/check_project_binding.py",
+    "bytes": 12232,
+    "sha256": "688b1b7404133639a6f0f69c8fdb88670db230110ac7e8e24b64ccf32a24e241"
+  }
+]

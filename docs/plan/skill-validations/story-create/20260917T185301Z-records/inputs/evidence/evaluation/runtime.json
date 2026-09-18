@@ -1,0 +1,19 @@
+{
+  "python": "3.10+",
+  "observed_python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "dependencies": {
+    "helper": "Python standard library",
+    "graders": "PyYAML 6.0.2",
+    "coverage": "coverage 7.9.0"
+  },
+  "network": false,
+  "source_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\source-manifest.json",
+    "sha256": "5040a3e1c0d40890e43f32761dadb3bf06c7786353d7b3ab9cceec0f80f14f8a"
+  },
+  "requirements": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z\\inputs\\repository\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\requirements.json",
+    "sha256": "e4907fdff37cdc09ded0db79004288141d9686e3d0deacc7d01f10d252109af1"
+  },
+  "authority": "Evidence only; no mutations authorized or framework acceptance."
+}

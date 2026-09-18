@@ -1,0 +1,32 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T001901336490Z",
+  "target_name": "ledger-c",
+  "assessment_completed": true,
+  "overall_assessment": "INCOMPLETE",
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "required_evaluated": 8,
+      "required_total": 8
+    },
+    "workflow": {
+      "outcome": "INCOMPLETE",
+      "required_evaluated": 0,
+      "required_total": 2
+    },
+    "instructions": {
+      "outcome": "INCOMPLETE",
+      "required_evaluated": 4,
+      "required_total": 5
+    },
+    "behavior": {
+      "outcome": "INCOMPLETE",
+      "required_evaluated": 7,
+      "required_total": 10
+    }
+  },
+  "required_evaluated": 19,
+  "required_total": 25,
+  "unknown_applicability": 0
+}

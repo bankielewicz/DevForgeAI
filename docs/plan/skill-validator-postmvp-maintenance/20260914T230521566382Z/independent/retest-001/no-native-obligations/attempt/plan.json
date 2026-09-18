@@ -1,0 +1,25 @@
+{
+  "schema_version": "trial-plan-v1",
+  "case_id": "no-native-obligations",
+  "kind": "native",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\command.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\project",
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\project",
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\no-native-obligations\\command.py",
+      "sha256": "0516226321d381939089974d53744683933801a21890ea41ab5f2921bda6406b"
+    }
+  ],
+  "prompt": null,
+  "requirement_ids": [
+    "outcome"
+  ],
+  "dependencies": [],
+  "expected_outputs": [],
+  "timeout_seconds": 5
+}

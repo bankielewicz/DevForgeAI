@@ -1,0 +1,10 @@
+{
+  "status": "EXPECTED_RED",
+  "assertion": "Unexpected mcp_servers keys",
+  "invalid_transport_names": [
+    "\"node_repl\"",
+    "\"openaiDeveloperDocs\""
+  ],
+  "native_codex_launches": 0,
+  "config_sha256": "beb5cf499ca174940f8f5c91455e54b93d5c2a32f45e1837f5e134c0e10e99cd"
+}

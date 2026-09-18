@@ -1,0 +1,22 @@
+{
+  "schema_version": 2,
+  "project_id": "p",
+  "checkout_id": "c",
+  "work_id": "w",
+  "run_id": "r",
+  "candidate_sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "checkout_root": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-111jH4gQ\\fixture",
+  "run_dir": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-093\\run",
+  "worker_executable": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-target\\debug\\protocol-peer.exe",
+  "worker_sha256": "f0c79ca1355750b7c51d5f07ef1bfb60087ecf6c11e4adaa66733998f9231ce3",
+  "adapter": "codex-0.154.0-stdio",
+  "scenario": "complete",
+  "profile": {
+    "effort": "high",
+    "launch_policy_id": "p",
+    "launch_policy_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "model": "gpt-6-astra",
+    "review_ref": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-111jH4gQ\\review.json",
+    "review_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  }
+}

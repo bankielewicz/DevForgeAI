@@ -1,0 +1,168 @@
+{
+  "scope": "Documentation delivery identities; no protected acceptance",
+  "recorded_at_utc": "2026-09-18T01:56:17.8242813Z",
+  "documents": [
+    {
+      "path": "docs/specs/framework/core-workflows.md",
+      "size_bytes": 12329,
+      "sha256": "4d47d88ceb947cfc131083d556fc49bf0f6b8ea6a3772a4e99797485939bbac5"
+    },
+    {
+      "path": "docs/specs/framework/expert-health-and-realignment.md",
+      "size_bytes": 9460,
+      "sha256": "44c06d4bf3d36e1aaf0f0316fc606c465df4cd0421568bb7d1a15a181623639b"
+    },
+    {
+      "path": "docs/specs/framework/index.md",
+      "size_bytes": 9263,
+      "sha256": "4aa3f1f1ef2c46ec26e271df8cbffe8cec1ba391b2bdd62379b795d624b06325"
+    },
+    {
+      "path": "docs/specs/framework/installation-and-integrations.md",
+      "size_bytes": 10074,
+      "sha256": "2ee95ad58bb25694e156eafa479f68227bfd905a88761e85643ab1209681e1c6"
+    },
+    {
+      "path": "docs/specs/framework/project-context-and-policy.md",
+      "size_bytes": 8455,
+      "sha256": "3639eae29ab1dbd89ee567b1eac332bc3bdc0a915edc4a74ca93873c029ad099"
+    },
+    {
+      "path": "docs/specs/framework/quality-and-delivery.md",
+      "size_bytes": 9789,
+      "sha256": "bf15df8b4b671d61fcf6b2eb63f8692266e028eba32258f0e55618eb21f51735"
+    },
+    {
+      "path": "docs/specs/framework/roadmap-and-decisions.md",
+      "size_bytes": 21250,
+      "sha256": "421cc521c06d4a1bd62fd003853871f58211c3fc3f96770789136f94c47d9d1e"
+    },
+    {
+      "path": "docs/specs/framework/skills-and-project-expertise.md",
+      "size_bytes": 8967,
+      "sha256": "676846ce6d3fddc9ce3bc18259cceef22bff2cfd36340cca946cf9552ccf2fd8"
+    },
+    {
+      "path": "docs/specs/framework/work-items-and-dependencies.md",
+      "size_bytes": 11050,
+      "sha256": "3a1b851b114ec7ae72413bb01a4d7582cbb5064a816a42c58cef37bcc696796c"
+    },
+    {
+      "path": "docs/specs/framework/workflows/phase-1-brainstorm-spec.md",
+      "size_bytes": 23774,
+      "sha256": "0c136bd00f6868c6142989599e1cd323e124d132c2e2ff9e2981da0239967982"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/changed-file-manifest.json",
+      "size_bytes": 4596,
+      "sha256": "29a212c1d2299f8951c8b67b361b584cf1b5e052b5ec1cb0394f07a822f2ae0d"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-001.changed-file-manifest.json",
+      "size_bytes": 4596,
+      "sha256": "051eb59fac27f296aba181b731b2997035bb1ad525876e5e3418d188cad9a3ca"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-001.execution.json",
+      "size_bytes": 353,
+      "sha256": "e55928575a5cf7184cf1c8ddcb32c2f0a14fcbd7c82e1b6bb723cb39944cea35"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-001.local-link-observations.json",
+      "size_bytes": 36810,
+      "sha256": "6e6475e354966508ee9540bd4fb05fbb2b719ea76f2af6833645613fdd1fddd2"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-001.stdout.txt",
+      "size_bytes": 1899,
+      "sha256": "d082f7861dab9bece67263b94a34a3bbe77dd2040c913c1d0fde9fcd9c84b28c"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-001.verification.json",
+      "size_bytes": 1899,
+      "sha256": "d082f7861dab9bece67263b94a34a3bbe77dd2040c913c1d0fde9fcd9c84b28c"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-002.execution.json",
+      "size_bytes": 353,
+      "sha256": "40adbc3604e7e3132b2c169874b757e92e586c8aac85290e5b09da03d8475862"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/check-002.stdout.txt",
+      "size_bytes": 1938,
+      "sha256": "29eeaeb95412efb94b5c2da8af9249213e39b4d05ba49edbcdc273225eb3d528"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/document-review.md",
+      "size_bytes": 6113,
+      "sha256": "9040ab9c86f8e3d056c1e927eb97ba8f5e618daecf759245f998239cd6701829"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+      "size_bytes": 7669,
+      "sha256": "9487f25a4b1665cf90894313b27326cf1097b4aa68550c054bf530289489491a"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/local-link-observations.json",
+      "size_bytes": 36810,
+      "sha256": "6e6475e354966508ee9540bd4fb05fbb2b719ea76f2af6833645613fdd1fddd2"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/verification.json",
+      "size_bytes": 1938,
+      "sha256": "29eeaeb95412efb94b5c2da8af9249213e39b4d05ba49edbcdc273225eb3d528"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/verify_docs.py",
+      "size_bytes": 9663,
+      "sha256": "6aac1d8a8e53d865e7c151f2cdacd45aa0fef5a23ee097036003597045154998"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/core-workflows.md",
+      "size_bytes": 7798,
+      "sha256": "0d778cc5767a163590e9dfbab26de22c5e8a0cf7d1f7f13b3e46f79736c25e6c"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/expert-health-and-realignment.md",
+      "size_bytes": 8047,
+      "sha256": "a619003e7dd3fadee97b83c4398f4caaf4539d3ab81747ff655ed6b594e12f62"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/index.md",
+      "size_bytes": 7787,
+      "sha256": "8811fcd162e86412a38a1374dca0378703e55dd948a20a48ed021c9769b48a19"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/installation-and-integrations.md",
+      "size_bytes": 6266,
+      "sha256": "e18279519365d3a39eba810ffd15ad868ddf720a5f19fa7f3c71bdec4ec7d458"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/project-context-and-policy.md",
+      "size_bytes": 6742,
+      "sha256": "5672d3d318362e181591db7d2511f8cfd53e7f82b09376dba2dece9b015571c1"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/quality-and-delivery.md",
+      "size_bytes": 8115,
+      "sha256": "e7a73c2a0202d38c6bb4c4941cbafe60ee6cf45cc69ee1860b3bed09b2cb2547"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/roadmap-and-decisions.md",
+      "size_bytes": 16754,
+      "sha256": "8161d8e066e240f29f5d8f04184ba09f05ef1ac3ba2bf5795c8cc7991f8aa413"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/skills-and-project-expertise.md",
+      "size_bytes": 7883,
+      "sha256": "5868afad84112b61c2de542f448ba74022bf9ed18d4eecc41be0fa4aa1d1d1bd"
+    },
+    {
+      "path": "docs/plan/framework-discovery-planning/20260918T014059438Z/before/work-items-and-dependencies.md",
+      "size_bytes": 7997,
+      "sha256": "6440a9cbeb78445e5c0cce524c2818475de99aa15a8712f93eac7a4c73cea767"
+    }
+  ]
+}

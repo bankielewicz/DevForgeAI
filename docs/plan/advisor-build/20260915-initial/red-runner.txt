@@ -1,0 +1,234 @@
+test_budget_and_timeout_are_bounded (test_advisor.RequestTests) ... test_unknown_field_rejected (test_advisor.RequestTests) ... ERROR
+test_all_unverified_is_recorded_as_evidence_gap (test_advisor.ResponseTests) ... ERROR
+test_invalid_verdict_and_preamble_rejected (test_advisor.ResponseTests) ... test_missing_context_requires_missing_items (test_advisor.ResponseTests) ... ERROR
+test_missing_sections_never_produce_advice (test_advisor.ResponseTests) ... ERROR
+test_unexpected_missing_section_rejected (test_advisor.ResponseTests) ... ERROR
+test_valid_enum_bearing_first_line (test_advisor.ResponseTests) ... ERROR
+test_contract_drift_blocks_without_invocation (test_advisor.RunnerTests) ... ERROR
+test_failed_process_never_exposes_verdict (test_advisor.RunnerTests) ... ERROR
+test_incomplete_briefing_blocks (test_advisor.RunnerTests) ... ERROR
+test_no_permission_relaxation_or_shell (test_advisor.RunnerTests) ... ERROR
+test_real_evidence_and_two_attempt_limit (test_advisor.RunnerTests) ... ERROR
+test_request_change_and_existing_lock_block (test_advisor.RunnerTests) ... ERROR
+test_subprocess_bytes_and_timeout (test_advisor.RunnerTests) ... ERROR
+
+======================================================================
+ERROR: test_budget_and_timeout_are_bounded (test_advisor.RequestTests) (field='total_budget_usd', value='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 64, in test_budget_and_timeout_are_bounded
+    advisor.validate_request(dict(base, **{field: value}))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 9, in validate_request
+    raise NotImplementedError("Request validation is not implemented yet")
+NotImplementedError: Request validation is not implemented yet
+
+======================================================================
+ERROR: test_budget_and_timeout_are_bounded (test_advisor.RequestTests) (field='total_budget_usd', value='NaN')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 64, in test_budget_and_timeout_are_bounded
+    advisor.validate_request(dict(base, **{field: value}))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 9, in validate_request
+    raise NotImplementedError("Request validation is not implemented yet")
+NotImplementedError: Request validation is not implemented yet
+
+======================================================================
+ERROR: test_budget_and_timeout_are_bounded (test_advisor.RequestTests) (field='timeout_seconds', value=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 64, in test_budget_and_timeout_are_bounded
+    advisor.validate_request(dict(base, **{field: value}))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 9, in validate_request
+    raise NotImplementedError("Request validation is not implemented yet")
+NotImplementedError: Request validation is not implemented yet
+
+======================================================================
+ERROR: test_budget_and_timeout_are_bounded (test_advisor.RequestTests) (field='timeout_seconds', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 64, in test_budget_and_timeout_are_bounded
+    advisor.validate_request(dict(base, **{field: value}))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 9, in validate_request
+    raise NotImplementedError("Request validation is not implemented yet")
+NotImplementedError: Request validation is not implemented yet
+
+======================================================================
+ERROR: test_budget_and_timeout_are_bounded (test_advisor.RequestTests) (field='type', value='wrong')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 64, in test_budget_and_timeout_are_bounded
+    advisor.validate_request(dict(base, **{field: value}))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 9, in validate_request
+    raise NotImplementedError("Request validation is not implemented yet")
+NotImplementedError: Request validation is not implemented yet
+
+======================================================================
+ERROR: test_unknown_field_rejected (test_advisor.RequestTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 56, in test_unknown_field_rejected
+    advisor.validate_request({"shell": True})
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 9, in validate_request
+    raise NotImplementedError("Request validation is not implemented yet")
+NotImplementedError: Request validation is not implemented yet
+
+======================================================================
+ERROR: test_all_unverified_is_recorded_as_evidence_gap (test_advisor.ResponseTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 45, in test_all_unverified_is_recorded_as_evidence_gap
+    result = advisor.parse_response(response(audit="- scope -> UNVERIFIED (read denied)"))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_invalid_verdict_and_preamble_rejected (test_advisor.ResponseTests) (text='Hello\nVERDICT: PROCEED\n\nASK RESTATED:\nCheck scope.\n\nDO THIS:\n1. Continue the selected task.\n\nDO NOT:\n- Expand scope.\n\nCLAIM AUDIT:\n- scope -> CONFIRMED (sample.txt:1)\n\nRISKS:\nnone\n\nCOULD NOT VERIFY:\nnone\n\nFLIP CONDITIONS:\n- Changed evidence.\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 42, in test_invalid_verdict_and_preamble_rejected
+    advisor.parse_response(text)
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_invalid_verdict_and_preamble_rejected (test_advisor.ResponseTests) (text='VERDICT: APPROVED\n\nASK RESTATED:\nCheck scope.\n\nDO THIS:\n1. Continue the selected task.\n\nDO NOT:\n- Expand scope.\n\nCLAIM AUDIT:\n- scope -> CONFIRMED (sample.txt:1)\n\nRISKS:\nnone\n\nCOULD NOT VERIFY:\nnone\n\nFLIP CONDITIONS:\n- Changed evidence.\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 42, in test_invalid_verdict_and_preamble_rejected
+    advisor.parse_response(text)
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_invalid_verdict_and_preamble_rejected (test_advisor.ResponseTests) (text='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 42, in test_invalid_verdict_and_preamble_rejected
+    advisor.parse_response(text)
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_invalid_verdict_and_preamble_rejected (test_advisor.ResponseTests) (text='VERDICT: PROCEED\n\nASK RESTATED:\nCheck scope.\n\nDO THIS:\n1. Continue the selected task.\n\nDO NOT:\n- Expand scope.\n\nCLAIM AUDIT:\n- scope -> CONFIRMED (sample.txt:1)\n\nRISKS:\nnone\n\nCOULD NOT VERIFY:\nnone\n\nFLIP CONDITIONS:\n- Changed evidence.\n\nVERDICT: STOP_REDIRECT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 42, in test_invalid_verdict_and_preamble_rejected
+    advisor.parse_response(text)
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_missing_context_requires_missing_items (test_advisor.ResponseTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 34, in test_missing_context_requires_missing_items
+    result = advisor.parse_response(response("INSUFFICIENT_CONTEXT"))
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_missing_sections_never_produce_advice (test_advisor.ResponseTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 31, in test_missing_sections_never_produce_advice
+    advisor.parse_response("VERDICT: PROCEED\n")
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_unexpected_missing_section_rejected (test_advisor.ResponseTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 50, in test_unexpected_missing_section_rejected
+    advisor.parse_response(response() + "\nMISSING:\nnone\n")
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_valid_enum_bearing_first_line (test_advisor.ResponseTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 27, in test_valid_enum_bearing_first_line
+    self.assertEqual(advisor.parse_response(response())["verdict"], "PROCEED")
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\scripts\advisor_run.py", line 5, in parse_response
+    raise NotImplementedError("Response contract is not implemented yet")
+NotImplementedError: Response contract is not implemented yet
+
+======================================================================
+ERROR: test_contract_drift_blocks_without_invocation (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 116, in test_contract_drift_blocks_without_invocation
+    self.run_review()
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 98, in run_review
+    return advisor.run_review(self.request, self.run_dir, self.briefing, execute=self.fake, **kwargs)
+AttributeError: module 'advisor_run' has no attribute 'run_review'
+
+======================================================================
+ERROR: test_failed_process_never_exposes_verdict (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 149, in test_failed_process_never_exposes_verdict
+    value = advisor.run_review(self.request, self.run_dir, self.briefing, execute=failed)
+AttributeError: module 'advisor_run' has no attribute 'run_review'
+
+======================================================================
+ERROR: test_incomplete_briefing_blocks (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 140, in test_incomplete_briefing_blocks
+    self.run_review()
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 98, in run_review
+    return advisor.run_review(self.request, self.run_dir, self.briefing, execute=self.fake, **kwargs)
+AttributeError: module 'advisor_run' has no attribute 'run_review'
+
+======================================================================
+ERROR: test_no_permission_relaxation_or_shell (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 120, in test_no_permission_relaxation_or_shell
+    self.run_review()
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 98, in run_review
+    return advisor.run_review(self.request, self.run_dir, self.briefing, execute=self.fake, **kwargs)
+AttributeError: module 'advisor_run' has no attribute 'run_review'
+
+======================================================================
+ERROR: test_real_evidence_and_two_attempt_limit (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 101, in test_real_evidence_and_two_attempt_limit
+    first = self.run_review()
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 98, in run_review
+    return advisor.run_review(self.request, self.run_dir, self.briefing, execute=self.fake, **kwargs)
+AttributeError: module 'advisor_run' has no attribute 'run_review'
+
+======================================================================
+ERROR: test_request_change_and_existing_lock_block (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 129, in test_request_change_and_existing_lock_block
+    self.run_review()
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 98, in run_review
+    return advisor.run_review(self.request, self.run_dir, self.briefing, execute=self.fake, **kwargs)
+AttributeError: module 'advisor_run' has no attribute 'run_review'
+
+======================================================================
+ERROR: test_subprocess_bytes_and_timeout (test_advisor.RunnerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\advisor\tests\test_advisor.py", line 154, in test_subprocess_bytes_and_timeout
+    value = advisor.execute_process([sys.executable, "-c", "import sys; sys.stdout.buffer.write(b'abc'); sys.stderr.write('problem'); sys.exit(3)"], self.root, 5)
+AttributeError: module 'advisor_run' has no attribute 'execute_process'
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.018s
+
+FAILED (errors=22)

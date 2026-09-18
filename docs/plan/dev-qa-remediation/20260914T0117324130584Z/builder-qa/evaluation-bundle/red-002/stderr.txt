@@ -1,0 +1,19 @@
+test_bound_bytes_accept_exact_digest (test_reduce.ReducerTests) ... ok
+test_changed_receipt_digest_rejected (test_reduce.ReducerTests) ... FAIL
+test_distinct_passes (test_reduce.ReducerTests) ... ok
+test_duplicate_cases_cannot_inflate_denominator (test_reduce.ReducerTests) ... ok
+test_failure_and_skips_are_not_passes (test_reduce.ReducerTests) ... ok
+test_nonzero_exit_and_wrong_count_rejected (test_reduce.ReducerTests) ... ok
+
+======================================================================
+FAIL: test_changed_receipt_digest_rejected (test_reduce.ReducerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\dev-qa-remediation\20260914T0117324130584Z\builder-qa\evaluation-bundle\test_reduce.py", line 47, in test_changed_receipt_digest_rejected
+    with self.assertRaisesRegex(ValueError, 'digest'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.004s
+
+FAILED (failures=1)

@@ -1,0 +1,12 @@
+{
+  "result": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\FINAL-RESULT.json",
+    "sha256": "971ae9d51eb09dcff976d2ed975042554f20bfc16e704b328b6fe3b3c2f326d0"
+  },
+  "assessment": "INCOMPLETE",
+  "scenario_counts": {
+    "NOT_RUN": 7,
+    "PASS": 16
+  },
+  "package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c"
+}

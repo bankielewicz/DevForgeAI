@@ -1,0 +1,11 @@
+{
+  "required": 71,
+  "passed": 70,
+  "nonpasses": [
+    {
+      "case_id": "test_authoring.AuthoringTests.test_new_record_schemas_match_actual_outputs",
+      "result": "ERROR",
+      "detail": "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z\\inputs\\regressions\\test_authoring.py\", line 388, in test_new_record_schemas_match_actual_outputs\n    schema = json.loads((PACKAGE / 'schemas' / (schema_name + '.schema.json')).read_text())\n  File \"C:\\Program Files\\Python310\\lib\\pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"C:\\Program Files\\Python310\\lib\\pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260914T2131571597777Z\\\\inputs\\\\schemas\\\\authoring-contract.schema.json'\n"
+    }
+  ]
+}

@@ -1,0 +1,420 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2310456388212Z",
+  "target_name": "dev",
+  "reviewer": "validator primary agent; self-review, not independent cold execution",
+  "requirements": [
+    {
+      "requirement_id": "DEV-001",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 10,
+        "line_end": 10
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Triggers require selected specs and user-selected continuation; near-miss exclusions are in description, and plan-only behavior is explicit.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-002",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 16,
+        "line_end": 16
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Product implementation and tests are owned directly; package authoring/evaluation remain separate.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-003",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 29,
+        "line_end": 29
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Language, architecture, commands, output paths and platforms come from runtime inputs. Every captured resource is neutral; no concrete product roots or model defaults.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-004",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 33,
+        "line_end": 33
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Documents are data/requirements within scope; unavailable authority stops protected effects without Python fallback.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-005",
+      "subject": "references/context.md",
+      "locator": {
+        "line_start": 7,
+        "line_end": 7
+      },
+      "source": {
+        "path": "source/references/context.md",
+        "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Project paths and document-relative references use distinct bases; missing selected inputs precede dependent changes.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-006",
+      "subject": "references/context.md",
+      "locator": {
+        "line_start": 9,
+        "line_end": 9
+      },
+      "source": {
+        "path": "source/references/context.md",
+        "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Inspection covers rules, ownership, manifests, executables, existing changes and Git-optional identity without executing unread scripts.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-007",
+      "subject": "references/context.md",
+      "locator": {
+        "line_start": 15,
+        "line_end": 15
+      },
+      "source": {
+        "path": "source/references/context.md",
+        "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Context is recorded before production changes; explicit evidence root, hash inputs, omit secrets and disclose capture gaps.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-008",
+      "subject": "references/context.md",
+      "locator": {
+        "line_start": 23,
+        "line_end": 23
+      },
+      "source": {
+        "path": "source/references/context.md",
+        "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "All selected docs are read; source-qualified IDs, deliverables, exclusions and QA obligations are inventoried without promoting proposed commands to installed ones.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-009",
+      "subject": "references/context.md",
+      "locator": {
+        "line_start": 27,
+        "line_end": 27
+      },
+      "source": {
+        "path": "source/references/context.md",
+        "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Shared owner/dependency order and conflicts are explicit. References do not select deliverables; absent unselected prerequisites require a decision.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-010",
+      "subject": "references/context.md",
+      "locator": {
+        "line_start": 31,
+        "line_end": 31
+      },
+      "source": {
+        "path": "source/references/context.md",
+        "sha256": "cb3786599011e189078447a9e6980ecbdceb9cf7417fcd7410c5c592548fb142"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Architecture, technology, tree, QA, operations and delivery decisions derive from evidence; a named constitution file is not mandatory.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-011",
+      "subject": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 5,
+        "line_end": 5
+      },
+      "source": {
+        "path": "source/references/failure-delivery.md",
+        "sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Precise gap types preserve dependent blockers and independent work. Requirements cannot be weakened to erase failures.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-012",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 7,
+        "line_end": 7
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Reuse search spans responsibility and call sites; absence of name matches is not proof of absence, and reuse choices require evidence.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-013",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 11,
+        "line_end": 11
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Slices carry requirements, contracts, scope, tests and dependencies; shared owner precedes consumers; delegation is unnecessary.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-014",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 17,
+        "line_end": 17
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Commands are discovered and inspected before execution; actual tool/shell/cwd identity and literal arguments are required.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-015",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 25,
+        "line_end": 25
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Red must demonstrate missing behavior; setup errors and passing characterization are expressly distinguished.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-016",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 33,
+        "line_end": 33
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Green preserves assertions and real required behavior; hardcoded outputs, suppressed errors and integration stubs are prohibited.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-017",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 37,
+        "line_end": 37
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Refactoring preserves contracts and reruns affected tests; justified no-change avoids ceremonial churn.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-018",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 43,
+        "line_end": 43
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "QA metrics declare denominators and tools first. Required skips remain nonpasses, failed floors cannot round up, and earlier attempts remain evidence.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-019",
+      "subject": "references/implementation.md",
+      "locator": {
+        "line_start": 51,
+        "line_end": 51
+      },
+      "source": {
+        "path": "source/references/implementation.md",
+        "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Actual native host checks are distinct from builds/static help; absent required platforms remain unperformed and visual QA is separate.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-020",
+      "subject": "references/evidence-resume.md",
+      "locator": {
+        "line_start": 20,
+        "line_end": 20
+      },
+      "source": {
+        "path": "source/references/evidence-resume.md",
+        "sha256": "9f8810c09c448ddcf47fe68bc18e38c72ab773d15fd390ee1636a2a917affaab"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Six consumed templates cover context, traceability, slices, real receipts, checkpoints and delivery, including raw streams and candidate hashes.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-021",
+      "subject": "references/evidence-resume.md",
+      "locator": {
+        "line_start": 28,
+        "line_end": 28
+      },
+      "source": {
+        "path": "source/references/evidence-resume.md",
+        "sha256": "9f8810c09c448ddcf47fe68bc18e38c72ab773d15fd390ee1636a2a917affaab"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Resume rechecks spec/source/tool/process drift and invalidates dependent evidence, preserving other actors and unknown jobs.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-022",
+      "subject": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 17,
+        "line_end": 17
+      },
+      "source": {
+        "path": "source/references/failure-delivery.md",
+        "sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "COMPLETE/PARTIAL/BLOCKED and per-check outcomes preserve mandatory gaps; external acceptance remains separate.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-023",
+      "subject": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 9,
+        "line_end": 9
+      },
+      "source": {
+        "path": "source/references/failure-delivery.md",
+        "sha256": "5126214825d34052a67bef93bd324fa415627391ccee75feddc90dd13c42ba44"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Already authorized reversible work proceeds; deployment, startup, installation and irreversible migrations require corresponding authorization.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-024",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 18,
+        "line_end": 18
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Four focused references and six used templates are reachable. No helper, dependency scaffold, optional host metadata or plugin is required.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-025",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 16,
+        "line_end": 16
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "PASS",
+      "reason": "Authoring ownership does not restrict product QA; standalone behavior requires no adaptive binding or operational installed root.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    },
+    {
+      "requirement_id": "DEV-026",
+      "subject": "SKILL.md",
+      "locator": {
+        "line_start": 16,
+        "line_end": 16
+      },
+      "source": {
+        "path": "source/SKILL.md",
+        "sha256": "fda59a350320e9e1e4d8dd06e56644a2786463366734b652b9642022aa49df4b"
+      },
+      "instruction_conformance": "INCOMPLETE",
+      "reason": "Mandatory validator bundle exists and was executed; native trials now have retained results. Evaluated-build readiness remains unsatisfied by DV-17 failure and rejected DV-16 handoff.",
+      "behavioral_claim": "NOT_EVALUATED by this semantic row; see required DV results"
+    }
+  ],
+  "ceremony": [
+    {
+      "subject": "references/implementation.md",
+      "anchor": "Numeric floors do not waive mandatory failures or regressions.",
+      "classification": "useful_instruction",
+      "reason": "Preserves mandatory scenario accounting even when numeric floors pass."
+    },
+    {
+      "subject": "references/evidence-resume.md",
+      "anchor": "A checkpoint is navigation, not unquestioned truth.",
+      "classification": "useful_instruction",
+      "reason": "Summarizes concrete six-step identity/drift/job reconciliation branch."
+    },
+    {
+      "subject": "references/implementation.md",
+      "anchor": "do not replace a gap",
+      "classification": "not_a_keyword_finding",
+      "reason": "No universal stylistic rejection applied; missing-input handling is operationally specified."
+    }
+  ],
+  "placeholders": "Template replacement slots are intentional, and evidence-resume.md forbids submitting an unexecuted template row. The TODO references in failure prose reject vague gaps; no unfinished runtime scaffold found.",
+  "resource_adjudication": "All 11 captured nodes have actual consumers. No binary files, remote resource links, unsupported anchors or unresolved dynamic commands exist in this instruction/template-only package. Native runtime command selection remains unperformed. Authorized cold trials are now retained in this linked run; native command selection is separately assessed."
+}

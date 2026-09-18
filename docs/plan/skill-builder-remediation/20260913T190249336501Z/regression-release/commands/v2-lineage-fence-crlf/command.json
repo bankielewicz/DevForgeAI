@@ -1,0 +1,33 @@
+{
+  "case": "v2-lineage-fence-crlf",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "coverage",
+    "run",
+    "--append",
+    "--branch",
+    "--data-file=C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\coverage-data",
+    "--source=C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\coverage_driver.py",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\adaptive.py",
+    "inspect",
+    "--record",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\records\\fence-crlf\\valid.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release",
+  "expected": {
+    "exit": 0,
+    "field": "status",
+    "value": "VALID",
+    "read_only_root": null,
+    "before_manifest": null
+  },
+  "start_utc": "2026-09-13T19:47:45.647261+00:00",
+  "stdin_sha256": null
+}

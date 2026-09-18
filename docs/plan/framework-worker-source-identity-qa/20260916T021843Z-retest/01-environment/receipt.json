@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "label": "01-environment",
+  "argv": [
+    "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "-NoProfile",
+    "-Command",
+    "Continue='Stop'; Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,OSArchitecture | ConvertTo-Json -Compress; [pscustomobject]@{PowerShell=System.Management.Automation.PSVersionHashTable.PSVersion.ToString();Python=(python --version 2>&1);Rustc=(rustc --version);Cargo=(cargo --version);LlvmCov=(cargo llvm-cov --version);CargoPath=(Get-Command cargo).Source;RustcPath=(Get-Command rustc).Source;PythonPath=(Get-Command python).Source} | ConvertTo-Json -Compress"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "environment_overrides": {},
+  "stdin": "DEVNULL",
+  "executable": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "executable_sha256": "bfb46af89433268872ddb43d1ca7a3f433452ee91ed356a9786940f90118e285",
+  "recorder_sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+  "candidate_before_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "start_utc": "2026-09-16T03:00:35.521359+00:00",
+  "timeout_seconds": 60,
+  "owned_pid": 51272,
+  "end_utc": "2026-09-16T03:00:35.868879+00:00",
+  "duration_monotonic_ns": 313000000,
+  "native_exit_code": 1,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_bytes": 230,
+  "stderr_sha256": "b9929c8e670fa2034c0acb5900b5017c556bf90797fbd628c580053173b7b09c",
+  "candidate_after_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "candidate_unchanged": true
+}

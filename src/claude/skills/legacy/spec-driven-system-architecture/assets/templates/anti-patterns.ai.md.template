@@ -1,0 +1,64 @@
+# anti-patterns.ai.md
+# DERIVED from anti-patterns.md | ADR-052
+# Regenerate: /create-system-architecture
+# Generated: {{generated_at}} | Hash: {{source_hash}}
+---
+CRITICAL:
+  category_1_tool_usage_violations:
+    name: "Category 1: Tool Usage Violations"
+    FORBIDDEN: "Using Bash for File Operations"
+    wrong:
+      - 'Bash(command="cat story.md")'
+      - 'Bash(command="echo content > file.md")'
+      - 'Bash(command="find . -name *.md")'
+    correct:
+      - 'Read(file_path="story.md")'
+      - 'Write(file_path="file.md", content="content")'
+      - 'Glob(pattern="**/*.md")'
+  category_3_making_assumptions:
+    name: "Category 3: Making Assumptions"
+    forbidden: "Assuming Technology Choices"
+    rule: "MUST use AskUserQuestion for tech decisions"
+  category_5_language_specific_framework_code:
+    name: "Category 5: Language-Specific Framework Code"
+    forbidden: "Python/C#/JavaScript in Framework"
+    rule: "Skills contain Markdown + references/ only, no scripts/"
+  category_6_context_file_violations:
+    name: "Category 6: Context File Violations"
+    forbidden: "Proceeding Without Context Files"
+    rule: "Read all 6 context files first; HALT if missing"
+HIGH:
+  category_2_monolithic_components:
+    name: "Category 2: Monolithic Components"
+    forbidden: "All-in-One Skill"
+    rule: "One skill per lifecycle phase; God Objects >500 lines forbidden"
+  category_4_size_violations:
+    name: "Category 4: Size Violations"
+    forbidden: "Exceeding Component Size Limits"
+    limits: {skills: "1000 lines max", commands: "500 lines max"}
+  category_7_circular_dependencies:
+    name: "Category 7: Circular Dependencies"
+    forbidden: "Skills Calling Each Other in Loops"
+    rule: "One-way invocation only; no Skill A -> B -> A cycles"
+  category_9_missing_frontmatter:
+    name: "Category 9: Missing Frontmatter"
+    forbidden: "Skills/Subagents/Commands Without YAML Frontmatter"
+    required_fields: ["name", "description", "tools"]
+MEDIUM:
+  category_8_narrative_documentation:
+    name: "Category 8: Narrative Documentation"
+    forbidden: "Prose Instead of Instructions"
+  category_10_hardcoded_paths:
+    name: "Category 10: Hardcoded Paths"
+    forbidden: "Hardcoded File Paths"
+  category_11_code_search_tool_selection:
+    name: "Category 11: Code Search Tool Selection"
+    forbidden: ["Treelint for unsupported types (C#, Java, Go, SQL)", "Grep when Treelint available (Python, TS, JS, Rust, MD)"]
+on_violation: "HALT immediately; report file:line; provide correction; request confirmation"
+
+# --- Extracted rules from parent .md file (auto-populated by ai-rule-extractor agents) ---
+extracted_critical_rules:
+{{critical_rules}}
+
+extracted_high_rules:
+{{high_rules}}

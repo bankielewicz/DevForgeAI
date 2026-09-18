@@ -1,0 +1,39 @@
+{
+  "source_checks": [
+    {
+      "source_id": "av",
+      "expected": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+      "actual": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+    },
+    {
+      "source_id": "spec",
+      "expected": "66df398d2b01b2cf3d6ebc990d0032f7946f68bab13a40bf306b462416b83130",
+      "actual": "66df398d2b01b2cf3d6ebc990d0032f7946f68bab13a40bf306b462416b83130"
+    },
+    {
+      "source_id": "checker",
+      "expected": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+      "actual": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+    },
+    {
+      "source_id": "fallback",
+      "expected": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
+      "actual": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+    }
+  ],
+  "specification": "UNCHANGED",
+  "rule_set": "UNCHANGED",
+  "sources": "UNCHANGED",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\evaluator\\skill-validator\\scripts\\observe.py",
+    "readback",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project\\skills\\ledger-c",
+    "--manifest",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project\\docs\\plan\\skill-validations\\ledger-c\\20260915T001901336490Z\\source-manifest.json"
+  ]
+}

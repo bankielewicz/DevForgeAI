@@ -1,0 +1,27 @@
+{
+  "schema_version": "1",
+  "run_id": "20260917T194717Z",
+  "target_name": "story-create",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\story-create",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "f2ad48644a9c3abd12b125f0e90be391ef51108531f82321e646005666fdafc9"
+  },
+  "specification": {
+    "path": "inputs/repository/docs/plan/skill-authorings/story-create/20260917T182711Z-02/contract.json",
+    "sha256": "d86ef970627b78069634a39aaec926838646a117e8c06a51b35ab5d6dcf8e768"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": {
+    "path": "inputs/repository/docs/plan/skill-authorings/story-create/20260917T182711Z-02/authoring-record.json",
+    "sha256": "2fcf6902f03002dffdb51a85afd4c579a8e55035d8008813b1b2d2b5e0a00d37"
+  },
+  "completeness": "complete",
+  "uncertainties": [
+    "Authored custody remains distinct from tested quality history.",
+    "Continuation reuses earlier completed observations only for exact unchanged source/specification/operational identities; previous failed and incomplete attempts remain unchanged."
+  ],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "Verified authored import; legacy generated/adopted quality history not claimed."
+}

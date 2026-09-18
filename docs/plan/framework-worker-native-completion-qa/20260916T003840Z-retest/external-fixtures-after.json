@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "baseline": "external-fixtures-before.json",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials",
+  "native_codex_processes_launched": 0,
+  "new_entries": [
+    {
+      "name": "RT-source-type-trMVIE",
+      "producer_receipt": "03-full-tests/receipt.json",
+      "receipt_start_utc": "2026-09-16T01:09:06.883779+00:00",
+      "receipt_end_utc": "2026-09-16T01:11:45.365388+00:00",
+      "task": "fixture/task.json",
+      "task_last_write_utc": "2026-09-16T01:11:45.2481247Z",
+      "task_bytes": 307,
+      "task_sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    {
+      "name": "RT-source-type-g6azjv",
+      "producer_receipt": "09-full-coverage/receipt.json",
+      "receipt_start_utc": "2026-09-16T01:14:39.194627+00:00",
+      "receipt_end_utc": "2026-09-16T01:17:30.334092+00:00",
+      "task": "fixture/task.json",
+      "task_last_write_utc": "2026-09-16T01:17:30.0322819Z",
+      "task_bytes": 307,
+      "task_sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    }
+  ],
+  "assessment": "Both directories are synthetic native-layout fixtures created by the declared runtime_edges test. Their task bytes match the frozen fixture and their timestamps fall within the bound receipts. They are not native Codex trial attempts."
+}

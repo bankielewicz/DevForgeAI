@@ -1,0 +1,27 @@
+    Checking devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+error: this `if` statement can be collapsed
+  --> tests\process_windows.rs:24:9
+   |
+24 | /         if let Ok(bytes) = fs::read(f.root.path().join("peer-pids.json")) {
+25 | |             if let Ok(v) = serde_json::from_slice::<Value>(&bytes) {
+26 | |                 return ["peer", "descendant"]
+27 | |                     .iter()
+...  |
+39 | |         }
+   | |_________^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+   = note: `-D clippy::collapsible-if` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::collapsible_if)]`
+help: collapse nested if block
+   |
+24 ~         if let Ok(bytes) = fs::read(f.root.path().join("peer-pids.json"))
+25 ~             && let Ok(v) = serde_json::from_slice::<Value>(&bytes) {
+26 |                 return ["peer", "descendant"]
+...
+37 |                     .collect();
+38 ~             }
+   |
+
+error: could not compile `devforgeai-codex-worker-probe` (test "process_windows") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

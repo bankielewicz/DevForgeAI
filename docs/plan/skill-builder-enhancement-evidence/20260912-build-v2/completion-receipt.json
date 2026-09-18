@@ -1,0 +1,128 @@
+{
+  "schema_version": "1",
+  "recorded_at_utc": "2026-09-12T13:16:03.058951+00:00",
+  "scope": "Authorized development skill enhancement only",
+  "status": "COMPLETE",
+  "builder_manifest_sha256": "0e900c38e64efbf09de889e234eea091524cdc8d67c7a4aa3626c4b5bb956096",
+  "bound_package_artifacts": 31,
+  "regression_tests": 112,
+  "independent_forward_trials": 3,
+  "gap_trials": 3,
+  "routing_classifications": 7,
+  "trial_evaluations": [
+    {
+      "trial": "import",
+      "evaluations": [
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/import-project/docs/plan/skill-imports/decimal-ledger-import/20260912T123934371592Z/candidate-evaluation-results.jsonl",
+          "sha256": "b7c26bd8d4d32c0a5bde570f7c1c1cd151e5ea95d0e8f1c31d54b85cf336d897",
+          "records": 3,
+          "profile": "import-v2"
+        },
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/import-project/docs/plan/skill-imports/decimal-ledger-import/20260912T123934371592Z/evaluation-results.jsonl",
+          "sha256": "318c7bfc487cfd0966623be3720209321334d2ddf62616179725ed44ecae8309",
+          "records": 3,
+          "profile": "import-v2"
+        }
+      ]
+    },
+    {
+      "trial": "spec",
+      "evaluations": [
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/spec-project/docs/plan/skill-builds/decimal-ledger-spec/20260912T123744Z-spec/evaluation-results-candidate.jsonl",
+          "sha256": "7afb1e56528ca4424023c6601c40aa8506690bfb015f5e4159c12c11cc1e9e5c",
+          "records": 2,
+          "profile": "spec-v1"
+        },
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/spec-project/docs/plan/skill-builds/decimal-ledger-spec/20260912T123744Z-spec/evaluation-results-delivered.jsonl",
+          "sha256": "abfa75ad8653d817a11d0055d2dbff50b08979e04446f201bf0ee96e52e81878",
+          "records": 2,
+          "profile": "spec-v1"
+        }
+      ]
+    },
+    {
+      "trial": "revision",
+      "evaluations": [
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/candidate-evaluation-results.jsonl",
+          "sha256": "09235b31f5ad9725cb605da2d35f1a876a825a03d6be57c86cf169647a9de484",
+          "records": 4,
+          "profile": "revision-import-v2"
+        },
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/delivered-package-evaluation-results.jsonl",
+          "sha256": "3a77b8944f306f06b24d9d7416b6b275e6ae1edc092c22903c36c611f11e6949",
+          "records": 3,
+          "profile": "import-v2"
+        },
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/delivered-revision-evaluation-results.jsonl",
+          "sha256": "5989d9c37fd95c26eb41b3fe3b13da18aa875237c6d1bb3dbf5dad3ecb7dc2c5",
+          "records": 4,
+          "profile": "revision-import-v2"
+        },
+        {
+          "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/evaluation-results.jsonl",
+          "sha256": "91cdce54fd3df165062e593f04142f9a4234a7d6c766b90febb482ade97c96cd",
+          "records": 4,
+          "profile": "revision-import-v2"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/plan/skill-builder-enhancement-implementation-log.md",
+      "sha256": "1d6114dff554307c6fca0c7475a2b1d1914a4b5bb6f341eb94f4d5889b5b54f0"
+    },
+    {
+      "path": "docs/plan/devforgeai-codex-rust-enforcement-design.md",
+      "sha256": "99cd920800612daf7bd3d5b6e388a38907ec358faf6396d3f34b58ecbae83bfb"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-final.json",
+      "sha256": "9735a8c35bf4a22493bcd5f649eb18552c64f97cade792408b5c80a673948975"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/regressions-final-03.txt",
+      "sha256": "e43defbf773c5413c6d09746059d48d11697237257386b8ac15a2635c5e05504"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/builder-observations-03.jsonl",
+      "sha256": "2bb8553cb9ae50dd5e1926f614f5c28219f21b46447e7d9234eb20522c4c0e62"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/legacy-observations-03.jsonl",
+      "sha256": "dab54f5665bf12b0ffde8e5ebd0c4362ed7d8835d2f8162cb94b2966dc33c22b"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/routing-observations.jsonl",
+      "sha256": "0fbb6bcc06087af74627c315baf5336f0bc701f6cd59084fc73f809a08fd803c"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/gap-trial-observations.json",
+      "sha256": "f97b1d3a7159cb2092cdf0039fef31e091f328ba1e0f373c32716ec695139903"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/revision-final-independent-readback.json",
+      "sha256": "c0c7dacad57fc10446f7b8648280edd22031fb5b046e758af3eaedcc628330f4"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/artifact-delta.json",
+      "sha256": "82ec62ea8ab14b68f4fb54c855f27e316905946654068bbf330a14f51c500abc"
+    },
+    {
+      "path": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/reviewer-repair-agent-log.json",
+      "sha256": "62a84912f8538d1d99ebbadcbbd33c7af2fc56e7a550b77b60b3296fc1031110"
+    }
+  ],
+  "finalization_log": "finalization-log.json",
+  "rust_implementation": "NOT_IMPLEMENTED",
+  "rust_qualification": "NOT_PERFORMED",
+  "operational_installation": "NOT_PERFORMED",
+  "authority": "NONE"
+}

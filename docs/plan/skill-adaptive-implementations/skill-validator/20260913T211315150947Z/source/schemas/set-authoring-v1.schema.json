@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "selection",
+    "ordered_member_ids",
+    "members",
+    "state",
+    "validation_status",
+    "testing_status",
+    "issues"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "set-authoring-v1"
+    },
+    "run_id": {
+      "$ref": "adaptive-common.schema.json#/$defs/Id"
+    },
+    "selection": {
+      "$ref": "adaptive-common.schema.json#/$defs/Ref"
+    },
+    "ordered_member_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Id"
+      },
+      "uniqueItems": true
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/MemberResult"
+      }
+    },
+    "state": {
+      "enum": [
+        "AUTHORED",
+        "PARTIAL",
+        "BLOCKED",
+        "NO_CHANGE"
+      ]
+    },
+    "validation_status": {
+      "const": "NOT_PERFORMED"
+    },
+    "testing_status": {
+      "const": "NOT_PERFORMED"
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Gap"
+      }
+    }
+  }
+}

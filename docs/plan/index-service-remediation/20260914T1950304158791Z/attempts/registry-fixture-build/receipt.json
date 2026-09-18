@@ -1,0 +1,28 @@
+{
+  "attempt_id": "registry-fixture-build",
+  "stage": "setup",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "startup_registry",
+    "--no-run"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\registry-fixture-build\\gui"
+  },
+  "source_manifest_sha256": "515ac0acb7179bd0ab76846f4946a4fe246119c98d0b47ddfb09c1c55b55fc9d",
+  "started_at": "2026-09-14T21:17:54.128207+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T21:17:57.058076+00:00",
+  "elapsed_seconds": 2.936999999998079,
+  "stdout.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr.txt_sha256": "4d5424be28fd15e613bbc21edd05e1b85666967fade1e5a0f07ab6395e4a39bc"
+}

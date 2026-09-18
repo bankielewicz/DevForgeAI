@@ -1,0 +1,173 @@
+[
+  {
+    "criterion": "LG-01; LD-09",
+    "requirement": "Closed schema, literal config paths, <=4096 bytes, digest copy and final check",
+    "cases": "PKG-070..072,079..081; QA-01,02",
+    "expected": "Invalid intake never spawns; exact boundary and legacy composition work",
+    "actual": "All predicates passed, including real junction denial and copied-byte digest",
+    "status": "PASS",
+    "evidence": "08-qa01,09-qa02,03-coverage"
+  },
+  {
+    "criterion": "LG-02; LD-01,02,05",
+    "requirement": "Mandatory ordered pre/post exit and joined-reader capture",
+    "cases": "PKG-074,093,143; SUP-01; QA-03,04,09",
+    "expected": "Complete temporal exit/capture evidence; inspector enforces it",
+    "actual": "Real exits/readers passed; missing or contradictory post-stop evidence still inspects completed",
+    "status": "FAIL",
+    "evidence": "10-qa03,11-qa04,16-qa09,24-cli-confirm; QA-LOG-01,02"
+  },
+  {
+    "criterion": "LG-03; LD-03,04,06,11 capture slice",
+    "requirement": "Bounded independent pumps, full-byte hashes and explicit incomplete capture",
+    "cases": "PKG-001..004,073,097,126; SUP-01; QA-04,05,09",
+    "expected": "Exact hashes/limits; incomplete capture cannot qualify a complete observation",
+    "actual": "Real pumping/limits passed; inspector accepts drain false/read error/overflow on completed evidence",
+    "status": "FAIL",
+    "evidence": "11-qa04,12-qa05,16-qa09,21-supplement; QA-LOG-01"
+  },
+  {
+    "criterion": "LG-04; LD-06,07,08,11 sink slice",
+    "requirement": "Four levels, closed data, fixed optional file and caps; mandatory failure precedence",
+    "cases": "PKG-005,006,038..041,069,077; QA-06,07,08",
+    "expected": "No canaries; optional failures nonauthoritative; required writes still fail and clean up",
+    "actual": "All assertions passed, including real file and accounting failures",
+    "status": "PASS",
+    "evidence": "13-qa06,14-qa07,15-qa08,03-coverage"
+  },
+  {
+    "criterion": "LG-05; LD-01,02,08 classification slice",
+    "requirement": "Only two known startup Error patterns, explicit truncation",
+    "cases": "PKG-001..004,074; QA-03..05",
+    "expected": "Known patterns classify; lookalikes stay unclassified; exact byte accounting",
+    "actual": "Positive/negative byte oracles passed; no inferred crash diagnosis",
+    "status": "PASS",
+    "evidence": "10-qa03,11-qa04,12-qa05"
+  },
+  {
+    "criterion": "LG-06; LD-12",
+    "requirement": "Bound current capture/status/log evidence; preserve legacy and interrupted prefixes",
+    "cases": "PKG-006,075,076,084,092,144; QA-09,10",
+    "expected": "Reject missing/inconsistent evidence; preserve sound historical interpretation",
+    "actual": "6 of9 planned mutations falsely accepted;3 rejected; legacy/interrupted checks passed",
+    "status": "FAIL",
+    "evidence": "16-qa09,17-qa10,24-cli-confirm; QA-LOG-01,02"
+  },
+  {
+    "criterion": "LG-07",
+    "requirement": "Only15 policy key quote pairs change;116 argv positions/values and review binding",
+    "cases": "PKG-045,067,068,078..081; QA-11",
+    "expected": "Exact permitted byte differences and schema3/v2 composition",
+    "actual": "Independent old/new vector comparison and denials passed without native launch",
+    "status": "PASS",
+    "evidence": "18-qa11,03-coverage"
+  },
+  {
+    "criterion": "LG-08",
+    "requirement": "Inherited and independent verification, real query_failed, floors, fmt/Clippy",
+    "cases": "PKG-001..152; SUP-01; QA-01..13; BUILD/FMT/CLIPPY",
+    "expected": "Every mandatory case and both numeric floors pass",
+    "actual": "Numeric floors/static checks pass; mandatory QA-09 fails",
+    "status": "FAIL",
+    "evidence": "case-results.json,metrics.json,attempt-index.json"
+  },
+  {
+    "criterion": "DFF-WORKER-FEAS-01 sections3..7; WF-01..08; LD-10",
+    "requirement": "Strict wire subset, gates, correlation, single turn, independent oracle",
+    "cases": "PKG-050,057..068,086,088..091,098..125; QA-08,11,12",
+    "expected": "Only admitted/qualified work; exact trace and specification result",
+    "actual": "All applicable offline trace/denial/oracle assertions passed",
+    "status": "PASS",
+    "evidence": "03-coverage,15-qa08,18-qa11,19-qa12"
+  },
+  {
+    "criterion": "WF-09..12; F-01/F-02 recovery regressions; base section7",
+    "requirement": "Exclusive persistence, intent before effect, no replay, honest inspection",
+    "cases": "PKG-082,084,128..144,149; QA-09,10,12",
+    "expected": "No mutation/replay; sound records inspect; inconsistent success rejected",
+    "actual": "Inherited cases pass, but new capture/exit inconsistency is accepted",
+    "status": "FAIL",
+    "evidence": "03-coverage,16-qa09,17-qa10,24-cli-confirm"
+  },
+  {
+    "criterion": "WF-13..16",
+    "requirement": "Native Windows ownership, Ctrl+C/EOF/owner death, descendants and production watchdog",
+    "cases": "PKG-085,093..097,132,133,135,137,142; QA-03..05",
+    "expected": "Owned trees stop; pipes drain; fixed120-second watchdog fires",
+    "actual": "Complete actual Windows campaign passed, including production watchdog",
+    "status": "PASS",
+    "evidence": "03-coverage,10-qa03,11-qa04,12-qa05"
+  },
+  {
+    "criterion": "WF-17..20",
+    "requirement": "Unsafe inputs, oracle mismatch, fixture mutation and evidence/cleanup precedence",
+    "cases": "PKG-052..055,087,145,147..151; QA-01,02,07,12",
+    "expected": "Closed rejection/explicit failure; no success from child claim alone",
+    "actual": "Executed failure-path and preservation assertions passed",
+    "status": "PASS",
+    "evidence": "03-coverage,08-qa01,09-qa02,14-qa07,19-qa12"
+  },
+  {
+    "criterion": "NI-T01..10 offline; preflight companion",
+    "requirement": "Exact launcher junctions/digests, fixed policy, review and no-work preflight",
+    "cases": "PKG-007..015,042..048,067,068,079..081,090..092,098..115,138; QA-11,12",
+    "expected": "Synthetic identity/review denials and exact preflight gates",
+    "actual": "Applicable offline assertions passed; no installed/native qualification inferred",
+    "status": "PASS",
+    "evidence": "03-coverage,18-qa11,19-qa12"
+  },
+  {
+    "criterion": "SI-T01..08",
+    "requirement": "Single allowed source junction, complete source inventory, freshness/final check",
+    "cases": "PKG-016..035,042,044,046,049,152; QA-11,13",
+    "expected": "Real synthetic Windows junctions; stale/malformed sources reject before spawn",
+    "actual": "All selected assertions passed against synthetic roots",
+    "status": "PASS",
+    "evidence": "03-coverage,18-qa11,20-qa13"
+  },
+  {
+    "criterion": "SI-T09",
+    "requirement": "Existing source limits, credentials, identity/policy and WF/F-01/F-02 remain valid",
+    "cases": "PKG-007..049,098,128..152; QA-09,11..13",
+    "expected": "Inherited behavior remains valid including current inspection",
+    "actual": "Source restrictions passed; expanded inspection semantics fail QA-09",
+    "status": "FAIL",
+    "evidence": "03-coverage,16-qa09; QA-LOG-01,02"
+  },
+  {
+    "criterion": "SI-T10 offline preservation slice; OUT-01",
+    "requirement": "Candidate, original, snapshot, bound inputs and console helper unchanged",
+    "cases": "QA-13; PRESERVE",
+    "expected": "All selected before/after bytes identical",
+    "actual": "67 candidate,116 original/snapshot,37 inputs verified; no installed mapping mutation",
+    "status": "PASS",
+    "evidence": "20-qa13,final-identity-check.json"
+  },
+  {
+    "criterion": "Diagnostic v1 all stages; query_failed addendum",
+    "requirement": "Same held-job query/1-1 guard; null counts on error; no RPC/private fields; closed category order",
+    "cases": "PKG-036..041,056,101..106; QA-08,12",
+    "expected": "Real restricted handle fails actual API; closed observations/precedence",
+    "actual": "Actual QueryInformationJobObject error5, null counts/no work and cleanup asserted",
+    "status": "PASS",
+    "evidence": "03-coverage,15-qa08,19-qa12; integrity.md"
+  },
+  {
+    "criterion": "Documentation review",
+    "requirement": "Factual native/authority boundaries, selected references and schema3 description",
+    "cases": "QA-13; DOCS",
+    "expected": "Local references resolve; no acceptance inferred from prose",
+    "actual": "12documents/49local links reviewed; implementation completeness reduced by findings",
+    "status": "PASS",
+    "evidence": "documentation-review.json"
+  },
+  {
+    "criterion": "NI-T11,NI-T12; WN-01,WN-02; installed-profile qualification",
+    "requirement": "Separate native launch/installed source collection and operator evidence",
+    "cases": "Excluded from selected offline166-case denominator",
+    "expected": "No native launch in this invocation",
+    "actual": "NOT_RUN; prerequisite independent offline QA has failed",
+    "status": "NOT_APPLICABLE",
+    "evidence": "plan.md; no native launch receipt"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "config_sha256": "beb5cf499ca174940f8f5c91455e54b93d5c2a32f45e1837f5e134c0e10e99cd",
+  "mcp_servers": [
+    {
+      "name": "node_repl",
+      "has_stdio_command": true,
+      "has_http_url": false,
+      "enabled": false
+    },
+    {
+      "name": "openaiDeveloperDocs",
+      "has_stdio_command": false,
+      "has_http_url": true,
+      "enabled": false
+    }
+  ],
+  "new_mcp_entries": 0,
+  "config_modified": false,
+  "native_codex_launches": 0,
+  "scope": "In-memory CLI override replay, not full typed Codex configuration validation"
+}

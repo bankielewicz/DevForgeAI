@@ -1,0 +1,13 @@
+[
+  "README.md",
+  "src/diagnostic.rs",
+  "src/effective_profile.rs",
+  "src/lib.rs",
+  "src/process_windows.rs",
+  "src/protocol.rs",
+  "src/runner.rs",
+  "tests/effective_profile.rs",
+  "tests/profile_protocol.rs",
+  "tests/support/diagnostic_cases.rs",
+  "tests/support/profile_peer.rs"
+]

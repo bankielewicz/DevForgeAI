@@ -1,0 +1,60 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "dependent",
+  "kind": "native",
+  "started_at": "2026-09-14T23:19:56.781421+00:00",
+  "ended_at": "2026-09-14T23:19:56.966529+00:00",
+  "elapsed_seconds": 0.18800000000192085,
+  "timeout_seconds": 5,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "8b42d2676c1fd9505873feccd4c0cc8a5b9aaa0670babde3f39e67ff9c5c1b3f",
+  "started_sha256": "e1ec03a15f27b284b89bf65438545495f2d62b35e8d549cbaf5e3bc66553842c",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\dependent\\attempt\\before.json",
+      "sha256": "6058424d38f08b7afa9fa9bedcee04f42947eb5db32e438351f698d06e1d135a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\dependent\\attempt\\after.json",
+      "sha256": "cbeb017d1adbce72fc494cb13ea68333bd691f81cff1fde734b2f099507efe77"
+    }
+  ],
+  "changed_paths": [
+    "report.json"
+  ],
+  "output_checks": [
+    {
+      "path": "report.json",
+      "kind": "json",
+      "requirement_id": "outcome",
+      "value": {},
+      "result": "PASS",
+      "reason": "Declared output observed"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\dependent\\project\\report.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    }
+  ],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\dependent\\attempt\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\dependent\\attempt\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

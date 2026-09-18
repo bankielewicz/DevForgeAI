@@ -1,0 +1,1 @@
+{"elapsed_ms":213,"final_waits":[0,0],"held_pids":{"descendant":16760,"peer":55516},"initial_waits":[258,258],"interrupt_ms":193,"job_active":0,"mode":"interrupt","second_reason":null,"send_reason":"filled","worker_exit":1}

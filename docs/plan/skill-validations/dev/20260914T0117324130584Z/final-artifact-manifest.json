@@ -1,0 +1,128 @@
+{
+  "schema_version": "validation-artifact-readback-v1",
+  "run_id": "20260914T0117324130584Z",
+  "readback_at_utc": "2026-09-14T02:41:55.278495+00:00",
+  "scope": "Final delivered assessment records listed explicitly; raw attempt trees remain bound by final case references and before/after manifests.",
+  "files": [
+    {
+      "path": "validation-report.md",
+      "bytes": 14138,
+      "sha256": "ec6ec350e9b516cea39e4df998e6d18ee760d535dc594356d7fa48c1bd907ef4"
+    },
+    {
+      "path": "checks.jsonl",
+      "bytes": 57496,
+      "sha256": "70ab91495d8f1469b04beddefe30c6f50b60869758323ab4e049baa10313d39e"
+    },
+    {
+      "path": "findings.json",
+      "bytes": 4252,
+      "sha256": "268085d26034d4bb464e8ccb892cf02976d5413ae1276dab6765182de1f095bc"
+    },
+    {
+      "path": "handoff.json",
+      "bytes": 1779,
+      "sha256": "89202defff4e2e83759bf25c3309d035fc7efbb02bc58641e44d4b8a8ce8dc57"
+    },
+    {
+      "path": "assessment.json",
+      "bytes": 1419,
+      "sha256": "48c9c370379e991ea1285d24fee829863413b4ef11be3385440198e136b700ce"
+    },
+    {
+      "path": "source-manifest.json",
+      "bytes": 2030,
+      "sha256": "c5345079da862476bcd3cbbc51487ab1dfd8e639bf94db633d4e95a5e5e2e42a"
+    },
+    {
+      "path": "source-after-manifest.json",
+      "bytes": 2030,
+      "sha256": "6b96f763e9759402e263f62db023824594c523617405c5a94637bbe2f952ef3f"
+    },
+    {
+      "path": "origin-record.json",
+      "bytes": 1081,
+      "sha256": "4a560d3f5c9d1c5a2171888469cc7fb6199e8f41bb52d778ecff7a4ba72a5b06"
+    },
+    {
+      "path": "sources.json",
+      "bytes": 1850,
+      "sha256": "22545ab78922f82542c7177eebdefc3f8230a3f661c738b03a16ac60b84c0e44"
+    },
+    {
+      "path": "rule-set.json",
+      "bytes": 98917,
+      "sha256": "4958bb8792cea7ae5aef3efe2dafaa72dbfbc7f539887dbd56b7ee18d233cdd1"
+    },
+    {
+      "path": "workflow-map.json",
+      "bytes": 6669,
+      "sha256": "3ddd403d5fdb0f51a99c9124d2abf6f3a2bd00038d6f5ab82659f2ac83ac11ca"
+    },
+    {
+      "path": "command-log.md",
+      "bytes": 31640,
+      "sha256": "8e0197a0343049e86aba166aff005ecb08c65279a1da6234805e9fafefb300cd"
+    },
+    {
+      "path": "semantic-review-final.json",
+      "bytes": 47151,
+      "sha256": "fadd403805aafa7b2906dda22e1f7be07d55c444eacb64ec066b7b53efb64416"
+    },
+    {
+      "path": "case-observations-final.json",
+      "bytes": 49736,
+      "sha256": "d96ceb0e47836861e559ba924dea4e694f607c7d2dc2f3246794d00e8c8bed38"
+    },
+    {
+      "path": "inputs/final-input-readback.json",
+      "bytes": 6615,
+      "sha256": "e49a6eca2c18254ad8b9c88756de25e5cdf2dd33693fa4d0910b684c8d5994cb"
+    },
+    {
+      "path": "inputs/schema1-collection-custody.json",
+      "bytes": 4362,
+      "sha256": "3d961479b7d47231d54571c5906bef287b42c9da58047a1fc7fea8ddf108645e"
+    },
+    {
+      "path": "inputs/schema1-collection-custody-complete.json",
+      "bytes": 5366,
+      "sha256": "409b302df592b992139a401ac6f3b34400a516cd69de316466d16b8b1f60071e"
+    },
+    {
+      "path": "bundle/artifact-manifest.json",
+      "bytes": 15493,
+      "sha256": "5673f7a44339ea131d440b5ca7a44e9565d128608a26342cf5f8b5be7863c2e3"
+    },
+    {
+      "path": "trials/evaluation-final/results.jsonl",
+      "bytes": 44743,
+      "sha256": "5945d3aec91eaf43cab679e4030e41f46e67e9a81a27e04d9617456c3f43227f"
+    },
+    {
+      "path": "trials/evaluation-final/summary.json",
+      "bytes": 337,
+      "sha256": "ff255d5cb572f5c432a8daab48387ebe58d4a869fbac0658e493ad6bae259ac7"
+    },
+    {
+      "path": "commands/records-mixed-final/stdout.txt",
+      "bytes": 39416,
+      "sha256": "fe11e0d3bdf806970a48f0d768988690815c1c01f6a5472a6cc6563e67c707d5"
+    },
+    {
+      "path": "commands/records-schema1-final/stdout.txt",
+      "bytes": 3123,
+      "sha256": "e33ba4a512f9f76aa02cf03fb0d61cc2fcc91431e688383acc6ec92d0dae53b0"
+    },
+    {
+      "path": "commands/records-schema1-complete-final/stdout.txt",
+      "bytes": 3045,
+      "sha256": "6c5662b5d443c2a087b5a46efe982dfdd8dbace9ab2d52371b7fc95b982c203a"
+    },
+    {
+      "path": "commands/audit-native-final/stdout.txt",
+      "bytes": 20659,
+      "sha256": "4db38bcfe8ace54172e8bc50a3af8d9f6302660dc6b8c49bc8f46088b2f660ac"
+    }
+  ]
+}

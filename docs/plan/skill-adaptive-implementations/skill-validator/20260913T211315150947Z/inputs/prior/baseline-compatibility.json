@@ -1,0 +1,37 @@
+{
+  "baseline_count": 51,
+  "baseline_digest": "77f0eec091cb41559074296ec8b0cd7dad76329ca6647b969f0e76b49cea51a4",
+  "added": [
+    "assets/openai-yaml-guidance.md",
+    "references/adaptive-shared-contracts.md",
+    "references/adaptive-validation.md",
+    "references/set-trials.md",
+    "references/text-resource-checks.md",
+    "schemas/adaptation-proposal-v1.schema.json",
+    "schemas/adaptation-selection-v1.schema.json",
+    "schemas/adaptive-check-observation-v1.schema.json",
+    "schemas/adaptive-common.schema.json",
+    "schemas/adaptive-observation-v1.schema.json",
+    "schemas/adaptive-observations-v1.schema.json",
+    "schemas/adaptive-skill-v1.schema.json",
+    "schemas/binding-observation-v1.schema.json",
+    "schemas/project-binding-v1.schema.json",
+    "schemas/project-evidence-v1.schema.json",
+    "schemas/set-assessment-v1.schema.json",
+    "schemas/set-authoring-v1.schema.json",
+    "schemas/set-validation-request-v1.schema.json",
+    "schemas/standalone-set-input-v1.schema.json",
+    "scripts/adaptive_contracts.py",
+    "scripts/adaptive_observe.py",
+    "scripts/text_resources.py",
+    "tests/adaptive_fixtures.py",
+    "tests/test_adaptive.py"
+  ],
+  "removed": [],
+  "modified": [
+    "SKILL.md",
+    "evals/build-manifest.json"
+  ],
+  "unchanged_preexisting_scripts_tests_schemas": true,
+  "provenance": "Baseline manifest from retained implementation evidence; no generated/adopted history inferred. Old bytes verified where retained in prior snapshots separately."
+}

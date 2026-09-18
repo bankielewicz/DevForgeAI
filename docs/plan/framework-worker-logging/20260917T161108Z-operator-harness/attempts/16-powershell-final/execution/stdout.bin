@@ -1,0 +1,34 @@
+Pester v5.7.1
+
+Starting discovery in 1 files.
+Discovery found 9 tests in 127ms.
+Starting code coverage.
+Code Coverage preparation finished after 125 ms.
+Running tests.
+
+Running tests from 'C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T161108Z-operator-harness\tests\OperatorHarness.Tests.ps1'
+Describing Operator PowerShell entrypoint
+  [+] prepares by default with literal module arguments and no native run flag 294ms (273ms|21ms)
+  [+] dispatches once only with the explicit switch and preserves nonzero child exit 52ms (51ms|2ms)
+  [+] stops if the sealed runtime manifest changed 35ms (34ms|1ms)
+  [+] stops on a runtime source hash mismatch 23ms (23ms|0ms)
+  [+] stops on a runtime source size mismatch 21ms (20ms|0ms)
+  [+] reports missing runtime inputs without invoking Python 26ms (26ms|1ms)
+  [+] reports an invocation error and never retries 35ms (34ms|1ms)
+
+Describing Literal synthetic Python boundary
+synthetic output
+  [+] transfers a path and argument with shell characters without changing exit status 73ms (72ms|1ms)
+
+Describing Real entrypoint preparation stop
+Diagnostic mode: --prepare
+Support module: C:\Projects\DevForgeAI\docs\plan\framework-worker-trials\20260917T122229Z-logging-diagnostic\operator-harness-001\diagnostic.py
+Rust total: 120 seconds. Recorder: 145 seconds. Automatic retries: 0.
+{"stage": "PREPARATION_FAILED", "error_type": "RuntimeError", "reason": "existing_attempt_or_input: launch-invocation.json", "native_preflight_invocations": 0, "automatic_retry": false, "invocation": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\invocations\\20260917T170245613298Z-4fd46b43", "framework_acceptance": "NOT_EVALUATED"}
+Diagnostic harness exit code: 3
+  [+] returns the preparation exit and preserves the occupied reservation without dispatch 114ms (113ms|1ms)
+Tests completed in 1.13s
+Tests Passed: 9, Failed: 0, Skipped: 0, Inconclusive: 0, NotRun: 0
+Processing code coverage result.
+Code Coverage result processed in 145 ms.
+Covered 100% / 75%. 37 analyzed Commands in 1 File.

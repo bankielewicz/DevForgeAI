@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "wsl",
+    "--distribution",
+    "Ubuntu",
+    "--user",
+    "bryan",
+    "--cd",
+    "/home/bryan",
+    "--exec",
+    "python3",
+    "-c",
+    "import hashlib,json,os\nfrom pathlib import Path\nroot=Path(\"/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z\")\nfixture=Path(\"/tmp/dfr-wsl-20260914T1950304158791Z/bin\")\nexpected=json.loads((root/\"expected.json\").read_text())[\"files\"]\ndrift=[r[\"path\"] for r in expected if not (root/\"devforgeai\"/r[\"path\"]).is_file() or hashlib.sha256((root/\"devforgeai\"/r[\"path\"]).read_bytes()).hexdigest()!=r[\"sha256\"]]\nowned=[]\nfor p in Path(\"/proc\").iterdir():\n if p.name.isdigit():\n  try:\n   exe=os.readlink(p/\"exe\")\n   if str(root) in exe or str(fixture.parent) in exe: owned.append({\"pid\":int(p.name),\"executable\":exe})\n  except (FileNotFoundError,PermissionError,ProcessLookupError): pass\nprint(json.dumps({\"source_drift\":drift,\"fixture_directory_exists\":fixture.is_dir(),\"fixture_executable_exists\":(fixture/\"examples/wsl_fixture\").is_file(),\"remaining_owned_processes\":owned,\"retained_builds\":[{\"path\":str(root/\"devforgeai/target/release\"/n),\"sha256\":hashlib.sha256((root/\"devforgeai/target/release\"/n).read_bytes()).hexdigest()} for n in [\"devforgeai\",\"devforgeai-indexd\",\"examples/wsl_fixture\"]]}))\n"
+  ],
+  "recorded_at": "2026-09-14T23:05:18.276739+00:00",
+  "exit_code": 0,
+  "stdout": "{\"source_drift\": [], \"fixture_directory_exists\": false, \"fixture_executable_exists\": false, \"remaining_owned_processes\": [], \"retained_builds\": [{\"path\": \"/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/release/devforgeai\", \"sha256\": \"51a6013f96a41f5f7ccbac285596ac7594270b448bb859345d2064b6da4e1f40\"}, {\"path\": \"/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/release/devforgeai-indexd\", \"sha256\": \"37c4b274e7e4ad78ad1170ee3bc58e4d8513f1b559152e3506a6041dda87d01a\"}, {\"path\": \"/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai/target/release/examples/wsl_fixture\", \"sha256\": \"eb1c31135dde39c54921a97565ca682b07b4f1946a651601962475180d6c0c74\"}]}\n",
+  "stderr": ""
+}

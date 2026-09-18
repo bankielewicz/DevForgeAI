@@ -1,0 +1,5 @@
+Initializing skill: brief-note
+   Location: C:\Projects\DevForgeAI\docs\plan\skill-authoring-enhancement\20260913T021452Z\checks-002\disposable\authoring-y7epo26n\Custom skills with spaces
+   Resources: none (create as needed)
+
+[ERROR] Skill directory already exists: C:\Projects\DevForgeAI\docs\plan\skill-authoring-enhancement\20260913T021452Z\checks-002\disposable\authoring-y7epo26n\Custom skills with spaces\brief-note

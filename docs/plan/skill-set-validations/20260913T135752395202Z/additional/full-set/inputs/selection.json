@@ -1,0 +1,23 @@
+{
+  "schema_version": "adaptation-selection-v1",
+  "proposal": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\additional\\full-set\\inputs\\proposal.json",
+    "sha256": "ffc8c41793d3abdbed0025d21f1a944be27af99372d044a66bad7ae999be0270"
+  },
+  "member_ids": [
+    "A"
+  ],
+  "destinations": [
+    {
+      "member_id": "A",
+      "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\skills\\notes-variant"
+    }
+  ],
+  "authorization": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\authorization.txt",
+    "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+  },
+  "permitted_effects": [
+    "Read-only synthetic assessment."
+  ]
+}

@@ -1,0 +1,21 @@
+test_pipe_close_oserror_preserves_evidence_and_closes_other_pipe (test_cleanup.CleanupFailureTests) ... FAIL
+
+======================================================================
+FAIL: test_pipe_close_oserror_preserves_evidence_and_closes_other_pipe (test_cleanup.CleanupFailureTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916-cleanup-tests\maintenance\mutations\suppress-close-error\tests\test_cleanup.py", line 154, in test_pipe_close_oserror_preserves_evidence_and_closes_other_pipe
+    value = self.close_fault(OSError("injected close failure"))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916-cleanup-tests\maintenance\mutations\suppress-close-error\tests\test_cleanup.py", line 150, in close_fault
+    self.assert_no_advice(value)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916-cleanup-tests\maintenance\mutations\suppress-close-error\tests\test_cleanup.py", line 65, in assert_no_advice
+    self.assertEqual(outcome["execution_status"], "FAILED")
+AssertionError: 'SUCCEEDED' != 'FAILED'
+- SUCCEEDED
++ FAILED
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.121s
+
+FAILED (failures=1)

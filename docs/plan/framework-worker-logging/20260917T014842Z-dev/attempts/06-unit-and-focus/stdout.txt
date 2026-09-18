@@ -1,0 +1,65 @@
+
+running 48 tests
+test capture::tests::chunk_independent_hash_invalid_utf8_and_final_line ... ok
+test capture::tests::exact_and_over_combined_byte_line_queue_and_detail_budgets ... ok
+test capture::tests::reader_error_disconnected_consumer_and_closed_classifier ... ok
+test capture::tests::summary_validation_rejects_forged_incomplete_hash_and_eof ... ok
+test logging::tests::optional_sink_failure_and_event_byte_caps_are_non_authoritative ... ok
+test logging::tests::sink_levels_and_inspector_reject_missing_changed_or_partial_evidence ... ok
+test native_identity::tests::additional_reparse_after_the_two_mappings_is_rejected ... ok
+test native_identity::tests::changed_target_and_changed_mapping_order_are_rejected ... ok
+test native_identity::tests::directory_symlink_cannot_substitute_for_a_junction ... ok
+test native_identity::tests::exact_two_junction_chain_admits_only_the_physical_executable ... ok
+test native_identity::tests::identity_schema_and_record_adapter_are_closed ... ok
+test native_identity::tests::mapping_and_bytes_are_rechecked_and_drift_is_rejected ... ok
+test native_identity::tests::missing_physical_digest_mismatch_and_unsupported_adapter_are_rejected ... ok
+test native_identity::tests::repeated_junction_mapping_is_rejected_as_a_loop ... ok
+test native_identity::tests::same_bytes_at_another_physical_path_do_not_bypass_identity ... ok
+test profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed ... ok
+test profile_sources::cases::credential_named_files_are_rejected_before_content_is_read ... ok
+test profile_sources::cases::deserialized_entry_shape_is_validated_before_bindings_are_used ... ok
+test profile_sources::cases::directory_membership_and_fresh_verification_detect_drift ... ok
+test profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected ... ok
+test profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence ... ok
+test profile_sources::edges::closed_inventory_shape_rejects_invalid_state_tuples_and_version ... ok
+test profile_sources::edges::collector_enforces_entry_and_aggregate_byte_bounds ... ok
+test profile_sources::edges::credential_like_and_non_unicode_names_fail_closed ... ok
+test profile_sources::edges::directory_member_bound_and_required_file_type_are_enforced ... ok
+test profile_sources::edges::hash_size_drift_and_non_absolute_paths_fail_closed ... ok
+test profile_sources::edges::missing_paths_are_explicit_and_directory_order_is_stable ... ok
+test profile_sources::edges::plugin_tree_grammar_rejects_unknown_members_and_indexes_controls ... ok
+test profile_sources::edges::rule_and_ancestor_depth_bounds_fail_closed ... ok
+test profile_sources::plugin_source_identity_cases::si_t01_exact_reviewed_junction_reads_physical_sources_once ... ok
+test profile_sources::plugin_source_identity_cases::si_t02_changed_same_byte_escaping_and_missing_targets_reject ... ok
+test profile_sources::plugin_source_identity_cases::si_t03_wrong_type_ordinary_and_missing_junction_reject ... ok
+test profile_sources::plugin_source_identity_cases::si_t04_unlisted_loop_nested_reparse_and_wrong_depth_reject ... ok
+test profile_sources::plugin_source_identity_cases::si_t05_physical_bytes_and_indexed_membership_drift_invalidate_inventory ... ok
+test profile_sources::plugin_source_identity_cases::si_t06_schema_identity_and_mapping_tampering_reject ... ok
+test protocol::diagnostic_cases::diagnostic_process_guard_keeps_zero_active_denied_before_send_and_at_final_check ... ok
+test protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries ... ok
+test protocol::diagnostic_cases::diagnostic_source_write_failure_is_not_success_and_never_serializes_error_text ... ok
+test protocol::diagnostic_cases::logging_runtime_query_failed_mandatory_write_failure_is_not_waived ... ok
+test protocol::diagnostic_cases::logging_runtime_query_failed_retains_null_counts_no_rpc_and_cleanup ... ok
+test request::review_v2_cases::inventory_digest_shape_fixture_and_freshness_are_mandatory ... ok
+test request::review_v2_cases::preflight_accepts_false_findings_while_run_requires_all_true ... ok
+test request::review_v2_cases::profile_sources_exactly_cover_inventory_file_bindings ... ok
+test request::review_v2_cases::request_profile_and_review_policy_bindings_cannot_diverge ... ok
+test request::review_v2_cases::review_inventory_and_profile_source_paths_through_reparse_reject ... ok
+test request::review_v2_cases::v2_review_is_closed_and_binds_all_selected_identities ... ok
+test runner::final_source_check_cases::final_native_check_rejects_missing_review_for_work_and_preflight ... ok
+test runner::final_source_check_cases::si_t08_changed_source_after_intent_stops_before_real_process_creation ... ok
+
+test result: ok. 48 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.04s
+
+
+running 7 tests
+test config_drift_after_intent_is_rejected_at_final_boundary ... ok
+test config_rejects_malformed_unknown_missing_drift_and_escape_before_spawn ... ok
+test delayed_consumer_drains_more_than_32_chunks_without_deadlock ... ok
+test early_stderr_and_silent_exit_survive_without_protocol_receive ... ok
+test inspector_rejects_missing_summary_log_and_modified_log ... ok
+test levels_preserve_mandatory_evidence_and_never_store_child_canaries ... ok
+test policy_targets_real_mcp_keys_under_literal_cli_dotted_key_rules ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.44s
+

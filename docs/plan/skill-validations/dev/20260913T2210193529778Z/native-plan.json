@@ -1,0 +1,133 @@
+{
+  "run_id": "20260913T2210193529778Z",
+  "trials": [
+    {
+      "trial_id": "DV-01",
+      "case_id": "DV-01",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-01\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-01\\plan.json",
+      "prompt_sha256": "4383b58d004e8ab88787396259f4793823f285de119d97ff632043456eb16ce1"
+    },
+    {
+      "trial_id": "DV-02",
+      "case_id": "DV-02",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-02\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-02\\plan.json",
+      "prompt_sha256": "6a7ae42856694de191217fc2e1c82ebb5af0d76fe3f1089c2158076313fa98e5"
+    },
+    {
+      "trial_id": "DV-03-python",
+      "case_id": "DV-03",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-03-python\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-03-python\\plan.json",
+      "prompt_sha256": "a585ffe5d4698d9a33bb49b7d7856b1bc8d48dfac108d928cebe06cfee196d9a"
+    },
+    {
+      "trial_id": "DV-03-javascript",
+      "case_id": "DV-03",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-03-javascript\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-03-javascript\\plan.json",
+      "prompt_sha256": "522a2b7cc8092593120ac09908a2dd9fbbb85d129f875fe189641e3c91dd9e00"
+    },
+    {
+      "trial_id": "DV-04",
+      "case_id": "DV-04",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-04\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-04\\plan.json",
+      "prompt_sha256": "509a207b2d333d390090145c87d01150e7d97b397288b877b036257b4fc17eb4"
+    },
+    {
+      "trial_id": "DV-05",
+      "case_id": "DV-05",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-05\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-05\\plan.json",
+      "prompt_sha256": "e57ead9c72d46f926d3328077ffea42e74f69b328a926a5055effc9425f69f02"
+    },
+    {
+      "trial_id": "DV-06",
+      "case_id": "DV-06",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-06\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-06\\plan.json",
+      "prompt_sha256": "fc03f063c33ecd3ebb27841dc347422e36a91240f94998b567e2fc447e726745"
+    },
+    {
+      "trial_id": "DV-07",
+      "case_id": "DV-07",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-07\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-07\\plan.json",
+      "prompt_sha256": "fd9d4fac66320de92eab95c8dab73371ff335bfc0dc832a2e235363e74e9bce8"
+    },
+    {
+      "trial_id": "DV-08",
+      "case_id": "DV-08",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-08\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-08\\plan.json",
+      "prompt_sha256": "4f5487be8a3ff123c03a50a10f5a7aa3ae1cfd2882e8bb1750642d86d1f37801"
+    },
+    {
+      "trial_id": "DV-09",
+      "case_id": "DV-09",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-09\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-09\\plan.json",
+      "prompt_sha256": "6a6dc40211a75a0e4b0cdf8a99356f8f4c64fa45fb7c3f1d432392a6ebbbc4e7"
+    },
+    {
+      "trial_id": "DV-10",
+      "case_id": "DV-10",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-10\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-10\\plan.json",
+      "prompt_sha256": "971830df7ef594cf04ac48d2b31bff93b448387e8a9e294fff978ed7b3b662de"
+    },
+    {
+      "trial_id": "DV-11",
+      "case_id": "DV-11",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-11\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-11\\plan.json",
+      "prompt_sha256": "b8f8fc175662118948df1c35203a51b288f02c40bdee0ad136a64eefbe9a7405"
+    },
+    {
+      "trial_id": "DV-12",
+      "case_id": "DV-12",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-12\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-12\\plan.json",
+      "prompt_sha256": "4b8cbcac5f3acd2e7cca1c72f771f77afa47b7c5d368b2e2a68e0c6a7044f9d7"
+    },
+    {
+      "trial_id": "DV-13",
+      "case_id": "DV-13",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-13\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-13\\plan.json",
+      "prompt_sha256": "b62997dd06de4d42c8785b80d2405c14630e3e6e3e3e0b5158be0461e724c81f"
+    },
+    {
+      "trial_id": "DV-14",
+      "case_id": "DV-14",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-14\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-14\\plan.json",
+      "prompt_sha256": "12c8f851189a101ca5222d5fc29f5a611dd97ac6ec880146cf320612ced321b4"
+    },
+    {
+      "trial_id": "DV-17",
+      "case_id": "DV-17",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-17\\project",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-17\\plan.json",
+      "prompt_sha256": "5808255b2d023bd4a0189e5d910be9af0506b03115df5707e3fc04c574c298dc"
+    },
+    {
+      "trial_id": "DV-18",
+      "case_id": "DV-18",
+      "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-18\\project space Ω $literal",
+      "plan": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z\\trials\\DV-18\\plan.json",
+      "prompt_sha256": "302e3037b6df73f6761b433fadccbf20537c2016022bbf75d4b463006d35bc83"
+    }
+  ],
+  "case_count": 18,
+  "native_attempt_count": 17,
+  "retained_cases": {
+    "DV-15": "prior deterministic PASS after unchanged-byte readback",
+    "DV-16": "accepted authoring handoff prerequisite still rejected; product QA sub-observation may use DV-01/09 results"
+  },
+  "timeout_seconds": 120,
+  "retry_policy": "No automatic retries of completed/timeout attempts; host-start failures retain attempts and any sandbox escalation is separately authorized by host approval.",
+  "cold_isolation": "Fresh CLI process per case; shared inherited config and repository instructions may affect behavior. Before/after fixture readbacks are observations, not OS isolation proof."
+}

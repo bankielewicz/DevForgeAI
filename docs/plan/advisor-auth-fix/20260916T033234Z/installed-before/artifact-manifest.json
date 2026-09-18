@@ -1,0 +1,25 @@
+{
+  "schema": "advisor-artifact-manifest-v1",
+  "files": {
+    "agents/openai.yaml": "11ff7c5fda697804bcbd7241eae9134e3cd6512f95499a48b86b7ce937951eec",
+    "assets/briefing-template.md": "f19b25173b819de2a26dbd9a47c5e3f2928947d488e6a37a720a218ec144aded",
+    "assets/request.schema.json": "aca30916864d69f780045e53ddf6cbc0b20d26b6ed867f75b131095624d7440d",
+    "evals/case.schema.json": "604011bc4328ae38139db1887e6ef03ad6ef04946182b5faa16ba124a6d323fb",
+    "evals/cases.jsonl": "0eaf1ea53c1960cd63c1263d02df14f5983e1f74cf68b540af09c82676445b9d",
+    "evals/run_evaluation.py": "7b6d4ca100bd1f4e5b9b9e34f029e3e2cdfc33ef230968fb3f4e342c7e88eebf",
+    "references/briefing-rules.md": "ebee76fd01441f8cc90c8df12382a9f852ff706befffa17feab35702f1b959b9",
+    "references/evaluation.md": "3550b58e32720dd64df63597886fb825c7996530d6477e44817bcf3ef697aff7",
+    "references/execution.md": "ed6db993869d8378e3ec5f609a39b89ee41dbb4d4748e0e2a388636250d9735e",
+    "references/response-format.md": "88e98e588f7243630e06f4ad004b2b1563bcd675e87c955653466b68fc34eef9",
+    "scripts/advisor_run.py": "4c4fdee77db5865c831cbd607aa6c754424b509f2b1f676636a35c5913347d02",
+    "SKILL.md": "de4dff3cc6a9f7b4e1ab6234a3a64ac02ede9c231a5062c4408a24b34be7bc2b",
+    "tests/test_advisor.py": "3f123c2745bb4e11217ab8931eedfbd34a8efd7babceb19dac26f8271cb7a168",
+    "tests/test_extended.py": "a6851cc689a297c3a216caeaae3687418d83364c410987f959936043e0b8e683"
+  },
+  "external_contract": {
+    "path": "C:/Users/bryan/.codex/advisor/contract.md",
+    "sha256": "af4cd7f0505c92a186c29edc17328107ac2103f6069109c5aacac04da32b18ab"
+  },
+  "runtime": "Python >=3.10 standard library; native authenticated Claude CLI",
+  "framework_acceptance": "NOT_EVALUATED"
+}

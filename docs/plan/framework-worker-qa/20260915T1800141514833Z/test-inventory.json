@@ -1,0 +1,278 @@
+[
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\admission.rs",
+    "name": "valid_fixture_is_admitted_and_invalid_fields_are_rejected",
+    "category": "supplemental",
+    "level": "unit"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\cli.rs",
+    "name": "invalid_cli_is_json_and_nonzero",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\contract.rs",
+    "name": "wf_17",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\contract.rs",
+    "name": "wf_18",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\contract.rs",
+    "name": "wf_19",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\contract.rs",
+    "name": "wf_20",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\negative_paths.rs",
+    "name": "protocol_typed_events_duplicates_pagination_and_failures",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\negative_paths.rs",
+    "name": "cli_control_and_inspect_paths",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\negative_paths.rs",
+    "name": "fixture_inventory_and_bounded_request_reads",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\negative_paths.rs",
+    "name": "journal_corruption_is_not_promoted",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\negative_paths.rs",
+    "name": "process_failure_and_pipe_ownership",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\negative_paths.rs",
+    "name": "scenario_cancel_and_evidence_failure_precedence",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\oracle.rs",
+    "name": "exact_independent_result",
+    "category": "supplemental",
+    "level": "unit"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\oracle.rs",
+    "name": "rejects_invalid_results",
+    "category": "supplemental",
+    "level": "unit"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_ownership.rs",
+    "name": "native_atomic_job_and_verified_stop",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_windows.rs",
+    "name": "wf_13",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_windows.rs",
+    "name": "wf_14",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_windows.rs",
+    "name": "wf_15",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\process_windows.rs",
+    "name": "wf_16",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\profile.rs",
+    "name": "reviewed_native_profile_sources_and_findings_are_checked_without_launch",
+    "category": "supplemental",
+    "level": "unit"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\profile.rs",
+    "name": "credential_store_is_not_an_admissible_profile_source",
+    "category": "supplemental",
+    "level": "unit"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\profile.rs",
+    "name": "unavailable_review_retains_incomplete_evidence_without_reading_credentials",
+    "category": "supplemental",
+    "level": "unit"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_01",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_02",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_03",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_04",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_05",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_06",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_07",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\protocol.rs",
+    "name": "wf_08",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\recovery.rs",
+    "name": "wf_09",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\recovery.rs",
+    "name": "wf_10",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\recovery.rs",
+    "name": "wf_11",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\recovery.rs",
+    "name": "wf_12",
+    "category": "mandatory",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "unapproved_peer_executable_is_rejected_before_spawn",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "duplicate_nested_profile_is_rejected",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "terminal_claim_requires_observed_result",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "successful_peer_has_observed_zero_exit",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "all_pre_response_notifications_are_reconciled",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "usage_retains_only_typed_counters",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "duplicate_completions_are_idempotent_and_conflicts_fail",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "valid_output_cannot_override_nonzero_worker_exit",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "captured_native_launcher_reparse_is_rejected_without_launching",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "cancellation_before_ids_allows_cooperative_eof_exit",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "lost_interrupt_transport_still_waits_for_owned_process",
+    "category": "supplemental",
+    "level": "integration/API"
+  },
+  {
+    "file": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\requirements.rs",
+    "name": "home_boundary_only_allows_peer_temporary_roots",
+    "category": "supplemental",
+    "level": "integration/API"
+  }
+]

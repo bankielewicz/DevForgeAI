@@ -1,0 +1,70 @@
+{
+  "completed_at": "2026-09-13T20:33:48.345685Z",
+  "task": "Focused confirmation and remediation planning for QA-01 through QA-04",
+  "assessment_completed": true,
+  "finding_verification": "4 CONFIRMED, 0 REFUTED, 0 UNRESOLVED",
+  "implementation_conformity": "FAIL for assessed behavior",
+  "repair_status": "NOT_PERFORMED",
+  "target_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+  "target_files": 75,
+  "target_readback": "UNCHANGED",
+  "loaded_evaluator_readback": "UNCHANGED",
+  "companion_readback": "UNCHANGED",
+  "selected_prior_evidence_readback": "UNCHANGED",
+  "fresh_cases": {
+    "total": 33,
+    "matched": 22,
+    "mismatched": 11
+  },
+  "original_replays": {
+    "total": 4,
+    "reproduced_failures": 4
+  },
+  "affected_regression": {
+    "passing": 27,
+    "total": 27
+  },
+  "record_integrity": {
+    "legacy": "PASS (self-review)",
+    "adaptive": "PASS (self-review)"
+  },
+  "full_regression": "NOT_RUN in this focused run; previously reported 229 not recertified",
+  "line_coverage": "NOT_RUN",
+  "branch_coverage": "NOT_RUN",
+  "native_qualification": "NOT_RUN",
+  "installation": "NOT_PERFORMED",
+  "rust_qualification": "NOT_RUN",
+  "report": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\finding-validation-report.md",
+    "sha256": "206c47b75161aabc0df268b828ad114cb64bcf3e34e8a4659c692da9fdf4110e"
+  },
+  "matrix": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\finding-matrix.json",
+    "sha256": "75b049555b6dfeaf368281e7e27c4b94da2f28f9e4c74b14e88615828545efac"
+  },
+  "revision_spec": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\revision-spec.md",
+    "sha256": "832de4a0d2512f9f50481aeb822645c3830bfd005da954a0a10070dc69b92c25"
+  },
+  "command_log": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\command-log.md",
+    "sha256": "b51dad7de7303f939398fb538fe998d0fc220f685182f56079f31b2cdf081fe3"
+  },
+  "commands": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\command-log-final.json",
+    "sha256": "31ce06c689f4cccbad01c2e4792ee727a7ea2ac7aa74637d0c96e5c46a6f5a0b"
+  },
+  "input_readback": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\final-input-readback.json",
+    "sha256": "93c565bbc0fa9d7ef33a513dce5369a936852fb05fb90ca258938bce95cb36c1"
+  },
+  "handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\authoring-handoff-supplement.json",
+    "sha256": "b585af56ec9b2047b448692f12b4ccbfc90cee0248b2738499b3d1cb7fd89f05"
+  },
+  "evidence_link_audit": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\final-link-audit.json",
+    "sha256": "b67e945bfacf20a296d1ae8b7cd0579ff8e9b9f07fc74544357354ff29b2f62e"
+  },
+  "remaining_work": "Review and separately authorize selected repairs, verify supported custody basis, implement through skill-creator using red/green/refactor, then fresh skill-validator QA and independently reported broader acceptance gaps."
+}

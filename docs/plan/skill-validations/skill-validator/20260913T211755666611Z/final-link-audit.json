@@ -1,0 +1,845 @@
+{
+  "links": [
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "commands/FULL-REGRESSION/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "commands/PRE-REPAIR-FAILURE-CONTROL/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "baseline-failure-plan.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "coverage-summary.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "coverage/denominator-before-run.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "independent-review/independent-review.md",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "resolution-map.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "command-log.md",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+      "target": "final-input-readback.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/ADAPTIVE-RECORDS/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/ADAPTIVE-RECORDS/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/ADAPTIVE-RECORDS/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/BOUND-EVALUATOR/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/BOUND-EVALUATOR/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/BOUND-EVALUATOR/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-COMBINE/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-COMBINE/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-COMBINE/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-JSON/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-JSON/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-JSON/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-REPORT/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-REPORT/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/COVERAGE-REPORT/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D01/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D01/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D01/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D02/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D02/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D02/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D03/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D03/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D03/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D04/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D04/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D04/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D05/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D05/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/D05/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F01/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F01/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F01/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F02/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F02/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F02/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F03/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F03/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F03/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F04/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F04/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F04/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F05/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F05/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F05/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F06/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F06/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F06/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F07/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F07/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F07/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F08/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F08/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F08/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F09/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F09/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F09/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F10/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F10/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/F10/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/FIXTURE-AUDIT/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/FIXTURE-AUDIT/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/FIXTURE-AUDIT/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/FULL-REGRESSION/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/FULL-REGRESSION/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/FULL-REGRESSION/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H01/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H01/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H01/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H02/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H02/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H02/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H03/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H03/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H03/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H04/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H04/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H04/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H05/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H05/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H05/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H06/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H06/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H06/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H07/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H07/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H07/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H08/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H08/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H08/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H09/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H09/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H09/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H10/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H10/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H10/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H11/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H11/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/H11/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/LEGACY-RECORDS/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/LEGACY-RECORDS/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/LEGACY-RECORDS/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/PRE-REPAIR-FAILURE-CONTROL/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/PRE-REPAIR-FAILURE-CONTROL/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/PRE-REPAIR-FAILURE-CONTROL/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/READBACK/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/READBACK/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/READBACK/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-P07/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-P07/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-P07/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-P08/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-P08/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-P08/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-R06/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-R06/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-R06/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-R07/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-R07/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/REPLAY-R07/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/STRUCTURAL/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/STRUCTURAL/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/STRUCTURAL/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/SUBSET-WRAPPER/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/SUBSET-WRAPPER/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/SUBSET-WRAPPER/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U01/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U01/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U01/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U02/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U02/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U02/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U03/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U03/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U03/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U04/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U04/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U04/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U05/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U05/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U05/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U06/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U06/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U06/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U07/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U07/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.md",
+      "target": "commands/U07/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\implementation-report.md",
+      "target": "../../../skill-validator-confirmed-findings-remediation-workflow.md",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\implementation-report.md",
+      "target": "../../../skill-validations/skill-validator/20260913T211755666611Z/qa-report.md",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\implementation-report.md",
+      "target": "../../../skill-validations/skill-validator/20260913T211755666611Z/resolution-map.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\implementation-report.md",
+      "target": "candidate-delta.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\implementation-report.md",
+      "target": "candidate.patch",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\implementation-report.md",
+      "target": "command-log.md",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\command-log.md",
+      "target": "commands/GREEN/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\command-log.md",
+      "target": "commands/GREEN/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\command-log.md",
+      "target": "commands/GREEN/receipt.json",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\command-log.md",
+      "target": "commands/RED/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\command-log.md",
+      "target": "commands/RED/stderr.txt",
+      "exists": true
+    },
+    {
+      "document": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\command-log.md",
+      "target": "commands/RED/receipt.json",
+      "exists": true
+    }
+  ],
+  "manual_review": "Original/fresh fixture outcomes, source line changes, unchanged source comparison, regression subtest units and coverage arithmetic reviewed. Record integrity alone is not semantic approval."
+}

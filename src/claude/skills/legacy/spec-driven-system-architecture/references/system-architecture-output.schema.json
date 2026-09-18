@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://devforgeai.local/schemas/system-architecture-output-1.0.json",
+  "title": "DevForgeAI System Architecture Output Contract",
+  "description": "Ratified JSON Schema (v1.0) for the System Architecture Document produced by the spec-driven-system-architecture skill - the macro / constitutional architect phase of the modernized DevForgeAI pipeline. Ratified by ADR-067; originated as a deliverable of the architecture-phase modernization gap analysis (ARCH-GAPS-001, Gap D - no published architecture-output contract). The skill consumes the PM plan (ideation-output.schema.json v1.0) and emits this contract; the downstream spec-driven-solution-architecture skill consumes it. additionalProperties is true at object level for forward-compatibility, matching ideation-output.schema.json.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "status",
+    "created",
+    "source_pm_plan",
+    "pm_plan_validation",
+    "system_boundary",
+    "integration_topology",
+    "tech_stack_rationale",
+    "system_nfrs",
+    "context_files_generated",
+    "handoff"
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "integration_point": {
+      "type": "object",
+      "description": "An external system, service, or actor the system integrates with at its boundary.",
+      "required": ["id", "name", "direction"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^INT-[0-9]{3,}$" },
+        "name": { "type": "string", "minLength": 1 },
+        "direction": { "type": "string", "enum": ["inbound", "outbound", "bidirectional"] },
+        "protocol": { "type": "string", "description": "e.g. REST/HTTPS, gRPC, message queue, file transfer." },
+        "trust_boundary": { "type": "boolean", "description": "True when this integration crosses a trust/security boundary." },
+        "description": { "type": "string" }
+      }
+    },
+    "tech_decision": {
+      "type": "object",
+      "description": "A locked technology decision with its rationale. Mirrors a tech-stack.md entry; significant decisions are also captured as ADRs.",
+      "required": ["component", "choice", "rationale"],
+      "additionalProperties": true,
+      "properties": {
+        "component": { "type": "string", "minLength": 1, "description": "e.g. language, framework, database, ORM, message bus." },
+        "choice": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 },
+        "alternatives_considered": { "type": "array", "items": { "type": "string" } },
+        "adr_ref": { "type": "string", "pattern": "^ADR-[0-9]{3,}$", "description": "ADR capturing this decision when it is architecturally significant." }
+      }
+    },
+    "system_nfr": {
+      "type": "object",
+      "description": "A system-level non-functional requirement. Sourced from the PM plan NFRs and refined with quantified system targets.",
+      "required": ["id", "category", "statement"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^SNFR-[0-9]{3,}$" },
+        "category": { "type": "string", "enum": ["performance", "scalability", "availability", "security", "maintainability", "observability", "compliance"] },
+        "statement": { "type": "string", "minLength": 1 },
+        "target": { "type": "string", "description": "Quantified target, e.g. 'p95 < 200ms', '99.9% uptime'." },
+        "source": { "type": "string", "description": "e.g. 'pm-plan:NFR-NNN' or 'system-architecture'." }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "description": "System-architecture-output contract version. Const 1.0 for this schema file.",
+      "const": "1.0"
+    },
+    "id": {
+      "description": "System Architecture Document identifier.",
+      "type": "string",
+      "pattern": "^SYSARCH-[0-9]{3,}$"
+    },
+    "title": {
+      "description": "Human-readable document title.",
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "description": "Document lifecycle status.",
+      "type": "string",
+      "enum": ["Draft", "Reviewed", "Accepted", "Superseded"]
+    },
+    "created": {
+      "description": "ISO 8601 date the System Architecture Document was generated.",
+      "type": "string",
+      "format": "date"
+    },
+    "source_pm_plan": {
+      "description": "Relative path to the consumed PM plan requirements file (devforgeai/specs/requirements/{project}-requirements.md). REQUIRED: this field forces the skill to read the persisted PM plan from disk rather than relying on conversation context - the structural fix for Gap B (PM->Architecture handoff non-enforcement).",
+      "type": "string",
+      "minLength": 1
+    },
+    "pm_plan_validation": {
+      "description": "Proof that the source PM plan was validated against ideation-output.schema.json v1.0 before consumption. Closes Gap B: the skill MUST validate, not assume.",
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["schema_id", "validation_status"],
+      "properties": {
+        "schema_id": { "type": "string", "description": "The schema validated against, e.g. 'ideation-output-1.0'." },
+        "validation_status": { "type": "string", "enum": ["passed", "passed_with_warnings", "failed"] },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "source_brainstorm": {
+      "description": "Optional back-reference to the originating brainstorm (BRAINSTORM-NNN), propagated from the PM plan for provenance.",
+      "type": ["string", "null"]
+    },
+    "system_boundary": {
+      "description": "Definition of what is inside the system vs. outside it - the scope of what this architecture governs.",
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["summary"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "in_system": { "type": "array", "items": { "type": "string" } },
+        "out_of_system": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "integration_topology": {
+      "description": "External systems, services, and actors the system integrates with at its boundary.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/integration_point" }
+    },
+    "tech_stack_rationale": {
+      "description": "Locked technology decisions with rationale. The basis for tech-stack.md and the architecturally significant ADRs.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/tech_decision" }
+    },
+    "system_nfrs": {
+      "description": "System-level non-functional requirements with quantified targets.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/system_nfr" }
+    },
+    "deployment_architecture": {
+      "description": "How the system is deployed: environments, runtime topology, hosting model, CI/CD posture. Optional at inception but recommended.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "summary": { "type": "string" },
+        "environments": { "type": "array", "items": { "type": "string" } },
+        "runtime_topology": { "type": "string" }
+      }
+    },
+    "adr_refs": {
+      "description": "Architecture Decision Records created or referenced by this System Architecture Document.",
+      "type": "array",
+      "items": { "type": "string", "pattern": "^ADR-[0-9]{3,}$" }
+    },
+    "context_files_generated": {
+      "description": "Relative paths of the constitutional context files this skill produced (the 6 .md files, their .ai.md companions, and test-plan.ai.yaml). These remain immutable per the configuration-layer-mutability rule.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "handoff": {
+      "description": "REQUIRED. The explicit handoff payload the downstream spec-driven-solution-architecture skill consumes.",
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["recommended_approach"],
+      "properties": {
+        "recommended_approach": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The strategic system-design direction the solution architect must work within."
+        },
+        "critical_constraints": {
+          "type": "array",
+          "description": "System-level constraints the solution architecture must not violate.",
+          "items": { "type": "string" }
+        },
+        "open_questions": {
+          "type": "array",
+          "description": "Unresolved questions escalated to the solution-architecture phase.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

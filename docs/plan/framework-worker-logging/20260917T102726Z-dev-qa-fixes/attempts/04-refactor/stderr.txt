@@ -1,0 +1,3 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe-logging-qa-fixes)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.73s
+     Running tests\inspection_consistency.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T102726Z-dev-qa-fixes\build-target\debug\deps\inspection_consistency-9aafb7ed2ef72ac5.exe)

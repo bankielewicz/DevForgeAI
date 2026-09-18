@@ -1,0 +1,60 @@
+{
+  "run_id": "20260913T2136389781471Z",
+  "assessment": "INCOMPLETE",
+  "assessment_completed": true,
+  "report": {
+    "path": "assessment/validation-report.md",
+    "sha256": "233fa15061a06bba40ac50a303072ebe8f3a3b7c796574b7102273fa05b168b6"
+  },
+  "checks": {
+    "path": "assessment/checks.jsonl",
+    "sha256": "c7b44dcb9711ef77b97f4871050836d9a4a43e46b92a4b367a1ac27b35aba7cf"
+  },
+  "handoff": {
+    "path": "assessment/handoff.json",
+    "sha256": "f01e661af5af370176f4f39ce3cd5e9e78610beea67c20b2f090ecbf160ddcf4"
+  },
+  "selected_request_sha256": "7ebe47919c03b654614dcfa5ff288c0e58a3870615582e798780c74e8cfa15d6",
+  "request_digest_verified": true,
+  "request_intake": "REJECTED",
+  "rejection_reason": "Exact target_root spelling mismatch between contract and request/record",
+  "package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae",
+  "source_readback": "MATCH",
+  "local_inputs_readback": "MATCH",
+  "mandatory_bundle_artifacts": "CREATED_AND_EXECUTED",
+  "evaluated_build": "INCOMPLETE",
+  "bundle_manifest": {
+    "path": "bundle/artifact-manifest.json",
+    "sha256": "0d1882ec70202ed668a5bcb4fd763a2c9fc8c49fa6677f12ee8b322e0f0a0e3f"
+  },
+  "bundle_results": {
+    "path": "trials/bundle-attempt-001/results.jsonl",
+    "sha256": "ac3cc8afaf48bf0ce07a5d781e7f72d4a32f2dc058efc7d7cd77fc73aa204f0d"
+  },
+  "artifact_ledger": {
+    "path": "artifact-ledger.json",
+    "sha256": "741eca222de5bf5083125e4060903041e002cdef0aae1c1bddea6053d4b1bd8d"
+  },
+  "evaluator_tests": {
+    "passing": 23,
+    "required": 23,
+    "prior_red_failures": 2,
+    "not_skill_behavior": true
+  },
+  "dv_cases": {
+    "passing": 1,
+    "required": 18,
+    "not_run": 17
+  },
+  "record_integrity": {
+    "schema1_errors": 0,
+    "schema1_references_checked": 249,
+    "supplemental_status": "OBSERVED"
+  },
+  "installation": "NOT_PERFORMED",
+  "framework_acceptance": "NOT_EVALUATED",
+  "cold_native_trials": "NOT_RUN",
+  "native_implicit_activation": "NOT_RUN",
+  "operational_changes": "NOT_PERFORMED",
+  "skill_revision_proposed": false
+}

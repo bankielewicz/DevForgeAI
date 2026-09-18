@@ -1,0 +1,3487 @@
+[
+  {
+    "case_id": "ADAPTIVE-RECORDS",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\supplemental-records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:24:49.630415Z",
+    "end": "2026-09-13T21:24:50.249884Z",
+    "elapsed_seconds": 0.609000000054948,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/ADAPTIVE-RECORDS/stdout.txt",
+      "sha256": "076987d240debf5237d7ee0b89bc8d12d6add0b26ce16b9fcb8d479e581a3bc6"
+    },
+    "stderr": {
+      "path": "commands/ADAPTIVE-RECORDS/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "BOUND-EVALUATOR",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py",
+      "--package-root",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+      "--candidate-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\source",
+      "--cases",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\source\\evals\\cases.jsonl",
+      "--output",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\bound-evaluation.jsonl",
+      "--run-id",
+      "20260913T211755666611Z",
+      "--profile",
+      "legacy-import-v1"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:54.077279Z",
+    "end": "2026-09-13T21:20:54.405302Z",
+    "elapsed_seconds": 0.3279999999795109,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/BOUND-EVALUATOR/stdout.txt",
+      "sha256": "e1a29f6eb1dd7c86c4952fb9d6e9611562ab167620a8adca3c42217d821b2d82"
+    },
+    "stderr": {
+      "path": "commands/BOUND-EVALUATOR/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "COVERAGE-COMBINE",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "combine",
+      "--rcfile",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\coverage\\coverage.ini",
+      "--keep"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:21:20.927697Z",
+    "end": "2026-09-13T21:21:21.414299Z",
+    "elapsed_seconds": 0.48400000005494803,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/COVERAGE-COMBINE/stdout.txt",
+      "sha256": "015abcb9ade449873e50a66627365ae74e00775ea11b0411cccf44135e96204a"
+    },
+    "stderr": {
+      "path": "commands/COVERAGE-COMBINE/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "COVERAGE-JSON",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "json",
+      "--rcfile",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\coverage\\coverage.ini",
+      "-o",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\coverage\\coverage.json"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:21:21.419811Z",
+    "end": "2026-09-13T21:21:21.861393Z",
+    "elapsed_seconds": 0.4369999999180436,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/COVERAGE-JSON/stdout.txt",
+      "sha256": "7da700516a515deeb9993fdeb9eb3134c8e24dc0962fc6832992193856e5d40c"
+    },
+    "stderr": {
+      "path": "commands/COVERAGE-JSON/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "COVERAGE-REPORT",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "report",
+      "--rcfile",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\coverage\\coverage.ini"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:21:21.866396Z",
+    "end": "2026-09-13T21:21:22.209911Z",
+    "elapsed_seconds": 0.34399999992456287,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/COVERAGE-REPORT/stdout.txt",
+      "sha256": "8ba354d231b59708797edb305552be6810bac2974dbd6e2925f502669f34d264"
+    },
+    "stderr": {
+      "path": "commands/COVERAGE-REPORT/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "D01",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D01\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:11.260197Z",
+    "end": "2026-09-13T21:20:11.833548Z",
+    "elapsed_seconds": 0.5779999999795109,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/D01/stdout.txt",
+      "sha256": "9e10204cede1aabfa52872d3fd5e475710890ae537cbe184cea34838429e4ff1"
+    },
+    "stderr": {
+      "path": "commands/D01/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D01",
+      "captured_at_utc": "2026-09-13T21:20:11.833548Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "a6d0023beea7f4145d81cb9f8d1572f8060809ab1bbfa765e8ccd7dbb1d36ea8"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 8729,
+          "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8729,
+          "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2473,
+          "sha256": "432b8ec8d340400df50ed8a5672c1a39e6a5273beb87c3675a6046c58d2f0c6c"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "e7f2a470dddeab2e48fbcf2b18ad86902fc73ceba880f89b2bb73375b75ff737"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "D02",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D02\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:11.922547Z",
+    "end": "2026-09-13T21:20:12.486566Z",
+    "elapsed_seconds": 0.5619999999180436,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/D02/stdout.txt",
+      "sha256": "9e10204cede1aabfa52872d3fd5e475710890ae537cbe184cea34838429e4ff1"
+    },
+    "stderr": {
+      "path": "commands/D02/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D02",
+      "captured_at_utc": "2026-09-13T21:20:12.486566Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "bbe8250d0645a964baaaf9d6c68aab012e7290d1e9ca950f00d0351004e58a98"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 8729,
+          "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8729,
+          "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2473,
+          "sha256": "b018f9d56183ba8ab26aaf5ae78fbf5a4302f5bb8bd1a7269e6280014da5864b"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "b68002f45e744937447b0bc5a2276115f2391bb86098ff67438d57df762c4484"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "D03",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D03\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:12.574566Z",
+    "end": "2026-09-13T21:20:13.190801Z",
+    "elapsed_seconds": 0.6099999999860302,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/D03/stdout.txt",
+      "sha256": "29c931534d3de45ad733e4689062d8f7d06a7950200531d4af70571ecea37199"
+    },
+    "stderr": {
+      "path": "commands/D03/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D03",
+      "captured_at_utc": "2026-09-13T21:20:13.190801Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "62834b0b5c5d38823d2660857526ce8b0b59bdd59744c8b649eeac3878ddbec3"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 8729,
+          "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8729,
+          "sha256": "1cfbb7d540c22a3d00778b321e4110021c263167359e97f8f5b4008a1d0b800d"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "befff3c609536286df8a5da0b1d83e4a99a35936954980edc584788097237669"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "41c0e1e28f18438ae8a8d10e2f41ff28e74abeae476996c7a0954f2f59212e59"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "D04",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D04\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:13.296804Z",
+    "end": "2026-09-13T21:20:13.965166Z",
+    "elapsed_seconds": 0.6719999999040738,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/D04/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/D04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D04",
+      "captured_at_utc": "2026-09-13T21:20:13.965166Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "cf20d6af1a20c8a5879b57c8541971e30681b0df0ed8081e13fe78326510a2d8"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 823,
+          "sha256": "1326c77aa62262164836073680d88958a47399581cc30b171a8614bd1dfd9906"
+        },
+        {
+          "path": "integration/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "a318536486eaee1a2e50fa6088111fdcb4e629819e65b7067fea42a067e05670"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "da9fbc0c176c2522b6d95f1b1c37981b77be9ed50a3b88e6e1b2f5a4afb18ba4"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "D05",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D05\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:14.067166Z",
+    "end": "2026-09-13T21:20:15.110817Z",
+    "elapsed_seconds": 1.0309999999590218,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/D05/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/D05/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\D05",
+      "captured_at_utc": "2026-09-13T21:20:15.110817Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "fa47d9810aa9b134cb87bb60282f12f8a5c995e19b06e2713f4eee4cc6c95086"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 823,
+          "sha256": "1326c77aa62262164836073680d88958a47399581cc30b171a8614bd1dfd9906"
+        },
+        {
+          "path": "integration/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 11571,
+          "sha256": "934154599056ecb949174285061c0465a98eafd2cb32bd33a00826ff2d72c996"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 11571,
+          "sha256": "0a43a4031b863f8eb498ab939505167f1c78b320f8ba9ba174b429fbf48f4b86"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "5c1805d3c82743c0a02596ddf700aead557218408b88a4d848f69ea77a8a461d"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "f26551caa6c0311cbcd0f66d7fae54c12783f32845a6df5efd9d4de30cb9dc8e"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F01",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F01\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:23.842368Z",
+    "end": "2026-09-13T21:20:24.096368Z",
+    "elapsed_seconds": 0.25,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F01/stdout.txt",
+      "sha256": "59ed6051b1c7304111848daca59cffc4dfda5fd795a8aefce663bd8cc067be4d"
+    },
+    "stderr": {
+      "path": "commands/F01/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F01",
+      "captured_at_utc": "2026-09-13T21:20:24.096368Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 46,
+          "sha256": "b10f7ee0e23309117d2df667d93aebf9047a5fc37887c103ee73770478cfc87e"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "350d26d881bef473ff3e9bea35a0c6ca6d7c33cc251cc1dd1e7f44a86028a752"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F02",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F02\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:24.114370Z",
+    "end": "2026-09-13T21:20:24.372887Z",
+    "elapsed_seconds": 0.25,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F02/stdout.txt",
+      "sha256": "59ed6051b1c7304111848daca59cffc4dfda5fd795a8aefce663bd8cc067be4d"
+    },
+    "stderr": {
+      "path": "commands/F02/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F02",
+      "captured_at_utc": "2026-09-13T21:20:24.372887Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 46,
+          "sha256": "90ed2d7cd07e0ad3e249a73b3175213802aab754042a32317a27fc91d4b06c37"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "e7b6cdaf197dbb3aed88359cd24a738674db1c968e439a6cb6132049dee7cf3d"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F03",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F03\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:24.390887Z",
+    "end": "2026-09-13T21:20:24.648889Z",
+    "elapsed_seconds": 0.26500000001396984,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F03/stdout.txt",
+      "sha256": "853500db4ea6095bab75c8c41802cdb73942baab352a5236aaa943a7e850644e"
+    },
+    "stderr": {
+      "path": "commands/F03/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F03",
+      "captured_at_utc": "2026-09-13T21:20:24.648889Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 39,
+          "sha256": "a79a8fd6e30b1b6f304b48281e7d5149e43ea0ff165927af3c84b5ffb2b5caad"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "ce4b9288cf2175ccf04dc708767501ec9a56dedd4e994f2158181a0cb056b7f7"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F04",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F04\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:24.668464Z",
+    "end": "2026-09-13T21:20:24.936783Z",
+    "elapsed_seconds": 0.26599999994505197,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F04/stdout.txt",
+      "sha256": "c196718f0a3c9d1c40a31f991ce1e69acbb3da1e85edeac565a45305f59b26ac"
+    },
+    "stderr": {
+      "path": "commands/F04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F04",
+      "captured_at_utc": "2026-09-13T21:20:24.936783Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 37,
+          "sha256": "abe6a4e1fafa8ca9c3117df2a21dcee5565fa6642826670b49833a008d15b3bf"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "01f3085637982b38226f3101301a285c5960968ccff120dcb4b0067355073122"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F05",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F05\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:24.955781Z",
+    "end": "2026-09-13T21:20:25.218650Z",
+    "elapsed_seconds": 0.26599999994505197,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F05/stdout.txt",
+      "sha256": "5b3d7a336a81b136c0891241bc625eaefa04b7d8d269f96dc9b1a76ded041373"
+    },
+    "stderr": {
+      "path": "commands/F05/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F05",
+      "captured_at_utc": "2026-09-13T21:20:25.218650Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 53,
+          "sha256": "547c9b5c1a763ca1c983da22b33d2b8a1a8fbca1b7d3391a05c62df662e55bb2"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "fba8b7c2c1e6f282cac4f4b94294c0520f1df554aef4b64ddc6934d0e82bed4c"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F06",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F06\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:25.235649Z",
+    "end": "2026-09-13T21:20:25.496648Z",
+    "elapsed_seconds": 0.2660000000614673,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F06/stdout.txt",
+      "sha256": "4150f02edebffe16b640f5d2574af3c09edf14ad6f4f03dd9687b883ee13bf55"
+    },
+    "stderr": {
+      "path": "commands/F06/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F06",
+      "captured_at_utc": "2026-09-13T21:20:25.496648Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 52,
+          "sha256": "c5e520261a064348260c391a00f31041aeb18c2d7ff67091a3f955e313c2e031"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "56efff6390ba7e2fc1da85c4b873488bff2cce13645f21c5fa12450f3bbf439e"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F07",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F07\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:25.514364Z",
+    "end": "2026-09-13T21:20:25.775366Z",
+    "elapsed_seconds": 0.26500000001396984,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F07/stdout.txt",
+      "sha256": "1ae1f0e24430c700322f40067a1e4c3a0b02b83ad1ccfb2245728e782934efec"
+    },
+    "stderr": {
+      "path": "commands/F07/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F07",
+      "captured_at_utc": "2026-09-13T21:20:25.775366Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 18,
+          "sha256": "348a2faa993e7bd3357d9fd4262295a131bbd255a6197b54561a53d43d23e801"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "1d416f38a47b718d8845acd0ab2152a78418b1fc20d9243c08d9d12974665568"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F08",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F08\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:25.792366Z",
+    "end": "2026-09-13T21:20:26.060364Z",
+    "elapsed_seconds": 0.26599999994505197,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F08/stdout.txt",
+      "sha256": "5313c74866c537b0a9cd015540314cc27e7595b205ce8bb47eb616ba38e95091"
+    },
+    "stderr": {
+      "path": "commands/F08/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F08",
+      "captured_at_utc": "2026-09-13T21:20:26.060364Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 64,
+          "sha256": "777376817127115f32fd78ab1ad348c4dbbedba30149935643b22b5ce3638185"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "edae30d7622979ebf0cd4e2f3069117acfe74516b3ba1246a91b8c96a6010616"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F09",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F09\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:26.077363Z",
+    "end": "2026-09-13T21:20:26.328879Z",
+    "elapsed_seconds": 0.25,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F09/stdout.txt",
+      "sha256": "5862422241cc4665fe6d37cb10eaec866605dd8f4d7fc8186a7cf3a5f2659f6a"
+    },
+    "stderr": {
+      "path": "commands/F09/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F09",
+      "captured_at_utc": "2026-09-13T21:20:26.328879Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 55,
+          "sha256": "9eca88c7f8164a0244af23d2ccaac8ebc0afae15f6a8e8ac7127250b5ef320ed"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "4d6fd59e0cc61da3e5ef4e2099460e795c12bbbcdc98c9270b532e3aa60ad0aa"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "F10",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F10\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:26.350878Z",
+    "end": "2026-09-13T21:20:26.616878Z",
+    "elapsed_seconds": 0.2660000000614673,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/F10/stdout.txt",
+      "sha256": "a12394d35d4991a546e5b214602d2cc7ee223aee9eb3456547209f2a62c75f3a"
+    },
+    "stderr": {
+      "path": "commands/F10/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\F10",
+      "captured_at_utc": "2026-09-13T21:20:26.616878Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 59,
+          "sha256": "d33295c0494b12a4a802d18ac5faa31da34d05210eeaa8ea76e657ca88964468"
+        },
+        {
+          "path": "sample/guide.md",
+          "bytes": 42,
+          "sha256": "121b64deaceba8fd554df33c236afe65e81ed968fdd61fe7b58156ffc962de3c"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "0ba8f8404fb23677a16edaac2989fd5826fa2a4b254c42e08c127cb3fad54ff0"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "FIXTURE-AUDIT",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\audit_fixtures.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:29.722297Z",
+    "end": "2026-09-13T21:20:31.635468Z",
+    "elapsed_seconds": 1.922000000020489,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/FIXTURE-AUDIT/stdout.txt",
+      "sha256": "7fe32052a0d8ccf5551bfcb53856944a57749b4f0487bff6786d73db7e1c87b8"
+    },
+    "stderr": {
+      "path": "commands/FIXTURE-AUDIT/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "FULL-REGRESSION",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/agents/skills/skill-validator/tests",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:19:59.412837Z",
+    "end": "2026-09-13T21:21:12.108448Z",
+    "elapsed_seconds": 72.68699999991804,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/FULL-REGRESSION/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "commands/FULL-REGRESSION/stderr.txt",
+      "sha256": "e462f3a75a710e5f44f87a649ea3b53b5170db618119df1a6a31c1ec6c0857d4"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "H01",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H01\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:15.207833Z",
+    "end": "2026-09-13T21:20:15.808645Z",
+    "elapsed_seconds": 0.5940000000409782,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H01/stdout.txt",
+      "sha256": "7ece29c92e2b2652a8907283351d558c6a136c48ce24bc4c8454f3e57b413c35"
+    },
+    "stderr": {
+      "path": "commands/H01/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H01",
+      "captured_at_utc": "2026-09-13T21:20:15.808645Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "4b6985ab856c0bda3de83b9b64f5517ab9fbbfe5364837ba990b558869e49c9c"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 314,
+          "sha256": "b0cafb1da5636eef09a5f303cc8a4df19cfae1ada82a52ff78cdf0e2611ae92c"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "9db5f0be8527aa4db01771bb3c31eab4458b93754fdd852f9a6f25cd65e1b320"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "b22e66a3cebb1762a91f81096f26fb0859865a4d5b6f64fb23b06033ca5a4d03"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H02",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H02\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:15.899223Z",
+    "end": "2026-09-13T21:20:16.475733Z",
+    "elapsed_seconds": 0.5779999999795109,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H02/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H02/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H02",
+      "captured_at_utc": "2026-09-13T21:20:16.475733Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "28c6f594e92e1c98d73739a155a28c580f0d3125a30c59aef48023e7169010e0"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 321,
+          "sha256": "6fb31bea22ece16108f87d8f4b65578a9d2bd84af2ddd33dd5e14f2edbb0f03f"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "c588e3bcf417ddfb5c838187c5dc8bd9d3e56ab5d0b02bfdc3edfdf89e2436f8"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "dda0eff22256695afaa563b9dc29ec9c9d2ce7b011ee02e5cef614c37c9c4ee2"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H03",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H03\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:16.565733Z",
+    "end": "2026-09-13T21:20:17.133737Z",
+    "elapsed_seconds": 0.5779999999795109,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H03/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H03/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H03",
+      "captured_at_utc": "2026-09-13T21:20:17.133737Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "8085a7c92fe8a37e90c6a394637f58441cb945327396b2a8f2744d471cb36fdf"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 321,
+          "sha256": "a9a596d4658d81d00301215062edff207e802b6a7eb5bc7d6e6902be800285e4"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "d90dfc25120d728bbd42c6bd35e553a496f8af6395dd7eedb7ba831027c68059"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "14dae8c69c58a4552163ddd3fec06921d44babeeef5f4646e4bbd5db4f8fe71c"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H04",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H04\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:17.227747Z",
+    "end": "2026-09-13T21:20:17.799748Z",
+    "elapsed_seconds": 0.5630000000819564,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H04/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H04",
+      "captured_at_utc": "2026-09-13T21:20:17.799748Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "ce9a77b55c23517d755abe7f6332af7d3d2facbb2a6c42b69cbd0d6c8477fe36"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 324,
+          "sha256": "c2beee967b210d3db2538a1da843ffc329fa9f9f6c17a2849422d0e3dd73c5bf"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2472,
+          "sha256": "bc3c4a24775523c8e074a324bdeb825b7c231a1534387835f8627acd5ed04390"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "c39453b7ab970bed5eb7e8d8ed9e225ec688c18381157c1ca53f46933c5e8e82"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H05",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H05\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:17.891747Z",
+    "end": "2026-09-13T21:20:18.485451Z",
+    "elapsed_seconds": 0.5929999999934807,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H05/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H05/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H05",
+      "captured_at_utc": "2026-09-13T21:20:18.485451Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "566f943ab37d04c59a6c968b4cdb8f58110e3aff9810f2580703b0b3a7f21c84"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 321,
+          "sha256": "38769f50e933759cb5059b80fcfa8e6a59d457d8671a7053c544927ec2ba29f7"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2472,
+          "sha256": "e630c7a1503c45e83391d17875c1f52091781b5801e1407816358189e4b43fbe"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "e0d7b03d9ee74c402b255e4f1ab35042f25981728c2f7182c4c63a68d05c32bb"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H06",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H06\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:18.577454Z",
+    "end": "2026-09-13T21:20:19.147159Z",
+    "elapsed_seconds": 0.5779999999795109,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H06/stdout.txt",
+      "sha256": "a2e75e713972225989b1ff6a0ce4ee251b60ebf8fbf43648e5520f0154f3e1e5"
+    },
+    "stderr": {
+      "path": "commands/H06/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H06",
+      "captured_at_utc": "2026-09-13T21:20:19.147159Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "6ca00cc80bd8a732301491b133f9d210b67dfe56007e477c0b4d843cd84c0302"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 1,
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "bc69b22ee70554ae00020c6943f06b5ffc3d36eb7afc363123753f0fbedbf4bd"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "92de69de8ad907c214ab499809feed884e9debb849ba604f231a59bf074cee1e"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H07",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H07\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:19.240160Z",
+    "end": "2026-09-13T21:20:19.811667Z",
+    "elapsed_seconds": 0.5629999999655411,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H07/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H07/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H07",
+      "captured_at_utc": "2026-09-13T21:20:19.811667Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "c92d33245e543604bb6b156ca8ff61d069e429703da9cb6f509be2a73f5bdd05"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 1,
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "86694a91478f62acf95ad871f9f26184a17a9eb6ca939841fca7efa64240920e"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "594e81505d0ffac1a0a614037cbc231591cf651680e3b87f5eb1f24dad051540"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H08",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H08\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:19.902668Z",
+    "end": "2026-09-13T21:20:20.492615Z",
+    "elapsed_seconds": 0.5940000000409782,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H08/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H08/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H08",
+      "captured_at_utc": "2026-09-13T21:20:20.492615Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2129,
+          "sha256": "6f6f1e09f7c978d9c71eba3ed813d94633dfa059bdab803100031e4ae514f77c"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 311,
+          "sha256": "3f05531863f44ac51dad172308eec8a52cdc6ee910503b3bdf2b8290a6982e79"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "eed620a2365836fad44af96190726becbbffc64504d899e66777fb441439f4e9"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "ce2a761d421d31c12aa6ce5b88449dd1cdf86ebd67eaccf302119ea09043d43e"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H09",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H09\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:20.590939Z",
+    "end": "2026-09-13T21:20:21.158035Z",
+    "elapsed_seconds": 0.5620000000344589,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H09/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H09/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H09",
+      "captured_at_utc": "2026-09-13T21:20:21.158035Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 1794,
+          "sha256": "be36d00778753d807c4a40f2734337e6dc74a7161cdad64df7572a3d69a8a906"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 1,
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8610,
+          "sha256": "20cd124a261d959b2c28fb57c75ac19b0935a89c9f487659ec049e2fab863423"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8610,
+          "sha256": "0d6c9a098116ec311d04e9e17f51c5bd6c3530f51137445417f8c52a830bab89"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "0aef319ed289fc79bb1c8fb9b89d02a0110c099758abf1a5598738af045f7b56"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "ffd1b219c8a92255420d929df99e195323e0a4a303df4c564b3c753ba081ba64"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H10",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H10\\records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:21.252035Z",
+    "end": "2026-09-13T21:20:21.876798Z",
+    "elapsed_seconds": 0.625,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H10/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H10/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H10",
+      "captured_at_utc": "2026-09-13T21:20:21.876798Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "6b7fc1196e62ad6a43022316a9a704bba736ef34696ec048b9a5ac0cad7a4873"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 643,
+          "sha256": "c4a12313aa8ceec4f50b122ef14150a0ed916bac4b04c7c4fe3e3df48cb47bf6"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "cfcfbbf35be5572f9009efdd9c8dd376fbcef6eb81538af272b53db3175d5fcd"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "af164f6c7ee79ed20b99b102950cd49d668347e962281d9c05f907adbcbd627a"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "H11",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H11\\subset-records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:28.838679Z",
+    "end": "2026-09-13T21:20:29.689784Z",
+    "elapsed_seconds": 0.8440000000409782,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/H11/stdout.txt",
+      "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+    },
+    "stderr": {
+      "path": "commands/H11/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\H11",
+      "captured_at_utc": "2026-09-13T21:20:29.689784Z",
+      "files": [
+        {
+          "path": "inputs/alpha-manifest.json",
+          "bytes": 267,
+          "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+        },
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 44,
+          "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+        },
+        {
+          "path": "inputs/beta-manifest.json",
+          "bytes": 267,
+          "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+        },
+        {
+          "path": "inputs/empty.jsonl",
+          "bytes": 3,
+          "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+        },
+        {
+          "path": "inputs/no-integration.jsonl",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "inputs/project.json",
+          "bytes": 699,
+          "sha256": "8f2ac46b0ccdda5875d6174459284b141071be0b8e16662b1ed346cf8d03884a"
+        },
+        {
+          "path": "inputs/proposal.json",
+          "bytes": 3717,
+          "sha256": "69110082d26d57b9c67c4b71862e7a3a2e8829f58f1995fb2d750e1080ac06c3"
+        },
+        {
+          "path": "inputs/request.json",
+          "bytes": 1456,
+          "sha256": "3c7c7924e92c2e3bc3ac911b56027b0355434c83c7cedef45ff3da994424d673"
+        },
+        {
+          "path": "inputs/retained.json",
+          "bytes": 2117,
+          "sha256": "6ad9d61626ae2fe43647e5a3fce6262e8a6b0faef1a401ee7d5c80c87ed78918"
+        },
+        {
+          "path": "inputs/selected.json",
+          "bytes": 1059,
+          "sha256": "20c10b03f7b47fb3d3e5f5fa12d87313f1524a775e8824b29a78adf6c5ea5444"
+        },
+        {
+          "path": "inputs/selection.json",
+          "bytes": 2138,
+          "sha256": "7f85ca8a79009d067aa5926e7ad738cb4be1a064313390787a7403e38e9b2e46"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 321,
+          "sha256": "6fb31bea22ece16108f87d8f4b65578a9d2bd84af2ddd33dd5e14f2edbb0f03f"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+        },
+        {
+          "path": "member-evidence/A/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 8700,
+          "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+        },
+        {
+          "path": "member-evidence/B/evidence.txt",
+          "bytes": 50,
+          "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 67,
+          "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+        },
+        {
+          "path": "packages/alpha/SKILL.md",
+          "bytes": 106,
+          "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+        },
+        {
+          "path": "packages/alpha/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "packages/beta/SKILL.md",
+          "bytes": 105,
+          "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+        },
+        {
+          "path": "packages/beta/members/A",
+          "bytes": 71,
+          "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+        },
+        {
+          "path": "records/set-assessment.json",
+          "bytes": 2466,
+          "sha256": "da88b07849589e65ca06c266fc98283b76266146bb68447ffd115b8fa199b383"
+        },
+        {
+          "path": "subset-records/set-assessment.json",
+          "bytes": 1726,
+          "sha256": "a443286fd8908196e3ff25aebd349544f6d5a844cdaea5b881f431b3528bb267"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "9182758890474af23a01cc1f339a3d6c982898d39f9d060450faae7d2b054ddb"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "LEGACY-RECORDS",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\member-records"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:24:48.829367Z",
+    "end": "2026-09-13T21:24:49.625876Z",
+    "elapsed_seconds": 0.7970000000204891,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/LEGACY-RECORDS/stdout.txt",
+      "sha256": "4ee8e86c05dfa11c2eaa05410bd8c42b33b53ee9099b01d8c0a2eee6b7281b24"
+    },
+    "stderr": {
+      "path": "commands/LEGACY-RECORDS/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "PRE-REPAIR-FAILURE-CONTROL",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\source\\tests",
+      "-p",
+      "test_authoring.py",
+      "-k",
+      "malformed_contract",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:22:25.602704Z",
+    "end": "2026-09-13T21:22:25.816330Z",
+    "elapsed_seconds": 0.20400000002700835,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/PRE-REPAIR-FAILURE-CONTROL/stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "commands/PRE-REPAIR-FAILURE-CONTROL/stderr.txt",
+      "sha256": "9e21804b2eb5ba105e41e1dac8a8c1409f6b6bddb8ab8262be11181c537d68fb"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "READBACK",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+      "readback",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+      "--manifest",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\source-manifest.json"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:54.409306Z",
+    "end": "2026-09-13T21:20:55.049818Z",
+    "elapsed_seconds": 0.6410000000614673,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/READBACK/stdout.txt",
+      "sha256": "f672fa38cf0603e5d50965b54e3206d373589b540b226ebd508805dae2124404"
+    },
+    "stderr": {
+      "path": "commands/READBACK/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "REPLAY-P07",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P07\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:27.913112Z",
+    "end": "2026-09-13T21:20:28.168626Z",
+    "elapsed_seconds": 0.25,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/REPLAY-P07/stdout.txt",
+      "sha256": "050308e192eb88903173d2639b7e676ae48ccc53195c7a429f084f1a5a08d788"
+    },
+    "stderr": {
+      "path": "commands/REPLAY-P07/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P07",
+      "captured_at_utc": "2026-09-13T21:20:28.168626Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 108,
+          "sha256": "ea38f4b95ebf2c39fc7090544dcc6d94eb2ce678472aded88ecddccc01890a3a"
+        },
+        {
+          "path": "sample/example.md",
+          "bytes": 56,
+          "sha256": "7f33255d278b64f99a7ed9da03a0d7837269c22df925e2e28fbc77c73bc40b7d"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "c87beb0fa1ecab0f3fbfd8b96e3ba0c29eca2a53e24a9ce88f790e0714a1c6ec"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "REPLAY-P08",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P08\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:28.187625Z",
+    "end": "2026-09-13T21:20:28.449626Z",
+    "elapsed_seconds": 0.26500000001396984,
+    "exit": 2,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/REPLAY-P08/stdout.txt",
+      "sha256": "f78bb764c38972a14692bf8a5a1c1a60b863d22fa66112d5eb7787f2a580b552"
+    },
+    "stderr": {
+      "path": "commands/REPLAY-P08/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\P08",
+      "captured_at_utc": "2026-09-13T21:20:28.449626Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 108,
+          "sha256": "ea38f4b95ebf2c39fc7090544dcc6d94eb2ce678472aded88ecddccc01890a3a"
+        },
+        {
+          "path": "sample/protocol.json",
+          "bytes": 36,
+          "sha256": "2ad8842028fd731f7e12ed3fa255720aa48d8022572154d7f2cfe516921361c6"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "7e7ad128d7a34426200ab52a388bf79f69b6866902e8e23f06c4e83e2ec45edf"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "REPLAY-R06",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\R06"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:26.700877Z",
+    "end": "2026-09-13T21:20:27.247499Z",
+    "elapsed_seconds": 0.5470000000204891,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/REPLAY-R06/stdout.txt",
+      "sha256": "9e10204cede1aabfa52872d3fd5e475710890ae537cbe184cea34838429e4ff1"
+    },
+    "stderr": {
+      "path": "commands/REPLAY-R06/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\R06",
+      "captured_at_utc": "2026-09-13T21:20:27.247499Z",
+      "files": [
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 71,
+          "sha256": "df4496079c986502c8c95de2d9718f6a885a0e2d40aa369c16e7c4b7dbfa13b9"
+        },
+        {
+          "path": "inputs/consumer-manifest.json",
+          "bytes": 142,
+          "sha256": "e0dabc94081ce1c20390661238262a433d097092fbb174b4cfe24301a6a78b29"
+        },
+        {
+          "path": "inputs/consumer/SKILL.md",
+          "bytes": 110,
+          "sha256": "043a976cae29a6f49aae024415b1bf60543ee79e09e89adc214b74fb75de1a68"
+        },
+        {
+          "path": "inputs/producer-manifest.json",
+          "bytes": 142,
+          "sha256": "8bec2f8259d69217a4b5fadc3502b9b1bec1b82391fbb32a5cb540963561e078"
+        },
+        {
+          "path": "inputs/producer/SKILL.md",
+          "bytes": 110,
+          "sha256": "3ac842144d4370bb263f9464e07e599bdc8bed3f536e89ae19342fba42952d71"
+        },
+        {
+          "path": "inputs/standalone.json",
+          "bytes": 2531,
+          "sha256": "d87f148bc62d18687eaeda1b2c0826b9929cdbfe5dd16fc02ddb148f9d7d7dff"
+        },
+        {
+          "path": "inputs/task-card.schema.json",
+          "bytes": 532,
+          "sha256": "1f89fbebd058d684c850ca8602ac8ed3a050dccced93f82344ed669ec1098349"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 330,
+          "sha256": "ef96ba035bc91ebc47b7a7a9632897b03bf30b0f3e510667d46e949a9b8271c2"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 9338,
+          "sha256": "cb5d60797a3de5024500acd81341671b792c3d15b6c8c6c9637aa46f6de88d7a"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 86,
+          "sha256": "eb83c4cde7ca63471101e2c48cddffe8c1ad82b8eb0c888ec3fa1ef3b61eef15"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 9193,
+          "sha256": "37fdb8dcf84f3a866c9dc4c81d340801a6758fe8ebb4f59a8e4a4d4a37dba9aa"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 86,
+          "sha256": "eb83c4cde7ca63471101e2c48cddffe8c1ad82b8eb0c888ec3fa1ef3b61eef15"
+        },
+        {
+          "path": "set-assessment.json",
+          "bytes": 2644,
+          "sha256": "a64481f10913d4e840fe0ba5f6a8aa28975f4c5c422fd57a23c7539af6e7ec1b"
+        },
+        {
+          "path": "trials/fixture/findings.json",
+          "bytes": 25,
+          "sha256": "970505fcb2efedef013bf5b4cebf1ebcb2ab1ef2e669b8cb1abdc55b80155ec5"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "f5dad9b4a0b9a232999469b309f5e1d17c49ad16a9bfa9c59b01258c08887137"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "REPLAY-R07",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "records",
+      "--run-root",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\R07"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:27.331036Z",
+    "end": "2026-09-13T21:20:27.895114Z",
+    "elapsed_seconds": 0.5779999999795109,
+    "exit": 1,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/REPLAY-R07/stdout.txt",
+      "sha256": "7ece29c92e2b2652a8907283351d558c6a136c48ce24bc4c8454f3e57b413c35"
+    },
+    "stderr": {
+      "path": "commands/REPLAY-R07/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\independent\\R07",
+      "captured_at_utc": "2026-09-13T21:20:27.895114Z",
+      "files": [
+        {
+          "path": "inputs/authorization.txt",
+          "bytes": 71,
+          "sha256": "df4496079c986502c8c95de2d9718f6a885a0e2d40aa369c16e7c4b7dbfa13b9"
+        },
+        {
+          "path": "inputs/consumer-manifest.json",
+          "bytes": 142,
+          "sha256": "e0dabc94081ce1c20390661238262a433d097092fbb174b4cfe24301a6a78b29"
+        },
+        {
+          "path": "inputs/consumer/SKILL.md",
+          "bytes": 110,
+          "sha256": "043a976cae29a6f49aae024415b1bf60543ee79e09e89adc214b74fb75de1a68"
+        },
+        {
+          "path": "inputs/producer-manifest.json",
+          "bytes": 142,
+          "sha256": "8bec2f8259d69217a4b5fadc3502b9b1bec1b82391fbb32a5cb540963561e078"
+        },
+        {
+          "path": "inputs/producer/SKILL.md",
+          "bytes": 110,
+          "sha256": "3ac842144d4370bb263f9464e07e599bdc8bed3f536e89ae19342fba42952d71"
+        },
+        {
+          "path": "inputs/standalone.json",
+          "bytes": 2531,
+          "sha256": "15b2265d480bee90fa28cf208d9ef50328dbea11ef738c57656731799c73130f"
+        },
+        {
+          "path": "inputs/task-card.schema.json",
+          "bytes": 532,
+          "sha256": "1f89fbebd058d684c850ca8602ac8ed3a050dccced93f82344ed669ec1098349"
+        },
+        {
+          "path": "integration/checks.jsonl",
+          "bytes": 340,
+          "sha256": "4569c150b41a0f0a194dc1688a2d2d3d3dc17fa228fe8df70f5bb3e1b6f8dde3"
+        },
+        {
+          "path": "member-evidence/A/checks.jsonl",
+          "bytes": 9193,
+          "sha256": "a762c98401bf0f22435a2a3d69ce0921246ff996d67a508c428f6bcddbbbe673"
+        },
+        {
+          "path": "member-evidence/A/report.md",
+          "bytes": 86,
+          "sha256": "eb83c4cde7ca63471101e2c48cddffe8c1ad82b8eb0c888ec3fa1ef3b61eef15"
+        },
+        {
+          "path": "member-evidence/B/checks.jsonl",
+          "bytes": 9193,
+          "sha256": "37fdb8dcf84f3a866c9dc4c81d340801a6758fe8ebb4f59a8e4a4d4a37dba9aa"
+        },
+        {
+          "path": "member-evidence/B/report.md",
+          "bytes": 86,
+          "sha256": "eb83c4cde7ca63471101e2c48cddffe8c1ad82b8eb0c888ec3fa1ef3b61eef15"
+        },
+        {
+          "path": "set-assessment.json",
+          "bytes": 2637,
+          "sha256": "e1c252edf973b10ccaad9bf5a82484f3d7b11ecfafb928001f036588fa1edc4e"
+        },
+        {
+          "path": "trials/fixture/findings.json",
+          "bytes": 25,
+          "sha256": "970505fcb2efedef013bf5b4cebf1ebcb2ab1ef2e669b8cb1abdc55b80155ec5"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "1d10cd371a9ee3eee6afb865a0d0783f80280b3454d69617d1bd340b510c327c"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "STRUCTURAL",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\source"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:53.885754Z",
+    "end": "2026-09-13T21:20:54.072280Z",
+    "elapsed_seconds": 0.18700000003445894,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/STRUCTURAL/stdout.txt",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    "stderr": {
+      "path": "commands/STRUCTURAL/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "SUBSET-WRAPPER",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\subset_control.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:28.458626Z",
+    "end": "2026-09-13T21:20:29.717292Z",
+    "elapsed_seconds": 1.25,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/SUBSET-WRAPPER/stdout.txt",
+      "sha256": "6412a428568f4a5f8548182335d20c6fbd8baa9829b1dc6d76006594e7043fd8"
+    },
+    "stderr": {
+      "path": "commands/SUBSET-WRAPPER/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": null,
+    "fixture_unchanged": null
+  },
+  {
+    "case_id": "U01",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U01\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:21.894797Z",
+    "end": "2026-09-13T21:20:22.152309Z",
+    "elapsed_seconds": 0.25,
+    "exit": 2,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U01/stdout.txt",
+      "sha256": "f39e92ffd95ad61e6697329bf3043b8c58b6615b050ae2f0881e024bc2c013e3"
+    },
+    "stderr": {
+      "path": "commands/U01/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U01",
+      "captured_at_utc": "2026-09-13T21:20:22.152309Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/protocol.json",
+          "bytes": 37,
+          "sha256": "d01e8e813e1bd525b7b187c2f3347cd21621ebac1787a51a381f3808e751ee70"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "9f79ba41bad0b004786f1bcfcc56ff514660d742e09f8319bc83febcc243978e"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "U02",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U02\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:22.170309Z",
+    "end": "2026-09-13T21:20:22.426353Z",
+    "elapsed_seconds": 0.26599999994505197,
+    "exit": 2,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U02/stdout.txt",
+      "sha256": "03ddfda55f901841c01fbb9495c600eeb343042ae0e54695b3277cb9ab68c7b1"
+    },
+    "stderr": {
+      "path": "commands/U02/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U02",
+      "captured_at_utc": "2026-09-13T21:20:22.426353Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/protocol.json",
+          "bytes": 83,
+          "sha256": "efb4ce412c37e786bccbba50d37270849257d16ed334fc5748e803a6c2d79b80"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "f5686b1db752af3312dbc36aa8bf9e852d2ace407002d4ece6b778b15865af6b"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "U03",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U03\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:22.445620Z",
+    "end": "2026-09-13T21:20:22.715128Z",
+    "elapsed_seconds": 0.26599999994505197,
+    "exit": 2,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U03/stdout.txt",
+      "sha256": "fea806375794af351eed8b97c679396e5c141207228e68b31a09434d03f41441"
+    },
+    "stderr": {
+      "path": "commands/U03/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U03",
+      "captured_at_utc": "2026-09-13T21:20:22.715128Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/protocol.json",
+          "bytes": 69,
+          "sha256": "f04cc988196c9a74ad466ebcd040fe15da95e87441228a264f36a9ec4055168b"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "75bf05de1c6512c3efa6ef6097647aec9441ef230804acc24b010b71e2f2cd9b"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "U04",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U04\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:22.733129Z",
+    "end": "2026-09-13T21:20:22.995350Z",
+    "elapsed_seconds": 0.2660000000614673,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U04/stdout.txt",
+      "sha256": "e29d956a6c4f4ab942116e2144245440e1c593aae46434166e29d88f04245017"
+    },
+    "stderr": {
+      "path": "commands/U04/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U04",
+      "captured_at_utc": "2026-09-13T21:20:22.995350Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/protocol.json",
+          "bytes": 34,
+          "sha256": "ca8f57993ff5088f0e3163ab317b0ac3b01266369f9800a4822b9ecd53b2b6ed"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "4b897e5ce348e3ea42ecf08bca927cc5e21c3f737f732fe6f436d981e096925b"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "U05",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U05\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:23.012354Z",
+    "end": "2026-09-13T21:20:23.270865Z",
+    "elapsed_seconds": 0.26500000001396984,
+    "exit": 0,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U05/stdout.txt",
+      "sha256": "9d5ec16d43829fb28e5bf593b4c02007920d097db24e97e1f06db1840a269e28"
+    },
+    "stderr": {
+      "path": "commands/U05/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U05",
+      "captured_at_utc": "2026-09-13T21:20:23.270865Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/notes.md",
+          "bytes": 51,
+          "sha256": "9b41cdf652e88d823916f945d58ec9ce23315ce330f0e5baf604fc08ee0895ed"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "2ca51613d57949d2b8ffb58a9aa2c5c77546e4ade98d74c96fa822d2379ea1ac"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "U06",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U06\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:23.288863Z",
+    "end": "2026-09-13T21:20:23.550368Z",
+    "elapsed_seconds": 0.25,
+    "exit": 2,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U06/stdout.txt",
+      "sha256": "5e2a9843ac611c32e3cd15419d7e2433d50b3823313e2c69c694a31e3ab89b49"
+    },
+    "stderr": {
+      "path": "commands/U06/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U06",
+      "captured_at_utc": "2026-09-13T21:20:23.550368Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/notes.md",
+          "bytes": 44,
+          "sha256": "77ac2caa1c39ac72126f9779d50fae8563f03ed93a57352ea38fd63bd057de0d"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "06c9519e6fa32ab84bf403107f3c06d0eb1fb9327bd1f2170d2866e86d4fe3e4"
+    },
+    "fixture_unchanged": true
+  },
+  {
+    "case_id": "U07",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "package",
+      "--source",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U07\\sample"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "start": "2026-09-13T21:20:23.569369Z",
+    "end": "2026-09-13T21:20:23.824370Z",
+    "elapsed_seconds": 0.25,
+    "exit": 2,
+    "timed_out": false,
+    "termination": null,
+    "stdout": {
+      "path": "commands/U07/stdout.txt",
+      "sha256": "5dc6993bfc2b9b21e961bc50edb8e261989bf1355a481eedbe4c09b89229fcb3"
+    },
+    "stderr": {
+      "path": "commands/U07/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "fixture_after": {
+      "schema_version": "1",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\trials\\U07",
+      "captured_at_utc": "2026-09-13T21:20:23.824370Z",
+      "files": [
+        {
+          "path": "sample/SKILL.md",
+          "bytes": 107,
+          "sha256": "00ed62623996e725b506d8125365f14012b32e8e9ee82eacc5ebc8284c49a210"
+        },
+        {
+          "path": "sample/notes.md",
+          "bytes": 47,
+          "sha256": "4b6ce1cb61cd32abf0d45c2e1ee463654fea6a5dc750bc3939f90f68af9d2845"
+        }
+      ],
+      "excluded_boundaries": [],
+      "complete": true,
+      "package_digest": "cbc992bca1ce885c4eedad5397ed9b78502d2525fbdaa01e0fc3752e734fbc42"
+    },
+    "fixture_unchanged": true
+  }
+]

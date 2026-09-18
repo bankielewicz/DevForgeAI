@@ -1,0 +1,10 @@
+{
+  "pid": 45700,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "fmt",
+    "--all",
+    "--",
+    "--check"
+  ]
+}

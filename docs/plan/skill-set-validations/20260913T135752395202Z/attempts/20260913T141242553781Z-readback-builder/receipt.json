@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "label": "readback-builder",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "readback",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "--manifest",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260913T135752395202Z\\source-manifest.json"
+  ],
+  "expected": "Exact original source matches captured manifest.",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T141242553781Z-readback-builder",
+  "started_at_utc": "20260913T141242553781Z",
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_at_utc": "2026-09-13T14:12:42.874127+00:00"
+}

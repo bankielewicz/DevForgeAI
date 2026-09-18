@@ -1,0 +1,139 @@
+[
+  {
+    "id": "SC-001",
+    "origin": "user",
+    "outcome": "Publish only the selected story-create development package at version 0.1.0; preserve original source and operational copies.",
+    "artifacts": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "SC-002",
+    "origin": "user",
+    "outcome": "Remove old CLI commands, hooks, phase enforcement, slash-command mechanics and provider-specific overrides from runtime instructions.",
+    "artifacts": [
+      "SKILL.md",
+      "references/delivery-and-resume.md"
+    ]
+  },
+  {
+    "id": "SC-003",
+    "origin": "derived",
+    "outcome": "Use a portable adaptive core descriptor and the unchanged generic binding helper before product effects.",
+    "artifacts": [
+      "assets/devforgeai-skill.json",
+      "scripts/check_project_binding.py",
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "SC-004",
+    "origin": "derived",
+    "outcome": "Discover current project rules, layout, quality policy and selected sources; ask only for unresolved material decisions.",
+    "artifacts": [
+      "references/intake-and-scope.md"
+    ]
+  },
+  {
+    "id": "SC-005",
+    "origin": "derived",
+    "outcome": "Support feature, epic batch, architecture seed, QA/RCA recommendation and deferred-gap entry points without silently broadening selection.",
+    "artifacts": [
+      "references/intake-and-scope.md",
+      "references/batch-and-dependencies.md",
+      "references/recommendations-and-gaps.md",
+      "references/architecture-seeds.md"
+    ]
+  },
+  {
+    "id": "SC-006",
+    "origin": "derived",
+    "outcome": "Allocate collision-safe story identities across active and archived work; preserve explicit metadata, Backlog defaults and story-type semantics without TDD bypass.",
+    "artifacts": [
+      "references/intake-and-scope.md"
+    ]
+  },
+  {
+    "id": "SC-007",
+    "origin": "derived",
+    "outcome": "Decompose independently assessable outcomes with clause ownership, acceptance mapping, concrete acyclic prerequisites and integration obligations.",
+    "artifacts": [
+      "references/batch-and-dependencies.md"
+    ]
+  },
+  {
+    "id": "SC-008",
+    "origin": "derived",
+    "outcome": "Preserve selected recommendation IDs, exact verification expectations, RCA traceability and blocking/advisory distinctions without claiming fixes.",
+    "artifacts": [
+      "references/recommendations-and-gaps.md"
+    ]
+  },
+  {
+    "id": "SC-009",
+    "origin": "derived",
+    "outcome": "Read the architecture data island as data, map the selected seed and retain source/feature provenance and explicit dependency decisions.",
+    "artifacts": [
+      "references/architecture-seeds.md"
+    ]
+  },
+  {
+    "id": "SC-010",
+    "origin": "derived",
+    "outcome": "Write source-grounded measurable XML acceptance criteria with boundary, error, security and applicable refactor invariants.",
+    "artifacts": [
+      "references/acceptance-criteria.md",
+      "references/domain-patterns.md"
+    ]
+  },
+  {
+    "id": "SC-011",
+    "origin": "derived",
+    "outcome": "Specify applicable components, APIs, data rules, constraints, failure behavior and bidirectional AC-to-technical/test traceability.",
+    "artifacts": [
+      "references/technical-specification.md"
+    ]
+  },
+  {
+    "id": "SC-012",
+    "origin": "derived",
+    "outcome": "Include UI states, interactions, component interfaces, terminal-readable layouts and accessibility only when applicable.",
+    "artifacts": [
+      "references/ui-specification.md"
+    ]
+  },
+  {
+    "id": "SC-013",
+    "origin": "derived",
+    "outcome": "Deliver one complete story file per outcome with current template fields, provenance, scope, NFRs, dependencies, edge cases, test strategy and unchecked DoD.",
+    "artifacts": [
+      "assets/templates/story-template.md",
+      "references/story-contract.md"
+    ]
+  },
+  {
+    "id": "SC-014",
+    "origin": "derived",
+    "outcome": "Update explicitly selected epic/sprint/source links idempotently after story readback and preserve unrelated or concurrent edits.",
+    "artifacts": [
+      "references/delivery-and-resume.md"
+    ]
+  },
+  {
+    "id": "SC-015",
+    "origin": "derived",
+    "outcome": "Retain resumable selected-input identities, actual writes, batch results, uncertain effects and the next safe action; never treat cached prose as authority.",
+    "artifacts": [
+      "assets/templates/session-record.md",
+      "references/delivery-and-resume.md"
+    ]
+  },
+  {
+    "id": "SC-016",
+    "origin": "derived",
+    "outcome": "Review authored documents and deliver literal read-back paths, unresolved gaps and explicit manual development/QA handoffs without claiming evaluated or protected acceptance.",
+    "artifacts": [
+      "references/delivery-and-resume.md"
+    ]
+  }
+]

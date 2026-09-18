@@ -1,0 +1,34 @@
+{
+  "attempt_id": "boundary-component",
+  "stage": "green",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--lib",
+    "--test",
+    "coverage_edges",
+    "--",
+    "--skip",
+    "preferences_read_errors",
+    "--skip",
+    "native_junctions",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\boundary-component\\gui"
+  },
+  "source_manifest_sha256": "ca6646ff8bf02af58d2161aeaed67fe5c99ef410a544fe0c134fba7163981586",
+  "started_at": "2026-09-14T20:21:00.080650+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T20:21:06.599796+00:00",
+  "elapsed_seconds": 6.515999999999622,
+  "stdout.txt_sha256": "890f65cf359091f4d3e9adc4e61376cfa79e83a5f626ce6c621c33b0a2f6a7f1",
+  "stderr.txt_sha256": "19d2d35ad27b94f196caaf3000ad88c8c27d851dace808fc93cd4caa6a5d74c7"
+}

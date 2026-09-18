@@ -1,0 +1,86 @@
+# DevForgeAI spec-driven-dev Audit Policy (Plan D / ADR-058)
+#
+# Per-phase declaration of which phases get adversarial audit gates and how.
+# Loaded by `devforgeai-validate audit-gate` and consulted by spec-driven-dev
+# orchestration loop (SKILL.md EXIT GATE step).
+#
+# Mutability: this file is MUTABLE. Edits should be code-reviewed.
+# Schema: src/claude/scripts/devforgeai_cli/audit/_phase_policy.py
+# Behavior reference: src/claude/skills/spec-driven-dev/references/audit-gate.md
+# Architectural decision: devforgeai/specs/adrs/ADR-058-spec-driven-dev-audit-integration.md
+
+version: 1
+
+global:
+  # When the dev workflow is in remediation mode (REMEDIATION_MODE=true env var),
+  # skip audit entirely — remediation is already QA-gap-driven, and running a
+  # full-story audit against narrowed remediation scope produces false positives.
+  respect_remediation_mode: true
+
+  # Env var that, when set to "1", bypasses the audit (logged for audit trail).
+  # Used when the judge API is unavailable during a critical timeline.
+  bypass_env_var: DEVFORGEAI_AUDIT_BYPASS
+
+  # Bypass audit log location (append-only JSONL, project-relative).
+  bypass_log: devforgeai/audit/log/bypasses.jsonl
+
+phases:
+  "01":
+    audit: false
+    reason: "Pre-flight validation — no implementation artifacts to audit"
+
+  "02":
+    audit: false
+    reason: "RED-phase tests verified by failing-as-expected; meta-audit overkill"
+
+  "03":
+    audit: true
+    mode: single
+    fail_mode: closed
+    reason: "Dev Complete gate — primary value point for catching skipped implementation"
+
+  "04":
+    audit: false
+    reason: "Refactor preserves behavior; coverage threshold (ADR-010) is the gate"
+
+  "4.5":
+    audit: true
+    mode: consensus_when_available
+    fail_mode: closed
+    reason: "Native fit — this phase IS AC verification; audit re-verifies it independently"
+
+  "05":
+    audit: true
+    mode: single
+    fail_mode: closed
+    reason: "Integration tests cover boundaries — audit verifies coverage matches story"
+
+  "5.5":
+    audit: true
+    mode: consensus_when_available
+    fail_mode: closed
+    reason: "Post-integration AC re-verification — second adversarial check"
+
+  "06":
+    audit: true
+    mode: single
+    fail_mode: open
+    reason: "Deferral paper trail. deferral-validator subagent is authoritative blocker; audit is second opinion only (per advisor consensus on contradiction risk — keeps fail_mode=open)"
+
+  "07":
+    audit: true
+    mode: single
+    fail_mode: closed
+    reason: "DoD claims [x] must match Implementation Notes — autonomous-deferral signature detection"
+
+  "08":
+    audit: false
+    reason: "Git commits — pre-commit hook (validate-dod) is the deterministic gate"
+
+  "09":
+    audit: false
+    reason: "Framework feedback hooks — process glue, no value gate"
+
+  "10":
+    audit: false
+    reason: "Terminal phase — interpretation, no artifacts to verify"

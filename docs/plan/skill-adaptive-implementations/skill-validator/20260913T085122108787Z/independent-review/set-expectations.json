@@ -1,0 +1,12 @@
+{
+  "authority":"Validator specification sections 3, 4.2, 6 and 7; existing observe.py DIMENSION_ALIASES and records interface. Fixed before new set probes.",
+  "cases":[
+    {"id":"IR-16","expect":"Well-formed single-member full-set report with complete AV rows, 19 required applicable PASS and 10 justified adaptive NOT_APPLICABLE: accepted."},
+    {"id":"IR-17","expect":"One unknown applicability: honest INCOMPLETE, evaluated18/total19/unknown1 accepted."},
+    {"id":"IR-18","expect":"Required FAIL and unknown plus advisory failure: honest FAIL, evaluated18/total19/unknown1 accepted."},
+    {"id":"IR-19","expect":"Tampered required_total in otherwise-valid report: rejected."},
+    {"id":"IR-20","expect":"Existing supported schema-1 dimension aliases in member checks: accepted with unchanged interpretation."},
+    {"id":"IR-21","expect":"Available checks contain required failure, but report missing. Member remains INCOMPLETE as explicitly required; set reduction retains required FAIL and actual evaluated1/total1 instead of erasing available checks."},
+    {"id":"IR-22","expect":"Well-shaped member checks with escaping subject_path: rejected under preserved schema-1 relative subject path contract."}
+  ]
+}

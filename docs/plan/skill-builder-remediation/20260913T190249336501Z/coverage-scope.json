@@ -1,0 +1,11 @@
+{
+  "denominator": "All first-party executable Python lines in development skill-builder, including new helpers; no first-party exclusions.",
+  "platforms": [
+    "Windows",
+    "Linux"
+  ],
+  "line_floor": 95,
+  "required_case_pass_floor": 95,
+  "branch": "Reported separately",
+  "authority": "Development evidence only"
+}

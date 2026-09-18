@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "label": "04-runner-red",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--lib",
+    "si_t08_changed_source",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\04-runner-red\\fixtures"
+  },
+  "stdin": "DEVNULL",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\rustup.exe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "recorder_sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+  "candidate_before_sha256": "f526aa89b37ab5b150919818b22329489d32655ad1e3f954360a7566507b14a9",
+  "start_utc": "2026-09-16T02:26:13.243755+00:00",
+  "timeout_seconds": 90,
+  "owned_pid": 16872,
+  "end_utc": "2026-09-16T02:26:14.721817+00:00",
+  "duration_monotonic_ns": 1437000000,
+  "native_exit_code": 101,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 367,
+  "stdout_sha256": "aba2d8b3bb18f90db1341c7e420b128b3297feecf62483d6b23c8ac95187ea3a",
+  "stderr_bytes": 790,
+  "stderr_sha256": "c7924c4fc23f24b364ac6043110b8e373954608259828375f105e08602e0eb0a",
+  "candidate_after_sha256": "f526aa89b37ab5b150919818b22329489d32655ad1e3f954360a7566507b14a9",
+  "candidate_unchanged": true
+}

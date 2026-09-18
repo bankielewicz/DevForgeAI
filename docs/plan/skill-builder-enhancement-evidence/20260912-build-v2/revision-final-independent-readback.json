@@ -1,0 +1,16 @@
+{
+  "schema_version": "1",
+  "trial": "regeneration",
+  "status": "COMPLETE",
+  "builder_manifest_sha256": "0e900c38e64efbf09de889e234eea091524cdc8d67c7a4aa3626c4b5bb956096",
+  "conflict_retained": true,
+  "retry_uses_same_successful_baseline": true,
+  "applied_paths": [
+    "SKILL.md"
+  ],
+  "personal_sha256": "777caeab42a140af2ee88bac4acf26025537f8047674da521784a2a6fd373274",
+  "active_pointer_sha256": "c07b8b0af7ad7826befc48d31e52bd12d1dcd64dc2bd6321e40d2a8898f39c75",
+  "final_results_sha256": "91cdce54fd3df165062e593f04142f9a4234a7d6c766b90febb482ade97c96cd",
+  "passing_final_cases": 4,
+  "authority": "NONE"
+}

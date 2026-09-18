@@ -1,0 +1,44 @@
+[
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\FINAL-RECEIPT.json",
+    "snapshot": "prior-inputs\\00-FINAL-RECEIPT.json",
+    "bytes": 777,
+    "sha256": "ee9c994c9c100b40f2a2a14dc8b6695f5a627518cd8120c3f9b6988b43378492"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\independent-review.md",
+    "snapshot": "prior-inputs\\01-independent-review.md",
+    "bytes": 1767,
+    "sha256": "61263d42ae392fe06d1ea0bec173725be03f304694f9de280a7e39f2a68cf364"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\semantic-review.md",
+    "snapshot": "prior-inputs\\02-semantic-review.md",
+    "bytes": 4295,
+    "sha256": "cbfe36cf71f78ea55ffcc7a5343ad6b691aed0ef309c548d14f6fd74ab36066c"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\test_adaptive.py",
+    "snapshot": "prior-inputs\\03-test_adaptive.py",
+    "bytes": 29119,
+    "sha256": "8dc07dab6f88b2a0ca6df15eed801f63cce767bb8cd24bde038ba0d2dd4c78e4"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\builder-before.json",
+    "snapshot": "prior-inputs\\04-builder-before.json",
+    "bytes": 4843,
+    "sha256": "505c759cb45d498d7b81a51aaddb03c2f82aff41c48fb8fa6a42c06ce21a6061"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\compatibility-report.md",
+    "snapshot": "prior-inputs\\05-compatibility-report.md",
+    "bytes": 4346,
+    "sha256": "43996abfd02fd5a063a3014cd1a7ba8586dda88925e0ba7181db800835c682b5"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\native-observation.md",
+    "snapshot": "prior-inputs\\06-native-observation.md",
+    "bytes": 486,
+    "sha256": "12635d9a595ca91bdff58728b0030241f4d7623b98b5ae887226ab7fe21dea9e"
+  }
+]

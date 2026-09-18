@@ -1,0 +1,12 @@
+{
+  "required": 149,
+  "passing": 148,
+  "pass_percent": 99.32885906040268,
+  "nonpasses": {
+    "test_design.DesignTests.test_design_link_rejected": [
+      "FAIL"
+    ]
+  },
+  "unknown_cases": [],
+  "kind": "maintenance-evidence-only"
+}

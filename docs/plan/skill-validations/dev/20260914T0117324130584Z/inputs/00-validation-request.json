@@ -1,0 +1,90 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "20260914T0117324130584Z",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+  "target_name": "dev",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\delivered-manifest.json",
+    "sha256": "c6d1fdaa803a72191ac8f6009acb75a0b5652f864cbde977f833e5809c86b922"
+  },
+  "package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\authoring-record.json",
+    "sha256": "5bc55a98da496dc449b9467e80a29418c89253f999abc9e180cf1318561f7c6e"
+  },
+  "specification_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation-plan.md",
+      "sha256": "9c551929df6c1023b1922663b407a9f9428e682f2ae7cd8a414ce4abe608cec7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2310456388212Z\\revision-spec.md",
+      "sha256": "d4fdb404ebf3e869d4d2b6f99756cf70d54a460a369a74bd3f645f5cb9cfe1b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\SKILL.md",
+      "sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "sha256": "15248bcbc89bd8ee278fee7a05079f59d407e72c986a1d793613579d27377e6b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\references\\evidence-format.md",
+      "sha256": "0621f40a6bb23b270e1cffbd0cfb8bd40f11bcb79bdbbbbd268c3b1dad7ebfae"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\approval.md",
+      "sha256": "28937919c645a35385b6b37195522caa3657ba9798fbf34175bd0ba05e92ceb0"
+    }
+  ],
+  "changed_paths": [
+    "SKILL.md",
+    "assets/checkpoint.md",
+    "assets/context.md",
+    "assets/delivery.md",
+    "assets/traceability.md",
+    "references/context.md",
+    "references/evidence-resume.md",
+    "references/failure-delivery.md"
+  ],
+  "known_issues": [
+    "Quality of revised dev bytes remains unperformed during authoring; separately selected validation stage owns DV-01..DV-18 and RV-01..RV-06 with a newly bound external evaluation bundle."
+  ],
+  "capabilities": [
+    "Terminal-based cold-session discovery",
+    "Single and dependent multi-document implementation",
+    "Evidence-based constitutional resolution and reuse assessment",
+    "Product red/green/refactor/integration/QA",
+    "Digest-aware checkpoint and resumption"
+  ],
+  "expected_outputs": [
+    "SKILL.md",
+    "references/context.md",
+    "references/implementation.md",
+    "references/evidence-resume.md",
+    "references/failure-delivery.md",
+    "assets/context.md",
+    "assets/traceability.md",
+    "assets/slice-plan.md",
+    "assets/execution-record.jsonl",
+    "assets/checkpoint.md",
+    "assets/delivery.md"
+  ],
+  "side_effects": [
+    "Runtime ordinary authorized product source/test/evidence edits",
+    "Runtime product command execution subject to host permissions and actual scope",
+    "No implied installation, deployment, merge, irreversible migration or protected acceptance"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

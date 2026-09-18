@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "label": "format-002",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\rustfmt.exe",
+    "--edition",
+    "2024",
+    "tests\\support\\plugin_source_identity_cases.rs"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "environment_overrides": {},
+  "stdin": "DEVNULL",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\rustup.exe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "recorder_sha256": "341300a5a2262e34b1515bb6d471f5c628aab43d925076561893205321251d72",
+  "candidate_before_sha256": "81ce242446a0e3c27ed6e290254b54be47ef758ff0cd92e040ece12181bc27d8",
+  "start_utc": "2026-09-16T02:43:41.225963+00:00",
+  "timeout_seconds": 120,
+  "owned_pid": 47980,
+  "end_utc": "2026-09-16T02:43:41.315447+00:00",
+  "duration_monotonic_ns": 63000000,
+  "native_exit_code": 0,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate_after_sha256": "8993fc8b435a56aa5c5e836180b199061c9d558857422efaa36d00c002d41292",
+  "candidate_unchanged": false
+}

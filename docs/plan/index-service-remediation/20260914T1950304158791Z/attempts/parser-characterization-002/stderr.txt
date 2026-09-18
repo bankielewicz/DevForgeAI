@@ -1,0 +1,2 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests\coverage_edges.rs (target\debug\deps\coverage_edges-5a3470871154fd18.exe)

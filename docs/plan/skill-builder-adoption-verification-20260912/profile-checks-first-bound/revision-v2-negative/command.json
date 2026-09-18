@@ -1,0 +1,59 @@
+{
+  "builder_manifest_sha256": "fcef77def723a1fc2f2fc5e49285830eb9f79cc6cf832beb7861a17522c965cc",
+  "cases_sha256": "22d73b32ad3103427fcb87df2112b39cad0f822b25cdf78d9c25f110a241b23c",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "--candidate-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-negative\\candidate",
+    "--cases",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-negative\\cases.jsonl",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-first-bound\\revision-v2-negative\\evaluation.jsonl",
+    "--run-id",
+    "revision-v2-negative",
+    "--profile",
+    "revision-spec-v2"
+  ],
+  "exit_code": 0,
+  "name": "revision-v2-negative",
+  "profile": "revision-spec-v2",
+  "results": [
+    {
+      "error": null,
+      "expectation_met": true,
+      "expected": "PASS",
+      "grader_id": "package_links",
+      "observations": [
+        "No discrepancy in the measured properties."
+      ],
+      "status": "PASS"
+    },
+    {
+      "error": null,
+      "expectation_met": true,
+      "expected": "FAIL",
+      "grader_id": "build_traceability_v2",
+      "observations": [
+        "COMPLETE provenance lacks delivered revision checks/readback"
+      ],
+      "status": "FAIL"
+    },
+    {
+      "error": null,
+      "expectation_met": true,
+      "expected": "FAIL",
+      "grader_id": "revision_consistency_v2",
+      "observations": [
+        "applied status lacks successful readback/evaluation",
+        "baseline advanced before successful application/evaluation/readback"
+      ],
+      "status": "FAIL"
+    }
+  ]
+}

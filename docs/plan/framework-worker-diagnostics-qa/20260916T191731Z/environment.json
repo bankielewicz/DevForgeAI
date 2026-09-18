@@ -1,0 +1,44 @@
+{
+  "os": "Microsoft Windows NT 10.0.26200.0",
+  "architecture": "X64",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "powershell": "7.6.6",
+  "filesystem": "NTFS",
+  "workspace": "C:\\Projects\\DevForgeAI",
+  "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+  "rustc": [
+    "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "binary: rustc",
+    "commit-hash: 8bab26f4f68e0e26f0bb7960be334d5b520ea452",
+    "commit-date: 2026-07-14",
+    "host: x86_64-pc-windows-msvc",
+    "release: 1.97.1",
+    "LLVM version: 22.1.6"
+  ],
+  "rustfmt": "rustfmt 1.9.0-stable (8bab26f4f6 2026-07-14)",
+  "clippy": "clippy 0.1.97 (8bab26f4f6 2026-07-14)",
+  "llvm_cov": "cargo-llvm-cov 0.8.4",
+  "toolchains": [
+    "stable-x86_64-pc-windows-msvc (active, default)",
+    "1.93-x86_64-pc-windows-msvc"
+  ],
+  "python": "Python 3.10.11",
+  "tools": [
+    {
+      "Name": "cargo.exe",
+      "Source": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe"
+    },
+    {
+      "Name": "rustc.exe",
+      "Source": "C:\\Users\\bryan\\.cargo\\bin\\rustc.exe"
+    },
+    {
+      "Name": "python.exe",
+      "Source": "C:\\Program Files\\Python310\\python.exe"
+    },
+    {
+      "Name": "rg.exe",
+      "Source": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\codex-path\\rg.exe"
+    }
+  ]
+}

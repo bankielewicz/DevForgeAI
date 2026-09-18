@@ -1,0 +1,1644 @@
+{
+  "evaluation_kind": "supplied_evidence_review",
+  "authority": "evidence_only_NOT_EVALUATED",
+  "platform": "PRETTY_NAME=\"Ubuntu 26.04.1 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"26.04\"\nVERSION=\"26.04.1 LTS (Resolute Raccoon)\"\nVERSION_CODENAME=resolute\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=resolute\nLOGO=ubuntu-logo\n",
+  "kernel": "Linux me-VMware-Virtual-Platform 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux\n",
+  "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11) (built from a source tarball)\nbinary: rustc\ncommit-hash: 01f6ddf7588f42ae2d7eb0a2f21d44e8e96674cf\ncommit-date: 2026-02-11\nhost: x86_64-unknown-linux-gnu\nrelease: 1.93.1\nLLVM version: 21.1.8\n",
+  "coverage_tool": "cargo-llvm-cov 0.9.1\n",
+  "source_manifest_files": 48,
+  "source_matches_bundle_and_local": "PASS",
+  "bundle_integrity_reported_ok": 365,
+  "initial_manifest": "INCOMPLETE: 3 entries; retained",
+  "full_manifest_capture": "After build and initial DS-A01; before later regression/coverage/benchmark. No final source manifest supplied.",
+  "regression_raw": {
+    "passed": 36,
+    "failed": 0,
+    "ignored": 0,
+    "percent": 100
+  },
+  "product_evidence_count": 35,
+  "excluded_setup_case": "rust_test_harness_executes",
+  "required_specification_case_pass_rate": "NOT_ESTABLISHED: full required scenario denominator incomplete",
+  "line_coverage": {
+    "count": 2786,
+    "covered": 2066,
+    "percent": 74.1564967695621
+  },
+  "line_coverage_result": "FAIL",
+  "branch_coverage": "NOT_RUN",
+  "per_file_coverage": [
+    {
+      "path": "src/bin/devforgeai-indexd.rs",
+      "count": 14,
+      "covered": 13,
+      "percent": 92.85714285714286
+    },
+    {
+      "path": "src/bin/devforgeai-tray.rs",
+      "count": 6,
+      "covered": 0,
+      "percent": 0.0
+    },
+    {
+      "path": "src/bin/devforgeai.rs",
+      "count": 5,
+      "covered": 5,
+      "percent": 100.0
+    },
+    {
+      "path": "src/cli.rs",
+      "count": 561,
+      "covered": 222,
+      "percent": 39.57219251336899
+    },
+    {
+      "path": "src/client.rs",
+      "count": 83,
+      "covered": 59,
+      "percent": 71.08433734939759
+    },
+    {
+      "path": "src/host.rs",
+      "count": 84,
+      "covered": 71,
+      "percent": 84.52380952380952
+    },
+    {
+      "path": "src/index.rs",
+      "count": 490,
+      "covered": 430,
+      "percent": 87.75510204081633
+    },
+    {
+      "path": "src/platform.rs",
+      "count": 171,
+      "covered": 105,
+      "percent": 61.40350877192983
+    },
+    {
+      "path": "src/protocol.rs",
+      "count": 172,
+      "covered": 172,
+      "percent": 100.0
+    },
+    {
+      "path": "src/service.rs",
+      "count": 786,
+      "covered": 659,
+      "percent": 83.84223918575063
+    },
+    {
+      "path": "src/source_file.rs",
+      "count": 56,
+      "covered": 52,
+      "percent": 92.85714285714286
+    },
+    {
+      "path": "src/storage.rs",
+      "count": 229,
+      "covered": 208,
+      "percent": 90.82969432314411
+    },
+    {
+      "path": "src/tray.rs",
+      "count": 129,
+      "covered": 70,
+      "percent": 54.263565891472865
+    }
+  ],
+  "attempts": [
+    {
+      "id": "benchmark-20260914T163113-10242",
+      "command": "/usr/bin/time -v /tmp/devforgeai-manual-build.k0dzpK/release/examples/benchmark /home/me/Projects/index-qualification.iIHbKX/DevForgeAI/docs/plan/manual-index-20260914T162437-7915/benchmark-fixture-manifest.json ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "benchmark-build-20260914T163104-26729",
+      "command": "cargo build --locked --release --example benchmark ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "build-20260914T162437-6170",
+      "command": "cargo build --locked --release --bin devforgeai --bin devforgeai-indexd ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "bundle-integrity-20260914T162713-3223",
+      "command": "bash -c cd\\ ..\\ \\&\\&\\ sha256sum\\ -c\\ TRANSFER-SHA256SUMS ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "candidate-after-build-20260914T162723-1179",
+      "command": "bash -o pipefail -c $'{ rg --files -0 src tests queries schemas fixtures examples licenses packaging &&\\n       printf \"%s\\\\0\" Cargo.toml Cargo.lock grammar-manifest.json README.md; } |\\n     sort -zu | xargs -0 sha256sum' ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "cargo-20260914T162437-13553",
+      "command": "cargo --version ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "clippy-20260914T163014-9857",
+      "command": "cargo clippy --locked --all-targets -- -D warnings ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "coverage-20260914T163032-19001",
+      "command": "cargo llvm-cov --locked --workspace --all-targets --json --output-path /home/me/Projects/index-qualification.iIHbKX/DevForgeAI/docs/plan/manual-index-20260914T162437-7915/coverage.json --ignore-filename-regex /\\(tests\\|examples\\|fixtures\\)/ --fail-under-lines 95 ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 1,
+      "cases": [
+        {
+          "name": "benchmark_fixture_is_seeded_and_has_exact_file_and_byte_counts",
+          "result": "ok"
+        },
+        {
+          "name": "capture_rejects_directory_links_and_outside_targets_but_allows_internal_file_links",
+          "result": "ok"
+        },
+        {
+          "name": "enumeration_observes_cooperative_stop_between_entries",
+          "result": "ok"
+        },
+        {
+          "name": "eligibility_accounts_for_exclusions_encodings_and_untracked_files",
+          "result": "ok"
+        },
+        {
+          "name": "syntax_errors_are_partial_and_cancellation_is_observed",
+          "result": "ok"
+        },
+        {
+          "name": "file_header_is_not_documentation_and_nested_parent_is_retained",
+          "result": "ok"
+        },
+        {
+          "name": "two_parser_workers_preserve_snapshot_bytes_and_cancellation",
+          "result": "ok"
+        },
+        {
+          "name": "adapters_extract_real_declarations_docs_and_exact_source_ranges",
+          "result": "ok"
+        },
+        {
+          "name": "cli_maps_management_flags_to_the_shared_protocol",
+          "result": "ok"
+        },
+        {
+          "name": "binary_emits_one_json_envelope_for_invalid_input",
+          "result": "ok"
+        },
+        {
+          "name": "rust_test_harness_executes",
+          "result": "ok"
+        },
+        {
+          "name": "native_local_transport_roundtrips_and_stops_without_tcp",
+          "result": "ok"
+        },
+        {
+          "name": "roots_are_absolute_local_and_nonoverlapping",
+          "result": "ok"
+        },
+        {
+          "name": "private_environment_identity_and_exclusive_lock_survive_reopen",
+          "result": "ok"
+        },
+        {
+          "name": "detached_daemon_does_not_keep_cli_stdout_pipe_open",
+          "result": "ok"
+        },
+        {
+          "name": "corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation",
+          "result": "ok"
+        },
+        {
+          "name": "simultaneous_starts_and_process_level_index_lifecycle",
+          "result": "ok"
+        },
+        {
+          "name": "frame_has_network_byte_order_and_bounds_before_payload_allocation",
+          "result": "ok"
+        },
+        {
+          "name": "response_envelope_and_exit_categories_remain_distinct",
+          "result": "ok"
+        },
+        {
+          "name": "known_operations_accept_only_their_own_parameters",
+          "result": "ok"
+        },
+        {
+          "name": "version_negotiation_precedes_operation_validation",
+          "result": "ok"
+        },
+        {
+          "name": "rejects_invalid_unknown_missing_and_out_of_bounds_inputs",
+          "result": "ok"
+        },
+        {
+          "name": "paused_mode_and_jobs_survive_restart_without_hidden_resume",
+          "result": "ok"
+        },
+        {
+          "name": "project_configuration_cancellation_and_missing_ids_have_typed_outcomes",
+          "result": "ok"
+        },
+        {
+          "name": "lifecycle_pause_resume_index_removal_and_retry_are_real",
+          "result": "ok"
+        },
+        {
+          "name": "resume_already_active_does_not_schedule_another_generation",
+          "result": "ok"
+        },
+        {
+          "name": "automatic_file_changes_are_debounced_before_publication",
+          "result": "ok"
+        },
+        {
+          "name": "unavailable_root_has_a_bounded_retry_and_visible_diagnostic",
+          "result": "ok"
+        },
+        {
+          "name": "invalid_snapshots_and_foreign_publications_roll_back",
+          "result": "ok"
+        },
+        {
+          "name": "mutation_retries_survive_restart_and_payload_changes_conflict",
+          "result": "ok"
+        },
+        {
+          "name": "newer_schema_and_corruption_are_refused_without_destroying_bytes",
+          "result": "ok"
+        },
+        {
+          "name": "retention_keeps_exactly_two_published_generations_and_deletes_only_cache",
+          "result": "ok"
+        },
+        {
+          "name": "unpublished_and_cancelled_generation_never_replace_current",
+          "result": "ok"
+        },
+        {
+          "name": "sqlite_reader_keeps_its_generation_while_writer_publishes_and_collects",
+          "result": "ok"
+        },
+        {
+          "name": "status_view_explains_pause_freshness_counts_and_errors",
+          "result": "ok"
+        },
+        {
+          "name": "tray_startup_defaults_are_opt_in_and_polling_is_bounded",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "coverage-tool-20260914T162437-27109",
+      "command": "cargo llvm-cov --version ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "DS-A01-20260914T162629-11432",
+      "command": "cargo test --locked --test process simultaneous_starts_and_process_level_index_lifecycle -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "simultaneous_starts_and_process_level_index_lifecycle",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A01-20260914T162734-22504",
+      "command": "cargo test --locked --test process simultaneous_starts_and_process_level_index_lifecycle -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "simultaneous_starts_and_process_level_index_lifecycle",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A02-20260914T162748-20495",
+      "command": "cargo test --locked --test service lifecycle_pause_resume_index_removal_and_retry_are_real -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "lifecycle_pause_resume_index_removal_and_retry_are_real",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A03-20260914T162758-22525",
+      "command": "cargo test --locked --test process detached_daemon_does_not_keep_cli_stdout_pipe_open -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "detached_daemon_does_not_keep_cli_stdout_pipe_open",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A04-20260914T162806-11036",
+      "command": "cargo test --locked --test storage unpublished_and_cancelled_generation_never_replace_current -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "unpublished_and_cancelled_generation_never_replace_current",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A07-20260914T162841-6945",
+      "command": "cargo test --locked --test protocol -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "frame_has_network_byte_order_and_bounds_before_payload_allocation",
+          "result": "ok"
+        },
+        {
+          "name": "response_envelope_and_exit_categories_remain_distinct",
+          "result": "ok"
+        },
+        {
+          "name": "version_negotiation_precedes_operation_validation",
+          "result": "ok"
+        },
+        {
+          "name": "known_operations_accept_only_their_own_parameters",
+          "result": "ok"
+        },
+        {
+          "name": "rejects_invalid_unknown_missing_and_out_of_bounds_inputs",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A08-20260914T162850-29802",
+      "command": "cargo test --locked --test platform -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "roots_are_absolute_local_and_nonoverlapping",
+          "result": "ok"
+        },
+        {
+          "name": "private_environment_identity_and_exclusive_lock_survive_reopen",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A09-20260914T162857-23344",
+      "command": "cargo test --locked --test capture eligibility_accounts_for_exclusions_encodings_and_untracked_files -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "eligibility_accounts_for_exclusions_encodings_and_untracked_files",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A10-20260914T162905-26114",
+      "command": "cargo test --locked --test capture adapters_extract_real_declarations_docs_and_exact_source_ranges -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "adapters_extract_real_declarations_docs_and_exact_source_ranges",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A11-20260914T162912-5269",
+      "command": "cargo test --locked --test service automatic_file_changes_are_debounced_before_publication -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "automatic_file_changes_are_debounced_before_publication",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A12-20260914T162919-30300",
+      "command": "cargo test --locked --test storage sqlite_reader_keeps_its_generation_while_writer_publishes_and_collects -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "sqlite_reader_keeps_its_generation_while_writer_publishes_and_collects",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A13-20260914T162928-28897",
+      "command": "cargo test --locked --test capture two_parser_workers_preserve_snapshot_bytes_and_cancellation -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "two_parser_workers_preserve_snapshot_bytes_and_cancellation",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A14-20260914T162935-2087",
+      "command": "cargo test --locked --test process corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A15-20260914T162943-13471",
+      "command": "cargo test --locked --test protocol -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "frame_has_network_byte_order_and_bounds_before_payload_allocation",
+          "result": "ok"
+        },
+        {
+          "name": "version_negotiation_precedes_operation_validation",
+          "result": "ok"
+        },
+        {
+          "name": "response_envelope_and_exit_categories_remain_distinct",
+          "result": "ok"
+        },
+        {
+          "name": "known_operations_accept_only_their_own_parameters",
+          "result": "ok"
+        },
+        {
+          "name": "rejects_invalid_unknown_missing_and_out_of_bounds_inputs",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A16-20260914T162952-5558",
+      "command": "cargo test --locked --test tray tray_startup_defaults_are_opt_in_and_polling_is_bounded -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "tray_startup_defaults_are_opt_in_and_polling_is_bounded",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A17-20260914T162958-15423",
+      "command": "cargo test --locked --test service lifecycle_pause_resume_index_removal_and_retry_are_real -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "lifecycle_pause_resume_index_removal_and_retry_are_real",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "DS-A18-20260914T163007-14178",
+      "command": "cargo test --locked --test benchmark_fixture -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "benchmark_fixture_is_seeded_and_has_exact_file_and_byte_counts",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "format-20260914T163014-32217",
+      "command": "cargo fmt --all -- --check ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "host-20260914T162437-19314",
+      "command": "uname -a ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "os-20260914T162437-16241",
+      "command": "cat /etc/os-release ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    },
+    {
+      "id": "regression-20260914T163023-31927",
+      "command": "cargo test --locked --all-targets -- --nocapture ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": [
+        {
+          "name": "benchmark_fixture_is_seeded_and_has_exact_file_and_byte_counts",
+          "result": "ok"
+        },
+        {
+          "name": "capture_rejects_directory_links_and_outside_targets_but_allows_internal_file_links",
+          "result": "ok"
+        },
+        {
+          "name": "enumeration_observes_cooperative_stop_between_entries",
+          "result": "ok"
+        },
+        {
+          "name": "eligibility_accounts_for_exclusions_encodings_and_untracked_files",
+          "result": "ok"
+        },
+        {
+          "name": "file_header_is_not_documentation_and_nested_parent_is_retained",
+          "result": "ok"
+        },
+        {
+          "name": "syntax_errors_are_partial_and_cancellation_is_observed",
+          "result": "ok"
+        },
+        {
+          "name": "two_parser_workers_preserve_snapshot_bytes_and_cancellation",
+          "result": "ok"
+        },
+        {
+          "name": "adapters_extract_real_declarations_docs_and_exact_source_ranges",
+          "result": "ok"
+        },
+        {
+          "name": "cli_maps_management_flags_to_the_shared_protocol",
+          "result": "ok"
+        },
+        {
+          "name": "binary_emits_one_json_envelope_for_invalid_input",
+          "result": "ok"
+        },
+        {
+          "name": "rust_test_harness_executes",
+          "result": "ok"
+        },
+        {
+          "name": "native_local_transport_roundtrips_and_stops_without_tcp",
+          "result": "ok"
+        },
+        {
+          "name": "roots_are_absolute_local_and_nonoverlapping",
+          "result": "ok"
+        },
+        {
+          "name": "private_environment_identity_and_exclusive_lock_survive_reopen",
+          "result": "ok"
+        },
+        {
+          "name": "detached_daemon_does_not_keep_cli_stdout_pipe_open",
+          "result": "ok"
+        },
+        {
+          "name": "corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation",
+          "result": "ok"
+        },
+        {
+          "name": "simultaneous_starts_and_process_level_index_lifecycle",
+          "result": "ok"
+        },
+        {
+          "name": "frame_has_network_byte_order_and_bounds_before_payload_allocation",
+          "result": "ok"
+        },
+        {
+          "name": "response_envelope_and_exit_categories_remain_distinct",
+          "result": "ok"
+        },
+        {
+          "name": "version_negotiation_precedes_operation_validation",
+          "result": "ok"
+        },
+        {
+          "name": "known_operations_accept_only_their_own_parameters",
+          "result": "ok"
+        },
+        {
+          "name": "rejects_invalid_unknown_missing_and_out_of_bounds_inputs",
+          "result": "ok"
+        },
+        {
+          "name": "paused_mode_and_jobs_survive_restart_without_hidden_resume",
+          "result": "ok"
+        },
+        {
+          "name": "project_configuration_cancellation_and_missing_ids_have_typed_outcomes",
+          "result": "ok"
+        },
+        {
+          "name": "lifecycle_pause_resume_index_removal_and_retry_are_real",
+          "result": "ok"
+        },
+        {
+          "name": "resume_already_active_does_not_schedule_another_generation",
+          "result": "ok"
+        },
+        {
+          "name": "automatic_file_changes_are_debounced_before_publication",
+          "result": "ok"
+        },
+        {
+          "name": "unavailable_root_has_a_bounded_retry_and_visible_diagnostic",
+          "result": "ok"
+        },
+        {
+          "name": "newer_schema_and_corruption_are_refused_without_destroying_bytes",
+          "result": "ok"
+        },
+        {
+          "name": "invalid_snapshots_and_foreign_publications_roll_back",
+          "result": "ok"
+        },
+        {
+          "name": "mutation_retries_survive_restart_and_payload_changes_conflict",
+          "result": "ok"
+        },
+        {
+          "name": "retention_keeps_exactly_two_published_generations_and_deletes_only_cache",
+          "result": "ok"
+        },
+        {
+          "name": "sqlite_reader_keeps_its_generation_while_writer_publishes_and_collects",
+          "result": "ok"
+        },
+        {
+          "name": "unpublished_and_cancelled_generation_never_replace_current",
+          "result": "ok"
+        },
+        {
+          "name": "tray_startup_defaults_are_opt_in_and_polling_is_bounded",
+          "result": "ok"
+        },
+        {
+          "name": "status_view_explains_pause_freshness_counts_and_errors",
+          "result": "ok"
+        }
+      ]
+    },
+    {
+      "id": "rustc-20260914T162437-19276",
+      "command": "rustc --version --verbose ",
+      "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/devforgeai",
+      "exit": 0,
+      "cases": []
+    }
+  ],
+  "benchmark": {
+    "architecture": "x86_64",
+    "build_mode": "release",
+    "bytes": 104857600,
+    "cpu_and_peak_memory": "NOT_MEASURED",
+    "files": 10000,
+    "fixture_manifest_sha256": "23d78a9050f7b7476394edc82c30a0be72ff792871cb386a14f054a3bd999ccb",
+    "logical_processors": 4,
+    "platform": "linux",
+    "query_workload": "concurrent daemon.status requests; companion code-query benchmark not selected",
+    "repetitions": [
+      {
+        "cold_ms": 11125,
+        "concurrent_status_readers": 4,
+        "coverage": {
+          "activity": "idle",
+          "coverage": "complete",
+          "current_generation": "c959cd77-94c8-4c9a-8cce-cab3d34dc17c",
+          "diagnostic_code": null,
+          "dirty": false,
+          "eligible_count": 10000,
+          "excluded_count": 0,
+          "failed_count": 0,
+          "freshness": "observed_current",
+          "jobs": [],
+          "last_reconciliation": 1789403490,
+          "observed_at": 1789403491,
+          "project_id": "8dc11262-503b-4301-aabf-cc425970c3b4",
+          "skipped_count": 0,
+          "structural_count": 8000,
+          "text_count": 10000
+        },
+        "edit_100_ms": 3030,
+        "idle_generation_unchanged": true,
+        "repetition": 1,
+        "status_p50_us": 48,
+        "status_p95_us": 726,
+        "status_requests": 6184,
+        "warm_ms": 2598
+      },
+      {
+        "cold_ms": 11408,
+        "concurrent_status_readers": 4,
+        "coverage": {
+          "activity": "idle",
+          "coverage": "complete",
+          "current_generation": "a283bd3f-de4b-41c3-b44c-f473e2a84ef9",
+          "diagnostic_code": null,
+          "dirty": false,
+          "eligible_count": 10000,
+          "excluded_count": 0,
+          "failed_count": 0,
+          "freshness": "observed_current",
+          "jobs": [],
+          "last_reconciliation": 1789403508,
+          "observed_at": 1789403509,
+          "project_id": "8145ca9a-8526-4000-a994-12f036d68839",
+          "skipped_count": 0,
+          "structural_count": 8000,
+          "text_count": 10000
+        },
+        "edit_100_ms": 2951,
+        "idle_generation_unchanged": true,
+        "repetition": 2,
+        "status_p50_us": 48,
+        "status_p95_us": 566,
+        "status_requests": 6285,
+        "warm_ms": 2620
+      },
+      {
+        "cold_ms": 11016,
+        "concurrent_status_readers": 4,
+        "coverage": {
+          "activity": "idle",
+          "coverage": "complete",
+          "current_generation": "a887be78-c6e5-4472-98f2-b9796b57f617",
+          "diagnostic_code": null,
+          "dirty": false,
+          "eligible_count": 10000,
+          "excluded_count": 0,
+          "failed_count": 0,
+          "freshness": "observed_current",
+          "jobs": [],
+          "last_reconciliation": 1789403526,
+          "observed_at": 1789403527,
+          "project_id": "cd97ae27-a90e-4b0e-86c4-ca7a98154a50",
+          "skipped_count": 0,
+          "structural_count": 8000,
+          "text_count": 10000
+        },
+        "edit_100_ms": 2963,
+        "idle_generation_unchanged": true,
+        "repetition": 3,
+        "status_p50_us": 49,
+        "status_p95_us": 725,
+        "status_requests": 6129,
+        "warm_ms": 2593
+      }
+    ],
+    "seed": 20260913
+  },
+  "overall_evidence_disposition": "FAIL: coverage below mandatory floor; further acceptance evidence incomplete",
+  "formal_independent_QA": "PENDING; this is review of supplied execution artifacts",
+  "evaluation_specification_sha256": "52d33c84435da8f3442c6b1dc4c5370113ff0eb93ee5cd2801903741900c89c4",
+  "original_bundle_specification_sha256": "b1886c7bf237f823b2f83a8b37c1288ca26880ecfc58771568b38750e8855897",
+  "required_standalone_target": "Ubuntu 26.04.1 LTS x64",
+  "target_override": "Repository owner, 2026-09-14; supersedes standalone Ubuntu 24.04 only",
+  "manual_playbook_export": "NOT_SUPPLIED",
+  "received_artifact_manifest": [
+    {
+      "path": "benchmark-20260914T163113-10242.command.txt",
+      "bytes": 212,
+      "sha256": "ddf11e508f1d2b21a51dc7f469b39f6de1d8325a9ec67855b548e7c100f95d69"
+    },
+    {
+      "path": "benchmark-20260914T163113-10242.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "benchmark-20260914T163113-10242.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "benchmark-20260914T163113-10242.stderr.txt",
+      "bytes": 1421,
+      "sha256": "68419cfba7166d9902281287dec911aa6f984b7f55c8e794fb98af74aa4f0864"
+    },
+    {
+      "path": "benchmark-20260914T163113-10242.stdout.txt",
+      "bytes": 4061,
+      "sha256": "aae3c531b3c4342a730d42854d526d9869f40aa198176bd7177c097791203c8b"
+    },
+    {
+      "path": "benchmark-build-20260914T163104-26729.command.txt",
+      "bytes": 51,
+      "sha256": "2ec1881d70b1a487f959d2da90c955cb0e99e724eaab3b43df2692bb7737661d"
+    },
+    {
+      "path": "benchmark-build-20260914T163104-26729.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "benchmark-build-20260914T163104-26729.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "benchmark-build-20260914T163104-26729.stderr.txt",
+      "bytes": 469,
+      "sha256": "79d1f430d5bacef07f2e8d268b5845c7345ef9274dc06a7ba8504c08cf5ff5dc"
+    },
+    {
+      "path": "benchmark-build-20260914T163104-26729.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "benchmark-fixture-manifest.json",
+      "bytes": 1390001,
+      "sha256": "23d78a9050f7b7476394edc82c30a0be72ff792871cb386a14f054a3bd999ccb"
+    },
+    {
+      "path": "build-20260914T162437-6170.command.txt",
+      "bytes": 72,
+      "sha256": "262655fde203ccb2a6196903cdd9d84f5096ac801a997c02235a26111c11f004"
+    },
+    {
+      "path": "build-20260914T162437-6170.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "build-20260914T162437-6170.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "build-20260914T162437-6170.stderr.txt",
+      "bytes": 4953,
+      "sha256": "b748e37021222e3da3f6fed01c42f1d25204954da2e830977e8085e681f97b9d"
+    },
+    {
+      "path": "build-20260914T162437-6170.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bundle-integrity-20260914T162713-3223.command.txt",
+      "bytes": 57,
+      "sha256": "3cd5c8136222d4cff8e99cafea0d4669135d200b4d89c96c02e8d2355e0d14d7"
+    },
+    {
+      "path": "bundle-integrity-20260914T162713-3223.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "bundle-integrity-20260914T162713-3223.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "bundle-integrity-20260914T162713-3223.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bundle-integrity-20260914T162713-3223.stdout.txt",
+      "bytes": 34658,
+      "sha256": "d4cd2f035169485014be085b7ba1af86956797404b32990585fef6405ca721d0"
+    },
+    {
+      "path": "candidate-after-build-20260914T162723-1179.command.txt",
+      "bytes": 223,
+      "sha256": "bf80ae89e687ad2559596f6bba57ba5f98b8357bc7caf6363cc33966eae18e8f"
+    },
+    {
+      "path": "candidate-after-build-20260914T162723-1179.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "candidate-after-build-20260914T162723-1179.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "candidate-after-build-20260914T162723-1179.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "candidate-after-build-20260914T162723-1179.stdout.txt",
+      "bytes": 4166,
+      "sha256": "d7833333d13c246a96a8ffe2a54ac81911b29b7b7551839b17e026485de66a85"
+    },
+    {
+      "path": "candidate-before.sha256",
+      "bytes": 242,
+      "sha256": "1cb1dad6b5b6c42c021e4119dc746d50b76ed8e8bc55b786885a7e64f0247107"
+    },
+    {
+      "path": "cargo-20260914T162437-13553.command.txt",
+      "bytes": 16,
+      "sha256": "823d58db06184c7d357416128bed16710dc70e2caa3cfdf468655168296a2597"
+    },
+    {
+      "path": "cargo-20260914T162437-13553.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "cargo-20260914T162437-13553.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "cargo-20260914T162437-13553.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cargo-20260914T162437-13553.stdout.txt",
+      "bytes": 66,
+      "sha256": "ed8da45039afad143b6bf1c5aa6e2b4f53bdf9ac312e320093e2b8e1015aa466"
+    },
+    {
+      "path": "clippy-20260914T163014-9857.command.txt",
+      "bytes": 51,
+      "sha256": "88367e244bb343d250d14d14e3a71d20de99a65b7c1c689dcf9b11edb21abdf6"
+    },
+    {
+      "path": "clippy-20260914T163014-9857.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "clippy-20260914T163014-9857.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "clippy-20260914T163014-9857.stderr.txt",
+      "bytes": 2522,
+      "sha256": "e36e669755db02c3334421136545fcc40514e25c9169c6053084185dfab189e7"
+    },
+    {
+      "path": "clippy-20260914T163014-9857.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "coverage-20260914T163032-19001.command.txt",
+      "bytes": 263,
+      "sha256": "fb3530479ff07cfad218e8f8b1b2b2064470f6864ea130f94bdd56f2122d9283"
+    },
+    {
+      "path": "coverage-20260914T163032-19001.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "coverage-20260914T163032-19001.exit.txt",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": "coverage-20260914T163032-19001.stderr.txt",
+      "bytes": 5672,
+      "sha256": "5f3b48064d29b3179bbe681a8bceac403e3f4bbe446f5e24b6807c833737a990"
+    },
+    {
+      "path": "coverage-20260914T163032-19001.stdout.txt",
+      "bytes": 4677,
+      "sha256": "e8b5081abf646d526cc2c2a73e1ec6fef714c67465e24c38e796a7d384aff58c"
+    },
+    {
+      "path": "coverage-tool-20260914T162437-27109.command.txt",
+      "bytes": 25,
+      "sha256": "4c4e95b9ce521437c2bbeae7d58fd5e7f1de7d3e48b202c16469a81a9d86202f"
+    },
+    {
+      "path": "coverage-tool-20260914T162437-27109.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "coverage-tool-20260914T162437-27109.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "coverage-tool-20260914T162437-27109.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "coverage-tool-20260914T162437-27109.stdout.txt",
+      "bytes": 21,
+      "sha256": "f2f5be66bd0c0d1a3ccaa0730e363c793e65ccdfce5dd91d1f957105e30eacfb"
+    },
+    {
+      "path": "coverage.json",
+      "bytes": 694077,
+      "sha256": "6c8dac4e7eba8add05b0439d267bf0383f631b0e01b3dde130dc5a3558cdf6fc"
+    },
+    {
+      "path": "DS-A01-20260914T162629-11432.command.txt",
+      "bytes": 104,
+      "sha256": "2ee064df94635ac6ad382fb991361c60fe08326fee530f513acd354a0d895af8"
+    },
+    {
+      "path": "DS-A01-20260914T162629-11432.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A01-20260914T162629-11432.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A01-20260914T162629-11432.stderr.txt",
+      "bytes": 5291,
+      "sha256": "46ce770a1649067988ff6bd4ddce43003343923a999506c3e8c237d4f3e39d72"
+    },
+    {
+      "path": "DS-A01-20260914T162629-11432.stdout.txt",
+      "bytes": 178,
+      "sha256": "43f8c105c2b351b22ee90f2181f13237efff446bacafbc15b2eda107dd343130"
+    },
+    {
+      "path": "DS-A01-20260914T162734-22504.command.txt",
+      "bytes": 104,
+      "sha256": "2ee064df94635ac6ad382fb991361c60fe08326fee530f513acd354a0d895af8"
+    },
+    {
+      "path": "DS-A01-20260914T162734-22504.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A01-20260914T162734-22504.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A01-20260914T162734-22504.stderr.txt",
+      "bytes": 2241,
+      "sha256": "38910884e0d0d12c3f2dc41d8bf1ce4b484d65abb3d5593cc1760a533cdefb0d"
+    },
+    {
+      "path": "DS-A01-20260914T162734-22504.stdout.txt",
+      "bytes": 178,
+      "sha256": "43f8c105c2b351b22ee90f2181f13237efff446bacafbc15b2eda107dd343130"
+    },
+    {
+      "path": "DS-A02-20260914T162748-20495.command.txt",
+      "bytes": 106,
+      "sha256": "683ba81ed4c11db838eeedabc4bc542e36752910bd0a0b57cac0ecea9d0bc12b"
+    },
+    {
+      "path": "DS-A02-20260914T162748-20495.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A02-20260914T162748-20495.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A02-20260914T162748-20495.stderr.txt",
+      "bytes": 283,
+      "sha256": "e497d35f7ec2bf4afecaf76a805c3b969b68f9aece6fea2acaedac7563cce049"
+    },
+    {
+      "path": "DS-A02-20260914T162748-20495.stdout.txt",
+      "bytes": 180,
+      "sha256": "3d41a644b5ff0ce2b7625b0231c7befe48b7a9ffc198035d55d98dddcc05ca42"
+    },
+    {
+      "path": "DS-A03-20260914T162758-22525.command.txt",
+      "bytes": 101,
+      "sha256": "86a432d61b40c2437a38d0e8ca9dd8440638a51b77e78f92fce55326c229da10"
+    },
+    {
+      "path": "DS-A03-20260914T162758-22525.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A03-20260914T162758-22525.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A03-20260914T162758-22525.stderr.txt",
+      "bytes": 359,
+      "sha256": "4a3b37cfa902a4fb71fbd9f2c8f3aa4bfc9b7a6b95aecef220ad260bd9cb2ce5"
+    },
+    {
+      "path": "DS-A03-20260914T162758-22525.stdout.txt",
+      "bytes": 175,
+      "sha256": "4536324cda020a4dc89ed1c661421d0720f33e1d2946518fa93585fb126d545d"
+    },
+    {
+      "path": "DS-A04-20260914T162806-11036.command.txt",
+      "bytes": 109,
+      "sha256": "4cd5cddfe80165b10aa17261d544c47874445908455e92b4895f33b459e6ed3f"
+    },
+    {
+      "path": "DS-A04-20260914T162806-11036.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A04-20260914T162806-11036.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A04-20260914T162806-11036.stderr.txt",
+      "bytes": 283,
+      "sha256": "9c47562464e32ed2f0741ea152039579c72b91984520e78923bf374371bd8632"
+    },
+    {
+      "path": "DS-A04-20260914T162806-11036.stdout.txt",
+      "bytes": 183,
+      "sha256": "a0f6b80d9a9561fde02c069cb45e07e2b06f700dd87ee4964bdeb44f38e45461"
+    },
+    {
+      "path": "DS-A07-20260914T162841-6945.command.txt",
+      "bytes": 51,
+      "sha256": "9caaf8600926e619a7847e81dfacdfb27a0c8aa6f7cb85cb12a39def7a7c81c4"
+    },
+    {
+      "path": "DS-A07-20260914T162841-6945.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A07-20260914T162841-6945.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A07-20260914T162841-6945.stderr.txt",
+      "bytes": 285,
+      "sha256": "bb169177579a8c08e80bd819c98209c07537f58ae1bf9cffab6d9413eb6358a7"
+    },
+    {
+      "path": "DS-A07-20260914T162841-6945.stdout.txt",
+      "bytes": 450,
+      "sha256": "6e8e774946ba047c40aafcf4b488cdee438f68717b3c102aac024c7161d7c3b4"
+    },
+    {
+      "path": "DS-A08-20260914T162850-29802.command.txt",
+      "bytes": 51,
+      "sha256": "e2049fc329ee799e77688036aac831f13718f4821b5750e6a78725354fa3616d"
+    },
+    {
+      "path": "DS-A08-20260914T162850-29802.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A08-20260914T162850-29802.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A08-20260914T162850-29802.stderr.txt",
+      "bytes": 285,
+      "sha256": "0bcf9efe62f21e707a4b39cc59bb535f01894c2a73cb6859c91b20cfaf3adc20"
+    },
+    {
+      "path": "DS-A08-20260914T162850-29802.stdout.txt",
+      "bytes": 244,
+      "sha256": "10165ca1b80b5cdbd0d9fb825f9952b02f38874e12ff8d2399a72f9d8fe6ad7b"
+    },
+    {
+      "path": "DS-A09-20260914T162857-23344.command.txt",
+      "bytes": 116,
+      "sha256": "1090af3cc1d0bdc6ced01f51b2a54950d849c8b29b81f240261291d830a6f983"
+    },
+    {
+      "path": "DS-A09-20260914T162857-23344.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A09-20260914T162857-23344.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A09-20260914T162857-23344.stderr.txt",
+      "bytes": 283,
+      "sha256": "af044b74abbd46cc73cf2692e2584a35dc21ba21a4eee57d5e581d094030f40c"
+    },
+    {
+      "path": "DS-A09-20260914T162857-23344.stdout.txt",
+      "bytes": 190,
+      "sha256": "3ba63e92962e9ef4d9db7270f240b19b529e60de8ab5b8aa4582d256b7032ad0"
+    },
+    {
+      "path": "DS-A10-20260914T162905-26114.command.txt",
+      "bytes": 114,
+      "sha256": "cb086368a2470631c485ea19f761672ede9516fa991f9e2e5f0f3c679a29e9fa"
+    },
+    {
+      "path": "DS-A10-20260914T162905-26114.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A10-20260914T162905-26114.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A10-20260914T162905-26114.stderr.txt",
+      "bytes": 177,
+      "sha256": "c5d8c5b9e6161d39905e13da13345656c9b41bf04767f69b192f50c8f76dbc32"
+    },
+    {
+      "path": "DS-A10-20260914T162905-26114.stdout.txt",
+      "bytes": 188,
+      "sha256": "ad9d8dfdfc23455113ae533ffc00af07b090120a78d308bc8837c93205051d3b"
+    },
+    {
+      "path": "DS-A11-20260914T162912-5269.command.txt",
+      "bytes": 106,
+      "sha256": "8ba5e79bb3ac90c9cfdcedf0cb0d8ffc9b37cf65eabfd885d1b28d7ddcdd4ed3"
+    },
+    {
+      "path": "DS-A11-20260914T162912-5269.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A11-20260914T162912-5269.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A11-20260914T162912-5269.stderr.txt",
+      "bytes": 177,
+      "sha256": "49cd1a0471bb33195bd0b962e80f8dcc67fa603173c553c30443b8932be991f5"
+    },
+    {
+      "path": "DS-A11-20260914T162912-5269.stdout.txt",
+      "bytes": 180,
+      "sha256": "77044c2cf5a68df6115faf19995a9d06f121a9d24fecec84517858dd8fada627"
+    },
+    {
+      "path": "DS-A12-20260914T162919-30300.command.txt",
+      "bytes": 121,
+      "sha256": "e8682ffac327ba80d0ce22f5fd7479049ab42499a7d9b35781b151ccab53e790"
+    },
+    {
+      "path": "DS-A12-20260914T162919-30300.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A12-20260914T162919-30300.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A12-20260914T162919-30300.stderr.txt",
+      "bytes": 177,
+      "sha256": "1310f108d5acdeaa455a06e7941fab6c859d37f0f842ccaa6f66a577afd32120"
+    },
+    {
+      "path": "DS-A12-20260914T162919-30300.stdout.txt",
+      "bytes": 195,
+      "sha256": "f9b10355b5f7251ea5445dc9db83fb886de7f2d503f2d3e983637a621b0d5c12"
+    },
+    {
+      "path": "DS-A13-20260914T162928-28897.command.txt",
+      "bytes": 110,
+      "sha256": "7cbe4e732ba30df4966c889ba0452af2d7d653d36873b6a35915d1307767f22f"
+    },
+    {
+      "path": "DS-A13-20260914T162928-28897.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A13-20260914T162928-28897.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A13-20260914T162928-28897.stderr.txt",
+      "bytes": 177,
+      "sha256": "c5d8c5b9e6161d39905e13da13345656c9b41bf04767f69b192f50c8f76dbc32"
+    },
+    {
+      "path": "DS-A13-20260914T162928-28897.stdout.txt",
+      "bytes": 184,
+      "sha256": "3e69450ebeebaaed8c65074741d112cdecbff7117c3cb179474266032b2d0417"
+    },
+    {
+      "path": "DS-A14-20260914T162935-2087.command.txt",
+      "bytes": 118,
+      "sha256": "1693aec3f2d54ec9e731dad04cc2aa9277a7197710f8f2f0c53ba019f53da68a"
+    },
+    {
+      "path": "DS-A14-20260914T162935-2087.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A14-20260914T162935-2087.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A14-20260914T162935-2087.stderr.txt",
+      "bytes": 1711,
+      "sha256": "7ccd1d3b3d8a49ac58151cb5e8c5b24a4f766a4748a8ce221c5777fe5f53bc59"
+    },
+    {
+      "path": "DS-A14-20260914T162935-2087.stdout.txt",
+      "bytes": 192,
+      "sha256": "2a8910b53b121078b0b452b0d5897c51da65194b9882ce55f0bb24e76908c1df"
+    },
+    {
+      "path": "DS-A15-20260914T162943-13471.command.txt",
+      "bytes": 51,
+      "sha256": "9caaf8600926e619a7847e81dfacdfb27a0c8aa6f7cb85cb12a39def7a7c81c4"
+    },
+    {
+      "path": "DS-A15-20260914T162943-13471.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A15-20260914T162943-13471.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A15-20260914T162943-13471.stderr.txt",
+      "bytes": 179,
+      "sha256": "e8dbe1552197dead00936f5d9c4be6a98b8e57022961feeda31051669015b061"
+    },
+    {
+      "path": "DS-A15-20260914T162943-13471.stdout.txt",
+      "bytes": 450,
+      "sha256": "9eb34a8b44e290b6084d6abe3ddac4b9fe28047a81b9fc10cf707ae41f202ed6"
+    },
+    {
+      "path": "DS-A16-20260914T162952-5558.command.txt",
+      "bytes": 103,
+      "sha256": "099d3a077004cf9d052ccd56a316b9bb39b3372ac94eeb66b0980775b1c0698b"
+    },
+    {
+      "path": "DS-A16-20260914T162952-5558.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A16-20260914T162952-5558.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A16-20260914T162952-5558.stderr.txt",
+      "bytes": 277,
+      "sha256": "911a6c877c17fae2b434cc593866e2431b5d35b857ffd6b7711565a662f263b2"
+    },
+    {
+      "path": "DS-A16-20260914T162952-5558.stdout.txt",
+      "bytes": 180,
+      "sha256": "14ecc07ed97f6720296fb89c50831b5c84ae02f4b49d6152ebd520a8bf23d21c"
+    },
+    {
+      "path": "DS-A17-20260914T162958-15423.command.txt",
+      "bytes": 106,
+      "sha256": "683ba81ed4c11db838eeedabc4bc542e36752910bd0a0b57cac0ecea9d0bc12b"
+    },
+    {
+      "path": "DS-A17-20260914T162958-15423.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A17-20260914T162958-15423.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A17-20260914T162958-15423.stderr.txt",
+      "bytes": 177,
+      "sha256": "49cd1a0471bb33195bd0b962e80f8dcc67fa603173c553c30443b8932be991f5"
+    },
+    {
+      "path": "DS-A17-20260914T162958-15423.stdout.txt",
+      "bytes": 180,
+      "sha256": "3d41a644b5ff0ce2b7625b0231c7befe48b7a9ffc198035d55d98dddcc05ca42"
+    },
+    {
+      "path": "DS-A18-20260914T163007-14178.command.txt",
+      "bytes": 60,
+      "sha256": "fd2c38c91dd8afd0ed5ad2d129bbab3f94e03655f88e3dcae147c24d8d112530"
+    },
+    {
+      "path": "DS-A18-20260914T163007-14178.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "DS-A18-20260914T163007-14178.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "DS-A18-20260914T163007-14178.stderr.txt",
+      "bytes": 303,
+      "sha256": "f716add7360d8a7e5ae1679869ff3d4802e9ed47f29fea20aba4a2e2647d0095"
+    },
+    {
+      "path": "DS-A18-20260914T163007-14178.stdout.txt",
+      "bytes": 187,
+      "sha256": "22642bd5cd7281b4bebc97c1a46124c6f2560157f6f7bd854f74d0e3320e11f2"
+    },
+    {
+      "path": "format-20260914T163014-32217.command.txt",
+      "bytes": 27,
+      "sha256": "c489bf067beb5b0f81547908f4d4ddd4775e046fe25c87318f802f814724eb06"
+    },
+    {
+      "path": "format-20260914T163014-32217.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "format-20260914T163014-32217.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "format-20260914T163014-32217.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "format-20260914T163014-32217.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "host-20260914T162437-19314.command.txt",
+      "bytes": 9,
+      "sha256": "6663239382a52534d1e850283a97327b30b67c1e7747371440954493e268cdf4"
+    },
+    {
+      "path": "host-20260914T162437-19314.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "host-20260914T162437-19314.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "host-20260914T162437-19314.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "host-20260914T162437-19314.stdout.txt",
+      "bytes": 127,
+      "sha256": "d2180f220d6f0bbabac948f1720dbddd7cf0a819c798c66fe0848406843a884f"
+    },
+    {
+      "path": "os-20260914T162437-16241.command.txt",
+      "bytes": 20,
+      "sha256": "386b7d3880468af5509d94f348329199da9e9d247d23dabb7840fd3d71e50133"
+    },
+    {
+      "path": "os-20260914T162437-16241.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "os-20260914T162437-16241.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "os-20260914T162437-16241.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "os-20260914T162437-16241.stdout.txt",
+      "bytes": 410,
+      "sha256": "cf72627ff81aef345d0a9f3807eb80f1035e0f80fe2932d12d94efc02fd68104"
+    },
+    {
+      "path": "owned-paths.txt",
+      "bytes": 108,
+      "sha256": "0764a841e0da0295a9073491d922c805e6411ebfe5b4a2eaf70b7d293be3bd99"
+    },
+    {
+      "path": "regression-20260914T163023-31927.command.txt",
+      "bytes": 49,
+      "sha256": "cc1c9cb4e947e09ae7b048a46d2479320957b5583b4325b60487c101038e9e93"
+    },
+    {
+      "path": "regression-20260914T163023-31927.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "regression-20260914T163023-31927.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "regression-20260914T163023-31927.stderr.txt",
+      "bytes": 6072,
+      "sha256": "bd8adfacd71d789892880c51a572467e4326ad93451f7af85756b6cf46cf6d55"
+    },
+    {
+      "path": "regression-20260914T163023-31927.stdout.txt",
+      "bytes": 4677,
+      "sha256": "da46d2b9ee892eee05058c511c7a4dad57a6c679b6c036298125edd2367104f3"
+    },
+    {
+      "path": "rustc-20260914T162437-19276.command.txt",
+      "bytes": 26,
+      "sha256": "ae94cb6c5a442fd26cd008a9f5863d254875e596dd5ee3c3a68a3074a359b749"
+    },
+    {
+      "path": "rustc-20260914T162437-19276.cwd.txt",
+      "bytes": 67,
+      "sha256": "a01a206d795f0f719f0bded3f0cf985c573beafb941147c411e738fa990d02ce"
+    },
+    {
+      "path": "rustc-20260914T162437-19276.exit.txt",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "rustc-20260914T162437-19276.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rustc-20260914T162437-19276.stdout.txt",
+      "bytes": 226,
+      "sha256": "7c96e8eb9644a047dd129597487adb829260107168cc02973429ab6f3ef46a15"
+    }
+  ]
+}

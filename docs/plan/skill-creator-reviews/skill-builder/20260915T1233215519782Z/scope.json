@@ -1,0 +1,26 @@
+{
+  "scope": "Focused skill-creator review; no repair or full acceptance",
+  "required_cases": 8,
+  "coverage_source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "coverage_files": [
+    "assets/adaptive-runtime/check_project_binding.py",
+    "scripts/adaptive.py",
+    "scripts/authoring.py",
+    "scripts/build_evidence.py",
+    "scripts/custody.py",
+    "scripts/generate_openai_yaml.py",
+    "scripts/init_skill.py",
+    "scripts/record_schema.py"
+  ],
+  "coverage_exclusions": [],
+  "coverage_note": "All executable Python including shipped runtime asset; separate from Rust authority.",
+  "commands_timeout_seconds": 120,
+  "retries": 0,
+  "not_covered": [
+    "Full legacy/adaptive/import/adoption suite",
+    "Linux",
+    "Native implicit discovery",
+    "Generated skill execution",
+    "Framework acceptance"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests",
+  "captured_at_utc": "2026-09-13T21:16:20.594909Z",
+  "files": [
+    {
+      "path": "adaptive_fixtures.py",
+      "bytes": 5418,
+      "sha256": "da278f1bed3e8a147b90acc76025afe2a4f7a0cbb9a590bb3659d896c7cc666e"
+    },
+    {
+      "path": "adoption_fixture.py",
+      "bytes": 7774,
+      "sha256": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60"
+    },
+    {
+      "path": "fixture_data.py",
+      "bytes": 13816,
+      "sha256": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291"
+    },
+    {
+      "path": "test_adaptive.py",
+      "bytes": 11300,
+      "sha256": "49d87a9fcf51fe60e9d66df1994d1d8adc4bc7684dc6e28311b4f56e4d45ecfa"
+    },
+    {
+      "path": "test_adoption.py",
+      "bytes": 17196,
+      "sha256": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093"
+    },
+    {
+      "path": "test_authoring.py",
+      "bytes": 17307,
+      "sha256": "78a4dd5377e38fe6230564116ce2c88239ec000c118b64ad9cbdee64464a1177"
+    },
+    {
+      "path": "test_confirmed_findings.py",
+      "bytes": 9880,
+      "sha256": "58c73d6ef107ba0939033ebea8f02c75b7f4dbffb1864fba32b27f0ef0d4bd28"
+    },
+    {
+      "path": "test_enhancements.py",
+      "bytes": 25123,
+      "sha256": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2"
+    },
+    {
+      "path": "test_evaluation.py",
+      "bytes": 18037,
+      "sha256": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0"
+    },
+    {
+      "path": "test_observe.py",
+      "bytes": 22811,
+      "sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef"
+    },
+    {
+      "path": "test_review_inputs.py",
+      "bytes": 3629,
+      "sha256": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658"
+    },
+    {
+      "path": "test_review_provenance.py",
+      "bytes": 8583,
+      "sha256": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "a9fe70f71c7b5de06c4ea87557acf767e9ea0c7cf41b42369a7bfe66f60721b7"
+}

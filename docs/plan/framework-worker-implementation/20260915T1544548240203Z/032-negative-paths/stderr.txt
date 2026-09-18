@@ -1,0 +1,3 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.93s
+     Running tests\negative_paths.rs (target\debug\deps\negative_paths-a4037a05f65dd025.exe)

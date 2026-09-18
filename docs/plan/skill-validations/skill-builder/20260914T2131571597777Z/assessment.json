@@ -1,0 +1,81 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T2131571597777Z",
+  "target_name": "skill-builder",
+  "overall_assessment": "FAIL",
+  "assessment_completed": true,
+  "dimensions": {
+    "standards": {
+      "outcome": "INCOMPLETE",
+      "required_total": 10,
+      "required_evaluated": 9,
+      "incomplete_check_ids": [
+        "AV-R03"
+      ]
+    },
+    "workflow": {
+      "outcome": "FAIL",
+      "required_total": 9,
+      "required_evaluated": 8,
+      "incomplete_check_ids": [
+        "SBP-016"
+      ]
+    },
+    "instructions": {
+      "outcome": "FAIL",
+      "required_total": 17,
+      "required_evaluated": 14,
+      "incomplete_check_ids": [
+        "AV-I04",
+        "AV-S01",
+        "SBP-015"
+      ]
+    },
+    "behavior": {
+      "outcome": "FAIL",
+      "required_total": 21,
+      "required_evaluated": 8,
+      "incomplete_check_ids": [
+        "SBPV-01",
+        "SBPV-02",
+        "SBPV-03",
+        "SBPV-04",
+        "SBPV-05",
+        "SBPV-06",
+        "SBPV-07",
+        "SBPV-08",
+        "SBPV-09",
+        "SBPV-10",
+        "SBPV-12",
+        "SBPV-18",
+        "QUALITY-LINUX-LINE"
+      ]
+    }
+  },
+  "required_coverage": {
+    "outcome": "FAIL",
+    "required_total": 57,
+    "required_evaluated": 39,
+    "incomplete_check_ids": [
+      "AV-R03",
+      "AV-I04",
+      "AV-S01",
+      "SBP-015",
+      "SBP-016",
+      "SBPV-01",
+      "SBPV-02",
+      "SBPV-03",
+      "SBPV-04",
+      "SBPV-05",
+      "SBPV-06",
+      "SBPV-07",
+      "SBPV-08",
+      "SBPV-09",
+      "SBPV-10",
+      "SBPV-12",
+      "SBPV-18",
+      "QUALITY-LINUX-LINE"
+    ]
+  },
+  "unknown_applicability": 0
+}

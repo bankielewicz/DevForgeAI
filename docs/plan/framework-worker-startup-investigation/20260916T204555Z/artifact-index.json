@@ -1,0 +1,368 @@
+{
+  "schema": "worker-startup-investigation-index-v1",
+  "created_utc": "2026-09-16T21:02:02.841627+00:00",
+  "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z",
+  "required_artifacts": [
+    "investigation-report.md",
+    "startup-lifecycle.md",
+    "native-evidence.md",
+    "launch-compatibility.md",
+    "logging-design.md",
+    "offline-reproduction.md",
+    "preservation-readback.json",
+    "windows-event-observation.json",
+    "log-directory-metadata.json",
+    "source-review-notes.md"
+  ],
+  "artifacts": {
+    "bind_evidence.py": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\bind_evidence.py",
+      "bytes": 5648,
+      "sha256": "d93ef04f33fbf772a93715db22964ce46b176ea9b7984ae606769e9caf833116"
+    },
+    "investigation-report.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\investigation-report.md",
+      "bytes": 12924,
+      "sha256": "415663379d3782afd45a49dd13e976421f1bcafe03355aacd25b46143f08052d"
+    },
+    "launch-compatibility.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\launch-compatibility.md",
+      "bytes": 13445,
+      "sha256": "5858170714ea6ded5c098896bc1b4cd5a77a6134cf60e3d5c3bb511d27c2d48a"
+    },
+    "log-directory-metadata.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\log-directory-metadata.json",
+      "bytes": 291,
+      "sha256": "ceaf9c31e4d3d26ced9eece7da02350b43548ce974895d24bc73b644166ebbd4"
+    },
+    "logging-design.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\logging-design.md",
+      "bytes": 19134,
+      "sha256": "ef48a57d46e535e3311b2a468657ae4729b9cc77b541cc5778493f0a00530389"
+    },
+    "native-evidence.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\native-evidence.md",
+      "bytes": 15151,
+      "sha256": "f63985bcaf9e9c76a9d6301b1db15b358b02409e0d5675e23933b8c2ea9e1abb"
+    },
+    "offline-repro/artifact-index.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\artifact-index.json",
+      "bytes": 20423,
+      "sha256": "4bcf861a64bd44ef51981b568f637509e31434355dd8ac9d5e70b3ed2b6eb53a"
+    },
+    "offline-repro/attempts/01-build/candidate-after.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\01-build\\candidate-after.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/01-build/candidate-before.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\01-build\\candidate-before.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/01-build/receipt.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\01-build\\receipt.json",
+      "bytes": 976,
+      "sha256": "7e48432d62208925b3d4009503a3b4ed92cdca5fee7378b2b59c55dbf2e34c2a"
+    },
+    "offline-repro/attempts/01-build/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\01-build\\request.json",
+      "bytes": 554,
+      "sha256": "445369a53671cdbce468a62451928d908cc8b26065ea75660a966ec84755cffc"
+    },
+    "offline-repro/attempts/01-build/stderr.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\01-build\\stderr.bin",
+      "bytes": 27931,
+      "sha256": "02e46c933a6d198a8395ed2951fa140a07781312220302466ff1f81a4db39078"
+    },
+    "offline-repro/attempts/01-build/stdout.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\01-build\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "offline-repro/attempts/02-run/assessment.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\assessment.md",
+      "bytes": 744,
+      "sha256": "162a6851fdae44b95e84d220d53816db973b3cb1d12a02e7801086af6f1f7173"
+    },
+    "offline-repro/attempts/02-run/candidate-after.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\candidate-after.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/02-run/candidate-before.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\candidate-before.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/02-run/receipt.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\receipt.json",
+      "bytes": 994,
+      "sha256": "c2c3444b8dd38b5f90a55f4443956907d7d34f97f202dfe860e2291a02472df5"
+    },
+    "offline-repro/attempts/02-run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\request.json",
+      "bytes": 573,
+      "sha256": "c9d4a0ab90cd361cd5821b7abc5328b318702d4f849cb4fda777156b4b4f04a4"
+    },
+    "offline-repro/attempts/02-run/stderr.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\stderr.bin",
+      "bytes": 27400,
+      "sha256": "316f04dfe63f665a31fd7d435364c42afab40ce1ecf0ceb4965e7381e491a0d0"
+    },
+    "offline-repro/attempts/02-run/stdout.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\02-run\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "offline-repro/attempts/03-run/assessment.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\assessment.md",
+      "bytes": 755,
+      "sha256": "d033746bafb60ef259a4f55aeb095d8ce5721373ba54b561dc9ae0ff299e13cd"
+    },
+    "offline-repro/attempts/03-run/candidate-after.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\candidate-after.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/03-run/candidate-before.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\candidate-before.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/03-run/receipt.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\receipt.json",
+      "bytes": 994,
+      "sha256": "094db927ff6fb0c7b8a23f19ba686cd97d8f615737253252c85b7e5f6c716dd9"
+    },
+    "offline-repro/attempts/03-run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\request.json",
+      "bytes": 573,
+      "sha256": "c9d4a0ab90cd361cd5821b7abc5328b318702d4f849cb4fda777156b4b4f04a4"
+    },
+    "offline-repro/attempts/03-run/stderr.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\stderr.bin",
+      "bytes": 28186,
+      "sha256": "aceef5a77930bfeb3f147e4f9c54ea9bac6cb6a46ddd6a721b976752943bc861"
+    },
+    "offline-repro/attempts/03-run/stdout.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\03-run\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "offline-repro/attempts/04-run/candidate-after.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\04-run\\candidate-after.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/04-run/candidate-before.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\04-run\\candidate-before.json",
+      "bytes": 17769,
+      "sha256": "55037d60299a06a06c49dec66d99f70cc42112fe44ef2a7e616161765b27b6eb"
+    },
+    "offline-repro/attempts/04-run/receipt.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\04-run\\receipt.json",
+      "bytes": 995,
+      "sha256": "72681634ccb37123599815deafbaf63f36c93da89113cd0f2ff6f12550586c1c"
+    },
+    "offline-repro/attempts/04-run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\04-run\\request.json",
+      "bytes": 573,
+      "sha256": "c9d4a0ab90cd361cd5821b7abc5328b318702d4f849cb4fda777156b4b4f04a4"
+    },
+    "offline-repro/attempts/04-run/stderr.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\04-run\\stderr.bin",
+      "bytes": 27169,
+      "sha256": "1d39a26fc7e474c8b0b7ee9292d515512e998a3d0550a9258551dbe674a8169b"
+    },
+    "offline-repro/attempts/04-run/stdout.bin": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\attempts\\04-run\\stdout.bin",
+      "bytes": 1780,
+      "sha256": "a7ffb6a8cc729aa93a348ec47c506864f850748b79be14feb08434d8a2ddab17"
+    },
+    "offline-repro/harness/Cargo.lock": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\harness\\Cargo.lock",
+      "bytes": 7525,
+      "sha256": "1c7729c72f9f3c7f5efb8dff4aff634c067469c64742575d11aa26620309d746"
+    },
+    "offline-repro/harness/Cargo.toml": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\harness\\Cargo.toml",
+      "bytes": 741,
+      "sha256": "e3689eb9e693b1210b8470b8d94376c08de75e2de67a74ac1ee33d9ad4889dda"
+    },
+    "offline-repro/harness/main.rs": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\harness\\main.rs",
+      "bytes": 11152,
+      "sha256": "e4a1717e622af15a65d4739609497636c9d8752967a39dbac4ebc1fecf57a3c1"
+    },
+    "offline-repro/harness/peer.rs": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\harness\\peer.rs",
+      "bytes": 1007,
+      "sha256": "93c6b7b0c304c23302a568108b467928a54ee480d418d6f67ad8eacfe31ec8ae"
+    },
+    "offline-repro/integrity-review.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\integrity-review.md",
+      "bytes": 2775,
+      "sha256": "bef87c597ee2eab7d4286980782030653dabfe0a7fbcfff631f25d743968e64a"
+    },
+    "offline-repro/record.py": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\record.py",
+      "bytes": 3484,
+      "sha256": "c4cc3ebaba53570537f21658de80626c2223938d8c4eb9a2461400008df8f739"
+    },
+    "offline-repro/runtime/03-run/SR-01-early-exit/fixture/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\03-run\\SR-01-early-exit\\fixture\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/03-run/SR-01-early-exit/run/inputs.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\03-run\\SR-01-early-exit\\run\\inputs.json",
+      "bytes": 283,
+      "sha256": "eb94a4da618646044970268d84d6c72152b8eec5a7e0bc23ac68e1a8491b565d"
+    },
+    "offline-repro/runtime/03-run/SR-01-early-exit/run/journal.jsonl": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\03-run\\SR-01-early-exit\\run\\journal.jsonl",
+      "bytes": 551,
+      "sha256": "e07be4da326501fc575f1c5dbb57344573a8e59e5fa7d70c3d1ef065fb702f32"
+    },
+    "offline-repro/runtime/03-run/SR-01-early-exit/run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\03-run\\SR-01-early-exit\\run\\request.json",
+      "bytes": 857,
+      "sha256": "96a51c745e957891b12a3fb7397ba9a0c57087ec2c47ff4c4cf120c178a33217"
+    },
+    "offline-repro/runtime/03-run/SR-01-early-exit/run/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\03-run\\SR-01-early-exit\\run\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/04-run/SR-01-early-exit/fixture/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-01-early-exit\\fixture\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/04-run/SR-01-early-exit/observed.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-01-early-exit\\observed.json",
+      "bytes": 845,
+      "sha256": "af6eaeadda69fc3844575ceba3d3ce70ab2774179c18478a53f259f9a65be19d"
+    },
+    "offline-repro/runtime/04-run/SR-01-early-exit/run/inputs.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-01-early-exit\\run\\inputs.json",
+      "bytes": 283,
+      "sha256": "4b91119751c21e53fdd0516acc6dcd713ffb8497645bdff1641a1b7ed91e960a"
+    },
+    "offline-repro/runtime/04-run/SR-01-early-exit/run/journal.jsonl": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-01-early-exit\\run\\journal.jsonl",
+      "bytes": 551,
+      "sha256": "2018bc90341f91763209e043be8153006d1909d7c6ac4eb33ac8a043b969cf27"
+    },
+    "offline-repro/runtime/04-run/SR-01-early-exit/run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-01-early-exit\\run\\request.json",
+      "bytes": 857,
+      "sha256": "25656c09f9f62e301faa465279cae2e41ad89d0400cde0a6d35fa5ef19594ea3"
+    },
+    "offline-repro/runtime/04-run/SR-01-early-exit/run/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-01-early-exit\\run\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/04-run/SR-02-receive-control/fixture/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-02-receive-control\\fixture\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/04-run/SR-02-receive-control/observed.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-02-receive-control\\observed.json",
+      "bytes": 1119,
+      "sha256": "8c8100b5056de4a54b0acaf621d7bafd5f4c9630549053acb466d7f2f5b99be2"
+    },
+    "offline-repro/runtime/04-run/SR-02-receive-control/run/inputs.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-02-receive-control\\run\\inputs.json",
+      "bytes": 283,
+      "sha256": "5915e9dda469c9d5029c888660f4f4c29f351baa8fe66de5a1abefe854205a44"
+    },
+    "offline-repro/runtime/04-run/SR-02-receive-control/run/journal.jsonl": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-02-receive-control\\run\\journal.jsonl",
+      "bytes": 867,
+      "sha256": "a3717fe34cf44e4fab657f7fb418973dd452cc985fcc66cf372bac43d0bd0c4f"
+    },
+    "offline-repro/runtime/04-run/SR-02-receive-control/run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-02-receive-control\\run\\request.json",
+      "bytes": 867,
+      "sha256": "1adde7d0fa602cf89bbd78d37b575342d2e1e7c74b7d40e465ab3eb4bad33be2"
+    },
+    "offline-repro/runtime/04-run/SR-02-receive-control/run/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\SR-02-receive-control\\run\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/04-run/summary.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\04-run\\summary.json",
+      "bytes": 2537,
+      "sha256": "2961d8f60a8ed187578488a19fea561969854092b8cee365ce1e22da78147165"
+    },
+    "offline-repro/runtime/SR-01-early-exit/fixture/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\SR-01-early-exit\\fixture\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/runtime/SR-01-early-exit/run/request.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\SR-01-early-exit\\run\\request.json",
+      "bytes": 857,
+      "sha256": "f1f1c44bfcf02b64b4518fd2cfa7091e487c7ce53726eee3805d0103bf6af24b"
+    },
+    "offline-repro/runtime/SR-01-early-exit/run/task.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\runtime\\SR-01-early-exit\\run\\task.json",
+      "bytes": 307,
+      "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    },
+    "offline-repro/seal.py": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\seal.py",
+      "bytes": 4303,
+      "sha256": "eeb2520ccee1efc07e9102b59a5abc3e157db3b8d8fa0f3528550bf5a8a0a011"
+    },
+    "offline-repro/test-plan.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\test-plan.md",
+      "bytes": 3122,
+      "sha256": "4fec9f4956256437571a148ad3b8af22d9d5c014b68f38361496ab6ecd64d860"
+    },
+    "offline-repro/verification.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-repro\\verification.json",
+      "bytes": 603,
+      "sha256": "b774dbb9276145a80d8a7e332ab401caf070d5a361da0c1fab2c3c4d6139469a"
+    },
+    "offline-reproduction.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\offline-reproduction.md",
+      "bytes": 5629,
+      "sha256": "1c2ccc2ad1a7156d05b52f38a2b2bc22834687d2f8b431e416185e5effc02c43"
+    },
+    "preservation-readback.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\preservation-readback.json",
+      "bytes": 1902134,
+      "sha256": "cd8ad1d450c50d3abb7333a5d7fd343840e01d9481423954675fd7ada65f95ab"
+    },
+    "source-review-notes.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\source-review-notes.md",
+      "bytes": 6742,
+      "sha256": "6efacde695610601603283241634d0735b6a492643ad2bf5a867ca7831997a16"
+    },
+    "startup-lifecycle.md": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\startup-lifecycle.md",
+      "bytes": 17283,
+      "sha256": "a5db70168674370593046c1df12f4feb8f1986d59641e3adf0ed2b9c634a287a"
+    },
+    "windows-event-observation.json": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-startup-investigation\\20260916T204555Z\\windows-event-observation.json",
+      "bytes": 507,
+      "sha256": "b5e871cafa170b7ce3c6f1c23f494c8e8239c1b8221f675ea963e72fdd08f773"
+    }
+  },
+  "reparse_entries": [],
+  "excluded_generated_trees": [
+    "target",
+    "__pycache__"
+  ],
+  "self_hash": "Bound by final-readback.json and final conversation",
+  "scope": "Investigation and synthetic reproduction, not repair or full QA",
+  "native_launches": 0,
+  "framework_acceptance": "NOT_EVALUATED"
+}

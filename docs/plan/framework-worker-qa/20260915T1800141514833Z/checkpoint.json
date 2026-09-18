@@ -1,0 +1,15 @@
+{
+  "intent": "run",
+  "plan": "READY for selected offline scope",
+  "execution": "STOPPED",
+  "verdict": "FAIL",
+  "open_defects": [
+    "F-01",
+    "F-02"
+  ],
+  "metric_failure": "M-01",
+  "owned_processes": [],
+  "next_owner": "dev after user selects remediation; independent QA retest required after corrected candidate",
+  "native_cases": "WN-01/WN-02 NOT_RUN and separately unselected",
+  "evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z"
+}

@@ -1,0 +1,3 @@
+Use the selected development skill entrypoint: C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T190357053555Z\source-final\skill-builder\SKILL.md
+Update C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T190357053555Z\native\ordinary-create-03\project/skills/concise-note so every bullet ends with a period. Preserve the existing behavior and unrelated files.
+All writes are authorized only inside C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T190357053555Z\native\ordinary-create-03\project. Read any selected skill without modifying it. No installations, external publication, configuration edits or real operational effects are authorized.

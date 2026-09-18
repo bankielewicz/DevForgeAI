@@ -1,0 +1,39 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\builder",
+    "--candidate-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\candidate",
+    "--cases",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\cases-1.jsonl",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\results-1.jsonl",
+    "--run-id",
+    "enhancement-test",
+    "--profile",
+    "builder-v2"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--package-root": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\builder",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0018\\input-5"
+    },
+    "--candidate-root": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\candidate",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0018\\input-7"
+    },
+    "--cases": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\builder-enhancement-test-rkypx0kb\\cases-1.jsonl",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0018\\input-9",
+      "sha256": "0cf9f99504e0ccf0d4326616d53ad11132753c927a6d04e957146af379dec641"
+    }
+  },
+  "start": "2026-09-13T02:50:22.830344+00:00",
+  "timeout_seconds": 30
+}

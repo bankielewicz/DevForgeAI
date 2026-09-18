@@ -1,0 +1,18 @@
+{
+  "required_parent_cases": 20,
+  "all_mandatory": true,
+  "subcase_count": 28,
+  "required_platforms": [
+    "Windows/PowerShell"
+  ],
+  "required_case_floor": 95,
+  "mandatory_failure_veto": true,
+  "package_executable_denominator": 0,
+  "package_coverage": "NOT_APPLICABLE",
+  "evaluator_coverage": "Separate evidence utility; not framework executable code.",
+  "native_timeout_seconds": 600,
+  "utility_timeout_seconds": 120,
+  "retries": "No automatic retry; retain every attempt and diagnose first.",
+  "source_mutation": "Forbidden",
+  "root_scope": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\brainstorm\\20260918T021707Z"
+}

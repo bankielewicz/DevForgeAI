@@ -1,0 +1,702 @@
+[
+  {
+    "attempt": "adaptive-tests-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/agents/skills/skill-validator/tests",
+      "-p",
+      "test_adaptive.py",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:08:21.208201+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T09:08:23.525629+00:00"
+  },
+  {
+    "attempt": "additional-lineage",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\additional_oracles.py",
+      "lineage"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:25:15.767754+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:25:16.917390+00:00"
+  },
+  {
+    "attempt": "additional-timeout-setup",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\additional_oracles.py",
+      "timeout-setup"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:25:15.826760+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:25:15.916271+00:00"
+  },
+  {
+    "attempt": "additional-tokens",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\additional_oracles.py",
+      "tokens"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:25:15.767754+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:25:16.088271+00:00"
+  },
+  {
+    "attempt": "assemble-evidence",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\assemble_evidence.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:42:52.884108+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:42:53.050044+00:00"
+  },
+  {
+    "attempt": "cli-help",
+    "argv": [
+      "codex",
+      "exec",
+      "--help"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:04:20.488537+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T09:04:20.540536+00:00"
+  },
+  {
+    "attempt": "cli-version",
+    "argv": [
+      "codex",
+      "--version"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:04:20.503537+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T09:04:20.569535+00:00"
+  },
+  {
+    "attempt": "final-budgets",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\final_oracles.py",
+      "budgets"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:40:26.378655+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:40:27.231294+00:00"
+  },
+  {
+    "attempt": "final-companion",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\final_oracles.py",
+      "companion"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:40:26.348656+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:40:29.987350+00:00"
+  },
+  {
+    "attempt": "final-readback",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/observe.py",
+      "readback",
+      "--source",
+      "src/agents/skills/skill-validator",
+      "--manifest",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review/source-manifest.json"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:38:28.459298+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:38:28.954902+00:00"
+  },
+  {
+    "attempt": "final-snapshot",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/observe.py",
+      "snapshot",
+      "--source",
+      "src/agents/skills/skill-validator",
+      "--output",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:37:41.559013+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:37:42.706598+00:00"
+  },
+  {
+    "attempt": "finalize-records",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\finalize_records.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:43:56.796315+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:43:56.972830+00:00"
+  },
+  {
+    "attempt": "finalize-records-003",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\finalize_records.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:44:19.125345+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:44:19.293178+00:00"
+  },
+  {
+    "attempt": "legacy-records-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/observe.py",
+      "records",
+      "--run-root",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:43:18.592858+00:00",
+    "exit_code": 1,
+    "termination": "exited",
+    "end": "2026-09-13T13:43:20.079075+00:00"
+  },
+  {
+    "attempt": "legacy-records-003",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/observe.py",
+      "records",
+      "--run-root",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review-records-003"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:44:19.635643+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:44:20.961398+00:00"
+  },
+  {
+    "attempt": "legacy-records-final",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/observe.py",
+      "records",
+      "--run-root",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review-records-002"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:43:57.320051+00:00",
+    "exit_code": 1,
+    "termination": "exited",
+    "end": "2026-09-13T13:43:58.632488+00:00"
+  },
+  {
+    "attempt": "native-setup",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\native_trials.py",
+      "setup"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:10:53.805291+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T09:10:53.878808+00:00"
+  },
+  {
+    "attempt": "package-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/adaptive_observe.py",
+      "package",
+      "--source",
+      "src/agents/skills/skill-validator"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:04:20.525537+00:00",
+    "exit_code": 2,
+    "termination": "exited",
+    "end": "2026-09-13T09:04:24.948444+00:00"
+  },
+  {
+    "attempt": "package-final",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review/source/scripts/adaptive_observe.py",
+      "package",
+      "--source",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review/source"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:37:43.089948+00:00",
+    "exit_code": 2,
+    "termination": "exited",
+    "end": "2026-09-13T13:37:47.811219+00:00"
+  },
+  {
+    "attempt": "polish-references",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\polish_references.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:36:13.490505+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:36:13.564507+00:00"
+  },
+  {
+    "attempt": "prepare",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\prepare.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T08:53:29.462348+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T08:53:29.557349+00:00"
+  },
+  {
+    "attempt": "prepare-docs",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\prepare_docs.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:04:05.497337+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T09:04:05.569336+00:00"
+  },
+  {
+    "attempt": "project-fixture-setup",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\terminal_harness.py",
+      "projects"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:21:11.088011+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:21:11.194261+00:00"
+  },
+  {
+    "attempt": "quick-validate-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "src/agents/skills/skill-validator"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:26:37.670207+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:26:37.743207+00:00"
+  },
+  {
+    "attempt": "quick-validate-final",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review/source"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:37:43.058442+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:37:43.338319+00:00"
+  },
+  {
+    "attempt": "refresh-manifest-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\refresh_manifest.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:09:29.921525+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T09:09:30.007599+00:00"
+  },
+  {
+    "attempt": "refresh-manifest-002",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\refresh_manifest.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:26:37.145996+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:26:37.239995+00:00"
+  },
+  {
+    "attempt": "refresh-manifest-003",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\refresh_manifest.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:28:28.083468+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:28:28.168463+00:00"
+  },
+  {
+    "attempt": "refresh-manifest-final",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\refresh_manifest.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:36:50.757897+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:36:50.843896+00:00"
+  },
+  {
+    "attempt": "regression-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/agents/skills/skill-validator/tests",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T09:04:20.436597+00:00",
+    "exit_code": 1,
+    "termination": "exited",
+    "end": "2026-09-13T09:05:12.497806+00:00"
+  },
+  {
+    "attempt": "regression-002",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/agents/skills/skill-validator/tests",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:26:37.656207+00:00",
+    "exit_code": 1,
+    "termination": "exited",
+    "end": "2026-09-13T13:27:42.445396+00:00"
+  },
+  {
+    "attempt": "regression-003",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/agents/skills/skill-validator/tests",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:28:28.490446+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:29:34.092186+00:00"
+  },
+  {
+    "attempt": "regression-final",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/agents/skills/skill-validator/tests",
+      "-v"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:37:01.396478+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:38:07.372180+00:00"
+  },
+  {
+    "attempt": "semantic-setup",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\prepare_semantics.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:16:49.413255+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:16:49.484258+00:00"
+  },
+  {
+    "attempt": "supplemental-records-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "src/agents/skills/skill-validator/scripts/adaptive_observe.py",
+      "records",
+      "--run-root",
+      "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/supplemental-review"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:43:18.607859+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:43:19.922344+00:00"
+  },
+  {
+    "attempt": "terminal-bindings",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\terminal_harness.py",
+      "binding"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:21:09.348963+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:21:10.701919+00:00"
+  },
+  {
+    "attempt": "terminal-golden",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\terminal_harness.py",
+      "golden"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:21:05.261411+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:21:08.996108+00:00"
+  },
+  {
+    "attempt": "timeout-attempt-001",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\timeout-fixture\\candidate.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:25:17.291390+00:00",
+    "exit_code": null,
+    "termination": "runner-error; see retained stderr and timeout-recovery.md"
+  },
+  {
+    "attempt": "timeout-attempt-002",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\timeout-fixture\\candidate.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:28:49.612569+00:00",
+    "exit_code": null,
+    "termination": "timeout-parent-killed-tree-unverified",
+    "end": "2026-09-13T13:30:49.689023+00:00"
+  },
+  {
+    "attempt": "write-report",
+    "argv": [
+      "python",
+      "-B",
+      "-X",
+      "utf8",
+      "docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\write_report.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "timeout_seconds": 120,
+    "start": "2026-09-13T13:47:49.442760+00:00",
+    "exit_code": 0,
+    "termination": "exited",
+    "end": "2026-09-13T13:47:49.546760+00:00"
+  }
+]

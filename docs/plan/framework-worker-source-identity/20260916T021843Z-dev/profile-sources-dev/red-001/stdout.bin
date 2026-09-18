@@ -1,0 +1,11 @@
+
+running 1 test
+test profile_sources::plugin_source_identity_cases::si_t01_exact_reviewed_junction_reads_physical_sources_once ... FAILED
+
+failures:
+
+failures:
+    profile_sources::plugin_source_identity_cases::si_t01_exact_reviewed_junction_reads_physical_sources_once
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 29 filtered out; finished in 0.02s
+

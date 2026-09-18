@@ -1,0 +1,20 @@
+{
+  "required_cases": 8,
+  "runtime_sources": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\Invoke-CodexWorkerDiagnostic.ps1",
+      "bytes": 2394,
+      "sha256": "52d23fee3dc4e5ec25f155d7441073922b431cac64d1df4a2a6e68a2aca85a2e"
+    }
+  ],
+  "tests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\OperatorHarness.Tests.ps1",
+      "bytes": 4943,
+      "sha256": "30de1563b00067f39be3e7060840a34e682daa86a58aebeeaf42358b88b5eb6c"
+    }
+  ],
+  "denominator": "All executable lines of the root PowerShell entrypoint; no exclusions",
+  "reason_for_host_context": "Pester temporary test registry and environment discovery were denied in the sandbox",
+  "native_codex": "NOT_RUN"
+}

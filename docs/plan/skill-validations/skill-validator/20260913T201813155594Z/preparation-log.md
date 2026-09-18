@@ -1,0 +1,7 @@
+# Preparation and scope notes
+
+The conversational plan was executed as a focused validator-only assessment. All created files are within this fresh run. Setup used harness.py, case preparation used probes.py prepare, then probes.py run. H11 was separately planned before its execution. audit_fixtures.py verified 42 record shapes and 180 reference occurrences; support_checks.py ran the installed structural checker, 27 affected regressions and source readback. Each candidate subprocess is recorded under commands/.
+
+Read-only exploration also used PowerShell Get-Content/Get-ChildItem/Get-FileHash and rg. One exploratory rg invocation with a literal tests/test_*.py argument failed on Windows with OS error 123. It was corrected to directory plus -g filtering; this was a search syntax error, not a candidate failure or a TDD red result. Some long tool readouts were truncated; focused follow-up reads supplied relevant source sections. Tool-call transcript retains those exploratory outputs; they are not falsely represented as subprocess receipts here.
+
+No candidate process timed out, no retry was needed, and no target edits were attempted. Extra generated empty.jsonl in H11 is an unused setup artifact; it is not a supplied checks record. Previous implementation/QA reports remain historical claims except the exact bytes and four replays verified here. No dependency installation, WSL execution, model task or operational binding was performed.

@@ -1,0 +1,197 @@
+[
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-spec.md",
+    "path": "inputs/qa-skill-spec.md",
+    "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "path": "inputs/AGENTS.md",
+    "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\validation-request.json",
+    "path": "inputs/authoring/validation-request.json",
+    "sha256": "86c446405103010123b2bf5a0278f6986aaf8e70dab82304d8cc577c18f34bc4"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\authoring-record.json",
+    "path": "inputs/authoring/authoring-record.json",
+    "sha256": "36a301c5efc43e9df7eed50693f109d3ea3b566de4e1b8f95ee6c06e466cc18f"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\contract.json",
+    "path": "inputs/authoring/contract.json",
+    "sha256": "656482d01afc0a2981602cd64033860447c98e68b7c737093b548c3793278003"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\delivered-manifest.json",
+    "path": "inputs/authoring/delivered-manifest.json",
+    "sha256": "7473e04c086a01f825f96aa7bf3c72a1c09e9af912fa5132bfb7a2e1f9eeb6dc"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\publication-readback.json",
+    "path": "inputs/authoring/publication-readback.json",
+    "sha256": "c4405ce1494000aeb30e8d8c7e5f2ed45831d071476f26bc2afbcc508c8b66d3"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\authoring-notes.md",
+    "path": "inputs/authoring/authoring-notes.md",
+    "sha256": "f76bc41ba8607f03f43510a73e58ee20f6718f5504cc63f2a11e8ee7aedbda04"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\manual-validator-request.md",
+    "path": "inputs/authoring/manual-validator-request.md",
+    "sha256": "10dfdb35a482decbc1f90585c568c10ad321af57b533d9265034ae2bbc9e9a28"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\SKILL.md",
+    "path": "inputs/validator/SKILL.md",
+    "sha256": "9e572b2ddfb67279f9cf5006cc5bba4cd73edb66728ff769fa9b0ae6fd981fdf"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\adaptive-validation.md",
+    "path": "inputs/validator/references/adaptive-validation.md",
+    "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\rules.md",
+    "path": "inputs/validator/references/rules.md",
+    "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\reporting.md",
+    "path": "inputs/validator/references/reporting.md",
+    "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\trials.md",
+    "path": "inputs/validator/references/trials.md",
+    "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\set-trials.md",
+    "path": "inputs/validator/references/set-trials.md",
+    "sha256": "afd81fdee6f4b6b37f04b26d66f705690c5d8ab69affe286b81743fcd132a4e9"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\text-resource-checks.md",
+    "path": "inputs/validator/references/text-resource-checks.md",
+    "sha256": "0fa807104b4146921fc7506fd2e4b863e1766b0c431c691884fa67fd1b641495"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\handoff.md",
+    "path": "inputs/validator/references/handoff.md",
+    "sha256": "35913a5afe874f15e64e3c9a5c1c0e8641fadf9ec3626094ea85cf5e39f116ed"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\openai-yaml-guidance.md",
+    "path": "inputs/validator/assets/openai-yaml-guidance.md",
+    "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\assets\\rules-snapshot.json",
+    "path": "inputs/validator/assets/rules-snapshot.json",
+    "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "path": "inputs/validator/scripts/observe.py",
+    "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+    "path": "inputs/validator/scripts/authoring_intake.py",
+    "sha256": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "path": "inputs/validator/scripts/adaptive_observe.py",
+    "sha256": "7bf5a96424cd9fb742e3c0aac9100180d72a7dcdcc22e79de634b1bc748674d2"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_contracts.py",
+    "path": "inputs/validator/scripts/adaptive_contracts.py",
+    "sha256": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\text_resources.py",
+    "path": "inputs/validator/scripts/text_resources.py",
+    "sha256": "10b284f173afd602eef1b68f87d021ceba33c426180460ff89a1a0aae2b7a552"
+  },
+  {
+    "original_path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+    "path": "inputs/checker/quick_validate.py",
+    "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z-inputs\\user-request.txt",
+    "path": "inputs/custody/2fbb3ffaf560-user-request.txt",
+    "sha256": "3ccd1b15fe4479cf089841f3c44313359de64973ad5f75d4a81fcd486ad4764f"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\SKILL.md",
+    "path": "inputs/custody/2d8a33c1f709-SKILL.md",
+    "sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+    "path": "inputs/custody/c2549b653975-devforgeai-codex-rust-enforcement-design.md",
+    "sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z-inputs\\author_package.py",
+    "path": "inputs/custody/8ce95a87d327-author_package.py",
+    "sha256": "5f37a0424bab054912ce55e5412083d669a29dd984c308dae6136460330d2232"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\authoring.md",
+    "path": "inputs/custody/3c445fe65af5-authoring.md",
+    "sha256": "da8e2579c180a98257a441ffd9b59723c80d226aa87229ff43b74ffe4687baf8"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\spec-build.md",
+    "path": "inputs/custody/74fe6a5a0031-spec-build.md",
+    "sha256": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\evidence-format.md",
+    "path": "inputs/custody/b98989548663-evidence-format.md",
+    "sha256": "0621f40a6bb23b270e1cffbd0cfb8bd40f11bcb79bdbbbbd268c3b1dad7ebfae"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\validation-handoff.md",
+    "path": "inputs/custody/c215ae1b8176-validation-handoff.md",
+    "sha256": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\scaffolding.md",
+    "path": "inputs/custody/df1d2ff5e1a3-scaffolding.md",
+    "sha256": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\openai_yaml.md",
+    "path": "inputs/custody/2793a12d505a-openai_yaml.md",
+    "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\before-manifest.json",
+    "path": "inputs/custody/f6069d1b2157-before-manifest.json",
+    "sha256": "d0b5c38956e8f3631903ede7d30cff006b4945f1664061453e3ff0ac256c189f"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\candidate-manifest.json",
+    "path": "inputs/custody/2b30016d3cb3-candidate-manifest.json",
+    "sha256": "7473e04c086a01f825f96aa7bf3c72a1c09e9af912fa5132bfb7a2e1f9eeb6dc"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\baseline-manifest.json",
+    "path": "inputs/custody/cf523a84fbbb-baseline-manifest.json",
+    "sha256": "7473e04c086a01f825f96aa7bf3c72a1c09e9af912fa5132bfb7a2e1f9eeb6dc"
+  },
+  {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T1748018341005Z\\authoring-baseline.json",
+    "path": "inputs/custody/94c3d65f740f-authoring-baseline.json",
+    "sha256": "cae9b75bb59fd2da7a1bb2087970807f22d428555ba4b73429d7f8772d1d6b03"
+  }
+]

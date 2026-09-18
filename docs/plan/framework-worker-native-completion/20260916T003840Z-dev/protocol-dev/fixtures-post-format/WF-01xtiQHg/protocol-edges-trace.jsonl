@@ -1,0 +1,14 @@
+{"id":1,"method":"initialize","params":{"capabilities":{"experimentalApi":false},"clientInfo":{"name":"devforgeai_worker_probe","version":"0.1.0"}}}
+{"method":"initialized","params":{}}
+{"id":2,"method":"config/read","params":{"cwd":"\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T003840Z-dev\\protocol-dev\\fixtures-post-format\\WF-01xtiQHg\\fixture","includeLayers":true}}
+{"id":3,"method":"configRequirements/read","params":{}}
+{"id":4,"method":"experimentalFeature/list","params":{"cursor":null,"limit":100,"threadId":null}}
+{"id":5,"method":"experimentalFeature/list","params":{"cursor":"page-1","limit":100,"threadId":null}}
+{"id":6,"method":"experimentalFeature/list","params":{"cursor":"page-2","limit":100,"threadId":null}}
+{"id":7,"method":"experimentalFeature/list","params":{"cursor":"page-3","limit":100,"threadId":null}}
+{"id":8,"method":"experimentalFeature/list","params":{"cursor":"page-4","limit":100,"threadId":null}}
+{"id":9,"method":"experimentalFeature/list","params":{"cursor":"page-5","limit":100,"threadId":null}}
+{"id":10,"method":"experimentalFeature/list","params":{"cursor":"page-6","limit":100,"threadId":null}}
+{"id":11,"method":"experimentalFeature/list","params":{"cursor":"page-7","limit":100,"threadId":null}}
+{"id":12,"method":"experimentalFeature/list","params":{"cursor":"page-8","limit":100,"threadId":null}}
+{"id":13,"method":"experimentalFeature/list","params":{"cursor":"page-9","limit":100,"threadId":null}}

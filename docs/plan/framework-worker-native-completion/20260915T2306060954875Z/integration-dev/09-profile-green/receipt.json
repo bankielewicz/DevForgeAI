@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "profile_protocol",
+    "--",
+    "--nocapture"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T23:27:22.177254+00:00",
+  "candidate_manifest_sha256": "590db57a2f3e4a95d0d58e66acd59dc9854a91a52522ea1d7c8937e4edb23ad1",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\integration-dev\\09-profile-green\\fixtures",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\integration-dev\\09-profile-green\\fixtures"
+  },
+  "timeout_seconds": 360,
+  "owned_pid": 16672,
+  "exit_code": 0,
+  "elapsed_seconds": 3.4530000000086147,
+  "end": "2026-09-15T23:27:25.644559+00:00",
+  "stdout_sha256": "a2b12b2a0656030692594528d450f61cff91295db8835f89693945a03d499f03",
+  "stderr_sha256": "ea62e459cc04013c6e86131851a89724d949a7d8b560b2e5a262943c6d1a6123",
+  "candidate_unchanged_during_command": true
+}

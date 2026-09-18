@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "wsl",
+    "-d",
+    "Ubuntu",
+    "--exec",
+    "python3",
+    "--version"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-13T16:20:07.071636Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\wsl-version-002",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\wsl-version-002",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\wsl-version-002",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 76180,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T16:20:07.235149Z",
+  "elapsed_seconds": 0.1720000000204891
+}

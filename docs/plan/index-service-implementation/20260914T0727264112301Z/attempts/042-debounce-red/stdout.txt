@@ -1,0 +1,20 @@
+
+running 1 test
+test automatic_file_changes_are_debounced_before_publication ... FAILED
+
+failures:
+
+---- automatic_file_changes_are_debounced_before_publication stdout ----
+
+thread 'automatic_file_changes_are_debounced_before_publication' (60480) panicked at tests\service.rs:117:5:
+assertion `left == right` failed: watcher work must wait for the 500ms debounce
+  left: String("41ba98d5-ab45-4b50-a8cb-cfdc04563e90")
+ right: String("4e724e15-3650-4834-9d7b-c101aa45afae")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    automatic_file_changes_are_debounced_before_publication
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.30s
+

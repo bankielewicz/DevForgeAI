@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "intake-set",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\bad-digest.json",
+    "--request-sha256",
+    "ac120cd42e0a7cee102cd6a12e5355d022185f69fe8397247f71f57d8422541e"
+  ],
+  "timeout_seconds": 120,
+  "start": "2026-09-13T13:21:08.846644+00:00"
+}

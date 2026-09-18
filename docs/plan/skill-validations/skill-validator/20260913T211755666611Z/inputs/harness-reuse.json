@@ -1,0 +1,11 @@
+{
+  "base": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z",
+  "copied_files": [
+    "harness.py",
+    "probes.py",
+    "subset_control.py",
+    "audit_fixtures.py"
+  ],
+  "old_fixed_run": "RUN is derived from __file__; copies bind the new QA root. No original scripts are executed in place. Historical harness.setup() is not invoked; this prepare routine pins the delivered 76-file snapshot.",
+  "expectations": "Unchanged selected case expectations; original R/P fixtures remain read-only at their original paths. H11 is freshly constructed and preplanned."
+}

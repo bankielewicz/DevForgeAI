@@ -1,0 +1,53 @@
+{
+  "scope": "Observed execution ledger only; no framework authority",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "commands": [
+    {
+      "command": "python -B -X utf8 docs/plan/framework-worker-native-diagnostics/20260916T202125Z/intake.py",
+      "observed_tool_exit": 0,
+      "result": "5821 QA artifacts, 24 inputs, 58 candidate files, 58 snapshot files match; 91 prior native files bound; fresh fixture created",
+      "evidence": "intake-readback.json"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/framework-worker-native-diagnostics/20260916T202125Z/diagnostic.py prepare",
+      "observed_tool_exit": 1,
+      "compiled_source_collection_exit": 0,
+      "result": "Preparation assertion failed on standard Windows extended path prefix; no native launch",
+      "retained_script": "diagnostic-preparation-001.py",
+      "evidence": "preparation-observation.md"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/framework-worker-native-diagnostics/20260916T202125Z/diagnostic.py bind-initial",
+      "observed_tool_exit": 0,
+      "result": "Prepared initial request/review using original successful source observation",
+      "evidence": "inputs-001/input-bindings.json"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/framework-worker-native-diagnostics/20260916T202125Z/diagnostic.py launch",
+      "host_context": "require_escalated; concrete command prefix approved; source bindings refreshed before launch",
+      "observed_tool_exit": 1,
+      "compiled_preflight_exit": 3,
+      "result": "Exactly one native no-work attempt; profile_unqualified; no retry",
+      "evidence": "native-001/receipt.json"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/framework-worker-native-diagnostics/20260916T202125Z/diagnostic.py readback",
+      "observed_tool_exit": 0,
+      "compiled_source_collection_exit": 0,
+      "compiled_inspector_exit": 0,
+      "result": "Post-launch source collection and existing-terminal inspection only; no Codex launch",
+      "evidence": "inspect-001/receipt.json"
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/framework-worker-native-diagnostics/20260916T202125Z/verify_readback.py",
+      "observed_tool_exit": 0,
+      "result": "Preservation, exact inputs, source refresh, diagnostic fields, terminal, fixture and cleanup evidence checked",
+      "evidence": "preservation-readback.json"
+    }
+  ],
+  "native_attempts": 1,
+  "native_retries": 0,
+  "model_trials": 0,
+  "framework_acceptance": "NOT_EVALUATED"
+}

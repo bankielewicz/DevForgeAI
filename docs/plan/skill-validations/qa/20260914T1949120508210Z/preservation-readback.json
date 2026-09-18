@@ -1,0 +1,137 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1949120508210Z",
+  "target_name": "qa",
+  "input_results": [
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\validation-request.json",
+      "expected_sha256": "40ac8bd62b6e0d8b1216acef54d487f38e5708655dc7cfe5ca5dde6cac3aaa2f",
+      "actual_sha256": "40ac8bd62b6e0d8b1216acef54d487f38e5708655dc7cfe5ca5dde6cac3aaa2f",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\delivered-manifest.json",
+      "expected_sha256": "abaf68439b55c3f55944366660d0a0282d8135c1e9222fcc7011d7a927e5f333",
+      "actual_sha256": "abaf68439b55c3f55944366660d0a0282d8135c1e9222fcc7011d7a927e5f333",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\authoring-record.json",
+      "expected_sha256": "86b558640d59d45cb0df3b6ca6d308cb819899a7c4cfe1754e6c572aa5708019",
+      "actual_sha256": "86b558640d59d45cb0df3b6ca6d308cb819899a7c4cfe1754e6c572aa5708019",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\contract.json",
+      "expected_sha256": "52c3b9f4131c2bb5736976effedf6ca26def6c7c0afc7d6e3d5b800354b525c3",
+      "actual_sha256": "52c3b9f4131c2bb5736976effedf6ca26def6c7c0afc7d6e3d5b800354b525c3",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-postmvp-spec.md",
+      "expected_sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a",
+      "actual_sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-spec.md",
+      "expected_sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03",
+      "actual_sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z-inputs\\user-request.txt",
+      "expected_sha256": "af1cf53a16e54fa06613b98c1c5a41d1f32a95ea1e40f477a413fc5daba0b3cf",
+      "actual_sha256": "af1cf53a16e54fa06613b98c1c5a41d1f32a95ea1e40f477a413fc5daba0b3cf",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z-inputs\\manual-evaluation-obligations.md",
+      "expected_sha256": "d571e335501c20cb8d7dca43afcfcc47185c7cbf9c0e5a6e7490a10f63f97f82",
+      "actual_sha256": "d571e335501c20cb8d7dca43afcfcc47185c7cbf9c0e5a6e7490a10f63f97f82",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z-inputs\\prepare.py",
+      "expected_sha256": "ced3180832642680bba2ac414a430a884835f37722c120baef7dd05a1ea33ea8",
+      "actual_sha256": "ced3180832642680bba2ac414a430a884835f37722c120baef7dd05a1ea33ea8",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "expected_sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+      "actual_sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+      "expected_sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+      "actual_sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\SKILL.md",
+      "expected_sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599",
+      "actual_sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\authoring.md",
+      "expected_sha256": "da8e2579c180a98257a441ffd9b59723c80d226aa87229ff43b74ffe4687baf8",
+      "actual_sha256": "da8e2579c180a98257a441ffd9b59723c80d226aa87229ff43b74ffe4687baf8",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\spec-build.md",
+      "expected_sha256": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2",
+      "actual_sha256": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\regeneration.md",
+      "expected_sha256": "4550d964c0e23a0ca0ead7fcc6bcf14be59c743dcf837a3ef0060fc0fed81ac7",
+      "actual_sha256": "4550d964c0e23a0ca0ead7fcc6bcf14be59c743dcf837a3ef0060fc0fed81ac7",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\evidence-format.md",
+      "expected_sha256": "0621f40a6bb23b270e1cffbd0cfb8bd40f11bcb79bdbbbbd268c3b1dad7ebfae",
+      "actual_sha256": "0621f40a6bb23b270e1cffbd0cfb8bd40f11bcb79bdbbbbd268c3b1dad7ebfae",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\validation-handoff.md",
+      "expected_sha256": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc",
+      "actual_sha256": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\scaffolding.md",
+      "expected_sha256": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb",
+      "actual_sha256": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb",
+      "unchanged": true
+    },
+    {
+      "original_path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\references\\openai_yaml.md",
+      "expected_sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+      "actual_sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+      "unchanged": true
+    }
+  ],
+  "package_results": [
+    {
+      "subject": "operational_qa",
+      "unchanged": true,
+      "before_package_digest": "bb9b461276a959fe5278117b6687b3edce1342149ae2dd1b5ea82fb03e1d38ed",
+      "after_package_digest": "bb9b461276a959fe5278117b6687b3edce1342149ae2dd1b5ea82fb03e1d38ed"
+    },
+    {
+      "subject": "validator",
+      "unchanged": true,
+      "before_package_digest": "3d50cc7587998e8ac60cbe7006faf42b538e1f2307773c4e5ce9fda058705c46",
+      "after_package_digest": "3d50cc7587998e8ac60cbe7006faf42b538e1f2307773c4e5ce9fda058705c46"
+    }
+  ],
+  "history": "Historical evidence was read only and never selected as a write destination. Whole historical evidence tree was not recursively hashed.",
+  "source_unchanged": true
+}

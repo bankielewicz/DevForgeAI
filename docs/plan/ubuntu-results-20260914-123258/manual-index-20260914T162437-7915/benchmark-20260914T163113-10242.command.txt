@@ -1,0 +1,1 @@
+/usr/bin/time -v /tmp/devforgeai-manual-build.k0dzpK/release/examples/benchmark /home/me/Projects/index-qualification.iIHbKX/DevForgeAI/docs/plan/manual-index-20260914T162437-7915/benchmark-fixture-manifest.json 

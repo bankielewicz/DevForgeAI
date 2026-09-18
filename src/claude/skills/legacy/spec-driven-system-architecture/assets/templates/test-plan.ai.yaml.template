@@ -1,0 +1,155 @@
+# test-plan.ai.yaml
+# Constitutional test conventions for this project.
+# Consumed by: test-automator (Phase 02), integration-tester (Phase 05),
+#              create-test-snapshot CLI, phase-init CLI.
+# Regenerate: /create-system-architecture
+# Generated: {{timestamp}} | Hash: {{source_hash}}
+# Naming: .ai.yaml (not .ai.md) because this file contains YAML, not markdown.
+#         No human-readable parent (test-plan.md) exists -- framework is AI-optimized.
+---
+test_conventions:
+  severity: CRITICAL
+  primary_framework: "{{test_framework}}"
+  framework_version: "{{test_framework_version}}"
+  test_command: "{{test_command}}"
+  coverage_command: "{{coverage_command}}"
+  language: "{{primary_language}}"
+  secondary_frameworks: {{secondary_frameworks_yaml}}
+  secondary_languages: {{secondary_languages_yaml}}
+
+test_file_patterns:
+  severity: CRITICAL
+  rule: "These patterns define what counts as a test file. Used by create-test-snapshot and phase-init for baseline manifest capture."
+  patterns:
+    {{#test_file_patterns}}
+    - "{{.}}"
+    {{/test_file_patterns}}
+  examples_by_language:
+    # Reference patterns. Authoritative test_file_patterns above are populated
+    # from the active project's detected frameworks (see Plan #4 §5).
+    python_pytest: ["test_*.py", "*_test.py", "src/**/tests/test_*.py"]
+    javascript_jest: ["*.test.js", "*.test.ts", "*.spec.js", "*.spec.ts", "__tests__/**/*.js", "__tests__/**/*.ts"]
+    rust_cargo: ["tests/**/*.rs", "src/**/*.rs"]
+    csharp_dotnet: ["**/*Tests.cs", "**/*Test.cs", "tests/**/*.cs"]
+    java_maven: ["src/test/java/**/*Test.java", "src/test/java/**/*Tests.java"]
+    go: ["**/*_test.go"]
+    cpp_gtest: ["**/*_test.cc", "**/*_test.cpp", "**/test_*.cc", "**/test_*.cpp", "tests/**/*.cc"]
+
+test_locations:
+  severity: HIGH
+  preferred:
+    {{#test_locations_preferred}}
+    - "{{.}}"
+    {{/test_locations_preferred}}
+  story_scoped_allowed: {{story_scoped_allowed}}
+  co_located_allowed: {{co_located_allowed}}
+  framework_internal_allowed: {{framework_internal_allowed}}
+  rationale: "{{location_rationale}}"
+  legacy_tests_story_nnn: "Supported for backward compatibility, not required. Stories may put tests in any preferred location."
+
+naming_conventions:
+  severity: HIGH
+  test_function: "{{test_function_naming}}"
+  test_class: "{{test_class_naming}}"
+  fixture: "{{fixture_naming}}"
+  examples_by_language:
+    python_pytest:
+      test_function: "test_<function>_<scenario>_<expected>"
+      test_class: "Test<ClassName>"
+      fixture: "<resource>_fixture"
+    javascript_jest:
+      test_function: "describe('<Component>', () => { it('should <behavior>', ...) })"
+      test_class: "N/A (uses describe/it blocks)"
+    rust_cargo:
+      test_function: "test_<function>_<scenario>"
+      test_class: "N/A (uses #[cfg(test)] mod tests)"
+    csharp_dotnet:
+      test_function: "<MethodUnderTest>_<Scenario>_<ExpectedBehavior>"
+      test_class: "<ClassUnderTest>Tests"
+    java_maven:
+      test_function: "<methodUnderTest>_<scenario>_<expectedBehavior>"
+      test_class: "<ClassUnderTest>Test"
+    go:
+      test_function: "Test<FunctionName>"
+      test_class: "N/A (uses Test prefix functions)"
+
+assertion_and_mocking:
+  severity: MEDIUM
+  assertion_style: "{{assertion_style}}"
+  mocking_library: "{{mocking_library}}"
+  fixture_system: "{{fixture_system}}"
+
+coverage_thresholds:
+  severity: CRITICAL
+  business_logic: {{coverage_business_logic}}
+  application: {{coverage_application}}
+  infrastructure: {{coverage_infrastructure}}
+  enforcement: "Coverage below these thresholds is a CRITICAL blocker per ADR-010. No deferral path."
+  layer_definitions:
+    business_logic: "Core domain logic, entities, business rules"
+    application: "Use cases, application services, orchestration"
+    infrastructure: "Repositories, adapters, framework integration"
+
+# --- v2.0.0 strategic sections (STORY-648, ADR-054) — populated from _test_plan_fragment ---
+# Severity is part of each section's data (emitted by test-plan-architect@2.0.0),
+# not the template, so it stays in sync with the architect's authoritative output.
+
+testing_philosophy:
+{{testing_philosophy_yaml}}
+
+mocking_strategy:
+{{mocking_strategy_yaml}}
+
+fixture_management:
+{{fixture_management_yaml}}
+
+test_data_strategy:
+{{test_data_strategy_yaml}}
+
+integration_boundaries:
+{{integration_boundaries_yaml}}
+
+test_isolation_policy:
+{{test_isolation_policy_yaml}}
+
+flakiness_policy:
+{{flakiness_policy_yaml}}
+
+test_discovery:
+  severity: CRITICAL
+  mechanism: "filesystem_manifest"
+  rationale: "Git is UNRELIABLE for test discovery: (1) gitignored test folders are invisible to git diff/ls-files/status, (2) greenfield repos have no baseline commit, (3) some projects intentionally exclude test artifacts from version control. Filesystem walk using test_file_patterns works in ALL scenarios."
+  baseline_capture: "phase-init walks filesystem using test_file_patterns, computes SHA-256 hashes, stores in phase-state.json as story_baseline_manifest"
+  delta_computation: "create-test-snapshot walks filesystem again at snapshot time, diffs against baseline manifest. Files new or hash-changed since phase-init are the story's tests."
+  git_used: false
+  gitignore_interference: "none -- filesystem walk ignores .gitignore"
+  greenfield_support: true
+  bounded_walk: "Scan is bounded by test_file_patterns, not a full project traversal. For a 50k-file repo with 500 test files, walk is ~500 files."
+
+phase_integration:
+  severity: HIGH
+  loaded_at: "Phase 01 Step 2.5 (as part of context companion file loading)"
+  stored_in: "phase-state.json field 'test_plan_rules' (separate from 'context_ai_rules')"
+  injected_into_prompts:
+    phase_02_test_automator: true
+    phase_05_integration_tester: true
+    phase_03_backend_architect: false
+    phase_04_refactoring_specialist: false
+    phase_04_code_reviewer: false
+  rationale: "Selective injection avoids wasting ~500 tokens/workflow on non-test subagents who have no use for test_file_patterns."
+
+legacy_compat:
+  severity: MEDIUM
+  tests_story_nnn_supported: true
+  description: "Existing tests/STORY-NNN/ directories continue to work. create-test-snapshot unions filesystem-manifest discovery with any files found in tests/STORY-NNN/. No breaking change to existing stories."
+  snapshots_preserved: "79 existing snapshots in devforgeai/qa/snapshots/ remain valid without migration."
+
+cli_commands:
+  severity: HIGH
+  run_tests: "devforgeai-validate run-tests ${STORY_ID} --expect-fail --format=json"
+  run_tests_rationale: "Pre-approved in .claude/settings.json (Bash(devforgeai-validate*)). Auto-detects framework from this file. Structured JSON output. One call per test suite, not per test class."
+  create_snapshot: "devforgeai-validate create-test-snapshot ${STORY_ID} --project-root=. --format=json"
+  verify_red_state: "devforgeai-validate verify-red-state (deprecated, scheduled for removal in favor of run-tests --expect-fail per STORY-629)"
+  prohibited: "Raw pytest/jest/cargo/dotnet/go test invocations in Phase 02 -- always use the CLI wrapper"
+
+on_violation: "HALT + AskUserQuestion for test framework decisions not documented in this file. Test conventions are constitutional; deviations require ADR."

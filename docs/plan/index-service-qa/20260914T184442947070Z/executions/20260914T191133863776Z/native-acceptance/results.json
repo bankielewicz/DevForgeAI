@@ -1,0 +1,114 @@
+[
+  {
+    "id": "N01",
+    "status": "PASS",
+    "detail": "stopped -> started -> already_running",
+    "start": 1789413791.1991365,
+    "end": 1789413791.3562002
+  },
+  {
+    "id": "N02",
+    "status": "PASS",
+    "detail": {
+      "activity": "idle",
+      "coverage": "partial",
+      "current_generation": "cbaa8070-e3eb-4dad-bc4a-fdcf2e0c4273",
+      "diagnostic_code": null,
+      "dirty": false,
+      "eligible_count": 4,
+      "excluded_count": 1,
+      "failed_count": 0,
+      "freshness": "observed_current",
+      "jobs": [],
+      "last_reconciliation": 1789413791,
+      "observed_at": 1789413791,
+      "project_id": "50d2b184-2610-4514-a42f-c9d5e4d0420e",
+      "skipped_count": 2,
+      "structural_count": 1,
+      "text_count": 2
+    },
+    "start": 1789413791.3562002,
+    "end": 1789413791.5354235
+  },
+  {
+    "id": "N03",
+    "status": "PASS",
+    "detail": {
+      "generation": "cbaa8070-e3eb-4dad-bc4a-fdcf2e0c4273",
+      "snapshot_sha256": "a55834eb7b3bfe66b21f5d5edfcf9029decca2bf40843a76b4dadb3bf39ba4f4",
+      "secret_snapshots": 0
+    },
+    "start": 1789413791.5354235,
+    "end": 1789413791.5512092
+  },
+  {
+    "id": "N04",
+    "status": "PASS",
+    "detail": {
+      "generation": "160ac136-466c-40f1-b237-ca2d92024422",
+      "snapshot_sha256": "1203b38d8948456f2a0db26cefe1a75fd7b49e0c2342d47616ad6b2c898ac2b4",
+      "secret_snapshots": 0
+    },
+    "start": 1789413791.5512092,
+    "end": 1789413791.7232535
+  },
+  {
+    "id": "N05",
+    "status": "PASS",
+    "detail": "real SQLite read transaction retained one generation across two daemon publications",
+    "start": 1789413791.7232535,
+    "end": 1789413791.9114192
+  },
+  {
+    "id": "N06",
+    "status": "PASS",
+    "detail": [
+      ".env",
+      "binary.txt",
+      "renamed.py",
+      "utf16.txt"
+    ],
+    "start": 1789413791.9114192,
+    "end": 1789413792.5624237
+  },
+  {
+    "id": "N07",
+    "status": "PASS",
+    "detail": {
+      "source_after": {
+        ".env": "94aca1d60fc2de918a5735546e8bfcbc7c8a2cabab0c840dd48636ce4d558a98",
+        "binary.txt": "b413f47d13ee2fe6c845b2ee141af81de858df4ec549a58b7970bb96645bc8d2",
+        "renamed.py": "1203b38d8948456f2a0db26cefe1a75fd7b49e0c2342d47616ad6b2c898ac2b4",
+        "utf16.txt": "53c523bad1a04b0d2fce18ee10dacb6a7362f3804cdcbdaf68ff1ae76e8a51cd"
+      }
+    },
+    "start": 1789413792.5624237,
+    "end": 1789413792.604359
+  },
+  {
+    "id": "N08",
+    "status": "PASS",
+    "detail": {
+      "protocol_version": 1,
+      "request_id": "f016cd04-c745-4979-bfbc-40dd6abbed9a",
+      "service_version": null,
+      "environment_id": null,
+      "ok": false,
+      "data": null,
+      "error": {
+        "code": "PROTOCOL_INCOMPATIBLE",
+        "message": "Protocol major version 1 required",
+        "details": {}
+      }
+    },
+    "start": 1789413792.604359,
+    "end": 1789413792.615869
+  },
+  {
+    "id": "N09",
+    "status": "PASS",
+    "detail": "owned daemon stopped and endpoint unavailable",
+    "start": 1789413792.615869,
+    "end": 1789413792.7158477
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T155029Z",
+  "target_name": "skill-validator",
+  "outputs": [
+    {"path": "scripts/observe.py", "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"},
+    {"path": "tests/test_observe.py", "sha256": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef"}
+  ],
+  "command": "python -B -X utf8 docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/run-regressions.py attempt-003",
+  "observation": "34 unittest methods passed with 62 helper CLI subprocesses, zero skips, in 9.530 seconds. Exact helper/test inputs, disposable per-command inputs, argv, expected exits, stdout, stderr, actual exits and input digests were retained before/after each execution.",
+  "result": "PASS",
+  "tests": 34,
+  "skipped": 0,
+  "helper_subprocesses": 62,
+  "independence": "Tests and expected outcomes authored by separate helper_tests agent from the approved specification. Schema names coordinated with implementer; helper implementation not edited by test author.",
+  "attempts": [
+    {"directory": "attempt-001", "exit_code": 1, "tests": 33, "failures": 1, "reason": "READY positive control omitted required actual target manifest and used an unbound placeholder digest. Helper correctly rejected it. Fixture was corrected; original failed input preserved."},
+    {"directory": "attempt-002", "exit_code": 0, "tests": 33, "failures": 0, "reason": "Corrected actual-byte manifest control passed. This attempt preceded the implementation author's strict JSON exponent-overflow fix."},
+    {"directory": "attempt-003", "exit_code": 0, "tests": 34, "failures": 0, "reason": "Added independent NaN, Infinity, -Infinity, 1e999 and -1e999 rejection cases and exercised final helper bytes."}
+  ],
+  "limits": [
+    "Ordinary deterministic helper regression results do not establish complete semantic assessment, native skill invocation, historical provenance validity, or framework acceptance.",
+    "The READY control tests reference/digest and declared authorization consistency only; synthetic baseline text is not claimed to establish a real successful generated baseline.",
+    "Only the exercised Windows host and Python 3.10.11 are covered. The symlink omission fixture executed successfully on this host."
+  ]
+}

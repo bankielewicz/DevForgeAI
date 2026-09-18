@@ -1,0 +1,6 @@
+test_prepare_emits_bound_packet_without_native_dispatch (__main__.PreparationCliTests) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.691s
+
+OK

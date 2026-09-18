@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["STALE_REFERENCE: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-01\\fixtures\\extended-03\\updates\\new-core-manifest.json"], "ordered_member_ids": []}

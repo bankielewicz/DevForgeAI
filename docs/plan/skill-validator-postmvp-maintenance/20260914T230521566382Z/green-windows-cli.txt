@@ -1,0 +1,34 @@
+test_name_boundary_and_malformed_keys (test_postmvp.MetadataRegressionTests) ... ok
+test_optional_constraints_are_not_lost_in_package_parser (test_postmvp.MetadataRegressionTests) ... ok
+test_organization_advice_does_not_fail_large_or_cyclic_skill (test_postmvp.MetadataRegressionTests) ... ok
+test_valid_boundaries_and_unicode_content (test_postmvp.MetadataRegressionTests) ... ok
+test_actual_output_and_default_budgets (test_postmvp.TrialTests) ... ok
+test_artifact_drift_invalidates_readback (test_postmvp.TrialTests) ... ok
+test_cli_help_invalid_and_successful_readback (test_postmvp.TrialTests) ... ok
+test_dependency_inventory_cannot_be_dropped (test_postmvp.TrialTests) ... ok
+test_empty_native_oracle_and_preexisting_outputs_are_rejected (test_postmvp.TrialTests) ... ok
+test_exact_json_type_not_python_boolean_equivalence (test_postmvp.TrialTests) ... ok
+test_failed_cli_and_closed_stdin (test_postmvp.TrialTests) ... ok
+test_independent_case_remains_counted_with_blocked_case (test_postmvp.TrialTests) ... ok
+test_input_mutation_during_trial_is_not_qualified (test_postmvp.TrialTests) ... ok
+test_interrupted_attempt_is_not_replayed (test_postmvp.TrialTests) ... ok
+test_invalid_json_and_wrong_text_are_failed_outputs (test_postmvp.TrialTests) ... ok
+test_invalid_plans_never_launch (test_postmvp.TrialTests) ... ok
+test_json_oracle_and_manual_obligation (test_postmvp.TrialTests) ... ok
+test_native_spawn_failure_is_unperformed (test_postmvp.TrialTests) ... ok
+test_plan_and_input_drift_before_launch (test_postmvp.TrialTests) ... ok
+test_plan_containment_unknown_fields_and_duplicate_assertions (test_postmvp.TrialTests) ... ok
+test_prompt_is_literal_stdin (test_postmvp.TrialTests) ... ok
+test_receipt_chronology_cannot_be_reversed (test_postmvp.TrialTests) ... ok
+test_receipt_fields_cannot_discard_evidence (test_postmvp.TrialTests) ... ok
+test_side_effects_are_observed (test_postmvp.TrialTests) ... ok
+test_stale_sealed_fixture (test_postmvp.TrialTests) ... ok
+test_stdout_tampering_and_input_drift_after_execution (test_postmvp.TrialTests) ... ok
+test_timeout_preserves_output_and_cleanup (test_postmvp.TrialTests) ... ok
+test_utility_failure_overrides_incomplete_in_summary (test_postmvp.TrialTests) ... ok
+test_zero_exit_does_not_prove_delivery (test_postmvp.TrialTests) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 4.899s
+
+OK

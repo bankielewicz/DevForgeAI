@@ -1,0 +1,32 @@
+{
+  "root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-files-forward-e80c26780a8841b4b5d4ad3556985916",
+  "hashes": {
+    "notes original.md": {
+      "sha256": "f4f3e3edbc0aaf4d9fe2c4402baf2b59eea20cbc316edb6c59e9a8c977462298",
+      "bytes": 48
+    },
+    "résumé actions 東京.md": {
+      "sha256": "28e13d02a02b3315344ece29da8a58196fa0dd0cc5270cfb0f46fd27cfb0d32e",
+      "bytes": 96
+    },
+    "blocked destination.md/sentinel.txt": {
+      "sha256": "240f7d2f6b739e4f012de8b6f3c8e63156ad26a54d2c53b0d5feafaf14be86b3",
+      "bytes": 31
+    },
+    "meeting-actions/SKILL.md": {
+      "sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+      "bytes": 2480
+    }
+  },
+  "artifact_checks": {
+    "selected_skill_same_bytes": true,
+    "input_matches_locked_fixture_bytes": true,
+    "Unicode_spaced_literal_output_path": true,
+    "table_columns_and_supported_row": true,
+    "blocked_destination_is_still_directory": true,
+    "sentinel_matches_original_fixture": true,
+    "no_alternate_output": true
+  },
+  "all_artifact_checks_pass": true,
+  "limits": "Independent actual-file verification only. Delivery messages, attempted failure, and executor readback require separate command/conversation receipts."
+}

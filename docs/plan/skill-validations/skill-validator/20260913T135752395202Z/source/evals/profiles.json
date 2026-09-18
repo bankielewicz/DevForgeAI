@@ -1,0 +1,74 @@
+{
+  "schema_version": "1",
+  "profiles": {
+    "legacy-import-v1": {
+      "version": "1",
+      "graders": [
+        "package_links",
+        "manifest_accounting"
+      ]
+    },
+    "import-v2": {
+      "version": "2",
+      "graders": [
+        "package_links",
+        "manifest_accounting",
+        "build_traceability"
+      ]
+    },
+    "spec-v1": {
+      "version": "1",
+      "graders": [
+        "package_links",
+        "build_traceability"
+      ]
+    },
+    "revision-import-v2": {
+      "version": "2",
+      "graders": [
+        "package_links",
+        "manifest_accounting",
+        "build_traceability",
+        "revision_consistency"
+      ]
+    },
+    "revision-spec-v1": {
+      "version": "1",
+      "graders": [
+        "package_links",
+        "build_traceability",
+        "revision_consistency"
+      ]
+    },
+    "builder-v2": {
+      "version": "2",
+      "graders": [
+        "package_links",
+        "manifest_accounting",
+        "build_traceability",
+        "revision_consistency",
+        "routing_outcomes"
+      ]
+    },
+    "adoption-v1": {
+      "version": "1",
+      "graders": [
+        "adoption_consistency"
+      ]
+    },
+    "revision-spec-v2": {
+      "version": "2",
+      "graders": [
+        "package_links",
+        "build_traceability_v2",
+        "revision_consistency_v2"
+      ]
+    },
+    "routing-adoption-v1": {
+      "version": "1",
+      "graders": [
+        "routing_outcomes_v2"
+      ]
+    }
+  }
+}

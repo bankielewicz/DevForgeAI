@@ -1,0 +1,19 @@
+
+running 1 test
+test home_boundary_only_allows_peer_temporary_roots ... FAILED
+
+failures:
+
+---- home_boundary_only_allows_peer_temporary_roots stdout ----
+
+thread 'home_boundary_only_allows_peer_temporary_roots' (38840) panicked at tests\requirements.rs:60:5:
+assertion failed: request::check_home_boundary(&home.join("credential-fixture"),
+        &home.join("run"), home, &temp, true).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    home_boundary_only_allows_peer_temporary_roots
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.03s
+

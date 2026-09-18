@@ -1,0 +1,20 @@
+{
+  "capture_schema": 1,
+  "diagnostics": {
+    "level": "debug",
+    "sha256": "b13901e565cf2b7bac1c1ee846edb20b2b2f86fa8e0b2d76e09305525e858182"
+  },
+  "request_sha256": "ba26fbbc30d4fc80444b2acc3f624588bc735970f288ddcb662879ea4abcc6f3",
+  "fixture": [
+    [
+      "peer-case.txt",
+      "0834c559a9884fe506174576349daa74fe8e50358cd9ae1fb9fa12b1c2980f71"
+    ],
+    [
+      "task.json",
+      "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    ]
+  ],
+  "worker_sha256": "f0c79ca1355750b7c51d5f07ef1bfb60087ecf6c11e4adaa66733998f9231ce3",
+  "profile_sha256": null
+}

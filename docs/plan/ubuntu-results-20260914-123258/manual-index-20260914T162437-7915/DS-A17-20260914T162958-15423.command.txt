@@ -1,0 +1,1 @@
+cargo test --locked --test service lifecycle_pause_resume_index_removal_and_retry_are_real -- --nocapture 

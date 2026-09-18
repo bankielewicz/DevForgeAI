@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "cargo",
+    "fmt",
+    "--check"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "started_utc": "2026-09-17T02:13:13.476083+00:00",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\attempts\\18-fmt-check\\fixtures"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 0.28100000001722947
+}

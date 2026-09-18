@@ -1,0 +1,88 @@
+[
+  {
+    "id": "QA-GAP-01",
+    "classification": "unperformed coverage / failed measurement floor",
+    "severity": "high",
+    "requirement": "AGENTS.md mandatory quality thresholds; BA-011; BAT-17",
+    "source_locations": [
+      "scripts/build_evidence.py:1",
+      "scripts/custody.py:1",
+      "scripts/init_skill.py:1",
+      "scripts/generate_openai_yaml.py:1"
+    ],
+    "expected": "At least 95% executed-line coverage across declared first-party Python denominator; complete legacy behavior evidence.",
+    "actual": "852/2133 lines (39.94374121%) independently measured. Legacy generated/adopted history and scaffolding are not independently replayed.",
+    "reproduction": "Run retest_final.py under the retained final04 coverage command; inspect reports/windows-final04-coverage.json.",
+    "evidence": [
+      "reports/windows-final04-coverage.json"
+    ],
+    "impact": "This independent campaign cannot qualify the whole executable package.",
+    "confidence": "confirmed evidence gap; not proof of an implementation defect",
+    "proposed_correction": "Execute independently specified legacy/scaffolding/error/recovery branches, preserving the denominator and all failed attempts."
+  },
+  {
+    "id": "QA-GAP-02",
+    "classification": "unperformed native coverage",
+    "severity": "high",
+    "requirement": "BAT-01 through BAT-17 applicable cold workflows",
+    "source_locations": [
+      "SKILL.md:9",
+      "references/adaptation.md:23",
+      "references/project-binding.md:5"
+    ],
+    "expected": "Applicable cold tasks complete within bounded attempts with authored artifacts and independent readback.",
+    "actual": "Seven initial access-denied attempts; predecessor approved create/edit passed while seven other tasks timed out; final routing classifications passed while two reviews and import timed out. Import published partially verified artifacts before its limit.",
+    "reproduction": "See native/*-01/prompt.txt, plan.json, result.json and output/stderr.txt.",
+    "evidence": [
+      "native/ordinary-create-01/output/stderr.txt",
+      "coverage-summary.json",
+      "reports/native-predecessor-assessment.md",
+      "reports/native-final04-assessment.json"
+    ],
+    "impact": "No complete native set orchestration, discovery/convention, update review/resume, or generated no-product-write assurance follows from helper tests.",
+    "confidence": "confirmed execution/coverage gap; no implementation defect inferred",
+    "proposed_correction": "Diagnose bounded host/task completion cost before any separately authorized fresh campaign. Preserve timeout evidence and complete unperformed BAT subcases; do not claim an implementation defect from timing alone."
+  },
+  {
+    "id": "QA-NOTE-03",
+    "classification": "audit harness correction",
+    "severity": "low",
+    "requirement": "QA prompt independent fixture and exact evidence quality",
+    "source_locations": [
+      "test_independent.py:209",
+      "native_campaign.py:32"
+    ],
+    "expected": "Fixtures honor custody run layout and native capture bounds before tests.",
+    "actual": "First Windows suite used the wrong run layout in four cases; 38 passed and four setup/oracle errors were retained. Fresh corrected Windows attempt passed 42/42. Native initial inventory lacked no-follow bounds; fixed before root create03, preserving script. Extension initially failed import before cases; fixed before 14 cases passed.",
+    "reproduction": "Compare inputs/test_independent-attempt01.py and reports/windows-independent-results-attempt01.json with current test_independent.py.",
+    "evidence": [
+      "inputs/test_independent-attempt01.py",
+      "reports/windows-independent-results-attempt01.json",
+      "inputs/native_campaign-before-inventory-fix.py"
+    ],
+    "impact": "Initial setup failures do not count as product failures or valid TDD red results.",
+    "confidence": "confirmed audit limitation",
+    "proposed_correction": "Retain both attempts and use corrected fixtures; do not inflate the required-case denominator using retries."
+  },
+  {
+    "id": "QA-DEFECT-04",
+    "classification": "implementation defect, remediated by maintainer",
+    "severity": "medium",
+    "requirement": "BA-002/BA-009; sections 4.2/6.2; BAT-07 unsafe/excluded paths",
+    "source_locations": [
+      "assets/adaptive-runtime/check_project_binding.py:112"
+    ],
+    "expected": "Environment file prefixes are excluded before content capture; Windows .ENV resolves through .env and must be rejected.",
+    "actual_predecessor": "On ecb5f805, synthetic .ENV had a true lowercase .env alias yet returned exit0/MATCH/BOUND.",
+    "reproduction": "probe_env_case.py; preserved reports/env-case-plan.json and env-case-result.json.",
+    "evidence": [
+      "reports/env-case-result.json",
+      "reports/windows-final04-results.json"
+    ],
+    "impact": "Excluded environment files could be included in exact package capture instead of failing closed. No real secrets were used or emitted in this trial.",
+    "confidence": "confirmed native Windows reproduction; correction independently verified",
+    "proposed_correction": "Maintainer changed p.startswith to p.casefold().startswith, updated documentation/manifest. Auditor applied no source fix.",
+    "remediation_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "retest": "Final04 .ENV, .Env and .ENV.local regressions all reject with UNSAFE_PATH; complete independent suite replayed."
+  }
+]

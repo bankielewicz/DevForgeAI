@@ -1,0 +1,202 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2310456388212Z",
+  "target_name": "dev",
+  "review": "Primary validator self-review; no independent semantic correctness guarantee",
+  "local_links_checked": [
+    {
+      "document": "validation-report.md",
+      "target": "source-manifest.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "checks.jsonl",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "findings.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "origin-record.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "evaluation-summary.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "revision-spec.md",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "trials/DV-17/project/receipts/context.md",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "trials/DV-17/project/receipts/delivery.md",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "trials/DV-17/prompt.txt",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "trials/DV-17/attempt-001/effects.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "input-binding-audit.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "inputs/observations/authoring-intake.stdout",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "handoff.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "semantic-observations.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "workflow-map.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "rule-set.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "sources.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "extension-policy.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "native-plan.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "commands",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "native-case-results.jsonl",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "verification/commands/node-001/command.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "verification/commands/node-001/stdout.txt",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "inputs/bundle/artifact-manifest.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "inputs/bundle/runner.py",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "inputs/bundle/expected-results.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "inputs/native-extension-binding.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "inputs/native-receipt-audit.json",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "revision-spec.md",
+      "exists": true
+    },
+    {
+      "document": "validation-report.md",
+      "target": "findings.json",
+      "exists": true
+    },
+    {
+      "document": "revision-spec.md",
+      "target": "source-manifest.json",
+      "exists": true
+    },
+    {
+      "document": "revision-spec.md",
+      "target": "inputs/inputs/06-dev-skill-spec.md",
+      "exists": true
+    },
+    {
+      "document": "revision-spec.md",
+      "target": "origin-record.json",
+      "exists": true
+    },
+    {
+      "document": "revision-spec.md",
+      "target": "handoff.json",
+      "exists": true
+    }
+  ],
+  "complete_proposal_requirement_ids": "DEV-001..026 and REV-001..004",
+  "proposed_fix_cases": "RV-01..06, future execution NOT_RUN",
+  "case_accounting": {
+    "passing": 16,
+    "required": 18,
+    "pass_rate": 88.88888888888889,
+    "counts": {
+      "ERROR": 0,
+      "FAIL": 1,
+      "NOT_APPLICABLE": 0,
+      "NOT_RUN": 1,
+      "PASS": 16
+    }
+  },
+  "native_jsonl_receipts_checked": 44,
+  "native_receipt_hash_references_checked": 169,
+  "receipt_audit_limits": "JSONL receipts only; DV-11 JSON analysis record reviewed separately; no statistical provenance or OS isolation claim",
+  "schema_record_references_checked": 553,
+  "schema_errors": [],
+  "source_readback": "MATCH",
+  "current_input_hashes_rechecked": 12,
+  "prior_sealed_files_rechecked": 982,
+  "active_owned_jobs": [],
+  "timestamp": "2026-09-14T00:15:59.343770Z"
+}

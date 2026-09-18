@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "-c",
+    "apps._default.enabled=\"bogus\"",
+    "features",
+    "list"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "executable_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "start": "2026-09-15T21:32:22.360777+00:00",
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\profile-research\\09-app-default-type\\fixtures",
+  "owned_pid": 23196,
+  "exit_code": 1,
+  "elapsed_seconds": 0.04700000000593718,
+  "end": "2026-09-15T21:32:22.407815+00:00",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "aa1b3529eb425dab41593daecea77d88a118810c4a11c7eb0aa21df5028377ce"
+}

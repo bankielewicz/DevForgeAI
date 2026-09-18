@@ -1,0 +1,17 @@
+{
+  "project": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project",
+  "input": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\decimal-ledger-spec.md",
+  "destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\src\\agents\\skills\\decimal-ledger-spec",
+  "evidence": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec",
+  "original_paths_checked_for_reparse_points": true,
+  "exclusions": [
+    "source Claude package",
+    "tests contents",
+    "deterministic-candidate",
+    "other trials",
+    "implementation logs",
+    "backup directories",
+    "legacy CLI/hook folders"
+  ],
+  "note": "No excluded contents inspected. Required evaluator will internally hash its own complete bound builder package; this is its mandatory integrity check, not a manual fixture inspection."
+}

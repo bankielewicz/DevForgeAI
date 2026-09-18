@@ -1,0 +1,980 @@
+[
+  {
+    "name": "capture::tests::chunk_independent_hash_invalid_utf8_and_final_line",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "capture::tests::exact_and_over_combined_byte_line_queue_and_detail_budgets",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "capture::tests::reader_error_disconnected_consumer_and_closed_classifier",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "capture::tests::summary_validation_rejects_forged_incomplete_hash_and_eof",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "logging::tests::optional_sink_failure_and_event_byte_caps_are_non_authoritative",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "logging::tests::sink_levels_and_inspector_reject_missing_changed_or_partial_evidence",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::additional_reparse_after_the_two_mappings_is_rejected",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::changed_target_and_changed_mapping_order_are_rejected",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::directory_symlink_cannot_substitute_for_a_junction",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::exact_two_junction_chain_admits_only_the_physical_executable",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::identity_schema_and_record_adapter_are_closed",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::mapping_and_bytes_are_rechecked_and_drift_is_rejected",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::missing_physical_digest_mismatch_and_unsupported_adapter_are_rejected",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::repeated_junction_mapping_is_rejected_as_a_loop",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_identity::tests::same_bytes_at_another_physical_path_do_not_bypass_identity",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::cases::credential_named_files_are_rejected_before_content_is_read",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::cases::deserialized_entry_shape_is_validated_before_bindings_are_used",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::cases::directory_membership_and_fresh_verification_detect_drift",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::closed_inventory_shape_rejects_invalid_state_tuples_and_version",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::collector_enforces_entry_and_aggregate_byte_bounds",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::credential_like_and_non_unicode_names_fail_closed",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::directory_member_bound_and_required_file_type_are_enforced",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::hash_size_drift_and_non_absolute_paths_fail_closed",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::missing_paths_are_explicit_and_directory_order_is_stable",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::plugin_tree_grammar_rejects_unknown_members_and_indexes_controls",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::edges::rule_and_ancestor_depth_bounds_fail_closed",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::plugin_source_identity_cases::si_t01_exact_reviewed_junction_reads_physical_sources_once",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::plugin_source_identity_cases::si_t02_changed_same_byte_escaping_and_missing_targets_reject",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::plugin_source_identity_cases::si_t03_wrong_type_ordinary_and_missing_junction_reject",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::plugin_source_identity_cases::si_t04_unlisted_loop_nested_reparse_and_wrong_depth_reject",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::plugin_source_identity_cases::si_t05_physical_bytes_and_indexed_membership_drift_invalidate_inventory",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_sources::plugin_source_identity_cases::si_t06_schema_identity_and_mapping_tampering_reject",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol::diagnostic_cases::diagnostic_process_guard_keeps_zero_active_denied_before_send_and_at_final_check",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol::diagnostic_cases::diagnostic_source_write_failure_is_not_success_and_never_serializes_error_text",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol::diagnostic_cases::logging_optional_file_failure_does_not_interrupt_peer_or_cleanup",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol::diagnostic_cases::logging_runtime_query_failed_mandatory_write_failure_is_not_waived",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol::diagnostic_cases::logging_runtime_query_failed_retains_null_counts_no_rpc_and_cleanup",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "request::review_v2_cases::inventory_digest_shape_fixture_and_freshness_are_mandatory",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "request::review_v2_cases::preflight_accepts_false_findings_while_run_requires_all_true",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "request::review_v2_cases::profile_sources_exactly_cover_inventory_file_bindings",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "request::review_v2_cases::request_profile_and_review_policy_bindings_cannot_diverge",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "request::review_v2_cases::review_inventory_and_profile_source_paths_through_reparse_reject",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "request::review_v2_cases::v2_review_is_closed_and_binds_all_selected_identities",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "runner::final_source_check_cases::final_native_check_rejects_missing_review_for_work_and_preflight",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "runner::final_source_check_cases::si_t08_changed_source_after_intent_stops_before_real_process_creation",
+    "status": "PASS",
+    "category": "unit",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "valid_fixture_is_admitted_and_invalid_fields_are_rejected",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "invalid_cli_is_json_and_nonzero",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_17",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_18",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_19",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_20",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_config_categories_preserve_closed_denials_and_first_failure_order",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "pinned_profile_observations_validate_and_project_only_approved_fields",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "unsafe_incomplete_or_malformed_observations_fail_closed",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "apps_require_unique_disabled_non_callable_bounded_state",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "feature_pages_accept_only_complete_bounded_closed_state",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "hooks_cover_supported_shapes_without_retaining_payloads",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "mcp_pages_require_inactive_empty_unique_complete_state",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "plugins_cover_supported_sources_and_reject_active_or_unbounded_state",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "provider_endpoints_and_closed_session_policy_fail_closed",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "requirements_and_public_roots_preserve_typed_error_boundaries",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "reviewed_config_sources_and_single_session_layer_are_enforced",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "current_schema_one_capture_cannot_bypass_success_checks",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "dropped_detail_and_pre_stop_timing_do_not_invalidate_complete_capture",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "failure_outcomes_preserve_incomplete_capture_and_nullable_exits",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "historical_schema_one_and_two_remain_inspectable",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "interrupted_prefix_keeps_incomplete_capture_as_observation",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "qa_log_01_completed_requires_complete_capture_at_every_level",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "qa_log_01_preflight_requires_complete_capture",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "qa_log_02_completed_requires_present_typed_matching_exit",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "qa_log_02_failed_run_still_requires_post_stop_field_presence",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "qa_log_02_preflight_requires_present_typed_matching_exit",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "fixed_policy_has_exact_closed_identity_and_argument_vector",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "policy_binding_rejects_every_caller_controlled_identity_mismatch",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "arbitrary_protocol_method_names_cannot_become_log_text_at_any_level",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "config_drift_after_intent_is_rejected_at_final_boundary",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "config_exact_size_and_real_junction_boundary",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "config_rejects_malformed_unknown_missing_drift_and_escape_before_spawn",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "delayed_consumer_drains_more_than_32_chunks_without_deadlock",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "early_stderr_and_silent_exit_survive_without_protocol_receive",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "historical_evidence_inspection_keeps_legacy_input_compatibility",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "inspector_rejects_missing_summary_log_and_modified_log",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "levels_preserve_mandatory_evidence_and_never_store_child_canaries",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "policy_targets_real_mcp_keys_under_literal_cli_dotted_key_rules",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_profile_schema_is_closed_and_requires_both_policy_fields",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "schema_two_peer_and_legacy_profile_extensions_are_rejected",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "v2_pinned_physical_identity_is_admitted",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "cli_control_and_inspect_paths",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "fixture_inventory_and_bounded_request_reads",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "journal_corruption_is_not_promoted",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "process_failure_and_pipe_ownership",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "protocol_typed_events_duplicates_pagination_and_failures",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "scenario_cancel_and_evidence_failure_precedence",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "exact_independent_result",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "rejects_invalid_results",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "inspection_mode_rejects_peers_and_source_inventory_is_observable_without_launch",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_is_a_closed_terminal_operation",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "inspection_distinguishes_preflight_from_a_completed_turn",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "native_atomic_job_and_verified_stop",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_13",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_14",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_15",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_16",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "credential_store_is_not_an_admissible_profile_source",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "reviewed_native_profile_sources_and_findings_are_checked_without_launch",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "unavailable_review_retains_incomplete_evidence_without_reading_credentials",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_config_denial_is_closed_and_preserves_rejection",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_config_rpc_guard_and_validator_branches_are_distinct",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_failures_preserve_deadlines_cancellation_and_evidence_failure",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_initialize_counts_include_exited_descendant",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_rpc_denial_never_retains_server_message",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "diagnostic_success_counts_are_closed_and_cannot_qualify_work",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_accepts_schema_valid_omitted_final_cursors",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_rejects_a_transient_descendant_even_after_it_exits",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_rejects_active_hooks_plugins_apps_and_mcp_servers",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_rejects_active_or_conflicting_effective_config",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_requires_every_disabled_feature_and_complete_pagination",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "profile_projection_does_not_persist_private_response_fields",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "rate_limit_measurement_is_explicit_when_unavailable_and_blocks_when_exhausted",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_01",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_02",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_03",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_04",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_05",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_06",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_07",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_08",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "feature_pagination_enforces_page_size_repeated_cursor_and_page_count_bounds",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "server_requests_are_denied_with_the_captured_response_and_never_granted",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "stderr_is_drained_as_omitted_content_without_persisting_private_bytes",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "unavailable_or_invalid_rate_limit_measurements_are_explicit_and_sanitized",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_09",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_10",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_11",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "wf_12",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "full_pipe_server_reply_deadline_and_cancel_stop_descendants",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "interrupt_write_into_full_pipe_obeys_single_grace_budget",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "malformed_error_payloads_never_reach_journal_or_stdout",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "ordinary_rpc_write_and_interrupt_share_bounded_teardown",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "all_pre_response_notifications_are_reconciled",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "cancellation_before_ids_allows_cooperative_eof_exit",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "captured_native_launcher_reparse_is_rejected_without_launching",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "duplicate_completions_are_idempotent_and_conflicts_fail",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "duplicate_nested_profile_is_rejected",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "home_boundary_only_allows_peer_temporary_roots",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "lost_interrupt_transport_still_waits_for_owned_process",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "successful_peer_has_observed_zero_exit",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "terminal_claim_requires_observed_result",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "unapproved_peer_executable_is_rejected_before_spawn",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "usage_retains_only_typed_counters",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "valid_output_cannot_override_nonzero_worker_exit",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "disappearing_fixture_after_admission_cannot_be_a_successful_run",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "journal_creation_and_exclusive_writes_preserve_existing_bytes_on_failure",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "public_preflight_review_rejects_a_peer_without_native_profile",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "public_review_entrypoints_reject_untrusted_bytes_before_work",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "source_cli_distinguishes_invalid_paths_from_unqualified_source_types",
+    "status": "PASS",
+    "category": "integration",
+    "attempt": "08-coverage"
+  },
+  {
+    "name": "real_windows_invalid_utf8_and_unterminated_line_preserve_exact_bytes",
+    "status": "PASS",
+    "category": "supplemental",
+    "attempt": "09-supplemental"
+  }
+]

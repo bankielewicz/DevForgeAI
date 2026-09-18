@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\run_suite.py",
+    "red-prewrite",
+    "--modules",
+    "test_prewrite_destination"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "shell": "Native Windows Python subprocess argument vector; launched from PowerShell",
+  "filesystem": "Windows C:",
+  "start": "2026-09-15T12:59:36.664514+00:00",
+  "timeout_seconds": 120,
+  "exit_code": 1,
+  "elapsed_seconds": 1.0469999999913853,
+  "timeout": false
+}

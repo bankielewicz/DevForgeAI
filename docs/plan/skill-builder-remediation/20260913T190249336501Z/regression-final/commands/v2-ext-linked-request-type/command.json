@@ -1,0 +1,33 @@
+{
+  "case": "v2-ext-linked-request-type",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "coverage",
+    "run",
+    "--append",
+    "--branch",
+    "--data-file=C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\coverage-data",
+    "--source=C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\coverage_driver.py",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\adaptive.py",
+    "inspect",
+    "--record",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\extended-03\\request-type\\set.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final",
+  "expected": {
+    "exit": 1,
+    "field": "status",
+    "value": "INVALID",
+    "read_only_root": null,
+    "before_manifest": null
+  },
+  "start_utc": "2026-09-13T19:23:08.806033+00:00",
+  "stdin_sha256": null
+}

@@ -1,0 +1,12 @@
+{
+  "scope": "All 36 frozen candidate files; detailed changed-source and all Rust test/support inspection",
+  "mock_decorator_result": "PASS: no mock decorator, alias, re-export, wrapper, proc-macro test-double dependency, or analogous mocking attribute found",
+  "attributes_resolved": ["test", "derive", "serde", "cfg(test)", "path"],
+  "other_attribute": "tests/support/mod.rs uses allow(dead_code) only because each integration test binary consumes a subset of the shared fixture API; it is test support and not a production coverage exclusion",
+  "cargo_dependencies": "serde, serde_json, sha2, windows-sys, tempfile; no mocking framework",
+  "result_gaming_result": "PASS: no vacuous constant assertion, swallowed failure credited as success, ignored/skipped case, duplicate pass inflation, fabricated success output, or production coverage suppression confirmed",
+  "test_boundary": "The deterministic Rust peer is an external process whose received request trace, OS handles, exits, journal bytes, sentinels, deadlines, and process-tree state are asserted. It is not credited as native Codex behavior.",
+  "coverage_integrity": "Every LLVM-reported normalized src executable file is included; tests/support is excluded only as test code",
+  "qa_helper_integrity": "Two QA helper files inspected before first use and again after the single correction; only #[test] attributes, no mock/gaming pattern",
+  "unresolved_dynamic_regions": []
+}

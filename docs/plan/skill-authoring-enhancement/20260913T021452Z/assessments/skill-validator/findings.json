@@ -1,0 +1,6 @@
+{
+  "schema_version": "1",
+  "run_id": "skill-validator-delivered",
+  "target_name": "skill-validator",
+  "findings": []
+}

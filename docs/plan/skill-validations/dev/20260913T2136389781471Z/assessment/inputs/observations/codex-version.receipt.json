@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "--version"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:39:04.161497+00:00",
+  "end": "2026-09-13T21:39:04.208498+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120,
+  "stdout": {
+    "path": "observations/codex-version.stdout",
+    "sha256": "5efa0283757c66156d45d082b4e2e8afb881de3a97862bc03aed7fb34f45df7b"
+  },
+  "stderr": {
+    "path": "observations/codex-version.stderr",
+    "sha256": "c96089a817a6342487c88a29b7657729739c1b27ea3efd08d2c0c4d016242c1a"
+  }
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "qa_status": "OPEN",
+    "development_status": "FIX_REPORTED",
+    "independent_retest": "NOT_RUN",
+    "candidate_manifest": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate-manifest.json",
+      "bytes": 19466,
+      "sha256": "4a25130c9353ec65553ed8c26cb75e76af5833ce4e2d80e8c62ecd9297b5d7a7"
+    },
+    "runtime_source": {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\src\\journal.rs",
+      "bytes": 19978,
+      "sha256": "7562593031cef88850c37abd7377a80f284f182efd0aadc6fb5c620271289163"
+    },
+    "regressions": {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\tests\\inspection_consistency.rs",
+      "bytes": 15809,
+      "sha256": "beffdc6a6a42729c5a8f3cc89233e914cdbac36b234060f49deab1dac8f97e93"
+    },
+    "red": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\receipt.json",
+    "green": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\receipt.json",
+    "refactor": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\04-refactor\\receipt.json",
+    "final_campaign": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\08-coverage\\receipt.json",
+    "id": "QA-LOG-01",
+    "requirements": [
+      "LG-02",
+      "LG-03",
+      "LG-06",
+      "logging-design case12"
+    ],
+    "correction": "Retain typed Capture through terminal; require drain_complete and no byte overflow for current successful outcomes; existing validate enforces both EOF and absent reader errors.",
+    "tests": [
+      "qa_log_01_completed_requires_complete_capture_at_every_level",
+      "qa_log_01_preflight_requires_complete_capture",
+      "current_schema_one_capture_cannot_bypass_success_checks"
+    ],
+    "compatibility": "Actual failed/blocked/cancelled/timed_out/cleanup_uncertain controls, incomplete capture, nullable exits, historical schema1/2, interrupted prefix and dropped detail pass.",
+    "retest": "Independently repeat each both-stream mutation against fresh completed and synthetic preflight records, plus failure/history/read-only controls; do not reuse exclusive old attempt paths."
+  },
+  {
+    "qa_status": "OPEN",
+    "development_status": "FIX_REPORTED",
+    "independent_retest": "NOT_RUN",
+    "candidate_manifest": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate-manifest.json",
+      "bytes": 19466,
+      "sha256": "4a25130c9353ec65553ed8c26cb75e76af5833ce4e2d80e8c62ecd9297b5d7a7"
+    },
+    "runtime_source": {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\src\\journal.rs",
+      "bytes": 19978,
+      "sha256": "7562593031cef88850c37abd7377a80f284f182efd0aadc6fb5c620271289163"
+    },
+    "regressions": {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\tests\\inspection_consistency.rs",
+      "bytes": 15809,
+      "sha256": "beffdc6a6a42729c5a8f3cc89233e914cdbac36b234060f49deab1dac8f97e93"
+    },
+    "red": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\01-red\\receipt.json",
+    "green": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\02-green\\receipt.json",
+    "refactor": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\04-refactor\\receipt.json",
+    "final_campaign": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\08-coverage\\receipt.json",
+    "id": "QA-LOG-02",
+    "requirements": [
+      "LG-02",
+      "LG-06",
+      "base sections4/7"
+    ],
+    "correction": "Require worker_exit_code key before Option<u32> decoding; retain typed observation; successful current terminals require matching independently observed zero exits.",
+    "tests": [
+      "qa_log_02_completed_requires_present_typed_matching_exit",
+      "qa_log_02_preflight_requires_present_typed_matching_exit",
+      "qa_log_02_failed_run_still_requires_post_stop_field_presence"
+    ],
+    "compatibility": "Explicit null remains valid for legitimate failure observations; matching nonzero failed child controls pass; absent mandatory fields reject; historical records retain schema semantics.",
+    "retest": "Independently test missing/null/type/range and 29-vs-0 contradictions, matching successful zero and failed nonzero/null, both success branches and no replay. Closure belongs to separately selected QA."
+  }
+]

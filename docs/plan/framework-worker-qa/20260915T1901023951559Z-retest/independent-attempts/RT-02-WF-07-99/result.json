@@ -1,0 +1,168 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-target\\debug\\qa-driver.exe",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\RT-02-WF-07-99\\request.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\RT-02-WF-07-99",
+  "started": "2026-09-15T19:09:53.170072+00:00",
+  "executable_sha256": "37a0f7985d14b72d3f45a0bd091f001c37ef8387168170370d6d577fc2bde299",
+  "expected_exit": 4,
+  "bound_seconds": 5,
+  "owned_driver_pid": 33420,
+  "held_peer_pid": 51056,
+  "deadline_overrun": false,
+  "actual_exit": 4,
+  "elapsed_seconds": 0.32800000000861473,
+  "peer_stopped_after": true,
+  "large_request_sent": false,
+  "trace": [
+    {
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "capabilities": {
+          "experimentalApi": false
+        },
+        "clientInfo": {
+          "name": "devforgeai_worker_probe",
+          "version": "0.1.0"
+        }
+      }
+    },
+    {
+      "method": "initialized",
+      "params": {}
+    },
+    {
+      "id": 2,
+      "method": "account/read",
+      "params": {
+        "refreshToken": false
+      }
+    },
+    {
+      "id": 3,
+      "method": "model/list",
+      "params": {
+        "cursor": null,
+        "limit": 100
+      }
+    },
+    {
+      "id": 4,
+      "method": "account/rateLimits/read",
+      "params": {}
+    },
+    {
+      "id": 5,
+      "method": "thread/start",
+      "params": {
+        "approvalPolicy": "never",
+        "approvalsReviewer": "user",
+        "cwd": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\RT-02-WF-07-99\\fixture",
+        "ephemeral": true,
+        "model": "test-model",
+        "modelProvider": "openai",
+        "sandbox": "read-only"
+      }
+    },
+    {
+      "id": 6,
+      "method": "turn/start",
+      "params": {
+        "approvalPolicy": "never",
+        "approvalsReviewer": "user",
+        "cwd": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\RT-02-WF-07-99\\fixture",
+        "effort": "test-effort",
+        "input": [
+          {
+            "text": "Evaluate this synthetic OrderDesk transition table. Return only JSON with a results array; each entry has id, final_state and outcomes. A winning cancel produces cancelled and a winning dispatch produces dispatched; winning outcome is applied, all later or non-ready actions produce conflict. Preserve input order. Do not call tools, delegate work, modify files or access other data. This is a data exercise, not permission to operate OrderDesk.\n{\"schema_version\":1,\"rule\":\"Only ready orders can transition; the first action wins and every later action conflicts.\",\"cases\":[{\"id\":\"A\",\"initial\":\"ready\",\"actions\":[\"cancel\",\"dispatch\"]},{\"id\":\"B\",\"initial\":\"ready\",\"actions\":[\"dispatch\",\"cancel\"]},{\"id\":\"C\",\"initial\":\"dispatched\",\"actions\":[\"cancel\"]}]}\n",
+            "type": "text"
+          }
+        ],
+        "model": "test-model",
+        "outputSchema": {
+          "additionalProperties": false,
+          "properties": {
+            "results": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "final_state": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "outcomes": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "id",
+                  "final_state",
+                  "outcomes"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "results"
+          ],
+          "type": "object"
+        },
+        "sandboxPolicy": {
+          "networkAccess": false,
+          "type": "readOnly"
+        },
+        "threadId": "qa-thread"
+      }
+    },
+    {
+      "id": 7,
+      "method": "turn/interrupt",
+      "params": {
+        "threadId": "qa-thread",
+        "turnId": "qa-turn"
+      }
+    }
+  ],
+  "event_kinds": [
+    "admitted",
+    "spawn_intent",
+    "server_started",
+    "profile_checked",
+    "thread_bound",
+    "turn_intent",
+    "turn_bound",
+    "stop_requested",
+    "process_exit",
+    "terminal"
+  ],
+  "terminal": {
+    "fixture_unchanged": true,
+    "open_work": [
+      "qa-work"
+    ],
+    "oracle": "not_evaluated",
+    "outcome": "failed",
+    "reason": "protocol_error",
+    "thread_id": "qa-thread",
+    "tree_stopped": true,
+    "turn_id": "qa-turn",
+    "usage": null,
+    "worker_exit_code": 1
+  },
+  "pass": true,
+  "fixture_unchanged": true,
+  "private_marker_files": [],
+  "candidate_manifest_sha256": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+  "fixture_sha256_after": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "stdout_sha256": "11d4acabe70c89260fb600ffb315b67ba876c4dbe55dbe86351842741696bb8e",
+  "stderr_sha256": "62a11a9e9171668ed75f702d1b656e97a5fdf6ea759e8eba7840ae1ba692a3e8"
+}

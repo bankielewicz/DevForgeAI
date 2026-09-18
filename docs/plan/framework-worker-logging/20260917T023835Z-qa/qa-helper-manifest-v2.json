@@ -1,0 +1,37 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\byte_peer.rs",
+    "bytes": 2443,
+    "sha256": "264322a04483655835324a42adcbb2c6d99649942c9f3816e611c1f9686bd5f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\Cargo.lock",
+    "bytes": 7500,
+    "sha256": "e0d34974069e4d98cccbab73e6263d1ebae3bfdaab4b1b70303d95935b870e89"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\Cargo.toml",
+    "bytes": 582,
+    "sha256": "cc71d395959dc9935e6008f38c711c65057f9f94483c2aca34ebeee3b5632721"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\expected.json",
+    "bytes": 3942,
+    "sha256": "399c09d82a9bdb68cdf19c666d4a322072e9c1b1b5e8920c92dbb90dbee85ee8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\generate_expected.py",
+    "bytes": 1357,
+    "sha256": "02504ca2e72f7e80ca9952bdb7b3ff875f29ed93955cb9b46f622c780fc137a1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\independent.rs",
+    "bytes": 21975,
+    "sha256": "dab4beb6341f15bde8485ff9198756dda6c8cd83aafd7a76e223988f4b073a81"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\harness-gap-01.md",
+    "bytes": 1045,
+    "sha256": "fdbd6f83587e6d3ee51bd793eb220a4ec9daee9b1ba08b4b3d485d261f93106f"
+  }
+]

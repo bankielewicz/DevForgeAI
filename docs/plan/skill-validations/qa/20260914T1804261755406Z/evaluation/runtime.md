@@ -1,0 +1,11 @@
+# Evaluation runtime and boundaries
+
+Windows-native Python 3.10.11; standard library for runner/graders/tests. PyYAML 6.0.2 is used by the separately captured installed structural helpers. Coverage.py 7.9.0 measures this evaluation code only, not the instruction-only qa package or framework code. No dependency was installed.
+
+`run_evaluation.py --run-root <this run> --output <fresh JSONL path>` validates bundle, package and observation references, rejects duplicate case IDs, and emits each of QV-01 through QV-21 exactly once plus a summary. Output paths must be new. Exit 0 means all declared scenarios passed, 1 means a confirmed scenario failed, and 2 means incomplete execution or an input/runtime error. Inspect the retained stderr and JSONL to distinguish these causes. No code in this bundle grants framework acceptance.
+
+`graders.py` independently checks exact fractions, unique required unit inventories with retries retained separately, literal run-relative evidence hashes, and full scenario accounting. The runner verifies raw bytes and accounting; the primary validator separately reviews semantic quality and citations. A valid JSON row or a model-written PASS is not a semantic oracle.
+
+Cold native execution is performed by `inputs/native_trial.py` with the installed Codex CLI, captured prompt/case/package inputs, stdout/stderr, before/after manifests and a process-tree deadline. `inputs/native_batch.py` bounds concurrency to three. User approved 600 seconds per native case and one retained continuation of the timed-out initial case. Other attempts are not automatically retried. Child workspace-write plus prompt restrictions are not claimed as OS-enforced isolation from every readable host path.
+
+The predeclared source denominator for evaluator-code measurement is evaluation/graders.py and evaluation/run_evaluation.py. Tests, fixtures, generated records and one-run orchestration scripts are excluded because this measurement is specifically the reusable evaluator module pair; it is not a first-party framework coverage claim. No executable framework source belongs to this task. The nine-file skill package contains instructions/templates/metadata only and has no executable-line denominator.

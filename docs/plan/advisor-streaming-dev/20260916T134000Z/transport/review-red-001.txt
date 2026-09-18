@@ -1,0 +1,46 @@
+test_concurrently_drains_and_retains_exact_raw_bytes (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_nonzero_child_is_transport_complete_but_not_process_success (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_progress_discloses_only_allowlisted_metadata (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ERROR
+C:\Program Files\Python310\lib\subprocess.py:1072: ResourceWarning: subprocess 61628 is still running
+  _warn("subprocess %s is still running" % self.pid,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Program Files\Python310\lib\unittest\case.py:613: ResourceWarning: unclosed file <_io.BufferedReader name=4>
+  outcome.errors.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+C:\Program Files\Python310\lib\unittest\case.py:613: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  outcome.errors.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+test_timeout_covers_process_exit_and_bounded_cleanup (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests) ... ok
+test_accepts_utf8_bom_only_at_stream_start (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) ... ok
+test_rejects_invalid_stream_framing (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) ... test_returns_the_single_last_result_envelope (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) ... ok
+
+======================================================================
+ERROR: test_progress_discloses_only_allowlisted_metadata (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ExecuteStreamTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\advisor-streaming-dev\20260916T134000Z\transport\test_transport.py", line 92, in test_progress_discloses_only_allowlisted_metadata
+    observed = self.run_child(
+  File "C:\Projects\DevForgeAI\docs\plan\advisor-streaming-dev\20260916T134000Z\transport\test_transport.py", line 54, in run_child
+    return advisor_stream.execute_stream(
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916T134000Z-streaming\candidate\scripts\advisor_stream.py", line 268, in execute_stream
+    _consume(event, stdout, stderr, eof, errors, view)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916T134000Z-streaming\candidate\scripts\advisor_stream.py", line 158, in _consume
+    view.feed(value)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916T134000Z-streaming\candidate\scripts\advisor_stream.py", line 106, in feed
+    self._line(line)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916T134000Z-streaming\candidate\scripts\advisor_stream.py", line 133, in _line
+    if name in ALLOWED_TOOLS:
+TypeError: unhashable type: 'list'
+
+======================================================================
+FAIL: test_rejects_invalid_stream_framing (docs.plan.advisor-streaming-dev.20260916T134000Z.transport.test_transport.ParseStreamTests) (label='overflow_nonfinite')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\advisor-streaming-dev\20260916T134000Z\transport\test_transport.py", line 48, in test_rejects_invalid_stream_framing
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 7 tests in 6.234s
+
+FAILED (failures=1, errors=1)

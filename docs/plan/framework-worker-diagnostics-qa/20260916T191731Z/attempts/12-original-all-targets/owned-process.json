@@ -1,0 +1,10 @@
+{
+  "pid": 55676,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--all-targets"
+  ]
+}

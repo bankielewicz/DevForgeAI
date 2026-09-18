@@ -1,0 +1,7 @@
+{
+  "denominator": "All executable lines in seven selected builder Python files, including copied-runtime template and adapted initializer/metadata code. No first-party exclusions.",
+  "measurement": "Supplemental Windows test_extended.py commands only; earlier uninstrumented runs cannot contribute. Branch coverage separate.",
+  "tool": "coverage.py 7.9.0",
+  "floor": 95,
+  "interpretation": "Audit observation, not compiled Rust framework qualification"
+}

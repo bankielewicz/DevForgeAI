@@ -1,0 +1,90 @@
+{
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\diagnostic.rs",
+      "covered": 19,
+      "count": 19
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\effective_profile.rs",
+      "covered": 623,
+      "count": 633
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+      "covered": 263,
+      "count": 266
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\launch_policy.rs",
+      "covered": 21,
+      "count": 23
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\main.rs",
+      "covered": 124,
+      "count": 132
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\native_identity.rs",
+      "covered": 95,
+      "count": 97
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+      "covered": 7,
+      "count": 7
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+      "covered": 316,
+      "count": 335
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\profile_sources.rs",
+      "covered": 641,
+      "count": 671
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+      "covered": 662,
+      "count": 694
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+      "covered": 393,
+      "count": 407
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs",
+      "covered": 170,
+      "count": 213
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\lib.rs",
+      "covered": 0,
+      "count": 0
+    }
+  ],
+  "covered": 3334,
+  "count": 3497,
+  "percentage": "95.33886188161281098084072062",
+  "floor_met": true,
+  "excluded_first_party": [],
+  "branch_coverage": "NOT_RUN",
+  "test_runs": {
+    "12-full-offline": {
+      "passed": 133,
+      "required": 133,
+      "percentage": "100",
+      "receipt_sha256": "4764de9152cc1296a90578df8989e6530baa0c6fdc5ead0ac779bb36c4ccfd4a"
+    },
+    "15-coverage": {
+      "passed": 133,
+      "required": 133,
+      "percentage": "100",
+      "receipt_sha256": "fcd134a4317351919307576c57209745f28651e4041b989ab8efc3a486583a03"
+    }
+  },
+  "raw_sha256": "6ed67fc7d66e66b9079d58bfb9457bb93ddae85eca6e9fef02c34391b3d66134"
+}

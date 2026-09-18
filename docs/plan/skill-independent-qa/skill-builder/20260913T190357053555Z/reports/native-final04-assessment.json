@@ -1,0 +1,114 @@
+[
+  {
+    "case": "routing-description",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "exit_code": 0,
+    "timed_out": false,
+    "changed_original_files": [],
+    "added_files": [],
+    "commands": [],
+    "status": "PASS",
+    "checks": [
+      "Description-only classifications match five held-out expected answers",
+      "No tool commands or project writes"
+    ],
+    "limitation": "Classification only; does not prove host discovery or completion of selected workflows."
+  },
+  {
+    "case": "review-equivalent",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "exit_code": 1,
+    "timed_out": true,
+    "changed_original_files": [],
+    "added_files": [],
+    "commands": [
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\SKILL.md'; rg -n 'review|comparison|skill-builder' 'C:\\\\Users\\\\bryan\\\\.codex\\\\memories\\\\MEMORY.md'\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*' .\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$p = Get-Item -LiteralPath .; while ($null -ne $p) { $a = Join-Path $p.FullName '\"'AGENTS.md'; if (Test-Path -LiteralPath \"'$a) { Write-Output $a; Get-Content -LiteralPath $a }; $p = $p.Parent }; $s = '\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\references'; foreach (\"'$n in @('\"'adaptation.md','adaptive-contracts.md','project-binding.md','evidence-format.md','validation-handoff.md')) { Write-Output \"'$n; Get-Content -LiteralPath (Join-Path $s $n) }'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command 'Get-ChildItem -Force; Get-Content -LiteralPath skills/note-project/SKILL.md,skills/note-project/references/adaptive-contract.md,skills/note-project/assets/devforgeai-skill.json,skills/note-project/scripts/check_project_binding.py,history/note-core/SKILL.md,current/note-core/SKILL.md'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$s = '\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath \\\"\"'$s/references/adaptation.md\" | Select-Object -Skip 60; Get-Content -LiteralPath \"$s/references/adaptive-contracts.md\"; Get-Content -LiteralPath \"$s/references/project-binding.md\"; Get-ChildItem -LiteralPath \"$s/scripts\"; $m = Get-Content -LiteralPath '\"'C:\\\\Users\\\\bryan\\\\.codex\\\\memories\\\\MEMORY.md'; \"'$m[117..121]'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$s = '\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath \\\"\"'$s/references/adaptation.md\" | Select-Object -Last 9; Get-Content -LiteralPath \"$s/schemas/adaptation-proposal-v1.schema.json\",\"$s/schemas/project-evidence-v1.schema.json\"; Get-Content -LiteralPath \"$s/scripts/adaptive.py\" | Select-Object -First 180; Get-Command python; python --version'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$s = '\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath \\\"\"'$s/schemas/adaptive-common.schema.json\"; Get-Content -LiteralPath \"$s/scripts/adaptive.py\" | Select-Object -Skip 180 -First 155; python -B -X utf8 \"$s/scripts/adaptive.py\" --help'"
+    ],
+    "status": "NOT_RUN",
+    "checks": [
+      "Original variant and both parent inputs unchanged",
+      "No published review output before timeout"
+    ],
+    "limitation": "Required semantic disposition and proposed revision are unperformed; absence of writes before timeout is not complete no-rebase assurance."
+  },
+  {
+    "case": "review-removed",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "exit_code": 1,
+    "timed_out": true,
+    "changed_original_files": [],
+    "added_files": [],
+    "commands": [
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\SKILL.md'; rg -n 'review|comparison|variant' 'C:\\\\Users\\\\bryan\\\\.codex\\\\memories\\\\MEMORY.md'\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '\"'!node_modules'\"' -g '\"'!*lock*'\"' -g '*note*' -g '*.json' -g '*.md' .\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$skillRoot='\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; foreach (\"'$file in @('\"'references/adaptation.md','references/adaptive-contracts.md','references/project-binding.md','references/evidence-format.md','references/validation-handoff.md')) { Write-Output \\\"FILE: \"'$file\"; Get-Content -LiteralPath (Join-Path $skillRoot $file) }; $p=(Get-Location).Path; while ($p) { $a=Join-Path $p '\"'AGENTS.md'; if (Test-Path -LiteralPath \"'$a) { Write-Output \"INSTRUCTIONS: $a\"; Get-Content -LiteralPath $a }; $p=Split-Path $p -Parent }'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content -LiteralPath 'skills/note-project/SKILL.md','skills/note-project/references/adaptive-contract.md','skills/note-project/assets/devforgeai-skill.json','current/note-core/SKILL.md','history/note-core/SKILL.md'; Get-Content -LiteralPath 'C:\\\\Users\\\\bryan\\\\.codex\\\\memories\\\\MEMORY.md' -TotalCount 48\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$s='\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath \\\"\"'$s/schemas/adaptation-proposal-v1.schema.json\",\"$s/schemas/project-evidence-v1.schema.json\"; Get-ChildItem -LiteralPath \"$s/scripts\"; Get-Content -LiteralPath \"$s/references/evidence-format.md\"; Get-Content -LiteralPath \"$s/references/project-binding.md\"; python --version; Get-Command python | Select-Object Source; Get-ChildItem -LiteralPath '\"'skills/note-project' -Force; Get-ChildItem -LiteralPath 'skills/note-project/scripts' -Force\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$s='\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath \\\"\"'$s/schemas/adaptive-common.schema.json\"; rg -n '\"'review_updates|removed|parent_core|retained|state|requirements|def .*proposal' \\\"\"'$s/scripts/adaptive.py\"; Get-Content -LiteralPath \"$s/scripts/adaptive.py\" -TotalCount 100; python -B -X utf8 \"$s/scripts/adaptive.py\" --help'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$s='\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath \\\"\"'$s/scripts/adaptive.py\" | Select-Object -Skip 229 -First 91; Get-Content -LiteralPath '\"'skills/note-project/scripts/check_project_binding.py' -TotalCount 50\""
+    ],
+    "status": "NOT_RUN",
+    "checks": [
+      "Original variant and both parent inputs unchanged",
+      "No published review output before timeout"
+    ],
+    "limitation": "Required semantic disposition and proposed revision are unperformed; absence of writes before timeout is not complete no-rebase assurance."
+  },
+  {
+    "case": "ordinary-import",
+    "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+    "exit_code": 1,
+    "timed_out": true,
+    "changed_original_files": [],
+    "added_files": [
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z-inputs/contract.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z-inputs/source-accounting.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z-inputs/user-request.txt",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/authoring-baseline.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/authoring-record.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/baseline-manifest.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/baseline/SKILL.md",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/before-manifest.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/candidate-manifest.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/candidate/SKILL.md",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/contract-source.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/contract.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/delivered-manifest.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/inputs/0",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/inputs/1",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/inputs/2",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/inputs/3",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/origin.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/publication-readback.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/validation-request.json",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/validator-request.md",
+      "docs/plan/skill-authorings/brief-note/20260913T200000589170Z/write-plan.json",
+      "skills/brief-note/SKILL.md"
+    ],
+    "commands": [
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\SKILL.md'; rg -n 'import|Claude|source/operational|development-only' 'C:\\\\Users\\\\bryan\\\\.codex\\\\memories\\\\MEMORY.md'; Get-ChildItem -Force; Get-Content -LiteralPath 'C:\\\\Users\\\\bryan\\\\.codex\\\\skills\\\\.system\\\\skill-creator\\\\SKILL.md'\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$root = Get-Location; $cursor = $root.Path; while ($cursor) { $p = Join-Path $cursor '\"'AGENTS.md'; if (Test-Path -LiteralPath \"'$p) { Write-Output \"INSTRUCTIONS: $p\"; Get-Content -LiteralPath $p }; $parent = Split-Path -Parent $cursor; if ($parent -eq $cursor) { break }; $cursor = $parent }; $ref = '\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\references'; foreach (\"'$name in @('\"'authoring.md','conversion-rules.md','evidence-format.md','validation-handoff.md')) { Write-Output \\\"REFERENCE: \"'$name\"; Get-Content -LiteralPath (Join-Path $ref $name) }; Get-ChildItem -LiteralPath '\"'claude-source' -Force -Recurse | Select-Object FullName,Attributes,Length; Get-Content -LiteralPath 'claude-source\\\\brief-note\\\\SKILL.md'; \"'$m = Get-Content -LiteralPath '\"'C:\\\\Users\\\\bryan\\\\.codex\\\\memories\\\\MEMORY.md'; 406..430 | ForEach-Object { '{0}:{1}' -f \"'$_,$m[$_-1] }'",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command '$base = '\"'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder'; Get-Content -LiteralPath (Join-Path \"'$base '\"'scripts\\\\authoring.py'); Get-Content -LiteralPath (Join-Path \"'$base '\"'references\\\\spec-build.md'); Get-ChildItem -LiteralPath 'claude-source' -Filter AGENTS.md -Force; Get-ChildItem -LiteralPath 'claude-source\\\\brief-note' -Force\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\schemas\\\\authoring-contract.schema.json'; python -B --version\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"@'\nfrom pathlib import Path\nimport sys, datetime\nbuilder = Path(r'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder')\nsys.path.insert(0, str(builder / 'scripts'))\nimport authoring as a\nproject = a.safe(Path.cwd())\nsource = a.safe(project / 'claude-source/brief-note')\ntarget = a.safe(project / 'skills/brief-note', write=True)\noriginal = a.files(source)\nif target.exists():\n    raise SystemExit('Destination occupied; stop before authoring')\nrun_id = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')\nparent = project / 'docs/plan/skill-authorings/brief-note'\ninputs = a.safe(parent / (run_id + '-inputs'), write=True)\nrun = a.safe(parent / run_id, write=True)\ninputs.mkdir(parents=True, exist_ok=False)\nrequest = r'''Use the selected development skill entrypoint: C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\SKILL.md\nImport the Claude skill at C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\native\\\\ordinary-import-04\\\\project/claude-source/brief-note into a Codex development skill named brief-note at C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\native\\\\ordinary-import-04\\\\project/skills/brief-note, preserving its note format and meaning.\nAll writes are authorized only inside C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\native\\\\ordinary-import-04\\\\project. Read any selected skill without modifying it. No installations, external publication, configuration edits or real operational effects are authorized.\n'''\n(inputs / 'user-request.txt').write_text(request, encoding='utf-8')\na.save(inputs / 'source-accounting.json', {\n    'source_root': str(source), 'manifest': a.manifest(original),\n    'dispositions': [{'path': 'SKILL.md', 'disposition': 'rewrite', 'target_path': 'SKILL.md', 'reason': 'Replace Claude Read tool name with an available file-reading instruction; preserve frontmatter, summary followed by two bullets, dates, names, missing-input question and output boundary.'}],\n    'omissions': [], 'unsupported_features': [], 'consumer_compatibility': 'No downstream consumer supplied or inspected; compatibility unverified.'\n})\nc = {\n    'schema_version': 'authoring-contract-v1', 'run_id': run_id,\n    'project_root': str(project), 'target_root': str(target), 'target_name': 'brief-note',\n    'operation': 'import', 'authorization': request, 'history_review': 'no_known_history',\n    'change_paths': ['SKILL.md'],\n    'requirements': [\n        {'origin': 'user', 'outcome': 'Import brief-note into the specified development destination, preserving note format and meaning.', 'artifacts': ['SKILL.md']},\n        {'origin': 'source:SKILL.md:5', 'outcome': 'Read a supplied local paragraph file; return one sentence followed by two bullets; preserve dates and names; ask for missing paragraph text; do not write or publish outside the requested output.', 'artifacts': ['SKILL.md']},\n        {'origin': 'derived', 'outcome': 'Replace the Claude-specific Read mechanism with an available file-reading tool scoped to the supplied file. Preserve normal implicit invocation and omit unnecessary resources.', 'artifacts': ['SKILL.md']}\n    ],\n    'purpose': 'Turn a paragraph into a concise note.',\n    'activation': 'A user requests a concise note from a paragraph.',\n    'capabilities': ['Read the explicitly supplied local paragraph file using an available file-reading tool.', 'Return text and ask for missing paragraph text.'],\n    'dependencies': [],\n    'expected_outputs': ['A one-sentence summary followed by two bullets, preserving dates and names.'],\n    'side_effects': ['Read a supplied local file when applicable.', 'Return the note only within the requested output.'],\n    'operational_constraints': ['Do not write or publish outside the requested output.'],\n    'recovery': 'Ask for missing paragraph text; if a supplied file cannot be read, report that limitation and request the text (derived handling).',\n    'inputs': [a.reference(inputs / 'user-request.txt'), a.reference(source / 'SKILL.md'), a.reference(inputs / 'source-accounting.json'), a.reference(builder / 'SKILL.md')],\n    'known_issues': []\n}\na.save(inputs / 'contract.json', c)\nprint('CONTRACT=' + str(inputs / 'contract.json'))\nprint('RUN=' + str(run))\nprint('SOURCE=' + a.digest(original['SKILL.md']))\n'@ | python -B -X utf8 -\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"python -B -X utf8 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\scripts\\\\authoring.py' begin --contract 'docs\\\\plan\\\\skill-authorings\\\\brief-note\\\\20260913T200000589170Z-inputs\\\\contract.json' --run-root 'docs\\\\plan\\\\skill-authorings\\\\brief-note\\\\20260913T200000589170Z'\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"@'\nfrom pathlib import Path\nrun = Path('docs/plan/skill-authorings/brief-note/20260913T200000589170Z')\nsource = (run / 'inputs/1').read_bytes()\ncandidate = source.replace(b'Use Read to obtain the supplied local paragraph if it is a file.', b'Use an available file-reading tool to read the supplied local paragraph file, if one is provided.')\nwith (run / 'candidate/SKILL.md').open('xb') as stream:\n    stream.write(candidate)\nprint((run / 'candidate/SKILL.md').read_text(encoding='utf-8'))\n'@ | python -B -X utf8 -\"",
+      "\"C:\\\\Program Files\\\\PowerShell\\\\7\\\\pwsh.exe\" -Command \"python -B -X utf8 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T190357053555Z\\\\source-final04\\\\skill-builder\\\\scripts\\\\authoring.py' publish --run-root 'docs\\\\plan\\\\skill-authorings\\\\brief-note\\\\20260913T200000589170Z'\""
+    ],
+    "status": "NOT_RUN",
+    "checks": [
+      "Imported prose retains source summary/bullet/date/name/missing-input behavior",
+      "Original Claude source unchanged",
+      "Published target equals captured candidate and baseline",
+      "Import AUTHORED with quality NOT_PERFORMED",
+      "Manual request binds actual authoring-record bytes"
+    ],
+    "limitation": "Published artifacts are partial positive evidence; process timed out with no final handoff, so complete BAT-17 import remains NOT_RUN."
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "N13",
+  "kind": "native",
+  "started_at": "2026-09-17T20:35:51.371145+00:00",
+  "ended_at": "2026-09-17T20:52:11.339532+00:00",
+  "elapsed_seconds": 979.9689999999828,
+  "timeout_seconds": 1800,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "266304fbd064bcdc3db949e16c18e242c056a4c431404f684eec53c6ba5d0d8a",
+  "started_sha256": "47fda2ff69408c6874a0c9415d8b47282160632d5362fd9329d8fc01202d2824",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\attempt-001\\before.json",
+      "sha256": "9f53912f99de24c801c24939006cb38d227f3a4c6db2fec6749d1b1de1b9881d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\attempt-001\\after.json",
+      "sha256": "b0f2ddae81e921783eac8562653788351d548e3c9b29d119c5ee13d005a11275"
+    }
+  ],
+  "changed_paths": [
+    ".trial-output/final.txt",
+    "evidence/qa/qa-report.md",
+    "evidence/qa/run-20260917T203658Z/capture-evidence.ps1",
+    "evidence/qa/run-20260917T203658Z/capture-output.txt",
+    "evidence/qa/run-20260917T203658Z/checkpoint.initial.json",
+    "evidence/qa/run-20260917T203658Z/checkpoint.json",
+    "evidence/qa/run-20260917T203658Z/completion-observation.txt",
+    "evidence/qa/run-20260917T203658Z/findings.md",
+    "evidence/qa/run-20260917T203658Z/guide-numbered.txt",
+    "evidence/qa/run-20260917T203658Z/handoff-manifest.json",
+    "evidence/qa/run-20260917T203658Z/intake-readback.txt",
+    "evidence/qa/run-20260917T203658Z/integrity-readback.txt",
+    "evidence/qa/run-20260917T203658Z/integrity-review.md",
+    "evidence/qa/run-20260917T203658Z/observations.json",
+    "evidence/qa/run-20260917T203658Z/plan-admission.json",
+    "evidence/qa/run-20260917T203658Z/review-notes.md",
+    "evidence/qa/run-20260917T203658Z/review-results.json",
+    "evidence/qa/run-20260917T203658Z/selection.json",
+    "evidence/qa/run-20260917T203658Z/snapshots/AGENTS.md",
+    "evidence/qa/run-20260917T203658Z/snapshots/backlog/STORY-010.story.md",
+    "evidence/qa/run-20260917T203658Z/snapshots/docs/cli-contract.md",
+    "evidence/qa/run-20260917T203658Z/snapshots/docs/restore-guide.md",
+    "evidence/qa/run-20260917T203658Z/snapshots/input/request.md",
+    "evidence/qa/run-20260917T203658Z/supplied-files.after.json",
+    "evidence/qa/run-20260917T203658Z/supplied-files.before.json",
+    "evidence/qa/run-20260917T203658Z/test-plan.md",
+    "evidence/qa/run-20260917T203658Z/tool-receipts.json"
+  ],
+  "output_checks": [
+    {
+      "path": ".trial-output/final.txt",
+      "kind": "exists",
+      "requirement_id": "SC-016",
+      "result": "PASS",
+      "reason": "Declared output observed"
+    },
+    {
+      "path": "evidence/qa/qa-report.md",
+      "kind": "exists",
+      "requirement_id": "SC-016",
+      "result": "PASS",
+      "reason": "Declared output observed"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\project\\.trial-output\\final.txt",
+      "sha256": "31d8cba7933be4c99d42bec98661d7559d3c77ebef1eb38706a84f92c694b33d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\project\\evidence\\qa\\qa-report.md",
+      "sha256": "3e7c02be6a34901ff6c6a6ed17a2655b0f2fbb3a478570b522cff20904a1be58"
+    }
+  ],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\attempt-001\\stdout.txt",
+      "sha256": "af0a6910916a4a874dd88e0056a36dcf6f52ca77d1129dfee5741a3552d52208"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\attempt-001\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

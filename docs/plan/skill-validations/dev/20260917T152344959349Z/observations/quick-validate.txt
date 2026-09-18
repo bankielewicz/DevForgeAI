@@ -1,0 +1,2 @@
+Skill is valid!
+quick_validate exit: 0

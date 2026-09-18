@@ -1,0 +1,20 @@
+
+running 1 test
+test preflight_is_a_closed_terminal_operation ... FAILED
+
+failures:
+
+---- preflight_is_a_closed_terminal_operation stdout ----
+
+thread 'preflight_is_a_closed_terminal_operation' (25256) panicked at tests\preflight_cli.rs:11:5:
+assertion `left == right` failed
+  left: String("invalid_arguments")
+ right: "input_missing"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    preflight_is_a_closed_terminal_operation
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+

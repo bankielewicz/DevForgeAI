@@ -1,0 +1,26 @@
+{
+  "source_drift": [],
+  "owned_product_processes": [],
+  "builds": [
+    {
+      "path": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/target/release/devforgeai-tray",
+      "sha256": "996b49e34908d6722a2ff38b003c61229864f348902c011f8e5b033958952b18"
+    },
+    {
+      "path": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/target/release/devforgeai",
+      "sha256": "e277ba2a18ca4516f0f318724f0d09ae9f3b4fc46cfd929f4da2b101c912215a"
+    },
+    {
+      "path": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/target/release/devforgeai-indexd",
+      "sha256": "4ed62f5bace5007b7aff5aa5c362257657dceffd5ad4b5de987e7e27f363118e"
+    }
+  ],
+  "os": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+  "llvm_cov": "/usr/bin/llvm-cov-21",
+  "llvm_profdata": "/usr/bin/llvm-profdata-21",
+  "llvm_version": "21.1.8",
+  "rustc": "1.93.1",
+  "cargo_llvm_cov": "0.9.1",
+  "temporary_state": "/tmp/devforgeai-qa-20260914T191133863776Z",
+  "profraw_count": 53
+}

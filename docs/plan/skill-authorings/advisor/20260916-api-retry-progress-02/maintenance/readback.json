@@ -1,0 +1,33 @@
+{
+  "operational_files_unchanged": 19,
+  "manifest_files_verified": 18,
+  "changed_paths": [
+    "artifact-manifest.json",
+    "references/execution.md",
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py"
+  ],
+  "syntax": "PASS",
+  "unit_tests": {
+    "passed": 89,
+    "required": 89
+  },
+  "jsonl_cases": {
+    "passed": 38,
+    "required": 38
+  },
+  "required_case_pass_rate": 100.0,
+  "covered_lines": 615,
+  "required_lines": 644,
+  "line_coverage_percent": 95.4968944099379,
+  "covered_branches": 245,
+  "required_branches": 264,
+  "branch_coverage_percent": 92.8030303030303,
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Program Files\\Python310\\python.exe",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "independent_skill_validation": "NOT_PERFORMED",
+  "native_qualification": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 3,
+  "diagnostics_ref": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-16-1HlZXfH\\logging.json",
+  "diagnostics_sha256": "7a726f9cb09f8aef53b9815699f092c67a91dae8d57130754ca2f9fe2334da96",
+  "project_id": "p",
+  "checkout_id": "c",
+  "work_id": "w",
+  "run_id": "r",
+  "candidate_sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "checkout_root": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-16-1HlZXfH\\fixture",
+  "run_dir": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\19-rt02\\M-130\\run",
+  "worker_executable": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-target\\debug\\protocol-peer.exe",
+  "worker_sha256": "f0c79ca1355750b7c51d5f07ef1bfb60087ecf6c11e4adaa66733998f9231ce3",
+  "adapter": "peer",
+  "scenario": "complete",
+  "profile": null
+}

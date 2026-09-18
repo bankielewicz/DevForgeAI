@@ -1,0 +1,65 @@
+{
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "windows": {
+    "required_unit_tests": {
+      "passed": 9,
+      "denominator": 9,
+      "percentage": 100.0,
+      "failed": 0,
+      "errored": 0,
+      "ignored": 0
+    },
+    "required_project_rust_tests": {
+      "passed": 62,
+      "denominator": 62,
+      "percentage": 100.0,
+      "failed": 0,
+      "errored": 0,
+      "ignored": 0,
+      "composition": "9 library unit tests and 53 integration tests"
+    },
+    "required_offline_wf_parent_cases": {
+      "passed": 20,
+      "denominator": 20,
+      "percentage": 100.0,
+      "all_required_subfixtures_passed": true
+    },
+    "independent_qa_compiled_cases": {
+      "final_passed": 7,
+      "denominator": 7,
+      "percentage": 100.0,
+      "identity_cases": "5/5",
+      "schema2_cases": "2/2",
+      "retained_attempts": [
+        {
+          "attempt": "helper-001",
+          "status": "ERROR",
+          "passed": 4,
+          "failed": 1,
+          "classification": "QA harness oracle path-spelling mismatch; product returned equivalent Windows extended path"
+        },
+        {
+          "attempt": "helper-002",
+          "status": "PASS",
+          "passed": 5,
+          "failed": 0,
+          "correction": "QA-only expected path was resolved before comparison; candidate source unchanged"
+        }
+      ]
+    }
+  },
+  "native_readiness_groups": {
+    "satisfied": 5,
+    "denominator": 12,
+    "required_case_percentage": 41.666666666666664,
+    "required_floor": 95.0,
+    "threshold_result": "FAIL",
+    "satisfied_ids": ["NI-T01", "NI-T02", "NI-T03", "NI-T04", "NI-T06"],
+    "partial_not_satisfied": ["NI-T05"],
+    "blocked": ["NI-T07", "NI-T08", "NI-T09", "NI-T10", "NI-T11", "NI-T12"],
+    "note": "Blocked and unexecuted required groups are non-passes. The 5/12 full declared readiness rate is below the mandatory floor and cannot support full readiness acceptance."
+  },
+  "format": "PASS",
+  "clippy_deny_warnings": "PASS",
+  "branch_coverage": "NOT_RUN"
+}

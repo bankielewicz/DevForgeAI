@@ -1,0 +1,15 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "design_capture_requested": true,
+  "contract_sha256": "091ce009c9771531daf98963153509c2b5bb13856cc679405ad2f42edd3d2be6",
+  "supplied_contract_sha256": "091ce009c9771531daf98963153509c2b5bb13856cc679405ad2f42edd3d2be6",
+  "path_resolution_sha256": "50c592eca41675baf88d49fceac7440d410317e49e3e205796ceda45839858a9",
+  "design_capture_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authorings\\sort-lines\\20260915T125449158299Z-02\\design-capture.json",
+    "sha256": "1cf0e11c213151d02eddd8b54b3f940389392be946edafef05299e011764a050"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": "adaptive-check-observation-v1",
+  "command": "package",
+  "status": "INCOMPLETE",
+  "checks": [
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F01-0e95f5a36660",
+      "rule_id": "AV-F01",
+      "subject_path": "SKILL.md",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F02-0e95f5a36660",
+      "rule_id": "AV-F02",
+      "subject_path": "SKILL.md",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "NOT_RUN",
+      "reason": "Name/directory identity; a source-named snapshot needs its original bound identity; semantic routing and selected limits require review.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-U01-7bb2bb4f93d4",
+      "rule_id": "AV-U01",
+      "subject_path": "text-scan",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-C01-557324939184",
+      "rule_id": "AV-C01",
+      "subject_path": "text-counts",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+      "evidence": []
+    }
+  ],
+  "observations": {
+    "unicode_candidates": [],
+    "resources": [
+      {
+        "path": "SKILL.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/total.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      }
+    ],
+    "edges": [],
+    "context": {
+      "tokenizer": null,
+      "files": [
+        {
+          "path": "SKILL.md",
+          "bytes": 585,
+          "characters": 585,
+          "lines": 8,
+          "tokens": null
+        },
+        {
+          "path": "scripts/total.py",
+          "bytes": 850,
+          "characters": 850,
+          "lines": 15,
+          "tokens": null
+        }
+      ],
+      "loads": [],
+      "budget": null,
+      "budget_result": "NOT_APPLICABLE",
+      "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+    }
+  },
+  "limitations": [
+    "Tokenizer not selected; token counts NOT_RUN.",
+    "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+    "No semantic, native activation, project-binding or security approval is inferred."
+  ]
+}

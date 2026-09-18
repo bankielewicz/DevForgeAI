@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\long-budget\\project",
+  "captured_at_utc": "2026-09-14T23:24:28.768255+00:00",
+  "files": [
+    {
+      "path": "actor.py",
+      "bytes": 145,
+      "sha256": "80fae09dc893f5ad09060d330621b62688345f1db20c9d8df48e95c21123f146"
+    },
+    {
+      "path": "done.txt",
+      "bytes": 27,
+      "sha256": "3d38f1fcb009e330fc6d084f267e7da1f8bfa6fb59dbefa12f2a7fdacb135052"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "a3e2e2fdae5a28f5a5988ac13c74cead26ffb3988e2c12a0bc7a5c84669d4fc1"
+}

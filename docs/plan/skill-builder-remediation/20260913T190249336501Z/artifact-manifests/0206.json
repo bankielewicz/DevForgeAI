@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-set-missing-omission",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1380,
+      "sha256": "68f177c6a113e46a86105172439a9639736a22242c1273a4889a130a5789c103"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "a2f87f170b5604436432de99b5e488319dabeacf3a4681fdaa3fb9ce6feddacb"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 156,
+      "sha256": "bf81e70e668d7eaf4415a93b0a1530d91450a79b9cf55fdf142f4d73f6bb83b7"
+    }
+  ]
+}

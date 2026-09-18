@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-03-javascript\\project",
+    "--sandbox",
+    "workspace-write",
+    "resume",
+    "01a09ec6-d503-7070-95ee-12d31aebdbac",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-03-javascript\\project\\.trial-output\\final-003.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-03-javascript\\project",
+  "started_at_utc": "2026-09-14T07:28:20.454657Z",
+  "timeout_seconds": 600,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\DV-03-javascript-003",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\DV-03-javascript-003",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\DV-03-javascript-003",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": "Resume the selected disposable JavaScript product and its evidence/checkpoint.md. The exact required node --test command has now been executed by the authorized host on the unchanged candidate. Inspect the actual command, streams, and before/after readback at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\commands\\javascript-host-qa-002\\command.json, stdout.txt and stderr.txt, and C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\javascript-host-qa\\readback-002.json. These are execution evidence, not an acceptance decision. Verify whether those bytes and prerequisites match the current selected product, then finish the selected development delivery or report the exact remaining gap. Preserve the original evidence destination evidence/ and all earlier files byte-for-byte; write any new checkpoint/delivery/verification records to new filenames beneath that root. Product source, tests, specifications, trial-skill, prior evidence and host receipts are read-only for this continuation. No network, installation, external writes, model changes, or framework acceptance. Do not rerun passing checks without a changed candidate or specific unresolved concern. This is a disclosed warm continuation, not a fresh cold-session trial.\n",
+  "termination": "exited",
+  "pid": 91848,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-14T07:31:34.084860Z",
+  "elapsed_seconds": 193.64099999994505
+}

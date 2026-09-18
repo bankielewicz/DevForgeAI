@@ -1,0 +1,106 @@
+{
+  "archive_sha256": "4ce12761fe4f1c5a52ae576825d133c8c171d7291586eb60671f832d91665744",
+  "coverage": {
+    "count": 2830,
+    "covered": 2410,
+    "percent": 85.15901060070671
+  },
+  "tests": 77,
+  "passed": 77,
+  "failed": 0,
+  "ignored": 0,
+  "per_file": [
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/bin/devforgeai-indexd.rs",
+      "count": 14,
+      "covered": 13,
+      "percent": 92.85714285714286
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/bin/devforgeai-tray.rs",
+      "count": 6,
+      "covered": 0,
+      "percent": 0.0
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/bin/devforgeai.rs",
+      "count": 5,
+      "covered": 5,
+      "percent": 100.0
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/cli.rs",
+      "count": 576,
+      "covered": 347,
+      "percent": 60.24305555555556
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/client.rs",
+      "count": 83,
+      "covered": 60,
+      "percent": 72.28915662650603
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/host.rs",
+      "count": 98,
+      "covered": 89,
+      "percent": 90.81632653061224
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/index.rs",
+      "count": 490,
+      "covered": 467,
+      "percent": 95.3061224489796
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/platform.rs",
+      "count": 171,
+      "covered": 129,
+      "percent": 75.43859649122807
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/protocol.rs",
+      "count": 172,
+      "covered": 172,
+      "percent": 100.0
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/service.rs",
+      "count": 792,
+      "covered": 757,
+      "percent": 95.58080808080808
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/source_file.rs",
+      "count": 56,
+      "covered": 54,
+      "percent": 96.42857142857143
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/storage.rs",
+      "count": 229,
+      "covered": 227,
+      "percent": 99.12663755458516
+    },
+    {
+      "file": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/dev-remediation/20260914T1950304158791Z/devforgeai/src/tray.rs",
+      "count": 138,
+      "covered": 90,
+      "percent": 65.21739130434783
+    }
+  ],
+  "original_declared_units": {
+    "passed": 18,
+    "required": 18
+  },
+  "product_cases": {
+    "passed": 75,
+    "required": 75
+  },
+  "setup_cases": {
+    "passed": 2,
+    "required": 2
+  },
+  "source_manifest_sha256": "cf3ee99015db0dcc1eb544fdac1bfdb0fcd2f10bfc8b749857d52740d8258094",
+  "branch_coverage": "NOT_RUN"
+}

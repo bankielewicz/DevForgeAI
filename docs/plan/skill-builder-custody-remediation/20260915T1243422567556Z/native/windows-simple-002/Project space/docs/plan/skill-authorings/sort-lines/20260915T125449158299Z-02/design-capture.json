@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "20260915T125449158299Z-02",
+  "target_name": "sort-lines",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authoring-inputs\\sort-lines\\20260915T125449158299Z\\authoring-design.json",
+    "sha256": "c4d8e371633200dc3d9749144a1f660a8f6543bde9b9c9c4aebaf3be9619411a"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authorings\\sort-lines\\20260915T125449158299Z-02\\inputs\\1",
+    "sha256": "c4d8e371633200dc3d9749144a1f660a8f6543bde9b9c9c4aebaf3be9619411a"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "structure",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\source"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "timeout_seconds": 120,
+  "effects": "stdout/stderr and evidence only; selected target read-only",
+  "start_utc": "2026-09-15T12:12:33.393589+00:00"
+}

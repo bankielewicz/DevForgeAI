@@ -1,0 +1,96 @@
+{
+  "schema_version": "story-delivery-audit-v1",
+  "timestamp": "2026-09-17T20:56:34.081802+00:00",
+  "result": "MATCH",
+  "assessment": "PASS",
+  "target_digest": "e86c984d1ff0b7b0f0ca4c6dfa500279804ed9bfc5ad628efee7486df2bbf010",
+  "target_files_unchanged": 16,
+  "original_inputs_unchanged": 109,
+  "operational_files_unchanged": 76,
+  "bundle_files_unchanged": {
+    "20260917T185301Z": 2318,
+    "20260917T194717Z": 850
+  },
+  "check_evidence_refs_verified": 175,
+  "native_adverse_cases": 18,
+  "retained_attempts": 25,
+  "earlier_nonpass_attempts": 7,
+  "required_target_cases": 93,
+  "actual_producer_consumer_files_identical": 5,
+  "required_packet_files_present": [
+    "source-manifest.json",
+    "source-after-manifest.json",
+    "origin-record.json",
+    "sources.json",
+    "rule-set.json",
+    "workflow-map.json",
+    "checks.jsonl",
+    "findings.json",
+    "validation-report.md",
+    "enforcement-recommendations.md",
+    "handoff.json",
+    "command-log.md",
+    "assessment.json",
+    "metrics.json",
+    "input-readback.json",
+    "operational-readback.json"
+  ],
+  "local_report_links_checked": [
+    "inputs/continuation/native-attempt-history.json",
+    "../20260917T185301Z-records/validation-report.md",
+    "inputs/continuation/finding-comparison.json",
+    "handoff.json",
+    "checks.jsonl",
+    "metrics.json",
+    "workflow-map.json",
+    "../20260917T194717Z/",
+    "../20260917T194717Z/native-assessment.json",
+    "../20260917T194717Z/evaluation-bundle-manifest.json",
+    "../20260917T194717Z-supplemental/",
+    "command-log.md"
+  ],
+  "report_sha256": "ec50a3ea9a70e7d00d589ace0c5d3c0fccb361b0e111368d51e72433c4ade52c",
+  "handoff_sha256": "7b843aae5c260a96367aee7294219d4b823e56efc7523c46c4c96a15f6e74963",
+  "record_readers": [
+    {
+      "name": "legacy",
+      "execution": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\legacy-records-002.execution.json",
+      "sha256": "cf07450a42fc3d021c3fb158b00487609e320cdbcee914c7373a45c7fec2813b",
+      "status": "OBSERVED"
+    },
+    {
+      "name": "adaptive",
+      "execution": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\adaptive-records-002.execution.json",
+      "sha256": "bb1a18ed39733a1a97500244500848251a7b389d614273107e7c8b2bf11ec879",
+      "status": "OBSERVED"
+    }
+  ],
+  "active_native_handles": 0,
+  "active_handles_basis": {
+    "schema_version": "story-continuation-session-closure-v1",
+    "active_native_handles": 0,
+    "sessions": [
+      {
+        "session_id": 20470,
+        "command": "run_trials.py N02 N03 N04 N05 N10 N12",
+        "exit_code": 0,
+        "completion_tool_chunk": "ca23d0"
+      },
+      {
+        "session_id": 78406,
+        "command": "run_adverse.py G01 G02 G03",
+        "exit_code": 0,
+        "completion_tool_chunk": "9452c6"
+      },
+      {
+        "session_id": 51020,
+        "command": "run_trials.py N13",
+        "exit_code": 0,
+        "completion_tool_chunk": "bd6e34"
+      }
+    ],
+    "basis": "Each launched continuation case has a final receipt with VERIFIED process cleanup, and all three orchestration sessions were explicitly polled to their final exit results. No native trial remains running."
+  },
+  "framework_acceptance": "NOT_EVALUATED",
+  "limitation": "Byte integrity, arithmetic and documented completion observations; no protected framework authority or universal behavior claim."
+}

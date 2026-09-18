@@ -1,0 +1,9 @@
+{
+  "candidate_rows_match_recorded_delta": true,
+  "all_three_results_bind_all_36_N_file_digests": true,
+  "result_cases": [
+    "candidate-links",
+    "candidate-traceability",
+    "candidate-revision"
+  ]
+}

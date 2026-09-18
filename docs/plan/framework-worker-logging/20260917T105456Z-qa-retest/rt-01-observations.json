@@ -1,0 +1,2459 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-001\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-001\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-001\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-002\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-002\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-002\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-003\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-003\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-003\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-004\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-004\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-004\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-005\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-005\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-005\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-006\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-006\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-006\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-007\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-007\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-007\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-008\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-008\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-008\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-009\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-009\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-009\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-010\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-010\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-010\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-011\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-011\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-011\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-012\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-012\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-012\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-013\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-013\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-013\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-014\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-014\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-014\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-015\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-015\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-015\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-016\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-016\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-016\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-017\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-017\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-017\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-018\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-018\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-018\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-019\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-019\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-019\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-020\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-020\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-020\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-021\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-021\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-021\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-022\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-022\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-022\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-023\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-023\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-023\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-024\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-024\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-024\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-025\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-025\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-025\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-026\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-026\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-026\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-027\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-027\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-027\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-028\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-028\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-028\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-029\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-029\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-029\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-030\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-030\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-030\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-031\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-031\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-031\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-032\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-032\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-032\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-033\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-033\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-033\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-034\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-034\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-034\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-035\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-035\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-035\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-036\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-036\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-036\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-037\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-037\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-037\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-038\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-038\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-038\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-039\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-039\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-039\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-040\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-040\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-040\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-041\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-041\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-041\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-042\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-042\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-042\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-043\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-043\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-043\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-044\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-044\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-044\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-045\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-045\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-045\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-046\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-046\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-046\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-047\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-047\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-047\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-048\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-049\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-050\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-050\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-050\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-051\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-051\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-051\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-052\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-052\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-052\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-053\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-053\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-053\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-054\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-054\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-054\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-055\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-055\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-055\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-056\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-056\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-056\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-057\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-057\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-057\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-058\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-058\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-058\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-059\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-059\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-059\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-060\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-060\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-060\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-061\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-061\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-061\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-062\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-062\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-062\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-063\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-063\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-063\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-064\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-064\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-064\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-065\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-065\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-065\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-066\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-066\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-066\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-067\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-067\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-067\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-068\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-068\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-068\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-069\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-069\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-069\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-070\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-070\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-070\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-071\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-071\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-071\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-072\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-072\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-072\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-073\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-073\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-073\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-074\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-074\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-074\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-075\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-075\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-075\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-076\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-076\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-076\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-077\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-077\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-077\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-078\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-078\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-078\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-079\\control.json",
+    "case": "RT-01",
+    "expected_state": "completed",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-079\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-079\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-080\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-080\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-080\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-081\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-081\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-081\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-082\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-082\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-082\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-083\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-083\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-083\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-084\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-084\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-084\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-085\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-085\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-085\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-086\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-086\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-086\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-087\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-087\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-087\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-088\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-088\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-088\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-089\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-089\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-089\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-090\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-090\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-090\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-091\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-091\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-091\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-092\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-092\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-092\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-093\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-093\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-093\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-094\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-094\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-094\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-095\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-096\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-096\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-096\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-097\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-097\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-097\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-098\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-098\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-098\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-099\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-099\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-099\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-100\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-100\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-100\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-101\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-101\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-101\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-102\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-102\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-102\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-103\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-103\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-103\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-104\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-104\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-104\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-105\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-105\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-105\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-106\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-106\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-106\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-107\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-107\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-107\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-108\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-108\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-108\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-109\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-109\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-109\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-110\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-110\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-110\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-111\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-111\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-111\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-112\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-112\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-112\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-113\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-113\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-113\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-114\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-114\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-114\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-115\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-115\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-115\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-116\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-116\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-116\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_corrupt",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-117\\control.json",
+    "case": "RT-01",
+    "expected_state": "preflight_checked",
+    "expected_error": null,
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-117\\first.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\18-rt01-corrected\\M-117\\end.json",
+    "case": "RT-01",
+    "expected_state": null,
+    "expected_error": "evidence_incomplete",
+    "matched_from_raw_outputs": true
+  }
+]

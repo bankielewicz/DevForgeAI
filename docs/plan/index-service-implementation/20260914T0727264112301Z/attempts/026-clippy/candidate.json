@@ -1,0 +1,118 @@
+[
+  {
+    "path": "devforgeai\\Cargo.lock",
+    "sha256": "f8557a6d5fa164f171177f217ddf527d49de01791829f58b2effafe5eebe206e"
+  },
+  {
+    "path": "devforgeai\\Cargo.toml",
+    "sha256": "44ef1a894cd69c06a6c5dcd19ad1ef8ea4cdf4de1a8ef93891840444eab4ad6e"
+  },
+  {
+    "path": "devforgeai\\queries\\javascript.scm",
+    "sha256": "f2d7c391b09bf0516e490c4614c0a007f323d147744790a09589f63ccb95eb45"
+  },
+  {
+    "path": "devforgeai\\queries\\python.scm",
+    "sha256": "d31d96db77ccfec40a4fcc59edd4b80a0880f45e766368de72983abf43d9ea08"
+  },
+  {
+    "path": "devforgeai\\queries\\rust.scm",
+    "sha256": "7615ec3825b48e7e3040261ca3f4f46d04fd4196b5a83d4d315a079953f49e3e"
+  },
+  {
+    "path": "devforgeai\\queries\\typescript.scm",
+    "sha256": "fa209f12818d219207e37ea3029864daaefde5019156be1657ced40744ee5c0d"
+  },
+  {
+    "path": "devforgeai\\src\\bin\\devforgeai-indexd.rs",
+    "sha256": "fb3b6cc20f07c1383b323d416a00483e53fd229b572fc6869b91f5ef5d4cb51d"
+  },
+  {
+    "path": "devforgeai\\src\\bin\\devforgeai-tray.rs",
+    "sha256": "ec1e3fda752c799a1b0a45be7d49e37f2e4d1753b3f1efe5122e1214d9311915"
+  },
+  {
+    "path": "devforgeai\\src\\bin\\devforgeai.rs",
+    "sha256": "82de353f1a0a324dd7adc4800ebab016a0983b7a7be09028e0a6504b5c401130"
+  },
+  {
+    "path": "devforgeai\\src\\cli.rs",
+    "sha256": "733e6ae7eab143ef61d8face3d672654e0999e198e84757e96ce8bceaee223ad"
+  },
+  {
+    "path": "devforgeai\\src\\client.rs",
+    "sha256": "b19aa67ae3837889e5a7ec4850a8798b815afd5bd11e2b387c25fbf2e4e206a8"
+  },
+  {
+    "path": "devforgeai\\src\\host.rs",
+    "sha256": "c826928c67d1cae3c424ba835c449c18040fef08a3f17c5e8dcf230852ffaafa"
+  },
+  {
+    "path": "devforgeai\\src\\index.rs",
+    "sha256": "1dcbb81870d3dd767cc02e638bf64721a159385db5a837b7062235632b4d08f4"
+  },
+  {
+    "path": "devforgeai\\src\\lib.rs",
+    "sha256": "086acc05e43906c7441dd768bc746cfc0830b9a97f1a2e07f3564e5f664e61f4"
+  },
+  {
+    "path": "devforgeai\\src\\platform.rs",
+    "sha256": "cfe2de50b13306ef762bf8dbf10967d7e4f4df1e87db3deef8b1843bfd4ee42c"
+  },
+  {
+    "path": "devforgeai\\src\\protocol.rs",
+    "sha256": "147ad1a141892dad1235b94dc78ce2fa52ae5fa05d0b2390967145a272350098"
+  },
+  {
+    "path": "devforgeai\\src\\service.rs",
+    "sha256": "6d1580b310ff3c25625f96031923b49aaccb5bc45a5a9101e58a1bc92013843d"
+  },
+  {
+    "path": "devforgeai\\src\\storage.rs",
+    "sha256": "8e6cf1c01e97c3d5a5320107cfe37d5464d008d3563bb2857387d8fd1dbdf2a6"
+  },
+  {
+    "path": "devforgeai\\src\\tray.rs",
+    "sha256": "c4c02275b60d874d3af61f31fef7fe3ccdb5d7bc7382452efd16ed6714c30fd7"
+  },
+  {
+    "path": "devforgeai\\src\\tray_windows.rs",
+    "sha256": "cdd5ee5fd17fb8107af3568f3e58a71bc98e045c36205b00ebfdc52d09be85ff"
+  },
+  {
+    "path": "devforgeai\\tests\\capture.rs",
+    "sha256": "c60b436c84e269b91bb6e27d79304655f825c41dea1c1648596a59c907b37977"
+  },
+  {
+    "path": "devforgeai\\tests\\cli.rs",
+    "sha256": "04e4b0a63f57a6d5d8ce75d3a90fa4e2df427a6aaf77446a7d41b9afa65e7d26"
+  },
+  {
+    "path": "devforgeai\\tests\\harness.rs",
+    "sha256": "da6a4963df81ae642c553da021f6b256e63fb6f9ae0a463361012d8cd76f3375"
+  },
+  {
+    "path": "devforgeai\\tests\\ipc.rs",
+    "sha256": "4d73926186be4d3f05082bb4c5c2e38eb3ffd053b0709223b9b2c3ff59350552"
+  },
+  {
+    "path": "devforgeai\\tests\\platform.rs",
+    "sha256": "90cf86b7437449db4b0523ecccf021089e39ca6543e6ae07b97a4faccb121d80"
+  },
+  {
+    "path": "devforgeai\\tests\\protocol.rs",
+    "sha256": "df4bed91504282f83f8fb64801e24e40d292459872ac4b13291ffef98f3eced3"
+  },
+  {
+    "path": "devforgeai\\tests\\service.rs",
+    "sha256": "6fe9c028f1ed7de22ae3723cf66905a83d3ede219192c06d296a2e35a6f68acb"
+  },
+  {
+    "path": "devforgeai\\tests\\storage.rs",
+    "sha256": "1b6371dd5e453227564f098c722ae684667cb30ecef9b668dfccf9de86b92c2b"
+  },
+  {
+    "path": "devforgeai\\tests\\tray.rs",
+    "sha256": "1b2046c173bb78448ef3f9d6b525c6b443fbd22b4e5407b11e76636dd98bf91a"
+  }
+]

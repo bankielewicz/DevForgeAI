@@ -1,0 +1,135 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "20260916T134000Z-streaming",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "operation": "edit",
+  "authorization": "User selected proceed for development-only streaming progress integration followed by independent skill-validator evaluation; no operational installation or paid reviewer invocation.",
+  "history_review": "no_known_history",
+  "change_paths": [
+    "SKILL.md",
+    "artifact-manifest.json",
+    "evals/case.schema.json",
+    "evals/cases.jsonl",
+    "evals/run_evaluation.py",
+    "references/evaluation.md",
+    "references/execution.md",
+    "scripts/advisor.ps1",
+    "scripts/advisor_run.py",
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py"
+  ],
+  "requirements": [
+    {
+      "origin": "user",
+      "outcome": "AP-01: Thin PS5.1/7 launcher accepts Request, Briefing, RunDir, Reason, Python and ShowProgress, forwards exact arguments and exit status to Python without policy duplication.",
+      "artifacts": [
+        "scripts/advisor.ps1"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-02: Optional --show-progress uses stream-json --verbose; elapsed progress and periodic waiting messages go only to stderr. Default quiet json command and legacy v1 interpretation are preserved.",
+      "artifacts": [
+        "scripts/advisor_run.py",
+        "scripts/advisor_stream.py"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-03: Drain stdout/stderr concurrently, retain raw bytes, require one well-formed final result object last in the stream; reject malformed JSON, non-object events, missing or duplicate results and nonfinite/duplicate JSON values.",
+      "artifacts": [
+        "scripts/advisor_stream.py",
+        "scripts/advisor_run.py"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-04: A monotonic reviewer deadline includes pipe EOF and actual child exit. Timeout/cancellation cleanup is bounded by a separate 5-second ceiling; record direct-child and pipe cleanup observations without claiming detached-descendant qualification.",
+      "artifacts": [
+        "scripts/advisor_stream.py"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-05: Streaming attempts use advisor-execution-v2, retain raw stdout/stderr, parsed result.json when valid framing permits, response.md only for valid successful advice; verify all derived artifacts and transport observations on follow-up while accepting exact v1 history.",
+      "artifacts": [
+        "scripts/advisor_run.py"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-06: Nonzero exit, timeout, interruption, malformed stream or failed result never yields advice. Retain finite reported cost on failed terminal envelopes, compare with reserved cap and expose discrepancy; never reclaim budget or silently retry.",
+      "artifacts": [
+        "scripts/advisor_run.py"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-07: Preserve immutable requests, max-two attempts, restricted read-only flags and child-only auth filtering. Progress displays allowlisted event/tool metadata only, not model text, tool arguments, credential values or untrusted terminal escapes.",
+      "artifacts": [
+        "scripts/advisor_stream.py",
+        "scripts/advisor_run.py"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "AP-08: Document development and operational commands, receipt compatibility, progress limitations and test denominator. Preserve existing tests; add Python JSONL cases and deterministic expected values plus targeted negative and real native subprocess tests.",
+      "artifacts": [
+        "SKILL.md",
+        "references/execution.md",
+        "references/evaluation.md",
+        "tests/test_streaming.py",
+        "evals/cases.jsonl",
+        "evals/case.schema.json",
+        "evals/run_evaluation.py",
+        "artifact-manifest.json"
+      ]
+    }
+  ],
+  "capabilities": [
+    "Native PowerShell launch",
+    "Bounded Python streaming transport",
+    "Legacy-compatible evidence"
+  ],
+  "expected_outputs": [
+    "Optional live stderr progress",
+    "Final JSON receipt",
+    "Raw streams and validated response"
+  ],
+  "side_effects": [
+    "Create fresh review evidence and one read-only reviewer attempt when explicitly invoked"
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming-intake\\task-capture.md",
+      "sha256": "95f9dd8312927a9c6ae0f415a3d5f7179b5f9518ad099ce4a274b715f7b9b8c9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\advisor-test.ps1",
+      "sha256": "c6d75efbd5f04c6db02767c826fc181c54c4dc3d9c6bd0b0d069d1e0532ec25f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\report.md",
+      "sha256": "8f8d965251f4bf70294f9e79e42e99623bc98a824cc794778c5731a10cd82d85"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-auth-fix\\20260916T033234Z\\report.md",
+      "sha256": "d9f51afb68b8c3094b7d3d939964776673042b84a0a2ce8644a326e3e7dffe0f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "3b8e2a112c438b536ab59db2abbcfd6e08ebdd7f41caa13cdf6d5c49866fab86"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916T134000Z-streaming-intake\\workflow-design.json",
+      "sha256": "b42144a40453dedfa199522b48ec7d680ea6b73fb59de058122d7881b12b7390"
+    }
+  ],
+  "known_issues": [
+    "No live Claude qualification selected; shell/subprocess validation uses synthetic native fixtures.",
+    "No independent billing enforcement; configured CLI caps and reported cost may differ.",
+    "No protected framework authority or operational installation in this assignment."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--",
+    "--list"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T21:29:39.647600+00:00",
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\17-final-test-inventory\\fixtures",
+  "owned_pid": 30468,
+  "exit_code": 0,
+  "elapsed_seconds": 4.25,
+  "end": "2026-09-15T21:29:43.902753+00:00",
+  "stdout_sha256": "2c410571c03c23e5409dabab8ad40dae2a8cd086e4c03de4211a2b396a2a7fcd",
+  "stderr_sha256": "41b05d7681ee3fa0fa89a863e8f8dd3bc4c18e9247680ade773a99ae141666ae"
+}

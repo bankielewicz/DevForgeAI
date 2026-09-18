@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-09-15T13:19:42.722989+00:00",
+  "source_files": 47,
+  "changed_paths": [
+    "package-manifest.json",
+    "references/authoring.md",
+    "references/evidence-format.md",
+    "references/regeneration.md",
+    "scripts/authoring.py"
+  ],
+  "static_pass": true
+}

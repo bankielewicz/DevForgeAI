@@ -1,0 +1,101 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-target\\debug\\qa-driver.exe",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-attempts\\IQ-01-policy\\request.json"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-attempts\\IQ-01-policy",
+  "started": "2026-09-15T18:17:15.961251+00:00",
+  "executable_sha256": "a4186629a2fc81c4072d246821f8eff96c545abe9e4fe15036dd7f552f6cb053",
+  "expected_exit": 3,
+  "bound_seconds": 5,
+  "owned_driver_pid": 61364,
+  "held_peer_pid": 57500,
+  "deadline_overrun": false,
+  "actual_exit": 3,
+  "elapsed_seconds": 0.07799999999406282,
+  "peer_stopped_after": true,
+  "large_request_sent": false,
+  "trace": [
+    {
+      "id": 1,
+      "method": "initialize",
+      "params": {
+        "capabilities": {
+          "experimentalApi": false
+        },
+        "clientInfo": {
+          "name": "devforgeai_worker_probe",
+          "version": "0.1.0"
+        }
+      }
+    },
+    {
+      "method": "initialized",
+      "params": {}
+    },
+    {
+      "id": 2,
+      "method": "account/read",
+      "params": {
+        "refreshToken": false
+      }
+    },
+    {
+      "id": 3,
+      "method": "model/list",
+      "params": {
+        "cursor": null,
+        "limit": 100
+      }
+    },
+    {
+      "id": 4,
+      "method": "account/rateLimits/read",
+      "params": {}
+    },
+    {
+      "id": 5,
+      "method": "thread/start",
+      "params": {
+        "approvalPolicy": "never",
+        "approvalsReviewer": "user",
+        "cwd": "\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\independent-attempts\\IQ-01-policy\\fixture",
+        "ephemeral": true,
+        "model": "test-model",
+        "modelProvider": "openai",
+        "sandbox": "read-only"
+      }
+    }
+  ],
+  "event_kinds": [
+    "admitted",
+    "spawn_intent",
+    "server_started",
+    "profile_checked",
+    "stop_requested",
+    "process_exit",
+    "terminal"
+  ],
+  "terminal": {
+    "fixture_unchanged": true,
+    "open_work": [
+      "qa-work"
+    ],
+    "oracle": "not_evaluated",
+    "outcome": "blocked",
+    "reason": "profile_unqualified",
+    "thread_id": null,
+    "tree_stopped": true,
+    "turn_id": null,
+    "usage": null,
+    "worker_exit_code": 0
+  },
+  "pass": true,
+  "fixture_unchanged": true,
+  "contract_trace_matches": true,
+  "expected_reason": "profile_unqualified",
+  "candidate_manifest_sha256": "177b5894a236a02c7d322df7f04d647632094a4a3f3998e7f2a150db246e1604",
+  "fixture_sha256_after": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "stdout_sha256": "44d88606abf1724e5c141f8d0f8cbcea1dd3d118c60d99109252a6697e92511a",
+  "stderr_sha256": "ec7d92845b8976c2c878bea48ff64fbccdebbfef1d89bfdee886d4df802aa97b"
+}

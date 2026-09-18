@@ -1,0 +1,30 @@
+{
+  "attempt_id": "red-qa-d01",
+  "stage": "red",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "qa_independent",
+    "qa_u0",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\red-qa-d01\\gui"
+  },
+  "source_manifest_sha256": "db88f527b96a9d3f4290581c71bae34d8081f393c39e5e3ae57fcd3f902c8058",
+  "started_at": "2026-09-14T19:52:10.880597+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 101,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T19:52:14.834018+00:00",
+  "elapsed_seconds": 3.9530000000013388,
+  "stdout.txt_sha256": "a3c6db2545bb67a8a544d277c9291dcd51aedf4970033e7abdea604cafb4f61f",
+  "stderr.txt_sha256": "18cff032d010ce93c4aea85fbd1cdf67dc441b9099c110c4894f413306600b42"
+}

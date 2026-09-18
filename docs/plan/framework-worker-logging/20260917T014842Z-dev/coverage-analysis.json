@@ -1,0 +1,139 @@
+{
+  "covered": 3858,
+  "total": 4041,
+  "percent": 95.47141796585004,
+  "threshold_pass": true,
+  "files": [
+    {
+      "path": "src\\capture.rs",
+      "lines": {
+        "count": 157,
+        "covered": 152,
+        "percent": 96.81528662420382
+      }
+    },
+    {
+      "path": "src\\diagnostic.rs",
+      "lines": {
+        "count": 19,
+        "covered": 19,
+        "percent": 100.0
+      }
+    },
+    {
+      "path": "src\\effective_profile.rs",
+      "lines": {
+        "count": 633,
+        "covered": 623,
+        "percent": 98.42022116903634
+      }
+    },
+    {
+      "path": "src\\journal.rs",
+      "lines": {
+        "count": 426,
+        "covered": 415,
+        "percent": 97.41784037558685
+      }
+    },
+    {
+      "path": "src\\launch_policy.rs",
+      "lines": {
+        "count": 26,
+        "covered": 24,
+        "percent": 92.3076923076923
+      }
+    },
+    {
+      "path": "src\\logging.rs",
+      "lines": {
+        "count": 121,
+        "covered": 121,
+        "percent": 100.0
+      }
+    },
+    {
+      "path": "src\\main.rs",
+      "lines": {
+        "count": 132,
+        "covered": 124,
+        "percent": 93.93939393939394
+      }
+    },
+    {
+      "path": "src\\native_identity.rs",
+      "lines": {
+        "count": 97,
+        "covered": 95,
+        "percent": 97.9381443298969
+      }
+    },
+    {
+      "path": "src\\oracle.rs",
+      "lines": {
+        "count": 7,
+        "covered": 7,
+        "percent": 100.0
+      }
+    },
+    {
+      "path": "src\\process_windows.rs",
+      "lines": {
+        "count": 374,
+        "covered": 356,
+        "percent": 95.18716577540108
+      }
+    },
+    {
+      "path": "src\\profile_sources.rs",
+      "lines": {
+        "count": 671,
+        "covered": 641,
+        "percent": 95.52906110283159
+      }
+    },
+    {
+      "path": "src\\protocol.rs",
+      "lines": {
+        "count": 716,
+        "covered": 679,
+        "percent": 94.83240223463687
+      }
+    },
+    {
+      "path": "src\\request.rs",
+      "lines": {
+        "count": 413,
+        "covered": 399,
+        "percent": 96.61016949152543
+      }
+    },
+    {
+      "path": "src\\runner.rs",
+      "lines": {
+        "count": 249,
+        "covered": 203,
+        "percent": 81.52610441767068
+      }
+    }
+  ],
+  "source_inventory": [
+    "src\\capture.rs",
+    "src\\diagnostic.rs",
+    "src\\effective_profile.rs",
+    "src\\journal.rs",
+    "src\\launch_policy.rs",
+    "src\\lib.rs",
+    "src\\logging.rs",
+    "src\\main.rs",
+    "src\\native_identity.rs",
+    "src\\oracle.rs",
+    "src\\process_windows.rs",
+    "src\\profile_sources.rs",
+    "src\\protocol.rs",
+    "src\\request.rs",
+    "src\\runner.rs"
+  ],
+  "exclusions": "tests and fixture binaries; dependencies; no first-party src exclusions",
+  "branches": "NOT_RUN: only stable Windows Rust toolchains installed; collector branch flag is unstable"
+}

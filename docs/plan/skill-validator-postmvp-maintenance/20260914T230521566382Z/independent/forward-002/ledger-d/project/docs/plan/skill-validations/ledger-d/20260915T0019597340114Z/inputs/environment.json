@@ -1,0 +1,16 @@
+{
+  "os": "nt",
+  "platform": "win32",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "python_executable": "C:\\Program Files\\Python310\\python.exe",
+  "pyyaml": "6.0.2",
+  "shell": "PowerShell",
+  "checker": {
+    "path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+    "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+  },
+  "permissions": "Existing workspace-write, approval never; no installation or configuration changes",
+  "git": "No repository metadata; git status and rev-parse failed",
+  "review": "Primary validator assessment; no independent reviewer",
+  "scope": "Read selected skill/spec; disposable fixtures and reports only inside selected project"
+}

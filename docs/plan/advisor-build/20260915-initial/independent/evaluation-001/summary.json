@@ -1,0 +1,9 @@
+{
+  "schema": "advisor-evaluation-v1",
+  "required": 22,
+  "passed": 22,
+  "pass_rate": 100.0,
+  "cases_sha256": "0eaf1ea53c1960cd63c1263d02df14f5983e1f74cf68b540af09c82676445b9d",
+  "framework_acceptance": "NOT_EVALUATED",
+  "native_qualification": "NOT_RUN"
+}

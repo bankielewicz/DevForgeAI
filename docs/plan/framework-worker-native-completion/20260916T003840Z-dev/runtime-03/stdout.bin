@@ -1,0 +1,10 @@
+
+running 5 tests
+test public_preflight_review_rejects_a_peer_without_native_profile ... ok
+test journal_creation_and_exclusive_writes_preserve_existing_bytes_on_failure ... ok
+test source_cli_distinguishes_invalid_paths_from_unqualified_source_types ... ok
+test disappearing_fixture_after_admission_cannot_be_a_successful_run ... ok
+test public_review_entrypoints_reject_untrusted_bytes_before_work ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+

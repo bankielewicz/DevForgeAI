@@ -1,0 +1,140 @@
+{
+  "schema_version": "adaptation-proposal-v1",
+  "run_id": "fixture",
+  "mode": "propose",
+  "project_evidence": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\evidence.json",
+    "sha256": "fc17929a29c23b0a438cee4b712e042758e0ca368f2704181efbc0993f2b5213"
+  },
+  "prior_proposal": null,
+  "requirements": [
+    {
+      "id": "R1",
+      "origin": "user",
+      "statement": "Preserve facts.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect preserved output."
+    },
+    {
+      "id": "R2",
+      "origin": "user",
+      "statement": "Use local files.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect preserved output."
+    },
+    {
+      "id": "R3",
+      "origin": "user",
+      "statement": "Preserve inputs.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect preserved output."
+    }
+  ],
+  "members": [
+    {
+      "id": "A",
+      "name": "notes-variant",
+      "role": "project_variant",
+      "action": "retain",
+      "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\skills\\notes-variant",
+      "existing_package": {
+        "name": "notes-variant",
+        "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\skills\\notes-variant",
+        "manifest": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\variant-manifest.json",
+          "sha256": "9b996abfdc434b0ac1a16e3ca0850ffcc5e13628e812169c2545f74e46b610ac"
+        },
+        "package_digest": "04d42531775cd5001571dbf182385dec7f40712b693aebd51c734e34cee3c905"
+      },
+      "parent_core": {
+        "name": "notes-core",
+        "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\parents\\original\\notes-core",
+        "manifest": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\ordinary-parent\\parent-manifest.json",
+          "sha256": "0eef07fc257694d6b4345018696861aa0f25cc1bed2e148add4715e49832f82d"
+        },
+        "package_digest": "d1f5d8b3677c611195a1cc101c14ce4b63145a105d1c3ccef9d835cc3e444c62"
+      },
+      "responsibility": "Summarize notes.",
+      "exclusions": [
+        "HTTP"
+      ],
+      "triggers": [
+        "Summarize supplied notes"
+      ],
+      "near_misses": [
+        "Install skills"
+      ],
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fact_ids": [
+        "domain"
+      ],
+      "rationale": "Selected local note responsibility.",
+      "depends_on": [],
+      "capabilities": [],
+      "lineage_delta": [
+        {
+          "requirement_id": "R1",
+          "disposition": "retained",
+          "reason": "Unchanged requirement.",
+          "replacement_requirement_ids": [
+            "R1"
+          ]
+        },
+        {
+          "requirement_id": "R2",
+          "disposition": "retained",
+          "reason": "Unchanged requirement.",
+          "replacement_requirement_ids": [
+            "R2"
+          ]
+        },
+        {
+          "requirement_id": "R3",
+          "disposition": "retained",
+          "reason": "Unchanged requirement.",
+          "replacement_requirement_ids": [
+            "R3"
+          ]
+        }
+      ]
+    }
+  ],
+  "handoffs": [],
+  "gaps": [],
+  "state": "NO_CHANGE"
+}

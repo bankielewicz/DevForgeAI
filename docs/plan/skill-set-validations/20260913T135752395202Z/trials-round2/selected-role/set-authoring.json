@@ -1,0 +1,34 @@
+{
+  "schema_version": "set-authoring-v1",
+  "run_id": "fixture",
+  "selection": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\selected-role\\selection.json",
+    "sha256": "c9118b9d0ec820e93705bb75f0216bcaadcd31e64f49a2ce0d7380d8623c6bc2"
+  },
+  "ordered_member_ids": [
+    "A"
+  ],
+  "members": [
+    {
+      "member_id": "A",
+      "status": "RETAINED",
+      "authoring_record": null,
+      "validation_request": null,
+      "package": {
+        "name": "notes-variant",
+        "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\selected-role\\skills\\notes-variant",
+        "manifest": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\selected-role\\variant-manifest.json",
+          "sha256": "f2c289f55000f1e8cdaa3715503c4a1dd531a1d41d30f5b271a20f250a278a25"
+        },
+        "package_digest": "f13a0dd728511232424e4d3e8e80428917f609039708b55ba3b2e4b4179b7f5f"
+      },
+      "reason": "Unchanged retained package.",
+      "applied_paths": []
+    }
+  ],
+  "state": "NO_CHANGE",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "issues": []
+}

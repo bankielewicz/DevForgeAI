@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "docs/plan/skill-validations/dev/20260913T2136389781471Z/test_bundle.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:39:36.925411+00:00",
+  "end": "2026-09-13T21:39:37.014412+00:00",
+  "exit_code": 1,
+  "timeout_seconds": 120,
+  "stdout": {
+    "path": "observations/bundle-contract-red.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "observations/bundle-contract-red.stderr",
+    "sha256": "74a6f0480ebade5b57010d3932b9e14db5b43cda1912966947bdac7ebdd5fd7e"
+  }
+}

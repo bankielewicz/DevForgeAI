@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\authoring-record.json",
+    "sha256": "d46d74f0293d749250e70c23eadb8e638bc3c42135a296e2ede31585f077594b"
+  },
+  "baseline": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\authoring-baseline.json",
+    "sha256": "e1ab884ec023281fc3a57517d0f0179f510efa861b0aa0faa2f13e427288dd18"
+  },
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1230Z-vocabulary-correction\\validation-request.json",
+    "sha256": "8e567aa882fed89f6ad19996aaf9a489f549bb48f2bf9a1db2b517406bf9720f"
+  },
+  "package_digest": "947ceb2e4713b478c32df28ea4546d0595264b5cae0c08dcfa081131ff3eb31c"
+}

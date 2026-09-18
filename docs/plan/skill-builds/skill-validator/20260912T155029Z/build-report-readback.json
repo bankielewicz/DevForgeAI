@@ -1,0 +1,14 @@
+{
+  "report": {
+    "path": "build-report.md",
+    "sha256": "431f7cb2a5b8b8194eff1aed3569cbe6f42400043fef95ca1b445697b18f4914"
+  },
+  "provenance": {
+    "path": "build-provenance.json",
+    "sha256": "3db8ff6dba99cc891891214be7389c164632237b6bd4c4c6191f51026969cd38"
+  },
+  "package_digest": "d26a45e994d3ea386ec43657fe4a7ab9c431ec5b3be9412e6b59f1f5e022b5f0",
+  "package_files": 15,
+  "required_checks_completed": true,
+  "completion_boundary": "development package only"
+}

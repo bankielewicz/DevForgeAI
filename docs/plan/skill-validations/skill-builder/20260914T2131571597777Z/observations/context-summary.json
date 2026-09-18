@@ -1,0 +1,10 @@
+{
+  "files": 47,
+  "bytes": 315061,
+  "characters": 315045,
+  "lines": 7089,
+  "tokenizer": null,
+  "tokens": null,
+  "unicode_candidates": [],
+  "assessment": "No universal context cap. Shared constraints reside in SKILL.md; substantial import/adaptive/schema detail is conditional. Native prompts read branch references; no completed total-load budget claimed."
+}

@@ -1,0 +1,12 @@
+{
+  "before_digest": "1d5aa93ca0759f804c3fff9e25eecb55635de20425d93c5aee58799f3ca187c6",
+  "after_digest": "844f7bbaa77190593f3ae9025ac189fb1f3e803c00c5b743eee01575b7db071b",
+  "changed": [
+    "assets/adaptive-runtime/check_project_binding.py",
+    "references/adaptation.md",
+    "references/adaptive-contracts.md",
+    "schemas/adaptive-common.schema.json",
+    "schemas/project-binding-v1.schema.json",
+    "scripts/adaptive.py"
+  ]
+}

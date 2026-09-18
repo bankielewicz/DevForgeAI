@@ -1,0 +1,17 @@
+{
+  "changed": [
+    "evals/build-manifest.json",
+    "scripts/adaptive_observe.py",
+    "scripts/text_resources.py",
+    "tests/test_confirmed_findings.py"
+  ],
+  "removed": [],
+  "before_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+  "after_digest": "5a3ea08fdbf7ff5f8b9e36d7015e61967c56dd1debdf548f3e1c23b8aed8a57b",
+  "manifest_binding": {
+    "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\evals\\build-manifest.json",
+    "sha256": "27d0bd8629598e6233778a277284c39411b5e90ce5581e38841f73c1852c8304"
+  },
+  "refactor": "Removed unused test import; no unrelated production refactor needed.",
+  "time": "2026-09-13T21:18:36.545260Z"
+}

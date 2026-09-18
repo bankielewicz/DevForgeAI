@@ -1,0 +1,14 @@
+[
+  {
+    "original_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2136389781471Z",
+    "manifest_sha256": "741eca222de5bf5083125e4060903041e002cdef0aae1c1bddea6053d4b1bd8d",
+    "files_checked": 366,
+    "result": "MATCH"
+  },
+  {
+    "original_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2210193529778Z",
+    "manifest_sha256": "dcc894d459b2436558771847551d31026a026f7d58b5709fc927f9cf129fac89",
+    "files_checked": 616,
+    "result": "MATCH"
+  }
+]

@@ -1,0 +1,17 @@
+test_distinct_passes (test_reduce.ReducerTests) ... ok
+test_duplicate_cases_cannot_inflate_denominator (test_reduce.ReducerTests) ... FAIL
+test_failure_and_skips_are_not_passes (test_reduce.ReducerTests) ... ok
+test_nonzero_exit_and_wrong_count_rejected (test_reduce.ReducerTests) ... ok
+
+======================================================================
+FAIL: test_duplicate_cases_cannot_inflate_denominator (test_reduce.ReducerTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\dev-qa-remediation\20260914T0117324130584Z\builder-qa\evaluation-bundle\test_reduce.py", line 19, in test_duplicate_cases_cannot_inflate_denominator
+    with self.assertRaisesRegex(ValueError, 'duplicate'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=1)

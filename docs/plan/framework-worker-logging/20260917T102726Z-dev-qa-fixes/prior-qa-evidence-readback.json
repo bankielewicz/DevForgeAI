@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-09-17T10:37:11.0699686Z",
+  "manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\evidence-manifest.json",
+  "manifest_sha256": "ab3094365c7f74f8f73b9883d7195e32047ef160da1a68eb9424641d15150f40",
+  "files": 3689,
+  "mismatches": [],
+  "scope": "All regular retained evidence outside Cargo target directories; first-party test/product executable identities bound separately. Reparse points recorded, never traversed."
+}

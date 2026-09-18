@@ -1,0 +1,133 @@
+{
+  "schema_version": "1",
+  "run_id": "V16",
+  "target_name": "skill-validator",
+  "rules": [
+    {
+      "rule_id": "FMT-001",
+      "revision": "1",
+      "title": "FMT-001",
+      "source_refs": [
+        {
+          "path": "inputs/openai-build-skills.md",
+          "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+          "source_id": "openai-skills",
+          "locator": {
+            "section": "Build skills"
+          }
+        }
+      ],
+      "authority_class": "format_requirement",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Entry metadata and supported resources satisfy pinned selected format.",
+      "required": true,
+      "limitation": "Bounded self-review; no framework authority."
+    },
+    {
+      "rule_id": "PRJ-001",
+      "revision": "1",
+      "title": "PRJ-001",
+      "source_refs": [
+        {
+          "path": "inputs/spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "source_id": "approved-spec",
+          "locator": {
+            "section": "4-12"
+          }
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Explicit spec governs, snapshots preserve exact bytes and history is honest.",
+      "required": true,
+      "limitation": "Bounded self-review; no framework authority."
+    },
+    {
+      "rule_id": "PRJ-002",
+      "revision": "1",
+      "title": "PRJ-002",
+      "source_refs": [
+        {
+          "path": "inputs/spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "source_id": "approved-spec",
+          "locator": {
+            "section": "4-12"
+          }
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "All actual entrypoint stages have inputs, outputs and explicit continuation/failure/review routes.",
+      "required": true,
+      "limitation": "Bounded self-review; no framework authority."
+    },
+    {
+      "rule_id": "PRJ-003",
+      "revision": "1",
+      "title": "PRJ-003",
+      "source_refs": [
+        {
+          "path": "inputs/spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "source_id": "approved-spec",
+          "locator": {
+            "section": "4-12"
+          }
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Schema names, helper commands, examples and review boundary agree; no self-score or enforcement claim.",
+      "required": true,
+      "limitation": "Bounded self-review; no framework authority."
+    },
+    {
+      "rule_id": "PRJ-004",
+      "revision": "1",
+      "title": "PRJ-004",
+      "source_refs": [
+        {
+          "path": "inputs/spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "source_id": "approved-spec",
+          "locator": {
+            "section": "4-12"
+          }
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Independent helper tests execute success and malformed/unsafe boundary cases.",
+      "required": true,
+      "limitation": "Bounded self-review; no framework authority."
+    },
+    {
+      "rule_id": "REC-001",
+      "revision": "1",
+      "title": "REC-001",
+      "source_refs": [
+        {
+          "path": "inputs/openai-build-skills.md",
+          "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+          "source_id": "openai-skills",
+          "locator": {
+            "section": "Build skills"
+          }
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Twelve independent description classifications match planned scope; native invocation separate.",
+      "required": false,
+      "limitation": "Bounded self-review; no framework authority."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "active_after": 0,
+  "case": "SR-01",
+  "child_exit_code": 23,
+  "counts_before": {
+    "active": 0,
+    "total": 1
+  },
+  "diagnostics": [
+    {
+      "active_processes": 0,
+      "checkpoint": "before_send",
+      "predicate": "unexpected_process_count",
+      "rpc": "initialize",
+      "schema_version": 1,
+      "stage": "process_accounting",
+      "total_processes": 1
+    },
+    {
+      "predicate": "process_guard_rejected",
+      "rpc": "initialize",
+      "schema_version": 1,
+      "stage": "rpc"
+    }
+  ],
+  "journal_stderr_events": [],
+  "queued_receiver_stderr": [
+    {
+      "bytes": 38,
+      "sha256": "d3cf90ebd82863af99e57c32156dd7b3a6645c3877eccde5e26aa19e12f01fca"
+    }
+  ],
+  "result": {
+    "Err": "profile_unqualified"
+  },
+  "saw_stdout_end": true,
+  "thread_id": null,
+  "tree_stopped": true,
+  "turn_id": null
+}

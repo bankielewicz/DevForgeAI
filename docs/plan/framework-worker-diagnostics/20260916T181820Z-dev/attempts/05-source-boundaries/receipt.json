@@ -1,0 +1,30 @@
+{
+  "attempt": "05-source-boundaries",
+  "stage": "integration",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "arguments": [
+    "test",
+    "--locked",
+    "--offline",
+    "--lib",
+    "diagnostic_"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "filesystem": "Windows NTFS",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\attempts\\05-source-boundaries\\fixtures"
+  },
+  "candidate_sha256": "1aeb5338e60fa907edcfcc76a5e768117927e056cf44aa3bff83ea57fcef6325",
+  "started_at": "2026-09-16T18:27:01.352129+00:00",
+  "timeout_seconds": 600,
+  "exit_code": 101,
+  "outcome": "observed_exit",
+  "seconds": 2.7969999999913853,
+  "ended_at": "2026-09-16T18:27:04.145497+00:00",
+  "stdout_sha256": "411ff3de463486da0344c21781b02f615de41f195c6da06896365691f0869819",
+  "stderr_sha256": "9327b34f8d19a80b45cc91d085e141411323b1bdacc7d4067410d864cf099e28"
+}

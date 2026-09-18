@@ -1,0 +1,49 @@
+{
+  "attempt_id": "07-clippy",
+  "stage": "qa",
+  "check": "clippy",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+  "argv": [
+    "clippy",
+    "--locked",
+    "--offline",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\Cargo.toml",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "platform": "Windows x64, native C: filesystem",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "shell_version": "7.6.6",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "recorder_sha256": "34e78bec896c44c4ada10e7205b9e30add373e6fb79ccc3fec5bca99945d8b23",
+  "source_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\07-clippy\\source-manifest.json",
+  "source_manifest_sha256": "cb168af115745579b1b49f34efe436dcc36af95f0aae6adb68e6e71812ee01eb",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\07-clippy\\fixtures"
+  },
+  "timeout_seconds": 420,
+  "started_utc": "2026-09-17T10:39:35.6585413Z",
+  "owned_pid": 7616,
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_utc": "2026-09-17T10:39:38.8788837Z",
+  "elapsed_seconds": 3.2084276,
+  "outputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\07-clippy\\stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\07-clippy\\stderr.txt",
+      "bytes": 811,
+      "sha256": "5066e6d2ef5afd9ce756cbb3cb7e40da0af7cb7e98291a07b5e44084ab5b8365"
+    }
+  ]
+}

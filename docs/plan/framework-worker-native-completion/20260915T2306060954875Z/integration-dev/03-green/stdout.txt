@@ -1,0 +1,59 @@
+
+running 8 tests
+test preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work ... FAILED
+test preflight_rejects_a_transient_descendant_even_after_it_exits ... ok
+test preflight_accepts_schema_valid_omitted_final_cursors ... FAILED
+test profile_projection_does_not_persist_private_response_fields ... FAILED
+test preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications ... FAILED
+test preflight_rejects_active_or_conflicting_effective_config ... ok
+test preflight_requires_every_disabled_feature_and_complete_pagination ... FAILED
+test preflight_rejects_active_hooks_plugins_apps_and_mcp_servers ... ok
+
+failures:
+
+---- preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work stdout ----
+
+thread 'preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work' (64844) panicked at tests\profile_protocol.rs:102:5:
+assertion `left == right` failed
+  left: Err("profile_unqualified")
+ right: Ok(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- preflight_accepts_schema_valid_omitted_final_cursors stdout ----
+
+thread 'preflight_accepts_schema_valid_omitted_final_cursors' (9096) panicked at tests\profile_protocol.rs:145:5:
+assertion `left == right` failed
+  left: Err("profile_unqualified")
+ right: Ok(())
+
+---- profile_projection_does_not_persist_private_response_fields stdout ----
+
+thread 'profile_projection_does_not_persist_private_response_fields' (61016) panicked at tests\profile_protocol.rs:177:5:
+assertion `left == right` failed
+  left: Err("profile_unqualified")
+ right: Ok(())
+
+---- preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications stdout ----
+
+thread 'preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications' (37480) panicked at tests\profile_protocol.rs:168:5:
+assertion `left == right` failed
+  left: Err("profile_unqualified")
+ right: Err("deadline")
+
+---- preflight_requires_every_disabled_feature_and_complete_pagination stdout ----
+
+thread 'preflight_requires_every_disabled_feature_and_complete_pagination' (64928) panicked at tests\profile_protocol.rs:89:5:
+assertion `left == right` failed: feature-bad-cursor
+  left: Err("profile_unqualified")
+ right: Err("protocol_error")
+
+
+failures:
+    preflight_accepts_schema_valid_omitted_final_cursors
+    preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications
+    preflight_requires_every_disabled_feature_and_complete_pagination
+    preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work
+    profile_projection_does_not_persist_private_response_fields
+
+test result: FAILED. 3 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s
+

@@ -1,0 +1,30 @@
+{
+  "schema_version": "1",
+  "builder_manifest_sha256": "0e900c38e64efbf09de889e234eea091524cdc8d67c7a4aa3626c4b5bb956096",
+  "checks": [
+    {
+      "trial": "import",
+      "observed_files": 3,
+      "output_hashes_match": true
+    },
+    {
+      "trial": "spec",
+      "observed_files": 4,
+      "output_hashes_match": true
+    },
+    {
+      "evaluation": "builder-observations-03.jsonl",
+      "passing_records": 5
+    },
+    {
+      "evaluation": "legacy-observations-03.jsonl",
+      "passing_records": 2
+    },
+    {
+      "evaluation": "routing-observations.jsonl",
+      "passing_records": 5
+    }
+  ],
+  "unchanged_raw_input_files": 10,
+  "authority": "NONE"
+}

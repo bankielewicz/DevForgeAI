@@ -1,0 +1,26 @@
+{
+  "attempt_id": "release-build",
+  "stage": "qa",
+  "argv": [
+    "cargo",
+    "build",
+    "--locked",
+    "--offline",
+    "--release"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\release-build\\gui"
+  },
+  "source_manifest_sha256": "cf3ee99015db0dcc1eb544fdac1bfdb0fcd2f10bfc8b749857d52740d8258094",
+  "started_at": "2026-09-14T21:26:03.339600+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T21:26:09.288591+00:00",
+  "elapsed_seconds": 5.936999999998079,
+  "stdout.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr.txt_sha256": "2bbb99f01dacc31c1097bdbb483f067eefcd85a5da895f93a043b719da505c13"
+}

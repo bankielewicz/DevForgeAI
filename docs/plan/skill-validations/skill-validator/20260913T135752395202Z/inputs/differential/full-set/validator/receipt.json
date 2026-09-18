@@ -1,0 +1,23 @@
+{
+  "schema_version": "1",
+  "label": "full-set-validator",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "intake-set",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\additional\\full-set\\request.json",
+    "--request-sha256",
+    "a68fbd3913d18a0b5b208afd957e9149cbd31484d41182dce795924309451135"
+  ],
+  "expected": "Contract expected exit 0",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140711756883Z-full-set-validator",
+  "started_at_utc": "20260913T140711756883Z",
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_at_utc": "2026-09-13T14:07:12.480956+00:00"
+}

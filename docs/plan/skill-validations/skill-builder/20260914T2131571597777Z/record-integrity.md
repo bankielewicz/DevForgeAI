@@ -1,0 +1,7 @@
+# Record integrity
+
+The shipped observe.py records command was executed against the real run without raising its ceiling. It returned exit 2. The retained regression fixtures include an actual 2,001-file limit case and an oversized-file case; the complete retained run exceeds the helper's global inventory ceiling. Raw stdout/stderr and receipt are in observations/records. This is an evaluator/tooling limitation, not another builder finding.
+
+A separate direct-reference audit checks only the explicitly named final schema-1 documents, all check evidence references, source snapshots and finding identities without recursively capturing trial trees. It does not replace the unavailable whole-run records inventory, inspect every arbitrary fixture JSON as authority, or claim semantic acceptance. Its result is observations/direct-reference-audit.json. Original attempts and limit fixtures remain in place.
+
+The initial independent Python suite retained complete case-result JSONL and failure tracebacks, but did not separately save its console stream; that console output remains in the tool transcript. Later regression suites and all native CLI attempts retained local streams. The schema/path corrections and coverage-accounting correction are explicitly recorded rather than rewriting the first attempts. Description routing is advisory because its expected labels were not separately persisted before the reviewer responded.

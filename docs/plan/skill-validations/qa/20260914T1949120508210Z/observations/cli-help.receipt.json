@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--help"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started": "2026-09-14T19:49:51.398573+00:00",
+  "ended": "2026-09-14T19:49:51.440804+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120
+}

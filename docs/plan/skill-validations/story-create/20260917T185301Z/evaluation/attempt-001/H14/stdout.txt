@@ -1,0 +1,12 @@
+usage: check_project_binding.py [-h] --project-root PROJECT_ROOT --skill-root
+                                SKILL_ROOT
+
+Read-only portable project binding observation; Python 3.10+, standard
+library. No identity is embedded, initialized, cached, or printed. This is
+editable local evidence, not protected authorization. Invoke with -B -X utf8
+and argument vectors.
+
+options:
+  -h, --help            show this help message and exit
+  --project-root PROJECT_ROOT
+  --skill-root SKILL_ROOT

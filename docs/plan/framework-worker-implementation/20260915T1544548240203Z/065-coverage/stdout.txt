@@ -1,0 +1,127 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test valid_fixture_is_admitted_and_invalid_fields_are_rejected ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 1 test
+test invalid_cli_is_json_and_nonzero ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 4 tests
+test wf_17 ... ok
+test wf_19 ... ok
+test wf_20 ... ok
+test wf_18 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
+
+running 6 tests
+test process_failure_and_pipe_ownership ... ok
+test fixture_inventory_and_bounded_request_reads ... ok
+test journal_corruption_is_not_promoted ... ok
+test scenario_cancel_and_evidence_failure_precedence ... ok
+test cli_control_and_inspect_paths ... ok
+test protocol_typed_events_duplicates_pagination_and_failures ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.45s
+
+
+running 2 tests
+test exact_independent_result ... ok
+test rejects_invalid_results ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test native_atomic_job_and_verified_stop ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test wf_14 ... ok
+test wf_15 ... ok
+test wf_13 ... ok
+test wf_16 has been running for over 60 seconds
+test wf_16 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 131.80s
+
+
+running 3 tests
+test credential_store_is_not_an_admissible_profile_source ... ok
+test unavailable_review_retains_incomplete_evidence_without_reading_credentials ... ok
+test reviewed_native_profile_sources_and_findings_are_checked_without_launch ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 8 tests
+test wf_01 ... ok
+test wf_07 ... ok
+test wf_05 ... ok
+test wf_02 ... ok
+test wf_08 ... ok
+test wf_06 ... ok
+test wf_03 ... ok
+test wf_04 ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.06s
+
+
+running 4 tests
+test wf_09 ... ok
+test wf_10 ... ok
+test wf_12 ... ok
+test wf_11 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+
+running 12 tests
+test captured_native_launcher_reparse_is_rejected_without_launching ... ok
+test home_boundary_only_allows_peer_temporary_roots ... ok
+test duplicate_nested_profile_is_rejected ... ok
+test unapproved_peer_executable_is_rejected_before_spawn ... ok
+test terminal_claim_requires_observed_result ... ok
+test lost_interrupt_transport_still_waits_for_owned_process ... ok
+test cancellation_before_ids_allows_cooperative_eof_exit ... ok
+test usage_retains_only_typed_counters ... ok
+test all_pre_response_notifications_are_reconciled ... ok
+test valid_output_cannot_override_nonzero_worker_exit ... ok
+test successful_peer_has_observed_zero_exit ... ok
+test duplicate_completions_are_idempotent_and_conflicts_fail ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s
+

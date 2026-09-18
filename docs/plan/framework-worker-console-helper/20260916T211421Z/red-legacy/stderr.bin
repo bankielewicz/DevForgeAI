@@ -1,0 +1,819 @@
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+You cannot call a method on a null-valued expression.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:7 char:5
++     $launch.ArgumentList.Add([string]$argument)
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 
+Expected 116 arguments before allowing a worker launch; observed zero.
+At C:\Projects\DevForgeAI\docs\plan\framework-worker-console-helper\20260916T211421Z\legacy-argument-repro.ps1:20 char:5
++     throw 'Expected 116 arguments before allowing a worker launch; ob ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Expected 116 ar... observed zero.:String) [], RuntimeException
+    + FullyQualifiedErrorId : Expected 116 arguments before allowing a worker launch; observed zero.
+ 

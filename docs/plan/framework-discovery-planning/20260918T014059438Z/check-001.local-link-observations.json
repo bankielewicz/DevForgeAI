@@ -1,0 +1,1234 @@
+[
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "workflows/phase-1-brainstorm-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "../../../src/agents/skills/dev/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "../../../src/agents/skills/qa/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/core-workflows.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "target": "../mvp/scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "target": "../mvp/acceptance.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "target": "../index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "target": "../foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "target": "../quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "subagents-and-context.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "../../plan/skill-validator-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "../../../src/agents/skills/skill-builder/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "../../../src/agents/skills/skill-validator/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "work-items-and-dependencies.md#readiness-parallel-work-and-sprint-grouping",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/expert-health-and-realignment.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "knowledge-and-continuity.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "roadmap-and-decisions.md#ambiguity-register",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "../../../src/agents/skills/dev/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "../../../src/agents/skills/qa/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/foundation.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "foundation.md#codex-and-chatgpt-pro-operating-boundary",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "installation-and-integrations.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "runtime/architecture.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "target": "mvp/scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "core-workflows.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "foundation.md#codex-and-chatgpt-pro-operating-boundary",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "roadmap-and-decisions.md#ambiguity-register",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "runtime/codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "core-workflows.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "subagents-and-context.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "expert-health-and-realignment.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "knowledge-and-continuity.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "installation-and-integrations.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "workflows/phase-1-brainstorm-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "installation-and-integrations.md#setup-intake-and-proposed-activation-workflow",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "core-workflows.md#discovery-route-and-workflow-names",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "roadmap-and-decisions.md#discovery-workflow-disposition-2026-09-17",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "runtime/codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/framework-worker-coding-handoff.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "mvp/scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "mvp/acceptance.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "runtime/architecture.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "evaluation/benchmark-protocol.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/framework-mvp-next-session.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/devforgeai-adaptive-framework-enhancement-notes.md#9-continued-discussion-dedicated-terminal-versus-a-rust-engine",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../../src/agents/skills/dev/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../../src/agents/skills/qa/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../../src/agents/skills/skill-builder/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../../src/agents/skills/skill-validator/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/skill-validator-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/devforgeai-index-service-mvp-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/devforgeai-index-query-cli-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "references/codex-config-schema-20260915.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/framework-foundation/20260915T111940Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/index.md",
+    "target": "../../plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "subagents-and-context.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "workflows/phase-1-brainstorm-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "foundation.md#codex-and-chatgpt-pro-operating-boundary",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/installation-and-integrations.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md#6-operational-project-binding-contract",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "../../plan/devforgeai-index-service-mvp-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "../../plan/devforgeai-index-query-cli-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "../../plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "runtime/architecture.md#persistence-and-project-knowledge",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "../../plan/framework-mvp-next-session.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "../../../src/agents/skills/dev/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/knowledge-and-continuity.md",
+    "target": "../../../src/agents/skills/qa/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/acceptance.md",
+    "target": "scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/acceptance.md",
+    "target": "../evaluation/benchmark-protocol.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/acceptance.md",
+    "target": "../quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/acceptance.md",
+    "target": "scope.md#walkthrough-selection",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../runtime/architecture.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "acceptance.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../evaluation/benchmark-protocol.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../core-workflows.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "acceptance.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/mvp/scope.md",
+    "target": "../../../plan/framework-mvp-next-session.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "../../../AGENTS.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md#6-operational-project-binding-contract",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "workflows/phase-1-brainstorm-spec.md#5-discovery-brief-and-handoff-contract",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md#42-bounded-project-discovery",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/project-context-and-policy.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "core-workflows.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "../../../AGENTS.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "../../../src/agents/skills/qa/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "../../../src/agents/skills/dev/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "../../../src/agents/skills/skill-validator/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/quality-and-delivery.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "workflows/phase-1-brainstorm-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "runtime/codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-worker-coding-handoff.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "workflows/phase-1-brainstorm-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-mvp-next-session.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "runtime/codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-worker-coding-handoff.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "mvp/scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-foundation/20260915T111940Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/roadmap-and-decisions.md",
+    "target": "../../plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-authority-v1.md",
+    "target": "../../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-authority-v1.md",
+    "target": "../guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-authority-v1.md",
+    "target": "../roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-authority-v1.md",
+    "target": "codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-authority-v1.md",
+    "target": "acceptance-worker-evidence-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-worker-evidence-v1.md",
+    "target": "acceptance-authority-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/acceptance-worker-evidence-v1.md",
+    "target": "codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../mvp/scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../roadmap-and-decisions.md#ambiguity-register",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../knowledge-and-continuity.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../foundation.md#codex-and-chatgpt-pro-operating-boundary",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../../../plan/framework-worker-coding-handoff.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/architecture.md",
+    "target": "../../../plan/framework-mvp-next-session.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "architecture.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "../mvp/scope.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "../../../plan/framework-worker-coding-handoff.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "../../../plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "../../../plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "../../../plan/framework-worker-contract/20260915T151300Z/inputs-before.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "../../../plan/framework-worker-contract/20260915T151300Z/schema-manifest.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "fixtures/codex-worker-v1/task.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "fixtures/codex-worker-v1/prompt.txt",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "fixtures/codex-worker-v1/expected.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "target": "fixtures/codex-worker-v1/output-schema.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+    "target": "codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+    "target": "../../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+    "target": "../../../plan/framework-native-readiness/20260915T1937559109498Z/launcher-identity.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-preflight-v1.md",
+    "target": "codex-worker-native-readiness-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-preflight-v1.md",
+    "target": "codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+    "target": "../../../plan/framework-worker-native-continuation/20260916T013303Z/source-inventory-proposal.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+    "target": "codex-worker-preflight-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+    "target": "codex-worker-native-readiness-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+    "target": "codex-worker-feasibility-v1.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "subagents-and-context.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "../../plan/skill-builder-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "../../../src/agents/skills/skill-builder/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "../../../src/agents/skills/skill-validator/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "workflows/phase-1-brainstorm-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "expert-health-and-realignment.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "../../plan/skill-validator-adaptive-enhancement-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/skills-and-project-expertise.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/subagents-and-context.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/subagents-and-context.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/subagents-and-context.md",
+    "target": "work-items-and-dependencies.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/subagents-and-context.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/subagents-and-context.md",
+    "target": "foundation.md#codex-and-chatgpt-pro-operating-boundary",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/subagents-and-context.md",
+    "target": "references/codex-config-schema-20260915.json",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "foundation.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "core-workflows.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "../../../.agents/skills/story-create/references/story-contract.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "installation-and-integrations.md#setup-bootstrap-and-worktree-compatibility",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "../../plan/devforgeai-index-query-cli-spec.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "../../plan/devforgeai-codex-rust-enforcement-design.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "../../../src/agents/skills/dev/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "../../../src/agents/skills/qa/SKILL.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "skills-and-project-expertise.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "quality-and-delivery.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "guardrails-and-rust-runtime.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/work-items-and-dependencies.md",
+    "target": "roadmap-and-decisions.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/workflows/phase-1-brainstorm-spec.md",
+    "target": "../index.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/workflows/phase-1-brainstorm-spec.md",
+    "target": "../core-workflows.md#discovery-route-and-workflow-names",
+    "exists": true,
+    "anchor_exists": true
+  },
+  {
+    "source": "docs/specs/framework/workflows/phase-1-brainstorm-spec.md",
+    "target": "../project-context-and-policy.md",
+    "exists": true
+  },
+  {
+    "source": "docs/specs/framework/workflows/phase-1-brainstorm-spec.md",
+    "target": "../roadmap-and-decisions.md#discovery-workflow-disposition-2026-09-17",
+    "exists": true,
+    "anchor_exists": true
+  }
+]

@@ -1,0 +1,464 @@
+# Requirements Schema Definition v1.0
+# Purpose: YAML schema for structured requirements that enable cross-session AI consumption
+# Reference: EPIC-068 Feature 4, STORY-435
+# Status: LOCKED
+#
+# This schema eliminates hallucination at session boundaries by:
+# - Locking all decisions with explicit alternatives
+# - Quantifying success criteria with measurable targets
+# - Defining explicit scope boundaries with deferral targets
+# - Maintaining provenance chain back to brainstorm session
+
+schema_version: "1.0"
+schema_name: "DevForgeAI Requirements Schema"
+description: >-
+  Structured requirements format designed for cross-session AI consumption.
+  Every field is unambiguous, rejected alternatives are explicit, and
+  decisions are locked. Serves as the sole handoff artifact between
+  ideation (Session N) and architecture (Session N+1).
+
+# =============================================================================
+# DECISIONS
+# =============================================================================
+# Locked choices with explicit rejected alternatives
+# Each decision closes doors the brainstorm left open
+decisions:
+  type: array
+  description: >-
+    Array of locked decisions with rejected alternatives.
+    Each decision must have locked: true and at least one rejected alternative.
+  required: true
+  item_schema:
+    id:
+      type: string
+      description: "Unique identifier matching pattern DR-N (e.g., DR-1, DR-2)"
+      pattern: "^DR-\\d+$"
+      required: true
+    domain:
+      type: string
+      description: "Domain or area this decision applies to (e.g., authentication, database, architecture)"
+      required: true
+    decision:
+      type: string
+      description: >-
+        The chosen decision text. MUST NOT contain hedging language
+        (no 'should', 'might', 'consider', 'possibly').
+      required: true
+      validation:
+        prohibited_words: ["should", "might", "consider", "possibly"]
+    rejected:
+      type: array
+      description: "List of alternatives that were NOT chosen, with reasons"
+      required: true
+      min_items: 1
+      item_schema:
+        option:
+          type: string
+          description: "The rejected alternative"
+          required: true
+        reason:
+          type: string
+          description: "Why this alternative was rejected"
+          required: true
+    rationale:
+      type: string
+      description: "Why this choice was made (supporting evidence/reasoning)"
+      required: true
+    locked:
+      type: boolean
+      description: "Must be true - decisions are immutable after ideation"
+      required: true
+      value: true
+  example:
+    - id: "DR-1"
+      domain: "authentication"
+      decision: "Use JWT tokens with 15-minute expiry"
+      rejected:
+        - option: "Session cookies"
+          reason: "Not suitable for API-first architecture"
+      rationale: "JWT enables stateless auth suitable for microservices"
+      locked: true
+
+# =============================================================================
+# SCOPE
+# =============================================================================
+# Explicit boundaries - what's in and what's out (with deferral targets)
+scope:
+  type: object
+  description: >-
+    Explicit scope boundaries. Items in 'out' must have deferral_target
+    indicating when (if ever) they may be reconsidered.
+  required: true
+  properties:
+    in:
+      type: array
+      description: "Items explicitly included in scope"
+      required: true
+      item_type: string
+      example:
+        - "User registration and login"
+        - "Product catalog browsing"
+    out:
+      type: array
+      description: "Items explicitly excluded with deferral target"
+      required: true
+      item_schema:
+        item:
+          type: string
+          description: "The excluded feature/requirement"
+          required: true
+        deferral_target:
+          type: string
+          description: "When to reconsider (e.g., 'Phase 2', 'Post-MVP', 'Never')"
+          required: true
+      example:
+        - item: "Payment processing"
+          deferral_target: "Phase 2"
+        - item: "Social media integration"
+          deferral_target: "Never"
+
+# =============================================================================
+# SUCCESS CRITERIA
+# =============================================================================
+# Quantified, measurable criteria - no vague targets allowed
+success_criteria:
+  type: array
+  description: >-
+    Quantified success criteria with measurable targets.
+    Each target MUST contain numbers or comparators (>, <, %, ms, etc.).
+  required: true
+  item_schema:
+    id:
+      type: string
+      description: "Unique identifier matching pattern SC-N (e.g., SC-1)"
+      pattern: "^SC-\\d+$"
+      required: true
+    metric:
+      type: string
+      description: "What is being measured"
+      required: true
+    target:
+      type: string
+      description: "Quantified threshold (must contain numbers or comparators)"
+      required: true
+      validation:
+        must_contain_quantifier: true
+        example_patterns: ["> 85%", "< 200ms", "99.9%", "≤ 500"]
+    measurement:
+      type: string
+      description: "How this will be verified/measured"
+      required: true
+  example:
+    - id: "SC-1"
+      metric: "User registration completion rate"
+      target: "> 85%"
+      measurement: "Analytics funnel tracking"
+
+# =============================================================================
+# CONSTRAINTS
+# =============================================================================
+# Technical, business, and regulatory constraints
+constraints:
+  type: array
+  description: "Technical, business, or regulatory constraints that must be followed"
+  required: true
+  item_schema:
+    type:
+      type: string
+      description: "Constraint category (technical, business, regulatory, resource)"
+      required: true
+      enum: ["technical", "business", "regulatory", "resource"]
+    constraint:
+      type: string
+      description: "The constraint statement"
+      required: true
+    source:
+      type: string
+      description: "Source or reference for this constraint"
+      required: false
+  example:
+    - type: "technical"
+      constraint: "Must use PostgreSQL per tech-stack.md"
+      source: "devforgeai/specs/context/tech-stack.md"
+
+# =============================================================================
+# NON-FUNCTIONAL REQUIREMENTS (NFRs)
+# =============================================================================
+# Performance, security, scalability, reliability requirements
+nfrs:
+  type: array
+  description: "Non-functional requirements covering quality attributes"
+  required: true
+  item_schema:
+    category:
+      type: string
+      description: "NFR category"
+      required: true
+      enum: ["performance", "security", "scalability", "reliability", "usability", "maintainability"]
+    requirement:
+      type: string
+      description: "The NFR statement"
+      required: true
+    priority:
+      type: string
+      description: "Priority level"
+      required: true
+      enum: ["Critical", "High", "Medium", "Low"]
+  example:
+    - category: "performance"
+      requirement: "API response time < 200ms (p95)"
+      priority: "High"
+
+# =============================================================================
+# STAKEHOLDERS
+# =============================================================================
+# Roles, goals, and decision authority
+stakeholders:
+  type: array
+  description: "Key stakeholders with their goals and decision authority"
+  required: true
+  item_schema:
+    role:
+      type: string
+      description: "Stakeholder role or title"
+      required: true
+    goals:
+      type: array
+      description: "Stakeholder's goals for this project"
+      required: true
+      item_type: string
+    decision_authority:
+      type: array
+      description: "Areas where this stakeholder has decision authority"
+      required: true
+      item_type: string
+  example:
+    - role: "Product Owner"
+      goals:
+        - "Maximize user adoption"
+        - "Reduce churn by 20%"
+      decision_authority:
+        - "Feature priority"
+        - "Release timing"
+
+# =============================================================================
+# RISKS  (Inception PM-plan section -- WI-3)
+# =============================================================================
+# RISK-NNN register carried into build/sprint planning. Mapped 1:1 from the
+# brainstorm risk_analysis.risks[] when a brainstorm is present; elicited during
+# Phase 03 (Step 3.7.5) when no brainstorm is present.
+risks:
+  type: array
+  description: >-
+    Project risks carried into downstream build and sprint planning.
+    Empty array is valid (no brainstorm + nothing elicited) -- Phase 06
+    flags an empty register as a PASSED_WITH_WARNINGS warning, never FAILED.
+  required: false
+  item_schema:
+    id:
+      type: string
+      description: "Unique identifier matching pattern RISK-NNN (e.g., RISK-001)"
+      pattern: "^RISK-\\d{3,}$"
+      required: true
+    description:
+      type: string
+      description: "The risk statement"
+      required: true
+    likelihood:
+      type: string
+      description: "Probability the risk materializes"
+      required: true
+      enum: ["Low", "Medium", "High"]
+    impact:
+      type: string
+      description: "Severity of consequences if the risk materializes"
+      required: true
+      enum: ["Low", "Medium", "High"]
+    severity:
+      type: string
+      description: "Combined likelihood x impact rating"
+      required: false
+      enum: ["Low", "Medium", "High", "Critical"]
+    mitigation:
+      type: string
+      description: "Planned mitigation or contingency"
+      required: false
+    owner:
+      type: string
+      description: "Stakeholder accountable for managing this risk"
+      required: false
+  example:
+    - id: "RISK-001"
+      description: "Third-party SAP API may not expose the order endpoints needed"
+      likelihood: "Medium"
+      impact: "High"
+      severity: "High"
+      mitigation: "Run an API spike in the first sprint; fall back to file import"
+      owner: "Tech Lead"
+
+# =============================================================================
+# ROADMAP  (Inception PM-plan section -- WI-3)
+# =============================================================================
+# Phased milestone roadmap (MVP / Release 2 / Future) carrying build order and
+# inter-milestone dependencies. Mapped from the brainstorm release_roadmap when
+# present; derived from MoSCoW priority + scope.future when no brainstorm exists.
+# BOUNDED: no schedule durations, no resource/capacity, no budget breakdown --
+# those are ungrounded until the architecture skills exist.
+roadmap:
+  type: array
+  description: >-
+    Ordered list of release milestones. Each phase lists its included items and
+    the milestones/requirements it depends on (build order).
+  required: false
+  item_schema:
+    phase:
+      type: string
+      description: "Milestone name (e.g., 'MVP', 'Release 2', 'Future')"
+      required: true
+    items:
+      type: array
+      description: "Requirement IDs or capability names included in this milestone"
+      required: true
+      item_type: string
+    dependencies:
+      type: array
+      description: "Milestone names or requirement IDs this phase depends on (build order)"
+      required: false
+      item_type: string
+    rationale:
+      type: string
+      description: "Why these items are grouped into this milestone"
+      required: false
+  example:
+    - phase: "MVP"
+      items: ["FR-001", "FR-002", "User authentication"]
+      dependencies: []
+      rationale: "Smallest releasable slice that validates the core workflow"
+    - phase: "Release 2"
+      items: ["FR-005", "Real-time dashboard"]
+      dependencies: ["MVP"]
+      rationale: "Builds on MVP data once the core workflow is proven"
+
+# =============================================================================
+# STAKEHOLDER REGISTER  (Inception PM-plan section -- WI-3)
+# =============================================================================
+# Stakeholders with influence / interest / RACI. Mapped from the brainstorm
+# stakeholders.registry[] when present; merged with ideation's own personas.
+# This is the PM-depth register; the lighter 'stakeholders' array above is
+# retained for backward compatibility with current downstream consumers.
+stakeholder_register:
+  type: array
+  description: "Project stakeholders with influence, interest, and RACI / decision authority"
+  required: false
+  item_schema:
+    id:
+      type: string
+      description: "Stakeholder identifier (e.g., STK-001)"
+      required: true
+    name_or_role:
+      type: string
+      description: "Stakeholder name or role title"
+      required: true
+    category:
+      type: string
+      description: "Stakeholder tier"
+      required: true
+      enum: ["Primary", "Secondary", "Tertiary"]
+    influence:
+      type: string
+      description: "How much sway this stakeholder has over the project"
+      required: false
+      enum: ["Low", "Medium", "High"]
+    interest:
+      type: string
+      description: "How affected/engaged this stakeholder is"
+      required: false
+      enum: ["Low", "Medium", "High"]
+    raci:
+      type: string
+      description: "RACI role for the project"
+      required: false
+      enum: ["Responsible", "Accountable", "Consulted", "Informed"]
+    goals:
+      type: array
+      description: "Stakeholder goals for this project"
+      required: false
+      item_type: string
+    concerns:
+      type: array
+      description: "Stakeholder concerns or risks they care about"
+      required: false
+      item_type: string
+  example:
+    - id: "STK-001"
+      name_or_role: "Operations Manager"
+      category: "Primary"
+      influence: "High"
+      interest: "High"
+      raci: "Accountable"
+      goals: ["Reduce error rate below 1%"]
+      concerns: ["Training overhead", "Clerk pushback"]
+
+# =============================================================================
+# ASSUMPTIONS  (Inception PM-plan section -- WI-3)
+# =============================================================================
+# First-class assumptions register. Merges the brainstorm Phase-08 assumptions
+# register with ideation's critical_assumptions / Phase-03 elicited assumptions.
+# Unvalidated assumptions become defects downstream -- this elevates them to a
+# queryable register rather than burying them in prose.
+assumptions:
+  type: array
+  description: "Assumptions that, if invalidated, become downstream defects"
+  required: false
+  item_schema:
+    id:
+      type: string
+      description: "Unique identifier matching pattern ASMP-NNN (e.g., ASMP-001)"
+      pattern: "^ASMP-\\d{3,}$"
+      required: true
+    statement:
+      type: string
+      description: "The assumption being made"
+      required: true
+    validation_method:
+      type: string
+      description: "How this assumption will be validated"
+      required: false
+    source:
+      type: string
+      description: "Origin -- brainstorm session or ideation phase"
+      required: false
+  example:
+    - id: "ASMP-001"
+      statement: "API integration with SAP is technically feasible"
+      validation_method: "Proof of concept in sprint 1"
+      source: "brainstorm:BRAINSTORM-003"
+
+# =============================================================================
+# IDEA BACKLOG REFERENCE  (Inception PM-plan section -- WI-2 / WI-3)
+# =============================================================================
+# Relative path to the standalone living idea-backlog artifact. The full DEF-NNN
+# items live in that separate file (see assets/templates/idea-backlog-template.md);
+# this field carries only the reference so the requirements document and the
+# backlog do not duplicate data.
+idea_backlog_ref:
+  type: string
+  description: >-
+    Relative path to devforgeai/specs/ideation/{project}-idea-backlog.md.
+    Set to 'N/A' only when no ideas were deferred by the brainstorm or the
+    ideation session.
+  required: false
+  example: "devforgeai/specs/ideation/order-automation-idea-backlog.md"
+
+# =============================================================================
+# SOURCE PROVENANCE
+# =============================================================================
+# Back-reference for audit chain: brainstorm -> requirements -> epic
+source_brainstorm:
+  type: string
+  description: >-
+    Back-reference to originating brainstorm document.
+    Must match pattern BRAINSTORM-NNN or be 'N/A' if not from brainstorm.
+  required: true
+  pattern: "^(BRAINSTORM-\\d{3}|N/A)$"
+  example: "BRAINSTORM-003"

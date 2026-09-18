@@ -1,0 +1,15 @@
+{
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Program Files\\Python310\\python.exe",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\regression\\run_suite.py",
+    "final-authoring",
+    "--modules",
+    "test_design",
+    "test_authoring",
+    "test_authoring_safeguards"
+  ],
+  "coverage": "7.9.0"
+}

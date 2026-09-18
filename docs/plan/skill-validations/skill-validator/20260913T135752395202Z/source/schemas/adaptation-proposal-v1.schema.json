@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "mode",
+    "project_evidence",
+    "prior_proposal",
+    "requirements",
+    "members",
+    "handoffs",
+    "gaps",
+    "state"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "adaptation-proposal-v1"
+    },
+    "run_id": {
+      "$ref": "adaptive-common.schema.json#/$defs/Id"
+    },
+    "mode": {
+      "enum": [
+        "propose",
+        "review_updates"
+      ]
+    },
+    "project_evidence": {
+      "$ref": "adaptive-common.schema.json#/$defs/Ref"
+    },
+    "prior_proposal": {
+      "anyOf": [
+        {
+          "$ref": "adaptive-common.schema.json#/$defs/Ref"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Requirement"
+      }
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Member"
+      }
+    },
+    "handoffs": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Handoff"
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Gap"
+      }
+    },
+    "state": {
+      "enum": [
+        "PROPOSED",
+        "BLOCKED",
+        "NO_CHANGE"
+      ]
+    }
+  }
+}

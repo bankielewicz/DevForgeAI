@@ -1,0 +1,64 @@
+{
+  "Windows": {
+    "helper_unit_pass": 30,
+    "helper_unit_required": 30,
+    "helper_cli_pass": 14,
+    "helper_cli_required": 14,
+    "native_pass": 15,
+    "native_required": 15,
+    "adverse_pass": 3,
+    "adverse_required": 3,
+    "required_pass": 62,
+    "required_total": 62,
+    "required_pass_rate": 100.0,
+    "line_covered": 239,
+    "line_total": 240,
+    "line_coverage": 99.58333333333333,
+    "branches_covered": 36,
+    "branches_total": 38,
+    "branch_coverage": 94.73684210526316
+  },
+  "Linux": {
+    "helper_unit_pass": 30,
+    "helper_unit_required": 30,
+    "symlink_pass": 1,
+    "symlink_required": 1,
+    "required_pass": 31,
+    "required_total": 31,
+    "required_pass_rate": 100.0,
+    "line_covered": 239,
+    "line_total": 240,
+    "line_coverage": 99.58333333333333,
+    "branches_covered": 36,
+    "branches_total": 38,
+    "branch_coverage": 94.73684210526316,
+    "native_workflow": "NOT_RUN; outside this declared native Windows scope"
+  },
+  "overall_declared_target_cases": {
+    "passing": 93,
+    "required": 93,
+    "pass_rate": 100.0
+  },
+  "grader_controls": {
+    "passing": 21,
+    "required": 21,
+    "target_credit": false
+  },
+  "fault_controls": {
+    "passing": 6,
+    "required": 6,
+    "target_credit": false
+  },
+  "routing_classification": {
+    "passing": 12,
+    "required": 12,
+    "target_credit": false
+  },
+  "thresholds": {
+    "line_minimum": 95,
+    "required_pass_rate_minimum": 95,
+    "full_target_pass_floor": "MET",
+    "interpretation": "Each declared target case counted once. Historical attempt failures remain separate. Branch coverage is separately reported; no branch minimum was selected."
+  },
+  "coverage_basis": "Reused raw Windows/Linux executed-line measurements for identical first-party check_project_binding.py bytes: 240 executable lines, no exclusions. This is helper coverage, not model instruction coverage or Rust framework qualification."
+}

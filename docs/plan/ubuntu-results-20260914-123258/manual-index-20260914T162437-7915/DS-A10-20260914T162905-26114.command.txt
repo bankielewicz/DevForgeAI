@@ -1,0 +1,1 @@
+cargo test --locked --test capture adapters_extract_real_declarations_docs_and_exact_source_ranges -- --nocapture 

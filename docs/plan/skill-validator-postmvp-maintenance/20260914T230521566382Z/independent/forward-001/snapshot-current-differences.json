@@ -1,0 +1,30 @@
+{
+  "snapshot_manifest_sha256": "4812bd979c0e1e262d960cc6dfe1f9746bec33e9cc3c79899d440d77832b44ea",
+  "differences": [
+    {
+      "path": "evals/build-manifest.json",
+      "snapshot": "b0f414153bd4f556b38d841504b96f466aeac68032abe8ad563e926f0fb3fde7",
+      "current": "1b9259c1455715300a278adaf7aa68735134c688c41ed7c37ec8883683a85acd"
+    },
+    {
+      "path": "scripts/observe.py",
+      "snapshot": "1557056b9bebabaaf083f0e7792d3dd07dbe48cc8ad9ecc12e36de2b5cca6847",
+      "current": "31cba489215197836fbb59bf098feaca8c0f9745e4edeecd18dc4fbbceed42ff"
+    },
+    {
+      "path": "scripts/standards_observe.py",
+      "snapshot": "77044ecae0f756beee6e34ebe9150cd789501ead269aa5418a7fff939439c783",
+      "current": "c2dc1ef87986c40b90fdcff313d5cefb6d2edb4e42895ce23a4d050d9faebef7"
+    },
+    {
+      "path": "scripts/trial_runner.py",
+      "snapshot": "70a04f9a13bd0a3541b281a0592d8894228f7e272d9a799d6668f0b0fba92179",
+      "current": "4f5056d33cd24a115847acecb777f54cd92f4381e80441b128ac2973d94a9050"
+    },
+    {
+      "path": "tests/test_postmvp.py",
+      "snapshot": "ad51b6303c402e315330b833913beac3e05a0d4577490d79726a9a47eb11618c",
+      "current": "20ae0e9978105e2fb49723b682bf364c56ff24a6488b8183dcb03352f3846a26"
+    }
+  ]
+}

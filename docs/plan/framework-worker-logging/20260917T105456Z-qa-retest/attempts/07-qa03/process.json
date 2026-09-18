@@ -1,0 +1,18 @@
+{
+  "pid": 67000,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\Cargo.toml",
+    "--test",
+    "independent",
+    "--",
+    "qa_03_early_exit_classification",
+    "--exact",
+    "--test-threads=1"
+  ],
+  "started_utc": "2026-09-17T11:08:00.701719+00:00"
+}

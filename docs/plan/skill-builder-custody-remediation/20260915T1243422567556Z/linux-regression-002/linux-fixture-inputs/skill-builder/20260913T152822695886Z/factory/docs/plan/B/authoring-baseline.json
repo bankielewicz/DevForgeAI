@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "B",
+  "target_root": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/skills/notes-b",
+  "target_name": "notes-b",
+  "authoring_record": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/B/authoring-record.json",
+    "sha256": "ec0eed90893f620b2ae9902afa90d4ac29588e53e9710dd26a37dd7aef16dbdd"
+  },
+  "baseline_manifest": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/B/baseline-manifest.json",
+    "sha256": "14e1ab20ac166f339a0d7e5efd2dbb7debafbec466aa2acc7af960fd0a8f138d"
+  },
+  "baseline_root": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/B/baseline"
+}

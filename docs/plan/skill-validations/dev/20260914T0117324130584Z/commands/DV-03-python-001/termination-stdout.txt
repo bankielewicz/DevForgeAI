@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 102888 (child process of PID 84260) has been terminated.
+SUCCESS: The process with PID 106756 (child process of PID 21236) has been terminated.
+SUCCESS: The process with PID 52668 (child process of PID 26084) has been terminated.
+SUCCESS: The process with PID 84260 (child process of PID 26084) has been terminated.
+SUCCESS: The process with PID 21236 (child process of PID 26084) has been terminated.
+SUCCESS: The process with PID 100060 (child process of PID 26084) has been terminated.
+SUCCESS: The process with PID 26084 (child process of PID 67116) has been terminated.

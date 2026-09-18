@@ -1,0 +1,56 @@
+{
+  "authorization": {
+    "instruction": "Adopt this synthetic development target using the reviewed origin and selected managed manifest; preserve all bytes and unknown history.",
+    "managed_manifest_sha256": "53e0a5b29c535e5c4ecf736a172438438c66b3474f0c6878579fa1dda242bd81",
+    "origin_spec_sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210",
+    "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\handoff-profile-checks-release\\ready-unreviewed-negative\\candidate\\project\\src\\agents\\skills\\synthetic-total"
+  },
+  "captured_at_utc": "2026-09-12T14:00:00Z",
+  "handoff": {
+    "path": "adoption/evidence/handoff.json",
+    "sha256": "b4dace3946ff379da589effbb7f23b9d708f923afdb560c6ea62f26548334f04"
+  },
+  "historical_origin": "unknown",
+  "managed_manifest": {
+    "path": "adoption/evidence/managed-manifest.json",
+    "sha256": "53e0a5b29c535e5c4ecf736a172438438c66b3474f0c6878579fa1dda242bd81"
+  },
+  "managed_paths": [
+    "SKILL.md"
+  ],
+  "origin_spec": {
+    "path": "adoption/evidence/origin.md",
+    "sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210"
+  },
+  "origin_spec_input": {
+    "bytes": 79,
+    "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\handoff-profile-checks-release\\ready-unreviewed-negative\\candidate\\reviewed-origin.md",
+    "sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210"
+  },
+  "prior_evidence": [],
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\handoff-profile-checks-release\\ready-unreviewed-negative\\candidate\\project",
+  "quality_evidence": [
+    {
+      "path": "adoption/evidence/quality.json",
+      "sha256": "d35ad2f5fa38805c420584bbbfd4a89f4d22b90de2757f1b88ec4e35ae73327d"
+    }
+  ],
+  "record_kind": "adoption",
+  "recording_state": "ADOPTED",
+  "retained_user_paths": [
+    "notes.txt"
+  ],
+  "run_id": "synthetic-adoption",
+  "schema_version": "1",
+  "snapshot_manifest": {
+    "path": "adoption/evidence/snapshot-manifest.json",
+    "sha256": "d830a56d4c812fc78f82dfe473e78cdb02c77f07a925386fa03bf302e67df8a8"
+  },
+  "snapshot_root": "adoption/evidence/snapshot",
+  "source_readback": {
+    "path": "adoption/evidence/source-readback.json",
+    "sha256": "ff444397f2adc2fcc96b83e5e792ec8943849e4dba61d92097c036956ecf4688"
+  },
+  "target_name": "synthetic-total",
+  "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\handoff-profile-checks-release\\ready-unreviewed-negative\\candidate\\project\\src\\agents\\skills\\synthetic-total"
+}

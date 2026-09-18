@@ -1,0 +1,70 @@
+{
+  "root": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts",
+  "files": [
+    {
+      "path": "adaptive_contracts.py",
+      "bytes": 28641,
+      "sha256": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0"
+    },
+    {
+      "path": "adaptive_observe.py",
+      "bytes": 19259,
+      "sha256": "7bf5a96424cd9fb742e3c0aac9100180d72a7dcdcc22e79de634b1bc748674d2"
+    },
+    {
+      "path": "authoring_intake.py",
+      "bytes": 4603,
+      "sha256": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99"
+    },
+    {
+      "path": "build_evidence.py",
+      "bytes": 15985,
+      "sha256": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3"
+    },
+    {
+      "path": "custody.py",
+      "bytes": 24168,
+      "sha256": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e"
+    },
+    {
+      "path": "graders.py",
+      "bytes": 55913,
+      "sha256": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c"
+    },
+    {
+      "path": "observe.py",
+      "bytes": 44583,
+      "sha256": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f"
+    },
+    {
+      "path": "run_evaluation.py",
+      "bytes": 11106,
+      "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8"
+    },
+    {
+      "path": "text_resources.py",
+      "bytes": 21741,
+      "sha256": "10b284f173afd602eef1b68f87d021ceba33c426180460ff89a1a0aae2b7a552"
+    }
+  ],
+  "package_digest": "8a006420681c776df58d4df934c1294bec4ae4292c7f5ff66248991e98ebf666",
+  "file_count": 9,
+  "bytes": 225999,
+  "exclusions": [],
+  "enumerations": [
+    {
+      "directory": ".",
+      "entries": [
+        "adaptive_contracts.py",
+        "adaptive_observe.py",
+        "authoring_intake.py",
+        "build_evidence.py",
+        "custody.py",
+        "graders.py",
+        "observe.py",
+        "run_evaluation.py",
+        "text_resources.py"
+      ]
+    }
+  ]
+}

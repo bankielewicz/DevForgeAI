@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "src/agents/skills/skill-validator/tests",
+    "-p",
+    "test_confirmed_findings.py",
+    "-v"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at": "2026-09-13T21:17:30.239396Z",
+  "timeout_seconds": 120,
+  "fixture_before": null,
+  "permitted_effects": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\temporary\\GREEN",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\commands\\GREEN"
+  ],
+  "environment_overrides": {
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\temporary\\GREEN",
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T211315150947Z\\temporary\\GREEN",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUTF8": "1"
+  }
+}

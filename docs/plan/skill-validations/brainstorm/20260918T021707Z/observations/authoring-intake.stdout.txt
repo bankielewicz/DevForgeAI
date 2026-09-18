@@ -1,0 +1,21 @@
+{
+  "schema_version": "1",
+  "status": "BOUND",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\brainstorm",
+  "target_name": "brainstorm",
+  "package_digest": "5a0501c51b234ea47f35ff6f7bdeafc996223e82eb40aff683f8c8c33a3070ae",
+  "authoring_run_id": "20260918T020654Z",
+  "history": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "coverage": [
+    "manual request byte bindings",
+    "independent complete target readback"
+  ],
+  "quality_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "limitations": [
+    "No semantic assessment, native activation, or external-effect authorization."
+  ]
+}

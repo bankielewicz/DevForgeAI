@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2136389781471Z",
+  "target_name": "dev",
+  "assessment_finished": true,
+  "remaining_required_coverage": [
+    "accepted authoring handoff",
+    "17 nonpassing DV scenarios",
+    "native implicit activation and independent routing where selected"
+  ],
+  "owned_running_jobs": [],
+  "next_safe_action": "Resolve packet path-identity compatibility separately; after explicit model-connection authorization run bounded cold trials in a fresh linked evaluation and recheck all input hashes.",
+  "source_package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae"
+}

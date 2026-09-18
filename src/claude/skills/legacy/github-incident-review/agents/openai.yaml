@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Incident Review"
+  short_description: "Validate GitHub incidents with provenance"
+  default_prompt: "Use $github-incident-review to verify this GitHub incident and produce a provenance-backed ruling."

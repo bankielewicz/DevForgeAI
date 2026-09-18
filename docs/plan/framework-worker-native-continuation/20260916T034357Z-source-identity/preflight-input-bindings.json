@@ -1,0 +1,9 @@
+{
+  "request_sha256": "d197a36e26e87718bcc07a1f75fead47788e1748b4d9a2aa2081f530e5c88c35",
+  "review_sha256": "bcd10ad46017b34493fd8bfa975405728ca714ecabb3e2a105234cdccc043cb0",
+  "source_inventory_sha256": "2029d7889cd4054d2791fd0e55684dae48ac0c37aac12710e068aad858a1fbad",
+  "physical_sources": 36,
+  "all_findings_false": true,
+  "purpose": "Inputs only for preflight; do not authorize run, model work or framework acceptance",
+  "native_model_trials_consumed": 0
+}

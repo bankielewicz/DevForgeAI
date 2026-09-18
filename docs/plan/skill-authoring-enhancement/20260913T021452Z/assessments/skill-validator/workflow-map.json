@@ -1,0 +1,79 @@
+{
+  "schema_version": "1",
+  "run_id": "skill-validator-delivered",
+  "target_name": "skill-validator",
+  "steps": [
+    {
+      "step_id": "resolve",
+      "entrypoint": "source/SKILL.md",
+      "inputs": "Current request, project, identity and destination",
+      "executor": "Codex using named bundled helper when applicable",
+      "action": "Resolve material ambiguity and current authority",
+      "outputs": "Selected operation and scope",
+      "next_step": "capture",
+      "completion_evidence": "Selected operation and scope",
+      "failure_recovery": "Unresolved material input stops dependent writes",
+      "terminal_result": "Return actual artifacts and limitations at STOP"
+    },
+    {
+      "step_id": "capture",
+      "entrypoint": "source/scripts/observe.py",
+      "inputs": "Selected input bytes and verified prior origin",
+      "executor": "Codex using named bundled helper when applicable",
+      "action": "Capture raw inputs and current package",
+      "outputs": "Contract, before snapshot and manifest",
+      "next_step": "rules",
+      "completion_evidence": "Contract, before snapshot and manifest",
+      "failure_recovery": "Retain incomplete captures and concrete errors",
+      "terminal_result": "Return actual artifacts and limitations at STOP"
+    },
+    {
+      "step_id": "rules",
+      "entrypoint": "source/references/rules.md",
+      "inputs": "Contract and snapshots",
+      "executor": "Codex using named bundled helper when applicable",
+      "action": "Select independent applicable rules and expected outcomes",
+      "outputs": "Pinned rule set and trial plan",
+      "next_step": "assess",
+      "completion_evidence": "Pinned rule set and trial plan",
+      "failure_recovery": "Report gaps without fabricated capability",
+      "terminal_result": "Return actual artifacts and limitations at STOP"
+    },
+    {
+      "step_id": "assess",
+      "entrypoint": "source/references/trials.md",
+      "inputs": "Selected rules and disposable fixtures",
+      "executor": "Codex using named bundled helper when applicable",
+      "action": "Run structure, deterministic and independent behavior checks",
+      "outputs": "Retained observations, findings and limitations",
+      "next_step": "readback",
+      "completion_evidence": "Retained observations, findings and limitations",
+      "failure_recovery": "Preserve failed attempts and NOT_RUN coverage",
+      "terminal_result": "Return actual artifacts and limitations at STOP"
+    },
+    {
+      "step_id": "readback",
+      "entrypoint": "source/scripts/observe.py",
+      "inputs": "Actual live target and retained input manifest",
+      "executor": "Codex using named bundled helper when applicable",
+      "action": "Read exact delivered/assessed bytes",
+      "outputs": "Matching manifest or SOURCE_CHANGED",
+      "next_step": "handoff",
+      "completion_evidence": "Matching manifest or SOURCE_CHANGED",
+      "failure_recovery": "Changed bytes block current-byte conclusions",
+      "terminal_result": "Return actual artifacts and limitations at STOP"
+    },
+    {
+      "step_id": "handoff",
+      "entrypoint": "source/references/handoff.md",
+      "inputs": "Assessment results and exact target digest",
+      "executor": "Codex using named bundled helper when applicable",
+      "action": "Report results and any reviewable revision proposal",
+      "outputs": "Report and review-state handoff",
+      "next_step": "STOP",
+      "completion_evidence": "Report and review-state handoff",
+      "failure_recovery": "Retain failed publication; no automatic validator or repair loop",
+      "terminal_result": "Return actual artifacts and limitations at STOP"
+    }
+  ]
+}

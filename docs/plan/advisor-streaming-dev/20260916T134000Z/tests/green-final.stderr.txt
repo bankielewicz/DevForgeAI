@@ -1,0 +1,38 @@
+test_preflight_retains_help_for_streaming_capability_decision (test_streaming.CommandAndPreflightTests) ... ok
+test_stream_command_changes_only_transport_flags (test_streaming.CommandAndPreflightTests) ... ok
+test_show_progress_keeps_final_json_on_stdout_and_summary_on_stderr (test_streaming.CommandLinePresentationTests) ... ok
+test_show_progress_warns_when_failed_envelope_exceeds_cli_cap (test_streaming.CommandLinePresentationTests) ... ok
+test_failed_process_retains_finite_cost_and_never_exposes_advice (test_streaming.StreamInterpretationTests) ... ok
+test_invalid_cost_types_and_values_are_rejected (test_streaming.StreamInterpretationTests) ... ok
+test_malformed_stream_is_invalid_even_when_process_exit_is_zero (test_streaming.StreamInterpretationTests) ... ok
+test_noncompleted_terminal_reason_is_invalid (test_streaming.StreamInterpretationTests) ... ok
+test_success_requires_valid_terminal_advice (test_streaming.StreamInterpretationTests) ... ok
+test_timeout_interruption_transport_and_cleanup_failure_never_yield_advice (test_streaming.StreamInterpretationTests) ... ok
+test_malformed_missing_duplicate_and_nonterminal_result_are_rejected (test_streaming.StreamParserTests) ... ok
+test_unknown_nonfinal_events_are_allowed_and_final_result_is_returned (test_streaming.StreamParserTests) ... ok
+test_continuously_filled_queue_still_obeys_cleanup_ceiling (test_streaming.StreamProcessTests) ... C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916T134000Z-streaming\candidate\tests\test_streaming.py:471: ResourceWarning: unclosed file <_io.BufferedReader name=5>
+  value = streaming.execute_stream(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_heartbeat_reports_waiting_without_child_content (test_streaming.StreamProcessTests) ... ok
+test_keyboard_interrupt_stops_and_reaps_actual_child (test_streaming.StreamProcessTests) ... ok
+test_kill_failure_is_bounded_and_reports_incomplete_cleanup (test_streaming.StreamProcessTests) ... ok
+test_nonzero_child_retains_stream_and_complete_cleanup (test_streaming.StreamProcessTests) ... ok
+test_pipe_read_failure_is_retained_as_transport_error (test_streaming.StreamProcessTests) ... ok
+test_progress_allowlist_handles_untrusted_shapes_without_disclosure (test_streaming.StreamProcessTests) ... ok
+test_progress_sink_write_failure_does_not_change_raw_evidence (test_streaming.StreamProcessTests) ... ok
+test_real_subprocess_preserves_raw_streams_and_cleanup_observations (test_streaming.StreamProcessTests) ... ok
+test_real_timeout_is_bounded_and_records_cleanup (test_streaming.StreamProcessTests) ... ok
+test_repeated_interrupt_during_kill_remains_bounded (test_streaming.StreamProcessTests) ... ok
+test_spawn_failure_is_explicit_and_has_no_raw_output (test_streaming.StreamProcessTests) ... ok
+test_wait_failure_is_retained_after_actual_child_stop (test_streaming.StreamProcessTests) ... ok
+test_stream_evidence_forgery_blocks_followup_without_review_invocation (test_streaming.StreamingEvidenceTests) ... ok
+test_streaming_preflight_rejects_missing_stream_capabilities_before_attempt (test_streaming.StreamingEvidenceTests) ... ok
+test_uncertain_cleanup_history_blocks_another_attempt (test_streaming.StreamingEvidenceTests) ... ok
+test_v1_history_allows_v2_followup_and_preserves_old_bytes (test_streaming.StreamingEvidenceTests) ... ok
+test_v2_history_allows_quiet_v1_followup (test_streaming.StreamingEvidenceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 11.447s
+
+OK

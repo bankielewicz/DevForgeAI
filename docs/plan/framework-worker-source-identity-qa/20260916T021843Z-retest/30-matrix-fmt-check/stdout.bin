@@ -1,0 +1,44 @@
+Diff in \\?\C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\harness\packages\qa-negative-matrix\tests\support\plugin_source_identity_cases.rs:565:
+         .collect();
+     assert_eq!(unique_bindings.len(), bindings.len());
+     assert!(
+-        bindings.iter().all(|(path, _)| !path.starts_with(&selected.path)),
++        bindings
++            .iter()
++            .all(|(path, _)| !path.starts_with(&selected.path)),
+         "physical controls must not be read through the logical alias"
+     );
+     let plugin_directory = selected.target.parent().unwrap();
+Diff in \\?\C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\harness\packages\qa-negative-matrix\tests\support\plugin_source_identity_cases.rs:602:
+         .entries
+         .iter()
+         .find(|entry| {
+-            entry.state == SourceState::DirectoryIndex
+-                && entry.path == canonical_plugin_directory
++            entry.state == SourceState::DirectoryIndex && entry.path == canonical_plugin_directory
+         })
+         .expect("plugin member index must be retained");
+     assert_eq!(observed_index.items, Some(independent_members.len() as u32));
+Diff in \\?\C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\harness\packages\qa-negative-matrix\tests\support\plugin_source_identity_cases.rs:610:
+-    assert_eq!(observed_index.sha256.as_deref(), Some(expected_index.as_str()));
++    assert_eq!(
++        observed_index.sha256.as_deref(),
++        Some(expected_index.as_str())
++    );
+ 
+     fs::write(selected.target.join("new-control.txt"), b"member drift\n").unwrap();
+     assert!(
+Diff in \\?\C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\harness\packages\qa-negative-matrix\tests\support\plugin_source_identity_cases.rs:639:
+     let mut wrong_inventory_tag = schema_inventory.clone();
+     wrong_inventory_tag.junctions[0].reparse_tag = 0xa000000c;
+     assert!(
+-        verify_with_policy(
+-            &wrong_inventory_tag,
+-            &schema_context.roots,
+-            &schema_policy,
+-        )
+-        .is_err(),
++        verify_with_policy(&wrong_inventory_tag, &schema_context.roots, &schema_policy,).is_err(),
+         "an inventory cannot relabel the observed junction type"
+     );
+ }

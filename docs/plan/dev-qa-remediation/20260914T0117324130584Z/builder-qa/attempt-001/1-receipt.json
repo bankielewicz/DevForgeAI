@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-m",
+    "coverage",
+    "json",
+    "--data-file",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\attempt-001\\coverage.data",
+    "-o",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\attempt-001\\coverage.json"
+  ],
+  "start": "2026-09-14T01:27:58.757512+00:00",
+  "end": "2026-09-14T01:27:58.927516+00:00",
+  "elapsed_seconds": 0.1720000000204891,
+  "exit_code": 0
+}

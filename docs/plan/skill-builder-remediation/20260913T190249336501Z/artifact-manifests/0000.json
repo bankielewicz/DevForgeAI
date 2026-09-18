@@ -1,0 +1,296 @@
+{
+  "root": ".",
+  "scope": "direct files only",
+  "files": [
+    {
+      "path": "coverage-contract-edges",
+      "bytes": 86016,
+      "sha256": "7035a98c2372d56cf1cfd719820f8c02b7089b3dc8eebff9dcc3ee628ce7141a"
+    },
+    {
+      "path": "coverage-contract-edges-02",
+      "bytes": 86016,
+      "sha256": "91c0c093b092210249f0dec9de4dbb7de593ae32ebc9102fc330e8361fda55d8"
+    },
+    {
+      "path": "coverage-contract-edges-03",
+      "bytes": 86016,
+      "sha256": "3d9de6f49395245c13d3b8326cba74cb1dadc5e2c6fbf511900de1159b58c2ba"
+    },
+    {
+      "path": "coverage-edges-final",
+      "bytes": 90112,
+      "sha256": "ca7741f6fba1ca5c9c02ae0fe04931c6db6fccb820de411723116226e7c9bef6"
+    },
+    {
+      "path": "coverage-edges-final-02",
+      "bytes": 106496,
+      "sha256": "0754fae609096bbcdc230d17ed686b100e7ee4d3b34c8a38457ac344076d1a36"
+    },
+    {
+      "path": "coverage-final",
+      "bytes": 143360,
+      "sha256": "8717f89c5bf21468c55f25f942442b900deec99386e9c692557345b55d062eae"
+    },
+    {
+      "path": "coverage-final-02",
+      "bytes": 147456,
+      "sha256": "157986b2e2974d2dd1b6acf97541873fdca53d70d2302083be2007a3abf4293b"
+    },
+    {
+      "path": "coverage-final-02.json",
+      "bytes": 123249,
+      "sha256": "022b3b6bd1ae8b2c2c5bcf069c0f65a735a4ff4e8301910551e86d99b85c7650"
+    },
+    {
+      "path": "coverage-final.json",
+      "bytes": 123261,
+      "sha256": "8b0679be257dfb1eeb151b3a88ee9c4388eaa523f8ca2f5149fc0d1302627e35"
+    },
+    {
+      "path": "coverage-focused",
+      "bytes": 53248,
+      "sha256": "a50318e8d8c1b3f9470658bec27e83789b29fb20209d457a1224195c6a296f26"
+    },
+    {
+      "path": "coverage-focused-02",
+      "bytes": 90112,
+      "sha256": "29a6576e4ab1686f0fe0ff6b26f831ff4fa4f08ab0fb5e2afde14faccb7d4905"
+    },
+    {
+      "path": "coverage-focused-final",
+      "bytes": 90112,
+      "sha256": "29a6576e4ab1686f0fe0ff6b26f831ff4fa4f08ab0fb5e2afde14faccb7d4905"
+    },
+    {
+      "path": "coverage-legacy-01",
+      "bytes": 98304,
+      "sha256": "a87036fcb8d8c0a460b9521d85d57238a3b25172c305fb4d2532ebfe25f6d0f4"
+    },
+    {
+      "path": "coverage-legacy-02",
+      "bytes": 102400,
+      "sha256": "9d718bb1cb934d96c8a55402e62e4424eb6191ac24f531320e172af1c71a4c96"
+    },
+    {
+      "path": "coverage-legacy-final",
+      "bytes": 102400,
+      "sha256": "9d718bb1cb934d96c8a55402e62e4424eb6191ac24f531320e172af1c71a4c96"
+    },
+    {
+      "path": "coverage-maintenance",
+      "bytes": 118784,
+      "sha256": "f4d8d21d03a604bb9ba564c5b16c3b586c84ca139ca5bd51b34c7b9d270b05bb"
+    },
+    {
+      "path": "coverage-maintenance.json",
+      "bytes": 123102,
+      "sha256": "255b157dcf8e91ca974a39cce0927edc4feb6368b4966adc4c0a80ba752ae417"
+    },
+    {
+      "path": "coverage-release",
+      "bytes": 151552,
+      "sha256": "9f4a2243fba6bb6c631fbd09a96c3509b91737e82ebffd40ad6c50f80647b8a5"
+    },
+    {
+      "path": "coverage-release-02",
+      "bytes": 151552,
+      "sha256": "0e8893a25ab5be0d340c82ed8fed0adc61d23b5b8f8c0ee2f152f32406e6f186"
+    },
+    {
+      "path": "coverage-release-02-plan.json",
+      "bytes": 10071,
+      "sha256": "6132ff07533a4b0b7360e47bdf3a02c843c710ce39718356ad255915f65cf1d0"
+    },
+    {
+      "path": "coverage-release-02.json",
+      "bytes": 123195,
+      "sha256": "70c944928b95cc8a2f50af11b669bc17e41e86a5abf3b660e58a61d56edc49a6"
+    },
+    {
+      "path": "coverage-release-03",
+      "bytes": 151552,
+      "sha256": "a879314f20aa31fa282d2f1bb263dff51624f4537aef9754d67f4367667111aa"
+    },
+    {
+      "path": "coverage-release-03-plan.json",
+      "bytes": 10071,
+      "sha256": "5da81cce09733b334dc0bc55b12e3902b0cdc528efc5a4af0006d5f0b3184da0"
+    },
+    {
+      "path": "coverage-release-03.json",
+      "bytes": 123184,
+      "sha256": "f78e14fc80215992ab76ebb4f53a63a40d465cea9dfc7b92df8413c1fda8d87c"
+    },
+    {
+      "path": "coverage-release-edges",
+      "bytes": 106496,
+      "sha256": "0754fae609096bbcdc230d17ed686b100e7ee4d3b34c8a38457ac344076d1a36"
+    },
+    {
+      "path": "coverage-release-focused",
+      "bytes": 53248,
+      "sha256": "a50318e8d8c1b3f9470658bec27e83789b29fb20209d457a1224195c6a296f26"
+    },
+    {
+      "path": "coverage-release-focused-02",
+      "bytes": 90112,
+      "sha256": "29a6576e4ab1686f0fe0ff6b26f831ff4fa4f08ab0fb5e2afde14faccb7d4905"
+    },
+    {
+      "path": "coverage-release-legacy",
+      "bytes": 102400,
+      "sha256": "9d718bb1cb934d96c8a55402e62e4424eb6191ac24f531320e172af1c71a4c96"
+    },
+    {
+      "path": "coverage-release-plan.json",
+      "bytes": 9842,
+      "sha256": "115b95f515d1f4734110c74f10c366d91a8e353cb8f628b11bdc7261ef238a16"
+    },
+    {
+      "path": "coverage-release-runtime",
+      "bytes": 69632,
+      "sha256": "823df342b7501ffa61182ff117139ea39d0192cce77930b2d8767346ae42402a"
+    },
+    {
+      "path": "coverage-release.json",
+      "bytes": 123213,
+      "sha256": "3bb4201b4643dd9c4ef26714063126964fe10fdff207340599e207c8e422ca18"
+    },
+    {
+      "path": "coverage-runtime-final",
+      "bytes": 69632,
+      "sha256": "823df342b7501ffa61182ff117139ea39d0192cce77930b2d8767346ae42402a"
+    },
+    {
+      "path": "coverage-scope.json",
+      "bytes": 325,
+      "sha256": "36fe391db5171977b9d2a6684683b030f4f45e0cb23bb700d188ec392dd2f5eb"
+    },
+    {
+      "path": "direct_runtime.py",
+      "bytes": 1370,
+      "sha256": "bd766a2debbf8ccb8aa9b6ca9cc765198f1e2033d26206766ac5ce91f712950b"
+    },
+    {
+      "path": "env-fix-receipt.json",
+      "bytes": 16893,
+      "sha256": "4ab8a434062d1548a34f789d21fc55b9237086652592506c4cc32685ee206b25"
+    },
+    {
+      "path": "environment.json",
+      "bytes": 285,
+      "sha256": "a3ec5525ecbf5db5dea910f3d217d1d0abef45c59e0d263c0512e0bbd059e570"
+    },
+    {
+      "path": "evaluation-contract.md",
+      "bytes": 1809,
+      "sha256": "53298afe4e1a08551464b24ff118f0940edb7d9481697e1282cb20cddf9c4931"
+    },
+    {
+      "path": "evaluation-result.schema.json",
+      "bytes": 639,
+      "sha256": "fbb7be3a9d187eaf333eb3fc6ddff37d75219424e69247467d6afcf281765052"
+    },
+    {
+      "path": "evidence.py",
+      "bytes": 5332,
+      "sha256": "d6e6794a7da4fa33c3012ad64abab9acae3ef2379a78962d1a52ad80e1ec3c6e"
+    },
+    {
+      "path": "fix_env_case.py",
+      "bytes": 1627,
+      "sha256": "fd944e4e2d526bd0d1316b6aff58d7143ea158f45d89f784a64d056b46537c36"
+    },
+    {
+      "path": "initial-receipt.json",
+      "bytes": 7756,
+      "sha256": "4ac33efca831ace8229dd142d555d951532442c85bc971a3a1e9e045fbc1952d"
+    },
+    {
+      "path": "measure_maintenance.py",
+      "bytes": 938,
+      "sha256": "c0e188e895560426bd2e712e4046e45f33a637301963a27f7f6c2b0c9d54d430"
+    },
+    {
+      "path": "measure_release.py",
+      "bytes": 1507,
+      "sha256": "f06320861303470bc3f1a5113b16cddaa86be19dacd16ac8faf74aca90bc52b2"
+    },
+    {
+      "path": "newline-refresh-receipt.json",
+      "bytes": 16889,
+      "sha256": "580132e282ba8e2797d7ef525cf2e24f5583084dcd464954bdb13734731a076f"
+    },
+    {
+      "path": "prepare_regression.py",
+      "bytes": 957,
+      "sha256": "5ecd548082377c5e57124d636f1d770c8adcc4a63825d73b90aa059a031eef28"
+    },
+    {
+      "path": "preserve_newlines.py",
+      "bytes": 1125,
+      "sha256": "e127406a2c5bca68231497ed1a9ecc32f21fcd8709607f49cc5af2a0ae456495"
+    },
+    {
+      "path": "repaired-source-receipt.json",
+      "bytes": 7915,
+      "sha256": "8842975d96d1273f5969fbd4c16a564dc1a8dc2584da9547826b0751a859028b"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 9211,
+      "sha256": "c64feb3e483e5df111fc8996451d5c5009cc47ce142524e56a85c248125ba50b"
+    },
+    {
+      "path": "run_evaluation.py",
+      "bytes": 2981,
+      "sha256": "5645257f3eb3ebaff716e87835a0eb87c1873654d33db8ad5714d24954b22173"
+    },
+    {
+      "path": "run_release_checks.py",
+      "bytes": 1648,
+      "sha256": "c7210e95e377bf6e05fea6ca651fc8fbef14b567814654123f825b9c7e2f1b93"
+    },
+    {
+      "path": "runtime-release-results.json",
+      "bytes": 29683,
+      "sha256": "6d9c83c04f4fa48b89fdb3b620801eefa2abe98005a9e16cfeccd6bc8b3bf630"
+    },
+    {
+      "path": "runtime-results.json",
+      "bytes": 9253,
+      "sha256": "8447b4a938eec304a2fb4a6d54f62978e399d2554b224857188e5656ebf2e3b3"
+    },
+    {
+      "path": "seal_evidence.py",
+      "bytes": 3721,
+      "sha256": "c91f51b303bcaddad45e33b7d11abf8537e252bae2016fab4ccde4b7b65cbd7b"
+    },
+    {
+      "path": "test_acceptance_edges.py",
+      "bytes": 15143,
+      "sha256": "3c800b1c77b483a91ca3a79c206013c2b7c28d63a010f6c7a56f1394a344c7c4"
+    },
+    {
+      "path": "test_final_contract_edges.py",
+      "bytes": 8936,
+      "sha256": "4ce2b1fa332bd7b30668b585bf3b40b591ced91fe689cd75f84c43b3f4513017"
+    },
+    {
+      "path": "test_legacy_maintenance.py",
+      "bytes": 16248,
+      "sha256": "8c22fd4fcbd7558ea3d8b608ecbb9e700dd315fda76aafa48ac963143ba000bb"
+    },
+    {
+      "path": "test_remediation.py",
+      "bytes": 11424,
+      "sha256": "25e222a382b6088e1c69cfcaa3d5a4f84ae0a28ab60b3ea002612152650208bd"
+    },
+    {
+      "path": "verify_release.py",
+      "bytes": 2799,
+      "sha256": "ef9b2b2bea2a7ebde184322f3accd5c184eef13b552e3cf6440656203986f58a"
+    }
+  ]
+}

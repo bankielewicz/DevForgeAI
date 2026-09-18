@@ -1,0 +1,60 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "LONG-BUDGET",
+  "kind": "native",
+  "started_at": "2026-09-14T23:22:27.582874+00:00",
+  "ended_at": "2026-09-14T23:24:28.769259+00:00",
+  "elapsed_seconds": 121.18799999999828,
+  "timeout_seconds": 600,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "a62b9ce7b7f18265dbdf7bb18b0373b9652fa9f5773be0153f18705a135e828e",
+  "started_sha256": "122c24a3a0ee96efba293564ea1594581696ba0b8f1f4d5d04638cc37ceb5b99",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\long-budget\\attempt-001\\before.json",
+      "sha256": "08f0e31a88e7c9cae97e821311b5a52eeee0912874b0a940835fc674aa399176"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\long-budget\\attempt-001\\after.json",
+      "sha256": "0b25ee6f7d0ea31d6fec20826c48d08ecc78f4c51593348939d597d3e29cc87d"
+    }
+  ],
+  "changed_paths": [
+    "done.txt"
+  ],
+  "output_checks": [
+    {
+      "path": "done.txt",
+      "kind": "text",
+      "value": "completed after 120 seconds",
+      "requirement_id": "SVE-05",
+      "result": "PASS",
+      "reason": "Declared output observed"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\long-budget\\project\\done.txt",
+      "sha256": "3d38f1fcb009e330fc6d084f267e7da1f8bfa6fb59dbefa12f2a7fdacb135052"
+    }
+  ],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\long-budget\\attempt-001\\stdout.txt",
+      "sha256": "c27e3edb6f61c241a34b105f2e434e324f6bf9e5fe1d8539855d84df1ff4cb1d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\long-budget\\attempt-001\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

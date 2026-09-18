@@ -1,0 +1,52 @@
+{
+  "result": {
+    "exit": 1,
+    "timeout": true,
+    "end_utc": "2026-09-13T16:31:33.840415+00:00",
+    "elapsed_seconds": 120.35899999993853,
+    "stdout_sha256": "aa8fc773cb06c1d7da7600ca09957edec90a052f82501a48aff0d845847b8473",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "after": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 269,
+      "sha256": "3e2852d80f6002d5021b1cf8ec222cd7ff46bfb0576886030f9739608eb4bdcb"
+    },
+    {
+      "path": "docs/domain.md",
+      "bytes": 127,
+      "sha256": "c882dcac76aaec5e264deb587cce2768548965800ec2287273ee49ac96671a1d"
+    },
+    {
+      "path": "docs/requirements.md",
+      "bytes": 70,
+      "sha256": "8ce1f8d7ea2c43be5217a4ef789f9179f57af449f51d3e36de241a8fd4e7f628"
+    },
+    {
+      "path": "existing/http-guide/SKILL.md",
+      "bytes": 166,
+      "sha256": "7f20aab13fafa8b953c84e3aaa3c4f45052d6503248e7dcb6b51c8ded47c09e1"
+    },
+    {
+      "path": "mystery.manifest",
+      "bytes": 27,
+      "sha256": "fe84b045dea03fec572194e805fefa2b33565e72b15ca982e4a54bf19cb0695b"
+    },
+    {
+      "path": "package.json",
+      "bytes": 46,
+      "sha256": "9bcbfcf223e6aed380ddb9ecf645a861479271a442b4d929275fa974e4519779"
+    },
+    {
+      "path": "packages/service/package.json",
+      "bytes": 53,
+      "sha256": "7881794cea9e7ac10de52b4404e0879a66bff55814fecdaa161b60cf5b1b1c03"
+    },
+    {
+      "path": "packages/storage/storage.py",
+      "bytes": 34,
+      "sha256": "a994208088f70be185b5206fe5f474cc0cbedd32f5c453de718cec6dc5260dab"
+    }
+  ]
+}

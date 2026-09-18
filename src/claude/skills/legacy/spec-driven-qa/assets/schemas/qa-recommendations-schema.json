@@ -1,0 +1,431 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://devforgeai/schemas/qa-recommendations-schema.json",
+  "title": "QA Recommendations Schema",
+  "description": "Machine-readable schema for qa-recommendations.md entries. Mirrors the SECTION_MANIFEST YAML contract embedded in qa-recommendations-template.md. Consumed by devforgeai-validate validate-qa-recommendations. Mirrors field conventions from gaps-schema.json to preserve cross-artifact consistency.",
+  "version": "1.0",
+
+  "definitions": {
+    "severity_enum": {
+      "type": "string",
+      "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+    },
+    "provenance_enum": {
+      "type": "string",
+      "enum": ["GROUNDED", "DERIVED", "INCONCLUSIVE"]
+    },
+    "category_enum": {
+      "type": "string",
+      "enum": [
+        "correctness",
+        "security",
+        "performance",
+        "test_quality",
+        "coverage",
+        "anti_pattern",
+        "documentation"
+      ]
+    },
+    "classification_enum": {
+      "type": "string",
+      "enum": ["REGRESSION", "PRE_EXISTING"]
+    },
+    "qa_phase_enum": {
+      "type": "string",
+      "enum": [
+        "Phase-02-Test-Quality",
+        "Phase-03-Coverage",
+        "Phase-04-Code-Review",
+        "Phase-05-Reporting"
+      ]
+    },
+    "cycle_source_enum": {
+      "type": "string",
+      "enum": ["initial-qa", "qa-validation", "remediation-cycle"]
+    },
+    "rec_id_pattern": {
+      "type": "string",
+      "pattern": "^REC-STORY-\\d{3,}-[CHML]-\\d{3}$",
+      "description": "Format: REC-{STORY-NNN}-{severity-initial}-{3-digit-seq}. Examples: REC-STORY-646-M-001, REC-STORY-646-C-003."
+    },
+    "line_range": {
+      "type": "array",
+      "items": {"type": "integer", "minimum": 1},
+      "minItems": 2,
+      "maxItems": 2,
+      "description": "[start_line, end_line] inclusive. Use when a recommendation spans multiple lines."
+    },
+
+    "verification": {
+      "type": "object",
+      "description": "How to verify the recommendation has been closed. /dev Phase 02 (Red) converts this into a test case.",
+      "required": ["command", "expected"],
+      "properties": {
+        "command": {
+          "type": "string",
+          "minLength": 5,
+          "description": "Executable command (shell, pytest, curl, etc.). Must be deterministic."
+        },
+        "expected": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Expected output or exit condition. Example: 'exit 0' or 'JSON contains \"valid\": true'."
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "reference": {
+      "type": "object",
+      "description": "Supporting citation for the recommendation.",
+      "required": ["source"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Path, document name, or URL label."
+        },
+        "line_range": {"$ref": "#/definitions/line_range"},
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "recommendation_entry": {
+      "type": "object",
+      "description": "A single recommendation entry. Used in Blocking and Advisory sections.",
+      "required": [
+        "id",
+        "severity",
+        "provenance",
+        "title",
+        "file",
+        "category",
+        "blocking_release",
+        "verification",
+        "estimated_effort_minutes",
+        "dependencies"
+      ],
+      "properties": {
+        "id": {"$ref": "#/definitions/rec_id_pattern"},
+        "severity": {"$ref": "#/definitions/severity_enum"},
+        "provenance": {"$ref": "#/definitions/provenance_enum"},
+        "title": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 120,
+          "description": "One-line summary. Validator scans for aspirational/ambiguous language."
+        },
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Path relative to project root. Example: src/claude/scripts/devforgeai_cli/validators/subagent_contract.py"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Target line number. Use line OR line_range, not both."
+        },
+        "line_range": {"$ref": "#/definitions/line_range"},
+        "category": {"$ref": "#/definitions/category_enum"},
+        "blocking_release": {
+          "type": "boolean",
+          "description": "True for CRITICAL/HIGH by default; MUST match section placement (Blocking section -> true; Advisory section -> false)."
+        },
+        "before_code": {
+          "type": ["string", "null"],
+          "description": "Exact current source at the cited file:line. Required when remediation is a code change; null when using remediation_steps."
+        },
+        "after_code": {
+          "type": ["string", "null"],
+          "description": "Exact proposed source. Required when before_code is non-null; must be different from before_code."
+        },
+        "remediation_steps": {
+          "type": ["array", "null"],
+          "items": {"type": "string", "minLength": 5},
+          "minItems": 1,
+          "description": "Numbered steps for non-code changes (documentation, configuration, workflow). Required when before_code is null."
+        },
+        "verification": {"$ref": "#/definitions/verification"},
+        "estimated_effort_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 480,
+          "description": "Integer estimate. Used by /dev to plan cycle budget. Cap at 480 (8 hours) — larger effort should be split into separate story."
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/rec_id_pattern"},
+          "description": "Other REC-IDs that must close before this one. Empty array if independent."
+        },
+        "references": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/reference"},
+          "description": "Supporting citations (context files, external docs, prior ADRs). Optional but recommended for DERIVED findings."
+        },
+        "cycle_first_seen": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Cycle number where this recommendation first appeared. Auto-populated by /qa."
+        },
+        "classification": {"$ref": "#/definitions/classification_enum"}
+      },
+      "additionalProperties": false,
+
+      "oneOf": [
+        {
+          "description": "Code-change recommendation: before_code + after_code pair",
+          "required": ["before_code", "after_code"],
+          "properties": {
+            "before_code": {"type": "string", "minLength": 1},
+            "after_code": {"type": "string", "minLength": 1},
+            "remediation_steps": {"type": "null"}
+          }
+        },
+        {
+          "description": "Non-code recommendation: remediation_steps list",
+          "required": ["remediation_steps"],
+          "properties": {
+            "before_code": {"type": "null"},
+            "after_code": {"type": "null"},
+            "remediation_steps": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+
+    "deferred_entry": {
+      "type": "object",
+      "description": "A recommendation explicitly deferred by user approval.",
+      "required": [
+        "id",
+        "severity",
+        "deferral_marker",
+        "user_approval_ref",
+        "justification",
+        "deferred_in_cycle"
+      ],
+      "properties": {
+        "id": {"$ref": "#/definitions/rec_id_pattern"},
+        "severity": {"$ref": "#/definitions/severity_enum"},
+        "deferral_marker": {
+          "type": "string",
+          "pattern": "^<!-- AUDIT-DEFERRED: REC-STORY-\\d{3,}-[CHML]-\\d{3} -->$"
+        },
+        "user_approval_ref": {
+          "type": "string",
+          "minLength": 5,
+          "description": "Reference to user-approved deferral. Example: 'session SC-2026-04-15-002, turn 47'."
+        },
+        "adr_ref": {
+          "type": ["string", "null"],
+          "description": "ADR identifier (e.g. ADR-054). REQUIRED for CRITICAL/HIGH deferrals; may be null for MEDIUM/LOW."
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 300,
+          "description": "One-sentence concrete reason for deferral. Validator rejects aspirational language."
+        },
+        "deferred_in_cycle": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "revisit_by": {
+          "type": ["string", "null"],
+          "description": "Sprint identifier or ISO date. Null for indefinite deferral."
+        }
+      },
+      "additionalProperties": false,
+
+      "allOf": [
+        {
+          "description": "CRITICAL/HIGH deferrals require adr_ref",
+          "if": {
+            "properties": {"severity": {"enum": ["CRITICAL", "HIGH"]}}
+          },
+          "then": {
+            "required": ["adr_ref"],
+            "properties": {"adr_ref": {"type": "string", "minLength": 5}}
+          }
+        }
+      ]
+    },
+
+    "cycle_entry": {
+      "type": "object",
+      "description": "A single cycle history entry. Append-only.",
+      "required": [
+        "cycle",
+        "source",
+        "trigger",
+        "started",
+        "rec_ids_attempted",
+        "rec_ids_closed",
+        "rec_ids_deferred",
+        "rec_ids_new"
+      ],
+      "properties": {
+        "cycle": {"type": "integer", "minimum": 1},
+        "source": {"$ref": "#/definitions/cycle_source_enum"},
+        "trigger": {"type": "string", "minLength": 5},
+        "started": {"type": "string", "format": "date-time"},
+        "completed_or_null": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "rec_ids_attempted": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/rec_id_pattern"}
+        },
+        "rec_ids_closed": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/rec_id_pattern"}
+        },
+        "rec_ids_deferred": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/rec_id_pattern"}
+        },
+        "rec_ids_new": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/rec_id_pattern"}
+        },
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+
+  "type": "object",
+  "description": "Top-level schema for the parsed qa-recommendations.md content.",
+  "required": [
+    "story_id",
+    "qa_result",
+    "cycle_number",
+    "generated_at",
+    "total_count",
+    "by_severity",
+    "blocking_recommendations",
+    "advisory_recommendations",
+    "deferred_recommendations",
+    "verification_entries",
+    "cycle_history",
+    "provenance_summary"
+  ],
+  "properties": {
+    "story_id": {
+      "type": "string",
+      "pattern": "^STORY-\\d{3,}$"
+    },
+    "qa_result": {
+      "type": "string",
+      "enum": ["PASSED", "PASS_WITH_WARNINGS", "FAILED"]
+    },
+    "cycle_number": {"type": "integer", "minimum": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "total_count": {"type": "integer", "minimum": 0},
+    "blocking_count": {"type": "integer", "minimum": 0},
+    "open_count": {"type": "integer", "minimum": 0},
+    "closed_count": {"type": "integer", "minimum": 0},
+    "by_severity": {
+      "type": "object",
+      "required": ["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+      "properties": {
+        "CRITICAL": {"type": "integer", "minimum": 0},
+        "HIGH": {"type": "integer", "minimum": 0},
+        "MEDIUM": {"type": "integer", "minimum": 0},
+        "LOW": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "blocking_recommendations": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/recommendation_entry"}
+    },
+    "advisory_recommendations": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/recommendation_entry"}
+    },
+    "deferred_recommendations": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/deferred_entry"}
+    },
+    "verification_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rec_id", "command", "expected"],
+        "properties": {
+          "rec_id": {"$ref": "#/definitions/rec_id_pattern"},
+          "command": {"type": "string", "minLength": 5},
+          "expected": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": false
+      }
+    },
+    "cycle_history": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/cycle_entry"}
+    },
+    "provenance_summary": {
+      "type": "object",
+      "required": ["GROUNDED", "DERIVED", "INCONCLUSIVE"],
+      "properties": {
+        "GROUNDED": {"type": "integer", "minimum": 0},
+        "DERIVED": {"type": "integer", "minimum": 0},
+        "INCONCLUSIVE": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "derived_justifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rec_id", "justification"],
+        "properties": {
+          "rec_id": {"$ref": "#/definitions/rec_id_pattern"},
+          "justification": {"type": "string", "minLength": 10, "maxLength": 300}
+        },
+        "additionalProperties": false
+      }
+    },
+    "inconclusive_reasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rec_id", "reason"],
+        "properties": {
+          "rec_id": {"$ref": "#/definitions/rec_id_pattern"},
+          "reason": {"type": "string", "minLength": 10, "maxLength": 300}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+
+  "additionalProperties": false,
+
+  "allOf": [
+    {
+      "description": "Cross-reference: every Blocking/Advisory rec_id must appear in verification_entries",
+      "$comment": "Enforced by validator Python module — not expressible in pure JSON Schema"
+    },
+    {
+      "description": "Every DERIVED recommendation must have an entry in derived_justifications",
+      "$comment": "Enforced by validator Python module"
+    },
+    {
+      "description": "Every INCONCLUSIVE recommendation must have an entry in inconclusive_reasons",
+      "$comment": "Enforced by validator Python module"
+    },
+    {
+      "description": "Section placement must match severity: Blocking contains only CRITICAL/HIGH; Advisory contains only MEDIUM/LOW",
+      "$comment": "Enforced by validator Python module"
+    }
+  ]
+}

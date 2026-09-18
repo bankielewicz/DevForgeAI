@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["$.changed_paths: wrong type"], "ordered_member_ids": []}

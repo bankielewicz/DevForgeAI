@@ -1,0 +1,2 @@
+usage: observe.py snapshot [-h] --source SOURCE --output OUTPUT
+observe.py snapshot: error: the following arguments are required: --output

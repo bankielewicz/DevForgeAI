@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "validator-dev-campaign-001",
+  "target_name": "skill-validator",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-claude-conversion\\intake\\validator-dev-campaign-design.json",
+    "sha256": "8832e235b041091251792dc52cc3547422c9f68159d49142cafa8b3fb20b5714"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T123845Z-dev-campaign\\inputs\\5",
+    "sha256": "8832e235b041091251792dc52cc3547422c9f68159d49142cafa8b3fb20b5714"
+  }
+}

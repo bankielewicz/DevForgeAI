@@ -1,0 +1,77 @@
+{
+  "pester_version": "5.7.1",
+  "passed": 0,
+  "failed": 1,
+  "commands": [
+    {
+      "line": 26,
+      "command": "$runner = Join-Path -Path $PSScriptRoot -ChildPath 'advisor_run.py'",
+      "parent_start_line": 26
+    },
+    {
+      "line": 27,
+      "command": "$runnerArguments = @(\n    '-B',\n    '-X',\n    'utf8',\n    $runner,\n    'run',\n    '--request',\n    $Request,\n    '--briefing',\n    $Briefing,\n    '--run-dir',\n    $RunDir,\n    '--reason',\n    $Reason\n)",
+      "parent_start_line": 27
+    },
+    {
+      "line": 28,
+      "command": "'-B',\n    '-X',\n    'utf8',\n    $runner,\n    'run',\n    '--request',\n    $Request,\n    '--briefing',\n    $Briefing,\n    '--run-dir',\n    $RunDir,\n    '--reason',\n    $Reason",
+      "parent_start_line": 27
+    },
+    {
+      "line": 42,
+      "command": "if ($ShowProgress) {\n    $runnerArguments += '--show-progress'\n}",
+      "parent_start_line": 42
+    },
+    {
+      "line": 43,
+      "command": "$runnerArguments += '--show-progress'",
+      "parent_start_line": 42
+    },
+    {
+      "line": 46,
+      "command": "$ErrorActionPreference = 'Stop'",
+      "parent_start_line": 46
+    },
+    {
+      "line": 48,
+      "command": "& $Python @runnerArguments",
+      "parent_start_line": 47
+    },
+    {
+      "line": 49,
+      "command": "$childExitCode = $LASTEXITCODE",
+      "parent_start_line": 47
+    },
+    {
+      "line": 50,
+      "command": "if ($null -eq $childExitCode) {\n        throw 'Python invocation returned no native process exit status.'\n    }",
+      "parent_start_line": 47
+    },
+    {
+      "line": 51,
+      "command": "throw 'Python invocation returned no native process exit status.'",
+      "parent_start_line": 47
+    },
+    {
+      "line": 53,
+      "command": "([int] $childExitCode)",
+      "parent_start_line": 47
+    },
+    {
+      "line": 53,
+      "command": "[int] $childExitCode",
+      "parent_start_line": 47
+    },
+    {
+      "line": 56,
+      "command": "[Console]::Error.WriteLine('advisor launcher failed: {0}', $_.Exception.Message)",
+      "parent_start_line": 47
+    },
+    {
+      "line": 57,
+      "command": "2",
+      "parent_start_line": 47
+    }
+  ]
+}

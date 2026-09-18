@@ -1,0 +1,159 @@
+{
+  "case_id": "H11",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\trials\\H11\\subset-records"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T20:25:28.686153Z",
+  "end": "2026-09-13T20:25:29.423678Z",
+  "elapsed_seconds": 0.734000000054948,
+  "exit": 0,
+  "timed_out": false,
+  "termination": null,
+  "stdout": {
+    "path": "commands/H11/stdout.txt",
+    "sha256": "066ee48958b2f648387b83a2af2001ed72472cc8734184df666605726ccab255"
+  },
+  "stderr": {
+    "path": "commands/H11/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fixture_after": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\trials\\H11",
+    "captured_at_utc": "2026-09-13T20:25:29.423678Z",
+    "files": [
+      {
+        "path": "inputs/alpha-manifest.json",
+        "bytes": 267,
+        "sha256": "1abfb5849f69cd257fc64442d0ad737f17aab6fd5f42a8f189eb9c50bd428021"
+      },
+      {
+        "path": "inputs/authorization.txt",
+        "bytes": 44,
+        "sha256": "9d20d66adb89626d74d31c3ee27abb674d643ee6d950942315dae762dfcdbca3"
+      },
+      {
+        "path": "inputs/beta-manifest.json",
+        "bytes": 267,
+        "sha256": "e83e839611021cf8ae3b88de183eaff34ba1f8939d846f91272f9a5737bbcbed"
+      },
+      {
+        "path": "inputs/empty.jsonl",
+        "bytes": 3,
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      },
+      {
+        "path": "inputs/no-integration.jsonl",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "inputs/project.json",
+        "bytes": 699,
+        "sha256": "e4b5bafdd6e933853a0504c826d868e0a152661e6269d14e08af0c82da2ef32c"
+      },
+      {
+        "path": "inputs/proposal.json",
+        "bytes": 3717,
+        "sha256": "16c9bddb344f8a14895fcf4aa32df2dac38b3469672f6313e9bb46d41df52676"
+      },
+      {
+        "path": "inputs/request.json",
+        "bytes": 1456,
+        "sha256": "4cb9df0edbed64de225810c7ee312f404cb893f440ff624a8f946e74c280ab1f"
+      },
+      {
+        "path": "inputs/retained.json",
+        "bytes": 2117,
+        "sha256": "dbb7bb4ec9d0d34a8f175e7e197005f37dd3c0fba46469c8114ba878fc0bfb71"
+      },
+      {
+        "path": "inputs/selected.json",
+        "bytes": 1059,
+        "sha256": "cd0d5d2bfa8ec05b80d450064027a0afcf175e2d98fcc92856672a689be298b2"
+      },
+      {
+        "path": "inputs/selection.json",
+        "bytes": 2138,
+        "sha256": "f2a3c6fdc416217cc226c84d615ff61f8033648057512f551efe5a1d766bd1ed"
+      },
+      {
+        "path": "integration/checks.jsonl",
+        "bytes": 321,
+        "sha256": "6fb31bea22ece16108f87d8f4b65578a9d2bd84af2ddd33dd5e14f2edbb0f03f"
+      },
+      {
+        "path": "member-evidence/A/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "f94b73b87525532a50d2455b0b3449a917df568f92f24d2e9ced1fbe746a5f5a"
+      },
+      {
+        "path": "member-evidence/A/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/A/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "member-evidence/B/checks.jsonl",
+        "bytes": 8700,
+        "sha256": "2efb0b39bc87ae3260a3474d007825832c1beac7d3f07e948fd2f87828d06636"
+      },
+      {
+        "path": "member-evidence/B/evidence.txt",
+        "bytes": 50,
+        "sha256": "6b0bf8220e6194294f6bbad9766202a8439131fc5c027a8a58ede34ec48fea46"
+      },
+      {
+        "path": "member-evidence/B/report.md",
+        "bytes": 67,
+        "sha256": "9cbba8e903b08b2ec71ee91879a01a93e5e836290f8079584bed2c6ebbca5124"
+      },
+      {
+        "path": "packages/alpha/SKILL.md",
+        "bytes": 106,
+        "sha256": "593dbad3d5985eb67ba1b61172c616aaff87ce214f9e28f39e7438034402d33c"
+      },
+      {
+        "path": "packages/alpha/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "packages/beta/SKILL.md",
+        "bytes": 105,
+        "sha256": "3b221ae76ca6967d0fb8718f06c7fee0f12d5274a2092df9df9be040059f2f20"
+      },
+      {
+        "path": "packages/beta/members/A",
+        "bytes": 71,
+        "sha256": "f0fc9a42e4b049cecafd145faaf53ddb68f0b8d2de84fbc1b3a516c2bc8d0e97"
+      },
+      {
+        "path": "records/set-assessment.json",
+        "bytes": 2466,
+        "sha256": "c04bb4101a9596e8e49e26c7826882a0f9c9f4779edeae4d800a433173a9c05f"
+      },
+      {
+        "path": "subset-records/set-assessment.json",
+        "bytes": 1726,
+        "sha256": "54eefe4ce040ed2bd8953578c7db7efc9342c00a3e822a7889a28fe4bda6e4ab"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "e94fcc504b93cb0ba6d73de7d33476758c843b0e11e4e63ec964164459a913e8"
+  },
+  "fixture_unchanged": true
+}

@@ -1,0 +1,1 @@
+advisor launcher failed: The term 'C:\Projects\DevForgeAI\docs\plan\skill-validations\advisor\20260916T134000Z-streaming\tool-probe\measure-ps5-002\missing-python.exe' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.

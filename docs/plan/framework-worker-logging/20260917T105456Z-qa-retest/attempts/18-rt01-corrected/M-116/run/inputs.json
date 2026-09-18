@@ -1,0 +1,16 @@
+{
+  "capture_schema": 1,
+  "diagnostics": {
+    "level": "off",
+    "sha256": "7a726f9cb09f8aef53b9815699f092c67a91dae8d57130754ca2f9fe2334da96"
+  },
+  "request_sha256": "493dcfc44dad8f7a7b0d91e76a57dec1463cc14bb52482908a01670d26b5a14a",
+  "fixture": [
+    [
+      "task.json",
+      "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+    ]
+  ],
+  "worker_sha256": "f0c79ca1355750b7c51d5f07ef1bfb60087ecf6c11e4adaa66733998f9231ce3",
+  "profile_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+}

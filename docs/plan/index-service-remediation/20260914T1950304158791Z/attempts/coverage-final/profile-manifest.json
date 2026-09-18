@@ -1,0 +1,950 @@
+[
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-11272-2865820145988623929_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-11272-2865820145988623929_0.profraw",
+    "bytes": 760,
+    "sha256": "19d9876fde2bca72dbc7e36b029b9dca1666fd22556a09124215d88f9f6b78e5"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-12148-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-12148-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "2a6e842fb0f2735eef24be4009a15b679d39409454128f7548e1e484578c0333"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-15084-15045641678326745318_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-15084-15045641678326745318_0.profraw",
+    "bytes": 65456,
+    "sha256": "add2bd11ed906ea3def17d926a26de82d3a6de8fd3163d9fa626bbfc9a4e628b"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-16196-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-16196-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "f90a0a6cc8108fb6b6f87ee5d7ba9da3d71683ef7e2f442108a908b28e088df8"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-18568-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-18568-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "cb1901482f2c6d2639918a8bb9c3275c44527bbc3574a4b2c2ce7bbc837c2531"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-19956-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-19956-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "1c76b2cc9fc328a03647dd90cf88b909d28ac7f76490b736fa9eda4c4e9ba4be"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-24660-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-24660-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "615fa7b587aea00a9d92fca9a7a92a358dc0c4670bd16f1b2b6d816d2a96e26a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-26788-8020511332747040217_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-26788-8020511332747040217_0.profraw",
+    "bytes": 280,
+    "sha256": "bf97087cd7d07a6be93d9adcbe3cd6788231124b3dbfffedab3f2e411f86594f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-27524-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-27524-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6f202d29b7fccc6d6c79b45e9099c4a19705e497f4d135eec8666cd0f4036089"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-28944-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-28944-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "91457e9cb2f15ce12c4cb38f161b22df8eeb9f9e55050ca7f7f7b263dec886f4"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-29008-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-29008-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "294e325195aa0546fb7e209d9290246bbe37867e9f41a8da4151bf92c986cbfc"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-31196-17840020466542442664_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-31196-17840020466542442664_0.profraw",
+    "bytes": 64496,
+    "sha256": "3b91dbbef6cf24386b00402ec2a92b50fdc44a74d1f51248607531d11db79e30"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-32420-15633893635224850425_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-32420-15633893635224850425_0.profraw",
+    "bytes": 66416,
+    "sha256": "5dd2b4ed2bcfa7db7069e35c92e16a6c6e769c59edad70a21f1d7a693fee0c16"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-32900-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-32900-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "fe07ab8342c9de3517bb1a4593f212069e0b7404b1c7cbb3f67dcc4d7194ed3d"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-33248-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-33248-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "1c28e113f98b92fb6d80e863be1840359c326beec05d198f5d6062a12e086d0f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-33416-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-33416-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "2d12c6cc1cee636c9853c714555011f64d4320df8d536033d5243128abb4451a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-34176-5632149044000481206_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-34176-5632149044000481206_0.profraw",
+    "bytes": 66848,
+    "sha256": "be33a1e664434c7c16fcdbd51216e42fcb1c7c61e07a1550f5fee72f1d54b3e4"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-34536-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-34536-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "32341d767ae6cf990279d9c064b318271fd952a5e0e4bb786118baa18c29069f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-35396-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-35396-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8fe6d35c173d803c522afacaecfe4307ff32107957982bf3af2a5bf7dd057c5a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-36464-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-36464-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "837f8f281ed97e9f8d56440b0dc16d732b9fe22076428ed972f37f91aa1393b6"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-37348-18405251195395797643_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-37348-18405251195395797643_0.profraw",
+    "bytes": 168,
+    "sha256": "0d8e7e845b63ebc2e5e8140cf84625e75ace325c3d286df6dd681e89d48e4330"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-3780-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-3780-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "407e41a9ca537f444a75bbdfa19981507646e94dd8383c1421c26d35156c67f0"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-39492-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-39492-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "0558c09b3f6fefe0fb36090418a001c46f0a27741d1bfd55106a9c0c0b8a7f58"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-39652-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-39652-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8cd9b00019baff9791780f8b14eebf1d99d0905ca22ae1bc10da7d2cfdda5336"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-39688-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-39688-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "ff037d3ea7c04e8be81259afd2ba348e90b431e52af6a1eec5b709101c817ee3"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-40196-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-40196-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "bd47f81ec12ead423a3d286384b4354e42214270939175d974ffe9a4dde75421"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-40520-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-40520-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "d812350ad05459b716294738bceb1edb8da9a12ee177fd0223940e3c3c95a68e"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-40840-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-40840-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "9660d95f364e5226b9db367e043bd77dc4de61a1f5ae8f34bf8167c7b6785f11"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-41132-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-41132-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "69afac3c152a69448a72fb7a849e22ddae987e6d00ade981287529c7099f04f7"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-41192-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-41192-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "5301821cda08c2733b54c7eddd85aa763e603ba0da47ef1a7022a43559841fd9"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-41388-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-41388-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "760c1af7412f3abb1f1edf0e07a86559b334d30947f51a19b5a0bb9829f36463"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-41548-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-41548-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8e7a8e4546d42db8c948bf800cdebac26c55b2dcdc25ada6e42e6e16db33b149"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-42732-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-42732-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "7df55b6fef761ba4c29c0b8c5ba0feba12353ea9fb5186b94746f93ed9033b55"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-43344-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-43344-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "0e2c3a8a7e29a1fd55e2322d6c3bc1b6d8061a4b4607686b8d5ad559f50b6666"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-43616-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-43616-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "5c367dc7c4999663312ff4429c024e4dcffa5b24619c6dd065c3e4fd1f2eae87"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-43872-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-43872-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "a9def0149f348e40bf7494a589b1578cba05ec54988d80a66be8c305f10f9b2a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-43940-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-43940-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "a4187f7e761ebd3fceac681b0e9660d5f93b0be979fcc3b79bdf680e1a1dcf02"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-44216-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-44216-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "9d073b769ef1821fae1c986d1f7fb63ff6692573a31d9dc19e95fc7ec5628bc3"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-44304-2124530449190131801_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-44304-2124530449190131801_0.profraw",
+    "bytes": 78416,
+    "sha256": "16aac64f1a766b82b7256c6dcdd68f084763ea7692e182f17ac53f06275446ec"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-44620-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-44620-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6f202d29b7fccc6d6c79b45e9099c4a19705e497f4d135eec8666cd0f4036089"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-44800-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-44800-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "cb9600deaa3cf819f0ce824235c0f3cf94d07d51e162748329e117f44358a04b"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-45016-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-45016-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6f202d29b7fccc6d6c79b45e9099c4a19705e497f4d135eec8666cd0f4036089"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-45392-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-45392-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "2e3536c3eb3ba84e9b6cd2612d6134147de1aaaf8f681cd860635192f33acfd0"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-45700-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-45700-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "371ecad565b925416a0f07a9d0f652b1e85c62494ff5f83693f87bb8d1790435"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-46144-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-46144-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "18c963e4f4209aeb3eddba22b415e1d8e06f57edf5429a9ccbaecf6b9e425521"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-46348-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-46348-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "247cff11c92b4964c0dead5370001585d2a107a22796221664bec55d3e2ba23a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-46892-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-46892-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "804cf5029b551b512983a7108912d576a15862062f754e6f7aabdade4e4786cc"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-47436-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-47436-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "96beef53cc0a2a95b72ffe3274fb2d5991683fa43cb7d1a008b70e0ec93b1357"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-47564-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-47564-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "d859147898e9992915e1b72a99771965e47236b4818417e71103f283b2456f93"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-47728-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-47728-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8f6077d82564e3a284914e43461be36a8c3fcfc8669b22d023cb5eeeba38a7d9"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-47804-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-47804-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "54829e49b090340bd6e1e62e6952ea8942d0291742cdce5e09f6a9236afc2bb6"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48084-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48084-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "371ecad565b925416a0f07a9d0f652b1e85c62494ff5f83693f87bb8d1790435"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48156-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48156-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "0d02e288e744fe8fd3dca7e7af37f13046d78ff4091f6d72d9b9ca80addcabac"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48584-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48584-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "994cced0b87cd2f84d02eae50df90b0a521e1e1809ab18b89fb80d1cb155ea54"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48656-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48656-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "aa2b08f1df41c022f29ee09ddc9db080d4b83d36acf3d7496d6b9aaf1723e3a4"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48704-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48704-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "8398a62cf24da9b87d70e7431ee0be51c3967808cfe2b444dcc29496da1d1280"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48904-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48904-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "fecda2cf67edbc859cf7be7138519a6bb30b9e9492310bd5a5fc6e9b8941e38a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-48916-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-48916-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "189c3eb62d237307682baf8034a8989417c6b30bc07321a41dcb2660980d5e5f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-49196-18405296275372536459_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-49196-18405296275372536459_0.profraw",
+    "bytes": 208,
+    "sha256": "13b230f1f4349bb9acf7f0ca47c794478e2615cf51f404561f6a9918b40fbfd3"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-49216-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-49216-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "36f04d6c8fb2941da96a451e8609b6cd060d68d4a0062733fc3e6743f577c677"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-49976-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-49976-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "291a6b7532925eb821d334f0d450a2fce023871a4617ec5aa44cacc7d540be33"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-49988-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-49988-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "41c6e5afd1a6285daf4087dc4ef756e4ede105e6c435b89e0da037a5c60824eb"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50188-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50188-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6f202d29b7fccc6d6c79b45e9099c4a19705e497f4d135eec8666cd0f4036089"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50248-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50248-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "ff037d3ea7c04e8be81259afd2ba348e90b431e52af6a1eec5b709101c817ee3"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50288-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50288-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "b9ab7c15e5386bd733b50f5d85435c1768d861d6c34c5f0a22436726e6761ef8"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50608-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50608-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "5c367dc7c4999663312ff4429c024e4dcffa5b24619c6dd065c3e4fd1f2eae87"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50860-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50860-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "28f564718c67417097cf8fb3473827e8d3f62e0bfa435cdf27bfcae668d00df9"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50860-17840020466542442664_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50860-17840020466542442664_0.profraw",
+    "bytes": 64496,
+    "sha256": "3b91dbbef6cf24386b00402ec2a92b50fdc44a74d1f51248607531d11db79e30"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50904-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50904-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "db4cc46c4b4ffe9d5ff70c2036ea5e95d1b713a95718d61c7f5799445168a6bd"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50976-12950152780757098308_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50976-12950152780757098308_0.profraw",
+    "bytes": 67344,
+    "sha256": "89dbf02bf7b597eb4bbc179dbea52c0102d6732c8aee4ef019fa6c8aed9a2c3b"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-50984-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-50984-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "ced7e2b17a8fd15ca575b67eb0d0340596fdcb742bb33368ccd5c4a4b3aa5bf6"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51028-13950261766357414700_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51028-13950261766357414700_0.profraw",
+    "bytes": 68752,
+    "sha256": "37efc4cf32135668e76c80f168039055bf3cc18d2b05de3dd014af16c54e6ef8"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51096-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51096-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "615fa7b587aea00a9d92fca9a7a92a358dc0c4670bd16f1b2b6d816d2a96e26a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51096-7360572930503176308_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51096-7360572930503176308_0.profraw",
+    "bytes": 65032,
+    "sha256": "b59b167c0e6cd17c3428b7f4ecc6d24fab72d28bff9474f75d2794841b91c566"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51428-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51428-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "e9d7d4a3d44284813e011e85b47869be40243493748da948aa4b8e9cdf418466"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51528-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51528-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "7f89489eccff7122720d94f0f4eddaea4c8b644de29741891ee51f58a83ba06f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51952-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51952-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8905ef0d67e5e965c647f23c0cdad759d168927e8970c6dd06ce539222db5ce6"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-51984-18405472197232980619_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-51984-18405472197232980619_0.profraw",
+    "bytes": 368,
+    "sha256": "495c15272a9d82a8b6375fd05ce324743298d41cabaef3a05870d7169fe3682f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-5200-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-5200-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "d70baf2a51a471be71553e1143fb182540687e21675b544ab38f7b507e832816"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52076-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52076-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "eaf2e162cca3e3514fe4ce7e9dbe9751fef2f238aaaefcf107e4e7d2ba765009"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52336-3622563708183654904_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52336-3622563708183654904_0.profraw",
+    "bytes": 65736,
+    "sha256": "054ad50d05e1da0832d7f2137d4ae15233a69c90672e1886426e7fe6bc131ead"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52492-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52492-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "247cff11c92b4964c0dead5370001585d2a107a22796221664bec55d3e2ba23a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52572-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52572-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "7b49ddefde4e200bd25cbea3615d8d8bfec3a267e5ab3ae7084b228cdd4342a1"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52584-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52584-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "52aeb7604f68416523a16db7f0c065f3f2531b70c0c806228ae633c523b0e5ee"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52732-18405255593442308747_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52732-18405255593442308747_0.profraw",
+    "bytes": 176,
+    "sha256": "b2179ebab4201926bd341e26f43f23a63fe29e7d3b7e509ccba037f762312483"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52760-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52760-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6f202d29b7fccc6d6c79b45e9099c4a19705e497f4d135eec8666cd0f4036089"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52792-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52792-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "7d3e8feb464fbe6d6b015100fd1cd657eef2ba928fae899383d55f515b8b75be"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-52824-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-52824-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "441afff546034cbeb85c4d4509e41b303f8e6905cfdca1656030629d3e5956d7"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-53052-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-53052-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "3f7acb184721e3425ca6b36fe9d33730bd73d2f4ac909d530084a116164b7c02"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-53072-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-53072-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8b871a28530cc8ca63b170b270e57d3bb9f8adc84d038ad5827238af96a30730"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-53204-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-53204-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "f90a0a6cc8108fb6b6f87ee5d7ba9da3d71683ef7e2f442108a908b28e088df8"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-53544-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-53544-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "f29675ae0be75f7763c68733dddc004d7ac9ac4f1cc472d564f3d394649386f2"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-53904-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-53904-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "2d12c6cc1cee636c9853c714555011f64d4320df8d536033d5243128abb4451a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-53928-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-53928-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "42b54227c17dccf96973237a0c7fe361f296dae01a62eabb0578f8fdd555fa53"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54024-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54024-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "d1054bdff8c545d21baffeeaad1cfca5cde36c9342327d1bba26fd06244b7200"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54068-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54068-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "a2b08707353bae7b7b9a723a2d10299a1b2cd58365f73759acfd295e696c80fb"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-5432-18379441459477793739_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-5432-18379441459477793739_0.profraw",
+    "bytes": 66080,
+    "sha256": "9307a34b8465a1a05b8c3291ca7e6817ba791264f48865684c08c032dd1fa553"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54344-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54344-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "d812350ad05459b716294738bceb1edb8da9a12ee177fd0223940e3c3c95a68e"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54372-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54372-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "c8b3824060e9da423aa09f484317b94cc1d1f1107523c25398a23f0eed6b24d7"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54464-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54464-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "bc346d00a40b79ad431770a612c2092bf93b2c05fd621c34619824c2e7805d0f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54528-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54528-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "49b6406745f7d6fcade9a3c8fae4d0b155854865bbe405398232d00c82457204"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54544-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54544-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "2ab6269bcce13f475526e8f5b26971af53129467bd74a48fc2161069edcc24a2"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54708-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54708-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "358d7ba670a7a403e481830a99ac74089fabf62c16899042c2ea6bebfa61bf7a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54880-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54880-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6a2f1f2cb619999bc6653508905b663c9fdf4f115ef4dcaa29ae2b23100f9730"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54912-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54912-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6f202d29b7fccc6d6c79b45e9099c4a19705e497f4d135eec8666cd0f4036089"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-54996-17840020466542442664_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-54996-17840020466542442664_0.profraw",
+    "bytes": 64496,
+    "sha256": "640b1939e49734f15371fd21ebef4b486e4961533260026d9a1729ed7bc31599"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-55028-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-55028-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "6009612a218719bb11aa316c8d7a929ed68d1ac9b93896b8bf466e31faaab859"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-55068-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-55068-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "dca38db7153256138bba094232cde10df6532872da43457fe423b6443e1feb81"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-55176-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-55176-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "7426b67d6e96a60f376c636a28ef39a55680c9f35221302d3f0e68affa6f35b2"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-55488-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-55488-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "3f521f718c41c2a8259b624551212593a7a92ced851cd93052eba4166696d417"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-55524-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-55524-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "f29675ae0be75f7763c68733dddc004d7ac9ac4f1cc472d564f3d394649386f2"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56016-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56016-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "cb1901482f2c6d2639918a8bb9c3275c44527bbc3574a4b2c2ce7bbc837c2531"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56136-15288734257980500800_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56136-15288734257980500800_0.profraw",
+    "bytes": 65640,
+    "sha256": "ea3c7e5f7482cf77e3cafdc321c82e58c9c1bd3d47a86eafd4731aba6277b394"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56188-18405311668535325323_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56188-18405311668535325323_0.profraw",
+    "bytes": 224,
+    "sha256": "91221c48e621b244493d221c333129d228d6602939cf766aaa01f310ad186436"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56344-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56344-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "615fa7b587aea00a9d92fca9a7a92a358dc0c4670bd16f1b2b6d816d2a96e26a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56356-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56356-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "5c367dc7c4999663312ff4429c024e4dcffa5b24619c6dd065c3e4fd1f2eae87"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56624-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56624-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "371ecad565b925416a0f07a9d0f652b1e85c62494ff5f83693f87bb8d1790435"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56720-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56720-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "49b6406745f7d6fcade9a3c8fae4d0b155854865bbe405398232d00c82457204"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56784-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56784-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "7ae8f1f64f247dc89888318b384f3287caf4f25008b97b583d8aed0bf2a2e162"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56876-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56876-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "49b6406745f7d6fcade9a3c8fae4d0b155854865bbe405398232d00c82457204"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56900-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56900-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "fcf0c88cc459b4b9cb506142c5bd6449d8321c7009e1e8556e5370166d400d4c"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56932-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56932-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "f90a0a6cc8108fb6b6f87ee5d7ba9da3d71683ef7e2f442108a908b28e088df8"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56948-14382633155689490034_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56948-14382633155689490034_0.profraw",
+    "bytes": 67960,
+    "sha256": "f6daf096a64a161dc8b80487fceb9936671fd91e912c0dba0b612edfe9449d44"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-56964-13160803138137725004_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-56964-13160803138137725004_0.profraw",
+    "bytes": 65168,
+    "sha256": "69004d589a2d7718851ec4755600965fc1451313addcf6b9b12696ba29823db3"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57068-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57068-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "fb58ee1cd4eefb4791d96c0a24f968be172df237c3aa3cbac0bfc2c9258b4d59"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57120-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57120-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "1c28e113f98b92fb6d80e863be1840359c326beec05d198f5d6062a12e086d0f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57228-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57228-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "afbc82e9bf1a0025d656253f33113f761e2ecd0fb1e20c1737542e9595b58bff"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57356-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57356-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "a22d37f07b54b21c56d188a7b5c3965075dab1dfdcbcf42c826a522925a2f45a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57440-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57440-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "1c28e113f98b92fb6d80e863be1840359c326beec05d198f5d6062a12e086d0f"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57460-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57460-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "ad20a20af0acfcc2642c0a600c34556dc6e872b0363f2e2e9c4c94d8c8288436"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57464-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57464-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "9242870ef27c167c6cb9f0c211d07609cf30b28b48ec06fd85372dcd6281ad56"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57476-18054990784900517210_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57476-18054990784900517210_0.profraw",
+    "bytes": 3112,
+    "sha256": "70b36130972728ffe91408cc237fc3b178e3a6f4ea107b105527909b98b105da"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57640-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57640-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8c70d8dcdeff1dae7fc232b9d7a37fb2384f9cd5c5a84540df45a4e9aa8d2249"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57680-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57680-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "a22d37f07b54b21c56d188a7b5c3965075dab1dfdcbcf42c826a522925a2f45a"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57740-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57740-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "d812350ad05459b716294738bceb1edb8da9a12ee177fd0223940e3c3c95a68e"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57760-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57760-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "85552d1de38dc70154a5704d87eba6d06c00e622ea7f71c9f2b5c0adaf120f52"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57832-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57832-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "42b54227c17dccf96973237a0c7fe361f296dae01a62eabb0578f8fdd555fa53"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57912-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57912-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "c051fbad4fdbea431700fcf7a65bed587938e3a76309f4bb07116ce35645112c"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57936-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57936-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "ae9dc42d8f17dd873b7ac7a251d251298e450c46a91c78abfb0ce910ceb3ff51"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-57996-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-57996-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "8e98b85b8ab43a4f9c645620d8f3b2f9cf3bf2c5fdcd786e7f029b8c94661330"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58108-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58108-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "98e6a697e4f5192e2879b5c76548bfbb88eb10f25c6ca8dfdb413748aa117ebc"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58316-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58316-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "09f491fff32bd44e3afa449fb306e00d49c50e41f50632ab0ec93fb6a91908ae"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58364-6400123647252480499_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58364-6400123647252480499_0.profraw",
+    "bytes": 64632,
+    "sha256": "7bb00be5fa3173d18d9858f0cf5df1be2d7db6eee4fb5f21ebd236f5262bbcf0"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58372-14412945038529997660_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58372-14412945038529997660_0.profraw",
+    "bytes": 65184,
+    "sha256": "06af35a0820145d76d6af13f712f9fefe15b7c4224b09f5aca44d61e11ddd466"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58548-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58548-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "a211644c5195adeb2011867252b1049664ee72ac51bc249f94abdbd875ec54e4"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58552-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58552-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "aa028116cfeecd6e3a8988e7539e4a0281c54d226f0bca529b9bb6c741ed06f4"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58612-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58612-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "09f491fff32bd44e3afa449fb306e00d49c50e41f50632ab0ec93fb6a91908ae"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58828-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58828-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "23065ac574345039ee7f4427989ee31f4f10cc54fa36654b644e22589e65c5b6"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-58900-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-58900-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "fd38ecaa5f00a221bdc9bc2320d66fbe8a7a2e7d0d2a9d8ae54418edd7968580"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-59032-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-59032-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "9150f84520d5fc757d86811fdfbc4af6d37857c76baea9c3dd707bdc86efed11"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-59112-10315431921586358845_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-59112-10315431921586358845_0.profraw",
+    "bytes": 65968,
+    "sha256": "711871be0bdf144ca63dbeeca5c88f7f2aa66343af5135ab118e15878896179d"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-59176-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-59176-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "673eed26a8f864ddfac5c766f982b20533a731740d7ebb1cb99679a249e6284c"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-59216-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-59216-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "012a98f489a3c3dd617fac2e771d1409433e107f8498891bd7ba98e3abbf75f8"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-59316-17840020466542442664_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-59316-17840020466542442664_0.profraw",
+    "bytes": 64496,
+    "sha256": "5b74600860bbccfad8222f9dcc3753fa04c20057a357ecac6d425dfad3019f69"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-59364-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-59364-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "371ecad565b925416a0f07a9d0f652b1e85c62494ff5f83693f87bb8d1790435"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-6272-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-6272-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "f4b7e0987db59ae5573c15b10710923a1337bf0d6651771d3eb870a99eaf61c0"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai-9192-13019864702072673877_0.profraw",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai-9192-13019864702072673877_0.profraw",
+    "bytes": 64608,
+    "sha256": "ae70ec98055a7e73f8c1b91e2e652a874f82d188d2794614ac46e4b3de0717cf"
+  },
+  {
+    "source": "C:\\Projects\\DevForgeAI\\devforgeai\\target\\llvm-cov-target\\devforgeai.profdata",
+    "retained": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\coverage-final\\profiles\\devforgeai.profdata",
+    "bytes": 124304,
+    "sha256": "8e4bd2b95e2f14f8f4db5ad016b11b6c2eb9f438fa45212fe81c0dcde424ac15"
+  }
+]

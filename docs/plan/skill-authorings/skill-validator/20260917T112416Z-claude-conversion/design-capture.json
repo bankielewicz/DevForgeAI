@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "skill-validator-claude-conversion-001",
+  "target_name": "skill-validator",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T112416Z-claude-conversion-inputs\\design.json",
+    "sha256": "fcb95db675da3970323e0fc7c57a74c620f67a11d3daa5a1542e08d96de1583f"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T112416Z-claude-conversion\\inputs\\93",
+    "sha256": "fcb95db675da3970323e0fc7c57a74c620f67a11d3daa5a1542e08d96de1583f"
+  }
+}

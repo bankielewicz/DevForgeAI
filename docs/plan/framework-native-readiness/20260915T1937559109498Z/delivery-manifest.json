@@ -1,0 +1,247 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\app-server-help.receipt.json",
+    "bytes": 574,
+    "sha256": "b96c4d5d5fd9681a3c4353abe6edf3c1629c265f81b9c60afb55da2b757beb76"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\app-server-help.stderr.txt",
+    "bytes": 243,
+    "sha256": "d6248f65cc26277b662c4ed1f4c8ebca4e592f59e1b00e82612c96625474df0b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\app-server-help.stdout.txt",
+    "bytes": 3206,
+    "sha256": "95d290035d274e91e6f85b9af63e9a3fd2cf70a2295d9eedbfc23a2ee82d4383"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\authority-worker-inventory.proposed.json",
+    "bytes": 635048,
+    "sha256": "9b900a3a1764581fc8a6ef22f06493d397349c143affc25755ef2e7eb1bf67cc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\candidate-after.json",
+    "bytes": 9871,
+    "sha256": "023837d95b422052ad61b67d1b68dc6831fbb4cc837cb2dd42e315b2e1c8e110"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\candidate-before.json",
+    "bytes": 7784,
+    "sha256": "1d206caa917e8f70abe700f9bc34bfa7dd0f73ee903fc4a46dbfe456f79797af"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\codex-help.receipt.json",
+    "bytes": 555,
+    "sha256": "a351147004a72f527f621ad19c6ee132b8e7f46138347345e3dc9c1b93ee9797"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\codex-help.stderr.txt",
+    "bytes": 243,
+    "sha256": "276b8daa6a12bb784d828e6cb8410f951f20ed073f73e51e87faa22ae65f635a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\codex-help.stdout.txt",
+    "bytes": 5748,
+    "sha256": "4abfbbaee583f6d8c3fa45fd751a138b2b8fdac68f651ac444aa36599629acb7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\codex-version.receipt.json",
+    "bytes": 558,
+    "sha256": "6c5d1f20c55c82cbdf2581b61281f16e1f06614e640fd704b5265fe816b872ed"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\codex-version.stderr.txt",
+    "bytes": 243,
+    "sha256": "cc4a1d94c7f42954edec9a2b8613ed103bec07f806c507edf703fe916507d7e4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\codex-version.stdout.txt",
+    "bytes": 18,
+    "sha256": "5efa0283757c66156d45d082b4e2e8afb881de3a97862bc03aed7fb34f45df7b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\config-observations.json",
+    "bytes": 23936,
+    "sha256": "64c5f1e001679fd18d5757fc983b2629f99539f9efefbf2c92a2fa97a29b34bd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\development-handoff.md",
+    "bytes": 5032,
+    "sha256": "d75f000037cc02fdbd106b47da3e997ecd6d075dfd26fbef42fdb1d7957ed20d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\discover.py",
+    "bytes": 5197,
+    "sha256": "ef10990f4deba096ebe4d4701f27a6dc2716007b82a17bd190a50f50116f1639"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\environment.json",
+    "bytes": 432,
+    "sha256": "bb32c1752e9ef612bae30fbad8641ba1248ba84b2b98741af776d55e2515a706"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\extension-observations.json",
+    "bytes": 15074,
+    "sha256": "d2598052731b55ffb328a6601ffd3759092b282e4bca352ba94d3279f243f962"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\host-observations.json",
+    "bytes": 198,
+    "sha256": "8af137c1fd57428a1a6a4a8e5258f97d118968d8f9706afac0177e637767bfd4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\input-after.json",
+    "bytes": 2058,
+    "sha256": "2e015e3fa49f6ab6b1f54315a923fb4b3ad3dcab387fcf5466e35da345224718"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\input-identities.json",
+    "bytes": 1452,
+    "sha256": "987500c4b8083d7152f6c1e59478566cf148bff580ae1aa1d248fcbe1734aa37"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\launcher-identity.json",
+    "bytes": 1074,
+    "sha256": "5b17cdf215604ce8f3e9d1a7a13e80ea8d957fe3125deba969cee0e93005b2e3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\native-trial-inventory.json",
+    "bytes": 1743,
+    "sha256": "bbf3c379a710ddfbf271ccb39d292c196beb009be98e6e9f342dd827e8f971af"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\operator-selection.json",
+    "bytes": 278,
+    "sha256": "4c82648851ec3249f58343e48e45fa039529731e648eecafeb3bf877a44b5a62"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\prepare_authority_inventory.py",
+    "bytes": 2935,
+    "sha256": "69a6184ec0af9ce66ed7f90ddb614ac714b55cd858eff0c8f52d9b3392524383"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\prepare_trials.py",
+    "bytes": 4218,
+    "sha256": "dc5ce21760db11a194ffbce0d55c4bad5b961246517e8fa60bbab024deacd33a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\profile-review.md",
+    "bytes": 5598,
+    "sha256": "6286e08552be07b835a263de1c686d978653d81e5deeef7c6520b794f5631854"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\profile-source-after.json",
+    "bytes": 6905,
+    "sha256": "1ccc66303be3563df19da574e6fa38e08adbb984e69b9aa7289eabed3bea35e7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\profile-source-inventory.json",
+    "bytes": 5582,
+    "sha256": "610b5ee932de3f9243df823e095689fa511985a4d97e42f33514eaf9e990868c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\profile_followup.py",
+    "bytes": 2832,
+    "sha256": "cedc8b0ff7e994133c99c5b72d7434f5f4930c86cb4be41bd0e08ac3300a6fad"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\report.md",
+    "bytes": 8292,
+    "sha256": "349720d135d05b8a285368121fe8b79a9750011cfc845720e92d8fa60c8269b8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\restrictive-launch-policy.proposed.json",
+    "bytes": 1887,
+    "sha256": "5744b73169784ef8bba9f87a46ab611828aa14fb4da8d5441354e715b9bd4d0e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trial-selection.proposed.md",
+    "bytes": 2537,
+    "sha256": "7fed2c7c336b8776832c0d2f7b454e4d15df481db8bfbb4d926377f1efba8b5c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\expected.json",
+    "bytes": 219,
+    "sha256": "6924dfd5d1b90d04fbdd6abf4ba67cd9ffce038e4440b57148882607fb3158ae"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\output-schema.json",
+    "bytes": 334,
+    "sha256": "33bf230e62397fca3ccbdf40f94c0bfa075335035a4e274ae1f05a72a6692d0d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\profile-review.unqualified.json",
+    "bytes": 4342,
+    "sha256": "c0e2bd99cc659983d28bf26f4945d907cfddc8ac581ff47ccb3225f26abba71f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\prompt.txt",
+    "bytes": 753,
+    "sha256": "1afe6b853e1133062b095e3539b9efac66e5d6c8328c5a2fa4ca5c8c1769991d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\request.draft.json",
+    "bytes": 1127,
+    "sha256": "3a9863168a4115e224e6d16f9866c993e25eb8e11866eae33df0d0031d5a6534"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-01\\task.json",
+    "bytes": 307,
+    "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\expected.json",
+    "bytes": 219,
+    "sha256": "6924dfd5d1b90d04fbdd6abf4ba67cd9ffce038e4440b57148882607fb3158ae"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\output-schema.json",
+    "bytes": 334,
+    "sha256": "33bf230e62397fca3ccbdf40f94c0bfa075335035a4e274ae1f05a72a6692d0d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\profile-review.unqualified.json",
+    "bytes": 4342,
+    "sha256": "98ffb70549cd543be72776d05d0bb5817f6f022403e229d20d2268163cfb4c9b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\prompt.txt",
+    "bytes": 753,
+    "sha256": "1afe6b853e1133062b095e3539b9efac66e5d6c8328c5a2fa4ca5c8c1769991d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\request.draft.json",
+    "bytes": 1125,
+    "sha256": "8fbf40cbd69802b185e9cd2017952c3fbf24ff43038968ba9d16c8eb017563dd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\trials\\WN-02\\task.json",
+    "bytes": 307,
+    "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\verification.json",
+    "bytes": 7309,
+    "sha256": "b2d6119c7a07f3608849823522f003c307803e7f456222131a23705ef0114a7e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-native-readiness\\20260915T1937559109498Z\\verify_delivery.py",
+    "bytes": 6203,
+    "sha256": "0699aafddb85deb81a4ddeb5433c34678f6cc79f44b8786b7e34c804bc2e4ff4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\acceptance-authority-v1.md",
+    "bytes": 27516,
+    "sha256": "d3ff75e87794f1541882fd59be6be69fe7a7a05bacc64e80dbf1fa0d029cec50"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\acceptance-worker-evidence-v1.md",
+    "bytes": 13037,
+    "sha256": "60f71e1df54c470f2115f4d7cf57e5e6cfa5146681278aa7be8ad99f3567698e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+    "bytes": 13339,
+    "sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d"
+  }
+]

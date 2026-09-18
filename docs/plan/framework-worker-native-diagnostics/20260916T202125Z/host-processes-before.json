@@ -1,0 +1,70 @@
+{
+  "observed_utc": "2026-09-16T20:26:41.9835286Z",
+  "shell_executable": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "shell_version": "7.6.6",
+  "os": "Microsoft Windows 10.0.26200",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "filesystem": "NTFS",
+  "processes": [
+    {
+      "Id": 20016,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-14T17:30:41.2164967-04:00"
+    },
+    {
+      "Id": 29108,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-16T10:50:56.292684-04:00"
+    },
+    {
+      "Id": 35720,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-14T15:49:17.6175863-04:00"
+    },
+    {
+      "Id": 37924,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-15T11:13:23.0842864-04:00"
+    },
+    {
+      "Id": 38372,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-16T15:15:46.954564-04:00"
+    },
+    {
+      "Id": 49092,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-15T14:33:57.7028747-04:00"
+    },
+    {
+      "Id": 49184,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-16T14:16:34.323965-04:00"
+    },
+    {
+      "Id": 55100,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\OpenAI\\Codex\\bin\\12219cbfbcbddde7\\codex.exe",
+      "StartTime": "2026-09-15T17:56:21.8265397-04:00"
+    },
+    {
+      "Id": 61540,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-15T11:43:37.5020871-04:00"
+    },
+    {
+      "Id": 69316,
+      "ProcessName": "codex",
+      "Path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+      "StartTime": "2026-09-16T16:19:51.4232983-04:00"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "1",
+  "cases": [
+    {"case_id": "R01", "route": "validate", "reason": "Explicit request to validate a named Codex skill."},
+    {"case_id": "R02", "route": "validate", "reason": "Auditing a skill workflow and its steps is within the stated scope."},
+    {"case_id": "R03", "route": "validate", "reason": "Reviewing ceremonial skill instructions is an explicit trigger."},
+    {"case_id": "R04", "route": "validate", "reason": "Assessing an edited skill's resources and behavior is within scope."},
+    {"case_id": "R05", "route": "validate", "reason": "Revalidating a builder-generated skill is assessment of a generated skill."},
+    {"case_id": "R06", "route": "outside_scope", "reason": "General explanation of Codex skills does not request validation or assessment of a skill."},
+    {"case_id": "R07", "route": "outside_scope", "reason": "Building a new skill is creation rather than validation of a skill."},
+    {"case_id": "R08", "route": "outside_scope", "reason": "Application parser repair does not validate a Codex skill."},
+    {"case_id": "R09", "route": "outside_scope", "reason": "Skill installation is explicitly excluded."},
+    {"case_id": "R10", "route": "outside_scope", "reason": "Repository CI configuration is not skill validation."},
+    {"case_id": "R11", "route": "outside_scope", "reason": "A shopping application's product specification is unrelated to establishing or revising a skill specification during validation."},
+    {"case_id": "R12", "route": "validate", "reason": "Inspecting a development skill's instruction organization before adoption is an assessment of the skill's instructions."}
+  ]
+}

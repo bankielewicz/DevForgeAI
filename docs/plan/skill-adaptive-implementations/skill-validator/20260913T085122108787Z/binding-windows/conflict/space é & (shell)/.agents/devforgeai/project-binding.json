@@ -1,0 +1,23 @@
+{
+  "schema_version": "project-binding-v1",
+  "project_id": "1d33bbd7-3f23-4eda-9ccc-02c4b9f6003f",
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\binding-windows\\conflict\\space é & (shell)",
+  "revision": 1,
+  "bindings": [
+    {
+      "name": "core-skill",
+      "package_path": ".agents/skills/core-skill",
+      "package_digest": "b7e31834df12d6f6de9c7f12c95655e5f11e70a0f3f98c3575c597d7c94cd260",
+      "role": "core",
+      "selected": true
+    },
+    {
+      "name": "variant-skill",
+      "package_path": ".agents/skills/variant-skill",
+      "package_digest": "9875927f3982b1263a1ae96f772cdfbd1a62ca97adb62326b3f6202a77b711ab",
+      "role": "project_variant",
+      "selected": true
+    }
+  ],
+  "updated_at_utc": "2026-09-13T13:21:10.142946Z"
+}

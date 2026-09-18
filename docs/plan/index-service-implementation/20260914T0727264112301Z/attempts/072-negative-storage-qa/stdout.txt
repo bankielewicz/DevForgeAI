@@ -1,0 +1,23 @@
+
+running 6 tests
+test project_configuration_cancellation_and_missing_ids_have_typed_outcomes ... FAILED
+test lifecycle_pause_resume_index_removal_and_retry_are_real ... ok
+test paused_mode_and_jobs_survive_restart_without_hidden_resume ... ok
+test resume_already_active_does_not_schedule_another_generation ... ok
+test automatic_file_changes_are_debounced_before_publication ... ok
+test unavailable_root_has_a_bounded_retry_and_visible_diagnostic ... ok
+
+failures:
+
+---- project_configuration_cancellation_and_missing_ids_have_typed_outcomes stdout ----
+
+thread 'project_configuration_cancellation_and_missing_ids_have_typed_outcomes' (41728) panicked at tests\service.rs:185:122:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    project_configuration_cancellation_and_missing_ids_have_typed_outcomes
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.19s
+

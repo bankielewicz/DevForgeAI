@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-09-15T18:46:28.0193447Z",
+  "os": "Microsoft Windows NT 10.0.26200.0",
+  "architecture": "X64",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "shell_version": "7.6.6",
+  "filesystem": "NTFS",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "package_git_present": false
+}

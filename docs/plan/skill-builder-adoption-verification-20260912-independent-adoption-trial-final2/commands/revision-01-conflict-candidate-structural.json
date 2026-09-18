@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-09-12T15:37:36.391714+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final2",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-01-conflict\\snapshot\\revision-01-conflict\\candidate"
+  ],
+  "exit_code": 0,
+  "stdout": "Skill is valid!\n",
+  "stderr": "",
+  "evaluation_input_snapshot": null
+}

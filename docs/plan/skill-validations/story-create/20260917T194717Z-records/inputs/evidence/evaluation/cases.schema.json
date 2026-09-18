@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "argv",
+    "cwd",
+    "project_root",
+    "expected",
+    "inputs",
+    "timeout_seconds"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "argv": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cwd": {
+      "type": "string"
+    },
+    "project_root": {
+      "type": "string"
+    },
+    "expected": {
+      "type": "object",
+      "required": [
+        "exit_code"
+      ],
+      "properties": {
+        "exit_code": {
+          "type": "integer"
+        },
+        "reason_code": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ]
+      }
+    },
+    "timeout_seconds": {
+      "type": "number",
+      "minimum": 1
+    }
+  }
+}

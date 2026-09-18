@@ -1,0 +1,81 @@
+{
+  "selected_specification": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-index-service-mvp-spec.md",
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-index-service-mvp-spec.md",
+      "bytes": 39549,
+      "sha256": "52d33c84435da8f3442c6b1dc4c5370113ff0eb93ee5cd2801903741900c89c4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "bytes": 13954,
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-index-query-cli-spec.md",
+      "bytes": 25923,
+      "sha256": "65097f0bbd73869fca9e70c872e4ea27b30ed71ce5cb6db0a4ff095aaf16d702"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+      "bytes": 24617,
+      "sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\SKILL.md",
+      "bytes": 5360,
+      "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\assessment.md",
+      "bytes": 4900,
+      "sha256": "38a3aaa0483538000b553ea35bbb8749362bccd2fe7e28401cb49ffb1d73c080"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\execution-integrity.md",
+      "bytes": 8012,
+      "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\intake-planning.md",
+      "bytes": 10486,
+      "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\references\\reporting-handoff.md",
+      "bytes": 8953,
+      "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\assets\\qa-fix-template.md",
+      "bytes": 2606,
+      "sha256": "d1670e38979fb8ab29d80afce6c58496e84599167e4001f1e649e887481d8199"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\assets\\qa-report-template.md",
+      "bytes": 2956,
+      "sha256": "da3a6d033df2d360c6458ceb0215e584bc664288fec00af93f91dd8ec7a518db"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\qa\\assets\\test-plan-template.md",
+      "bytes": 8364,
+      "sha256": "7115eaf01073bcd2489858140adb380f0b6f8daeef12962d1fae34fd6f0410a1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-implementation\\20260914T0727264112301Z\\context.md",
+      "bytes": 5802,
+      "sha256": "2cd9aecca944be9cc1ad8fff3f585cfdc564ed9da0e3e29fe399d9946b544a55"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-implementation\\20260914T0727264112301Z\\delivery.md",
+      "bytes": 5336,
+      "sha256": "e38efe2d831401c34b8a0507eed0587d8f35b42507dc37567d3d39ac0b224c6e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-implementation\\20260914T0727264112301Z\\platform-status.md",
+      "bytes": 6174,
+      "sha256": "25b5d12dcd332e0ba9c3a4c7a109880a8080afc611b6252d6adc6a19dfebd29c"
+    }
+  ]
+}
+

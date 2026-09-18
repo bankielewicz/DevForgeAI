@@ -1,0 +1,177 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "count-lines",
+  "source_refs": [
+    {
+      "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/docs/plan/skill-authorings/count-lines/inputs-20260915-01/request.txt",
+      "sha256": "3886b6c568a3cab28ea6936750e0cd1350f9f90afe923974ec5de1daed2bbdd8"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "count",
+      "requirement_ids": [
+        "request.txt"
+      ],
+      "trigger": "User selects count",
+      "inputs": [
+        "Explicit mode, UTF-8 input file, literal output directory"
+      ],
+      "completion": "Selected output written exclusively and exact bytes read back; input preserved. Failure only complete when failure.json read back.",
+      "outputs": [
+        "count.json: object with nonempty_lines integer in literal output directory; failure.json for missing/invalid UTF-8 input"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/count.md",
+        "scripts/count_lines.py"
+      ],
+      "prerequisites": [
+        "Python 3 standard library; input is regular file; output directory creatable/writable; no count.json, lines.txt or failure.json already present"
+      ],
+      "effects": [
+        "Read input only; create chosen directory and one result or failure file exclusively"
+      ],
+      "failure": "Missing or invalid UTF-8 input produces FAILED JSON with original input argument; output errors, collisions or failed readback report incomplete delivery without redirecting outputs.",
+      "recovery": "Retain partial outputs after interrupted writes. Never overwrite or automatically remove them. User selects a fresh directory or resolves existing outputs before retry. No child processes."
+    },
+    {
+      "id": "list",
+      "requirement_ids": [
+        "request.txt"
+      ],
+      "trigger": "User selects list",
+      "inputs": [
+        "Explicit mode, UTF-8 input file, literal output directory"
+      ],
+      "completion": "Selected output written exclusively and exact bytes read back; input preserved. Failure only complete when failure.json read back.",
+      "outputs": [
+        "lines.txt: original nonempty lines in order, duplicates retained, LF after every retained line; empty input produces zero bytes in literal output directory; failure.json for missing/invalid UTF-8 input"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/list.md",
+        "scripts/count_lines.py"
+      ],
+      "prerequisites": [
+        "Python 3 standard library; input is regular file; output directory creatable/writable; no count.json, lines.txt or failure.json already present"
+      ],
+      "effects": [
+        "Read input only; create chosen directory and one result or failure file exclusively"
+      ],
+      "failure": "Missing or invalid UTF-8 input produces FAILED JSON with original input argument; output errors, collisions or failed readback report incomplete delivery without redirecting outputs.",
+      "recovery": "Retain partial outputs after interrupted writes. Never overwrite or automatically remove them. User selects a fresh directory or resolves existing outputs before retry. No child processes."
+    }
+  ],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "kind": "instruction",
+      "purpose": "Shared routing and input/delivery contract",
+      "load_when": "Every invocation",
+      "helper_contract": null
+    },
+    {
+      "path": "references/count.md",
+      "kind": "reference",
+      "purpose": "Chosen mode output and invocation",
+      "load_when": "Only when mode is count",
+      "helper_contract": null
+    },
+    {
+      "path": "references/list.md",
+      "kind": "reference",
+      "purpose": "Chosen mode output and invocation",
+      "load_when": "Only when mode is list",
+      "helper_contract": null
+    },
+    {
+      "path": "scripts/count_lines.py",
+      "kind": "helper",
+      "purpose": "Shared deterministic transformation and delivery",
+      "load_when": "Execute after chosen mode reference; source inspection only if needed",
+      "helper_contract": {
+        "inputs": "mode, input path, literal output directory as separate arguments",
+        "outputs": "Selected result or failure.json; JSON stdout delivery receipt, stderr incomplete/refused detail",
+        "runtime": "Python 3 standard library, local filesystem",
+        "effects": "Input read only; mkdir selected output directory parents; exclusive output creation and readback",
+        "errors": "0 result delivered; 1 failure.json delivered; 2 incomplete delivery/refusal/usage; killed process can retain partial file",
+        "reuse_reason": "Both modes share strict UTF-8 decoding, newline semantics, collision protection and verified file delivery"
+      }
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "a0-count",
+      "behavior_id": "count",
+      "condition": "Missing input or invalid UTF-8",
+      "expected_observation": "failure.json delivered with exact required keys, original input argument and reason; no success result",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a0-list",
+      "behavior_id": "list",
+      "condition": "Missing input or invalid UTF-8",
+      "expected_observation": "failure.json delivered with exact required keys, original input argument and reason; no success result",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a1-count",
+      "behavior_id": "count",
+      "condition": "Existing reserved output including directory or dangling symlink",
+      "expected_observation": "Refuse; preserve existing bytes; failure delivery incomplete if failure required",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a1-list",
+      "behavior_id": "list",
+      "condition": "Existing reserved output including directory or dangling symlink",
+      "expected_observation": "Refuse; preserve existing bytes; failure delivery incomplete if failure required",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a2-count",
+      "behavior_id": "count",
+      "condition": "Unwritable output or failed readback",
+      "expected_observation": "Report incomplete delivery with actual attempted path; no alternate output directory",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a2-list",
+      "behavior_id": "list",
+      "condition": "Unwritable output or failed readback",
+      "expected_observation": "Report incomplete delivery with actual attempted path; no alternate output directory",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a3-count",
+      "behavior_id": "count",
+      "condition": "Empty, whitespace-only, mixed newline or duplicate lines",
+      "expected_observation": "Zero-length lines excluded; whitespace retained; CRLF, CR and LF delimit lines; duplicates retained",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a3-list",
+      "behavior_id": "list",
+      "condition": "Empty, whitespace-only, mixed newline or duplicate lines",
+      "expected_observation": "Zero-length lines excluded; whitespace retained; CRLF, CR and LF delimit lines; duplicates retained",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a4-count",
+      "behavior_id": "count",
+      "condition": "Dependency absent or interrupted process",
+      "expected_observation": "Report incomplete delivery; inspect existing outputs before retry; no success inferred",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    },
+    {
+      "id": "a4-list",
+      "behavior_id": "list",
+      "condition": "Dependency absent or interrupted process",
+      "expected_observation": "Report incomplete delivery; inspect existing outputs before retry; no success inferred",
+      "requirement_basis": "request.txt and explicit inferred defaults in contract"
+    }
+  ],
+  "execution_limits": [],
+  "open_questions": []
+}

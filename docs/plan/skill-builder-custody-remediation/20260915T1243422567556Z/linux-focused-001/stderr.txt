@@ -1,0 +1,35 @@
+test_changed_design_snapshot_blocks_before_delivery (__main__.StageIntegrityTests.test_changed_design_snapshot_blocks_before_delivery) ... ok
+test_changed_original_design_blocks_before_delivery (__main__.StageIntegrityTests.test_changed_original_design_blocks_before_delivery) ... ok
+test_design_publication_delivers_exact_bytes_and_unperformed_quality (__main__.StageIntegrityTests.test_design_publication_delivers_exact_bytes_and_unperformed_quality) ... ok
+test_drift_after_delivery_cannot_publish_success (__main__.StageIntegrityTests.test_drift_after_delivery_cannot_publish_success) ... ok
+test_drift_between_writes_retains_first_delta_without_baseline (__main__.StageIntegrityTests.test_drift_between_writes_retains_first_delta_without_baseline) ... ok
+test_failed_stage_cannot_be_reused_after_receipt_restoration (__main__.StageIntegrityTests.test_failed_stage_cannot_be_reused_after_receipt_restoration) ... ok
+test_focused_edit_preserves_unmanaged_bytes (__main__.StageIntegrityTests.test_focused_edit_preserves_unmanaged_bytes) ... ok
+test_fresh_no_design_receipt_preserves_design_shaped_ordinary_input (__main__.StageIntegrityTests.test_fresh_no_design_receipt_preserves_design_shaped_ordinary_input) ... ok
+test_input_source_drift_blocks_before_delivery (__main__.StageIntegrityTests.test_input_source_drift_blocks_before_delivery) ... ok
+test_legacy_mode_downgrade_cannot_hide_changed_design_snapshot (__main__.StageIntegrityTests.test_legacy_mode_downgrade_cannot_hide_changed_design_snapshot) ... ok
+test_legacy_no_design_remains_supported (__main__.StageIntegrityTests.test_legacy_no_design_remains_supported) ... ok
+test_missing_design_capture_blocks_before_delivery (__main__.StageIntegrityTests.test_missing_design_capture_blocks_before_delivery) ... ok
+test_old_canonical_no_marker_no_design_stage_is_compatible (__main__.StageIntegrityTests.test_old_canonical_no_marker_no_design_stage_is_compatible) ... ok
+test_origin_deleted_blocks_with_recorded_failure (__main__.StageIntegrityTests.test_origin_deleted_blocks_with_recorded_failure) ... ok
+test_origin_malformed_blocks_with_recorded_failure (__main__.StageIntegrityTests.test_origin_malformed_blocks_with_recorded_failure) ... ok
+test_pre_revision_marker_without_receipt_requires_fresh_run (__main__.StageIntegrityTests.test_pre_revision_marker_without_receipt_requires_fresh_run) ... ok
+test_receipt_binds_original_design_and_origin (__main__.StageIntegrityTests.test_receipt_binds_original_design_and_origin) ... ok
+test_receipt_deleted_blocks (__main__.StageIntegrityTests.test_receipt_deleted_blocks) ... ok
+test_receipt_duplicate_key_blocks (__main__.StageIntegrityTests.test_receipt_duplicate_key_blocks) ... ok
+test_receipt_extra_field_blocks (__main__.StageIntegrityTests.test_receipt_extra_field_blocks) ... ok
+test_receipt_failure_during_begin_never_returns_staged (__main__.StageIntegrityTests.test_receipt_failure_during_begin_never_returns_staged) ... ok
+test_receipt_hash_blocks (__main__.StageIntegrityTests.test_receipt_hash_blocks) ... ok
+test_receipt_invalid_json_blocks (__main__.StageIntegrityTests.test_receipt_invalid_json_blocks) ... ok
+test_receipt_missing_field_blocks (__main__.StageIntegrityTests.test_receipt_missing_field_blocks) ... ok
+test_receipt_mode_blocks (__main__.StageIntegrityTests.test_receipt_mode_blocks) ... ok
+test_receipt_mode_integer_blocks (__main__.StageIntegrityTests.test_receipt_mode_integer_blocks) ... ok
+test_receipt_path_blocks (__main__.StageIntegrityTests.test_receipt_path_blocks) ... ok
+test_receipt_run_id_blocks (__main__.StageIntegrityTests.test_receipt_run_id_blocks) ... ok
+test_receipt_target_name_blocks (__main__.StageIntegrityTests.test_receipt_target_name_blocks) ... ok
+test_receipt_version_blocks (__main__.StageIntegrityTests.test_receipt_version_blocks) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 6.986s
+
+OK

@@ -1,0 +1,12 @@
+{
+  "required_cases": [
+    "G01",
+    "G02",
+    "G03"
+  ],
+  "native_timeout_seconds": 1800,
+  "global_native_concurrency_maximum": 2,
+  "order": "Run after the six queued replays complete, or after their final two cases have started and a slot is conclusively free.",
+  "expected_coverage": "Live concurrent source drift, OS-denied write, and interrupted/truncated story recovery. Separate cases and semantic grading.",
+  "permission_boundary": "Only disposable fixture bytes/ACL change. ACL restoration always runs after G02, even on failure."
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "delivery-receipt-v1",
+  "timestamp_utc": "2026-09-13T03:02:58.030617+00:00",
+  "status": "DELIVERED_DEVELOPMENT_ASSESSED",
+  "spec_sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+  "assessment_method": "Primary author follows frozen operational validator; independent builder review and bounded cold workflows separately attributed.",
+  "verification": {
+    "full_regression": {
+      "tests": 202,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "successful": true,
+      "subprocess_attempts": 174
+    },
+    "supplemental_authoring_input_capture": {
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "successful": true,
+      "subprocess_attempts": 4
+    },
+    "structural": [
+      {
+        "package": "skill-builder",
+        "check": "structure",
+        "exit_code": 0
+      },
+      {
+        "package": "skill-builder",
+        "check": "skill-creator",
+        "exit_code": 0
+      },
+      {
+        "package": "skill-validator",
+        "check": "structure",
+        "exit_code": 0
+      },
+      {
+        "package": "skill-validator",
+        "check": "skill-creator",
+        "exit_code": 0
+      }
+    ],
+    "routing": {
+      "matched": 14,
+      "total": 14,
+      "native_activation": "NOT_RUN"
+    },
+    "scope": {
+      "changed_files": 96,
+      "unauthorized": [],
+      "excluded_boundaries": [
+        "tmp/old-framework/skills/spec-driven-stories/scripts/migrate_story_v1_to_v2.py.backup-week2",
+        "tmp/old-framework/skills/spec-driven-release/scripts/backup_database.sh",
+        "src/claude/skills/spec-driven-stories/scripts/migrate_story_v1_to_v2.py.backup-week2",
+        "src/claude/skills/spec-driven-release/scripts/backup_database.sh",
+        "docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/attempt-003/cases/0007-test_backup_and_legacy_boundaries_are_explicitly_incomplete",
+        "docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/attempt-003/cases/0057-test_symlink_omission_when_host_supports_creation/input/project with spaces/example/outside-link.txt",
+        "docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/attempt-002/cases/0007-test_backup_and_legacy_boundaries_are_explicitly_incomplete",
+        "docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/attempt-002/cases/0052-test_symlink_omission_when_host_supports_creation/input/project with spaces/example/outside-link.txt",
+        "docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/attempt-001/cases/0007-test_backup_and_legacy_boundaries_are_explicitly_incomplete",
+        "docs/plan/skill-builds/skill-validator/20260912T155029Z/helper-tests/attempt-001/cases/0049-test_symlink_omission_when_host_supports_creation/input/project with spaces/example/outside-link.txt",
+        "docs/plan/skill-authoring-enhancement/20260913T021452Z",
+        ".claude/skills/spec-driven-stories/scripts/migrate_story_v1_to_v2.py.backup-week2",
+        ".claude/skills/spec-driven-release/scripts/backup_database.sh"
+      ],
+      "inventoried_before_files": 20456
+    }
+  },
+  "targets": {
+    "skill-builder": {
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+      "package_digest": "65e5513cdb531cbfb1d9ef3eb9a1665f4221b1993ea0e5fbd1eb8e20fa6cc680",
+      "readback": "MATCH",
+      "record_integrity_errors": [],
+      "file_delta_counts": {
+        "added": 18,
+        "removed": 26,
+        "modified": 9
+      },
+      "authoring_record": "authoring/skill-builder/authoring-record.json",
+      "authoring_baseline": "authoring/skill-builder/authoring-baseline.json",
+      "manual_handoff": "authoring/skill-builder/validator-request.md",
+      "assessment": "assessments/skill-builder/validation-report.md"
+    },
+    "skill-validator": {
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+      "package_digest": "77f0eec091cb41559074296ec8b0cd7dad76329ca6647b969f0e76b49cea51a4",
+      "readback": "MATCH",
+      "record_integrity_errors": [],
+      "file_delta_counts": {
+        "added": 36,
+        "removed": 0,
+        "modified": 7
+      },
+      "authoring_record": "authoring/skill-validator/authoring-record.json",
+      "authoring_baseline": "authoring/skill-validator/authoring-baseline.json",
+      "manual_handoff": "authoring/skill-validator/validator-request.md",
+      "assessment": "assessments/skill-validator/validation-report.md"
+    }
+  },
+  "report_sha256": "9deefe1ca69e12fce6af6c5bb728f26be03912d2277880ea2c98d229c425e2ad",
+  "assessment_report_sha256": {
+    "skill-builder": "89a41ddfed0903bd77dd644e416b4f452981415695de1d2a79cd829caca1d0b1",
+    "skill-validator": "0d6166ebbdbc4142750a31a0960ab1fd76ae019656efbd89284ebc82a04c8bc8"
+  },
+  "limitations_reference": "REPORT.md#scope-and-limitations"
+}

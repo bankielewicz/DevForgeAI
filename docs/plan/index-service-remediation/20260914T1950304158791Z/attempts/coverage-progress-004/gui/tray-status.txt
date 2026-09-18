@@ -1,0 +1,8 @@
+Environment: local
+Paused — indexing waits for Resume
+
+Native UI fixture — \\?\C:\Users\bryan\AppData\Local\Temp\.tmpIXWshN
+Coverage: complete   Freshness: observed_current
+Current generation: 6168f659-7b88-4a61-a4c2-ac286f3c95e1
+Last reconciliation (Unix seconds, UTC): 1789418635
+1 text / 1 structural / 0 excluded / 0 skipped / 0 failed

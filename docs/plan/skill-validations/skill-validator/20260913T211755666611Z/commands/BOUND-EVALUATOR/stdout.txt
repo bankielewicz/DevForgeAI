@@ -1,0 +1,1 @@
+{"records": 2, "exit_code": 0, "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\bound-evaluation.jsonl", "authority": "NONE"}

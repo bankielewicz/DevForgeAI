@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+    "--request",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z\\validation-request.json",
+    "--request-sha256",
+    "034887a39a8b5f12e0ca3bb27e2f87cba48b4f0f74335071ef2baf6b77d525af"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-14T07:05:31.685661Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\intake",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\intake",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\intake",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 100460,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-14T07:05:31.991031Z",
+  "elapsed_seconds": 0.31200000003445894
+}

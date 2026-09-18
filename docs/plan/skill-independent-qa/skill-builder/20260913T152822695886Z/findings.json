@@ -1,0 +1,105 @@
+[
+  {
+    "id": "F-01",
+    "severity": "HIGH",
+    "category": "implementation defect",
+    "requirements": [
+      "BA-005",
+      "BA-006",
+      "BA-014"
+    ],
+    "cases": [
+      "BAT-08",
+      "BAT-10"
+    ],
+    "clause": "5.1, 5.3, 9: closed legacy records and exact member custody/request bindings",
+    "source": "scripts/adaptive.py:389-400,435-449",
+    "expected": "Reject malformed referenced authoring/request records and requests whose target identity or manifest disagrees with the delivered member.",
+    "actual": "inspect returned VALID/exit 0 separately for PASS quality statuses, wrong record_kind, wrong request target name/root, boolean changed_paths, and an empty unrelated target_manifest, after all reference hashes and publication references were refreshed.",
+    "reproduction": [
+      "ext2-linked-quality",
+      "ext2-linked-kind",
+      "ext2-linked-request-identity",
+      "ext2-linked-request-type",
+      "ext2-linked-request-manifest"
+    ],
+    "impact": "The set packet can appear custody-valid while carrying invalid quality claims and a request for another target. No protected authority bypass is claimed.",
+    "confidence": "HIGH",
+    "correction": "Validate every legacy field against its unchanged family schema and cross-bind target name/root, manifest rows/digest, run identity and changed paths to actual publication. Preserve legacy version semantics.",
+    "counterevidence": "The valid control is accepted; correct partial/subset packets and false-full/omission negatives behaved correctly. This is not a claim that the normal publisher fabricates these fields."
+  },
+  {
+    "id": "F-02",
+    "severity": "MEDIUM",
+    "category": "implementation defect, inherited from preserved baseline",
+    "requirements": [
+      "BA-005",
+      "BA-011"
+    ],
+    "cases": [
+      "BAT-08",
+      "BAT-09"
+    ],
+    "clause": "5.1 and 9: preserve closed legacy schemas and actual parser behavior",
+    "source": "scripts/authoring.py:241-247; schemas/authoring-contract.schema.json:113",
+    "expected": "An unlisted top-level authoring-contract-v1 field is rejected before staging.",
+    "actual": "begin accepted unlisted_field: true and returned STAGED/exit 0. The shipped schema has additionalProperties: false; begin only checks the required-key subset.",
+    "reproduction": [
+      "v2-author-extra-contract-field"
+    ],
+    "impact": "Unsupported contract fields can enter custody evidence instead of failing closed. Valid arbitrary objects inside the legacy requirements array remain supported and must stay supported.",
+    "confidence": "HIGH",
+    "correction": "Enforce the closed top-level schema and declared optional fields without tightening legacy requirement object contents.",
+    "counterevidence": "Duplicate-key parsing and selected required-field/type checks exist. Historical byte comparison confirms this helper was preserved, so this is not newly introduced by adaptation."
+  },
+  {
+    "id": "F-03",
+    "severity": "HIGH",
+    "category": "implementation defect",
+    "requirements": [
+      "BA-002",
+      "BA-009"
+    ],
+    "cases": [
+      "BAT-07",
+      "BAT-15"
+    ],
+    "clause": "4.2 exclusions and 6.2 refusal of excluded files in exact runtime capture",
+    "source": "assets/adaptive-runtime/check_project_binding.py:110-111,142-157",
+    "expected": "Reject recognized private-key/certificate-container filenames before reading/hashing; do not return MATCH for a package containing excluded key material.",
+    "actual": "Synthetic id_rsa and identity.pfx package files were inventoried and returned MATCH/BOUND on both Windows and Linux. Only a small suffix list is checked.",
+    "reproduction": [
+      "windows-private-key-name",
+      "windows-pfx-name",
+      "linux-private-key-name",
+      "linux-pfx-name"
+    ],
+    "impact": "The helper reads/hashes files the selected contract excludes, and can bind such a package as complete. No real credentials were used or exposed.",
+    "confidence": "HIGH",
+    "correction": "Define and share a complete conservative private-key exclusion policy (including standard private-key basenames and credential containers), apply it before file reads, and retain explicit omission/rejection reasons.",
+    "counterevidence": "node_modules and symlink/junction negatives were rejected; .pem and .key suffixes are already rejected. Stdout did not expose a UUID or file contents."
+  },
+  {
+    "id": "F-04",
+    "severity": "HIGH",
+    "category": "implementation defect, inherited from preserved baseline",
+    "requirements": [
+      "BA-011"
+    ],
+    "cases": [
+      "BAT-11",
+      "BAT-17"
+    ],
+    "clause": "1.1 and 9 preserved legacy identity; known conflicting history blocks",
+    "source": "scripts/authoring.py:221-238; scripts/custody.py:367-379",
+    "expected": "A selected schema-2 adoption pointer must identify the same skill and run as its adopted origin.",
+    "actual": "begin accepted a pointer with target_name wrong-skill and run_id wrong-run while its origin describes sample/old1. It returned STAGED/exit 0. The adopted record and baseline checks passed but pointer identity was never checked.",
+    "reproduction": [
+      "ext2-legacy-wrong-pointer"
+    ],
+    "impact": "Conflicting known custody history can establish an edit base. The existing custody.pointer_record check is not called on this source-to-effect branch.",
+    "confidence": "HIGH",
+    "correction": "Validate the entire selected pointer and bind its run/name/origin/baseline to the adopted record before beginning an edit; preserve old bytes and fail conflicting history.",
+    "counterevidence": "Independently constructed valid generated/adopted histories staged successfully; corrupt generated baseline bytes were rejected."
+  }
+]

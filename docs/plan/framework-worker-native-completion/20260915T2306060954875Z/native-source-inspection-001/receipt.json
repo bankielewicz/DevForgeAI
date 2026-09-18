@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target\\debug\\devforgeai-codex-worker-probe.exe",
+    "profile-sources",
+    "--checkout-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260915T2306060954875Z-preflight\\fixture"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "784f4d6f2a445f0bbd91e92107e15c5ff7431bd40736496af727ed7c82ad974f",
+  "start": "2026-09-15T23:23:44.277363+00:00",
+  "candidate_manifest_sha256": "00e3c377ae852de7eab9ad174614e432dbcae32c7fb1b3493340f077da67c3d6",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\native-source-inspection-001\\fixtures",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\native-source-inspection-001\\fixtures"
+  },
+  "timeout_seconds": 30,
+  "owned_pid": 24932,
+  "exit_code": 3,
+  "elapsed_seconds": 0.030999999988125637,
+  "end": "2026-09-15T23:23:44.309194+00:00",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e116b6965ab13926fa3d596e5b5bba2709081e17401bef3994154e466a903579",
+  "candidate_unchanged_during_command": true
+}

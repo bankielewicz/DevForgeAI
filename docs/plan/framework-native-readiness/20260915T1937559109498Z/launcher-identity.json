@@ -1,0 +1,21 @@
+{
+  "captured_alias": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+  "physical": {
+    "path": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+    "bytes": 298169136
+  },
+  "alias_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "chain": [
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin",
+      "target": "\\\\?\\C:\\Users\\bryan\\.codex\\packages\\standalone\\current\\bin",
+      "resolved": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin"
+    },
+    {
+      "path": "C:\\Users\\bryan\\.codex\\packages\\standalone\\current",
+      "target": "\\\\?\\C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc",
+      "resolved": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc"
+    }
+  ]
+}

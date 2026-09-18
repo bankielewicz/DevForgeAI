@@ -1,0 +1,3 @@
+{"case_id": "revision-v2-negative-package_links", "grader_id": "package_links", "params": {"path": "trace/destination"}, "expected": "PASS"}
+{"case_id": "revision-v2-negative-build_traceability_v2", "grader_id": "build_traceability_v2", "params": {"evidence": "trace/evidence", "destination": "trace/destination"}, "expected": "FAIL"}
+{"case_id": "revision-v2-negative-revision_consistency_v2", "grader_id": "revision_consistency_v2", "params": {"path": "trace/evidence/revision-plan.json"}, "expected": "FAIL"}

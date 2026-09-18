@@ -1,0 +1,8 @@
+
+running 3 tests
+test diagnostic_initialize_counts_include_exited_descendant ... ok
+test diagnostic_config_denial_is_closed_and_preserves_rejection ... ok
+test diagnostic_rpc_denial_never_retains_server_message ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.11s
+

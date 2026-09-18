@@ -1,0 +1,33 @@
+{
+  "scope": "Development offline checks only; independent QA findings remain OPEN",
+  "platform": "Windows x64, native C:",
+  "line_coverage": {
+    "passing": 3871,
+    "required": 4057,
+    "exact_percent": "100*3871/4057",
+    "percent": 95.41533152575795,
+    "meets_95_percent": true
+  },
+  "required_units": {
+    "passing": 49,
+    "required": 49,
+    "exact_percent": "100*49/49",
+    "percent": 100.0,
+    "meets_95_percent": true
+  },
+  "required_project_suite": {
+    "passing": 163,
+    "required": 163,
+    "exact_percent": "100*163/163",
+    "percent": 100.0,
+    "meets_95_percent": true
+  },
+  "failed": 0,
+  "ignored": 0,
+  "errored": 0,
+  "blocked": 0,
+  "unexecuted": 0,
+  "branch_coverage": "NOT_RUN: unstable collector feature and no installed nightly",
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED"
+}

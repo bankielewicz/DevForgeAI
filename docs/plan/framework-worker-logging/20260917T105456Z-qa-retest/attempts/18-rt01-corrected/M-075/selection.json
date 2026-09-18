@@ -1,0 +1,17 @@
+{
+  "group": "success",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-010StitK",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-010StitK\\run",
+    "state": "completed",
+    "schema": 3,
+    "level": "debug",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-010StitK\\control-stdout.txt",
+    "control_sha256": "592bc5abb11f36816e061b14631e0447439894118cab9d373ab8aecaed4e0296"
+  },
+  "mutation": "terminal-nonzero",
+  "expected_error": "evidence_corrupt",
+  "expected_state": null,
+  "views": "first-and-end",
+  "id": "M-075"
+}

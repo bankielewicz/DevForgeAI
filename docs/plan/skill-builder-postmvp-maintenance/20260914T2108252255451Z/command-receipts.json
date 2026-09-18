@@ -1,0 +1,29 @@
+{
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "commands": [
+    {
+      "command": "python -B -X utf8 -m coverage run --branch --include=\"*/skill-builder/scripts/authoring.py,*/skill-builder/scripts/record_schema.py\" docs/plan/skill-builder-postmvp-maintenance/20260914T2108252255451Z/run_maintenance.py qa-03",
+      "environment": {
+        "COVERAGE_FILE": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\coverage-qa-03"
+      },
+      "exit": 0
+    },
+    {
+      "command": "python -B -m coverage json -o docs/plan/skill-builder-postmvp-maintenance/20260914T2108252255451Z/qa-03-coverage.json",
+      "exit": 0
+    },
+    {
+      "command": "python -B docs/plan/skill-builder-postmvp-maintenance/20260914T2108252255451Z/grade_maintenance.py docs/plan/skill-builder-postmvp-maintenance/20260914T2108252255451Z/qa-03",
+      "exit": 0
+    },
+    {
+      "command": "python -B -X utf8 docs/plan/skill-builder-postmvp-maintenance/20260914T2108252255451Z/finalize_artifacts.py",
+      "exit": 0
+    },
+    {
+      "command": "python -B -X utf8 C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py src/agents/skills/skill-builder",
+      "exit": 0
+    }
+  ]
+}

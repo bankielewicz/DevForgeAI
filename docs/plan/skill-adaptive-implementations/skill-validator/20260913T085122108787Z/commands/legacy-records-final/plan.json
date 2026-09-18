@@ -1,0 +1,1 @@
+{"argv": ["python", "-B", "-X", "utf8", "src/agents/skills/skill-validator/scripts/observe.py", "records", "--run-root", "docs/plan/skill-adaptive-implementations/skill-validator/20260913T085122108787Z/self-review-records-002"], "cwd": "C:\\Projects\\DevForgeAI", "timeout_seconds": 120, "start": "2026-09-13T13:43:57.320051+00:00"}

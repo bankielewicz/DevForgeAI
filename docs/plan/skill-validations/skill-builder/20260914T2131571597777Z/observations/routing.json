@@ -1,0 +1,19 @@
+{
+  "reviewer": "Independent /root/routing agent; description only; no files or tools",
+  "classifications": {
+    "R1": "ACTIVATE",
+    "R2": "ACTIVATE",
+    "R3": "DO_NOT_ACTIVATE",
+    "R4": "DO_NOT_ACTIVATE",
+    "R5": "ACTIVATE",
+    "R6": "DO_NOT_ACTIVATE",
+    "R7": "ACTIVATE",
+    "R8": "ACTIVATE",
+    "R9": "DO_NOT_ACTIVATE",
+    "R10": "ACTIVATE",
+    "R11": "ACTIVATE",
+    "R12": "ACTIVATE"
+  },
+  "observed_match": "12/12 intended classifications",
+  "limitation": "No native implicit activation observation. Expected labels were selected by primary before request but not separately persisted before the reviewer returned; advisory routing evidence only."
+}

@@ -1,0 +1,31 @@
+{
+  "root": "regression-release\\commands\\v2-binding-duplicate-name",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 2197,
+      "sha256": "b4340f2cb1592e1e0bccd1f28a43cd65d947ecfd4b8804ae3b8f258a02674cbf"
+    },
+    {
+      "path": "effects.json",
+      "bytes": 1333,
+      "sha256": "c4f954ca11616a150acd2cb8a7ae2630248a7ced964f92ca2e38bf009505489a"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "f6d4ff9f1c60c22b05e72c6ce3d83282902908468ef03f7c9fd19afde60bc0db"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 227,
+      "sha256": "41bdf8391c9ffc41d9b37fe5ce3aa6302e31f98bfff0efc538f156dcce19e32a"
+    }
+  ]
+}

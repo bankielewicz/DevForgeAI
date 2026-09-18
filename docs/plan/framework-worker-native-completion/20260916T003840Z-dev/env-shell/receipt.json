@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "label": "env-shell",
+  "argv": [
+    "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "-NoProfile",
+    "-NonInteractive",
+    "-Command",
+    "$PSVersionTable.PSVersion.ToString(); [System.Environment]::OSVersion.VersionString; [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "environment_overrides": {},
+  "stdin": "DEVNULL",
+  "executable": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "executable_sha256": "bfb46af89433268872ddb43d1ca7a3f433452ee91ed356a9786940f90118e285",
+  "recorder_sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+  "candidate_before_sha256": "9893471243f35b44c7c372c035815152d30a3b9fb8189a13368827cf74311aac",
+  "start_utc": "2026-09-16T00:45:38.974663+00:00",
+  "timeout_seconds": 30,
+  "owned_pid": 58764,
+  "end_utc": "2026-09-16T00:45:39.209374+00:00",
+  "duration_monotonic_ns": 203000000,
+  "native_exit_code": 0,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 47,
+  "stdout_sha256": "7754c1224e5acd9454170ab4e5d9e84ba2c922d1545739acaef6cd0119c6ff07",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate_after_sha256": "9893471243f35b44c7c372c035815152d30a3b9fb8189a13368827cf74311aac",
+  "candidate_unchanged": true
+}

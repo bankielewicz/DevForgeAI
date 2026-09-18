@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "reviewer": null,
+  "trial_selection_ref": null,
+  "codex_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "checkout_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\fixture",
+  "model": "gpt-6-astra",
+  "effort": "high",
+  "profile_sources": null,
+  "findings": {
+    "native_read_only_available": null,
+    "no_external_tool_or_hook_effects": null,
+    "codex_managed_chatgpt": null,
+    "no_custom_provider": null
+  },
+  "launch_policy_id": "codex-0.154.0-readonly-no-external-tools-v3",
+  "launch_policy_sha256": "c8ef7b6184e20fd55833c9b8f7cd17b6dc1f0af494ca367c857953680dab1b49",
+  "source_inventory_ref": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\sources-002-prelaunch\\stdout.bin",
+  "source_inventory_sha256": null
+}

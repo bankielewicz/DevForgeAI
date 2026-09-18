@@ -1,0 +1,15 @@
+{
+  "case": "cold-create-01",
+  "method": "native explicit invocation",
+  "entrypoint": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\SKILL.md",
+  "input_manifest": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 202,
+      "sha256": "31c006fdedba259528defff8225109a1111b5a40f53c57d86d28afc440c9f495"
+    }
+  ],
+  "expected": "Package and digest-bound manual request, quality NOT_PERFORMED; no checker/test/validator process; no outside product effects",
+  "timeout": 120,
+  "write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-01"
+}

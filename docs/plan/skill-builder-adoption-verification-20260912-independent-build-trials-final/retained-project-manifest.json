@@ -1,0 +1,2773 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-build-trials-final\\retained-project",
+  "captured_at_utc": "2026-09-12T15:27:36.093485+00:00",
+  "files": [
+    {
+      "path": "docs/plan/receipt-summary-spec.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/candidate-evaluation.jsonl",
+      "bytes": 8577,
+      "sha256": "a283dd85e63681a200adde2ac13a7a88f9e221f644b9456b2406b7fe889eaf9c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-cases-candidate-evaluation.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-cases.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/baseline/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/destination/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/build-contract.json",
+      "bytes": 3826,
+      "sha256": "d2b3ddd617e543e5c6fc7440625bf6c2c8942899e5e28efc050fc1149cf2266b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/build-provenance.json",
+      "bytes": 1947,
+      "sha256": "68a07842d56ee157473ad4571c956ced3e938e19b9210e3551975c6fb3027850"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/checks.json",
+      "bytes": 11656,
+      "sha256": "00ac9971e8d7f57f7898d956b5a5bf3cf148f4418738a8edd507a17a348345de"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/revision-plan.json",
+      "bytes": 2071,
+      "sha256": "00f8ff70b4242f09ac8d5a8ad4cab0511f305bfea29b9e00cb79b2314bd23423"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/revision-request.json",
+      "bytes": 723,
+      "sha256": "77342d189121027457ef04a509b5e7d5d9af1de9b416a6cd622dc8c5066e7d55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/inputs/revision-request.md",
+      "bytes": 151,
+      "sha256": "6049339b1d9623c7a522994ffcd7e67203ba1f3ccf3e086afc244866e17f990c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/N/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/evaluation-snapshots/candidate-evaluation/N/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/baseline/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/destination/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/build-contract.json",
+      "bytes": 3826,
+      "sha256": "d2b3ddd617e543e5c6fc7440625bf6c2c8942899e5e28efc050fc1149cf2266b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/build-provenance.json",
+      "bytes": 1947,
+      "sha256": "68a07842d56ee157473ad4571c956ced3e938e19b9210e3551975c6fb3027850"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/checks.json",
+      "bytes": 11656,
+      "sha256": "00ac9971e8d7f57f7898d956b5a5bf3cf148f4418738a8edd507a17a348345de"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/revision-plan.json",
+      "bytes": 2071,
+      "sha256": "00f8ff70b4242f09ac8d5a8ad4cab0511f305bfea29b9e00cb79b2314bd23423"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/revision-request.json",
+      "bytes": 723,
+      "sha256": "77342d189121027457ef04a509b5e7d5d9af1de9b416a6cd622dc8c5066e7d55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/inputs/revision-request.md",
+      "bytes": 151,
+      "sha256": "6049339b1d9623c7a522994ffcd7e67203ba1f3ccf3e086afc244866e17f990c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/N/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/candidate-assessment/snapshot/N/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/conflict-report.md",
+      "bytes": 341,
+      "sha256": "a16d5abe2a701d7ace924faeb9f7d2d5c7bb441b8de24dc073136a0eac2cb22a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-cases-preview-evaluation.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-cases.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/baseline/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/build-contract.json",
+      "bytes": 3826,
+      "sha256": "d2b3ddd617e543e5c6fc7440625bf6c2c8942899e5e28efc050fc1149cf2266b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/build-provenance.json",
+      "bytes": 2174,
+      "sha256": "faf37b91184ec79cd5be9b69563735e85b340310d94797f6bf176f94d40a0d1c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/checks.json",
+      "bytes": 11127,
+      "sha256": "95699f2614636c80f1e2b40b438a61fe1e8c92a22a0f7dfb45a2e09f222bc627"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/revision-plan.json",
+      "bytes": 2071,
+      "sha256": "00f8ff70b4242f09ac8d5a8ad4cab0511f305bfea29b9e00cb79b2314bd23423"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/revision-request.json",
+      "bytes": 723,
+      "sha256": "77342d189121027457ef04a509b5e7d5d9af1de9b416a6cd622dc8c5066e7d55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/inputs/revision-request.md",
+      "bytes": 151,
+      "sha256": "6049339b1d9623c7a522994ffcd7e67203ba1f3ccf3e086afc244866e17f990c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/N/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/evaluation-snapshots/preview-evaluation/N/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/preview-evaluation.jsonl",
+      "bytes": 8838,
+      "sha256": "e884df8acbbe63d0b846cf07d5d372e8d7b41cbcb98dcca2e5e30382b7d5337b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/revision-request.md",
+      "bytes": 151,
+      "sha256": "6049339b1d9623c7a522994ffcd7e67203ba1f3ccf3e086afc244866e17f990c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/baseline/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/build-contract.json",
+      "bytes": 3826,
+      "sha256": "d2b3ddd617e543e5c6fc7440625bf6c2c8942899e5e28efc050fc1149cf2266b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/build-provenance.json",
+      "bytes": 2174,
+      "sha256": "faf37b91184ec79cd5be9b69563735e85b340310d94797f6bf176f94d40a0d1c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/checks.json",
+      "bytes": 11127,
+      "sha256": "95699f2614636c80f1e2b40b438a61fe1e8c92a22a0f7dfb45a2e09f222bc627"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/revision-plan.json",
+      "bytes": 2071,
+      "sha256": "00f8ff70b4242f09ac8d5a8ad4cab0511f305bfea29b9e00cb79b2314bd23423"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/revision-request.json",
+      "bytes": 723,
+      "sha256": "77342d189121027457ef04a509b5e7d5d9af1de9b416a6cd622dc8c5066e7d55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/inputs/revision-request.md",
+      "bytes": 151,
+      "sha256": "6049339b1d9623c7a522994ffcd7e67203ba1f3ccf3e086afc244866e17f990c"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/N/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/conflict/snapshot/N/SKILL.md",
+      "bytes": 1044,
+      "sha256": "eeb6fffa51cdd6483509ab9180d5799eeeb04f6fbeaab5bb5c7bd26e625d81ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/active-baseline.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/build-report.md",
+      "bytes": 960,
+      "sha256": "b17a2b49c363b144c9522d85de122458143e96e0581687c4f8abcb41be06e331"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/candidate-evaluation.jsonl",
+      "bytes": 3102,
+      "sha256": "f5f46721f29fee3d6a7bcd8e3d3bd5caf4bee96ab76ee6bb1eb313d3eb2b614b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/completed-evaluation.jsonl",
+      "bytes": 3102,
+      "sha256": "6f0acf67c831c9a65d8309a4dd87d8aff58b5891034ae507ffa893f8d1395589"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/delivered-evaluation.jsonl",
+      "bytes": 3102,
+      "sha256": "d41f6db767a4f8f8a062853c6d31071d1547ddc0b33f5e8249e64559e5c2e9b6"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-cases-candidate-evaluation.jsonl",
+      "bytes": 273,
+      "sha256": "22443b0ad38409c33df047fa75732a2d99dc348de0b214bb383df84b3e88b9bd"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-cases-completed-evaluation.jsonl",
+      "bytes": 273,
+      "sha256": "22443b0ad38409c33df047fa75732a2d99dc348de0b214bb383df84b3e88b9bd"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-cases-delivered-evaluation.jsonl",
+      "bytes": 273,
+      "sha256": "22443b0ad38409c33df047fa75732a2d99dc348de0b214bb383df84b3e88b9bd"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-cases.jsonl",
+      "bytes": 273,
+      "sha256": "22443b0ad38409c33df047fa75732a2d99dc348de0b214bb383df84b3e88b9bd"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/destination/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/build-contract.json",
+      "bytes": 2467,
+      "sha256": "6afeb5474d1426101c3cbaa09822c4e6b338a57d6be11e10d628c7646197bd11"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/build-provenance.json",
+      "bytes": 1515,
+      "sha256": "f50ad94761de6bd9f0daf27bfa2d51b7eba380739c8b55514893243688486ac7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/checks.json",
+      "bytes": 10965,
+      "sha256": "2d8e0993ee9495230998a410a91c6c72002cedbcef47909330aaac877c8152d0"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/candidate-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/destination/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/build-contract.json",
+      "bytes": 2467,
+      "sha256": "6afeb5474d1426101c3cbaa09822c4e6b338a57d6be11e10d628c7646197bd11"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/build-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/checks.json",
+      "bytes": 10373,
+      "sha256": "a926aaedd8b903eaa40daec9c3738d4c0731bdda111327cf59907872571af00d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/completed-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/destination/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/build-contract.json",
+      "bytes": 2467,
+      "sha256": "6afeb5474d1426101c3cbaa09822c4e6b338a57d6be11e10d628c7646197bd11"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/build-provenance.json",
+      "bytes": 1515,
+      "sha256": "a0dbb558ea888b1a4d914cb9c86969f8681b0ae24b8c5845d59fad00cca00d3d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/checks.json",
+      "bytes": 10373,
+      "sha256": "a926aaedd8b903eaa40daec9c3738d4c0731bdda111327cf59907872571af00d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/evaluation-snapshots/delivered-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/input-readback.json",
+      "bytes": 334,
+      "sha256": "5469b497721b5d2cbfa03313a2f7b6a298805982996b8478814ff4cc3d97d910"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/semantic-review.md",
+      "bytes": 377,
+      "sha256": "d090c4503adf36f0a6c8fd093c71fbe65f7538bbc748de255a3d5bfde43f40fc"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/destination/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/build-contract.json",
+      "bytes": 2467,
+      "sha256": "6afeb5474d1426101c3cbaa09822c4e6b338a57d6be11e10d628c7646197bd11"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/build-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/checks.json",
+      "bytes": 10373,
+      "sha256": "a926aaedd8b903eaa40daec9c3738d4c0731bdda111327cf59907872571af00d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/initial/snapshot/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/active-baseline.json",
+      "bytes": 309,
+      "sha256": "0c5ab45b2db20287b671fc1e72138dda7ac9daf3ea9b2e206781407804edd02a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/applied-evaluation.jsonl",
+      "bytes": 8856,
+      "sha256": "939e543e49d9ad0774d87b7a0ef8a28dfd6a5dbfb859d9bdb4d51fc24a436dcf"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/build-report.md",
+      "bytes": 1001,
+      "sha256": "33364afa408dda56609d1262fa71185fdbef753c069a8318f47c7cc107d1ad85"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/candidate-evaluation.jsonl",
+      "bytes": 8577,
+      "sha256": "4113d31be3ffbf2124986b79d54f6aa538e650ae4e188a3c19237baca85626f2"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-cases-candidate-evaluation.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-cases.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/destination/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/destination/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/build-provenance.json",
+      "bytes": 1953,
+      "sha256": "fb8ec6a4db13fc60329069104fcc0b97d2427622c1ee2fbcb4f6c34db23f55d3"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/checks.json",
+      "bytes": 11842,
+      "sha256": "6ed2eecf0afd1bc8e43988ebfca8e53ddda70c8c686f03a4c4b7bb4cd44b6d4f"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/revision-plan.json",
+      "bytes": 2081,
+      "sha256": "0eec4cfb40ab83818cc08a7e74254c152b0eb7b82e00f7a393abefe3c6cbdd52"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/evaluation-snapshots/candidate-evaluation/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/destination/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/destination/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/build-provenance.json",
+      "bytes": 1953,
+      "sha256": "fb8ec6a4db13fc60329069104fcc0b97d2427622c1ee2fbcb4f6c34db23f55d3"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/checks.json",
+      "bytes": 11842,
+      "sha256": "6ed2eecf0afd1bc8e43988ebfca8e53ddda70c8c686f03a4c4b7bb4cd44b6d4f"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/revision-plan.json",
+      "bytes": 2081,
+      "sha256": "0eec4cfb40ab83818cc08a7e74254c152b0eb7b82e00f7a393abefe3c6cbdd52"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/candidate-assessment/snapshot/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/delivered-task-evaluation.jsonl",
+      "bytes": 4930,
+      "sha256": "e280277af76646eb256b8123fc0762b46ac3992f56b0c3f237c38e6270f023e9"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-cases-applied-evaluation.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-cases-delivered-task-evaluation.jsonl",
+      "bytes": 273,
+      "sha256": "22443b0ad38409c33df047fa75732a2d99dc348de0b214bb383df84b3e88b9bd"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-cases-preview-evaluation.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-cases-published-evaluation.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-cases.jsonl",
+      "bytes": 410,
+      "sha256": "9ff3b46b475e868188d18cd9d17d1905bf9d9333309487d2971781be339ef721"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/after/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/destination/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/build-provenance.json",
+      "bytes": 2180,
+      "sha256": "f07b3bff28f6235e9543a33e9dae188885d43ede95ac61043bbbcc0092a6abc6"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/checks.json",
+      "bytes": 10609,
+      "sha256": "5b03e079e5e9f84b43e36fb7f0ed6208f14bd9e5c7eb73153181a7912305d675"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/revision-plan.json",
+      "bytes": 2109,
+      "sha256": "8ec9f140c23c7453e1bf1afdf5e9969aee55470629f59782377dcdaa982db6bb"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/applied-evaluation/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/after/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/destination/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/build-provenance.json",
+      "bytes": 2180,
+      "sha256": "f07b3bff28f6235e9543a33e9dae188885d43ede95ac61043bbbcc0092a6abc6"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/checks.json",
+      "bytes": 10609,
+      "sha256": "5b03e079e5e9f84b43e36fb7f0ed6208f14bd9e5c7eb73153181a7912305d675"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/revision-plan.json",
+      "bytes": 2081,
+      "sha256": "0eec4cfb40ab83818cc08a7e74254c152b0eb7b82e00f7a393abefe3c6cbdd52"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/delivered-task-evaluation/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/after/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/baseline-after.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/build-provenance.json",
+      "bytes": 2180,
+      "sha256": "350a33c9e3ee342d16aeaa8632a4437e96b34146c80abbf6567552c48f7f1aa6"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/checks.json",
+      "bytes": 11313,
+      "sha256": "f898a94f5f3f19e3dc343c1aa68c2944af72a7dbef5e2bbe82ef085fa9b98a98"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/revision-plan.json",
+      "bytes": 2081,
+      "sha256": "0eec4cfb40ab83818cc08a7e74254c152b0eb7b82e00f7a393abefe3c6cbdd52"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/preview-evaluation/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/after/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/destination/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/baseline-after.json",
+      "bytes": 309,
+      "sha256": "0c5ab45b2db20287b671fc1e72138dda7ac9daf3ea9b2e206781407804edd02a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/build-provenance.json",
+      "bytes": 2178,
+      "sha256": "2fa5434e0b2b350a07f8977d6006f307b99d880b42addfc7db82005c502578dc"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/checks.json",
+      "bytes": 10609,
+      "sha256": "5b03e079e5e9f84b43e36fb7f0ed6208f14bd9e5c7eb73153181a7912305d675"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/revision-plan.json",
+      "bytes": 2108,
+      "sha256": "a6a0f071971d6149df1f8baef8f90e53806d6cba45e23739dce56b156bc34774"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/evaluation-snapshots/published-evaluation/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/mutation-log.json",
+      "bytes": 1233,
+      "sha256": "7559e1e4856848c7eda83fbb97eb670870f0a40a04f702aac8c490de2902c0da"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/preview-evaluation.jsonl",
+      "bytes": 8856,
+      "sha256": "8134ef08f6bd415d54af44fcef8cfadf159269d71b18bafc868da2d5b043868f"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/published-evaluation.jsonl",
+      "bytes": 8862,
+      "sha256": "18e391dc6138a9c10f8ad1a7698647809361fe6831b3fa3afa30436940a25a0d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/after/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/after/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/after/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/B/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/B/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/baseline/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/baseline/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/C/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/C/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/C/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/destination/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/destination/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/destination/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/baseline-after.json",
+      "bytes": 309,
+      "sha256": "0c5ab45b2db20287b671fc1e72138dda7ac9daf3ea9b2e206781407804edd02a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/baseline-before.json",
+      "bytes": 302,
+      "sha256": "0ca247d2dbea953d4c9cc86fffca1e8eca545cfd9d7924eb28b2421f689ef481"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/build-contract.json",
+      "bytes": 3949,
+      "sha256": "afa76c9f60f7ddcd19132a838381bc6cbd2988aa0289578a888ebcd22f98edb8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/build-provenance.json",
+      "bytes": 2178,
+      "sha256": "2fa5434e0b2b350a07f8977d6006f307b99d880b42addfc7db82005c502578dc"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/checks.json",
+      "bytes": 10609,
+      "sha256": "5b03e079e5e9f84b43e36fb7f0ed6208f14bd9e5c7eb73153181a7912305d675"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/prior-projection.json",
+      "bytes": 476,
+      "sha256": "35f3a0ac0ac216253c9c6093ce2297aa5db30b325b5e0fd9b741acf06d301ce4"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/prior-provenance.json",
+      "bytes": 1513,
+      "sha256": "dc5b7e682ac667666378e2a255e1820c35363948dea2b014b98c2abe1132c59a"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/revision-plan.json",
+      "bytes": 2108,
+      "sha256": "a6a0f071971d6149df1f8baef8f90e53806d6cba45e23739dce56b156bc34774"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/revision-request.json",
+      "bytes": 729,
+      "sha256": "58c2bf7f9b77672c16f6e56dc99e3e7f95c1c427d71e3fc16b03cd0efa4b6792"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/inputs/revision-request.md",
+      "bytes": 268,
+      "sha256": "9aa2e64c1f504e88c8fc92bf40559b972e4a92307f8148c3c05cd485121d2b71"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/inputs/specification.md",
+      "bytes": 1320,
+      "sha256": "9612786cad95cf7433211b5472626cbe0a48432c6f4f37fef07aa1efb51861e7"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/N/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "docs/plan/skill-builds/receipt-summary-spec/resolved-retry/snapshot/N/SKILL.md",
+      "bytes": 970,
+      "sha256": "88b98f1718fec91ca819b02317bc1c8c4c5e99ef167be29c73534911f56edb55"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/active-baseline.json",
+      "bytes": 302,
+      "sha256": "4f5b2487466ff7de028916a01a00076a689d195357f59f58def46f547b1e9ad0"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/candidate-evaluation.jsonl",
+      "bytes": 6147,
+      "sha256": "661d776964b19337e7c24b8e1f78ef710c828dfdacc757bc4aa7791dda34129e"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/completed-evaluation.jsonl",
+      "bytes": 6147,
+      "sha256": "1655f312aed938174db58c133299a1725acb4317a016d9e38a4ddbc961383e8f"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/conversion-report.md",
+      "bytes": 957,
+      "sha256": "6e3f0363cce40dbc90603e461077ecd36ad45be27d30e2cea8133d15a9ebbb99"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/delivered-evaluation.jsonl",
+      "bytes": 6147,
+      "sha256": "a94c0fc11aa8c5e94a2931675b24a95299e61500db48f0f3cc36ca95342eea12"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-cases-candidate-evaluation.jsonl",
+      "bytes": 453,
+      "sha256": "c1d62ff94aa67ddd0b21dbc924995ace27d085c386c77a129341c0e7aac12c88"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-cases-completed-evaluation.jsonl",
+      "bytes": 453,
+      "sha256": "c1d62ff94aa67ddd0b21dbc924995ace27d085c386c77a129341c0e7aac12c88"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-cases-delivered-evaluation.jsonl",
+      "bytes": 453,
+      "sha256": "c1d62ff94aa67ddd0b21dbc924995ace27d085c386c77a129341c0e7aac12c88"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-cases.jsonl",
+      "bytes": 453,
+      "sha256": "c1d62ff94aa67ddd0b21dbc924995ace27d085c386c77a129341c0e7aac12c88"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/baseline/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/destination/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/build-contract.json",
+      "bytes": 3815,
+      "sha256": "7fc57f4ce7d018a04f94e37f03642c058914cf05769606b97fd9bee776bf2917"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/build-provenance.json",
+      "bytes": 1809,
+      "sha256": "817da7218e1335336c39b7d18735a35197711abd612de6304d3e986771216c9f"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/checks.json",
+      "bytes": 10840,
+      "sha256": "9401ecf6b41842b359ce30bf7f01802c6bc485eb43b768882405c16a4260940d"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/destination-manifest.json",
+      "bytes": 600,
+      "sha256": "da47e5182fb2b6f9db84ad8de34282b928114a59b7c17b19a9fedcc4b37ae696"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/file-dispositions.json",
+      "bytes": 1360,
+      "sha256": "45cf3179802c773f360149c63b95d8a0d8644f53846874f110e89081dd6807a1"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/source-after-manifest.json",
+      "bytes": 553,
+      "sha256": "54134a577fe75fb4783efd1d3e5dbeaeae66d87e0498ba564aa031b746453c93"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/source-manifest.json",
+      "bytes": 553,
+      "sha256": "366d9f5b15d03d99fb0fb21887e95a15b142fee836bbc4c7d31f5e92cbad6812"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/source/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/candidate-evaluation/source/SKILL.md",
+      "bytes": 925,
+      "sha256": "26939b614f11f92a14875ad680a9b827e430c4e58aa3088ab73e5d1056d571f5"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/baseline/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/destination/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/build-contract.json",
+      "bytes": 3815,
+      "sha256": "7fc57f4ce7d018a04f94e37f03642c058914cf05769606b97fd9bee776bf2917"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/build-provenance.json",
+      "bytes": 1807,
+      "sha256": "0d05fc80ddcbf8a9136e9d333edf5ca0348dc9d5376227d36050606814ad5ba8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/checks.json",
+      "bytes": 10232,
+      "sha256": "bb65e998ec2df7bb22eca0416af53087fac62dfb0ef151d992845a16aff6b6e0"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/destination-manifest.json",
+      "bytes": 600,
+      "sha256": "da47e5182fb2b6f9db84ad8de34282b928114a59b7c17b19a9fedcc4b37ae696"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/file-dispositions.json",
+      "bytes": 1360,
+      "sha256": "45cf3179802c773f360149c63b95d8a0d8644f53846874f110e89081dd6807a1"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/source-after-manifest.json",
+      "bytes": 553,
+      "sha256": "54134a577fe75fb4783efd1d3e5dbeaeae66d87e0498ba564aa031b746453c93"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/source-manifest.json",
+      "bytes": 553,
+      "sha256": "366d9f5b15d03d99fb0fb21887e95a15b142fee836bbc4c7d31f5e92cbad6812"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/source/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/completed-evaluation/source/SKILL.md",
+      "bytes": 925,
+      "sha256": "26939b614f11f92a14875ad680a9b827e430c4e58aa3088ab73e5d1056d571f5"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/baseline/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/destination/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/build-contract.json",
+      "bytes": 3815,
+      "sha256": "7fc57f4ce7d018a04f94e37f03642c058914cf05769606b97fd9bee776bf2917"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/build-provenance.json",
+      "bytes": 1809,
+      "sha256": "4afd1608e843f64125399e2b0d008f4fc210098f14d9c37a63c5345b7408d21c"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/checks.json",
+      "bytes": 10232,
+      "sha256": "bb65e998ec2df7bb22eca0416af53087fac62dfb0ef151d992845a16aff6b6e0"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/destination-manifest.json",
+      "bytes": 600,
+      "sha256": "da47e5182fb2b6f9db84ad8de34282b928114a59b7c17b19a9fedcc4b37ae696"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/file-dispositions.json",
+      "bytes": 1360,
+      "sha256": "45cf3179802c773f360149c63b95d8a0d8644f53846874f110e89081dd6807a1"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/source-after-manifest.json",
+      "bytes": 553,
+      "sha256": "54134a577fe75fb4783efd1d3e5dbeaeae66d87e0498ba564aa031b746453c93"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/source-manifest.json",
+      "bytes": 553,
+      "sha256": "366d9f5b15d03d99fb0fb21887e95a15b142fee836bbc4c7d31f5e92cbad6812"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/source/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/evaluation-snapshots/delivered-evaluation/source/SKILL.md",
+      "bytes": 925,
+      "sha256": "26939b614f11f92a14875ad680a9b827e430c4e58aa3088ab73e5d1056d571f5"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/input-readback.json",
+      "bytes": 616,
+      "sha256": "672aa841cfa808ad051245d5f4e5ec7d2648be9f81d5d9714ce05a0f06695ea8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/semantic-review.md",
+      "bytes": 377,
+      "sha256": "d090c4503adf36f0a6c8fd093c71fbe65f7538bbc748de255a3d5bfde43f40fc"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/baseline/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/baseline/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/destination/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/destination/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/build-contract.json",
+      "bytes": 3815,
+      "sha256": "7fc57f4ce7d018a04f94e37f03642c058914cf05769606b97fd9bee776bf2917"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/build-provenance.json",
+      "bytes": 1807,
+      "sha256": "0d05fc80ddcbf8a9136e9d333edf5ca0348dc9d5376227d36050606814ad5ba8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/checks.json",
+      "bytes": 10232,
+      "sha256": "bb65e998ec2df7bb22eca0416af53087fac62dfb0ef151d992845a16aff6b6e0"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/destination-manifest.json",
+      "bytes": 600,
+      "sha256": "da47e5182fb2b6f9db84ad8de34282b928114a59b7c17b19a9fedcc4b37ae696"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/file-dispositions.json",
+      "bytes": 1360,
+      "sha256": "45cf3179802c773f360149c63b95d8a0d8644f53846874f110e89081dd6807a1"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/source-after-manifest.json",
+      "bytes": 553,
+      "sha256": "54134a577fe75fb4783efd1d3e5dbeaeae66d87e0498ba564aa031b746453c93"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/source-manifest.json",
+      "bytes": 553,
+      "sha256": "366d9f5b15d03d99fb0fb21887e95a15b142fee836bbc4c7d31f5e92cbad6812"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/blank.csv",
+      "bytes": 23,
+      "sha256": "96a7d56db7fedcf81a5d70defb66727b0816f47b77f61c2fbaad380088cad098"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/columns.csv",
+      "bytes": 32,
+      "sha256": "bdf2014fab2dae30a9f4c3abf8c5f88690b9ad595d481bcf15d3c3af1995842b"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/empty.csv",
+      "bytes": 16,
+      "sha256": "b812822dd752e79fa9d12c8f35264d361aa96dceb6e01faff6f8a5d6e0a547d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/missing.csv",
+      "bytes": 22,
+      "sha256": "fe30d4722784faa9f764898f001fea4c19d9279c435d409197563588e5971c72"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/nonfinite.csv",
+      "bytes": 25,
+      "sha256": "d65f3a409358a5ebdc909edbccad931afcf6d0b592ca5c79f32c21c635488b96"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/precision.csv",
+      "bytes": 27,
+      "sha256": "2ca8ff0319dbad69629678d34d23b897de6cead10594a1581198733640173576"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/evidence/task-inputs/receipts.csv",
+      "bytes": 61,
+      "sha256": "89a576321086edb5c7825b798b852a9e01c07dba6a88aa740ef0cdee08ac077d"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/source/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "docs/plan/skill-imports/receipt-summary/initial/snapshot/source/SKILL.md",
+      "bytes": 925,
+      "sha256": "26939b614f11f92a14875ad680a9b827e430c4e58aa3088ab73e5d1056d571f5"
+    },
+    {
+      "path": "raw/claude-receipt-summary/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "raw/claude-receipt-summary/SKILL.md",
+      "bytes": 925,
+      "sha256": "26939b614f11f92a14875ad680a9b827e430c4e58aa3088ab73e5d1056d571f5"
+    },
+    {
+      "path": "src/agents/skills/receipt-summary/scripts/summarize.py",
+      "bytes": 1696,
+      "sha256": "83c296211a2d183c3bb2ca46e6ebcad301abb2f886779e39194aaba051bb83d8"
+    },
+    {
+      "path": "src/agents/skills/receipt-summary/SKILL.md",
+      "bytes": 965,
+      "sha256": "25b53f35d6c7961810a907d6730ab333f4fccf0dd50247fb2eb124b2cf726098"
+    },
+    {
+      "path": "src/agents/skills/receipt-summary-spec/personal-note.txt",
+      "bytes": 79,
+      "sha256": "63563691873c16917c5b7aba3a7f2ff630cdd0aedd580d30089d2920176edaab"
+    },
+    {
+      "path": "src/agents/skills/receipt-summary-spec/scripts/summarize.py",
+      "bytes": 1733,
+      "sha256": "7e603f7a2861cdbf63f285d46561728dcb7c1ecdc0c0f6cc628aab874c1264ed"
+    },
+    {
+      "path": "src/agents/skills/receipt-summary-spec/SKILL.md",
+      "bytes": 1042,
+      "sha256": "1dafa6963334f2d9354d0f5f78d94fc77a99f5e097b2869c56948c5f93086d95"
+    }
+  ],
+  "excluded_boundaries": []
+}

@@ -1,0 +1,56 @@
+{
+  "skill_name": "github-incident-review",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "issue-907-mirror-ci-linked-pr",
+      "prompt": "Review https://github.com/bankielewicz/DevForgeAI/issues/907. Verify the phase-09 golden-file claim against live source and mirrors, determine whether the proposed content assertion is actually collected by required CI, and inspect any linked implementation at its exact head. Remain read-only and produce the fixed provenance-backed report.",
+      "expected_output": "A completed report classifies every material claim, records both duplicate searches, distinguishes test existence from required-job collection, verifies source/runtime mirrors, binds linked-PR conclusions to its exact head SHA and checks, records positive and negative paths, and makes no GitHub mutation.",
+      "assertions": [
+        "Uses the fixed template and passes validate_review.py",
+        "Records issue URL, timestamps, repository SHAs, evidence hashes, queries, commands, and exit codes",
+        "Verifies linked PR files, checks, test collection, and mirrors at the exact head",
+        "Does not comment, edit, label, create, close, or reopen"
+      ]
+    },
+    {
+      "id": 2,
+      "eval_name": "issue-1001-shared-predicate-coupling",
+      "prompt": "Review bankielewicz/DevForgeAI issue 1001. The incident names emit_conviction_worklog.py; determine from live evidence whether another consumer enforces the same substance predicate over the same payload and handshake. Resolve the scope without assuming that dormant local configuration means consumer projects are unaffected.",
+      "expected_output": "The review traces producer, validator, consumer, and downstream enforcement; distinguishes direct from dormant coupling; reproduces discriminating payload paths where possible; amends scope only when the same contract and surviving failure are proven; and records a VALID, VALID_WITH_AMENDMENTS, INVALID, or INCONCLUSIVE ruling.",
+      "assertions": [
+        "Builds a claim ledger for the named predicate and proposed scope",
+        "Compares payload shape, file path, handshake, and enabling configuration",
+        "Does not infer live consumer behavior from a local no-config short circuit",
+        "Runs a root-cause-informed second duplicate search"
+      ]
+    },
+    {
+      "id": 3,
+      "eval_name": "issue-1006-premise-and-migration-coupling",
+      "prompt": "Audit https://github.com/bankielewicz/DevForgeAI/issues/1006. Verify the premise that the CLI is the only phase-state writer, search all shipped provider surfaces for direct writes, and determine whether adding the proposed guard without migrations breaks registered workflows. Give an exact sprint-scope ruling with provenance.",
+      "expected_output": "The report verifies or refutes the only-writer premise, enumerates grounded direct-write sites and existing CLI capabilities, traces guard-to-workflow breakage, distinguishes legacy duplication from missing commands, and supplies exact non-aspirational amendments without implementing them.",
+      "assertions": [
+        "Searches all relevant source/runtime and provider surfaces",
+        "Traces each writer to a registered workflow and available CLI command",
+        "Tests or proves the guard's negative path against legacy writers",
+        "Separates incident merit from the linked implementation disposition"
+      ]
+    },
+    {
+      "id": 4,
+      "eval_name": "duplicate-overlap-recurrence-discrimination",
+      "prompt": "Use the candidates in evals/fixtures/duplicate-candidates.json to review synthetic incident ACME-42. Classify each candidate as exact duplicate, overlap, related, recurrence, none, or inconclusive. If and only if an exact duplicate exists, select the canonical incident and draft both required postings and the close-as-not-planned recommendation.",
+      "expected_output": "The report applies all four exact-duplicate conditions independently, treats a closed fixed incident whose failure reappears as recurrence, does not recommend closure for overlap or inconclusive candidates, identifies unique evidence to migrate, and includes canonical plus reviewed copy-ready postings before any duplicate closure recommendation.",
+      "files": [
+        "evals/fixtures/duplicate-candidates.json"
+      ],
+      "assertions": [
+        "Applies same failure, root cause, contract, and remedy tests",
+        "Selects a canonical issue by activity, completeness, then chronology",
+        "Migrates unique evidence before recommending closure",
+        "Performs no GitHub mutations"
+      ]
+    }
+  ]
+}

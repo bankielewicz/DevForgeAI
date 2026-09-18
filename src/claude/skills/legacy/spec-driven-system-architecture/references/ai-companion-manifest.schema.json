@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ai-companion-manifest.schema.json",
+  "title": "AI Companion Manifest",
+  "description": "Schema for devforgeai/workflows/ai-companion-manifest.json consumed by devforgeai-validate render-ai-companion. Contract grounded in render_ai_companion.py:validate_fragment (lines 237-244) and render_ai_companion.py:1226-1228.",
+  "type": "object",
+  "required": ["companions"],
+  "additionalProperties": false,
+  "properties": {
+    "_cache_metadata": {
+      "type": "object",
+      "description": "Informational cache metadata — not validated by the renderer; include for drift-detection and audit trail.",
+      "properties": {
+        "generated_at": {
+          "type": "string",
+          "description": "ISO-8601 UTC timestamp when the manifest was generated."
+        },
+        "parent_hashes": {
+          "type": "object",
+          "description": "Map of relative parent .md paths to their sha256 hex digests.",
+          "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        },
+        "agents_invoked": {
+          "type": "array",
+          "description": "Human-readable list of agent invocations that produced this manifest.",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "companions": {
+      "type": "object",
+      "description": "Map of companion filenames (e.g. 'tech-stack.ai.md') to their fragment objects. Keys must match ^[a-zA-Z0-9_\\-]+\\.ai\\.(md|yaml)$.",
+      "additionalProperties": { "$ref": "#/definitions/fragment" }
+    }
+  },
+  "definitions": {
+    "fragment": {
+      "type": "object",
+      "description": "One fragment produced by ai-rule-extractor for a single parent context file. critical_rules/high_rules required by render_ai_companion.py:validate_fragment (lines 237-241); file existence checked at lines 243-244.",
+      "required": ["file", "sha256", "critical_rules", "high_rules"],
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "Repo-relative path to the parent context .md file (e.g. 'devforgeai/specs/context/tech-stack.md'). Must exist on disk at render time (render_ai_companion.py:849)."
+        },
+        "sha256": {
+          "type": "string",
+          "description": "sha256 hex digest of the parent file content. Include for drift detection. The renderer reads this via .get('sha256', '') and tolerates empty for single-parent companions (render_ai_companion.py:1907).",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "critical_rules": {
+          "type": "array",
+          "description": "CRITICAL severity rules extracted from the parent file. Must be non-empty if the parent contains SEVERITY: CRITICAL markers (render_ai_companion.py:247-255). Dropping CRITICAL rules violates BR-003.",
+          "items": { "$ref": "#/definitions/rule_entry" }
+        },
+        "high_rules": {
+          "type": "array",
+          "description": "HIGH severity rules extracted from the parent file. May be empty.",
+          "items": { "$ref": "#/definitions/rule_entry" }
+        },
+        "medium_rules": {
+          "type": "array",
+          "description": "MEDIUM severity rules (optional). Not validated by render_ai_companion.py but included by ai-rule-extractor.",
+          "items": { "$ref": "#/definitions/rule_entry" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "rule_entry": {
+      "type": "object",
+      "description": "A single rule entry within critical_rules, high_rules, or medium_rules. Fields consumed at render_ai_companion.py:1226-1228.",
+      "required": ["id", "rule"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Rule identifier (e.g. 'CR-001', 'HR-002')."
+        },
+        "rule": {
+          "type": "string",
+          "description": "Human-readable rule text rendered into the .ai.md companion file."
+        },
+        "source_line": {
+          "description": "Line number in the parent file where this rule originates. Optional; rendered as '(line N)' suffix when present.",
+          "oneOf": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "string" }
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

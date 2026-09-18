@@ -1,0 +1,16 @@
+{
+  "case_id": "H08",
+  "finding": "QA-02",
+  "expected_exit": 0,
+  "actual_exit": 0,
+  "matched": true,
+  "checks": {
+    "exit": true,
+    "completed": true,
+    "preserved": true
+  },
+  "evidence": {
+    "path": "commands/H08/receipt.json",
+    "sha256": "90c498bf478f7eb44a424b305471dc890a8a28dfc37a39fa6597add342b19e82"
+  }
+}

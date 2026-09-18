@@ -1,0 +1,11 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 2480,
+      "sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e"
+    }
+  ],
+  "package_digest": "16104a6863625644b181cc88c5299448aa3621fe938e0c98e96768db23c48ba2"
+}

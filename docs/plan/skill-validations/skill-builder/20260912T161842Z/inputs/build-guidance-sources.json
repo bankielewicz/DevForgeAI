@@ -1,0 +1,125 @@
+{
+  "schema_version": "1",
+  "sources": [
+    {
+      "source_id": "openai-skills",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+      "snapshot_path": "guidance/openai-build-skills.md",
+      "sections": [
+        "Build skills",
+        "How ChatGPT and Codex use skills",
+        "Optional metadata",
+        "Best practices"
+      ],
+      "freshness": "live_verified",
+      "representation": "documentation connector Markdown"
+    },
+    {
+      "source_id": "agent-skills",
+      "url": "https://agentskills.io/specification",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "3f0e6c9b997f072d5cad0bc1a9bec716b7adb79cc3038e506a8260a38570c7e3",
+      "snapshot_path": "guidance/agentskills-specification-retrieval.json",
+      "sections": [
+        "Directory structure",
+        "Frontmatter",
+        "name field",
+        "Optional directories",
+        "Progressive disclosure"
+      ],
+      "freshness": "live_verified",
+      "representation": "web extracted page and retrieval metadata, JSON string; not raw HTTP bytes"
+    },
+    {
+      "source_id": "openai-prompt",
+      "url": "https://developers.openai.com/api/docs/guides/prompt-engineering",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "ad70d15c740a76eed01df6d3e652363d61f97cdd1c9d4ae35ff131f8407c1595",
+      "snapshot_path": "guidance/prompt-engineering-live.md",
+      "sections": [
+        "Prompt engineering"
+      ],
+      "freshness": "live_verified",
+      "representation": "documentation connector Markdown"
+    },
+    {
+      "source_id": "openai-model",
+      "url": "https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "2e221d8e004f522522d4b3654864d1f65021ab708c6cfb17ce00965291b2df88",
+      "snapshot_path": "guidance/model-guidance-live.md",
+      "sections": [
+        "Prompting best practices",
+        "Initiative and follow-through",
+        "Instruction following"
+      ],
+      "freshness": "live_verified",
+      "representation": "documentation connector Markdown"
+    },
+    {
+      "source_id": "openai-citations",
+      "url": "https://developers.openai.com/api/docs/guides/citation-formatting",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "7c079bd123e0727a047a9916f92a840d329b4d17cd6fb5f22ac39d7beb2f5c46",
+      "snapshot_path": "guidance/citation-formatting-live.md",
+      "sections": [
+        "Choose citable units",
+        "Citation Formatting"
+      ],
+      "freshness": "live_verified",
+      "representation": "documentation connector Markdown"
+    },
+    {
+      "source_id": "local-prompt-engineering",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\codex\\prompt-engineering.md",
+      "retrieved_at_utc": null,
+      "sha256": "92cb6fdb973f791d891c21ada93774cf436a87afa6919a60df2e14ee23a3f0de",
+      "snapshot_path": "guidance/local/prompt-engineering.md",
+      "sections": [
+        "local historical snapshot"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "Original retrieval date unknown; retained for comparison, refreshed live sources govern selected current advice."
+    },
+    {
+      "source_id": "local-model-guidance",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\codex\\model-guidance.md",
+      "retrieved_at_utc": null,
+      "sha256": "d0514c9b721b9e608130ee6822b98d3b449aea7426406faa5b5db7db5f3c1220",
+      "snapshot_path": "guidance/local/model-guidance.md",
+      "sections": [
+        "local historical snapshot"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "Original retrieval date unknown; retained for comparison, refreshed live sources govern selected current advice."
+    },
+    {
+      "source_id": "local-citation-formatting",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\codex\\citation-formatting.md",
+      "retrieved_at_utc": null,
+      "sha256": "7a7c6bd2982e1c41287738ebb52b776f5159af7e45a187a3fb30ec7acb6b97be",
+      "snapshot_path": "guidance/local/citation-formatting.md",
+      "sections": [
+        "local historical snapshot"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "Original retrieval date unknown; retained for comparison, refreshed live sources govern selected current advice."
+    },
+    {
+      "source_id": "project-spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+      "retrieved_at_utc": "2026-09-12T15:57:25.214648+00:00",
+      "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+      "snapshot_path": "inputs/skill-validator-spec.md",
+      "sections": [
+        "4. Requirement register",
+        "7. Rules, evidence, and applicability",
+        "9. Work-product contracts"
+      ],
+      "freshness": "live_verified"
+    }
+  ],
+  "retrieval_note": "Official documentation read-only refresh; exact fetched representations retained; no dependencies installed."
+}

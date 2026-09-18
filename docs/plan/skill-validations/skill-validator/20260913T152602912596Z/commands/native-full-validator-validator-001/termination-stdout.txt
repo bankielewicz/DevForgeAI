@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 40652 (child process of PID 99196) has been terminated.
+SUCCESS: The process with PID 50536 (child process of PID 12840) has been terminated.
+SUCCESS: The process with PID 49116 (child process of PID 79008) has been terminated.
+SUCCESS: The process with PID 12840 (child process of PID 79008) has been terminated.
+SUCCESS: The process with PID 99196 (child process of PID 79008) has been terminated.
+SUCCESS: The process with PID 36492 (child process of PID 79008) has been terminated.
+SUCCESS: The process with PID 79008 (child process of PID 51848) has been terminated.

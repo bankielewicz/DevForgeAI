@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "capture_role": "pre-independent-execution baseline",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials",
+  "pattern": "RT-source-type-*",
+  "entries": [
+    {"name":"RT-source-type-0a2hEY","last_write_utc":"2026-09-16T00:59:37.1219262Z","task_bytes":307,"task_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"},
+    {"name":"RT-source-type-6dnSW0","last_write_utc":"2026-09-16T00:46:00.8355952Z","task_bytes":307,"task_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"},
+    {"name":"RT-source-type-NODcAW","last_write_utc":"2026-09-16T00:54:56.4211048Z","task_bytes":307,"task_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"},
+    {"name":"RT-source-type-XouYCN","last_write_utc":"2026-09-16T00:46:40.0701364Z","task_bytes":307,"task_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"},
+    {"name":"RT-source-type-ZptcnY","last_write_utc":"2026-09-16T01:02:39.2628004Z","task_bytes":307,"task_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"}
+  ],
+  "native_codex_processes_launched": 0,
+  "note": "These five directories predate independent product execution and belong to developer focused/full/coverage attempts. A new independent directory must be identified by set difference and the recorded full-suite or coverage receipt interval."
+}

@@ -1,0 +1,13 @@
+
+running 8 tests
+test requirements_and_public_roots_preserve_typed_error_boundaries ... ok
+test apps_require_unique_disabled_non_callable_bounded_state ... ok
+test hooks_cover_supported_shapes_without_retaining_payloads ... ok
+test mcp_pages_require_inactive_empty_unique_complete_state ... ok
+test provider_endpoints_and_closed_session_policy_fail_closed ... ok
+test feature_pages_accept_only_complete_bounded_closed_state ... ok
+test reviewed_config_sources_and_single_session_layer_are_enforced ... ok
+test plugins_cover_supported_sources_and_reject_active_or_unbounded_state ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

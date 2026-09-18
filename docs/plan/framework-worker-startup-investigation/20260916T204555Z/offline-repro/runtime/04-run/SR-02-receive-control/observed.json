@@ -1,0 +1,52 @@
+{
+  "active_after": 0,
+  "case": "SR-02",
+  "counts_before": {
+    "active": 1,
+    "total": 1
+  },
+  "diagnostics": [
+    {
+      "active_processes": 1,
+      "checkpoint": "before_send",
+      "predicate": "only_worker",
+      "rpc": "initialize",
+      "schema_version": 1,
+      "stage": "process_accounting",
+      "total_processes": 1
+    },
+    {
+      "active_processes": 1,
+      "checkpoint": "after_receive",
+      "predicate": "only_worker",
+      "rpc": "initialize",
+      "schema_version": 1,
+      "stage": "process_accounting",
+      "total_processes": 1
+    }
+  ],
+  "journal_stderr_events": [
+    {
+      "data": {
+        "bytes": 38,
+        "content": "omitted",
+        "sha256": "d3cf90ebd82863af99e57c32156dd7b3a6645c3877eccde5e26aa19e12f01fca",
+        "stream": "stderr"
+      },
+      "elapsed_ms": 3,
+      "kind": "worker_event",
+      "observed_at": "2026-09-16T20:54:27Z",
+      "run_id": "SR-02",
+      "schema_version": 1,
+      "seq": 2
+    }
+  ],
+  "result": {
+    "Ok": {
+      "synthetic": "initialize-ok"
+    }
+  },
+  "thread_id": null,
+  "tree_stopped": true,
+  "turn_id": null
+}

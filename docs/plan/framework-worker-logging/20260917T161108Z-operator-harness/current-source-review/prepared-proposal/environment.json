@@ -1,0 +1,12 @@
+{
+  "parent_guarded_names": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "child_omitted_names": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "child_guarded_names": [],
+  "values_recorded": false,
+  "parent_modified": false,
+  "configuration_modified": false
+}

@@ -1,0 +1,1 @@
+{"protocol_version":1,"request_id":"81940540-d09c-4880-ae45-d7e5a84e431b","service_version":null,"environment_id":null,"ok":false,"data":null,"error":{"code":"INVALID_ARGUMENT","message":"error: the following required arguments were not provided:\n  --yes\n\nUsage: devforgeai project remove --project <PROJECT> --yes --json\n\nFor more information, try '--help'.\n","details":{}}}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260914T2131571597777Z"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-14T22:17:39.939397+00:00",
+  "ended_at_utc": "2026-09-14T22:17:40.295576+00:00",
+  "exit_code": 2,
+  "timeout_seconds": 120
+}

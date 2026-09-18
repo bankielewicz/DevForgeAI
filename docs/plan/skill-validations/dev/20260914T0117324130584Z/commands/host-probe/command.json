@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "C:/Projects/DevForgeAI/docs/plan/skill-validations/dev/20260914T0117324130584Z/host_probe.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-14T01:54:19.593367Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\host-probe",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\host-probe",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\host-probe",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 31396,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-14T01:54:19.874267Z",
+  "elapsed_seconds": 0.28100000007543713
+}

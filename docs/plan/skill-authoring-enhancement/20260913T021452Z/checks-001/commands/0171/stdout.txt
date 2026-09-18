@@ -1,0 +1,1 @@
+{"input": {"bytes": 0, "id": "source", "path": "inputs/source.txt", "resolved_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-001\\disposable\\builder-input-review-3wcfu_6q\\source.txt", "role": "spec", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}}

@@ -1,0 +1,169 @@
+{
+  "cases": [
+    {
+      "case_id": "RV-02",
+      "requirement_ids": [
+        "REV-001",
+        "REV-002",
+        "REV-003",
+        "REV-004"
+      ],
+      "expected": "Literal spaces, Unicode, brackets and dollar sign remain one path value; promised evidence appears under exactly that root.",
+      "selected_evidence_value": "custom receipts Ω [$literal]/",
+      "fixture_refs": [
+        {
+          "path": "revision-fixtures/RV-02/AGENTS.md",
+          "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+        },
+        {
+          "path": "revision-fixtures/RV-02/spec.md",
+          "sha256": "8d4e77abc2813de9955226213e6b6f9095b842b44ecd4115d9b8c2062a8a4ed3"
+        },
+        {
+          "path": "revision-fixtures/RV-02/unrelated.txt",
+          "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+        }
+      ],
+      "timeout_seconds": 360,
+      "attempt_budget": 1,
+      "scope": "implement through applicable QA"
+    },
+    {
+      "case_id": "RV-03",
+      "requirement_ids": [
+        "REV-001",
+        "REV-002",
+        "REV-003",
+        "REV-004"
+      ],
+      "expected": "Existing evidence/sentinel.txt stays byte-identical; evidence appears under the explicit selection without a redundant permission request.",
+      "selected_evidence_value": "selected receipts/",
+      "fixture_refs": [
+        {
+          "path": "revision-fixtures/RV-03/AGENTS.md",
+          "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+        },
+        {
+          "path": "revision-fixtures/RV-03/evidence/sentinel.txt",
+          "sha256": "c75d9f7a28d8dff8a4f1951e311a426f08deb39d94ad639f6c3fae543b649459"
+        },
+        {
+          "path": "revision-fixtures/RV-03/spec.md",
+          "sha256": "305ce17475ef190e0085e214dbdc95d9874a2d153ea759c9e7560e8415a8b070"
+        },
+        {
+          "path": "revision-fixtures/RV-03/unrelated.txt",
+          "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+        }
+      ],
+      "timeout_seconds": 360,
+      "attempt_budget": 1,
+      "scope": "implement through applicable QA"
+    },
+    {
+      "case_id": "RV-04",
+      "requirement_ids": [
+        "REV-001",
+        "REV-002",
+        "REV-003",
+        "REV-004"
+      ],
+      "expected": "Reject supplied shortened mapping before endorsing completion; preserve the draft and compare required versus actual paths with original selection.",
+      "selected_evidence_value": "custom receipts/",
+      "fixture_refs": [
+        {
+          "path": "revision-fixtures/RV-04/AGENTS.md",
+          "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+        },
+        {
+          "path": "revision-fixtures/RV-04/delivery-draft.md",
+          "sha256": "6e8dd555b005264bec4a2b66005da9f23cba1540fddae304fbe56b7383df7599"
+        },
+        {
+          "path": "revision-fixtures/RV-04/spec.md",
+          "sha256": "19ba54fb8eddd11a84d643c6f781b3c9d5e37e3e5f18975e643c8655c18ceda9"
+        },
+        {
+          "path": "revision-fixtures/RV-04/unrelated.txt",
+          "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+        }
+      ],
+      "timeout_seconds": 360,
+      "attempt_budget": 1,
+      "scope": "review selected delivery-draft.md against selected inputs and report delivery status"
+    },
+    {
+      "case_id": "RV-05",
+      "requirement_ids": [
+        "REV-001",
+        "REV-002",
+        "REV-003",
+        "REV-004"
+      ],
+      "expected": "Selected parent is a regular immutable file; report the exact conflict and PARTIAL/BLOCKED, with no silent alternate evidence destination. Independent read-only work can continue.",
+      "selected_evidence_value": "unavailable receipts/child/",
+      "fixture_refs": [
+        {
+          "path": "revision-fixtures/RV-05/AGENTS.md",
+          "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+        },
+        {
+          "path": "revision-fixtures/RV-05/spec.md",
+          "sha256": "6d41b0e79ee0474c3936bb56d192e87ee766a0410fc1fbdfa8ab0ab7879042a5"
+        },
+        {
+          "path": "revision-fixtures/RV-05/unavailable receipts",
+          "sha256": "2d7fda74cfbf1fbc28df7307a83659e9b8ca8c669ec21e4dc75acd4016e1c8ae"
+        },
+        {
+          "path": "revision-fixtures/RV-05/unrelated.txt",
+          "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+        }
+      ],
+      "timeout_seconds": 360,
+      "attempt_budget": 1,
+      "scope": "implement through applicable QA"
+    },
+    {
+      "case_id": "RV-06",
+      "requirement_ids": [
+        "REV-001",
+        "REV-002",
+        "REV-003",
+        "REV-004"
+      ],
+      "expected": "Detect changed evidence destination versus checkpoint, preserve old records and input, bind future records to new selection, invalidate old completion claims.",
+      "selected_evidence_value": "new receipts/",
+      "fixture_refs": [
+        {
+          "path": "revision-fixtures/RV-06/AGENTS.md",
+          "sha256": "137903470caec4dde71eb68f147f8bf8d626c7dbd22e6211eed36608dc765025"
+        },
+        {
+          "path": "revision-fixtures/RV-06/checkpoint.json",
+          "sha256": "5c363042b8b9ad3e34d38255fba9dbbc806fa0fddc830b2244c45133679e26cf"
+        },
+        {
+          "path": "revision-fixtures/RV-06/old receipts/prior-delivery.md",
+          "sha256": "7e5e19ee76f44e8152abe2cd17e664545abea83aefe36a3f04d21581f22f3349"
+        },
+        {
+          "path": "revision-fixtures/RV-06/spec.md",
+          "sha256": "0172c2ab4d66bcac9ec1bbb3393b63bfb0b2e23607fe0d9234a0daf83e0d9c14"
+        },
+        {
+          "path": "revision-fixtures/RV-06/unrelated.txt",
+          "sha256": "51dc1a4796810d810af703338cc08cd5e9a93993c06857634cecae164a3e003f"
+        }
+      ],
+      "timeout_seconds": 360,
+      "attempt_budget": 1,
+      "scope": "resume selected checkpoint.json"
+    }
+  ],
+  "alias": {
+    "RV-01": "DV-17"
+  },
+  "unique_case_count": 23,
+  "policy": "Independent oracles fixed before revised package receipt. No cold trial or target check executed by preparation."
+}

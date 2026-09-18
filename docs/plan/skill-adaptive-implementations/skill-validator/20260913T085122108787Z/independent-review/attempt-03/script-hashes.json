@@ -1,0 +1,11 @@
+{
+  "adaptive_contracts.py": "49566784cca13df853f91c87022fb2136293141aad40932e8b960894b7820b8a",
+  "adaptive_observe.py": "332b898be69ce114bddc8859218d4102e2428766498269bec4d51cad29174397",
+  "authoring_intake.py": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99",
+  "build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+  "custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+  "graders.py": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c",
+  "observe.py": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f",
+  "run_evaluation.py": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8",
+  "text_resources.py": "4aa375f1a189188bbf672a1cecf95f2c7c8a69457be275ead64f2ed93a2dfd3b"
+}

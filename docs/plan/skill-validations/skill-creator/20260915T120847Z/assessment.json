@@ -1,0 +1,56 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T120847Z",
+  "target_name": "skill-creator",
+  "assessment_completed": true,
+  "overall_assessment": "FAIL",
+  "dimensions": {
+    "standards": {
+      "outcome": "FAIL",
+      "required_total": 8,
+      "required_evaluated": 8,
+      "incomplete_check_ids": []
+    },
+    "workflow": {
+      "outcome": "FAIL",
+      "required_total": 5,
+      "required_evaluated": 5,
+      "incomplete_check_ids": []
+    },
+    "instructions": {
+      "outcome": "FAIL",
+      "required_total": 6,
+      "required_evaluated": 6,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "FAIL",
+      "required_total": 59,
+      "required_evaluated": 59,
+      "incomplete_check_ids": []
+    }
+  },
+  "package_digest": "48298d08909b8be87327c023dbd9f29b3c0f0f57419505c1ee6cab5accb4fbf4",
+  "rule_set_digest": "e6aae3af79286efaa718a34cf1eee0a9a9b8566fd2e01a9852b8996c9ee06a42",
+  "required_coverage": {
+    "outcome": "FAIL",
+    "required_total": 78,
+    "required_evaluated": 78,
+    "incomplete_check_ids": []
+  },
+  "unknown_applicability": 0,
+  "helper_cases": {
+    "pass": 42,
+    "fail": 9,
+    "total": 51
+  },
+  "independent_authoring_cases": {
+    "pass": 2,
+    "total": 2
+  },
+  "description_classification_cases": {
+    "pass": 6,
+    "total": 6
+  },
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-09-15T15:03:54.644328+00:00",
+  "scope": "documentation inventory, readiness labels, local links, selected input changes and retained original copies",
+  "command": "python -B -X utf8 docs/plan/framework-mvp-planning/20260915T145455Z/verify_documents.py",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "python": "3.10.11",
+  "markdown_documents": 19,
+  "local_links_checked": 214,
+  "unchanged_selected_inputs": 17,
+  "modified_selected_inputs": [
+    "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "docs/specs/framework/index.md",
+    "docs/specs/framework/knowledge-and-continuity.md",
+    "docs/specs/framework/roadmap-and-decisions.md"
+  ],
+  "original_copies_verified": 14,
+  "delivered_documents": 10,
+  "failures": [],
+  "exit_code": 0,
+  "runtime_tests": "NOT_RUN: documentation-only task",
+  "framework_acceptance": "NOT_EVALUATED"
+}

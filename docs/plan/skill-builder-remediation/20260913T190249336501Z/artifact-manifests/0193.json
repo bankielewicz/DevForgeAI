@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-selection-duplicate-selection",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1400,
+      "sha256": "1f5389f4496f628edcd00818c236926763bf313dfaa3a6851eea98b45a79fad9"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "2afe658b46a40a3b9b5fa4b30ef4955c5b4a3acf434346d0374ba5b3d8c47835"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 139,
+      "sha256": "5701e2d911f1153fdb85f40fb6cdad98baefdce2374235fbddfa206633f29569"
+    }
+  ]
+}

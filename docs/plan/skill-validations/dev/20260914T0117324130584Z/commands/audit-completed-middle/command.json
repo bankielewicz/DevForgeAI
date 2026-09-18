@@ -1,0 +1,29 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\audit_native.py",
+    "DV-04",
+    "DV-06",
+    "DV-07",
+    "DV-09",
+    "DV-10"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at_utc": "2026-09-14T02:14:51.166026Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\audit-completed-middle",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\audit-completed-middle",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z\\trials\\temp\\audit-completed-middle",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 48040,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-14T02:14:51.249027Z",
+  "elapsed_seconds": 0.0779999999795109
+}

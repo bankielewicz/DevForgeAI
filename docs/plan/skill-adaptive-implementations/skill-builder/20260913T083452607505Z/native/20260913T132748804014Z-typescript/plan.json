@@ -1,0 +1,22 @@
+{
+  "case": "typescript",
+  "command": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\native\\20260913T132748804014Z-typescript\\project",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\native\\20260913T132748804014Z-typescript\\project\\.trial-output\\20260913T132748804014Z\\final.txt",
+    "-"
+  ],
+  "timeout_seconds": 120,
+  "prompt_sha256": "2ce82a55bb16edb8cb89047e9003869655c0977d8a174f8e08c09018c37793bc",
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\native\\20260913T132748804014Z-typescript\\project",
+  "started_at_utc": "20260913T132748804014Z",
+  "host_boundary": "Child CLI workspace-write requested; no OS isolation claim.",
+  "oracle": "Frozen BAT behavior, retained outside cold prompt in implementation log and case plan."
+}

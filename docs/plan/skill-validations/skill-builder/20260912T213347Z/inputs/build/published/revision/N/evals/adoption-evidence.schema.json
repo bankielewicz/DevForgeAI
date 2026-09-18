@@ -1,0 +1,1044 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Observed adoption custody and typed development origins; no acceptance authority",
+  "$ref": "#/$defs/adoption_record",
+  "$defs": {
+    "adoption_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "target_name",
+        "target_root",
+        "project_root",
+        "captured_at_utc",
+        "schema_version",
+        "record_kind",
+        "historical_origin",
+        "snapshot_root",
+        "snapshot_manifest",
+        "managed_manifest",
+        "managed_paths",
+        "retained_user_paths",
+        "origin_spec",
+        "origin_spec_input",
+        "authorization",
+        "prior_evidence",
+        "quality_evidence",
+        "source_readback",
+        "recording_state"
+      ],
+      "properties": {
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "project_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "captured_at_utc": {
+          "type": "string",
+          "minLength": 1
+        },
+        "schema_version": {
+          "const": "1"
+        },
+        "record_kind": {
+          "const": "adoption"
+        },
+        "historical_origin": {
+          "const": "unknown"
+        },
+        "snapshot_root": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+        },
+        "snapshot_manifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "managed_manifest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "managed_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+          },
+          "minItems": 1
+        },
+        "retained_user_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+          }
+        },
+        "origin_spec": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "origin_spec_input": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resolved_path",
+            "bytes",
+            "sha256"
+          ],
+          "properties": {
+            "resolved_path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "bytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "authorization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "instruction",
+            "target_root",
+            "managed_manifest_sha256",
+            "origin_spec_sha256"
+          ],
+          "properties": {
+            "instruction": {
+              "type": "string",
+              "minLength": 1
+            },
+            "target_root": {
+              "type": "string",
+              "minLength": 1
+            },
+            "managed_manifest_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "origin_spec_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "prior_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "quality_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "source_readback": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "recording_state": {
+          "enum": [
+            "ADOPTED",
+            "INCOMPLETE"
+          ]
+        },
+        "known_defects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "handoff": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "files"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "bytes",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "source_readback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "run_id",
+        "target_root",
+        "before",
+        "after",
+        "spec_before_sha256",
+        "spec_after_sha256",
+        "outcome"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "before": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "bytes",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "after": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "bytes",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "spec_before_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "spec_after_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "pointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "run_id",
+        "target_name",
+        "origin",
+        "baseline"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "2"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "adopted",
+                "generated"
+              ]
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "baseline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "target_root",
+        "target_manifest_sha256",
+        "managed_manifest_sha256",
+        "origin_spec_sha256",
+        "review_policy",
+        "review_state",
+        "selected_references",
+        "builder_readiness"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "1"
+        },
+        "target_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "managed_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "origin_spec_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "review_policy": {
+          "const": "review-before-repair"
+        },
+        "review_state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selected_references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "builder_readiness": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "provenance_v2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "run_id",
+        "mode",
+        "target_name",
+        "builder_manifest_sha256",
+        "contract_sha256",
+        "inputs",
+        "dependencies",
+        "outputs",
+        "mappings",
+        "evidence",
+        "prior_origin",
+        "adoption_origin",
+        "result"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "2"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "const": "spec_build"
+        },
+        "target_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "builder_manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "contract_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "sha256"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256",
+              "ownership",
+              "baseline_path",
+              "baseline_sha256"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "ownership": {
+                "enum": [
+                  "generated",
+                  "retained_user"
+                ]
+              },
+              "baseline_path": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "baseline_sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "mappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "requirement_id",
+              "artifact_paths",
+              "evidence_ids"
+            ],
+            "properties": {
+              "requirement_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "artifact_paths": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+                }
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              }
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "path",
+              "sha256"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        "prior_origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "adopted",
+                "generated"
+              ]
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "adoption_origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "result": {
+          "enum": [
+            "COMPLETE",
+            "INCOMPLETE"
+          ]
+        }
+      }
+    },
+    "revision_plan_v2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseline",
+        "current",
+        "candidate",
+        "after",
+        "schema_version",
+        "run_id",
+        "status",
+        "required_paths",
+        "owned_paths",
+        "applied_paths",
+        "rows",
+        "baseline_advanced",
+        "readback_passed",
+        "evaluation_passed",
+        "prior_origin",
+        "adoption_origin",
+        "baseline_before",
+        "baseline_after"
+      ],
+      "properties": {
+        "baseline": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+        },
+        "current": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+        },
+        "candidate": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+        },
+        "after": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+        },
+        "schema_version": {
+          "const": "2"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "CONFLICT",
+            "PLANNED",
+            "APPLIED",
+            "PARTIAL"
+          ]
+        },
+        "required_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+          },
+          "minItems": 1
+        },
+        "owned_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+          }
+        },
+        "applied_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "ownership",
+              "b_sha256",
+              "c_sha256",
+              "n_sha256",
+              "action",
+              "reason"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+              },
+              "ownership": {
+                "enum": [
+                  "adopted",
+                  "generated",
+                  "retained_user"
+                ]
+              },
+              "b_sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "c_sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "n_sha256": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "action": {
+                "enum": [
+                  "USE_NEW",
+                  "KEEP_CURRENT",
+                  "CONFLICT"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "baseline_advanced": {
+          "type": "boolean"
+        },
+        "readback_passed": {
+          "type": "boolean"
+        },
+        "evaluation_passed": {
+          "type": "boolean"
+        },
+        "prior_origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "adopted",
+                "generated"
+              ]
+            },
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "adoption_origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "baseline_before": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "baseline_after": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        },
+        "retry_of": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:]+$"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

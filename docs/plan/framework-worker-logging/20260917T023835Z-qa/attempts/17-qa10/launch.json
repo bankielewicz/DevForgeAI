@@ -1,0 +1,31 @@
+{
+  "attempt": "17-qa10",
+  "action": "independent",
+  "case": "qa_10_legacy_and_interrupted_prefix",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\Cargo.toml",
+    "--test",
+    "independent",
+    "--",
+    "qa_10_legacy_and_interrupted_prefix",
+    "--exact",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
+  "platform": "Windows x64, native C: filesystem",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\independent-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\attempts\\17-qa10\\fixtures",
+    "QA_PEER": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\build-target\\debug\\protocol-peer.exe",
+    "QA_PROBE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\build-target\\debug\\devforgeai-codex-worker-probe.exe"
+  },
+  "started_utc": "2026-09-17T02:57:36.471150+00:00",
+  "timeout_seconds": 180,
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "plan_sha256": "fa4f60fb553ed7521c7091c5f10b095cceefc19ab4e3e2aa9d8e863687580263"
+}

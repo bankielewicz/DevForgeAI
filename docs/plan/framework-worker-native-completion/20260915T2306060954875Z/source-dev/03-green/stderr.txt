@@ -1,0 +1,5 @@
+    Blocking waiting for file lock on build directory
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.91s
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260915T2306060954875Z\target\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
+error: test failed, to rerun pass `--lib`

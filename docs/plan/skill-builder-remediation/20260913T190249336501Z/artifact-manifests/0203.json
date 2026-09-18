@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-set-false-aggregate",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1378,
+      "sha256": "162ab0ce196c107cbc1382fb4d1444595054efeb6388fc4a1ea75781f0425f3a"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "340fcaa19b6338004727b137d089b937a8d52a754d304e60853e564da3cd4189"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 134,
+      "sha256": "9997e1f6575e53109fb384a01c62b2105472579cbcabeef485e368e9cebc0320"
+    }
+  ]
+}

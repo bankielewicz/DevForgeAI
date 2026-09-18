@@ -1,0 +1,1 @@
+cargo test --locked --test process corrupt_storage_can_be_rebuilt_only_with_exact_project_confirmation -- --nocapture 

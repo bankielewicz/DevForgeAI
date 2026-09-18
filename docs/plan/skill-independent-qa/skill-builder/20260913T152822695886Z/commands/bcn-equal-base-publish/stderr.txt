@@ -1,0 +1,1 @@
+{"state": "BLOCKED", "error": "[WinError 2] The system cannot find the file specified: 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-independent-qa\\\\skill-builder\\\\20260913T152822695886Z\\\\fixtures\\\\independent-01\\\\bcn-equal-base\\\\second\\\\docs\\\\plan\\\\run\\\\contract.json'"}

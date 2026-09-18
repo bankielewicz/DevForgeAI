@@ -1,0 +1,80 @@
+{
+  "completed_at": "2026-09-13T21:27:03.724948Z",
+  "assessment_completed": true,
+  "selected_findings": "QA-01 through QA-04 RESOLVED",
+  "selected_repair_verification": "PASS",
+  "full_package_acceptance": "FAIL",
+  "target_digest": "5a3ea08fdbf7ff5f8b9e36d7015e61967c56dd1debdf548f3e1c23b8aed8a57b",
+  "target_files": 76,
+  "required_probes": {
+    "pass": 37,
+    "total": 37
+  },
+  "independent_contextual_probes": {
+    "pass": 16,
+    "total": 16
+  },
+  "regression": {
+    "pass": 248,
+    "total": 249,
+    "percent": 99.59839357429719,
+    "failed_methods": 1,
+    "failed_subtests": 7,
+    "result": "FAIL despite numeric floor met"
+  },
+  "coverage": {
+    "line": {
+      "covered": 2608,
+      "total": 3459,
+      "percent": 75.39751373229257,
+      "threshold": 95,
+      "result": "FAIL"
+    },
+    "branch": {
+      "covered": 1182,
+      "total": 1822,
+      "percent": 64.87376509330406
+    },
+    "regression_methods": {
+      "pass": 248,
+      "total": 249,
+      "percent": 99.59839357429719,
+      "failed_methods": 1,
+      "failed_subtests": 7,
+      "result": "FAIL despite numeric floor met"
+    },
+    "probe_cases": {
+      "pass": 37,
+      "total": 37
+    },
+    "no_combined_percentage": "Independent probe, regression method and review-corpus denominators remain separate."
+  },
+  "source_readback": "UNCHANGED since candidate freeze",
+  "loaded_evaluator_readback": "UNCHANGED",
+  "companion_readback": "UNCHANGED",
+  "specifications": "UNCHANGED",
+  "operational_installation": "NOT_PERFORMED",
+  "rust_qualification": "NOT_RUN",
+  "native_acceptance": "NOT_RUN",
+  "qa_report": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\qa-report.md",
+    "sha256": "b9ae138ef5afdb4135985b5f1743668a9f83026aca8e9de1194bbee66c40b1d4"
+  },
+  "resolution_map": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\resolution-map.json",
+    "sha256": "9365e87de0ecf513bc897af37f1fd912327c4ba2739d4bf0bca55c652cf824cf"
+  },
+  "independent_review": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\independent-review\\independent-review.md",
+    "sha256": "0fc447886c88cee95255ebf01316887ec6390c9556afa4ca8ca2649614c7458f"
+  },
+  "command_log": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\command-log.json",
+    "sha256": "72ec07a1abaa32b90791fc1f02cdfc28823e8484beadbd4fdd826533eca2a6c1"
+  },
+  "final_readback": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T211755666611Z\\final-input-readback.json",
+    "sha256": "034968ac181ecd5b3e9326fcfd65810d9f1c447f8c12e981df735f05f6f024e7"
+  },
+  "followup": "Existing authoring assertion mismatch, coverage floor, separate native qualification gaps."
+}

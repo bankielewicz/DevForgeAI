@@ -1,0 +1,56 @@
+[
+  {
+    "mutation": "bad-log",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa091vdtdh\\mutation-result.json",
+    "sha256": "249f8a2649908eb5fe431d4b3c5adaf92c8fc5af21dfda7549dec2b459b235c2"
+  },
+  {
+    "mutation": "drain-false",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa094BXqOw\\mutation-result.json",
+    "sha256": "d3e6389742c1bfdf5cfeab67ad22e9e2de0378836b06b9327d0062a19e9d19db"
+  },
+  {
+    "mutation": "missing-capture",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09DiGWkg\\mutation-result.json",
+    "sha256": "cf725f133127e56ce2fc90460f3887e0f03dabf3f91b13cd32c6ca873187ec7f"
+  },
+  {
+    "mutation": "read-error",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09lFuOEi\\mutation-result.json",
+    "sha256": "ae8c6491903ea3142679bfb1c6ac095cf02d242e9980f5028a8625b0c130fe47"
+  },
+  {
+    "mutation": "post-code",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09O56rd5\\mutation-result.json",
+    "sha256": "9b659163b392ae9bcb8c9442e243c9fe98a0e0724ab5f168b3c149e3ed08dd70"
+  },
+  {
+    "mutation": "eof-false",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09QBa8Vj\\mutation-result.json",
+    "sha256": "ded6b7f486b842b568a0a2e0cdf6856e4c8a97999497dd8d5adf237cd2bce0b9"
+  },
+  {
+    "mutation": "overflow",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09SEM4fq\\mutation-result.json",
+    "sha256": "52db08cfddd345b29889d06f44e2ea18d92dd88bf5ce16afe855f2a06994fa63"
+  },
+  {
+    "mutation": "missing-status",
+    "actual": "evidence_incomplete",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09VIizSg\\mutation-result.json",
+    "sha256": "2ffd863baf7b0b894ee25f61c6e4ac7ab6b62a1f76a32f749479e364e2ddee10"
+  },
+  {
+    "mutation": "missing-post",
+    "actual": "evidence_corrupt",
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\13-qa09\\fixtures\\qa09wfyBKx\\mutation-result.json",
+    "sha256": "f7df3cc8b2893f0b57cbd7039ea91af2dc7fed329edff2c06659d47868fb26f7"
+  }
+]

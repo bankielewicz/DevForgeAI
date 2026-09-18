@@ -1,0 +1,71 @@
+[
+  {
+    "name": "quick-validate",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+      "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 0.0629999999946449
+  },
+  {
+    "name": "publication-tests",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "run",
+      "--branch",
+      "--source=C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-creator-reviews\\skill-builder\\20260915T1233215519782Z\\test_publication.py"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "exit_code": 1,
+    "timeout": false,
+    "seconds": 4.23399999999674
+  },
+  {
+    "name": "coverage-json",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "json",
+      "-o",
+      "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-creator-reviews\\skill-builder\\20260915T1233215519782Z\\coverage.json"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 0.1870000000053551
+  },
+  {
+    "name": "coverage-text",
+    "argv": [
+      "C:\\Program Files\\Python310\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "coverage",
+      "report",
+      "-m"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI",
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 0.15699999999196734
+  }
+]

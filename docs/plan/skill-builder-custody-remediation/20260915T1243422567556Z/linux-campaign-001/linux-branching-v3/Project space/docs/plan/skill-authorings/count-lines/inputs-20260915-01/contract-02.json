@@ -1,0 +1,59 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "20260915-02",
+  "project_root": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space",
+  "target_root": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/result-skill/count-lines",
+  "target_name": "count-lines",
+  "operation": "create",
+  "authorization": "Create a Codex development skill named count-lines. It accepts a user-selected UTF-8 input file and literal output directory. Mode count writes count.json with {\"nonempty_lines\": integer}; mode list writes lines.txt with nonempty lines in original order, duplicates retained, LF separators. Load only the instructions needed by the chosen mode. Preserve the input. Missing input or invalid UTF-8 writes failure.json with {\"status\":\"FAILED\",\"reason\":string,\"input\":string}; if that cannot be delivered report incomplete delivery. Refuse to overwrite any existing result or failure.json. A reusable deterministic helper is appropriate. Save the development package at /tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/result-skill/count-lines. Selected project: /tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space. Complete authoring and its manual validation handoff. All authoring writes are authorized only inside this synthetic project. The copied builder-source and .agents fixture are read-only inputs; do not install or alter active skills. No external messaging or network operations. Do not execute the generated skill or run its tests; an independent evaluator owns that step.",
+  "history_review": "no_known_history",
+  "change_paths": [
+    "SKILL.md",
+    "references/count.md",
+    "references/list.md",
+    "scripts/count_lines.py"
+  ],
+  "requirements": [
+    {
+      "origin": "user",
+      "outcome": "Create a Codex development skill named count-lines. It accepts a user-selected UTF-8 input file and literal output directory. Mode count writes count.json with {\"nonempty_lines\": integer}; mode list writes lines.txt with nonempty lines in original order, duplicates retained, LF separators. Load only the instructions needed by the chosen mode. Preserve the input. Missing input or invalid UTF-8 writes failure.json with {\"status\":\"FAILED\",\"reason\":string,\"input\":string}; if that cannot be delivered report incomplete delivery. Refuse to overwrite any existing result or failure.json. A reusable deterministic helper is appropriate. Save the development package at /tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/result-skill/count-lines. Selected project: /tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space. Complete authoring and its manual validation handoff. All authoring writes are authorized only inside this synthetic project. The copied builder-source and .agents fixture are read-only inputs; do not install or alter active skills. No external messaging or network operations. Do not execute the generated skill or run its tests; an independent evaluator owns that step.",
+      "artifacts": [
+        "SKILL.md",
+        "references/count.md",
+        "references/list.md",
+        "scripts/count_lines.py"
+      ]
+    },
+    {
+      "origin": "derived",
+      "outcome": "Nonempty means length > 0 without trimming. LF, CRLF and CR delimit lines; other Unicode separators and BOM remain content. List uses terminal LF per retained line. Relative paths resolve against invocation cwd with no tilde, variable or glob expansion. Create output parents if absent. Refuse invocation if any reserved output exists. Require regular input; other read errors also attempt failure.json. No explicit runtime timeout.",
+      "artifacts": [
+        "SKILL.md",
+        "references/count.md",
+        "references/list.md",
+        "scripts/count_lines.py"
+      ]
+    }
+  ],
+  "capabilities": [
+    "Python 3 standard library",
+    "Local file read and exclusive write"
+  ],
+  "expected_outputs": [
+    "count.json or lines.txt; failure.json on input failure; honest delivery report"
+  ],
+  "side_effects": [
+    "Read selected input only; create literal output directory parents and exclusive output file; no network or installation"
+  ],
+  "inputs": [
+    {
+      "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/docs/plan/skill-authorings/count-lines/inputs-20260915-01/request.txt",
+      "sha256": "3886b6c568a3cab28ea6936750e0cd1350f9f90afe923974ec5de1daed2bbdd8"
+    },
+    {
+      "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/docs/plan/skill-authorings/count-lines/inputs-20260915-01/design.json",
+      "sha256": "5ac1856fd2c6ed08ab01500f7b19d7da246ed289c8fafa00f2fea2d2e921eed0"
+    }
+  ],
+  "known_issues": []
+}

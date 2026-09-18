@@ -1,0 +1,1 @@
+Wrote JSON report to C:\Projects\DevForgeAI\docs\plan\skill-validations\skill-validator\20260913T211755666611Z\coverage\coverage.json

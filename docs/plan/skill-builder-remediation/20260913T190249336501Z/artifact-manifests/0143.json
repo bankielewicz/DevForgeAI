@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-ext-legacy-adopted",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1561,
+      "sha256": "ed3de05d7648137c9e246ea07cc9e5a4c4e31b30510e74fb93acd319e7421ff8"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "63aff7e026863dd515fa008da672e22cd141ba3cdfa1466ed53797b0c8b0a995"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 393,
+      "sha256": "c1899fd5c80c902bbdd6587d3a7c998aed0a5358e2299a8b1c7b338be96628f6"
+    }
+  ]
+}

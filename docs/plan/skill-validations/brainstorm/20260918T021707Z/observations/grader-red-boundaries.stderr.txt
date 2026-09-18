@@ -1,0 +1,272 @@
+test_bad_encoding_and_yaml (test_graders.GraderTests) ... test_disposition (test_graders.GraderTests) ... FAIL
+test_duplicate_metadata (test_graders.GraderTests) ... FAIL
+test_invalid_id (test_graders.GraderTests) ... test_invalid_revision (test_graders.GraderTests) ... test_reject_extra_metadata (test_graders.GraderTests) ... FAIL
+test_sections (test_graders.GraderTests) ... test_successor_requires_prior (test_graders.GraderTests) ... FAIL
+test_supersedes (test_graders.GraderTests) ... test_timestamp (test_graders.GraderTests) ... test_unfilled_template (test_graders.GraderTests) ... FAIL
+test_valid (test_graders.GraderTests) ... ok
+
+======================================================================
+ERROR: test_bad_encoding_and_yaml (test_graders.GraderTests) (data=b'\xff')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 53, in test_bad_encoding_and_yaml
+    self.assertTrue(grade_brief(data))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\graders.py", line 13, in grade_brief
+    text = data.decode('utf-8')
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+======================================================================
+ERROR: test_bad_encoding_and_yaml (test_graders.GraderTests) (data=b'---\n[broken\n---\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 53, in test_bad_encoding_and_yaml
+    self.assertTrue(grade_brief(data))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\graders.py", line 17, in grade_brief
+    metadata = yaml.safe_load(match[1])
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\__init__.py", line 125, in safe_load
+    return load(stream, SafeLoader)
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\__init__.py", line 81, in load
+    return loader.get_single_data()
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\composer.py", line 36, in get_single_node
+    document = self.compose_document()
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\composer.py", line 82, in compose_node
+    node = self.compose_sequence_node(anchor)
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\composer.py", line 110, in compose_sequence_node
+    while not self.check_event(SequenceEndEvent):
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\parser.py", line 98, in check_event
+    self.current_event = self.state()
+  File "C:\Users\bryan\AppData\Roaming\Python\Python310\site-packages\yaml\parser.py", line 483, in parse_flow_sequence_entry
+    raise ParserError("while parsing a flow sequence", self.marks[-1],
+yaml.parser.ParserError: while parsing a flow sequence
+  in "<unicode string>", line 1, column 1:
+    [broken
+    ^
+expected ',' or ']', but got '<stream end>'
+  in "<unicode string>", line 1, column 8:
+    [broken
+           ^
+
+======================================================================
+FAIL: test_disposition (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 35, in test_disposition
+    self.assertTrue(grade_brief(valid().replace(b'READY_FOR_PRD',b'READY_FOR_IMPLEMENTATION')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_duplicate_metadata (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 27, in test_duplicate_metadata
+    self.assertTrue(grade_brief(valid().replace(b'revision: 1',b'revision: 1\nrevision: 2')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_id (test_graders.GraderTests) (ident=b'../escape')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 24, in test_invalid_id
+    self.assertTrue(grade_brief(valid().replace(b'brief_id: library',b'brief_id: '+ident)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_id (test_graders.GraderTests) (ident=b'-start')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 24, in test_invalid_id
+    self.assertTrue(grade_brief(valid().replace(b'brief_id: library',b'brief_id: '+ident)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_id (test_graders.GraderTests) (ident=b'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 24, in test_invalid_id
+    self.assertTrue(grade_brief(valid().replace(b'brief_id: library',b'brief_id: '+ident)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_revision (test_graders.GraderTests) (revision=b'0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 19, in test_invalid_revision
+    self.assertTrue(grade_brief(valid().replace(b'revision: 1',b'revision: '+revision)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_revision (test_graders.GraderTests) (revision=b'-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 19, in test_invalid_revision
+    self.assertTrue(grade_brief(valid().replace(b'revision: 1',b'revision: '+revision)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_revision (test_graders.GraderTests) (revision=b'true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 19, in test_invalid_revision
+    self.assertTrue(grade_brief(valid().replace(b'revision: 1',b'revision: '+revision)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_invalid_revision (test_graders.GraderTests) (revision=b'"1"')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 19, in test_invalid_revision
+    self.assertTrue(grade_brief(valid().replace(b'revision: 1',b'revision: '+revision)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_reject_extra_metadata (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 14, in test_reject_extra_metadata
+    self.assertIn('Metadata fields must match the six-field contract', grade_brief(data))
+AssertionError: 'Metadata fields must match the six-field contract' not found in []
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Selected work and context')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Problem and outcomes')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Scope and exclusions')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Options and direction')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Constraints and architecture questions')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Evidence and experiments')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Decisions and open questions')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Handoff')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_sections (test_graders.GraderTests) (section='Follow-up and change notes')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 40, in test_sections
+    self.assertTrue(grade_brief(valid().replace(('## '+section).encode(),b'### Missing')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_successor_requires_prior (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 56, in test_successor_requires_prior
+    self.assertTrue(grade_brief(valid().replace(b'revision: 1',b'revision: 2')))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_supersedes (test_graders.GraderTests) (prev=b'"C:/outside/brief.md"')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 48, in test_supersedes
+    self.assertTrue(grade_brief(valid().replace(b'supersedes: null',b'supersedes: '+prev)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_supersedes (test_graders.GraderTests) (prev=b'"../outside.md"')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 48, in test_supersedes
+    self.assertTrue(grade_brief(valid().replace(b'supersedes: null',b'supersedes: '+prev)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_supersedes (test_graders.GraderTests) (prev=b'true')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 48, in test_supersedes
+    self.assertTrue(grade_brief(valid().replace(b'supersedes: null',b'supersedes: '+prev)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_timestamp (test_graders.GraderTests) (stamp=b'not-time')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 32, in test_timestamp
+    self.assertTrue(grade_brief(valid().replace(b'2026-09-18T02:00:00Z',stamp)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_timestamp (test_graders.GraderTests) (stamp=b'2026-02-31T12:00:00Z')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 32, in test_timestamp
+    self.assertTrue(grade_brief(valid().replace(b'2026-09-18T02:00:00Z',stamp)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_timestamp (test_graders.GraderTests) (stamp=b'2026-09-18T02:00:00+03:00')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 32, in test_timestamp
+    self.assertTrue(grade_brief(valid().replace(b'2026-09-18T02:00:00Z',stamp)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_unfilled_template (test_graders.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\brainstorm\20260918T021707Z\inputs\evaluation\test_graders.py", line 43, in test_unfilled_template
+    self.assertTrue(grade_brief(valid().replace(b'Independent synthetic content.',b'{{fill-me}}',1)))
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.010s
+
+FAILED (failures=27, errors=2)

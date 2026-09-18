@@ -1,0 +1,31 @@
+{
+  "attempt_id": "green-tray",
+  "stage": "green",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "tray",
+    "--test",
+    "qa_independent",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\green-tray\\gui"
+  },
+  "source_manifest_sha256": "16fcb789cf7c5736b43399c63bdb87a7ba3b6fcb8a4bbb447a2f449f22a65714",
+  "started_at": "2026-09-14T19:54:28.460028+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T19:54:30.876027+00:00",
+  "elapsed_seconds": 2.4219999999986612,
+  "stdout.txt_sha256": "9ff1c1505b48e7537580b799fedb8760268cbf71dbea10edf084be0f9be7ec2b",
+  "stderr.txt_sha256": "1fb162374494fa7e9d3b25886b47a2fa8d6e63b32be1b70cd5a53705ac581085"
+}

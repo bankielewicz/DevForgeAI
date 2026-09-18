@@ -1,0 +1,87 @@
+[
+  {
+    "case_id": "N02",
+    "timeout_seconds": 600,
+    "events": 51,
+    "terminal_turn_completed": false,
+    "last_progress_message": "The restore story and blocked remote-backup story are written and read back. I’m finishing the independent export-naming story, then I’ll add all three links to the epic and verify that the supplied sources and unrelated content remain unchanged.\n",
+    "changed_paths": [
+      "backlog/STORY-010.story.md",
+      "backlog/STORY-011.story.md",
+      "evidence/story-create/20260917-epic4/STORY-010-delivery.json",
+      "evidence/story-create/20260917-epic4/STORY-011-delivery.json",
+      "evidence/story-create/20260917-epic4/session.md",
+      "evidence/story-create/20260917-epic4/source-snapshot.json"
+    ],
+    "limitation": "Event stream lacks complete per-event timing; no measured attribution of total time or root cause."
+  },
+  {
+    "case_id": "N03",
+    "timeout_seconds": 600,
+    "events": 42,
+    "terminal_turn_completed": false,
+    "last_progress_message": "The draft is complete. I’m checking its YAML/XML, template sections, local links, and requirement-to-test mappings, then rechecking source hashes and STORY-020’s availability before saving it.\n",
+    "changed_paths": [],
+    "limitation": "Event stream lacks complete per-event timing; no measured attribution of total time or root cause."
+  },
+  {
+    "case_id": "N04",
+    "timeout_seconds": 600,
+    "events": 46,
+    "terminal_turn_completed": false,
+    "last_progress_message": "STORY-010 is written and its readback matches the draft. I’m recording the final dispositions and verifying source preservation.\n\nThe [story-create skill](C:/Projects/DevForgeAI/docs/plan/skill-validations/story-create/20260917T185301Z/trials/N04/project/.agents/skills/story-create/SKILL.md) directs: “Missing essential input blocks dependent authoring while independent selected work can continue.” REC-02 remains blocked by its missing expected result; REC-404 has no source entry.\n",
+    "changed_paths": [
+      "backlog/STORY-010.story.md",
+      "evidence/story-create/20260917T191341Z/authoring-review.json",
+      "evidence/story-create/20260917T191341Z/preflight.json",
+      "evidence/story-create/20260917T191341Z/session.md"
+    ],
+    "limitation": "Event stream lacks complete per-event timing; no measured attribution of total time or root cause."
+  },
+  {
+    "case_id": "N05",
+    "timeout_seconds": 600,
+    "events": 48,
+    "terminal_turn_completed": false,
+    "last_progress_message": "Windows rejected an oversized terminal request before it ran; no files were written. I’ll split the validation and save steps into smaller calls, then read back each story in full.",
+    "changed_paths": [
+      "evidence/story-create/20260917T192153Z-rec-r1-gap-3/preflight.json",
+      "evidence/story-create/20260917T192153Z-rec-r1-gap-3/session.md"
+    ],
+    "limitation": "Event stream lacks complete per-event timing; no measured attribution of total time or root cause."
+  },
+  {
+    "case_id": "N10",
+    "timeout_seconds": 600,
+    "events": 54,
+    "terminal_turn_completed": false,
+    "last_progress_message": "Both story drafts are written and read back in full. Their direct dependencies are preserved as STORY-010 → STORY-001 and STORY-011 → STORY-002, with the existing cycle documented in each. I’m completing the source-hash and link checks and saving the session record; implementation and product QA remain unperformed.\n",
+    "changed_paths": [
+      "backlog/STORY-010.story.md",
+      "backlog/STORY-011.story.md",
+      "evidence/story-create/20260917T192549Z/STORY-010-delivery.json",
+      "evidence/story-create/20260917T192549Z/STORY-011-delivery.json",
+      "evidence/story-create/20260917T192549Z/baseline.json",
+      "evidence/story-create/20260917T192549Z/binding-observation.json"
+    ],
+    "limitation": "Event stream lacks complete per-event timing; no measured attribution of total time or root cause."
+  },
+  {
+    "case_id": "N12",
+    "timeout_seconds": 600,
+    "events": 51,
+    "terminal_turn_completed": false,
+    "last_progress_message": "R1–R5 passed: the guide matches the supplied behavior, preserves confirmation, covers both missing-file recovery outcomes, and links to the CLI contract. All 15 supplied files retain their original hashes. I’m finishing the evidence record and final path readback.\n",
+    "changed_paths": [
+      "docs/restore-guide.md",
+      "evidence/dev/baseline.json",
+      "evidence/dev/candidate.json",
+      "evidence/dev/context.md",
+      "evidence/dev/delivery.md",
+      "evidence/dev/execution-records.jsonl",
+      "evidence/dev/qa-001.output.json",
+      "evidence/dev/readback-001.output.json"
+    ],
+    "limitation": "Event stream lacks complete per-event timing; no measured attribution of total time or root cause."
+  }
+]

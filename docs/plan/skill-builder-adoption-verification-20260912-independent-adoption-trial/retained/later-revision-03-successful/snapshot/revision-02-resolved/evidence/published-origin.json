@@ -1,0 +1,20 @@
+{
+  "schema_version": "2",
+  "run_id": "revision-02-resolved",
+  "target_name": "receipt-totals",
+  "origin": {
+    "kind": "generated",
+    "path": "revision-02-resolved/evidence/build-provenance.json",
+    "sha256": "807372183f642ef8d40ae2510c02127987cb76e7d9925041a2d775efded67b36"
+  },
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb"
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73"
+    }
+  ]
+}

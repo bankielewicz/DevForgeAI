@@ -1,0 +1,97 @@
+{
+  "cases": [
+    {
+      "case": "green-ps7",
+      "result": "PASS",
+      "corrections": 15
+    },
+    {
+      "case": "green-ps51",
+      "result": "PASS",
+      "corrections": 15
+    }
+  ],
+  "changed_arguments": [
+    {
+      "index": 15,
+      "before": "mcp_servers.\"node_repl\".enabled=false",
+      "after": "mcp_servers.node_repl.enabled=false"
+    },
+    {
+      "index": 17,
+      "before": "mcp_servers.\"openaiDeveloperDocs\".enabled=false",
+      "after": "mcp_servers.openaiDeveloperDocs.enabled=false"
+    },
+    {
+      "index": 19,
+      "before": "plugins.\"documents@openai-primary-runtime\".enabled=false",
+      "after": "plugins.documents@openai-primary-runtime.enabled=false"
+    },
+    {
+      "index": 21,
+      "before": "plugins.\"pdf@openai-primary-runtime\".enabled=false",
+      "after": "plugins.pdf@openai-primary-runtime.enabled=false"
+    },
+    {
+      "index": 23,
+      "before": "plugins.\"spreadsheets@openai-primary-runtime\".enabled=false",
+      "after": "plugins.spreadsheets@openai-primary-runtime.enabled=false"
+    },
+    {
+      "index": 25,
+      "before": "plugins.\"presentations@openai-primary-runtime\".enabled=false",
+      "after": "plugins.presentations@openai-primary-runtime.enabled=false"
+    },
+    {
+      "index": 27,
+      "before": "plugins.\"template-creator@openai-primary-runtime\".enabled=false",
+      "after": "plugins.template-creator@openai-primary-runtime.enabled=false"
+    },
+    {
+      "index": 29,
+      "before": "plugins.\"sites@openai-bundled\".enabled=false",
+      "after": "plugins.sites@openai-bundled.enabled=false"
+    },
+    {
+      "index": 31,
+      "before": "plugins.\"visualize@openai-bundled\".enabled=false",
+      "after": "plugins.visualize@openai-bundled.enabled=false"
+    },
+    {
+      "index": 33,
+      "before": "plugins.\"codex-app-tools@openai-bundled\".enabled=false",
+      "after": "plugins.codex-app-tools@openai-bundled.enabled=false"
+    },
+    {
+      "index": 35,
+      "before": "plugins.\"computer-use@openai-bundled\".enabled=false",
+      "after": "plugins.computer-use@openai-bundled.enabled=false"
+    },
+    {
+      "index": 37,
+      "before": "plugins.\"unified-computer-use@openai-bundled\".enabled=false",
+      "after": "plugins.unified-computer-use@openai-bundled.enabled=false"
+    },
+    {
+      "index": 39,
+      "before": "plugins.\"browser@openai-bundled\".enabled=false",
+      "after": "plugins.browser@openai-bundled.enabled=false"
+    },
+    {
+      "index": 41,
+      "before": "plugins.\"chrome@openai-bundled\".enabled=false",
+      "after": "plugins.chrome@openai-bundled.enabled=false"
+    },
+    {
+      "index": 43,
+      "before": "apps.\"connector_openai_codex_document_control\".enabled=false",
+      "after": "apps.connector_openai_codex_document_control.enabled=false"
+    }
+  ],
+  "config_sha256_unchanged": "beb5cf499ca174940f8f5c91455e54b93d5c2a32f45e1837f5e134c0e10e99cd",
+  "frozen_files_verified": 116,
+  "helper_sha256": "f69da72fb44737127dcfde3607fb0e027e4afeb2463a78ac8f844bc3abfc58a0",
+  "native_codex_launches": 0,
+  "native_startup": "NOT_RETESTED",
+  "scope": "Offline override replay and helper preparation; not framework acceptance"
+}

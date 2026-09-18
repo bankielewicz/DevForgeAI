@@ -1,0 +1,36 @@
+{
+  "schema_version": "project-evidence-v1",
+  "run_id": "golden-evidence",
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs",
+  "scope_roots": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs"
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\authorization.txt",
+      "sha256": "c0a4e59bfb136c266e7ba51717363c362005c2a141ba5580ba00b93a28b59234"
+    }
+  ],
+  "facts": [
+    {
+      "id": "domain",
+      "category": "domain",
+      "statement": "Selected task-card responsibility.",
+      "basis": "user_supplied",
+      "sources": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\authorization.txt",
+            "sha256": "c0a4e59bfb136c266e7ba51717363c362005c2a141ba5580ba00b93a28b59234"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "complete": true,
+  "capabilities": [],
+  "gaps": []
+}

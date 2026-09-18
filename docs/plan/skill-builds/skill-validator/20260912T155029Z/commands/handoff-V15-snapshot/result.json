@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\candidate\\scripts\\observe.py",
+    "snapshot",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\handoff-trials\\attempt-001\\later-delivery-fixture\\decimal-ledger-spec",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\handoff-trials\\attempt-001\\later-assessment"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start_utc": "2026-09-12T16:09:38.890524+00:00",
+  "end_utc": "2026-09-12T16:09:39.016069+00:00",
+  "exit_code": 0,
+  "state": "exited",
+  "stdout": {
+    "path": "commands/handoff-V15-snapshot/stdout.txt",
+    "sha256": "9ea6be110cc7221a897196bb31c1a5b6fb383a5204ec4894c2510549b075cd90"
+  },
+  "stderr": {
+    "path": "commands/handoff-V15-snapshot/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,16 @@
+test_already_exited_child_is_not_killed_again (test_cleanup.CleanupFailureTests) ... ok
+test_cleanup_deadline_reports_undrained_queue_instead_of_losing_evidence_silently (test_cleanup.CleanupFailureTests) ... ok
+test_closed_real_pipe_reports_read_error_and_eof_without_hanging (test_cleanup.CleanupFailureTests) ... ok
+test_exit_during_kill_error_is_not_reported_as_live_child_failure (test_cleanup.CleanupFailureTests) ... ok
+test_interrupt_during_final_queue_drain_retains_every_event (test_cleanup.CleanupFailureTests) ... ok
+test_interrupt_while_reader_is_alive_still_drains_real_thread_events (test_cleanup.CleanupFailureTests) ... ok
+test_interrupted_wait_retries_and_reaps_real_child (test_cleanup.CleanupFailureTests) ... ok
+test_pipe_close_interrupt_preserves_evidence_and_closes_other_pipe (test_cleanup.CleanupFailureTests) ... ok
+test_pipe_close_oserror_preserves_evidence_and_closes_other_pipe (test_cleanup.CleanupFailureTests) ... ok
+test_read_oserror_after_real_bytes_retains_bytes_and_denies_advice (test_cleanup.CleanupFailureTests) ... ok
+test_spawn_with_missing_working_directory_reports_failure_without_advice (test_cleanup.CleanupFailureTests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.890s
+
+OK

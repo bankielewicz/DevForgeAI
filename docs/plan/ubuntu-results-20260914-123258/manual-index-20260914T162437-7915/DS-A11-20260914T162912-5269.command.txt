@@ -1,0 +1,1 @@
+cargo test --locked --test service automatic_file_changes_are_debounced_before_publication -- --nocapture 

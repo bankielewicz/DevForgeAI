@@ -1,0 +1,50 @@
+
+running 5 tests
+test profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected ... FAILED
+test profile_sources::cases::directory_membership_and_fresh_verification_detect_drift ... FAILED
+test profile_sources::cases::credential_named_files_are_rejected_before_content_is_read ... FAILED
+test profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed ... FAILED
+test profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence ... FAILED
+
+failures:
+
+---- profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected stdout ----
+
+thread 'profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected' (52004) panicked at src\..\tests\support\profile_sources_cases.rs:197:5:
+assertion `left == right` failed
+  left: "profile_source_inventory_not_implemented"
+ right: "profile_source_fixture_scope"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- profile_sources::cases::directory_membership_and_fresh_verification_detect_drift stdout ----
+
+thread 'profile_sources::cases::directory_membership_and_fresh_verification_detect_drift' (57224) panicked at src\..\tests\support\profile_sources_cases.rs:165:71:
+called `Result::unwrap()` on an `Err` value: "profile_source_inventory_not_implemented"
+
+---- profile_sources::cases::credential_named_files_are_rejected_before_content_is_read stdout ----
+
+thread 'profile_sources::cases::credential_named_files_are_rejected_before_content_is_read' (58088) panicked at src\..\tests\support\profile_sources_cases.rs:137:5:
+assertion `left == right` failed
+  left: "profile_source_inventory_not_implemented"
+ right: "profile_source_forbidden_name"
+
+---- profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed stdout ----
+
+thread 'profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed' (56300) panicked at src\..\tests\support\profile_sources_cases.rs:154:5:
+profile_source_inventory_not_implemented
+
+---- profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence stdout ----
+
+thread 'profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence' (63132) panicked at src\..\tests\support\profile_sources_cases.rs:96:70:
+called `Result::unwrap()` on an `Err` value: "profile_source_inventory_not_implemented"
+
+
+failures:
+    profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed
+    profile_sources::cases::credential_named_files_are_rejected_before_content_is_read
+    profile_sources::cases::directory_membership_and_fresh_verification_detect_drift
+    profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected
+    profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.03s
+

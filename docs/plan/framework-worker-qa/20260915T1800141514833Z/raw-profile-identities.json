@@ -1,0 +1,552 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-10936-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "33208327742a585ed541ee8b19043c1f3a8261a58c166bedc5b72e262988909c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-11928-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "3d90aabab63915a906d4d119ff5face9800565d68f71057354fb6fcb895e8178"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-12892-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "c092847f42e6a2109950ec8ca3aec5f9c930bf1642b901e914a1ba513a25142d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-13744-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "cb914b1c808865b381d6c21a39d3d37b6a2e647eafdc6b2c62fa9db5f89bde47"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-14080-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "ebbf98e42509fb1df4287bdd4f645e0b0fc15c3e34d3b786883e02baf0c72238"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-18556-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "c946a45d71e54047af7bc5e6764dd4b23b1842eddb3b253843b22c722d563abf"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-18568-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "e4e666c20a3824923e1ed549e0b530b2793a691043cbd5d07dcb8662deddd251"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-19068-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "1d6de0b19a33e96f7e5e35d6f52a0acf15aa1e4cbe704af75f8efd6328e5c687"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-2324-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "27b80a00704c28325f49debff336684409462fb1329a194b695e7d27ffcd60fe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-24620-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "9b1d6aacc92d488b6aa4354e9be50c21d59192b49527c39d2c58ecf4629bdcf0"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-25300-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "42e79ff0f63aeccd3e982a98b184866659bc9fe8e63982b11143bc873740f51a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-25592-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "e68b876001eee75490c1fd886756a4fb4f9ae8a618df6b2f2c0a9b011ae51b24"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-26956-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "e60d89838270449a6ec4d69006d9ecf1f26818a61e256475f48125196a3ff7c8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-27160-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "014810eac616a9e78d18b506016bb14e6faa5923703168d0d6fbd6a50cbaa0ab"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-27372-16183052125380797760_0.profraw",
+    "bytes": 15472,
+    "sha256": "6ff01ba91a5f01185aabd965600fbcf11c2249025291e085d8dc93ce6298bc5d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-29236-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "9248821d92cd79310e266101a10aac8ac308dc76dfb6358145ccf96c3f56f59b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-2988-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "e16f7a5b9249fac1e6ac7a2f6b4a39c55b8f61f16e3e43ee2c6eea1190cfd2bb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-30200-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "60e2105c2e794741f5cd9a1b5646aeea2cfb6be39b877042a2949e38743aacd5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-30212-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "eb38d6e1addc8f68293f12e1a89abb5d34de46fb1ca73efc22f0782cf9e4c7bd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-30324-12595259235344370375_0.profraw",
+    "bytes": 21744,
+    "sha256": "a817dbc3781b0111697bfdae259692e0ec20599bf147a092120cb9fa32a7a79b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-30364-18413114902557651595_0.profraw",
+    "bytes": 7320,
+    "sha256": "ac78b4f7343f421e108cfc325caee04fab02bbc3868f97c2e8afb25f5f1767ce"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-30932-10436072172942844087_0.profraw",
+    "bytes": 14096,
+    "sha256": "38950a14e5545ab6b4cf3d41c16c0c26da84ff0c35c5b6abfc4136c232745ed3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-31028-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "3bfa8dacf700e67f083e0d994787ffaa4d7124821555bede2919a3593ba26db6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-31572-11512803347692060988_0.profraw",
+    "bytes": 13904,
+    "sha256": "f53a7f80cde4d927c109a8f2a19110ed028183d230696251b589b7154d74e5f7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-33728-10432625380377510684_0.profraw",
+    "bytes": 19152,
+    "sha256": "bb05ff534a9f729ca516e9a42ba4138acf3b87ae27bc4172ee62c0b8598489d7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-35552-18405298474395792011_0.profraw",
+    "bytes": 216,
+    "sha256": "6ef6c2021ac13b49eed523e35e2ca52842baff3aeab7b9deef3736b78d393849"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-35900-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "7c601e7c0121ece6f4da8aaf67bd83888cf9008bd6756eab35e725bc2ab9a1bc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-3708-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "a0db7387eb50b59d8a418c6e85f409239bbb3cb79326ecd7cf9ec7dcc9d9bf2d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-37096-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "b4ec62ed8d4aa8651b517ed33946359c3a43bda00420f20474c9698a93dd616b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-37532-7464638426791090472_0.profraw",
+    "bytes": 14040,
+    "sha256": "d0c7712bae84464e717522ed817b9995417ab0f79f1fa6661234d407d0552c3a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-37564-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "ad23a363856e989abb610980991df59330e0927b910ea5d043082afa75630e88"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-37900-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "f08c21a4f76ee21b94b8914f0d7bdedc6f3fa09847f61bbcc3c12f6eb92e7eb4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-38088-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "7a7ce7bbd5b12b7bbb12d1690cf8869cb429545ab96321f0ef1453b618842f21"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-38104-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "e061f01de79e73694ca6d3eb05eeb2910197d23e771ff12f45ade919440b4cd5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-3940-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "50d82db391885209c3cdb0a7ac1fff3ad8dc3ea1a1f24ae5b0c01efe54b0b5cb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-40100-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "6a5a0a6f17f6b56f0b225db46d15209e73d47f56e86e66e6d9524c0cb9c35cfb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-40232-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "ff2c2ff2768b945678ff4cde2f683bd3213ca42ddad8324664cee8a2cea78a5a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-40652-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "aec267f36f537e0dd6f371e6e0b31f0a8c7495935258df1aab34d599cc560072"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-41764-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "ad23a363856e989abb610980991df59330e0927b910ea5d043082afa75630e88"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-4308-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "4ae5e1149ff469b3d24898c16d8797c66ec985e0a6c445dde916c53c26b48749"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-44276-11867829928807259207_0.profraw",
+    "bytes": 20360,
+    "sha256": "dfa4145620a252f498f9d7d32b4cf76fba4bea32d0acb7a5627f2062ed73a5b4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-45064-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "86437a22acd42c01a4f9730a81699038b0d2c49f5ee1cfa58d1373e5aa41b323"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-45152-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "919937b65f3f6aca3c136d9044d20a536f39be8530ac65ecc0df166761984b99"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-45700-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "664ca928850e31124c9886af4cdcc7acccfc2e5056cb01ef63d841ceab7c63a7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-45720-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "21257eadd232d5fbf58f0bbbe779bbe8ec89b654c86cd1df34f3e2590a75cc91"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-46284-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "6c2ce95f3d114724feec3acf8c510379b986d5180400fa619a732cc975fdcaf3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-47284-18405546964023669387_0.profraw",
+    "bytes": 440,
+    "sha256": "d10d4e8b3d8ba8296b0ba18a9aea5e9943c0c09576316fea2e1e43971a5c3758"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-47444-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "67e971e8c60218bd5c2b5875d037957b26cb8dbba47cd3b1c3a1f7c758c39ff1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-47696-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "acaeb2d25bc2719dfaa8ee55b23c8ec430c200b615e021b9a99076e99f4d3a90"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-48296-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "649324a366859ca57e9506c3136cce9f7cede06208293eb5ee79ff24e0054ead"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-48504-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "9efc816328530a361b206c0b849066daf7ec76f57abd407c0f470208a8fcd095"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-48508-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "ab9a449cf4fda412d0b1abb0dfa4819fbb4580deaca1c9e5b8a6d7a1ff3c2335"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-49672-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "236c6e83e6a668decd2e1afd3931e595702e7cd3ce142c363a963b59445abcca"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-49848-18405300673419047563_0.profraw",
+    "bytes": 216,
+    "sha256": "21244ac6727cd474aea9c5296e2d1032bea1012b7712e7a1a7f8a23115a7ce74"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-49908-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "831941645ef43336b2ec4b6702539d498f1b65ff86dc84b31b2a82e9a418efdd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-50308-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "0f2c9214cccad4945a815df21f615d806177aace77b2371329ce8d2044ef5a73"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-51792-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "3c9270305b1c4944d27bc1fd8f7546d8c40c49d201a02e64504266c85dbb0279"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-52120-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "c77d2313d01bef86b4d328b78fbec93597e336c160d5b485bcc37cda131b54f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-53104-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "0b298bad18150ad655ea166b050b82172617dbeef1e2c1cb476e3f4d4ce89de4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-53192-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "9f7876d2d9088fc270da0836a8d20ec801e689a35633b27b969e024c8135f09b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-53748-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "a2476536b54d1876e6febc22c5da04f149eab626b792ad531a5878e816a5acde"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-53920-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "9fd86d57df95f4e6fdfbb00e099119f5e9cad467cd518048121986a436817556"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-53956-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "fdd1d095134851fea2624749aa91d83906069fdd60987afff1369b44b536f8fa"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-54532-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "3be37daf79dbc55b4cffb3f8cfccc46499eaf1ee3c8aa953a774a885b93ed9f2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-54948-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "bcdfe15b9ae7de98dda040be1f3381478b77eaf7e7c3522e94418a9f20b0dcde"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-55164-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "6df347e6b56c42c98dad0a221271e88799f39b85b78a929130a372fb37b5e824"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-55788-10897873975595942263_0.profraw",
+    "bytes": 19768,
+    "sha256": "abf6415d930a0e758e1c01488ba90daec00dfa96f87e1a9b7672117ddddf15d1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-55920-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "c133f4fee674d527a4d4a7e58114c515657b67012834d8c899590490deaba9ba"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-56808-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "ca48fa50f18d76d9f0dcd3f0e34dd6b914ba6f682b11795d602c2bacbf9ee72c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-57628-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "b8487ade36a11f93511115a25fd6b5a0bf9ae4f6d988aa6f46b1395801a8aed7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-57752-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "50d82db391885209c3cdb0a7ac1fff3ad8dc3ea1a1f24ae5b0c01efe54b0b5cb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-58708-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "eb84d52793d4cb880b4e69f741d579bcf50681667e2db9941e68e70d4ba232dd"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-58864-11493920203415816499_0.profraw",
+    "bytes": 15384,
+    "sha256": "a444ee369b94babc6a0450df2e6a4264a3aa533af8aef09b2943fa1223b16eb6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59444-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "cefbf46d160b46f22b8dd066e0d71cebfc09b5b1a0e378ba2fcca0da87c03586"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59488-2709749051847216281_0.profraw",
+    "bytes": 19856,
+    "sha256": "ea24dc572b2edae8e455b14d81cd4f1c7ecdd22275369eae4adeb37a00a5236a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59552-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "123dc37cf09da0b6af03187a97a5b69d9b67ed01ed5191071f9e12ab2b948ebc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59568-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "01d4ec4a22b57f3a541434dcd3aac618631052c214ed39e1407c82c1016f92e8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59684-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "061b294f7f8b7a19534f73c83f5267f38b212cb1e98f9e2a9c7e2a1013460ddb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59692-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "fb50257c76940a91517a338ac6d5a9637a67a0adb0da6e44998bce8b67ca2e84"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59860-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "50d82db391885209c3cdb0a7ac1fff3ad8dc3ea1a1f24ae5b0c01efe54b0b5cb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-59936-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "85e366ca061e2f8bb9bb85328084722c0cd7a1e0a62b5c38c9b1fc22a01efe51"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-60232-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "d152ed234f72d638b203b0a10d0af57fc6183b21793966fd017ccbdba18ba82a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-60632-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "cbb3f38e6f481bcdb5687d0d9dde54dad3fafd4f954784714f2a4155b6c6d911"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-60932-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "fb54abf1d78c9970707d9abf7cb847fc3ee5b13af807bdbc011b5a206d8e1778"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-60988-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "0a8e8e5abdd0487141ee2201ff6260fad38ac51471c97791dcb3fd3c2e431b52"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-61376-1568486400193662282_0.profraw",
+    "bytes": 13936,
+    "sha256": "121c302d50aff398ab9b8b1e575888f8786f3634b81327bd47cb679bed334411"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-61428-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "001909fc0ea463b3b65899b8c020b69f72452bd507e34a9c0bc7220a6ec22e37"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-61464-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "649324a366859ca57e9506c3136cce9f7cede06208293eb5ee79ff24e0054ead"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-61992-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "b6175c1c2aa9520bd1d541dbbaf05649b7697464bc28eb46fd3afa543fee6a48"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62196-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "50d82db391885209c3cdb0a7ac1fff3ad8dc3ea1a1f24ae5b0c01efe54b0b5cb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62372-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "480f085c07e762b7abbcf99665b95ae05d579dc8030202dcc195d3daea2edf85"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62684-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "cd800826a22b5150fee79bc8ba02699fadb4129959b9cf97af1e6ab7f6302944"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62856-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "50d82db391885209c3cdb0a7ac1fff3ad8dc3ea1a1f24ae5b0c01efe54b0b5cb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62864-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "ad23a363856e989abb610980991df59330e0927b910ea5d043082afa75630e88"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62876-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "d188a83f36e0ca56b1b7bab9647d6723aafd9f126633d2c33399e0c494a9fdaf"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-62964-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "cefbf46d160b46f22b8dd066e0d71cebfc09b5b1a0e378ba2fcca0da87c03586"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63044-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "83b172409b1a620ab8cbdd2617b1281d5a8e1f637d870969ba8535b8d469f275"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63060-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "9c4ae4efcf31fe388fe51288ad9415c011b20c5b06cbdc3c8ca2ac89ad4b0997"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63096-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "971dd05eb62f65efe0b00507e944805bfc82061e3191732e7bf5bf6e87c31097"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63308-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "54ba9124fa4f39d091df372cbc80b3d9057e967ea5c46e8c3945ecdda3a141f9"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63348-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "680f5131fafefbdab2f27f37af34ac8c71c833e94accd312b85c697f0edbfc59"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63408-13518403918408400216_0.profraw",
+    "bytes": 296,
+    "sha256": "b32ba1211f480bc66bf87bcba27b0d2422b59ee6fcfe58ea7417a013509ba636"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63472-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "7ec9714925c1f71f08646189ac664b764c55a479f1fbfcf30ce5b7cefbe78ee2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63652-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "00375ed24609827c190596dc4436229808971cbc5ec9b420ac7a8a788d5211ef"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-63920-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "30d547e01870c27bf5e6eb63d85a5b2ac538cc63c84d781b1ce3c70d6fe4a975"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-64612-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "2694b5e5414cdf7c1e50380e41d4c4b59a8ab68a61fad1365e52245c0e733fc2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-65192-12602274469799749958_0.profraw",
+    "bytes": 18320,
+    "sha256": "3db5a700532be75898b8252bde590f5855b7ac2a1fb056679cbb25c2db22b292"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-65312-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "428c44c9d4263b778416849c5cdb800937b7f3b00abce23a765532b8f1ca64f7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe-65324-2394688558521413911_0.profraw",
+    "bytes": 2032,
+    "sha256": "e061f01de79e73694ca6d3eb05eeb2910197d23e771ff12f45ade919440b4cd5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1800141514833Z\\target\\llvm-cov-target\\codex-worker-probe.profdata",
+    "bytes": 39592,
+    "sha256": "ca4daeca0a9db0aa8ff2062dc27e557ca66ac4c082009989aeff40b66a22d83e"
+  }
+]

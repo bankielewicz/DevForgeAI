@@ -1,0 +1,42 @@
+{
+  "after": [
+    {
+      "bytes": 75,
+      "path": "SKILL.md",
+      "sha256": "33a1275643c037442ef543c9070336a8b0476fded2f36a649cf078924e883db0"
+    },
+    {
+      "bytes": 23,
+      "path": "notes.txt",
+      "sha256": "0495c2e05ae0b5b59a2667bf18893129a3bb91399feb0e3b3783b703ca38a577"
+    },
+    {
+      "bytes": 80,
+      "path": "schema.json",
+      "sha256": "b4120c59c1f74ae10826590f23c73479daa80192d28d36e44c1e504c0a324801"
+    }
+  ],
+  "before": [
+    {
+      "bytes": 75,
+      "path": "SKILL.md",
+      "sha256": "33a1275643c037442ef543c9070336a8b0476fded2f36a649cf078924e883db0"
+    },
+    {
+      "bytes": 23,
+      "path": "notes.txt",
+      "sha256": "0495c2e05ae0b5b59a2667bf18893129a3bb91399feb0e3b3783b703ca38a577"
+    },
+    {
+      "bytes": 80,
+      "path": "schema.json",
+      "sha256": "b4120c59c1f74ae10826590f23c73479daa80192d28d36e44c1e504c0a324801"
+    }
+  ],
+  "outcome": "UNCHANGED",
+  "run_id": "synthetic-adoption",
+  "schema_version": "1",
+  "spec_after_sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210",
+  "spec_before_sha256": "3010af7771023e3fdc811a7fbd29097f1b3066c99cad6176438c39ebebe35210",
+  "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912\\profile-checks-release\\revision-v2-positive\\candidate\\project\\src\\agents\\skills\\synthetic-total"
+}

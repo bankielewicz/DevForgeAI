@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "coverage",
+    "run",
+    "--branch",
+    "--source=/mnt/c/Projects/DevForgeAI/src/agents/skills/skill-builder",
+    "/mnt/c/Projects/DevForgeAI/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/test_stage_integrity.py"
+  ],
+  "cwd": "/mnt/c/Projects/DevForgeAI",
+  "os": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "executable": "/usr/bin/python3",
+  "fixture_filesystem": "/tmp Linux native",
+  "source_filesystem": "/mnt/c selected Windows source",
+  "exit_code": 0,
+  "seconds": 7.479522069000041
+}

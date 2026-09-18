@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "status",
+    "assessment_kind",
+    "manifest_sha256",
+    "details",
+    "framework_acceptance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "helper-evidence-result-v1"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "status": {
+      "const": "PASS"
+    },
+    "assessment_kind": {
+      "const": "retained_evidence_reduction"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "details": {
+      "type": "object"
+    },
+    "framework_acceptance": {
+      "const": "NOT_EVALUATED"
+    }
+  },
+  "additionalProperties": false
+}

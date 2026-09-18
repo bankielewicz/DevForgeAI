@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 88544 (child process of PID 105676) has been terminated.
+SUCCESS: The process with PID 92476 (child process of PID 63104) has been terminated.
+SUCCESS: The process with PID 105092 (child process of PID 47384) has been terminated.
+SUCCESS: The process with PID 105676 (child process of PID 47384) has been terminated.
+SUCCESS: The process with PID 63104 (child process of PID 47384) has been terminated.
+SUCCESS: The process with PID 64700 (child process of PID 47384) has been terminated.
+SUCCESS: The process with PID 47384 (child process of PID 67116) has been terminated.

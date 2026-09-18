@@ -1,0 +1,114 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T1342575302099Z",
+  "sources": [
+    {
+      "source_id": "AGENTS",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\AGENTS.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.307487+00:00",
+      "sha256": "a2f9509ac52bdfab53030d679a4f42f5246790c4d052a8d5b181da4043a9fc28",
+      "snapshot_path": "inputs/AGENTS.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "creator-quick_validate",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\creator-quick_validate.py",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.307487+00:00",
+      "sha256": "ee6dba90f44d37171c5a6edb8095979c54919ff6822c1a907afca2e78c48738c",
+      "snapshot_path": "inputs/creator-quick_validate.py",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "creator-SKILL",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\creator-SKILL.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.307487+00:00",
+      "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+      "snapshot_path": "inputs/creator-SKILL.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "openai-build-skills",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\openai-build-skills.md",
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved_at_utc": "2026-09-15T13:44:58.308487+00:00",
+      "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+      "snapshot_path": "inputs/openai-build-skills.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "live_verified"
+    },
+    {
+      "source_id": "operational-adaptive-validation",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\operational-adaptive-validation.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.308487+00:00",
+      "sha256": "a60505d369ba58dc85386c3f044bc1c2986d0c12cd95cac4dd85a1c03866fc29",
+      "snapshot_path": "inputs/operational-adaptive-validation.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "operational-reporting",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\operational-reporting.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.308487+00:00",
+      "sha256": "499a8503187c8421e05bf0b5c16731575c4000e03e018ff117411d4ed8a25960",
+      "snapshot_path": "inputs/operational-reporting.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "operational-rules",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\operational-rules.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.308487+00:00",
+      "sha256": "be0914fe8e61e75917d38d721fc97074254fe457dd18c9055ca1030aad7508a8",
+      "snapshot_path": "inputs/operational-rules.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "skill-validator-adaptive-enhancement-spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\skill-validator-adaptive-enhancement-spec.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.308487+00:00",
+      "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42",
+      "snapshot_path": "inputs/skill-validator-adaptive-enhancement-spec.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "skill-validator-spec",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260915T1342575302099Z\\inputs\\skill-validator-spec.md",
+      "url": null,
+      "retrieved_at_utc": "2026-09-15T13:44:58.309487+00:00",
+      "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+      "snapshot_path": "inputs/skill-validator-spec.md",
+      "sections": [
+        "entire document"
+      ],
+      "freshness": "snapshot_only"
+    }
+  ]
+}

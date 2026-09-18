@@ -1,0 +1,6 @@
+
+running 1 test
+test sqlite_reader_keeps_its_generation_while_writer_publishes_and_collects ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+

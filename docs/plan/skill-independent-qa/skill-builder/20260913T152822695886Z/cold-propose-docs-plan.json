@@ -1,0 +1,24 @@
+{
+  "case": "cold-propose-docs",
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 278,
+      "sha256": "365484430c034c1f0e6a5d2f2096341f54be749dd38ad61197021d3c7298548d"
+    },
+    {
+      "path": "docs/api.md",
+      "bytes": 48,
+      "sha256": "e9310e56d35bea53c1ea2f66bb33a42184f1ffdb7dd369a9dc22b4a83ef86749"
+    },
+    {
+      "path": "docs/requirements.md",
+      "bytes": 79,
+      "sha256": "4a318cbcd8ee4face037041920032ee1fded75eda5230d503ba7ee3fe285905a"
+    }
+  ],
+  "expected": "Cited fixture conventions and requirements; no invented tools or project execution; complete proposal/evidence or precise unresolved gaps; no skill packages",
+  "timeout": 120,
+  "write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-propose-docs",
+  "method": "native explicit"
+}

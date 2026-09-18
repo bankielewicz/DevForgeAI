@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "label": "03-owned-format-apply",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\rustfmt.exe",
+    "--edition",
+    "2024",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\tests\\effective_profile_edges.rs"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T003840Z-dev\\effective-dev\\target"
+  },
+  "stdin": "DEVNULL",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\rustup.exe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "recorder_sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+  "candidate_before_sha256": "1499576b7d2c4e4536c12b3e1d06621b9a681459e84de09966f707c5742be3b0",
+  "start_utc": "2026-09-16T00:48:53.884454+00:00",
+  "timeout_seconds": 60,
+  "owned_pid": 63936,
+  "end_utc": "2026-09-16T00:48:53.971352+00:00",
+  "duration_monotonic_ns": 63000000,
+  "native_exit_code": 0,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate_after_sha256": "14af7c879e7d5735cd31c947d59fc6ae7d2982595008a56db07711cdfa9d6b74",
+  "candidate_unchanged": false
+}

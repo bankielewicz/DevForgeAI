@@ -1,0 +1,37 @@
+[
+  {
+    "case_id": "valid",
+    "expected_exit": 0,
+    "basis": "Closed frozen shared contract."
+  },
+  {
+    "case_id": "extra-key",
+    "expected_exit": 1,
+    "basis": "Closed frozen shared contract."
+  },
+  {
+    "case_id": "unknown-version",
+    "expected_exit": 1,
+    "basis": "Closed frozen shared contract."
+  },
+  {
+    "case_id": "missing-member",
+    "expected_exit": 1,
+    "basis": "Closed frozen shared contract."
+  },
+  {
+    "case_id": "duplicate-member",
+    "expected_exit": 1,
+    "basis": "Closed frozen shared contract."
+  },
+  {
+    "case_id": "malformed-id",
+    "expected_exit": 1,
+    "basis": "Closed frozen shared contract."
+  },
+  {
+    "case_id": "bad-digest",
+    "expected_exit": 1,
+    "basis": "Closed frozen shared contract."
+  }
+]

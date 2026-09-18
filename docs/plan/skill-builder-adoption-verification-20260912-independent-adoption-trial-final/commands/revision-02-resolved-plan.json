@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-09-12T15:29:48.487768+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\build_evidence.py",
+    "revision-plan",
+    "--snapshot-root",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\snapshot",
+    "--request",
+    "revision-02-resolved/evidence/revision-request.json"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"adoption_origin\": {\"path\": \"adoption/evidence/adoption-record.json\", \"sha256\": \"44f43530ca0892328a54353c3eed07758f5c2626f09c87b208530970eb4f1083\"}, \"after\": \"revision-02-resolved/after\", \"applied_paths\": [], \"baseline\": \"revision-02-resolved/baseline\", \"baseline_advanced\": false, \"baseline_after\": {\"path\": \"adoption/evidence/published-origin.json\", \"sha256\": \"7312e598bd518e616636de0033cf5e09b49ef58607f63d671970cc2cc8264b3f\"}, \"baseline_before\": {\"path\": \"adoption/evidence/published-origin.json\", \"sha256\": \"7312e598bd518e616636de0033cf5e09b49ef58607f63d671970cc2cc8264b3f\"}, \"candidate\": \"revision-02-resolved/candidate\", \"current\": \"revision-02-resolved/current\", \"evaluation_passed\": false, \"owned_paths\": [\"SKILL.md\", \"scripts/receipt_totals.py\"], \"prior_origin\": {\"kind\": \"adopted\", \"path\": \"adoption/evidence/adoption-record.json\", \"sha256\": \"44f43530ca0892328a54353c3eed07758f5c2626f09c87b208530970eb4f1083\"}, \"readback_passed\": false, \"required_paths\": [\"SKILL.md\", \"scripts/receipt_totals.py\"], \"retry_of\": {\"path\": \"revision-01-conflict/evidence/revision-plan.json\", \"sha256\": \"056067e150b22578c3d4f508e2b367365003f37a85c4804441a1a03380b464f3\"}, \"rows\": [{\"action\": \"USE_NEW\", \"b_sha256\": \"7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a\", \"c_sha256\": \"7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a\", \"n_sha256\": \"6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb\", \"ownership\": \"adopted\", \"path\": \"SKILL.md\", \"reason\": \"Current bytes equal the previous generated baseline.\"}, {\"action\": \"KEEP_CURRENT\", \"b_sha256\": null, \"c_sha256\": \"db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94\", \"n_sha256\": null, \"ownership\": \"retained_user\", \"path\": \"notes.txt\", \"reason\": \"Generation is unchanged; retain the user's current bytes.\"}, {\"action\": \"USE_NEW\", \"b_sha256\": \"c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0\", \"c_sha256\": \"c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0\", \"n_sha256\": \"ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73\", \"ownership\": \"adopted\", \"path\": \"scripts/receipt_totals.py\", \"reason\": \"Current bytes equal the previous generated baseline.\"}], \"run_id\": \"revision-02-resolved\", \"schema_version\": \"2\", \"status\": \"PLANNED\"}\n",
+  "stderr": ""
+}

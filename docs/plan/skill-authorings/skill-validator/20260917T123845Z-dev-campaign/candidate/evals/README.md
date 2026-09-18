@@ -1,0 +1,9 @@
+# Validator-owned evaluation
+
+[validator-cases.jsonl](validator-cases.jsonl) retains V01-V20 for standalone validator behavior. [dev-cases.jsonl](dev-cases.jsonl) retains D01-D20 for the dev product-implementation skill in the same observation shape; those are declarative expectations for bounded trials, not grader inputs, and no profile executes them. The migrated [profiles.json](profiles.json), cases, portable fixtures, scripts/run_evaluation.py, graders.py and regression tests retain legacy import/specification/regeneration/adoption expectations. Their schema-1/schema-2 COMPLETE meanings remain unchanged. The legacy build_evidence.py and custody.py bundled here support regression fixtures only; ordinary assessments do not adopt or publish builder origins.
+
+Use [evaluation.md](../references/evaluation.md) and [evaluator-contracts.md](../references/evaluator-contracts.md) for those legacy interfaces. Resolve <validator> as the package root owning the runner. New authoring-v1 packets instead use [authoring-intake.md](../references/authoring-intake.md), authoring tests and fresh user-contract trials. All testing belongs here; builder contains no quality campaign.
+
+Run `python -B -X utf8 -m unittest discover -s <validator>/tests -v` from an authorized disposable evidence environment, setting temporary storage under that run. Retain exact package snapshots, case files, commands, output, failures and retries before claiming observed results. Python/PyYAML must already be available. Include the actual installed Skill Creator checker when available.
+
+Independent tasks get the selected skill and minimal raw inputs without expected answers. Native implicit activation remains NOT_RUN unless actually observed. Self-review is labeled and cannot count as independent evidence. Ordinary assessment does not run every builder campaign automatically; select proportionately to the changed workflow and requested acceptance scope.

@@ -1,0 +1,1 @@
+{"state": "AUTHORED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\followup-02\\records\\docs\\plan\\set-c-complete-run", "applied_paths": ["SKILL.md", "assets/devforgeai-skill.json", "references/adaptive-contract.md", "scripts/check_project_binding.py"], "issues": []}

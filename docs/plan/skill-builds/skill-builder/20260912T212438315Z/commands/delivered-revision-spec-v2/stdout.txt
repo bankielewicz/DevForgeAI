@@ -1,0 +1,1 @@
+{"records": 3, "exit_code": 0, "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-builder\\20260912T212438315Z\\delivered-results.jsonl", "authority": "NONE"}

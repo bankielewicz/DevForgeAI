@@ -1,0 +1,13 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2310456388212Z",
+  "target_name": "dev",
+  "assessment_finished": true,
+  "owned_running_jobs": [],
+  "remaining_required_coverage": [
+    "Accepted manual handoff for DV-16",
+    "Fresh revised-candidate DV-17 and full required revalidation"
+  ],
+  "next_safe_action": "Review proposed literal-output correction and separate handoff compatibility decision; no automatic repair",
+  "source_package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae"
+}

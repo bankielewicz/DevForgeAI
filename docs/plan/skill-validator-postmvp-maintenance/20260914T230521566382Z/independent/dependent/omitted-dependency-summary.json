@@ -1,0 +1,12 @@
+{
+  "schema_version": "trial-summary-v1",
+  "required_total": 1,
+  "passed": 1,
+  "cases": [
+    {
+      "case_id": "dependent",
+      "result": "PASS"
+    }
+  ],
+  "outcome": "PASS"
+}

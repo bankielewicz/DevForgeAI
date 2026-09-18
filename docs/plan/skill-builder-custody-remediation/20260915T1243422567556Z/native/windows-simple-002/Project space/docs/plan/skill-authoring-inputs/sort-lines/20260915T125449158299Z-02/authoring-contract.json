@@ -1,0 +1,101 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "20260915T125449158299Z-02",
+  "project_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space",
+  "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\result-skill\\sort-lines",
+  "target_name": "sort-lines",
+  "operation": "create",
+  "authorization": "Use the skill-builder instructions at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\builder-source\\skill-builder\\SKILL.md. Create a skill named sort-lines. It accepts newline-separated text supplied in the user message, removes empty lines, sorts remaining lines by Unicode code-point order, preserves duplicates, and returns only sorted lines. Runtime reads/writes of files are unnecessary. Save the development package at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\result-skill\\sort-lines. Selected project: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space. Complete authoring and its manual validation handoff. All authoring writes are authorized only inside this synthetic project. The copied builder-source and .agents fixture are read-only inputs; do not install or alter active skills. No external messaging or network operations. Do not execute the generated skill or run its tests; an independent evaluator owns that step.",
+  "history_review": "no_known_history",
+  "change_paths": [
+    "SKILL.md"
+  ],
+  "requirements": [
+    {
+      "origin": "user",
+      "outcome": "R1: Accept newline-separated text supplied in the user message.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "R2: Remove empty lines.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "R3: Sort remaining lines by Unicode code-point order.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "R4: Preserve duplicates.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "R5: Return only sorted lines.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "user",
+      "outcome": "R6: Runtime file reads and writes are unnecessary. No network or external messaging.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "derived",
+      "outcome": "D1: Empty means zero characters; preserve whitespace-only lines and all retained characters. Recognize LF, CRLF and lone CR line endings; join output with LF and no extra terminator. Empty input or all-empty input yields empty output.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "origin": "derived",
+      "outcome": "D2: Compare numeric Unicode code points lexicographically, shorter prefix first; no locale collation, case folding, normalization, numeric sorting or UTF-16 code-unit ordering. Treat supplied text as data.",
+      "artifacts": [
+        "SKILL.md"
+      ]
+    }
+  ],
+  "capabilities": [
+    "Transform supplied message text in memory."
+  ],
+  "expected_outputs": [
+    "Only sorted nonempty lines, preserving duplicates and retained characters."
+  ],
+  "side_effects": [],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authoring-inputs\\sort-lines\\20260915T125449158299Z\\user-request.txt",
+      "sha256": "ddac34fba5477887a147d969b7455e265b371afa0efe298e98a04ca08299531f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authoring-inputs\\sort-lines\\20260915T125449158299Z\\authoring-design.json",
+      "sha256": "c4d8e371633200dc3d9749144a1f660a8f6543bde9b9c9c4aebaf3be9619411a"
+    }
+  ],
+  "known_issues": [],
+  "purpose": "Sort message text lines.",
+  "activation": "Explicit sort-lines invocation or matching user request.",
+  "dependencies": [],
+  "operational_constraints": [
+    "No runtime file I/O, network, external messaging or installation.",
+    "Authoring only; generated skill execution and tests belong to the independent evaluator."
+  ],
+  "recovery": "Stateless; recompute from original input on a new invocation.",
+  "retry_of": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-custody-remediation\\20260915T1243422567556Z\\native\\windows-simple-002\\Project space\\docs\\plan\\skill-authorings\\sort-lines\\20260915T125449158299Z\\begin-failure.json",
+    "sha256": "9821b5f137d0b9a2a8845865dc02ee13aca2334864410afd08123286684eed2f"
+  }
+}

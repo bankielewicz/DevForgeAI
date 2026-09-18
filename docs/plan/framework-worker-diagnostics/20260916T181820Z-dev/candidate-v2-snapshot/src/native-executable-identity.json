@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "adapter": "codex-0.154.0-stdio",
+  "captured_alias": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+  "physical_executable": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+  "executable_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "junctions": [
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin",
+      "target": "C:\\Users\\bryan\\.codex\\packages\\standalone\\current\\bin"
+    },
+    {
+      "path": "C:\\Users\\bryan\\.codex\\packages\\standalone\\current",
+      "target": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc"
+    }
+  ]
+}

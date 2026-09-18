@@ -1,0 +1,17 @@
+{
+  "group": "compatibility",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-16-1HlZXfH",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-16-1HlZXfH\\run",
+    "state": "timed_out",
+    "schema": 3,
+    "level": "off",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-16-1HlZXfH\\control-stdout.txt",
+    "control_sha256": "f8e9645765ecbf6d59ec2442a02fb1f84ce716d84e78a1f27290513064731b99"
+  },
+  "mutation": "failure-null",
+  "expected_error": null,
+  "expected_state": "timed_out",
+  "views": "first-and-end",
+  "id": "M-132"
+}

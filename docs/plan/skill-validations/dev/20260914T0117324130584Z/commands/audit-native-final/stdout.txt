@@ -1,0 +1,859 @@
+[
+  {
+    "trial_id": "DV-01",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 4,
+    "references_checked": 20,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "setup",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 4,
+        "attempt_id": "qa",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-02",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "timeout",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 6,
+    "references_checked": 18,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "harness",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "producer-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "producer-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 4,
+        "attempt_id": "consumer-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 5,
+        "attempt_id": "consumer-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 6,
+        "attempt_id": "qa",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-03-python",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "timeout",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "setup-001",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-03-javascript",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 8,
+    "references_checked": 40,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "setup",
+        "stage": "setup",
+        "result": "ERROR",
+        "exit_code": null
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "red",
+        "stage": "red",
+        "result": "ERROR",
+        "exit_code": null
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "setup-direct",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 4,
+        "attempt_id": "red-direct",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 5,
+        "attempt_id": "red-inprocess",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 6,
+        "attempt_id": "green-inprocess",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 7,
+        "attempt_id": "qa-syntax",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 8,
+        "attempt_id": "qa-required",
+        "stage": "qa",
+        "result": "FAIL",
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-04",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 4,
+    "references_checked": 12,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "setup-001",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 4,
+        "attempt_id": "qa-001",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-05",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": false,
+    "receipt_count": 0,
+    "references_checked": 0,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": []
+  },
+  {
+    "trial_id": "DV-06",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 0,
+    "references_checked": 0,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": []
+  },
+  {
+    "trial_id": "DV-07",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 1,
+    "references_checked": 2,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/execution.jsonl",
+        "line": 1,
+        "attempt_id": "DV-07-ENV-001",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-08",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "qa-001",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-09",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "qa",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-10",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 4,
+    "references_checked": 12,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "01-baseline",
+        "stage": "setup",
+        "result": "ERROR",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "02-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "03-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 4,
+        "attempt_id": "04-qa",
+        "stage": "qa",
+        "result": "ERROR",
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-11",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 1,
+    "references_checked": 17,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/execution.jsonl",
+        "line": 1,
+        "attempt_id": "DV-11-QA-analysis-001",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-12",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "01-setup",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "02-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "03-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-13",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 2,
+    "references_checked": 6,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-14",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "timeout",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 0,
+    "references_checked": 0,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": []
+  },
+  {
+    "trial_id": "DV-17",
+    "attempts": [
+      "attempt-001",
+      "attempt-002"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "custom receipts/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "custom receipts/execution-record.jsonl",
+        "line": 1,
+        "attempt_id": "01-harness",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "custom receipts/execution-record.jsonl",
+        "line": 2,
+        "attempt_id": "02-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "custom receipts/execution-record.jsonl",
+        "line": 3,
+        "attempt_id": "03-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "DV-18",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "evidence/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [
+      [
+        "evidence/executions.jsonl",
+        4
+      ]
+    ],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 1,
+        "attempt_id": "S1-setup",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 2,
+        "attempt_id": "S1-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "evidence/executions.jsonl",
+        "line": 3,
+        "attempt_id": "S1-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "RV-02",
+    "attempts": [
+      "attempt-001",
+      "attempt-002"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "custom receipts Ω [$literal]/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 7,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "custom receipts Ω [$literal]/executions.jsonl",
+        "line": 1,
+        "attempt_id": "red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "custom receipts Ω [$literal]/executions.jsonl",
+        "line": 2,
+        "attempt_id": "green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "custom receipts Ω [$literal]/executions.jsonl",
+        "line": 3,
+        "attempt_id": "setup-001",
+        "stage": "setup",
+        "result": "ERROR",
+        "exit_code": 1
+      }
+    ]
+  },
+  {
+    "trial_id": "RV-03",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "selected receipts/",
+    "selected_root_is_directory": true,
+    "receipt_count": 4,
+    "references_checked": 16,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "selected receipts/executions.jsonl",
+        "line": 1,
+        "attempt_id": "harness-001",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "selected receipts/executions.jsonl",
+        "line": 2,
+        "attempt_id": "red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "selected receipts/executions.jsonl",
+        "line": 3,
+        "attempt_id": "green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "selected receipts/executions.jsonl",
+        "line": 4,
+        "attempt_id": "qa-001",
+        "stage": "qa",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "RV-04",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "timeout",
+    "exit_status": 1,
+    "immutable_changes": [],
+    "selected_evidence_value": "custom receipts/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "custom receipts/executions.jsonl",
+        "line": 1,
+        "attempt_id": "S1-setup-001",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "custom receipts/executions.jsonl",
+        "line": 2,
+        "attempt_id": "S1-red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "custom receipts/executions.jsonl",
+        "line": 3,
+        "attempt_id": "S1-green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "RV-05",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "unavailable receipts/child/",
+    "selected_root_is_directory": false,
+    "receipt_count": 0,
+    "references_checked": 0,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": []
+  },
+  {
+    "trial_id": "RV-06",
+    "attempts": [
+      "attempt-001"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "new receipts/",
+    "selected_root_is_directory": true,
+    "receipt_count": 2,
+    "references_checked": 6,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "new receipts/executions.jsonl",
+        "line": 1,
+        "attempt_id": "resume-red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "new receipts/executions.jsonl",
+        "line": 2,
+        "attempt_id": "resume-green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  }
+]

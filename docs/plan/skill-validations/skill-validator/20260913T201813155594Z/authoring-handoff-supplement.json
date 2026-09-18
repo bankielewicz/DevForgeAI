@@ -1,0 +1,30 @@
+{
+  "record_kind": "focused-observed-edit-handoff",
+  "target_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\source-manifest.json",
+    "sha256": "5a01e7cacf6ac60e2e5314ad7df94a4e6229888b96dd6c4fa288d77b68c73478"
+  },
+  "proposal": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\revision-spec.md",
+    "sha256": "832de4a0d2512f9f50481aeb822645c3830bfd005da954a0a10070dc69b92c25"
+  },
+  "proposal_review_state": "pending",
+  "reviewed_findings": [
+    "F-0b5c4676e917c304c39f8339e6536ba54a08ec05f7d410ab6c4c83a12791ddba",
+    "F-451f9ac54c52d553ee8d83d14dd69b0487d7a66ed6da8003b8eebe25af0ff720",
+    "F-423b36f0fa4378d0d426892377bea79335327a3b1507d05d7c5459de655252aa",
+    "F-fb4a957d8ef5cf9a369515aa9a44ca736024f52c57fa25f06bdb25248953af48"
+  ],
+  "authorized_for_repair": false,
+  "observed_scoped_edit_basis": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\source-manifest.json",
+    "sha256": "5a01e7cacf6ac60e2e5314ad7df94a4e6229888b96dd6c4fa288d77b68c73478"
+  },
+  "basis_limit": "Exact current-byte capture; not a generated/adopted baseline and not proof that known historical custody is valid. The later maintainer must inspect applicable provenance and explicitly select the supported edit basis.",
+  "adoption_is_not_automatically_required": true,
+  "legacy_handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T201813155594Z\\member-records\\handoff.json",
+    "sha256": "be52003a4558b5d062eedefb4a5a1c570659a8d53968003264f605e270c2c241"
+  }
+}

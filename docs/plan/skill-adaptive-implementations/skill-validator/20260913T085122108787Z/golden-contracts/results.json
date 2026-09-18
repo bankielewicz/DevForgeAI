@@ -1,0 +1,51 @@
+[
+  {
+    "case_id": "valid",
+    "expected_exit": 0,
+    "builder_exit": 0,
+    "validator_exit": 0,
+    "agreement": true
+  },
+  {
+    "case_id": "extra-key",
+    "expected_exit": 1,
+    "builder_exit": 1,
+    "validator_exit": 1,
+    "agreement": true
+  },
+  {
+    "case_id": "unknown-version",
+    "expected_exit": 1,
+    "builder_exit": 1,
+    "validator_exit": 1,
+    "agreement": true
+  },
+  {
+    "case_id": "missing-member",
+    "expected_exit": 1,
+    "builder_exit": 1,
+    "validator_exit": 1,
+    "agreement": true
+  },
+  {
+    "case_id": "duplicate-member",
+    "expected_exit": 1,
+    "builder_exit": 1,
+    "validator_exit": 1,
+    "agreement": true
+  },
+  {
+    "case_id": "malformed-id",
+    "expected_exit": 1,
+    "builder_exit": 1,
+    "validator_exit": 1,
+    "agreement": true
+  },
+  {
+    "case_id": "bad-digest",
+    "expected_exit": 1,
+    "builder_exit": 1,
+    "validator_exit": 1,
+    "agreement": true
+  }
+]

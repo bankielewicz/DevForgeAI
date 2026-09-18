@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\self-review\\20260912T161000Z"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start_utc": "2026-09-12T16:12:27.379452+00:00",
+  "end_utc": "2026-09-12T16:12:27.816068+00:00",
+  "exit_code": 1,
+  "state": "exited",
+  "stdout": {
+    "path": "commands/self-records/stdout.txt",
+    "sha256": "a58a30b1508ce2fe51522730251a1b270eb6e56ee787fe7b7c7438e5e6960155"
+  },
+  "stderr": {
+    "path": "commands/self-records/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

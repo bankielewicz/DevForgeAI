@@ -1,0 +1,10 @@
+{
+  "schema_version": "authoring-stage-integrity-v1",
+  "run_id": "dev-claude-conversion-001",
+  "target_name": "dev",
+  "origin_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260917T103754Z-claude-conversion\\origin.json",
+    "sha256": "cac90e333286d4a570058214249455e7a88b98586715821a0b3d72b2a7b2abd0"
+  },
+  "design_capture_requested": true
+}

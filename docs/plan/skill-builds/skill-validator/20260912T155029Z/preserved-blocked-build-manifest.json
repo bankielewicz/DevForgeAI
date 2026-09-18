@@ -1,0 +1,38 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T140148003Z",
+  "captured_at_utc": "2026-09-12T15:51:45.097610+00:00",
+  "files": [
+    {
+      "path": "build-report.md",
+      "bytes": 5697,
+      "sha256": "0be8cbe47dd672edfb1b94473841173c99e5a168a9284f3c90b03af8ffa62af2"
+    },
+    {
+      "path": "command-log.md",
+      "bytes": 3483,
+      "sha256": "f1dc1b046b5a0c65a3ccf39bda43bbf45b3d369ac0c30450a46b6095f9a209a0"
+    },
+    {
+      "path": "input-inventory.json",
+      "bytes": 764,
+      "sha256": "8f9292fc94d055011e1b4e5c57ceee8cd82999a912049f700c366af914f4fcc5"
+    },
+    {
+      "path": "inputs/SKILL-SPEC-013-skill-validator.md",
+      "bytes": 92463,
+      "sha256": "92df7f861af77655843a2a468091810afbe754590b53a66362fde57121d6af33"
+    },
+    {
+      "path": "record-gaps.py",
+      "bytes": 8976,
+      "sha256": "a36ef8ab49dcd49e9fd1eb9388c8136b9cb6a1f7c1209ec8677da44b2c1123a4"
+    },
+    {
+      "path": "spec-gaps.json",
+      "bytes": 4416,
+      "sha256": "9bfb39a200a36523eeba582192e2e75420b9c8298ae60070fd7b6f97262dbbdb"
+    }
+  ],
+  "excluded_boundaries": []
+}

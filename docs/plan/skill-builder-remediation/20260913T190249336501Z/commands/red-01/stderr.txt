@@ -1,0 +1,363 @@
+test_F01_extra (__main__.Regression) ... ok
+test_F01_kind (__main__.Regression) ... FAIL
+test_F01_quality (__main__.Regression) ... FAIL
+test_F01_record_manifest (__main__.Regression) ... FAIL
+test_F01_request_kind (__main__.Regression) ... FAIL
+test_F01_request_manifest (__main__.Regression) ... FAIL
+test_F01_request_name (__main__.Regression) ... FAIL
+test_F01_request_paths (__main__.Regression) ... FAIL
+test_F01_request_project (__main__.Regression) ... FAIL
+test_F01_request_root (__main__.Regression) ... FAIL
+test_F01_request_run (__main__.Regression) ... FAIL
+test_F01_request_type (__main__.Regression) ... FAIL
+test_F01_valid (__main__.Regression) ... ok
+test_F02_bad_optional_ref (__main__.Regression) ... FAIL
+test_F02_bad_optional_type (__main__.Regression) ... FAIL
+test_F02_duplicate_paths (__main__.Regression) ... ok
+test_F02_missing (__main__.Regression) ... ok
+test_F02_optional_valid (__main__.Regression) ... ok
+test_F02_unknown (__main__.Regression) ... FAIL
+test_F02_valid (__main__.Regression) ... ok
+test_F03_excluded_IDENTITY_PFX (__main__.Regression) ... FAIL
+test_F03_excluded_ID_RSA (__main__.Regression) ... FAIL
+test_F03_excluded__env (__main__.Regression) ... ERROR
+ERROR
+test_F03_excluded_id_dsa (__main__.Regression) ... FAIL
+test_F03_excluded_id_ecdsa (__main__.Regression) ... FAIL
+test_F03_excluded_id_ecdsa_sk (__main__.Regression) ... FAIL
+test_F03_excluded_id_ed25519 (__main__.Regression) ... FAIL
+test_F03_excluded_id_ed25519_sk (__main__.Regression) ... FAIL
+test_F03_excluded_id_rsa (__main__.Regression) ... ERROR
+test_F03_excluded_identity_p12 (__main__.Regression) ... FAIL
+test_F03_excluded_identity_pfx (__main__.Regression) ... ERROR
+test_F03_excluded_identity_ppk (__main__.Regression) ... FAIL
+test_F03_excluded_private_key (__main__.Regression) ... ERROR
+test_F03_excluded_private_pem (__main__.Regression) ... ERROR
+test_F03_permitted_certificate_cer (__main__.Regression) ... ok
+test_F03_permitted_certificate_crt (__main__.Regression) ... ok
+test_F03_permitted_id_rsa_pub (__main__.Regression) ... ok
+test_F03_permitted_normal_txt (__main__.Regression) ... ok
+test_F03_permitted_public_pub (__main__.Regression) ... ok
+test_F04_baseline (__main__.Regression) ... ok
+test_F04_digest (__main__.Regression) ... ok
+test_F04_duplicate (__main__.Regression) ... ok
+test_F04_extra (__main__.Regression) ... ok
+test_F04_missing (__main__.Regression) ... ok
+test_F04_valid (__main__.Regression) ... ERROR
+test_F04_wrong_name (__main__.Regression) ... ok
+test_F04_wrong_run (__main__.Regression) ... ok
+
+======================================================================
+ERROR: test_F03_excluded__env (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 128, in exclusion
+    self.capture_before()
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 59, in capture_before
+    self.before = manifest(self.folder)
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\evidence.py", line 39, in manifest
+    raise ValueError('excluded path: ' + rel)
+ValueError: excluded path: package/nested/.env
+
+======================================================================
+ERROR: test_F03_excluded__env (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 63, in tearDown
+    dump(ATTEMPT/'receipts'/(self._testMethodName+'-after.json'), manifest(self.folder))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\evidence.py", line 39, in manifest
+    raise ValueError('excluded path: ' + rel)
+ValueError: excluded path: package/nested/.env
+
+======================================================================
+ERROR: test_F03_excluded_id_rsa (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 56, in setUp
+    self.folder.mkdir(parents=True, exist_ok=False)
+  File "C:\Program Files\Python310\lib\pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\trials\\red-01\\test_F03_excluded_id_rsa'
+
+======================================================================
+ERROR: test_F03_excluded_identity_pfx (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 56, in setUp
+    self.folder.mkdir(parents=True, exist_ok=False)
+  File "C:\Program Files\Python310\lib\pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\trials\\red-01\\test_F03_excluded_identity_pfx'
+
+======================================================================
+ERROR: test_F03_excluded_private_key (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 139, in exclusion
+    self.assertEqual(ctx.exception.reason, 'UNSAFE_PATH')
+AttributeError: 'BindingError' object has no attribute 'reason'
+
+======================================================================
+ERROR: test_F03_excluded_private_pem (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 139, in exclusion
+    self.assertEqual(ctx.exception.reason, 'UNSAFE_PATH')
+AttributeError: 'BindingError' object has no attribute 'reason'
+
+======================================================================
+ERROR: test_F04_valid (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 158, in <lambda>
+    install('F04_valid', lambda self: self.pointer(valid=True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 93, in pointer
+    self.assertEqual(authoring.begin(path, run)['state'], 'STAGED')
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\authoring.py", line 281, in begin
+    prior, baseline = origin(c)
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\authoring.py", line 227, in origin
+    custody.adoption_record(base, files(base), record, problems)
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\custody.py", line 272, in adoption_record
+    raise ValueError("adoption target must identify the selected development directory")
+ValueError: adoption target must identify the selected development directory
+
+======================================================================
+FAIL: test_F01_kind (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_quality (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_record_manifest (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_kind (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_manifest (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_name (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_paths (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_project (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_root (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_run (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F01_request_type (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 185, in <lambda>
+    install('F01_'+name, lambda self, m=mutation: self.linked(m))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 121, in linked
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F02_bad_optional_ref (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 154, in <lambda>
+    install('F02_bad_optional_ref', lambda self: self.intake(lambda c: c.update(retry_of={'path':'x','sha256':'wrong'})))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 75, in intake
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F02_bad_optional_type (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 155, in <lambda>
+    install('F02_bad_optional_type', lambda self: self.intake(lambda c: c.update(dependencies=False)))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 75, in intake
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F02_unknown (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 152, in <lambda>
+    install('F02_unknown', lambda self: self.intake(lambda c: c.update(unlisted_field=True)))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 75, in intake
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_F03_excluded_IDENTITY_PFX (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_ID_RSA (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_id_dsa (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_id_ecdsa (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_id_ecdsa_sk (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_id_ed25519 (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_id_ed25519_sk (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_identity_p12 (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+======================================================================
+FAIL: test_F03_excluded_identity_ppk (__main__.Regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 188, in <lambda>
+    install('F03_excluded_'+name.replace('.','_'), lambda self,n=name: self.exclusion(n, True))
+  File "C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\test_remediation.py", line 137, in exclusion
+    with self.assertRaises(adaptive.runtime.BindingError) as ctx:
+AssertionError: BindingError not raised
+
+----------------------------------------------------------------------
+Ran 47 tests in 5.767s
+
+FAILED (failures=23, errors=7)

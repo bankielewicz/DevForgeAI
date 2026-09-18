@@ -1,0 +1,42 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "20260916-cleanup-tests",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\delivered-manifest.json",
+    "sha256": "33831c9093c5a1a76edce6b2c6731775515813b8e708887f65e734ae7a06398b"
+  },
+  "package_digest": "0cb044977cb8821fa42a927a35334543ba7c4b59f4a712f278da66d46ff03293",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\authoring-record.json",
+    "sha256": "34b8077abb8a5ef3676d1c2825bfbad363d0ae7bbbd78ce4757c8ea90ec71f35"
+  },
+  "specification_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests-intake\\task-capture.md",
+      "sha256": "e9075a3a8990bfa08b66345e0cd5fc12b8f5684f8a17020a8efb93db0ca2ba50"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests-intake\\workflow-design.json",
+      "sha256": "8480a923f8e61e073df36e1e68ec77f7d066420a33c4042a33cc450536c01ad1"
+    }
+  ],
+  "changed_paths": [
+    "artifact-manifest.json",
+    "tests/test_cleanup.py"
+  ],
+  "known_issues": [
+    "Live terminal display, native Claude qualification, independent skill validation and installation are outside this focused test task."
+  ],
+  "capabilities": [],
+  "expected_outputs": [
+    "Cleanup regression cases and measured coverage"
+  ],
+  "side_effects": [
+    "Local synthetic child processes and temporary test files"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

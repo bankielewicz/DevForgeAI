@@ -1,0 +1,20 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\skills\\ledger-d",
+  "captured_at_utc": "2026-09-15T00:19:59.905949+00:00",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 585,
+      "sha256": "af81717f49df28f13833f15cfc60ceebb38ed0e11b1e1ff8c41f7565da9dbbbf"
+    },
+    {
+      "path": "scripts/total.py",
+      "bytes": 842,
+      "sha256": "9a268ca0f2c4c93958e08946096729e7fde3e425afa25b8a10b1fe28d98923ba"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "5277faf2d7cfa398a60416da67b7acdcef588561e3485608667f50a959c026c9"
+}

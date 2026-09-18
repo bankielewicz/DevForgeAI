@@ -1,0 +1,21 @@
+{
+  "executor": "Independent Codex subagent /root/routing_classification",
+  "input_scope": "Description and unlabeled prompts only; no workspace tools or evaluator labels",
+  "observations": [
+    {"id":"R01","select":true,"reason":"Requests a story from a feature request."},
+    {"id":"R02","select":true,"reason":"Requests stories from selected epic outcomes."},
+    {"id":"R03","select":true,"reason":"Requests a story from an architecture seed."},
+    {"id":"R04","select":true,"reason":"Requests follow-up stories from QA recommendations."},
+    {"id":"R05","select":true,"reason":"Requests a story from an RCA recommendation."},
+    {"id":"R06","select":true,"reason":"Requests a story for a deferred acceptance obligation."},
+    {"id":"R07","select":false,"reason":"Requests implementation and regression testing."},
+    {"id":"R08","select":false,"reason":"Requests independent product QA."},
+    {"id":"R09","select":false,"reason":"Requests an audit of existing stories."},
+    {"id":"R10","select":false,"reason":"Requests epic creation."},
+    {"id":"R11","select":false,"reason":"Requests sprint planning."},
+    {"id":"R12","select":false,"reason":"Requests installation and runtime binding."}
+  ],
+  "matching": 12,
+  "required": 12,
+  "native_discovery": "Not established by this classification"
+}

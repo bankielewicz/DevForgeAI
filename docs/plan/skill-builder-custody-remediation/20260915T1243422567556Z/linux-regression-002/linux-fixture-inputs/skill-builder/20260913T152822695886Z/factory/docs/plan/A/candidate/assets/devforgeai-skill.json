@@ -1,0 +1,18 @@
+{
+  "schema_version": "adaptive-skill-v1",
+  "name": "notes-a",
+  "role": "expertise",
+  "binding_required": true,
+  "parent_core": null,
+  "contract_path": "references/adaptive-contract.md",
+  "required_capabilities": [
+    "Python 3.10+"
+  ],
+  "resource_roles": [
+    {
+      "path": "scripts/check_project_binding.py",
+      "role": "runtime",
+      "reason": "Checks binding before product actions."
+    }
+  ]
+}

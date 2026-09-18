@@ -1,0 +1,17 @@
+{
+  "trial_id": "DV-14",
+  "attempts": [
+    "attempt-001",
+    "attempt-002"
+  ],
+  "termination": "exited",
+  "exit_status": 0,
+  "immutable_changes": [],
+  "selected_evidence_value": "evidence/",
+  "selected_root_is_directory": true,
+  "receipt_count": 0,
+  "references_checked": 0,
+  "unsupported_rows": [],
+  "problems": [],
+  "receipts": []
+}

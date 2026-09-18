@@ -1,0 +1,76 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 7416,
+      "sha256": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e"
+    },
+    {
+      "path": "artifact-manifest.json",
+      "bytes": 2543,
+      "sha256": "246ed473c4554a68537dfa34e57e03ddf6fcafc976adc48dd1667acdf2f37151"
+    },
+    {
+      "path": "evals/case.schema.json",
+      "bytes": 439,
+      "sha256": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "bytes": 21820,
+      "sha256": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735"
+    },
+    {
+      "path": "evals/coverage-entrypoints.ini",
+      "bytes": 136,
+      "sha256": "8c89e416aaa4ba21f4dab8ae06a48691c5ca67ab5aa601a6e44644e95026b39c"
+    },
+    {
+      "path": "evals/run_evaluation.py",
+      "bytes": 4355,
+      "sha256": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63"
+    },
+    {
+      "path": "references/evaluation.md",
+      "bytes": 4881,
+      "sha256": "f1953e240a45d5113e631b53d5cc3761de3973b77f25e4eb1968d3bc8e79bd3c"
+    },
+    {
+      "path": "references/execution.md",
+      "bytes": 11496,
+      "sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444"
+    },
+    {
+      "path": "scripts/advisor.ps1",
+      "bytes": 1219,
+      "sha256": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789"
+    },
+    {
+      "path": "scripts/advisor_run.py",
+      "bytes": 26690,
+      "sha256": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8"
+    },
+    {
+      "path": "scripts/advisor_stream.py",
+      "bytes": 12146,
+      "sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9"
+    },
+    {
+      "path": "tests/test_cleanup.py",
+      "bytes": 12386,
+      "sha256": "f73fdb17ec92a0f70816580085592c1975064b7995eb75c2e5313377235b74c7"
+    },
+    {
+      "path": "tests/test_integrity.py",
+      "bytes": 6275,
+      "sha256": "ef9492e0116402bcda084b5f336a5e7780426ae8d5340bb01b1204a89220ac76"
+    },
+    {
+      "path": "tests/test_streaming.py",
+      "bytes": 39067,
+      "sha256": "7e89bbae94fec456101a007a060a7d89c6128f469dc6bf78d3f3b2bc23c92db4"
+    }
+  ],
+  "package_digest": "64d8aa0ac0f2afa301dc659c535ba9275dfe432dd39baa5b177e3bcf6908f648"
+}

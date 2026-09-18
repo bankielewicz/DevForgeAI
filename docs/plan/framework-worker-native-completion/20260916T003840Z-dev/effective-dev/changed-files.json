@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "scope": "effective-profile requirement-derived coverage tests",
+  "added": [
+    {
+      "path": "devforgeai/experiments/codex-worker-probe/tests/effective_profile_edges.rs",
+      "bytes": 28517,
+      "sha256": "a1c8ff3852e788afba78ec66218d9c282880626e0470dde1260032c04c2b3e5c",
+      "test_functions": 8
+    }
+  ],
+  "modified_by_this_slice": [],
+  "removed_by_this_slice": [],
+  "production_source_readback": {
+    "path": "devforgeai/experiments/codex-worker-probe/src/effective_profile.rs",
+    "before_sha256": "33edc40ceb050be3ce0195de0c5ca7176475b2b0d14d8b730fe0ebe41872302c",
+    "after_sha256": "33edc40ceb050be3ce0195de0c5ca7176475b2b0d14d8b730fe0ebe41872302c",
+    "unchanged": true
+  },
+  "existing_test_readback": {
+    "path": "devforgeai/experiments/codex-worker-probe/tests/effective_profile.rs",
+    "before_sha256": "90676312ab3b73af79760bedd5337b05af72f85a231dc8bc306c20d4f9119d52",
+    "after_sha256": "90676312ab3b73af79760bedd5337b05af72f85a231dc8bc306c20d4f9119d52",
+    "unchanged": true
+  }
+}

@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["full_set/subset scope mismatch"], "ordered_member_ids": []}

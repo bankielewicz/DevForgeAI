@@ -1,0 +1,44 @@
+{
+  "builder_manifest_sha256": "9e3f983302f5050ad31b446f6654a5d85e40ac21fa0643cd84d3fb143f9b262b",
+  "contract_sha256": "81eb6da5b71b41f2587b7f092e8b33b94f4614cfcea8debe8cf74c61da992ac6",
+  "dependencies": [],
+  "evidence": [
+    {
+      "id": "previous-observation",
+      "path": "revision/previous-observation.json",
+      "sha256": "616e9aef5e9f5cd740924558f7429dad56d52c5ce34a13622352c7f0adfe18bd"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "previous-input",
+      "sha256": "eb569a25e37fbcc7337a4ab18bf3959d8c3503d2cabddf4c54752046c1ee11d4"
+    }
+  ],
+  "mappings": [
+    {
+      "artifact_paths": [
+        "SKILL.md"
+      ],
+      "evidence_ids": [
+        "previous-observation"
+      ],
+      "requirement_id": "previous-requirement"
+    }
+  ],
+  "mode": "spec_build",
+  "outputs": [
+    {
+      "baseline_path": "revision/baseline/SKILL.md",
+      "baseline_sha256": "a7a3359ec8c0d0cbcb7ccb7e0241028ae85c50ac08e4f8bd2d6401acb16f4824",
+      "ownership": "generated",
+      "path": "SKILL.md",
+      "sha256": "a7a3359ec8c0d0cbcb7ccb7e0241028ae85c50ac08e4f8bd2d6401acb16f4824"
+    }
+  ],
+  "prior_build": null,
+  "result": "COMPLETE",
+  "run_id": "previous-synthetic-run",
+  "schema_version": "1",
+  "target_name": "synthetic-total"
+}

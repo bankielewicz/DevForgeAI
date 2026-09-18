@@ -1,0 +1,182 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1804261755406Z",
+  "target_name": "qa",
+  "steps": [
+    {
+      "step_id": "intake",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Selected project/specification/story scope and mode"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Bind source/input/output identities; discover rules/tools; reject missing or stale execution intake.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "plan",
+      "failure_route": "Return exact missing input/candidate decision.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    },
+    {
+      "step_id": "plan",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Bound selected criteria and actual candidate/tools"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Read planning, integrity and assessment; map independent cases and publish READY or NEEDS_INPUT plan.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "handoff for plan; execute only separately selected",
+      "failure_route": "Retain exact missing oracle/tool/scope owner.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    },
+    {
+      "step_id": "execute",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Explicit selected plan/candidate/effects"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Preserve candidate, execute bounded cases, collect raw receipts and integrity/metric evidence.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "assess",
+      "failure_route": "Retain ERROR/NOT_RUN/failure/timeout evidence and owned state.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    },
+    {
+      "step_id": "assess",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Candidate-bound actual results"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Apply exact independent floors and FAIL before INCOMPLETE before PASS.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "publish",
+      "failure_route": "Missing evidence cannot yield PASS; confirmed failures remain FAIL.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    },
+    {
+      "step_id": "publish",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Actual verdict and evidence"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Fill report and on FAIL fix packet; read back literal paths and final external manifest.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "handoff",
+      "failure_route": "No claim of delivery after failed readback; retain partial artifact state.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    },
+    {
+      "step_id": "handoff",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Verified actual artifacts and host availability"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Plan to later selected QA; FAIL to dev; incomplete to prerequisite owner; PASS to defined review owner.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "terminal",
+      "failure_route": "Missing dev remains pending; no automatic install/repair/invocation.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    },
+    {
+      "step_id": "retest_resume",
+      "source_refs": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86",
+          "source_id": "qa-entrypoint",
+          "locator": "Follow the selected workflow"
+        }
+      ],
+      "inputs": [
+        "Corrected candidate/defect set or checkpoint"
+      ],
+      "executor": "Codex agent using available terminal/file tools",
+      "action": "Recheck source/spec/plan/tools/permissions/process state; independently retest, invalidate on drift.",
+      "outputs": [
+        "Bound plan, records, report/fix/checkpoint or user outcome as applicable"
+      ],
+      "completion_evidence": [
+        "Actual published/read-back artifacts and receipts in native trials"
+      ],
+      "next": "assess or explicit prerequisite handoff",
+      "failure_route": "Preserve old findings and uncertain effects; no blind replay.",
+      "terminal_user_outcome": "Resolved artifact links and next owner/action; no authority or release claim."
+    }
+  ]
+}

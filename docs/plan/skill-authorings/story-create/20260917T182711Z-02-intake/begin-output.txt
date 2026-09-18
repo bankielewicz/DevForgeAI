@@ -1,0 +1,1 @@
+{"state": "STAGED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02", "candidate": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\candidate"}

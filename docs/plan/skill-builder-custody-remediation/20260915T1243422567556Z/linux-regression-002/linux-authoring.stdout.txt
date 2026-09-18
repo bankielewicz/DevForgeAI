@@ -1,0 +1,48 @@
+{"command": ["/usr/bin/python3", "-B", "-X", "utf8", "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/regression/run_suite.py", "linux-authoring", "--modules", "test_design", "test_authoring", "test_authoring_safeguards"], "cwd": "/tmp/devforgeai-regression-v3-same-process-002", "shell": "Python subprocess argument vector", "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39", "filesystem_root": "/", "start": "2026-09-15T13:14:38.877828+00:00", "timeout_seconds": 120, "exit_code": 0, "elapsed_seconds": 4.7023712379998415, "timeout": false}
+{"required": 133, "observed": 133, "passed": 133, "pass_rate": 100.0, "covered_lines": 808, "statements": 2302, "line_percent": 35.09991311902693, "covered_branches": 390, "branches": 1048, "source_unchanged": true, "duplicate_cases": false, "nonpasses": []}
+
+thoringTests.test_untested_revision) ... ok
+test_verified_legacy_adoption_origin (test_authoring.AuthoringTests.test_verified_legacy_adoption_origin) ... ok
+test_verified_schema1_legacy_origin (test_authoring.AuthoringTests.test_verified_schema1_legacy_origin) ... ok
+test_wrong_scope_rejected (test_authoring.AuthoringTests.test_wrong_scope_rejected) ... ok
+test_adoption_cannot_change_bytes (test_authoring_safeguards.AuthoringSafeguards.test_adoption_cannot_change_bytes) ... ok
+test_attempt_cannot_publish_twice (test_authoring_safeguards.AuthoringSafeguards.test_attempt_cannot_publish_twice) ... ok
+test_authored_origin_identity_and_publication_are_required (test_authoring_safeguards.AuthoringSafeguards.test_authored_origin_identity_and_publication_are_required) ... ok
+test_authorized_deletion_records_delta (test_authoring_safeguards.AuthoringSafeguards.test_authorized_deletion_records_delta) ... ok
+test_capture_actual_byte_limit (test_authoring_safeguards.AuthoringSafeguards.test_capture_actual_byte_limit) ... ok
+test_capture_actual_file_count_limit (test_authoring_safeguards.AuthoringSafeguards.test_capture_actual_file_count_limit) ... ok
+test_capture_drift_preserves_failed_attempt (test_authoring_safeguards.AuthoringSafeguards.test_capture_drift_preserves_failed_attempt) ... ok
+test_captured_base_tampering_rejected (test_authoring_safeguards.AuthoringSafeguards.test_captured_base_tampering_rejected) ... ok
+test_cli_begin_publish_read_and_invalid_input (test_authoring_safeguards.AuthoringSafeguards.test_cli_begin_publish_read_and_invalid_input) ... ok
+test_delivered_corruption_never_creates_baseline (test_authoring_safeguards.AuthoringSafeguards.test_delivered_corruption_never_creates_baseline) ... ok
+test_double_evidence_write_failure_returns_actual_delta (test_authoring_safeguards.AuthoringSafeguards.test_double_evidence_write_failure_returns_actual_delta) ... ok
+test_final_target_drift_blocks_publication (test_authoring_safeguards.AuthoringSafeguards.test_final_target_drift_blocks_publication) ... ok
+test_input_in_target_rejected (test_authoring_safeguards.AuthoringSafeguards.test_input_in_target_rejected) ... ok
+test_intake_location_and_identity_constraints (test_authoring_safeguards.AuthoringSafeguards.test_intake_location_and_identity_constraints) ... ok
+test_json_nonfinite_rejected (test_authoring_safeguards.AuthoringSafeguards.test_json_nonfinite_rejected) ... ok
+test_keep_current_retains_user_change_and_generated_baseline (test_authoring_safeguards.AuthoringSafeguards.test_keep_current_retains_user_change_and_generated_baseline) ... ok
+test_legacy_baseline_drift_rejected (test_authoring_safeguards.AuthoringSafeguards.test_legacy_baseline_drift_rejected) ... ok
+test_legacy_contract_and_authorized_input_mismatches_rejected (test_authoring_safeguards.AuthoringSafeguards.test_legacy_contract_and_authorized_input_mismatches_rejected) ... ok
+test_legacy_out_of_scope_baseline_recovery (test_authoring_safeguards.AuthoringSafeguards.test_legacy_out_of_scope_baseline_recovery) ... ok
+test_legacy_source_and_evidence_drift_rejected (test_authoring_safeguards.AuthoringSafeguards.test_legacy_source_and_evidence_drift_rejected) ... ok
+test_legacy_wrong_identity_and_failed_history_rejected (test_authoring_safeguards.AuthoringSafeguards.test_legacy_wrong_identity_and_failed_history_rejected) ... ok
+test_out_of_scope_baseline_recovered_from_prior (test_authoring_safeguards.AuthoringSafeguards.test_out_of_scope_baseline_recovered_from_prior) ... ok
+test_path_and_reference_boundaries (test_authoring_safeguards.AuthoringSafeguards.test_path_and_reference_boundaries) ... ok
+test_per_path_concurrent_write_is_preserved (test_authoring_safeguards.AuthoringSafeguards.test_per_path_concurrent_write_is_preserved) ... ok
+test_pointer_write_corruption_blocks_publication (test_authoring_safeguards.AuthoringSafeguards.test_pointer_write_corruption_blocks_publication) ... ok
+test_re_adoption_with_prior_rejected (test_authoring_safeguards.AuthoringSafeguards.test_re_adoption_with_prior_rejected) ... ok
+test_read_detects_concurrent_size_change (test_authoring_safeguards.AuthoringSafeguards.test_read_detects_concurrent_size_change) ... ok
+test_record_families_reject_invalid_states (test_authoring_safeguards.AuthoringSafeguards.test_record_families_reject_invalid_states) ... ok
+test_snapshot_write_corruption_is_detected (test_authoring_safeguards.AuthoringSafeguards.test_snapshot_write_corruption_is_detected) ... ok
+test_staging_changes_during_preflight_block_write (test_authoring_safeguards.AuthoringSafeguards.test_staging_changes_during_preflight_block_write) ... ok
+test_supplied_capture_corruption_retains_failure (test_authoring_safeguards.AuthoringSafeguards.test_supplied_capture_corruption_retains_failure) ... ok
+test_target_changes_at_first_write_check_block_write (test_authoring_safeguards.AuthoringSafeguards.test_target_changes_at_first_write_check_block_write) ... ok
+test_target_changes_before_baseline_block_publication (test_authoring_safeguards.AuthoringSafeguards.test_target_changes_before_baseline_block_publication) ... ok
+test_unreadable_after_interruption_reports_gap (test_authoring_safeguards.AuthoringSafeguards.test_unreadable_after_interruption_reports_gap) ... ok
+test_verified_schema2_generated_legacy_origin (test_authoring_safeguards.AuthoringSafeguards.test_verified_schema2_generated_legacy_origin) ... ok
+
+----------------------------------------------------------------------
+Ran 133 tests in 4.327s
+
+OK
+

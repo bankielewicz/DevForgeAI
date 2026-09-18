@@ -1,0 +1,267 @@
+{
+  "qa_run": "20260917T105456Z-qa-retest",
+  "intent": "retest",
+  "project": "C:\\Projects\\DevForgeAI",
+  "platform": "Windows x64 / native C: / native PowerShell",
+  "original_evidence_selection": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging",
+  "required_destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest",
+  "actual_destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest",
+  "plan_readiness": "READY",
+  "execution_status": "COMPLETED",
+  "verdict": "PASS",
+  "candidate_root": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "development_handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\handoff-manifest.json",
+    "bytes": 13307,
+    "sha256": "1e4e0800a737f07d658a50383ccdf98c6aa5237c73675d2539ccb7689065f9f5"
+  },
+  "original_qa_handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\handoff-manifest.json",
+    "bytes": 10117,
+    "sha256": "0c6949f4379e7c469643f34ad6d4b1f664f48177f8865d12dfedd7cbe901019e"
+  },
+  "defect_states": {
+    "QA-LOG-01": "VERIFIED_FIXED",
+    "QA-LOG-02": "VERIFIED_FIXED"
+  },
+  "open_findings": [],
+  "remaining_required_cases": [],
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "entries": {
+    "qa-report.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-report.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-report.md",
+      "bytes": 33598,
+      "sha256": "4e161af4f429dc0bf4ddd7363ee54c968fef655ae6d483e2fdb0bd835708ccc0"
+    },
+    "next-review-prompt.txt": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\next-review-prompt.txt",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\next-review-prompt.txt",
+      "bytes": 1149,
+      "sha256": "f949c301491571495ce91adef2ec71409b5197a1e17c2ae46a2cea0dab8ef8a4"
+    },
+    "checkpoint.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\checkpoint.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\checkpoint.json",
+      "bytes": 3835,
+      "sha256": "dda476ee6133b1671a28492ced708edfeefe860c3e2192b84f389c98fba73a95"
+    },
+    "checkpoint-before-execution.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\checkpoint-before-execution.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\checkpoint-before-execution.json",
+      "bytes": 445,
+      "sha256": "830061b7b09a319ca47c8b7ccd160b21e3dfffc77914d03e05faf1d4754f16a5"
+    },
+    "plan.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan.md",
+      "bytes": 16728,
+      "sha256": "ba861353e765a1161a5a024d4a26f95623f6dbb14ac2bdb14c98745c5c3463c4"
+    },
+    "plan-binding.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan-binding.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\plan-binding.json",
+      "bytes": 490,
+      "sha256": "961598faf1514f33a4ab5f39ad61d2837a81400e71bbb233950c7df505ff9a7b"
+    },
+    "candidate-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\candidate-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\candidate-manifest.json",
+      "bytes": 16170,
+      "sha256": "44dcb32397b479506ae84b85fa536f40f4bf5234a7647c4e86d160507926761d"
+    },
+    "changed-files.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\changed-files.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\changed-files.json",
+      "bytes": 1540,
+      "sha256": "6508508d19f1224086308d65f70aa8c9e2f890aede8a5250f614bb6a4764563d"
+    },
+    "input-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\input-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\input-manifest.json",
+      "bytes": 24899,
+      "sha256": "21c139a83cf14b4178b1796219fd99876192f6001a28b5cbea005339bf018618"
+    },
+    "preserved-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\preserved-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\preserved-manifest.json",
+      "bytes": 43371,
+      "sha256": "f5bed915f27d171f5e1c7fdaa99fed06c04ebcae98c83721c49a1e00c53d5e63"
+    },
+    "specification-bindings.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\specification-bindings.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\specification-bindings.json",
+      "bytes": 1813,
+      "sha256": "d4368d0dcc4039bcd8c162f020dd1bb7a862f76b737c3978c4924d623d604108"
+    },
+    "required-cases.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\required-cases.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\required-cases.json",
+      "bytes": 50929,
+      "sha256": "e6a0767d5d5f74e75b623fa40fcb012319f72df8072902df7817d86a66a9667d"
+    },
+    "case-results.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\case-results.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\case-results.json",
+      "bytes": 55896,
+      "sha256": "60990b5f982dade62c212fc0ab0054d173140c201895c03457bf380e8e8e56e3"
+    },
+    "criterion-results.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\criterion-results.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\criterion-results.json",
+      "bytes": 24825,
+      "sha256": "25efe60b3aedc71fb85d22b4a0a95111aee257faf5ff03b1f89e816c74cbfcc0"
+    },
+    "findings.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\findings.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\findings.json",
+      "bytes": 3787,
+      "sha256": "b2aed39d34bea772da131b8c99c7b798ecb21be7cb538ede69e546f63432e3b0"
+    },
+    "defect-lifecycle.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\defect-lifecycle.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\defect-lifecycle.json",
+      "bytes": 3895,
+      "sha256": "3346d347541f3f78a945fed3ab32fa5e703005b79e4faefe42b7e7923c5ffb34"
+    },
+    "metrics.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\metrics.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\metrics.json",
+      "bytes": 1676,
+      "sha256": "4370c364cac9e99dfd4952f39658b8872aaecad4d3ee3c9671b99f0b01dc22d2"
+    },
+    "source-denominator.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\source-denominator.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\source-denominator.json",
+      "bytes": 3463,
+      "sha256": "aef799f26a76bbd7f23988feb9c55c6837fcb2cf76ad905d5446f2c6010d41c5"
+    },
+    "coverage.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage.json",
+      "bytes": 1542501,
+      "sha256": "5765b6fc92f554c63c7015060c9a90dc24da00f07f58507f407f804d6b647ae3"
+    },
+    "coverage-analysis.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-analysis.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage-analysis.json",
+      "bytes": 3379,
+      "sha256": "0a150bd05ee3f038cb2e4e0651ec3dad535e3a6bf3255a6e56181b4633fead29"
+    },
+    "package-results.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\package-results.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\package-results.json",
+      "bytes": 52287,
+      "sha256": "acf93e9332a661d00903b65e8da13eea294eb89a1e73ae6503be278708523239"
+    },
+    "original-defect-retest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\original-defect-retest.json",
+      "bytes": 2918,
+      "sha256": "0880f8df9527cf3fbf7674c501293b6db5a5cf10ceb5dec6fc6353f308cf238e"
+    },
+    "integrity.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\integrity.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\integrity.md",
+      "bytes": 3457,
+      "sha256": "a6a456a99bde8d382b1ababd67b5d1b7d60b13a5e4aecf4ad6e6231faa49db17"
+    },
+    "harness-gap-01.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\harness-gap-01.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\harness-gap-01.md",
+      "bytes": 1505,
+      "sha256": "495040d94e4254b4c54170be19f27bcef242a513336cecdd7913029df548477c"
+    },
+    "documentation-review.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\documentation-review.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\documentation-review.json",
+      "bytes": 22395,
+      "sha256": "817dce1713e1e5ca78b2d8f76f608b83e65dafdbca10fa94a785605c3e0218ce"
+    },
+    "publication-review.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\publication-review.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\publication-review.json",
+      "bytes": 24704,
+      "sha256": "9ba2c2f8097f9bd7a26363f8915ef463f5c00415742197cf904c9ea2ec7d6aed"
+    },
+    "attempt-index.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempt-index.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempt-index.json",
+      "bytes": 8848,
+      "sha256": "646d09413962ad86d271122e520b2109d23f7ac3717c2128b03931c2c00443fd"
+    },
+    "intake-verification.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\intake-verification.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\intake-verification.json",
+      "bytes": 679,
+      "sha256": "fa9cc248e4453a61c236ecc0bdec2dfc77ca56daf57f94d6bdf1b189d61dc284"
+    },
+    "final-preservation.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\final-preservation.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\final-preservation.json",
+      "bytes": 1696,
+      "sha256": "d5d11eb615d78fad22849dc3d2ec86284a4ae9e7404bd2e238cff59352421b6f"
+    },
+    "helper-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\helper-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\helper-manifest.json",
+      "bytes": 2192,
+      "sha256": "e35b9c7975c7aede9fa3cde5f697d6a0c18d3dc0a98b27e7247f6136cda09da5"
+    },
+    "helper-provenance.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\helper-provenance.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\helper-provenance.json",
+      "bytes": 3003,
+      "sha256": "dbbc3fda1ac761f930f3bc2beeecf0ab90945754c6f97ec002f8538b43bf3584"
+    },
+    "binary-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\binary-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\binary-manifest.json",
+      "bytes": 1600,
+      "sha256": "0516ca0a1dda04a60043bd0b6081b803c2c67d52a95521693eb3ec3028f522e4"
+    },
+    "independent-binary-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\independent-binary-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\independent-binary-manifest.json",
+      "bytes": 830,
+      "sha256": "84d1d0175e69e86c73a7522a7f3cf3eb3212d8ce4d098cff6937b927070157f1"
+    },
+    "cli-helper-v2-binding.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-helper-v2-binding.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-helper-v2-binding.json",
+      "bytes": 233,
+      "sha256": "85abf9be3ef877fa04e6ec9d6f8c33050b7e7d91b11074c1fbfea72fda53f54f"
+    },
+    "cli-matrix-plan.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-matrix-plan.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-matrix-plan.json",
+      "bytes": 245563,
+      "sha256": "21da5b845ebe33e7e898850c192b862fb3831591539fdb224c06036fdf99b553"
+    },
+    "cli-matrix-plan-v2.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-matrix-plan-v2.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli-matrix-plan-v2.json",
+      "bytes": 245563,
+      "sha256": "e89ea045db1b6a9b529310793a51e5f7eba8b68a0689180c35bc65970702f87b"
+    },
+    "rt-01-observations.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-01-observations.json",
+      "bytes": 101665,
+      "sha256": "adfbb935cc1202f1055fa72f191e5026640fb91457e4cf2afd9255f37361dfb1"
+    },
+    "rt-02-observations.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\rt-02-observations.json",
+      "bytes": 23219,
+      "sha256": "249dd81b155a8a85bd9dc6cefa6c7d9648299ebd635051e939e4a1e3ce0cf650"
+    },
+    "evidence-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\evidence-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\evidence-manifest.json",
+      "bytes": 2237723,
+      "sha256": "8df3849cdc6d06764d7c79ebc3117014f5c7c346082f7b0997de2ccfa8b0f286"
+    }
+  }
+}

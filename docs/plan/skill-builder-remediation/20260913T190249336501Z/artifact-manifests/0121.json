@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-binding-byte-limit",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1292,
+      "sha256": "df917145a6c8bb461137524fc6b6926dd3a66ac5e31d89bae5b5ce22d71dd4b4"
+    },
+    {
+      "path": "result.json",
+      "bytes": 295,
+      "sha256": "578ef5fdd15aa59fb35bff5d20e91dacb765c7ba80bb6085844b02859a0f5c5b"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 228,
+      "sha256": "dea1fe948bbf8fe1f7b0b98b59596d3bc8b64d51c2a53e2af27c8418ec48c656"
+    }
+  ]
+}

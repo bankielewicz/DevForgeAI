@@ -1,0 +1,11 @@
+windows-valid PASS
+windows-relocated PASS
+windows-missing PASS
+windows-symlink PASS
+windows-private-key-name FAIL
+windows-pfx-name FAIL
+windows-exact-files PASS
+windows-over-files PASS
+windows-exact-bytes PASS
+windows-over-bytes PASS
+{"cases": 11, "failures": ["windows-private-key-name", "windows-pfx-name"]}

@@ -1,0 +1,70 @@
+{
+  "adoption_origin": {
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "814a61bc213f9f8bccda8f4b8abc66fa26d50e72ccb3da15721a571469764e4d"
+  },
+  "after": "later-revision-03/after",
+  "applied_paths": [
+    "SKILL.md",
+    "scripts/receipt_totals.py"
+  ],
+  "baseline": "later-revision-03/baseline",
+  "baseline_advanced": false,
+  "baseline_after": {
+    "path": "revision-02-resolved/evidence/published-origin.json",
+    "sha256": "e705346015758aa977e7d2a658f193303917078cce4a2ca74e19335f5d17a1a5"
+  },
+  "baseline_before": {
+    "path": "revision-02-resolved/evidence/published-origin.json",
+    "sha256": "e705346015758aa977e7d2a658f193303917078cce4a2ca74e19335f5d17a1a5"
+  },
+  "candidate": "later-revision-03/candidate",
+  "current": "later-revision-03/current",
+  "evaluation_passed": true,
+  "owned_paths": [
+    "SKILL.md",
+    "scripts/receipt_totals.py"
+  ],
+  "prior_origin": {
+    "kind": "generated",
+    "path": "revision-02-resolved/evidence/build-provenance.json",
+    "sha256": "01f8e5b59ac1ced4acbb2fda825de99fb0879bef9fc58edc9cc0778385ab93eb"
+  },
+  "readback_passed": true,
+  "required_paths": [
+    "SKILL.md",
+    "scripts/receipt_totals.py"
+  ],
+  "rows": [
+    {
+      "action": "USE_NEW",
+      "b_sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb",
+      "c_sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb",
+      "n_sha256": "ae560a929b32afff9e85a5bf706526d843140b6378d96dadfb6b6b48652a33b4",
+      "ownership": "generated",
+      "path": "SKILL.md",
+      "reason": "Current bytes equal the verified prior baseline."
+    },
+    {
+      "action": "KEEP_CURRENT",
+      "b_sha256": null,
+      "c_sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94",
+      "n_sha256": null,
+      "ownership": "retained_user",
+      "path": "notes.txt",
+      "reason": "Generation is unchanged; retain the user's current bytes."
+    },
+    {
+      "action": "USE_NEW",
+      "b_sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73",
+      "c_sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73",
+      "n_sha256": "b6148a15f3ba564c01a5c3e661bde783cb129eca98a924f0a4712aee01e13260",
+      "ownership": "generated",
+      "path": "scripts/receipt_totals.py",
+      "reason": "Current bytes equal the verified prior baseline."
+    }
+  ],
+  "run_id": "later-revision-03",
+  "schema_version": "2",
+  "status": "APPLIED"
+}

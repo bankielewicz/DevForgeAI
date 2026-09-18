@@ -1,0 +1,30 @@
+{
+  "attempt_id": "bridge-refactor",
+  "stage": "refactor",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--lib",
+    "--test",
+    "transport_edges",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\bridge-refactor\\gui"
+  },
+  "source_manifest_sha256": "521212d9ae8ed31a426fe10453ef2e882b8bb7239d6ac5a7f8594a84ab886d0d",
+  "started_at": "2026-09-14T20:09:38.408802+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 101,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T20:09:43.448156+00:00",
+  "elapsed_seconds": 5.047000000002299,
+  "stdout.txt_sha256": "5da7fba33209335f98fbe3403b158c16e7413750f0cdffc91102ef02960cc98d",
+  "stderr.txt_sha256": "c2339b2dd3e7faf589e328bb3044cfe212593fdf5952b3eed984d1a89203434b"
+}

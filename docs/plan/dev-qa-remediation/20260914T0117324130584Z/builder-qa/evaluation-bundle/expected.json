@@ -1,0 +1,13 @@
+{
+  "HELPER-REGRESSIONS": {
+    "required_count": 71
+  },
+  "VALIDATOR-REGRESSIONS": {
+    "required_count": 292
+  },
+  "HELPER-COVERAGE": {
+    "file": "src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+    "total_statements": 453,
+    "minimum_line_percent": 95
+  }
+}

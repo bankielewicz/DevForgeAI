@@ -1,0 +1,10 @@
+{
+  "schema_version": "trial-seal-v1",
+  "original_plan": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\dependent\\plan.json",
+    "sha256": "89e5c259e7b1087efb11549dcd266f2118adb7ba7d7acf034d490a1beb01ac7b"
+  },
+  "plan_sha256": "89e5c259e7b1087efb11549dcd266f2118adb7ba7d7acf034d490a1beb01ac7b",
+  "timeout_seconds": 5,
+  "sealed_at": "2026-09-14T23:13:05.851273+00:00"
+}

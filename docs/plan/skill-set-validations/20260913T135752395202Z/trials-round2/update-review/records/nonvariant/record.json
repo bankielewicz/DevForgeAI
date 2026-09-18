@@ -1,0 +1,107 @@
+{
+  "schema_version": "adaptation-proposal-v1",
+  "run_id": "fixture",
+  "mode": "review_updates",
+  "project_evidence": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\evidence.json",
+    "sha256": "ddce94ef2f908f826fb09f27a73c49a43a263af40dc40ab63ac2fff42f7b7b9d"
+  },
+  "prior_proposal": null,
+  "requirements": [
+    {
+      "id": "R1",
+      "origin": "user",
+      "statement": "Preserve facts.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect preserved output."
+    },
+    {
+      "id": "R2",
+      "origin": "user",
+      "statement": "Use local files.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect preserved output."
+    },
+    {
+      "id": "R3",
+      "origin": "user",
+      "statement": "Preserve inputs.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\authorization.txt",
+            "sha256": "7260848abc741adcc63d6a904922b24a9d5beb6f4175130f12067f0734ad1af1"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect preserved output."
+    }
+  ],
+  "members": [
+    {
+      "id": "A",
+      "name": "notes-variant",
+      "role": "expertise",
+      "action": "retain",
+      "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\skills\\notes-variant",
+      "existing_package": {
+        "name": "notes-variant",
+        "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\skills\\notes-variant",
+        "manifest": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\update-review\\variant-manifest.json",
+          "sha256": "f2c289f55000f1e8cdaa3715503c4a1dd531a1d41d30f5b271a20f250a278a25"
+        },
+        "package_digest": "f13a0dd728511232424e4d3e8e80428917f609039708b55ba3b2e4b4179b7f5f"
+      },
+      "parent_core": null,
+      "responsibility": "Summarize notes.",
+      "exclusions": [
+        "HTTP"
+      ],
+      "triggers": [
+        "Summarize supplied notes"
+      ],
+      "near_misses": [
+        "Install skills"
+      ],
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3"
+      ],
+      "fact_ids": [
+        "domain"
+      ],
+      "rationale": "Selected local note responsibility.",
+      "depends_on": [],
+      "capabilities": [],
+      "lineage_delta": []
+    }
+  ],
+  "handoffs": [],
+  "gaps": [],
+  "state": "NO_CHANGE"
+}

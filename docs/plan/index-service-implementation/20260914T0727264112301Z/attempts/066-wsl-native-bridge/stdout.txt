@@ -1,0 +1,7 @@
+
+running 2 tests
+test stopped_distribution_is_never_invoked_by_a_status_poll ... ok
+test native_wsl_bridge_preserves_pause_and_environment_identity ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.96s
+

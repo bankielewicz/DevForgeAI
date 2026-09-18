@@ -1,0 +1,15 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-003\\disposable\\validator-helper-uu6idw_7\\project with spaces\\example",
+  "captured_at_utc": "2026-09-13T02:40:48.483897+00:00",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 127,
+      "sha256": "42e2516c9c45cc018b4549cc3aa2592b2204768500661de1e8d1c78989c53c03"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "1053d807b836690c75625945821415623225e8fe5199b114b810a26317a9384b"
+}

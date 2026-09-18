@@ -1,0 +1,18 @@
+
+running 1 test
+test tray_provenance_tracks_each_project_and_handles_unknown_values ... FAILED
+
+failures:
+
+---- tray_provenance_tracks_each_project_and_handles_unknown_values stdout ----
+
+thread 'tray_provenance_tracks_each_project_and_handles_unknown_values' (45676) panicked at tests\tray.rs:66:5:
+assertion failed: display.contains("Current generation: generation-alpha")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tray_provenance_tracks_each_project_and_handles_unknown_values
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+

@@ -1,0 +1,19 @@
+{
+  "required": 318,
+  "passed": 318,
+  "unexecuted": [],
+  "nonpasses": [],
+  "pass_rate": 100.0,
+  "covered_lines": 2201,
+  "statements": 2299,
+  "line_percent": 95.73727707699,
+  "branch_percent": 89.77055449330784,
+  "inputs": {
+    "results.jsonl": "205de3475e95e5b4eab05c11db825cfa2c917f8bf51e15039dba338152558627",
+    "expected.json": "4d484a9131d06cd37741d2f4406b0bbb818189906c4758d9442170ede5382488",
+    "coverage.json": "ae744982dcdd571cde8b71cfcff45fb44ff9cd6e9552b3b0673a097ba5ca58da",
+    "scope.json": "139ec1e7d006740cd6d9df9c6e26cd5f803334c94569fe00ad08e95061ecd723"
+  },
+  "thresholds_met": true,
+  "mandatory_cases_passed": true
+}

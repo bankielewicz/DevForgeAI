@@ -1,0 +1,30 @@
+{
+  "schema_version": "advisor-streaming-red-plan-v1",
+  "created_utc": "2026-09-16T13:45:00Z",
+  "candidate": "source/",
+  "candidate_package_digest": "3421375172a40ede80bed73fe05d24ee1611089e853bfe3d4a8a80dc1871ba51",
+  "timeout_seconds": 20,
+  "cases": [
+    {
+      "id": "RED-CONTROL-JSON",
+      "requirement": "Legacy quiet JSON remains a valid control.",
+      "input": "A synthetic local Claude executable emits one valid JSON result envelope.",
+      "expected": {"exit_code": 0, "response_status": "VALID", "verdict": "PROCEED"}
+    },
+    {
+      "id": "RED-CLI-SHOW-PROGRESS",
+      "requirement": "The run CLI accepts --show-progress and retains a valid result.",
+      "input": "The same synthetic executable; the public CLI receives --show-progress.",
+      "expected": {"exit_code": 0, "response_status": "VALID", "verdict": "PROCEED"}
+    },
+    {
+      "id": "RED-STREAM-RESULT",
+      "requirement": "The runner consumes JSONL events and validates exactly one successful terminal result.",
+      "input": "A synthetic local Claude executable emits an init event followed by one valid result event as JSONL.",
+      "expected": {"exit_code": 0, "response_status": "VALID", "verdict": "PROCEED"}
+    }
+  ],
+  "oracle_independence": "The fixture supplies fixed protocol examples and compares public CLI outputs to the approved observable contract. It does not import product parsing, command-building, or receipt-validation functions.",
+  "expected_baseline_result": "RED: control passes; both new behavior cases fail on the pre-change snapshot.",
+  "authorized_effects": "Writes only below trials/prechange-red; no network, model, credentials, installation, or source mutation."
+}

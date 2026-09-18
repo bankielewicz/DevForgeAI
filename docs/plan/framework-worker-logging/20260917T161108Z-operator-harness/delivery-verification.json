@@ -1,0 +1,169 @@
+{
+  "utc": "2026-09-17T17:11:50.788696+00:00",
+  "local_links_checked": 18,
+  "links": [
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\operator-selection.proposed.md",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\config-drift.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\comparison.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\configuration.proposed.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\inputs\\input-manifest.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostic-outstanding-work.md",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\permission-rule-addition.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\Invoke-CodexWorkerDiagnostic.ps1",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\recorder.py",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\source-identities.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\changed-file-manifest.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\15-python-final\\test-results.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\15-python-final\\coverage.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\16-powershell-final\\test-results.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\16-powershell-final\\coverage.xml",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\static-checks\\powershell-analysis-attempt-02.json",
+      "exists": true
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\preservation-final.json",
+      "exists": true
+    }
+  ],
+  "required_destination_readbacks": [
+    {
+      "required": "C:\\Projects\\DevForgeAI\\Invoke-CodexWorkerDiagnostic.ps1",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\Invoke-CodexWorkerDiagnostic.ps1",
+        "bytes": 2394,
+        "sha256": "9778bcbb776f5b2c403386ae1a2595d62d07ca1f42514975e20973692eae7c3b"
+      }
+    },
+    {
+      "required": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+        "bytes": 15389,
+        "sha256": "cdd88e201a88b0f321d2bebbf2e53ceaae4166824ad8c6dc0c97f9333d956997"
+      }
+    },
+    {
+      "required": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\recorder.py",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\recorder.py",
+        "bytes": 6147,
+        "sha256": "eabd4c36b528036344c9e1580b35d7706b856676b5852e8954b6f5ca049cafc2"
+      }
+    },
+    {
+      "required": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\operator-handoff.md",
+        "bytes": 9766,
+        "sha256": "0f94a483d2b63b34eb590a8e4deb76115e70e871be3cadcb19bb9e2e3062e3df"
+      }
+    },
+    {
+      "required": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\source-identities.json",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\source-identities.json",
+        "bytes": 3632,
+        "sha256": "7118bf4829d85e5077288144e52d384cd6fa7827003cfda971abb07baa39b94e"
+      }
+    },
+    {
+      "required": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\changed-file-manifest.json",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\changed-file-manifest.json",
+        "bytes": 132663,
+        "sha256": "e750c37b6a0600f7af04d163183ab7c5103b7b9c8f47f66857cb972e1aed02e4"
+      }
+    },
+    {
+      "required": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\inputs\\request.json",
+      "actual": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\inputs\\request.json",
+        "bytes": 1605,
+        "sha256": "97966b0e168fe819a050396050f0ade77a32eb146b1613d7f6b5a6474cc134ac"
+      }
+    }
+  ],
+  "original_selected_document": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostic-outstanding-work.md",
+    "bytes": 21442,
+    "sha256": "98f8e0b7673da56704076dcd3b08a592414a097b67e086c6d3e211357fd94495"
+  },
+  "preservation_receipt": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\preservation-final.json",
+    "bytes": 112185,
+    "sha256": "58f11c3900c69f3169cb600cc5952fdff47f84661e59ce08ef85d6ffe8fb52da"
+  },
+  "native_attempt_exists": false,
+  "native_run_exists": false,
+  "new_reservation_exists": false,
+  "source_review": "PENDING_BRYAN",
+  "framework_acceptance": "NOT_EVALUATED"
+}

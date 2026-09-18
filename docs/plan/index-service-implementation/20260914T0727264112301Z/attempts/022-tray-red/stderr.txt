@@ -1,0 +1,9 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+error[E0432]: unresolved import `devforgeai_index::tray`
+ --> tests\tray.rs:1:23
+  |
+1 | use devforgeai_index::tray::{Preferences,PollState};
+  |                       ^^^^ could not find `tray` in `devforgeai_index`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `devforgeai-index` (test "tray") due to 1 previous error

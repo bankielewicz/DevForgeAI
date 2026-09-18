@@ -1,0 +1,128 @@
+{
+  "at": "2026-09-16T18:39:24.707408+00:00",
+  "selected_evidence_value": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev",
+  "resolved_evidence_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev",
+  "candidate_files_checked": 58,
+  "candidate_manifest_sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540",
+  "input_and_historical_files_checked": 99,
+  "historical_native_files_checked": 91,
+  "changed_paths": [
+    "README.md",
+    "src/diagnostic.rs",
+    "src/effective_profile.rs",
+    "src/lib.rs",
+    "src/process_windows.rs",
+    "src/protocol.rs",
+    "src/runner.rs",
+    "tests/effective_profile.rs",
+    "tests/profile_protocol.rs",
+    "tests/support/diagnostic_cases.rs",
+    "tests/support/profile_peer.rs"
+  ],
+  "all_input_hashes_unchanged": true,
+  "outputs": [
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\context.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\context.md",
+      "sha256": "dc745a93acde2c1da7fb691502e010919a7015f92cc38661068a40662caa9993",
+      "bytes": 4168
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract.md",
+      "sha256": "a1c35642f3c4c5a2bf4102495cca48f791877cc9d67416cbd1179dc831ac9779",
+      "bytes": 3393
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract-initial.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract-initial.md",
+      "sha256": "9f252db355de2155d08b3bf068355907d5635ff7644deaaa22d7c79fc2071c97",
+      "bytes": 3147
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\input-bindings.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\input-bindings.json",
+      "sha256": "99209c8a6eafca6273c8eb8293583f35e24f0900843400d574df9c82d73820fb",
+      "bytes": 26439
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\baseline-manifest.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\baseline-manifest.json",
+      "sha256": "788ea58582151b020cd993b018f8c1425aa90ade4316ef3d6e46c149db92c50b",
+      "bytes": 8318
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\baseline-comparison.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\baseline-comparison.json",
+      "sha256": "50ef4ea949a6b978d8006cfb2fbc54754abffbb8febd359cef2e1adcf614d8cf",
+      "bytes": 259
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+      "sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540",
+      "bytes": 8619
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-candidate.diff",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-candidate.diff",
+      "sha256": "b933b890226175b74b699524687dccac844c31451c20745523a80128f29ea504",
+      "bytes": 48126
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\executions.jsonl",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\executions.jsonl",
+      "sha256": "8b89fc91c0672ea6d6f7ad6303bab18f6763a1f159ed90c650e701e914e0b041",
+      "bytes": 33338
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-test-inventory.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-test-inventory.json",
+      "sha256": "dc611e664c24644653c925bf16a1885ca56e819b04374a96cad4d2ff2b1eb205",
+      "bytes": 10525
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-coverage.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-coverage.json",
+      "sha256": "f9a1da2cda25d3bede62fc0c06981051b6f2809f62d5b3b4f5992f2f12d2b26e",
+      "bytes": 1314176
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-coverage-analysis.json",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-coverage-analysis.json",
+      "sha256": "5b2208f2fc6a30cd7555bb527d11116f07e40e40871d7c7b46220a38c75aa049",
+      "bytes": 2759
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\review-notes.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\review-notes.md",
+      "sha256": "f266fb7cf550580f830678b5c2ec2d8cecdb2b34316a7f9f9e3cd2f285188fb6",
+      "bytes": 3024
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\delivery.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\delivery.md",
+      "sha256": "590eef8f6001a8f0df224b04360ccf01fee26d21126a64acc87a0c744d132606",
+      "bytes": 8709
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\qa-handoff.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\qa-handoff.md",
+      "sha256": "6e00b019304779ded7f96e48f3f3b9574fc352d9055271009110cbd2f9efb639",
+      "bytes": 4709
+    },
+    {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\checkpoint.md",
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\checkpoint.md",
+      "sha256": "d280789db820525eb8c53e01501873e0c58e95bbbbcbb8e16ce8176d2d273857",
+      "bytes": 1205
+    }
+  ],
+  "executable": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\target\\debug\\devforgeai-codex-worker-probe.exe",
+    "sha256": "54ecb9ce6967b941e60139c418b5b7995a30df8d9d2e670b5f788b8090adf7c8",
+    "bytes": 2307584
+  },
+  "source_manifests_agree": true,
+  "framework_acceptance": "NOT_EVALUATED"
+}

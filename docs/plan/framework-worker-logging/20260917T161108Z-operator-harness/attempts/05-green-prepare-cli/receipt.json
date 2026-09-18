@@ -1,0 +1,53 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\test_prepare_cli.py"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness",
+  "started_utc": "2026-09-17T16:32:03.189316+00:00",
+  "budgets_seconds": {
+    "cancel_after": 50,
+    "grace": 2,
+    "reap": 1,
+    "finalize": 2
+  },
+  "total_budget_seconds": 55,
+  "stdin_held_open": false,
+  "environment_source": "caller_copy",
+  "environment_values_recorded": false,
+  "shell": false,
+  "timed_out": false,
+  "interrupted": false,
+  "cancellation_sent": false,
+  "cancellation_error": null,
+  "forced_termination": false,
+  "termination_error": null,
+  "reap_incomplete": false,
+  "spawn_error": null,
+  "owned_pid": 75724,
+  "worker_tree_status": "REQUIRES_RUST_EVIDENCE",
+  "framework_acceptance": "NOT_EVALUATED",
+  "process_exit_code": 0,
+  "owned_probe_stopped": true,
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\05-green-prepare-cli\\stdout.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\05-green-prepare-cli\\stderr.bin",
+    "bytes": 197,
+    "sha256": "63355ea1270081d1b17355a7bbf1ee80e97af5ce066b7ba3281b94f761683ed6"
+  },
+  "recorder": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\supervisor.py",
+    "bytes": 5624,
+    "sha256": "bace72fafe66f9cd3b44afffc06bbc660a06a4419f86a919fd5e2fa247363990"
+  },
+  "ended_utc": "2026-09-17T16:32:05.967276+00:00",
+  "elapsed_before_receipt_write_seconds": 2.7810000000172295,
+  "budget_exceeded_before_receipt_write": false
+}

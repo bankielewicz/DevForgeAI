@@ -1,0 +1,90 @@
+[
+  {
+    "id": "QA-LOG-01",
+    "current_state": "VERIFIED_FIXED",
+    "transitions": [
+      {
+        "state": "OPEN",
+        "run": "20260917T023835Z-qa",
+        "evidence": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\findings.json",
+          "bytes": 2211,
+          "sha256": "78caf33d587b33cfb8e24e0e24dae6524f8e2531a6e3cd8815e75d622ca09882"
+        },
+        "note": "Original independent mandatory defects; original evidence remains unchanged."
+      },
+      {
+        "state": "FIX_REPORTED",
+        "run": "20260917T102726Z-dev-qa-fixes",
+        "evidence": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\resolution-map.json",
+          "bytes": 4896,
+          "sha256": "9dd4c1f3c5cd749485d19e2e482563db8cb966e0ee7754cc4c07d86d41bbf15c"
+        },
+        "handoff": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\handoff-manifest.json",
+          "bytes": 13307,
+          "sha256": "1e4e0800a737f07d658a50383ccdf98c6aa5237c73675d2539ccb7689065f9f5"
+        },
+        "note": "Development correction claim; no QA closure credited."
+      },
+      {
+        "state": "VERIFIED_FIXED",
+        "run": "20260917T105456Z-qa-retest",
+        "verified_utc": "2026-09-17T11:25:05.967005+00:00",
+        "evidence": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\findings.json",
+          "bytes": 3787,
+          "sha256": "b2aed39d34bea772da131b8c99c7b798ecb21be7cb538ede69e546f63432e3b0"
+        },
+        "note": "Original failure cases, fresh independent CLI matrices and affected full regressions passed; integrity and all mandatory metric floors satisfied."
+      }
+    ],
+    "prior_records_preserved": true,
+    "framework_acceptance": "NOT_EVALUATED"
+  },
+  {
+    "id": "QA-LOG-02",
+    "current_state": "VERIFIED_FIXED",
+    "transitions": [
+      {
+        "state": "OPEN",
+        "run": "20260917T023835Z-qa",
+        "evidence": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\findings.json",
+          "bytes": 2211,
+          "sha256": "78caf33d587b33cfb8e24e0e24dae6524f8e2531a6e3cd8815e75d622ca09882"
+        },
+        "note": "Original independent mandatory defects; original evidence remains unchanged."
+      },
+      {
+        "state": "FIX_REPORTED",
+        "run": "20260917T102726Z-dev-qa-fixes",
+        "evidence": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\resolution-map.json",
+          "bytes": 4896,
+          "sha256": "9dd4c1f3c5cd749485d19e2e482563db8cb966e0ee7754cc4c07d86d41bbf15c"
+        },
+        "handoff": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\handoff-manifest.json",
+          "bytes": 13307,
+          "sha256": "1e4e0800a737f07d658a50383ccdf98c6aa5237c73675d2539ccb7689065f9f5"
+        },
+        "note": "Development correction claim; no QA closure credited."
+      },
+      {
+        "state": "VERIFIED_FIXED",
+        "run": "20260917T105456Z-qa-retest",
+        "verified_utc": "2026-09-17T11:25:05.967005+00:00",
+        "evidence": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\findings.json",
+          "bytes": 3787,
+          "sha256": "b2aed39d34bea772da131b8c99c7b798ecb21be7cb538ede69e546f63432e3b0"
+        },
+        "note": "Original failure cases, fresh independent CLI matrices and affected full regressions passed; integrity and all mandatory metric floors satisfied."
+      }
+    ],
+    "prior_records_preserved": true,
+    "framework_acceptance": "NOT_EVALUATED"
+  }
+]

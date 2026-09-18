@@ -1,0 +1,15 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "design_capture_requested": true,
+  "contract_sha256": "e09b27084a7f3ef6fd28b99cdbd3032cf4229a3de83da84e79a430e961a67bfc",
+  "supplied_contract_sha256": "e09b27084a7f3ef6fd28b99cdbd3032cf4229a3de83da84e79a430e961a67bfc",
+  "path_resolution_sha256": "57010383758556802b04d85aa4ba76c7e014011c305ba0410867f7876b12b2db",
+  "design_capture_ref": {
+    "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\design-capture.json",
+    "sha256": "19c1fec603c1ebdbdbb0446dc27cdeaf5134a82c33b7ac979aa5d63df32a7e46"
+  }
+}

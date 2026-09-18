@@ -1,0 +1,5 @@
+ParserError: 
+Line |
+   1 |  … .Management.Automation.PSVersionHashTable.PSVersion.ToString();Python …
+     |                                                                 ~
+     | An expression was expected after '('.

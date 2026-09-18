@@ -1,0 +1,117 @@
+test_checked_future_work (__main__.GraderTests) ... FAIL
+test_data_is_not_executed (__main__.GraderTests) ... ok
+test_duplicate_ac (__main__.GraderTests) ... FAIL
+test_duplicate_yaml (__main__.GraderTests) ... FAIL
+test_empty_then (__main__.GraderTests) ... FAIL
+test_good (__main__.GraderTests) ... ok
+test_malformed_xml (__main__.GraderTests) ... FAIL
+test_missing_frontmatter (__main__.GraderTests) ... ok
+test_missing_literal (__main__.GraderTests) ... FAIL
+test_missing_section (__main__.GraderTests) ... FAIL
+test_no_ac (__main__.GraderTests) ... FAIL
+test_scalar_frontmatter (__main__.GraderTests) ... ok
+test_unfilled_template (__main__.GraderTests) ... FAIL
+test_unresolved_implements (__main__.GraderTests) ... FAIL
+test_wrong_id (__main__.GraderTests) ... FAIL
+test_wrong_technical_version (__main__.GraderTests) ... FAIL
+
+======================================================================
+FAIL: test_checked_future_work (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 43, in test_checked_future_work
+    def test_checked_future_work(self):self.assertIn('premature_completion',grade_story(GOOD.replace('- [ ]','- [x]'),EXPECTED))
+AssertionError: 'premature_completion' not found in []
+
+======================================================================
+FAIL: test_duplicate_ac (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 42, in test_duplicate_ac
+    def test_duplicate_ac(self):self.assertIn('ac_duplicate:AC1',grade_story(GOOD+GOOD[GOOD.index('```xml'):GOOD.index('## Technical Specification')],EXPECTED))
+AssertionError: 'ac_duplicate:AC1' not found in []
+
+======================================================================
+FAIL: test_duplicate_yaml (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 45, in test_duplicate_yaml
+    def test_duplicate_yaml(self):self.assertIn('frontmatter_invalid',grade_story(GOOD.replace('type: documentation','type: feature\ntype: documentation'),EXPECTED))
+AssertionError: 'frontmatter_invalid' not found in []
+
+======================================================================
+FAIL: test_empty_then (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 48, in test_empty_then
+    def test_empty_then(self):self.assertIn('ac_empty:then',grade_story(GOOD.replace('Destinations remain unchanged',''),dict(EXPECTED,required_literals=[])))
+AssertionError: 'ac_empty:then' not found in []
+
+======================================================================
+FAIL: test_malformed_xml (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 41, in test_malformed_xml
+    def test_malformed_xml(self):self.assertIn('xml_invalid',grade_story(GOOD.replace('</then>','</wrong>'),EXPECTED))
+AssertionError: 'xml_invalid' not found in []
+
+======================================================================
+FAIL: test_missing_literal (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 52, in test_missing_literal
+    def test_missing_literal(self):self.assertIn('literal_missing:unchanged',grade_story(GOOD.replace('unchanged','preserved'),EXPECTED))
+AssertionError: 'literal_missing:unchanged' not found in []
+
+======================================================================
+FAIL: test_missing_section (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 40, in test_missing_section
+    def test_missing_section(self):self.assertIn('section_missing:Definition of Done',grade_story(GOOD.replace('## Definition of Done','## Omitted'),EXPECTED))
+AssertionError: 'section_missing:Definition of Done' not found in []
+
+======================================================================
+FAIL: test_no_ac (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 49, in test_no_ac
+    def test_no_ac(self):self.assertIn('ac_missing',grade_story(GOOD[:GOOD.index('```xml')],dict(EXPECTED,required_sections=[],required_literals=[])))
+AssertionError: 'ac_missing' not found in []
+
+======================================================================
+FAIL: test_unfilled_template (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 46, in test_unfilled_template
+    def test_unfilled_template(self):self.assertIn('template_placeholder',grade_story(GOOD+'\n<Selected outcome>\n',EXPECTED))
+AssertionError: 'template_placeholder' not found in []
+
+======================================================================
+FAIL: test_unresolved_implements (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 53, in test_unresolved_implements
+    def test_unresolved_implements(self):self.assertIn('implements_unresolved:GHOST',grade_story(GOOD.replace('id="AC1"','id="AC1" implements="GHOST"'),EXPECTED))
+AssertionError: 'implements_unresolved:GHOST' not found in []
+
+======================================================================
+FAIL: test_wrong_id (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 44, in test_wrong_id
+    def test_wrong_id(self):self.assertIn('metadata:id',grade_story(GOOD.replace('STORY-010','STORY-011'),EXPECTED))
+AssertionError: 'metadata:id' not found in []
+
+======================================================================
+FAIL: test_wrong_technical_version (__main__.GraderTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-validations\story-create\20260917T185301Z\evaluation\test_graders.py", line 47, in test_wrong_technical_version
+    def test_wrong_technical_version(self):self.assertIn('technical_version',grade_story(GOOD.replace('"2.0"','"1.0"'),EXPECTED))
+AssertionError: 'technical_version' not found in []
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.005s
+
+FAILED (failures=12)

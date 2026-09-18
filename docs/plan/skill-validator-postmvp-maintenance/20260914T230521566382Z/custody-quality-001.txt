@@ -1,0 +1,46 @@
+test_adoption_rebound_manifest_and_readback_tampering (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_adoption_record_identity_and_partition (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_evaluation_case_limits_and_shape (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_json_protocol_and_path_rejections (test_postmvp_custody_quality.CustodyQualityTests) ... ERROR
+test_link_and_manifest_invalid_shapes (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_observed_rows_cannot_hide_duplicates_types_or_order (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+test_selected_handoff_checks_bound_review_and_targets (test_postmvp_custody_quality.CustodyQualityTests) ... ok
+
+======================================================================
+ERROR: test_json_protocol_and_path_rejections (test_postmvp_custody_quality.CustodyQualityTests) (module='build_evidence', raw='{"x":1,"x":2}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 25, in test_json_protocol_and_path_rejections
+    with self.subTest(module=module.__name__,raw=raw),self.assertRaises(ValueError):module.strict_json(raw)
+AttributeError: module 'build_evidence' has no attribute 'strict_json'
+
+======================================================================
+ERROR: test_json_protocol_and_path_rejections (test_postmvp_custody_quality.CustodyQualityTests) (module='build_evidence', raw='{"x":NaN}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 25, in test_json_protocol_and_path_rejections
+    with self.subTest(module=module.__name__,raw=raw),self.assertRaises(ValueError):module.strict_json(raw)
+AttributeError: module 'build_evidence' has no attribute 'strict_json'
+
+======================================================================
+ERROR: test_json_protocol_and_path_rejections (test_postmvp_custody_quality.CustodyQualityTests) (module='build_evidence', raw='{"x":Infinity}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 25, in test_json_protocol_and_path_rejections
+    with self.subTest(module=module.__name__,raw=raw),self.assertRaises(ValueError):module.strict_json(raw)
+AttributeError: module 'build_evidence' has no attribute 'strict_json'
+
+======================================================================
+ERROR: test_json_protocol_and_path_rejections (test_postmvp_custody_quality.CustodyQualityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_custody_quality.py", line 29, in test_json_protocol_and_path_rejections
+    self.assertEqual(module.bounded_path(self.root,''),self.root)
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\scripts\custody.py", line 54, in bounded_path
+    raise ValueError("expected a forward-slash relative path")
+ValueError: expected a forward-slash relative path
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.530s
+
+FAILED (errors=4)

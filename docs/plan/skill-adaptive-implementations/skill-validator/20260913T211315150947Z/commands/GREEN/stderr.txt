@@ -1,0 +1,25 @@
+test_backtick_in_info_string_does_not_open_block (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_copied_check_execution_rejected (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_headings_inside_false_closer_stay_literal (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_json_string_containing_key_example_is_not_protocol (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_jsonl_protocol_values_are_located (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_member_integration_artifact_reuse_rejected (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_missing_report_does_not_hide_reused_checks (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_nonclosing_fence_tail_keeps_example_literal (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_passing_row_does_not_hide_contradictory_required_na (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_plain_prose_and_ascii_protocol_preserved (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_protocol_candidate_multiline_offsets_and_redaction (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_real_link_after_fence_has_original_line (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_required_handoff_not_applicable_rejected (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_same_check_id_in_distinct_runs_accepted (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_same_execution_in_two_members_rejected (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_same_member_artifact_reused_by_other_member_rejected (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_shared_evidence_is_not_duplicate_execution (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_tilde_whitespace_closer_and_shorter_marker (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_unperformed_handoff_keeps_incomplete (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_windows_case_alias_is_same_artifact (test_confirmed_findings.ConfirmedFindingTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 3.577s
+
+OK

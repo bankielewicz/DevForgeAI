@@ -1,0 +1,15 @@
+{
+  "pid": 62424,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\qa-harness\\Cargo.toml",
+    "--test",
+    "independent",
+    "--no-run"
+  ],
+  "started_utc": "2026-09-17T02:54:42.234896+00:00"
+}

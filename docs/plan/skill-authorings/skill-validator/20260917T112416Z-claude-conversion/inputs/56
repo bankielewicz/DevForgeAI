@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_kind",
+    "authoring_run_id",
+    "project_root",
+    "target_root",
+    "target_name",
+    "target_manifest",
+    "package_digest",
+    "authoring_record",
+    "specification_refs",
+    "changed_paths",
+    "known_issues",
+    "capabilities",
+    "expected_outputs",
+    "side_effects",
+    "permission"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "validation-request-v1"
+    },
+    "record_kind": {
+      "const": "validation_request"
+    },
+    "authoring_run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_manifest": {
+      "$ref": "#/$defs/reference"
+    },
+    "package_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "authoring_record": {
+      "$ref": "#/$defs/reference"
+    },
+    "specification_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/reference"
+      }
+    },
+    "changed_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilities": {
+      "type": "array"
+    },
+    "expected_outputs": {
+      "type": "array"
+    },
+    "side_effects": {
+      "type": "array"
+    },
+    "permission": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

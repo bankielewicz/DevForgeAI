@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-09-12T15:29:49.656385+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+    "--candidate-root",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\snapshot",
+    "--cases",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\revision-cases.jsonl",
+    "--output",
+    "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\delivered-results.jsonl",
+    "--run-id",
+    "revision-02-resolved-delivered",
+    "--profile",
+    "revision-spec-v2"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"records\": 3, \"exit_code\": 0, \"output\": \"C:\\\\Users\\\\bryan\\\\AppData\\\\Local\\\\Temp\\\\skill-builder-adoption-trial-dana9h_x\\\\docs\\\\plan\\\\skill-builds\\\\receipt-totals\\\\revision-02-resolved\\\\delivered-results.jsonl\", \"authority\": \"NONE\"}\n",
+  "stderr": ""
+}

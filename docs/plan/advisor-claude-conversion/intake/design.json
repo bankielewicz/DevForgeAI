@@ -1,0 +1,421 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "advisor",
+  "source_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\SKILL.md",
+      "sha256": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\agents\\openai.yaml",
+      "sha256": "11ff7c5fda697804bcbd7241eae9134e3cd6512f95499a48b86b7ce937951eec"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\artifact-manifest.json",
+      "sha256": "246ed473c4554a68537dfa34e57e03ddf6fcafc976adc48dd1667acdf2f37151"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\assets\\briefing-template.md",
+      "sha256": "f19b25173b819de2a26dbd9a47c5e3f2928947d488e6a37a720a218ec144aded"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\assets\\request.schema.json",
+      "sha256": "0addc19175144b7082df4db94647fccaae5784956aae3834ac2def843af88b3d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\case.schema.json",
+      "sha256": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\cases.jsonl",
+      "sha256": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\coverage-entrypoints.ini",
+      "sha256": "8c89e416aaa4ba21f4dab8ae06a48691c5ca67ab5aa601a6e44644e95026b39c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\run_evaluation.py",
+      "sha256": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\briefing-rules.md",
+      "sha256": "ebee76fd01441f8cc90c8df12382a9f852ff706befffa17feab35702f1b959b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\evaluation.md",
+      "sha256": "f1953e240a45d5113e631b53d5cc3761de3973b77f25e4eb1968d3bc8e79bd3c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\execution.md",
+      "sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\response-format.md",
+      "sha256": "88e98e588f7243630e06f4ad004b2b1563bcd675e87c955653466b68fc34eef9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts\\advisor.ps1",
+      "sha256": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts\\advisor_run.py",
+      "sha256": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts\\advisor_stream.py",
+      "sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_advisor.py",
+      "sha256": "d9c25290564c10d6a23c5f05d644be41f3520b9f674eec0ac774351bf25fa9a1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_auth.py",
+      "sha256": "decdf9adcd7b3acc60f9a74b786b972bc9a97dd642f584de28ca84fa6380249f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_cleanup.py",
+      "sha256": "f73fdb17ec92a0f70816580085592c1975064b7995eb75c2e5313377235b74c7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_extended.py",
+      "sha256": "631abe0cfd3afaf88077484f1c39fcfcba08be2176c471282832659820cb02f6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_integrity.py",
+      "sha256": "ef9492e0116402bcda084b5f336a5e7780426ae8d5340bb01b1204a89220ac76"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_streaming.py",
+      "sha256": "7e89bbae94fec456101a007a060a7d89c6128f469dc6bf78d3f3b2bc23c92db4"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "B1-resolve-request",
+      "requirement_ids": [
+        "SKILL.md#Resolve the request"
+      ],
+      "trigger": "The user asks for a second opinion, or a task materially needs independent review.",
+      "inputs": [
+        "Natural-language ask",
+        "Optional type=/model=/effort=/auth= instruction conventions"
+      ],
+      "completion": "A resolved ask string plus type, model, effort and auth_mode values, each either explicitly supplied or an identified default, with unsupported explicit values rejected rather than replaced.",
+      "outputs": [
+        "Resolved request parameters held for B3 and B4"
+      ],
+      "resource_paths": [
+        "SKILL.md"
+      ],
+      "prerequisites": [],
+      "effects": [],
+      "failure": "An unsupported explicit value, or several materially different readings of the ask.",
+      "recovery": "Reject the unsupported value and name it; ask only when the readings would change the review."
+    },
+    {
+      "id": "B2-preflight",
+      "requirement_ids": [
+        "references/execution.md#Local execution contract",
+        "SKILL.md#Prepare and invoke step 1"
+      ],
+      "trigger": "A resolved request from B1 exists and no preflight has run for it.",
+      "inputs": [
+        "Resolved Claude executable path",
+        "Repository root",
+        "Operator-configured external contract path and its SHA-256",
+        "Writable evidence parent"
+      ],
+      "completion": "preflight.json records the advertised capability probe result and the selected auth mode; exit 0 means preflight completed, not that authentication or entitlement is proven.",
+      "outputs": [
+        "preflight.json inside the attempt directory"
+      ],
+      "resource_paths": [
+        "references/execution.md",
+        "scripts/advisor_run.py"
+      ],
+      "prerequisites": [
+        "Python 3.10+ standard library",
+        "A resolvable native Claude CLI executable",
+        "An existing external contract file matching the configured digest"
+      ],
+      "effects": [
+        "Spawns the Claude CLI with --version and --help only"
+      ],
+      "failure": "Executable not resolvable, contract missing or digest mismatch, or a required flag not advertised.",
+      "recovery": "Report the actual gap. A preflight failure has not started a reviewer call and consumes no attempt. Do not install tools or alter saved authentication."
+    },
+    {
+      "id": "B3-prepare-briefing",
+      "requirement_ids": [
+        "references/briefing-rules.md",
+        "assets/briefing-template.md",
+        "SKILL.md#Prepare and invoke step 2"
+      ],
+      "trigger": "Preflight completed and a reviewer attempt is authorized.",
+      "inputs": [
+        "Current conversation evidence",
+        "Repository citations with line numbers"
+      ],
+      "completion": "A briefing file exists containing all fourteen template sections plus the appendix, each nonempty, with the exact ask and type stated and missing or compacted context named rather than invented.",
+      "outputs": [
+        "briefing.md in the intake directory, copied into the attempt directory by the helper"
+      ],
+      "resource_paths": [
+        "references/briefing-rules.md",
+        "assets/briefing-template.md"
+      ],
+      "prerequisites": [
+        "A writable intake directory outside the run directory"
+      ],
+      "effects": [
+        "Writes briefing text that is sent to an external reviewer process"
+      ],
+      "failure": "Credentials or unredacted sensitive evidence present, or a section left as template text.",
+      "recovery": "Exclude credentials and mark redactions before invoking; a nonempty-section check cannot establish truthfulness, so review the content first."
+    },
+    {
+      "id": "B4-invoke-review",
+      "requirement_ids": [
+        "references/execution.md#Files and budgets",
+        "assets/request.schema.json",
+        "SKILL.md#Prepare and invoke steps 3-4"
+      ],
+      "trigger": "A validated request JSON and a complete briefing exist and fewer than two attempts have been consumed.",
+      "inputs": [
+        "request.json",
+        "briefing.md",
+        "A new or existing run directory"
+      ],
+      "completion": "Exactly one reviewer process ran and the attempt directory holds started.json, preflight.json, raw stdout.txt, raw stderr.txt and execution.json; response.md exists only when the response was valid.",
+      "outputs": [
+        "Immutable normalized request.json at the run root",
+        "attempt-00N directory with receipts and raw output"
+      ],
+      "resource_paths": [
+        "scripts/advisor_run.py",
+        "scripts/advisor_stream.py",
+        "scripts/advisor.ps1"
+      ],
+      "prerequisites": [
+        "Successful preflight",
+        "An exclusive run-directory lock"
+      ],
+      "effects": [
+        "Spawns one Claude CLI reviewer process with read-only tools and a budget cap",
+        "Reserves half the declared total budget for the attempt whether or not it succeeds"
+      ],
+      "failure": "Nonzero exit, spawn error, timeout, malformed stream, stale lock, or an incomplete prior attempt.",
+      "recovery": "Retain all evidence without rollback claims. A consumed failed attempt stays consumed. Investigate an uncertain cleanup before any further attempt; never relax flags or enable write tools to recover."
+    },
+    {
+      "id": "B5-interpret-response",
+      "requirement_ids": [
+        "references/response-format.md"
+      ],
+      "trigger": "A reviewer attempt returned and its receipts are present.",
+      "inputs": [
+        "execution.json",
+        "stderr.txt",
+        "result.json when present",
+        "response.md when present"
+      ],
+      "completion": "Process success, response structural validity, reviewer verdict and evidence adequacy are each stated as separate conclusions, with all_unverified reported when CLAIM AUDIT carries no recognized status or only UNVERIFIED.",
+      "outputs": [
+        "A stated verdict with its structural and evidential qualifications"
+      ],
+      "resource_paths": [
+        "references/response-format.md"
+      ],
+      "prerequisites": [
+        "A completed attempt with retained raw output"
+      ],
+      "effects": [],
+      "failure": "Invalid framing, duplicate or missing verdict, or an error envelope carrying plausible Markdown.",
+      "recovery": "Treat the response as invalid advice and report why; structural validity alone never establishes semantic completeness."
+    },
+    {
+      "id": "B6-assess-and-report",
+      "requirement_ids": [
+        "SKILL.md#Assess the advice",
+        "SKILL.md#Bound follow-ups",
+        "SKILL.md#Report and finish"
+      ],
+      "trigger": "A verdict has been interpreted, or both attempts are spent without one.",
+      "inputs": [
+        "Interpreted verdict",
+        "Repository evidence for load-bearing citations"
+      ],
+      "completion": "A report states the ask, execution status, response validity, verdict when valid, concrete recommendations, the calling agent's own assessment, evidence limitations and absolute artifact paths, distinguishing a suggestion from an applied change, executed QA and framework acceptance.",
+      "outputs": [
+        "The user-facing report"
+      ],
+      "resource_paths": [
+        "SKILL.md"
+      ],
+      "prerequisites": [],
+      "effects": [
+        "May lead the calling agent to change already authorized work within its existing scope"
+      ],
+      "failure": "Evidence contradicts the advice, or both attempts are spent with the conflict unresolved.",
+      "recovery": "Explain the discrepancy and use any remaining attempt with --reason reconcile; if none remains, report the unresolved conflict rather than starting a third call."
+    }
+  ],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "kind": "instruction",
+      "purpose": "Shared purpose, request resolution, verdict handling, follow-up bounds and reporting contract.",
+      "load_when": "Always, when the skill is invoked.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/execution.md",
+      "kind": "reference",
+      "purpose": "Host execution contract: executable resolution, request schema usage, run layout, budgets, transports and receipts.",
+      "load_when": "Before preflight or any reviewer invocation.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/briefing-rules.md",
+      "kind": "reference",
+      "purpose": "Rules for filling the briefing template without inventing or omitting evidence.",
+      "load_when": "Before writing a briefing.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/response-format.md",
+      "kind": "reference",
+      "purpose": "Reviewer response framing and how the calling agent interprets envelope, verdict and claim audit.",
+      "load_when": "After an attempt returns, before stating a verdict.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/evaluation.md",
+      "kind": "reference",
+      "purpose": "Package checks and the evidence-only JSONL evaluation obligations.",
+      "load_when": "Only for package evaluation, never during an ordinary review.",
+      "helper_contract": null
+    },
+    {
+      "path": "assets/briefing-template.md",
+      "kind": "template",
+      "purpose": "The fourteen-section briefing structure plus appendix.",
+      "load_when": "When preparing a briefing.",
+      "helper_contract": null
+    },
+    {
+      "path": "assets/request.schema.json",
+      "kind": "reference",
+      "purpose": "Closed schema for advisor-request-v1.",
+      "load_when": "When building or validating a request JSON.",
+      "helper_contract": null
+    },
+    {
+      "path": "scripts/advisor_run.py",
+      "kind": "helper",
+      "purpose": "Preflight probe and single reviewer invocation with receipt writing.",
+      "load_when": "Invoked by the calling agent for preflight and run; never imported for its text.",
+      "helper_contract": {
+        "inputs": "preflight: --claude PATH, --auth-mode MODE. run: --request FILE, --briefing FILE, --run-dir DIR, optional --reason and --show-progress.",
+        "outputs": "preflight.json; an immutable normalized run request.json; attempt-00N/{started.json,preflight.json,stdout.txt,stderr.txt,execution.json}; result.json for strictly framed progress streams; response.md only for a valid successful response.",
+        "runtime": "Python 3.10+ standard library and a resolvable native Claude CLI executable.",
+        "effects": "Spawns one Claude CLI reviewer process with shell=False, read-only tools and a per-attempt budget cap; creates and holds an exclusive run-directory lock. Writes only inside the selected run directory.",
+        "errors": "Exit 0 preflight completed or response syntax valid; 1 a recorded attempt failed or produced invalid output; 2 input, preflight or history blocked execution. No exit code is an acceptance decision.",
+        "reuse_reason": "Called by the calling agent for B2 and B4; deterministic receipt writing and budget reservation are reused by every attempt and follow-up."
+      }
+    },
+    {
+      "path": "scripts/advisor_stream.py",
+      "kind": "helper",
+      "purpose": "Strict stream-json transport and progress rendering for --show-progress attempts.",
+      "load_when": "Imported by advisor_run.py when progress mode is selected.",
+      "helper_contract": {
+        "inputs": "Parsed CLI arguments and the resolved reviewer command supplied by advisor_run.py.",
+        "outputs": "Retained raw stdout JSONL and a parsed terminal envelope written as result.json.",
+        "runtime": "Python 3.10+ standard library.",
+        "effects": "Drains child stdout and stderr concurrently under one monotonic deadline and prints an allowlisted progress subset to stderr. Writes only inside the current attempt directory.",
+        "errors": "Malformed JSON, duplicate member names, nonfinite values, a missing or duplicate terminal result, or events after the result make the response invalid.",
+        "reuse_reason": "Imported by advisor_run.py so stream framing and cleanup observation are shared by all progress attempts."
+      }
+    },
+    {
+      "path": "scripts/advisor.ps1",
+      "kind": "helper",
+      "purpose": "Thin Windows PowerShell launcher for the run command.",
+      "load_when": "Only on Windows when a PowerShell entry point is preferred; preflight uses Python directly.",
+      "helper_contract": {
+        "inputs": "-Request, -Briefing and -RunDir mandatory; -Reason, -Python and -ShowProgress optional.",
+        "outputs": "Child stdout and stderr, kept separate.",
+        "runtime": "Windows PowerShell 5.1 or PowerShell 7.",
+        "effects": "Invokes the sibling Python runner with an argument array. It writes nothing of its own.",
+        "errors": "Exits with the child's native status; a launcher failure before Python starts exits 2.",
+        "reuse_reason": "Alternative entry to B4 on Windows; avoids rebuilding the argument array at each invocation."
+      }
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "A1",
+      "behavior_id": "B2-preflight",
+      "condition": "The external contract file is absent, unreadable, or its SHA-256 differs from the configured digest.",
+      "expected_observation": "Preflight reports the mismatch and no reviewer call starts; no attempt is consumed.",
+      "requirement_basis": "references/execution.md#Local execution contract; references/response-format.md digest recheck"
+    },
+    {
+      "id": "A2",
+      "behavior_id": "B4-invoke-review",
+      "condition": "The reviewer process exceeds the configured timeout.",
+      "expected_observation": "The direct child is terminated, cleanup observations are recorded, no response.md is produced, and the attempt stays consumed.",
+      "requirement_basis": "references/execution.md#Files and budgets"
+    },
+    {
+      "id": "A3",
+      "behavior_id": "B4-invoke-review",
+      "condition": "A stale lock or an incomplete prior attempt is present in the run directory.",
+      "expected_observation": "Execution is blocked for investigation rather than retried or cleaned automatically.",
+      "requirement_basis": "SKILL.md#Bound follow-ups"
+    },
+    {
+      "id": "A4",
+      "behavior_id": "B5-interpret-response",
+      "condition": "The reviewer returns a structurally valid response whose CLAIM AUDIT holds only UNVERIFIED statuses.",
+      "expected_observation": "all_unverified is reported true and the advice is treated as unsupported even when the verdict is PROCEED.",
+      "requirement_basis": "references/response-format.md; SKILL.md#Assess the advice"
+    },
+    {
+      "id": "A5",
+      "behavior_id": "B6-assess-and-report",
+      "condition": "Both reviewer attempts are consumed and repository evidence still contradicts the advice.",
+      "expected_observation": "The unresolved conflict is reported; no third call is started under another request ID and no budget is raised.",
+      "requirement_basis": "SKILL.md#Bound follow-ups"
+    },
+    {
+      "id": "A6",
+      "behavior_id": "B2-preflight",
+      "condition": "The native Claude CLI is not resolvable on the host.",
+      "expected_observation": "The actual gap is reported as a dependency limitation; nothing is installed and saved authentication is unchanged.",
+      "requirement_basis": "references/execution.md#Local execution contract"
+    }
+  ],
+  "execution_limits": [
+    {
+      "behavior_id": "B4-invoke-review",
+      "seconds": 300,
+      "kind": "specified_requirement",
+      "source_basis": "references/execution.md default timeout of 300 seconds, range 1 to 1800"
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "Q1",
+      "question": "Where should a Claude Code deployment resolve the required external reviewer contract? The Codex source hardcodes one operator's path under a .codex directory, which cannot be carried into a portable package. The converted skill treats the path as operator-configured and discovered at preflight; a canonical default location for Claude Code installs has not been selected.",
+      "owner": "maintainer",
+      "affected_behavior_ids": [
+        "B2-preflight",
+        "B4-invoke-review"
+      ]
+    }
+  ]
+}

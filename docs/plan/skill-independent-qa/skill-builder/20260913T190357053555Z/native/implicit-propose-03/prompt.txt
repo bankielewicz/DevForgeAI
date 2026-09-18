@@ -1,0 +1,2 @@
+Recommend project adaptations and a suitable skill set for this project. Use C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T190357053555Z\native\implicit-propose-03\project/skills as the development destination.
+All writes are authorized only inside C:\Projects\DevForgeAI\docs\plan\skill-independent-qa\skill-builder\20260913T190357053555Z\native\implicit-propose-03\project. Read any selected skill without modifying it. No installations, external publication, configuration edits or real operational effects are authorized.

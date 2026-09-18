@@ -1,0 +1,329 @@
+{
+  "schema_version": "1",
+  "run_id": "20260917T185301Z",
+  "target_name": "story-create",
+  "steps": [
+    {
+      "step_id": "W01",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "98a5ddf0249448969d528b3fa8a4e676794f441f18f8749ee9ce62d0ae549848",
+        "locator": "Runtime prerequisite"
+      },
+      "entry_conditions": "Selected project and loaded package",
+      "inputs": [
+        "Binding inputs and actual host Python"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Observe binding before effects",
+      "outputs": [
+        "MATCH/BOUND or named nonzero stop"
+      ],
+      "completion_evidence": [
+        "MATCH/BOUND or named nonzero stop"
+      ],
+      "next_branch_targets": "W02",
+      "failure_route": "Stop product effects, report setup prerequisite",
+      "terminal_user_outcome": "Bound task or explicit missing prerequisite"
+    },
+    {
+      "step_id": "W02",
+      "entrypoint": {
+        "path": "source/references/intake-and-scope.md",
+        "sha256": "6473e00bcdf4ac28716610fb7308a44e3f320d0e211fcea2bf6ee16ff138dc86",
+        "locator": "Inputs and scope"
+      },
+      "entry_conditions": "Binding match and authorized task",
+      "inputs": [
+        "Request, current instructions, selected sources and story roots"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Resolve scope, metadata, paths and collision-free identity",
+      "outputs": [
+        "Concrete selected inputs/defaults or named decision"
+      ],
+      "completion_evidence": [
+        "Concrete selected inputs/defaults or named decision"
+      ],
+      "next_branch_targets": "W03,W04,W05,W06,W07",
+      "failure_route": "Preserve inputs; ask material question; continue independent work",
+      "terminal_user_outcome": "Scoped story task, proposal, or missing-input report"
+    },
+    {
+      "step_id": "W03",
+      "entrypoint": {
+        "path": "source/references/batch-and-dependencies.md",
+        "sha256": "5f7c4f6f84e208a9f4d759fc4dfb07406bf7a6e0d3942b9ffaa5a7bc0d23b47c",
+        "locator": "Select outcomes and decompose"
+      },
+      "entry_conditions": "Selected epic/batch/gap outcomes",
+      "inputs": [
+        "Canonical clauses, existing stories and dependencies"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Group outcomes and map ownership/ACs/dependency DAG",
+      "outputs": [
+        "Selected complete outcome inventory with blockers"
+      ],
+      "completion_evidence": [
+        "Selected complete outcome inventory with blockers"
+      ],
+      "next_branch_targets": "W07",
+      "failure_route": "Block dependents; preserve and continue independent members",
+      "terminal_user_outcome": "Batch/proposal accounts for every selected outcome"
+    },
+    {
+      "step_id": "W04",
+      "entrypoint": {
+        "path": "source/references/architecture-seeds.md",
+        "sha256": "af24e57e9c4091e4b8f58955ff0b62a357ac1e87f2cb3eb86b61a9c6ba8c0b2b",
+        "locator": "Architecture seed ingestion"
+      },
+      "entry_conditions": "Selected architecture or seed",
+      "inputs": [
+        "Raw HTML data island and documented schema"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Validate data and map only selected seed with provenance",
+      "outputs": [
+        "Unambiguous mapped seed; order not fabricated dependency"
+      ],
+      "completion_evidence": [
+        "Unambiguous mapped seed; order not fabricated dependency"
+      ],
+      "next_branch_targets": "W03 or W07",
+      "failure_route": "Reject duplicate/malformed/unknown schema or seed",
+      "terminal_user_outcome": "Grounded story task or precise input rejection"
+    },
+    {
+      "step_id": "W05",
+      "entrypoint": {
+        "path": "source/references/recommendations-and-gaps.md",
+        "sha256": "a1d108ceeb8cef51f0187bb2846bfea6a010fa824840e7d6c2ad907c8e4ad525",
+        "locator": "Select and read the original entries"
+      },
+      "entry_conditions": "Selected QA/RCA recommendations",
+      "inputs": [
+        "Actual source schema, IDs, cycle, evidence and verification"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Validate full entries and preserve semantics and conditional RCA provenance",
+      "outputs": [
+        "Each requested ID accounted for; exact REC-to-AC mapping"
+      ],
+      "completion_evidence": [
+        "Each requested ID accounted for; exact REC-to-AC mapping"
+      ],
+      "next_branch_targets": "W03 or W07",
+      "failure_route": "Report invalid/unknown/closed entries before dependent writes",
+      "terminal_user_outcome": "Grounded follow-up stories or empty/rejected input report"
+    },
+    {
+      "step_id": "W06",
+      "entrypoint": {
+        "path": "source/references/recommendations-and-gaps.md",
+        "sha256": "a1d108ceeb8cef51f0187bb2846bfea6a010fa824840e7d6c2ad907c8e4ad525",
+        "locator": "Provenance and source-specific fields"
+      },
+      "entry_conditions": "Selected deferred obligation",
+      "inputs": [
+        "Source story/epic, exact clause, gap ID and deferral/blocking facts"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Verify actual uncovered obligation and avoid duplicate work",
+      "outputs": [
+        "Source-grounded tracking outcome without closure claim"
+      ],
+      "completion_evidence": [
+        "Source-grounded tracking outcome without closure claim"
+      ],
+      "next_branch_targets": "W03 or W07",
+      "failure_route": "Retain unresolved source/verification decisions",
+      "terminal_user_outcome": "Tracking story or exact unresolved gap"
+    },
+    {
+      "step_id": "W07",
+      "entrypoint": {
+        "path": "source/references/acceptance-criteria.md",
+        "sha256": "ec97c9fcf35b83486c095ea93cac3275de43dc77fe7728575c9326e833459d34",
+        "locator": "AC form"
+      },
+      "entry_conditions": "Resolved selected outcome",
+      "inputs": [
+        "Clause map and source facts"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Write unique well-formed observable XML ACs including adverse cases",
+      "outputs": [
+        "Every selected requirement has an AC or explicit gap"
+      ],
+      "completion_evidence": [
+        "Every selected requirement has an AC or explicit gap"
+      ],
+      "next_branch_targets": "W08",
+      "failure_route": "Do not invent numeric targets or authorize descope",
+      "terminal_user_outcome": "Measurable requirements and unresolved decisions"
+    },
+    {
+      "step_id": "W08",
+      "entrypoint": {
+        "path": "source/references/technical-specification.md",
+        "sha256": "ffa3b5dc0818828b57ac311a16e06222cb14cf2a0f4f6e628eca7740a5532a7d",
+        "locator": "Structured technical block"
+      },
+      "entry_conditions": "ACs and actual project interfaces",
+      "inputs": [
+        "Applicable components, data/API contracts and constraints"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Define grounded technical/document obligations and bidirectional tests",
+      "outputs": [
+        "Resolvable technical IDs and planned verification"
+      ],
+      "completion_evidence": [
+        "Resolvable technical IDs and planned verification"
+      ],
+      "next_branch_targets": "W09 or W10",
+      "failure_route": "Keep missing contracts/metrics explicit; no ready claim",
+      "terminal_user_outcome": "Technical specification or documented non-applicability"
+    },
+    {
+      "step_id": "W09",
+      "entrypoint": {
+        "path": "source/references/ui-specification.md",
+        "sha256": "000fcd1acb65e73555842e99b4a0cbfd27716de92df997496573d86ba6121774",
+        "locator": "Interfaces and interaction"
+      },
+      "entry_conditions": "Selected UI behavior",
+      "inputs": [
+        "Existing design, components, actions and selected standards"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Describe states, interfaces, layout and accessibility",
+      "outputs": [
+        "UI states map to ACs and future verification"
+      ],
+      "completion_evidence": [
+        "UI states map to ACs and future verification"
+      ],
+      "next_branch_targets": "W10",
+      "failure_route": "Record missing essential UI decision",
+      "terminal_user_outcome": "Embedded UI specification or justified absence"
+    },
+    {
+      "step_id": "W10",
+      "entrypoint": {
+        "path": "source/references/story-contract.md",
+        "sha256": "67c715828367b4d813b5c2a46fd3211359374855b917c37eb6287b722202521c",
+        "locator": "Version and canonical template"
+      },
+      "entry_conditions": "Draft content and applicable branches",
+      "inputs": [
+        "Actual current template and SECTION_MANIFEST"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Assemble one story with provenance and unchecked obligations",
+      "outputs": [
+        "Complete applicable 0.1.0 document, nested technical 2.0"
+      ],
+      "completion_evidence": [
+        "Complete applicable 0.1.0 document, nested technical 2.0"
+      ],
+      "next_branch_targets": "W11",
+      "failure_route": "Resolve accidental examples, missing sections and contradictions",
+      "terminal_user_outcome": "Reviewable single-file story draft"
+    },
+    {
+      "step_id": "W11",
+      "entrypoint": {
+        "path": "source/references/delivery-and-resume.md",
+        "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc",
+        "locator": "Write and read back"
+      },
+      "entry_conditions": "Authorized draft and literal free destination",
+      "inputs": [
+        "Live input identities, binding and current output state"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Exclusive-create and completely read back output",
+      "outputs": [
+        "Written bytes and readback/content evidence"
+      ],
+      "completion_evidence": [
+        "Written bytes and readback/content evidence"
+      ],
+      "next_branch_targets": "W12,W13,W14",
+      "failure_route": "Retain denied/partial/uncertain output; no overwrite/relocation",
+      "terminal_user_outcome": "Delivered or explicitly partial/unsaved story"
+    },
+    {
+      "step_id": "W12",
+      "entrypoint": {
+        "path": "source/references/delivery-and-resume.md",
+        "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc",
+        "locator": "Related-document updates"
+      },
+      "entry_conditions": "Story delivery established and links authorized",
+      "inputs": [
+        "Fresh selected epic/sprint/recommendation records"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Idempotent identity-keyed link updates with reread and readback",
+      "outputs": [
+        "Actual one-row links and preserved unrelated content"
+      ],
+      "completion_evidence": [
+        "Actual one-row links and preserved unrelated content"
+      ],
+      "next_branch_targets": "W14",
+      "failure_route": "Stop drifted edit; report delivered story and pending link separately",
+      "terminal_user_outcome": "Truthful linked or partially linked planning result"
+    },
+    {
+      "step_id": "W13",
+      "entrypoint": {
+        "path": "source/references/delivery-and-resume.md",
+        "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc",
+        "locator": "Interruption and partial batches"
+      },
+      "entry_conditions": "Batch/interruption or selected resume",
+      "inputs": [
+        "Actual session, inputs, outputs, binding and owned handles"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Recheck drift and continue only authorized unfinished work",
+      "outputs": [
+        "No duplicate effects; current decisions and next action recorded"
+      ],
+      "completion_evidence": [
+        "No duplicate effects; current decisions and next action recorded"
+      ],
+      "next_branch_targets": "W02,W11,W12,W14",
+      "failure_route": "Poll same live handle; preserve partial outputs and blockers",
+      "terminal_user_outcome": "Recoverable batch state and exact remaining action"
+    },
+    {
+      "step_id": "W14",
+      "entrypoint": {
+        "path": "source/references/delivery-and-resume.md",
+        "sha256": "20a1872635256bf426c071f3dec533e4659ae793a65cce162b18f304d97254cc",
+        "locator": "Final report and next consumer"
+      },
+      "entry_conditions": "Selected work exhausted or explicit blockers",
+      "inputs": [
+        "Actual paths, clause coverage and outstanding obligations"
+      ],
+      "executor": "Primary skill actor; read-only binding Python helper only at W01",
+      "action": "Return literal artifacts, states and manual consumer handoff",
+      "outputs": [
+        "Fresh consumer can inspect unchanged artifact and sources"
+      ],
+      "completion_evidence": [
+        "Fresh consumer can inspect unchanged artifact and sources"
+      ],
+      "next_branch_targets": "terminal",
+      "failure_route": "Report limitations and missing capabilities; do not auto-run consumer",
+      "terminal_user_outcome": "Stories and honest authoring report; implementation/QA separate"
+    }
+  ]
+}

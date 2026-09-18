@@ -1,0 +1,19 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "features",
+    "list"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "executable_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "start": "2026-09-15T21:32:25.894125+00:00",
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\profile-research\\14-features-baseline\\fixtures",
+  "owned_pid": 61004,
+  "exit_code": 0,
+  "elapsed_seconds": 0.0629999999946449,
+  "end": "2026-09-15T21:32:25.947379+00:00",
+  "stdout_sha256": "10e096f2fdf3dd3546065097bb3eadccb1336d91160586fb4a5b0a6eeb577ec9",
+  "stderr_sha256": "c153a573c5534ff06b89de67f5fcd179979e896f460d72a5b572bf52cc91e111"
+}

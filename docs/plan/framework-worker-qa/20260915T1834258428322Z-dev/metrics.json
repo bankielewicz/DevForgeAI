@@ -1,0 +1,303 @@
+{
+  "01-tests": {
+    "groups": {
+      "mandatory": {
+        "passed": 20,
+        "required": 20,
+        "results": {
+          "wf_17": "ok",
+          "wf_18": "ok",
+          "wf_19": "ok",
+          "wf_20": "ok",
+          "wf_13": "ok",
+          "wf_14": "ok",
+          "wf_15": "ok",
+          "wf_16": "ok",
+          "wf_01": "ok",
+          "wf_02": "ok",
+          "wf_03": "ok",
+          "wf_04": "ok",
+          "wf_05": "ok",
+          "wf_06": "ok",
+          "wf_07": "ok",
+          "wf_08": "ok",
+          "wf_09": "ok",
+          "wf_10": "ok",
+          "wf_11": "ok",
+          "wf_12": "ok"
+        }
+      },
+      "supplemental": {
+        "passed": 26,
+        "required": 26,
+        "results": {
+          "valid_fixture_is_admitted_and_invalid_fields_are_rejected": "ok",
+          "invalid_cli_is_json_and_nonzero": "ok",
+          "protocol_typed_events_duplicates_pagination_and_failures": "ok",
+          "cli_control_and_inspect_paths": "ok",
+          "fixture_inventory_and_bounded_request_reads": "ok",
+          "journal_corruption_is_not_promoted": "ok",
+          "process_failure_and_pipe_ownership": "ok",
+          "scenario_cancel_and_evidence_failure_precedence": "ok",
+          "exact_independent_result": "ok",
+          "rejects_invalid_results": "ok",
+          "native_atomic_job_and_verified_stop": "ok",
+          "reviewed_native_profile_sources_and_findings_are_checked_without_launch": "ok",
+          "credential_store_is_not_an_admissible_profile_source": "ok",
+          "unavailable_review_retains_incomplete_evidence_without_reading_credentials": "ok",
+          "unapproved_peer_executable_is_rejected_before_spawn": "ok",
+          "duplicate_nested_profile_is_rejected": "ok",
+          "terminal_claim_requires_observed_result": "ok",
+          "successful_peer_has_observed_zero_exit": "ok",
+          "all_pre_response_notifications_are_reconciled": "ok",
+          "usage_retains_only_typed_counters": "ok",
+          "duplicate_completions_are_idempotent_and_conflicts_fail": "ok",
+          "valid_output_cannot_override_nonzero_worker_exit": "ok",
+          "captured_native_launcher_reparse_is_rejected_without_launching": "ok",
+          "cancellation_before_ids_allows_cooperative_eof_exit": "ok",
+          "lost_interrupt_transport_still_waits_for_owned_process": "ok",
+          "home_boundary_only_allows_peer_temporary_roots": "ok"
+        }
+      },
+      "remediation": {
+        "passed": 4,
+        "required": 4,
+        "results": {
+          "full_pipe_server_reply_deadline_and_cancel_stop_descendants": "ok",
+          "ordinary_rpc_write_and_interrupt_share_bounded_teardown": "ok",
+          "interrupt_write_into_full_pipe_obeys_single_grace_budget": "ok",
+          "malformed_error_payloads_never_reach_journal_or_stdout": "ok"
+        }
+      }
+    },
+    "unit_passed": 6,
+    "unit_required": 6,
+    "receipt": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-tests\\receipt.json"
+  },
+  "04-coverage": {
+    "groups": {
+      "mandatory": {
+        "passed": 20,
+        "required": 20,
+        "results": {
+          "wf_17": "ok",
+          "wf_18": "ok",
+          "wf_19": "ok",
+          "wf_20": "ok",
+          "wf_13": "ok",
+          "wf_14": "ok",
+          "wf_15": "ok",
+          "wf_16": "ok",
+          "wf_01": "ok",
+          "wf_02": "ok",
+          "wf_03": "ok",
+          "wf_04": "ok",
+          "wf_05": "ok",
+          "wf_06": "ok",
+          "wf_07": "ok",
+          "wf_08": "ok",
+          "wf_09": "ok",
+          "wf_10": "ok",
+          "wf_11": "ok",
+          "wf_12": "ok"
+        }
+      },
+      "supplemental": {
+        "passed": 26,
+        "required": 26,
+        "results": {
+          "valid_fixture_is_admitted_and_invalid_fields_are_rejected": "ok",
+          "invalid_cli_is_json_and_nonzero": "ok",
+          "protocol_typed_events_duplicates_pagination_and_failures": "ok",
+          "cli_control_and_inspect_paths": "ok",
+          "fixture_inventory_and_bounded_request_reads": "ok",
+          "journal_corruption_is_not_promoted": "ok",
+          "process_failure_and_pipe_ownership": "ok",
+          "scenario_cancel_and_evidence_failure_precedence": "ok",
+          "exact_independent_result": "ok",
+          "rejects_invalid_results": "ok",
+          "native_atomic_job_and_verified_stop": "ok",
+          "reviewed_native_profile_sources_and_findings_are_checked_without_launch": "ok",
+          "credential_store_is_not_an_admissible_profile_source": "ok",
+          "unavailable_review_retains_incomplete_evidence_without_reading_credentials": "ok",
+          "unapproved_peer_executable_is_rejected_before_spawn": "ok",
+          "duplicate_nested_profile_is_rejected": "ok",
+          "terminal_claim_requires_observed_result": "ok",
+          "successful_peer_has_observed_zero_exit": "ok",
+          "all_pre_response_notifications_are_reconciled": "ok",
+          "usage_retains_only_typed_counters": "ok",
+          "duplicate_completions_are_idempotent_and_conflicts_fail": "ok",
+          "valid_output_cannot_override_nonzero_worker_exit": "ok",
+          "captured_native_launcher_reparse_is_rejected_without_launching": "ok",
+          "cancellation_before_ids_allows_cooperative_eof_exit": "ok",
+          "lost_interrupt_transport_still_waits_for_owned_process": "ok",
+          "home_boundary_only_allows_peer_temporary_roots": "ok"
+        }
+      },
+      "remediation": {
+        "passed": 4,
+        "required": 4,
+        "results": {
+          "full_pipe_server_reply_deadline_and_cancel_stop_descendants": "ok",
+          "ordinary_rpc_write_and_interrupt_share_bounded_teardown": "ok",
+          "interrupt_write_into_full_pipe_obeys_single_grace_budget": "ok",
+          "malformed_error_payloads_never_reach_journal_or_stdout": "ok"
+        }
+      }
+    },
+    "unit_passed": 6,
+    "unit_required": 6,
+    "receipt": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-coverage\\receipt.json"
+  },
+  "coverage": {
+    "covered": 1420,
+    "total": 1487,
+    "percent": 95.49428379287156,
+    "files": [
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+        "sha256": "732c49254e5a508c365a5bdfaee58cedc8e64c7efcbaa868033812b24192d8b6",
+        "lines": {
+          "count": 220,
+          "covered": 216,
+          "percent": 98.18181818181819
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      },
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\main.rs",
+        "sha256": "5072541cc1c09e00543a512e3a9417cc786bf69798ea16ddbe057b2a55b13b5d",
+        "lines": {
+          "count": 86,
+          "covered": 80,
+          "percent": 93.02325581395348
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      },
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+        "sha256": "bf11d97ec9d6082a81db68f4209db1a7e7ec3a5754d2341385f1aed4ddb44712",
+        "lines": {
+          "count": 7,
+          "covered": 7,
+          "percent": 100.0
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      },
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+        "sha256": "2daedd2a45b3b33bca5ddba4333e90d60ed3e70780c85d7624cd5540305fec11",
+        "lines": {
+          "count": 300,
+          "covered": 287,
+          "percent": 95.66666666666667
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      },
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+        "sha256": "3e3d0042d078cc6608ccb49c50e768c8db8a582e660a2aec41c467aa71c05129",
+        "lines": {
+          "count": 485,
+          "covered": 467,
+          "percent": 96.28865979381443
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      },
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+        "sha256": "0829999057ac94d8ec717116d6b47642ee10e0b804cb86e4fd1be34cc4b5e281",
+        "lines": {
+          "count": 263,
+          "covered": 250,
+          "percent": 95.05703422053232
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      },
+      {
+        "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs",
+        "sha256": "50bd52a1389c1828598010f53ab19b742dda011f8fa34395ebc19b8d547ad848",
+        "lines": {
+          "count": 126,
+          "covered": 113,
+          "percent": 89.68253968253968
+        },
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0.0
+        }
+      }
+    ],
+    "denominator": "all executable src lines; no runtime exclusions",
+    "branch_status": "NOT_RUN: installed stable collector labels branch coverage unstable"
+  },
+  "original_26_group_raw": {
+    "passed": 25,
+    "required": 26,
+    "percent": 96.15384615384616,
+    "groups": {
+      "IQ-01": {
+        "passed": 6,
+        "required": 6,
+        "raw_group_pass": true
+      },
+      "IQ-02": {
+        "passed": 1,
+        "required": 2,
+        "raw_group_pass": false
+      },
+      "IQ-03": {
+        "passed": 3,
+        "required": 3,
+        "raw_group_pass": true
+      },
+      "IQ-04": {
+        "passed": 1,
+        "required": 1,
+        "raw_group_pass": true
+      },
+      "IQ-05": {
+        "passed": 1,
+        "required": 1,
+        "raw_group_pass": true
+      },
+      "IQ-06": {
+        "status": "PASS within developer review scope",
+        "evidence": "ownership-review.md and copied IQ-03 held-handle results"
+      }
+    },
+    "caveat": "IQ-02 raw FAIL retained: timeout returns contract exit 6; helper expected 4. No independent closure or raw result rewrite."
+  }
+}

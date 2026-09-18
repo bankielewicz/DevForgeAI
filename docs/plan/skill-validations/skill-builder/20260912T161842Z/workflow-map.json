@@ -1,0 +1,144 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T161842Z",
+  "target_name": "skill-builder",
+  "review_type": "Primary assessor semantic review; independent description classification is separate",
+  "steps": [
+    {
+      "step_id": "select",
+      "entrypoint": "SKILL.md:11-25",
+      "entry_conditions": "Explicit user operation and selected inputs",
+      "inputs": [
+        "Current request, project root, source/spec/target"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Resolve import, spec_build, adoption, regeneration or non-trigger; retain ambiguity before generation",
+      "outputs": [
+        "Resolved identity or concrete missing decision"
+      ],
+      "completion_evidence": "Resolved identity or concrete missing decision",
+      "next_or_branch_targets": "contract or adoption",
+      "failure_route": "Missing/competing inputs: gap; preserve known history",
+      "terminal_user_outcome": "Usable scope or precise required decision"
+    },
+    {
+      "step_id": "contract",
+      "entrypoint": "references/spec-build.md:7-71",
+      "entry_conditions": "One authoring operation selected",
+      "inputs": [
+        "Raw selected inputs, source inventory, current authorization"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Record digest-bound requirements, artifacts, capabilities and gaps",
+      "outputs": [
+        "build-contract.json, spec-gaps.json where needed"
+      ],
+      "completion_evidence": "build-contract.json, spec-gaps.json where needed",
+      "next_or_branch_targets": "candidate",
+      "failure_route": "Essential unavailable capability or contradiction: BLOCKED before candidate",
+      "terminal_user_outcome": "Reviewable contract or retained gap report"
+    },
+    {
+      "step_id": "candidate",
+      "entrypoint": "SKILL.md:41-53",
+      "entry_conditions": "Complete contract; revision origin verified if needed",
+      "inputs": [
+        "Contract, conversion rules, worker requirements"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Stage only needed Codex resources; preserve source domain meaning; execute authorized ordinary script fixtures",
+      "outputs": [
+        "Staged package and preceding observations"
+      ],
+      "completion_evidence": "Staged package and preceding observations",
+      "next_or_branch_targets": "evaluate",
+      "failure_route": "Retain partial work and concrete error; no completion claim",
+      "terminal_user_outcome": "Candidate evidence only until delivery succeeds"
+    },
+    {
+      "step_id": "adoption",
+      "entrypoint": "references/adoption.md:5-33",
+      "entry_conditions": "Explicit adoption instruction, reviewed origin, managed-path selection",
+      "inputs": [
+        "Exact target/spec, selected history, partition and capture"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Capture all permitted bytes; bind custody; recheck; adoption-plan then adoption-v1; publish/read back separate pointer",
+      "outputs": [
+        "ADOPTED evaluated record and published schema-2 pointer; target unchanged"
+      ],
+      "completion_evidence": "ADOPTED evaluated record and published schema-2 pointer; target unchanged",
+      "next_or_branch_targets": "stop or separately authorized revision",
+      "failure_route": "SOURCE_CHANGED/INCOMPLETE/PUBLICATION_INCOMPLETE; preserve record, no dependent revision",
+      "terminal_user_outcome": "Observed custody report; no quality or revision authorization inferred"
+    },
+    {
+      "step_id": "revision",
+      "entrypoint": "references/regeneration.md:9-49; references/adoption.md:39-49",
+      "entry_conditions": "Authorized revision and verified successful generated or published adopted origin",
+      "inputs": [
+        "B or A, complete C, staged N, contract"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Ordered B/C/N plan; conflicts leave target unchanged; recheck before each ordinary mutation",
+      "outputs": [
+        "Revision plan, actual delta, after snapshot"
+      ],
+      "completion_evidence": "Revision plan, actual delta, after snapshot",
+      "next_or_branch_targets": "evaluate then publish",
+      "failure_route": "CONFLICT/PARTIAL retains unchanged origin; retry links failed attempt using actual C",
+      "terminal_user_outcome": "Applied revision only after checks; concrete retained failure otherwise"
+    },
+    {
+      "step_id": "evaluate",
+      "entrypoint": "references/evaluation.md:5-79",
+      "entry_conditions": "Prepared package, contract/provenance and exact cases",
+      "inputs": [
+        "Installed checker; bound evaluator/profile; disjoint candidate/case/output roots"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Run exact structural/profile/script checks, source readback and semantic review",
+      "outputs": [
+        "Actual commands, streams, observed PASS/FAIL/ERROR and digests"
+      ],
+      "completion_evidence": "Actual commands, streams, observed PASS/FAIL/ERROR and digests",
+      "next_or_branch_targets": "publish or retain failure",
+      "failure_route": "Missing dependency/check, mismatch or unsafe output blocks completion; expected negatives remain negative observations",
+      "terminal_user_outcome": "Qualified bounded development observations"
+    },
+    {
+      "step_id": "enhancement-trials",
+      "entrypoint": "references/evaluation.md:81-100",
+      "entry_conditions": "Substantive builder change",
+      "inputs": [
+        "Minimal raw disposable tasks, independent agents, final bound package"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Run import, specification, regeneration and adoption-lineage trials plus separate routing",
+      "outputs": [
+        "Executed task artifacts and failed/retry receipts"
+      ],
+      "completion_evidence": "Executed task artifacts and failed/retry receipts",
+      "next_or_branch_targets": "evaluate/publish",
+      "failure_route": "Unperformed required trial means incomplete enhancement verification",
+      "terminal_user_outcome": "Actual task outcomes distinct from native activation"
+    },
+    {
+      "step_id": "publish",
+      "entrypoint": "SKILL.md:61-69; references/regeneration.md:51-61",
+      "entry_conditions": "Successful candidate and actual delivered checks/readback",
+      "inputs": [
+        "Generated N, actual delivered bytes, prior pointer where needed"
+      ],
+      "executor": "Codex task following linked instructions; named Python helpers emit observations only",
+      "action": "Re-evaluate delivery; preserve generated baseline separate from retained edits; write provenance and new pointer; read back",
+      "outputs": [
+        "Build/conversion report and published development evidence"
+      ],
+      "completion_evidence": "Build/conversion report and published development evidence",
+      "next_or_branch_targets": "terminal",
+      "failure_route": "No advancement on partial or failed checks/publication; retain failed records",
+      "terminal_user_outcome": "Return package/evidence paths, actual dimensions and limits; stop at development source"
+    }
+  ]
+}

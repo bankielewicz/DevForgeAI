@@ -1,0 +1,64 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "001",
+  "project_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z",
+  "target_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\src\\agents\\skills\\meeting-actions",
+  "target_name": "meeting-actions",
+  "operation": "create",
+  "authorization": "Create a portable skill named meeting-actions at the isolated project's src/agents/skills/meeting-actions. It converts supplied meeting notes into a Markdown action list with columns Action, Owner, Due date; use Unassigned and Not specified when absent, preserve explicit uncertainty, and do not invent decisions. Return the table in chat unless the user provides a file destination. No external services needed.\nAuthor and deliver through the documented skill-builder workflow. Do not run tests or execute the generated skill. Do not modify source builder, operational skills, or existing evidence. Keep this single trial bounded to about 5 minutes; retain failures and do not retry failed publication.",
+  "contract": {
+    "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\contract.json",
+    "sha256": "e09b27084a7f3ef6fd28b99cdbd3032cf4229a3de83da84e79a430e961a67bfc"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\authoring-inputs\\request.md",
+      "sha256": "8f88bd9d695c8dfea2b5eee974ef6f4719ee8a38b9831ba6fd40d5ebfa69bdb2"
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\authoring-inputs\\design.json",
+      "sha256": "adf94f37bdb16542b8dadb6bddfcb5d071f603645513a2fef759d4cfa8fa92d3"
+    }
+  ],
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "managed_paths": [
+    "SKILL.md"
+  ],
+  "retained_user_paths": [],
+  "before_manifest": {
+    "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\before-manifest.json",
+    "sha256": "d0b5c38956e8f3631903ede7d30cff006b4945f1664061453e3ff0ac256c189f"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\candidate-manifest.json",
+    "sha256": "ac24060d64f76aef5504d006d69cf59352009e398fd19f3b84873debe5c6d40f"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\delivered-manifest.json",
+    "sha256": "ac24060d64f76aef5504d006d69cf59352009e398fd19f3b84873debe5c6d40f"
+  },
+  "applied_paths": [
+    "SKILL.md"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\docs\\plan\\skill-authorings\\meeting-actions\\001\\baseline-manifest.json",
+    "sha256": "ac24060d64f76aef5504d006d69cf59352009e398fd19f3b84873debe5c6d40f"
+  }
+}

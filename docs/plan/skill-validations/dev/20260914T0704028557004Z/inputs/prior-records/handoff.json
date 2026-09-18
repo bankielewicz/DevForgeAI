@@ -1,0 +1,44 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T0117324130584Z",
+  "target_name": "dev",
+  "target_package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c",
+  "builder_readiness": "BLOCKED",
+  "proposal_review_state": "not_needed",
+  "selected_finding_ids": [],
+  "deferred_finding_ids": [
+    "F-61e172ccd1ce4fde8d9102c3b76562776857dabae3bf74c5917e13951f1eec8e",
+    "F-771cb887852f4693a8ea2f0bd1e3ea2c8ea58603b082f16f3f034d326b208147"
+  ],
+  "proposed_spec": null,
+  "baseline_reference": null,
+  "adoption_required": false,
+  "authoring_family_basis": {
+    "path": "inputs/authoring-family-supplement.json",
+    "sha256": "3d33e1af26d7cade7d4dcf2d2a6ee2f77771285b8b2457421e7f72c6207a00d9"
+  },
+  "source_manifest": {
+    "path": "source-manifest.json",
+    "sha256": "c5345079da862476bcd3cbbc51487ab1dfd8e639bf94db633d4e95a5e5e2e42a"
+  },
+  "source_after_manifest": {
+    "path": "source-after-manifest.json",
+    "sha256": "6b96f763e9759402e263f62db023824594c523617405c5a94637bbe2f952ef3f"
+  },
+  "assessment": {
+    "path": "assessment.json",
+    "sha256": "48c9c370379e991ea1285d24fee829863413b4ef11be3385440198e136b700ce"
+  },
+  "evaluation_bundle": {
+    "path": "inputs/bundle-manifest-final.json",
+    "sha256": "a45399a9c3150d8cc0c89c08a6b57cbd6049e5e17c0e89a38c875cbc88b9653d"
+  },
+  "unresolved_decisions": [
+    "Required native execution and mixed-family evidence-checker compatibility remain incomplete. No new source repair is justified solely by capacity/timeouts."
+  ],
+  "preservation_boundaries": [
+    "No skill-source repairs, operational updates, installation, plugin, framework gate, or application development outside disposable fixtures."
+  ],
+  "installation": "NOT_PERFORMED",
+  "framework_acceptance": "NOT_EVALUATED"
+}

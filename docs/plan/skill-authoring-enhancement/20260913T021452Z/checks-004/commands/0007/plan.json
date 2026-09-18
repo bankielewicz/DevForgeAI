@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\candidate\\skill-builder\\scripts\\init_skill.py",
+    "brief-note",
+    "--path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-004\\disposable\\authoring-fz08jpt1\\Custom skills with spaces"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {},
+  "start": "2026-09-13T02:46:12.124124+00:00",
+  "timeout_seconds": 120
+}

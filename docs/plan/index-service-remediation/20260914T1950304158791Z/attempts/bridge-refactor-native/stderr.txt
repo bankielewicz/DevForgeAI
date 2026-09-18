@@ -1,0 +1,3 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running unittests src\lib.rs (target\debug\deps\devforgeai_index-faf573f5296ba913.exe)
+     Running tests\transport_edges.rs (target\debug\deps\transport_edges-5c9fc26cdda06c63.exe)

@@ -1,0 +1,5 @@
+# Legacy retry compatibility correction
+
+Post-trial source review found a compatibility regression in the first implementation: schema-1 partial retry comparison had changed from prior digest equality to full locator/digest equality. The adoption specification requires preserving schema-1 semantics. A new regression case reproduced the failure (`legacy-retry-red.txt`, 28 tests, one failure). The correction restores the exact legacy digest-only comparison, while schema 2 retains typed origin identity. The same test then passed (`legacy-retry-green.txt`, all 28 tests).
+
+Only the shared retry branch and this targeted test changed after manifest `fcef77def723a1fc2f2fc5e49285830eb9f79cc6cf832beb7861a17522c965cc`. Reviewed those changes before rebinding. The completed independent import/specification/regeneration and adoption-first-revision observations remain evidence for that original manifest; do not relabel them as later-manifest executions. Final complete regressions and explicit profile checks are rerun against the corrected manifest, and subsequent generated-lineage and failure trials use it. No prior receipts were overwritten.

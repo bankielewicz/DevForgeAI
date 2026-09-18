@@ -1,0 +1,1 @@
+{"type":"object","properties":{"results":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"final_state":{"type":"string"},"outcomes":{"type":"array","items":{"type":"string"}}},"required":["id","final_state","outcomes"],"additionalProperties":false}}},"required":["results"],"additionalProperties":false}

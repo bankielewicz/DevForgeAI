@@ -1,0 +1,13 @@
+
+running 2 tests
+test cli::repair_tests::bridge_process_contract_handles_inventory_race_limits_and_envelopes ... ok
+test cli::repair_tests::end_to_end_deadline_and_command_mapping_are_bounded ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.97s
+
+
+running 1 test
+test native_client_rejects_invalid_peers_and_enforces_deadline ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+

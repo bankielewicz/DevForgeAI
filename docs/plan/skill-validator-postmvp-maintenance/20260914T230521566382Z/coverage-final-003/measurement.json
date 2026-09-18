@@ -1,0 +1,1732 @@
+{
+  "statements": 3802,
+  "covered_lines": 3626,
+  "line_percent": 95.37085744345082,
+  "branches": 1908,
+  "covered_branches": 1724,
+  "branch_percent": 90.35639412997904,
+  "included": [
+    {
+      "data": ".coverage.DESKTOP-88FARC5.12028.XZllNRMx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-lmgiffof\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.12028.XZllNRMx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-lmgiffof\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.12820.Xkgafscx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.13648.XafMiuox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-_esaq29w\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.13648.XafMiuox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-_esaq29w\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.14600.XvVMovix",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.14600.XvVMovix",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.14640.XmUrIcex",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-u5v4y56t\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.14640.XmUrIcex",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-u5v4y56t\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.16348.XXSZZhbx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-w8m02k4j\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.16348.XXSZZhbx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-w8m02k4j\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.16448.XJxclONx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.16448.XJxclONx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.17020.XNMbkRPx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.17576.XKeEPTnx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.17628.XbpxYQHx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-4ra_pwhs\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.17628.XbpxYQHx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-4ra_pwhs\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.18616.XCiygQfx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.18616.XCiygQfx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19124.XGbYsOQx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19124.XGbYsOQx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19152.XYLwhRox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-3k127cpq\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19152.XYLwhRox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-3k127cpq\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19324.XgGmASHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\standards_observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\standards_observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19324.XgGmASHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\text_resources.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\text_resources.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19324.XgGmASHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.19324.XgGmASHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.2108.XSIMYKrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.21248.XGlLnTHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.22276.XRXbIxvx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-i8icn5sz\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.22276.XRXbIxvx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-i8icn5sz\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.22388.XIlqxkKx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.22388.XIlqxkKx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.23460.XvycplCx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-oekbkdty\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.23912.XjcjBHux",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-08_nfmzj\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.23912.XjcjBHux",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-08_nfmzj\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.24440.XEVwcdrx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-esnhp2qg\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.24440.XEVwcdrx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-esnhp2qg\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.24628.XSPbmTrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25072.XQIMhOUx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25148.XArrEOox",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25284.XLlJbwox",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25324.Xbbycuxx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25324.Xbbycuxx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25368.XBrzNyux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25432.XWlAKzOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-3xek2r3x\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25432.XWlAKzOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-3xek2r3x\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25588.XJVPnZwx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-pezwte56\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25588.XJVPnZwx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-pezwte56\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25656.XimnnRvx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-8dbdu8d5\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25656.XimnnRvx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-8dbdu8d5\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.26284.XCnIFBex",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.27372.XteLDOQx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.27372.XteLDOQx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.27448.XUDXhjvx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.27596.XyvQeJUx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.27684.XepntpKx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28228.XrLwbLwx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_pgp2m7_\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28228.XrLwbLwx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_pgp2m7_\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28484.XVJVRncx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28760.XYUGnlCx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-esknmtk8\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28760.XYUGnlCx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-esknmtk8\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28884.XBPCYWax",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-6fpiuhj_\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.28884.XBPCYWax",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-6fpiuhj_\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29468.XQLIfLFx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29468.XQLIfLFx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29660.XfSUIGLx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-5u1orqgh\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29660.XfSUIGLx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-5u1orqgh\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29736.XefXuhOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29736.XefXuhOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29868.XsjuSNex",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29996.XGgXNIcx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-5byo5n53\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.29996.XGgXNIcx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-5byo5n53\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30196.XoOEYbwx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30344.XlDGVljx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-6bf2tmxt\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30344.XlDGVljx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-6bf2tmxt\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30552.XyTrhHLx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-wkeyppoc\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30552.XyTrhHLx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-wkeyppoc\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30932.XqAgxElx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-aifv9nv_\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.30932.XqAgxElx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-aifv9nv_\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.31740.XODNAwEx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.31868.XwboqbDx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.32588.XqzrFkfx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.32588.XqzrFkfx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.32960.XsWGAEWx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-cox_x0qh\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.32960.XsWGAEWx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-cox_x0qh\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.33124.XFgYAfqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-8mrhunpu\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.33124.XFgYAfqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-8mrhunpu\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.33136.XwvRzZqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.33172.XpQNOYJx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.33872.XgOiJFkx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.33872.XgOiJFkx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.3600.XRQmGcQx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.36100.XwEQvfGx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.36100.XwEQvfGx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.36276.XpkRiCex",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.36276.XpkRiCex",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.39596.XEenzEOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-bh5t220o\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.39596.XEenzEOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-bh5t220o\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.39652.XdgRrcXx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.39852.XFYuKPAx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.40116.XPmVSOrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.40116.XPmVSOrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.40580.XgroxQDx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.40956.XKnKrOCx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.41020.XOAjKMFx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-srtiof69\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.41120.XlPpfPix",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.41380.XrmAOMdx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.41380.XrmAOMdx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.41600.XZcuPHOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-u_srcfl7\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.42004.XEhQzpUx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.42092.XmvyefAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-8wh292g6\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.42092.XmvyefAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-8wh292g6\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43048.XSDDUeFx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-cszk1qc2\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43420.XOKralRx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_okwf9t0\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43420.XOKralRx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_okwf9t0\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43664.XuoeFbTx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43844.XMPeqVPx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43844.XMPeqVPx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.43932.XSVNzZtx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-_1up3ulc\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.44296.XAgYTcyx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.44656.XGALCTCx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.44984.XloRSqPx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.44984.XloRSqPx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45188.XyVZAFKx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45300.XGfYTIex",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-pe7x478l\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45300.XGfYTIex",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-pe7x478l\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45596.XNoSPPjx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45640.XlNXTrJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-vmy9x_a1\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45640.XlNXTrJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-vmy9x_a1\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45900.XkuqjEGx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-pp48l0u2\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.45900.XkuqjEGx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-pp48l0u2\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.46668.XgWvxhTx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.46900.XAzUmeYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.46900.XAzUmeYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.46932.XnqDCOWx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.46932.XnqDCOWx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47056.XsKIdJcx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47520.XevJfqFx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47520.XevJfqFx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\windows_trial.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\windows_trial.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47520.XevJfqFx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47856.XWHghDTx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47864.XNrcQEIx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-i3ob40sn\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.47864.XNrcQEIx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-i3ob40sn\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48020.XyioiXUx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_2ig0gy1\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48020.XyioiXUx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_2ig0gy1\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48156.XBdNJRLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48196.XNtdDfUx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-dhwmav7b\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48220.XzztxWCx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48284.XuQaMrEx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48284.XuQaMrEx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48368.XTHmkXIx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48408.XxcCHoQx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48408.XxcCHoQx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48412.XiEjsdGx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48524.XQtQmmJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-j59_0c7u\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48524.XQtQmmJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-j59_0c7u\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48880.XNkDULrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.49080.XrJZBBgx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.49204.XDsGqElx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.49768.XIxboWqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.49768.XIxboWqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.49820.XgyiRlix",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-ne6uwbi2\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.49820.XgyiRlix",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-ne6uwbi2\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50088.XgiBozvx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-_1up3ulc\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50192.XXyiTIYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50324.XNPAhmnx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50632.XlakSjqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50748.XkRrgOIx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50828.XQQBGFzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50856.XEOHQGjx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ptskah96\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.50856.XEOHQGjx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ptskah96\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.51236.XCqIAIkx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.51236.XCqIAIkx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.51984.XUuuEdqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-sm6dbl0v\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52064.XzrboWfx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52112.XLhiSonx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52240.XMpOgQkx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-b6agtdnr\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52340.XWZcYNQx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-rjihliby\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52340.XWZcYNQx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-rjihliby\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52424.XONXuqOx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52468.XVLnIMDx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52552.XkpelFzx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-67yqq79d\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52552.XkpelFzx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-67yqq79d\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52592.XMjnpihx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-bc7ng7xl\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52592.XMjnpihx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-bc7ng7xl\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XRFjBmLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XunwGPwx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XunwGPwx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52996.XrFMToRx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53060.XULwyXJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53060.XULwyXJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53236.XNkExRxx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-iqnbpo2q\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53236.XNkExRxx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-iqnbpo2q\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53332.XYEgvNYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53608.Xmaypjrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53608.Xmaypjrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53640.XYxvKEwx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53748.Xcjwlxox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-mkn937jp\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\windows_trial.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\windows_trial.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_contracts.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_contracts.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\text_resources.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\text_resources.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\authoring_intake.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\standards_observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\standards_observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53940.XAXsQjbx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54052.XoMcIAjx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54168.XPbrqDRx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ttxc_a_d\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54168.XPbrqDRx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ttxc_a_d\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54188.XddTkBXx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-qiekqo5n\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54196.XdsQKvAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-tjxfo9zv\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54196.XdsQKvAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-tjxfo9zv\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54252.XjidXfxx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-nnzxtguz\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54252.XjidXfxx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-nnzxtguz\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54256.XIJOJPGx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54256.XIJOJPGx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-7g8ca75h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54400.XgcvbFox",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54504.XuqcXFdx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-1b1sxs30\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54504.XuqcXFdx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-1b1sxs30\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54688.XfJzMVTx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-qs921tzx\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.54688.XfJzMVTx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-qs921tzx\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55012.XAtyXvcx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-mb3kghuf\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55012.XAtyXvcx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-mb3kghuf\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55084.XROhgAzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55084.XROhgAzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55104.XSXuafQx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-5ksz02l9\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55472.XQGlyvrx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ntv99x2v\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55472.XQGlyvrx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ntv99x2v\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55528.XjloPfrx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55564.XieAaWZx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-4lxnlt2u\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55564.XieAaWZx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-4lxnlt2u\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55612.XUKjsDDx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-idkvvkt9\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55612.XUKjsDDx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-idkvvkt9\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55616.XuZTZxSx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-5489z5k3\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55616.XuZTZxSx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-5489z5k3\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.55800.XAschLvx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56128.XBddhhux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56196.XpDuUVAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_9if0xje\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56196.XpDuUVAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-_9if0xje\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56212.XHdZjUlx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56344.XueANvlx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-r633tzob\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56376.XRmtXkTx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-23fsdy36\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56376.XRmtXkTx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-23fsdy36\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56448.XxwNBoSx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56456.XpxguRVx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ak1fnoi1\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56456.XpxguRVx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ak1fnoi1\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56540.XPUqOzNx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56644.XIdrxIJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-udfg831h\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56644.XIdrxIJx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-udfg831h\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56660.XOrtbtOx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.56924.XERRPubx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-2us7crui\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57024.XFowmLqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-rrxpb6e7\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57024.XFowmLqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-rrxpb6e7\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.5704.XSQysJux",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-szm9891v\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.5704.XSQysJux",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-szm9891v\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57052.XKqmGmGx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57052.XKqmGmGx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57128.XJhoQLOx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-v5xb4r7y\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57172.XgOMJykx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-oytg59l4\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57172.XgOMJykx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-oytg59l4\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57184.XlBaehix",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57336.XocgiuNx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57452.XyrCZQmx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-dsuafbiz\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57452.XyrCZQmx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-dsuafbiz\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57464.XJJIRwkx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57628.XkjHJJAx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57712.XIsUwxLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57712.XIsUwxLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57716.XATsNnox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57716.XATsNnox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57780.XoGbjhQx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57828.XPSNGMCx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-d6lpomb4\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57828.XPSNGMCx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-d6lpomb4\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57832.XHRJsghx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-9sct6zyb\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57832.XHRJsghx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-9sct6zyb\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.57924.XJBDepzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58092.XvqelbEx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-hpym0afx\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58092.XvqelbEx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-hpym0afx\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58336.XpSaLjLx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-ejrsa7oj\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58336.XpSaLjLx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-ejrsa7oj\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58344.XnBoQGWx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ifpgojln\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58344.XnBoQGWx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-ifpgojln\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58644.XHZEduHx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58644.XHZEduHx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-n470kmgo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58872.XGEmQJTx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-rcj2zmma\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58872.XGEmQJTx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-rcj2zmma\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.58956.XhLPvxzx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-xihb4dvu\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59096.XUkhMEIx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-g0chrzp4\\builder\\scripts\\build_evidence.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59108.XbutEnox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-mdpubgeo\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59108.XbutEnox",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-mdpubgeo\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59120.XLOnKgyx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_runner.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59120.XLOnKgyx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59216.XGNvQSqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-nkhux90x\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59216.XGNvQSqx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-nkhux90x\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59360.XSwnaGPx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-xfnr0t8w\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59360.XSwnaGPx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-xfnr0t8w\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.59368.XxqqLaGx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6556.XuQAcFFx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-8me1j4_t\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6556.XuQAcFFx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-8me1j4_t\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6612.XjyJRkrx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-qzbr0u2y\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6612.XjyJRkrx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-qzbr0u2y\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6780.XZUPYmvx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-26isf_gq\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6920.XMMJJawx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.6920.XMMJJawx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.7340.XiJtwrbx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.7388.XTfcBLAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-2369ab51\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.7388.XTfcBLAx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-2369ab51\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.7792.XuFnIkHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.7792.XuFnIkHx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\observe.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8136.XrjqdPyx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-ovfakiol\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8136.XrjqdPyx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\skill-evaluation-test-ovfakiol\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8704.XkbdVDRx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-errrqi9w\\builder\\scripts\\run_evaluation.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\run_evaluation.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8704.XkbdVDRx",
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\regression-005\\temp\\builder-enhancement-test-errrqi9w\\builder\\scripts\\graders.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\graders.py"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.960.XeshZsEx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py",
+      "target": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\trial_worker.py"
+    }
+  ],
+  "excluded": [
+    {
+      "data": ".coverage.DESKTOP-88FARC5.18152.XCZHrfqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\generate_openai_yaml.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.18152.XCZHrfqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\record_schema.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.18152.XCZHrfqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.18152.XCZHrfqx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\init_skill.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25844.XTDMEjzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25844.XTDMEjzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\record_schema.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.25844.XTDMEjzx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\generate_openai_yaml.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.36276.XEGPcovx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\custody.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.36276.XEGPcovx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\build_evidence.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48788.XGoaajYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\generate_openai_yaml.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48788.XGoaajYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\record_schema.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48788.XGoaajYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.48788.XGoaajYx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\init_skill.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XRFjBmLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_contracts.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XRFjBmLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\authoring_intake.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XRFjBmLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XRFjBmLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\text_resources.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.52896.XRFjBmLx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\skill_format.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\record_schema.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.53780.XyPqwwux",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8808.XVUZnEBx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8808.XVUZnEBx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\record_schema.py",
+      "reason": "No captured exact-byte source match"
+    },
+    {
+      "data": ".coverage.DESKTOP-88FARC5.8808.XVUZnEBx",
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\generate_openai_yaml.py",
+      "reason": "No captured exact-byte source match"
+    }
+  ]
+}

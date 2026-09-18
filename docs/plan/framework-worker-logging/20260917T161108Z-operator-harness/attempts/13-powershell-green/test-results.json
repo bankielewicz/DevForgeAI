@@ -1,0 +1,12 @@
+{
+  "Total": 9,
+  "Passed": 9,
+  "Failed": 0,
+  "Skipped": 0,
+  "NotRun": 0,
+  "PesterVersion": "5.7.1",
+  "PowerShell": "7.6.6",
+  "Platform": "Microsoft Windows NT 10.0.26200.0",
+  "NativeCodex": "NOT_RUN",
+  "FrameworkAcceptance": "NOT_EVALUATED"
+}

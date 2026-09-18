@@ -1,0 +1,33 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "dependent",
+  "kind": "native",
+  "started_at": "2026-09-14T23:13:05.873272+00:00",
+  "ended_at": "2026-09-14T23:13:06.029525+00:00",
+  "elapsed_seconds": 0.15599999999903957,
+  "timeout_seconds": 5,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "89e5c259e7b1087efb11549dcd266f2118adb7ba7d7acf034d490a1beb01ac7b",
+  "started_sha256": "42e3c2886ffdd3800c1276bac37b22ce47ec8c2e8cc9ee21a1c7c478b0d5c1ff",
+  "output_checks": [],
+  "artifacts": [],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\dependent\\attempt\\stdout.txt",
+      "sha256": "12e5cb1d6521d6a9f0369978cca6ec93c52582896608bf12882764ae21a0c6e4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\dependent\\attempt\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

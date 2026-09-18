@@ -1,0 +1,131 @@
+{
+  "id": "IR-02",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "package",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\fixtures\\IR-02\\example-skill"
+  ],
+  "started": "2026-09-13T09:04:54.181080+00:00",
+  "exit_code": 1,
+  "expected": "No FAIL for example; this is not an actual resource consumer",
+  "observation": {
+    "schema_version": "adaptive-check-observation-v1",
+    "command": "package",
+    "status": "MISMATCH",
+    "checks": [
+      {
+        "schema_version": "1",
+        "run_id": "helper",
+        "check_id": "AV-F01-0e95f5a36660",
+        "rule_id": "AV-F01",
+        "subject_path": "SKILL.md",
+        "method": "deterministic",
+        "required": true,
+        "applicability": "applicable",
+        "result": "PASS",
+        "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+        "evidence": []
+      },
+      {
+        "schema_version": "1",
+        "run_id": "helper",
+        "check_id": "AV-F02-0e95f5a36660",
+        "rule_id": "AV-F02",
+        "subject_path": "SKILL.md",
+        "method": "deterministic",
+        "required": true,
+        "applicability": "applicable",
+        "result": "PASS",
+        "reason": "Name/directory identity; semantic routing and selected limits require review.",
+        "evidence": []
+      },
+      {
+        "schema_version": "1",
+        "run_id": "helper",
+        "check_id": "AV-R01-9c72ea0ec662",
+        "rule_id": "AV-R01",
+        "subject_path": "SKILL.md:6:absent-example.md",
+        "method": "deterministic",
+        "required": true,
+        "applicability": "applicable",
+        "result": "FAIL",
+        "reason": "Referenced local resource is missing.",
+        "evidence": []
+      },
+      {
+        "schema_version": "1",
+        "run_id": "helper",
+        "check_id": "AV-U01-7bb2bb4f93d4",
+        "rule_id": "AV-U01",
+        "subject_path": "text-scan",
+        "method": "deterministic",
+        "required": true,
+        "applicability": "applicable",
+        "result": "PASS",
+        "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+        "evidence": []
+      },
+      {
+        "schema_version": "1",
+        "run_id": "helper",
+        "check_id": "AV-C01-557324939184",
+        "rule_id": "AV-C01",
+        "subject_path": "text-counts",
+        "method": "deterministic",
+        "required": true,
+        "applicability": "applicable",
+        "result": "PASS",
+        "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+        "evidence": []
+      }
+    ],
+    "observations": {
+      "unicode_candidates": [],
+      "resources": [
+        {
+          "path": "SKILL.md",
+          "role": "unknown",
+          "reachable": true,
+          "usage": "unresolved_usage",
+          "evidence": [],
+          "reason": "text (known extension); consumers require review."
+        }
+      ],
+      "edges": [
+        {
+          "source": "SKILL.md",
+          "line": 6,
+          "target": "absent-example.md",
+          "kind": "link",
+          "resolution": "missing"
+        }
+      ],
+      "context": {
+        "tokenizer": null,
+        "files": [
+          {
+            "path": "SKILL.md",
+            "bytes": 184,
+            "characters": 184,
+            "lines": 6,
+            "tokens": null
+          }
+        ],
+        "loads": [],
+        "budget": null,
+        "budget_result": "NOT_APPLICABLE",
+        "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+      }
+    },
+    "limitations": [
+      "Tokenizer not selected; token counts NOT_RUN.",
+      "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+      "No semantic, native activation, project-binding or security approval is inferred."
+    ]
+  }
+}

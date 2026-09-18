@@ -1,0 +1,13 @@
+{
+  "executable": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.exe",
+  "arguments": [
+    "app-server",
+    "generate-json-schema",
+    "--out",
+    "docs/plan/framework-worker-contract/20260915T160000Z/codex-schema"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started": "2026-09-15T15:15:53.1597747Z",
+  "exit_code": 0,
+  "output": "WARNING: failed to clean up stale arg0 temp dirs: Access is denied. (os error 5)\r\nWARNING: proceeding, even though we could not create PATH aliases: Access is denied. (os error 5) at path \"C:\\\\Users\\\\bryan\\\\.codex\\\\tmp\\\\arg0\\\\codex-arg0xbEcQ2\"\r\n"
+}

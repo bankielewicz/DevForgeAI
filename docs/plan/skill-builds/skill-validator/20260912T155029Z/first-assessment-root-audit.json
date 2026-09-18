@@ -1,0 +1,24 @@
+{
+  "audited_at_utc": "2026-09-12T16:31:53.100363+00:00",
+  "assessment_run": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260912T161842Z",
+  "retained_files_verified": 205,
+  "report_and_proposal_links_verified": 20,
+  "target_files_unchanged": 36,
+  "validator_files_unchanged": 15,
+  "finding_identity_verified": "F-8c43eca6259d05a2153068b5d5b29495d0c208229c2a19f49bc71355d8df2d1f",
+  "outcome": "FAIL",
+  "behavior": "INCOMPLETE",
+  "required_coverage": "7/8",
+  "builder_readiness": "BLOCKED",
+  "proposal_review_state": "pending",
+  "report": {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260912T161842Z\\validation-report.md",
+    "sha256": "1ca9a180c94a476dc9379334ceb1674f08ee930e20cb2fbffe37caab022ee3cf"
+  },
+  "proposal": {
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-builder\\20260912T161842Z\\revision-spec.md",
+    "sha256": "9b8570392db9ed2128a71d820ba3710f58a000749db3f0ca0b780e33da28248c"
+  },
+  "authority": "NONE",
+  "result": "MATCH"
+}

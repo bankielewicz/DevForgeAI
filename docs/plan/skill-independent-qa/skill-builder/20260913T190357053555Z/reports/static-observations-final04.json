@@ -1,0 +1,1975 @@
+{
+  "target_digest": "7715f8b80a9b089a4349f6bbb3b502a52d55a03bb2eb2ec65f861ea4be77ff3a",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 6564,
+      "sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599",
+      "characters": 6564,
+      "lines": 43
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "bytes": 12433,
+      "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16",
+      "characters": 12433,
+      "lines": 298,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "BindingError",
+          "line": 29
+        },
+        {
+          "name": "require",
+          "line": 35
+        },
+        {
+          "name": "compact",
+          "line": 40
+        },
+        {
+          "name": "digest",
+          "line": 44
+        },
+        {
+          "name": "strict_json",
+          "line": 48
+        },
+        {
+          "name": "fields",
+          "line": 66
+        },
+        {
+          "name": "string",
+          "line": 70
+        },
+        {
+          "name": "name",
+          "line": 76
+        },
+        {
+          "name": "strings",
+          "line": 81
+        },
+        {
+          "name": "relpath",
+          "line": 88
+        },
+        {
+          "name": "safe_path",
+          "line": 95
+        },
+        {
+          "name": "under",
+          "line": 106
+        },
+        {
+          "name": "excluded",
+          "line": 112
+        },
+        {
+          "name": "Capture",
+          "line": 116
+        },
+        {
+          "name": "descriptor",
+          "line": 162
+        },
+        {
+          "name": "binding",
+          "line": 203
+        },
+        {
+          "name": "observe",
+          "line": 232
+        },
+        {
+          "name": "main",
+          "line": 287
+        },
+        {
+          "name": "__init__",
+          "line": 30
+        },
+        {
+          "name": "pairs",
+          "line": 49
+        },
+        {
+          "name": "invalid",
+          "line": 55
+        },
+        {
+          "name": "__init__",
+          "line": 118
+        },
+        {
+          "name": "read",
+          "line": 122
+        },
+        {
+          "name": "inventory",
+          "line": 144
+        }
+      ]
+    },
+    {
+      "path": "assets/build-report-template.md",
+      "bytes": 785,
+      "sha256": "d9bee08c106b5cd3df034d95574cd319330f174c5ae47090b6684144222f8bdd",
+      "characters": 785,
+      "lines": 7
+    },
+    {
+      "path": "assets/conversion-report-template.md",
+      "bytes": 414,
+      "sha256": "7716a81d6d76cd67ddd04fca9f13207a1fac69e288c451ce2bea5f5326b38ffb",
+      "characters": 414,
+      "lines": 3
+    },
+    {
+      "path": "assets/skill-creator-license.txt",
+      "bytes": 11560,
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5",
+      "characters": 11560,
+      "lines": 202
+    },
+    {
+      "path": "assets/skill-creator-notice.md",
+      "bytes": 528,
+      "sha256": "b5fa5a90ea317cfd8af969d0ece4545dbf4fb624d1469a2ad04a0ec0e03273e4",
+      "characters": 528,
+      "lines": 3
+    },
+    {
+      "path": "assets/worker-task-template.md",
+      "bytes": 985,
+      "sha256": "e6bd435b1dec6f5fe3196885b90d28e15c0cf3d37065a47555e0fe85661a139a",
+      "characters": 985,
+      "lines": 21
+    },
+    {
+      "path": "package-manifest.json",
+      "bytes": 4728,
+      "sha256": "9e0d78936a94d7532dd6820dfe68fcb3df0b40efe36aeeec97343b7367592652",
+      "characters": 4728,
+      "lines": 48
+    },
+    {
+      "path": "references/adaptation.md",
+      "bytes": 10444,
+      "sha256": "5413c5d4fb9512a34b30c5d3c20a7c55f696874ef678bf173ea335a73644478b",
+      "characters": 10444,
+      "lines": 44
+    },
+    {
+      "path": "references/adaptive-contracts.md",
+      "bytes": 7135,
+      "sha256": "f41dfc545d60498253b52e0d57c4a1214602d380fcc766181f960949f0e7404c",
+      "characters": 7133,
+      "lines": 39
+    },
+    {
+      "path": "references/adoption.md",
+      "bytes": 1785,
+      "sha256": "17c69c0010976d043d00bc4707284c741bd651c0c8ca06860c69b56814c7926d",
+      "characters": 1785,
+      "lines": 9
+    },
+    {
+      "path": "references/authoring.md",
+      "bytes": 2324,
+      "sha256": "5e513b89d3334d945b3390c90e119ce6be0da5ab52390c012fe6bf5f4ab2ff40",
+      "characters": 2324,
+      "lines": 11
+    },
+    {
+      "path": "references/conversion-rules.md",
+      "bytes": 8647,
+      "sha256": "6b89eb700d832498a0a929d55c147a445038a7bd82992eb6120f2ddb60b4f414",
+      "characters": 8639,
+      "lines": 77
+    },
+    {
+      "path": "references/evidence-format.md",
+      "bytes": 3683,
+      "sha256": "28bfed7ffd8dfda8504d178333540f405f71580a1f3aa2058cf99651a836485e",
+      "characters": 3683,
+      "lines": 39
+    },
+    {
+      "path": "references/openai_yaml.md",
+      "bytes": 2405,
+      "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+      "characters": 2403,
+      "lines": 49
+    },
+    {
+      "path": "references/project-binding.md",
+      "bytes": 4895,
+      "sha256": "ebbc7d762c9a7adacd205d4711e42ab701689e2e71648d5f42cf2d3f5dc27c23",
+      "characters": 4895,
+      "lines": 35
+    },
+    {
+      "path": "references/regeneration.md",
+      "bytes": 2022,
+      "sha256": "4550d964c0e23a0ca0ead7fcc6bcf14be59c743dcf837a3ef0060fc0fed81ac7",
+      "characters": 2022,
+      "lines": 11
+    },
+    {
+      "path": "references/scaffolding.md",
+      "bytes": 1962,
+      "sha256": "3ad40695f411e6874bb4ab5ba5eb38f60edaf42e5ffcb82f824235dc4c1ce4eb",
+      "characters": 1962,
+      "lines": 15
+    },
+    {
+      "path": "references/spec-build.md",
+      "bytes": 1987,
+      "sha256": "10d2b65099a106b7dac97b1925488fd3e1a73bc5b1af96c847fad2f2ce40a2d2",
+      "characters": 1987,
+      "lines": 9
+    },
+    {
+      "path": "references/validation-handoff.md",
+      "bytes": 1340,
+      "sha256": "00519fdce45a5c2cfc3e6479e2f407e78380dbfa8392391af2c3a784f0cab6fc",
+      "characters": 1340,
+      "lines": 7
+    },
+    {
+      "path": "schemas/adaptation-proposal-v1.schema.json",
+      "bytes": 1549,
+      "sha256": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6",
+      "characters": 1549,
+      "lines": 75,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/adaptation-selection-v1.schema.json",
+      "bytes": 1015,
+      "sha256": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1",
+      "characters": 1015,
+      "lines": 45,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/adaptive-common.schema.json",
+      "bytes": 16453,
+      "sha256": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5",
+      "characters": 16453,
+      "lines": 767,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/adaptive-observation-v1.schema.json",
+      "bytes": 735,
+      "sha256": "ae335505541800dfd5819a5093829b1bc10fb604c528c7d054725656c1c6ce8c",
+      "characters": 735,
+      "lines": 37,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/adaptive-skill-v1.schema.json",
+      "bytes": 1228,
+      "sha256": "9269b2f9ac2812bc2a826b83726a5ff249086fd7c23521c1fdb5b115b36afae7",
+      "characters": 1228,
+      "lines": 59,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/adoption-evidence.schema.json",
+      "bytes": 27634,
+      "sha256": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f",
+      "characters": 27634,
+      "lines": 1044,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/authoring-baseline.schema.json",
+      "bytes": 1319,
+      "sha256": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746",
+      "characters": 1319,
+      "lines": 65,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/authoring-contract.schema.json",
+      "bytes": 2587,
+      "sha256": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099",
+      "characters": 2587,
+      "lines": 134,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/authoring-record.schema.json",
+      "bytes": 3376,
+      "sha256": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d",
+      "characters": 3376,
+      "lines": 171,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/binding-observation-v1.schema.json",
+      "bytes": 1076,
+      "sha256": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb",
+      "characters": 1076,
+      "lines": 55,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/build-artifacts.schema.json",
+      "bytes": 4326,
+      "sha256": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be",
+      "characters": 4326,
+      "lines": 177,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/evidence.schema.json",
+      "bytes": 2675,
+      "sha256": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3",
+      "characters": 2675,
+      "lines": 141,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/project-binding-v1.schema.json",
+      "bytes": 1012,
+      "sha256": "fb0d98d650d443ee1d613d27e632696a4422d101ce6dd37b1eca6e9189fd3399",
+      "characters": 1012,
+      "lines": 43,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/project-evidence-v1.schema.json",
+      "bytes": 1472,
+      "sha256": "e8d9cbc8a6e76ba9cce5d8422dbc599673e3e489a6c25d750c1820409fc957e9",
+      "characters": 1472,
+      "lines": 70,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/set-authoring-v1.schema.json",
+      "bytes": 1293,
+      "sha256": "d5b9840fe7daf8ab810315d28c9c3539b3e644eb4293e0a8699364ae77981ae8",
+      "characters": 1293,
+      "lines": 60,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/set-validation-request-v1.schema.json",
+      "bytes": 1527,
+      "sha256": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e",
+      "characters": 1527,
+      "lines": 68,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "schemas/validation-request.schema.json",
+      "bytes": 2189,
+      "sha256": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367",
+      "characters": 2189,
+      "lines": 108,
+      "schema_meta_check": "PASS"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "bytes": 31183,
+      "sha256": "aac50133eb2bf1b2c255de9a1bd0cfe5025b42252309e8e761948a0530c350be",
+      "characters": 31183,
+      "lines": 500,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "need",
+          "line": 27
+        },
+        {
+          "name": "validate_shape",
+          "line": 32
+        },
+        {
+          "name": "shape",
+          "line": 44
+        },
+        {
+          "name": "indexed",
+          "line": 53
+        },
+        {
+          "name": "topology",
+          "line": 59
+        },
+        {
+          "name": "aggregate",
+          "line": 74
+        },
+        {
+          "name": "Reader",
+          "line": 83
+        },
+        {
+          "name": "main",
+          "line": 467
+        },
+        {
+          "name": "resolve",
+          "line": 37
+        },
+        {
+          "name": "__init__",
+          "line": 84
+        },
+        {
+          "name": "absolute",
+          "line": 91
+        },
+        {
+          "name": "ref",
+          "line": 99
+        },
+        {
+          "name": "locators",
+          "line": 109
+        },
+        {
+          "name": "references_in",
+          "line": 116
+        },
+        {
+          "name": "package",
+          "line": 129
+        },
+        {
+          "name": "requirement_index",
+          "line": 149
+        },
+        {
+          "name": "record_ref",
+          "line": 181
+        },
+        {
+          "name": "record",
+          "line": 186
+        },
+        {
+          "name": "evidence",
+          "line": 226
+        },
+        {
+          "name": "proposal",
+          "line": 238
+        },
+        {
+          "name": "selection",
+          "line": 320
+        },
+        {
+          "name": "legacy_ref",
+          "line": 356
+        },
+        {
+          "name": "legacy_manifest",
+          "line": 364
+        },
+        {
+          "name": "set_authoring",
+          "line": 378
+        },
+        {
+          "name": "set_request",
+          "line": 435
+        },
+        {
+          "name": "readback",
+          "line": 460
+        }
+      ]
+    },
+    {
+      "path": "scripts/authoring.py",
+      "bytes": 28306,
+      "sha256": "fa08f536cc685b5d79b4dca96b165a6a6af913e8659bdcd651eb6ae51525ceb9",
+      "characters": 28306,
+      "lines": 480,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "digest",
+          "line": 24
+        },
+        {
+          "name": "compact",
+          "line": 27
+        },
+        {
+          "name": "parse",
+          "line": 30
+        },
+        {
+          "name": "safe",
+          "line": 45
+        },
+        {
+          "name": "relative",
+          "line": 61
+        },
+        {
+          "name": "child",
+          "line": 66
+        },
+        {
+          "name": "read_bytes",
+          "line": 72
+        },
+        {
+          "name": "files",
+          "line": 84
+        },
+        {
+          "name": "manifest",
+          "line": 102
+        },
+        {
+          "name": "save",
+          "line": 106
+        },
+        {
+          "name": "copy_files",
+          "line": 112
+        },
+        {
+          "name": "reference",
+          "line": 122
+        },
+        {
+          "name": "referenced",
+          "line": 126
+        },
+        {
+          "name": "read_record",
+          "line": 134
+        },
+        {
+          "name": "origin",
+          "line": 148
+        },
+        {
+          "name": "begin",
+          "line": 241
+        },
+        {
+          "name": "publish",
+          "line": 306
+        },
+        {
+          "name": "main",
+          "line": 459
+        },
+        {
+          "name": "pairs",
+          "line": 31
+        },
+        {
+          "name": "invalid",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "bytes": 15985,
+      "sha256": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+      "characters": 15985,
+      "lines": 332,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "sha",
+          "line": 18
+        },
+        {
+          "name": "linked",
+          "line": 22
+        },
+        {
+          "name": "selected",
+          "line": 27
+        },
+        {
+          "name": "relative_path",
+          "line": 37
+        },
+        {
+          "name": "within",
+          "line": 48
+        },
+        {
+          "name": "read_bytes",
+          "line": 55
+        },
+        {
+          "name": "json_value",
+          "line": 65
+        },
+        {
+          "name": "name_from_markdown",
+          "line": 86
+        },
+        {
+          "name": "resolve_spec",
+          "line": 123
+        },
+        {
+          "name": "input_record",
+          "line": 167
+        },
+        {
+          "name": "inventory",
+          "line": 185
+        },
+        {
+          "name": "revision_plan",
+          "line": 208
+        },
+        {
+          "name": "adoption_plan",
+          "line": 274
+        },
+        {
+          "name": "main",
+          "line": 300
+        },
+        {
+          "name": "pairs",
+          "line": 66
+        },
+        {
+          "name": "constant",
+          "line": 74
+        },
+        {
+          "name": "finite_float",
+          "line": 77
+        },
+        {
+          "name": "UniqueLoader",
+          "line": 98
+        },
+        {
+          "name": "mapping",
+          "line": 101
+        }
+      ]
+    },
+    {
+      "path": "scripts/custody.py",
+      "bytes": 24168,
+      "sha256": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+      "characters": 24168,
+      "lines": 451,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "digest",
+          "line": 23
+        },
+        {
+          "name": "strict_json",
+          "line": 26
+        },
+        {
+          "name": "is_link",
+          "line": 46
+        },
+        {
+          "name": "bounded_path",
+          "line": 52
+        },
+        {
+          "name": "snapshot",
+          "line": 72
+        },
+        {
+          "name": "fields",
+          "line": 104
+        },
+        {
+          "name": "nonempty",
+          "line": 109
+        },
+        {
+          "name": "sha",
+          "line": 114
+        },
+        {
+          "name": "strings",
+          "line": 119
+        },
+        {
+          "name": "objects",
+          "line": 124
+        },
+        {
+          "name": "indexed",
+          "line": 129
+        },
+        {
+          "name": "read_snapshot_json",
+          "line": 138
+        },
+        {
+          "name": "hash_rows",
+          "line": 142
+        },
+        {
+          "name": "prior_provenance_record",
+          "line": 152
+        },
+        {
+          "name": "reference_json",
+          "line": 227
+        },
+        {
+          "name": "observed_rows",
+          "line": 236
+        },
+        {
+          "name": "adoption_record",
+          "line": 257
+        },
+        {
+          "name": "verify_handoff",
+          "line": 344
+        },
+        {
+          "name": "pointer_record",
+          "line": 367
+        },
+        {
+          "name": "generated_origin_record",
+          "line": 381
+        },
+        {
+          "name": "revision_origin",
+          "line": 435
+        },
+        {
+          "name": "pairs",
+          "line": 27
+        },
+        {
+          "name": "constant",
+          "line": 35
+        },
+        {
+          "name": "finite_float",
+          "line": 38
+        },
+        {
+          "name": "walk",
+          "line": 78
+        },
+        {
+          "name": "historical_path",
+          "line": 167
+        },
+        {
+          "name": "reference",
+          "line": 177
+        }
+      ]
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "bytes": 8630,
+      "sha256": "a83d38bbb92993b7951dfef22db1eb92dd09b8a642b9cd78802d13bd6ddb8fdd",
+      "characters": 8630,
+      "lines": 258,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "yaml_quote",
+          "line": 51
+        },
+        {
+          "name": "format_display_name",
+          "line": 56
+        },
+        {
+          "name": "generate_short_description",
+          "line": 75
+        },
+        {
+          "name": "read_frontmatter_name",
+          "line": 105
+        },
+        {
+          "name": "parse_interface_overrides",
+          "line": 134
+        },
+        {
+          "name": "write_openai_yaml",
+          "line": 160
+        },
+        {
+          "name": "main",
+          "line": 213
+        }
+      ]
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "bytes": 10650,
+      "sha256": "904594626f8f3e49f29d1a0cd8fac309589700c350eeec75dba40de22b37d4b5",
+      "characters": 10650,
+      "lines": 307,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "normalize_skill_name",
+          "line": 94
+        },
+        {
+          "name": "title_case_skill_name",
+          "line": 103
+        },
+        {
+          "name": "parse_resources",
+          "line": 108
+        },
+        {
+          "name": "create_resource_dirs",
+          "line": 127
+        },
+        {
+          "name": "init_skill",
+          "line": 159
+        },
+        {
+          "name": "main",
+          "line": 243
+        }
+      ]
+    },
+    {
+      "path": "scripts/record_schema.py",
+      "bytes": 3263,
+      "sha256": "6e3f172e40c659ba400e4065d4020ae2157a21c2f9d086d935f607b06bce9330",
+      "characters": 3263,
+      "lines": 64,
+      "python_parse": "PASS",
+      "functions": [
+        {
+          "name": "need",
+          "line": 10
+        },
+        {
+          "name": "validate",
+          "line": 15
+        }
+      ]
+    }
+  ],
+  "local_links": [
+    {
+      "source": "SKILL.md",
+      "line": 16,
+      "target": "references/authoring.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 17,
+      "target": "references/spec-build.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 18,
+      "target": "references/conversion-rules.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 19,
+      "target": "references/regeneration.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 20,
+      "target": "references/adoption.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 21,
+      "target": "references/adaptation.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 23,
+      "target": "references/adaptive-contracts.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 23,
+      "target": "references/project-binding.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 29,
+      "target": "references/evidence-format.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 33,
+      "target": "references/scaffolding.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "SKILL.md",
+      "line": 41,
+      "target": "references/validation-handoff.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "assets/conversion-report-template.md",
+      "line": 3,
+      "target": "build-report-template.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "assets/skill-creator-notice.md",
+      "line": 3,
+      "target": "skill-creator-license.txt",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptation.md",
+      "line": 13,
+      "target": "adaptive-contracts.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptation.md",
+      "line": 25,
+      "target": "regeneration.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 7,
+      "target": "../schemas/project-evidence-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 8,
+      "target": "../schemas/adaptation-proposal-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 9,
+      "target": "../schemas/adaptation-selection-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 10,
+      "target": "../schemas/set-authoring-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 11,
+      "target": "../schemas/set-validation-request-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 12,
+      "target": "../schemas/adaptive-skill-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 13,
+      "target": "../schemas/project-binding-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 14,
+      "target": "../schemas/adaptive-observation-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 15,
+      "target": "../schemas/binding-observation-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 35,
+      "target": "../assets/adaptive-runtime/check_project_binding.py",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/adaptive-contracts.md",
+      "line": 35,
+      "target": "project-binding.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/authoring.md",
+      "line": 7,
+      "target": "evidence-format.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/conversion-rules.md",
+      "line": 43,
+      "target": "spec-build.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/project-binding.md",
+      "line": 3,
+      "target": "../assets/adaptive-runtime/check_project_binding.py",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/project-binding.md",
+      "line": 17,
+      "target": "../schemas/project-binding-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/project-binding.md",
+      "line": 25,
+      "target": "../schemas/binding-observation-v1.schema.json",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/scaffolding.md",
+      "line": 3,
+      "target": "../assets/skill-creator-notice.md",
+      "exists": true,
+      "inside_package": true
+    },
+    {
+      "source": "references/scaffolding.md",
+      "line": 13,
+      "target": "openai_yaml.md",
+      "exists": true,
+      "inside_package": true
+    }
+  ],
+  "source_to_effect_candidates": [
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 58,
+      "call": "json.loads"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 193,
+      "call": "capture.read(under(root, 'SKILL.md')).decode"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 243,
+      "call": "binding_capture.read"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 130,
+      "call": "path.open"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 131,
+      "call": "stream.read"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 193,
+      "call": "capture.read"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 249,
+      "call": "capture.read"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 270,
+      "call": "binding_capture.read"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 157,
+      "call": "self.read"
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "line": 265,
+      "call": "capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 18,
+      "call": "_spec.loader.exec_module"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 48,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 15,
+      "call": "Path(__file__).resolve"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 39,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 48,
+      "call": "(PACKAGE / 'schemas' / (version + '.schema.json')).read_bytes"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 85,
+      "call": "runtime.Capture"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 93,
+      "call": "runtime.safe_path"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 101,
+      "call": "runtime.string"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 104,
+      "call": "self.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 132,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 182,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 188,
+      "call": "runtime.digest"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 357,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 359,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 365,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 366,
+      "call": "runtime.fields"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 477,
+      "call": "runtime.safe_path"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 478,
+      "call": "reader.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 479,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 480,
+      "call": "reader.record"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 484,
+      "call": "reader.readback"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 39,
+      "call": "(PACKAGE / 'schemas/adaptive-common.schema.json').read_bytes"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 139,
+      "call": "runtime.relpath"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 141,
+      "call": "runtime.string"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 162,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 177,
+      "call": "runtime.string"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 178,
+      "call": "runtime.string"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 188,
+      "call": "runtime.compact"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 359,
+      "call": "(PACKAGE / 'schemas' / (filename + '.schema.json')).read_bytes"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 370,
+      "call": "runtime.fields"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 371,
+      "call": "runtime.relpath"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 373,
+      "call": "runtime.string"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 451,
+      "call": "runtime.under"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 105,
+      "call": "runtime.digest"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 159,
+      "call": "self.capture.read(runtime.under(root, p)).decode('utf-8').replace"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 295,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 376,
+      "call": "runtime.digest"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 394,
+      "call": "runtime.under"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 483,
+      "call": "reader.selection"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 485,
+      "call": "reader.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 103,
+      "call": "runtime.excluded"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 145,
+      "call": "runtime.digest"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 376,
+      "call": "runtime.compact"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 397,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 424,
+      "call": "runtime.strict_json"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 462,
+      "call": "runtime.digest"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 145,
+      "call": "runtime.compact"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 159,
+      "call": "self.capture.read(runtime.under(root, p)).decode"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 397,
+      "call": "self.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 424,
+      "call": "self.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 462,
+      "call": "self.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 348,
+      "call": "runtime.digest"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 423,
+      "call": "(run / 'publication-failure.json').exists"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 159,
+      "call": "self.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 348,
+      "call": "runtime.compact"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 159,
+      "call": "runtime.under"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 209,
+      "call": "runtime.descriptor"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 214,
+      "call": "runtime.descriptor"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 220,
+      "call": "runtime.binding"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 216,
+      "call": "self.capture.read(runtime.under(root, value['contract_path'])).decode"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 216,
+      "call": "self.capture.read"
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "line": 216,
+      "call": "runtime.under"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 40,
+      "call": "json.loads"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 108,
+      "call": "path.parent.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 113,
+      "call": "root.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 129,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 243,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 287,
+      "call": "run.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 309,
+      "call": "(run / 'authoring-record.json').exists"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 77,
+      "call": "path.open"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 78,
+      "call": "stream.read"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 109,
+      "call": "path.open"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 110,
+      "call": "stream.write"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 116,
+      "call": "path.parent.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 136,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 162,
+      "call": "(prior_run / 'publication-failure.json').exists"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 245,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 261,
+      "call": "run.is_relative_to"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 289,
+      "call": "(run / 'contract.json').write_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 295,
+      "call": "copy_files"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 296,
+      "call": "copy_files"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 311,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 312,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 410,
+      "call": "copy_files"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 117,
+      "call": "path.open"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 118,
+      "call": "stream.write"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 124,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 164,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 195,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 259,
+      "call": "run.is_relative_to"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 293,
+      "call": "p.parent.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 294,
+      "call": "p.write_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 317,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 319,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 373,
+      "call": "target.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 95,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 203,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 323,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 378,
+      "call": "before_write"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 380,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 384,
+      "call": "path.parent.mkdir"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 389,
+      "call": "path.unlink"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 422,
+      "call": "(run / 'candidate-manifest.json').exists"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 437,
+      "call": "(run / 'validator-request.md').write_text"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 472,
+      "call": "read_record"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 236,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 386,
+      "call": "path.open"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 387,
+      "call": "stream.write"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 207,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 216,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 245,
+      "call": "Path(__file__).resolve"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 401,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 432,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 436,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/authoring.py",
+      "line": 405,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 34,
+      "call": "path.resolve"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 59,
+      "call": "path.read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 83,
+      "call": "json.loads"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 92,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 163,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 172,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 304,
+      "call": "resolver.add_argument"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 305,
+      "call": "resolver.add_mutually_exclusive_group"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 112,
+      "call": "yaml.load"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 212,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 278,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 323,
+      "call": "{'resolve-spec': resolve_spec, 'input-record': input_record, 'revision-plan': revision_plan, 'adoption-plan': adoption_plan}[args.operation]"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 104,
+      "call": "loader.construct_object"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 107,
+      "call": "loader.construct_object"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 198,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "line": 159,
+      "call": "item.resolve"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 44,
+      "call": "json.loads"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 231,
+      "call": "read_snapshot_json"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 404,
+      "call": "read_snapshot_json"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 68,
+      "call": "current.resolve().is_relative_to"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 68,
+      "call": "root.resolve"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 68,
+      "call": "current.resolve"
+    },
+    {
+      "path": "scripts/custody.py",
+      "line": 92,
+      "call": "item.read_bytes"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 110,
+      "call": "skill_md.read_text"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 205,
+      "call": "agents_dir.mkdir"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 243,
+      "call": "write_openai_yaml"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 120,
+      "call": "yaml.safe_load"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 179,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 184,
+      "call": "yaml.safe_load"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 191,
+      "call": "output_path.write_text"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 207,
+      "call": "output_path.open"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 208,
+      "call": "stream.write"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 239,
+      "call": "read_frontmatter_name"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 189,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 247,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 248,
+      "call": "yaml.safe_load"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 252,
+      "call": "result.write_text"
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "line": 250,
+      "call": "read_bytes"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 132,
+      "call": "resource_dir.mkdir"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 182,
+      "call": "skill_dir.mkdir"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 196,
+      "call": "skill_md_path.write_text"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 204,
+      "call": "write_openai_yaml"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 136,
+      "call": "example_script.write_text"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 144,
+      "call": "example_reference.write_text"
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "line": 153,
+      "call": "example_asset.write_text"
+    },
+    {
+      "path": "scripts/record_schema.py",
+      "line": 21,
+      "call": "resolve"
+    }
+  ],
+  "missing_local_links": [],
+  "limits": {
+    "files": 2000,
+    "bytes": 33554432
+  },
+  "remote_checks": "NOT_RUN; not required by local contract",
+  "semantic_notes": "All selected Markdown routing and Python source read independently; candidate call presence is not a defect verdict."
+}

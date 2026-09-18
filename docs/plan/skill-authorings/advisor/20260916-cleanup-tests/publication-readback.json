@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\authoring-record.json",
+    "sha256": "34b8077abb8a5ef3676d1c2825bfbad363d0ae7bbbd78ce4757c8ea90ec71f35"
+  },
+  "baseline": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\authoring-baseline.json",
+    "sha256": "1eef80b8687b51002d4ebabceb2080ec4dc5c7da8692d5ad193bb33db35f7881"
+  },
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\validation-request.json",
+    "sha256": "5164ea26b9a91ccf02de3d70735bb3d493ff1ad077d5ca39833b93fa22887a43"
+  },
+  "package_digest": "0cb044977cb8821fa42a927a35334543ba7c4b59f4a712f278da66d46ff03293"
+}

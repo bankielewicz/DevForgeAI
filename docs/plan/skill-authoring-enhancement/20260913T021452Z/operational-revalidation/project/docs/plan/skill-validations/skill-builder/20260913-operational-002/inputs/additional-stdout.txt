@@ -1,0 +1,56 @@
+{
+  "synthetic_import": {
+    "case_id": "synthetic-import",
+    "result": "PASS",
+    "metadata_preserved": true,
+    "source_unchanged": true,
+    "imported_script_execution": "NOT_RUN, as required during authoring",
+    "validator_invocation": "NOT_RUN, manual request only",
+    "authoring_state": "AUTHORED",
+    "handoff_digest_matches": true,
+    "limitation": "The assessment agent knows the prior findings. This is a realistic synthetic host walkthrough, not independent native/cold model execution."
+  },
+  "record_write_failure": {
+    "case_id": "record-write-failure",
+    "result": "PASS",
+    "observed": {
+      "state": "PARTIAL",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-revalidation\\project\\docs\\plan\\skill-validations\\skill-builder\\20260913-operational-002\\trials\\record-write-failure\\project\\docs\\plan\\authoring-001",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "delivered_manifest": {
+        "schema_version": "1",
+        "files": [
+          {
+            "path": "SKILL.md",
+            "bytes": 79,
+            "sha256": "461d8d5bc96f3e7f8bd2e59f0328808044e2253d5871c01c880c962135dfb1a9"
+          }
+        ],
+        "package_digest": "4ea01cc17251c32bbe9b02901803a0b3765fbb4ba027aa97d5025c213027eb3b"
+      },
+      "error": "synthetic record publication write failure"
+    },
+    "retained_failure": {
+      "state": "PARTIAL",
+      "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-revalidation\\project\\docs\\plan\\skill-validations\\skill-builder\\20260913-operational-002\\trials\\record-write-failure\\project\\docs\\plan\\authoring-001",
+      "applied_paths": [
+        "SKILL.md"
+      ],
+      "delivered_manifest": {
+        "schema_version": "1",
+        "files": [
+          {
+            "path": "SKILL.md",
+            "bytes": 79,
+            "sha256": "461d8d5bc96f3e7f8bd2e59f0328808044e2253d5871c01c880c962135dfb1a9"
+          }
+        ],
+        "package_digest": "4ea01cc17251c32bbe9b02901803a0b3765fbb4ba027aa97d5025c213027eb3b"
+      },
+      "error": "synthetic record publication write failure"
+    },
+    "no_usable_publication": true
+  }
+}

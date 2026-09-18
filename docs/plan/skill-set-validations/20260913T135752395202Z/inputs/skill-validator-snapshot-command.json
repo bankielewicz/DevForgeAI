@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\observe.py",
+    "snapshot",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T135752395202Z"
+  ],
+  "exit_code": 0
+}

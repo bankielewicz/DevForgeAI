@@ -1,0 +1,47 @@
+[
+  {
+    "bytes": 2443,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\byte_peer.rs",
+    "sha256": "264322a04483655835324a42adcbb2c6d99649942c9f3816e611c1f9686bd5f5"
+  },
+  {
+    "bytes": 7500,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\Cargo.lock",
+    "sha256": "e0d34974069e4d98cccbab73e6263d1ebae3bfdaab4b1b70303d95935b870e89"
+  },
+  {
+    "bytes": 600,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\Cargo.toml",
+    "sha256": "7e02f191fd8072d70be3b2ba3fad237662a1d9c4f4a05755b2e889e5ebcc1f30"
+  },
+  {
+    "bytes": 3942,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\expected.json",
+    "sha256": "399c09d82a9bdb68cdf19c666d4a322072e9c1b1b5e8920c92dbb90dbee85ee8"
+  },
+  {
+    "bytes": 1357,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\generate_expected.py",
+    "sha256": "02504ca2e72f7e80ca9952bdb7b3ff875f29ed93955cb9b46f622c780fc137a1"
+  },
+  {
+    "bytes": 21984,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\qa-harness\\independent.rs",
+    "sha256": "8dd533153dc0f466cfcd294fe8d9a7510bf6d8f60f863e4066c3f7509142c689"
+  },
+  {
+    "bytes": 5946,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\run_command.py",
+    "sha256": "4850ee747eb862b019f5284d58cec53d43a712fc3e85a66ae12d7ea113fef8e7"
+  },
+  {
+    "bytes": 2919,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\measure.py",
+    "sha256": "500dd83c413c953a60d0be95f6e7e80d556c35317436d3841aa3447ede37b5e7"
+  },
+  {
+    "bytes": 14158,
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\cli_matrix.py",
+    "sha256": "669ad37a44fec76cfac2035d3bf0e5f5eb4cd7efe22b3d3a971b255653869329"
+  }
+]

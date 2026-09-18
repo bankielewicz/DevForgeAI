@@ -1,0 +1,214 @@
+# Phase 05: Code Generation
+
+**Purpose:** Generate production-ready UI component code based on template, requirements, and constraints.
+
+**Pre-Flight:** Verify Phase 04 completed.
+
+---
+
+## Reference Loading [MANDATORY]
+
+```
+Read(file_path=".claude/skills/spec-driven-design/references/code-generation.md")
+```
+
+IF Read fails: HALT -- "Phase 05 reference files not loaded."
+
+Load the progressive craft contract only for Web generation:
+
+```
+IF PLATFORM == "web":
+    Read(file_path=".claude/skills/spec-driven-design/references/design-craft.md")
+```
+
+IF the conditional Read fails: HALT -- "Web design craft contract not loaded."
+
+---
+
+## Step 5.1: Load Code Generation Reference
+
+**EXECUTE:**
+```
+Read(file_path=".claude/skills/spec-driven-design/references/code-generation.md")
+```
+
+**VERIFY:**
+- File content loaded into context
+- Content contains code generation procedures
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --step=5.1 --project-root=. 2>&1")
+```
+
+---
+
+## Step 5.2: Ensure Output Directory Exists
+
+**EXECUTE:**
+```
+Bash(command="python src/claude/skills/spec-driven-design/scripts/ensure_spec_dir.py 2>&1")
+```
+If script fails, try fallback:
+```
+Bash(command="python .claude/skills/spec-driven-design/scripts/ensure_spec_dir.py 2>&1")
+```
+
+Parse `source-tree/governance.json` for UI component directory (default: `devforgeai/specs/ui/`).
+
+**VERIFY:**
+- Script exits with code 0
+- Output directory exists or was created
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --step=5.2 --project-root=. 2>&1")
+```
+
+---
+
+## Step 5.3: Generate Component Code
+
+**EXECUTE:**
+Using the loaded template (Phase 04), requirements (Phase 02), and technology selections (Phase 03):
+
+1. Start with the loaded template as the base structure
+2. Apply AESTHETIC_VIBE (from Phase 03 Step 3.7a) to guide the emotional tone of the design
+3. Apply styling choices (STYLING from Phase 03)
+4. **Enforce design-system-rules.md constraints** (loaded in Phase 04 Step 4.4a):
+   - All spatial values (margin, padding, gap) must use the 8-point grid scale
+   - All colors must use semantic tokens (no raw hex codes or framework utility colors)
+   - Typography must follow the defined scale hierarchy
+   - Borders, shadows, and radius must use defined elevation tokens
+   - All interactive elements must have transitions and micro-interactions
+5. **Structure components per component-anatomy.md** (loaded in Phase 04 Step 4.4c):
+   - Classify each component as Smart (container) or Dumb (presentational)
+   - Use folder structure for complex components, flat file for simple ones
+   - Define explicit props interfaces for all components
+   - Implement loading/error/success states for data-fetching components
+6. Implement component structure from COMPONENTS list
+7. Follow best practices loaded in Phase 04
+8. Respect coding-standards.md conventions
+9. **Apply accessibility-guidelines.md rules** (loaded in Phase 04 Step 4.4b):
+   - Use semantic HTML elements (never `<div>` when `<button>`, `<nav>`, etc. applies)
+   - ARIA labels, roles, and states for all interactive elements
+   - Keyboard navigation with visible focus-visible states
+   - Focus trapping for modals/drawers, Escape to close
+   - Color contrast ratios: 4.5:1 normal text, 3:1 large text/UI components
+   - Associated labels for all form inputs
+10. Include inline comments explaining key sections
+11. Apply anti-pattern prevention (check anti-patterns.md constraints)
+
+**Note:** If AESTHETIC_VIBE conflicts with design system rules (e.g., a spacing value not on the grid), the design system wins.
+
+Generate the final component code.
+
+**VERIFY:**
+- Generated code is non-empty
+- Code uses the selected FRAMEWORK syntax
+- Code includes accessibility attributes (ARIA or equivalent)
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --step=5.3 --project-root=. 2>&1")
+```
+
+---
+
+## Step 5.4: Confirm Output Filename
+
+**EXECUTE:**
+Propose a filename based on component name and framework:
+
+```
+AskUserQuestion:
+  Question: "Where should I save the generated component? Proposed: ${DEFAULT_PATH}"
+  Header: "Output Path"
+  Options:
+    - label: "Use proposed path"
+      description: "${DEFAULT_PATH}"
+    - label: "Custom path"
+      description: "I'll specify a different filename or location"
+  multiSelect: false
+```
+
+If custom path: Accept user input for the file path.
+
+Store as OUTPUT_PATH.
+
+**VERIFY:**
+- OUTPUT_PATH is set and non-empty
+- Path is within project directory
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --step=5.4 --project-root=. 2>&1")
+```
+
+---
+
+## Step 5.5: Write Generated Code to File
+
+**EXECUTE:**
+```
+Write(file_path="${OUTPUT_PATH}", content=${GENERATED_CODE})
+```
+
+**VERIFY:**
+```
+Glob(pattern="${OUTPUT_PATH}")
+```
+- File exists on disk
+- File is non-empty
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --step=5.5 --artifact=${OUTPUT_PATH} --project-root=. 2>&1")
+```
+
+---
+
+## Step 5.6: Validate Canonical Web Artifact
+
+This step applies only when the CLI-bound `PLATFORM == "web"`. GUI and TUI generation omit it.
+
+`IF PLATFORM == "web"`: execute this step. Otherwise continue to Phase 05 completion.
+
+**EXECUTE:**
+
+- Canonical path: `devforgeai/specs/ui/artifact.html`.
+- If `OUTPUT_PATH` is already the canonical path, reuse those exact bytes and do not rewrite them.
+- Otherwise, write an additional self-contained HTML artifact that implements the same tokens, components, content, states, and interactions as the framework output and `design.md`.
+- The canonical artifact must not require a network request, CDN, remote font, remote image, build step, or framework runtime.
+
+**VERIFY:**
+
+```
+Glob(pattern="devforgeai/specs/ui/artifact.html")
+```
+
+- The canonical path exists and is non-empty.
+- Step 5.5 output remains byte-for-byte unchanged.
+
+**RECORD:**
+
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --step=5.6 --project-root=. 2>&1")
+```
+
+Any non-zero result HALTs. Do not record 5.6 for GUI or TUI.
+
+---
+
+## Phase 05 Completion
+
+**EXECUTE:**
+```
+Bash(command="devforgeai-validate validate-design-phase ${IDENTIFIER} ${WORKFLOW_FLAG} --mode=${MODE} --phase=05 --project-root=. 2>&1")
+Bash(command="devforgeai-validate phase-complete ${IDENTIFIER} ${WORKFLOW_FLAG} --phase=05 --project-root=. 2>&1")
+```
+
+**VERIFY:**
+- Exit code 0; any non-zero result blocks completion
+
+**NEXT:** Proceed to Phase 06 (Documentation).

@@ -1,0 +1,349 @@
+{
+  "schema_version": "1",
+  "run_id": "20260916T140000Z-streaming-final",
+  "target_name": "advisor",
+  "rules": [
+    {
+      "rule_id": "AS-01",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-01",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-02",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-02",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-03",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-03",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-04",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-04",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-05",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-05",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-06",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-06",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-07",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-07",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-08",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-08",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-09",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-09",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-10",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-10",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-11",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-11",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-12",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-12",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-13",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-13",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-14",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-14",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "AS-15",
+      "revision": "1+amendment-001",
+      "title": "Advisor streaming requirement AS-15",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "user_selected_contract",
+      "applicability": "applicable",
+      "method": "independent deterministic/native observation",
+      "expected_observation": "The mapped required cases match their independently declared expected behavior.",
+      "required": true,
+      "limitation": "No live Claude or installed-skill claim."
+    },
+    {
+      "rule_id": "SV-STRUCTURE",
+      "revision": "1",
+      "title": "Skill structure and link integrity",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "validator_rule",
+      "applicability": "applicable",
+      "method": "validator structure observer and installed checker",
+      "expected_observation": "All emitted mandatory checks pass.",
+      "required": true,
+      "limitation": "Static structure does not prove behavior."
+    },
+    {
+      "rule_id": "REPO-QUALITY",
+      "revision": "2026-09-16",
+      "title": "Required pass rate and executed-line coverage",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "repository_policy",
+      "applicability": "applicable",
+      "method": "raw required-case and coverage counts",
+      "expected_observation": "Each threshold is at least 95 percent.",
+      "required": true,
+      "limitation": "Branch coverage is separate."
+    },
+    {
+      "rule_id": "SOURCE-PRESERVATION",
+      "revision": "1",
+      "title": "Frozen source preservation",
+      "source_refs": [
+        {
+          "path": "inputs/requirements-matrix.json",
+          "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef",
+          "source_id": "SRC-REQUIREMENTS",
+          "locator": "requirements"
+        }
+      ],
+      "authority_class": "validator_rule",
+      "applicability": "applicable",
+      "method": "exact manifest readback",
+      "expected_observation": "All 19 source files match the initial final snapshot.",
+      "required": true,
+      "limitation": "Readback is a point-in-time observation."
+    }
+  ]
+}

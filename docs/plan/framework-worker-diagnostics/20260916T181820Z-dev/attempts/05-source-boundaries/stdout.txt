@@ -1,0 +1,22 @@
+
+running 3 tests
+test protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries ... FAILED
+test protocol::diagnostic_cases::diagnostic_source_write_failure_is_not_success_and_never_serializes_error_text ... ok
+test protocol::diagnostic_cases::diagnostic_process_guard_keeps_zero_active_denied_before_send_and_at_final_check ... ok
+
+failures:
+
+---- protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries stdout ----
+
+thread 'protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries' (31504) panicked at src\..\tests\support\diagnostic_cases.rs:52:9:
+assertion `left == right` failed
+  left: Err("invalid_profile")
+ right: Err("profile_unqualified")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 37 filtered out; finished in 0.18s
+

@@ -1,0 +1,36 @@
+{
+  "root": "commands\\green-02",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 8656,
+      "sha256": "2ca9004b4efd5e058bfa4ac2e93be8382a73a75e42e6b1533ada3e5f3731a3a2"
+    },
+    {
+      "path": "evidence.py",
+      "bytes": 5332,
+      "sha256": "d6e6794a7da4fa33c3012ad64abab9acae3ef2379a78962d1a52ad80e1ec3c6e"
+    },
+    {
+      "path": "result.json",
+      "bytes": 8506,
+      "sha256": "60a3e48d75d00423523aa1a21ae424e589ddf6ed62c13da5a74f60923c6fab19"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 2747,
+      "sha256": "3bef5d34ccf21ab6a07d9e1756351b42e382dca948735c1a84d35a8f74f516d6"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "test_remediation.py",
+      "bytes": 11261,
+      "sha256": "8be258edef55ee6f21ff20f85f91ea49594c877ec1ff67cf3c7b747347e8600a"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-bcn-divergent-publish",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1390,
+      "sha256": "201a63a9dcfd873e594e8e53ee7874980ccbeaad5100be05a6f46a16ec96ecc4"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "e6ccdc8c5d0aaf69792d16cd2014b6b6ec5e547791dd6b5541f250ad1a395cc1"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 302,
+      "sha256": "a8706221ca457135ac571ba76ed12c507e9e29a3c7cb53cfdd45073f868d0dd0"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "timeout_seconds": 120,
+  "expected": "timeout; retain partial.txt/stdout; new linked run after changed source; no reused PASS",
+  "before": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\timeout-fixture",
+    "files": [
+      {
+        "path": "candidate.py",
+        "bytes": 194,
+        "sha256": "8f97268fcd3fbc259d1a6b1c98b0f5932307158cd13c977aad94dafa1149144c"
+      }
+    ],
+    "excluded": [],
+    "package_digest": "521e1bad7d1ae05085141dc47c6f4511aecd47531e9c90d1dd312f6d80260a9e"
+  }
+}

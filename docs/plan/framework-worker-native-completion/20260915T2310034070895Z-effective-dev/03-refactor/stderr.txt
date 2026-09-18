@@ -1,0 +1,25 @@
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+error[E0583]: file not found for module `profile_sources`
+ --> src\lib.rs:8:1
+  |
+8 | pub mod profile_sources;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `profile_sources`, create file "src\profile_sources.rs" or "src\profile_sources\mod.rs"
+  = note: if there is a `mod profile_sources` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0599]: no method named `verify_preflight_review` found for reference `&request::Request` in the current scope
+   --> src\protocol.rs:414:29
+    |
+414 |             let sources = r.verify_preflight_review()?;
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+help: there is a method `verify_review` with a similar name
+    |
+414 -             let sources = r.verify_preflight_review()?;
+414 +             let sources = r.verify_review()?;
+    |
+
+Some errors have detailed explanations: E0583, E0599.
+For more information about an error, try `rustc --explain E0583`.
+error: could not compile `devforgeai-codex-worker-probe` (lib) due to 2 previous errors

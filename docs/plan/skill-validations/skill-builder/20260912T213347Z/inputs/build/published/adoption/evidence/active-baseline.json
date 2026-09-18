@@ -1,0 +1,156 @@
+{
+  "schema_version": "2",
+  "run_id": "20260912T212438315Z-adoption",
+  "target_name": "skill-builder",
+  "origin": {
+    "kind": "adopted",
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "0f8a5cdc49f0f5e5636dcb2fec01fc223cefb5642d726b086d8b9762be63ef8a"
+  },
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "96881f3ad173c4d46f2e486b8ee1b14fa1e00eab9a8c03ebcf93813c8270ada7"
+    },
+    {
+      "path": "assets/build-report-template.md",
+      "sha256": "ab841608ec2c5ae0c1f4bf7518f8ccdb59d85706087c6f3a329c633ade466bb9"
+    },
+    {
+      "path": "assets/conversion-report-template.md",
+      "sha256": "0a18bba11955eca81e86ce5e802e19ea5b952fbb6550826b16b0d9d366984c13"
+    },
+    {
+      "path": "assets/worker-task-template.md",
+      "sha256": "e6bd435b1dec6f5fe3196885b90d28e15c0cf3d37065a47555e0fe85661a139a"
+    },
+    {
+      "path": "evals/adoption-evidence.schema.json",
+      "sha256": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f"
+    },
+    {
+      "path": "evals/build-artifacts.schema.json",
+      "sha256": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be"
+    },
+    {
+      "path": "evals/build-manifest.json",
+      "sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620"
+    },
+    {
+      "path": "evals/builder-cases.jsonl",
+      "sha256": "de1fc28e754c2f28b5fb838258ce66eb6f258e93ace87a2db6a2685464bb277c"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "sha256": "554b9d00519e1fbc297e298223c01edd1fe8f91a98e92a0ea8cdcf92d0a1c96c"
+    },
+    {
+      "path": "evals/evidence.schema.json",
+      "sha256": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3"
+    },
+    {
+      "path": "evals/fixtures/portable/destination/SKILL.md",
+      "sha256": "f9c929003cb7ea451b8d99f33ba8da6aae7a0d1f830e820b3236a6fa53f73071"
+    },
+    {
+      "path": "evals/fixtures/portable/destination/schema.json",
+      "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+    },
+    {
+      "path": "evals/fixtures/portable/evidence/destination-manifest.json",
+      "sha256": "4829e16fa497c5b5b7a48ce9b0ec5d0f37f1d2b37d65ce1c775160950e6bb2b2"
+    },
+    {
+      "path": "evals/fixtures/portable/evidence/file-dispositions.json",
+      "sha256": "d6eff48694bf737732d4dd0915f4673ecf8caaaa4596761312c1a774e372950c"
+    },
+    {
+      "path": "evals/fixtures/portable/evidence/source-manifest.json",
+      "sha256": "69e6d3c1d21a1e17f76f90dab241ad863edf7f2acf904cbbccd81742abf04158"
+    },
+    {
+      "path": "evals/fixtures/portable/source/SKILL.md",
+      "sha256": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e"
+    },
+    {
+      "path": "evals/fixtures/portable/source/schema.json",
+      "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+    },
+    {
+      "path": "evals/profiles.json",
+      "sha256": "dc673745727537ca90761d9b3df6f3c477aea8e6e80c6560e225e010f0196cf0"
+    },
+    {
+      "path": "evals/runtime.json",
+      "sha256": "ee3f67492dd9e964befc4038ccdd5d03d282b288eb90f142114798c3a394ea46"
+    },
+    {
+      "path": "references/adoption.md",
+      "sha256": "9ec7f53d72dd7961265ea568a4348b5d724896c60af8060eb952256518d1e3df"
+    },
+    {
+      "path": "references/conversion-rules.md",
+      "sha256": "4a7469557bc56f32a61fa744d26c14dc7861819d9271c3d25cefa5ba333e4a69"
+    },
+    {
+      "path": "references/evaluation.md",
+      "sha256": "06276046f621c5a6975f43d0d46a9635a8c49e1c2f147e5f91bcea85db6bdb04"
+    },
+    {
+      "path": "references/evaluator-contracts.md",
+      "sha256": "df090f6c217945487dcae9b90dfd53e4465f2b81ec3a8ddc5da77e694c6ac67f"
+    },
+    {
+      "path": "references/evidence-format.md",
+      "sha256": "b7bf5fa09759c1f507cff2db0a387ef646ec7cf89e475371875bc17094d4b0e8"
+    },
+    {
+      "path": "references/regeneration.md",
+      "sha256": "9ddb061d18689859e1a69149d8ff38f556bc9bf8d61122321809932530c19790"
+    },
+    {
+      "path": "references/spec-build.md",
+      "sha256": "26dd6df102570cce71d36166d4e9b4b3474b8f8839fe00c98e2794bb25befe30"
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "sha256": "e0413d6784499edae3cb3e76cb210a25f60d7f3cfbd9b75c253284f529ef4ce2"
+    },
+    {
+      "path": "scripts/graders.py",
+      "sha256": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c"
+    },
+    {
+      "path": "scripts/run_evaluation.py",
+      "sha256": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8"
+    },
+    {
+      "path": "tests/adoption_fixture.py",
+      "sha256": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60"
+    },
+    {
+      "path": "tests/fixture_data.py",
+      "sha256": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291"
+    },
+    {
+      "path": "tests/test_adoption.py",
+      "sha256": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093"
+    },
+    {
+      "path": "tests/test_enhancements.py",
+      "sha256": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2"
+    },
+    {
+      "path": "tests/test_evaluation.py",
+      "sha256": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0"
+    },
+    {
+      "path": "tests/test_review_inputs.py",
+      "sha256": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658"
+    },
+    {
+      "path": "tests/test_review_provenance.py",
+      "sha256": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065"
+    }
+  ]
+}

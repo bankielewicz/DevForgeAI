@@ -1,0 +1,89 @@
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "MISSING_BINDING", "binding_sha256": null, "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "3f5b2a49feabb51865c1ec39e7be3d65e3f0ce47f3b6c0e128884cb3b0edb599", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "9afe64d2e86490e54d86134d81b500045cdf8e059dde9ac8471b18dd190337da", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "UNAVAILABLE", "reason_code": "CAPTURE_LIMIT", "binding_sha256": "f57fa30cb256e39f752dc324da9ef69ba947e1d166647bf99d8131fbaf8d6b7a", "package_digest": null, "details": []}
+
+
+EXIT 2 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MATCH", "reason_code": "BOUND", "binding_sha256": "dd750e36332fbf64c54bc01144071ba7ff09f6aa18a14d9609d950a7be936125", "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34", "details": []}
+
+
+EXIT 0 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "PACKAGE_CHANGED", "binding_sha256": "a54a63e6a286e414d3146559489d5f3330aa60d3f8adfe756d938c72d668bb3e", "package_digest": "5976384ecc5601f671bb8282079901801710987a4b6dea39c3194188cb45eb5e", "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "AMBIGUOUS_ROLE", "binding_sha256": "3118c848afd75be0bd3d12048612fc000156db0158a9c2a653dd6758582cfd88", "package_digest": "132ce5a70b73f0fddd4ab9b735930b4a31fe56a1dfa81b3c486a76eec798554b", "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MATCH", "reason_code": "BOUND", "binding_sha256": "22c60c8233e9bb72dc163477e1f17836536ab1f63eb4452934113252eb571eeb", "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34", "details": []}
+
+
+EXIT 0 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "f8d96f10542ec7dd40246a2394bef9dee5e8562058ddb50ba2edaeb77e64feef", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "UNSAFE_PATH", "binding_sha256": "6dc34f7d53d4e4ca00a67d6128c15929c306c1c57df863d8324d6a0b88110f8b", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "4e261a79d7feb5b50402901d4d5ee20ffd0ea406a96778098ad41bd814cc55cb", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "UNAVAILABLE", "reason_code": "CAPTURE_LIMIT", "binding_sha256": "715b78d0737651d920289389a0ded9576de72f172936b54b2851636ce8781ce9", "package_digest": null, "details": []}
+
+
+EXIT 2 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MATCH", "reason_code": "BOUND", "binding_sha256": "935beb5efe2c0a1c0c9809727fa062b0d9294bc072f98a599008ac40fc9a07aa", "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34", "details": []}
+
+
+EXIT 0 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "NOT_SELECTED", "binding_sha256": "aab5f0ea141a0ab2767dfb33855a0cc021188f3835e2830aad19747c33702253", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "604d2b6cc5ccdbce97ae6b187f3e3a156abd9bfef839706f3a21036dc7409f6d", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "4fdc76bd702d018610cd0e87060af66ff0df4c37e0ce74242400ea826dbf0910", "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34", "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "6a938976506d3790ffab2f08f68e70dccc345033f7b377d82aa8bae83378d92c", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "ROLE_MISMATCH", "binding_sha256": "87e44f6f704e6d1efcdd6bde9e3c26e54b07523963ab02db35d5d895b87c0b20", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "AMBIGUOUS_ROLE", "binding_sha256": "829835b8eb4d6f47e6f3563329c1c5e7072917ccb0c1017272049cc106419e20", "package_digest": "9a497f551cf29d8ae6c1a09d293d5608238e7c3a0b8b254ebe01cb7511234a34", "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "UNBOUND_SKILL", "binding_sha256": "9ff48198aa450bb928674cc2011f5fbc8fbe9a2ce56409ea9bd78275da0e5ef9", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "INVALID_BINDING", "binding_sha256": "5bff61f163f61bd785f920080d6ec1be23fc34076cac54ab277a5d12860302ee", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"schema_version": "binding-observation-v1", "status": "MISMATCH", "reason_code": "ROOT_MISMATCH", "binding_sha256": "b6daff0c859edc9a080c1f0b783738f9a453dc5f2425ac674a1ca1a64e9bcc2a", "package_digest": null, "details": []}
+
+
+EXIT 1 TIMEOUT False
+{"cases": 22, "passed": 22}

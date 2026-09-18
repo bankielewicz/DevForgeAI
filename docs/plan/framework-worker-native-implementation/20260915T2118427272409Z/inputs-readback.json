@@ -1,0 +1,37 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "bytes": 13954,
+    "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+    "actual_sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\prompt\\qa.md",
+    "bytes": 11451,
+    "sha256": "c248bd1ad3856716193066d968315bda77b0ff8bcb4c1b3312e0896edf4c9c20",
+    "actual_sha256": "c248bd1ad3856716193066d968315bda77b0ff8bcb4c1b3312e0896edf4c9c20",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+    "bytes": 37561,
+    "sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23",
+    "actual_sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+    "bytes": 13339,
+    "sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d",
+    "actual_sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d",
+    "unchanged": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\SKILL.md",
+    "bytes": 4659,
+    "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562",
+    "actual_sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562",
+    "unchanged": true
+  }
+]

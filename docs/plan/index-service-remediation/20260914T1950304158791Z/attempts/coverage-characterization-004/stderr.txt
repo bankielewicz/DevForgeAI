@@ -1,0 +1,4 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.00s
+     Running tests\coverage_edges.rs (target\debug\deps\coverage_edges-5a3470871154fd18.exe)
+     Running tests\service.rs (target\debug\deps\service-4b6e15b47fd9de4f.exe)

@@ -1,0 +1,54 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "20260916-integrity-tests",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "operation": "edit",
+  "authorization": "User requested tamper guard tests, ResourceWarning repair and entry-point coverage reporting. Development-only scope retained.",
+  "history_review": "Current 20-file source matches the published 20260916-cleanup-tests candidate.",
+  "prior": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-cleanup-tests\\authoring-baseline.json",
+    "sha256": "1eef80b8687b51002d4ebabceb2080ec4dc5c7da8692d5ad193bb33db35f7881"
+  },
+  "change_paths": [
+    "tests/test_integrity.py",
+    "tests/test_streaming.py",
+    "evals/coverage-entrypoints.ini",
+    "references/evaluation.md",
+    "artifact-manifest.json"
+  ],
+  "requirements": [
+    {
+      "origin": "user",
+      "outcome": "Five independent guard-rejection cases, warning-free resource fixture, baseline and diagnostic coverage reconciliation.",
+      "artifacts": [
+        "tests/test_integrity.py",
+        "tests/test_streaming.py",
+        "evals/coverage-entrypoints.ini",
+        "references/evaluation.md",
+        "artifact-manifest.json"
+      ]
+    }
+  ],
+  "capabilities": [],
+  "expected_outputs": [
+    "Specific rejection assertions; warning-free tests; two labeled coverage views"
+  ],
+  "side_effects": [
+    "Temporary test files and owned synthetic process resources"
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests-intake\\task-capture.md",
+      "sha256": "698124873fcd02a4d662226c3951efb1a459ca3c39b4e4ac2dbd3703de12a161"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-integrity-tests-intake\\workflow-design.json",
+      "sha256": "dcf2a28cbf99d023f69a96e8eabcb60deee31968cbdbe45d6e08afa492b97c44"
+    }
+  ],
+  "known_issues": [
+    "Live Claude qualification and framework acceptance remain unevaluated."
+  ]
+}

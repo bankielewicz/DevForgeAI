@@ -1,0 +1,62 @@
+[
+  {
+    "path": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "expected_sha256": "518eea9968c1cb6c6917e14a776f3b48b2f3673f19e98e4cee5ea3a6c9cda5ff",
+    "actual_sha256": "518eea9968c1cb6c6917e14a776f3b48b2f3673f19e98e4cee5ea3a6c9cda5ff",
+    "matches": true
+  },
+  {
+    "path": "docs/plan/framework-mvp-next-session.md",
+    "expected_sha256": "c7c23f7bdef0ac01705914479bd12140a9bbc13e2f617f3b79517bc7bbe1b686",
+    "actual_sha256": "c7c23f7bdef0ac01705914479bd12140a9bbc13e2f617f3b79517bc7bbe1b686",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/evaluation/benchmark-protocol.md",
+    "expected_sha256": "a9e0523ea279533673b2a7ce76a5530551dd3c9fe5fd1f9361f906e2ade7006f",
+    "actual_sha256": "a9e0523ea279533673b2a7ce76a5530551dd3c9fe5fd1f9361f906e2ade7006f",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/guardrails-and-rust-runtime.md",
+    "expected_sha256": "3df344a0a0b682d3e738e3a029415555bb058f91730365e07b1fec4cff236685",
+    "actual_sha256": "3df344a0a0b682d3e738e3a029415555bb058f91730365e07b1fec4cff236685",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/index.md",
+    "expected_sha256": "cd43a3a5ddf044e8a6c70dbdac916a55fafc8806abdaba46a80f14555b2bc664",
+    "actual_sha256": "cd43a3a5ddf044e8a6c70dbdac916a55fafc8806abdaba46a80f14555b2bc664",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/knowledge-and-continuity.md",
+    "expected_sha256": "557b007099481746691921328d7644e0bac437ca9385a91f3c869f562170d4da",
+    "actual_sha256": "557b007099481746691921328d7644e0bac437ca9385a91f3c869f562170d4da",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/mvp/acceptance.md",
+    "expected_sha256": "19079baa769888c97e2da769ec1211122b06918875381cffab377c41176ba090",
+    "actual_sha256": "19079baa769888c97e2da769ec1211122b06918875381cffab377c41176ba090",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/mvp/scope.md",
+    "expected_sha256": "2be85f0cb83fe2b5ab76529f9335a641bbaa25fb4cec015895cf4b4966b31398",
+    "actual_sha256": "2be85f0cb83fe2b5ab76529f9335a641bbaa25fb4cec015895cf4b4966b31398",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/roadmap-and-decisions.md",
+    "expected_sha256": "17117d5e38155fdb80c1123aaf6906ca895b08b6699a33e467651a5edbd2ab77",
+    "actual_sha256": "17117d5e38155fdb80c1123aaf6906ca895b08b6699a33e467651a5edbd2ab77",
+    "matches": true
+  },
+  {
+    "path": "docs/specs/framework/runtime/architecture.md",
+    "expected_sha256": "7956d93c59b3c6dc0d1c54f273fd55656a09db64f78af3c23d5d8988ff64d7e6",
+    "actual_sha256": "7956d93c59b3c6dc0d1c54f273fd55656a09db64f78af3c23d5d8988ff64d7e6",
+    "matches": true
+  }
+]

@@ -1,0 +1,224 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T120847Z",
+  "target_name": "skill-creator",
+  "steps": [
+    {
+      "step_id": "select",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 147,
+          "line_end": 147
+        }
+      },
+      "entry_conditions": "User asks for authoring or selected edit",
+      "inputs": [
+        "User outcome/current skill"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Choose relevant workflow and resolve only material unknowns",
+      "outputs": [
+        "Selected output location and resource choice"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [
+        "initialize",
+        "edit"
+      ],
+      "failure_route": "Ask a concrete material question or identify missing input",
+      "terminal_user_outcome": "Selected output location and resource choice"
+    },
+    {
+      "step_id": "initialize",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 170,
+          "line_end": 170
+        }
+      },
+      "entry_conditions": "New output skill selected",
+      "inputs": [
+        "Name/path/resource/interface arguments"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Optionally invoke initializer",
+      "outputs": [
+        "Starter files or retained diagnostic"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [
+        "edit"
+      ],
+      "failure_route": "Existing directory rejected; partial initialization retained",
+      "terminal_user_outcome": "Starter files or retained diagnostic"
+    },
+    {
+      "step_id": "edit",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 189,
+          "line_end": 189
+        }
+      },
+      "entry_conditions": "Selected new/existing skill inspected",
+      "inputs": [
+        "Current bytes and requested behavior"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Write focused instructions and required resources; preserve other data",
+      "outputs": [
+        "Reviewable completed skill"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [
+        "validate"
+      ],
+      "failure_route": "Preserve partial work and report unresolved input",
+      "terminal_user_outcome": "Reviewable completed skill"
+    },
+    {
+      "step_id": "metadata",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 90,
+          "line_end": 90
+        }
+      },
+      "entry_conditions": "UI metadata requested",
+      "inputs": [
+        "Current YAML and conditional UI reference"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Generate new/interface-only YAML or edit in place when preserving policy/dependencies",
+      "outputs": [
+        "Requested fields with unrelated data preserved"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [
+        "validate"
+      ],
+      "failure_route": "Reject invalid arguments; do not retry overwrite blindly",
+      "terminal_user_outcome": "Requested fields with unrelated data preserved"
+    },
+    {
+      "step_id": "validate",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 203,
+          "line_end": 203
+        }
+      },
+      "entry_conditions": "Completed candidate exists",
+      "inputs": [
+        "Candidate and helper"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Run limited validator, inspect resource/instruction quality and scripts",
+      "outputs": [
+        "Executed observations and limitations"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [
+        "forward",
+        "deliver"
+      ],
+      "failure_route": "Report failed check; narrow observed correction only if authoring authorized",
+      "terminal_user_outcome": "Executed observations and limitations"
+    },
+    {
+      "step_id": "forward",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 217,
+          "line_end": 217
+        }
+      },
+      "entry_conditions": "Complexity/risk or explicit requested trial",
+      "inputs": [
+        "Minimal prompt, skill snapshot and raw artifacts"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Independent bounded disposable task and output review",
+      "outputs": [
+        "Retained artifacts and realistic behavior evidence"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [
+        "deliver"
+      ],
+      "failure_route": "Keep errors/timeouts; no fabricated native PASS",
+      "terminal_user_outcome": "Retained artifacts and realistic behavior evidence"
+    },
+    {
+      "step_id": "deliver",
+      "entrypoint": {
+        "path": "source/SKILL.md",
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+        "source_id": "skill-contract",
+        "locator": {
+          "line_start": 203,
+          "line_end": 203
+        }
+      },
+      "entry_conditions": "Work and checks have usable outcome",
+      "inputs": [
+        "Candidate paths, observations and limits"
+      ],
+      "executor": "Codex host; named Python helper when selected",
+      "action": "Return actual artifact location and status",
+      "outputs": [
+        "Usable result or concrete limitation"
+      ],
+      "completion_evidence": [
+        "trials/create/workspace/execution-log.json",
+        "trials/update/workspace/execution-log.json",
+        "trials/helpers/case-results.json"
+      ],
+      "next": [],
+      "failure_route": "Retain partial result and next unresolved action",
+      "terminal_user_outcome": "Usable result or concrete limitation"
+    }
+  ]
+}

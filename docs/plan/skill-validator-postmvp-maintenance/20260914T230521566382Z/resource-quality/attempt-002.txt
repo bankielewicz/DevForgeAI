@@ -1,0 +1,38 @@
+test_excluded_boundaries_prevent_complete_capture (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_frontmatter_missing_delimiters_and_bom_are_diagnostics (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_inventory_limits_and_unstable_read_fail_without_partial_success (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_manifest_invalid_shapes_and_complete_claims_are_rejected (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_organization_cli_reports_advice_and_decode_error (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_package_bad_configuration_shapes_are_failed_not_crashes (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_package_bad_text_missing_entrypoint_and_unknown_extensions (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_package_configuration_icons_tools_and_extensions (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_package_quoted_placeholders_unicode_and_orphan_assets_not_defects (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_readback_rejects_malformed_manifest_and_tracks_removed_added_changed (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_record_cli_malformed_input_emits_json_without_traceback (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_records_invalid_sources_shapes_and_reference_locators (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_records_malformed_checks_do_not_gain_acceptance (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_records_parse_errors_and_wrong_collection_shapes (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_records_ready_handoff_requires_bound_review_and_matching_source (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_required_metadata_types_empty_values_and_optional_types (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_resource_references_and_escaped_parentheses (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_resource_resolutions_distinguish_manual_adjudication (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_structure_directory_identity_uses_bound_snapshot (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_structure_distinguishes_local_remote_outside_and_binary_anchor (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_structure_does_not_fail_quoted_inline_link_example (test_postmvp_resource_quality.ResourceQualityTests) ... FAIL
+test_structure_keeps_unknown_metadata_unresolved (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_structure_optional_policy_valid_and_invalid_shapes (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_unicode_protocol_candidate_redacts_surrounding_secret (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+test_yaml_parser_rejects_nonmapping_syntax_and_nested_duplicate_keys (test_postmvp_resource_quality.ResourceQualityTests) ... ok
+
+======================================================================
+FAIL: test_structure_does_not_fail_quoted_inline_link_example (test_postmvp_resource_quality.ResourceQualityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_resource_quality.py", line 107, in test_structure_does_not_fail_quoted_inline_link_example
+    self.assertEqual(code, 0, 'An inline code example is not a live resource link: ' + json.dumps(result))
+AssertionError: 1 != 0 : An inline code example is not a live resource link: {"schema_version": "1", "command": "structure", "status": "MISMATCH", "coverage": ["required metadata", "selected optional metadata types", "ordinary inline links", "ATX heading anchors", "optional configuration syntax"], "limitations": ["Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.", "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.", "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement.", "Reference-style links, HTML anchors, Setext headings, renderer-specific slugs, and dynamic script paths require manual review.", "Extra host metadata and configuration keys require selected-source applicability review; installed checker compatibility is a separate observation.", "No optional folder, line count, keyword, or fixed workflow anatomy is required by these observations."], "checks": [{"check_id": "frontmatter", "subject_path": "SKILL.md", "required": true, "result": "PASS", "reason": "frontmatter delimited at start"}, {"check_id": "yaml", "subject_path": "SKILL.md", "required": true, "result": "PASS", "reason": "YAML must be a mapping"}, {"check_id": "name", "subject_path": "SKILL.md", "required": true, "result": "PASS", "reason": "name: 1-64 lowercase letters/digits with single separating hyphens"}, {"check_id": "description", "subject_path": "SKILL.md", "required": true, "result": "PASS", "reason": "description: nonempty string of at most 1024 characters"}, {"check_id": "directory_identity", "subject_path": "SKILL.md", "required": true, "result": "PASS", "reason": "frontmatter name must match original skill directory name"}, {"check_id": "resource_link", "subject_path": "SKILL.md", "required": true, "result": "FAIL", "reason": "not-an-actual-resource.md"}], "excluded_boundaries": [], "links_checked": 1, "parser": {"yaml": "6.0.2"}}
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.633s
+
+FAILED (failures=1)

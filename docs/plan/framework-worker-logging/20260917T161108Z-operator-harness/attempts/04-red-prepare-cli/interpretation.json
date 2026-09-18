@@ -1,0 +1,13 @@
+{
+  "expected_red": true,
+  "production": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+    "bytes": 2707,
+    "sha256": "eb85d03088a63d580fff1e8339e395ea40a32bee230b1a95b62988a7e66e9ab2"
+  },
+  "test": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\test_prepare_cli.py",
+    "bytes": 1643,
+    "sha256": "f00fe6f47d5b1a2d0bd13f42562a60d5684b8c58b15d5638f8836cc39050ab8c"
+  }
+}

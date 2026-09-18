@@ -1,0 +1,71 @@
+{
+  "schema_version": "2",
+  "run_id": "later-revision-03",
+  "mode": "spec_build",
+  "target_name": "receipt-totals",
+  "builder_manifest_sha256": "11457297985c7768faaec1846e54e0bcf4538fd8e064fb0d1099f9da6c7e8620",
+  "contract_sha256": "388168f565c075575d3e607951bf11e065071a7ad68e61ee67219df5c410ae40",
+  "inputs": [
+    {
+      "id": "spec",
+      "sha256": "20054cd7e410b68fdf4d8ef97f25fb9a049b32ad518c5040abeeed79c9e8c878"
+    },
+    {
+      "id": "authorization",
+      "sha256": "274ac853d695de7c8a8c286dfc8db36b7faf5b10a17d83859aa5d280d7b04ec2"
+    }
+  ],
+  "dependencies": [],
+  "outputs": [
+    {
+      "path": "SKILL.md",
+      "sha256": "ae560a929b32afff9e85a5bf706526d843140b6378d96dadfb6b6b48652a33b4",
+      "ownership": "generated",
+      "baseline_path": "later-revision-03/candidate/SKILL.md",
+      "baseline_sha256": "ae560a929b32afff9e85a5bf706526d843140b6378d96dadfb6b6b48652a33b4"
+    },
+    {
+      "path": "notes.txt",
+      "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94",
+      "ownership": "retained_user",
+      "baseline_path": null,
+      "baseline_sha256": null
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "sha256": "b6148a15f3ba564c01a5c3e661bde783cb129eca98a924f0a4712aee01e13260",
+      "ownership": "generated",
+      "baseline_path": "later-revision-03/candidate/scripts/receipt_totals.py",
+      "baseline_sha256": "b6148a15f3ba564c01a5c3e661bde783cb129eca98a924f0a4712aee01e13260"
+    }
+  ],
+  "mappings": [
+    {
+      "requirement_id": "receipt-contract",
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/receipt_totals.py"
+      ],
+      "evidence_ids": [
+        "checks"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "checks",
+      "path": "later-revision-03/evidence/checks.json",
+      "sha256": "66cd591617eca8311050c87c9e7323fcd51eb718ce5518091e99dfb30c93e3b9"
+    }
+  ],
+  "prior_origin": {
+    "kind": "generated",
+    "path": "revision-02-resolved/evidence/build-provenance.json",
+    "sha256": "01f8e5b59ac1ced4acbb2fda825de99fb0879bef9fc58edc9cc0778385ab93eb"
+  },
+  "adoption_origin": {
+    "path": "adoption/evidence/adoption-record.json",
+    "sha256": "814a61bc213f9f8bccda8f4b8abc66fa26d50e72ccb3da15721a571469764e4d"
+  },
+  "result": "COMPLETE"
+}

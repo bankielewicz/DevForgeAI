@@ -1,0 +1,33 @@
+{
+  "case_id": "coverage-002",
+  "argv": [
+    "cargo",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--ignore-run-fail",
+    "--json",
+    "--output-path",
+    "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/coverage.json",
+    "--fail-under-lines",
+    "95",
+    "--ignore-filename-regex",
+    "[/\\\\](tests|examples|fixtures)[/\\\\]",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/candidate",
+  "platform": "linux",
+  "start": "2026-09-14T19:21:39.984905+00:00",
+  "environment_overrides": {
+    "TEMP": "/tmp/devforgeai-qa-20260914T191133863776Z",
+    "TMP": "/tmp/devforgeai-qa-20260914T191133863776Z",
+    "TMPDIR": "/tmp/devforgeai-qa-20260914T191133863776Z",
+    "CARGO_TARGET_DIR": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/target",
+    "CARGO_LLVM_COV_TARGET_DIR": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/coverage-target",
+    "DEVFORGEAI_INDEX_DATA": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/scratch/default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "/home/me/Projects/index-qualification.iIHbKX/DevForgeAI/qa-executions/20260914T191133863776Z/attempts/coverage-002/gui"
+  },
+  "timeout_seconds": 1800
+}

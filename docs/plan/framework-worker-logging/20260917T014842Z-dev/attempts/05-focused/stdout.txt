@@ -1,0 +1,19 @@
+
+running 2 tests
+test fixed_policy_has_exact_closed_identity_and_argument_vector ... ok
+test policy_binding_rejects_every_caller_controlled_identity_mismatch ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 7 tests
+test config_drift_after_intent_is_rejected_at_final_boundary ... ok
+test config_rejects_malformed_unknown_missing_drift_and_escape_before_spawn ... ok
+test delayed_consumer_drains_more_than_32_chunks_without_deadlock ... ok
+test early_stderr_and_silent_exit_survive_without_protocol_receive ... ok
+test inspector_rejects_missing_summary_log_and_modified_log ... ok
+test levels_preserve_mandatory_evidence_and_never_store_child_canaries ... ok
+test policy_targets_real_mcp_keys_under_literal_cli_dotted_key_rules ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.44s
+

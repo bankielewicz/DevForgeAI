@@ -1,0 +1,89 @@
+command=cargo test --locked --offline --all-targets -- --test-threads=1
+cwd=C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe
+exit_code=0
+wall_time_seconds=186.33
+capture=partial/transcribed terminal summary from the executed Cargo session; dependency compilation output was omitted and full raw stdout/stderr was NOT_RETAINED
+
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\target-exact\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
+
+running 9 tests
+test native_identity::tests::additional_reparse_after_the_two_mappings_is_rejected ... ok
+test native_identity::tests::changed_target_and_changed_mapping_order_are_rejected ... ok
+test native_identity::tests::directory_symlink_cannot_substitute_for_a_junction ... ok
+test native_identity::tests::exact_two_junction_chain_admits_only_the_physical_executable ... ok
+test native_identity::tests::identity_schema_and_record_adapter_are_closed ... ok
+test native_identity::tests::mapping_and_bytes_are_rechecked_and_drift_is_rejected ... ok
+test native_identity::tests::missing_physical_digest_mismatch_and_unsupported_adapter_are_rejected ... ok
+test native_identity::tests::repeated_junction_mapping_is_rejected_as_a_loop ... ok
+test native_identity::tests::same_bytes_at_another_physical_path_do_not_bypass_identity ... ok
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+admission.rs: 1 passed; 0 failed; finished in 0.08s
+  valid_fixture_is_admitted_and_invalid_fields_are_rejected ... ok
+cli.rs: 1 passed; 0 failed; finished in 0.04s
+  invalid_cli_is_json_and_nonzero ... ok
+contract.rs: 4 passed; 0 failed; finished in 1.64s
+  wf_17 ... ok
+  wf_18 ... ok
+  wf_19 ... ok
+  wf_20 ... ok
+native_identity.rs: 3 passed; 0 failed; finished in 15.44s
+  native_profile_schema_is_closed_and_requires_both_policy_fields ... ok
+  schema_two_peer_and_legacy_profile_extensions_are_rejected ... ok
+  v2_pinned_physical_identity_is_admitted ... ok
+negative_paths.rs: 6 passed; 0 failed; finished in 4.73s
+  cli_control_and_inspect_paths ... ok
+  fixture_inventory_and_bounded_request_reads ... ok
+  journal_corruption_is_not_promoted ... ok
+  process_failure_and_pipe_ownership ... ok
+  protocol_typed_events_duplicates_pagination_and_failures ... ok
+  scenario_cancel_and_evidence_failure_precedence ... ok
+oracle.rs: 2 passed; 0 failed; finished in 0.00s
+  exact_independent_result ... ok
+  rejects_invalid_results ... ok
+process_ownership.rs: 1 passed; 0 failed; finished in 0.01s
+  native_atomic_job_and_verified_stop ... ok
+process_windows.rs: 4 passed; 0 failed; finished in 143.49s
+  wf_13 ... ok
+  wf_14 ... ok
+  wf_15 ... ok
+  wf_16 ... ok
+profile.rs: 3 passed; 0 failed; finished in 0.16s
+  credential_store_is_not_an_admissible_profile_source ... ok
+  reviewed_native_profile_sources_and_findings_are_checked_without_launch ... ok
+  unavailable_review_retains_incomplete_evidence_without_reading_credentials ... ok
+protocol.rs: 8 passed; 0 failed; finished in 2.42s
+  wf_01 ... ok
+  wf_02 ... ok
+  wf_03 ... ok
+  wf_04 ... ok
+  wf_05 ... ok
+  wf_06 ... ok
+  wf_07 ... ok
+  wf_08 ... ok
+recovery.rs: 4 passed; 0 failed; finished in 0.67s
+  wf_09 ... ok
+  wf_10 ... ok
+  wf_11 ... ok
+  wf_12 ... ok
+remediation.rs: 4 passed; 0 failed; finished in 5.21s
+  full_pipe_server_reply_deadline_and_cancel_stop_descendants ... ok
+  interrupt_write_into_full_pipe_obeys_single_grace_budget ... ok
+  malformed_error_payloads_never_reach_journal_or_stdout ... ok
+  ordinary_rpc_write_and_interrupt_share_bounded_teardown ... ok
+requirements.rs: 12 passed; 0 failed; finished in 1.05s
+  all_pre_response_notifications_are_reconciled ... ok
+  cancellation_before_ids_allows_cooperative_eof_exit ... ok
+  captured_native_launcher_reparse_is_rejected_without_launching ... ok
+  duplicate_completions_are_idempotent_and_conflicts_fail ... ok
+  duplicate_nested_profile_is_rejected ... ok
+  home_boundary_only_allows_peer_temporary_roots ... ok
+  lost_interrupt_transport_still_waits_for_owned_process ... ok
+  successful_peer_has_observed_zero_exit ... ok
+  terminal_claim_requires_observed_result ... ok
+  unapproved_peer_executable_is_rejected_before_spawn ... ok
+  usage_retains_only_typed_counters ... ok
+  valid_output_cannot_override_nonzero_worker_exit ... ok
+
+Aggregate over test-bearing targets: 62 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out.
+Zero-test binary targets: src/main.rs, tests/support/console_driver.rs, tests/support/crash_driver.rs, tests/support/peer.rs.

@@ -1,0 +1,27 @@
+{
+  "candidate_manifest_sha256": "73ecd4a115b34f824e3e9eef3083866d89c5715cf0053919f9456ee8a4bbb7a8",
+  "raw_coverage": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-qa\\20260915T2132038923673Z\\coverage.json",
+  "raw_coverage_sha256": "06659994c45ab3602c2f8f7d7a8e8117a6a2eff7295d10544ceff2c573ecf5ac",
+  "normalization": "System.IO.Path.GetFullPath before membership under the literal package src directory",
+  "declared_source_inventory": 9,
+  "llvm_executable_files": 8,
+  "zero_executable_line_inventory_files": ["src/lib.rs"],
+  "excluded_first_party_production_files": [],
+  "covered_lines": 1542,
+  "executable_lines": 1602,
+  "percentage": 96.25468164794007,
+  "required_floor": 95.0,
+  "result": "PASS",
+  "files": [
+    {"path":"src/journal.rs","covered":216,"count":220,"percentage":98.18181818181819},
+    {"path":"src/main.rs","covered":80,"count":86,"percentage":93.02325581395348},
+    {"path":"src/native_identity.rs","covered":94,"count":97,"percentage":96.90721649484536},
+    {"path":"src/oracle.rs","covered":7,"count":7,"percentage":100.0},
+    {"path":"src/process_windows.rs","covered":287,"count":300,"percentage":95.66666666666667},
+    {"path":"src/protocol.rs","covered":467,"count":485,"percentage":96.28865979381443},
+    {"path":"src/request.rs","covered":268,"count":277,"percentage":96.75090252707581},
+    {"path":"src/runner.rs","covered":123,"count":130,"percentage":94.61538461538461}
+  ],
+  "test_source_normalization_result": "No normalized tests/ or tests/support file was included. A lexical src/../tests path would resolve outside src and be excluded as test code.",
+  "branch_coverage": "NOT_RUN"
+}

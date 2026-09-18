@@ -1,0 +1,1 @@
+{"case_id": "reviewed-positive", "grader_id": "adoption_consistency", "params": {"evidence": "adoption/evidence", "destination": "adoption/destination"}, "expected": "PASS"}

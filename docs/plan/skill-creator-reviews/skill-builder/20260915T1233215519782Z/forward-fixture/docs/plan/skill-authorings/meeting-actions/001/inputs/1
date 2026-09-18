@@ -1,0 +1,79 @@
+{
+  "target_name": "meeting-actions",
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "load_when": "Every meeting-actions invocation",
+      "helper_contract": null,
+      "kind": "instruction",
+      "purpose": "Portable extraction and delivery instructions"
+    }
+  ],
+  "open_questions": [],
+  "execution_limits": [],
+  "adverse_conditions": [
+    {
+      "condition": "Owner or due date absent",
+      "behavior_id": "extract-actions",
+      "requirement_basis": "Explicit user requirement",
+      "expected_observation": "Use Unassigned for missing owner and Not specified for missing due date",
+      "id": "missing-fields"
+    },
+    {
+      "condition": "Notes contain tentative or conflicting commitments",
+      "behavior_id": "extract-actions",
+      "requirement_basis": "Preserve explicit uncertainty and do not invent decisions",
+      "expected_observation": "Preserve qualifiers or conflicts without asserting a decision",
+      "id": "uncertain"
+    },
+    {
+      "condition": "Notes contain no supported action items",
+      "behavior_id": "extract-actions",
+      "requirement_basis": "Inferred delivery default supporting no invented decisions",
+      "expected_observation": "Deliver header-only table with brief no-actions statement",
+      "id": "no-actions"
+    },
+    {
+      "condition": "Explicit destination cannot be written",
+      "behavior_id": "extract-actions",
+      "requirement_basis": "Explicit destination delivery with truthful completion",
+      "expected_observation": "Report destination and error, retain any partial state and do not claim file delivery",
+      "id": "write-failure"
+    }
+  ],
+  "behaviors": [
+    {
+      "resource_paths": [
+        "SKILL.md"
+      ],
+      "completion": "A Markdown table is delivered in chat, or written to the supplied destination and read back, with source-supported actions and uncertainty preserved.",
+      "effects": [
+        "Chat response; optional write only to user-selected output file"
+      ],
+      "trigger": "User requests action items from supplied meeting notes",
+      "requirement_ids": [
+        "request.md: meeting-actions behavior"
+      ],
+      "failure": "Request missing notes; report unreadable input or output write failure without claiming completion. Do not invent actions, owners, dates or decisions.",
+      "prerequisites": [
+        "Readable meeting notes"
+      ],
+      "recovery": "Keep supplied notes unchanged; after interruption inspect the destination before retrying a write. Retain partial output and explain incomplete delivery.",
+      "inputs": [
+        "Supplied meeting notes",
+        "Optional user-provided file destination"
+      ],
+      "outputs": [
+        "Markdown table with Action, Owner, Due date columns; chat by default, explicit destination when supplied"
+      ],
+      "id": "extract-actions"
+    }
+  ],
+  "source_refs": [
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\authoring-inputs\\request.md",
+      "sha256": "8f88bd9d695c8dfea2b5eee974ef6f4719ee8a38b9831ba6fd40d5ebfa69bdb2"
+    }
+  ],
+  "schema_version": "authoring-design-v1"
+}

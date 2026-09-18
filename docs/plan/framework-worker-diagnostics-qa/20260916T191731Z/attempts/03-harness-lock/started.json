@@ -1,0 +1,67 @@
+{
+  "attempt": "03-harness-lock",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "generate-lockfile",
+    "--offline"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness",
+  "scope": "harness",
+  "env_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness-target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\fixtures\\03-harness-lock",
+    "CARGO_NET_OFFLINE": "true",
+    "CARGO_TERM_COLOR": "never"
+  },
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\candidate-v2-manifest.json",
+    "bytes": 8619,
+    "sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540"
+  },
+  "plan": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\test-plan.md",
+    "bytes": 18080,
+    "sha256": "48c33e0e2a3376b63f416e7330cda6237854bad20449f51258906a4d6a6051aa"
+  },
+  "start_utc": "2026-09-16T19:32:19.913234+00:00",
+  "outer_timeout_seconds": 600,
+  "native_codex_authorized": false,
+  "harness": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\Cargo.toml",
+      "bytes": 721,
+      "sha256": "1b75d65c774500295fe08e1e277197e3b1dfa9c3fa7d9a1e0ed9068fbfae2c1f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\config_cases.rs",
+      "bytes": 8939,
+      "sha256": "b8d903df6421bd8907aa23386f5983ad69011ee33c26bc554e9cbe8a3653478f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\fixture_config.rs",
+      "bytes": 2839,
+      "sha256": "8cf0624d0f36b8561854fb3a3409d52c9627a46e7503d7a9dd9c6cf8a1383a46"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\lib.rs",
+      "bytes": 2613,
+      "sha256": "9e42ecfaa7523b11bec93112827bfa341aa21970e386a36509eeebcdea8b31ae"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\peer.rs",
+      "bytes": 2748,
+      "sha256": "ceb2c5ecb68bd6eeb78436a62f4276cbf580a906e7e10769ea66038cccd319f5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness\\session_cases.rs",
+      "bytes": 13668,
+      "sha256": "a53ba602b025bfe0db88ae8d788824868c58e1e67bab07d4b9e9cba20161c065"
+    }
+  ]
+}

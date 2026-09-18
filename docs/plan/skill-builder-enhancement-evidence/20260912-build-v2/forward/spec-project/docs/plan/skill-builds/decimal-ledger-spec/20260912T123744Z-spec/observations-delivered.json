@@ -1,0 +1,320 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T123744Z-spec",
+  "target_name": "decimal-ledger-spec",
+  "outputs": [
+    {
+      "path": "assets/result.schema.json",
+      "sha256": "89c54ab80ca0a983bcb0cb18fffc99dd4f21c439fb1a4a3860d5e3079f593f1e"
+    },
+    {
+      "path": "references/workers/result-review.md",
+      "sha256": "d66bf11c856838c8886fa6ffbbc421c45fcdf08ead1733925ed683d8eaa1aa2c"
+    },
+    {
+      "path": "scripts/sum_amounts.py",
+      "sha256": "b77a481591cb8a27fb7be445d16b5cbaaab08eaae0438aa9508567222607ba73"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "654441830a06c6d1933c419896c824209fde9ce7cd6b36c69400e00cd953b447"
+    }
+  ],
+  "structural": {
+    "exit_code": 0,
+    "stdout": "Skill is valid!\n",
+    "stderr": ""
+  },
+  "delivered_invocation": {
+    "exit_code": 0,
+    "stdout": "{\"count\": 4, \"total\": \"2.65\"}\n",
+    "stderr": "",
+    "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\sample.csv",
+    "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-delivered\\sample-result.json",
+    "input_sha256_before": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+    "input_sha256_after": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66"
+  },
+  "behavioral_cases": [
+    {
+      "case_id": "supplied-sample",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\sample.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\supplied-sample.json",
+      "input_sha256_before": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+      "input_sha256_after": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+      "exit_code": 0,
+      "stdout": "{\"count\": 4, \"total\": \"2.65\"}\n",
+      "stderr": "",
+      "expected": {
+        "count": 4,
+        "total": "2.65"
+      },
+      "observation": "PASSED",
+      "output_sha256": "f4c8174b6f8c176293b0a10235b399962788fed54ec87d6cbf962179c53f1d3c"
+    },
+    {
+      "case_id": "supplied-invalid",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\invalid.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\supplied-invalid.json",
+      "input_sha256_before": "2f255f60a7d52198eec50b6e0af536ae98b6650320941abd0031ff999bff4d7a",
+      "input_sha256_after": "2f255f60a7d52198eec50b6e0af536ae98b6650320941abd0031ff999bff4d7a",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: row 2: amount must be a finite decimal\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "output-conflict",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\sample.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\output-conflict.json",
+      "input_sha256_before": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+      "input_sha256_after": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: output already exists; choose a new output path\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": "beb36e4d23a020e7cc4f7a0a97026488d9db04198a07e32b66fff65cea0c2d09"
+    },
+    {
+      "case_id": "invalid-output-conflict",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\invalid.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\invalid-output-conflict.json",
+      "input_sha256_before": "2f255f60a7d52198eec50b6e0af536ae98b6650320941abd0031ff999bff4d7a",
+      "input_sha256_after": "2f255f60a7d52198eec50b6e0af536ae98b6650320941abd0031ff999bff4d7a",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: output already exists; choose a new output path\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": "4b230897cb4c9b737aef594e583f2f084934cb222305f84e1c3c5f8287fb03a9"
+    },
+    {
+      "case_id": "quoted-bom",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\quoted-bom.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\quoted-bom.json",
+      "input_sha256_before": "1959fef86c8ba334d93c546ecabc03791039bfb094156632f063a4c101520bdc",
+      "input_sha256_after": "1959fef86c8ba334d93c546ecabc03791039bfb094156632f063a4c101520bdc",
+      "exit_code": 0,
+      "stdout": "{\"count\": 2, \"total\": \"0.30\"}\n",
+      "stderr": "",
+      "expected": {
+        "count": 2,
+        "total": "0.30"
+      },
+      "observation": "PASSED",
+      "output_sha256": "5c6bcfc52a31dc7e8fb0f89f51650c927296ab7e0fa22ec987a27e99a8e92b56"
+    },
+    {
+      "case_id": "header-only",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\header-only.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\header-only.json",
+      "input_sha256_before": "aa5ac5eabc1104b23a6e7f2d55a97d65304734472c00f0c187e141d2edeb4646",
+      "input_sha256_after": "aa5ac5eabc1104b23a6e7f2d55a97d65304734472c00f0c187e141d2edeb4646",
+      "exit_code": 0,
+      "stdout": "{\"count\": 0, \"total\": \"0.00\"}\n",
+      "stderr": "",
+      "expected": {
+        "count": 0,
+        "total": "0.00"
+      },
+      "observation": "PASSED",
+      "output_sha256": "e4bf2cbc32a2782e24f6af454ad51f441908df07c4d4fbb48cd32af584db4370"
+    },
+    {
+      "case_id": "large-decimals",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\large-decimals.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\large-decimals.json",
+      "input_sha256_before": "7062932b2c12ba724d4f062640d2fbafe26434738e44cac9b540c9f45ca8fc95",
+      "input_sha256_after": "7062932b2c12ba724d4f062640d2fbafe26434738e44cac9b540c9f45ca8fc95",
+      "exit_code": 0,
+      "stdout": "{\"count\": 3, \"total\": \"100000000000000000000000000000.00\"}\n",
+      "stderr": "",
+      "expected": {
+        "count": 3,
+        "total": "100000000000000000000000000000.00"
+      },
+      "observation": "PASSED",
+      "output_sha256": "42be0dda7a7dee4270c2af762835d786fb78dfa78ad0768f581ec15f1406531c"
+    },
+    {
+      "case_id": "negative-zero",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\negative-zero.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\negative-zero.json",
+      "input_sha256_before": "e30a66751072ce6ac282926d3535f282343bb28a5544bc3ed62b32565daba20a",
+      "input_sha256_after": "e30a66751072ce6ac282926d3535f282343bb28a5544bc3ed62b32565daba20a",
+      "exit_code": 0,
+      "stdout": "{\"count\": 1, \"total\": \"0.00\"}\n",
+      "stderr": "",
+      "expected": {
+        "count": 1,
+        "total": "0.00"
+      },
+      "observation": "PASSED",
+      "output_sha256": "7017737daaf5c7e321aa07c245edc8eda64efaa7dda4257fc9db8e2d7fccd21d"
+    },
+    {
+      "case_id": "missing-header",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\missing-header.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\missing-header.json",
+      "input_sha256_before": "30e794ce49e5188f0555bb4bbf847fd85ea490419bf9673a17e9c7205bde4e59",
+      "input_sha256_after": "30e794ce49e5188f0555bb4bbf847fd85ea490419bf9673a17e9c7205bde4e59",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: CSV requires exactly one amount column\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "missing-amount",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\missing-amount.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\missing-amount.json",
+      "input_sha256_before": "5a3e5bd2f7c62de9674ab62ac0f9fce14d5f743f9533e4c0ec806a97539947ee",
+      "input_sha256_after": "5a3e5bd2f7c62de9674ab62ac0f9fce14d5f743f9533e4c0ec806a97539947ee",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: row 2: missing amount\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "short-row",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\short-row.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\short-row.json",
+      "input_sha256_before": "580ca765bc129a3ee6a66ef7f3b10737deb23c48b8da4bd9a203a62cbed6c408",
+      "input_sha256_after": "580ca765bc129a3ee6a66ef7f3b10737deb23c48b8da4bd9a203a62cbed6c408",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: row 2: missing amount\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "infinite",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\infinite.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\infinite.json",
+      "input_sha256_before": "6765b07de3eabc22c9bfd8bf94ed67d5d5f1986719ba565334bb4348d00678ed",
+      "input_sha256_after": "6765b07de3eabc22c9bfd8bf94ed67d5d5f1986719ba565334bb4348d00678ed",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: row 2: amount must be a finite decimal\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "precision",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\precision.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\precision.json",
+      "input_sha256_before": "3cf9e05b897a7cd7234eae0c40f21ab4c420ba6bb101757b312bf1bf990aa79d",
+      "input_sha256_after": "3cf9e05b897a7cd7234eae0c40f21ab4c420ba6bb101757b312bf1bf990aa79d",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: row 2: amount has more than two decimal places\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "trailing-precision",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\trailing-precision.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\trailing-precision.json",
+      "input_sha256_before": "1ec96fbb0f67cbd95f40a33dcecfb343908a95bc505eb0c9acf01988d9700e14",
+      "input_sha256_after": "1ec96fbb0f67cbd95f40a33dcecfb343908a95bc505eb0c9acf01988d9700e14",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: row 2: amount has more than two decimal places\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "malformed-quote",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\malformed-quote.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\malformed-quote.json",
+      "input_sha256_before": "3c3002b75cace0b6d8c3464096bf9aea3e7d0935a4b27c02c012d137339f412a",
+      "input_sha256_after": "3c3002b75cace0b6d8c3464096bf9aea3e7d0935a4b27c02c012d137339f412a",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: unexpected end of data\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "invalid-utf8",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\invalid-utf8.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\invalid-utf8.json",
+      "input_sha256_before": "75a44d69c4ab5f1f47c4517e734a64223d825f19a5b2b5738d611cc5ba697088",
+      "input_sha256_after": "75a44d69c4ab5f1f47c4517e734a64223d825f19a5b2b5738d611cc5ba697088",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: 'utf-8' codec can't decode byte 0xff in position 7: invalid start byte\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "missing-input-file",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\absent.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\missing-input-file.json",
+      "input_sha256_before": null,
+      "input_sha256_after": null,
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "Cannot total CSV: [Errno 2] No such file or directory: 'C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-builder-enhancement-evidence\\\\20260912-build-v2\\\\forward\\\\spec-project\\\\docs\\\\plan\\\\skill-builds\\\\decimal-ledger-spec\\\\20260912T123744Z-spec\\\\exercises-candidate\\\\absent.csv'\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    },
+    {
+      "case_id": "required-arguments",
+      "input_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward-inputs\\sample.csv",
+      "output_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-enhancement-evidence\\20260912-build-v2\\forward\\spec-project\\docs\\plan\\skill-builds\\decimal-ledger-spec\\20260912T123744Z-spec\\exercises-candidate\\required-arguments.json",
+      "input_sha256_before": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+      "input_sha256_after": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66",
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "usage: sum_amounts.py [-h] --input INPUT --output OUTPUT\nsum_amounts.py: error: the following arguments are required: --input, --output\n",
+      "expected": null,
+      "observation": "PASSED",
+      "output_sha256": null
+    }
+  ],
+  "schema_observation": {
+    "exact_fields_types": true,
+    "valid_pattern_examples": [
+      "0.00",
+      "-1.10",
+      "100000000000000000000000000000.00"
+    ],
+    "rejected_pattern_examples": [
+      "1",
+      "1.0",
+      "1.000",
+      "1.00\n",
+      "1.00\r\n",
+      "NaN",
+      "Infinity",
+      "01.00",
+      "+1.00",
+      "1e2"
+    ],
+    "limitation": "Schema shape and pattern exercised directly; no external JSON Schema engine dependency installed"
+  },
+  "editorial_observations": [
+    "All four required resources present and routed through SKILL.md.",
+    "Frontmatter has name and description only; automatic invocation preserved.",
+    "Python helper uses decimal arithmetic and standard library; no network or installation.",
+    "Read-only reviewer has no write assignment and sequential execution permitted.",
+    "No desktop, browser, hooks, registry, service, native agent profile, or framework dispatcher dependency introduced."
+  ],
+  "limits": [
+    "Schema shape and regex directly exercised; independent full JSON Schema engine not used.",
+    "Native Codex implicit activation was not tested."
+  ]
+}

@@ -1,0 +1,77 @@
+﻿{
+    "pester_version":  "3.4.0",
+    "passed":  1,
+    "failed":  0,
+    "commands":  [
+                     {
+                         "line":  26,
+                         "command":  "$runner = Join-Path -Path $PSScriptRoot -ChildPath \u0027advisor_run.py\u0027",
+                         "parent_start_line":  26
+                     },
+                     {
+                         "line":  27,
+                         "command":  "$runnerArguments = @(\n    \u0027-B\u0027,\n    \u0027-X\u0027,\n    \u0027utf8\u0027,\n    $runner,\n    \u0027run\u0027,\n    \u0027--request\u0027,\n    $Request,\n    \u0027--briefing\u0027,\n    $Briefing,\n    \u0027--run-dir\u0027,\n    $RunDir,\n    \u0027--reason\u0027,\n    $Reason\n)",
+                         "parent_start_line":  27
+                     },
+                     {
+                         "line":  28,
+                         "command":  "\u0027-B\u0027,\n    \u0027-X\u0027,\n    \u0027utf8\u0027,\n    $runner,\n    \u0027run\u0027,\n    \u0027--request\u0027,\n    $Request,\n    \u0027--briefing\u0027,\n    $Briefing,\n    \u0027--run-dir\u0027,\n    $RunDir,\n    \u0027--reason\u0027,\n    $Reason",
+                         "parent_start_line":  27
+                     },
+                     {
+                         "line":  42,
+                         "command":  "if ($ShowProgress) {\n    $runnerArguments += \u0027--show-progress\u0027\n}",
+                         "parent_start_line":  42
+                     },
+                     {
+                         "line":  43,
+                         "command":  "$runnerArguments += \u0027--show-progress\u0027",
+                         "parent_start_line":  42
+                     },
+                     {
+                         "line":  46,
+                         "command":  "$ErrorActionPreference = \u0027Stop\u0027",
+                         "parent_start_line":  46
+                     },
+                     {
+                         "line":  48,
+                         "command":  "\u0026 $Python @runnerArguments",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  49,
+                         "command":  "$childExitCode = $LASTEXITCODE",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  50,
+                         "command":  "if ($null -eq $childExitCode) {\n        throw \u0027Python invocation returned no native process exit status.\u0027\n    }",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  51,
+                         "command":  "throw \u0027Python invocation returned no native process exit status.\u0027",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  53,
+                         "command":  "([int] $childExitCode)",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  53,
+                         "command":  "[int] $childExitCode",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  56,
+                         "command":  "[Console]::Error.WriteLine(\u0027advisor launcher failed: {0}\u0027, $_.Exception.Message)",
+                         "parent_start_line":  47
+                     },
+                     {
+                         "line":  57,
+                         "command":  "2",
+                         "parent_start_line":  47
+                     }
+                 ]
+}

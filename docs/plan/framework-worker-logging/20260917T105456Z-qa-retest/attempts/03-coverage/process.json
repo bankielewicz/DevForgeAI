@@ -1,0 +1,22 @@
+{
+  "pid": 50364,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "llvm-cov",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\Cargo.toml",
+    "--all-targets",
+    "--json",
+    "--output-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\coverage.json",
+    "--ignore-filename-regex",
+    "[/\\\\]tests[/\\\\]",
+    "--fail-under-lines",
+    "95",
+    "--",
+    "--test-threads=1"
+  ],
+  "started_utc": "2026-09-17T11:02:39.997578+00:00"
+}

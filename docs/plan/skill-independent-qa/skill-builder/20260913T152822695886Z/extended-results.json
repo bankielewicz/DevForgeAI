@@ -1,0 +1,306 @@
+[
+  {
+    "case": "ext-linked-valid",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-linked-valid",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-linked-quality",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-linked-quality",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-linked-kind",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-linked-kind",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-linked-request-identity",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-linked-request-identity",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-linked-request-type",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-linked-request-type",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-linked-request-manifest",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-linked-request-manifest",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-legacy-generated",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-legacy-generated",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-legacy-adopted",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-legacy-adopted",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-legacy-wrong-pointer",
+    "status": "FAIL",
+    "expected": {
+      "exit": 2,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-legacy-wrong-pointer",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-legacy-corrupt-generated",
+    "status": "FAIL",
+    "expected": {
+      "exit": 2,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-legacy-corrupt-generated",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-update-unchanged",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-update-unchanged",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-update-equivalent-bytes",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "VALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-update-equivalent-bytes",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-update-false-no-change",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-update-false-no-change",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-update-missing-history",
+    "status": "FAIL",
+    "expected": {
+      "exit": 1,
+      "field": "status",
+      "value": "INVALID",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-update-missing-history",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-metadata-preserve",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-metadata-preserve",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "metadata-unrelated-fields",
+    "status": "PASS"
+  },
+  {
+    "case": "ext-initializer-occupied",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-initializer-occupied",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-initializer-new",
+    "status": "FAIL",
+    "expected": {
+      "exit": 0,
+      "field": null,
+      "value": null,
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": null,
+    "evidence": "commands/ext-initializer-new",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-spec-ambiguous",
+    "status": "PASS",
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "AMBIGUOUS_INPUT",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 1,
+    "observed": {
+      "candidates": [
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\extended-03\\resolver\\docs\\plan\\one.md",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\extended-03\\resolver\\docs\\plan\\two.md"
+      ],
+      "excluded_boundaries": [],
+      "reason_code": "AMBIGUOUS_INPUT",
+      "status": "SPEC_GAPS"
+    },
+    "evidence": "commands/ext-spec-ambiguous",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  },
+  {
+    "case": "ext-spec-explicit",
+    "status": "PASS",
+    "expected": {
+      "exit": 0,
+      "field": "status",
+      "value": "RESOLVED",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual_exit": 0,
+    "observed": {
+      "bytes": 35,
+      "excluded_boundaries": [],
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\extended-03\\resolver\\docs\\plan\\one.md",
+      "sha256": "f3366f57c9e51c6179f0b62e83847562ec70bed0e8ed12de7f9d0a8c1226e7ce",
+      "skill_name": "requested",
+      "status": "RESOLVED"
+    },
+    "evidence": "commands/ext-spec-explicit",
+    "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+  }
+]

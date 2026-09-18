@@ -1,0 +1,160 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T1342575302099Z",
+  "target_name": "skill-validator",
+  "steps": [
+    {
+      "step_id": "intake",
+      "entrypoint": "SKILL.md / Intake and boundaries",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "explicit target",
+        "project root"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Bound snapshot and select origin",
+      "outputs": [
+        "source",
+        "manifest",
+        "origin-record"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "rules"
+      ],
+      "failure_route": "Retain exclusions or unresolved origin and continue independent checks",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    },
+    {
+      "step_id": "rules",
+      "entrypoint": "references/rules.md",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "captured package",
+        "official or dated sources"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Pin authority, applicability and expectations",
+      "outputs": [
+        "sources",
+        "rule-set",
+        "trial plans"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "inspect"
+      ],
+      "failure_route": "Use disclosed dated fallback; unknown assertions stay unresolved",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    },
+    {
+      "step_id": "inspect",
+      "entrypoint": "references/text-resource-checks.md",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "source",
+        "rules"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Run structure/creator/package and adjudicate contextual candidates",
+      "outputs": [
+        "checks",
+        "workflow-map",
+        "semantic review"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "trials"
+      ],
+      "failure_route": "Retain raw errors and continue independent checks",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    },
+    {
+      "step_id": "trials",
+      "entrypoint": "references/trials.md",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "fixtures",
+        "frozen oracles",
+        "actual host capability"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Execute bounded disposable tests and retain all attempts",
+      "outputs": [
+        "commands",
+        "results",
+        "side-effect readback"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "synthesize"
+      ],
+      "failure_route": "Timeout or missing dependency leaves affected checks unperformed",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    },
+    {
+      "step_id": "synthesize",
+      "entrypoint": "references/reporting.md",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "checks",
+        "findings",
+        "readback"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Reduce each dimension with failure before incomplete",
+      "outputs": [
+        "report",
+        "proposal",
+        "enforcement register"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "handoff"
+      ],
+      "failure_route": "Unknown or missing obligations remain explicit",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    },
+    {
+      "step_id": "handoff",
+      "entrypoint": "references/handoff.md",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "report",
+        "target/proposal hashes"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Deliver reviewable future contract without invoking builder",
+      "outputs": [
+        "handoff",
+        "user result paths"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "terminal"
+      ],
+      "failure_route": "Missing baseline or review limits execution readiness",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    },
+    {
+      "step_id": "revalidate",
+      "entrypoint": "SKILL.md / Revalidation and recovery",
+      "entry_conditions": "Inputs selected and readable; conditional revalidation only after later delivery",
+      "inputs": [
+        "later authorized changed package"
+      ],
+      "executor": "host agent using documented terminal helpers",
+      "action": "Start fresh linked assessment and compare findings",
+      "outputs": [
+        "new report",
+        "resolution evidence"
+      ],
+      "completion_evidence": "Observed artifacts and checks; no protected phase transition",
+      "next_branches": [
+        "terminal"
+      ],
+      "failure_route": "Changed bytes invalidate old approval; retain old evidence",
+      "terminal_user_outcome": "Evidence-backed report, limitations and review proposal"
+    }
+  ]
+}

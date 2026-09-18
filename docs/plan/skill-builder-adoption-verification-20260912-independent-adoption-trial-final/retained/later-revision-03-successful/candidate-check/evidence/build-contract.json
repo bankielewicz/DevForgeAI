@@ -1,0 +1,91 @@
+{
+  "schema_version": "1",
+  "mode": "spec_build",
+  "target_name": "receipt-totals",
+  "inputs": [
+    {
+      "id": "spec",
+      "path": "later-revision-03/inputs/spec.md",
+      "resolved_path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\design\\specs\\receipt-totals-v2.md",
+      "role": "spec",
+      "bytes": 1294,
+      "sha256": "20054cd7e410b68fdf4d8ef97f25fb9a049b32ad518c5040abeeed79c9e8c878"
+    },
+    {
+      "id": "authorization",
+      "path": "later-revision-03/inputs/authorization.txt",
+      "resolved_path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-dana9h_x\\docs\\plan\\skill-builds\\receipt-totals\\later-revision-03\\snapshot\\later-revision-03\\inputs\\authorization.txt",
+      "role": "clarification",
+      "bytes": 568,
+      "sha256": "274ac853d695de7c8a8c286dfc8db36b7faf5b10a17d83859aa5d280d7b04ec2"
+    }
+  ],
+  "authorization": {
+    "instruction": "Distinct later-revision authorization for this disposable trial: add total_quantity as the exact fixed-point decimal string sum of quantity, without rounding, with empty receipt '0'; preserve total/line_count, existing validation and side effects, manage the same two paths and retain notes. Use revision-02-resolved's successful generated N as B and preserve original adoption record/ref. Existing earlier observations retain their actual old manifest digest; do not rewrite old evidence. Bind the new contract/provenance observations to this current builder digest.\n",
+    "inputs": [
+      {
+        "id": "spec",
+        "sha256": "20054cd7e410b68fdf4d8ef97f25fb9a049b32ad518c5040abeeed79c9e8c878"
+      },
+      {
+        "id": "authorization",
+        "sha256": "274ac853d695de7c8a8c286dfc8db36b7faf5b10a17d83859aa5d280d7b04ec2"
+      }
+    ]
+  },
+  "purpose": "Aggregate receipt CSV into exact decimal JSON totals.",
+  "activation": {
+    "positive": [
+      "Summarize receipt CSV totals"
+    ],
+    "excluded": [
+      "Install this skill",
+      "Edit my accounting notes"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "receipt-contract",
+      "origin": "source",
+      "text": "Preserve the complete reviewed receipt CLI, decimal arithmetic, JSON, validation, activation, side-effect, and management contract.",
+      "source_refs": [
+        {
+          "input_id": "spec",
+          "start_byte": 0,
+          "end_byte": 1294,
+          "sha256": "20054cd7e410b68fdf4d8ef97f25fb9a049b32ad518c5040abeeed79c9e8c878"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/receipt_totals.py"
+      ],
+      "verification": [
+        {
+          "method": "structural check plus fresh executed receipt cases",
+          "expected": "valid skill, decimal JSON values and deterministic errors; no receipt or note mutation"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "SKILL.md",
+      "role": "entrypoint",
+      "requirement_ids": [
+        "receipt-contract"
+      ],
+      "purpose": "Receipt contract implementation and usage"
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "role": "script",
+      "requirement_ids": [
+        "receipt-contract"
+      ],
+      "purpose": "Receipt contract implementation and usage"
+    }
+  ],
+  "workers": [],
+  "dependencies": []
+}

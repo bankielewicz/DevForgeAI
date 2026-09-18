@@ -1,0 +1,707 @@
+[
+  {
+    "case_id": "QV-01",
+    "title": "cold planning",
+    "requirements": [
+      "QA-001",
+      "QA-002",
+      "QA-003",
+      "QA-004",
+      "QA-005"
+    ],
+    "expected": "Explicit planning-only request. Reconstructs selected scope without history; writes a resolved plan and no product test execution.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-02",
+    "title": "dependent specs/story set",
+    "requirements": [
+      "QA-006",
+      "QA-007",
+      "QA-008"
+    ],
+    "expected": "Complete source-qualified criterion mapping, dependency boundaries, and no unselected work.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-03",
+    "title": "portable project pair",
+    "requirements": [
+      "QA-004",
+      "QA-012",
+      "QA-025"
+    ],
+    "expected": "Different languages/layouts/tools and literal output destinations work without leaked application constants.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-04",
+    "title": "missing criterion/oracle",
+    "requirements": [
+      "QA-007",
+      "QA-012"
+    ],
+    "expected": "Reports the exact unresolved decision and affected cases rather than inventing an executable expectation.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-05",
+    "title": "independent assertions",
+    "requirements": [
+      "QA-008",
+      "QA-009"
+    ],
+    "expected": "Finds a requirement not established by passing developer tests; plans a meaningful independent oracle.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-06",
+    "title": "mock decorators",
+    "requirements": [
+      "QA-010",
+      "QA-019"
+    ],
+    "expected": "Direct and aliased first-party mock decorators cause FAIL; non-executable text/vendor internals are not false positives.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-07",
+    "title": "unresolved dynamic mock use",
+    "requirements": [
+      "QA-010",
+      "QA-019"
+    ],
+    "expected": "Inspection gap prevents a clean result; no unsupported absence claim.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-08",
+    "title": "gaming",
+    "requirements": [
+      "QA-011",
+      "QA-019"
+    ],
+    "expected": "Vacuous/constant assertions, hidden failures, fake integrations, and manipulated counts cause evidence-backed FAIL.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-09",
+    "title": "legitimate setup isolation",
+    "requirements": [
+      "QA-009",
+      "QA-011"
+    ],
+    "expected": "Does not call ordinary fixture setup gaming, but gives setup-only checks no product acceptance credit.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-10",
+    "title": "exact thresholds",
+    "requirements": [
+      "QA-018",
+      "QA-019"
+    ],
+    "expected": "Both 94.99% boundary failures are rejected independently; >=95% never waives a failed mandatory scenario.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-11",
+    "title": "missing measurements/count inflation",
+    "requirements": [
+      "QA-017",
+      "QA-018",
+      "QA-019"
+    ],
+    "expected": "Zero/unresolved denominators, required skips, retry duplicates, and mixed test categories cannot generate PASS.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-12",
+    "title": "specification violation",
+    "requirements": [
+      "QA-006",
+      "QA-014",
+      "QA-019"
+    ],
+    "expected": "Candidate with passing unit tests but incorrect specified behavior fails acceptance QA.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-13",
+    "title": "platform and nonfunctional gaps",
+    "requirements": [
+      "QA-015",
+      "QA-016",
+      "QA-019"
+    ],
+    "expected": "Native/security/performance evidence is scoped accurately; unavailable required checks remain incomplete.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-14",
+    "title": "candidate drift and isolation",
+    "requirements": [
+      "QA-005",
+      "QA-013",
+      "QA-025"
+    ],
+    "expected": "Rejects stale identity, preserves source and prior evidence, uses only permitted disposable QA state.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-15",
+    "title": "report and fix fidelity",
+    "requirements": [
+      "QA-020",
+      "QA-021"
+    ],
+    "expected": "Filled templates identify exact clauses, reproducible observations, bounded corrections, and explicit retest oracles.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-16",
+    "title": "fail goes to dev",
+    "requirements": [
+      "QA-019",
+      "QA-021",
+      "QA-023",
+      "QA-024"
+    ],
+    "expected": "FAIL produces a user-facing dev repair prompt and no repair by QA or automatic workflow invocation.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-17",
+    "title": "no-placeholder handoff",
+    "requirements": [
+      "QA-004",
+      "QA-020",
+      "QA-023",
+      "QA-024"
+    ],
+    "expected": "Paths with spaces/Unicode are preserved; referenced artifacts exist; complete prompt is for Codex input, not an OS shell.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-18",
+    "title": "dev unavailable",
+    "requirements": [
+      "QA-024"
+    ],
+    "expected": "Completed fix packet retained; missing skill availability explicit; no guessed namespace or installation.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-19",
+    "title": "retest closure",
+    "requirements": [
+      "QA-022",
+      "QA-025"
+    ],
+    "expected": "Corrected candidate is independently retested; dev's claim alone cannot close the QA defect.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-20",
+    "title": "planning and PASS dispositions",
+    "requirements": [
+      "QA-002",
+      "QA-019",
+      "QA-023"
+    ],
+    "expected": "Plan does not issue QA PASS; PASS does not issue release authorization; INCOMPLETE does not invent repairs.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QV-21",
+    "title": "authoring/evaluation boundary",
+    "requirements": [
+      "QA-025",
+      "QA-026"
+    ],
+    "expected": "Builder returns handoff only; mandatory bound Python bundle remains separately evaluated; no false framework acceptance.",
+    "spec": {
+      "path": "inputs/05-qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-01",
+    "title": "cold full run",
+    "requirements": [
+      "QAP-001",
+      "QAP-002",
+      "QAP-003",
+      "QAP-004"
+    ],
+    "expected": "Selected specs and a runnable current candidate, no saved plan. Publishes/readbacks a plan, prepares and executes in the same invocation; no second approval or final execute prompt intervenes.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-02",
+    "title": "planning-only",
+    "requirements": [
+      "QAP-001",
+      "QAP-010",
+      "QAP-012"
+    ],
+    "expected": "Explicit planning-only request. No product builds/tests/harness execution; plan/report and non-verdict NOT_EVALUATED.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-03",
+    "title": "host restriction",
+    "requirements": [
+      "QAP-001",
+      "QAP-011",
+      "QAP-012"
+    ],
+    "expected": "Full-run intent under a host restriction on execution/writes. Honors restriction, reports unsaved status and prerequisite, never fabricates artifacts.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-04",
+    "title": "ordinary preparation",
+    "requirements": [
+      "QAP-002",
+      "QAP-003",
+      "QAP-004"
+    ],
+    "expected": "Known fixture inputs and available coverage collector; setup resources initially absent. Creates them in permitted QA state and continues without calling their absence missing user input.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-05",
+    "title": "localized prerequisite",
+    "requirements": [
+      "QAP-003",
+      "QAP-009",
+      "QAP-010"
+    ],
+    "expected": "One required platform/tool unavailable and another ready. Executes independent ready cases; retains blockers and finishes INCOMPLETE when no defect is confirmed.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-06",
+    "title": "integrity first",
+    "requirements": [
+      "QAP-005",
+      "QAP-006",
+      "QAP-008",
+      "QAP-011"
+    ],
+    "expected": "Direct mock decorator and a separate resolved-alias variant in selected first-party tests. Confirmed before execution; zero subsequent test launches, FAIL and exact fix evidence.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-07",
+    "title": "gaming and new helpers",
+    "requirements": [
+      "QAP-005",
+      "QAP-006",
+      "QAP-009"
+    ],
+    "expected": "Vacuous/fabricated passing evidence or prohibited QA-generated helper. Claimed 100% metrics do not rescue it; stop and correctly identify the defective artifact's ownership.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-08",
+    "title": "unresolved inspection",
+    "requirements": [
+      "QAP-005",
+      "QAP-009",
+      "QAP-010"
+    ],
+    "expected": "Unresolved dynamic mocking pattern plus independent inspectable cases. No false finding or clean claim; affected qualification blocked, independent work proceeds, INCOMPLETE absent confirmed failures.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-09",
+    "title": "coverage threshold",
+    "requirements": [
+      "QAP-006",
+      "QAP-007",
+      "QAP-008"
+    ],
+    "expected": "Valid complete 9,499/10,000 executed eligible lines, unit metric passing. Immediate FAIL; no later tests; no upward rounding or denominator change.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-10",
+    "title": "unit threshold",
+    "requirements": [
+      "QAP-006",
+      "QAP-007",
+      "QAP-008"
+    ],
+    "expected": "Complete required-unit outcomes with 9,499/10,000 passing, coverage passing. Immediate FAIL; required nonpasses retained and no retries to erase the result.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-11",
+    "title": "incomplete metrics",
+    "requirements": [
+      "QAP-007",
+      "QAP-010"
+    ],
+    "expected": "Partial combined coverage, unfinished unit collection, zero denominator, and collector-crash variants. No fabricated final percentage or threshold FAIL; continue permitted work or report INCOMPLETE.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-12",
+    "title": "floors and platforms",
+    "requirements": [
+      "QAP-007",
+      "QAP-010"
+    ],
+    "expected": "Exactly 95% valid metrics pass only their numeric tests; stricter 98% policy rejects 97%; one required platform's valid failure stops despite another passing. Mandatory obligations still control final PASS.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-13",
+    "title": "critical product defect",
+    "requirements": [
+      "QAP-006",
+      "QAP-008",
+      "QAP-011"
+    ],
+    "expected": "Confirmed access-boundary violation or unintended corruption of fixture data required to persist. Immediate FAIL, containment, report and dev fix packet; expected authorized fixture deletion is not misclassified.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-14",
+    "title": "ordinary defect",
+    "requirements": [
+      "QAP-006",
+      "QAP-009",
+      "QAP-012"
+    ],
+    "expected": "Noncritical mandatory output mismatch with independent safe cases remaining. Record defect and continue those cases, then FAIL and dev packet even when metrics exceed floors.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-15",
+    "title": "safety and drift",
+    "requirements": [
+      "QAP-006",
+      "QAP-008",
+      "QAP-013"
+    ],
+    "expected": "Uncertain process ownership or candidate drift. Stop affected work; whole-run stop if uncontained. Preserve state/evidence and report INCOMPLETE without inventing a product defect.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-16",
+    "title": "stop ordering",
+    "requirements": [
+      "QAP-008",
+      "QAP-010",
+      "QAP-011"
+    ],
+    "expected": "Terminal trigger with owned in-flight work. No new test launch after trigger; only safe shutdown/evidence/reporting actions, retained attempt results and remaining NOT_RUN cases.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-17",
+    "title": "complete handoff",
+    "requirements": [
+      "QAP-010",
+      "QAP-011",
+      "QAP-012"
+    ],
+    "expected": "FAIL with additional unperformed work. Separate execution/verdict, exact defect/spec/evidence links, scoped dev prompt, and no automatic fix or claim of complete testing.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-18",
+    "title": "report write failure",
+    "requirements": [
+      "QAP-011",
+      "QAP-012"
+    ],
+    "expected": "Bound output write/readback rejected. Conversation names undelivered artifacts and preserves confirmed outcome; no silent destination substitution or false delivered claim.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-19",
+    "title": "resume and legacy input",
+    "requirements": [
+      "QAP-001",
+      "QAP-003",
+      "QAP-013"
+    ],
+    "expected": "Explicitly selected legacy plan and interrupted current run variants. Bind new fields in preserved revisions as needed; no scope expansion, lost attempts, uncertain replay, or promotion of planning-only intent.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-20",
+    "title": "permissions and harness gap",
+    "requirements": [
+      "QAP-002",
+      "QAP-006",
+      "QAP-009"
+    ],
+    "expected": "An unapproved persistent effect and a QA setup error. Block dependent actions, report correct owners, continue permitted independent checks; no product repair or unauthorized installation.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  },
+  {
+    "case_id": "QPV-21",
+    "title": "portability and evaluation",
+    "requirements": [
+      "QAP-004",
+      "QAP-011",
+      "QAP-014"
+    ],
+    "expected": "Two different project languages/layouts and literal paths with spaces/Unicode. Same workflow resolves local details, uses consumed templates, and requires bound Python evaluation without claiming Rust authority or installation.",
+    "spec": {
+      "path": "inputs/04-qa-skill-postmvp-spec.md",
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    "compatibility": "inputs/07-manual-evaluation-obligations.md",
+    "required": true,
+    "status": "NOT_RUN"
+  }
+]

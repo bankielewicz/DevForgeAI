@@ -1,0 +1,1 @@
+{"bytes": 35, "excluded_boundaries": [], "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\extended-04\\resolver\\docs\\plan\\one.md", "sha256": "f3366f57c9e51c6179f0b62e83847562ec70bed0e8ed12de7f9d0a8c1226e7ce", "skill_name": "requested", "status": "RESOLVED"}

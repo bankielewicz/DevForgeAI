@@ -1,0 +1,297 @@
+
+running 49 tests
+test capture::tests::chunk_independent_hash_invalid_utf8_and_final_line ... ok
+test capture::tests::exact_and_over_combined_byte_line_queue_and_detail_budgets ... ok
+test capture::tests::reader_error_disconnected_consumer_and_closed_classifier ... ok
+test capture::tests::summary_validation_rejects_forged_incomplete_hash_and_eof ... ok
+test logging::tests::optional_sink_failure_and_event_byte_caps_are_non_authoritative ... ok
+test logging::tests::sink_levels_and_inspector_reject_missing_changed_or_partial_evidence ... ok
+test native_identity::tests::additional_reparse_after_the_two_mappings_is_rejected ... ok
+test native_identity::tests::changed_target_and_changed_mapping_order_are_rejected ... ok
+test native_identity::tests::directory_symlink_cannot_substitute_for_a_junction ... ok
+test native_identity::tests::exact_two_junction_chain_admits_only_the_physical_executable ... ok
+test native_identity::tests::identity_schema_and_record_adapter_are_closed ... ok
+test native_identity::tests::mapping_and_bytes_are_rechecked_and_drift_is_rejected ... ok
+test native_identity::tests::missing_physical_digest_mismatch_and_unsupported_adapter_are_rejected ... ok
+test native_identity::tests::repeated_junction_mapping_is_rejected_as_a_loop ... ok
+test native_identity::tests::same_bytes_at_another_physical_path_do_not_bypass_identity ... ok
+test profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed ... ok
+test profile_sources::cases::credential_named_files_are_rejected_before_content_is_read ... ok
+test profile_sources::cases::deserialized_entry_shape_is_validated_before_bindings_are_used ... ok
+test profile_sources::cases::directory_membership_and_fresh_verification_detect_drift ... ok
+test profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected ... ok
+test profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence ... ok
+test profile_sources::edges::closed_inventory_shape_rejects_invalid_state_tuples_and_version ... ok
+test profile_sources::edges::collector_enforces_entry_and_aggregate_byte_bounds ... ok
+test profile_sources::edges::credential_like_and_non_unicode_names_fail_closed ... ok
+test profile_sources::edges::directory_member_bound_and_required_file_type_are_enforced ... ok
+test profile_sources::edges::hash_size_drift_and_non_absolute_paths_fail_closed ... ok
+test profile_sources::edges::missing_paths_are_explicit_and_directory_order_is_stable ... ok
+test profile_sources::edges::plugin_tree_grammar_rejects_unknown_members_and_indexes_controls ... ok
+test profile_sources::edges::rule_and_ancestor_depth_bounds_fail_closed ... ok
+test profile_sources::plugin_source_identity_cases::si_t01_exact_reviewed_junction_reads_physical_sources_once ... ok
+test profile_sources::plugin_source_identity_cases::si_t02_changed_same_byte_escaping_and_missing_targets_reject ... ok
+test profile_sources::plugin_source_identity_cases::si_t03_wrong_type_ordinary_and_missing_junction_reject ... ok
+test profile_sources::plugin_source_identity_cases::si_t04_unlisted_loop_nested_reparse_and_wrong_depth_reject ... ok
+test profile_sources::plugin_source_identity_cases::si_t05_physical_bytes_and_indexed_membership_drift_invalidate_inventory ... ok
+test profile_sources::plugin_source_identity_cases::si_t06_schema_identity_and_mapping_tampering_reject ... ok
+test protocol::diagnostic_cases::diagnostic_process_guard_keeps_zero_active_denied_before_send_and_at_final_check ... ok
+test protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries ... ok
+test protocol::diagnostic_cases::diagnostic_source_write_failure_is_not_success_and_never_serializes_error_text ... ok
+test protocol::diagnostic_cases::logging_optional_file_failure_does_not_interrupt_peer_or_cleanup ... ok
+test protocol::diagnostic_cases::logging_runtime_query_failed_mandatory_write_failure_is_not_waived ... ok
+test protocol::diagnostic_cases::logging_runtime_query_failed_retains_null_counts_no_rpc_and_cleanup ... ok
+test request::review_v2_cases::inventory_digest_shape_fixture_and_freshness_are_mandatory ... ok
+test request::review_v2_cases::preflight_accepts_false_findings_while_run_requires_all_true ... ok
+test request::review_v2_cases::profile_sources_exactly_cover_inventory_file_bindings ... ok
+test request::review_v2_cases::request_profile_and_review_policy_bindings_cannot_diverge ... ok
+test request::review_v2_cases::review_inventory_and_profile_source_paths_through_reparse_reject ... ok
+test request::review_v2_cases::v2_review_is_closed_and_binds_all_selected_identities ... ok
+test runner::final_source_check_cases::final_native_check_rejects_missing_review_for_work_and_preflight ... ok
+test runner::final_source_check_cases::si_t08_changed_source_after_intent_stops_before_real_process_creation ... ok
+
+test result: ok. 49 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.08s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test valid_fixture_is_admitted_and_invalid_fields_are_rejected ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+
+running 1 test
+test invalid_cli_is_json_and_nonzero ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 4 tests
+test wf_17 ... ok
+test wf_18 ... ok
+test wf_19 ... ok
+test wf_20 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.34s
+
+
+running 3 tests
+test diagnostic_config_categories_preserve_closed_denials_and_first_failure_order ... ok
+test pinned_profile_observations_validate_and_project_only_approved_fields ... ok
+test unsafe_incomplete_or_malformed_observations_fail_closed ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 8 tests
+test apps_require_unique_disabled_non_callable_bounded_state ... ok
+test feature_pages_accept_only_complete_bounded_closed_state ... ok
+test hooks_cover_supported_shapes_without_retaining_payloads ... ok
+test mcp_pages_require_inactive_empty_unique_complete_state ... ok
+test plugins_cover_supported_sources_and_reject_active_or_unbounded_state ... ok
+test provider_endpoints_and_closed_session_policy_fail_closed ... ok
+test requirements_and_public_roots_preserve_typed_error_boundaries ... ok
+test reviewed_config_sources_and_single_session_layer_are_enforced ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+
+running 2 tests
+test fixed_policy_has_exact_closed_identity_and_argument_vector ... ok
+test policy_binding_rejects_every_caller_controlled_identity_mismatch ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 10 tests
+test arbitrary_protocol_method_names_cannot_become_log_text_at_any_level ... ok
+test config_drift_after_intent_is_rejected_at_final_boundary ... ok
+test config_exact_size_and_real_junction_boundary ... ok
+test config_rejects_malformed_unknown_missing_drift_and_escape_before_spawn ... ok
+test delayed_consumer_drains_more_than_32_chunks_without_deadlock ... ok
+test early_stderr_and_silent_exit_survive_without_protocol_receive ... ok
+test historical_evidence_inspection_keeps_legacy_input_compatibility ... ok
+test inspector_rejects_missing_summary_log_and_modified_log ... ok
+test levels_preserve_mandatory_evidence_and_never_store_child_canaries ... ok
+test policy_targets_real_mcp_keys_under_literal_cli_dotted_key_rules ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.82s
+
+
+running 3 tests
+test native_profile_schema_is_closed_and_requires_both_policy_fields ... ok
+test schema_two_peer_and_legacy_profile_extensions_are_rejected ... ok
+test v2_pinned_physical_identity_is_admitted ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 16.29s
+
+
+running 6 tests
+test cli_control_and_inspect_paths ... ok
+test fixture_inventory_and_bounded_request_reads ... ok
+test journal_corruption_is_not_promoted ... ok
+test process_failure_and_pipe_ownership ... ok
+test protocol_typed_events_duplicates_pagination_and_failures ... ok
+test scenario_cancel_and_evidence_failure_precedence ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.94s
+
+
+running 2 tests
+test exact_independent_result ... ok
+test rejects_invalid_results ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test inspection_mode_rejects_peers_and_source_inventory_is_observable_without_launch ... ok
+test preflight_is_a_closed_terminal_operation ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 1 test
+test inspection_distinguishes_preflight_from_a_completed_turn ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+
+running 1 test
+test native_atomic_job_and_verified_stop ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 4 tests
+test wf_13 ... ok
+test wf_14 ... ok
+test wf_15 ... ok
+test wf_16 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 142.05s
+
+
+running 3 tests
+test credential_store_is_not_an_admissible_profile_source ... ok
+test reviewed_native_profile_sources_and_findings_are_checked_without_launch ... ok
+test unavailable_review_retains_incomplete_evidence_without_reading_credentials ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+
+running 15 tests
+test diagnostic_config_denial_is_closed_and_preserves_rejection ... ok
+test diagnostic_config_rpc_guard_and_validator_branches_are_distinct ... ok
+test diagnostic_failures_preserve_deadlines_cancellation_and_evidence_failure ... ok
+test diagnostic_initialize_counts_include_exited_descendant ... ok
+test diagnostic_rpc_denial_never_retains_server_message ... ok
+test diagnostic_success_counts_are_closed_and_cannot_qualify_work ... ok
+test preflight_accepts_schema_valid_omitted_final_cursors ... ok
+test preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications ... ok
+test preflight_rejects_a_transient_descendant_even_after_it_exits ... ok
+test preflight_rejects_active_hooks_plugins_apps_and_mcp_servers ... ok
+test preflight_rejects_active_or_conflicting_effective_config ... ok
+test preflight_requires_every_disabled_feature_and_complete_pagination ... ok
+test preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work ... ok
+test profile_projection_does_not_persist_private_response_fields ... ok
+test rate_limit_measurement_is_explicit_when_unavailable_and_blocks_when_exhausted ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.35s
+
+
+running 8 tests
+test wf_01 ... ok
+test wf_02 ... ok
+test wf_03 ... ok
+test wf_04 ... ok
+test wf_05 ... ok
+test wf_06 ... ok
+test wf_07 ... ok
+test wf_08 ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.39s
+
+
+running 4 tests
+test feature_pagination_enforces_page_size_repeated_cursor_and_page_count_bounds ... ok
+test server_requests_are_denied_with_the_captured_response_and_never_granted ... ok
+test stderr_is_drained_as_omitted_content_without_persisting_private_bytes ... ok
+test unavailable_or_invalid_rate_limit_measurements_are_explicit_and_sanitized ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.96s
+
+
+running 4 tests
+test wf_09 ... ok
+test wf_10 ... ok
+test wf_11 ... ok
+test wf_12 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.75s
+
+
+running 4 tests
+test full_pipe_server_reply_deadline_and_cancel_stop_descendants ... ok
+test interrupt_write_into_full_pipe_obeys_single_grace_budget ... ok
+test malformed_error_payloads_never_reach_journal_or_stdout ... ok
+test ordinary_rpc_write_and_interrupt_share_bounded_teardown ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.81s
+
+
+running 12 tests
+test all_pre_response_notifications_are_reconciled ... ok
+test cancellation_before_ids_allows_cooperative_eof_exit ... ok
+test captured_native_launcher_reparse_is_rejected_without_launching ... ok
+test duplicate_completions_are_idempotent_and_conflicts_fail ... ok
+test duplicate_nested_profile_is_rejected ... ok
+test home_boundary_only_allows_peer_temporary_roots ... ok
+test lost_interrupt_transport_still_waits_for_owned_process ... ok
+test successful_peer_has_observed_zero_exit ... ok
+test terminal_claim_requires_observed_result ... ok
+test unapproved_peer_executable_is_rejected_before_spawn ... ok
+test usage_retains_only_typed_counters ... ok
+test valid_output_cannot_override_nonzero_worker_exit ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.06s
+
+
+running 5 tests
+test disappearing_fixture_after_admission_cannot_be_a_successful_run ... ok
+test journal_creation_and_exclusive_writes_preserve_existing_bytes_on_failure ... ok
+test public_preflight_review_rejects_a_peer_without_native_profile ... ok
+test public_review_entrypoints_reject_untrusted_bytes_before_work ... ok
+test source_cli_distinguishes_invalid_paths_from_unqualified_source_types ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+

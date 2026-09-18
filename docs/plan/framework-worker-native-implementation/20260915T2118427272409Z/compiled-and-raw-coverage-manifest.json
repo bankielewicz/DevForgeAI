@@ -1,0 +1,877 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\console-driver.exe",
+    "bytes": 288256,
+    "sha256": "d9f922abd389a3760224a482ec467fc88ecb9b75dd276ef1e8075f627d0e0d12"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\crash-driver.exe",
+    "bytes": 1620480,
+    "sha256": "118fb8ab431d0ea2129273572ed43ab92979f6419e70a685408a5dd814ad0ba8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\console_driver-288c56518b315dfe.exe",
+    "bytes": 723456,
+    "sha256": "0055311e43461dda638d3116a1777db5660d9e4349aac39017b1528d370b38c9"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\console_driver.exe",
+    "bytes": 288256,
+    "sha256": "d9f922abd389a3760224a482ec467fc88ecb9b75dd276ef1e8075f627d0e0d12"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\crash_driver-b4eab878aeed91cd.exe",
+    "bytes": 723456,
+    "sha256": "aa00d2f52113ccea7f37e5e6c471c68198b7c8c75a2199a81a038a19bbeb8532"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\crash_driver.exe",
+    "bytes": 1620480,
+    "sha256": "118fb8ab431d0ea2129273572ed43ab92979f6419e70a685408a5dd814ad0ba8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\devforgeai_codex_worker_probe-960ff5c1e423ff70.exe",
+    "bytes": 723456,
+    "sha256": "838c0951f743f80bab1b3e2fe115e1674bae5fca19c77555c418ec039d57a7c5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\devforgeai_codex_worker_probe-eb81978344f0e095.exe",
+    "bytes": 1030144,
+    "sha256": "784300aa78954c07ee173eddce9526ac6fc65fca65c7ca9e9f79da43e216fce4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\devforgeai_codex_worker_probe.exe",
+    "bytes": 1718784,
+    "sha256": "59ad05558bfd60f4fb7e5ffde63de46e2c6ca03662568f4079945b9b54c43723"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\protocol_peer-f59665b8cba881b5.exe",
+    "bytes": 723456,
+    "sha256": "3d52836c4e1f7063fe71e77bede93177f08eedac6a24f021681cb119a7cfef2f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\deps\\protocol_peer.exe",
+    "bytes": 802304,
+    "sha256": "d145113919c2fa06f5d11dee47e819e31f48cce9953a9c8ccbb9e49018eb1b8a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\devforgeai-codex-worker-probe.exe",
+    "bytes": 1718784,
+    "sha256": "59ad05558bfd60f4fb7e5ffde63de46e2c6ca03662568f4079945b9b54c43723"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\debug\\protocol-peer.exe",
+    "bytes": 802304,
+    "sha256": "d145113919c2fa06f5d11dee47e819e31f48cce9953a9c8ccbb9e49018eb1b8a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-11116-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "93874c8efe63371adc84dab09231b02bbe43c01fe5a74972394fdcc5a5d28562"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-17244-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "1d7453e5f41aa5c40dfb5754b4a9517c04195462d60fb44a3fbb75e2dff61764"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-18788-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "f2b303e45d761a0e70f8a0da1bc657fed768dc41cd887713e411f36929691ac4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-20936-13518403918408400216_0.profraw",
+    "bytes": 296,
+    "sha256": "c3a5271631c1377d1e6362b23260a3f6aa5e7a56628febd7f52a3310289fe8b4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-21268-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "6ae2c948f14075e5ec1303a299f2e6af81827e0d421280c030114e4a0d187a8d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-21860-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "1d7453e5f41aa5c40dfb5754b4a9517c04195462d60fb44a3fbb75e2dff61764"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-22064-12596851437719833287_0.profraw",
+    "bytes": 25032,
+    "sha256": "fb17915fbef5aa674719e59a4c00f3d2d27b1c4175ff468d10a9704ff0150750"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-22676-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "9ce237cea7c14f6230affa4bb88ccf954536fcb387416593a15441ad9be4fcd8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-24344-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "003698205c4f6210820868274fe2bb30adfbf6ea4d2ab6fd6d62ae08d4c687b1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-24456-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "19f8c342737efaa9db5d10b41a6f079614553fc8c11edeb6492c34deed4cd0ce"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-25336-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "3afa156a87afefec39a6ba7ee79748eef4a51999014cea112e967ffc7489b62e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-25356-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "35e6adfc7cfebbec2c4c61c23fe3fea6d99738c19991080788be78a9301cfbf4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-25684-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "94fe886dcf6199a34b6a1d538db80a195c359f8743487164a98d6beb53d2ad2f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-25744-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "f8913fbd2cce0283e414b604853ec06986a9c5df3cec8d545d520bd1f72b0329"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-26052-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "1153bd747c61233e29db2871f041ed807ced0017ecd34ed66eaf141cd5f5626d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-27136-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "4b3375676caa1227ae4f08933c085fb4b84a97e030ed481aeb8c6c32417e1d4f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-27660-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "82c26fc732d8d3f9dc3aa6048a37f80232b9d76aff34474090bb44dffd5d2f6a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-27668-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "ecaae3a48cc638d27ee6632d639a89e250bf3067d6edbf95bf21df261de104f1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-28220-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "1857e9698e6b0b98511c5d27087ffb53cdc68753867690221b868c981b11141f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-30004-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "ced2243784bc00719bec4c4444ce23ba01f1ddf225077e3f41061812888aec97"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-31340-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "632553092608c1700b4ab992a1bb6205a28c0e309d43169f6c49f14a1db820b0"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-31648-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "ca1308313191acc6c3a009db012c9dc7ba4df040cd66d06bd4ed30414341a3c3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-31736-10899466176897663351_0.profraw",
+    "bytes": 23048,
+    "sha256": "d372678f54061b9999792ffa9658dc9e46cb4f8e806937388299a099cd72a8d8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-3176-16184559638516327744_0.profraw",
+    "bytes": 18424,
+    "sha256": "81ec12292f0d274578c9ce162c87c22b0a799c3dbc6471475c568365a2a6ded6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-32016-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "6edee9ede94efffbcf424ab1ca854bdb8e62cb863429ec57ec223ec342fde1f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-32036-2711341253148937369_0.profraw",
+    "bytes": 23136,
+    "sha256": "ddf3554b62823814a864f1d25c0eb1ecc035b7a0921423507abec7a9d2e75d61"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-32276-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0439176b956da7cdae5474fe9033523197ca7232150073c3d975f94ca559281c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-32584-7466145939926620456_0.profraw",
+    "bytes": 16984,
+    "sha256": "be9d57aef9aed1216f7e371093dfc5d9e1498d547b9ad6b4c062c09f062230fe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-33000-10437579686078374071_0.profraw",
+    "bytes": 17048,
+    "sha256": "2539fd7f2740b448edb29e3fc71ea43396b7ee7265231c50351403b6517a9103"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-33176-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0bcdd41cab6b52652ba48e83f6d882ba3c362dbc7e78c368e8dbea1c71ebdba4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-33208-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0439176b956da7cdae5474fe9033523197ca7232150073c3d975f94ca559281c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-3404-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "247274cfc512d658cfa813d806387b00211c45d722e99ba6ad8485d0e5ff0e2e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-34604-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "381836a6621e0fc8167490275d7f41000156ec65e1b9c2c53e43260feeafe6da"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-35484-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "3f2c661d765911a8acc2d8b13d932d8a1c1d568f54a826e429084bd4bec205f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-36684-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "1857e9698e6b0b98511c5d27087ffb53cdc68753867690221b868c981b11141f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-37004-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "9b82942cded49a66588336c99aea334abd2c53dab9e8626a658a4e4992397b14"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-37240-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "da064d5340f72eab245ef7f5666a9bc38add0f3fecf46b2a21812d987305396c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-37424-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "e4f5e0798e5fc159026bd21d69521cfb41abe3e33a982b508f0a262585b8574e"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-37576-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "1da940a26c32a94069dd851a260de792d2fdfe69496062f38ac94a6253ee668b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-38432-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "8c6bf9e5492ee98a5f82831a7f84c8823cfc64f5a393cf4f083cb4f19ae23f6b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-39176-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "adee1a8eee02738928ecad683f7695dd5ffae6d7e699e3aa1461a72fa176e731"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-39312-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "8bf35cd457fd864a3fff397a16911be47d80eb6d6611dc0e4f9888d2509bd638"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-39384-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "de9bcfe349166c353a52a4d690c24c9fd74f6d9be660dcca3397784d204bbc13"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-39896-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "8f433137faf8fb19fb2308fdd4e1f18198fbb2d2f9175ba9e8a46a258fb6423b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-40140-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0f8e8fa93c08eeb9b6ad63a3f7a086d2c964464868897b22d049d037a0ecf409"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-40396-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "341e30b9ce19e73f624d4102d831e9a55283d01ee12b6d5b919242468d28357b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-40752-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "67e06a5647fb2fd487197219f1dc8db4d9ed25bd95b33cd8a0444b06041a1a45"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-40768-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "7a229572cb9fb9993eb0fbb4412b957440de0356a23673fa82cc263129a0c971"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-40772-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "8b669d2d80ad332e5c51156779042b6631332f4c204dc8fd6102985abeb7d5ca"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-40796-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "4a10adef06168a1d7c55d7477ecb8754d5b06ac9e020f8e82e514bb243170fdc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-41244-18405546964023669387_0.profraw",
+    "bytes": 440,
+    "sha256": "19c3641e174b6a7d7757715c8c2af80ed5e52836aafa4031688303a85b150b60"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-41356-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "f7a9f58cec250c328accd81e594439de2aaa5c8ede8bbe525a535e5782c21f75"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-41908-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "bc6787224bbcdaa78b5c9495e9c951a447340a92ad30659c6d3eac24aee65800"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-42724-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "c105e49e248f19d089012affd12aa876c7524563d65757d86bf45465a554aec3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-43280-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "7e4100674bf80e9bd49cf3040e9e884cc687ca8d3c8a0cea6a3a0e23674dcec1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-43436-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "18226c824667495308897abe9c1a1e9033a4f68078797fc29b1cb4bfc874449c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-43976-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "6a35c0d38be7d5768cc55e2b0b4f607a26c6ddd91ad7d85e6686b1cc90fe0342"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-44128-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "741b9d0fed37baf9e014f4bee46bd2fdb673e8a2a916d531f18f8cee2f265b2c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-44408-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0439176b956da7cdae5474fe9033523197ca7232150073c3d975f94ca559281c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-44636-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "4aa22211279435cfb65d1b2af23b98407ee1883521eef4259502f266b143e417"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-45096-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "7f9650486a25026dd0b47f04f6087c0398a3d25165ccec9f2fd526fec732f4a8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-45164-18405298474395792011_0.profraw",
+    "bytes": 216,
+    "sha256": "015df8a9d1800be734360b3ca9bc88518964e7a75cd27c3ffc80a2a52a1efcc8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-45532-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "7896ed81a1e6ecde1cb36b137fdc28b8d6e932957ed0feed1590d83c375678b8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-45644-11869422130108980295_0.profraw",
+    "bytes": 23640,
+    "sha256": "7f35f582e213f120f8516dbe47e5225a910a218436a36d94edb7d6b0827926ab"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-45864-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "2a894d6a7c0aa9d1e78ebcb4103ede58f06a73bd5aa7e35e1e26ad6c3996d0e1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-45916-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "39d669c89015f36e432fef603a9b867afea56a721652d5168172fb34696a422a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-46192-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "00710b3323fe58efc1dd9f2caf1c8da6f53b1638b0aef7c96cd76959a30b9baa"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-46472-12843997025859315253_0.profraw",
+    "bytes": 14536,
+    "sha256": "b14d0e37f06882f90e49f3b3b15b55194090dad673041712ef7ac5d93db242b2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-46480-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "67cf4168a35e3cc804c2f39ea2cad1771cdacf6537474d72ebde24e470886645"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-46520-18405300673419047563_0.profraw",
+    "bytes": 216,
+    "sha256": "b3481e055edcf16e9d5309ceaeb777c95b64211d0da5dbc9cc306eac15a3b46c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-46912-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "238a2ba93346af09d6daf14f65934003eef8e19365f33918d7cbea40c9b53860"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-46984-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "1b441008d7575d2768af8409bceeb5d456f320ce348a5a2746250e3eedac6ee2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-47292-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "a7fae141dfd8fb06416f57b20ebeed867d553f604452fcdcd7754899d87de908"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-48108-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "b0affafa57f660fea217f2b165b4c5af0fa90f41fbc7804abe1d99b40ff70223"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-48636-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0a375332b9609c09b3255d0c1cd095835c2688a16145b4fa32e5af3e1addc2bb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-48712-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "ad6cfaf8641ca73409d83d60c75bfa60e4d5789b0657f53c08a6d5567d80587d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-48864-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "ad63843f46a58c39c4cf310939de387873ff1d0bc9aef1d86dcbc3f33d963962"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-48968-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "b233ac5382f055db348c6bb0d1ac3b695b0b183b2edd87085400ecf328dc5c1d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-49188-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "ed656d0aa7f014504e5f2f402c1c8583fa55e121fdab0643ca71baf2b5e776f6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-49488-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "35963c537b9c4560fec1146a261a8d93c36489e6b20e8e0243034afd5497b0fb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-49668-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "80e21a69e6e0ba4ba6ab0c1e72b5c2dffa1f02c7d24801810eea914f536770ed"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-50496-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "20241cc7dee27efac5fdf412e37948eafe39a4c8cab44853935762f970aecfb9"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-50960-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "dd88d10a146fe11e0acd1a451712e187095ac4d398dfde60d4f19a9ebbe2a3fb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-51148-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "c6b7f96c2a0381c3670ac029b4eac304674a2cb4a97f78c4df6363bc6bfeecfc"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-51244-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "cc90a197d5d40ec7d6f83d220dad58a028514d880a706276743dd19d85c9d497"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-51252-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "b5ac1aa6a0578d03b6850da231ab78bde82244760ba08d029a95728f91134a9d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-51500-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "6341be3352e2d095bddcfddda5535ee474496dfe2bbac68118b898154b120c57"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-51684-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "42034a3a753ce8cd1d58e6071dcce303fd7e02aaa9e0ab62238fd2b9d5936b4a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-52176-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "2f331f71f0377d34274d5111f5a1a3ad8e57b892555ce309514c7443179557a1"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-52208-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "1857e9698e6b0b98511c5d27087ffb53cdc68753867690221b868c981b11141f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-52252-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "18cb53d167e7c8947693f7da0e8797359184e37c506a13ef4f998887d42693f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-52848-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "2213e13c6bd30e35c0da2e421d70b9905ff8a05c6b7c06116597e2afdbf7ab55"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-53040-15145285115945055939_0.profraw",
+    "bytes": 24328,
+    "sha256": "42e40c57636076d9dbeb96501f7472a2f5b8af4dbc7e8bad3a00ecc769708b11"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-53292-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "10f238913e02c6abe79d5ee2a2dde723e929c8a892dbd5490a9d7d9eab1b3ffe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-53484-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "dcfcdd6b8f3addc82aafa782e7ffc1a0241a12f865cd7076755f7c554be75d45"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-53720-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "a58d2fffb3a17fe3822211d28cf65c0bce7ed7b0988c53b35918bc8f871e3963"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-53892-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "d26b146d68e07c864420689f5dd9d382ea12c25a64fc5508a67681dec7c13664"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-54312-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "307578e51914b37290ec4b1f5b4f444aad00a7c004f6e4ccc31724d07af841a4"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-54352-11495427716551346483_0.profraw",
+    "bytes": 18328,
+    "sha256": "9cc0d020d741a7a7acb5ac40f8c31f45fe778739f5bcbd905fd2f84abea0bb33"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-54508-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "de160b1e068d3a8702d8bd5bc0745cc9ac73480590acd8198ae87c68bb9adfc2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-54524-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "13a2749d007f78b35c8043576a9bcc254b2a626081deb0038656794824c655f6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-54948-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0439176b956da7cdae5474fe9033523197ca7232150073c3d975f94ca559281c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-55524-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "5d391a9290498926c1e252f64f04ef5dc7f4c2eaf98b23c0c8c0a328c6072ab0"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-55592-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "214a4506bcbececa86b4156343882f808248f9c65f94123a154de45bcd4b107b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-55704-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "d1e8f737267718de496a1ca84996a21f82dcfe0ab899b7aaa577ccdca1269077"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-55708-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "ec3248133525aff5a0afadc8b9cf80dfff3f07e1943bf240141e53707a29b700"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-55912-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "62cdc91edcd28a5f77650d58be9b7a72fc2950ce81e6c5e0c25e9c0378cefba0"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-56092-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "06658a80aaca4063464cc29de7c23bd0b9b4f46d97a658a46a4eb0329d004556"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-56512-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "ff977f17e7ae0f7c9357bf4e8173bf85102f5bdd23cf278700e6da3bedd7eaeb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-56736-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "bd96f33590279b66e8e768dad996b59c7e1c29cbf0bae2d755f25a2fec1da39f"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-57292-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "af2724607fa5b7b674e29c6e614c8163fd493d0c0530a4a040da9544f2797f2d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-58092-11514310860827590972_0.profraw",
+    "bytes": 16856,
+    "sha256": "237973fd4a848c28db0f7cc068bd117d217e31c4a821f55d24889c2ae28eb756"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-58212-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "698481010f0d5fc1604d944afba7ec0688a66dcd2284580def7e797851d113fe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-58228-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "b5babf89d43505ed9739620446e22192fd89a70a5ed903d203847e8524469d28"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-58528-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "99916fbc94bdef28ed335fc099139550eee795b50c237edebf1798c60bc9b877"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-58648-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "1a8e536d916a0fff643a7d561bba744f36a21a2b5d5f914faf4cb51dff2d6a21"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-58648-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "c3c080d1ac7e4adc8c6649e1aea680886784babd672c21b1fda4b3eaaa64772d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-59388-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "c95d9651848d3972fd9e955ffa182b4212314fd6d43b78196eea3e1993de9ebb"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-59632-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "2420500b64abc45901b261235ae66b0754432d44e192242fcdfa589f1ca16a08"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-59940-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "4a3079c3ac2852236f2f58e2e1505aca6ccd59d4bd33b61ffe32f5dfc4a27372"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-59984-10434217581679231772_0.profraw",
+    "bytes": 22432,
+    "sha256": "4d202bf849714eeba1563045ff89ca48b61dd430a449e3334b949f5058d8c102"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60000-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "d79414f9832d2c0fd4a3a53468c4bf84e2a2a820420a9f508fdb7343b1dd4af2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60108-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "3f2c661d765911a8acc2d8b13d932d8a1c1d568f54a826e429084bd4bec205f5"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60184-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "101f160e74a194cfc55ae5c94630066daf56929d357d7b88ccaee3a57671e83d"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60392-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "2effc6faee0a0db7932229a25cb9b84e3582069f1ade4a00604444084a9b10a7"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60408-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "31b42f3ebae13976f2bfe36eb9620072e807824f8e49d9da553515c6795925b8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60604-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0439176b956da7cdae5474fe9033523197ca7232150073c3d975f94ca559281c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60916-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "2858da5cfe68f20ef6cb4e0c22c0e15842e7c9ce53cb566aa68331dd79c7156c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-60932-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "8c00c6102c909339189cc2cbcae2a960d2aaae7c3ee592de3c1b151949d74f69"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-61020-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "436f75c5397d3b9ad9fd1c56e985ef1eaa39d435ee843b16c66c33cea0f97eb3"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-61120-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "18dd6a3190f68224886bfd53e80dbac696213379d1973148898e2694bc35f20b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-61488-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "596f485778e388e43d6ddd0e38fe0f831f1cc183eba8fb11e0697ec46c989431"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-62172-1569993913329192266_0.profraw",
+    "bytes": 16880,
+    "sha256": "f947bbdd35eae798b2b458e04ec611107dc82c6612f2b8a80136aa98b27fd0af"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-62436-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "77dc1357c3aa2d34b5bb1b28561d14a4de5ee365180a80a772c0c7f539527a94"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-62864-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "635f6b3d13503334140327998307eb98830bc8c3a81ca8446e5070bde47849ae"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-62888-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "c9764c5308166a0342e87478e3976ef6284a003a6ada6164547f95ee586e11df"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-63632-12603866671101471046_0.profraw",
+    "bytes": 21600,
+    "sha256": "8e4562b29cdc3499ca9302f7e13989b2214fcc402ae4ddc6de75706b66156de9"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64092-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "208d2e0115e5a5327d2d31aca0d79ea704772f2759755e9a8c10c57705def5f8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64332-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "698481010f0d5fc1604d944afba7ec0688a66dcd2284580def7e797851d113fe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64356-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "8a778f6363fccb331bed3a67b554886b6bc1d8a3397124ade71c9ccde97c1c97"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64424-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "3cb44f222946d8cc5dbf7835587ea47167d523593d02645415cecd3c488ba5f6"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64552-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "0d4648fe948467883c031efe0397fd8a59d9836949571363becc1d6145dc8112"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64668-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "ae34b0e7c5953f9537d683cdf95e0a9720cf9e3d2f16cc8e01158a3fb32ce6fe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-64804-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "43e72e20435e6e6c65d98f88d7d4c3b3a76763f7fe3a94b4bf22d5b8954cd17b"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-65000-5717015390005602830_0.profraw",
+    "bytes": 22712,
+    "sha256": "d031df383554d2baa52ab810789763c8c7bd20c66a74ca701abb1d44280479ad"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-65196-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "e0e4487e29f17e97ae9f7273b8bd033233f82b627ba88ecf328ec0bf34b7bf22"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-65320-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "d28290201f91f781157e4d520bd48fcd2b2a647ec1f3d57e5f2ba87aa95b9496"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe-960-2394688585364959511_0.profraw",
+    "bytes": 2232,
+    "sha256": "2d9a8253e05bc47fa02c806c9600ca4186a345b47bf287fde96bc530904026af"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\codex-worker-probe.profdata",
+    "bytes": 54192,
+    "sha256": "4d6199eed5ae70b6e90ccbe70c9973427b5e113f2a5de55caad43c3ad45c3567"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\console-driver.exe",
+    "bytes": 316416,
+    "sha256": "42ba2b71229a7b0d2bd50a4ef142e0da59ee955cfacb54b264cf936e67c3e9a0"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\crash-driver.exe",
+    "bytes": 1713152,
+    "sha256": "387447275528dc0b63ca02702c3833cffeb5c326d91ef7310d99091e2fa89f0a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\console_driver-288c56518b315dfe.exe",
+    "bytes": 752640,
+    "sha256": "30ef1444143dcf32559bd5eb0f94169891cc2508c8317f12c8c0bfa827776284"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\console_driver.exe",
+    "bytes": 316416,
+    "sha256": "42ba2b71229a7b0d2bd50a4ef142e0da59ee955cfacb54b264cf936e67c3e9a0"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\crash_driver-b4eab878aeed91cd.exe",
+    "bytes": 752128,
+    "sha256": "75f62e5bd300e6a2bf79a974ec8e3775bc55ac5b88afbdc1f581e2e050c6d299"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\crash_driver.exe",
+    "bytes": 1713152,
+    "sha256": "387447275528dc0b63ca02702c3833cffeb5c326d91ef7310d99091e2fa89f0a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\devforgeai_codex_worker_probe-960ff5c1e423ff70.exe",
+    "bytes": 792576,
+    "sha256": "8d2858ac12749acb02feb0eab3dbe39bcc2f59f74d065eccdcf3b93c84c25afe"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\devforgeai_codex_worker_probe-eb81978344f0e095.exe",
+    "bytes": 1094656,
+    "sha256": "1aeeed4676ee01d93a11fcc744799aa2fe49071d9954ba3ee8693ac94a5d7fe8"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\devforgeai_codex_worker_probe.exe",
+    "bytes": 1812992,
+    "sha256": "774fe261f5b3e0c534085dca746e7ed4dc384b879dddf92d044defd03fe50718"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\protocol_peer-f59665b8cba881b5.exe",
+    "bytes": 756736,
+    "sha256": "e73313a8060f45280dd2d0973102f8aff9d5e0c06da801ba1e6cf7c6b4b5cc2c"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\deps\\protocol_peer.exe",
+    "bytes": 840704,
+    "sha256": "76cafcc6c7153409cc23c752d9db54e19df804036f118bf15720d5ddb00f4ad2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "bytes": 1812992,
+    "sha256": "774fe261f5b3e0c534085dca746e7ed4dc384b879dddf92d044defd03fe50718"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-implementation\\20260915T2118427272409Z\\target\\llvm-cov-target\\debug\\protocol-peer.exe",
+    "bytes": 840704,
+    "sha256": "76cafcc6c7153409cc23c752d9db54e19df804036f118bf15720d5ddb00f4ad2"
+  }
+]

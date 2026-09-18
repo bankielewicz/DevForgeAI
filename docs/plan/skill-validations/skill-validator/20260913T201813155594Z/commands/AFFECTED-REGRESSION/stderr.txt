@@ -1,0 +1,32 @@
+test_check_reference_keeps_run_relative_base (test_adaptive.AdaptiveTests) ... ok
+test_complete_shared_request (test_adaptive.AdaptiveTests) ... ok
+test_dependency_cycles_and_missing_ids (test_adaptive.AdaptiveTests) ... ok
+test_dynamic_outside_and_missing_distinguished (test_adaptive.AdaptiveTests) ... ok
+test_exact_counts_no_token_guess (test_adaptive.AdaptiveTests) ... ok
+test_exact_membership_omission_and_injection (test_adaptive.AdaptiveTests) ... ok
+test_fail_precedes_unknown_and_advisory (test_adaptive.AdaptiveTests) ... ok
+test_helper_usage_rejects_encoding_without_tokenizer (test_adaptive.AdaptiveTests) ... ok
+test_inline_code_and_balanced_parentheses_links (test_adaptive.AdaptiveTests) ... ok
+test_inline_reference_images_and_anchors (test_adaptive.AdaptiveTests) ... ok
+test_invalid_utf8_is_not_skipped (test_adaptive.AdaptiveTests) ... ok
+test_metadata_preserves_optional_and_rejects_duplicates (test_adaptive.AdaptiveTests) ... ok
+test_multilingual_no_blanket_defect (test_adaptive.AdaptiveTests) ... ok
+test_new_records_do_not_recurse_into_fixture_authority (test_adaptive.AdaptiveTests) ... ok
+test_nfkc_command_candidate_and_safe_excerpt (test_adaptive.AdaptiveTests) ... ok
+test_parent_requirement_inventory_not_heading_match (test_adaptive.AdaptiveTests) ... ok
+test_placeholder_and_unlinked_license_not_auto_defects (test_adaptive.AdaptiveTests) ... ok
+test_raw_helper_cannot_hide_failure_or_adjudicate_candidates (test_adaptive.AdaptiveTests) ... ok
+test_readback_detects_late_added_file (test_adaptive.AdaptiveTests) ... ok
+test_record_unknown_versions_and_unjustified_na (test_adaptive.AdaptiveTests) ... ok
+test_reference_absolute_base_required (test_adaptive.AdaptiveTests) ... ok
+test_required_producer_dependency (test_adaptive.AdaptiveTests) ... ok
+test_stale_and_unexpected_package_files (test_adaptive.AdaptiveTests) ... ok
+test_standalone_ordinary_and_topology (test_adaptive.AdaptiveTests) ... ok
+test_unicode_locations_preserved_and_unresolved (test_adaptive.AdaptiveTests) ... ok
+test_unknown_tokenizer_cannot_import_arbitrary_module (test_adaptive.AdaptiveTests) ... ok
+test_versions_extra_keys_and_duplicate_keys (test_adaptive.AdaptiveTests) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 3.197s
+
+OK

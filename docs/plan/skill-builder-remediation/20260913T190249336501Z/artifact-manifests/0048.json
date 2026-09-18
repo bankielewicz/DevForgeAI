@@ -1,0 +1,36 @@
+{
+  "root": "commands\\red-03",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 8487,
+      "sha256": "601c1fe6351b9087778eb13f60693ac9e6f98375e08ff063f1447a31e0b71490"
+    },
+    {
+      "path": "evidence.py",
+      "bytes": 5332,
+      "sha256": "d6e6794a7da4fa33c3012ad64abab9acae3ef2379a78962d1a52ad80e1ec3c6e"
+    },
+    {
+      "path": "result.json",
+      "bytes": 8337,
+      "sha256": "4ec877582c0ab64ff625e97228236de2abfd062525e5fc49b8dfa8331b905892"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 23001,
+      "sha256": "69603b3c11a69e9ede114c1868a2749c6dad96cf9f16149ff59df53a8d468234"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "test_remediation.py",
+      "bytes": 10694,
+      "sha256": "11db7f709f67a3ca2cfc78ff38b9549187c684cf01ce74f857c1c768c05dfdda"
+    }
+  ]
+}

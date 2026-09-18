@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "20260918T020654Z",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\brainstorm",
+  "target_name": "brainstorm",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\brainstorm\\20260918T020654Z\\authoring-record.json",
+    "sha256": "60dd09fbb7add2106201611189de3abcd77f22a19a2df155b2e18eca39529c66"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\brainstorm\\20260918T020654Z\\baseline-manifest.json",
+    "sha256": "998cc37a5540bdf98c0507103921875340e7d3ab1ce71df3958a9cd631dc5b63"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\brainstorm\\20260918T020654Z\\baseline"
+}

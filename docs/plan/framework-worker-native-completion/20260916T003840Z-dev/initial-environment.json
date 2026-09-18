@@ -1,0 +1,23 @@
+{
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "workspace": "C:\\Projects\\DevForgeAI",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "machine": "AMD64",
+  "python": "3.10.11",
+  "git_metadata": false,
+  "tools": {
+    "python": "C:\\Program Files\\Python310\\python.EXE",
+    "powershell": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.EXE",
+    "pwsh": "C:\\Program Files\\PowerShell\\7\\pwsh.EXE",
+    "cargo": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "rustc": "C:\\Users\\bryan\\.cargo\\bin\\rustc.EXE",
+    "rustfmt": "C:\\Users\\bryan\\.cargo\\bin\\rustfmt.EXE",
+    "cargo-clippy": "C:\\Users\\bryan\\.cargo\\bin\\cargo-clippy.EXE",
+    "cargo-llvm-cov": "C:\\Users\\bryan\\.cargo\\bin\\cargo-llvm-cov.EXE",
+    "git": "C:\\Program Files\\Git\\cmd\\git.EXE",
+    "rg": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\codex-path\\rg.EXE"
+  },
+  "ancestor_instructions": [
+    "C:\\Projects\\DevForgeAI\\AGENTS.md"
+  ]
+}

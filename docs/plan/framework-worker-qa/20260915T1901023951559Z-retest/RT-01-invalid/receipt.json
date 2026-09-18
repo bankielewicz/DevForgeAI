@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-target\\debug\\qa-driver.exe",
+    "--boundary",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\RT-01-invalid\\request.json",
+    "invalid"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\RT-01-invalid",
+  "executable_sha256": "37a0f7985d14b72d3f45a0bd091f001c37ef8387168170370d6d577fc2bde299",
+  "start": "2026-09-15T19:09:46.010875+00:00",
+  "candidate_manifest_sha256": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\RT-01-invalid\\fixtures",
+  "owned_pid": 39176,
+  "exit_code": 0,
+  "elapsed_seconds": 0.34399999999732245,
+  "end": "2026-09-15T19:09:46.354069+00:00",
+  "stdout_sha256": "b8e748b4ce6b2e3a6874ce4d1b91ae741a4e2e3315442830da094b0462d66f6a",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

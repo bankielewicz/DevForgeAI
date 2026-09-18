@@ -1,0 +1,16 @@
+{
+  "pid": 60884,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-harness\\Cargo.toml",
+    "--test",
+    "raw-windows-capture",
+    "--",
+    "--test-threads=1"
+  ],
+  "started_utc": "2026-09-17T11:11:45.395046+00:00"
+}

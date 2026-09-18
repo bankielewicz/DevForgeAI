@@ -1,0 +1,13 @@
+{
+  "windows_python": "3.10.11",
+  "linux_python": "3.12.3",
+  "libraries": [
+    "PyYAML 6.0.2 (existing metadata helpers)",
+    "coverage.py 7.9.0 (Windows measurement)",
+    "jsonschema (existing regression schema validation)"
+  ],
+  "installations": [],
+  "native_cli": "codex-cli 0.154.0",
+  "default_execution_ceiling_seconds": 120,
+  "authority": "Evidence only; no Rust acceptance"
+}

@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\authoring-record.json",
+    "sha256": "0be59cbad86d1109c2cf1820b64a24bd4ecb8c7c1468e428de640590667d8730"
+  },
+  "baseline": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\authoring-baseline.json",
+    "sha256": "8609f4752719fbfeb31faf27c52b40f3e6a296c80fe2eb751cb31508d7b1acb1"
+  },
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\validation-request.json",
+    "sha256": "1b7b2f9e227d317be935b9d7622c1ea28c9460fac5e3302b7306085dc2f75277"
+  },
+  "package_digest": "a63a75bed1a1fcba20c7b6e97666ed568e79b8899603ad46de825f4d4c1dd1d0"
+}

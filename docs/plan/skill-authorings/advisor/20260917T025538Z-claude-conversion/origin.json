@@ -1,0 +1,15 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {},
+  "design_capture_requested": true,
+  "contract_sha256": "be3bcd12209812a19cfa61368477afc6b27c0a4371e4df86ee10ef77668a00da",
+  "supplied_contract_sha256": "be3bcd12209812a19cfa61368477afc6b27c0a4371e4df86ee10ef77668a00da",
+  "path_resolution_sha256": "5374da067c0059bf1535888873fec9108d0ef58ad39f6f30fb3a5e4154f1cd97",
+  "design_capture_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260917T025538Z-claude-conversion\\design-capture.json",
+    "sha256": "bb27cf86ee7e26fc95a17bf6d687699c311f6f4b4b75d7179db17358de4d07d6"
+  }
+}

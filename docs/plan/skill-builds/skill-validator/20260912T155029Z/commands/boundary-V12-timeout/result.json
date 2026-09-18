@@ -1,0 +1,23 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\boundary-trials\\attempt-001\\timeout-fixture.py",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\boundary-trials\\attempt-001\\partial-output.txt"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start_utc": "2026-09-12T16:07:01.569523+00:00",
+  "end_utc": "2026-09-12T16:07:02.095287+00:00",
+  "exit_code": null,
+  "state": "timeout",
+  "stdout": {
+    "path": "commands/boundary-V12-timeout/stdout.txt",
+    "sha256": "c27e3edb6f61c241a34b105f2e434e324f6bf9e5fe1d8539855d84df1ff4cb1d"
+  },
+  "stderr": {
+    "path": "commands/boundary-V12-timeout/stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,10 @@
+
+running 5 tests
+test frame_has_network_byte_order_and_bounds_before_payload_allocation ... ok
+test version_negotiation_precedes_operation_validation ... ok
+test response_envelope_and_exit_categories_remain_distinct ... ok
+test known_operations_accept_only_their_own_parameters ... ok
+test rejects_invalid_unknown_missing_and_out_of_bounds_inputs ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

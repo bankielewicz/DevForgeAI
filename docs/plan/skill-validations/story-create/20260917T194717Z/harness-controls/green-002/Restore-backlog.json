@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "C:/Program Files/PowerShell/7/pwsh.exe",
+    "-NoProfile",
+    "-File",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\fault_controls.ps1",
+    "-Action",
+    "Restore",
+    "-Target",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\harness-controls\\green-002\\backlog",
+    "-StatePath",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\harness-controls\\green-002\\acl.json"
+  ],
+  "exit_code": 0,
+  "stdout": "{\"action\":\"Restore\",\"result\":\"RESTORED\"}\r\n",
+  "stderr": ""
+}

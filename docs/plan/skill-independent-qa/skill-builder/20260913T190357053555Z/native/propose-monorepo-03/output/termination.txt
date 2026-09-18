@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 86020 (child process of PID 42432) has been terminated.
+SUCCESS: The process with PID 82496 (child process of PID 100468) has been terminated.
+SUCCESS: The process with PID 10816 (child process of PID 37712) has been terminated.
+SUCCESS: The process with PID 42432 (child process of PID 37712) has been terminated.
+SUCCESS: The process with PID 100468 (child process of PID 37712) has been terminated.
+SUCCESS: The process with PID 10788 (child process of PID 37712) has been terminated.
+SUCCESS: The process with PID 37712 (child process of PID 69484) has been terminated.

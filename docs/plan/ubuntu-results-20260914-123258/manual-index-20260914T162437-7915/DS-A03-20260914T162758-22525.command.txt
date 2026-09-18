@@ -1,0 +1,1 @@
+cargo test --locked --test process detached_daemon_does_not_keep_cli_stdout_pipe_open -- --nocapture 

@@ -1,0 +1,67 @@
+
+running 8 tests
+test wf_07 ... FAILED
+test wf_05 ... FAILED
+test wf_03 ... FAILED
+test wf_01 ... FAILED
+test wf_08 ... FAILED
+test wf_04 ... FAILED
+test wf_06 ... FAILED
+test wf_02 ... FAILED
+
+failures:
+
+---- wf_07 stdout ----
+
+thread 'wf_07' (47400) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- wf_05 stdout ----
+
+thread 'wf_05' (64852) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+---- wf_03 stdout ----
+
+thread 'wf_03' (3780) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+---- wf_01 stdout ----
+
+thread 'wf_01' (46244) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+---- wf_08 stdout ----
+
+thread 'wf_08' (45424) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+---- wf_04 stdout ----
+
+thread 'wf_04' (61728) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+---- wf_06 stdout ----
+
+thread 'wf_06' (49744) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+---- wf_02 stdout ----
+
+thread 'wf_02' (65532) panicked at tests\support\mod.rs:23:85:
+called `Result::unwrap()` on an `Err` value: "not_implemented"
+
+
+failures:
+    wf_01
+    wf_02
+    wf_03
+    wf_04
+    wf_05
+    wf_06
+    wf_07
+    wf_08
+
+test result: FAILED. 0 passed; 8 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

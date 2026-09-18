@@ -1,0 +1,20 @@
+test_budget_and_timeout_are_bounded (test_advisor.RequestTests) ... ok
+test_unknown_field_rejected (test_advisor.RequestTests) ... ok
+test_all_unverified_is_recorded_as_evidence_gap (test_advisor.ResponseTests) ... ok
+test_invalid_verdict_and_preamble_rejected (test_advisor.ResponseTests) ... ok
+test_missing_context_requires_missing_items (test_advisor.ResponseTests) ... ok
+test_missing_sections_never_produce_advice (test_advisor.ResponseTests) ... ok
+test_unexpected_missing_section_rejected (test_advisor.ResponseTests) ... ok
+test_valid_enum_bearing_first_line (test_advisor.ResponseTests) ... ok
+test_contract_drift_blocks_without_invocation (test_advisor.RunnerTests) ... ok
+test_failed_process_never_exposes_verdict (test_advisor.RunnerTests) ... ok
+test_incomplete_briefing_blocks (test_advisor.RunnerTests) ... ok
+test_no_permission_relaxation_or_shell (test_advisor.RunnerTests) ... ok
+test_real_evidence_and_two_attempt_limit (test_advisor.RunnerTests) ... ok
+test_request_change_and_existing_lock_block (test_advisor.RunnerTests) ... ok
+test_subprocess_bytes_and_timeout (test_advisor.RunnerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.181s
+
+OK

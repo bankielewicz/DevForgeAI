@@ -1,0 +1,40 @@
+{
+  "timestamp_utc": "2026-09-17T11:27:45.698016+00:00",
+  "status": "READBACK_VERIFIED",
+  "handoff_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\handoff-manifest.json",
+    "bytes": 17524,
+    "sha256": "4ac2a9de0392e967fe65c64d782b06563cc11bd9171386b02651d4a6a545fbeb"
+  },
+  "required_destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest",
+  "actual_destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest",
+  "verified_handoff_entries": 39,
+  "verified_evidence_files": 7672,
+  "verified_executables": 92,
+  "untraversed_reparse_points": 2,
+  "candidate_files_unchanged": 68,
+  "preserved_source_files_unchanged": 183,
+  "input_files_unchanged": 108,
+  "prior_evidence_unchanged": [
+    {
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa",
+      "verified_regular_files": 3689,
+      "verified_binaries": 90
+    },
+    {
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes",
+      "verified_regular_files": 9691,
+      "verified_binaries": 0
+    }
+  ],
+  "report_sha256": "4e161af4f429dc0bf4ddd7363ee54c968fef655ae6d483e2fdb0bd835708ccc0",
+  "errors": [],
+  "execution_status": "COMPLETED",
+  "verdict": "PASS",
+  "defect_states": {
+    "QA-LOG-01": "VERIFIED_FIXED",
+    "QA-LOG-02": "VERIFIED_FIXED"
+  },
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED"
+}

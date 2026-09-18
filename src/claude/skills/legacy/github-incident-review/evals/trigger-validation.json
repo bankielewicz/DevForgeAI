@@ -1,0 +1,42 @@
+[
+  {
+    "query": "Does https://github.com/acme/widget/issues/42 actually describe a valid defect, or is the premise false?",
+    "should_trigger": true,
+    "rationale": "Held-out phrasing asks for factual merit of a GitHub issue URL."
+  },
+  {
+    "query": "Fine-tooth-comb issue 73: reproduce both paths, trace the payload consumers, and flag any ambiguity.",
+    "should_trigger": true,
+    "rationale": "Reproduction, coupling, and ambiguity are the review contract."
+  },
+  {
+    "query": "Check whether this report is an exact duplicate, overlap, recurrence, or unrelated, with links to the evidence.",
+    "should_trigger": true,
+    "rationale": "The request directly invokes the duplicate taxonomy and provenance."
+  },
+  {
+    "query": "Assess the issue plus its implementation PR and tell me if the tests are in a required CI job.",
+    "should_trigger": true,
+    "rationale": "Incident plus linked implementation and CI collection verification."
+  },
+  {
+    "query": "Open an enhancement requesting a new phase-state subcommand.",
+    "should_trigger": false,
+    "rationale": "This asks to create an enhancement, not independently review an existing incident."
+  },
+  {
+    "query": "Explain the difference between bugs and feature requests on GitHub.",
+    "should_trigger": false,
+    "rationale": "General GitHub education has no concrete incident review."
+  },
+  {
+    "query": "Can you fix the failing predicate in conviction.py and open a PR?",
+    "should_trigger": false,
+    "rationale": "Implementation work without an incident-review request belongs to an implementation workflow."
+  },
+  {
+    "query": "Read issue 1006 aloud and translate it to Spanish.",
+    "should_trigger": false,
+    "rationale": "Translation does not request merit, duplication, scope, or evidence review."
+  }
+]

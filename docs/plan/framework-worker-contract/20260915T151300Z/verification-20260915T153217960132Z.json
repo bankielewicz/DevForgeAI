@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-09-15T15:32:17.960132+00:00",
+  "scope": "documentation observations only",
+  "status": "PASS",
+  "documents": 23,
+  "local_links": 240,
+  "schema_files": 305,
+  "unchanged_selected_inputs": 20,
+  "matched_handoff_inputs": 10,
+  "preserved_originals": 4,
+  "offline_required_cases_specified": 20,
+  "native_required_cases_specified": 2,
+  "product_tests": "NOT_RUN",
+  "coverage": "NOT_RUN",
+  "native_trials": "NOT_RUN",
+  "framework_acceptance": "NOT_RUN",
+  "independent_review": "NOT_RUN",
+  "failures": [],
+  "python": "3.10.11",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "executable": "C:\\Program Files\\Python310\\python.exe"
+}

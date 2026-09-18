@@ -1,0 +1,20 @@
+{
+  "attempt": "05-provider-red",
+  "purpose": "Red: effective config must reject a nonempty provider override map and custom ChatGPT endpoint",
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--test",
+    "effective_profile"
+  ],
+  "environment": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\target"
+  },
+  "started_utc": "2026-09-15T23:36:44.9101380Z",
+  "finished_utc": "2026-09-15T23:36:48.4185966Z",
+  "duration_ms": 3502,
+  "exit_code": 101,
+  "expected": "exit 101 at the first new provider assertion"
+}

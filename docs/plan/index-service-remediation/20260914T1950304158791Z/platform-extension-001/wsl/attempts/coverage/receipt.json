@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "cargo",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--ignore-run-fail",
+    "--json",
+    "--output-path",
+    "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/evidence/coverage.json",
+    "--fail-under-lines",
+    "95",
+    "--ignore-filename-regex",
+    "[/\\\\](tests|examples|fixtures)[/\\\\]",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "/home/bryan/Projects/devforgeai-remediation-20260914T1950304158791Z/devforgeai",
+  "started_at": "2026-09-14T21:43:23.690277+00:00",
+  "source_sha256": "9932df60539e351ea07c814437d371088d696334feadded295fb877e0bee53dd",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "/tmp/dfr-d9c787dd2c25",
+    "LLVM_COV": "/home/bryan/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin/llvm-cov",
+    "LLVM_PROFDATA": "/home/bryan/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/bin/llvm-profdata"
+  },
+  "timeout_seconds": 1800,
+  "exit_code": 1,
+  "outcome": "observed_exit",
+  "elapsed_seconds": 27.613485792999995,
+  "ended_at": "2026-09-14T21:43:51.303764+00:00",
+  "stdout.txt_sha256": "6f1f0f1db82c8ce0b37cfee1b41fe18da09088ff268759cabcf21dec0c9f9fdc",
+  "stderr.txt_sha256": "a6152ed346a8ae9da52b197df906c0c599e76a25e9a6826c2ce28e9329e73a35"
+}

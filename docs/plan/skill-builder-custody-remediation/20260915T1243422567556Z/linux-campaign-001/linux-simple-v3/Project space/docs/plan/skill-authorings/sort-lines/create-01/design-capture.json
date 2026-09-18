@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "create-01",
+  "target_name": "sort-lines",
+  "source_ref": {
+    "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-simple-v3/Project space/docs/plan/skill-authoring-inputs/sort-lines/create-01/design.json",
+    "sha256": "b5208bd612759a8af80412736567fde1978d724df9737cf1ea2388d553a8c528"
+  },
+  "snapshot_ref": {
+    "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-simple-v3/Project space/docs/plan/skill-authorings/sort-lines/create-01/inputs/1",
+    "sha256": "b5208bd612759a8af80412736567fde1978d724df9737cf1ea2388d553a8c528"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T161842Z",
+  "target_name": "skill-builder",
+  "assessment_completed": true,
+  "overall_assessment": "FAIL",
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "required_total": 2,
+      "required_evaluated": 2,
+      "incomplete_check_ids": []
+    },
+    "workflow": {
+      "outcome": "PASS",
+      "required_total": 2,
+      "required_evaluated": 2,
+      "incomplete_check_ids": []
+    },
+    "instructions": {
+      "outcome": "FAIL",
+      "required_total": 2,
+      "required_evaluated": 2,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "INCOMPLETE",
+      "required_total": 2,
+      "required_evaluated": 1,
+      "incomplete_check_ids": [
+        "C08"
+      ]
+    }
+  },
+  "enforcement_recommendations": "guidance_only candidate; no installed controls",
+  "required_coverage": {
+    "outcome": "FAIL",
+    "required_total": 8,
+    "required_evaluated": 7,
+    "incomplete_check_ids": [
+      "C08"
+    ]
+  },
+  "freshness": "snapshot_only",
+  "review_type": "Primary assessor review; separate exploratory independent description classification; root independent readback pending outside this record"
+}

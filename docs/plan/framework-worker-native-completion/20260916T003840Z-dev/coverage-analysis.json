@@ -1,0 +1,182 @@
+{
+  "raw": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T003840Z-dev\\full-coverage\\coverage.json",
+  "raw_sha256": "4a41720c591c6239814c33ff297492efa1738b7e2fa594153085806ee9b62b16",
+  "covered_lines": 2967,
+  "executable_lines": 3103,
+  "percent": "95.61714469867869803416048985",
+  "threshold_percent": 95,
+  "meets_threshold": true,
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\effective_profile.rs",
+      "sha256": "33edc40ceb050be3ce0195de0c5ca7176475b2b0d14d8b730fe0ebe41872302c",
+      "lines": {
+        "count": 573,
+        "covered": 563,
+        "percent": 98.25479930191972
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+      "sha256": "61e5a96b404dd169e164349a4b5e7b0f880cb26635221b0247d3bd06891bbd15",
+      "lines": {
+        "count": 266,
+        "covered": 263,
+        "percent": 98.87218045112782
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\launch_policy.rs",
+      "sha256": "9071b6aa06c99f052979d2209c95f3bc2d97027c7005b865355636d59a40ab10",
+      "lines": {
+        "count": 23,
+        "covered": 21,
+        "percent": 91.30434782608695
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\main.rs",
+      "sha256": "cdaea3da7598a247a718ca7568282bcb8cb7599f4925f3a2d09b833c5ddc8474",
+      "lines": {
+        "count": 132,
+        "covered": 124,
+        "percent": 93.93939393939394
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\native_identity.rs",
+      "sha256": "309bf94180c28477ef67edae57ea9865544b42785a8215311af64958d8d1d664",
+      "lines": {
+        "count": 97,
+        "covered": 94,
+        "percent": 96.90721649484536
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+      "sha256": "bf11d97ec9d6082a81db68f4209db1a7e7ec3a5754d2341385f1aed4ddb44712",
+      "lines": {
+        "count": 7,
+        "covered": 7,
+        "percent": 100.0
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+      "sha256": "93e9dcacd2cf501355ec8b60567a6f0ef56bad493b1bbac0b7499e794db1d9c0",
+      "lines": {
+        "count": 331,
+        "covered": 316,
+        "percent": 95.46827794561933
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\profile_sources.rs",
+      "sha256": "8b6633486c6828452aa2aec0f969a82207ad2f6a61ffe360531fd57ea33b42f0",
+      "lines": {
+        "count": 462,
+        "covered": 443,
+        "percent": 95.88744588744589
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+      "sha256": "51a75924b10ae57ec208161d5fcb68732a9e371b8bbbfcdd49eacf187594889d",
+      "lines": {
+        "count": 627,
+        "covered": 598,
+        "percent": 95.37480063795853
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+      "sha256": "bdf7c06abc26582eb049429ac32f1440989aeebe115883960ecab935c05bc4f9",
+      "lines": {
+        "count": 407,
+        "covered": 392,
+        "percent": 96.31449631449632
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs",
+      "sha256": "b28dd4224d23de9b7950c93e310540483231e214273f5a66657704f59771afa4",
+      "lines": {
+        "count": 178,
+        "covered": 146,
+        "percent": 82.02247191011236
+      },
+      "branches": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0.0
+      }
+    }
+  ],
+  "declared_files_without_executable_lines": [
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\lib.rs"
+  ],
+  "excluded_resolved_paths": [],
+  "first_party_exclusions": [],
+  "branch_status": "NOT_RUN unless raw JSON contains instrumented branches"
+}

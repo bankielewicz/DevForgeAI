@@ -1,0 +1,125 @@
+{
+  "schema_version": "adaptation-proposal-v1",
+  "run_id": "golden-proposal",
+  "mode": "propose",
+  "project_evidence": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\project-evidence.json",
+    "sha256": "277ab384f7eb0b25f01de332a0a407b8c2a3b8da11e518bb959ffdac252db54d"
+  },
+  "prior_proposal": null,
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "origin": "user",
+      "statement": "Convert selected requirement into a task card.",
+      "source_refs": [
+        {
+          "ref": {
+            "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\authorization.txt",
+            "sha256": "c0a4e59bfb136c266e7ba51717363c362005c2a141ba5580ba00b93a28b59234"
+          },
+          "start_line": 1,
+          "end_line": 1
+        }
+      ],
+      "rationale": null,
+      "verification": "Inspect task and verification fields."
+    }
+  ],
+  "members": [
+    {
+      "id": "A",
+      "name": "producer",
+      "role": "core",
+      "action": "retain",
+      "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\producer",
+      "existing_package": {
+        "name": "producer",
+        "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\producer",
+        "manifest": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\producer-manifest.json",
+          "sha256": "fd31bd690262b2807109e18f4e7aec0953e80f23a1b61577c7867fd721cc6597"
+        },
+        "package_digest": "1b4dceb9dc6149390bbc97714f488cfaf2bd44567b67a0047da970377cd72051"
+      },
+      "parent_core": null,
+      "responsibility": "Produce card",
+      "exclusions": [
+        "Network"
+      ],
+      "triggers": [
+        "Selected local task card"
+      ],
+      "near_misses": [
+        "Installation"
+      ],
+      "requirement_ids": [
+        "REQ-7"
+      ],
+      "fact_ids": [
+        "domain"
+      ],
+      "rationale": "Selected existing responsibility.",
+      "depends_on": [],
+      "capabilities": [],
+      "lineage_delta": []
+    },
+    {
+      "id": "B",
+      "name": "consumer",
+      "role": "core",
+      "action": "retain",
+      "target_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\consumer",
+      "existing_package": {
+        "name": "consumer",
+        "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\consumer",
+        "manifest": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\consumer-manifest.json",
+          "sha256": "90cc2d52119322dbb016e39c137807843811fd0e57cc1e1df897cd7e7e7f7b15"
+        },
+        "package_digest": "dbd58d64645eb4d02132dd71b17ae4d9c242c67f4db49625cd23c81e49526ad1"
+      },
+      "parent_core": null,
+      "responsibility": "Consume card",
+      "exclusions": [
+        "Network"
+      ],
+      "triggers": [
+        "Selected local task card"
+      ],
+      "near_misses": [
+        "Installation"
+      ],
+      "requirement_ids": [
+        "REQ-7"
+      ],
+      "fact_ids": [
+        "domain"
+      ],
+      "rationale": "Selected existing responsibility.",
+      "depends_on": [
+        "A"
+      ],
+      "capabilities": [],
+      "lineage_delta": []
+    }
+  ],
+  "handoffs": [
+    {
+      "id": "card",
+      "producer": "A",
+      "consumer": "B",
+      "artifact_role": "task-card",
+      "format": "json",
+      "schema_ref": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\golden-contracts\\inputs\\task-card.schema.json",
+        "sha256": "f3e02f6b7e1623e860b88e628876cd80afadc8ebc79b1e003946de7939d0fbd5"
+      },
+      "contract": "task-card-v1 REQ-7 with nonempty task and observable verification",
+      "required": true,
+      "failure_behavior": "block_consumer"
+    }
+  ],
+  "gaps": [],
+  "state": "NO_CHANGE"
+}

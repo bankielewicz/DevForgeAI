@@ -1,0 +1,406 @@
+[
+  {
+    "attempt": "01-branch-capability",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "llvm-cov",
+      "show-env",
+      "--branch"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:31:54.266765+00:00",
+    "end_utc": "2026-09-16T19:31:54.466199+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.2029999999795109,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\01-branch-capability\\receipt.json",
+      "bytes": 2214,
+      "sha256": "f6919c9b45cd1621b4daf1914eaa33a50d0a218b37bbb1e0b777e00be514a4cf"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\01-branch-capability\\stdout.bin",
+      "bytes": 1146,
+      "sha256": "56d295c30f30f2a6b31698e0a28ed9a705a465a3e4e62430ade40009d2905a2d"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\01-branch-capability\\stderr.bin",
+      "bytes": 231,
+      "sha256": "50a20d1e29ef42f5426c5b52ebc92570a6a464ae61adc4ffb45d9cd2f1d918d4"
+    }
+  },
+  {
+    "attempt": "02-original-inventory",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "test",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "--list"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:32:04.256510+00:00",
+    "end_utc": "2026-09-16T19:32:16.509136+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 12.25,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\02-original-inventory\\receipt.json",
+      "bytes": 2252,
+      "sha256": "5422546a0c6489c65efc2c8f02331967adf777602fddde8982d7517827bc542b"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\02-original-inventory\\stdout.bin",
+      "bytes": 9184,
+      "sha256": "3c314b6c87aa05359767bcc145d408d1c522bcdb6c1998cdd511978624b573b6"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\02-original-inventory\\stderr.bin",
+      "bytes": 5923,
+      "sha256": "04291c12c3b21b29c4564d4c01b07594ece16d129d353a8eadcea429825fe8a6"
+    }
+  },
+  {
+    "attempt": "03-harness-lock",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "generate-lockfile",
+      "--offline"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness",
+    "start_utc": "2026-09-16T19:32:19.913234+00:00",
+    "end_utc": "2026-09-16T19:32:20.150427+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.23499999998603016,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\03-harness-lock\\receipt.json",
+      "bytes": 3711,
+      "sha256": "60736171dacce7d5ea561b677ad7211d3e02e2c0f5f912e77aaf1cba38c99525"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\03-harness-lock\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\03-harness-lock\\stderr.bin",
+      "bytes": 67,
+      "sha256": "28e211429caa9021b4f8a83814353d49668b475dd06eb9fc92d834ac00aab18f"
+    }
+  },
+  {
+    "attempt": "04-harness-build",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "build",
+      "--locked",
+      "--offline",
+      "--bins"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness",
+    "start_utc": "2026-09-16T19:32:25.496299+00:00",
+    "end_utc": "2026-09-16T19:32:33.823399+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 8.328000000008615,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\04-harness-build\\receipt.json",
+      "bytes": 3976,
+      "sha256": "20c82b6c926372efc5b0ead5c3668dd87c20d8f9ee1f0a73b34b3d68f6593a0b"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\04-harness-build\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\04-harness-build\\stderr.bin",
+      "bytes": 1431,
+      "sha256": "b05863e17341d44ed2c62643a4f4b672d209ba9d67999a7699cf11a95bccfe29"
+    }
+  },
+  {
+    "attempt": "05-harness-inventory",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "test",
+      "--locked",
+      "--offline",
+      "--lib",
+      "qa_",
+      "--",
+      "--list"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness",
+    "start_utc": "2026-09-16T19:32:43.731058+00:00",
+    "end_utc": "2026-09-16T19:32:44.917949+00:00",
+    "exit_code": 101,
+    "elapsed_seconds": 1.187000000005355,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\05-harness-inventory\\receipt.json",
+      "bytes": 4026,
+      "sha256": "5117bee647dd698b23545d58909e96cc7760085e92edfd8050ccfc2ad4d2f7fb"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\05-harness-inventory\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\05-harness-inventory\\stderr.bin",
+      "bytes": 574,
+      "sha256": "79041d6d9a7fb00d02265ffccef562cc85412922b6bb1dad280c3bbde0c2428e"
+    }
+  },
+  {
+    "attempt": "06-harness-inventory",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "test",
+      "--locked",
+      "--offline",
+      "--lib",
+      "qa_",
+      "--",
+      "--list"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness",
+    "start_utc": "2026-09-16T19:33:44.690612+00:00",
+    "end_utc": "2026-09-16T19:33:47.316582+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 2.6089999999967404,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\06-harness-inventory\\receipt.json",
+      "bytes": 4027,
+      "sha256": "575262a26be95824b58fb78091840646e757828800be86dfe50c7b9ba8c67a5d"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\06-harness-inventory\\stdout.bin",
+      "bytes": 698,
+      "sha256": "eb5053c5d5e88d30f6cb32038771ea88696f5eb6a042190cc79bab491639368c"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\06-harness-inventory\\stderr.bin",
+      "bytes": 390,
+      "sha256": "6163ac3328a8f6c7dc0cd93ee5a87ece2c390d946614744da4165fe7e60ed39a"
+    }
+  },
+  {
+    "attempt": "07-independent-cases",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "test",
+      "--locked",
+      "--offline",
+      "--lib",
+      "qa_",
+      "--",
+      "--test-threads=1"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\harness",
+    "start_utc": "2026-09-16T19:33:57.545034+00:00",
+    "end_utc": "2026-09-16T19:33:58.779153+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 1.2349999999860302,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\07-independent-cases\\receipt.json",
+      "bytes": 4037,
+      "sha256": "e5a03a3285675243dafa0c6f866a8e267cf2520f693b6d5eb60f1d089165f510"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\07-independent-cases\\stdout.bin",
+      "bytes": 868,
+      "sha256": "be14c363653cb722a28501a85108499c4982f10db86a781d2923443a0e62b7a5"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\07-independent-cases\\stderr.bin",
+      "bytes": 256,
+      "sha256": "ba58542c4e23658de62d005843e2404bd4ae9f9fb47d09a0c4c9b3bdbe16e33b"
+    }
+  },
+  {
+    "attempt": "08-format",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:34:11.469307+00:00",
+    "end_utc": "2026-09-16T19:34:11.738375+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.26600000000325963,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\08-format\\receipt.json",
+      "bytes": 2171,
+      "sha256": "86767a1cedc8f8d578a04d283b7803ef54953be27f22850697b290814e5efe51"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\08-format\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\08-format\\stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "attempt": "09-clippy",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:34:12.118516+00:00",
+    "end_utc": "2026-09-16T19:34:15.056903+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 2.937000000005355,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\09-clippy\\receipt.json",
+      "bytes": 2226,
+      "sha256": "646440ea9fffdc4fa5c4bd97ae3e24044d65bd60f8bd66e5ecbeab7595109410"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\09-clippy\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\09-clippy\\stderr.bin",
+      "bytes": 794,
+      "sha256": "981584a7fcf7ef50851c5699c32957895899d043b6f9c6c274bc01ff6e82f321"
+    }
+  },
+  {
+    "attempt": "10-build",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "build",
+      "--locked",
+      "--offline",
+      "--bins"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:34:22.619223+00:00",
+    "end_utc": "2026-09-16T19:34:22.799672+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.17100000000209548,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\10-build\\receipt.json",
+      "bytes": 2179,
+      "sha256": "25248c66d60ae4e32a38c2c897f217ea9405185e8f4a97155a0cf3440ae2d807"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\10-build\\stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\10-build\\stderr.bin",
+      "bytes": 72,
+      "sha256": "4cf86278c1e6d659943a46a3d7e3da429ac15be90f0f17742e24ef85228e7d3e"
+    }
+  },
+  {
+    "attempt": "11-doctests",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "test",
+      "--locked",
+      "--offline",
+      "--doc"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:34:23.179369+00:00",
+    "end_utc": "2026-09-16T19:34:23.455605+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 0.26600000000325963,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\11-doctests\\receipt.json",
+      "bytes": 2192,
+      "sha256": "b6b101ccbfc8284e16f0ae31088743b5fa8d94c19996ca4927d4e32606dc990c"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\11-doctests\\stdout.bin",
+      "bytes": 113,
+      "sha256": "df166913f47ff1f04202cae9b31df67ed272d692d99a0023a8117dc3029100dd"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\11-doctests\\stderr.bin",
+      "bytes": 116,
+      "sha256": "9ea84f7fd00fe57d790aa7c1d6d7ea1e836e66eb5b0779412d94679f5a087902"
+    }
+  },
+  {
+    "attempt": "12-original-all-targets",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "test",
+      "--locked",
+      "--offline",
+      "--all-targets"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:34:23.824190+00:00",
+    "end_utc": "2026-09-16T19:37:04.482607+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 160.65599999998813,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\12-original-all-targets\\receipt.json",
+      "bytes": 2250,
+      "sha256": "01455c36c8d51bcde83acdd01204edaac488f54dbe3813be9fdedc1f2b3a4c9d"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\12-original-all-targets\\stdout.bin",
+      "bytes": 12562,
+      "sha256": "51a2d5427490454f56c13b5033b5adb3e6e362cc3b3221d9060a5850819edaf0"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\12-original-all-targets\\stderr.bin",
+      "bytes": 5011,
+      "sha256": "ca8b8d0dc5b0d5aee8e07e5ac04121595c3336741bc6ae5f7462c63266a3e7b2"
+    }
+  },
+  {
+    "attempt": "13-original-coverage",
+    "argv": [
+      "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+      "llvm-cov",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--json",
+      "--output-path",
+      "C:/Projects/DevForgeAI/docs/plan/framework-worker-diagnostics-qa/20260916T191731Z/coverage.json"
+    ],
+    "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+    "start_utc": "2026-09-16T19:37:20.192889+00:00",
+    "end_utc": "2026-09-16T19:40:12.893978+00:00",
+    "exit_code": 0,
+    "elapsed_seconds": 172.68700000000536,
+    "receipt": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\13-original-coverage\\receipt.json",
+      "bytes": 2380,
+      "sha256": "7d20ae1bba052b43cd10801e69158b86505ede5e5893a7d058ba66818fd7357d"
+    },
+    "stdout": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\13-original-coverage\\stdout.bin",
+      "bytes": 12562,
+      "sha256": "d28183329ebd3e11a0f95a4cb368fd2d3381540452aa184f45e1ba2157664ae2"
+    },
+    "stderr": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\attempts\\13-original-coverage\\stderr.bin",
+      "bytes": 6403,
+      "sha256": "a40ca7e5de428b93d123259acdd2449afd2a1190030ffde7ec399a2a7f03354c"
+    }
+  }
+]

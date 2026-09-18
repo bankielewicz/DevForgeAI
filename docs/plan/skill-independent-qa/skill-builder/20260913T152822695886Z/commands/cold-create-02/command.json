@@ -1,0 +1,23 @@
+{
+  "case": "cold-create-02",
+  "argv": [
+    "codex",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--ephemeral",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02\\.trial-output\\final.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\native\\cold-create-02",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "expected": "Package and digest-bound manual request, quality NOT_PERFORMED; no checker/test/validator process; no outside product effects",
+  "start_utc": "2026-09-13T15:46:00.990791+00:00",
+  "stdin_sha256": "de68fb716834baea3ecf4d7b6125b3ae8d17f993152ef1af6d21b582cb4bca3d"
+}

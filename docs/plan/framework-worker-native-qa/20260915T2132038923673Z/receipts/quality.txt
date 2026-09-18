@@ -1,0 +1,13 @@
+rustfmt_command=cargo fmt --all -- --check
+rustfmt_cwd=C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe
+rustfmt_exit_code=0
+rustfmt_wall_time_seconds=0.2763005
+rustfmt_combined_output_bytes=0
+
+clippy_command=cargo clippy --locked --offline --all-targets -- -D warnings
+clippy_cwd=C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe
+clippy_exit_code=0
+clippy_wall_time_seconds=2.3636372
+
+    Checking devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.14s

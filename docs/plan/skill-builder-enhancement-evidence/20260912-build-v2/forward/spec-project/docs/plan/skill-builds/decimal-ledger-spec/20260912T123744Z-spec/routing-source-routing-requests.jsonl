@@ -1,0 +1,7 @@
+{"case_id":"route-01","request":"Convert the local Claude package at demo/.claude/skills/invoice-check into a Codex development skill."}
+{"case_id":"route-02","request":"Build the invoice-check Codex skill from the approved Markdown specification at docs/plan/invoice-check.md."}
+{"case_id":"route-03","request":"Regenerate the existing generated invoice-check skill from the updated approved spec. I authorize this revision; use its last successful build evidence and preserve unrelated edits."}
+{"case_id":"route-04","request":"Explain how the Claude-to-Codex skill import workflow works. Do not create or modify anything."}
+{"case_id":"route-05","request":"Write a specification describing the future invoice-check skill. The specification is the only deliverable."}
+{"case_id":"route-06","request":"Install the already built invoice-check skill into my Codex skills directory."}
+{"case_id":"route-07","request":"Correct the spelling of the introduction in the application's README. No skill changes are requested."}

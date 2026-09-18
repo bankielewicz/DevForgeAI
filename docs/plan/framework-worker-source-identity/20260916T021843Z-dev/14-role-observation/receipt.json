@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "label": "14-role-observation",
+  "argv": [
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\discovery\\rust-file-type-probe.exe"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "environment_overrides": {},
+  "stdin": "DEVNULL",
+  "executable": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\discovery\\rust-file-type-probe.exe",
+  "executable_sha256": "d27d7252b23057adf0c9a84e4a7fa781345a501b21c33cf5c44eff0fd97440ec",
+  "recorder_sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+  "candidate_before_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "start_utc": "2026-09-16T02:48:23.710200+00:00",
+  "timeout_seconds": 20,
+  "owned_pid": 14328,
+  "end_utc": "2026-09-16T02:48:23.745210+00:00",
+  "duration_monotonic_ns": 0,
+  "native_exit_code": 0,
+  "timed_out": false,
+  "containment": null,
+  "stdout_bytes": 150,
+  "stdout_sha256": "a2a1d2422131f0682e6bdf953d9cc65677e0d848586de235ddafc73a2650a93f",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate_after_sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+  "candidate_unchanged": true
+}

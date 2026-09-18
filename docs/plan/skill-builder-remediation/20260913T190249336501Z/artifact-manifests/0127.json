@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-binding-excluded-generated",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1322,
+      "sha256": "88a59f6c99a9d947a01f99333a1077f8ad07631716c98812c3d8a00f5a73a62c"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "46121e76d3bc85cec88dd3a67a53365802e786c0360c7de05bd6940a083aecb8"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 223,
+      "sha256": "e47c46092758730df6bafed40772ad8ae7e7919865fe934f8fbb91ef54c23bb2"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\journal.rs",
+      "count": 220,
+      "covered": 216,
+      "percent": 98.18181818181819
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\main.rs",
+      "count": 86,
+      "covered": 80,
+      "percent": 93.02325581395348
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\oracle.rs",
+      "count": 7,
+      "covered": 7,
+      "percent": 100.0
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\process_windows.rs",
+      "count": 254,
+      "covered": 241,
+      "percent": 94.88188976377953
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\protocol.rs",
+      "count": 379,
+      "covered": 365,
+      "percent": 96.30606860158312
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\request.rs",
+      "count": 247,
+      "covered": 225,
+      "percent": 91.09311740890689
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\src\\runner.rs",
+      "count": 123,
+      "covered": 109,
+      "percent": 88.6178861788618
+    }
+  ],
+  "covered": 1243,
+  "count": 1316,
+  "percent": 94.45288753799392,
+  "branches": "NOT_RUN - stable collection, unstable branch flag not selected",
+  "exclusions": [
+    "tests/support/fixtures",
+    "generated/vendor/dependency code"
+  ],
+  "runtime_exclusions": []
+}

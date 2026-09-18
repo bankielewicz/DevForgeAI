@@ -1,0 +1,2 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `release` profile [optimized] target(s) in 5.88s

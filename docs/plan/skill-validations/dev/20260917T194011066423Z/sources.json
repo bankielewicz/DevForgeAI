@@ -1,0 +1,274 @@
+{
+  "schema_version": "1",
+  "run_id": "20260917T194011066423Z",
+  "target_name": "dev",
+  "sources": [
+    {
+      "source_id": "claude-code-skills",
+      "url": "https://code.claude.com/docs/en/skills",
+      "original_path": null,
+      "retrieved_at_utc": "2026-09-17T15:28:00+00:00",
+      "sha256": "26eebfd9f5ee65177f0adbc5ce7a04cad668ffc10acdda98eecb0860e055041e",
+      "snapshot_path": "sources/claude-code-skills-20260917.html",
+      "sections": [
+        "Pre-approve tools for a skill",
+        "Restrict tools while a skill is active",
+        "Frontmatter reference"
+      ],
+      "freshness": "retrieved_this_run",
+      "limitation": "Server-rendered SPA payload retained verbatim; the same prose also appears once inside an embedded hydration string. Establishes the content of this identified snapshot only."
+    },
+    {
+      "source_id": "claude-code-skills-extract",
+      "url": "https://code.claude.com/docs/en/skills",
+      "original_path": null,
+      "retrieved_at_utc": "2026-09-17T15:28:00+00:00",
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "Passage A - allowed-tools",
+        "Passage B - disallowed-tools"
+      ],
+      "freshness": "retrieved_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Human-readable extract quoting the retained HTML bytes; the HTML snapshot is the primary evidence."
+    },
+    {
+      "source_id": "validator-rules-snapshot",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\assets\\rules-snapshot.json",
+      "retrieved_at_utc": "2026-09-17T00:00:00+00:00",
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "rules",
+        "sources"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "Dated summarized catalog. Original fetched representations and digests retained in external build evidence; refresh and save relevant original passages for each new run. This file alone cannot substantiate unseen source text or current-live coverage."
+    },
+    {
+      "source_id": "claude-frontmatter-guidance",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\assets\\claude-frontmatter-guidance.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "Fields",
+        "Recorded source divergences"
+      ],
+      "freshness": "bundled_with_validator_package",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Bundled dated guidance. It records allowed-tools shape but not its enforcement semantics; that gap was closed by the live retrieval above."
+    },
+    {
+      "source_id": "origin-specification",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "SKILL.md (entrypoint; the remaining 10 files are retained alongside it under inputs/specification/)"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. snapshot_path names the specification entrypoint so the reference binds real bytes. The full 11-file capture is under inputs/specification/, and all 11 per-file digests are carried in inputs/validation-request.json specification_refs, each verified unchanged at intake and rechecked at close with zero mismatches."
+    },
+    {
+      "source_id": "dev-cases",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\evals\\dev-cases.jsonl",
+      "retrieved_at_utc": null,
+      "sha256": "f7ef128267b195e8654536b0eda09a7df441af700f1f32fe6e48b1a3fcefdf5f",
+      "snapshot_path": "inputs/dev-cases.jsonl",
+      "sections": [
+        "D01-D20"
+      ],
+      "freshness": "bundled_with_validator_package",
+      "limitation": "Declarative expectations for bounded trials of this target. Per evals/README.md they are not grader inputs and no profile executes them."
+    },
+    {
+      "source_id": "agent-skills",
+      "url": "https://agentskills.io/specification",
+      "original_path": null,
+      "retrieved_at_utc": "2026-09-17T00:00:00+00:00",
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest 5dedaac494fafddc29516f5bca98178c2fdf98ffc394d44c844ea1bdaddab79a for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "claude-skill-best-practices",
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+      "original_path": null,
+      "retrieved_at_utc": "2026-09-17T00:00:00+00:00",
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "local-skill-best-practices",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\best-practrices.md",
+      "retrieved_at_utc": null,
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest c65a42509f88f1df3283e9b9f162ec86ad967c6112707e2ca10243e2fbf4b471 for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "local-optimizing-descriptions",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\optimizing-descriptions.md",
+      "retrieved_at_utc": null,
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest 73e7f39e66a07fc19fa23cfdfd118f41fa46db49439bf57195afa01cd70aefea for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "local-evaluating-skills",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\evaluating-skils.md",
+      "retrieved_at_utc": null,
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest b71de19c5a3320547e559980635db3aef17a1375829868d8ddc253b246ae84e8 for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "local-using-scripts",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\using-scripts.md",
+      "retrieved_at_utc": null,
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest 9e9534fde0e30b34eddfbb1b41f190bbea1a739ac709ef8e4b4f0b1c7aa20a5c for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "local-agent-skills-specification",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\specification.md",
+      "retrieved_at_utc": null,
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "sources/rules-snapshot.json",
+      "sections": [
+        "summarized rule text as carried by rules-snapshot.json"
+      ],
+      "freshness": "snapshot_only",
+      "limitation": "No original fetched representation of this source was retained by this run. The reference binds the retained rules-snapshot.json that carried the summarized rule text actually used, and preserves this source's original representation digest e71da123287c315e8dc16c70de7164c57061a4316a661e5f716bc6f393892a79 for identity. This cannot substantiate unseen original source text."
+    },
+    {
+      "source_id": "project-spec",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260917T152344959349Z\\inputs\\AGENTS.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "lines 51 and 53"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. The repository policy document, retained because it carries the other side of the unresolved Q1 ownership conflict."
+    },
+    {
+      "source_id": "adaptive-validation",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\references\\adaptive-validation.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "AV rule catalog",
+        "set intake"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Bundled validator reference retained verbatim this run."
+    },
+    {
+      "source_id": "reliable-evaluation",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\references\\reliable-evaluation.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "Standards and resource checks",
+        "Recorded trials"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Bundled validator reference retained verbatim this run."
+    },
+    {
+      "source_id": "set-trials",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\references\\set-trials.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "set intake"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Bundled validator reference retained verbatim this run."
+    },
+    {
+      "source_id": "validator-evals",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260917T152344959349Z\\inputs\\validator-evals-README.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "line 5"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. The validator package's evals/README.md, retained because it carries one side of the unresolved Q1 ownership conflict."
+    },
+    {
+      "source_id": "validator-skill-md",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\SKILL.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "opening boundary paragraph"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Retained only to byte-bind an out-of-scope observation about this run's own isolation. The skill-validator package was not assessed."
+    },
+    {
+      "source_id": "validator-handoff",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\references\\handoff.md",
+      "retrieved_at_utc": null,
+      "sha256": "28e9579970f545510bff04cb4f58fb86384943424cc7ce0f506d4963b1b2f05b",
+      "snapshot_path": "inputs/prior-sources.json",
+      "sections": [
+        "Review-first handoff and revalidation"
+      ],
+      "freshness": "captured_this_run",
+      "limitation": "Carried forward from run 20260917T152344959349Z, where this source was retained and bound. The reference binds the prior run's sources.json retained here; the original retention lives in that run and is unchanged. Retained only to byte-bind an out-of-scope observation about this run's own isolation. The skill-validator package was not assessed."
+    }
+  ]
+}

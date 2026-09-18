@@ -1,0 +1,50 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "skill-validator-claude-conversion-002",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\skill-validator",
+  "target_name": "skill-validator",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T115002Z-review-fixes\\delivered-manifest.json",
+    "sha256": "2695efe9ab84bb3cbfdeef61c4e33e857c733e8f7bf7b1c0354afba5c476a496"
+  },
+  "package_digest": "98580a1ad1318e21a0fb48911ef4ce819c214d039494938310a56f7b2f81ffe0",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T115002Z-review-fixes\\authoring-record.json",
+    "sha256": "903f2fb31614125565d739366ff51dfb341127d14603a904cbb0a722671a5b70"
+  },
+  "specification_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T115002Z-review-fixes-inputs\\review-findings.md",
+      "sha256": "b7180ef4daf051b5add51fbe965a8af5bddca542df8bca8ff9bcd26d884f3429"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\skill-validator\\20260917T115002Z-review-fixes-inputs\\design.json",
+      "sha256": "12c23a2779e529e48a2dfa42c3f1fd55d7a3505cf71795eb6fdb04306e2032e7"
+    }
+  ],
+  "changed_paths": [
+    "evals/build-manifest.json",
+    "scripts/observe.py",
+    "scripts/text_resources.py",
+    "tests/test_postmvp_resource_quality.py"
+  ],
+  "known_issues": [
+    "Q1, Q2 and Q3 from run 001 remain open maintainer decisions.",
+    "The carried-over tests/ and evals/ were not executed against the edited bytes; authoring may not run them.",
+    "Validation and testing are NOT_PERFORMED for the edited bytes."
+  ],
+  "capabilities": [
+    "Python 3.10+ standard library (checked, never installed)",
+    "PyYAML for YAML-parsing observation paths"
+  ],
+  "expected_outputs": [
+    "Edited Claude Code skill package at the target root",
+    "Regenerated evals/build-manifest.json"
+  ],
+  "side_effects": [
+    "None beyond the authored package bytes"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

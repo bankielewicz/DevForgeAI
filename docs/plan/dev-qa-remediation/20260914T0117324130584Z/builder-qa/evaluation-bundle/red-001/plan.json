@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "test_reduce",
+    "-v"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle",
+  "inputs": {
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\execute.py": "58d624ccd587feeaaf7ed823fe9d3b48ce0ab74e52b05b5e1c4813eac3356cd4",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\reduce.py": "5c88e83999d091885116c01de70ab4811eb237bf948a665b642fa574793f981a",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\dev-qa-remediation\\20260914T0117324130584Z\\builder-qa\\evaluation-bundle\\test_reduce.py": "8dcbf984511de333da1fb2ec501557e9449267e515bcd63d5eb739825a075db6"
+  },
+  "timeout": 120
+}

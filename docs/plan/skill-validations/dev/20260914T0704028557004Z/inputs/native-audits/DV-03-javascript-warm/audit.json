@@ -1,0 +1,59 @@
+{
+  "trial_id": "DV-03-javascript",
+  "attempts": [
+    "attempt-001",
+    "attempt-002",
+    "attempt-003"
+  ],
+  "termination": "exited",
+  "exit_status": 0,
+  "immutable_changes": [],
+  "selected_evidence_value": "evidence/",
+  "selected_root_is_directory": true,
+  "receipt_count": 5,
+  "references_checked": 26,
+  "unsupported_rows": [],
+  "problems": [],
+  "receipts": [
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 1,
+      "attempt_id": "red",
+      "stage": "red",
+      "result": "ERROR",
+      "exit_code": null
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 2,
+      "attempt_id": "red-native",
+      "stage": "red",
+      "result": "FAIL",
+      "exit_code": 1
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 3,
+      "attempt_id": "red-direct",
+      "stage": "red",
+      "result": "FAIL",
+      "exit_code": 1
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 4,
+      "attempt_id": "green-direct",
+      "stage": "green",
+      "result": "PASS",
+      "exit_code": 0
+    },
+    {
+      "path": "evidence/executions.jsonl",
+      "line": 5,
+      "attempt_id": "qa",
+      "stage": "qa",
+      "result": "FAIL",
+      "exit_code": 1
+    }
+  ]
+}

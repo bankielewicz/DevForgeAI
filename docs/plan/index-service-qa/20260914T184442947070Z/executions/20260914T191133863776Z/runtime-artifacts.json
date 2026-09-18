@@ -1,0 +1,27 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target\\release\\devforgeai-indexd.exe",
+    "sha256": "e9916b74d06405788053e845cb9f8db566d1a23372bcd8d33356166cf11ef695",
+    "bytes": 10261504
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target\\release\\devforgeai-tray.exe",
+    "sha256": "91dd058baa6298e938c2cbc145a1564ab60b6ead5ac5abf73b3f1f17e8900996",
+    "bytes": 7701504
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target\\release\\devforgeai.exe",
+    "sha256": "159e8e336040d394314a49fa82d28c20e1b901115705956969e12abc1c390a2d",
+    "bytes": 11301888
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\coverage-target\\debug\\deps\\qa_independent-b6c595794f9eb127.exe",
+    "sha256": "1dbc6c861c4d9318ce42cb809af1894e2ae359f589043f237757b880f9570a61",
+    "bytes": 13436928
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\coverage-target\\debug\\deps\\gui-62fe3cc90ba97aa7.exe",
+    "sha256": "2c82967d105bcd38f952f01e22342fccbd478a9227fd26e9da3b5faddef595d8",
+    "bytes": 8290304
+  }
+]

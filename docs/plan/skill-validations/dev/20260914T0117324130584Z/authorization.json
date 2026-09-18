@@ -1,0 +1,13 @@
+{
+  "source": "User: Implement the plan; selected root task separately assigned validator assessment after new packet.",
+  "scope": "Fresh dev assessment, disposable native fixtures, existing authenticated model connection.",
+  "restrictions": [
+    "No target repair",
+    "No installation",
+    "No operational edits",
+    "No product network/credential/external writes"
+  ],
+  "timeout_seconds": 360,
+  "maximum_concurrent_native_sessions": 2,
+  "automatic_retries": false
+}

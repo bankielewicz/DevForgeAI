@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["manifest paths must be unique/sorted"], "ordered_member_ids": []}

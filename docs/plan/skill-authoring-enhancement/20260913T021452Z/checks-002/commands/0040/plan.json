@@ -1,0 +1,30 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\disposable\\builder-enhancement-test-sp8dnx0w\\builder\\scripts\\build_evidence.py",
+    "input-record",
+    "--file",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\disposable\\builder-enhancement-test-sp8dnx0w\\spec.md",
+    "--id",
+    "source",
+    "--snapshot-path",
+    "inputs/spec.md",
+    "--start-byte",
+    "8",
+    "--end-byte",
+    "23"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--file": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\disposable\\builder-enhancement-test-sp8dnx0w\\spec.md",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-002\\commands\\0040\\input-6",
+      "sha256": "8e3c6c8abfee8d00a3dde9889e1220afbe0db9863215b9f84457525d527d7ecc"
+    }
+  },
+  "start": "2026-09-13T02:34:13.523566+00:00",
+  "timeout_seconds": 30
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "1",
+  "command": "readback",
+  "status": "MATCH",
+  "coverage": [
+    "permitted file set",
+    "raw-byte sizes and hashes",
+    "excluded boundaries"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement."
+  ],
+  "added": [],
+  "removed": [],
+  "changed": [],
+  "excluded_boundaries_changed": false,
+  "manifest": {
+    "schema_version": "1",
+    "root": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator",
+    "captured_at_utc": "2026-09-15T12:19:55.701317+00:00",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 15540,
+        "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+      },
+      {
+        "path": "agents/openai.yaml",
+        "bytes": 188,
+        "sha256": "b750627cdd588fdbb5b46e854d3384d1a504fad3b8ed73ca5d7ead3804df78b6"
+      },
+      {
+        "path": "assets/skill-creator-small.svg",
+        "bytes": 1322,
+        "sha256": "edb19a0c59f9a1b5253b9af6d2f9f03cac27b2fe6a0275ebccbbdbff07891a1a"
+      },
+      {
+        "path": "assets/skill-creator.png",
+        "bytes": 1563,
+        "sha256": "a4024b0306ddb05847e1012879d37aaf1e658205199da596f5145ed7a88d9162"
+      },
+      {
+        "path": "license.txt",
+        "bytes": 11560,
+        "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+      },
+      {
+        "path": "references/openai_yaml.md",
+        "bytes": 2405,
+        "sha256": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9"
+      },
+      {
+        "path": "scripts/generate_openai_yaml.py",
+        "bytes": 6900,
+        "sha256": "30c73f1ea7d47dbab2b231bb92c5bf9026f1ad14ba8e3b3a4a544092c4d24ebe"
+      },
+      {
+        "path": "scripts/init_skill.py",
+        "bytes": 10622,
+        "sha256": "74dfa9361a93bee6932d6cbb332ed19ac26a27ba3800e69fb07ba7512c1025f9"
+      },
+      {
+        "path": "scripts/quick_validate.py",
+        "bytes": 4376,
+        "sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "48298d08909b8be87327c023dbd9f29b3c0f0f57419505c1ee6cab5accb4fbf4"
+  },
+  "complete": true
+}

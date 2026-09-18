@@ -1,0 +1,16 @@
+{
+  "schema_version": "1",
+  "timestamp": "2026-09-12T21:33:49.664806+00:00",
+  "os": "Windows-10-10.0.26200-SP0",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "pyyaml": "6.0.2",
+  "host_shell": "PowerShell 7; exact PSVersion captured in shell-identification command",
+  "codex_cli": "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+  "cli_identification": "codex-cli 0.154.0",
+  "checker": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\scripts\\quick_validate.py",
+  "checker_sha256": "6068513d924ed3559e186dfcdead7439129828dcf402167fd925c06dffbf2806",
+  "builder": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder",
+  "host_task_capability": "collaboration spawn_agent and followup_task used for independent history/fidelity and fresh validation",
+  "qualification": "CLI identity only; no native activation or Rust qualification",
+  "writable_scope": "Project development target exact two-file change plus fresh external evidence/disposable trials."
+}

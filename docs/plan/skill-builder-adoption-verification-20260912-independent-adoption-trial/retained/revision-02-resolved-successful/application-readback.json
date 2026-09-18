@@ -1,0 +1,77 @@
+{
+  "writes": [
+    {
+      "path": "SKILL.md",
+      "before_sha256": "7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a",
+      "after_sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb",
+      "timestamp": "2026-09-12T15:25:49.227370+00:00"
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "before_sha256": "c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0",
+      "after_sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73",
+      "timestamp": "2026-09-12T15:25:49.228371+00:00"
+    }
+  ],
+  "before": {
+    "schema_version": "1",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 285,
+        "sha256": "7a5d702fde95d39529fdf496bf6c516bf58331fa8c8bc7ed7117c99ab379ed7a"
+      },
+      {
+        "path": "notes.txt",
+        "bytes": 118,
+        "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94"
+      },
+      {
+        "path": "scripts/receipt_totals.py",
+        "bytes": 279,
+        "sha256": "c44ba8d491eebf464b7c553cf71a237d479e08d64e12f530aea33880a092f0d0"
+      }
+    ]
+  },
+  "after": {
+    "schema_version": "1",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 842,
+        "sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb"
+      },
+      {
+        "path": "notes.txt",
+        "bytes": 118,
+        "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94"
+      },
+      {
+        "path": "scripts/receipt_totals.py",
+        "bytes": 2000,
+        "sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73"
+      }
+    ]
+  },
+  "live": {
+    "schema_version": "1",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 842,
+        "sha256": "6d3d47f149005ad27ebfed67948dc1d38aebf193f0fdc960fe5de33f5acd6fdb"
+      },
+      {
+        "path": "notes.txt",
+        "bytes": 118,
+        "sha256": "db0a31e3401f9501f191f75fcc751db99452f454d64c3d6eaeedca88e5758e94"
+      },
+      {
+        "path": "scripts/receipt_totals.py",
+        "bytes": 2000,
+        "sha256": "ca1c61f01dd94a1f064123620ffb7aa76a68f8ea97039d0e49845e2bf1c30d73"
+      }
+    ]
+  },
+  "outcome": "READBACK_MATCH"
+}

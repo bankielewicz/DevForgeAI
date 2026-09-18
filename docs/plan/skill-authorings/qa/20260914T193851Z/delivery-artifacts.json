@@ -1,0 +1,28 @@
+{
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\DELIVERY.md",
+      "sha256": "e8f86f0c0a4f4a36f40e16def40b374bd7a8dd25983591484387cb1e38d93e5c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\delivery-readback.json",
+      "sha256": "59ba46d39eb288c7ee5b845e9137f675291ce9c97718b92d674b4c8b8f9c5d83"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\applied.diff",
+      "sha256": "2abceb07d5750a9cc665ad79126c43ac484c081f4d021c22bf04cce2f36d316d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\authoring-command-receipts.json",
+      "sha256": "6d0ffd76e549833c4298908322b1aec9c3b750bd68d65a41980e480710b028ac"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\validator-request.md",
+      "sha256": "f771d7db7645dc81c89156f341d6aa5b9338976fd1f496218b5cd9ececb73dc0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\validation-request.json",
+      "sha256": "40ac8bd62b6e0d8b1216acef54d487f38e5708655dc7cfe5ca5dde6cac3aaa2f"
+    }
+  ]
+}

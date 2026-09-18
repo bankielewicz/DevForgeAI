@@ -1,0 +1,10 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22:25) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\bryan\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "code_root": "C:\\Projects\\DevForgeAI",
+  "credential_env_names_present": [],
+  "secret_values_retained": false,
+  "git_metadata": false
+}

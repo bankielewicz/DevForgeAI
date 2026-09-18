@@ -1,0 +1,17 @@
+{
+  "scope": "AGENTS.md documentation only",
+  "status": "PASS",
+  "review": "Factual and requirement consistency checked against installed advisor SKILL.md and execution.md",
+  "unrelated_bytes": "UNCHANGED",
+  "local_links_checked": [
+    "docs/plan/devforgeai-codex-rust-enforcement-design.md",
+    ".agents/skills/advisor/SKILL.md",
+    ".agents/skills/advisor/references/execution.md"
+  ],
+  "command": "PowerShell literal-path readback, UTF-8 byte comparison after removing the inserted section, regex local-link enumeration, and Test-Path -LiteralPath checks",
+  "exit_code": 0,
+  "claude_invocation": "NOT_RUN - documentation edit",
+  "runtime_tests": "NOT_RUN - documentation edit",
+  "before_sha256": "D47868FEF2B87DF0B2C065CFE235CFE9F12FCF9EEFFA7AF1F0973D7D21916FA7",
+  "after_sha256": "3B8E2A112C438B536AB59DB2ABBCFD6E08EBDD7F41CAA13CDF6D5C49866FAB86"
+}

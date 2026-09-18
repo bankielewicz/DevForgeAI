@@ -1,0 +1,17 @@
+{
+  "group": "compatibility",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-01jymvHT",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-01jymvHT\\run",
+    "state": "cancelled",
+    "schema": 3,
+    "level": "off",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-01jymvHT\\control-stdout.txt",
+    "control_sha256": "ff870071214e513a9fd72822fdebbf1c23b491ae7c7c605485a44022dff7cab9"
+  },
+  "mutation": "failure-stderr",
+  "expected_error": null,
+  "expected_state": "cancelled",
+  "views": "first-and-end",
+  "id": "M-127"
+}

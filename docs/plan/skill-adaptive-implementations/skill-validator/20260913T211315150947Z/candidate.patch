@@ -1,0 +1,667 @@
+--- before/evals/build-manifest.json
++++ after/evals/build-manifest.json
+@@ -1,161 +1,162 @@
+-{
+-  "schema_version": "2",
+-  "graders": {
+-    "package_links": "2.0.0",
+-    "manifest_accounting": "2.0.0",
+-    "build_traceability": "2.0.0",
+-    "revision_consistency": "2.0.0",
+-    "routing_outcomes": "2.0.0",
+-    "adoption_consistency": "2.0.0",
+-    "build_traceability_v2": "2.0.0",
+-    "revision_consistency_v2": "2.0.0",
+-    "routing_outcomes_v2": "2.0.0"
+-  },
+-  "profiles": {
+-    "legacy-import-v1": {
+-      "version": "1",
+-      "graders": [
+-        "package_links",
+-        "manifest_accounting"
+-      ]
+-    },
+-    "import-v2": {
+-      "version": "2",
+-      "graders": [
+-        "package_links",
+-        "manifest_accounting",
+-        "build_traceability"
+-      ]
+-    },
+-    "spec-v1": {
+-      "version": "1",
+-      "graders": [
+-        "package_links",
+-        "build_traceability"
+-      ]
+-    },
+-    "revision-import-v2": {
+-      "version": "2",
+-      "graders": [
+-        "package_links",
+-        "manifest_accounting",
+-        "build_traceability",
+-        "revision_consistency"
+-      ]
+-    },
+-    "revision-spec-v1": {
+-      "version": "1",
+-      "graders": [
+-        "package_links",
+-        "build_traceability",
+-        "revision_consistency"
+-      ]
+-    },
+-    "builder-v2": {
+-      "version": "2",
+-      "graders": [
+-        "package_links",
+-        "manifest_accounting",
+-        "build_traceability",
+-        "revision_consistency",
+-        "routing_outcomes"
+-      ]
+-    },
+-    "adoption-v1": {
+-      "version": "1",
+-      "graders": [
+-        "adoption_consistency"
+-      ]
+-    },
+-    "revision-spec-v2": {
+-      "version": "2",
+-      "graders": [
+-        "package_links",
+-        "build_traceability_v2",
+-        "revision_consistency_v2"
+-      ]
+-    },
+-    "routing-adoption-v1": {
+-      "version": "1",
+-      "graders": [
+-        "routing_outcomes_v2"
+-      ]
+-    }
+-  },
+-  "artifacts": {
+-    "SKILL.md": "9e572b2ddfb67279f9cf5006cc5bba4cd73edb66728ff769fa9b0ae6fd981fdf",
+-    "assets/enforcement-register-template.md": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c",
+-    "assets/openai-yaml-guidance.md": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
+-    "assets/origin-spec-template.md": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902",
+-    "assets/revision-spec-template.md": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e",
+-    "assets/rules-snapshot.json": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
+-    "assets/validation-report-template.md": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab",
+-    "evals/README.md": "9f4358c910ebbf719db3d1fce7dd72621cea82122850c81449258c709cab8917",
+-    "evals/adoption-evidence.schema.json": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f",
+-    "evals/build-artifacts.schema.json": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be",
+-    "evals/builder-cases.jsonl": "de1fc28e754c2f28b5fb838258ce66eb6f258e93ace87a2db6a2685464bb277c",
+-    "evals/cases.jsonl": "554b9d00519e1fbc297e298223c01edd1fe8f91a98e92a0ea8cdcf92d0a1c96c",
+-    "evals/evidence.schema.json": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3",
+-    "evals/fixtures/portable/destination/SKILL.md": "f9c929003cb7ea451b8d99f33ba8da6aae7a0d1f830e820b3236a6fa53f73071",
+-    "evals/fixtures/portable/destination/schema.json": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
+-    "evals/fixtures/portable/evidence/destination-manifest.json": "4829e16fa497c5b5b7a48ce9b0ec5d0f37f1d2b37d65ce1c775160950e6bb2b2",
+-    "evals/fixtures/portable/evidence/file-dispositions.json": "d6eff48694bf737732d4dd0915f4673ecf8caaaa4596761312c1a774e372950c",
+-    "evals/fixtures/portable/evidence/source-manifest.json": "69e6d3c1d21a1e17f76f90dab241ad863edf7f2acf904cbbccd81742abf04158",
+-    "evals/fixtures/portable/source/SKILL.md": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e",
+-    "evals/fixtures/portable/source/schema.json": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
+-    "evals/profiles.json": "dc673745727537ca90761d9b3df6f3c477aea8e6e80c6560e225e010f0196cf0",
+-    "evals/runtime.json": "ee3f67492dd9e964befc4038ccdd5d03d282b288eb90f142114798c3a394ea46",
+-    "evals/validator-cases.jsonl": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a",
+-    "references/adaptive-shared-contracts.md": "f585783c1aae41e691f9dfbb7a10969541b586a9b96b47ad85ced6571cb9a9b4",
+-    "references/adaptive-validation.md": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
+-    "references/assessment-ownership.md": "5dd283d36cf823ce1345a7625778d5049a8f81c54348a4007a96eb6605f8cc88",
+-    "references/authoring-intake.md": "7431f5e1f657cff14cadc6473fa4cfe42f5bc2a7e8192a47f56538c4fd5175e5",
+-    "references/evaluation.md": "16f74b8024741ba7a0fe4138503e26de7d412f0e1e7dfe632ac15a8e153105f6",
+-    "references/evaluator-contracts.md": "ac2043678eaaa2addb2ccd4ba2e086fcae99603ae9c3bbafbe9d1e946b17affa",
+-    "references/handoff.md": "35913a5afe874f15e64e3c9a5c1c0e8641fadf9ec3626094ea85cf5e39f116ed",
+-    "references/origin.md": "8300afc32f038b17a79ed2ea6d8f92ac50cdb68536f4044f2feed3cd7b87a649",
+-    "references/reporting.md": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb",
+-    "references/rules.md": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b",
+-    "references/set-trials.md": "afd81fdee6f4b6b37f04b26d66f705690c5d8ab69affe286b81743fcd132a4e9",
+-    "references/text-resource-checks.md": "0fa807104b4146921fc7506fd2e4b863e1766b0c431c691884fa67fd1b641495",
+-    "references/trials.md": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0",
+-    "schemas/adaptation-proposal-v1.schema.json": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6",
+-    "schemas/adaptation-selection-v1.schema.json": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1",
+-    "schemas/adaptive-check-observation-v1.schema.json": "e58827d155c1687fad6ebe92b407ba3c40c49668f74fa42e3107ead01d2f171f",
+-    "schemas/adaptive-common.schema.json": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5",
+-    "schemas/adaptive-observation-v1.schema.json": "ae335505541800dfd5819a5093829b1bc10fb604c528c7d054725656c1c6ce8c",
+-    "schemas/adaptive-observations-v1.schema.json": "2fd2b05f41e0707a0ce4c0d07ebeb6c4848c7a42bc9bdba787a9aba2b52cc50c",
+-    "schemas/adaptive-skill-v1.schema.json": "9269b2f9ac2812bc2a826b83726a5ff249086fd7c23521c1fdb5b115b36afae7",
+-    "schemas/authoring-baseline.schema.json": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746",
+-    "schemas/authoring-contract.schema.json": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099",
+-    "schemas/authoring-record.schema.json": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d",
+-    "schemas/binding-observation-v1.schema.json": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb",
+-    "schemas/project-binding-v1.schema.json": "fb0d98d650d443ee1d613d27e632696a4422d101ce6dd37b1eca6e9189fd3399",
+-    "schemas/project-evidence-v1.schema.json": "e8d9cbc8a6e76ba9cce5d8422dbc599673e3e489a6c25d750c1820409fc957e9",
+-    "schemas/set-assessment-v1.schema.json": "2c6d4bb5eb87e0fccf24e6e666ba52b700e8ad5fd8bd974a4228b203201de2c7",
+-    "schemas/set-authoring-v1.schema.json": "d5b9840fe7daf8ab810315d28c9c3539b3e644eb4293e0a8699364ae77981ae8",
+-    "schemas/set-validation-request-v1.schema.json": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e",
+-    "schemas/standalone-set-input-v1.schema.json": "bd32ea5e9b0813a7193832ed9b7aaf1d10892560477777feb7abfd12b41d54c5",
+-    "schemas/validation-request.schema.json": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367",
+-    "scripts/adaptive_contracts.py": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0",
+-    "scripts/adaptive_observe.py": "7551acf047f4c61b9b04557ac3260f9035cc272e8d696f7797d9fd7b94b15e7a",
+-    "scripts/authoring_intake.py": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99",
+-    "scripts/build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
+-    "scripts/custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
+-    "scripts/graders.py": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c",
+-    "scripts/observe.py": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f",
+-    "scripts/run_evaluation.py": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8",
+-    "scripts/text_resources.py": "2bb076d3920414a1171dd4492fe7d4dd74458f7a9dcc4bd7bc30bbf40248b293",
+-    "tests/adaptive_fixtures.py": "da278f1bed3e8a147b90acc76025afe2a4f7a0cbb9a590bb3659d896c7cc666e",
+-    "tests/adoption_fixture.py": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60",
+-    "tests/fixture_data.py": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291",
+-    "tests/test_adaptive.py": "49d87a9fcf51fe60e9d66df1994d1d8adc4bc7684dc6e28311b4f56e4d45ecfa",
+-    "tests/test_adoption.py": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093",
+-    "tests/test_authoring.py": "78a4dd5377e38fe6230564116ce2c88239ec000c118b64ad9cbdee64464a1177",
+-    "tests/test_enhancements.py": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2",
+-    "tests/test_evaluation.py": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0",
+-    "tests/test_observe.py": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef",
+-    "tests/test_review_inputs.py": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658",
+-    "tests/test_review_provenance.py": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065"
+-  }
+-}
++{
++  "schema_version": "2",
++  "graders": {
++    "package_links": "2.0.0",
++    "manifest_accounting": "2.0.0",
++    "build_traceability": "2.0.0",
++    "revision_consistency": "2.0.0",
++    "routing_outcomes": "2.0.0",
++    "adoption_consistency": "2.0.0",
++    "build_traceability_v2": "2.0.0",
++    "revision_consistency_v2": "2.0.0",
++    "routing_outcomes_v2": "2.0.0"
++  },
++  "profiles": {
++    "legacy-import-v1": {
++      "version": "1",
++      "graders": [
++        "package_links",
++        "manifest_accounting"
++      ]
++    },
++    "import-v2": {
++      "version": "2",
++      "graders": [
++        "package_links",
++        "manifest_accounting",
++        "build_traceability"
++      ]
++    },
++    "spec-v1": {
++      "version": "1",
++      "graders": [
++        "package_links",
++        "build_traceability"
++      ]
++    },
++    "revision-import-v2": {
++      "version": "2",
++      "graders": [
++        "package_links",
++        "manifest_accounting",
++        "build_traceability",
++        "revision_consistency"
++      ]
++    },
++    "revision-spec-v1": {
++      "version": "1",
++      "graders": [
++        "package_links",
++        "build_traceability",
++        "revision_consistency"
++      ]
++    },
++    "builder-v2": {
++      "version": "2",
++      "graders": [
++        "package_links",
++        "manifest_accounting",
++        "build_traceability",
++        "revision_consistency",
++        "routing_outcomes"
++      ]
++    },
++    "adoption-v1": {
++      "version": "1",
++      "graders": [
++        "adoption_consistency"
++      ]
++    },
++    "revision-spec-v2": {
++      "version": "2",
++      "graders": [
++        "package_links",
++        "build_traceability_v2",
++        "revision_consistency_v2"
++      ]
++    },
++    "routing-adoption-v1": {
++      "version": "1",
++      "graders": [
++        "routing_outcomes_v2"
++      ]
++    }
++  },
++  "artifacts": {
++    "SKILL.md": "9e572b2ddfb67279f9cf5006cc5bba4cd73edb66728ff769fa9b0ae6fd981fdf",
++    "assets/enforcement-register-template.md": "2c1ee850a8fa96c3f8b33a27c504939ef4951283b09e8a1425c82f533bcb5e7c",
++    "assets/openai-yaml-guidance.md": "7039d465b05342cbacf861f08d20192ab1eeee112bc5d8ff0fb66234756887a9",
++    "assets/origin-spec-template.md": "c72e87c6e6fb33781d446f5dcf1ae0f672207c15ea4b4a52ec7567536f361902",
++    "assets/revision-spec-template.md": "89acab27def48848eefa77634f1aec733edd8a87be47ec6d8a8a6fdacf3ab62e",
++    "assets/rules-snapshot.json": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76",
++    "assets/validation-report-template.md": "bea34d47011668976e440b47eddbd1c33e415d5ea5d264fc78d2b39ab8f3a5ab",
++    "evals/README.md": "9f4358c910ebbf719db3d1fce7dd72621cea82122850c81449258c709cab8917",
++    "evals/adoption-evidence.schema.json": "35c98801c9b09b4679720ac07048c334c907fcebcd77cc66213fa72176587d5f",
++    "evals/build-artifacts.schema.json": "d207c4c14eef018d296286caf98ca2630cc85d0fd182b2c651ff8251f953f2be",
++    "evals/builder-cases.jsonl": "de1fc28e754c2f28b5fb838258ce66eb6f258e93ace87a2db6a2685464bb277c",
++    "evals/cases.jsonl": "554b9d00519e1fbc297e298223c01edd1fe8f91a98e92a0ea8cdcf92d0a1c96c",
++    "evals/evidence.schema.json": "bcd329da7fa7b972d574cbb717f67a5ded698a4a1abd6f1496911cc04133d5e3",
++    "evals/fixtures/portable/destination/SKILL.md": "f9c929003cb7ea451b8d99f33ba8da6aae7a0d1f830e820b3236a6fa53f73071",
++    "evals/fixtures/portable/destination/schema.json": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
++    "evals/fixtures/portable/evidence/destination-manifest.json": "4829e16fa497c5b5b7a48ce9b0ec5d0f37f1d2b37d65ce1c775160950e6bb2b2",
++    "evals/fixtures/portable/evidence/file-dispositions.json": "d6eff48694bf737732d4dd0915f4673ecf8caaaa4596761312c1a774e372950c",
++    "evals/fixtures/portable/evidence/source-manifest.json": "69e6d3c1d21a1e17f76f90dab241ad863edf7f2acf904cbbccd81742abf04158",
++    "evals/fixtures/portable/source/SKILL.md": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e",
++    "evals/fixtures/portable/source/schema.json": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6",
++    "evals/profiles.json": "dc673745727537ca90761d9b3df6f3c477aea8e6e80c6560e225e010f0196cf0",
++    "evals/runtime.json": "ee3f67492dd9e964befc4038ccdd5d03d282b288eb90f142114798c3a394ea46",
++    "evals/validator-cases.jsonl": "3c98d4dd41a8f53d6278ed48d67829d4314ec7dd655c34ea6d813c55a436655a",
++    "references/adaptive-shared-contracts.md": "f585783c1aae41e691f9dfbb7a10969541b586a9b96b47ad85ced6571cb9a9b4",
++    "references/adaptive-validation.md": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c",
++    "references/assessment-ownership.md": "5dd283d36cf823ce1345a7625778d5049a8f81c54348a4007a96eb6605f8cc88",
++    "references/authoring-intake.md": "7431f5e1f657cff14cadc6473fa4cfe42f5bc2a7e8192a47f56538c4fd5175e5",
++    "references/evaluation.md": "16f74b8024741ba7a0fe4138503e26de7d412f0e1e7dfe632ac15a8e153105f6",
++    "references/evaluator-contracts.md": "ac2043678eaaa2addb2ccd4ba2e086fcae99603ae9c3bbafbe9d1e946b17affa",
++    "references/handoff.md": "35913a5afe874f15e64e3c9a5c1c0e8641fadf9ec3626094ea85cf5e39f116ed",
++    "references/origin.md": "8300afc32f038b17a79ed2ea6d8f92ac50cdb68536f4044f2feed3cd7b87a649",
++    "references/reporting.md": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb",
++    "references/rules.md": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b",
++    "references/set-trials.md": "afd81fdee6f4b6b37f04b26d66f705690c5d8ab69affe286b81743fcd132a4e9",
++    "references/text-resource-checks.md": "0fa807104b4146921fc7506fd2e4b863e1766b0c431c691884fa67fd1b641495",
++    "references/trials.md": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0",
++    "schemas/adaptation-proposal-v1.schema.json": "c6e46c5cfbe49777a7c7c11787e3a1d871d2e70243971a96d2b118fab4fceef6",
++    "schemas/adaptation-selection-v1.schema.json": "f4f8d67c58dd9be279828af74ef96a025e39839c2a8d53f948ba4bf0176f60e1",
++    "schemas/adaptive-check-observation-v1.schema.json": "e58827d155c1687fad6ebe92b407ba3c40c49668f74fa42e3107ead01d2f171f",
++    "schemas/adaptive-common.schema.json": "494d83f8c0cb4ef1cfd09efd29be825142ed863c3011082f7c2a2fec8780b0e5",
++    "schemas/adaptive-observation-v1.schema.json": "ae335505541800dfd5819a5093829b1bc10fb604c528c7d054725656c1c6ce8c",
++    "schemas/adaptive-observations-v1.schema.json": "2fd2b05f41e0707a0ce4c0d07ebeb6c4848c7a42bc9bdba787a9aba2b52cc50c",
++    "schemas/adaptive-skill-v1.schema.json": "9269b2f9ac2812bc2a826b83726a5ff249086fd7c23521c1fdb5b115b36afae7",
++    "schemas/authoring-baseline.schema.json": "d25094200a70d5696ddad8953980ba4659ffd160f882b6f128462857987af746",
++    "schemas/authoring-contract.schema.json": "e8e677713d22948d63383573a2e7cf6d2fa484137f2ce130cf2e5c5dc224d099",
++    "schemas/authoring-record.schema.json": "95b070fbe92df760781483c7a89becfa45ea5d6c7a0f033a21b82e0b3283ad9d",
++    "schemas/binding-observation-v1.schema.json": "d6bbf7eee246a06f811413cdfa1c88ea1265bebff6e14581ef0393858ddc7abb",
++    "schemas/project-binding-v1.schema.json": "fb0d98d650d443ee1d613d27e632696a4422d101ce6dd37b1eca6e9189fd3399",
++    "schemas/project-evidence-v1.schema.json": "e8d9cbc8a6e76ba9cce5d8422dbc599673e3e489a6c25d750c1820409fc957e9",
++    "schemas/set-assessment-v1.schema.json": "2c6d4bb5eb87e0fccf24e6e666ba52b700e8ad5fd8bd974a4228b203201de2c7",
++    "schemas/set-authoring-v1.schema.json": "d5b9840fe7daf8ab810315d28c9c3539b3e644eb4293e0a8699364ae77981ae8",
++    "schemas/set-validation-request-v1.schema.json": "f4006f5e161a8cef5aaefb9d2e2350c055ed4e5e04e87d0b52c269911555514e",
++    "schemas/standalone-set-input-v1.schema.json": "bd32ea5e9b0813a7193832ed9b7aaf1d10892560477777feb7abfd12b41d54c5",
++    "schemas/validation-request.schema.json": "8d1c75d557475de6159ee23eea7040f8aa9f8281ed21100a6641f8b91f60b367",
++    "scripts/adaptive_contracts.py": "39d2df38630486f38902720ad71e53e335858ab9ba1927f4361d4b8d35e1b1b0",
++    "scripts/adaptive_observe.py": "7bf5a96424cd9fb742e3c0aac9100180d72a7dcdcc22e79de634b1bc748674d2",
++    "scripts/authoring_intake.py": "0faa38c7a4f9e06a7a8bccb018490a0bca44a713ebc2b2b941f6df1293f3af99",
++    "scripts/build_evidence.py": "0fc4b5c83dbf7956b4f287310f8849f3d69fcab8baabd578d47a91a2e98e3fd3",
++    "scripts/custody.py": "803f41d1a3bde866f1dbcdf1a201526e56d35ca297e50be48dd0e2ba7af5aa0e",
++    "scripts/graders.py": "d21e43c151c4952e8a85743db8e322c0d77744cbd93a2f0c269277cb19f2533c",
++    "scripts/observe.py": "ddc7ed1c07ccbadc652dd58749a35be179a234544ad21c9a02ee7a143c761d5f",
++    "scripts/run_evaluation.py": "f538b80a4119348bc74d72cffb24b35ade59dfa00b4960f2a7d2e0c4f50a9cb8",
++    "scripts/text_resources.py": "10b284f173afd602eef1b68f87d021ceba33c426180460ff89a1a0aae2b7a552",
++    "tests/adaptive_fixtures.py": "da278f1bed3e8a147b90acc76025afe2a4f7a0cbb9a590bb3659d896c7cc666e",
++    "tests/adoption_fixture.py": "c54aad9413ed52c04f4c03195be13822f5d8864520d8f05017dd6968262a9f60",
++    "tests/fixture_data.py": "3f3298a473342c7c9cd288cc06a45a52201aa9a9203030edde5b189b09277291",
++    "tests/test_adaptive.py": "49d87a9fcf51fe60e9d66df1994d1d8adc4bc7684dc6e28311b4f56e4d45ecfa",
++    "tests/test_adoption.py": "2be635e1b22cd56f89ccfdd3dd193ea720aeeaf80e1654863540d8605e56e093",
++    "tests/test_authoring.py": "78a4dd5377e38fe6230564116ce2c88239ec000c118b64ad9cbdee64464a1177",
++    "tests/test_confirmed_findings.py": "bfd2517782712522d363617c1e9b992790de03b5cac95741718f5ad6057b4634",
++    "tests/test_enhancements.py": "067b5a69bfc46c613c5e0da5e72be3e80209aa364e22dbe93391d2e6a6a82ff2",
++    "tests/test_evaluation.py": "1f0434de0cafb1d968361eb16ab42ba7e06cc6e539103e9450f5302505210ac0",
++    "tests/test_observe.py": "b61e8592f82ca70cc4f9ac787db8dd9c2ab2bc6bb5a69cb0c3fc75d70e8ca3ef",
++    "tests/test_review_inputs.py": "c98b593f90304bffcb2946a632fcb336a19265d0049c66d7ab2d337228d7c658",
++    "tests/test_review_provenance.py": "53f68b79ecc8aa58cb603405d6e781620198191b10925dabbd93b2f50ec3c065"
++  }
++}
+--- before/scripts/adaptive_observe.py
++++ after/scripts/adaptive_observe.py
+@@ -1,6 +1,7 @@
+ """Read-only package, selected-set intake and adaptive record observations."""
+ import argparse
+ import json
++import os
+ from pathlib import Path
+ import re
+ import sys
+@@ -83,25 +84,33 @@
+     contracts.require(members.keys() == selected.keys(), 'assessment membership mismatch')
+     rows, outcomes = [], []
+     seen_refs = set()
++    seen_checks = set()
++
++    def read_checks(reference, run_id=None, complete=False):
++        check_path = reader.absolute(reference['path'])
++        identity = os.path.normcase(str(check_path))
++        contracts.require(identity not in seen_refs, 'check artifact counted twice across members/integration')
++        seen_refs.add(identity)
++        checks = check_rows(reader.ref(reference), check_path.parent, run_id, complete)
++        for check in checks:
++            execution = (check['run_id'], check['check_id'])
++            contracts.require(execution not in seen_checks, 'check execution counted twice across members/integration')
++            seen_checks.add(execution)
++        return checks
++
+     for key, member in members.items():
+         contracts.require(member['package_digest'] == selected[key]['package']['package_digest'], 'assessed member digest mismatch')
+         if member['report'] is None or member['checks'] is None:
+             contracts.require(member['outcome'] == 'INCOMPLETE', 'missing report/checks require INCOMPLETE')
+             outcomes.append('INCOMPLETE')
+             if member['checks'] is not None:
+-                check_path = reader.absolute(member['checks']['path'])
+-                contracts.require(str(check_path) not in seen_refs, 'member checks counted twice')
+-                seen_refs.add(str(check_path))
+-                rows.extend(check_rows(reader.ref(member['checks']),check_path.parent,complete=True))
++                rows.extend(read_checks(member['checks'], complete=True))
+             else:
+                 # Known catalog obligations stay unperformed; no available
+                 # failures or evaluated rows are discarded when only report is missing.
+                 rows.extend(dict(text_resources.check(rule,'members/'+key,'NOT_RUN','Member checks unavailable.','unknown'), check_id=key+'-'+rule) for rule in ALL_RULES)
+             continue
+-        check_path = reader.absolute(member['checks']['path'])
+-        contracts.require(str(check_path) not in seen_refs, 'member checks counted twice')
+-        seen_refs.add(str(check_path))
+-        checks = check_rows(reader.ref(member['checks']), check_path.parent, complete=True)
++        checks = read_checks(member['checks'], complete=True)
+         expected, _ = member_outcome(checks, member['source_state'])
+         contracts.require(member['outcome'] == expected, 'member outcome reduction mismatch')
+         # A report Ref binds bytes; passage support remains manual, not guessed
+@@ -109,14 +118,16 @@
+         reader.ref(member['report'])
+         outcomes.append(expected)
+         rows.extend(checks)
+-    integration_path = reader.absolute(value['integration_checks']['path'])
+-    integration = check_rows(reader.ref(value['integration_checks']), integration_path.parent, value['run_id'])
++    integration = read_checks(value['integration_checks'], value['run_id'])
+     handoffs = contracts.index(input_value['handoffs'])
+     for row in integration:
+         prefix, _, ident = row['subject_path'].partition('/')
+         contracts.require((prefix == 'handoffs' and ident in handoffs) or (prefix == 'members' and ident in selected), 'integration logical subject outside selection')
+     for handoff in handoffs.values():
+-        contracts.require(any(row['subject_path'] == 'handoffs/'+handoff['id'] and row['required'] for row in integration), 'missing required integration coverage')
++        required_rows = [row for row in integration if row['subject_path'] == 'handoffs/'+handoff['id'] and row['required']]
++        contracts.require(bool(required_rows), 'missing required integration coverage')
++        if handoff['required']:
++            contracts.require(all(row['applicability'] != 'not_applicable' for row in required_rows), 'required handoff cannot be NOT_APPLICABLE')
+     rows.extend(integration)
+     aggregate = reduction(rows)
+     outcomes.append(aggregate['outcome'])
+--- before/scripts/text_resources.py
++++ after/scripts/text_resources.py
+@@ -5,6 +5,7 @@
+ """
+ import hashlib
+ import importlib.metadata
++import json
+ import os
+ from pathlib import Path, PurePosixPath
+ import re
+@@ -65,11 +66,30 @@
+     return text[position].encode('unicode_escape').decode('ascii')[:160]
+ 
+ 
++def protocol_value_spans(path, text):
++    """Locate original JSON/JSONL schema_version scalar spans, not quoted examples."""
++    if PurePosixPath(path).suffix.lower() not in ('.json', '.jsonl'):
++        return []
++    strings = re.finditer(r'"(?:[^"\\\x00-\x1f]|\\(?:["\\/bfnrt]|u[0-9a-fA-F]{4}))*"', text)
++    spans, previous = [], None
++    for token in strings:
++        if previous is not None and re.fullmatch(r'[ \t\r\n]*:[ \t\r\n]*', text[previous.end():token.start()]):
++            if json.loads(previous[0]) == 'schema_version':
++                spans.append((token.start() + 1, token.end() - 1))
++        previous = token
++    return spans
++
++
+ def candidates(path, text):
+     result, offset, line, column = [], 0, 1, 1
+     lines = text.splitlines()
+     in_meta = text.startswith('---')
++    protocol_spans = iter(protocol_value_spans(path, text))
++    protocol_span = next(protocol_spans, None)
+     for position, char in enumerate(text):
++        while protocol_span is not None and position >= protocol_span[1]:
++            protocol_span = next(protocol_spans, None)
++        in_protocol = protocol_span is not None and protocol_span[0] <= position < protocol_span[1]
+         cp = ord(char)
+         current = lines[line-1] if line <= len(lines) else ''
+         context = 'fixture' if any(part in ('tests','fixtures','evals') for part in PurePosixPath(path).parts) else 'prose'
+@@ -79,11 +99,15 @@
+             context = 'command'
+         elif re.search(r'\]\(|(?:^|\s)[\w.-]+[/\\]', current):
+             context = 'path'
++        if in_protocol:
++            context = 'unknown'
+         special = (cp < 32 and cp not in (9,10,13)) or 0x7F <= cp <= 0x9F or cp in SPECIAL or 0x202A <= cp <= 0x202E or 0x2066 <= cp <= 0x2069 or 0xFE00 <= cp <= 0xFE0F or 0xE0100 <= cp <= 0xE01EF or 0xE0000 <= cp <= 0xE007F
+         normalized = unicodedata.normalize('NFKC', char)
+-        nfkc = normalized != char and context in ('metadata','command','path')
++        nfkc = normalized != char and (in_protocol or context in ('metadata','command','path'))
+         if special or nfkc:
+             reason = 'Candidate only; inspect behavioral ambiguity and legitimate context.'
++            if in_protocol:
++                reason += ' Exact JSON protocol identifier (schema_version).'
+             if nfkc:
+                 reason += ' NFKC candidate ' + char.encode('unicode_escape').decode() + ' -> ' + normalized.encode('unicode_escape').decode() + '; source unchanged; not exhaustive confusable detection.'
+             result.append({'path':path,'start_byte':offset,'end_byte':offset+len(char.encode('utf-8')),'line':line,'column':column,'codepoint':f'U+{cp:04X}','unicode_name':unicodedata.name(char,'UNNAMED CONTROL'),'escaped_excerpt':redacted_excerpt(text,position),'context':context,'disposition':'unresolved','reason':reason})
+@@ -99,12 +123,15 @@
+     """Preserve line numbers while excluding backtick/tilde fenced examples."""
+     rows, fence = [], None
+     for line in text.splitlines():
+-        marker = re.match(r'^ {0,3}(`{3,}|~{3,})', line)
++        marker = re.match(r'^ {0,3}(`{3,}|~{3,})(.*)$', line)
+         if marker:
+-            token = marker[1]
++            token, tail = marker[1], marker[2]
+             if fence is None:
++                if token[0] == '`' and '`' in tail:
++                    rows.append(line)
++                    continue
+                 fence = token
+-            elif token[0] == fence[0] and len(token) >= len(fence):
++            elif token[0] == fence[0] and len(token) >= len(fence) and not tail.strip(' \t'):
+                 fence = None
+             rows.append('')
+         else:
+--- before/tests/test_confirmed_findings.py
++++ after/tests/test_confirmed_findings.py
+@@ -0,0 +1,189 @@
++"""Behavioral regressions for confirmed QA-01 through QA-04 (frozen v1)."""
++import json
++import os
++from pathlib import Path
++import sys
++import tempfile
++import unittest
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
++import adaptive_observe as adaptive
++import adaptive_fixtures as fixture
++import text_resources as text
++
++
++class ConfirmedFindingTests(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory(prefix='validator-confirmed-')
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name)
++
++    def checks(self, path, rows):
++        path.parent.mkdir(parents=True, exist_ok=True)
++        path.write_text(''.join(json.dumps(row) + '\n' for row in rows), encoding='utf-8')
++        return fixture.reference(path)
++
++    def assessment(self, same_run=False):
++        selected = fixture.standalone(self.root / 'inputs')
++        members = []
++        for member in selected['members']:
++            ident = member['member_id']
++            rows = [dict(text.check(rule, 'handoffs/card', 'PASS', 'Synthetic record control.'),
++                         run_id='set' if same_run else ident, check_id=rule)
++                    for rule in adaptive.ALL_RULES]
++            folder = self.root / 'members' / ident
++            checks = self.checks(folder / 'checks.jsonl', rows)
++            report = folder / 'report.md'
++            report.write_text('Synthetic record fixture, not actual skill quality.', encoding='utf-8')
++            members.append(dict(member_id=ident, package_digest=member['package']['package_digest'],
++                                report=fixture.reference(report), checks=checks, outcome='PASS',
++                                source_state='UNCHANGED', reason='Controlled fixture.'))
++        integration = [dict(text.check('AV-A09', 'handoffs/card', 'PASS', 'Controlled handoff.'),
++                            run_id='set', check_id='integration')]
++        value = dict(schema_version='set-assessment-v1', run_id='set',
++                     input=fixture.write(self.root / 'inputs/input.json', selected), scope='full_set',
++                     omitted_member_ids=[], omitted_handoff_ids=[], members=members,
++                     integration_checks=self.checks(self.root / 'integration/checks.jsonl', integration),
++                     outcome='PASS', assessment_completed=True, required_evaluated=59,
++                     required_total=59, unknown_applicability=0, limitations=['Synthetic records.'],
++                     prior_assessment=None)
++        return value
++
++    def errors(self, value):
++        records = self.root / 'records'
++        fixture.write(records / 'assessment.json', value)
++        return adaptive.records(records)[1]
++
++    def test_member_integration_artifact_reuse_rejected(self):
++        value = self.assessment()
++        path = Path(value['members'][0]['checks']['path'])
++        rows = [dict(json.loads(line), run_id='set') for line in path.read_text().splitlines()]
++        value['members'][0]['checks'] = self.checks(path, rows)
++        value['integration_checks'] = value['members'][0]['checks']
++        value.update(required_evaluated=87, required_total=87)
++        self.assertTrue(self.errors(value))
++
++    def test_copied_check_execution_rejected(self):
++        value = self.assessment()
++        original = Path(value['members'][0]['checks']['path'])
++        rows = [dict(json.loads(line), run_id='set') for line in original.read_text().splitlines()]
++        value['members'][0]['checks'] = self.checks(original, rows)
++        value['integration_checks'] = self.checks(self.root / 'copied/checks.jsonl', rows)
++        value.update(required_evaluated=87, required_total=87)
++        self.assertTrue(self.errors(value))
++
++    def test_same_execution_in_two_members_rejected(self):
++        self.assertTrue(self.errors(self.assessment(same_run=True)))
++
++    def test_same_check_id_in_distinct_runs_accepted(self):
++        self.assertEqual(self.errors(self.assessment()), [])
++
++    def test_same_member_artifact_reused_by_other_member_rejected(self):
++        value = self.assessment()
++        value['members'][1]['checks'] = value['members'][0]['checks']
++        self.assertTrue(self.errors(value))
++
++    def test_missing_report_does_not_hide_reused_checks(self):
++        value = self.assessment()
++        value['members'][0].update(report=None, outcome='INCOMPLETE')
++        value['members'][1]['checks'] = value['members'][0]['checks']
++        value['outcome'] = 'INCOMPLETE'
++        self.assertTrue(self.errors(value))
++
++    @unittest.skipUnless(os.name == 'nt', 'Windows path identity scenario')
++    def test_windows_case_alias_is_same_artifact(self):
++        value = self.assessment()
++        value['members'][1]['checks'] = dict(value['members'][0]['checks'])
++        value['members'][1]['checks']['path'] = value['members'][1]['checks']['path'].replace('members', 'MEMBERS')
++        self.assertTrue(self.errors(value))
++
++    def test_shared_evidence_is_not_duplicate_execution(self):
++        value = self.assessment()
++        for member in value['members']:
++            path = Path(member['checks']['path'])
++            evidence = path.parent / 'evidence.txt'
++            evidence.write_text('A shared observation supports distinct rules.')
++            reference = fixture.reference(evidence)
++            reference['path'] = evidence.name
++            rows = [dict(json.loads(line), evidence=[reference]) for line in path.read_text().splitlines()]
++            member['checks'] = self.checks(path, rows)
++        self.assertEqual(self.errors(value), [])
++
++    def test_required_handoff_not_applicable_rejected(self):
++        value = self.assessment()
++        path = Path(value['integration_checks']['path'])
++        row = json.loads(path.read_text())
++        row.update(result='NOT_APPLICABLE', applicability='not_applicable')
++        value['integration_checks'] = self.checks(path, [row])
++        value.update(required_total=58, required_evaluated=58)
++        self.assertTrue(self.errors(value))
++
++    def test_passing_row_does_not_hide_contradictory_required_na(self):
++        value = self.assessment()
++        path = Path(value['integration_checks']['path'])
++        row = json.loads(path.read_text())
++        bad = dict(row, check_id='contradiction', result='NOT_APPLICABLE', applicability='not_applicable')
++        value['integration_checks'] = self.checks(path, [row, bad])
++        self.assertTrue(self.errors(value))
++
++    def test_unperformed_handoff_keeps_incomplete(self):
++        value = self.assessment()
++        path = Path(value['integration_checks']['path'])
++        row = dict(json.loads(path.read_text()), result='NOT_RUN', applicability='unknown')
++        value['integration_checks'] = self.checks(path, [row])
++        value.update(outcome='INCOMPLETE', required_evaluated=58, unknown_applicability=1)
++        self.assertEqual(self.errors(value), [])
++
++    def test_protocol_candidate_multiline_offsets_and_redaction(self):
++        raw = '{\r\n "note":"中文 café", "password":"SYNTHETIC_SECRET",\r\n "schema_version":\r\n "ｔask-card-v1"\r\n}\r\n'
++        before = raw.encode()
++        observed = text.candidates('protocol.json', raw)
++        found = [r for r in observed if r['codepoint'] == 'U+FF54']
++        self.assertEqual(len(found), 1)
++        item = found[0]
++        prefix = raw[:raw.index('ｔ')]
++        self.assertEqual((item['start_byte'], item['end_byte'], item['line'], item['column']),
++                         (len(prefix.encode()), len(prefix.encode()) + 3, 4, 3))
++        self.assertEqual(item['disposition'], 'unresolved')
++        self.assertIn('\\uff54 -> t', item['reason'])
++        self.assertNotIn('SYNTHETIC_SECRET', json.dumps(observed))
++        self.assertEqual(raw.encode(), before)
++
++    def test_jsonl_protocol_values_are_located(self):
++        raw = '{"schema_version":"task-card-v1"}\n{"schema_version":"ｔask-card-v1"}\n'
++        found = text.candidates('protocol.jsonl', raw)
++        self.assertEqual(len(found), 1)
++        self.assertEqual((found[0]['line'], found[0]['column']), (2, 20))
++
++    def test_json_string_containing_key_example_is_not_protocol(self):
++        raw = json.dumps({'note': 'Example "schema_version":"ｔask-card-v1"'}, ensure_ascii=False)
++        self.assertEqual(text.candidates('notes.json', raw), [])
++
++    def test_plain_prose_and_ascii_protocol_preserved(self):
++        self.assertEqual(text.candidates('notes.md', '中文 العربية café Ａ typography.'), [])
++        self.assertEqual(text.candidates('protocol.json', '{"schema_version":"task-card-v1"}'), [])
++
++    def test_nonclosing_fence_tail_keeps_example_literal(self):
++        for marker in ('```', '~~~'):
++            with self.subTest(marker=marker):
++                links, unmatched = text.links(marker + 'text\n' + marker + 'not-close\n[example](absent.md)\n' + marker + '\n')
++                self.assertEqual(links, [])
++                self.assertFalse(unmatched)
++
++    def test_real_link_after_fence_has_original_line(self):
++        links, unmatched = text.links('```text\n```not-close\n[example](absent.md)\n```\n[real](missing.md)\n')
++        self.assertEqual(links, [(5, 'missing.md', 'link')])
++        self.assertFalse(unmatched)
++
++    def test_tilde_whitespace_closer_and_shorter_marker(self):
++        links, unmatched = text.links('~~~~text\n~~~\n[example](absent.md)\n~~~~ \t\n[real](missing.md)\n')
++        self.assertEqual(links, [(5, 'missing.md', 'link')])
++        self.assertFalse(unmatched)
++
++    def test_backtick_in_info_string_does_not_open_block(self):
++        links, unmatched = text.links('```bad`info\n[real](missing.md)\n')
++        self.assertEqual(links, [(2, 'missing.md', 'link')])
++        self.assertFalse(unmatched)
++
++    def test_headings_inside_false_closer_stay_literal(self):
++        self.assertEqual(text.anchors('```text\n```not-close\n# Example\n```\n# Actual\n'), {'actual'})

@@ -1,0 +1,17 @@
+{
+  "case_id": "REPLAY-P07",
+  "finding": "QA-04",
+  "expected_exit": 0,
+  "actual_exit": 1,
+  "matched": false,
+  "checks": {
+    "exit": false,
+    "completed": true,
+    "preserved": true,
+    "missing_lines": false
+  },
+  "evidence": {
+    "path": "commands/REPLAY-P07/receipt.json",
+    "sha256": "56837292ebae288c88436304fb5bd075d7b5253e496afbd5822dd2ae80f1c893"
+  }
+}

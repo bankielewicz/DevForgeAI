@@ -1,0 +1,17 @@
+{
+  "group": "compatibility",
+  "seed": {
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-04-70Tddmp8",
+    "run": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-04-70Tddmp8\\run",
+    "state": "failed",
+    "schema": 3,
+    "level": "off",
+    "control": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\attempts\\03-coverage\\fixtures\\WF-04-70Tddmp8\\control-stdout.txt",
+    "control_sha256": "6e47eb8672bf4b1fdcb320bdac9a31472fcb8c2cda17eb7a6260f521755e7d1e"
+  },
+  "mutation": "failure-stdout",
+  "expected_error": null,
+  "expected_state": "failed",
+  "views": "first-and-end",
+  "id": "M-122"
+}

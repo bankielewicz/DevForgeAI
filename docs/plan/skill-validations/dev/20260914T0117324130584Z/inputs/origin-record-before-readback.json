@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T0117324130584Z",
+  "target_name": "dev",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "c5345079da862476bcd3cbbc51487ab1dfd8e639bf94db633d4e95a5e5e2e42a"
+  },
+  "specification": {
+    "path": "inputs/04-revision-spec.md",
+    "sha256": "d4fdb404ebf3e869d4d2b6f99756cf70d54a460a369a74bd3f645f5cb9cfe1b9"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": {
+    "path": "inputs/01-authoring-record.json",
+    "sha256": "5bc55a98da496dc449b9467e80a29418c89253f999abc9e180cf1318561f7c6e"
+  },
+  "completeness": "complete",
+  "uncertainties": [
+    "Schema1 observed field does not encode authoring-v1 lineage; separately captured current authored custody is verified by BOUND intake."
+  ],
+  "source_readback_state": "NOT_RUN",
+  "historical_origin": "authored lineage retained in separate authoring-family supplement; not fabricated legacy generated/adopted history"
+}

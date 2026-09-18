@@ -1,0 +1,182 @@
+[
+  {
+    "path": "chat-001\\fixture-after\\blocked destination.md\\sentinel.txt",
+    "sha256": "240f7d2f6b739e4f012de8b6f3c8e63156ad26a54d2c53b0d5feafaf14be86b3",
+    "bytes": 31
+  },
+  {
+    "path": "chat-001\\fixture-after\\meeting-actions\\SKILL.md",
+    "sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+    "bytes": 2480
+  },
+  {
+    "path": "chat-001\\fixture-after\\notes original.md",
+    "sha256": "f4f3e3edbc0aaf4d9fe2c4402baf2b59eea20cbc316edb6c59e9a8c977462298",
+    "bytes": 48
+  },
+  {
+    "path": "chat-001\\runtime.json",
+    "sha256": "2ac6bf6ef8f114c9dbcb222d3915df4039937028db684e4927d5e1938a10fa20",
+    "bytes": 1472
+  },
+  {
+    "path": "chat-001\\stderr.txt",
+    "sha256": "619fa62b3e8ad9d085a9393843f87014a271f2ae8c2ec20a718fecec305d5b71",
+    "bytes": 332
+  },
+  {
+    "path": "chat-001\\stdout.jsonl",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "chat-002\\fixture-after\\blocked destination.md\\sentinel.txt",
+    "sha256": "240f7d2f6b739e4f012de8b6f3c8e63156ad26a54d2c53b0d5feafaf14be86b3",
+    "bytes": 31
+  },
+  {
+    "path": "chat-002\\fixture-after\\meeting-actions\\SKILL.md",
+    "sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+    "bytes": 2480
+  },
+  {
+    "path": "chat-002\\fixture-after\\notes original.md",
+    "sha256": "f4f3e3edbc0aaf4d9fe2c4402baf2b59eea20cbc316edb6c59e9a8c977462298",
+    "bytes": 48
+  },
+  {
+    "path": "chat-002\\last-message.txt",
+    "sha256": "93b29819784494a8a8f285bd3e2c74b1cb08b25e5b131ce1a88cca4f2920c819",
+    "bytes": 333
+  },
+  {
+    "path": "chat-002\\runtime.json",
+    "sha256": "470534ee568226d2de95c0f42666b85c8a3c9f3051fdce057cc35000ded07479",
+    "bytes": 1473
+  },
+  {
+    "path": "chat-002\\stderr.txt",
+    "sha256": "7ce2265bb2555addb83983d0e2104d5457f40178a088bb2da9cd54e3b657120e",
+    "bytes": 727
+  },
+  {
+    "path": "chat-002\\stdout.jsonl",
+    "sha256": "37e1b827b72307a6c7dadc334c65777a7cdd945a5bfba63b0d3505b6153456e5",
+    "bytes": 843
+  },
+  {
+    "path": "chat-inline-001\\fixture-after\\blocked destination.md\\sentinel.txt",
+    "sha256": "240f7d2f6b739e4f012de8b6f3c8e63156ad26a54d2c53b0d5feafaf14be86b3",
+    "bytes": 31
+  },
+  {
+    "path": "chat-inline-001\\fixture-after\\meeting-actions\\SKILL.md",
+    "sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+    "bytes": 2480
+  },
+  {
+    "path": "chat-inline-001\\fixture-after\\notes original.md",
+    "sha256": "f4f3e3edbc0aaf4d9fe2c4402baf2b59eea20cbc316edb6c59e9a8c977462298",
+    "bytes": 48
+  },
+  {
+    "path": "chat-inline-001\\last-message.txt",
+    "sha256": "1d9b3c05040dfa1a1e581b94d10f65ea921cddc3f43db6da915d53b4c595a680",
+    "bytes": 772
+  },
+  {
+    "path": "chat-inline-001\\runtime.json",
+    "sha256": "73800532a90919e6a898a2a5221bbacac67d2b8a073cb2e69a743363987329d7",
+    "bytes": 1480
+  },
+  {
+    "path": "chat-inline-001\\stderr.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "path": "chat-inline-001\\stdout.jsonl",
+    "sha256": "e63e59db428498e7856d94283d27a3cca9165052edf64579e632ac91ae0a5c24",
+    "bytes": 1337
+  },
+  {
+    "path": "chat-inline.prompt.txt",
+    "sha256": "9077dd0e4438d2e36e6bf747bf8a760499900ee1da660dc100f452b523749768",
+    "bytes": 3550
+  },
+  {
+    "path": "chat.prompt.txt",
+    "sha256": "5669ac74cd750bbbc28338b3222a65067a5f756c3949e5755acf62a878fcd2ff",
+    "bytes": 1192
+  },
+  {
+    "path": "expected.json",
+    "sha256": "c2cd4ae8981c7e054feaa7aae7ddbd3754d359bfce3a397e6b10ed71c73ea921",
+    "bytes": 1322
+  },
+  {
+    "path": "files-001\\fixture-after\\blocked destination.md\\sentinel.txt",
+    "sha256": "240f7d2f6b739e4f012de8b6f3c8e63156ad26a54d2c53b0d5feafaf14be86b3",
+    "bytes": 31
+  },
+  {
+    "path": "files-001\\fixture-after\\meeting-actions\\SKILL.md",
+    "sha256": "a6d8066083ce8deb82ed8690c13d70a4c0957b43a9dd096e10cc9be444e2f15e",
+    "bytes": 2480
+  },
+  {
+    "path": "files-001\\fixture-after\\notes original.md",
+    "sha256": "f4f3e3edbc0aaf4d9fe2c4402baf2b59eea20cbc316edb6c59e9a8c977462298",
+    "bytes": 48
+  },
+  {
+    "path": "files-001\\last-message.txt",
+    "sha256": "8ed8f2df6ba8364518f453d9bf1d95f014abbf5442ae61423ac3076fc8feb182",
+    "bytes": 450
+  },
+  {
+    "path": "files-001\\runtime.json",
+    "sha256": "1a50eec31a7d6c978cb4e8df47de0b496ea4aea7353a4f2625b252710e304e0b",
+    "bytes": 1475
+  },
+  {
+    "path": "files-001\\stderr.txt",
+    "sha256": "9f562214ab0e5020b4ecaaacae2d36e05dae2dad34f84647c197b57b0ec9da0e",
+    "bytes": 432
+  },
+  {
+    "path": "files-001\\stdout.jsonl",
+    "sha256": "21d5405160c065109ea8f67b79aa679652d6209f13fe1c864fbf85cd19506eb8",
+    "bytes": 1000
+  },
+  {
+    "path": "files.prompt.txt",
+    "sha256": "7feb5f75b50124a05eb957eb91344e07774b422399f6e4e9d6b323302a1f0b13",
+    "bytes": 833
+  },
+  {
+    "path": "fixture.json",
+    "sha256": "a966183e2928638b50c056a643ffb5bf991eab5d27cd1d7d3c068aa7901e1ad1",
+    "bytes": 513
+  },
+  {
+    "path": "grade.py",
+    "sha256": "9a59ca01ad3ed3ac9ed3f1b70d3046be857f3eeab047615b99ce96de03739788",
+    "bytes": 2602
+  },
+  {
+    "path": "grading.json",
+    "sha256": "62c6ba115cd682ed3bb88e35a4e323c990920ff7e08f290905c391cb08c6ff0e",
+    "bytes": 1268
+  },
+  {
+    "path": "REPORT.md",
+    "sha256": "71e4b97a042507a214b2c2246f8306fe3831403ddf8d35286af4ff61ee53c60a",
+    "bytes": 3637
+  },
+  {
+    "path": "run_native.py",
+    "sha256": "a1f5ee6917e4eb636a84d1e7be04b0deefbe17676f60146f96d7de45451b6dbf",
+    "bytes": 6623
+  }
+]

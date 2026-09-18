@@ -1,0 +1,22 @@
+{
+  "schema_version": 2,
+  "project_id": "DevForgeAI",
+  "checkout_id": "native-diagnostic",
+  "work_id": "no-work-profile-diagnostic",
+  "run_id": "20260916T202125Z-diagnostic",
+  "candidate_sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+  "checkout_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T202125Z-diagnostic\\fixture",
+  "run_dir": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260916T202125Z-diagnostic\\run",
+  "worker_executable": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+  "worker_sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+  "adapter": "codex-0.154.0-stdio",
+  "scenario": "complete",
+  "profile": {
+    "model": "gpt-6-astra",
+    "effort": "high",
+    "review_ref": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-diagnostics\\20260916T202125Z\\inputs-002-prelaunch\\review.unqualified.json",
+    "review_sha256": "d8693161d6beeca8c50b9faee371bbdb960d79ae720cadaef91570f547ce5125",
+    "launch_policy_id": "codex-0.154.0-readonly-no-external-tools-v2",
+    "launch_policy_sha256": "1dbc48c4a3627f7c5fc7a996935ec507426e4cd90adac058eb81100ac9b526b5"
+  }
+}

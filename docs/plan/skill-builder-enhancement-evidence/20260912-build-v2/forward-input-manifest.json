@@ -1,0 +1,56 @@
+{
+  "schema_version": "1",
+  "purpose": "Raw synthetic forward inputs before execution",
+  "files": [
+    {
+      "path": "claude-package/assets/result.schema.json",
+      "bytes": 338,
+      "sha256": "aff5218204de853ad0fab4379477812870c40b45e5680dd85d044a8a771b4f64"
+    },
+    {
+      "path": "claude-package/scripts/sum_amounts.py",
+      "bytes": 1604,
+      "sha256": "e65083f229e4eb7cabefa1be8373cc5fac0632818a4b7c8766ef989daf9f24fe"
+    },
+    {
+      "path": "claude-package/SKILL.md",
+      "bytes": 746,
+      "sha256": "f21261800c229a752901dc1e4bc95fef3227484042e5d59afcac8783cd3a42fd"
+    },
+    {
+      "path": "decimal-ledger-spec.md",
+      "bytes": 2625,
+      "sha256": "9f096f495eaa7c3523538f6be7a2546acb129c2967451baa1b261a6ce5947e14"
+    },
+    {
+      "path": "gap-capability.md",
+      "bytes": 964,
+      "sha256": "8ffad34e90f4b5c1eb53b5bc33905a80f84ace49e2941db31bbf60a9d24300c2"
+    },
+    {
+      "path": "gap-contradictory.md",
+      "bytes": 686,
+      "sha256": "6d8d29f49a7e52954fc074d033b2f8a1236534735d043a0a7cc76f219b3fba9d"
+    },
+    {
+      "path": "gap-missing.md",
+      "bytes": 599,
+      "sha256": "3094141d0735a9db747cccf3a17fbb4f47a1ea4fc48521916414a0c8503579cb"
+    },
+    {
+      "path": "invalid.csv",
+      "bytes": 27,
+      "sha256": "2f255f60a7d52198eec50b6e0af536ae98b6650320941abd0031ff999bff4d7a"
+    },
+    {
+      "path": "routing-requests.jsonl",
+      "bytes": 1020,
+      "sha256": "d9fa10e39b726f5a38081b68bf13e985c9977caee700980e7dab4d528da43d91"
+    },
+    {
+      "path": "sample.csv",
+      "bytes": 66,
+      "sha256": "ed9dc6fc5f6d5c7410d8c14d85763625eaa60678f21199099a69092e01128d66"
+    }
+  ]
+}

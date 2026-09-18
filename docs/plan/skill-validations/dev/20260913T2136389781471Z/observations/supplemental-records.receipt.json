@@ -1,0 +1,25 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260913T2136389781471Z\\supplemental"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:52:13.602196+00:00",
+  "end": "2026-09-13T21:52:13.966002+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120,
+  "stdout": {
+    "path": "observations/supplemental-records.stdout",
+    "sha256": "d55008ded9f46a1075abb87a4d388fd2b0b5efa1ecbe8b5001c588a6c4ddd4e5"
+  },
+  "stderr": {
+    "path": "observations/supplemental-records.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

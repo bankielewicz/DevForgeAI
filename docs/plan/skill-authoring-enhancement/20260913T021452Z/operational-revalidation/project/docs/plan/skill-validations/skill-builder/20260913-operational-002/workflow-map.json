@@ -1,0 +1,164 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913-operational-002",
+  "target_name": "skill-builder",
+  "steps": [
+    {
+      "step_id": "resolve",
+      "entrypoint": "SKILL.md:11-24",
+      "entry_conditions": "Current authorized scope and producer artifacts exist",
+      "inputs": [
+        "current task and selected specification",
+        "selected package/prior custody as applicable"
+      ],
+      "executor": "Host agent and bundled Python custody helpers",
+      "action": "Resolve authorized operation, identity, inputs and destination; route conversation/spec/import/edit/adopt.",
+      "outputs": [
+        "selected scope and destination"
+      ],
+      "completion_evidence": [
+        "selected scope and destination"
+      ],
+      "next_targets": [
+        "capture"
+      ],
+      "branch_targets": [],
+      "failure_route": "Material ambiguity or known-history conflict remains concrete input issue.",
+      "terminal_user_outcome": "Authored package/manual request, explicit unresolved decision, or retained incomplete effect report"
+    },
+    {
+      "step_id": "capture",
+      "entrypoint": "references/authoring.md; scripts/authoring.py:241-302",
+      "entry_conditions": "Current authorized scope and producer artifacts exist",
+      "inputs": [
+        "current task and selected specification",
+        "selected package/prior custody as applicable"
+      ],
+      "executor": "Host agent and bundled Python custody helpers",
+      "action": "Validate contract field kinds, references and custody; capture before/candidate and known or observed origin.",
+      "outputs": [
+        "contract.json",
+        "origin.json",
+        "before-manifest.json",
+        "before/",
+        "candidate/"
+      ],
+      "completion_evidence": [
+        "contract.json",
+        "origin.json",
+        "before-manifest.json",
+        "before/",
+        "candidate/"
+      ],
+      "next_targets": [
+        "author"
+      ],
+      "branch_targets": [],
+      "failure_route": "Malformed contract rejects before target mutation; capture failures retain partial evidence.",
+      "terminal_user_outcome": "Authored package/manual request, explicit unresolved decision, or retained incomplete effect report"
+    },
+    {
+      "step_id": "author",
+      "entrypoint": "SKILL.md:26-32; references/conversion-rules.md:17-18",
+      "entry_conditions": "Current authorized scope and producer artifacts exist",
+      "inputs": [
+        "current task and selected specification",
+        "selected package/prior custody as applicable"
+      ],
+      "executor": "Host agent and bundled Python custody helpers",
+      "action": "Apply authorized candidate edits, preserve supported metadata/resources/contracts, adapt source host mechanisms.",
+      "outputs": [
+        "candidate files",
+        "import dispositions where applicable"
+      ],
+      "completion_evidence": [
+        "candidate files",
+        "import dispositions where applicable"
+      ],
+      "next_targets": [
+        "publish"
+      ],
+      "branch_targets": [],
+      "failure_route": "Missing essential capability blocks dependent work; do not run authored skill or quality checker.",
+      "terminal_user_outcome": "Authored package/manual request, explicit unresolved decision, or retained incomplete effect report"
+    },
+    {
+      "step_id": "publish",
+      "entrypoint": "scripts/authoring.py:304-454",
+      "entry_conditions": "Current authorized scope and producer artifacts exist",
+      "inputs": [
+        "current task and selected specification",
+        "selected package/prior custody as applicable"
+      ],
+      "executor": "Host agent and bundled Python custody helpers",
+      "action": "Compare B/C/N, reject drift/conflicts, write per-path and read back, retain authoring record or partial failure.",
+      "outputs": [
+        "delivered manifest",
+        "authoring record or publication-failure with actual applied delta"
+      ],
+      "completion_evidence": [
+        "delivered manifest",
+        "authoring record or publication-failure with actual applied delta"
+      ],
+      "next_targets": [
+        "handoff"
+      ],
+      "branch_targets": [],
+      "failure_route": "Ordinary and record-save failures return retained PARTIAL/BLOCKED as appropriate; no successful baseline from failure.",
+      "terminal_user_outcome": "Authored package/manual request, explicit unresolved decision, or retained incomplete effect report"
+    },
+    {
+      "step_id": "handoff",
+      "entrypoint": "references/validation-handoff.md; scripts/authoring.py:424-442",
+      "entry_conditions": "Current authorized scope and producer artifacts exist",
+      "inputs": [
+        "current task and selected specification",
+        "selected package/prior custody as applicable"
+      ],
+      "executor": "Host agent and bundled Python custody helpers",
+      "action": "Publish exact authoring baseline and manual validator request, confirm publication readback.",
+      "outputs": [
+        "authoring-baseline.json",
+        "validation-request.json",
+        "validator-request.md",
+        "publication-readback.json"
+      ],
+      "completion_evidence": [
+        "authoring-baseline.json",
+        "validation-request.json",
+        "validator-request.md",
+        "publication-readback.json"
+      ],
+      "next_targets": [
+        "stop"
+      ],
+      "branch_targets": [],
+      "failure_route": "Publication error retains failed attempt; no automatic validator or retry.",
+      "terminal_user_outcome": "Authored package/manual request, explicit unresolved decision, or retained incomplete effect report"
+    },
+    {
+      "step_id": "revise",
+      "entrypoint": "references/regeneration.md; references/adoption.md",
+      "entry_conditions": "Current authorized scope and producer artifacts exist",
+      "inputs": [
+        "current task and selected specification",
+        "selected package/prior custody as applicable"
+      ],
+      "executor": "Host agent and bundled Python custody helpers",
+      "action": "Use verified current authored/adopted/legacy baseline for later authorized edit without requiring quality completion.",
+      "outputs": [
+        "fresh linked authoring run"
+      ],
+      "completion_evidence": [
+        "fresh linked authoring run"
+      ],
+      "next_targets": [
+        "capture"
+      ],
+      "branch_targets": [],
+      "failure_route": "Do not bypass conflicting/missing known history or silently adopt.",
+      "terminal_user_outcome": "Authored package/manual request, explicit unresolved decision, or retained incomplete effect report"
+    }
+  ],
+  "note": "Unchanged routed behavior was rechecked by exact source comparison; edited custody/import paths were inspected and exercised."
+}

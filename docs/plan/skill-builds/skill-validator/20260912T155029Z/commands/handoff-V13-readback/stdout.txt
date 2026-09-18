@@ -1,0 +1,50 @@
+{
+  "schema_version": "1",
+  "command": "readback",
+  "status": "MATCH",
+  "coverage": [
+    "permitted file set",
+    "raw-byte sizes and hashes",
+    "excluded boundaries"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement."
+  ],
+  "added": [],
+  "removed": [],
+  "changed": [],
+  "excluded_boundaries_changed": false,
+  "manifest": {
+    "schema_version": "1",
+    "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\handoff-trials\\attempt-001\\project\\src\\agents\\skills\\decimal-ledger-spec",
+    "captured_at_utc": "2026-09-12T16:09:38.600563+00:00",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 2914,
+        "sha256": "3669cd18d8a6548d57ae37e3a12048088804634257112182a60a2635b75fe428"
+      },
+      {
+        "path": "assets/result.schema.json",
+        "bytes": 310,
+        "sha256": "89c54ab80ca0a983bcb0cb18fffc99dd4f21c439fb1a4a3860d5e3079f593f1e"
+      },
+      {
+        "path": "references/workers/result-review.md",
+        "bytes": 1888,
+        "sha256": "d66bf11c856838c8886fa6ffbbc421c45fcdf08ead1733925ed683d8eaa1aa2c"
+      },
+      {
+        "path": "scripts/sum_amounts.py",
+        "bytes": 2981,
+        "sha256": "b77a481591cb8a27fb7be445d16b5cbaaab08eaae0438aa9508567222607ba73"
+      }
+    ],
+    "excluded_boundaries": [],
+    "complete": true,
+    "package_digest": "a69f677c15329e0e5d22c4271013d3f9b76ed5d6ac6599bf3c04311b1f16db76"
+  },
+  "complete": true
+}

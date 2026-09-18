@@ -1,0 +1,13 @@
+{
+  "pid": 65804,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "clippy",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ]
+}

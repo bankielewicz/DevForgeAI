@@ -1,0 +1,16 @@
+test_failed_attempt_with_stray_extracted_response_is_rejected (test_integrity.PriorAttemptIntegrityTests) ... FAIL
+
+======================================================================
+FAIL: test_failed_attempt_with_stray_extracted_response_is_rejected (test_integrity.PriorAttemptIntegrityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916-integrity-tests\maintenance\mutations\stray-response\tests\test_integrity.py", line 120, in test_failed_attempt_with_stray_extracted_response_is_rejected
+    self.assert_rejected("Unexpected prior extracted response")
+  File "C:\Projects\DevForgeAI\docs\plan\skill-authorings\advisor\20260916-integrity-tests\maintenance\mutations\stray-response\tests\test_integrity.py", line 73, in assert_rejected
+    with self.assertRaisesRegex(ValueError, message):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+FAILED (failures=1)

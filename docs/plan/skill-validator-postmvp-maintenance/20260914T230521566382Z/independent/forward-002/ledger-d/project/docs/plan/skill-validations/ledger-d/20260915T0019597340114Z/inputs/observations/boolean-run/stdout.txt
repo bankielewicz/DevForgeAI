@@ -1,0 +1,44 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "boolean",
+  "kind": "utility",
+  "started_at": "2026-09-15T00:22:13.381155+00:00",
+  "ended_at": "2026-09-15T00:22:13.578240+00:00",
+  "elapsed_seconds": 0.20300000000133878,
+  "timeout_seconds": 120,
+  "timeout": false,
+  "exit_code": 2,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "NOT_RUN",
+  "error": null,
+  "plan_sha256": "226730d0ef28eb0b692ce305d3daa97b7bb3f3579ea40d90fbc8bc69cbe2fd71",
+  "started_sha256": "20244ba84312f2da1fad6b3da9552da9558ee344cdbe485a25e0d13c6583e761",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\boolean\\attempt-001\\before.json",
+      "sha256": "1d7d9df9e4e6c0ac9047d266d66c810d7a03e072027cdefd8cf05b69cbb76fef"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\boolean\\attempt-001\\after.json",
+      "sha256": "354f731621679ade7afe402275c0f0b836eb9a2857a1f541be889d2dedee1787"
+    }
+  ],
+  "changed_paths": [],
+  "output_checks": [],
+  "artifacts": [],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\boolean\\attempt-001\\stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-d\\project\\docs\\plan\\skill-validations\\ledger-d\\20260915T0019597340114Z\\trials\\boolean\\attempt-001\\stderr.txt",
+      "sha256": "0bfb3d9e8d393240a2ed8346b1ca2751aaadca54e3e4043f6f4e78256cf094e2"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

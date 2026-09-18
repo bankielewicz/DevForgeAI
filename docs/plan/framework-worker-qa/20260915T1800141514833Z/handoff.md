@@ -1,0 +1,8 @@
+# Manual development selection
+
+```text
+Use $dev in C:\Projects\DevForgeAI on native Windows to remediate only F-01 and F-02 in devforgeai/experiments/codex-worker-probe, then reestablish M-01 through meaningful regression checks.
+Read AGENTS.md, C:\Projects\DevForgeAI\docs\specs\framework\runtime\codex-worker-feasibility-v1.md, C:\Projects\DevForgeAI\docs\plan\framework-worker-qa\20260915T1800141514833Z\qa-report.md, and C:\Projects\DevForgeAI\docs\plan\framework-worker-qa\20260915T1800141514833Z\qa-fix.md. Verify their bytes using the report, fix and specification entries in C:\Projects\DevForgeAI\docs\plan\framework-worker-qa\20260915T1800141514833Z\handoff-manifest.json before editing. Failed candidate: C:\Projects\DevForgeAI\docs\plan\framework-worker-qa\20260915T1800141514833Z\selected-manifest.json, SHA-256 177b5894a236a02c7d322df7f04d647632094a4a3f3998e7f2a150db246e1604. Verify current source against it; report drift without restoring old bytes.
+Follow red -> green -> refactor -> QA. Preserve production behavior, original tests, unrelated files and every prior attempt; add meaningful regression coverage for blocked pipe writes and untyped error-payload retention. Preserve the selected 20-case inventory, all required subfixtures and >=95% coverage/pass-rate floors. Do not alter the index workspace, operational copies, launcher-identity contract or live Pro profile; do not launch Codex, install, deploy or issue framework acceptance.
+Return corrected source/build identities, changed-file manifest, per-defect correction/evidence map and fresh raw regression/coverage results. Do not self-close these QA findings; a separately selected independent retest must verify closure.
+```

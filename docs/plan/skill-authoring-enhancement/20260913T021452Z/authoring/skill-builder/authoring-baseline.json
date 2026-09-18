@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "20260913T021452Z-skill-builder",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder",
+  "target_name": "skill-builder",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-builder\\authoring-record.json",
+    "sha256": "3d99eae85c37e0f9ca75d435290432f09be336a267994579ace2175cfec27a34"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-builder\\baseline-manifest.json",
+    "sha256": "24008bcc7f0838914b7c2c1b31cc4673d06862fbbba7fa037f3b67556cf64724"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\authoring\\skill-builder\\baseline"
+}

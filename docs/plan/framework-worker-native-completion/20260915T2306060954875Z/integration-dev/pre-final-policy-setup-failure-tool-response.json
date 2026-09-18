@@ -1,0 +1,16 @@
+{
+  "record_type": "conversational_tool_response_retention",
+  "command_text": "rustfmt --edition 2024 tests/support/profile_peer.rs tests/profile_protocol.rs; python -B -X utf8 docs/plan/framework-worker-native-completion/20260915T2306060954875Z/record.py capture integration-dev/10-final-policy-green test --locked --offline --test profile_protocol -- --nocapture",
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "requested_yield_time_ms": 20000,
+  "requested_max_output_tokens": 12000,
+  "tool_status_display": "Script completed",
+  "tool_wall_time_display": "0.4 seconds",
+  "output_text_as_returned": "C:\\Program Files\\Python310\\python.exe: can't open file 'C:\\\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\record.py': [Errno 2] No such file or directory",
+  "native_exit_code": "NOT_RETAINED",
+  "native_command_duration": "NOT_RETAINED",
+  "stdout_stderr_separation": "NOT_RETAINED",
+  "raw_output_bytes": "NOT_RETAINED",
+  "raw_line_endings": "NOT_RETAINED",
+  "scope": "The Python recorder did not start Cargo because its workspace-relative path was resolved from the package directory. The preceding rustfmt command produced no text in the returned response, but its native exit code and duration were not retained separately."
+}

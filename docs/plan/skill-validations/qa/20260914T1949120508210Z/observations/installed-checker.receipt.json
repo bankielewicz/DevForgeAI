@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\source"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started": "2026-09-14T19:51:58.003169+00:00",
+  "ended": "2026-09-14T19:51:58.088022+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120
+}

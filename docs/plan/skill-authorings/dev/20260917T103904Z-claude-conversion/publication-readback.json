@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260917T103904Z-claude-conversion\\authoring-record.json",
+    "sha256": "16d9cafd61885135c1c59bf4e296afe96135ee811109696c886f989175ab0f9b"
+  },
+  "baseline": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260917T103904Z-claude-conversion\\authoring-baseline.json",
+    "sha256": "34ea393851adf8ce6a8b5ad8f57077ff43f7e0f39cb64cf024efb0ded8b70399"
+  },
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260917T103904Z-claude-conversion\\validation-request.json",
+    "sha256": "0a7eea598b2444595b0b6774b9ecd5d260d61a354d1364f22af4654d601d421c"
+  },
+  "package_digest": "45dd959122125222d68e6f156d72fa20bd52ec50d5fa095857603b0166cbe2f9"
+}

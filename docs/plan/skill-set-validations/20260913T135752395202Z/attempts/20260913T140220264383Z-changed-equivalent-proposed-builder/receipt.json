@@ -1,0 +1,21 @@
+{
+  "schema_version": "1",
+  "label": "changed-equivalent-proposed-builder",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\adaptive.py",
+    "inspect",
+    "--record",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials\\update-review\\records\\changed\\record.json"
+  ],
+  "expected": "Exit 0 from governing contract.",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140220264383Z-changed-equivalent-proposed-builder",
+  "started_at_utc": "20260913T140220264383Z",
+  "exit_code": 1,
+  "timed_out": false,
+  "ended_at_utc": "2026-09-13T14:02:20.493343+00:00"
+}

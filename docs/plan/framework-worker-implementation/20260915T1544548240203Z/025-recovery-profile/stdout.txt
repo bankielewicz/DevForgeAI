@@ -1,0 +1,24 @@
+
+running 4 tests
+test wf_17 ... ok
+test wf_19 ... ok
+test wf_20 ... ok
+test wf_18 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.79s
+
+
+running 1 test
+test reviewed_native_profile_sources_and_findings_are_checked_without_launch ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 4 tests
+test wf_09 ... ok
+test wf_12 ... ok
+test wf_10 ... ok
+test wf_11 ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+

@@ -1,0 +1,1 @@
+This is a synthetic skill-authoring project. Author development skills only. Do not use skill-validator, install dependencies, or execute project code. All writes must stay in this disposable project.

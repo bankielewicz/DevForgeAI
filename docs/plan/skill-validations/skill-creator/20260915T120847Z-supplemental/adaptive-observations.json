@@ -1,0 +1,246 @@
+{
+  "schema_version": "adaptive-observations-v1",
+  "run_id": "20260915T120847Z",
+  "target_digest": "48298d08909b8be87327c023dbd9f29b3c0f0f57419505c1ee6cab5accb4fbf4",
+  "unicode_candidates": [],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "agents/openai.yaml",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "assets/skill-creator-small.svg",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "assets/skill-creator.png",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "license.txt",
+      "role": "license",
+      "reachable": false,
+      "usage": "intentional_nonruntime",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "references/openai_yaml.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    },
+    {
+      "path": "scripts/quick_validate.py",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-creator\\20260915T120847Z\\semantic-review.md",
+          "sha256": "fe7e81bd6fb87422e1dd24383d3eb3c47c1578cd09c3dea7a5140462a546f6a4"
+        }
+      ],
+      "reason": "Reviewed concrete consumer in semantic-review.md; license intentionally nonruntime."
+    }
+  ],
+  "edges": [
+    {
+      "source": "SKILL.md",
+      "line": 92,
+      "target": "references/openai_yaml.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "agents/openai.yaml",
+      "line": 1,
+      "target": "./assets/skill-creator-small.svg",
+      "kind": "image",
+      "resolution": "resolved"
+    },
+    {
+      "source": "agents/openai.yaml",
+      "line": 1,
+      "target": "./assets/skill-creator.png",
+      "kind": "image",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 175,
+      "target": "scripts/init_skill.py",
+      "kind": "script_call",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 106,
+      "target": "scripts/generate_openai_yaml.py",
+      "kind": "script_call",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 208,
+      "target": "scripts/quick_validate.py",
+      "kind": "script_call",
+      "resolution": "resolved"
+    },
+    {
+      "source": "scripts/init_skill.py",
+      "line": 19,
+      "target": "generate_openai_yaml.py",
+      "kind": "script_call",
+      "resolution": "resolved"
+    }
+  ],
+  "context": {
+    "tokenizer": null,
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 15540,
+        "characters": 15540,
+        "lines": 229,
+        "tokens": null
+      },
+      {
+        "path": "agents/openai.yaml",
+        "bytes": 188,
+        "characters": 188,
+        "lines": 5,
+        "tokens": null
+      },
+      {
+        "path": "assets/skill-creator-small.svg",
+        "bytes": 1322,
+        "characters": 1322,
+        "lines": 3,
+        "tokens": null
+      },
+      {
+        "path": "license.txt",
+        "bytes": 11560,
+        "characters": 11560,
+        "lines": 202,
+        "tokens": null
+      },
+      {
+        "path": "references/openai_yaml.md",
+        "bytes": 2405,
+        "characters": 2403,
+        "lines": 49,
+        "tokens": null
+      },
+      {
+        "path": "scripts/generate_openai_yaml.py",
+        "bytes": 6900,
+        "characters": 6900,
+        "lines": 231,
+        "tokens": null
+      },
+      {
+        "path": "scripts/init_skill.py",
+        "bytes": 10622,
+        "characters": 10622,
+        "lines": 308,
+        "tokens": null
+      },
+      {
+        "path": "scripts/quick_validate.py",
+        "bytes": 4376,
+        "characters": 4376,
+        "lines": 127,
+        "tokens": null
+      }
+    ],
+    "loads": [],
+    "budget": null,
+    "budget_result": "NOT_APPLICABLE",
+    "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+  },
+  "bindings": [],
+  "limitations": [
+    "No OS-enforced task isolation, token consumption measurement, native implicit invocation or security certification.",
+    "Whole package captured; actual role and link adjudication primary-authored, distinct from raw helper output."
+  ]
+}

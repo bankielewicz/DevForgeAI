@@ -1,0 +1,11 @@
+{
+  "time_utc": "2026-09-13T16:39:48.042587Z",
+  "draft_preserved": "report-drafts/001",
+  "changes": [
+    "VAT-03 and VAT-25 conservatively incomplete",
+    "member report links and bound matrix hashes refreshed",
+    "legitimate target fixture Unicode adjudicated",
+    "top-level finding reference bases made absolute"
+  ],
+  "effect_scope": "assessment artifacts only"
+}

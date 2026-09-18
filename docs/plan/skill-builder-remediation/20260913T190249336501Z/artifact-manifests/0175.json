@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-proposal-unknown-fact",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1380,
+      "sha256": "ab7801009c952585109273b37c87e13cadf61598b1d988f8cbb91e6b73fffd3e"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "81c22fadfdf04a83610785de6f54a14428eaceed9c648206d0bd9f1ae43adf99"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 140,
+      "sha256": "b6094b8a13521de12a0bf15468373fefe3fff24d1607690270a18aeb9a6cd7ad"
+    }
+  ]
+}

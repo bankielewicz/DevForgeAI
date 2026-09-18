@@ -1,0 +1,5 @@
+   0.1s  session 12345678-1234-1234-1234-123456789abc
+   0.1s  assistant activity
+   0.1s  tool Read
+   0.1s  final result received
+Advisor: execution=SUCCEEDED response=VALID verdict=PROCEED

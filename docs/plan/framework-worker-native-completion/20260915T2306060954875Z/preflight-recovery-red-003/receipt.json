@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "preflight_recovery"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T23:20:44.434555+00:00",
+  "candidate_manifest_sha256": "91bc14cf537560e9276c3bf79640c7856b702152d19ec96c631e7498a3e78bef",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\preflight-recovery-red-003\\fixtures",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\preflight-recovery-red-003\\fixtures"
+  },
+  "timeout_seconds": 360,
+  "owned_pid": 55340,
+  "exit_code": 101,
+  "elapsed_seconds": 2.938000000009197,
+  "end": "2026-09-15T23:20:47.365822+00:00",
+  "stdout_sha256": "e4525d79053507b4c2a17ad6854f313ba6d4734c676b262d23a58f57e9ef88f2",
+  "stderr_sha256": "f0dda97003d4a0a393410bd965283b35ae5914cd12feb66ee32e433b7a9c8c1b",
+  "candidate_unchanged_during_command": true
+}

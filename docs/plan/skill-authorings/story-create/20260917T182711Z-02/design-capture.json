@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "20260917T182711Z-02",
+  "target_name": "story-create",
+  "source_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-intake\\authoring-design.json",
+    "sha256": "3c10c553ac9e7238f02d709805dbaac220bf42fa5857490afacb91556d79c3d6"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\story-create\\20260917T182711Z-02\\inputs\\101",
+    "sha256": "3c10c553ac9e7238f02d709805dbaac220bf42fa5857490afacb91556d79c3d6"
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "root": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "scope": "all application files excluding target build outputs",
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\Cargo.lock",
+      "bytes": 30409,
+      "sha256": "f8557a6d5fa164f171177f217ddf527d49de01791829f58b2effafe5eebe206e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\Cargo.toml",
+      "bytes": 1445,
+      "sha256": "f6301a2d01e04ac66192c38269679b38e80aee0a20d901d86a4fdd4a42bc1e53"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\examples\\benchmark.rs",
+      "bytes": 6002,
+      "sha256": "6853369a0ee4f2c350b46ec87f79246fa3c4738264512fb82fdd9e8c6ab2b637"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\examples\\wsl_fixture.rs",
+      "bytes": 564,
+      "sha256": "1da43ecc415a6621ef4ba1b1a4acfd378fa5721c64f3c876cb37cad857a8712f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\fixtures\\generator.rs",
+      "bytes": 3030,
+      "sha256": "a4a8e98ebd08860631582d8a87da5d6c1574c6f641d8692a14ce79f2f94bc0fe"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\grammar-manifest.json",
+      "bytes": 2004,
+      "sha256": "60032424c77eb036ca4a1cd964d6b4b98174a1d8529446b99888bf1b517a9b70"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\licenses\\tree-sitter-0.26.11-LICENSE",
+      "bytes": 1080,
+      "sha256": "c5cfb43042b6b72045f4ba997834d0a7786d2793d91680868b5815b39f14fc78"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\licenses\\tree-sitter-javascript-0.25.0-LICENSE",
+      "bytes": 1080,
+      "sha256": "2e0110e07abef7c2548b26ec9d6969775617ca539a0dc8dbeeb14d6452c711d1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\licenses\\tree-sitter-python-0.25.0-LICENSE",
+      "bytes": 1080,
+      "sha256": "d724405ce238a22c0d35769c5a36b386ad5958192efe8bbb304fb2896254575f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\licenses\\tree-sitter-rust-0.24.2-LICENSE",
+      "bytes": 1080,
+      "sha256": "31d5b6f4243d5c7c6e1c4ebbbb9f6407bd1457a08bcc4f706521710341acba36"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\licenses\\tree-sitter-typescript-0.23.2-LICENSE",
+      "bytes": 1080,
+      "sha256": "49bf33cf78ef5897e4e161ce1517df7de1ae5042a65b6bcfd44401e0fc606559"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\packaging\\devforgeai-index.service",
+      "bytes": 188,
+      "sha256": "7b32beca88f944c23bea3b983223c833a01a9be813999ef41c18cf914dfabde8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\queries\\javascript.scm",
+      "bytes": 334,
+      "sha256": "f2d7c391b09bf0516e490c4614c0a007f323d147744790a09589f63ccb95eb45"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\queries\\python.scm",
+      "bytes": 205,
+      "sha256": "d31d96db77ccfec40a4fcc59edd4b80a0880f45e766368de72983abf43d9ea08"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\queries\\rust.scm",
+      "bytes": 367,
+      "sha256": "7615ec3825b48e7e3040261ca3f4f46d04fd4196b5a83d4d315a079953f49e3e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\queries\\typescript.scm",
+      "bytes": 544,
+      "sha256": "fa209f12818d219207e37ea3029864daaefde5019156be1657ced40744ee5c0d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\README.md",
+      "bytes": 7189,
+      "sha256": "190020fc977996f8e272cfb195777d1360a38a385dbdaf076658606ce65b70a5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\schemas\\examples.json",
+      "bytes": 1028,
+      "sha256": "fef98e94f18ffd451f977455a7b313aa3ca417ca4f94f83e28e8234d12005f90"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\schemas\\request-v1.json",
+      "bytes": 2731,
+      "sha256": "00300007cc225819a1b6242518f2e479d4453fccb4c68267ddbf04323efb7076"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\schemas\\response-v1.json",
+      "bytes": 880,
+      "sha256": "e43e2c03e4543cfffc79cc0d7e4c14196e967a9b8fd89a4d02ccce399b719d71"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\bin\\devforgeai-indexd.rs",
+      "bytes": 333,
+      "sha256": "fb3b6cc20f07c1383b323d416a00483e53fd229b572fc6869b91f5ef5d4cb51d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\bin\\devforgeai-tray.rs",
+      "bytes": 211,
+      "sha256": "ec1e3fda752c799a1b0a45be7d49e37f2e4d1753b3f1efe5122e1214d9311915"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\bin\\devforgeai.rs",
+      "bytes": 162,
+      "sha256": "bd473f36cb65211aa15c850fb5f5d0f53cf50f671e13a3abde20fae5fde6dfc1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\cli.rs",
+      "bytes": 27664,
+      "sha256": "2c871abe7bb5da62d0471f5a9a82b61ab2619cd33ca2743f00db9facafc50b60"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\client.rs",
+      "bytes": 3653,
+      "sha256": "b19aa67ae3837889e5a7ec4850a8798b815afd5bd11e2b387c25fbf2e4e206a8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\host.rs",
+      "bytes": 6896,
+      "sha256": "c826928c67d1cae3c424ba835c449c18040fef08a3f17c5e8dcf230852ffaafa"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\index.rs",
+      "bytes": 21485,
+      "sha256": "21cd09bde4f0e2d1c5d89b21ba587007643eb455a830200434675f2770476082"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\lib.rs",
+      "bytes": 234,
+      "sha256": "c79ad6d080e15572ac676cc2d4e947fc498ea8a14a80f3252f91bf033d21c0a1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\platform.rs",
+      "bytes": 13066,
+      "sha256": "030b6ee90a9ce03604916f2dc177750ba9c49188b8cf2304aa82dbb7403bf265"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\protocol.rs",
+      "bytes": 10533,
+      "sha256": "147ad1a141892dad1235b94dc78ce2fa52ae5fa05d0b2390967145a272350098"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\service.rs",
+      "bytes": 37184,
+      "sha256": "3ecbeb8b5d62c182386fa204975c223e8471e73beef9005722ae062c2e2ed5f3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\source_file.rs",
+      "bytes": 5393,
+      "sha256": "a47e2b2cfdc885bb04aab279fb7738148c24d35b9236d9847a0d3dfd85845679"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\storage.rs",
+      "bytes": 11827,
+      "sha256": "8e6cf1c01e97c3d5a5320107cfe37d5464d008d3563bb2857387d8fd1dbdf2a6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\tray.rs",
+      "bytes": 6314,
+      "sha256": "b46d4f689898868b66ef8b798de16494722baa9032a3022a2fe220a0459a325d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\tray_windows.rs",
+      "bytes": 25649,
+      "sha256": "c706a64f05ea1e50121f0bad2ad5c5178c39586ae4919ae0cbfe91b3e9355c15"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\benchmark_fixture.rs",
+      "bytes": 733,
+      "sha256": "6b3a25ff916112a348d7455ee5e2a4c2b40f439a118cbfaec1cee3604936d2a5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\capture.rs",
+      "bytes": 8158,
+      "sha256": "70b608b488f89b29f43267c88872b426a09b6bb8f23d9ac4bda7b4683e46da14"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\cli.rs",
+      "bytes": 2646,
+      "sha256": "5f7f24d4816b21fafea9808ecae22a3f1ac1c2090dcbd048649f184a477f319a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\coverage_edges.rs",
+      "bytes": 5545,
+      "sha256": "a4f86ebce56308463c2f111f0a2c310cbb2d1312ac44e38828bacfa5c59a0a11"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\gui.rs",
+      "bytes": 10442,
+      "sha256": "c1045d00d8b13423a92b981c348a9661c62350949d3f9467d25cd81a8cbf22dd"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\harness.rs",
+      "bytes": 91,
+      "sha256": "da6a4963df81ae642c553da021f6b256e63fb6f9ae0a463361012d8cd76f3375"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\ipc.rs",
+      "bytes": 1960,
+      "sha256": "4d73926186be4d3f05082bb4c5c2e38eb3ffd053b0709223b9b2c3ff59350552"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\platform.rs",
+      "bytes": 3307,
+      "sha256": "0fff32a19a3a0b3ef069affea45da272baac2e7eb8622aab9b459cd8a9e2163e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\process.rs",
+      "bytes": 16396,
+      "sha256": "11a038066a021802fd996eac6e04855ee5fae7a2855883ad271bd531fafdde94"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\protocol.rs",
+      "bytes": 5685,
+      "sha256": "df4bed91504282f83f8fb64801e24e40d292459872ac4b13291ffef98f3eced3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\qa_independent.rs",
+      "bytes": 10371,
+      "sha256": "9efb7aafe6d2de29ad68d0e17bec60cde69ff56d58640c8b42d0f2474c8db209"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\service.rs",
+      "bytes": 17344,
+      "sha256": "1c231d7eaed655aeca2490b814a717c1c248215220ef748936f4d5f75e49163e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\storage.rs",
+      "bytes": 6059,
+      "sha256": "cdb517342c054ac9a705c3aabe0a488302fbd8610f54842847fb164e9adbcdd2"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\tray.rs",
+      "bytes": 5347,
+      "sha256": "7ea5431c759a2ff1baccfab545096af3acf13e4ba1e07c4b6cd42f042e348a0f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\devforgeai\\tests\\wsl_bridge.rs",
+      "bytes": 2881,
+      "sha256": "b292d6242dea0292c6b91d40922492efb3f6c9b462de93106b477aeb99e81466"
+    }
+  ]
+}

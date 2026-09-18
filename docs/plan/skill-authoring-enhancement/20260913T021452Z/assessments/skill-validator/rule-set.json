@@ -1,0 +1,307 @@
+{
+  "schema_version": "1",
+  "run_id": "skill-validator-delivered",
+  "target_name": "skill-validator",
+  "rules": [
+    {
+      "rule_id": "AC-01",
+      "revision": "1",
+      "title": "Conversational request captured before generation; no prerequisite approved specification",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Conversational request captured before generation; no prerequisite approved specification",
+      "required": false,
+      "dimension": "workflow",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-02",
+      "revision": "1",
+      "title": "Consequential ambiguity elicits focused questions; discoverable facts reused",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Consequential ambiguity elicits focused questions; discoverable facts reused",
+      "required": false,
+      "dimension": "instructions",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-03",
+      "revision": "1",
+      "title": "Resolved project recommendation and selected portable directory including spaces",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Resolved project recommendation and selected portable directory including spaces",
+      "required": false,
+      "dimension": "workflow",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-04",
+      "revision": "1",
+      "title": "Occupied initializer refuses without overwrite or silent identity change",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "behavioral",
+      "expected_observation": "Occupied initializer refuses without overwrite or silent identity change",
+      "required": false,
+      "dimension": "behavior",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-05",
+      "revision": "1",
+      "title": "Observed first edit captures before and preserves unrelated paths/metadata",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "behavioral",
+      "expected_observation": "Observed first edit captures before and preserves unrelated paths/metadata",
+      "required": false,
+      "dimension": "behavior",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-06",
+      "revision": "1",
+      "title": "Later untested authoring baseline permits authorized revision with no quality carryover",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "behavioral",
+      "expected_observation": "Later untested authoring baseline permits authorized revision with no quality carryover",
+      "required": false,
+      "dimension": "behavior",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-07",
+      "revision": "1",
+      "title": "Ownership conflicts, input drift and interrupted writes retain conflicts/partial evidence",
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Ownership conflicts, input drift and interrupted writes retain conflicts/partial evidence",
+      "required": true,
+      "dimension": "behavior",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-08",
+      "revision": "1",
+      "title": "UI edits preserve unrelated fields/policy; explicit-only changes require request",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "behavioral",
+      "expected_observation": "UI edits preserve unrelated fields/policy; explicit-only changes require request",
+      "required": false,
+      "dimension": "behavior",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-09",
+      "revision": "1",
+      "title": "Proportionate resources/instructions and preserved contracts",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Proportionate resources/instructions and preserved contracts",
+      "required": false,
+      "dimension": "instructions",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-10",
+      "revision": "1",
+      "title": "Builder trace has no checker, grader, tests, sample execution or validator invocation",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Builder trace has no checker, grader, tests, sample execution or validator invocation",
+      "required": false,
+      "dimension": "workflow",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-11",
+      "revision": "1",
+      "title": "Manual exact-byte packet accepted by validator; stale packet rejected; validator executes tests",
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Manual exact-byte packet accepted by validator; stale packet rejected; validator executes tests",
+      "required": true,
+      "dimension": "behavior",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-12",
+      "revision": "1",
+      "title": "Legacy schema meanings, valid origins and historical bytes preserved",
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Legacy schema meanings, valid origins and historical bytes preserved",
+      "required": true,
+      "dimension": "workflow",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-13",
+      "revision": "1",
+      "title": "Authoring does not depend on available validator and returns usable NOT_PERFORMED handoff",
+      "authority_class": "project_policy",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Authoring does not depend on available validator and returns usable NOT_PERFORMED handoff",
+      "required": false,
+      "dimension": "workflow",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "AC-14",
+      "revision": "1",
+      "title": "Structural, deterministic, routing, native, behavioral and self-review coverage separately reported",
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Structural, deterministic, routing, native, behavioral and self-review coverage separately reported",
+      "required": true,
+      "dimension": "instructions",
+      "limitation": "Bounded implementation observations; no native activation, installation or Rust authority.",
+      "source_refs": [
+        {
+          "path": "inputs/skill-builder-authoring-enhancement-spec.md",
+          "sha256": "43054bf9b3f97d48d479aeed2fe7b119629e6e717f0a55e1835714182844cb14",
+          "source_id": "spec",
+          "locator": "Section 5 acceptance scenarios; Sections 2-4 authoring and migration"
+        }
+      ]
+    },
+    {
+      "rule_id": "FORMAT",
+      "revision": "2026-09-13",
+      "title": "Applicable SKILL.md metadata and resource structure",
+      "authority_class": "format_requirement",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Operational structure and actual installed Skill Creator checker report no required mismatches",
+      "required": true,
+      "dimension": "standards",
+      "limitation": "Checker and selected source coverage only; named format disagreements remain separate.",
+      "source_refs": [
+        {
+          "path": "inputs/openai-build-skills-live.md",
+          "sha256": "4093dba843bd333cdfe25df52cd36828b51d1a4199fdb2fcf2be1b7913063775",
+          "source_id": "openai-skills",
+          "locator": "Required SKILL.md and optional resources"
+        }
+      ]
+    }
+  ]
+}

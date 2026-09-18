@@ -1,0 +1,67 @@
+{
+  "files": [
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "statements": 240,
+      "covered": 0,
+      "missing": 240,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "statements": 431,
+      "covered": 0,
+      "missing": 431,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/authoring.py",
+      "statements": 562,
+      "covered": 345,
+      "missing": 217,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "statements": 285,
+      "covered": 0,
+      "missing": 285,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/custody.py",
+      "statements": 386,
+      "covered": 0,
+      "missing": 386,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "statements": 165,
+      "covered": 0,
+      "missing": 165,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "statements": 142,
+      "covered": 0,
+      "missing": 142,
+      "exclusions": []
+    },
+    {
+      "path": "scripts/record_schema.py",
+      "statements": 53,
+      "covered": 45,
+      "missing": 8,
+      "exclusions": []
+    }
+  ],
+  "total_statements": 2264,
+  "covered_statements": 390,
+  "line_percent": 17.226148409893995,
+  "threshold": 95,
+  "threshold_met": false,
+  "note": "Same executed attempt; full denominator analysis only, no test retry.",
+  "branch_scope": "coverage.json covers measured modules only; full-package branch coverage NOT_RUN."
+}

@@ -1,0 +1,12 @@
+{
+  "executor": "independent agent following captured operational validator",
+  "expected": "Report actual conformance, defects and unperformed coverage without target edits",
+  "timeout_seconds": 900,
+  "input_paths": [
+    "prompt.txt",
+    "skill-builder",
+    "operational-validator",
+    "enhancement-spec.md"
+  ],
+  "write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-assessment\\project"
+}

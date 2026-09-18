@@ -1,0 +1,5 @@
+{
+  "recorded_at": "2026-09-14T21:27:01.2312953Z",
+  "command": "Get-Process -Name 'devforgeai*' -ErrorAction SilentlyContinue",
+  "processes": []
+}

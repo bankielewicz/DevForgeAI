@@ -1,0 +1,54 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-c",
+    "import faulthandler,unittest; faulthandler.dump_traceback_later(4); import test_supervisor; unittest.TextTestRunner(verbosity=2).run(unittest.TestSuite([test_supervisor.RecorderTests('test_keyboard_interrupt_requests_cancel_and_preserves_receipt')]))"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic",
+  "started_utc": "2026-09-17T16:43:06.749245+00:00",
+  "budgets_seconds": {
+    "cancel_after": 8,
+    "grace": 1,
+    "reap": 1,
+    "finalize": 1
+  },
+  "total_budget_seconds": 11,
+  "stdin_held_open": false,
+  "environment_source": "inherited",
+  "environment_values_recorded": false,
+  "shell": false,
+  "timed_out": true,
+  "interrupted": false,
+  "cancellation_sent": false,
+  "cancellation_error": null,
+  "forced_termination": true,
+  "termination_error": null,
+  "reap_incomplete": false,
+  "spawn_error": null,
+  "owned_pid": 47860,
+  "worker_tree_status": "REQUIRES_RUST_EVIDENCE",
+  "framework_acceptance": "NOT_EVALUATED",
+  "process_exit_code": 1,
+  "owned_probe_stopped": true,
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\07-red-recorder-interrupt\\stdout.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\07-red-recorder-interrupt\\stderr.bin",
+    "bytes": 1287,
+    "sha256": "dfcbe771b6b82bce4fc927db5e1ee0c9cc9e71bfd44c793c6a49bb67d613952b"
+  },
+  "recorder": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\supervisor.py",
+    "bytes": 5624,
+    "sha256": "bace72fafe66f9cd3b44afffc06bbc660a06a4419f86a919fd5e2fa247363990"
+  },
+  "ended_utc": "2026-09-17T16:43:15.758648+00:00",
+  "elapsed_before_receipt_write_seconds": 9.01500000001397,
+  "budget_exceeded_before_receipt_write": false
+}

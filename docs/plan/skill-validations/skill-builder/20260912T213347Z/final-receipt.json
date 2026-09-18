@@ -1,0 +1,27 @@
+{
+  "schema_version": "1",
+  "run_id": "20260912T213347Z",
+  "target_name": "skill-builder",
+  "assessment_completed": true,
+  "overall_assessment": "PASS",
+  "builder_readiness": "NO_CHANGE",
+  "package_digest": "c9af00b9c81fa0f417fdffcbac6f2b33f3c304b02fca05aff5b3a519fdd60cf3",
+  "rule_set_sha256": "e763dcf0e202bf5624078aff9842c07eb2f6afce75ea041bc5116481780cab5b",
+  "report": {
+    "path": "validation-report.md",
+    "sha256": "b1f65489968931a1e1d0862d3afcfb1ff900f6e1945a8af099e2267b33b7d9cc"
+  },
+  "handoff": {
+    "path": "handoff.json",
+    "sha256": "d026bda5efa1be54a92c2e4acec78d167e7eacd5b6883ab1b8a7b521f399ef31"
+  },
+  "records_integrity": {
+    "path": "trials/records-final/attempt-001.stdout.txt",
+    "sha256": "38d4010b0ff544d56f6e364ee0e340f1542a7f0becd56d70129eb87e95c6898d"
+  },
+  "remaining_gaps": [
+    "Native implicit activation not run",
+    "Broad unchanged enhancement campaigns not freshly rerun; no new script/schema/profile behavior introduced",
+    "Rust qualification and operational installation not performed"
+  ]
+}

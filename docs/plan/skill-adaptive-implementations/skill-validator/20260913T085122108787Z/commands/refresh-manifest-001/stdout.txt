@@ -1,0 +1,1 @@
+Current package manifest refreshed; prior manifest retained: C:\Projects\DevForgeAI\docs\plan\skill-adaptive-implementations\skill-validator\20260913T085122108787Z\build-manifest-before-48d624c29fe9153e263dfb722fe7d09d58b14b4635a65a46d43502962257d163.json

@@ -1,0 +1,615 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T083452607505Z",
+  "target_name": "skill-builder",
+  "rules": [
+    {
+      "rule_id": "MAINT-BA-001",
+      "revision": "1",
+      "title": "Authoring-only/manual handoff",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Authoring-only/manual handoff",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-002",
+      "revision": "1",
+      "title": "Bounded discovery without project execution",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Bounded discovery without project execution",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-003",
+      "revision": "1",
+      "title": "Evidence-grounded roles and explicit gaps",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Evidence-grounded roles and explicit gaps",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-004",
+      "revision": "1",
+      "title": "Source/operational identity separation",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Source/operational identity separation",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-005",
+      "revision": "1",
+      "title": "Closed schemas, exact digests/references",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Closed schemas, exact digests/references",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-006",
+      "revision": "1",
+      "title": "Sequential selected sets and dependencies",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Sequential selected sets and dependencies",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-007",
+      "revision": "1",
+      "title": "Core preservation and complete lineage",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Core preservation and complete lineage",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-008",
+      "revision": "1",
+      "title": "Ground expertise and project conventions",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Ground expertise and project conventions",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-009",
+      "revision": "1",
+      "title": "Portable descriptors and runtime template",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Portable descriptors and runtime template",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-010",
+      "revision": "1",
+      "title": "Explicit update proposals, no automatic repair",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Explicit update proposals, no automatic repair",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-011",
+      "revision": "1",
+      "title": "Legacy history/schema/custody meanings",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Legacy history/schema/custody meanings",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-012",
+      "revision": "1",
+      "title": "Terminal-local capabilities and honest failure",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Terminal-local capabilities and honest failure",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-013",
+      "revision": "1",
+      "title": "Discriminating routing and progressive resources",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Discriminating routing and progressive resources",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-BA-014",
+      "revision": "1",
+      "title": "Truthful authoring states, no quality/enforcement claims",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Truthful authoring states, no quality/enforcement claims",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-STRUCTURE",
+      "revision": "1",
+      "title": "Installed creator and existing validator structure",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Installed creator and existing validator structure",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-HELPERS",
+      "revision": "1",
+      "title": "New helper positive/negative branch tests",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "New helper positive/negative branch tests",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-LEGACY",
+      "revision": "1",
+      "title": "Original validator regressions against delivered builder",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Original validator regressions against delivered builder",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-IDENTITY",
+      "revision": "1",
+      "title": "Portable source identity scan and operational preservation",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Portable source identity scan and operational preservation",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-CLASSIFY",
+      "revision": "1",
+      "title": "Explicit mode and negative description classification",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Explicit mode and negative description classification",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-LINUX",
+      "revision": "1",
+      "title": "Selected Linux runtime branch execution",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Selected Linux runtime branch execution",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-ordinary",
+      "revision": "1",
+      "title": "Cold ordinary task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold ordinary task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-python",
+      "revision": "1",
+      "title": "Cold python task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold python task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-rust",
+      "revision": "1",
+      "title": "Cold rust task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold rust task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-typescript",
+      "revision": "1",
+      "title": "Cold typescript task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold typescript task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-docs",
+      "revision": "1",
+      "title": "Cold docs task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold docs task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-edit",
+      "revision": "1",
+      "title": "Cold edit task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold edit task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-author-set",
+      "revision": "1",
+      "title": "Cold author-set task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold author-set task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NATIVE-review-updates",
+      "revision": "1",
+      "title": "Cold review-updates task",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Cold review-updates task",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-IMPLICIT",
+      "revision": "1",
+      "title": "Native implicit activation",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Native implicit activation",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-NO-PYTHON",
+      "revision": "1",
+      "title": "Missing Python host behavior",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Missing Python host behavior",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-DOMAIN",
+      "revision": "1",
+      "title": "BAT-02/BAT-04 complete grounded project proposal",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "BAT-02/BAT-04 complete grounded project proposal",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    },
+    {
+      "rule_id": "MAINT-INTEGRATION",
+      "revision": "1",
+      "title": "Builder to enhanced validator actual integration",
+      "source_refs": [
+        {
+          "path": "inputs/governing-spec.md",
+          "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+          "source_id": "governing",
+          "locator": "Sections 8-9: requirement register and maintenance acceptance cases"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Builder to enhanced validator actual integration",
+      "required": true,
+      "limitation": "Only the named method and retained evidence; no native/framework acceptance implication."
+    }
+  ]
+}

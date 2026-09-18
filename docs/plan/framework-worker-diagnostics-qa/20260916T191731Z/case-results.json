@@ -1,0 +1,2166 @@
+[
+  {
+    "id": "I001",
+    "name": "native_identity::tests::additional_reparse_after_the_two_mappings_is_rejected",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I002",
+    "name": "native_identity::tests::changed_target_and_changed_mapping_order_are_rejected",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I003",
+    "name": "native_identity::tests::directory_symlink_cannot_substitute_for_a_junction",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I004",
+    "name": "native_identity::tests::exact_two_junction_chain_admits_only_the_physical_executable",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I005",
+    "name": "native_identity::tests::identity_schema_and_record_adapter_are_closed",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I006",
+    "name": "native_identity::tests::mapping_and_bytes_are_rechecked_and_drift_is_rejected",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I007",
+    "name": "native_identity::tests::missing_physical_digest_mismatch_and_unsupported_adapter_are_rejected",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I008",
+    "name": "native_identity::tests::repeated_junction_mapping_is_rejected_as_a_loop",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I009",
+    "name": "native_identity::tests::same_bytes_at_another_physical_path_do_not_bypass_identity",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I010",
+    "name": "profile_sources::cases::any_reparse_in_the_selected_plugin_tree_fails_closed",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I011",
+    "name": "profile_sources::cases::credential_named_files_are_rejected_before_content_is_read",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I012",
+    "name": "profile_sources::cases::deserialized_entry_shape_is_validated_before_bindings_are_used",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I013",
+    "name": "profile_sources::cases::directory_membership_and_fresh_verification_detect_drift",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I014",
+    "name": "profile_sources::cases::fixture_outside_fixed_workspace_and_oversized_source_are_rejected",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I015",
+    "name": "profile_sources::cases::inventory_is_deterministic_digest_only_and_records_absence",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I016",
+    "name": "profile_sources::edges::closed_inventory_shape_rejects_invalid_state_tuples_and_version",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I017",
+    "name": "profile_sources::edges::collector_enforces_entry_and_aggregate_byte_bounds",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I018",
+    "name": "profile_sources::edges::credential_like_and_non_unicode_names_fail_closed",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I019",
+    "name": "profile_sources::edges::directory_member_bound_and_required_file_type_are_enforced",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I020",
+    "name": "profile_sources::edges::hash_size_drift_and_non_absolute_paths_fail_closed",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I021",
+    "name": "profile_sources::edges::missing_paths_are_explicit_and_directory_order_is_stable",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I022",
+    "name": "profile_sources::edges::plugin_tree_grammar_rejects_unknown_members_and_indexes_controls",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I023",
+    "name": "profile_sources::edges::rule_and_ancestor_depth_bounds_fail_closed",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I024",
+    "name": "profile_sources::plugin_source_identity_cases::si_t01_exact_reviewed_junction_reads_physical_sources_once",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I025",
+    "name": "profile_sources::plugin_source_identity_cases::si_t02_changed_same_byte_escaping_and_missing_targets_reject",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I026",
+    "name": "profile_sources::plugin_source_identity_cases::si_t03_wrong_type_ordinary_and_missing_junction_reject",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I027",
+    "name": "profile_sources::plugin_source_identity_cases::si_t04_unlisted_loop_nested_reparse_and_wrong_depth_reject",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I028",
+    "name": "profile_sources::plugin_source_identity_cases::si_t05_physical_bytes_and_indexed_membership_drift_invalidate_inventory",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I029",
+    "name": "profile_sources::plugin_source_identity_cases::si_t06_schema_identity_and_mapping_tampering_reject",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I030",
+    "name": "protocol::diagnostic_cases::diagnostic_process_guard_keeps_zero_active_denied_before_send_and_at_final_check",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I031",
+    "name": "protocol::diagnostic_cases::diagnostic_source_review_preserves_real_denial_at_both_boundaries",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I032",
+    "name": "protocol::diagnostic_cases::diagnostic_source_write_failure_is_not_success_and_never_serializes_error_text",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I033",
+    "name": "request::review_v2_cases::inventory_digest_shape_fixture_and_freshness_are_mandatory",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I034",
+    "name": "request::review_v2_cases::preflight_accepts_false_findings_while_run_requires_all_true",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I035",
+    "name": "request::review_v2_cases::profile_sources_exactly_cover_inventory_file_bindings",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I036",
+    "name": "request::review_v2_cases::request_profile_and_review_policy_bindings_cannot_diverge",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I037",
+    "name": "request::review_v2_cases::review_inventory_and_profile_source_paths_through_reparse_reject",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I038",
+    "name": "request::review_v2_cases::v2_review_is_closed_and_binds_all_selected_identities",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I039",
+    "name": "runner::final_source_check_cases::final_native_check_rejects_missing_review_for_work_and_preflight",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I040",
+    "name": "runner::final_source_check_cases::si_t08_changed_source_after_intent_stops_before_real_process_creation",
+    "category": "unit",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I041",
+    "name": "valid_fixture_is_admitted_and_invalid_fields_are_rejected",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I042",
+    "name": "invalid_cli_is_json_and_nonzero",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I043",
+    "name": "wf_17",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I044",
+    "name": "wf_18",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I045",
+    "name": "wf_19",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I046",
+    "name": "wf_20",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I047",
+    "name": "diagnostic_config_categories_preserve_closed_denials_and_first_failure_order",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I048",
+    "name": "pinned_profile_observations_validate_and_project_only_approved_fields",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I049",
+    "name": "unsafe_incomplete_or_malformed_observations_fail_closed",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I050",
+    "name": "apps_require_unique_disabled_non_callable_bounded_state",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I051",
+    "name": "feature_pages_accept_only_complete_bounded_closed_state",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I052",
+    "name": "hooks_cover_supported_shapes_without_retaining_payloads",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I053",
+    "name": "mcp_pages_require_inactive_empty_unique_complete_state",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I054",
+    "name": "plugins_cover_supported_sources_and_reject_active_or_unbounded_state",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I055",
+    "name": "provider_endpoints_and_closed_session_policy_fail_closed",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I056",
+    "name": "requirements_and_public_roots_preserve_typed_error_boundaries",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I057",
+    "name": "reviewed_config_sources_and_single_session_layer_are_enforced",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I058",
+    "name": "fixed_policy_has_exact_closed_identity_and_argument_vector",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I059",
+    "name": "policy_binding_rejects_every_caller_controlled_identity_mismatch",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I060",
+    "name": "native_profile_schema_is_closed_and_requires_both_policy_fields",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I061",
+    "name": "schema_two_peer_and_legacy_profile_extensions_are_rejected",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I062",
+    "name": "v2_pinned_physical_identity_is_admitted",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I063",
+    "name": "cli_control_and_inspect_paths",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I064",
+    "name": "fixture_inventory_and_bounded_request_reads",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I065",
+    "name": "journal_corruption_is_not_promoted",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I066",
+    "name": "process_failure_and_pipe_ownership",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I067",
+    "name": "protocol_typed_events_duplicates_pagination_and_failures",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I068",
+    "name": "scenario_cancel_and_evidence_failure_precedence",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I069",
+    "name": "exact_independent_result",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I070",
+    "name": "rejects_invalid_results",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I071",
+    "name": "inspection_mode_rejects_peers_and_source_inventory_is_observable_without_launch",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I072",
+    "name": "preflight_is_a_closed_terminal_operation",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I073",
+    "name": "inspection_distinguishes_preflight_from_a_completed_turn",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I074",
+    "name": "native_atomic_job_and_verified_stop",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I075",
+    "name": "wf_13",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I076",
+    "name": "wf_14",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I077",
+    "name": "wf_15",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I078",
+    "name": "wf_16",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I079",
+    "name": "credential_store_is_not_an_admissible_profile_source",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I080",
+    "name": "reviewed_native_profile_sources_and_findings_are_checked_without_launch",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I081",
+    "name": "unavailable_review_retains_incomplete_evidence_without_reading_credentials",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I082",
+    "name": "diagnostic_config_denial_is_closed_and_preserves_rejection",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I083",
+    "name": "diagnostic_config_rpc_guard_and_validator_branches_are_distinct",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I084",
+    "name": "diagnostic_failures_preserve_deadlines_cancellation_and_evidence_failure",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I085",
+    "name": "diagnostic_initialize_counts_include_exited_descendant",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I086",
+    "name": "diagnostic_rpc_denial_never_retains_server_message",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I087",
+    "name": "diagnostic_success_counts_are_closed_and_cannot_qualify_work",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I088",
+    "name": "preflight_accepts_schema_valid_omitted_final_cursors",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I089",
+    "name": "preflight_maps_rpc_failure_timeout_cancellation_and_work_notifications",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I090",
+    "name": "preflight_rejects_a_transient_descendant_even_after_it_exits",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I091",
+    "name": "preflight_rejects_active_hooks_plugins_apps_and_mcp_servers",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I092",
+    "name": "preflight_rejects_active_or_conflicting_effective_config",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I093",
+    "name": "preflight_requires_every_disabled_feature_and_complete_pagination",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I094",
+    "name": "preflight_uses_the_exact_read_only_inventory_trace_and_starts_no_work",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I095",
+    "name": "profile_projection_does_not_persist_private_response_fields",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I096",
+    "name": "rate_limit_measurement_is_explicit_when_unavailable_and_blocks_when_exhausted",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I097",
+    "name": "wf_01",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I098",
+    "name": "wf_02",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I099",
+    "name": "wf_03",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I100",
+    "name": "wf_04",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I101",
+    "name": "wf_05",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I102",
+    "name": "wf_06",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I103",
+    "name": "wf_07",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I104",
+    "name": "wf_08",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I105",
+    "name": "feature_pagination_enforces_page_size_repeated_cursor_and_page_count_bounds",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I106",
+    "name": "server_requests_are_denied_with_the_captured_response_and_never_granted",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I107",
+    "name": "stderr_is_drained_as_omitted_content_without_persisting_private_bytes",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I108",
+    "name": "unavailable_or_invalid_rate_limit_measurements_are_explicit_and_sanitized",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I109",
+    "name": "wf_09",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I110",
+    "name": "wf_10",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I111",
+    "name": "wf_11",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I112",
+    "name": "wf_12",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I113",
+    "name": "full_pipe_server_reply_deadline_and_cancel_stop_descendants",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I114",
+    "name": "interrupt_write_into_full_pipe_obeys_single_grace_budget",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I115",
+    "name": "malformed_error_payloads_never_reach_journal_or_stdout",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I116",
+    "name": "ordinary_rpc_write_and_interrupt_share_bounded_teardown",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I117",
+    "name": "all_pre_response_notifications_are_reconciled",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I118",
+    "name": "cancellation_before_ids_allows_cooperative_eof_exit",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I119",
+    "name": "captured_native_launcher_reparse_is_rejected_without_launching",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I120",
+    "name": "duplicate_completions_are_idempotent_and_conflicts_fail",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I121",
+    "name": "duplicate_nested_profile_is_rejected",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I122",
+    "name": "home_boundary_only_allows_peer_temporary_roots",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I123",
+    "name": "lost_interrupt_transport_still_waits_for_owned_process",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I124",
+    "name": "successful_peer_has_observed_zero_exit",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I125",
+    "name": "terminal_claim_requires_observed_result",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I126",
+    "name": "unapproved_peer_executable_is_rejected_before_spawn",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I127",
+    "name": "usage_retains_only_typed_counters",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I128",
+    "name": "valid_output_cannot_override_nonzero_worker_exit",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I129",
+    "name": "disappearing_fixture_after_admission_cannot_be_a_successful_run",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I130",
+    "name": "journal_creation_and_exclusive_writes_preserve_existing_bytes_on_failure",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I131",
+    "name": "public_preflight_review_rejects_a_peer_without_native_profile",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I132",
+    "name": "public_review_entrypoints_reject_untrusted_bytes_before_work",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "I133",
+    "name": "source_cli_distinguishes_invalid_paths_from_unqualified_source_types",
+    "category": "integration",
+    "provenance": "inherited",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "H1",
+      "H5",
+      "H6"
+    ],
+    "status": "PASS",
+    "attempt": "12-original-all-targets"
+  },
+  {
+    "id": "QU01",
+    "name": "qa_u01_config_shape_and_absence",
+    "category": "unit",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QU02",
+    "name": "qa_u02_policy_precedence",
+    "category": "unit",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QU03",
+    "name": "qa_u03_session_keys_and_count",
+    "category": "unit",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QU04",
+    "name": "qa_u04_origin_layer_paths",
+    "category": "unit",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QU05",
+    "name": "qa_u05_projection_privacy",
+    "category": "unit",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QU06",
+    "name": "qa_u06_rpc_closed_labels",
+    "category": "unit",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI01",
+    "name": "qa_i01_query_failed_runtime",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI02",
+    "name": "qa_i02_query_failed_write_precedence",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI03",
+    "name": "qa_i03_source_review_boundaries",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI04",
+    "name": "qa_i04_rpc_and_config_privacy",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI05",
+    "name": "qa_i05_exited_descendant",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI06",
+    "name": "qa_i06_cancel_deadline",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  },
+  {
+    "id": "QI07",
+    "name": "qa_i07_false_review_no_authority",
+    "category": "integration",
+    "provenance": "independent",
+    "readiness": "READY",
+    "required": true,
+    "criteria": [
+      "D1-D7 as mapped in test-plan.md"
+    ],
+    "status": "PASS",
+    "attempt": "07-independent-cases"
+  }
+]

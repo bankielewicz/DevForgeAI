@@ -1,0 +1,9 @@
+
+running 4 tests
+test interrupt_write_into_full_pipe_obeys_single_grace_budget ... ok
+test ordinary_rpc_write_and_interrupt_share_bounded_teardown ... ok
+test full_pipe_server_reply_deadline_and_cancel_stop_descendants ... ok
+test malformed_error_payloads_never_reach_journal_or_stdout ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.01s
+

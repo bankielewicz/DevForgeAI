@@ -1,0 +1,36 @@
+test_adoption_plan (__main__.LegacyMaintenance) ... ok
+test_authoring_capture_failure (__main__.LegacyMaintenance) ... ok
+test_authoring_interrupted_before_write (__main__.LegacyMaintenance) ... ok
+test_authoring_publication_failure_retains_effects (__main__.LegacyMaintenance) ... ok
+test_authoring_receipt_io_failure_reports_partial (__main__.LegacyMaintenance) ... ok
+test_generated_after_adoption (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_adoption_digest (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_baseline_digest (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_contract_digest (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_evidence_digest (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_input_digest (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_kind (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_mapping (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_mapping_evidence (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_result (__main__.LegacyMaintenance) ... ok
+test_generated_invalid_target (__main__.LegacyMaintenance) ... ok
+test_input_range (__main__.LegacyMaintenance) ... ok
+test_metadata_errors_and_preservation (__main__.LegacyMaintenance) ... ok
+test_parsers_and_paths (__main__.LegacyMaintenance) ... ok
+test_record_read_families (__main__.LegacyMaintenance) ... ok
+test_revision_adopted (__main__.LegacyMaintenance) ... ok
+test_revision_already_new (__main__.LegacyMaintenance) ... ok
+test_revision_conflict (__main__.LegacyMaintenance) ... ok
+test_revision_keep_user (__main__.LegacyMaintenance) ... ok
+test_revision_missing_required (__main__.LegacyMaintenance) ... ok
+test_revision_occupied (__main__.LegacyMaintenance) ... ok
+test_revision_unchanged (__main__.LegacyMaintenance) ... ok
+test_safe_boundaries_and_capture_limits (__main__.LegacyMaintenance) ... ok
+test_scaffolding_resources (__main__.LegacyMaintenance) ... ok
+test_schema_families (__main__.LegacyMaintenance) ... ok
+test_second_generated_after_adoption (__main__.LegacyMaintenance) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 2.838s
+
+OK

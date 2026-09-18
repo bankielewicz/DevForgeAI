@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "-NoProfile",
+    "-File",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\run_powershell_checks.ps1",
+    "-EvidencePath",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\attempts\\13-powershell-green"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness",
+  "started_utc": "2026-09-17T16:58:18.671435+00:00",
+  "budgets_seconds": {
+    "cancel_after": 50,
+    "grace": 2,
+    "reap": 1,
+    "finalize": 2
+  },
+  "total_budget_seconds": 55,
+  "stdin_held_open": false,
+  "environment_source": "inherited",
+  "environment_values_recorded": false,
+  "shell": false,
+  "timed_out": false,
+  "interrupted": false,
+  "cancellation_sent": false,
+  "cancellation_error": null,
+  "forced_termination": false,
+  "termination_error": null,
+  "reap_incomplete": false,
+  "spawn_error": null,
+  "owned_pid": null,
+  "worker_tree_status": "REQUIRES_RUST_EVIDENCE",
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,44 @@
+{
+  "attempt_id": "03-format",
+  "stage": "refactor",
+  "check": "format",
+  "executable": "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+  "argv": [
+    "fmt",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\Cargo.toml",
+    "--all"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "platform": "Windows x64, native C: filesystem",
+  "shell": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+  "shell_version": "7.6.6",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "recorder_sha256": "34e78bec896c44c4ada10e7205b9e30add373e6fb79ccc3fec5bca99945d8b23",
+  "source_manifest": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\03-format\\source-manifest.json",
+  "source_manifest_sha256": "b07e73086d7db5bf53387d919c3ae2d3da62977785a80ccb3b20211e73e44577",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\03-format\\fixtures"
+  },
+  "timeout_seconds": 420,
+  "started_utc": "2026-09-17T10:38:07.4018634Z",
+  "owned_pid": 31496,
+  "exit_code": 0,
+  "timed_out": false,
+  "ended_utc": "2026-09-17T10:38:07.7523487Z",
+  "elapsed_seconds": 0.338469,
+  "outputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\03-format\\stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\attempts\\03-format\\stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

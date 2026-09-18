@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "issues": [],
+  "files_checked": 43,
+  "method": "UUID literal and known original root scan plus descriptor/runtime manual review; generic schemas may name project_id."
+}

@@ -1,0 +1,9 @@
+{
+  "exit": null,
+  "timeout": false,
+  "launch_error": "[WinError 2] The system cannot find the file specified",
+  "end_utc": "2026-09-13T19:14:04.174621+00:00",
+  "elapsed_seconds": 0.0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "4bc7fbd7b416d804b23c797e930108d86c77ad2fa6e7577f495e589b9837bc9e"
+}

@@ -1,0 +1,6 @@
+{
+  "case": "test_new_record_schemas_match_actual_outputs",
+  "expected": "PASS",
+  "correction": "Point copied regression PACKAGE at actual loaded validator; assertions unchanged.",
+  "timeout_seconds": 120
+}

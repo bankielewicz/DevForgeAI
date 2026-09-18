@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "candidate_manifest_sha256": "c27d8ce1742ba7cd0955f0bd18aded8de5f14c898c989654d7298835c3256f9e",
+  "platform": "native Windows x64",
+  "configuration": "default; no optional package features",
+  "source_rule": "Every frozen first-party Rust file under package src/**/*.rs; no first-party exclusion. Test/support/fixture, dependency, vendor and generated code are excluded by ownership.",
+  "source_file_count": 12,
+  "source_files": [
+    {"path":"src/effective_profile.rs","bytes":23227,"sha256":"33edc40ceb050be3ce0195de0c5ca7176475b2b0d14d8b730fe0ebe41872302c"},
+    {"path":"src/journal.rs","bytes":12089,"sha256":"61e5a96b404dd169e164349a4b5e7b0f880cb26635221b0247d3bd06891bbd15"},
+    {"path":"src/launch_policy.rs","bytes":2301,"sha256":"9071b6aa06c99f052979d2209c95f3bc2d97027c7005b865355636d59a40ab10"},
+    {"path":"src/lib.rs","bytes":268,"sha256":"5431518f12d27bd673f3d9946382fcbee738dc6faee6b317504ea9c8baab6c6c"},
+    {"path":"src/main.rs","bytes":6768,"sha256":"cdaea3da7598a247a718ca7568282bcb8cb7599f4925f3a2d09b833c5ddc8474"},
+    {"path":"src/native_identity.rs","bytes":5693,"sha256":"309bf94180c28477ef67edae57ea9865544b42785a8215311af64958d8d1d664"},
+    {"path":"src/oracle.rs","bytes":688,"sha256":"bf11d97ec9d6082a81db68f4209db1a7e7ec3a5754d2341385f1aed4ddb44712"},
+    {"path":"src/process_windows.rs","bytes":15348,"sha256":"93e9dcacd2cf501355ec8b60567a6f0ef56bad493b1bbac0b7499e794db1d9c0"},
+    {"path":"src/profile_sources.rs","bytes":20830,"sha256":"8b6633486c6828452aa2aec0f969a82207ad2f6a61ffe360531fd57ea33b42f0"},
+    {"path":"src/protocol.rs","bytes":28553,"sha256":"51a75924b10ae57ec208161d5fcb68732a9e371b8bbbfcdd49eacf187594889d"},
+    {"path":"src/request.rs","bytes":20304,"sha256":"bdf7c06abc26582eb049429ac32f1440989aeebe115883960ecab935c05bc4f9"},
+    {"path":"src/runner.rs","bytes":8332,"sha256":"b28dd4224d23de9b7950c93e310540483231e214273f5a66657704f59771afa4"}
+  ],
+  "first_party_exclusions": [],
+  "line_threshold_percent": "95",
+  "branch_coverage": "reported separately if raw collector data supports it",
+  "measurement_status": "PASS",
+  "covered_lines": 2967,
+  "executable_lines": 3103,
+  "line_percent": "95.61714469867869803416048984853367708669",
+  "raw_coverage_json_sha256": "dac80cc9483db8c833d1cc7377af588679da4d96616254004cbd714d24b36850",
+  "zero_executable_source_files": ["src/lib.rs"],
+  "branch_coverage_status": "NOT_RUN"
+}

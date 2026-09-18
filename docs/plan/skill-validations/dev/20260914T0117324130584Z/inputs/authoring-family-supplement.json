@@ -1,0 +1,15 @@
+{
+  "schema_version": "authoring-family-assessment-v1",
+  "basis": "Independently BOUND current authoring-v1 request and exact target readback; prior authored baseline retained.",
+  "authoring_record": {
+    "path": "inputs/01-authoring-record.json",
+    "sha256": "5bc55a98da496dc449b9467e80a29418c89253f999abc9e180cf1318561f7c6e"
+  },
+  "intake": {
+    "path": "commands/intake/stdout.txt",
+    "sha256": "b4c4e49cd8553156917971b56d81d37bcedbdceeadb03a6690099bb3b75de68b"
+  },
+  "package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c",
+  "adoption_required": false,
+  "authority": "Custody evidence only, not prior evaluated build or framework acceptance."
+}

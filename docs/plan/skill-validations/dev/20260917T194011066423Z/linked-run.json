@@ -1,0 +1,58 @@
+{
+  "schema_version": "1",
+  "run_id": "20260917T194011066423Z",
+  "target_name": "dev",
+  "link_kind": "coverage_extension",
+  "prior_run_id": "20260917T152344959349Z",
+  "prior_run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260917T152344959349Z",
+  "prior_report": {
+    "path": "inputs/prior-validation-report.md",
+    "sha256": "b54abe3d2cf998ae085b7d5d792e6ac2dd612d566d501cdb2dfc0f3aaa386e76"
+  },
+  "prior_findings": {
+    "path": "inputs/prior-findings.json",
+    "sha256": "f4c57c466aff56dfabdface176a2f74958788f484a14fc1a76c392c94ba5f9e3"
+  },
+  "prior_checks": {
+    "path": "inputs/prior-checks.jsonl",
+    "sha256": "87bb5c0e8c6719d380705d8901842e22ed35a3e71b6be1e1bc37ec50f9c7c84e"
+  },
+  "prior_manifest": {
+    "path": "inputs/prior-source-manifest.json",
+    "sha256": "150d99b39825923462efdbbf81c4f139093dc7b3459d296172884b19ab587f21"
+  },
+  "rationale": "The prior run completed with assessment_completed true and is preserved unchanged. Its behavioral dimension was INCOMPLETE because 15 of 20 required declarative cases were NOT_RUN. This run exists solely to exercise those 15 cases. It does not reopen, restate or overwrite any prior conclusion.",
+  "target_bytes_unchanged": true,
+  "target_package_digest": "45dd959122125222d68e6f156d72fa20bd52ec50d5fa095857603b0166cbe2f9",
+  "verification": "observe.py readback against the prior run's source-manifest.json returned MATCH before this run snapshotted, and the fresh snapshot reproduced the same package_digest. Because the assessed bytes are identical, the prior run's standards, workflow and instruction findings carry forward unchanged and are NOT re-derived here.",
+  "carried_forward_unchanged": [
+    "Standards compliance: PASS (FMT-001/002/003, installed checker).",
+    "Workflow correctness: PASS (24/24 links, 8-step map).",
+    "Instruction quality: FAIL on PRJ-003 - the allowed-tools structural claim. Still open; this run does not re-litigate it.",
+    "All five prior findings remain proposed and unselected."
+  ],
+  "newly_exercised": [
+    "D01",
+    "D03",
+    "D05",
+    "D06",
+    "D07",
+    "D08",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15",
+    "D16",
+    "D17",
+    "D18",
+    "D20"
+  ],
+  "already_observed_prior_run": [
+    "D02",
+    "D04",
+    "D09",
+    "D10",
+    "D19"
+  ]
+}

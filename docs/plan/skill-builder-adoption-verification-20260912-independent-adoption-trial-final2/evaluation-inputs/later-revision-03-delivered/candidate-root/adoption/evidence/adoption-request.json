@@ -1,0 +1,55 @@
+{
+  "operation": "adopt",
+  "record": {
+    "schema_version": "1",
+    "record_kind": "adoption",
+    "run_id": "adopt-01",
+    "target_name": "receipt-totals",
+    "target_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\src\\agents\\skills\\receipt-totals",
+    "project_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx",
+    "captured_at_utc": "2026-09-12T15:37:24.494041+00:00",
+    "historical_origin": "unknown",
+    "snapshot_root": "adoption/evidence/captured",
+    "snapshot_manifest": {
+      "path": "adoption/evidence/complete-manifest.json",
+      "sha256": "c0298e31cc214b2345ca5b6e07ec0927782d551e9d85f3d28092d8b5df32aea1"
+    },
+    "managed_manifest": {
+      "path": "adoption/evidence/managed-manifest.json",
+      "sha256": "04376e757fc79aa201a4d2ecfc1edf52876203916b9f74ef1f9db5089e3b5010"
+    },
+    "managed_paths": [
+      "SKILL.md",
+      "scripts/receipt_totals.py"
+    ],
+    "origin_spec": {
+      "path": "adoption/evidence/origin-spec.md",
+      "sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+    },
+    "origin_spec_input": {
+      "resolved_path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\design\\specs\\receipt-totals.md",
+      "bytes": 1183,
+      "sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+    },
+    "authorization": {
+      "instruction": "Adopt the existing development package at C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\src\\agents\\skills\\receipt-totals. Preserve every existing byte and unknown history. The complete approved managed list is SKILL.md and scripts/receipt_totals.py. Keep notes.txt user-owned. Use the reviewed origin specification at C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\design\\specs\\receipt-totals.md. This instruction authorizes custody recording and external pointer publication/readback only; it does not authorize repair or installation.",
+      "target_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\src\\agents\\skills\\receipt-totals",
+      "managed_manifest_sha256": "04376e757fc79aa201a4d2ecfc1edf52876203916b9f74ef1f9db5089e3b5010",
+      "origin_spec_sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+    },
+    "prior_evidence": [],
+    "quality_evidence": [
+      {
+        "path": "adoption/evidence/quality-observation.json",
+        "sha256": "b3898d26e4dba0a9a1ef51c65805dff3812b01254fe480f17e4a78478623ca36"
+      }
+    ],
+    "source_readback": {
+      "path": "adoption/evidence/source-readback.json",
+      "sha256": "e73446415fbbb4251ba9cfbac0eeb67b5db1d2daef8dba0a17174146a9aeb866"
+    },
+    "known_defects": [
+      "Observed floating point numeric output 0.30000000000000004 for the 0.1 plus 0.2 receipt, contrary to reviewed string output contract."
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "consumer": "Codex selected skill entrypoint",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/adaptive-runtime/check_project_binding.py",
+      "consumer": "project-binding.md copied generic runtime for selected adaptive members",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/authoring-design-template.json",
+      "consumer": "workflow-design.md before selected authoring",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/build-report-template.md",
+      "consumer": "authoring terminal report contract",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/conversion-report-template.md",
+      "consumer": "conversion-rules.md import accounting",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/skill-creator-license.txt",
+      "consumer": "scaffolding notice licensing",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/skill-creator-notice.md",
+      "consumer": "scaffolding.md source attribution",
+      "orphan_finding": false
+    },
+    {
+      "path": "assets/worker-task-template.md",
+      "consumer": "spec-build.md only for required workers",
+      "orphan_finding": false
+    },
+    {
+      "path": "package-manifest.json",
+      "consumer": "External artifact identity/readback; intentionally not loaded for every authoring task",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/adaptation.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/adaptive-contracts.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/adoption.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/authoring.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/conversion-rules.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/evidence-format.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/openai_yaml.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/project-binding.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/regeneration.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/scaffolding.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/spec-build.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/validation-handoff.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "references/workflow-design.md",
+      "consumer": "SKILL.md branch routing and linked references; see raw graph edges",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/adaptation-proposal-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/adaptation-selection-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/adaptive-common.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/adaptive-observation-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/adaptive-skill-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/adoption-evidence.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/authoring-baseline.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/authoring-contract.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/authoring-design.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/authoring-record.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/binding-observation-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/build-artifacts.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/evidence.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/project-binding-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/project-evidence-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/set-authoring-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/set-validation-request-v1.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "schemas/validation-request.schema.json",
+      "consumer": "Custody script schema readers; schema-to-schema references; authoring/evidence contract documentation",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/adaptive.py",
+      "consumer": "adaptation.md; inspect/plan-set",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/authoring.py",
+      "consumer": "authoring.md/evidence-format.md; begin/publish/read",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/build_evidence.py",
+      "consumer": "spec-build.md; selected source/provenance readers",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/custody.py",
+      "consumer": "authoring.py legacy history resolution",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/generate_openai_yaml.py",
+      "consumer": "scaffolding.md and init_skill.py metadata authoring",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/init_skill.py",
+      "consumer": "scaffolding.md new-package-only initialization",
+      "orphan_finding": false
+    },
+    {
+      "path": "scripts/record_schema.py",
+      "consumer": "authoring.py and adaptive.py schema integrity",
+      "orphan_finding": false
+    }
+  ],
+  "unsupported_edges": "Raw deterministic graph retained; dynamic Python schema/import edges adjudicated by actual consumer references, not file counts.",
+  "placeholder_review": "Empty strings in the design template and bracketed worker/conversion templates are authoring slots explicitly requiring completion; quoted TODO/ceremony examples are not unfinished runtime behavior."
+}

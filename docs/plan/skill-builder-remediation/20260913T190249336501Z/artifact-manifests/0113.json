@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-bcn-new-equal-base-seed-publish",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1418,
+      "sha256": "fc480dbc39f55f67e18d828118b396c5b5963d6b0bd5fe196d0eeb3b98ead90d"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "f155c7ed191bfb2ebd08f53030c763ae84f30360ee2873070fe34e8c971638ff"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 270,
+      "sha256": "8cb58da549eb753a3632e8f0706e88cfd8a5156f9bfa45ddf85af4d9407adf78"
+    }
+  ]
+}

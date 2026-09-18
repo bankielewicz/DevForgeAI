@@ -1,0 +1,65 @@
+{
+  "document": {
+    "path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\README.md",
+    "bytes": 11359,
+    "sha256": "7a5da10452480171cb1e814fb9386edfeba56a84a9a25a6722b71371d07b47ad"
+  },
+  "local_links": [
+    {
+      "target": "../../../docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+      "exists": true
+    },
+    {
+      "target": "logging-contract.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\logging-contract.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/plan/framework-worker-logging/20260917T014842Z-dev/context.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev\\context.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/plan/framework-worker-logging/20260917T102726Z-dev-qa-fixes/context.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\context.md",
+      "exists": true
+    },
+    {
+      "target": "logging.example.json",
+      "resolved": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes\\logging.example.json",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/specs/framework/runtime/codex-worker-preflight-v1.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-preflight-v1.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/plan/framework-worker-native-completion/20260915T2306060954875Z/context.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\context.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/plan/framework-worker-diagnostics/20260916T181820Z-dev/diagnostic-contract.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\diagnostic-contract.md",
+      "exists": true
+    },
+    {
+      "target": "../../../docs/plan/framework-worker-implementation/20260915T1544548240203Z/context.md",
+      "resolved": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\context.md",
+      "exists": true
+    }
+  ],
+  "factual_review": "New paragraph agrees with runtime checks and executed tests; build command resolves corrected Cargo.toml; independent QA/native/acceptance boundaries explicit"
+}

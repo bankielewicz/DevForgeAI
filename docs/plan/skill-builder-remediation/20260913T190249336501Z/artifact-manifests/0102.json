@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-bcn-equal-base-begin",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1590,
+      "sha256": "1d30118d61969a0c97324073ab76af22ca6c5cc2e9c54a35b52a8a2a657da063"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "97a40713c0e94aa8f0fb812fba2af2cc62ab6f41365355629931326b9689d7a5"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 405,
+      "sha256": "796fd947a5d1c945408b803fa64a407590e4bdcb37a79941e04bc9dd978d4c2f"
+    }
+  ]
+}

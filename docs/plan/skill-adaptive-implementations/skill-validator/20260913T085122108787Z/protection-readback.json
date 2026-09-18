@@ -1,0 +1,14 @@
+{
+  "unchanged": {
+    "builder": false,
+    "operational-agents": true,
+    "operational-claude": true,
+    "operational-codex": true
+  },
+  "builder_drift": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\builder-concurrent-drift.json",
+    "sha256": "ff12ce719d746be4d3256873db5d61ec3d088ae2d062ded8dcacd7a4185c59ff"
+  },
+  "task_writes": "Only validator package and fresh run. Builder drift was observed without a builder mutation command; not reset.",
+  "historical_evidence": "No task writes targeted previous evidence. Full historical-tree before/after hashing was not performed; package baseline snapshot and all attempts are retained."
+}

@@ -1,0 +1,35 @@
+{
+  "assessment_completed": true,
+  "outcome": "FAIL",
+  "target_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+  "files": 75,
+  "confirmed_findings": 4,
+  "proposal_sha256": "921f57a5d32ce53d9d46fa221a85153380122591e1c01c33846825a6109b7427",
+  "report": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\qa-report.md",
+    "sha256": "041d1f404974e4611cac2680ad280dbec8d87a8707619f538ef377602b4b3fbc"
+  },
+  "coverage": {
+    "required_evaluated": 23,
+    "required_total": 29,
+    "unknown_applicability": 0,
+    "not_applicable": 0
+  },
+  "installation": "NOT_PERFORMED",
+  "rust_qualification": "NOT_RUN",
+  "records_validation": {
+    "new-legacy-records-002": {
+      "exit_status": 0,
+      "receipt": "commands/new-legacy-records-002/command.json",
+      "scope": "Record integrity only; self-review, not semantic acceptance"
+    },
+    "new-adaptive-records-002": {
+      "exit_status": 0,
+      "receipt": "commands/new-adaptive-records-002/command.json",
+      "scope": "Record integrity only; self-review, not semantic acceptance"
+    }
+  },
+  "final_integrity": "final-integrity.json",
+  "coverage_summary": "coverage-summary.json",
+  "completed_at_utc": "2026-09-13T16:40:10.401720Z"
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+  DevForgeAI System Architecture Document — HTML output template (skeleton).
+  Governed by ADR-067. Emitted by spec-driven-system-architecture Phase 07.
+  Phase 07 substitutes every {{TOKEN}} placeholder and replaces each
+  data-section body with rendered content. The file is self-contained:
+  inline CSS, no external assets. The machine-readable conduit is the
+  JSON data island at the
+  end, validated against references/system-architecture-output.schema.json (v1.0).
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}} — System Architecture</title>
+<style>
+  :root {
+    --bg: #f7f8fa; --card: #ffffff; --ink: #1a1f2b; --muted: #5b6472;
+    --line: #e2e6ec; --accent: #1e6f5c; --accent-soft: #e6f2ef;
+    --sev-low: #2e7d32; --sev-med: #ed8b00; --sev-high: #d84315;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 96px; }
+  header.doc { background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; }
+  header.doc h1 { margin: 0 0 8px; font-size: 28px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+  .badge { background: var(--accent-soft); color: var(--accent); border-radius: 999px;
+    padding: 3px 12px; font-size: 13px; font-weight: 600; }
+  .summary { background: var(--accent-soft); border-left: 4px solid var(--accent);
+    padding: 12px 16px; border-radius: 6px; margin-top: 12px; }
+  nav.toc { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 24px; margin-bottom: 24px; }
+  nav.toc ol { margin: 8px 0 0; padding-left: 22px; columns: 2; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  details.section { background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; margin-bottom: 14px; padding: 0 24px; }
+  details.section > summary { cursor: pointer; font-size: 18px; font-weight: 700;
+    padding: 18px 0; list-style: none; }
+  details.section > summary::before { content: "▸ "; color: var(--accent); }
+  details.section[open] > summary::before { content: "▾ "; }
+  .section-body { padding: 0 0 20px; border-top: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f0f2f6; }
+  code { background: #f0f2f6; border-radius: 4px; padding: 1px 5px; font-size: 13px; }
+  .muted { color: var(--muted); }
+  ul.tight { margin: 8px 0; padding-left: 22px; }
+  footer.doc { margin-top: 32px; color: var(--muted); font-size: 13px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="doc">
+    <h1>{{TITLE}}</h1>
+    <div class="badges">
+      <span class="badge">{{SYSARCH_ID}}</span>
+      <span class="badge">Created {{CREATED}}</span>
+      <span class="badge">Status: {{STATUS}}</span>
+      <span class="badge">System Architecture</span>
+    </div>
+    <div class="summary"><strong>System boundary:</strong> {{BOUNDARY_SUMMARY}}</div>
+    <p class="muted">Source PM plan: <code>{{SOURCE_PM_PLAN}}</code> ·
+      input-contract validation: {{PM_PLAN_VALIDATION_STATUS}}</p>
+  </header>
+
+  <nav class="toc">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#boundary">System Boundary</a></li>
+      <li><a href="#topology">Integration Topology</a></li>
+      <li><a href="#techstack">Tech-Stack Rationale</a></li>
+      <li><a href="#nfrs">System NFRs</a></li>
+      <li><a href="#deployment">Deployment Architecture</a></li>
+      <li><a href="#adrs">Architecture Decision Records</a></li>
+      <li><a href="#constitution">Constitutional Context Files</a></li>
+      <li><a href="#handoff">Handoff to Solution Architecture</a></li>
+    </ol>
+  </nav>
+
+  <details class="section" id="boundary" open>
+    <summary>1. System Boundary</summary>
+    <div class="section-body" data-section="boundary">{{BOUNDARY_BODY}}</div>
+  </details>
+
+  <details class="section" id="topology">
+    <summary>2. Integration Topology</summary>
+    <div class="section-body" data-section="topology">{{TOPOLOGY_BODY}}</div>
+  </details>
+
+  <details class="section" id="techstack">
+    <summary>3. Tech-Stack Rationale</summary>
+    <div class="section-body" data-section="techstack">{{TECHSTACK_BODY}}</div>
+  </details>
+
+  <details class="section" id="nfrs">
+    <summary>4. System Non-Functional Requirements</summary>
+    <div class="section-body" data-section="nfrs">{{NFRS_BODY}}</div>
+  </details>
+
+  <details class="section" id="deployment">
+    <summary>5. Deployment Architecture</summary>
+    <div class="section-body" data-section="deployment">{{DEPLOYMENT_BODY}}</div>
+  </details>
+
+  <details class="section" id="adrs">
+    <summary>6. Architecture Decision Records</summary>
+    <div class="section-body" data-section="adrs">{{ADRS_BODY}}</div>
+  </details>
+
+  <details class="section" id="constitution">
+    <summary>7. Constitutional Context Files</summary>
+    <div class="section-body" data-section="constitution">{{CONSTITUTION_BODY}}</div>
+  </details>
+
+  <details class="section" id="handoff" open>
+    <summary>8. Handoff to Solution Architecture</summary>
+    <div class="section-body" data-section="handoff">{{HANDOFF_BODY}}</div>
+  </details>
+
+  <footer class="doc">
+    Generated by DevForgeAI spec-driven-system-architecture · {{SYSARCH_ID}} ·
+    governed by ADR-067. The JSON data island below is the machine-readable
+    contract consumed by /create-solution-architecture.
+  </footer>
+
+</div>
+<script type="application/json" id="system-architecture-data">
+{{JSON_DATA_ISLAND}}
+</script>
+</body>
+</html>

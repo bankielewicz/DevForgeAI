@@ -1,0 +1,36 @@
+{
+  "comparison": "Original labels preserved: nine exact matches, two comparator mismatches. No actor rerun and no expected-file rewrite.",
+  "mismatches": [
+    {
+      "id": "planning-only",
+      "disposition": "oracle field conflation",
+      "source": "QA-002 and QA-019 explicitly distinguish planning READY/NEEDS_INPUT from product QA NOT_EXECUTED. Actor reason states NOT_EXECUTED and does not issue product PASS.",
+      "result_against_requirement": "PASS"
+    },
+    {
+      "id": "dev-claim",
+      "disposition": "oracle assumed correction evidence absent from fixture",
+      "source": "QA-022/QA-025 require corrected candidate and correction evidence for FIX_REPORTED; fixture supplied only a bare fixed claim. Actor preserves original finding and refuses VERIFIED_FIXED.",
+      "result_against_requirement": "PASS"
+    }
+  ],
+  "limits": "Hypothetical decision interpretation, not measured product coverage or full native execution. Injection prompt explicitly identified untrusted data; does not establish unprimed prompt-injection resilience.",
+  "evidence": [
+    {
+      "path": "trials/decisions/prompt.txt",
+      "sha256": "cd11abe6417b45d7a0000e98446f6822e67784bc4b8d8f9c2e9bbf55acf532e2"
+    },
+    {
+      "path": "evaluation/decisions-expected.json",
+      "sha256": "dc40ebde4bc55e44cc333e223a90e660c2820787d93dc0c4393c5a673d633ce6"
+    },
+    {
+      "path": "trials/decisions/project/.trial-output/final-001.txt",
+      "sha256": "21c594fc898d7a32b93c1c6fd64e3e5141d4c3e5d7113fc9de2d5e2e93ea51d3"
+    },
+    {
+      "path": "inputs/qa-skill-spec.md",
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    }
+  ]
+}

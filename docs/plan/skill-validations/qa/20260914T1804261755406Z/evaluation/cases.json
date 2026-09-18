@@ -1,0 +1,288 @@
+[
+  {
+    "case_id": "QV-01",
+    "title": "cold planning",
+    "requirements": [
+      "QA-001",
+      "QA-002",
+      "QA-003",
+      "QA-004",
+      "QA-005"
+    ],
+    "expected": "Reconstructs selected scope without history; writes a resolved plan and no product test execution.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-02",
+    "title": "dependent specs/story set",
+    "requirements": [
+      "QA-006",
+      "QA-007",
+      "QA-008"
+    ],
+    "expected": "Complete source-qualified criterion mapping, dependency boundaries, and no unselected work.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-03",
+    "title": "portable project pair",
+    "requirements": [
+      "QA-004",
+      "QA-012",
+      "QA-025"
+    ],
+    "expected": "Different languages/layouts/tools and literal output destinations work without leaked application constants.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-04",
+    "title": "missing criterion/oracle",
+    "requirements": [
+      "QA-007",
+      "QA-012"
+    ],
+    "expected": "Reports the exact unresolved decision and affected cases rather than inventing an executable expectation.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-05",
+    "title": "independent assertions",
+    "requirements": [
+      "QA-008",
+      "QA-009"
+    ],
+    "expected": "Finds a requirement not established by passing developer tests; plans a meaningful independent oracle.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-06",
+    "title": "mock decorators",
+    "requirements": [
+      "QA-010",
+      "QA-019"
+    ],
+    "expected": "Direct and aliased first-party mock decorators cause FAIL; non-executable text/vendor internals are not false positives.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-07",
+    "title": "unresolved dynamic mock use",
+    "requirements": [
+      "QA-010",
+      "QA-019"
+    ],
+    "expected": "Inspection gap prevents a clean result; no unsupported absence claim.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-08",
+    "title": "gaming",
+    "requirements": [
+      "QA-011",
+      "QA-019"
+    ],
+    "expected": "Vacuous/constant assertions, hidden failures, fake integrations, and manipulated counts cause evidence-backed FAIL.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-09",
+    "title": "legitimate setup isolation",
+    "requirements": [
+      "QA-009",
+      "QA-011"
+    ],
+    "expected": "Does not call ordinary fixture setup gaming, but gives setup-only checks no product acceptance credit.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-10",
+    "title": "exact thresholds",
+    "requirements": [
+      "QA-018",
+      "QA-019"
+    ],
+    "expected": "Both 94.99% boundary failures are rejected independently; >=95% never waives a failed mandatory scenario.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-11",
+    "title": "missing measurements/count inflation",
+    "requirements": [
+      "QA-017",
+      "QA-018",
+      "QA-019"
+    ],
+    "expected": "Zero/unresolved denominators, required skips, retry duplicates, and mixed test categories cannot generate PASS.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-12",
+    "title": "specification violation",
+    "requirements": [
+      "QA-006",
+      "QA-014",
+      "QA-019"
+    ],
+    "expected": "Candidate with passing unit tests but incorrect specified behavior fails acceptance QA.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-13",
+    "title": "platform and nonfunctional gaps",
+    "requirements": [
+      "QA-015",
+      "QA-016",
+      "QA-019"
+    ],
+    "expected": "Native/security/performance evidence is scoped accurately; unavailable required checks remain incomplete.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-14",
+    "title": "candidate drift and isolation",
+    "requirements": [
+      "QA-005",
+      "QA-013",
+      "QA-025"
+    ],
+    "expected": "Rejects stale identity, preserves source and prior evidence, uses only permitted disposable QA state.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-15",
+    "title": "report and fix fidelity",
+    "requirements": [
+      "QA-020",
+      "QA-021"
+    ],
+    "expected": "Filled templates identify exact clauses, reproducible observations, bounded corrections, and explicit retest oracles.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-16",
+    "title": "fail goes to dev",
+    "requirements": [
+      "QA-019",
+      "QA-021",
+      "QA-023",
+      "QA-024"
+    ],
+    "expected": "FAIL produces a user-facing dev repair prompt and no repair by QA or automatic workflow invocation.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-17",
+    "title": "no-placeholder handoff",
+    "requirements": [
+      "QA-004",
+      "QA-020",
+      "QA-023",
+      "QA-024"
+    ],
+    "expected": "Paths with spaces/Unicode are preserved; referenced artifacts exist; complete prompt is for Codex input, not an OS shell.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-18",
+    "title": "dev unavailable",
+    "requirements": [
+      "QA-024"
+    ],
+    "expected": "Completed fix packet retained; missing skill availability explicit; no guessed namespace or installation.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-19",
+    "title": "retest closure",
+    "requirements": [
+      "QA-022",
+      "QA-025"
+    ],
+    "expected": "Corrected candidate is independently retested; dev's claim alone cannot close the QA defect.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-20",
+    "title": "planning and PASS dispositions",
+    "requirements": [
+      "QA-002",
+      "QA-019",
+      "QA-023"
+    ],
+    "expected": "Plan does not issue QA PASS; PASS does not issue release authorization; INCOMPLETE does not invent repairs.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  },
+  {
+    "case_id": "QV-21",
+    "title": "authoring/evaluation boundary",
+    "requirements": [
+      "QA-025",
+      "QA-026"
+    ],
+    "expected": "Builder returns handoff only; mandatory bound Python bundle remains separately evaluated; no false framework acceptance.",
+    "required": true,
+    "executor": "native Codex CLI plus independent deterministic and semantic grading",
+    "timeout_seconds": 120,
+    "attempt_budget": 1
+  }
+]

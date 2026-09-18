@@ -1,0 +1,51 @@
+test_absolute_resource (test_linux_design.DesignTests.test_absolute_resource) ... ok
+test_binding_deleted (test_linux_design.DesignTests.test_binding_deleted) ... ok
+test_blank_completion (test_linux_design.DesignTests.test_blank_completion) ... ok
+test_boolean_seconds (test_linux_design.DesignTests.test_boolean_seconds) ... ok
+test_capture_changed (test_linux_design.DesignTests.test_capture_changed) ... ok
+test_capture_deleted (test_linux_design.DesignTests.test_capture_deleted) ... ok
+test_duplicate_adverse_id (test_linux_design.DesignTests.test_duplicate_adverse_id) ... ok
+test_duplicate_behavior_id (test_linux_design.DesignTests.test_duplicate_behavior_id) ... ok
+test_duplicate_json_key (test_linux_design.DesignTests.test_duplicate_json_key) ... ok
+test_duplicate_question_id (test_linux_design.DesignTests.test_duplicate_question_id) ... ok
+test_duplicate_resource_path (test_linux_design.DesignTests.test_duplicate_resource_path) ... ok
+test_empty_array_member (test_linux_design.DesignTests.test_empty_array_member) ... ok
+test_helper_missing_contract (test_linux_design.DesignTests.test_helper_missing_contract) ... ok
+test_independent_validator_intake (test_linux_design.DesignTests.test_independent_validator_intake) ... ok
+test_legacy_design_shaped_input (test_linux_design.DesignTests.test_legacy_design_shaped_input) ... ok
+test_nonfinite (test_linux_design.DesignTests.test_nonfinite) ... ok
+test_nonhelper_contract (test_linux_design.DesignTests.test_nonhelper_contract) ... ok
+test_original_design_changed (test_linux_design.DesignTests.test_original_design_changed) ... ok
+test_original_design_deleted (test_linux_design.DesignTests.test_original_design_deleted) ... ok
+test_publication_interrupted (test_linux_design.DesignTests.test_publication_interrupted) ... ok
+test_silent_legacy_downgrade (test_linux_design.DesignTests.test_silent_legacy_downgrade) ... FAIL
+test_snapshot_changed (test_linux_design.DesignTests.test_snapshot_changed) ... ok
+test_snapshot_deleted (test_linux_design.DesignTests.test_snapshot_deleted) ... ok
+test_traversal_resource (test_linux_design.DesignTests.test_traversal_resource) ... ok
+test_unbound_design (test_linux_design.DesignTests.test_unbound_design) ... ok
+test_unchanged_authoring (test_linux_design.DesignTests.test_unchanged_authoring) ... ok
+test_undeclared_resource (test_linux_design.DesignTests.test_undeclared_resource) ... ok
+test_unknown_behavior_field (test_linux_design.DesignTests.test_unknown_behavior_field) ... ok
+test_unknown_limit_behavior (test_linux_design.DesignTests.test_unknown_limit_behavior) ... ok
+test_unknown_question_behavior (test_linux_design.DesignTests.test_unknown_question_behavior) ... ok
+test_unknown_root_field (test_linux_design.DesignTests.test_unknown_root_field) ... ok
+test_unselected_source (test_linux_design.DesignTests.test_unselected_source) ... ok
+test_valid_capture_and_publication (test_linux_design.DesignTests.test_valid_capture_and_publication) ... ok
+test_wrong_design_digest (test_linux_design.DesignTests.test_wrong_design_digest) ... ok
+test_wrong_target (test_linux_design.DesignTests.test_wrong_target) ... ok
+
+======================================================================
+FAIL: test_silent_legacy_downgrade (test_linux_design.DesignTests.test_silent_legacy_downgrade)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-builder/20260914T2131571597777Z/observations/linux-checks/test_linux_design.py", line 131, in test_silent_legacy_downgrade
+    self.stage(); p=self.run/'origin.json'; value=json.loads(p.read_bytes()); value['design_capture_requested']=False; del value['design_capture_ref']; write(p,value); (self.run/'design-capture.json').unlink(); (self.run/'inputs/1').write_bytes(b'changed'); self.blocked()
+                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^
+  File "/mnt/c/Projects/DevForgeAI/docs/plan/skill-validations/skill-builder/20260914T2131571597777Z/observations/linux-checks/test_linux_design.py", line 47, in blocked
+    self.assertIn(result['state'],['BLOCKED','PARTIAL'])
+AssertionError: 'AUTHORED' not found in ['BLOCKED', 'PARTIAL']
+
+----------------------------------------------------------------------
+Ran 35 tests in 99.751s
+
+FAILED (failures=1)

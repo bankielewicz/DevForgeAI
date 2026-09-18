@@ -1,0 +1,196 @@
+{
+  "schema_version": "1",
+  "run_id": "V16",
+  "target_name": "skill-validator",
+  "steps": [
+    {
+      "step_id": "intake",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Intake and boundaries"
+      },
+      "entry_conditions": "selected user target/project",
+      "inputs": [
+        "selected user target/project"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "identity and disjoint run"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "origin"
+      ],
+      "failure_route": "missing target ends intake",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    },
+    {
+      "step_id": "origin",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Establish the origin before assessment"
+      },
+      "entry_conditions": "target/spec paths",
+      "inputs": [
+        "target/spec paths"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "source bytes, manifest, origin record"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "rules"
+      ],
+      "failure_route": "ambiguity retained while independent checks continue",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    },
+    {
+      "step_id": "rules",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Select rules and inspect"
+      },
+      "entry_conditions": "source snapshot and available guidance",
+      "inputs": [
+        "source snapshot and available guidance"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "pinned rules, checks, workflow map"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "trials"
+      ],
+      "failure_route": "unsupported source applicability remains unknown",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    },
+    {
+      "step_id": "trials",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Exercise bounded behavior"
+      },
+      "entry_conditions": "predeclared fixtures and inspected commands",
+      "inputs": [
+        "predeclared fixtures and inspected commands"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "actual effects and retained attempts"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "report"
+      ],
+      "failure_route": "timeouts retained; no unsafe execution",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    },
+    {
+      "step_id": "report",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Synthesize and deliver for review"
+      },
+      "entry_conditions": "observations and sources",
+      "inputs": [
+        "observations and sources"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "findings, report, full proposal if justified"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "handoff"
+      ],
+      "failure_route": "input drift requires fresh run",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    },
+    {
+      "step_id": "handoff",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Synthesize and deliver for review"
+      },
+      "entry_conditions": "report/proposal readback",
+      "inputs": [
+        "report/proposal readback"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "review state and exact readiness packet"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "terminal"
+      ],
+      "failure_route": "stop before builder; missing prerequisite explicit",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    },
+    {
+      "step_id": "revalidate",
+      "entrypoint_location": {
+        "path": "source/SKILL.md",
+        "section": "Revalidation and recovery"
+      },
+      "entry_conditions": "later authorized delivered bytes",
+      "inputs": [
+        "later authorized delivered bytes"
+      ],
+      "executor": "host agent",
+      "action": "Follow cited entrypoint and linked resource contract",
+      "outputs": [
+        "resolved/persistent/new/unverified tracking"
+      ],
+      "completion_evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "a4aad44434bacbe522cd1fe635db0a6b043ccb126e408c06999f8453fb23ed0c"
+        }
+      ],
+      "next_branch_targets": [
+        "terminal"
+      ],
+      "failure_route": "fresh run on changed source",
+      "terminal_user_outcome": "Reviewable findings/proposal or concrete retained limitation; target preserved"
+    }
+  ]
+}

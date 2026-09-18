@@ -1,0 +1,18 @@
+Name                                                              Stmts   Miss Branch BrPart  Cover
+---------------------------------------------------------------------------------------------------
+src\agents\skills\skill-validator\scripts\adaptive_contracts.py     427     20    184     16    94%
+src\agents\skills\skill-validator\scripts\adaptive_observe.py       259     13     94     11    93%
+src\agents\skills\skill-validator\scripts\authoring_intake.py        60      1     26      1    98%
+src\agents\skills\skill-validator\scripts\build_evidence.py         285     43    134     40    80%
+src\agents\skills\skill-validator\scripts\custody.py                386     40    224     38    87%
+src\agents\skills\skill-validator\scripts\graders.py                884     81    550     79    89%
+src\agents\skills\skill-validator\scripts\observe.py                637     33    340     27    93%
+src\agents\skills\skill-validator\scripts\run_evaluation.py         164     15     76     12    89%
+src\agents\skills\skill-validator\scripts\skill_format.py            45      0     20      0   100%
+src\agents\skills\skill-validator\scripts\standards_observe.py       43      1     18      4    92%
+src\agents\skills\skill-validator\scripts\text_resources.py         307     35    164     10    90%
+src\agents\skills\skill-validator\scripts\trial_runner.py           245      8     56      7    95%
+src\agents\skills\skill-validator\scripts\trial_worker.py            14      0      2      1    94%
+src\agents\skills\skill-validator\scripts\windows_trial.py           46     10     20      8    70%
+---------------------------------------------------------------------------------------------------
+TOTAL                                                              3802    300   1908    254    90%

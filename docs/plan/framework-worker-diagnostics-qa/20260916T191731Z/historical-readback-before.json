@@ -1,0 +1,596 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+    "bytes": 18728,
+    "sha256": "3b8e2a112c438b536ab59db2abbcfd6e08ebdd7f41caa13cdf6d5c49866fab86",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\SKILL.md",
+    "bytes": 4659,
+    "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-feasibility-v1.md",
+    "bytes": 37561,
+    "sha256": "7cb5b0cb87e515bb4d59235b615922ab4ea07ef607b8111dde6cc73c8f101b23",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-native-readiness-v1.md",
+    "bytes": 13339,
+    "sha256": "c3c0673cbf95ae7aa056d9fd0009ce89947309b943013fd7838438d6ee66b06d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-preflight-v1.md",
+    "bytes": 12762,
+    "sha256": "6e781f23f221d1033896716512e9162579653b529d107e0040d49c499574afd1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\runtime\\codex-worker-source-identity-v1.md",
+    "bytes": 9151,
+    "sha256": "34160ff675f886aeeebd3a7d131fd973b86a375fb64def7604db419c79db1f8c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-assessment.md",
+    "bytes": 4653,
+    "sha256": "773961f44f4f56bfe1fcbaed75d275f51f9b951b7feac8f3f19a0d65035d54b6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-preflight\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-preflight\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-preflight\\receipt.json",
+    "bytes": 1423,
+    "sha256": "079b8d819e040d6f3db47eda371e13aab4f4b4e8405a091dc59719fb50a8b2d8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-preflight\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-preflight\\stdout.bin",
+    "bytes": 22055,
+    "sha256": "e56dc5d1b350982de67a137c6306325bd41ad6c6b273fb7d33d7d3d4c2c13780",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-001\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-001\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-001\\receipt.json",
+    "bytes": 1659,
+    "sha256": "ad2cbb9e4a500d239eb797e25140638242fecbd55ab31618b8ad72237d1444f0",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-001\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-001\\stdout.bin",
+    "bytes": 1840,
+    "sha256": "e25073c5fcdf50e5f57d79d38c13e6ca8d200468682a63ac968eb1d5d87609df",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-002\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-002\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-002\\receipt.json",
+    "bytes": 1695,
+    "sha256": "8950d827087a6e6770b66acce31cb45fcccf73b6022f39418b378ac55d6e7b42",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-002\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\advisor-run-002\\stdout.bin",
+    "bytes": 1900,
+    "sha256": "80a1eae182a21a7f8fea859530b8a966f488ffd0151452d592e32587a0b7caaa",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\artifact-manifest.json",
+    "bytes": 33279,
+    "sha256": "f176be09a56e51049e3cb664f6e052feba73303e72379afb1b2a765d80d09ebb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\bindings.json",
+    "bytes": 1428,
+    "sha256": "918b3b20bee35ab0236da36caae0e5e0019bfb98058f07f2745eba1dae99b08f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\candidate-final.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\capture_preflight.py",
+    "bytes": 5335,
+    "sha256": "3b03fc3782ffdaf5c73a96acd01e2e5602d8322691b3a0d8c9e1651876bb1c4e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\checkpoint.json",
+    "bytes": 843,
+    "sha256": "79d92bb47710cdc447ba7c18e07366c636ed55b4e00273d5e7eb248546cb91f2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\context.md",
+    "bytes": 1373,
+    "sha256": "e879f2ee6c593d437952eadc6f4b3ca072b1913eacf510c1bba0c11b6b2451e9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\continuation-report.md",
+    "bytes": 12115,
+    "sha256": "e5020b68ffcb74594035c9fd60d331cdaefb3d076dae5abf2077f5706f30c641",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\bindings.json",
+    "bytes": 1478,
+    "sha256": "35c6c245210c9a547dd2c6fe0370c36a5089163c055821c855d0cbfef1bad6f0",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\capture_preflight.py",
+    "bytes": 5531,
+    "sha256": "5ba73e6a8eaafc0673c4e1b30149f04bee0a3a261af18bd5144612ac8124e325",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-001\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-001\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-001\\receipt.json",
+    "bytes": 1748,
+    "sha256": "cc3b455bd9beac12acb62e2f52ac727d55827d2a2f86b7b0f87eeff7e6d79b81",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-001\\started.json",
+    "bytes": 1219,
+    "sha256": "07fd03705bac54c1aa515229e338f786cc511273253e9136f3f2b0874c1246e3",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-001\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-001\\stdout.bin",
+    "bytes": 1914,
+    "sha256": "cf4d13f9b6a24bb229c9ec9c17c8c12f6f287e2a93bfe08345de11da351cfbff",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-input-bindings.json",
+    "bytes": 477,
+    "sha256": "95879ff35bfdb9972159a8064f8900525a5705fbfeca6c99fb9294012a86e4cd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-request.json",
+    "bytes": 1367,
+    "sha256": "098bdfe8c4b8122fea35bc67a4581c839fe7789daec9c0946ed7dd6d24cf0e6b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\preflight-review.unqualified.json",
+    "bytes": 9309,
+    "sha256": "4d0f0e20ce779358f2cbee3ecadfc32b0d30ddc89c9128b86a7149f9704648f2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\prepare_preflight.py",
+    "bytes": 3781,
+    "sha256": "4090cc76ef1fa1b8bef4b6da8b0b0c6b0a7f9b7e22fe843919170e0fd521c45f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\record.py",
+    "bytes": 7554,
+    "sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-observation-001\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-observation-001\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-observation-001\\receipt.json",
+    "bytes": 1631,
+    "sha256": "25cea2f3af412623d537a48d3962d0f4c24489c778dd6143347792434bf6dcc4",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-observation-001\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-observation-001\\stdout.bin",
+    "bytes": 30829,
+    "sha256": "4915790cb3e2ca093777e97e132d471362bd2583ff539674b98f8f85fa702046",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-readback-final\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-readback-final\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-readback-final\\receipt.json",
+    "bytes": 1630,
+    "sha256": "2548526d1ebe2e597e98f4b7ea5233a1de69a7d5f339fc3b82a846fd1bb47380",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-readback-final\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\current-rules-preflight\\source-readback-final\\stdout.bin",
+    "bytes": 30829,
+    "sha256": "4915790cb3e2ca093777e97e132d471362bd2583ff539674b98f8f85fa702046",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\final-readback.json",
+    "bytes": 3309,
+    "sha256": "2a5b4d4c60441f25d82a3d9337f352644989bdd27be46cd6d68e0fa68da7a07b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\final_readback.py",
+    "bytes": 5799,
+    "sha256": "92bae37d2d380525e3dbece2a8439d16a552611b65479915b36398e65f0b1fa4",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-native-preflight\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-native-preflight\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-native-preflight\\receipt.json",
+    "bytes": 1668,
+    "sha256": "2d30afc7916b9ce88d7103aedd68c421df2aefe69ca7ea5e288b9f781cff070c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-native-preflight\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-native-preflight\\stdout.bin",
+    "bytes": 2031,
+    "sha256": "9d2a7254e4ca5f66fd049aa3a897fc43cfb0cf8180da340d3c420f286a959cee",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-stale-preflight\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-stale-preflight\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-stale-preflight\\receipt.json",
+    "bytes": 1661,
+    "sha256": "e9fed04d3813444f47d74534e5edc681234dda4c3d20b0438de7fa7d7c32986b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-stale-preflight\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\inspect-stale-preflight\\stdout.bin",
+    "bytes": 847,
+    "sha256": "abcd16966502ae9acf0e1c2b83bbda294cead734d49777a984feac92bea0c261",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\native-diagnostic-handoff.md",
+    "bytes": 4025,
+    "sha256": "2bd7a0fdfcf5967a0c669da4399b5e23e902ef42235cee684029b52162e63618",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\observe_state.py",
+    "bytes": 2260,
+    "sha256": "87e2eb375be70faee5e19f85d08ac65899fa9b5bd7d194ec53995c6507149c70",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-001\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-001\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-001\\receipt.json",
+    "bytes": 1720,
+    "sha256": "669a3bc13a8ea22e371b84bb0fdeb24ff7f51682b553bb7fe1b4bfc534d1472d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-001\\started.json",
+    "bytes": 1194,
+    "sha256": "f14d84f73afeee8cfd3c1c7a697a8468c0406960a18fc9915f9e0b5ff41c77ae",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-001\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-001\\stdout.bin",
+    "bytes": 735,
+    "sha256": "77b233796ed00afe4bd7bcc775f6454968c9802cf76b2f88a1c435fc5781040e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-input-bindings.json",
+    "bytes": 477,
+    "sha256": "b18146fe3b04dcd7e3884a849a7b91609892a4eeec06e32b997edf4a796933cf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-request.json",
+    "bytes": 1327,
+    "sha256": "d197a36e26e87718bcc07a1f75fead47788e1748b4d9a2aa2081f530e5c88c35",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-review.unqualified.json",
+    "bytes": 9279,
+    "sha256": "bcd10ad46017b34493fd8bfa975405728ca714ecabb3e2a105234cdccc043cb0",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\preflight-source-drift.json",
+    "bytes": 1834,
+    "sha256": "f446d992a90b351f4114be6c400168975c42dfa3d20c14c3fb814071144cc589",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\prepare.py",
+    "bytes": 3836,
+    "sha256": "8a47f8dfa728dd7612297932b03eadb76d161358b75fba80b5daaa7136802523",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\prepare_followup.py",
+    "bytes": 4900,
+    "sha256": "db5fb511d5533c456776ab35e54076a7fb144de14eb48775af0d50a372f1a9a4",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\prepare_preflight.py",
+    "bytes": 3581,
+    "sha256": "e230706c6023a868820944132fe4330f30e1a4915764074c40bda71f3a40863e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\record.py",
+    "bytes": 7554,
+    "sha256": "ca6dfd8fd6d592aebd6a170ac3d722d823451f2b067277dbc640b2a5ac8c9e3c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\seal.py",
+    "bytes": 3118,
+    "sha256": "478d6855a270ef64a8ee9a1eb32462e880ac112cac49105b6d3476875956a38b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-001\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-001\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-001\\receipt.json",
+    "bytes": 1626,
+    "sha256": "5e0a7b4d98851114137eeee0b3b95a72a469c08a238f2b54f2de50f4c3c0dd15",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-001\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-001\\stdout.bin",
+    "bytes": 30774,
+    "sha256": "3aa93effdd5eb3fb812ff3ed53104b4e89c9cb24d98e25ac6bdfea8c6d95764b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-002\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-002\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-002\\receipt.json",
+    "bytes": 1626,
+    "sha256": "fcb12988404016da7df5add0853f480e9d22d731edbc3362f9cf8a29673d7c57",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-002\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-002\\stdout.bin",
+    "bytes": 30774,
+    "sha256": "2029d7889cd4054d2791fd0e55684dae48ac0c37aac12710e068aad858a1fbad",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-003-diagnostic\\candidate-after.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-003-diagnostic\\candidate-before.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-003-diagnostic\\receipt.json",
+    "bytes": 1635,
+    "sha256": "7a03f1c4933347bd37c412b542b79a0c6dce32523fcd11a95e3d225cb19c874f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-003-diagnostic\\stderr.bin",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\source-observation-003-diagnostic\\stdout.bin",
+    "bytes": 30774,
+    "sha256": "fd3446069c79828cfd6b2ad4477e074b218506adfc04eace82f4353e4286bebe",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-continuation\\20260916T034357Z-source-identity\\state-observation-001.json",
+    "bytes": 3910,
+    "sha256": "b2d5639ced38d97b7b9e273b2078bc0365344691f55c6eb1897ef08cdab34f5f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity\\20260916T021843Z-dev\\candidate-manifest.json",
+    "bytes": 9776,
+    "sha256": "3108f976f7d51b734ab995ebf729302ef74a4386ddaafb5561cddbd6f588d65c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-source-identity-qa\\20260916T021843Z-retest\\qa-report.md",
+    "bytes": 14129,
+    "sha256": "b2e8304c07a89a7c155669e1d0a9e9b93c8f5a0ac966b567fca1fee461b7f2d0",
+    "matches": true
+  }
+]

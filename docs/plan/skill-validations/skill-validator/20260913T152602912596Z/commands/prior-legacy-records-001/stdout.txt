@@ -1,0 +1,77 @@
+{
+  "schema_version": "1",
+  "command": "records",
+  "status": "OBSERVED",
+  "coverage": [
+    "strict JSON/JSONL parsing of run records (excluding raw source, input, and trial fixtures)",
+    "extant reference bytes, normalized paths, digests, supported locators, and reference cycles",
+    "check schemas and applicability",
+    "finding schemas and deterministic identity",
+    "manifest digest accounting",
+    "status reductions when dimension-tagged checks exist; basic review-readiness consistency"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement.",
+    "Only extant records are checked; absent stage artifacts and semantic evidence support require the report checklist.",
+    "Finding anchor support, historical provenance validity, rule authority/applicability, and review authorization meaning require agent review.",
+    "Checks may add dimension standards, workflow, instructions, behavior for explicit reductions; long snake_case aliases are supported; missing dimensions remain incomplete.",
+    "assessment.json is optional helper input for checking declared reductions; validation-report.md prose is not parsed as machine authority."
+  ],
+  "errors": [],
+  "records_checked": [
+    "assessment.json",
+    "checks.jsonl",
+    "findings.json",
+    "handoff.json",
+    "origin-record.json",
+    "rule-set.json",
+    "source-after-manifest.json",
+    "source-manifest.json",
+    "sources.json",
+    "workflow-map.json"
+  ],
+  "references_checked": 118,
+  "excluded_boundaries": [],
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "required_total": 10,
+      "required_evaluated": 10,
+      "incomplete_check_ids": []
+    },
+    "workflow": {
+      "outcome": "INCOMPLETE",
+      "required_total": 5,
+      "required_evaluated": 4,
+      "incomplete_check_ids": [
+        "AV-W01-maintenance"
+      ]
+    },
+    "instructions": {
+      "outcome": "PASS",
+      "required_total": 6,
+      "required_evaluated": 6,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "INCOMPLETE",
+      "required_total": 2,
+      "required_evaluated": 1,
+      "incomplete_check_ids": [
+        "AV-W02-maintenance"
+      ]
+    }
+  },
+  "overall_assessment": "INCOMPLETE",
+  "required_coverage": {
+    "outcome": "INCOMPLETE",
+    "required_total": 23,
+    "required_evaluated": 21,
+    "incomplete_check_ids": [
+      "AV-W01-maintenance",
+      "AV-W02-maintenance"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "version": "2.1.273 (Claude Code)",
+  "help_sha256": "9bda7cf0228aab5660feed0990183c0f3839d43629edf5801453ed4d8ac2bd81",
+  "help": "--print --model --effort --restricted --safe-mode --strict-mcp-config --tools --allowedTools --permission-mode --permission-prompts --add-dir --no-session-persistence --max-budget-usd --output-format --append-system-prompt[-file]\n",
+  "qualification": "HELP_ONLY; native behavior requires separate evidence"
+}

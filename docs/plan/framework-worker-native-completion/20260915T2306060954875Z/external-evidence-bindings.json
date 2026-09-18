@@ -1,0 +1,163 @@
+{
+  "qa": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\qa-report.md",
+      "bytes": 11180,
+      "sha256": "0cea59ae0461aec0530ee144d8bae340dba7208bec9ad03c97bb8cd1802d1095"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\dev-handoff.md",
+      "bytes": 3366,
+      "sha256": "fbb6926a4b3a67433f06a7c12e48a24a013249402c2cc7e1b868eb3e2c4c075c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\artifact-manifest.json",
+      "bytes": 560714,
+      "sha256": "886f2c630a03183df3557d9fc58a24075b3af440ade7e00c398e5c5a8fa6b1c5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\denominators.md",
+      "bytes": 2742,
+      "sha256": "43258d3df77b5caccb07803ed253fc9cc3ce63ab8c4446ccb715ee7ac649677c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\test-integrity.md",
+      "bytes": 4302,
+      "sha256": "67cbb740c5f50e30c71ec6a08b3c4fe3ecc5f10fe00dcf068731ccef7598c5f3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\failed-attempts.md",
+      "bytes": 939,
+      "sha256": "51be65b3c8c579eada59aba904e882cd0d1769a1d0411647bff4842091246767"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\checkpoint.json",
+      "bytes": 1232,
+      "sha256": "1666b6ba4227893c1baa37bd0c55cb4e6c25e8149026412484407fa85950182c"
+    }
+  ],
+  "qa_raw_coverage": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion-qa\\20260915T2325371896643Z\\08a-coverage\\coverage.json",
+    "bytes": 1022606,
+    "sha256": "271212ab24ab2939f4a595103c9978c2d451dc826fecfe341da06d5d4c3dc3b8"
+  },
+  "effective_profile_development": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\01-red\\receipt.json",
+      "bytes": 515,
+      "sha256": "4390de241c8fae7b67695487c030e3f27e57ecb27178962fe4cb40b630ef6076"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\01-red\\stderr.txt",
+      "bytes": 1500,
+      "sha256": "a5906ee49171c87efeefc2cb05064a3a6c7a4b5df32783c72a29c4d5dfc58eed"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\01-red\\stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\02-green\\receipt.json",
+      "bytes": 513,
+      "sha256": "5ec85625056ef4231177a74bb83c6524c4483ad99051d317bf6583d30c89056d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\02-green\\stderr.txt",
+      "bytes": 1402,
+      "sha256": "9c8489c17482de00ecf855e291543cba580d90305eb66084d9aded498553780e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\02-green\\stdout.txt",
+      "bytes": 263,
+      "sha256": "75c1d1d5ae876db28f379ce05e12a7f37ca8505410e29798c3f28468c722c8c1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\03-refactor\\receipt.json",
+      "bytes": 514,
+      "sha256": "fc8fdaed73f9ab34c5aad9f5c92d79548400c260a52472cb1ca983942f66b125"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\03-refactor\\stderr.txt",
+      "bytes": 1198,
+      "sha256": "d18fb485513d9c6cc960d47f04156bdd26f366212a6fb87ef5e1191e40bdb843"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\03-refactor\\stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\04-contract-red\\receipt.json",
+      "bytes": 786,
+      "sha256": "8f59acef330393f7374ceb53ac3903d25dcc692ba4f7a05b4837d805cbd469f3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\04-contract-red\\stderr.txt",
+      "bytes": 460,
+      "sha256": "f1ec5959301f37f569c4a10391a1d2f0eefe4a61e5bfb5ffb340c550bd90cb61"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\04-contract-red\\stdout.txt",
+      "bytes": 740,
+      "sha256": "51b97e8ed3cc5181247e8ddce90b7acf05d7ae6093a1ec819f3b77d42be44cf7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\05-provider-red\\receipt.json",
+      "bytes": 753,
+      "sha256": "9f69d2783176fd4a17866d7e4aa6d9d238e970b465fde1d3283b46104ae2d7de"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\05-provider-red\\stderr.txt",
+      "bytes": 460,
+      "sha256": "4a8a5dc7ab02fbd1aace97818595fbb20caf395afa54992c5f5f28dddb0a6a76"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\05-provider-red\\stdout.txt",
+      "bytes": 740,
+      "sha256": "add855b606f2f6d98fa74560a85a8a623b9d926f75ab826eed00d6957d3e51e6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\06-final-green\\receipt.json",
+      "bytes": 762,
+      "sha256": "0335c377a30ca2843c3091763f31b90a6bf54b0921f93c6c3cae4fe136ba0be0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\06-final-green\\stderr.txt",
+      "bytes": 398,
+      "sha256": "dceaec5999dce890add837b43240c72e137720e48d0ac6c35784b85b6852eef7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\06-final-green\\stdout.txt",
+      "bytes": 263,
+      "sha256": "75c1d1d5ae876db28f379ce05e12a7f37ca8505410e29798c3f28468c722c8c1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\07-static\\clippy-stderr.txt",
+      "bytes": 816,
+      "sha256": "27c92268f7cde034124347b0422d4f23a54b5d9b6d3db3e57947940619fb26f4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\07-static\\clippy-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\07-static\\receipt.json",
+      "bytes": 611,
+      "sha256": "10e63718eb12d6ba10788f308fcfbfa46e72482dc2d4d773daf649d746d78844"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\07-static\\rustfmt-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\07-static\\rustfmt-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "reparses_not_followed": [],
+  "note": "QA artifact-manifest binds its retained artifacts; effective-dev target is retained but excluded from this non-build inventory."
+}

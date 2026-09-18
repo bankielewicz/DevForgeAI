@@ -1,0 +1,163 @@
+test_backtick_in_info_string_does_not_open_block (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_copied_check_execution_rejected (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_headings_inside_false_closer_stay_literal (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_json_string_containing_key_example_is_not_protocol (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_jsonl_protocol_values_are_located (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_member_integration_artifact_reuse_rejected (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_missing_report_does_not_hide_reused_checks (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_nonclosing_fence_tail_keeps_example_literal (test_confirmed_findings.ConfirmedFindingTests) ... test_passing_row_does_not_hide_contradictory_required_na (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_plain_prose_and_ascii_protocol_preserved (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_protocol_candidate_multiline_offsets_and_redaction (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_real_link_after_fence_has_original_line (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_required_handoff_not_applicable_rejected (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_same_check_id_in_distinct_runs_accepted (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_same_execution_in_two_members_rejected (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+test_same_member_artifact_reused_by_other_member_rejected (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_shared_evidence_is_not_duplicate_execution (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_tilde_whitespace_closer_and_shorter_marker (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_unperformed_handoff_keeps_incomplete (test_confirmed_findings.ConfirmedFindingTests) ... ok
+test_windows_case_alias_is_same_artifact (test_confirmed_findings.ConfirmedFindingTests) ... FAIL
+
+======================================================================
+FAIL: test_backtick_in_info_string_does_not_open_block (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 186, in test_backtick_in_info_string_does_not_open_block
+    self.assertEqual(links, [(2, 'missing.md', 'link')])
+AssertionError: Lists differ: [] != [(2, 'missing.md', 'link')]
+
+Second list contains 1 additional elements.
+First extra element 0:
+(2, 'missing.md', 'link')
+
+- []
++ [(2, 'missing.md', 'link')]
+
+======================================================================
+FAIL: test_copied_check_execution_rejected (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 74, in test_copied_check_execution_rejected
+    self.assertTrue(self.errors(value))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_headings_inside_false_closer_stay_literal (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 190, in test_headings_inside_false_closer_stay_literal
+    self.assertEqual(text.anchors('```text\n```not-close\n# Example\n```\n# Actual\n'), {'actual'})
+AssertionError: Items in the first set but not the second:
+'example'
+Items in the second set but not the first:
+'actual'
+
+======================================================================
+FAIL: test_jsonl_protocol_values_are_located (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 156, in test_jsonl_protocol_values_are_located
+    self.assertEqual(len(found), 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_member_integration_artifact_reuse_rejected (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 65, in test_member_integration_artifact_reuse_rejected
+    self.assertTrue(self.errors(value))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_nonclosing_fence_tail_keeps_example_literal (test_confirmed_findings.ConfirmedFindingTests) (marker='```')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 171, in test_nonclosing_fence_tail_keeps_example_literal
+    self.assertEqual(links, [])
+AssertionError: Lists differ: [(3, 'absent.md', 'link')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(3, 'absent.md', 'link')
+
+- [(3, 'absent.md', 'link')]
++ []
+
+======================================================================
+FAIL: test_nonclosing_fence_tail_keeps_example_literal (test_confirmed_findings.ConfirmedFindingTests) (marker='~~~')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 171, in test_nonclosing_fence_tail_keeps_example_literal
+    self.assertEqual(links, [])
+AssertionError: Lists differ: [(3, 'absent.md', 'link')] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(3, 'absent.md', 'link')
+
+- [(3, 'absent.md', 'link')]
++ []
+
+======================================================================
+FAIL: test_passing_row_does_not_hide_contradictory_required_na (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 128, in test_passing_row_does_not_hide_contradictory_required_na
+    self.assertTrue(self.errors(value))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_protocol_candidate_multiline_offsets_and_redaction (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 143, in test_protocol_candidate_multiline_offsets_and_redaction
+    self.assertEqual(len(found), 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_real_link_after_fence_has_original_line (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 176, in test_real_link_after_fence_has_original_line
+    self.assertEqual(links, [(5, 'missing.md', 'link')])
+AssertionError: Lists differ: [(3, 'absent.md', 'link')] != [(5, 'missing.md', 'link')]
+
+First differing element 0:
+(3, 'absent.md', 'link')
+(5, 'missing.md', 'link')
+
+- [(3, 'absent.md', 'link')]
+?   ^   ^^ ^ ^
+
++ [(5, 'missing.md', 'link')]
+?   ^   ^^ ^^ ^
+
+
+======================================================================
+FAIL: test_required_handoff_not_applicable_rejected (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 120, in test_required_handoff_not_applicable_rejected
+    self.assertTrue(self.errors(value))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_same_execution_in_two_members_rejected (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 77, in test_same_execution_in_two_members_rejected
+    self.assertTrue(self.errors(self.assessment(same_run=True)))
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_windows_case_alias_is_same_artifact (test_confirmed_findings.ConfirmedFindingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_confirmed_findings.py", line 99, in test_windows_case_alias_is_same_artifact
+    self.assertTrue(self.errors(value))
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 20 tests in 3.717s
+
+FAILED (failures=13)

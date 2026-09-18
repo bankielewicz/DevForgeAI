@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "C:/Program Files/PowerShell/7/pwsh.exe",
+    "-NoProfile",
+    "-File",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\fault_controls.ps1",
+    "-Action",
+    "Deny",
+    "-Target",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\harness-controls\\green\\backlog",
+    "-StatePath",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\harness-controls\\green\\acl.json"
+  ],
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "Set-Acl: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\fault_controls.ps1:28\r\nLine |\r\n  28 |      Set-Acl -LiteralPath $TaskTargetPath -AclObject $TaskAcl\r\n     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | Attempted to perform an unauthorized operation.\r\n"
+}

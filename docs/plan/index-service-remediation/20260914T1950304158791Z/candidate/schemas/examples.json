@@ -1,0 +1,7 @@
+[
+  {"protocol_version":1,"request_id":"550e8400-e29b-41d4-a716-446655440000","operation":"daemon.status","timeout_ms":10000,"params":{}},
+  {"protocol_version":1,"request_id":"550e8400-e29b-41d4-a716-446655440001","operation":"project.add","timeout_ms":10000,"params":{"root":"/home/example/project","name":"Example"}},
+  {"protocol_version":1,"request_id":"550e8400-e29b-41d4-a716-446655440002","operation":"index.reindex","timeout_ms":10000,"params":{"project_id":"550e8400-e29b-41d4-a716-446655440003"}},
+  {"protocol_version":1,"request_id":"550e8400-e29b-41d4-a716-446655440002","service_version":"0.1.0","environment_id":"550e8400-e29b-41d4-a716-446655440004","ok":true,"data":{"job_id":"550e8400-e29b-41d4-a716-446655440005","waiting_for_resume":false},"error":null},
+  {"protocol_version":1,"request_id":"550e8400-e29b-41d4-a716-446655440000","service_version":null,"environment_id":null,"ok":false,"data":null,"error":{"code":"SERVICE_UNAVAILABLE","message":"No authenticated local endpoint answered","details":{}}}
+]

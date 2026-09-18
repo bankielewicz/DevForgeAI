@@ -1,0 +1,86 @@
+[
+  {
+    "trial_id": "DV-17",
+    "attempts": [
+      "attempt-001",
+      "attempt-002"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "custom receipts/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 9,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "custom receipts/execution-record.jsonl",
+        "line": 1,
+        "attempt_id": "01-harness",
+        "stage": "setup",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "custom receipts/execution-record.jsonl",
+        "line": 2,
+        "attempt_id": "02-red",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "custom receipts/execution-record.jsonl",
+        "line": 3,
+        "attempt_id": "03-green",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      }
+    ]
+  },
+  {
+    "trial_id": "RV-02",
+    "attempts": [
+      "attempt-001",
+      "attempt-002"
+    ],
+    "termination": "exited",
+    "exit_status": 0,
+    "immutable_changes": [],
+    "selected_evidence_value": "custom receipts Ω [$literal]/",
+    "selected_root_is_directory": true,
+    "receipt_count": 3,
+    "references_checked": 7,
+    "unsupported_rows": [],
+    "problems": [],
+    "receipts": [
+      {
+        "path": "custom receipts Ω [$literal]/executions.jsonl",
+        "line": 1,
+        "attempt_id": "red-001",
+        "stage": "red",
+        "result": "FAIL",
+        "exit_code": 1
+      },
+      {
+        "path": "custom receipts Ω [$literal]/executions.jsonl",
+        "line": 2,
+        "attempt_id": "green-001",
+        "stage": "green",
+        "result": "PASS",
+        "exit_code": 0
+      },
+      {
+        "path": "custom receipts Ω [$literal]/executions.jsonl",
+        "line": 3,
+        "attempt_id": "setup-001",
+        "stage": "setup",
+        "result": "ERROR",
+        "exit_code": 1
+      }
+    ]
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1949120508210Z",
+  "target_name": "qa",
+  "findings": [
+    {
+      "finding_id": "F-12f5195d7652975d2d28290d7aa3750599cadf14149655b5679461d9e1c8550d",
+      "identity": [
+        "AV-W01",
+        "references/reporting-handoff.md",
+        "QA-026 / QAP-014: This skill's evaluated-build completeness requires a separate skill-validator task binding exact skill and selected specification bytes to a Python JSONL runner, deterministic graders, independent fixtures, expected results, schema, runtime/dependency information and artifact manifests/digests.",
+        0
+      ],
+      "rule_id": "AV-W01",
+      "category": "input_evidence_limitation",
+      "severity": "blocker",
+      "subject_path": "references/reporting-handoff.md",
+      "locator": {
+        "section": "Separate package evaluation"
+      },
+      "source_refs": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "source_id": "qa-runtime-reporting",
+          "locator": {
+            "section": "Separate package evaluation"
+          }
+        }
+      ],
+      "observation_refs": [
+        {
+          "path": "native-observations.json",
+          "sha256": "bbd9741ca17aef0a13b234c17bab9cdeb5636952d9869e40eecf86949f37050b"
+        },
+        {
+          "path": "evaluation/results-001.jsonl",
+          "sha256": "ffb43e2123993e8370d9e2f20c2fb813b7c2d1bc4d516323d1423d0151ec2418"
+        }
+      ],
+      "description": "Evaluated-build completeness is unproven. All three cold workflow pilots reached the 120-second limit; none delivered final required artifacts. Remaining scenario variants and full native grading are unperformed.",
+      "user_impact": "The authored package cannot be described as independently behavior-validated or qualified for adoption by this assessment.",
+      "proposed_correction": "Complete a separately selected native campaign with explicitly chosen feasible case budgets and remaining independent fixture variants; preserve every current failure/timeout and rebind unchanged inputs. No source repair is justified by these traces.",
+      "preserved_requirements": [
+        "Exact-byte provenance",
+        "No automatic retry or source repair",
+        "All 42 selected scenarios and variants",
+        "Python evidence only; separate Rust authority"
+      ],
+      "verification_cases": [
+        "QV-01 through QV-21",
+        "QPV-01 through QPV-21"
+      ],
+      "disposition": "proposed"
+    }
+  ]
+}

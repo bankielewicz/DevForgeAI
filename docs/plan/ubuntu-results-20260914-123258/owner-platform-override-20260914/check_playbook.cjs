@@ -1,0 +1,37 @@
+// Unit checks for the offline organizer. This does not prove rendered browser behavior.
+const fs=require('node:fs'), vm=require('node:vm'), assert=require('node:assert/strict');
+const page=fs.readFileSync(require('node:path').resolve(__dirname,'../../index-service-validation-playbook.html'),'utf8');
+const data=page.match(/<script id="caseData" type="application\/json">([\s\S]*?)<\/script>/)[1];
+const script=page.match(/<script>\s*([\s\S]*?)<\/script>/)[1];
+new vm.Script(script);
+const elements=new Map();
+const element=id=>{if(!elements.has(id))elements.set(id,{value:id==='filter'?'all':'',textContent:id==='caseData'?data:'',innerHTML:'',addEventListener(){},querySelector(){return element('badge');},setAttribute(){}});return elements.get(id);};
+const context=vm.createContext({document:{getElementById:element},localStorage:{getItem(){return null;},setItem(){}},console,Date,JSON,Number,String,Array,Object,Set,Math,Error,setTimeout});
+vm.runInContext(script,context);
+const run=code=>vm.runInContext(code,context);
+assert.equal(JSON.parse(data).length,19);
+assert.equal(new Set(JSON.parse(data).map(c=>c.id)).size,19);
+assert.equal(run('counts().passed'),0);
+assert.equal(run('counts().required'),19);
+assert.equal(run('current().release'),'Ubuntu 26.04.1 LTS');
+assert.equal(run('counts().line_coverage_percent'),null);
+run("current().linesTotal='1000';current().linesCovered=''");
+assert.equal(run('counts().line_coverage_percent'),null,'Missing executed-line count must remain NOT_RUN');
+run("current().linesCovered='949'");assert.equal(run('counts().line_coverage_percent'),94.9);
+run("record('DS-A01').status='PASS';record('DS-A01').observed='observed';record('DS-A01').command='actual command';record('DS-A01').artifacts='fixture.log sha256';record('DS-A01').attempts.push({status:'FAIL'},{status:'PASS'})");
+assert.equal(run('counts().passed'),1);assert.equal(run('counts().required'),19);
+assert.equal(run("record('DS-A01').attempts.length"),2);
+run("state.platform='windows';loadFields()");assert.equal(run('counts().passed'),0);
+assert.ok(run('qa()').includes('\nRunCase'));
+assert.ok(!run('qa()').includes('\\nRunCase'));
+assert.ok(run("commands(CASES[0])").includes('simultaneous_starts_and_process_level_index_lifecycle'));
+run("state.platform='linux';loadFields()");assert.equal(run('counts().passed'),1);
+assert.equal(run('exportResult().authority'),'evidence_only_NOT_EVALUATED');
+assert.equal(run('exportResult().formal_qa_status'),'PENDING');
+assert.ok(run('exportResult().qa_failure_criteria').includes('mock decorators present'));
+assert.ok(run('exportResult().qa_failure_criteria').includes('tests gaming results'));
+assert.equal(run('exportResult().required_cases.length'),19);
+assert.equal(run('exportResult().platforms.linux.cases["DS-A01"].attempts.length'),2);
+console.log('PASS: JavaScript syntax; 19 unique scenarios; fresh defaults; exact release; missing coverage; subthreshold arithmetic; retry retention; platform isolation; copy-command newlines; evidence-only export.');
+
+assert.equal(run('exportResult().required_standalone_target'),'Ubuntu 26.04.1 LTS x64');

@@ -1,0 +1,343 @@
+{
+  "schema_version": "story-finding-comparison-v1",
+  "prior_finding": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\findings.json",
+    "sha256": "bf53475c692b180c3a5830708d25d2c27b21bacd9a261401216093105af1469b"
+  },
+  "finding_id": "F-81a45921b9a7da6aefda7481b9fb2dffd2134f2ae672a21a42c5ba041a17d119",
+  "result": "RESOLVED_FOR_DECLARED_SCOPE",
+  "basis": "The same ten missing evidence obligations have now completed against the unchanged package; original INCOMPLETE assessment remains historical.",
+  "cases": [
+    {
+      "case_id": "N02",
+      "result": "PASS",
+      "observation": "Complete three-outcome batch; blocked planning gap retained",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N02\\attempt-002\\result.json",
+        "sha256": "4b0592967476977e8175f23b72bb7d0225f487c0159a6b84091fbe22ef014543"
+      },
+      "elapsed_seconds": 1087.155999999959,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N02\\attempt-002\\result.json",
+          "sha256": "4b0592967476977e8175f23b72bb7d0225f487c0159a6b84091fbe22ef014543"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N02\\expected.json",
+          "sha256": "955bf87668ec091eb500c0732340d357d1137dbdc738290446c8169039eb628c"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N02\\semantic-review.md",
+          "sha256": "0b93e7e0ffdde655671f67ffdeabbef6d23aa709eb5f361bbedc62dec10f7aac"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N02\\artifact-grade-001.json",
+          "sha256": "fcbea831661d12a1289ce39318dff724fb4989e803f595dc70fd293db6fbce39"
+        }
+      ]
+    },
+    {
+      "case_id": "N03",
+      "result": "PASS",
+      "observation": "Selected architecture seed and UI obligations",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N03\\attempt-002\\result.json",
+        "sha256": "adeb06b3cc649e437592dcfa8eaab844b7903e0240bc397f24c77293cf29ecf3"
+      },
+      "elapsed_seconds": 814.2029999999795,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N03\\attempt-002\\result.json",
+          "sha256": "adeb06b3cc649e437592dcfa8eaab844b7903e0240bc397f24c77293cf29ecf3"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N03\\expected.json",
+          "sha256": "3c87b7148db8248584d4142e884fea3acb96adebd997cb6e88241d1c0d98ff1b"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N03\\semantic-review.md",
+          "sha256": "b3cc38fcac3b9c1f92452d48f28c51ecdd52a85a10ed4276d054aee43ad8d673"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N03\\artifact-grade-001.json",
+          "sha256": "3f2daff7c55e2feae4dfc41c3148d85ba8240ee72265918dc1236c51ac485566"
+        }
+      ]
+    },
+    {
+      "case_id": "N04",
+      "result": "PASS",
+      "observation": "Exact recommendation verification; malformed and absent selections",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\attempt-002\\result.json",
+        "sha256": "e472ea32c9c55d8bb70325455978e3fb195cd0933a78e82421c57f49b1111d0e"
+      },
+      "elapsed_seconds": 567.5939999999828,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\attempt-002\\result.json",
+          "sha256": "e472ea32c9c55d8bb70325455978e3fb195cd0933a78e82421c57f49b1111d0e"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\expected.json",
+          "sha256": "0b5910b42ea2130beaa5c40ea563427eaffc922fd17fc9c27e7d227b12d34b03"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\semantic-review.md",
+          "sha256": "56eb5f1fb099575f3cf05221971ab1cb76df0baa1582769baaa16da9f27bf7a2"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\artifact-grade-001.json",
+          "sha256": "39a9e0077caaf33e75d12388debfa3d541ef9bf9fed1d13b546e8a79c54ae49b"
+        }
+      ]
+    },
+    {
+      "case_id": "N05",
+      "result": "PASS",
+      "observation": "RCA condition/provenance and deferred-gap obligations",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N05\\attempt-002\\result.json",
+        "sha256": "913e3c9ecb70ee271aa6f785a67d6837efffb76275a14765910e34299f83d17a"
+      },
+      "elapsed_seconds": 706.280999999959,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N05\\attempt-002\\result.json",
+          "sha256": "913e3c9ecb70ee271aa6f785a67d6837efffb76275a14765910e34299f83d17a"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N05\\expected.json",
+          "sha256": "9e29d0c805af56591857401e2e5a99bb9fefe5085e0799596c9e27b70cd32c70"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N05\\semantic-review.md",
+          "sha256": "3951f8e249f2cce874fc0846fd6d6520e04281afbe86fd3a2df33d4b306f31be"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N05\\artifact-grade-001.json",
+          "sha256": "2657345878cb0793de368c64784334104cfc811df6824088717befdd33027b6c"
+        }
+      ]
+    },
+    {
+      "case_id": "N10",
+      "result": "PASS",
+      "observation": "Dependency cycle remains blocked; selected drafts retained",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N10\\attempt-002\\result.json",
+        "sha256": "70895c50982c6179581972ab487596d24fd4a5a771406fcb45515d488eb78496"
+      },
+      "elapsed_seconds": 839.0310000000172,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N10\\attempt-002\\result.json",
+          "sha256": "70895c50982c6179581972ab487596d24fd4a5a771406fcb45515d488eb78496"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N10\\expected.json",
+          "sha256": "7d7e35666165ba569d24801f29a9d35b2ffbed8102079b50d9a86f55fa1a73ac"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N10\\semantic-review.md",
+          "sha256": "d284a6b59898380f79cd459d7235905ecf69593613ce9a8c3838391c51c52d39"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N10\\artifact-grade-001.json",
+          "sha256": "629b8eecd504fd22584b715a75f77b0648bda06be3f832b42139812ea02590a1"
+        }
+      ]
+    },
+    {
+      "case_id": "N12",
+      "result": "PASS",
+      "observation": "Actual story consumed by development to create the guide",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N12\\attempt-002\\result.json",
+        "sha256": "f5815758064c88f7cb2d9c10148cfd6557ccc8c72a8e2d3f734e7206cbf3b06f"
+      },
+      "elapsed_seconds": 855.390000000014,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N12\\attempt-002\\result.json",
+          "sha256": "f5815758064c88f7cb2d9c10148cfd6557ccc8c72a8e2d3f734e7206cbf3b06f"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N12\\expected.json",
+          "sha256": "470bf2ed1307fa9cdcdd0e8fe7c32c2b657d70fd7423cdfe82a32da1cf42da97"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N12\\semantic-review.md",
+          "sha256": "3b2977e9fb80a19410efd540bf7cb4e0ff87f3ef6007b25d8375bb8d72778468"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N12\\artifact-grade-001.json",
+          "sha256": "78ade71b7263afb036a447bdf3b665759331ac89d334cc229244809e85bfffa0"
+        }
+      ]
+    },
+    {
+      "case_id": "N13",
+      "result": "PASS",
+      "observation": "Actual development guide consumed by independent QA",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\attempt-001\\result.json",
+        "sha256": "5ad33ee4cfc1b1751483d6cb364576042adb1bb7b26bd3f2a9951753e708b76b"
+      },
+      "elapsed_seconds": 979.9689999999828,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\attempt-001\\result.json",
+          "sha256": "5ad33ee4cfc1b1751483d6cb364576042adb1bb7b26bd3f2a9951753e708b76b"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\expected.json",
+          "sha256": "bf74a670a663ba5cbd654593042433e3bb7c97fdd56c0d8a4ecfb38de4e6235e"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\semantic-review.md",
+          "sha256": "6729807a5c708bbd11b728a6cbbd6f9d20701baa9575efb588fc5f9d58fdd061"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N13\\artifact-grade-001.json",
+          "sha256": "cca89966df116b59d79409588fce8c1d861ae1ce78e2292b0f9a73ad8ace838b"
+        }
+      ]
+    },
+    {
+      "case_id": "G01",
+      "result": "PASS",
+      "observation": "Concurrent epic change preserved during live link update",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G01\\attempt-001\\result.json",
+        "sha256": "90e755fc5e3183ebbc845ce5e387334fd3643e7112353876a56ce7eb83e9cda0"
+      },
+      "elapsed_seconds": 360.03100000001723,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G01\\attempt-001\\result.json",
+          "sha256": "90e755fc5e3183ebbc845ce5e387334fd3643e7112353876a56ce7eb83e9cda0"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G01\\expected.json",
+          "sha256": "b7b65800778144e0d3d65b2684b3e89562fbb60709356d782ab28ea33020129a"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G01\\semantic-review.md",
+          "sha256": "81ef7a3a570e2de06f4607bee6dbfb52a539b5a4c27d41721be6edded94a4026"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G01\\artifact-grade-001.json",
+          "sha256": "fa28728f5e8d52eeb0b93bdec178073a5c8340bd597a2a8b9ba18aa72115f1b3"
+        }
+      ]
+    },
+    {
+      "case_id": "G02",
+      "result": "PASS",
+      "observation": "Real Windows denied create reported without alternate delivery",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G02\\attempt-001\\result.json",
+        "sha256": "08671e1f6fb32139b20e7ab7e71e11b46a4fbe22cc743e3ea89dde81d7a99e18"
+      },
+      "elapsed_seconds": 468.28100000001723,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G02\\attempt-001\\result.json",
+          "sha256": "08671e1f6fb32139b20e7ab7e71e11b46a4fbe22cc743e3ea89dde81d7a99e18"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G02\\expected.json",
+          "sha256": "ea8dd6e8b84047084a5ddc9e4bb7c2e3b326ef48143d5228a7e739d14fcdcd92"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G02\\semantic-review.md",
+          "sha256": "b9eaa64a029d31a5e9f004f0f54f5541e0106da1726f17984246eb17f6751d6c"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G02\\artifact-grade-001.json",
+          "sha256": "1c26297d83c1eb5f98ad81149cbabed723272c2f0a3d4cfc5fd750ce32941605"
+        }
+      ]
+    },
+    {
+      "case_id": "G03",
+      "result": "PASS",
+      "observation": "Owned truncated story completed at the same path and ID",
+      "evidence_run": "20260917T194717Z",
+      "attempt": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G03\\attempt-001\\result.json",
+        "sha256": "49f205554d69ce3821744ff1930fc0fb00e380b23b099e71579f5edc44ae8a42"
+      },
+      "elapsed_seconds": 873.9679999999935,
+      "timeout": false,
+      "exit_code": 0,
+      "cleanup": "VERIFIED",
+      "input_unchanged": true,
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G03\\attempt-001\\result.json",
+          "sha256": "49f205554d69ce3821744ff1930fc0fb00e380b23b099e71579f5edc44ae8a42"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G03\\expected.json",
+          "sha256": "deb4a189b1988cdf55bbaea2a101a8adb90dfcf6d1719df73955f869bbf669e6"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G03\\semantic-review.md",
+          "sha256": "0ece04749352f117b1acd75bd7e5a7bb41be87f33fcd4bbaf6848384beb497f9"
+        },
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\G03\\artifact-grade-001.json",
+          "sha256": "fbfbfd4032e3926816f42d74a26b7a713b2fcc2af51f15a2a9ef322b5ac36dec"
+        }
+      ]
+    }
+  ],
+  "source_correction": null
+}

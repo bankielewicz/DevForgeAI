@@ -1,0 +1,9 @@
+{
+  "os": "Windows-10-10.0.26200-SP0",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "python_executable": "C:\\Program Files\\Python310\\python.exe",
+  "shell": "PowerShell",
+  "git_metadata": false,
+  "execution_boundary": "Windows workspace sandbox; child containment subject to host; no bypass",
+  "authorization": "Independent development qa validation; synthetic local trials and fresh evidence only; no source repair, installation, external writes or dependency installation"
+}

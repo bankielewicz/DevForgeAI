@@ -1,0 +1,18 @@
+
+running 1 test
+test qa_09_inspector_rejects_inconsistent_capture ... FAILED
+
+failures:
+
+---- qa_09_inspector_rejects_inconsistent_capture stdout ----
+
+thread 'qa_09_inspector_rejects_inconsistent_capture' (4156) panicked at independent.rs:246:5:
+inspector accepted inconsistent completed evidence: ["drain-false", "eof-false", "read-error", "overflow", "post-code", "missing-post"]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    qa_09_inspector_rejects_inconsistent_capture
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 1.25s
+

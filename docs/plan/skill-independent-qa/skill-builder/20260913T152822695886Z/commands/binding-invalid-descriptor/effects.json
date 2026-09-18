@@ -1,0 +1,47 @@
+{
+  "before": [
+    {
+      "path": "SKILL.md",
+      "bytes": 330,
+      "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+    },
+    {
+      "path": "assets/devforgeai-skill.json",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "references/adaptive-contract.md",
+      "bytes": 297,
+      "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+    },
+    {
+      "path": "scripts/check_project_binding.py",
+      "bytes": 12232,
+      "sha256": "688b1b7404133639a6f0f69c8fdb88670db230110ac7e8e24b64ccf32a24e241"
+    }
+  ],
+  "after": [
+    {
+      "path": "SKILL.md",
+      "bytes": 330,
+      "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+    },
+    {
+      "path": "assets/devforgeai-skill.json",
+      "bytes": 3,
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "references/adaptive-contract.md",
+      "bytes": 297,
+      "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+    },
+    {
+      "path": "scripts/check_project_binding.py",
+      "bytes": 12232,
+      "sha256": "688b1b7404133639a6f0f69c8fdb88670db230110ac7e8e24b64ccf32a24e241"
+    }
+  ],
+  "unchanged": true
+}

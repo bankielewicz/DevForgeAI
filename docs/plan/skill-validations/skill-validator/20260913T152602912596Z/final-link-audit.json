@@ -1,0 +1,152 @@
+[
+  {
+    "report": "qa-report.md",
+    "link": "commands/R06/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "commands/R07/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "commands/P08/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "commands/P07/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "stable-findings.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "selected-input-readback.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "baseline-compatibility.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "retained-snapshot-verification.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "command-log.md",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "command-log.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "coverage-matrix.md",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "coverage-matrix.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "coverage/coverage.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "coverage/denominator-before-run.json",
+    "exists": true
+  },
+  {
+    "report": "qa-report.md",
+    "link": "revision-spec.md",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../commands/R06/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../commands/R07/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../commands/P08/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../commands/P07/stdout.txt",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../stable-findings.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../selected-input-readback.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../baseline-compatibility.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../retained-snapshot-verification.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../command-log.md",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../command-log.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../coverage-matrix.md",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../coverage-matrix.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../coverage/coverage.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../coverage/denominator-before-run.json",
+    "exists": true
+  },
+  {
+    "report": "member-records\\validation-report.md",
+    "link": "../revision-spec.md",
+    "exists": true
+  }
+]

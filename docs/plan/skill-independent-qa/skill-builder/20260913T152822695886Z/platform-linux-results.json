@@ -1,0 +1,234 @@
+{
+  "host": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "results": [
+    {
+      "case": "linux-valid",
+      "status": "PASS",
+      "expected": {
+        "exit": 0,
+        "field": "reason_code",
+        "value": "BOUND",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 0,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MATCH",
+        "reason_code": "BOUND",
+        "binding_sha256": "41cf973cfc334856096e87b4244f0ff37ba6bff775f618dd0cf99eb2d959b025",
+        "package_digest": "3c8e1bc453388b9b904868543b919bcdb79a21487b6b5bfec248c8bcd800345c",
+        "details": []
+      },
+      "evidence": "commands/linux-valid",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-relocated",
+      "status": "PASS",
+      "expected": {
+        "exit": 1,
+        "field": "reason_code",
+        "value": "ROOT_MISMATCH",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 1,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MISMATCH",
+        "reason_code": "ROOT_MISMATCH",
+        "binding_sha256": "b82ea5671dfde311972c510f88c33164a7515940481df779bab4faa1d52d8f58",
+        "package_digest": null,
+        "details": []
+      },
+      "evidence": "commands/linux-relocated",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-missing",
+      "status": "PASS",
+      "expected": {
+        "exit": 1,
+        "field": "reason_code",
+        "value": "MISSING_BINDING",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 1,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MISMATCH",
+        "reason_code": "MISSING_BINDING",
+        "binding_sha256": null,
+        "package_digest": null,
+        "details": []
+      },
+      "evidence": "commands/linux-missing",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-io-error",
+      "status": "PASS",
+      "expected": {
+        "exit": 2,
+        "field": "reason_code",
+        "value": "IO_ERROR",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 2,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "UNAVAILABLE",
+        "reason_code": "IO_ERROR",
+        "binding_sha256": null,
+        "package_digest": null,
+        "details": []
+      },
+      "evidence": "commands/linux-io-error",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-symlink",
+      "status": "PASS",
+      "expected": {
+        "exit": 1,
+        "field": "reason_code",
+        "value": "UNSAFE_PATH",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 1,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MISMATCH",
+        "reason_code": "UNSAFE_PATH",
+        "binding_sha256": "6253b97379a7faf70549977e952eaa1d6093832132aea2ef51ec410570d0147b",
+        "package_digest": null,
+        "details": []
+      },
+      "evidence": "commands/linux-symlink",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-private-key-name",
+      "status": "FAIL",
+      "expected": {
+        "exit": 1,
+        "field": "reason_code",
+        "value": "UNSAFE_PATH",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 0,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MATCH",
+        "reason_code": "BOUND",
+        "binding_sha256": "4a001ec07f0124e6802f68dc5de5f5d4a22d018f5a77e923785b9a5b04f623ce",
+        "package_digest": "4ec805f4e20f241d866a2fa5f6f5cbbd646705321c5ebd41670a858b8d13dbe5",
+        "details": []
+      },
+      "evidence": "commands/linux-private-key-name",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-pfx-name",
+      "status": "FAIL",
+      "expected": {
+        "exit": 1,
+        "field": "reason_code",
+        "value": "UNSAFE_PATH",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 0,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MATCH",
+        "reason_code": "BOUND",
+        "binding_sha256": "d125984eee1a170a138c8dd10569912b2b9019ff405d30d2b9f86f098b24df5d",
+        "package_digest": "d073d5d7af9e24d4b2f6f5176e3383fc57072a70ce96e3014e8bde46fc65c83c",
+        "details": []
+      },
+      "evidence": "commands/linux-pfx-name",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-exact-files",
+      "status": "FAIL",
+      "expected": {
+        "exit": 0,
+        "field": "reason_code",
+        "value": "BOUND",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": -9,
+      "observed": null,
+      "evidence": "commands/linux-exact-files",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-over-files",
+      "status": "FAIL",
+      "expected": {
+        "exit": 2,
+        "field": "reason_code",
+        "value": "CAPTURE_LIMIT",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": -9,
+      "observed": null,
+      "evidence": "commands/linux-over-files",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-exact-bytes",
+      "status": "PASS",
+      "expected": {
+        "exit": 0,
+        "field": "reason_code",
+        "value": "BOUND",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 0,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "MATCH",
+        "reason_code": "BOUND",
+        "binding_sha256": "e06d5eccea4473f1c46897a0da29c82db09f23c66a505c6041c6ca187b81120f",
+        "package_digest": "00b7edf6a04bab6d43a87ad7ad1555c76acfeefc92fa3324178c0b7ceeb6f938",
+        "details": []
+      },
+      "evidence": "commands/linux-exact-bytes",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    },
+    {
+      "case": "linux-over-bytes",
+      "status": "PASS",
+      "expected": {
+        "exit": 2,
+        "field": "reason_code",
+        "value": "CAPTURE_LIMIT",
+        "read_only_root": null,
+        "before_manifest": null
+      },
+      "actual_exit": 2,
+      "observed": {
+        "schema_version": "binding-observation-v1",
+        "status": "UNAVAILABLE",
+        "reason_code": "CAPTURE_LIMIT",
+        "binding_sha256": "eb0b677bf0fc9896b14487ea4a6b0295b336f8b77a46c1a685903c754c122aca",
+        "package_digest": null,
+        "details": []
+      },
+      "evidence": "commands/linux-over-bytes",
+      "target_digest": "338c70995e72637e0ce84991be110d6a371ab6965faf4009d570156ea0e13cf2"
+    }
+  ]
+}

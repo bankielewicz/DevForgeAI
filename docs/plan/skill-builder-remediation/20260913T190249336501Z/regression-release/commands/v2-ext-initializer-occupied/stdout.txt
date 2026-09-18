@@ -1,0 +1,5 @@
+Initializing skill: sample
+   Location: C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\regression-release\fixtures\extended-03\metadata
+   Resources: none (create as needed)
+
+[ERROR] Skill directory already exists: C:\Projects\DevForgeAI\docs\plan\skill-builder-remediation\20260913T190249336501Z\regression-release\fixtures\extended-03\metadata\sample

@@ -1,0 +1,60 @@
+# architecture-constraints.ai.md
+# DERIVED from architecture-constraints.md | ADR-052
+# Regenerate: /create-system-architecture
+# Generated: {{generated_at}} | Hash: {{source_hash}}
+---
+three_layer_architecture:
+  status: LOCKED
+  severity: CRITICAL
+  layers: ["Skills (Framework)", "Subagents (Parallel)", "Commands (User Workflows)"]
+  allowed:
+    - "Commands CAN invoke Skills"
+    - "Commands CAN invoke Subagents via Task tool"
+    - "Skills CAN invoke other Skills"
+    - "Skills CAN invoke Subagents via Task tool"
+  forbidden:
+    - "Skills CANNOT invoke Commands"
+    - "Subagents CANNOT invoke Skills or Commands"
+    - "Circular dependencies forbidden (Skill A -> Skill B -> Skill A)"
+skill_design:
+  status: LOCKED
+  severity: HIGH
+  srp: "Each skill handles ONE phase of development lifecycle"
+  correct: ["spec-driven-dev: TDD only", "spec-driven-qa: QA only", "spec-driven-system-architecture: Architecture only"]
+  wrong: "implementing-and-validating (multiple responsibilities)"
+  context_isolation: "Separate context window per invocation; MUST NOT assume prior state"
+  progressive_disclosure: "SKILL.md <1000 lines; deep docs in references/ on demand"
+subagent_design:
+  status: LOCKED
+  domain_specialization: "Single domain per subagent"
+  wrong: "full-stack-developer (too broad)"
+  tool_restrictions: "Principle of least privilege; only tools needed for domain"
+  parallel: "MUST support parallel invocation; no shared state between subagents"
+command_design:
+  status: LOCKED
+  size: "Under 500 lines; extract to skill if exceeding"
+  parameters: "$ARGUMENTS for input; argument-hint in frontmatter; validate before processing"
+context_file_enforcement:
+  status: LOCKED
+  severity: CRITICAL
+  rule: "Context files are THE LAW; read ALL 6 before development"
+  halt: "HALT if ANY context file missing"
+  files: ["tech-stack.md", "source-tree/", "dependencies.md", "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"]
+quality_gate:
+  status: LOCKED
+  rule: "Gates MUST block on violations; validated in sequence; HALT on failures"
+  halts: ["tests fail", "coverage < 95%/85%/80%", "CRITICAL violations"]
+execution_patterns:
+  status: LOCKED
+  native_over_bash: "MUST use Read/Write/Edit/Glob/Grep (40-73% savings)"
+  parallel_subagents: {recommended: "4-6", max: 10}
+  parallel_rules: ["Tasks MUST be independent", "Sequential if B depends on A", "Never parallelize dependent ops"]
+  failure_recovery: {primary: "parallel", fallback: "sequential", continue_threshold: "50%"}
+on_violation: "HALT + report violation + provide correction + request user confirmation"
+
+# --- Extracted rules from parent .md file (auto-populated by ai-rule-extractor agents) ---
+extracted_critical_rules:
+{{critical_rules}}
+
+extracted_high_rules:
+{{high_rules}}

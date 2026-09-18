@@ -1,0 +1,7 @@
+{
+  "command": "python -B -X utf8 -m unittest discover -s docs/plan/skill-authorings/advisor/20260916T134000Z-streaming/candidate/tests -p test_streaming.py -v",
+  "working_directory": "C:\\Projects\\DevForgeAI",
+  "exit_code": 1,
+  "duration_seconds": 5.305512,
+  "phase": "red"
+}

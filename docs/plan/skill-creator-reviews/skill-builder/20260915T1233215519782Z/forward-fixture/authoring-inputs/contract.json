@@ -1,0 +1,58 @@
+{
+  "known_issues": [],
+  "capabilities": [
+    "Read supplied notes",
+    "Produce Markdown",
+    "Write an explicitly selected local destination"
+  ],
+  "run_id": "001",
+  "inputs": [
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\authoring-inputs\\request.md",
+      "sha256": "8f88bd9d695c8dfea2b5eee974ef6f4719ee8a38b9831ba6fd40d5ebfa69bdb2"
+    },
+    {
+      "path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\authoring-inputs\\design.json",
+      "sha256": "adf94f37bdb16542b8dadb6bddfcb5d071f603645513a2fef759d4cfa8fa92d3"
+    }
+  ],
+  "target_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z\\src\\agents\\skills\\meeting-actions",
+  "expected_outputs": [
+    "Markdown action table"
+  ],
+  "change_paths": [
+    "SKILL.md"
+  ],
+  "history_review": "no_known_history",
+  "operation": "create",
+  "project_root": "C:\\Users\\bryan\\AppData\\Local\\Temp\\meeting-actions-forward-20260915T123432373Z",
+  "requirements": [
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "user",
+      "outcome": "Convert supplied meeting notes to Action, Owner, Due date Markdown table; missing owner Unassigned and missing due date Not specified; preserve uncertainty; invent no decisions"
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "user",
+      "outcome": "Deliver in chat unless an output file destination is supplied; portable and no external services"
+    },
+    {
+      "artifacts": [
+        "SKILL.md"
+      ],
+      "origin": "derived",
+      "outcome": "Missing notes prompt for input; no supported actions produce header-only table; preserve literal dates and clarify ambiguous destination; report write failure honestly"
+    }
+  ],
+  "side_effects": [
+    "No default file writes; optional explicit output file write"
+  ],
+  "target_name": "meeting-actions",
+  "schema_version": "authoring-contract-v1",
+  "authorization": "Create a portable skill named meeting-actions at the isolated project's src/agents/skills/meeting-actions. It converts supplied meeting notes into a Markdown action list with columns Action, Owner, Due date; use Unassigned and Not specified when absent, preserve explicit uncertainty, and do not invent decisions. Return the table in chat unless the user provides a file destination. No external services needed.\nAuthor and deliver through the documented skill-builder workflow. Do not run tests or execute the generated skill. Do not modify source builder, operational skills, or existing evidence. Keep this single trial bounded to about 5 minutes; retain failures and do not retry failed publication."
+}

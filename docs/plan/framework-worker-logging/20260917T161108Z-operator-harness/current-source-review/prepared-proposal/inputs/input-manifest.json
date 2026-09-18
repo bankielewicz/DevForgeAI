@@ -1,0 +1,62 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\inputs\\request.json",
+    "bytes": 1605,
+    "sha256": "97966b0e168fe819a050396050f0ade77a32eb146b1613d7f6b5a6474cc134ac"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\inputs\\review.json",
+    "bytes": 6834,
+    "sha256": "82728079ec986cc96b8df6862c71f478e97c00a39e47ee7b13d2d25d148d9893"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\inputs\\diagnostics.json",
+    "bytes": 68,
+    "sha256": "36963fd35a9774f5ce4cd966090e44995d960863e4bfd68ac65a763edf1bef87"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\sources\\stdout.bin",
+    "bytes": 25935,
+    "sha256": "e0ea8f1ec76e39c663694d5b6366541a17c9ae2811fa7ea420c296f23f591a73"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\prepared-proposal\\configuration.json",
+    "bytes": 12537,
+    "sha256": "f319d4e5b7842e070f3ad08229e73f9d9fc3710d735094beb48ae7f47d54656a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\diagnostic.py",
+    "bytes": 15389,
+    "sha256": "cdd88e201a88b0f321d2bebbf2e53ceaae4166824ad8c6dc0c97f9333d956997"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\operator-harness-001\\recorder.py",
+    "bytes": 6147,
+    "sha256": "eabd4c36b528036344c9e1580b35d7706b856676b5852e8954b6f5ca049cafc2"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\supervisor.py",
+    "bytes": 5624,
+    "sha256": "bace72fafe66f9cd3b44afffc06bbc660a06a4419f86a919fd5e2fa247363990"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\current-source-review\\operator-selection.proposed.md",
+    "bytes": 3011,
+    "sha256": "82c5b472513ea00891d3a044a4da5157683c30f9d762453dacf0ed2554531e3a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\fixture\\task.json",
+    "bytes": 307,
+    "sha256": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a"
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T105456Z-qa-retest\\build-target\\debug\\devforgeai-codex-worker-probe.exe",
+    "bytes": 2545152,
+    "sha256": "cdd7de15eece11ad4c6f8b910ddca947bcc0ca0e98cd1ed939e61ddd73975bcd"
+  },
+  {
+    "path": "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "bytes": 298169136,
+    "sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde"
+  }
+]

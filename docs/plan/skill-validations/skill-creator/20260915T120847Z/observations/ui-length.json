@@ -1,0 +1,8 @@
+{
+  "case_id": "UI-LENGTH",
+  "value": "Create or update a skill",
+  "actual_length": 24,
+  "expected_min": 25,
+  "expected_max": 64,
+  "result": "FAIL"
+}

@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-c",
+    "import sys,yaml,importlib.util; print(sys.version); print(\"PyYAML\",yaml.__version__); print(\"tiktoken\",bool(importlib.util.find_spec(\"tiktoken\"))); print(\"coverage\",bool(importlib.util.find_spec(\"coverage\")))"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "start": "2026-09-13T21:39:04.078498+00:00",
+  "end": "2026-09-13T21:39:04.143499+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120,
+  "stdout": {
+    "path": "observations/python-dependencies.stdout",
+    "sha256": "201739f330a0d64f8c4aaedb548c98037574a2b2e8f14f274e4dd73eaa001c7d"
+  },
+  "stderr": {
+    "path": "observations/python-dependencies.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

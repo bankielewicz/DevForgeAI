@@ -1,0 +1,66 @@
+{
+  "root": "regression-release",
+  "scope": "direct files only",
+  "files": [
+    {
+      "path": "capture.py",
+      "bytes": 3941,
+      "sha256": "74b0198d88ecff5da5cb05aee5507a8c7bb1791644f93b86f8d5b8ec8a42876d"
+    },
+    {
+      "path": "coverage-data",
+      "bytes": 114688,
+      "sha256": "7c8c4bdfb4a46bbf33f58cb32bac78c6331111408f8d3841299a75a51a1375d8"
+    },
+    {
+      "path": "coverage_driver.py",
+      "bytes": 275,
+      "sha256": "38c0646a37386894bb78563fb41e461e378d799e93ddfb72745005b3b3760552"
+    },
+    {
+      "path": "followup-results.json",
+      "bytes": 36264,
+      "sha256": "cdea2de48041bbc7e5fe3035f5dcebeb5b7726f3ee518d97ceebbd66d2c14270"
+    },
+    {
+      "path": "independent-results.json",
+      "bytes": 11349,
+      "sha256": "87a864939b623ac79f1b09e440c67cfc8e374a6565a4a0e5006c5ae81c5e61f8"
+    },
+    {
+      "path": "maintenance-results.json",
+      "bytes": 103036,
+      "sha256": "154f3500030052c2383f91bc70577e203311c24bd8d79b330a0208a0b2a15665"
+    },
+    {
+      "path": "run_maintenance.py",
+      "bytes": 1148,
+      "sha256": "b640e10fd5492c1c45b55b17e9384d1844b7e260acc50ed76d7ab5c01dd3bb61"
+    },
+    {
+      "path": "runner.py",
+      "bytes": 2460,
+      "sha256": "1cd27b7f7cd8f0140974addb83a95dbddf4eb6b9d81fcdef6671900bfd8e13e3"
+    },
+    {
+      "path": "source-receipts.json",
+      "bytes": 2693,
+      "sha256": "a0a5e3a57d0dc906eba736d54971ddf554e19ddf130c673f446950109a47c758"
+    },
+    {
+      "path": "test_extended.py",
+      "bytes": 9996,
+      "sha256": "9d43c262b180ae1ea9aa8e6c2ab610b715ab0351d2efa01612dd63ad98102b33"
+    },
+    {
+      "path": "test_followup.py",
+      "bytes": 1576,
+      "sha256": "d54d5de4954aad4d669bac2f5a8e483984f3422fe5b49a52e55b3aba5872bd96"
+    },
+    {
+      "path": "test_independent.py",
+      "bytes": 25988,
+      "sha256": "19dd6f67564e2662918b73049ec132d9982f0a0998bdccd80974373b7ad7de26"
+    }
+  ]
+}

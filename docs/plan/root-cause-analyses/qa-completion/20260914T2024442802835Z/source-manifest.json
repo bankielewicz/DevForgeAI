@@ -1,0 +1,295 @@
+{
+  "record_kind": "rca_source_capture",
+  "recorded_utc": "2026-09-14T20:26:09.253866+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "host": "Windows-10-10.0.26200-SP0",
+  "scope": "Explicit RCA source list; no repository-wide or runtime validation claim",
+  "omissions": [],
+  "files": [
+    {
+      "source": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "snapshot": "inputs/01-AGENTS.md",
+      "bytes": 13954,
+      "sha256": "d47868fef2b87df0b2c065cfe235cfe9f12fcf9eeffa7af1f0973d7d21916fa7"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-spec.md",
+      "snapshot": "inputs/02-qa-skill-spec.md",
+      "bytes": 41763,
+      "sha256": "6378025552bbbc4bfdaff8f1d3d14443cfacf44986f51f98845797b116b53e03"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\specs\\qa-skill-postmvp-spec.md",
+      "snapshot": "inputs/03-qa-skill-postmvp-spec.md",
+      "bytes": 32805,
+      "sha256": "855cfca3a95d45efb7acb62593a473fe5043450b61cf912af8ea9839edb69b4a"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\devforgeai-codex-rust-enforcement-design.md",
+      "snapshot": "inputs/04-devforgeai-codex-rust-enforcement-design.md",
+      "bytes": 24617,
+      "sha256": "284f36e622a0d067b0417879eed32f239a4a01b86bb5ef8f45a65a64855ac9ed"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\devforgeai\\Cargo.toml",
+      "snapshot": "inputs/05-Cargo.toml",
+      "bytes": 1445,
+      "sha256": "f6301a2d01e04ac66192c38269679b38e80aee0a20d901d86a4fdd4a42bc1e53"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\devforgeai\\README.md",
+      "snapshot": "inputs/06-README.md",
+      "bytes": 7189,
+      "sha256": "190020fc977996f8e272cfb195777d1360a38a385dbdaf076658606ce65b70a5"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\devforgeai\\src\\lib.rs",
+      "snapshot": "inputs/07-lib.rs",
+      "bytes": 234,
+      "sha256": "c79ad6d080e15572ac676cc2d4e947fc498ea8a14a80f3252f91bf033d21c0a1"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\authoring-record.json",
+      "snapshot": "inputs/08-authoring-record.json",
+      "bytes": 9139,
+      "sha256": "86b558640d59d45cb0df3b6ca6d308cb819899a7c4cfe1754e6c572aa5708019"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\validation-request.json",
+      "snapshot": "inputs/09-validation-request.json",
+      "bytes": 5154,
+      "sha256": "40ac8bd62b6e0d8b1216acef54d487f38e5708655dc7cfe5ca5dde6cac3aaa2f"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T193851Z\\DELIVERY.md",
+      "snapshot": "inputs/10-DELIVERY.md",
+      "bytes": 6817,
+      "sha256": "e8f86f0c0a4f4a36f40e16def40b374bd7a8dd25983591484387cb1e38d93e5c"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T2000129113921Z-readback\\readback.py",
+      "snapshot": "inputs/11-readback.py",
+      "bytes": 3902,
+      "sha256": "e2c4f86a5209aa7dd9f184738e76b5c5c471917d57fe811a5eceb24610a24d07"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260914T2000129113921Z-readback\\readback.json",
+      "snapshot": "inputs/12-readback.json",
+      "bytes": 3876,
+      "sha256": "a71fbfa2cff6c66b33961284c5adfe11630123d68d829a4e131dd87998c9f917"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\validation-report.md",
+      "snapshot": "inputs/13-validation-report.md",
+      "bytes": 7908,
+      "sha256": "7b2bb32f6cb7f96b8df78a1fd7aa0490e7deced8d36aa738377a670ac54b8146"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\native-observations.json",
+      "snapshot": "inputs/14-native-observations.json",
+      "bytes": 17924,
+      "sha256": "bbd9741ca17aef0a13b234c17bab9cdeb5636952d9869e40eecf86949f37050b"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\command-log.md",
+      "snapshot": "inputs/15-command-log.md",
+      "bytes": 6521,
+      "sha256": "b218606de030e003416d595d1ef028a7b3ccea1adeac98ba502ba9f5bb8dd210"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\handoff.json",
+      "snapshot": "inputs/16-handoff.json",
+      "bytes": 1655,
+      "sha256": "5cbfb514dc71b01bfce81d188a932ab770b65ae884ed50016cfe04993f65ea2d"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\findings.json",
+      "snapshot": "inputs/17-findings.json",
+      "bytes": 2645,
+      "sha256": "fd83923e0ae7e9216c0ac488b3d57f12edfff83dbe789c87b9ea6794b0dfa610"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\evaluation\\results-001.jsonl",
+      "snapshot": "inputs/18-results-001.jsonl",
+      "bytes": 36762,
+      "sha256": "ffb43e2123993e8370d9e2f20c2fb813b7c2d1bc4d516323d1423d0151ec2418"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-builder\\SKILL.md",
+      "snapshot": "inputs/19-SKILL.md",
+      "bytes": 6564,
+      "sha256": "2a5a29035d538ea3dcc4d4382b1f92dd0dccd95b8e6a8c2e94efd5fbd71af599"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\SKILL.md",
+      "snapshot": "inputs/20-SKILL.md",
+      "bytes": 11907,
+      "sha256": "9e572b2ddfb67279f9cf5006cc5bba4cd73edb66728ff769fa9b0ae6fd981fdf"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\trials.md",
+      "snapshot": "inputs/21-trials.md",
+      "bytes": 3592,
+      "sha256": "31abea6c0919cece39801e394e61c2750abb2e4df4368ee0ed9fc1729c7c09d0"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\references\\reporting.md",
+      "snapshot": "inputs/22-reporting.md",
+      "bytes": 10397,
+      "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-01\\attempt-002.json",
+      "snapshot": "inputs/23-attempt-002.json",
+      "bytes": 1095,
+      "sha256": "d63df55e2ed34ea7aca19170590bb77336d9e3d8adc78f7f9f4c2cfedd32d9e1"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-01\\attempt-002.stdout.jsonl",
+      "snapshot": "inputs/24-attempt-002.stdout.jsonl",
+      "bytes": 134693,
+      "sha256": "537b1a348e4a09e9e0fed90e16d903e752a7060653dce3920a99d9b118ff5a8b"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-01\\attempt-002.stderr.txt",
+      "snapshot": "inputs/25-attempt-002.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-02\\attempt-002.json",
+      "snapshot": "inputs/26-attempt-002.json",
+      "bytes": 1095,
+      "sha256": "d0b3136de2a1d341cf82f4b4c05a43408b06564b859e67ad2fd9e958eef90858"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-02\\attempt-002.stdout.jsonl",
+      "snapshot": "inputs/27-attempt-002.stdout.jsonl",
+      "bytes": 167886,
+      "sha256": "c8d156a34f6e801295ccf10ca90bef1249e1845d084fcbc5a07cd6a12f472521"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-02\\attempt-002.stderr.txt",
+      "snapshot": "inputs/28-attempt-002.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-06\\attempt-002.json",
+      "snapshot": "inputs/29-attempt-002.json",
+      "bytes": 1095,
+      "sha256": "da4b2a94bbc60edd0c612d081f4b931bd3331455242b535ef1ce1ace38aa94b2"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-06\\attempt-002.stdout.jsonl",
+      "snapshot": "inputs/30-attempt-002.stdout.jsonl",
+      "bytes": 127961,
+      "sha256": "f27ad855ff7a376cbf63ad112aff6a26b3e5c43508c706631e512bef6efe2cd5"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1949120508210Z\\trials\\QPV-06\\attempt-002.stderr.txt",
+      "snapshot": "inputs/31-attempt-002.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\SKILL.md",
+      "snapshot": "inputs/32-SKILL.md",
+      "bytes": 4659,
+      "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\references\\context.md",
+      "snapshot": "inputs/33-context.md",
+      "bytes": 7009,
+      "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\references\\implementation.md",
+      "snapshot": "inputs/34-implementation.md",
+      "bytes": 7053,
+      "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\references\\failure-delivery.md",
+      "snapshot": "inputs/35-failure-delivery.md",
+      "bytes": 3871,
+      "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\references\\evidence-resume.md",
+      "snapshot": "inputs/36-evidence-resume.md",
+      "bytes": 5098,
+      "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\assets\\delivery.md",
+      "snapshot": "inputs/37-delivery.md",
+      "bytes": 2797,
+      "sha256": "0a451fe72a8f3b2e82ee7ec3441dfd19ab8ba915c01547598dd88a42ca1447a8"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\assets\\traceability.md",
+      "snapshot": "inputs/38-traceability.md",
+      "bytes": 1309,
+      "sha256": "7499d23c38082ef2cc5bc688d60ba57bd4af40f445d20950bbcbf126b05ee889"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev\\assets\\checkpoint.md",
+      "snapshot": "inputs/39-checkpoint.md",
+      "bytes": 1513,
+      "sha256": "6e267946b5205804114e9aec87c04c386340ab9038a7475535a20abe18f2d36c"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\SKILL.md",
+      "snapshot": "inputs/40-SKILL.md",
+      "bytes": 4659,
+      "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\context.md",
+      "snapshot": "inputs/41-context.md",
+      "bytes": 7009,
+      "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\implementation.md",
+      "snapshot": "inputs/42-implementation.md",
+      "bytes": 7053,
+      "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\failure-delivery.md",
+      "snapshot": "inputs/43-failure-delivery.md",
+      "bytes": 3871,
+      "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\references\\evidence-resume.md",
+      "snapshot": "inputs/44-evidence-resume.md",
+      "bytes": 5098,
+      "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\delivery.md",
+      "snapshot": "inputs/45-delivery.md",
+      "bytes": 2797,
+      "sha256": "0a451fe72a8f3b2e82ee7ec3441dfd19ab8ba915c01547598dd88a42ca1447a8"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\traceability.md",
+      "snapshot": "inputs/46-traceability.md",
+      "bytes": 1309,
+      "sha256": "7499d23c38082ef2cc5bc688d60ba57bd4af40f445d20950bbcbf126b05ee889"
+    },
+    {
+      "source": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev\\assets\\checkpoint.md",
+      "snapshot": "inputs/47-checkpoint.md",
+      "bytes": 1513,
+      "sha256": "6e267946b5205804114e9aec87c04c386340ab9038a7475535a20abe18f2d36c"
+    }
+  ],
+  "total_bytes": 757213,
+  "command": "python -B -X utf8 docs/plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/capture.py"
+}

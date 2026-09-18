@@ -1,0 +1,16 @@
+{
+  "pid": 69036,
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "clippy",
+    "--offline",
+    "--locked",
+    "--manifest-path",
+    "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging\\Cargo.toml",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "started_utc": "2026-09-17T02:58:09.283787+00:00"
+}

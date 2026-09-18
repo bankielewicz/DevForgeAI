@@ -1,0 +1,46 @@
+{
+  "developer": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics\\20260916T181820Z-dev\\final-coverage.json",
+    "bytes": 1314176,
+    "sha256": "f9a1da2cda25d3bede62fc0c06981051b6f2809f62d5b3b4f5992f2f12d2b26e"
+  },
+  "qa": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-diagnostics-qa\\20260916T191731Z\\coverage.json",
+    "bytes": 1314164,
+    "sha256": "ba73741942913993d35e180c1bf0674add8418d4345ec0d4978af5b3fab0134c"
+  },
+  "protocol_developer": {
+    "count": 694,
+    "covered": 663,
+    "percent": 95.53314121037464
+  },
+  "protocol_qa": {
+    "count": 694,
+    "covered": 662,
+    "percent": 95.38904899135446
+  },
+  "execution_presence_changes": [
+    {
+      "line": 469,
+      "column": 10,
+      "developer": [
+        469,
+        10,
+        1,
+        true,
+        true,
+        false
+      ],
+      "qa": [
+        469,
+        10,
+        0,
+        true,
+        true,
+        false
+      ],
+      "source_line": "        )?;"
+    }
+  ],
+  "interpretation": "Observed segment execution differences only; no causal claim or coverage retry."
+}

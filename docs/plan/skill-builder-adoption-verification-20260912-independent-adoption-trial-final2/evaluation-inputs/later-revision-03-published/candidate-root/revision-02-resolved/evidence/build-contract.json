@@ -1,0 +1,91 @@
+{
+  "schema_version": "1",
+  "mode": "spec_build",
+  "target_name": "receipt-totals",
+  "inputs": [
+    {
+      "id": "spec",
+      "path": "revision-02-resolved/inputs/spec.md",
+      "resolved_path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\design\\specs\\receipt-totals.md",
+      "role": "spec",
+      "bytes": 1183,
+      "sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+    },
+    {
+      "id": "authorization",
+      "path": "revision-02-resolved/inputs/authorization.txt",
+      "resolved_path": "C:\\Users\\bryan\\AppData\\Local\\Temp\\skill-builder-adoption-trial-my5s7hbx\\docs\\plan\\skill-builds\\receipt-totals\\revision-02-resolved\\snapshot\\revision-02-resolved\\inputs\\authorization.txt",
+      "role": "clarification",
+      "bytes": 1132,
+      "sha256": "1f0c089b3caa854799f4aae1cf96a03701bfd5ab49c9f7d34e82cfa6f99057bb"
+    }
+  ],
+  "authorization": {
+    "instruction": "For this disposable trial, the concrete reviewed first-revision proposal is authorized: preserve notes and CSV, manage exactly SKILL.md and scripts/receipt_totals.py, implement the specified Decimal/rounding/validation/output behavior at the same development destination after verified adoption publication. Record this distinct trial-controller instruction with selected specification and managed-manifest digests. This authorization is for the synthetic trial only.\n\nSeparate resolution direction:\nDistinct disposable-trial resolution authorization: retain the injected edited script bytes and conflict receipts, restore only scripts/receipt_totals.py to its exact adopted snapshot bytes, then recapture current C and recompute/apply the already reviewed candidate using the same published adopted origin. Preserve notes and every other path. Bind this instruction to the exact conflicted script, adopted digest and candidate specification; do not re-adopt or advance B from the failed attempt. After successful delivered checks/publication, prepare the concrete later behavior change for separate trial-controller authorization.\n",
+    "inputs": [
+      {
+        "id": "spec",
+        "sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+      },
+      {
+        "id": "authorization",
+        "sha256": "1f0c089b3caa854799f4aae1cf96a03701bfd5ab49c9f7d34e82cfa6f99057bb"
+      }
+    ]
+  },
+  "purpose": "Aggregate receipt CSV into exact decimal JSON totals.",
+  "activation": {
+    "positive": [
+      "Summarize receipt CSV totals"
+    ],
+    "excluded": [
+      "Install this skill",
+      "Edit my accounting notes"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "receipt-contract",
+      "origin": "source",
+      "text": "Preserve the complete reviewed receipt CLI, decimal arithmetic, JSON, validation, activation, side-effect, and management contract.",
+      "source_refs": [
+        {
+          "input_id": "spec",
+          "start_byte": 0,
+          "end_byte": 1183,
+          "sha256": "98ec8bd1c07c47ebb3b8de8f827b1f84ad9ceb6a7ee284fadb41830225055618"
+        }
+      ],
+      "artifact_paths": [
+        "SKILL.md",
+        "scripts/receipt_totals.py"
+      ],
+      "verification": [
+        {
+          "method": "structural check plus fresh executed receipt cases",
+          "expected": "valid skill, decimal JSON values and deterministic errors; no receipt or note mutation"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "SKILL.md",
+      "role": "entrypoint",
+      "requirement_ids": [
+        "receipt-contract"
+      ],
+      "purpose": "Receipt contract implementation and usage"
+    },
+    {
+      "path": "scripts/receipt_totals.py",
+      "role": "script",
+      "requirement_ids": [
+        "receipt-contract"
+      ],
+      "purpose": "Receipt contract implementation and usage"
+    }
+  ],
+  "workers": [],
+  "dependencies": []
+}

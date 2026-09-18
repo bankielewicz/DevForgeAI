@@ -1,0 +1,20 @@
+{
+  "attempt": "04-contract-red",
+  "purpose": "Red: arbitrary returned config origins and unallowlisted enabled features must fail closed",
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "test",
+    "--locked",
+    "--test",
+    "effective_profile"
+  ],
+  "environment": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2310034070895Z-effective-dev\\target"
+  },
+  "started_utc": "2026-09-15T23:20:36.2303098Z",
+  "finished_utc": "2026-09-15T23:20:39.7961351Z",
+  "duration_ms": 3562,
+  "exit_code": 101,
+  "expected": "exit 101 with newly added assertions failing; setup/tool errors are not valid red"
+}

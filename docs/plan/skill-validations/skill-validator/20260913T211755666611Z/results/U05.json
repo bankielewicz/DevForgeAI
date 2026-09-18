@@ -1,0 +1,20 @@
+{
+  "case_id": "U05",
+  "finding": "QA-03",
+  "expected_exit": 0,
+  "actual_exit": 0,
+  "matched": true,
+  "checks": {
+    "exit": true,
+    "completed": true,
+    "preserved": true,
+    "candidate_count": true,
+    "candidate_locations": true,
+    "no_automatic_fail": true,
+    "redacted": true
+  },
+  "evidence": {
+    "path": "commands/U05/receipt.json",
+    "sha256": "2842788d4f538778377f9f4677b70f831db9b112212a30a4be321a44f3ab019f"
+  }
+}

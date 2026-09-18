@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+    "exec",
+    "--cd",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\changed-producer",
+    "--sandbox",
+    "workspace-write",
+    "--skip-git-repo-check",
+    "--json",
+    "--output-last-message",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\changed-producer\\.trial-output\\native-changed-producer-consumer-001.txt",
+    "-"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\changed-producer",
+  "started_at_utc": "2026-09-13T15:53:48.343455Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-changed-producer-consumer-001",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-changed-producer-consumer-001",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\temp\\native-changed-producer-consumer-001",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": "Use $card-consumer at C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\skill-validator\\20260913T152602912596Z\\trials\\native\\changed-producer\\skills\\card-consumer\\SKILL.md to complete its local task-card workflow. Allowed product write: out/receipt.json. All other inputs are read-only. Deliver the artifact path or concrete failure.",
+  "termination": "exited",
+  "pid": 42892,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-13T15:54:23.026465Z",
+  "elapsed_seconds": 34.67200000002049
+}

@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "input",
+    "scope",
+    "omitted_member_ids",
+    "omitted_handoff_ids",
+    "members",
+    "integration_checks",
+    "outcome",
+    "assessment_completed",
+    "required_evaluated",
+    "required_total",
+    "unknown_applicability",
+    "limitations",
+    "prior_assessment"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "set-assessment-v1"
+    },
+    "run_id": {
+      "$ref": "adaptive-common.schema.json#/$defs/Id"
+    },
+    "input": {
+      "$ref": "adaptive-common.schema.json#/$defs/Ref"
+    },
+    "scope": {
+      "enum": [
+        "full_set",
+        "eligible_subset"
+      ]
+    },
+    "omitted_member_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Id"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "omitted_handoff_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Id"
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "member_id",
+          "package_digest",
+          "report",
+          "checks",
+          "outcome",
+          "source_state",
+          "reason"
+        ],
+        "properties": {
+          "member_id": {
+            "$ref": "adaptive-common.schema.json#/$defs/Id"
+          },
+          "package_digest": {
+            "$ref": "adaptive-common.schema.json#/$defs/Digest"
+          },
+          "report": {
+            "anyOf": [
+              {
+                "$ref": "adaptive-common.schema.json#/$defs/Ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "checks": {
+            "anyOf": [
+              {
+                "$ref": "adaptive-common.schema.json#/$defs/Ref"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "outcome": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "INCOMPLETE"
+            ]
+          },
+          "source_state": {
+            "enum": [
+              "UNCHANGED",
+              "SOURCE_CHANGED",
+              "NOT_RUN"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "minItems": 0
+    },
+    "integration_checks": {
+      "$ref": "adaptive-common.schema.json#/$defs/Ref"
+    },
+    "outcome": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "INCOMPLETE"
+      ]
+    },
+    "assessment_completed": {
+      "type": "boolean"
+    },
+    "required_evaluated": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "required_total": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unknown_applicability": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "prior_assessment": {
+      "anyOf": [
+        {
+          "$ref": "adaptive-common.schema.json#/$defs/Ref"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

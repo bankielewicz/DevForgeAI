@@ -1,0 +1,24 @@
+{
+  "attempt_id": "fmt-refactor-002",
+  "stage": "refactor",
+  "argv": [
+    "cargo",
+    "fmt",
+    "--all"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\fmt-refactor-002\\gui"
+  },
+  "source_manifest_sha256": "c719784ff26bb8394720e25254102c66742124e73eee4983519c556d3eceec14",
+  "started_at": "2026-09-14T20:48:59.554243+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 0,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T20:48:59.792039+00:00",
+  "elapsed_seconds": 0.25,
+  "stdout.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

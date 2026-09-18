@@ -1,0 +1,1100 @@
+{
+  "schema_version": "adaptive-check-observation-v1",
+  "command": "package",
+  "status": "INCOMPLETE",
+  "checks": [
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F01-0e95f5a36660",
+      "rule_id": "AV-F01",
+      "subject_path": "SKILL.md",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Parsed unique-key YAML mapping and required strings; optional fields preserved.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-F02-0e95f5a36660",
+      "rule_id": "AV-F02",
+      "subject_path": "SKILL.md",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "NOT_RUN",
+      "reason": "Name/directory identity; a source-named snapshot needs its original bound identity; semantic routing and selected limits require review.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-U01-7bb2bb4f93d4",
+      "rule_id": "AV-U01",
+      "subject_path": "text-scan",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Whole captured text scanned; no specified candidates. Not exhaustive confusable coverage.",
+      "evidence": []
+    },
+    {
+      "schema_version": "1",
+      "run_id": "helper",
+      "check_id": "AV-C01-557324939184",
+      "rule_id": "AV-C01",
+      "subject_path": "text-counts",
+      "method": "deterministic",
+      "required": true,
+      "applicability": "applicable",
+      "result": "PASS",
+      "reason": "Exact bytes/code points/splitlines counts for classified text; load evidence and required budgets separate.",
+      "evidence": []
+    }
+  ],
+  "observations": {
+    "unicode_candidates": [],
+    "resources": [
+      {
+        "path": "SKILL.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/adaptive-runtime/check_project_binding.py",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/authoring-design-template.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/build-report-template.md",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/conversion-report-template.md",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/skill-creator-license.txt",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/skill-creator-notice.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "assets/worker-task-template.md",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "package-manifest.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/adaptation.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/adaptive-contracts.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/adoption.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/authoring.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/conversion-rules.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/evidence-format.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/openai_yaml.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/project-binding.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/regeneration.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/scaffolding.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/spec-build.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/validation-handoff.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "references/workflow-design.md",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/adaptation-proposal-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/adaptation-selection-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/adaptive-common.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/adaptive-observation-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/adaptive-skill-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/adoption-evidence.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/authoring-baseline.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/authoring-contract.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/authoring-design.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/authoring-record.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/binding-observation-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/build-artifacts.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/evidence.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/project-binding-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/project-evidence-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/set-authoring-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/set-validation-request-v1.schema.json",
+        "role": "unknown",
+        "reachable": true,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "schemas/validation-request.schema.json",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/adaptive.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/authoring.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/build_evidence.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/custody.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/generate_openai_yaml.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/init_skill.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      },
+      {
+        "path": "scripts/record_schema.py",
+        "role": "unknown",
+        "reachable": false,
+        "usage": "unresolved_usage",
+        "evidence": [],
+        "reason": "text (known extension); consumers require review."
+      }
+    ],
+    "edges": [
+      {
+        "source": "SKILL.md",
+        "line": 16,
+        "target": "references/authoring.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 17,
+        "target": "references/spec-build.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 18,
+        "target": "references/conversion-rules.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 19,
+        "target": "references/regeneration.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 20,
+        "target": "references/adoption.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 21,
+        "target": "references/adaptation.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 23,
+        "target": "references/adaptive-contracts.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 23,
+        "target": "references/project-binding.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 29,
+        "target": "references/workflow-design.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 31,
+        "target": "references/evidence-format.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 35,
+        "target": "references/scaffolding.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "SKILL.md",
+        "line": 43,
+        "target": "references/validation-handoff.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "assets/conversion-report-template.md",
+        "line": 3,
+        "target": "build-report-template.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "assets/skill-creator-notice.md",
+        "line": 3,
+        "target": "skill-creator-license.txt",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptation.md",
+        "line": 13,
+        "target": "adaptive-contracts.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptation.md",
+        "line": 25,
+        "target": "regeneration.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 7,
+        "target": "../schemas/project-evidence-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 8,
+        "target": "../schemas/adaptation-proposal-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 9,
+        "target": "../schemas/adaptation-selection-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 10,
+        "target": "../schemas/set-authoring-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 11,
+        "target": "../schemas/set-validation-request-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 12,
+        "target": "../schemas/adaptive-skill-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 13,
+        "target": "../schemas/project-binding-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 14,
+        "target": "../schemas/adaptive-observation-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 15,
+        "target": "../schemas/binding-observation-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 35,
+        "target": "../assets/adaptive-runtime/check_project_binding.py",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/adaptive-contracts.md",
+        "line": 35,
+        "target": "project-binding.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/authoring.md",
+        "line": 7,
+        "target": "evidence-format.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/authoring.md",
+        "line": 11,
+        "target": "workflow-design.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/conversion-rules.md",
+        "line": 43,
+        "target": "spec-build.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/conversion-rules.md",
+        "line": 72,
+        "target": "https://learn.chatgpt.com/docs/build-skills",
+        "kind": "link",
+        "resolution": "outside_scope"
+      },
+      {
+        "source": "references/conversion-rules.md",
+        "line": 73,
+        "target": "https://agentskills.io/specification",
+        "kind": "link",
+        "resolution": "outside_scope"
+      },
+      {
+        "source": "references/conversion-rules.md",
+        "line": 74,
+        "target": "https://code.claude.com/docs/en/skills",
+        "kind": "link",
+        "resolution": "outside_scope"
+      },
+      {
+        "source": "references/conversion-rules.md",
+        "line": 75,
+        "target": "https://learn.chatgpt.com/docs/hooks",
+        "kind": "link",
+        "resolution": "outside_scope"
+      },
+      {
+        "source": "references/evidence-format.md",
+        "line": 33,
+        "target": "workflow-design.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/project-binding.md",
+        "line": 3,
+        "target": "../assets/adaptive-runtime/check_project_binding.py",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/project-binding.md",
+        "line": 17,
+        "target": "../schemas/project-binding-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/project-binding.md",
+        "line": 25,
+        "target": "../schemas/binding-observation-v1.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/regeneration.md",
+        "line": 13,
+        "target": "workflow-design.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/scaffolding.md",
+        "line": 3,
+        "target": "../assets/skill-creator-notice.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/scaffolding.md",
+        "line": 13,
+        "target": "openai_yaml.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/spec-build.md",
+        "line": 9,
+        "target": "workflow-design.md",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/workflow-design.md",
+        "line": 5,
+        "target": "../assets/authoring-design-template.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/workflow-design.md",
+        "line": 31,
+        "target": "../schemas/authoring-design.schema.json",
+        "kind": "link",
+        "resolution": "resolved"
+      },
+      {
+        "source": "references/workflow-design.md",
+        "line": 39,
+        "target": "validation-handoff.md",
+        "kind": "link",
+        "resolution": "resolved"
+      }
+    ],
+    "context": {
+      "tokenizer": null,
+      "files": [
+        {
+          "path": "SKILL.md",
+          "bytes": 7657,
+          "characters": 7657,
+          "lines": 47,
+          "tokens": null
+        },
+        {
+          "path": "assets/adaptive-runtime/check_project_binding.py",
+          "bytes": 12433,
+          "characters": 12433,
+          "lines": 298,
+          "tokens": null
+        },
+        {
+          "path": "assets/authoring-design-template.json",
+          "bytes": 492,
+          "characters": 492,
+          "lines": 24,
+          "tokens": null
+        },
+        {
+          "path": "assets/build-report-template.md",
+          "bytes": 1347,
+          "characters": 1347,
+          "lines": 9,
+          "tokens": null
+        },
+        {
+          "path": "assets/conversion-report-template.md",
+          "bytes": 414,
+          "characters": 414,
+          "lines": 3,
+          "tokens": null
+        },
+        {
+          "path": "assets/skill-creator-license.txt",
+          "bytes": 11560,
+          "characters": 11560,
+          "lines": 202,
+          "tokens": null
+        },
+        {
+          "path": "assets/skill-creator-notice.md",
+          "bytes": 528,
+          "characters": 528,
+          "lines": 3,
+          "tokens": null
+        },
+        {
+          "path": "assets/worker-task-template.md",
+          "bytes": 985,
+          "characters": 985,
+          "lines": 21,
+          "tokens": null
+        },
+        {
+          "path": "package-manifest.json",
+          "bytes": 5061,
+          "characters": 5061,
+          "lines": 51,
+          "tokens": null
+        },
+        {
+          "path": "references/adaptation.md",
+          "bytes": 10444,
+          "characters": 10444,
+          "lines": 44,
+          "tokens": null
+        },
+        {
+          "path": "references/adaptive-contracts.md",
+          "bytes": 7135,
+          "characters": 7133,
+          "lines": 39,
+          "tokens": null
+        },
+        {
+          "path": "references/adoption.md",
+          "bytes": 1785,
+          "characters": 1785,
+          "lines": 9,
+          "tokens": null
+        },
+        {
+          "path": "references/authoring.md",
+          "bytes": 3239,
+          "characters": 3239,
+          "lines": 15,
+          "tokens": null
+        },
+        {
+          "path": "references/conversion-rules.md",
+          "bytes": 8647,
+          "characters": 8639,
+          "lines": 77,
+          "tokens": null
+        },
+        {
+          "path": "references/evidence-format.md",
+          "bytes": 6758,
+          "characters": 6758,
+          "lines": 49,
+          "tokens": null
+        },
+        {
+          "path": "references/openai_yaml.md",
+          "bytes": 2405,
+          "characters": 2403,
+          "lines": 49,
+          "tokens": null
+        },
+        {
+          "path": "references/project-binding.md",
+          "bytes": 4895,
+          "characters": 4895,
+          "lines": 35,
+          "tokens": null
+        },
+        {
+          "path": "references/regeneration.md",
+          "bytes": 2650,
+          "characters": 2650,
+          "lines": 13,
+          "tokens": null
+        },
+        {
+          "path": "references/scaffolding.md",
+          "bytes": 1962,
+          "characters": 1962,
+          "lines": 15,
+          "tokens": null
+        },
+        {
+          "path": "references/spec-build.md",
+          "bytes": 2488,
+          "characters": 2488,
+          "lines": 11,
+          "tokens": null
+        },
+        {
+          "path": "references/validation-handoff.md",
+          "bytes": 2488,
+          "characters": 2488,
+          "lines": 11,
+          "tokens": null
+        },
+        {
+          "path": "references/workflow-design.md",
+          "bytes": 7004,
+          "characters": 7000,
+          "lines": 39,
+          "tokens": null
+        },
+        {
+          "path": "schemas/adaptation-proposal-v1.schema.json",
+          "bytes": 1549,
+          "characters": 1549,
+          "lines": 75,
+          "tokens": null
+        },
+        {
+          "path": "schemas/adaptation-selection-v1.schema.json",
+          "bytes": 1015,
+          "characters": 1015,
+          "lines": 45,
+          "tokens": null
+        },
+        {
+          "path": "schemas/adaptive-common.schema.json",
+          "bytes": 16453,
+          "characters": 16453,
+          "lines": 767,
+          "tokens": null
+        },
+        {
+          "path": "schemas/adaptive-observation-v1.schema.json",
+          "bytes": 735,
+          "characters": 735,
+          "lines": 37,
+          "tokens": null
+        },
+        {
+          "path": "schemas/adaptive-skill-v1.schema.json",
+          "bytes": 1228,
+          "characters": 1228,
+          "lines": 59,
+          "tokens": null
+        },
+        {
+          "path": "schemas/adoption-evidence.schema.json",
+          "bytes": 27634,
+          "characters": 27634,
+          "lines": 1044,
+          "tokens": null
+        },
+        {
+          "path": "schemas/authoring-baseline.schema.json",
+          "bytes": 1319,
+          "characters": 1319,
+          "lines": 65,
+          "tokens": null
+        },
+        {
+          "path": "schemas/authoring-contract.schema.json",
+          "bytes": 2587,
+          "characters": 2587,
+          "lines": 134,
+          "tokens": null
+        },
+        {
+          "path": "schemas/authoring-design.schema.json",
+          "bytes": 9167,
+          "characters": 9167,
+          "lines": 359,
+          "tokens": null
+        },
+        {
+          "path": "schemas/authoring-record.schema.json",
+          "bytes": 3376,
+          "characters": 3376,
+          "lines": 171,
+          "tokens": null
+        },
+        {
+          "path": "schemas/binding-observation-v1.schema.json",
+          "bytes": 1076,
+          "characters": 1076,
+          "lines": 55,
+          "tokens": null
+        },
+        {
+          "path": "schemas/build-artifacts.schema.json",
+          "bytes": 4326,
+          "characters": 4326,
+          "lines": 177,
+          "tokens": null
+        },
+        {
+          "path": "schemas/evidence.schema.json",
+          "bytes": 2675,
+          "characters": 2675,
+          "lines": 141,
+          "tokens": null
+        },
+        {
+          "path": "schemas/project-binding-v1.schema.json",
+          "bytes": 1012,
+          "characters": 1012,
+          "lines": 43,
+          "tokens": null
+        },
+        {
+          "path": "schemas/project-evidence-v1.schema.json",
+          "bytes": 1472,
+          "characters": 1472,
+          "lines": 70,
+          "tokens": null
+        },
+        {
+          "path": "schemas/set-authoring-v1.schema.json",
+          "bytes": 1293,
+          "characters": 1293,
+          "lines": 60,
+          "tokens": null
+        },
+        {
+          "path": "schemas/set-validation-request-v1.schema.json",
+          "bytes": 1527,
+          "characters": 1527,
+          "lines": 68,
+          "tokens": null
+        },
+        {
+          "path": "schemas/validation-request.schema.json",
+          "bytes": 2189,
+          "characters": 2189,
+          "lines": 108,
+          "tokens": null
+        },
+        {
+          "path": "scripts/adaptive.py",
+          "bytes": 31183,
+          "characters": 31183,
+          "lines": 500,
+          "tokens": null
+        },
+        {
+          "path": "scripts/authoring.py",
+          "bytes": 38172,
+          "characters": 38172,
+          "lines": 635,
+          "tokens": null
+        },
+        {
+          "path": "scripts/build_evidence.py",
+          "bytes": 15985,
+          "characters": 15985,
+          "lines": 332,
+          "tokens": null
+        },
+        {
+          "path": "scripts/custody.py",
+          "bytes": 24168,
+          "characters": 24168,
+          "lines": 451,
+          "tokens": null
+        },
+        {
+          "path": "scripts/generate_openai_yaml.py",
+          "bytes": 8630,
+          "characters": 8630,
+          "lines": 258,
+          "tokens": null
+        },
+        {
+          "path": "scripts/init_skill.py",
+          "bytes": 10650,
+          "characters": 10650,
+          "lines": 307,
+          "tokens": null
+        },
+        {
+          "path": "scripts/record_schema.py",
+          "bytes": 3263,
+          "characters": 3263,
+          "lines": 64,
+          "tokens": null
+        }
+      ],
+      "loads": [],
+      "budget": null,
+      "budget_result": "NOT_APPLICABLE",
+      "reason": "No budget selected. Tokenizer not selected; token counts NOT_RUN."
+    }
+  },
+  "limitations": [
+    "Tokenizer not selected; token counts NOT_RUN.",
+    "Resource roles do not establish usage; command/template/dynamic consumers need manual inspection.",
+    "No semantic, native activation, project-binding or security approval is inferred."
+  ]
+}

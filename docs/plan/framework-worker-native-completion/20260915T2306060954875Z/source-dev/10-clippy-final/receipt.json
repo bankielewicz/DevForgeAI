@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "C:\\Users\\bryan\\.cargo\\bin\\cargo.exe",
+    "clippy",
+    "--locked",
+    "--offline",
+    "--lib",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable_sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0",
+  "start": "2026-09-15T23:22:57.598502+00:00",
+  "candidate_manifest_sha256": "00e3c377ae852de7eab9ad174614e432dbcae32c7fb1b3493340f077da67c3d6",
+  "target": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+  "fixture_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\source-dev\\10-clippy-final\\fixtures",
+  "environment_overrides": {
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\target",
+    "WF_TEST_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260915T2306060954875Z\\source-dev\\10-clippy-final\\fixtures"
+  },
+  "timeout_seconds": 360,
+  "owned_pid": 55164,
+  "exit_code": 0,
+  "elapsed_seconds": 0.6100000000005821,
+  "end": "2026-09-15T23:22:58.217883+00:00",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "9e9e790730d69347da54a6eef4e7794b679d394c7b428ff26d098b8d6d35c004",
+  "candidate_unchanged_during_command": true
+}

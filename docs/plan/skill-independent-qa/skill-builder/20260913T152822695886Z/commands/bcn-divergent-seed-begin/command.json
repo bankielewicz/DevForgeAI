@@ -1,0 +1,27 @@
+{
+  "case": "bcn-divergent-seed-begin",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\scripts\\authoring.py",
+    "begin",
+    "--contract",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\bcn-divergent\\input-contract.json",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\bcn-divergent\\docs\\plan\\run"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "expected": {
+    "exit": 0,
+    "field": "state",
+    "value": "STAGED",
+    "read_only_root": null,
+    "before_manifest": null
+  },
+  "start_utc": "2026-09-13T15:51:14.885204+00:00",
+  "stdin_sha256": null
+}

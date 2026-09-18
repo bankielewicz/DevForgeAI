@@ -1,0 +1,9 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T2136389781471Z",
+  "target_name": "dev",
+  "basis": "User explicitly selected target and governing specification independently of packet. Rejected packet never establishes builder readiness.",
+  "request_sha256": "7ebe47919c03b654614dcfa5ff288c0e58a3870615582e798780c74e8cfa15d6",
+  "rejection": "authoring contract/request mismatch: target_root slash spelling differs",
+  "package_digest": "7b8bb8f34a691e8d4f186d2c688501e370cae072238b52e587d10455c35b1aae"
+}

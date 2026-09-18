@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "incident": {
+    "id": "ACME-42",
+    "observable_failure": "Phase checkpoint accepts a string-only output and a downstream validator rejects the same file.",
+    "root_cause": "The two consumers implement different substance predicates for the same payload.",
+    "affected_contract": "phase checkpoint JSON substance contract v1",
+    "required_remedy": "Apply the same non-string substance predicate to both consumers."
+  },
+  "candidates": [
+    {
+      "id": "ACME-11",
+      "state": "OPEN",
+      "created_at": "2026-06-01T00:00:00Z",
+      "observable_failure": "Phase checkpoint accepts a string-only output and a downstream validator rejects the same file.",
+      "root_cause": "The two consumers implement different substance predicates for the same payload.",
+      "affected_contract": "phase checkpoint JSON substance contract v1",
+      "required_remedy": "Apply the same non-string substance predicate to both consumers.",
+      "expected_classification": "EXACT_DUPLICATE",
+      "active_implementation": true,
+      "unique_evidence": "Consumer-project reproduction on Windows."
+    },
+    {
+      "id": "ACME-12",
+      "state": "OPEN",
+      "created_at": "2026-05-20T00:00:00Z",
+      "observable_failure": "Phase checkpoint accepts an empty evidence list.",
+      "root_cause": "The emit predicate treats an empty list as substantive.",
+      "affected_contract": "phase checkpoint JSON substance contract v1",
+      "required_remedy": "Reject empty evidence lists in the emit predicate.",
+      "expected_classification": "OVERLAP",
+      "active_implementation": false,
+      "unique_evidence": "None."
+    },
+    {
+      "id": "ACME-13",
+      "state": "CLOSED",
+      "state_reason": "COMPLETED",
+      "fixed_at": "2026-04-10T00:00:00Z",
+      "observable_failure": "Phase checkpoint accepts a string-only output and a downstream validator rejects the same file.",
+      "root_cause": "The two consumers implement different substance predicates for the same payload.",
+      "affected_contract": "phase checkpoint JSON substance contract v1",
+      "required_remedy": "Apply the same non-string substance predicate to both consumers.",
+      "expected_classification": "RECURRENCE",
+      "active_implementation": false,
+      "unique_evidence": "Regression first seen after release 3.2."
+    },
+    {
+      "id": "ACME-14",
+      "state": "OPEN",
+      "created_at": "2026-07-01T00:00:00Z",
+      "observable_failure": "Unknown; report contains no reproduction.",
+      "root_cause": "Unknown.",
+      "affected_contract": "phase checkpoint JSON substance contract v1",
+      "required_remedy": "Unknown.",
+      "expected_classification": "INCONCLUSIVE",
+      "active_implementation": false,
+      "unique_evidence": "None."
+    }
+  ],
+  "fixture_sha256": "5faeeb00dd5c61fd4fc924f75a1c73218b229791c73b90081851c2fc8050dfd4"
+}

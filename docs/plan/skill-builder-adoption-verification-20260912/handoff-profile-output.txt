@@ -1,0 +1,2 @@
+{"run": "reviewed-positive", "status": "PASS", "observations": ["No discrepancy in the measured properties."], "exit_code": 0, "readback": "PASS"}
+{"run": "ready-unreviewed-negative", "status": "FAIL", "observations": ["handoff review/target identity mismatch"], "exit_code": 0, "readback": "PASS"}

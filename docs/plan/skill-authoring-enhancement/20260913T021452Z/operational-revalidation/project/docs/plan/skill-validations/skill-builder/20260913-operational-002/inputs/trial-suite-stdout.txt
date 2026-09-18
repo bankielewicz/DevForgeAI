@@ -1,0 +1,159 @@
+[
+  {
+    "case_id": "create-repeat",
+    "rule_id": "HISTORY",
+    "result": "PASS",
+    "expected": "Creation in a selected path with spaces and second untested edit publish AUTHORED with exact handoff.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 0,
+      "publish_stdout": "{\"state\": \"AUTHORED\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\create-repeat\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [\"SKILL.md\"], \"issues\": []}\r\n",
+      "publish_stderr": "",
+      "record_exists": true,
+      "second_begin": 0,
+      "second_publish": 0,
+      "second_state": "AUTHORED",
+      "second_origin": {
+        "kind": "authored",
+        "reference": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-revalidation\\project\\docs\\plan\\skill-validations\\skill-builder\\20260913-operational-002\\trials\\create-repeat\\project with spaces\\docs\\plan\\authoring-001\\authoring-baseline.json",
+          "sha256": "a7127c94da7a8bea0193194bd0997cbded1d1a543f7a01ca38ba16614533d581"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "observed-conflict",
+    "rule_id": "HISTORY",
+    "result": "PASS",
+    "expected": "Observed edit preserves unrelated bytes; later divergent managed changes block without overwriting user bytes.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 0,
+      "publish_stdout": "{\"state\": \"AUTHORED\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\observed-conflict\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [\"SKILL.md\"], \"issues\": []}\r\n",
+      "publish_stderr": "",
+      "record_exists": true,
+      "second_begin": 0,
+      "second_publish": 1,
+      "second_state": "BLOCKED",
+      "second_origin": {
+        "kind": "authored",
+        "reference": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-revalidation\\project\\docs\\plan\\skill-validations\\skill-builder\\20260913-operational-002\\trials\\observed-conflict\\project with spaces\\docs\\plan\\authoring-001\\authoring-baseline.json",
+          "sha256": "078471dd97314d7a9ddbdce0098b76e32d362887b5aa8632a875a90da526abc4"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "out-of-scope",
+    "rule_id": "CUSTODY",
+    "result": "PASS",
+    "expected": "Candidate modification outside change_paths is rejected before target mutation.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 1,
+      "publish_stdout": "{\"state\": \"BLOCKED\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\out-of-scope\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [], \"issues\": [\"candidate changes outside authorized paths: retained.txt\"]}\r\n",
+      "publish_stderr": "",
+      "record_exists": true
+    }
+  },
+  {
+    "case_id": "source-drift",
+    "rule_id": "CUSTODY",
+    "result": "PASS",
+    "expected": "Source changed after begin stops publish and retains after evidence.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 1,
+      "publish_stdout": "{\"state\": \"PARTIAL\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\source-drift\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [], \"issues\": [\"SOURCE_CHANGED live target differs from captured current\"]}\r\n",
+      "publish_stderr": "",
+      "record_exists": true
+    }
+  },
+  {
+    "case_id": "name-64",
+    "rule_id": "AB-009",
+    "result": "PASS",
+    "expected": "A valid existing 64-character identity remains editable without renaming.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 0,
+      "publish_stdout": "{\"state\": \"AUTHORED\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\name-64\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [\"SKILL.md\"], \"issues\": []}\r\n",
+      "publish_stderr": "",
+      "record_exists": true
+    }
+  },
+  {
+    "case_id": "malformed-contract",
+    "rule_id": "CUSTODY",
+    "result": "PASS",
+    "expected": "known_issues=null is rejected before target writes with retained error evidence.",
+    "observed": {
+      "begin_exit": 2,
+      "begin_error": "{\"state\": \"BLOCKED\", \"error\": \"contract known_issues must be an array\"}\r\n"
+    }
+  },
+  {
+    "case_id": "metadata",
+    "rule_id": "AB-008",
+    "result": "PASS",
+    "expected": "Focused display edit preserves dependencies/policy/interface extras; explicit policy option changes only invocation; invalid option does not mutate.",
+    "observed": {
+      "focused_preserved": true,
+      "explicit_only_requested_change": true,
+      "invalid_option_rejected": true
+    }
+  },
+  {
+    "case_id": "initialize",
+    "rule_id": "WORKFLOW",
+    "result": "PASS",
+    "expected": "Initializer creates only selected resources and refuses occupied destination with unchanged bytes.",
+    "observed": {
+      "creation_exit": 0,
+      "occupied_exit": 1,
+      "files": [
+        "SKILL.md",
+        "agents/openai.yaml"
+      ],
+      "occupied_unchanged": true
+    }
+  },
+  {
+    "case_id": "adopt",
+    "rule_id": "HISTORY",
+    "result": "PASS",
+    "expected": "Explicit adoption preserves target and next edit records prior origin adopted.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 0,
+      "publish_stdout": "{\"state\": \"AUTHORED\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\adopt\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [], \"issues\": []}\r\n",
+      "publish_stderr": "",
+      "record_exists": true,
+      "second_begin": 0,
+      "second_publish": 0,
+      "second_state": "AUTHORED",
+      "second_origin": {
+        "kind": "adopted",
+        "reference": {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\operational-revalidation\\project\\docs\\plan\\skill-validations\\skill-builder\\20260913-operational-002\\trials\\adopt\\project with spaces\\docs\\plan\\authoring-001\\authoring-baseline.json",
+          "sha256": "ec58f7fd049a5c8759577d1eb8143ebf8454f37450108df2c3d45275e45ac0f7"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "input-drift",
+    "rule_id": "CUSTODY",
+    "result": "PASS",
+    "expected": "Changed referenced authoring input blocks publish before target writes.",
+    "observed": {
+      "begin_exit": 0,
+      "publish_exit": 1,
+      "publish_stdout": "{\"state\": \"BLOCKED\", \"run_root\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\input-drift\\\\project with spaces\\\\docs\\\\plan\\\\authoring-001\", \"applied_paths\": [], \"issues\": [\"SOURCE_CHANGED reference: C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-authoring-enhancement\\\\20260913T021452Z\\\\operational-revalidation\\\\project\\\\docs\\\\plan\\\\skill-validations\\\\skill-builder\\\\20260913-operational-002\\\\trials\\\\input-drift\\\\input.md\"]}\r\n",
+      "publish_stderr": "",
+      "record_exists": true
+    }
+  }
+]

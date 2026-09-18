@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-bcn-obsolete-user-edit-seed-publish",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1430,
+      "sha256": "479f11dfde188fd692a214329178f085edd2b8f96c3f7c137fd45bfb7ffa47cb"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "5466d8db44392982fcc29d1adf78b053f70072a8a01e2fb002a76b52f0906e7d"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 278,
+      "sha256": "e141637ccf4b5523f82ffc9ca81fe5f9379741d68a60dca30734b198ad17e07b"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "reduce.py",
+    "manifest-v2.json",
+    "1fe87bc375d32a8c3e02080f1790d63f73bcb705db3b175ec02d70604f47a0dd"
+  ],
+  "start": "2026-09-14T01:37:57.208158+00:00",
+  "end": "2026-09-14T01:37:57.650681+00:00",
+  "exit_code": 0
+}

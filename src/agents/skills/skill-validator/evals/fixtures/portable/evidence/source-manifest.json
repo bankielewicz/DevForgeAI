@@ -1,0 +1,18 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-builder\\evals\\fixtures\\portable\\source",
+  "captured_at_utc": "2026-09-12T04:00:13.846526+00:00",
+  "files": [
+    {
+      "path": "schema.json",
+      "bytes": 113,
+      "sha256": "cc41865b232a01ab9e91bebc7c6465d065637e32ad0301f03acbc00180c260a6"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 189,
+      "sha256": "f7c52819d71a8fb19d71a5476997f68076b1f88b7a483d27db9dea8ccfc3e51e"
+    }
+  ],
+  "excluded_boundaries": []
+}

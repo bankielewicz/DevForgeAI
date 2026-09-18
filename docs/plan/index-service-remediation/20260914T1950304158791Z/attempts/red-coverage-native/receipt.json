@@ -1,0 +1,36 @@
+{
+  "attempt_id": "red-coverage-native",
+  "stage": "red",
+  "argv": [
+    "cargo",
+    "llvm-cov",
+    "--locked",
+    "--offline",
+    "--all-targets",
+    "--ignore-run-fail",
+    "--json",
+    "--output-path",
+    "C:/Projects/DevForgeAI/docs/plan/index-service-remediation/20260914T1950304158791Z/coverage-red-native.json",
+    "--fail-under-lines",
+    "95",
+    "--ignore-filename-regex",
+    "[/\\\\](tests|examples|fixtures)[/\\\\]",
+    "--",
+    "--test-threads=1"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\devforgeai",
+  "platform": "win32",
+  "environment_overrides": {
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\scratch\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-remediation\\20260914T1950304158791Z\\attempts\\red-coverage-native\\gui"
+  },
+  "source_manifest_sha256": "db88f527b96a9d3f4290581c71bae34d8081f393c39e5e3ae57fcd3f902c8058",
+  "started_at": "2026-09-14T19:53:11.649784+00:00",
+  "timeout_seconds": 1800,
+  "exit_code": 101,
+  "outcome": "observed_exit",
+  "ended_at": "2026-09-14T19:53:23.578627+00:00",
+  "elapsed_seconds": 11.9220000000023,
+  "stdout.txt_sha256": "b22ed73a23e4c37ddb51435b476de34230e51ca68c3bd284af2a231bd88d0002",
+  "stderr.txt_sha256": "6b1c23835e2bec04967327842b505fd7cc4c41c188333303d1df09c949956201"
+}

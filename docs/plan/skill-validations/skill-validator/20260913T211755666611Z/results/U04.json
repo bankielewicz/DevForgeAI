@@ -1,0 +1,20 @@
+{
+  "case_id": "U04",
+  "finding": "QA-03",
+  "expected_exit": 0,
+  "actual_exit": 0,
+  "matched": true,
+  "checks": {
+    "exit": true,
+    "completed": true,
+    "preserved": true,
+    "candidate_count": true,
+    "candidate_locations": true,
+    "no_automatic_fail": true,
+    "redacted": true
+  },
+  "evidence": {
+    "path": "commands/U04/receipt.json",
+    "sha256": "ebfc2c909f873c5cc41c564dbe9d3e38d26721c1e18e3ab6006f6b3389b41322"
+  }
+}

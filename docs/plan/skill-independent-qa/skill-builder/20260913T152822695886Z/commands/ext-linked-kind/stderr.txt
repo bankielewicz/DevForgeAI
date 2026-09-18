@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\adaptive.py", line 19, in <module>
+    import authoring
+ModuleNotFoundError: No module named 'authoring'

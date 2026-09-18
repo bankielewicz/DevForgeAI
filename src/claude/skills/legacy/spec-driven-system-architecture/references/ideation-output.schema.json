@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://devforgeai.local/schemas/ideation-output-1.0.json",
+  "title": "DevForgeAI Ideation Inception PM-Plan Output Contract",
+  "description": "JSON Schema (v1.0) for the inception Project-Management plan produced by spec-driven-ideation (the PM phase). The future spec-driven-architecture-* skills consume this contract. The structured data lives in the YAML frontmatter of devforgeai/specs/requirements/{project}-requirements.md; this schema is the published, versioned contract that inoculates the PM->Architecture seam against the format-drift class of defect documented in the ideation modernization plan. additionalProperties is true at object level for forward-compatibility.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "created",
+    "scope_baseline",
+    "milestone_roadmap",
+    "risk_register",
+    "stakeholder_register",
+    "prioritized_requirements",
+    "assumptions",
+    "constraints",
+    "success_criteria",
+    "idea_backlog_ref"
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "risk": {
+      "type": "object",
+      "description": "A risk carried into build/sprint planning. Mirrors the brainstorm risk_analysis.risks[] shape; carried verbatim when a brainstorm is present, elicited during Phase 03 otherwise.",
+      "required": ["id", "description", "likelihood", "impact"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^RISK-[0-9]{3,}$" },
+        "description": { "type": "string", "minLength": 1 },
+        "likelihood": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "impact": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "severity": { "type": "string", "enum": ["Low", "Medium", "High", "Critical"] },
+        "mitigation": { "type": "string" },
+        "owner": { "type": "string" },
+        "source": { "type": "string", "description": "e.g. 'brainstorm:BRAINSTORM-NNN' or 'ideation:IDEATION-NNN'." }
+      }
+    },
+    "stakeholder": {
+      "type": "object",
+      "description": "A project stakeholder with influence/interest and RACI. Sourced from the brainstorm stakeholders.registry[] when present, merged with ideation personas.",
+      "required": ["id", "name_or_role", "category"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string" },
+        "name_or_role": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "enum": ["Primary", "Secondary", "Tertiary"] },
+        "influence": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "interest": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "raci": { "type": "string", "enum": ["Responsible", "Accountable", "Consulted", "Informed"] },
+        "goals": { "type": "array", "items": { "type": "string" } },
+        "concerns": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "description": "A prioritized functional requirement with MoSCoW priority.",
+      "required": ["id", "statement", "priority"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^FR-[0-9]{3,}$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "category": { "type": "string" },
+        "priority": { "type": "string", "enum": ["Must", "Should", "Could", "Won't", "Must-Have", "Should-Have", "Could-Have", "Won't-Have"] },
+        "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
+        "source": { "type": "string" }
+      }
+    },
+    "roadmap_phase": {
+      "type": "object",
+      "description": "A milestone in the phased release roadmap (e.g. MVP / Release 2 / Future). Carries build order and dependencies but NO schedule durations, resource loading, or budget breakdown - those are ungrounded at the inception PM stage.",
+      "required": ["phase", "items"],
+      "additionalProperties": true,
+      "properties": {
+        "phase": { "type": "string", "description": "Milestone name, e.g. 'MVP', 'Release 2', 'Future'." },
+        "items": {
+          "type": "array",
+          "description": "Requirement ids or capability names included in this milestone.",
+          "items": { "type": "string" }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "Build-order dependencies - milestone names or requirement ids this phase depends on.",
+          "items": { "type": "string" }
+        },
+        "rationale": { "type": "string" }
+      }
+    },
+    "assumption": {
+      "type": "object",
+      "description": "An assumption that, if invalidated, becomes a downstream defect. Sourced from the brainstorm assumptions register and ideation elicitation.",
+      "required": ["id", "statement"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^ASMP-[0-9]{3,}$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "validation_method": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "deferred_idea": {
+      "type": "object",
+      "description": "An idea raised but intentionally not in the current MVP - referenced from the standalone idea-backlog artifact (DEF-NNN shape).",
+      "required": ["id", "description", "status"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^DEF-[0-9]{3,}$" },
+        "description": { "type": "string", "minLength": 1 },
+        "why_deferred": { "type": "string" },
+        "business_value": { "type": "string" },
+        "mvp_dependency": { "type": "string" },
+        "revisit_when": { "type": "string" },
+        "source": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "promoted", "rejected"] }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "description": "Ideation-output contract version. Const 1.0 for this schema file.",
+      "const": "1.0"
+    },
+    "project": {
+      "description": "Filename-safe project name (lowercase, hyphens, digits).",
+      "type": "string",
+      "minLength": 1
+    },
+    "created": {
+      "description": "ISO 8601 date the PM plan was generated.",
+      "type": "string",
+      "format": "date"
+    },
+    "source_brainstorm": {
+      "description": "Back-reference to the originating brainstorm (BRAINSTORM-NNN), or null when ideation ran with no brainstorm input.",
+      "type": ["string", "null"]
+    },
+    "scope_baseline": {
+      "description": "The locked scope boundary: what is in, out, and deferred to future.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "in_scope": { "type": "array", "items": { "type": "string" } },
+        "out_of_scope": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "item": { "type": "string" },
+              "deferral_target": { "type": "string" },
+              "rationale": { "type": "string" }
+            }
+          }
+        },
+        "future": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "milestone_roadmap": {
+      "description": "Phased release roadmap with build order and dependencies. Sourced from the brainstorm release_roadmap when present, derived from MoSCoW + scope.future otherwise.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/roadmap_phase" }
+    },
+    "risk_register": {
+      "description": "RISK-NNN register carried into build/sprint planning.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/risk" }
+    },
+    "stakeholder_register": {
+      "description": "Stakeholders with influence, interest, and RACI / decision authority.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/stakeholder" }
+    },
+    "prioritized_requirements": {
+      "description": "Functional requirements with MoSCoW priority.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/requirement" }
+    },
+    "assumptions": {
+      "description": "First-class assumptions register.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/assumption" }
+    },
+    "constraints": {
+      "description": "Technical, business, regulatory, and resource constraints that must be followed.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["constraint"],
+        "properties": {
+          "type": { "type": "string", "enum": ["technical", "business", "regulatory", "resource"] },
+          "constraint": { "type": "string", "minLength": 1 },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "success_criteria": {
+      "description": "Quantified, measurable success criteria.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "metric", "target"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^SC-[0-9]+$" },
+          "metric": { "type": "string", "minLength": 1 },
+          "target": { "type": "string", "minLength": 1 },
+          "measurement": { "type": "string" }
+        }
+      }
+    },
+    "idea_backlog_ref": {
+      "description": "Relative path to the standalone living idea-backlog artifact (devforgeai/specs/ideation/{project}-idea-backlog.md). The full DEF-NNN items live in that file; this contract carries only the reference.",
+      "type": "string",
+      "minLength": 1
+    },
+    "idea_backlog_preview": {
+      "description": "Optional inline preview of the idea backlog (DEF-NNN items). The idea-backlog file remains the source of truth.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/deferred_idea" }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "1",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 7416,
+      "sha256": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e"
+    },
+    {
+      "path": "artifact-manifest.json",
+      "bytes": 2238,
+      "sha256": "470e5c135ec06cec155e77515d87e42cf264c88840eb7acd7f0b197cb21eb176"
+    },
+    {
+      "path": "evals/case.schema.json",
+      "bytes": 439,
+      "sha256": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "bytes": 21820,
+      "sha256": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735"
+    },
+    {
+      "path": "evals/run_evaluation.py",
+      "bytes": 4355,
+      "sha256": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63"
+    },
+    {
+      "path": "references/evaluation.md",
+      "bytes": 4250,
+      "sha256": "99458bee70a490fd93a94f1d32989b8d5bdf37ed91d5e7d0d075f8800c736158"
+    },
+    {
+      "path": "references/execution.md",
+      "bytes": 11496,
+      "sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444"
+    },
+    {
+      "path": "scripts/advisor.ps1",
+      "bytes": 1219,
+      "sha256": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789"
+    },
+    {
+      "path": "scripts/advisor_run.py",
+      "bytes": 26690,
+      "sha256": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8"
+    },
+    {
+      "path": "scripts/advisor_stream.py",
+      "bytes": 12146,
+      "sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9"
+    },
+    {
+      "path": "tests/test_streaming.py",
+      "bytes": 36701,
+      "sha256": "47fbbd404ea5fdfc942015504b6d4a00835d621d0440a50042f13048035dc42d"
+    }
+  ],
+  "package_digest": "94128207f01aeba4c4d5461a446356b62097925831593b927e72fbbbc83a61f6"
+}

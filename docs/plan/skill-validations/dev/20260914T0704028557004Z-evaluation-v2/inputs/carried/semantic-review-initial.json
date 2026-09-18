@@ -1,0 +1,1184 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T0117324130584Z",
+  "target_name": "dev",
+  "package_digest": "8ad8c94b862a2e68a1d6e3064978bb654ded484da2e8adf0317f23dd7583924c",
+  "review_kind": "Separate validator-agent manual source inspection; not builder self-review or guaranteed model independence.",
+  "observations": [
+    {
+      "rule_id": "DEV-001",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 10,
+        "line_end": 10
+      },
+      "anchor": "Scope and inputs",
+      "reason": "Description names selected-spec implementation and resume, excludes nondevelopment tasks. Entrypoint preserves automatic invocation and plan-only scope; absent specs cause exact-input question.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-002",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 16,
+        "line_end": 16
+      },
+      "anchor": "Own product implementation",
+      "reason": "Direct product tests, integration and QA belong to dev; package assessment is separately selected, with no builder call for product code.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-003",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 27,
+        "line_end": 27
+      },
+      "anchor": "Portability and authority",
+      "reason": "Language, tools, layout, commands, thresholds, platforms, output location and model are runtime-derived. No author-machine roots, binding or product names occur in any delivered resource.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-004",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 31,
+        "line_end": 31
+      },
+      "anchor": "A project-mandated authority",
+      "reason": "Actual authority governs protected operations; missing authority stops only affected operations, Python cannot substitute acceptance, and input documents cannot broaden user authority.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-005",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 5,
+        "line_end": 5
+      },
+      "anchor": "Resolve the selected environment",
+      "reason": "Relative project/document bases and exact host identity are specified; complete literal destination and current source precede first write. Missing or ambiguous selection blocks only dependent work.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-006",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 9,
+        "line_end": 9
+      },
+      "anchor": "Read every applicable project instruction",
+      "reason": "Inspects actual instructions, layout, manifests, tools, Git or bounded inventory and ongoing changes before selecting files or executing scripts.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-007",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 19,
+        "line_end": 19
+      },
+      "anchor": "Capture context",
+      "reason": "Context records scope, raw hashes, exact input origins, tools, omissions and decisions before production changes; evidence precedence and output map are concrete and portable.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-008",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 25,
+        "line_end": 25
+      },
+      "anchor": "Read and account for requirements",
+      "reason": "All selected specs and necessary references are read; qualified or passage-bound IDs cover deliverables, failures, QA and destination obligations without editing specifications.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-009",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 33,
+        "line_end": 33
+      },
+      "anchor": "For multiple documents",
+      "reason": "Shared contract has one owner and ordered dependency slices. Unsupported precedence, cycles and conflicts require source-qualified decisions; unselected prerequisites are not implicit implementation authority.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-010",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 37,
+        "line_end": 37
+      },
+      "anchor": "Establish constitutional decisions",
+      "reason": "Six evidence-derived categories permit inapplicable reasons and routine compatible choices; material language, ownership, dependencies, destination and acceptance gaps are asked, not guessed.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-011",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 3,
+        "line_end": 3
+      },
+      "anchor": "Resolve only the blocked dependency",
+      "reason": "Gap categories carry source/affected requirement/minimum resolution, preserve independent work, and never authorize rewriting failed expectations or constitutions.",
+      "evidence": [
+        {
+          "path": "source/references/failure-delivery.md",
+          "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-012",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 5,
+        "line_end": 5
+      },
+      "anchor": "Inspect for reuse, then plan",
+      "reason": "Searches responsibility and plausible differently named candidates, inspects current consumers/tests, records reuse/extension/composition/new reasons and uncertainty of no matches.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-013",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 11,
+        "line_end": 11
+      },
+      "anchor": "Plan dependency-ordered slices",
+      "reason": "Observable slices bind requirement IDs, ownership, dependencies, consumed/provided contracts, expected behavior and verification. One session is sufficient; delegation is optional authorized work.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-014",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 15,
+        "line_end": 15
+      },
+      "anchor": "Resolve commands before execution",
+      "reason": "Commands derive from inspected manifests/tool availability, with literal arguments, host/cwd/effects and timeout. Missing tools do not authorize changed language or installation.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-015",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 23,
+        "line_end": 23
+      },
+      "anchor": "## Red",
+      "reason": "Tests precede production changes and expected failures are retained. Setup/tool failures and already-passing characterization are explicitly distinguished; no artificial breakage or invented prose red.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-016",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 31,
+        "line_end": 31
+      },
+      "anchor": "## Green",
+      "reason": "Real minimum behavior must pass the same assertions; suppressing errors, fixture answers, stubbing the integration and weakening tests are excluded.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-017",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 35,
+        "line_end": 35
+      },
+      "anchor": "Refactor and integration",
+      "reason": "Behavior-preserving refactor requires affected reruns; a justified no-refactor result is permitted. Real shared interfaces and integration failures are verified.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-018",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 39,
+        "line_end": 39
+      },
+      "anchor": "QA and metrics",
+      "reason": "Applicable integrated QA declares candidate, required cases, denominators, exclusions, thresholds and platforms; nonpasses count, subthreshold rounding and denominator manipulation are forbidden.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-019",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/implementation.md",
+      "locator": {
+        "line_start": 49,
+        "line_end": 49
+      },
+      "anchor": "Native and external behavior",
+      "reason": "Native host and visual checks remain separate from compilation/help/mocks; unavailable required cases are unperformed and cannot be qualified by another OS.",
+      "evidence": [
+        {
+          "path": "source/references/implementation.md",
+          "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-020",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/evidence-resume.md",
+      "locator": {
+        "line_start": 5,
+        "line_end": 5
+      },
+      "anchor": "Logical records and locations",
+      "reason": "Six actually linked record templates preserve concrete output mapping, exact command/times/streams/candidate/attempt identity and raw hashes; templates never become unexecuted receipts.",
+      "evidence": [
+        {
+          "path": "source/references/evidence-resume.md",
+          "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-021",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/evidence-resume.md",
+      "locator": {
+        "line_start": 26,
+        "line_end": 26
+      },
+      "anchor": "Checkpoint and resume",
+      "reason": "Resume rechecks inputs, source, tools, permissions, jobs and original destination; changed prerequisites invalidate dependent results and unknown jobs are inspected before retry.",
+      "evidence": [
+        {
+          "path": "source/references/evidence-resume.md",
+          "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-022",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 13,
+        "line_end": 13
+      },
+      "anchor": "Report actual delivery",
+      "reason": "COMPLETE requires every selected deliverable/check and exact destination readback; otherwise PARTIAL/BLOCKED with gaps. External acceptance remains separately evidenced or NOT_EVALUATED.",
+      "evidence": [
+        {
+          "path": "source/references/failure-delivery.md",
+          "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-023",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 9,
+        "line_end": 9
+      },
+      "anchor": "Use already supplied authorization",
+      "reason": "Ordinary reversible product changes and tests follow existing scope; deploy/install/startup/migration and unrelated work remain separately authorized.",
+      "evidence": [
+        {
+          "path": "source/references/failure-delivery.md",
+          "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-024",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 18,
+        "line_end": 18
+      },
+      "anchor": "Workflow",
+      "reason": "Concise entrypoint routes four focused references; all six assets are linked and consumed. Eleven instruction/template files only; no unused scripts, plugin metadata or scaffolding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-025",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 16,
+        "line_end": 16
+      },
+      "anchor": "Own product implementation",
+      "reason": "Package-authoring restrictions are not copied as a product-test prohibition. Standalone operation has no adaptive setup; source and evaluation ownership remain separate.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "DEV-026",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 16,
+        "line_end": 16
+      },
+      "anchor": "Assessment of this skill package",
+      "reason": "Authored custody is explicitly insufficient for evaluated-build completion. Current manual packet is BOUND and external mandatory runner/graders/fixtures/schema/runtime/manifest are prepared; executed-case evidence remains separately required.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "REV-001",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 15,
+        "line_end": 15
+      },
+      "anchor": "Before creating the directory",
+      "reason": "Complete raw value and original source are retained before first write; every word and Unicode/metacharacter stays path data, with only documented ordinary separator normalization.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "REV-002",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/context.md",
+      "locator": {
+        "line_start": 17,
+        "line_end": 17
+      },
+      "anchor": "Resolve each promised record",
+      "reason": "Every promised concrete output is bound beneath the exact selected root and compared with original source, not a paraphrased context; preexisting default cannot replace selection.",
+      "evidence": [
+        {
+          "path": "source/references/context.md",
+          "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "REV-003",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "references/failure-delivery.md",
+      "locator": {
+        "line_start": 17,
+        "line_end": 17
+      },
+      "anchor": "Before marking an output requirement",
+      "reason": "Original selection and each actual promised file are read back before VERIFIED/COMPLETE; wrong paths or missing files require partial/blocked and preserve old attempts.",
+      "evidence": [
+        {
+          "path": "source/references/failure-delivery.md",
+          "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "REV-004",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "locator": {
+        "line_start": 18,
+        "line_end": 18
+      },
+      "anchor": "Workflow",
+      "reason": "Original 26-requirement contract and product TDD/QA remain present; review of all eleven resources found focused destination changes and no new mandatory runtime framework dependency.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ],
+      "limitation": "Manual current-byte instruction review; behavioral satisfaction is separately graded from native trials."
+    },
+    {
+      "rule_id": "AV-F01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Required UTF-8 entrypoint and unique-key YAML name/description parsed; installed checker also passed.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-F02",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Bound source manifest identifies original dev directory; source-named snapshot uncertainty resolved by manifest and explicit target identity.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-F03",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Description leads with implementation/selected-spec/resume task and excludes authoring, evaluation, deployment and review. Independent description-only classification is retained separately; implicit activation is unperformed.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-F04",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "No optional agents/openai.yaml or host configuration exists; specification does not require one.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-F05",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "All Markdown tables/fences and templates manually inspected. The helper TODO candidate is a prohibition against vague TODO gaps, not an unresolved production placeholder.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-U01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Complete captured UTF-8 text scan found no defined Unicode control/confusable candidate; no universal Unicode safety claim.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-R01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Every ordinary relative resource link resolves; manual reading found no unresolved reference-style or renderer-dependent anchors.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-R02",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "All eleven files have actual entrypoint/reference consumers. Assets are record templates and each is explicitly routed by evidence-resume.md; no abandoned resource.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-R03",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Instruction/template-only package invokes discovered product commands rather than nonexistent fixed helpers. JSONL fields match described receipts and dependencies are checked before use.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-I01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Context, gaps, reuse, TDD, QA, resumption and delivery have concrete inputs/actions/outputs and terminal branches; no unreachable completion or unbounded retry loop found.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-I02",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Destination safeguards identify timing, source comparison and observable failure; repeated prewrite/final checks have different roles. COMPLETE is explicitly development status, never protected authority.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-I03",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Entrypoint loads context before first write, implementation before TDD, evidence through work, and failure/delivery before final. Essential destination and authority constraints are also visible in entrypoint.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-I04",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Current user choices and existing authorization govern reversible development; material gaps stop dependent effects with independent work preserved. Native boundary cases separately assess behavior.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-C01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Raw helper measures all eleven files in bytes, Unicode code points and splitlines. No token budget selected; tokenizer and actual load counts remain unperformed, not estimated consumption.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-S01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Documents are requirements/data, never authority to broaden scope; no generated helper imports or executes retrieved instructions. Static review only, no dedicated adversarial campaign selected.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-S02",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Literal argument and path handling, exact roots, permission checks, preserved attempts and separate irreversible effects are explicit; no runtime executable helper or credential operation is shipped.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-W01",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Six-stage route resolves exact inputs, requirements/dependencies, slices, TDD/QA, checkpoints and honest delivery; native scenarios assess happy/blocked paths independently.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-W02",
+      "result": "PASS",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Resume instructions preserve historical work, invalidate changed dependent evidence and reconcile unknown jobs before retry. Changed-destination native case remains separately graded.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-E01",
+      "result": "NOT_RUN",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Input/snapshot/intake are bound; final executed bundle, complete record integrity and end-of-run readback remain pending before final evidence reduction.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        },
+        {
+          "path": "commands/structure/stdout.txt",
+          "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+        },
+        {
+          "path": "commands/adaptive-package/stdout.txt",
+          "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+        },
+        {
+          "path": "commands/creator-check/stdout.txt",
+          "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A01",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A02",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A03",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A04",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A05",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A06",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A07",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A08",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A09",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    },
+    {
+      "rule_id": "AV-A10",
+      "result": "NOT_APPLICABLE",
+      "method": "semantic",
+      "subject_path": "SKILL.md",
+      "reason": "Selected dev is an ordinary standalone skill with no adaptive/set role; applicable portability is assessed under DEV003 and AVS02, not an invented adaptive binding.",
+      "evidence": [
+        {
+          "path": "source/SKILL.md",
+          "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+        }
+      ]
+    }
+  ]
+}

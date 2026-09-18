@@ -1,0 +1,92 @@
+{
+  "os": "Windows-10-10.0.26200-SP0",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Program Files\\Python310\\python.exe",
+  "launcher_shell": "PowerShell",
+  "filesystem": "Windows C: native",
+  "checks": [
+    {
+      "name": "tests",
+      "command": [
+        "C:\\Program Files\\Python310\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "coverage",
+        "run",
+        "--branch",
+        "--source=C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts,C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals",
+        "--data-file=C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\final-checks\\coverage.data",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests",
+        "-v"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "exit_code": 0
+    },
+    {
+      "name": "coverage-json",
+      "command": [
+        "C:\\Program Files\\Python310\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "coverage",
+        "json",
+        "--data-file=C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\final-checks\\coverage.data",
+        "-o",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\final-checks\\coverage.json"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "exit_code": 0
+    },
+    {
+      "name": "coverage-report",
+      "command": [
+        "C:\\Program Files\\Python310\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "coverage",
+        "report",
+        "--data-file=C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\final-checks\\coverage.data",
+        "-m"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "exit_code": 0
+    },
+    {
+      "name": "jsonl",
+      "command": [
+        "C:\\Program Files\\Python310\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\run_evaluation.py",
+        "--output",
+        "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-build\\20260915-initial\\final-checks\\evaluation"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "exit_code": 0
+    },
+    {
+      "name": "skill-metadata",
+      "command": [
+        "C:\\Program Files\\Python310\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+        "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor"
+      ],
+      "cwd": "C:\\Projects\\DevForgeAI",
+      "exit_code": 0
+    }
+  ]
+}

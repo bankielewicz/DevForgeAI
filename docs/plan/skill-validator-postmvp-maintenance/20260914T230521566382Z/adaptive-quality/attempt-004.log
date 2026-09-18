@@ -1,0 +1,32 @@
+test_authoring_intake_entrypoint_and_corruption (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_binding_identity_and_timestamp (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_blocked_producer_cannot_leave_dependent_retained (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_context_budget_uses_complete_measurement_and_occurrences (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_descriptor_requires_actual_contract_resources (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_expertise_and_proposal_gaps_preserve_blocked_status (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_intake_entrypoint_preserves_membership_and_rejects_digest (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_inventory_exclusion_and_capture_ceiling (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_missing_input_is_unavailable_not_success (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_package_entrypoint_and_records_round_trip (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_parent_inventory_and_schema_alternatives (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_raw_package_cannot_adjudicate_unicode (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... FAIL
+test_reference_readback_detects_drift_and_invalid_locators (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_selection_changed_destination_requires_literal_authorization (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_standalone_gaps_and_dimensions_are_validated (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_supplemental_binding_must_match_observed_status_and_digest (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_supplemental_locations_and_no_guessed_tokens (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_variant_descriptor_requires_distinct_parent_identity (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+test_variant_lineage_requires_complete_faithful_dispositions (test_postmvp_adaptive_quality.AdaptiveQualityTests) ... ok
+
+======================================================================
+FAIL: test_raw_package_cannot_adjudicate_unicode (test_postmvp_adaptive_quality.AdaptiveQualityTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Projects\DevForgeAI\src\agents\skills\skill-validator\tests\test_postmvp_adaptive_quality.py", line 287, in test_raw_package_cannot_adjudicate_unicode
+    self.assertEqual(code, 0)
+AssertionError: 2 != 0
+
+----------------------------------------------------------------------
+Ran 19 tests in 2.948s
+
+FAILED (failures=1)

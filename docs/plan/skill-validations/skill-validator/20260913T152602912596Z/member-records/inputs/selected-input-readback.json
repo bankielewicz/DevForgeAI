@@ -1,0 +1,18 @@
+{
+  "specifications": {
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-adaptive-enhancement-spec.md": {
+      "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42",
+      "matches_capture": true
+    },
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adaptive-enhancement-spec.md": {
+      "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+      "matches_capture": true
+    }
+  },
+  "target_digest": "d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1",
+  "target_unchanged": true,
+  "companion_unchanged": true,
+  "loaded_unchanged": true,
+  "prior_evidence_unchanged": true,
+  "extent": "Exact bounded permitted inventories only; no whole historical tree or whole operational-home integrity claim."
+}

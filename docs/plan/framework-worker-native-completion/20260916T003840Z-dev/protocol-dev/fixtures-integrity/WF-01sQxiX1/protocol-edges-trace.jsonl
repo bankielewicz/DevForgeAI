@@ -1,0 +1,6 @@
+{"id":1,"method":"initialize","params":{"capabilities":{"experimentalApi":false},"clientInfo":{"name":"devforgeai_worker_probe","version":"0.1.0"}}}
+{"method":"initialized","params":{}}
+{"id":2,"method":"config/read","params":{"cwd":"\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-native-completion\\20260916T003840Z-dev\\protocol-dev\\fixtures-integrity\\WF-01sQxiX1\\fixture","includeLayers":true}}
+{"id":3,"method":"configRequirements/read","params":{}}
+{"id":4,"method":"experimentalFeature/list","params":{"cursor":null,"limit":100,"threadId":null}}
+{"id":5,"method":"experimentalFeature/list","params":{"cursor":"repeat","limit":100,"threadId":null}}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T085122108787Z",
+  "target_name": "skill-validator",
+  "steps": [
+    {
+      "step_id": "intake",
+      "entrypoint": "SKILL.md",
+      "entry_conditions": "Explicit target/request/set",
+      "inputs": [
+        "Explicit target/request/set"
+      ],
+      "executor": "Codex with inspected terminal helpers",
+      "action": "Follow linked mode-specific contract",
+      "outputs": [
+        "Retained exact selection and original source"
+      ],
+      "completion_evidence": "Referenced raw observations and final report",
+      "next_branch_targets": [],
+      "failure_route": "missing or stale input -> separately scoped checks",
+      "terminal_user_outcome": "Retained exact selection and original source"
+    },
+    {
+      "step_id": "inspect",
+      "entrypoint": "SKILL.md",
+      "entry_conditions": "Pinned source and AV catalog",
+      "inputs": [
+        "Pinned source and AV catalog"
+      ],
+      "executor": "Codex with inspected terminal helpers",
+      "action": "Follow linked mode-specific contract",
+      "outputs": [
+        "Located observations and semantic findings"
+      ],
+      "completion_evidence": "Referenced raw observations and final report",
+      "next_branch_targets": [],
+      "failure_route": "unavailable parser/source -> NOT_RUN",
+      "terminal_user_outcome": "Located observations and semantic findings"
+    },
+    {
+      "step_id": "trial",
+      "entrypoint": "SKILL.md",
+      "entry_conditions": "Predeclared oracle and disposable root",
+      "inputs": [
+        "Predeclared oracle and disposable root"
+      ],
+      "executor": "Codex with inspected terminal helpers",
+      "action": "Follow linked mode-specific contract",
+      "outputs": [
+        "Retained attempts/effects"
+      ],
+      "completion_evidence": "Referenced raw observations and final report",
+      "next_branch_targets": [],
+      "failure_route": "failure or timeout -> preserve partial evidence",
+      "terminal_user_outcome": "Retained attempts/effects"
+    },
+    {
+      "step_id": "report",
+      "entrypoint": "SKILL.md",
+      "entry_conditions": "Observed checks and readback",
+      "inputs": [
+        "Observed checks and readback"
+      ],
+      "executor": "Codex with inspected terminal helpers",
+      "action": "Follow linked mode-specific contract",
+      "outputs": [
+        "Member/set report and review handoff"
+      ],
+      "completion_evidence": "Referenced raw observations and final report",
+      "next_branch_targets": [],
+      "failure_route": "source drift -> new linked run",
+      "terminal_user_outcome": "Member/set report and review handoff"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "scope": "Exact-byte schema1 mandatory records, complete declared source snapshot and their direct/transitive supported references. This separate check does not replace the full mixed-family failure. The original collection omitted source files lacking individual check refs; its failure is preserved separately.",
+  "original_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z",
+  "collection_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0117324130584Z-schema1-records-complete",
+  "copied": [
+    {
+      "path": "assessment.json",
+      "sha256": "48c9c370379e991ea1285d24fee829863413b4ef11be3385440198e136b700ce"
+    },
+    {
+      "path": "checks.jsonl",
+      "sha256": "70ab91495d8f1469b04beddefe30c6f50b60869758323ab4e049baa10313d39e"
+    },
+    {
+      "path": "commands/adaptive-package/stdout.txt",
+      "sha256": "26901590d540c7062f745fe40ee916974d9bac850c0f1169ab1fe1848b702ef3"
+    },
+    {
+      "path": "commands/creator-check/stdout.txt",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": "commands/records-mixed-initial/stdout.txt",
+      "sha256": "5c750def8115b2c30d144cb57fe37d0a27ee2312452bb7b07a29695f511b9362"
+    },
+    {
+      "path": "commands/source-readback-final/stdout.txt",
+      "sha256": "8ea865bfb0e8aecdd6ad64cbf9e09ef5baf93c2ee72bfad3a73f0e59871ac788"
+    },
+    {
+      "path": "commands/structure/stdout.txt",
+      "sha256": "ae8dcec6b67ec0b9cae4d919b3728bb3beedbf621a97a154d35c0c2f2798dd89"
+    },
+    {
+      "path": "findings.json",
+      "sha256": "268085d26034d4bb464e8ccb892cf02976d5413ae1276dab6765182de1f095bc"
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "89202defff4e2e83759bf25c3309d035fc7efbb02bc58641e44d4b8a8ce8dc57"
+    },
+    {
+      "path": "inputs/01-authoring-record.json",
+      "sha256": "5bc55a98da496dc449b9467e80a29418c89253f999abc9e180cf1318561f7c6e"
+    },
+    {
+      "path": "inputs/04-revision-spec.md",
+      "sha256": "d4fdb404ebf3e869d4d2b6f99756cf70d54a460a369a74bd3f645f5cb9cfe1b9"
+    },
+    {
+      "path": "inputs/05-dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    {
+      "path": "inputs/12-adaptive-validation.md",
+      "sha256": "1d2098f0c20f4f39a54aea0aeb0f8bd3d432e4bea0a41562b9a3b9224aa6476c"
+    },
+    {
+      "path": "inputs/14-rules-snapshot.json",
+      "sha256": "53796ef387398a4120d3d055d21c0056fe5ea45c6b414188f13bb6916ed0ac76"
+    },
+    {
+      "path": "inputs/authoring-family-supplement.json",
+      "sha256": "3d33e1af26d7cade7d4dcf2d2a6ee2f77771285b8b2457421e7f72c6207a00d9"
+    },
+    {
+      "path": "inputs/bundle-manifest-final.json",
+      "sha256": "a45399a9c3150d8cc0c89c08a6b57cbd6049e5e17c0e89a38c875cbc88b9653d"
+    },
+    {
+      "path": "inputs/case-observations-final.json",
+      "sha256": "d96ceb0e47836861e559ba924dea4e694f607c7d2dc2f3246794d00e8c8bed38"
+    },
+    {
+      "path": "origin-record.json",
+      "sha256": "4a560d3f5c9d1c5a2171888469cc7fb6199e8f41bb52d778ecff7a4ba72a5b06"
+    },
+    {
+      "path": "rule-set.json",
+      "sha256": "4958bb8792cea7ae5aef3efe2dafaa72dbfbc7f539887dbd56b7ee18d233cdd1"
+    },
+    {
+      "path": "source-after-manifest.json",
+      "sha256": "6b96f763e9759402e263f62db023824594c523617405c5a94637bbe2f952ef3f"
+    },
+    {
+      "path": "source-manifest.json",
+      "sha256": "c5345079da862476bcd3cbbc51487ab1dfd8e639bf94db633d4e95a5e5e2e42a"
+    },
+    {
+      "path": "source/SKILL.md",
+      "sha256": "4b1e30d47aa6262e0a7261f2b88cb5651eb905d1cebd80fb3a43a0da7e385562"
+    },
+    {
+      "path": "source/assets/checkpoint.md",
+      "sha256": "6e267946b5205804114e9aec87c04c386340ab9038a7475535a20abe18f2d36c"
+    },
+    {
+      "path": "source/assets/context.md",
+      "sha256": "6af52c9d4209adbdfc33c6828a31dfb6f8d75bc501cc9ce4a85d1dc34d9fc069"
+    },
+    {
+      "path": "source/assets/delivery.md",
+      "sha256": "0a451fe72a8f3b2e82ee7ec3441dfd19ab8ba915c01547598dd88a42ca1447a8"
+    },
+    {
+      "path": "source/assets/execution-record.jsonl",
+      "sha256": "6e48a8dfa018acd4332a7f75d079f3e82e1e1bbd6dc1f01aef312cea8bb351b3"
+    },
+    {
+      "path": "source/assets/slice-plan.md",
+      "sha256": "f7408d9b27a4d09245113da9c2abff281d1265894b14fd0deae4ca542df45421"
+    },
+    {
+      "path": "source/assets/traceability.md",
+      "sha256": "7499d23c38082ef2cc5bc688d60ba57bd4af40f445d20950bbcbf126b05ee889"
+    },
+    {
+      "path": "source/references/context.md",
+      "sha256": "de5796cdf98f3bfa3cbb293910076f7d02f154868f60410a2fedfb100e6450ac"
+    },
+    {
+      "path": "source/references/evidence-resume.md",
+      "sha256": "261da053cabb732670f20df24834b3656d8e1a7b8004c402cd8c9f4882a16212"
+    },
+    {
+      "path": "source/references/failure-delivery.md",
+      "sha256": "e748d9d6de45f95e333814d45d2886c0d8e62abeb5cc11d59f0c35fdee461953"
+    },
+    {
+      "path": "source/references/implementation.md",
+      "sha256": "87839c0ad68892de0ee4edbc52bcd02151b4520c5cc0841c4b89d5c4a4358a4b"
+    },
+    {
+      "path": "sources.json",
+      "sha256": "22545ab78922f82542c7177eebdefc3f8230a3f661c738b03a16ac60b84c0e44"
+    },
+    {
+      "path": "workflow-map.json",
+      "sha256": "3ddd403d5fdb0f51a99c9124d2abf6f3a2bd00038d6f5ab82659f2ac83ac11ca"
+    }
+  ]
+}

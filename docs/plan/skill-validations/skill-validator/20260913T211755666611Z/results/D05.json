@@ -1,0 +1,16 @@
+{
+  "case_id": "D05",
+  "finding": "QA-01",
+  "expected_exit": 0,
+  "actual_exit": 0,
+  "matched": true,
+  "checks": {
+    "exit": true,
+    "completed": true,
+    "preserved": true
+  },
+  "evidence": {
+    "path": "commands/D05/receipt.json",
+    "sha256": "49592bc73f86d5c720dfad1ca3202f465cb9831fce03d81c0837bc2001a81e79"
+  }
+}

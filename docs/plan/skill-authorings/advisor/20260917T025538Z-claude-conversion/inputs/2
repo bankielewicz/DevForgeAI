@@ -1,0 +1,32 @@
+{
+  "schema": "advisor-artifact-manifest-v1",
+  "files": {
+    "agents/openai.yaml": "11ff7c5fda697804bcbd7241eae9134e3cd6512f95499a48b86b7ce937951eec",
+    "assets/briefing-template.md": "f19b25173b819de2a26dbd9a47c5e3f2928947d488e6a37a720a218ec144aded",
+    "assets/request.schema.json": "0addc19175144b7082df4db94647fccaae5784956aae3834ac2def843af88b3d",
+    "evals/case.schema.json": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94",
+    "evals/cases.jsonl": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735",
+    "evals/coverage-entrypoints.ini": "8c89e416aaa4ba21f4dab8ae06a48691c5ca67ab5aa601a6e44644e95026b39c",
+    "evals/run_evaluation.py": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63",
+    "references/briefing-rules.md": "ebee76fd01441f8cc90c8df12382a9f852ff706befffa17feab35702f1b959b9",
+    "references/evaluation.md": "f1953e240a45d5113e631b53d5cc3761de3973b77f25e4eb1968d3bc8e79bd3c",
+    "references/execution.md": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444",
+    "references/response-format.md": "88e98e588f7243630e06f4ad004b2b1563bcd675e87c955653466b68fc34eef9",
+    "scripts/advisor.ps1": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789",
+    "scripts/advisor_run.py": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8",
+    "scripts/advisor_stream.py": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9",
+    "SKILL.md": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e",
+    "tests/test_advisor.py": "d9c25290564c10d6a23c5f05d644be41f3520b9f674eec0ac774351bf25fa9a1",
+    "tests/test_auth.py": "decdf9adcd7b3acc60f9a74b786b972bc9a97dd642f584de28ca84fa6380249f",
+    "tests/test_cleanup.py": "f73fdb17ec92a0f70816580085592c1975064b7995eb75c2e5313377235b74c7",
+    "tests/test_extended.py": "631abe0cfd3afaf88077484f1c39fcfcba08be2176c471282832659820cb02f6",
+    "tests/test_integrity.py": "ef9492e0116402bcda084b5f336a5e7780426ae8d5340bb01b1204a89220ac76",
+    "tests/test_streaming.py": "7e89bbae94fec456101a007a060a7d89c6128f469dc6bf78d3f3b2bc23c92db4"
+  },
+  "external_contract": {
+    "path": "C:/Users/bryan/.codex/advisor/contract.md",
+    "sha256": "eec3af8fa530175c1da9f31fcf05cab59c591dd30456be13ee9deb2ba234934e"
+  },
+  "runtime": "Native Windows, Python >=3.10 standard library; optional Windows PowerShell 5.1 or PowerShell 7 launcher; authenticated native Claude CLI for live reviews",
+  "framework_acceptance": "NOT_EVALUATED"
+}

@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "required": 319,
+  "passed": 319,
+  "pass_rate": 100.0,
+  "covered_lines": 2202,
+  "statements": 2302,
+  "line_percent": 95.65595134665509,
+  "covered_branches": 940,
+  "branches": 1048,
+  "branch_percent": 89.69465648854961,
+  "excluded_lines": 0,
+  "source_files": 47,
+  "python_files": 8,
+  "same_bytes_as_windows_v3_and_current_source": true,
+  "linux_fixture_files": 75,
+  "batches": [
+    {
+      "batch": "linux-legacy",
+      "cases": 128,
+      "seconds": 2.695812593000028,
+      "exit": 0
+    },
+    {
+      "batch": "linux-authoring",
+      "cases": 133,
+      "seconds": 4.7023712379998415,
+      "exit": 0
+    },
+    {
+      "batch": "linux-adaptive-stage",
+      "cases": 58,
+      "seconds": 8.413149751999981,
+      "exit": 0
+    }
+  ],
+  "runtime": [
+    {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "executable": "/usr/bin/python3",
+      "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "cwd": "/tmp/devforgeai-regression-v3-same-process-002",
+      "argv": [
+        "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/regression/run_suite.py",
+        "linux-legacy",
+        "--modules",
+        "test_remediation",
+        "test_legacy_maintenance",
+        "test_acceptance_edges",
+        "test_final_contract_edges"
+      ],
+      "coverage": "7.13.1"
+    },
+    {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "executable": "/usr/bin/python3",
+      "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "cwd": "/tmp/devforgeai-regression-v3-same-process-002",
+      "argv": [
+        "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/regression/run_suite.py",
+        "linux-authoring",
+        "--modules",
+        "test_design",
+        "test_authoring",
+        "test_authoring_safeguards"
+      ],
+      "coverage": "7.13.1"
+    },
+    {
+      "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+      "executable": "/usr/bin/python3",
+      "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "cwd": "/tmp/devforgeai-regression-v3-same-process-002",
+      "argv": [
+        "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-builder-custody-remediation/20260915T1243422567556Z/regression/run_suite.py",
+        "linux-adaptive-stage",
+        "--modules",
+        "test_builder_adaptive",
+        "test_runtime_original",
+        "test_stage_integrity.StageIntegrityTests",
+        "test_prewrite_destination"
+      ],
+      "coverage": "7.13.1"
+    }
+  ],
+  "adaptations": [
+    "Windows mixed separator case becomes native/forward POSIX literal-path counterpart. Changed-stage case runs same mutation on POSIX.",
+    "Historical absolute Windows linked fixtures replaced by newly authored synthetic Linux records; unchanged negative test oracles."
+  ],
+  "input_hashes": {
+    "expected.json": "619f907cd2df93c2c12a44df46338ab25191f36bfd06ccfa8b545935514d6526",
+    "results.jsonl": "e8e2bce07ffbb40ab12e8c27b7a546df4e46847fa758d81b5e639b3cf0418603",
+    "coverage.json": "44e1e7bc6de011990c43c45f2b9422595c02d8073fef536bfcbd3870b39b059f",
+    "scope.json": "a1ed91b3c34c65ec5b228717dd988cc81e1613a4c581e262ca5a95833fa02904"
+  },
+  "schema_sha256": "fd7db7c074cf84ae51f449f4a764ad65f75b24a2b19a4ed0cf80ff1215738e58"
+}

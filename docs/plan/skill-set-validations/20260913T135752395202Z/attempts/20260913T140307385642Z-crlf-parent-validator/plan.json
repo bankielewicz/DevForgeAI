@@ -1,0 +1,18 @@
+{
+  "schema_version": "1",
+  "label": "crlf-parent-validator",
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\.agents\\skills\\skill-validator\\scripts\\adaptive_observe.py",
+    "records",
+    "--run-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\trials-round2\\crlf-parent\\records\\proposal"
+  ],
+  "expected": "Exit 0 from governing contract.",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-set-validations\\20260913T135752395202Z\\attempts\\20260913T140307385642Z-crlf-parent-validator",
+  "started_at_utc": "20260913T140307385642Z"
+}

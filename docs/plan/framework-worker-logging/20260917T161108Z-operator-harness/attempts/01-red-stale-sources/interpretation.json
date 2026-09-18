@@ -1,0 +1,22 @@
+{
+  "stage": "RED",
+  "expected_failure_observed": true,
+  "reason": "The selected 26 existing files pass independent hash checks; the legacy implementation then requires the absent historical Sites package.",
+  "elapsed_seconds": 3.672000000020489,
+  "source": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\native-execution-001\\execute_once.py",
+    "bytes": 15459,
+    "sha256": "5a9cd45913265df44a189ad0a0532f1aaeb5ef53c27697c97f1870d07126e790"
+  },
+  "tests": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T161108Z-operator-harness\\tests\\test_selected_preparation.py",
+    "bytes": 1646,
+    "sha256": "6c5ee2a4238083fa24fee87c48f6f44a80ca639f89e85d2ea2fd6a1ea279c5b6"
+  },
+  "review": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-trials\\20260917T122229Z-logging-diagnostic\\native-execution-001\\source-review-002\\review.proposed.json",
+    "bytes": 6818,
+    "sha256": "d0c434c0e2185e9df09304cb0d7e7843f28a35799f113ecc6653481f5cbc2758"
+  },
+  "native_codex_launched": false
+}

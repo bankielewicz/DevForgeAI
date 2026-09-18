@@ -1,0 +1,199 @@
+{
+  "run_id": "20260917T102726Z-dev-qa-fixes",
+  "project": "C:\\Projects\\DevForgeAI",
+  "original_corrected_source_selection": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "candidate_root": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging-qa-fixes",
+  "selected_evidence_value": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging",
+  "required_destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes",
+  "actual_destination": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes",
+  "original_qa_handoff": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T023835Z-qa\\handoff-manifest.json",
+    "bytes": 10117,
+    "sha256": "0c6949f4379e7c469643f34ad6d4b1f664f48177f8865d12dfedd7cbe901019e"
+  },
+  "defects": [
+    "QA-LOG-01",
+    "QA-LOG-02"
+  ],
+  "development_status": "FIX_REPORTED",
+  "qa_findings": "OPEN",
+  "independent_qa_retest": "NOT_RUN",
+  "native_codex": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "entries": {
+    "context.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\context.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\context.md",
+      "bytes": 4846,
+      "sha256": "9d12a673f70ed18f226d0028ecfaefdaca0a39d0d0698d44c11e950e6060c1e4"
+    },
+    "plan.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\plan.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\plan.md",
+      "bytes": 5300,
+      "sha256": "4035f30c8204eb019a0e0befe61b161062884a468fa5781283181478ece1453f"
+    },
+    "delivery.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\delivery.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\delivery.md",
+      "bytes": 8227,
+      "sha256": "3716096ffdb05d43b5eb25b1e2bfcf2019ac08c82b5b6d2c488d452d8a95e0bc"
+    },
+    "resolution-map.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\resolution-map.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\resolution-map.json",
+      "bytes": 4896,
+      "sha256": "9dd4c1f3c5cd749485d19e2e482563db8cb966e0ee7754cc4c07d86d41bbf15c"
+    },
+    "checkpoint.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\checkpoint.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\checkpoint.json",
+      "bytes": 1326,
+      "sha256": "9965fb6e2c4c36b19053a8107d170a89120cabbd6a09904229313db843c5be13"
+    },
+    "intake-verification.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\intake-verification.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\intake-verification.json",
+      "bytes": 697,
+      "sha256": "3b573cde10e94f62c1e865a195d8e24e57132f9b448273c190bc6ada6105ccb4"
+    },
+    "input-bindings.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\input-bindings.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\input-bindings.json",
+      "bytes": 5667,
+      "sha256": "b71d10c03c8f55158b047f30f806492567f2b92e347a185560242942d415c686"
+    },
+    "specification-bindings.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\specification-bindings.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\specification-bindings.json",
+      "bytes": 1813,
+      "sha256": "d4368d0dcc4039bcd8c162f020dd1bb7a862f76b737c3978c4924d623d604108"
+    },
+    "candidate-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate-manifest.json",
+      "bytes": 19466,
+      "sha256": "4a25130c9353ec65553ed8c26cb75e76af5833ce4e2d80e8c62ecd9297b5d7a7"
+    },
+    "source-identity.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\source-identity.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\source-identity.json",
+      "bytes": 558,
+      "sha256": "3c0279d315c92b8d5bbf6ea069024ef071220a19f6e3db62ed7c3ba59e26fa6f"
+    },
+    "build-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\build-manifest.json",
+      "bytes": 39309,
+      "sha256": "52404e4f2b41c6cbffbe53e0c8881b15816677cecde5bcc69253f30b25414cdc"
+    },
+    "changed-file-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\changed-file-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\changed-file-manifest.json",
+      "bytes": 1615,
+      "sha256": "51a20b6b9376cb0f9d5d317002eaeb187794aaa31e97ea91b2d9eb6a057396e0"
+    },
+    "candidate.patch": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate.patch",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\candidate.patch",
+      "bytes": 21929,
+      "sha256": "7c7446c78f6290734846aea4f3c1c8e7fb3ca7f2097acf1087141801cfb4380d"
+    },
+    "declared-cases.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\declared-cases.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\declared-cases.json",
+      "bytes": 11449,
+      "sha256": "42b14ef8c5620b3cb7c2abf290ed6d756bef756d6fec7c5a3360b1e7d7da7ba8"
+    },
+    "coverage-source-inventory.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-source-inventory.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-source-inventory.json",
+      "bytes": 3540,
+      "sha256": "06edae5c84dfc0ebb5f6776c3f899846404d98115ae01c46836efe56e6d76a09"
+    },
+    "coverage.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage.json",
+      "bytes": 1542501,
+      "sha256": "b9a4213309c549a17cff8cf8716cbb7d67c48ac2975585ac9aa6defd01c5ef5b"
+    },
+    "coverage-analysis.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-analysis.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\coverage-analysis.json",
+      "bytes": 5231,
+      "sha256": "66ab01337e396962583d61d507553550b60ca4cbbc2d8aa2d95a44c983c0d2f6"
+    },
+    "metrics.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\metrics.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\metrics.json",
+      "bytes": 849,
+      "sha256": "5ca118b869afc406e47383c27bdade2c16272823cf26f9b67814694637eb7ff0"
+    },
+    "case-results.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\case-results.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\case-results.json",
+      "bytes": 26691,
+      "sha256": "bcca1e0f46fae44df002aaef1025c2b4fa538b4d445d3281af231b3af72ec4c9"
+    },
+    "execution-record.jsonl": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\execution-record.jsonl",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\execution-record.jsonl",
+      "bytes": 20556,
+      "sha256": "15d4f03a5d207e347c9fdb9ae04e5a2a15edb144d717d3c72f24b55a048ab43f"
+    },
+    "preservation-readback.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\preservation-readback.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\preservation-readback.json",
+      "bytes": 3049,
+      "sha256": "1a4475d8d172c67c3344c49550eda5d88c4b63bd6028b95944a2cae3d2efeb0c"
+    },
+    "preservation-readback-final.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\preservation-readback-final.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\preservation-readback-final.json",
+      "bytes": 3049,
+      "sha256": "eece8668c871e34d0b4720fd3590324adc55e616fe9c7252dc54b00a55ad430c"
+    },
+    "publication-attempt-01.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\publication-attempt-01.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\publication-attempt-01.json",
+      "bytes": 1129,
+      "sha256": "a21c609200f2f2d2072b1630445ec47f75077b0dc3d7122dfb4d67cf61f12c4f"
+    },
+    "inspection-observation-summary.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\inspection-observation-summary.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\inspection-observation-summary.json",
+      "bytes": 1042,
+      "sha256": "c3b2a6756efdce97787f181d5ad4b0e05a6d42296a1bcf80d164c8476db1de96"
+    },
+    "implementation-review.md": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\implementation-review.md",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\implementation-review.md",
+      "bytes": 4629,
+      "sha256": "82b7178f80d098fdfb8315d3741121ec7484bac3a83ab681ee24e7951ea1d6b2"
+    },
+    "documentation-review.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\documentation-review.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\documentation-review.json",
+      "bytes": 3126,
+      "sha256": "c5e288b84fe623c7f022a268db67aecacbe4123c813fcfdf118e1555e8d611cf"
+    },
+    "evidence-manifest.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\evidence-manifest.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\evidence-manifest.json",
+      "bytes": 2854688,
+      "sha256": "6bb210563add0f9c3eaa6df01257b2de333f178f2c6257db3dc4a875f339d81e"
+    },
+    "toolchain.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\toolchain.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\toolchain.json",
+      "bytes": 2143,
+      "sha256": "ccc8dfbc186583ddfa0ea131422736ecc0d3042e272ba77b21333c9f676ee7a9"
+    },
+    "supplemental-bindings.json": {
+      "required_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-bindings.json",
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T102726Z-dev-qa-fixes\\supplemental-bindings.json",
+      "bytes": 2743,
+      "sha256": "1d570ed72ebba0e312d6b1edacba1c7a3193e0e86bc6a0c72db51c2a6dc1c536"
+    }
+  }
+}

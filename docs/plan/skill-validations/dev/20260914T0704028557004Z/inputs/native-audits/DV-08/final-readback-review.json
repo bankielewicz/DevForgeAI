@@ -1,0 +1,83 @@
+{
+  "trial_id": "DV-08",
+  "records": [
+    "evidence/readback.json"
+  ],
+  "checked": [
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\context.json",
+      "sha256": "a46f8940c1422066e71e1a886213fe3574712852411334e6c4f0a4d73c9af726"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\plan.md",
+      "sha256": "8f6f70e19c537594d82bd3a0d28563979fd06863d7b9903e4aca5d5c40217c41"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\executions.jsonl",
+      "sha256": "fc22e220c21e9c7e700c6319cde391e55f40dd05dbecbb9cee457431ee0fbbad"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\run_check.py",
+      "sha256": "63e627badff0bd5780ce64cdb8e0cbfe247a34d41465d0c76ce8915d10f44d0f"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\delivery.md",
+      "sha256": "925b45737e367c882ef3e9e2aed1f39ac04ca757b7f4ab62fa721d2ceb1c760c"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\checkpoint.md",
+      "sha256": "8f90a192e3958d5d6ce58ce637db180c7dd13362bfa2f994a7cb12b0b70f0f0b"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\setup.manifest.json",
+      "sha256": "a73284d097deee2ac510866c622319bf092ccbc21d50c04d41692b586d1e5d28"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\setup.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\setup.stderr.txt",
+      "sha256": "5908c79981b1361a56b0a2d7bedb0e9bd7fc9a2efdfb1968be756dd713e25fab"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\red.manifest.json",
+      "sha256": "315a6665ea75fb6963128f58cdb017880af014913e3b8749cb4a4efb23f2e6e1"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\red.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\red.stderr.txt",
+      "sha256": "f336b4ed21e3714a94934eac3066a737ae30b2a7c64aca9aa50ab25e9080cf17"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\green.manifest.json",
+      "sha256": "e27b39a1905b732ad6bd36783f29cd2b35b5007ebaf8531712c2f84dbb64b970"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\green.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\green.stderr.txt",
+      "sha256": "74de24a272e7b2fa6efa60ccb21620596b6dc68907766144a1bf68693ba68eee"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\qa.manifest.json",
+      "sha256": "e27b39a1905b732ad6bd36783f29cd2b35b5007ebaf8531712c2f84dbb64b970"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\qa.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "actual_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-08\\project\\evidence\\qa.stderr.txt",
+      "sha256": "74de24a272e7b2fa6efa60ccb21620596b6dc68907766144a1bf68693ba68eee"
+    }
+  ],
+  "count": 18,
+  "problems": [],
+  "limitation": "Supported explicit path/hash rows; whole project manifests and semantic review separately verified."
+}

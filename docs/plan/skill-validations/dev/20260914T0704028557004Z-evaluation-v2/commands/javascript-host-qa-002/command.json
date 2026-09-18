@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "C:\\Program Files\\nodejs\\node.EXE",
+    "--test"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\DV-03-javascript\\project",
+  "started_at_utc": "2026-09-14T07:22:58.686165Z",
+  "timeout_seconds": 120,
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\javascript-host-qa-002",
+    "TMP": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\javascript-host-qa-002",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\trials\\temp\\javascript-host-qa-002",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "stdin": null,
+  "termination": "exited",
+  "pid": 61848,
+  "exit_status": 0,
+  "ended_at_utc": "2026-09-14T07:22:58.847410Z",
+  "elapsed_seconds": 0.1559999999590218
+}

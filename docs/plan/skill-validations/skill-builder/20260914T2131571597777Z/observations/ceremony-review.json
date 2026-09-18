@@ -1,0 +1,26 @@
+{
+  "passages": [
+    {
+      "path": "source/SKILL.md",
+      "anchor": "Do not generate executable test campaigns during authoring.",
+      "classification": "useful_instruction",
+      "effect": "Preserve validator-owned evaluation.",
+      "disposition": "retain"
+    },
+    {
+      "path": "source/references/workflow-design.md",
+      "anchor": "An open question preserves a gap, not permission to invent a product fact or present the dependent design as complete.",
+      "classification": "useful_instruction",
+      "effect": "Blocks dependent authoring on missing behavior decisions.",
+      "disposition": "retain"
+    },
+    {
+      "path": "source/references/evidence-format.md",
+      "anchor": "All such records are editable custody evidence, not protected authority.",
+      "classification": "useful_instruction",
+      "effect": "Limits claimed trust. Does not waive SBP-011 local consistency checks.",
+      "disposition": "retain"
+    }
+  ],
+  "conclusion": "No defect based solely on MUST, repetition, headings, templates or future review boundaries."
+}

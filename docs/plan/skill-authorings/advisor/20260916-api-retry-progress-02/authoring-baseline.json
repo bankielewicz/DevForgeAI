@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "20260916-api-retry-progress-02",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\authoring-record.json",
+    "sha256": "0be59cbad86d1109c2cf1820b64a24bd4ecb8c7c1468e428de640590667d8730"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\baseline-manifest.json",
+    "sha256": "36b87a1aa8c7a813d826b829a0e730b382da62080cce6306607fc4e238ee7df6"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-02\\baseline"
+}

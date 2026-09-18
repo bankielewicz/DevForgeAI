@@ -1,0 +1,62 @@
+command=cargo test --locked --offline --lib -- --test-threads=1
+cwd=C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\work\experiments\codex-worker-probe
+capture_wrapper_exit_code=1
+exact_native_cargo_exit_code=NOT_RETAINED
+wrapper_wall_time_seconds=9.7320819
+native_cargo_only_timing=NOT_RETAINED
+capture=partial terminal output retained from executed attempt; this is not a complete raw stdout/stderr stream
+
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.24
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling getrandom v0.4.3
+   Compiling zmij v1.0.23
+   Compiling cfg-if v1.0.4
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling windows-link v0.2.1
+   Compiling once_cell v1.21.4
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling fastrand v2.5.0
+   Compiling windows-sys v0.61.2
+   Compiling generic-array v0.14.7
+   Compiling tempfile v3.27.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling syn v3.0.5
+   Compiling serde_derive v1.0.229
+   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\work\experiments\codex-worker-probe)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.67s
+     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-qa\20260915T2132038923673Z\target-independent\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
+
+running 5 tests
+test native_identity::tests::qa_actual_record_admits_only_the_selected_physical_identity ... FAILED
+test native_identity::tests::qa_exact_synthetic_mapping_and_same_bytes_elsewhere_are_distinguished ... ok
+test native_identity::tests::qa_mapping_target_order_and_reparse_kind_substitutions_fail ... ok
+test native_identity::tests::qa_second_verification_detects_independent_byte_and_mapping_drift ... ok
+test native_identity::tests::qa_third_reparse_component_is_not_hidden_by_two_approved_substitutions ... ok
+
+failures:
+
+---- native_identity::tests::qa_actual_record_admits_only_the_selected_physical_identity stdout ----
+
+thread 'native_identity::tests::qa_actual_record_admits_only_the_selected_physical_identity' (52632) panicked at src\..\tests\support\identity_cases.rs:137:5:
+assertion `left == right` failed
+  left: "\\\\?\\C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe"
+ right: "C:\\Users\\bryan\\.codex\\packages\\standalone\\releases\\0.154.0-x86_64-pc-windows-msvc\\bin\\codex.exe"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native_identity::tests::qa_actual_record_admits_only_the_selected_physical_identity
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.91s
+
+error: test failed, to rerun pass `--lib`

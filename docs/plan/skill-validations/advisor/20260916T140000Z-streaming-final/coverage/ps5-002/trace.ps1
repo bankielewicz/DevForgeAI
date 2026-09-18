@@ -1,0 +1,8 @@
+param($Launcher, $Python, [switch]$Progress)
+Set-PSDebug -Trace 1
+if ($Progress) {
+    & $Launcher -Request 'C:\synthetic request.json' -Briefing 'C:\synthetic briefing.md' -RunDir 'C:\synthetic run' -Reason retry -Python $Python -ShowProgress
+}
+else {
+    & $Launcher -Request 'C:\synthetic request.json' -Briefing 'C:\synthetic briefing.md' -RunDir 'C:\synthetic run' -Reason initial -Python $Python
+}

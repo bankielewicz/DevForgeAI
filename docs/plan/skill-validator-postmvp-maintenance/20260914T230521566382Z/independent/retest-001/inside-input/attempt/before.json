@@ -1,0 +1,15 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\retest-001\\inside-input\\project",
+  "captured_at_utc": "2026-09-14T23:19:57.297348+00:00",
+  "files": [
+    {
+      "path": "command.py",
+      "bytes": 64,
+      "sha256": "1732be73c11ee681c6158a603dae3f13df3ec9d0796da987a85d5af9480dbc1a"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "b2aa4578d1c7df93c015a77640590bc8cb57103c0dba817c0030369d7bf7915b"
+}

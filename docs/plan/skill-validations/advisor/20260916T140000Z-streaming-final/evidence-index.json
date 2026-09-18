@@ -1,0 +1,131 @@
+{
+  "schema_version": "advisor-streaming-validation-evidence-v1",
+  "run_id": "20260916T140000Z-streaming-final",
+  "candidate_package_digest": "ce037407bfe1bb636b42dc468595a93b5837a2788837fc436c4bfc615f1d033f",
+  "artifacts": [
+    {
+      "path": "source-manifest.json",
+      "sha256": "e3a1ca9fc44c7e8b3f8ac602ebbba22c4277ce5f9e09f7acf051dddf49f76e8e"
+    },
+    {
+      "path": "source-after-manifest.json",
+      "sha256": "44f5d5525973b680dfbfa8980b414fec65175ac35f68f9e12b9421995e1cfd30"
+    },
+    {
+      "path": "source-readback-final.json",
+      "sha256": "7e81631296b252b787d9354df2b95159d5af00f524b7e55733c304ff0c8af85b"
+    },
+    {
+      "path": "inputs/validation-request.json",
+      "sha256": "e0258f0795b8a8558f9aacf804128bc184e9b43504a66177cad14b029a888985"
+    },
+    {
+      "path": "inputs/requirements-matrix.json",
+      "sha256": "f1a0f0f7956478f7397d0cfdbccd5c22f979ea6bb96563c70535a4018d8088ef"
+    },
+    {
+      "path": "inputs/requirements-matrix-amendment-001.json",
+      "sha256": "cb3695d3f93aedfa395b806325a6222c76d27805686c968794adcf0e316489ee"
+    },
+    {
+      "path": "authoring-intake.json",
+      "sha256": "02c11fbec5773dbe4c51168eed0ba2694883bfb2fa5c8c747fac6cf2e24e43a8"
+    },
+    {
+      "path": "independent-cases-001.json",
+      "sha256": "1791a846af16a69537af88cabca2cf8092a3415cb0b518af127a94b50f085fdc"
+    },
+    {
+      "path": "independent-cases-002.json",
+      "sha256": "b7aa6b9f9b4ee4f806cb79bdfe8d9c25ea323f6833325e07232948be8f7a2ee6"
+    },
+    {
+      "path": "independent-cases-003-coverage.json",
+      "sha256": "b7aa6b9f9b4ee4f806cb79bdfe8d9c25ea323f6833325e07232948be8f7a2ee6"
+    },
+    {
+      "path": "unit-tests.txt",
+      "sha256": "986a2c31ee7d097d581e7c19481856d32761427a82f4b6cf15aa8f55c657c3b7"
+    },
+    {
+      "path": "evaluation/summary.json",
+      "sha256": "c28dadbbe366c89c897204ff18f3e1a7b31586d6fe8e485f48eed82fcc030da7"
+    },
+    {
+      "path": "evaluation/results.jsonl",
+      "sha256": "b75882273c8048c541b9cff3c393078c0476c2103740bebacdb0e3296dbec978"
+    },
+    {
+      "path": "coverage/coverage.json",
+      "sha256": "3ecb041e9690eab64e5d459b50dd13a250357811a6c85df0c36ce2c19cd580b0"
+    },
+    {
+      "path": "coverage/coverage-report.txt",
+      "sha256": "1304a3852be50c34a76cbbf743deceb3e407e0acf5beeaf3857e339d26871ce9"
+    },
+    {
+      "path": "coverage-independent/ps5.json",
+      "sha256": "23d9bd3088f6ce18ab68a0be7304506fcc069d59f4f7d800731e5223191587d6"
+    },
+    {
+      "path": "coverage-independent/ps7.json",
+      "sha256": "4115b96aa742ad8eee80be5c1ac8075e6ce27fa61b9f42228cd18afda6422b41"
+    },
+    {
+      "path": "coverage-independent/command-receipts.json",
+      "sha256": "37744e0b6348c5558b0d9b656bf6062c770e5070ea0d1aa8946267a3c772af87"
+    },
+    {
+      "path": "structure.json",
+      "sha256": "6216f5d42be20e6c065494abbaa06215c8ab0014dc17681b19b972251984514b"
+    },
+    {
+      "path": "skill-creator-check.txt",
+      "sha256": "6cf9e7f0d34ccd36dbd28f270cd28dd04277b2e1516bd4333ce7bb501d7b18d4"
+    },
+    {
+      "path": "validation-report.md",
+      "sha256": "03d6f3767ebd6704a2441a1a0f383397ab690ad51f511bcb9f42d4d00f1dcc65"
+    },
+    {
+      "path": "command-log.md",
+      "sha256": "b59398240fcadd504c782a576fa6fd908028d8acaec96406ccb4ff038828bfd0"
+    },
+    {
+      "path": "origin-record.json",
+      "sha256": "702b35c299a38c421429b5260a7fea5dba5009ad2c4c0f33f58e61086eff2071"
+    },
+    {
+      "path": "sources.json",
+      "sha256": "d8a7ecce9775e58844e6e783d5dd23569dc78fe6acb58fda9c99d63f1dc700f0"
+    },
+    {
+      "path": "rule-set.json",
+      "sha256": "97065c171e43d3866aee53e6f8031befd9c892a9d3958b617bb929319dd3dc2d"
+    },
+    {
+      "path": "workflow-map.json",
+      "sha256": "faf81d5597696fb8d20fe32f04a8facf3dda9c2f0f5390f341ff445d98f0ebdd"
+    },
+    {
+      "path": "checks.jsonl",
+      "sha256": "7bd44423286f0d736ce34f92a6a36b9fdeaf7cea5dd1ae53aad7a6312e041031"
+    },
+    {
+      "path": "findings.json",
+      "sha256": "ed9935377c08a6487f6312d1b882c9cf4387b640e336332eb2e82b5a5bada67d"
+    },
+    {
+      "path": "handoff.json",
+      "sha256": "66d515da36844f5e9c2ab6389686f97b3403c3c76fcaf3fb17994089a1fb2e19"
+    },
+    {
+      "path": "enforcement-recommendations.md",
+      "sha256": "358ca30ebd16fd5888fb99b638ad66203e8affd1414e28007e0687234897eaae"
+    },
+    {
+      "path": "trials/records-audit-001.json",
+      "sha256": "9a148170293c9ddd0e74d993720c22961eb01208bb8d958748ab2310e8df48fd"
+    }
+  ]
+}

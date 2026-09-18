@@ -1,0 +1,7 @@
+| Request | Skill applies? | Operation |
+|---|---|---|
+| 1. Recommend a framework skill set for this project. | Yes | Propose a project-adapted skill set. |
+| 2. Build the selected members of `proposal.json`. | Yes | Author the selected skill set. |
+| 3. Review this variant against the changed core. | Yes | Review a variant update. |
+| 4. Install this skill into my active personal skills. | No | Installation is a separate task. |
+| 5. Run quality tests on this skill. | No | Testing and validation are separate tasks. |

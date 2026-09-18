@@ -1,0 +1,37 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\builder\\scripts\\run_evaluation.py",
+    "--package-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\builder",
+    "--candidate-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\candidate",
+    "--cases",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\cases.jsonl",
+    "--output",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\results\\observations.jsonl",
+    "--run-id",
+    "unittest-run"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "inputs": {
+    "--package-root": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\builder",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0089\\input-5"
+    },
+    "--candidate-root": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\candidate",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0089\\input-7"
+    },
+    "--cases": {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\disposable\\skill-evaluation-test-xlqt7a5r\\cases.jsonl",
+      "snapshot": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authoring-enhancement\\20260913T021452Z\\checks-005-delivered\\commands\\0089\\input-9",
+      "sha256": "9e7dfcd0c03e465da5f8fbbe5bcf78e12eeafe3bd48dcbfeb471dfec166a16e7"
+    }
+  },
+  "start": "2026-09-13T02:50:46.016329+00:00",
+  "timeout_seconds": 30
+}

@@ -1,0 +1,331 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "advisor-claude-conversion-001",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\advisor",
+  "target_name": "advisor",
+  "operation": "import",
+  "authorization": "Maintainer instruction 2026-09-16: convert the Codex skill at src/agents/skills/advisor into a Claude Code skill at src/claude/skills named advisor. Authorizes writing the converted package only; no installation, host configuration, reviewer execution, testing or validation.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260917T025538Z-claude-conversion\\contract.json",
+    "sha256": "be3bcd12209812a19cfa61368477afc6b27c0a4371e4df86ee10ef77668a00da"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\SKILL.md",
+      "sha256": "8c6d2171855e54735ede7e30cea49b5f2020ad26bf900c04a65a5388f448201e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\agents\\openai.yaml",
+      "sha256": "11ff7c5fda697804bcbd7241eae9134e3cd6512f95499a48b86b7ce937951eec"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\artifact-manifest.json",
+      "sha256": "246ed473c4554a68537dfa34e57e03ddf6fcafc976adc48dd1667acdf2f37151"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\assets\\briefing-template.md",
+      "sha256": "f19b25173b819de2a26dbd9a47c5e3f2928947d488e6a37a720a218ec144aded"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\assets\\request.schema.json",
+      "sha256": "0addc19175144b7082df4db94647fccaae5784956aae3834ac2def843af88b3d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\case.schema.json",
+      "sha256": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\cases.jsonl",
+      "sha256": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\coverage-entrypoints.ini",
+      "sha256": "8c89e416aaa4ba21f4dab8ae06a48691c5ca67ab5aa601a6e44644e95026b39c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\evals\\run_evaluation.py",
+      "sha256": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\briefing-rules.md",
+      "sha256": "ebee76fd01441f8cc90c8df12382a9f852ff706befffa17feab35702f1b959b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\evaluation.md",
+      "sha256": "f1953e240a45d5113e631b53d5cc3761de3973b77f25e4eb1968d3bc8e79bd3c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\execution.md",
+      "sha256": "4e8cb1fabd12a84557cf6cdd31c4ca312b94d014aca6155e2b61f92bcc826444"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\references\\response-format.md",
+      "sha256": "88e98e588f7243630e06f4ad004b2b1563bcd675e87c955653466b68fc34eef9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts\\advisor.ps1",
+      "sha256": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts\\advisor_run.py",
+      "sha256": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\scripts\\advisor_stream.py",
+      "sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_advisor.py",
+      "sha256": "d9c25290564c10d6a23c5f05d644be41f3520b9f674eec0ac774351bf25fa9a1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_auth.py",
+      "sha256": "decdf9adcd7b3acc60f9a74b786b972bc9a97dd642f584de28ca84fa6380249f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_cleanup.py",
+      "sha256": "f73fdb17ec92a0f70816580085592c1975064b7995eb75c2e5313377235b74c7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_extended.py",
+      "sha256": "631abe0cfd3afaf88077484f1c39fcfcba08be2176c471282832659820cb02f6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_integrity.py",
+      "sha256": "ef9492e0116402bcda084b5f336a5e7780426ae8d5340bb01b1204a89220ac76"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor\\tests\\test_streaming.py",
+      "sha256": "7e89bbae94fec456101a007a060a7d89c6128f469dc6bf78d3f3b2bc23c92db4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\advisor-claude-conversion\\intake\\design.json",
+      "sha256": "4daaa191888f8df6cd1b7251ddb7849302308457cc5d751c12cf7690e4586192"
+    }
+  ],
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "artifact-manifest.json",
+    "assets/briefing-template.md",
+    "assets/request.schema.json",
+    "evals/case.schema.json",
+    "evals/cases.jsonl",
+    "evals/coverage-entrypoints.ini",
+    "evals/run_evaluation.py",
+    "references/briefing-rules.md",
+    "references/evaluation.md",
+    "references/execution.md",
+    "references/response-format.md",
+    "scripts/advisor.ps1",
+    "scripts/advisor_run.py",
+    "scripts/advisor_stream.py",
+    "tests/test_advisor.py",
+    "tests/test_auth.py",
+    "tests/test_cleanup.py",
+    "tests/test_extended.py",
+    "tests/test_integrity.py",
+    "tests/test_streaming.py"
+  ],
+  "retained_user_paths": [],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260917T025538Z-claude-conversion\\before-manifest.json",
+    "sha256": "d0b5c38956e8f3631903ede7d30cff006b4945f1664061453e3ff0ac256c189f"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260917T025538Z-claude-conversion\\candidate-manifest.json",
+    "sha256": "31dca1c7282d6b5077626ab3b1ac5c500933d194b05a848c4ffeab9636db5927"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260917T025538Z-claude-conversion\\delivered-manifest.json",
+    "sha256": "31dca1c7282d6b5077626ab3b1ac5c500933d194b05a848c4ffeab9636db5927"
+  },
+  "applied_paths": [
+    "SKILL.md",
+    "artifact-manifest.json",
+    "assets/briefing-template.md",
+    "assets/request.schema.json",
+    "evals/case.schema.json",
+    "evals/cases.jsonl",
+    "evals/coverage-entrypoints.ini",
+    "evals/run_evaluation.py",
+    "references/briefing-rules.md",
+    "references/evaluation.md",
+    "references/execution.md",
+    "references/response-format.md",
+    "scripts/advisor.ps1",
+    "scripts/advisor_run.py",
+    "scripts/advisor_stream.py",
+    "tests/test_advisor.py",
+    "tests/test_auth.py",
+    "tests/test_cleanup.py",
+    "tests/test_extended.py",
+    "tests/test_integrity.py",
+    "tests/test_streaming.py"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "The external reviewer contract path is operator-configured; no canonical Claude Code default was selected (design Q1).",
+    "Validation and testing are NOT_PERFORMED for the converted bytes."
+  ],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "43b607f0e3335f41541b74d25ddcf33e0fbe0d6acb7161d8258bb9eec49af495",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "artifact-manifest.json",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "56fcb442529bb1ef78549a1e4bea98eddfa821775bdfae71f18829aa4b15da32",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/briefing-template.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "f19b25173b819de2a26dbd9a47c5e3f2928947d488e6a37a720a218ec144aded",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/request.schema.json",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "0addc19175144b7082df4db94647fccaae5784956aae3834ac2def843af88b3d",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/case.schema.json",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "273bf7d59ab6cef408bfdceb159a2569e244e1d3b33ca74292ae12563a12ee94",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/cases.jsonl",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "6f70d0daa0ac7b761404d08b0df8514b1c6863e1f916c9aafd378eda70770735",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/coverage-entrypoints.ini",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "8c89e416aaa4ba21f4dab8ae06a48691c5ca67ab5aa601a6e44644e95026b39c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "evals/run_evaluation.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "55ecba8302e5ee8cbd5f74ff51de0281a2292c3f64768c27e9671b3ec5a37a63",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/briefing-rules.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "9c20566be80398df1b1b93044795fb43b2d80e19328eb1d4e74d549da2d26184",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/evaluation.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "90b2bcbb143703e0811da003519bbc63888b4014fd339fdb5c4c4f88fbb1081c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/execution.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "d3d50d81ae678371b82293a47bbdea77676a83ed035ca7f43e4f8e9ddeb2e65c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/response-format.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "84a5bd0ced1633820fb49f5281370cf4d1c4174f5881a469b0632a5b7f75e9cd",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor.ps1",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "c86b6e2db628fce5fefc387fe92923e3de1048bf254ac9175bab1d7ec0a64789",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor_run.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "94abb2b0142115c97f80db491e7fc6fa37dde8373958dc73f695d1088bfbe0d8",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "scripts/advisor_stream.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "b967755f2b2211e2cd89a931b351d3acc47cd27d587692eedc205d052cf705b9",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_advisor.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "d9c25290564c10d6a23c5f05d644be41f3520b9f674eec0ac774351bf25fa9a1",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_auth.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "decdf9adcd7b3acc60f9a74b786b972bc9a97dd642f584de28ca84fa6380249f",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_cleanup.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "f73fdb17ec92a0f70816580085592c1975064b7995eb75c2e5313377235b74c7",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_extended.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "631abe0cfd3afaf88077484f1c39fcfcba08be2176c471282832659820cb02f6",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_integrity.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "ef9492e0116402bcda084b5f336a5e7780426ae8d5340bb01b1204a89220ac76",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "tests/test_streaming.py",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "7e89bbae94fec456101a007a060a7d89c6128f469dc6bf78d3f3b2bc23c92db4",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260917T025538Z-claude-conversion\\baseline-manifest.json",
+    "sha256": "31dca1c7282d6b5077626ab3b1ac5c500933d194b05a848c4ffeab9636db5927"
+  }
+}

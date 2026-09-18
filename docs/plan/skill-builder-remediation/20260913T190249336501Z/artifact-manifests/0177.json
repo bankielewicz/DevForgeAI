@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-proposal-variant-no-parent",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1390,
+      "sha256": "7f30c0e45911f24514a3eba3a4ad6fa45010d022b898fa8d3e820c6608628c9a"
+    },
+    {
+      "path": "result.json",
+      "bytes": 309,
+      "sha256": "fa6b77b5d3f08d0a0ccafac504cf75631fde276495aaefa089bf8539666979be"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 142,
+      "sha256": "3a4ecf7efeb79ffb6deffff1386ecd48cd0894e2aae066508eb0687bec8bcd81"
+    }
+  ]
+}

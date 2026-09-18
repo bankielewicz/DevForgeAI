@@ -1,0 +1,7 @@
+SUCCESS: The process with PID 100688 (child process of PID 57280) has been terminated.
+SUCCESS: The process with PID 40144 (child process of PID 60448) has been terminated.
+SUCCESS: The process with PID 57280 (child process of PID 100500) has been terminated.
+SUCCESS: The process with PID 56124 (child process of PID 100500) has been terminated.
+SUCCESS: The process with PID 60448 (child process of PID 100500) has been terminated.
+SUCCESS: The process with PID 8916 (child process of PID 100500) has been terminated.
+SUCCESS: The process with PID 100500 (child process of PID 8128) has been terminated.

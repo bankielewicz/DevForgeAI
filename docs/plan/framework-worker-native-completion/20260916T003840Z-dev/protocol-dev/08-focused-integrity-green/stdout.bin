@@ -1,0 +1,9 @@
+
+running 4 tests
+test stderr_is_drained_as_omitted_content_without_persisting_private_bytes ... ok
+test server_requests_are_denied_with_the_captured_response_and_never_granted ... ok
+test unavailable_or_invalid_rate_limit_measurements_are_explicit_and_sanitized ... ok
+test feature_pagination_enforces_page_size_repeated_cursor_and_page_count_bounds ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+

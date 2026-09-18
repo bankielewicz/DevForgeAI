@@ -1,0 +1,55 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa",
+  "captured_at_utc": "2026-09-14T20:15:11.034870+00:00",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 7621,
+      "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb"
+    },
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 245,
+      "sha256": "4fe069f60649fbf249916b5719e9f94983754ea69dc2a32a99bd0db2bb4daa21"
+    },
+    {
+      "path": "assets/qa-fix-template.md",
+      "bytes": 3463,
+      "sha256": "3bccfdb11786f445d906ee7109af406ee237d436fcd1e787757a4824f538fdaf"
+    },
+    {
+      "path": "assets/qa-report-template.md",
+      "bytes": 5554,
+      "sha256": "e7184486a110673f77d37ef5211c41d47cd4d3182bb477bed4510a67f0d90036"
+    },
+    {
+      "path": "assets/test-plan-template.md",
+      "bytes": 11489,
+      "sha256": "f000dc4dda27fce0e51614934385b972dbaf27f46a7d2d6d35918358362d88a7"
+    },
+    {
+      "path": "references/assessment.md",
+      "bytes": 8871,
+      "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11"
+    },
+    {
+      "path": "references/execution-integrity.md",
+      "bytes": 14337,
+      "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4"
+    },
+    {
+      "path": "references/intake-planning.md",
+      "bytes": 15089,
+      "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4"
+    },
+    {
+      "path": "references/reporting-handoff.md",
+      "bytes": 13277,
+      "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "bb9b461276a959fe5278117b6687b3edce1342149ae2dd1b5ea82fb03e1d38ed"
+}

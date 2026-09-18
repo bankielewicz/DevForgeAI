@@ -1,0 +1,85 @@
+{
+  "kind": "external-maintenance-evidence",
+  "files": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\test_design.py",
+      "sha256": "94b7c814dacfd92d1dc01b8002ebbde775fc81d9cbc207cf148dd35100c7815e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\test_builder_adaptive.py",
+      "sha256": "6f9a49587783af02a897fe9b4e440decefecb57082333a4ae55d0554eae89b9c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\run_maintenance.py",
+      "sha256": "99a336e91a39574b6980f184855b20515e6a3bea5fe7fd23d641c35092eb7f22"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\grade_maintenance.py",
+      "sha256": "1208c9ded4f33d4efe5bbd3ec1b17be7e841f6204cdfac5e4f3b5f3dee270cd1"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\result.schema.json",
+      "sha256": "36711fd852b69033d06e976f6dda58f586fa64671dbf3b8cb8336b377d491787"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\runtime-dependencies.json",
+      "sha256": "d0dcd1197fb52d9d2a094f4a0b4a148c55e596f80f13e6a5a584c5a3a67af302"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\builder-before.json",
+      "sha256": "7c5a15dae887f657da1bd5fac76a3ad79d425132c6dcad3b44ede09a46333153"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\qa-03\\expected.json",
+      "sha256": "0eb2e8070f086d18e41ca20d27ffa5d95e7c6b03ffbfff07aa36a2342f04dfc7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\qa-03\\results.jsonl",
+      "sha256": "3d7955227184c88d9faf18b2595a6385941705221306f9e6d8d882b5249f6a08"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\qa-03\\grade.json",
+      "sha256": "ef9d9b127d9a334b60c4f71c422f4a97d3f204a15f50f6c5df4fb2bd8f3ce0a9"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\qa-03\\runtime.json",
+      "sha256": "bd5c140706fd445c352963c66ae27d08d753540e085c1af683b5939d57340303"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\qa-03-coverage.json",
+      "sha256": "c9abb24134c7067c4c7889b193c07aa32fd64ea5ac54b46e04770d75b4758a84"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\plan.md",
+      "sha256": "3acba1cba2a0053804b94533deda75db73e4e630b99b8cb2eaecb8440e55da23"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\regression-adaptation.md",
+      "sha256": "2f27514e30d1d5f2c960d44ddc7f5831dbc349736c9ce8d63c1d1b12c2c14656"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\command-receipts.json",
+      "sha256": "12488fbea8a14bf19334f2081188ba641b1a96acbda5144271305224f54a399a"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\maintenance-report.md",
+      "sha256": "ed7b17b1f7d171460a227ebd2c0cb915d80036a10373fa48c84c4d43479c50ae"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\validator-handoff.md",
+      "sha256": "17fb46cd8e30115dd5a7beed2493725bf32d0749dbba2a629100ab55aa2d0277"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-postmvp-maintenance\\20260914T2108252255451Z\\delivered-manifest.json",
+      "sha256": "3b1849497c6fd2e1bc451975a18e63876ebda474a854f963a4faad3d86bb18a3"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring.py",
+      "sha256": "0b5b64305973c18e311615ac18f84f76a6271139bcdaeb504acc9460ef241a3d"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_authoring_safeguards.py",
+      "sha256": "b1fedf9a7a4a6cc94b8c9439f5e22f351f3821e564e3d22afec94b172add0885"
+    }
+  ]
+}

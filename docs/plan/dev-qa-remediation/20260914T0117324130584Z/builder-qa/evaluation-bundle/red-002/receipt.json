@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "test_reduce",
+    "-v"
+  ],
+  "start": "2026-09-14T01:34:31.228899+00:00",
+  "end": "2026-09-14T01:34:31.317670+00:00",
+  "exit_code": 1
+}

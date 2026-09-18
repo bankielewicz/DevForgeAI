@@ -1,0 +1,598 @@
+{
+  "schema_version": "1",
+  "run_id": "20260914T1949120508210Z",
+  "target_name": "qa",
+  "requirements": [
+    {
+      "requirement_id": "QA-001",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 3,
+            "line_end": 3
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-002",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 7,
+            "line_end": 7
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-003",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 22,
+            "line_end": 22
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-004",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 26,
+            "line_end": 26
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-005",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 40,
+            "line_end": 40
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-006",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 46,
+            "line_end": 46
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-007",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 50,
+            "line_end": 50
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-008",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 58,
+            "line_end": 58
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-009",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 62,
+            "line_end": 62
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-010",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 9,
+            "line_end": 9
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-011",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 15,
+            "line_end": 15
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-012",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 68,
+            "line_end": 68
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-013",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 53,
+            "line_end": 53
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-014",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 57,
+            "line_end": 57
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-015",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 59,
+            "line_end": 59
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-016",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 61,
+            "line_end": 61
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-017",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 65,
+            "line_end": 65
+          }
+        },
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 71,
+            "line_end": 71
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-018",
+      "locations": [
+        {
+          "path": "source/references/assessment.md",
+          "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11",
+          "locator": {
+            "line_start": 3,
+            "line_end": 3
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-019",
+      "locations": [
+        {
+          "path": "source/references/assessment.md",
+          "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11",
+          "locator": {
+            "line_start": 23,
+            "line_end": 23
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-020",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 3,
+            "line_end": 3
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-021",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 5,
+            "line_end": 5
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-022",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 11,
+            "line_end": 11
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-023",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 15,
+            "line_end": 15
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-024",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 26,
+            "line_end": 26
+          }
+        },
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 53,
+            "line_end": 53
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-025",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 43,
+            "line_end": 43
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QA-026",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 69,
+            "line_end": 69
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-001",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 7,
+            "line_end": 7
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-002",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 32,
+            "line_end": 32
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-003",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 72,
+            "line_end": 72
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-004",
+      "locations": [
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 78,
+            "line_end": 78
+          }
+        },
+        {
+          "path": "source/references/intake-planning.md",
+          "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4",
+          "locator": {
+            "line_start": 88,
+            "line_end": 88
+          }
+        },
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 21,
+            "line_end": 21
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-005",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 5,
+            "line_end": 5
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-006",
+      "locations": [
+        {
+          "path": "source/assets/qa-report-template.md",
+          "sha256": "e7184486a110673f77d37ef5211c41d47cd4d3182bb477bed4510a67f0d90036",
+          "locator": {
+            "line_start": 43,
+            "line_end": 43
+          }
+        },
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 29,
+            "line_end": 29
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-007",
+      "locations": [
+        {
+          "path": "source/references/assessment.md",
+          "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11",
+          "locator": {
+            "line_start": 11,
+            "line_end": 11
+          }
+        },
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 34,
+            "line_end": 34
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-008",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 43,
+            "line_end": 43
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-009",
+      "locations": [
+        {
+          "path": "source/references/execution-integrity.md",
+          "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+          "locator": {
+            "line_start": 47,
+            "line_end": 47
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-010",
+      "locations": [
+        {
+          "path": "source/references/assessment.md",
+          "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11",
+          "locator": {
+            "line_start": 19,
+            "line_end": 19
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-011",
+      "locations": [],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-012",
+      "locations": [],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-013",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 59,
+            "line_end": 59
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    },
+    {
+      "requirement_id": "QAP-014",
+      "locations": [
+        {
+          "path": "source/references/reporting-handoff.md",
+          "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006",
+          "locator": {
+            "line_start": 69,
+            "line_end": 69
+          }
+        }
+      ],
+      "static_review": "Contract reconciled against selected MVP plus explicit extension precedence. Instructions preserve required behavior; runtime performance remains unproven."
+    }
+  ],
+  "scope": "Static semantic conformance, not executed scenario acceptance"
+}

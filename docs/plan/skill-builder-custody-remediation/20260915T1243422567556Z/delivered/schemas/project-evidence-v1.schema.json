@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "project_root",
+    "scope_roots",
+    "inputs",
+    "facts",
+    "exclusions",
+    "complete",
+    "capabilities",
+    "gaps"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "project-evidence-v1"
+    },
+    "run_id": {
+      "$ref": "adaptive-common.schema.json#/$defs/Id"
+    },
+    "project_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope_roots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Ref"
+      }
+    },
+    "facts": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Fact"
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Exclusion"
+      }
+    },
+    "complete": {
+      "type": "boolean"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Capability"
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "adaptive-common.schema.json#/$defs/Gap"
+      }
+    }
+  }
+}

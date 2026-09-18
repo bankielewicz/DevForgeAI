@@ -1,0 +1,73 @@
+{
+  "schema_version": "1",
+  "run_id": "20260913T083452607505Z",
+  "target_name": "skill-builder",
+  "sources": [
+    {
+      "source_id": "governing",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\inputs\\skill-builder-adaptive-enhancement-spec.md",
+      "retrieved_at_utc": "2026-09-13T13:45:19.281225Z",
+      "sha256": "8fa6fae0625c5edd41cf8bca539a07e9d5fb1f1b90998feaf0be48814fa40a59",
+      "snapshot_path": "inputs/governing-spec.md",
+      "sections": [
+        "Selected complete local document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "companion",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\inputs\\skill-validator-adaptive-enhancement-spec.md",
+      "retrieved_at_utc": "2026-09-13T13:45:19.281225Z",
+      "sha256": "f08a5f745235e969c8186731c187bdc5150d8f92cc8d140d0deb6812e7ecaf42",
+      "snapshot_path": "inputs/companion-spec.md",
+      "sections": [
+        "Selected complete local document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "creator",
+      "original_path": "C:\\Users\\bryan\\.codex\\skills\\.system\\skill-creator\\SKILL.md",
+      "retrieved_at_utc": "2026-09-13T13:45:19.281225Z",
+      "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288",
+      "snapshot_path": "inputs/skill-creator.md",
+      "sections": [
+        "Selected complete local document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "validator",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\assessment-owner\\skill-validator\\SKILL.md",
+      "retrieved_at_utc": "2026-09-13T13:45:19.281225Z",
+      "sha256": "14277fb47dd8ab4e0357b0a590c39098d453c65706f3917961442a917329a7fe",
+      "snapshot_path": "inputs/validator-entrypoint.md",
+      "sections": [
+        "Selected complete local document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "rules",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\assessment-owner\\skill-validator\\references\\rules.md",
+      "retrieved_at_utc": "2026-09-13T13:45:19.281225Z",
+      "sha256": "44b522c37d657f99db1e3673f6572fb92715e35007e3600d4506642a6599bd8b",
+      "snapshot_path": "inputs/validator-rules.md",
+      "sections": [
+        "Selected complete local document"
+      ],
+      "freshness": "snapshot_only"
+    },
+    {
+      "source_id": "reporting",
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-builder\\20260913T083452607505Z\\assessment-owner\\skill-validator\\references\\reporting.md",
+      "retrieved_at_utc": "2026-09-13T13:45:19.281225Z",
+      "sha256": "e44544819a384896c34f5e39c18fed2f23450c115b3c82f29ed8666723cdf7cb",
+      "snapshot_path": "inputs/validator-reporting.md",
+      "sections": [
+        "Selected complete local document"
+      ],
+      "freshness": "snapshot_only"
+    }
+  ]
+}

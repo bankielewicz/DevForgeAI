@@ -1,0 +1,8 @@
+{
+  "schema_version": "authoring-family-assessment-note",
+  "basis": "Observed scoped edit supported by current authoring/regeneration instructions; current manifest is an observation, not a fabricated generated baseline.",
+  "proposal_review_state": "pending",
+  "modern_maintenance_next_action": "Select exact proposed changes and compatibility migration; bind fresh observed target bytes for narrowly scoped skill-creator maintenance.",
+  "adoption_required": false,
+  "quality": "FAIL; do not carry current results to changed bytes."
+}

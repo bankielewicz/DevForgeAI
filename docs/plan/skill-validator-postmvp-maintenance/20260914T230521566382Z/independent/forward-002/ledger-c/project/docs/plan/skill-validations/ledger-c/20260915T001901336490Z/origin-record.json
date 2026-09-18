@@ -1,0 +1,21 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T001901336490Z",
+  "target_name": "ledger-c",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project\\skills\\ledger-c",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "0a04ff8bf45651318ca911a753430f282524795914be333e7deac22efb1ac650"
+  },
+  "specification": {
+    "path": "inputs/specification.md",
+    "sha256": "66df398d2b01b2cf3d6ebc990d0032f7946f68bab13a40bf306b462416b83130"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": null,
+  "completeness": "complete",
+  "uncertainties": [],
+  "source_readback_state": "UNCHANGED",
+  "historical_origin": "unknown"
+}

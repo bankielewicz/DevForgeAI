@@ -1,0 +1,63 @@
+{
+  "schema_version": "trial-result-v1",
+  "case_id": "N04",
+  "kind": "native",
+  "started_at": "2026-09-17T20:04:16.432763+00:00",
+  "ended_at": "2026-09-17T20:13:44.023542+00:00",
+  "elapsed_seconds": 567.5939999999828,
+  "timeout_seconds": 1800,
+  "timeout": false,
+  "exit_code": 0,
+  "cleanup": "VERIFIED",
+  "input_unchanged": true,
+  "outcome": "PASS",
+  "error": null,
+  "plan_sha256": "60ad6066e8ea71ff265a934b6a19f81eb5107695fb78d862b95c7c758d05435e",
+  "started_sha256": "9b3a4092a6b18d2de7eae9f2c69a5bec299cb7ea0398ebeb97ff89c3ada98b7b",
+  "manifests": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\attempt-002\\before.json",
+      "sha256": "67d6e4423b83d21de16815ad983dc91318f8434304c42907da6fe1fa5b9d219f"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\attempt-002\\after.json",
+      "sha256": "92e98ab79136249a44234f50e64575a7651e7dd17fc599b53a929dcb952ccaea"
+    }
+  ],
+  "changed_paths": [
+    ".trial-output/final.txt",
+    "backlog/STORY-010.story.md",
+    "evidence/story-create/20260917-rec-followups/author-review.json",
+    "evidence/story-create/20260917-rec-followups/session.md",
+    "evidence/story-create/20260917-rec-followups/source-identities.json"
+  ],
+  "output_checks": [
+    {
+      "path": ".trial-output/final.txt",
+      "kind": "exists",
+      "requirement_id": "SC-005",
+      "result": "PASS",
+      "reason": "Declared output observed"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\project\\.trial-output\\final.txt",
+      "sha256": "ca4117338987e36882fb42a1840f45bf277131e44114eecf3b02c2a3adfa2914"
+    }
+  ],
+  "streams": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\attempt-002\\stdout.txt",
+      "sha256": "7a3d4853eaaac19fd91293a87e20ff67d7f9d8088789fa04933fac9301609dc4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T194717Z\\trials\\N04\\attempt-002\\stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Editable evaluation evidence; not framework acceptance or proof of OS-wide filesystem isolation.",
+    "Nonzero exit/timeout alone is not a confirmed source defect."
+  ]
+}

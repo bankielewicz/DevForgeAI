@@ -1,0 +1,37 @@
+{
+  "attempt_id": "001-lock",
+  "stage": "setup",
+  "argv": [
+    "cargo",
+    "generate-lockfile",
+    "--offline"
+  ],
+  "working_directory": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe",
+  "executable": {
+    "path": "C:\\Users\\bryan\\.cargo\\bin\\cargo.EXE",
+    "bytes": 13551616,
+    "sha256": "88d8258dcf6ae4f7a80c7d1088e1f36fa7025a1cfd1343731b4ee6f385121fc0"
+  },
+  "platform": "Windows-10-10.0.26200-SP0",
+  "parent_shell": "PowerShell 7",
+  "filesystem": "native Windows C:",
+  "started_at": "2026-09-15T15:46:17.257537+00:00",
+  "ended_at": "2026-09-15T15:46:17.498466+00:00",
+  "exit_code": 0,
+  "candidate": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\001-lock\\candidate.json",
+    "bytes": 634,
+    "sha256": "ee1ea2112a1812231db0fd722fda84de6169f07f1c937b470fde7c88bcc7a4e5"
+  },
+  "stdout": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\001-lock\\stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-implementation\\20260915T1544548240203Z\\001-lock\\stderr.txt",
+    "bytes": 67,
+    "sha256": "461f92cef70eff36608302707a88349e8a3521da75307e6d1b3dc20e4023fa00"
+  },
+  "outcome": "observed-exit"
+}

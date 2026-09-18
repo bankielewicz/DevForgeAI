@@ -1,0 +1,47 @@
+{
+  "case": "binding-unknown-version",
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-unknown-version\\project\\.agents\\skills\\summary-skill\\scripts\\check_project_binding.py",
+    "--project-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-unknown-version\\project",
+    "--skill-root",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-unknown-version\\project\\.agents\\skills\\summary-skill"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "timeout_seconds": 120,
+  "permitted_write_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z",
+  "expected": {
+    "exit": 1,
+    "field": "reason_code",
+    "value": "INVALID_BINDING",
+    "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-independent-qa\\skill-builder\\20260913T152822695886Z\\fixtures\\independent-01\\binding-unknown-version\\project\\.agents\\skills\\summary-skill",
+    "before_manifest": [
+      {
+        "path": "SKILL.md",
+        "bytes": 330,
+        "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+      },
+      {
+        "path": "assets/devforgeai-skill.json",
+        "bytes": 431,
+        "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+      },
+      {
+        "path": "references/adaptive-contract.md",
+        "bytes": 297,
+        "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+      },
+      {
+        "path": "scripts/check_project_binding.py",
+        "bytes": 12232,
+        "sha256": "688b1b7404133639a6f0f69c8fdb88670db230110ac7e8e24b64ccf32a24e241"
+      }
+    ]
+  },
+  "start_utc": "2026-09-13T15:50:43.865381+00:00",
+  "stdin_sha256": null
+}

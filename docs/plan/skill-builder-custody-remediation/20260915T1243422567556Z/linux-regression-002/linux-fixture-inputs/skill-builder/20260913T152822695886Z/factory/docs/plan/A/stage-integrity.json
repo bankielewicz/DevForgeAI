@@ -1,0 +1,10 @@
+{
+  "schema_version": "authoring-stage-integrity-v1",
+  "run_id": "A",
+  "target_name": "notes-a",
+  "origin_ref": {
+    "path": "/tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/A/origin.json",
+    "sha256": "bde742aa1d2a4da526371c958a4d864a3ecaad54b365ff98eb4f2036d817076f"
+  },
+  "design_capture_requested": false
+}

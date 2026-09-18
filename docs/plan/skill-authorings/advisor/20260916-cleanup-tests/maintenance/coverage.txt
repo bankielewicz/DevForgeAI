@@ -1,0 +1,7 @@
+Name                                                  Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------------------------------
+src\agents\skills\advisor\evals\run_evaluation.py        72      1     22      1    98%   29
+src\agents\skills\advisor\scripts\advisor_run.py        320      9    148      9    96%   228, 244, 265, 272, 287, 294-295, 297, 388->391, 427
+src\agents\skills\advisor\scripts\advisor_stream.py     252      3     94      4    98%   69, 78, 130->exit, 145->exit, 230
+-------------------------------------------------------------------------------------------------
+TOTAL                                                   644     13    264     14    97%

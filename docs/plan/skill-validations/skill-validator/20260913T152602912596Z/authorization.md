@@ -1,0 +1,6 @@
+# Authorization and scope
+Validator-only QA requested for exact development skill-validator; reported 75 files and d51703237abb4d015fbed30f8f03ef93040603a4ea0ec57a623db61e3c71f4b1.
+Both selected specification hashes verified before dependent assessment. Read-only companion and previous implementation evidence. Assessment and bounded synthetic testing only; no production/package/operational repairs, installation, dependency downloads, builder workflow invocation, hooks, remote publication, or Rust changes.
+All work products are below this fresh UTC run. Synthetic executions use declared trials roots; TEMP/TMP/TMPDIR point inside this run. Existing regression tests may invoke companion Python helpers only on their own synthetic temporary fixtures as part of the explicitly requested suite; this is not invoking the builder skill.
+No real binding is created or captured. Synthetic identities remain only in synthetic operational binding files. Existing CLI model/auth retained; no sandbox, approval, or hook-trust bypass.
+Early discovery commands and the failed first environment metadata read are retained in the conversation tool transcript, not reconstructed as raw output here. Subsequent executions have exact retained command receipts.

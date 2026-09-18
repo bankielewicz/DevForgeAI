@@ -1,0 +1,23 @@
+
+running 3 tests
+test diagnostic_rpc_denial_never_retains_server_message ... ok
+test diagnostic_config_denial_is_closed_and_preserves_rejection ... ok
+test diagnostic_initialize_counts_include_exited_descendant ... FAILED
+
+failures:
+
+---- diagnostic_initialize_counts_include_exited_descendant stdout ----
+
+thread 'diagnostic_initialize_counts_include_exited_descendant' (24720) panicked at tests\profile_protocol.rs:359:5:
+assertion failed: diagnostics(&observation).contains(&json!({
+                "schema_version":1,"stage":"process_accounting","rpc":"initialize","checkpoint":"after_receive",
+                "predicate":"unexpected_process_count","total_processes":2,"active_processes":1
+            }))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    diagnostic_initialize_counts_include_exited_descendant
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.21s
+

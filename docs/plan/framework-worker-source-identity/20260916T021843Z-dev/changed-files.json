@@ -1,0 +1,52 @@
+[
+  {
+    "path": "README.md",
+    "before_sha256": "9c9d68a402eb5d776c583caeef45d446ce7f99f50a81839c5abf5cab819dfc74",
+    "after_sha256": "47b94d6945d95ccb66a57e4e63ce2a719153da077201475a8e6a106f1f00d954"
+  },
+  {
+    "path": "src/native_identity.rs",
+    "before_sha256": "309bf94180c28477ef67edae57ea9865544b42785a8215311af64958d8d1d664",
+    "after_sha256": "b268f7eedf5374b07b75e8ca59cfefe53a2282a83cacce52e16b4777a7f3a92f"
+  },
+  {
+    "path": "src/plugin-source-identity.json",
+    "before_sha256": null,
+    "after_sha256": "d2f9f1952262dae524930873688c54eef9fd8959ca7fa1c26e7a311ddc089b69"
+  },
+  {
+    "path": "src/profile_sources.rs",
+    "before_sha256": "8b6633486c6828452aa2aec0f969a82207ad2f6a61ffe360531fd57ea33b42f0",
+    "after_sha256": "ff43e85d0165d10d86adac72c9e9cfc55f1193738fc113924b9a13444c49b641"
+  },
+  {
+    "path": "src/runner.rs",
+    "before_sha256": "b28dd4224d23de9b7950c93e310540483231e214273f5a66657704f59771afa4",
+    "after_sha256": "9aa9aa5fd4858fa5d758d461cea450a3037a703ae9edbab8cb87cf05490e7a3a"
+  },
+  {
+    "path": "tests/preflight_cli.rs",
+    "before_sha256": "5e858cf06df8e1bf2a9af9640fb12bbcbbeecdfdffacebd331518e41b47c0bc4",
+    "after_sha256": "ee96b94dc5d0429929843a5964860e7dc149923df39a1bf3c76984c679d20b14"
+  },
+  {
+    "path": "tests/support/final_source_check_cases.rs",
+    "before_sha256": null,
+    "after_sha256": "72c88bdacc68f13217dd599486cb1c3fd5a00b882aece8ebbbf585b564121bac"
+  },
+  {
+    "path": "tests/support/plugin_source_identity_cases.rs",
+    "before_sha256": null,
+    "after_sha256": "c4a9056c5196b56712d0d8293076595115c61aee327c99dfb352bd339af9a04b"
+  },
+  {
+    "path": "tests/support/profile_sources_edges.rs",
+    "before_sha256": "8a6ec6e67b0c555706a726fb80ec70b2575b59f947124efd904b8258c2b9a522",
+    "after_sha256": "c1495fe37366d33d16b830b06d3c489253d297f62b3c217e07e97412e6d82bcd"
+  },
+  {
+    "path": "tests/support/review_v2_cases.rs",
+    "before_sha256": "0151bd66f52b74e3b69ebc34c08eaf53f7cf4be1e246aa269aecb60a713f6c38",
+    "after_sha256": "45cbb2f248b5f159e7c2fb95016f5a6bf7de4db04d1d2822b1c7c1876302b32a"
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "20260916-api-retry-progress-02",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\advisor",
+  "target_name": "advisor",
+  "operation": "edit",
+  "authorization": "User selected src/ tree only in response to apply-and-test scope question.",
+  "history_review": "Continue the just-published focused fix; retain initial 87/87 unit and 38/38 JSONL results with 609/644 line coverage. Add relevant retry framing boundary tests to satisfy required coverage.",
+  "prior": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress\\authoring-baseline.json",
+    "sha256": "788035712b2ebeb4aaf939c13c71351ee38fc6b77cb4c11e1907684efa8122ea"
+  },
+  "change_paths": [
+    "scripts/advisor_stream.py",
+    "tests/test_streaming.py",
+    "references/execution.md",
+    "artifact-manifest.json"
+  ],
+  "requirements": [
+    {
+      "origin": "user",
+      "outcome": "R1-R4: safe integer-only retry progress with focused regression tests; development only.",
+      "artifacts": [
+        "scripts/advisor_stream.py",
+        "tests/test_streaming.py",
+        "references/execution.md",
+        "artifact-manifest.json"
+      ]
+    }
+  ],
+  "capabilities": [],
+  "expected_outputs": [
+    "Numeric retry progress when streaming"
+  ],
+  "side_effects": [
+    "Progress sink writes only; no new retries or network requests"
+  ],
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-intake\\task-capture.md",
+      "sha256": "8dd22c94c8f806cd9424a5101ebb1cffea5c2b035d6445b4830696cb44d333c0"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\advisor\\20260916-api-retry-progress-intake\\workflow-design.json",
+      "sha256": "39ace305ece45197183656addd12c659a975021dbbbe7a9e34aa5a03f8db3759"
+    }
+  ],
+  "known_issues": [
+    "Independent skill validation and live native retry qualification are not part of this focused maintenance fix."
+  ]
+}

@@ -1,0 +1,1 @@
+{"exit_code":1,"observation":{"schema_version":"binding-observation-v1","status":"MISMATCH","reason_code":"AMBIGUOUS_ROLE","binding_sha256":"ad2aae691b43029e27863ff6d720e15aedf52bc1a23b5f103fe73c2207632559","package_digest":"5bfb1dc4639c2ba09b68807276c96611f7f8a03f5cc293b5a378840569f5e9a3","details":[]},"effects_unchanged":true}

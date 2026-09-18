@@ -1,0 +1,1 @@
+# Storage owns persistence only.

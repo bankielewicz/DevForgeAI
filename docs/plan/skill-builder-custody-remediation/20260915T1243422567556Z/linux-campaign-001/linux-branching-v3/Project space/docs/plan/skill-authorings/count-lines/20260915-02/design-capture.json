@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "20260915-02",
+  "target_name": "count-lines",
+  "source_ref": {
+    "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/docs/plan/skill-authorings/count-lines/inputs-20260915-01/design.json",
+    "sha256": "5ac1856fd2c6ed08ab01500f7b19d7da246ed289c8fafa00f2fea2d2e921eed0"
+  },
+  "snapshot_ref": {
+    "path": "/tmp/devforgeai-custody-native-20260915T1243422567556Z/linux-branching-v3/Project space/docs/plan/skill-authorings/count-lines/20260915-02/inputs/1",
+    "sha256": "5ac1856fd2c6ed08ab01500f7b19d7da246ed289c8fafa00f2fea2d2e921eed0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\brainstorm\\20260918T021707Z\\inputs\\evaluation",
+    "-p",
+    "test_graders.py",
+    "-v"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_at": "2026-09-18T02:24:27.935463+00:00",
+  "ended_at": "2026-09-18T02:24:28.043751+00:00",
+  "exit_code": 0,
+  "timeout_seconds": 120
+}

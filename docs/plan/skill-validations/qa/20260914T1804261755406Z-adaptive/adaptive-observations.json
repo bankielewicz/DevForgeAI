@@ -1,0 +1,343 @@
+{
+  "schema_version": "adaptive-observations-v1",
+  "run_id": "20260914T1804261755406Z",
+  "target_digest": "2ba0d049f58360a0360031789bce5c9045153540e200d363c8caa4f5c7be2db7",
+  "unicode_candidates": [],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\SKILL.md",
+          "sha256": "9d50e8605be5d1a6b733ffdd965a8d29ef2145dc5ecbfd341f1840e69d34cd86"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "agents/openai.yaml",
+      "role": "runtime",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\agents\\openai.yaml",
+          "sha256": "85cb153b4f7a7b373fab9b71cc23d580ef57d4a01135d585875c962ae4ace973"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "assets/qa-fix-template.md",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\assets\\qa-fix-template.md",
+          "sha256": "d1670e38979fb8ab29d80afce6c58496e84599167e4001f1e649e887481d8199"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "assets/qa-report-template.md",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\assets\\qa-report-template.md",
+          "sha256": "da3a6d033df2d360c6458ceb0215e584bc664288fec00af93f91dd8ec7a518db"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "assets/test-plan-template.md",
+      "role": "template",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\assets\\test-plan-template.md",
+          "sha256": "7115eaf01073bcd2489858140adb380f0b6f8daeef12962d1fae34fd6f0410a1"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "references/assessment.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\references\\assessment.md",
+          "sha256": "38a3aaa0483538000b553ea35bbb8749362bccd2fe7e28401cb49ffb1d73c080"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "references/execution-integrity.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\references\\execution-integrity.md",
+          "sha256": "098626aa58b3f5a6e27f98102ee6806d7739e561081ce212fa52a0bf62b262ab"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "references/intake-planning.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\references\\intake-planning.md",
+          "sha256": "9a7056a75c50b9a635dee107e90403611bdea76c97da716cadf549fbfb4ee689"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    },
+    {
+      "path": "references/reporting-handoff.md",
+      "role": "reference",
+      "reachable": true,
+      "usage": "used",
+      "evidence": [
+        {
+          "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\qa\\20260914T1804261755406Z\\source\\references\\reporting-handoff.md",
+          "sha256": "5a0448fc5afc7a980e5d24ca461e72246a662413e1f9cf26c6340e3a387463f3"
+        }
+      ],
+      "reason": "Explicit SKILL.md/reference consumer or host UI metadata."
+    }
+  ],
+  "edges": [
+    {
+      "source": "SKILL.md",
+      "line": 20,
+      "target": "references/intake-planning.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 20,
+      "target": "assets/test-plan-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 21,
+      "target": "references/execution-integrity.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 21,
+      "target": "references/assessment.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 24,
+      "target": "references/reporting-handoff.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 24,
+      "target": "assets/qa-report-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "SKILL.md",
+      "line": 24,
+      "target": "assets/qa-fix-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/assessment.md",
+      "line": 29,
+      "target": "../assets/qa-report-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/assessment.md",
+      "line": 29,
+      "target": "reporting-handoff.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/execution-integrity.md",
+      "line": 49,
+      "target": "assessment.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/execution-integrity.md",
+      "line": 49,
+      "target": "reporting-handoff.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/intake-planning.md",
+      "line": 61,
+      "target": "../assets/test-plan-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/intake-planning.md",
+      "line": 63,
+      "target": "execution-integrity.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/intake-planning.md",
+      "line": 63,
+      "target": "assessment.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/intake-planning.md",
+      "line": 63,
+      "target": "reporting-handoff.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/reporting-handoff.md",
+      "line": 3,
+      "target": "../assets/qa-report-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/reporting-handoff.md",
+      "line": 5,
+      "target": "../assets/qa-fix-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/reporting-handoff.md",
+      "line": 44,
+      "target": "../assets/test-plan-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/reporting-handoff.md",
+      "line": 44,
+      "target": "../assets/qa-report-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    },
+    {
+      "source": "references/reporting-handoff.md",
+      "line": 44,
+      "target": "../assets/qa-fix-template.md",
+      "kind": "link",
+      "resolution": "resolved"
+    }
+  ],
+  "context": {
+    "tokenizer": null,
+    "files": [
+      {
+        "path": "SKILL.md",
+        "bytes": 5360,
+        "characters": 5360,
+        "lines": 34,
+        "tokens": null
+      },
+      {
+        "path": "agents/openai.yaml",
+        "bytes": 226,
+        "characters": 226,
+        "lines": 4,
+        "tokens": null
+      },
+      {
+        "path": "assets/qa-fix-template.md",
+        "bytes": 2606,
+        "characters": 2606,
+        "lines": 46,
+        "tokens": null
+      },
+      {
+        "path": "assets/qa-report-template.md",
+        "bytes": 2956,
+        "characters": 2956,
+        "lines": 53,
+        "tokens": null
+      },
+      {
+        "path": "assets/test-plan-template.md",
+        "bytes": 8364,
+        "characters": 8364,
+        "lines": 108,
+        "tokens": null
+      },
+      {
+        "path": "references/assessment.md",
+        "bytes": 4900,
+        "characters": 4896,
+        "lines": 30,
+        "tokens": null
+      },
+      {
+        "path": "references/execution-integrity.md",
+        "bytes": 8012,
+        "characters": 7998,
+        "lines": 50,
+        "tokens": null
+      },
+      {
+        "path": "references/intake-planning.md",
+        "bytes": 10486,
+        "characters": 10458,
+        "lines": 63,
+        "tokens": null
+      },
+      {
+        "path": "references/reporting-handoff.md",
+        "bytes": 8953,
+        "characters": 8943,
+        "lines": 54,
+        "tokens": null
+      }
+    ],
+    "loads": [],
+    "budget": null,
+    "budget_result": "NOT_APPLICABLE",
+    "reason": "No budget selected. Token counts NOT_RUN: installed tokenizer/local encoding unavailable (ObservationError). No download."
+  },
+  "bindings": [],
+  "limitations": [
+    "Ordinary standalone skill; no adaptive/project/set binding. Token encoding unavailable. Semantic judgments by primary validator."
+  ]
+}

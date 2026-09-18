@@ -1,0 +1,31 @@
+{
+  "expected": {
+    "exit": 1,
+    "field": "reason_code",
+    "value": "UNBOUND_SKILL",
+    "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-unbound\\project\\.agents\\skills\\summary-skill",
+    "before_manifest": [
+      {
+        "path": "SKILL.md",
+        "bytes": 330,
+        "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+      },
+      {
+        "path": "assets/devforgeai-skill.json",
+        "bytes": 431,
+        "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+      },
+      {
+        "path": "references/adaptive-contract.md",
+        "bytes": 297,
+        "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+      },
+      {
+        "path": "scripts/check_project_binding.py",
+        "bytes": 12433,
+        "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+      }
+    ]
+  },
+  "input_command_receipt": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\commands\\v2-binding-unbound\\command.json"
+}

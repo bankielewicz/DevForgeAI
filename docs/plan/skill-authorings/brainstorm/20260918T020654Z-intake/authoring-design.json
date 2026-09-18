@@ -1,0 +1,312 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "brainstorm",
+  "source_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\workflows\\phase-1-brainstorm-spec.md",
+      "sha256": "0c136bd00f6868c6142989599e1cd323e124d132c2e2ff9e2981da0239967982"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\index.md",
+      "sha256": "51b17b2b7b750564c2e46252a983d6298048048796f61c04ad85753aa7b9f395"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\core-workflows.md",
+      "sha256": "4d47d88ceb947cfc131083d556fc49bf0f6b8ea6a3772a4e99797485939bbac5"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\project-context-and-policy.md",
+      "sha256": "3639eae29ab1dbd89ee567b1eac332bc3bdc0a915edc4a74ca93873c029ad099"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\roadmap-and-decisions.md",
+      "sha256": "421cc521c06d4a1bd62fd003853871f58211c3fc3f96770789136f94c47d9d1e"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\work-items-and-dependencies.md",
+      "sha256": "3a1b851b114ec7ae72413bb01a4d7582cbb5064a816a42c58cef37bcc696796c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\skills-and-project-expertise.md",
+      "sha256": "676846ce6d3fddc9ce3bc18259cceef22bff2cfd36340cca946cf9552ccf2fd8"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\expert-health-and-realignment.md",
+      "sha256": "44c06d4bf3d36e1aaf0f0316fc606c465df4cd0421568bb7d1a15a181623639b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\installation-and-integrations.md",
+      "sha256": "2ee95ad58bb25694e156eafa479f68227bfd905a88761e85643ab1209681e1c6"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\AGENTS.md",
+      "sha256": "c43734f56dbd3352be279b9b2c0b68f34f7d94bd75d3e781a54b8b8414c16d1b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\brainstorm\\20260918T020654Z-intake\\request.md",
+      "sha256": "041c056ab6e2cb1d3510eb3aeca9e2b53f354252d20b4a32a486cb2e20e2b644"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "intake",
+      "requirement_ids": [
+        "BR-001",
+        "BR-002",
+        "BR-003",
+        "BR-004",
+        "BR-005"
+      ],
+      "trigger": "An uncertain idea, comparison, selected discovery resume, or near-miss request.",
+      "inputs": [
+        "Current request, supplied answers, selected root and permitted effects when known."
+      ],
+      "completion": "Selected uncertainty and scope are identified or the appropriate near-miss responsibility is named without invocation; preliminary dialogue needs no root or setup.",
+      "outputs": [
+        "Conversational scope and persistence choice; no file unless saving is selected."
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "agents/openai.yaml"
+      ],
+      "prerequisites": [],
+      "effects": [
+        "Conversation; relevant reads only after root selection."
+      ],
+      "failure": "An ambiguous root blocks only dependent project reads or writes; a near miss does not authorize product or setup effects.",
+      "recovery": "Ask only for the missing material selection; reuse existing authorization and supplied answers."
+    },
+    {
+      "id": "discovery",
+      "requirement_ids": [
+        "BR-006",
+        "BR-007",
+        "BR-008",
+        "BR-009",
+        "BR-010"
+      ],
+      "trigger": "Selected discovery uncertainty needs evidence, decisions, alternatives or architectural questions.",
+      "inputs": [
+        "Selected sources, relevant interfaces and conventions, user decisions and observed experiments."
+      ],
+      "completion": "Problem, users, observable outcome, scope and meaningful direction choices have attributed evidence; unanswered decisions and follow-ups remain visible.",
+      "outputs": [
+        "Discussion and, when selected, substantive brief sections with source inventory and decision/question records."
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/evidence-and-decisions.md"
+      ],
+      "prerequisites": [
+        "Selected root before project reads; available user-input or ordinary chat interface."
+      ],
+      "effects": [
+        "Bounded relevant nonsecret reads; interview and documentation drafting."
+      ],
+      "failure": "Essential unavailable sources or governing contradictions block affected conclusions; optional unavailable research is disclosed; document instructions do not grant effects.",
+      "recovery": "Continue useful independent work, retain alternatives and question owners, and propose separately scoped experiments without executing them."
+    },
+    {
+      "id": "handoff",
+      "requirement_ids": [
+        "BR-004",
+        "BR-011",
+        "BR-012",
+        "BR-014"
+      ],
+      "trigger": "A discovery result or useful partial result is ready to return.",
+      "inputs": [
+        "Current selected outcome, existing artifact adequacy, open questions, decisions and provenance."
+      ],
+      "completion": "Reuse is checked first; remaining discovery blockers yield NEEDS_INPUT; sufficient inputs yield READY_FOR_PRD with explicit later-stage questions and next responsibility.",
+      "outputs": [
+        "Plain-English summary, exact disposition/reason, actual artifact link when saved, material gaps and suggested manual next request."
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "assets/discovery-brief-template.md"
+      ],
+      "prerequisites": [],
+      "effects": [
+        "Conversation; no downstream workflow invocation."
+      ],
+      "failure": "Unknown or uninstalled consumers are named as responsibilities, never invented commands; document delivery does not prove agreement or implementation readiness.",
+      "recovery": "Return the actual incomplete state and appropriate owner; wait for separately selected downstream work."
+    },
+    {
+      "id": "save",
+      "requirement_ids": [
+        "BR-005",
+        "BR-011",
+        "BR-013",
+        "BR-014"
+      ],
+      "trigger": "Current user scope includes saving discovery documentation.",
+      "inputs": [
+        "Selected output scope, completed or partial discussion, safe brief identity, input identities and current destination state."
+      ],
+      "completion": "One exclusively created Markdown revision contains exactly six metadata fields and nine required sections; full intended bytes are read back before linking delivery.",
+      "outputs": [
+        "Selected convention/path or docs/plan/discovery/<brief-id>/brainstorm-brief-rNNN.md; safe 1-64 character local ID, positive padded revision."
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/saved-briefs.md",
+        "assets/discovery-brief-template.md"
+      ],
+      "prerequisites": [
+        "Unambiguous selected root/output scope and document-write authorization; filesystem inspection/hash/read/write capabilities."
+      ],
+      "effects": [
+        "Create only the selected discovery directory and new brief; preserve old briefs and source documents."
+      ],
+      "failure": "Collision, source drift, reparse escape, write denial or readback mismatch prevents a successful-delivery claim; retain/report actual partial state.",
+      "recovery": "Reconcile drift; inspect actual destination after interruption; choose a safe unused revision inside authorized scope or report unresolved permission without overwrite."
+    },
+    {
+      "id": "resume",
+      "requirement_ids": [
+        "BR-006",
+        "BR-010",
+        "BR-013"
+      ],
+      "trigger": "User selects an existing brief or clarifies/changes the discovery objective.",
+      "inputs": [
+        "Selected prior brief, current governing sources, current user objective and historical decisions."
+      ],
+      "completion": "Affected claims reflect changed/unavailable inputs, unchanged supported observations remain, explicit objective supersession is recorded, and any saved successor preserves its predecessor.",
+      "outputs": [
+        "Updated discussion or selected new revision with supersedes, changed input identities and change notes."
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/evidence-and-decisions.md",
+        "references/saved-briefs.md",
+        "assets/discovery-brief-template.md"
+      ],
+      "prerequisites": [
+        "Selected brief and root; independent selection of any saved successor."
+      ],
+      "effects": [
+        "Relevant reads and authorized new brief revision only."
+      ],
+      "failure": "Missing, inconsistent or superseded prior inputs cannot silently serve as current decisions; uncertain interrupted write is inspected before retry.",
+      "recovery": "Preserve prior artifacts, name affected gaps/owners, reconcile lineage and save only to an unused safe destination when authorized."
+    }
+  ],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "kind": "instruction",
+      "purpose": "Activation, ownership, interview, dispositions and resource routing.",
+      "load_when": "Every Brainstorm invocation.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/evidence-and-decisions.md",
+      "kind": "reference",
+      "purpose": "Source attribution, conflicts, decisions, architecture, experiments and feedback.",
+      "load_when": "Inspecting project/external evidence, comparing options or revisiting evidence and decisions.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/saved-briefs.md",
+      "kind": "reference",
+      "purpose": "Exact Markdown artifact contract, exclusive creation, readback and resume recovery.",
+      "load_when": "Saving or resuming a saved brief.",
+      "helper_contract": null
+    },
+    {
+      "path": "assets/discovery-brief-template.md",
+      "kind": "template",
+      "purpose": "The six metadata fields and nine required brief sections.",
+      "load_when": "Drafting an authorized saved brief; not mandatory for conversation-only dialogue.",
+      "helper_contract": null
+    },
+    {
+      "path": "agents/openai.yaml",
+      "kind": "instruction",
+      "purpose": "Display title and illustrative explicit invocation for the host UI.",
+      "load_when": "Host skill metadata discovery.",
+      "helper_contract": null
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "A01",
+      "behavior_id": "intake",
+      "condition": "No repository, binding or daemon exists.",
+      "expected_observation": "Continue preliminary discovery without setup effects.",
+      "requirement_basis": "BR-001/002/005; BV-01/13/16"
+    },
+    {
+      "id": "A02",
+      "behavior_id": "intake",
+      "condition": "Requested work is specified repair, activation, PRD authoring/review or stories.",
+      "expected_observation": "Name the owner and avoid unselected discovery/product/setup effects.",
+      "requirement_basis": "BR-003/004; BV-04/18"
+    },
+    {
+      "id": "A03",
+      "behavior_id": "discovery",
+      "condition": "Supplied answers are complete or a material answer is declined.",
+      "expected_observation": "Reuse supplied answers; declined decisions remain gaps and do not become agreement.",
+      "requirement_basis": "BR-007/008/012; BV-05/06"
+    },
+    {
+      "id": "A04",
+      "behavior_id": "discovery",
+      "condition": "Code conflicts with governing requirements or a source contains malicious instructions.",
+      "expected_observation": "Preserve the conflict as data; exclude secrets; no policy or binding changes.",
+      "requirement_basis": "BR-003/006; BV-07/08"
+    },
+    {
+      "id": "A05",
+      "behavior_id": "discovery",
+      "condition": "Attractive unselected feature or an unsettled stack decision.",
+      "expected_observation": "Preserve objective; separate follow-up and later PRD design decisions.",
+      "requirement_basis": "BR-008/009/010; BV-09/10"
+    },
+    {
+      "id": "A06",
+      "behavior_id": "discovery",
+      "condition": "Observed experiment contradicts a hypothesis or an expert claim appears stale.",
+      "expected_observation": "Attribute observations and propose revision to its owner without executing experiments or changing policy.",
+      "requirement_basis": "BR-006/009/010; BV-11/20"
+    },
+    {
+      "id": "A07",
+      "behavior_id": "handoff",
+      "condition": "Adequate existing artifact without selected new uncertainty.",
+      "expected_observation": "Return REUSE_EXISTING with exact reference and manual next responsibility.",
+      "requirement_basis": "BR-004/012/014; BV-03"
+    },
+    {
+      "id": "A08",
+      "behavior_id": "handoff",
+      "condition": "Essential source unavailable versus optional external research unavailable.",
+      "expected_observation": "Block the dependent discovery conclusion only in the essential case; disclose optional limitation.",
+      "requirement_basis": "BR-006/012; BV-19"
+    },
+    {
+      "id": "A09",
+      "behavior_id": "save",
+      "condition": "Collision, link/reparse escape, denied or partial write, or announced output absent.",
+      "expected_observation": "Preserve existing/outside files, report path/error and partial state, never claim delivery without readback.",
+      "requirement_basis": "BR-011/013/014; BV-12/15"
+    },
+    {
+      "id": "A10",
+      "behavior_id": "resume",
+      "condition": "One source changed, another unchanged; clarification then explicit objective change.",
+      "expected_observation": "Revise affected claims, preserve supported observations/prior revision, record superseded objective.",
+      "requirement_basis": "BR-006/010/013; BV-14/17"
+    }
+  ],
+  "execution_limits": [],
+  "open_questions": []
+}

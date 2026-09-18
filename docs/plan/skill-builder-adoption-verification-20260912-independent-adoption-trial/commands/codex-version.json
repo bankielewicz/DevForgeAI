@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-09-12T15:17:14.513116+00:00",
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-adoption-verification-20260912-independent-adoption-trial",
+  "argv": [
+    "C:/Users/bryan/AppData/Local/Programs/OpenAI/Codex/bin/codex.exe",
+    "--version"
+  ],
+  "exit_code": 0,
+  "stdout": "codex-cli 0.154.0\n",
+  "stderr": "WARNING: failed to clean up stale arg0 temp dirs: Access is denied. (os error 5)\nWARNING: proceeding, even though we could not create PATH aliases: Access is denied. (os error 5) at path \"C:\\\\Users\\\\bryan\\\\.codex\\\\tmp\\\\arg0\\\\codex-arg0sew0H3\"\n"
+}

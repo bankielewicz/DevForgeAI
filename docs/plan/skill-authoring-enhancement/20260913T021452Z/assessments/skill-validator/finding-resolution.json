@@ -1,0 +1,51 @@
+{
+  "schema_version": "1",
+  "run_id": "skill-validator-delivered",
+  "target_name": "skill-validator",
+  "scope": "Builder findings; companion validator assessment references shared enhancement evidence.",
+  "resolutions": [
+    {
+      "finding_id": "F-f0530cf3fcd3c232b753ab5684fa985f2f106828295172e93a8d70ec1fb21224",
+      "outcome": "resolved",
+      "evidence": [
+        {
+          "path": "inputs/operational-revalidation-report.md",
+          "sha256": "898edc49d87c12654dd485ca90ccc8a2a6a28717f2e2fe55285c4bf9b95f0bf0"
+        },
+        {
+          "path": "inputs/regression-result.json",
+          "sha256": "e8d774a69a172e951ca218d83872ad0e22e5ce938f32e123bc6e67c1c140d7cb"
+        }
+      ]
+    },
+    {
+      "finding_id": "F-e937af0918a0b6660b11c9f49d60032ecf560ead6da77080256499cbb7935402",
+      "outcome": "resolved",
+      "evidence": [
+        {
+          "path": "inputs/operational-revalidation-report.md",
+          "sha256": "898edc49d87c12654dd485ca90ccc8a2a6a28717f2e2fe55285c4bf9b95f0bf0"
+        },
+        {
+          "path": "inputs/regression-result.json",
+          "sha256": "e8d774a69a172e951ca218d83872ad0e22e5ce938f32e123bc6e67c1c140d7cb"
+        }
+      ]
+    },
+    {
+      "finding_id": "F-65f77a3bc98cfc63f162cd1cbc0ca313ae81fb531b6e5754e0cb86e6ceb70a72",
+      "outcome": "resolved",
+      "evidence": [
+        {
+          "path": "inputs/operational-revalidation-report.md",
+          "sha256": "898edc49d87c12654dd485ca90ccc8a2a6a28717f2e2fe55285c4bf9b95f0bf0"
+        },
+        {
+          "path": "inputs/regression-result.json",
+          "sha256": "e8d774a69a172e951ca218d83872ad0e22e5ce938f32e123bc6e67c1c140d7cb"
+        }
+      ]
+    }
+  ],
+  "new_reportable_package_findings": []
+}

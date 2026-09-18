@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "candidate_manifest_sha256": "c27d8ce1742ba7cd0955f0bd18aded8de5f14c898c989654d7298835c3256f9e",
+  "platform": "native Windows x64",
+  "configuration": "default; locked and offline",
+  "selected_offline_matrix_cases": 33,
+  "passed_offline_matrix_cases": 33,
+  "offline_matrix_pass_percent": "100",
+  "results": [
+    {"ids":["QA-COV-01"],"status":"PASS","evidence":["09-full-coverage/receipt.json","09-full-coverage/coverage.json","10a-coverage-analysis/receipt.json"],"observed":"2967/3103 lines = 95.61714469867869803416048984853367708669%; no first-party exclusions"},
+    {"ids":["QA-UNIT-01"],"status":"PASS","evidence":["02a-unit-list/receipt.json","03-full-tests/receipt.json"],"observed":"28/28 unique unit tests passed; zero failed/ignored/filtered"},
+    {"ids":["QA-SUITE-01"],"status":"PASS","evidence":["02-test-list/receipt.json","03-full-tests/receipt.json"],"observed":"114/114 unique required Rust tests passed; zero failed/ignored/filtered"},
+    {"ids":["QA-WF-01","QA-WF-02","QA-WF-03","QA-WF-04","QA-WF-05","QA-WF-06","QA-WF-07","QA-WF-08","QA-WF-09","QA-WF-10","QA-WF-11","QA-WF-12","QA-WF-13","QA-WF-14","QA-WF-15","QA-WF-16","QA-WF-17","QA-WF-18","QA-WF-19","QA-WF-20"],"status":"PASS","evidence":["03-full-tests/receipt.json","03-full-tests/fixtures","external-fixtures-after.json"],"observed":"20/20 mandatory WF parents passed with their asserted subfixtures; real Windows process cases executed; no native Codex process launched"},
+    {"ids":["QA-F01"],"status":"PASS","evidence":["03-full-tests/receipt.json","03-full-tests/fixtures"],"observed":"blocked-write deadline/cancellation and verified process cleanup regressions passed"},
+    {"ids":["QA-F02"],"status":"PASS","evidence":["03-full-tests/receipt.json","05-f02-focused/receipt.json","05-f02-focused/cases"],"observed":"compiled regression passed; independent malformed-payload oracle passed 19/19 with exit 4, private-marker absence, closed journals and immutable fixtures"},
+    {"ids":["QA-NI05-OFFLINE"],"status":"PASS","evidence":["03-full-tests/receipt.json","03-full-tests/fixtures"],"observed":"synthetic final identity drift rejected before peer spawn; no live-launch credit"},
+    {"ids":["QA-NI07"],"status":"PASS","evidence":["03-full-tests/receipt.json","04a-policy-oracle/receipt.json"],"observed":"exact policy digest, 116 ordered argv items, 56 overrides and 35 unique disabled features independently matched"},
+    {"ids":["QA-NI08"],"status":"PASS","evidence":["03-full-tests/receipt.json","03-full-tests/fixtures"],"observed":"closed review/inventory bindings and negative filesystem/source states passed"},
+    {"ids":["QA-NI09-OFFLINE","QA-NI10-OFFLINE"],"status":"PASS","evidence":["03-full-tests/receipt.json","03-full-tests/fixtures"],"observed":"synthetic compiled protocol/profile preflight and denial cases passed; no live-profile credit"},
+    {"ids":["QA-NEW-REQ"],"status":"PASS","evidence":["test-integrity.md","01-integrity-locators/receipt.json","03-full-tests/receipt.json"],"observed":"25/25 added requirement-derived tests passed; no vacuous, setup-only, ignored or prohibited mock-decorated tests found"},
+    {"ids":["QA-FMT-01"],"status":"PASS","evidence":["06-format/receipt.json"],"observed":"cargo fmt --all -- --check exit 0"},
+    {"ids":["QA-CLIPPY-01"],"status":"PASS","evidence":["07-clippy/receipt.json"],"observed":"locked/offline all-target Clippy with warnings denied exit 0"}
+  ],
+  "outside_selected_execution": [
+    {"id":"QA-NATIVE-STATE","status":"BLOCKED_NOT_RUN","reason":"Live NI-T05/NI-T09/NI-T10, WN-01/WN-02 and actual profile-source collection require separate prerequisites and were excluded from this authorized retest; native trial attempts consumed: 0."}
+  ],
+  "framework_acceptance": "NOT_EVALUATED"
+}

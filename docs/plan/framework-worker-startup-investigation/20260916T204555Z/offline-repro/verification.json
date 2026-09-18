@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "candidate_manifest_sha256": "419c98b437a44ce479554170bda36b40f4b8a05b3f2307361680d44fab039540",
+  "candidate_files_verified_current": 58,
+  "retained_attempt_exit_codes": {
+    "01-build": 0,
+    "02-run": 101,
+    "03-run": 101,
+    "04-run": 0
+  },
+  "declared_cases_observed": [
+    "SR-01",
+    "SR-02"
+  ],
+  "source_modules_compiler_mapped": 11,
+  "process_cleanup": {
+    "SR-01": {
+      "tree_stopped": true,
+      "active": 0
+    },
+    "SR-02": {
+      "tree_stopped": true,
+      "active": 0
+    }
+  },
+  "native_codex_launched": false
+}

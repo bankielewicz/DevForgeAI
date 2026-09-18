@@ -1,0 +1,3 @@
+Use $skill-validator to validate and test /tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/skills/notes-a in project /tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory. Read validation request /tmp/devforgeai-regression-v3-same-process-002/docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/factory/docs/plan/A/validation-request.json (SHA-256 b2f3cb188434c52d02e3fe4c8a88d9dae4fcda1773413d3ff53b2d75251846b4). Re-read the package and reject stale bindings. Select disposable tests under current authorization.
+
+Validation status: NOT_PERFORMED. Testing status: NOT_PERFORMED.

@@ -1,0 +1,35 @@
+{
+  "schema_version": "1",
+  "root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\brainstorm",
+  "captured_at_utc": "2026-09-18T02:17:53.891544+00:00",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "bytes": 8742,
+      "sha256": "18c124930a3d9c402819dce6db6a88194b896f13bdf63dee0aa33bcd7927d478"
+    },
+    {
+      "path": "agents/openai.yaml",
+      "bytes": 246,
+      "sha256": "838bc26bc1d5afb3618d1218479a0b817c71f42a89daa5432a82e9bc6b816d53"
+    },
+    {
+      "path": "assets/discovery-brief-template.md",
+      "bytes": 3588,
+      "sha256": "a0ee11e0e99e6b02415cfa1aeb754d1ebd4884ecdde444e4e2442951c544636b"
+    },
+    {
+      "path": "references/evidence-and-decisions.md",
+      "bytes": 5697,
+      "sha256": "ee08e003254aec0b901520d57a372af9e6d22dfc366b1597ebba7fbd90e742ae"
+    },
+    {
+      "path": "references/saved-briefs.md",
+      "bytes": 6067,
+      "sha256": "2cad050f29b6fd57d80965f0875c6052989e8dab7c4b2a8a87b28903bd05f05b"
+    }
+  ],
+  "excluded_boundaries": [],
+  "complete": true,
+  "package_digest": "5a0501c51b234ea47f35ff6f7bdeafc996223e82eb40aff683f8c8c33a3070ae"
+}

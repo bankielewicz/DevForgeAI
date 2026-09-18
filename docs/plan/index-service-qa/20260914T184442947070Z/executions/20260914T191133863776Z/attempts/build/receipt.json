@@ -1,0 +1,29 @@
+{
+  "case_id": "build",
+  "argv": [
+    "cargo",
+    "build",
+    "--locked",
+    "--offline",
+    "--release"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\candidate",
+  "platform": "win32",
+  "start": "2026-09-14T19:14:37.807598+00:00",
+  "environment_overrides": {
+    "TEMP": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\temp",
+    "TMP": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\temp",
+    "TMPDIR": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\temp",
+    "CARGO_TARGET_DIR": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\target",
+    "CARGO_LLVM_COV_TARGET_DIR": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\coverage-target",
+    "DEVFORGEAI_INDEX_DATA": "C:\\Projects\\DevForgeAI\\tmp\\qa-20260914T191133863776Z\\default-data",
+    "DEVFORGEAI_GUI_EVIDENCE": "C:\\Projects\\DevForgeAI\\docs\\plan\\index-service-qa\\20260914T184442947070Z\\executions\\20260914T191133863776Z\\attempts\\build\\gui"
+  },
+  "timeout_seconds": 1800,
+  "pid": 52824,
+  "exit_code": 0,
+  "end": "2026-09-14T19:15:00.290008+00:00",
+  "elapsed_seconds": 22.485000000000582,
+  "stdout.txt_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr.txt_sha256": "049f28e18e4eff796723c32513499ec48b0d3d1f9122db1ace88c9212096ad00"
+}

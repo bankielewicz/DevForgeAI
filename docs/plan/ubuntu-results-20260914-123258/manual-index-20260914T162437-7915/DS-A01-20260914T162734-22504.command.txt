@@ -1,0 +1,1 @@
+cargo test --locked --test process simultaneous_starts_and_process_level_index_lifecycle -- --nocapture 

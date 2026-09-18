@@ -1,0 +1,45 @@
+{
+  "schema_version": "1",
+  "run_id": "20260915T1342575302099Z",
+  "target_name": "skill-validator",
+  "original_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+  "original_manifest": {
+    "path": "source-manifest.json",
+    "sha256": "d1c09d391a0506f81204cde2c58eabef49e30210840a33f6869f5f119a6609cc"
+  },
+  "origin": {
+    "path": "origin-record.json",
+    "sha256": "0d837467bca3700eabdea15b511f916858bd1ed8b98ee60e5a2101e884649b65"
+  },
+  "proposed_spec": {
+    "path": "revision-spec.md",
+    "sha256": "c64d0bf4dbfdd5e5f156f35f558d58248400a677084211873d70df044f086032"
+  },
+  "findings": {
+    "path": "findings.json",
+    "sha256": "58a1dbe3b8ac88cd951244d046c65480cc1685c4ee5685b2db82442d479c2bf3"
+  },
+  "report": {
+    "path": "validation-report.md",
+    "sha256": "4afa099567eca3cac4dfd7f727d366f5931e113544f481b9f28ad619a773103a"
+  },
+  "selected_finding_ids": [],
+  "deferred_finding_ids": [],
+  "proposal_review_state": "pending",
+  "review_instruction": null,
+  "builder_readiness": "BLOCKED",
+  "readiness_reasons": [
+    "Select exact dependency failure contract and byte-bound copied-path coverage mechanism; future repair/intake has not been authorized."
+  ],
+  "baseline_kind": null,
+  "baseline_reference": null,
+  "adoption_required": false,
+  "adoption_capability": "Not inspected; current observed scoped-edit compatibility is described by the package. No generated/adopted baseline asserted.",
+  "permitted_target_root": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator",
+  "preservation_requirements": [
+    "No repair during validation",
+    "Preserve operational and companion packages",
+    "Preserve all prior evidence"
+  ],
+  "target_package_digest": "8852ab64ea1b757af6cb17ebde9d411e4ed0ce21962290b8c241c31f0320fb3b"
+}

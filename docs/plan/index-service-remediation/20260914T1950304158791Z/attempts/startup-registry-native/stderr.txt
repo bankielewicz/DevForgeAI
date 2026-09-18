@@ -1,0 +1,4 @@
+   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.05s
+     Running tests\startup_registry.rs (target\debug\deps\startup_registry-a922948f7b4ee3fc.exe)
+Owned volatile registry fixture: HKCU\Software\DevForgeAI-Index-Test-f38a1504-b924-4e88-b5ee-42067927a2c4

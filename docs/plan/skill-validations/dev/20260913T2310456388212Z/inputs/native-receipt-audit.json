@@ -1,0 +1,187 @@
+[
+  {
+    "trial": "DV-01-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 4,
+    "references_checked": 16,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-02-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 5,
+    "references_checked": 15,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-03-javascript-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 6,
+    "references_checked": 36,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-03-python-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 3,
+    "references_checked": 12,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-04-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 3,
+    "references_checked": 15,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-05-001",
+    "files": [
+      "evidence/execution-record.jsonl"
+    ],
+    "receipt_count": 1,
+    "references_checked": 4,
+    "uppercase_hex_references": 4,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-06-001",
+    "files": [
+      "evidence/20260913T232930370820Z/executions.jsonl"
+    ],
+    "receipt_count": 1,
+    "references_checked": 3,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-07-001",
+    "files": [
+      "evidence/execution-record.jsonl"
+    ],
+    "receipt_count": 1,
+    "references_checked": 3,
+    "uppercase_hex_references": 3,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-08-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 2,
+    "references_checked": 6,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-09-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 4,
+    "references_checked": 12,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-10-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 4,
+    "references_checked": 12,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-11-001",
+    "files": [],
+    "receipt_count": 0,
+    "references_checked": 0,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-12-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 2,
+    "references_checked": 6,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-13-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 2,
+    "references_checked": 6,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-14-001",
+    "files": [
+      "evidence/execution-record.jsonl"
+    ],
+    "receipt_count": 1,
+    "references_checked": 5,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-17-001",
+    "files": [
+      "receipts/executions.jsonl"
+    ],
+    "receipt_count": 3,
+    "references_checked": 12,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  },
+  {
+    "trial": "DV-18-001",
+    "files": [
+      "evidence/executions.jsonl"
+    ],
+    "receipt_count": 2,
+    "references_checked": 6,
+    "uppercase_hex_references": 0,
+    "unsupported_rows": [],
+    "problems": []
+  }
+]

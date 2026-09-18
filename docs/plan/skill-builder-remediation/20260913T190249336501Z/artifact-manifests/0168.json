@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-lineage-table-other-resource",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1391,
+      "sha256": "1a4d74f5d8f70928b572a97e72d42e7296f5b68c2a93a44012c5589d53d62b81"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "489aece43156ef2c3424863f5e5187f841604483208d25125ae11c13dbf671f6"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 106,
+      "sha256": "86ba599260e0dc2f782cd9489d178c223d7f16f2ed323e7b5c492768c4a6124f"
+    }
+  ]
+}

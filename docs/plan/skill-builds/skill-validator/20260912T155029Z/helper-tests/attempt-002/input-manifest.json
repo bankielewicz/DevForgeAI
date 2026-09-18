@@ -1,0 +1,12 @@
+[
+  {
+    "path": "scripts/observe.py",
+    "bytes": 44354,
+    "sha256": "9083890b969ab739df320812a6ca551947b890e968642468d7199ee17167be3d"
+  },
+  {
+    "path": "tests/test_observe.py",
+    "bytes": 22382,
+    "sha256": "2e9eb48b6f28cc44c86a62e11adc6b84eb5c42798f446f2c796cdec2b62bc4d9"
+  }
+]

@@ -1,0 +1,1 @@
+cargo test --locked --test capture eligibility_accounts_for_exclusions_encodings_and_untracked_files -- --nocapture 

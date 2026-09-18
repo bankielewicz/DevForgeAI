@@ -1,0 +1,27 @@
+{
+  "command": [
+    "python",
+    "-B",
+    "-X",
+    "utf8",
+    "docs/plan/skill-authorings/advisor/20260916T134000Z-streaming/candidate/scripts/advisor_run.py",
+    "preflight",
+    "--claude",
+    "C:/Users/bryan/.local/bin/claude.exe",
+    "--auth-mode",
+    "subscription"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI",
+  "started_utc": "2026-09-16T13:50:01.267959+00:00",
+  "finished_utc": "2026-09-16T13:50:01.507970+00:00",
+  "duration_seconds": 0.25,
+  "timeout_seconds": 45,
+  "exit_code": 0,
+  "harness_error": null,
+  "stdout_sha256": "e56dc5d1b350982de67a137c6306325bd41ad6c6b273fb7d33d7d3d4c2c13780",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "host": "Windows-10-10.0.26200-SP0",
+  "architecture": "AMD64",
+  "python": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "C:\\Program Files\\Python310\\python.exe"
+}

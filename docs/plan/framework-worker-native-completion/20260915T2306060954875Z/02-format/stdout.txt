@@ -1,0 +1,8 @@
+Diff in \\?\C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe\src\lib.rs:1:
+ //! Nonproduction, one-turn worker feasibility experiment.
+-pub mod journal;
+ pub mod effective_profile;
++pub mod journal;
+ pub mod launch_policy;
+ pub mod native_identity;
+ pub mod oracle;

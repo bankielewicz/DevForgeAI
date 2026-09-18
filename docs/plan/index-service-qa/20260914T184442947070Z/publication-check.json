@@ -1,0 +1,75 @@
+{
+  "kind": "documentation factual/link/requirement/consistency readback only",
+  "result": "PASS",
+  "timestamp_utc": "2026-09-14T19:04:07.895141+00:00",
+  "checks": [
+    {
+      "check": "candidate_identity_unchanged",
+      "result": "PASS",
+      "detail": "48 file digests matched"
+    },
+    {
+      "check": "input_identity_unchanged",
+      "result": "PASS",
+      "detail": "15 file digests matched"
+    },
+    {
+      "check": "candidate_file_inventory_unchanged",
+      "result": "PASS",
+      "detail": {
+        "observed": 48,
+        "bound": 48
+      }
+    },
+    {
+      "check": "26_requirements_mapped",
+      "result": "PASS",
+      "detail": "All DS-001 through DS-026 mapped"
+    },
+    {
+      "check": "19_scenarios_nonempty_resolved",
+      "result": "PASS",
+      "detail": "All DS-A01 through DS-A19 mapped to known independent cases"
+    },
+    {
+      "check": "scenario_table_readback",
+      "result": "PASS",
+      "detail": "Saved table matches structured map"
+    },
+    {
+      "check": "planning_status_consistency",
+      "result": "PASS",
+      "detail": "No product execution verdict issued"
+    },
+    {
+      "check": "case_statuses_not_run",
+      "result": "PASS",
+      "detail": "No invented runtime results"
+    },
+    {
+      "check": "no_authoring_placeholders",
+      "result": "PASS",
+      "detail": "Concrete prerequisites replace executable placeholders"
+    },
+    {
+      "check": "local_markdown_links",
+      "result": "PASS",
+      "detail": "No broken local Markdown links; inline/fenced code excluded from link parser"
+    },
+    {
+      "check": "ssh_source_matches_selected_candidate",
+      "result": "PASS",
+      "detail": "48 source files; POSIX relative names and C-locale byte order"
+    },
+    {
+      "check": "remote_spec_drift_explicit",
+      "result": "PASS",
+      "detail": "Selected local spec governs; remote copy not silently substituted"
+    }
+  ],
+  "product_tests": "NOT_RUN",
+  "framework_acceptance": "NOT_EVALUATED",
+  "command": "python -B -X utf8 -; inline document/manifest readback, no product tests",
+  "prior_attempt": "publication-check-001.json",
+  "correction": "Initial link detector misclassified the inline coverage regex as a Markdown link. Corrected the documentation checker to exclude inline/fenced code; no document expectation or product behavior changed."
+}

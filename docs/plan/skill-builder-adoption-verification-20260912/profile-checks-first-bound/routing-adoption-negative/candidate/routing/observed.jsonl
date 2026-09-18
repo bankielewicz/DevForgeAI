@@ -1,0 +1,10 @@
+{"case_id": "r1", "route": "installation", "request": "Adopt the existing Codex development skill at the selected path using the reviewed origin specification and the explicit managed list; preserve its bytes."}
+{"case_id": "r2", "route": "unrelated", "request": "Validate this existing Codex skill and report defects. Do not adopt or revise it."}
+{"case_id": "r3", "route": "specification_authoring", "request": "Write a proposed origin specification for this package for my review."}
+{"case_id": "r4", "route": "installation", "request": "Install this package into my personal skills directory."}
+{"case_id": "r5", "route": "import", "request": "Import the selected local Claude receipt skill into a Codex development package."}
+{"case_id": "r6", "route": "spec_build", "request": "Build a new Codex development skill from this reviewed Markdown specification."}
+{"case_id": "r7", "route": "revision", "request": "Revise the existing generated output using its prior successful build and this authorized specification."}
+{"case_id": "r8", "route": "explanation", "request": "Explain the difference between adopting and validating a skill."}
+{"case_id": "r9", "route": "unrelated", "request": "Fix a typo in the project release notes."}
+{"case_id": "r10", "route": "explanation", "request": "The validator report says READY; inspect the handoff and tell me what is missing. I have not approved the managed list."}

@@ -1,0 +1,507 @@
+{
+  "required": 305,
+  "passed": 243,
+  "failures": [
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_applied_delta_cannot_omit_a_changed_path",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 331, in test_applied_delta_cannot_omit_a_changed_path\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_applied_result_requires_evaluation_and_readback",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 335, in test_applied_result_requires_evaluation_and_readback\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_authorization_must_identify_current_input_hash",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 242, in test_authorization_must_identify_current_input_hash\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_changed_pointer_cannot_be_reported_as_unadvanced",
+      "result": "FAIL",
+      "seconds": 0.35900000000037835,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 345, in test_changed_pointer_cannot_be_reported_as_unadvanced\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_conflicted_run_cannot_modify_destination",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 307, in test_conflicted_run_cannot_modify_destination\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_divergent_owned_edits_produce_no_delta_conflict",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 274, in test_divergent_owned_edits_produce_no_delta_conflict\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-zlo98_oo\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_duplicate_requirement_ids_are_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 174, in test_duplicate_requirement_ids_are_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_duplicate_routing_result_is_error",
+      "result": "FAIL",
+      "seconds": 0.35899999999674037,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 387, in test_duplicate_routing_result_is_error\n    self.assert_rejected(self.evaluate(), \"routing_outcomes\", \"ERROR\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'builder-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_equal_baseline_current_candidate_uses_first_matching_rule",
+      "result": "FAIL",
+      "seconds": 0.39100000000325963,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 269, in test_equal_baseline_current_candidate_uses_first_matching_rule\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-mpecyevp\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_evaluation_from_different_run_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 226, in test_evaluation_from_different_run_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_evaluation_from_different_target_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.35899999999674037,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 234, in test_evaluation_from_different_target_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_every_profile_has_exact_required_graders_and_v2_evidence",
+      "result": "FAIL",
+      "seconds": 1.5630000000019209,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 121, in test_every_profile_has_exact_required_graders_and_v2_evidence\n    records = self.assert_pass(self.evaluate(profile))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-p4zgkpc7\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'legacy-import-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n",
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 121, in test_every_profile_has_exact_required_graders_and_v2_evidence\n    records = self.assert_pass(self.evaluate(profile))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-p4zgkpc7\\\\results-2.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'import-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n",
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 121, in test_every_profile_has_exact_required_graders_and_v2_evidence\n    records = self.assert_pass(self.evaluate(profile))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-p4zgkpc7\\\\results-3.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n",
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 121, in test_every_profile_has_exact_required_graders_and_v2_evidence\n    records = self.assert_pass(self.evaluate(profile))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-p4zgkpc7\\\\results-4.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-import-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n",
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 121, in test_every_profile_has_exact_required_graders_and_v2_evidence\n    records = self.assert_pass(self.evaluate(profile))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-p4zgkpc7\\\\results-5.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n",
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 121, in test_every_profile_has_exact_required_graders_and_v2_evidence\n    records = self.assert_pass(self.evaluate(profile))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-p4zgkpc7\\\\results-6.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'builder-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_evidence_with_duplicate_json_keys_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 238, in test_evidence_with_duplicate_json_keys_is_rejected\n    self.trace_rejected(\"ERROR\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_excerpt_digest_mismatch_is_observed",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 158, in test_excerpt_digest_mismatch_is_observed\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_identical_unowned_collision_still_conflicts",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 280, in test_identical_unowned_collision_still_conflicts\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-jcq8kkd_\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_input_byte_count_mismatch_is_observed",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 154, in test_input_byte_count_mismatch_is_observed\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_input_mutation_is_observed",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 150, in test_input_mutation_is_observed\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_baseline_file_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 202, in test_missing_baseline_file_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_evaluation_mapping_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.35900000000037835,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 214, in test_missing_evaluation_mapping_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_output_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 190, in test_missing_output_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_previous_baseline_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 349, in test_missing_previous_baseline_is_rejected\n    self.revision_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_required_candidate_artifact_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 296, in test_missing_required_candidate_artifact_is_rejected\n    self.revision_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_requirement_ids_are_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 178, in test_missing_requirement_ids_are_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_missing_routing_result_is_error",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 381, in test_missing_routing_result_is_error\n    self.assert_rejected(self.evaluate(), \"routing_outcomes\", \"ERROR\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'builder-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_modified_obsolete_owned_file_conflicts",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 292, in test_modified_obsolete_owned_file_conflicts\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-v60uv9pa\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_negative_excerpt_start_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 166, in test_negative_excerpt_start_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_new_unoccupied_generated_file_can_be_added",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 263, in test_new_unoccupied_generated_file_can_be_added\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-yqz481da\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_omitted_profile_preserves_legacy_case_shape",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 127, in test_omitted_profile_preserves_legacy_case_shape\n    records = self.assert_pass(self.evaluate(\"legacy-import-v1\", supplied_profile=False))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-_j1o0yuf\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'legacy-import-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_out_of_range_excerpt_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 162, in test_out_of_range_excerpt_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_owned_paths_must_equal_previous_generated_baseline",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 353, in test_owned_paths_must_equal_previous_generated_baseline\n    self.revision_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_partial_application_cannot_publish_successful_baseline",
+      "result": "FAIL",
+      "seconds": 0.3899999999994179,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 327, in test_partial_application_cannot_publish_successful_baseline\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_partial_application_records_exact_delta_without_baseline_advance",
+      "result": "FAIL",
+      "seconds": 0.4069999999992433,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 323, in test_partial_application_records_exact_delta_without_baseline_advance\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-hw52qp8v\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_plan_rows_cannot_claim_a_different_comparison_action",
+      "result": "FAIL",
+      "seconds": 0.3899999999994179,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 311, in test_plan_rows_cannot_claim_a_different_comparison_action\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_regeneration_keeps_current_when_already_equal_to_candidate",
+      "result": "FAIL",
+      "seconds": 0.40600000000267755,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 253, in test_regeneration_keeps_current_when_already_equal_to_candidate\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-ln_tnlkd\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_regeneration_preserves_user_edit_when_generation_is_unchanged",
+      "result": "FAIL",
+      "seconds": 0.4059999999990396,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 246, in test_regeneration_preserves_user_edit_when_generation_is_unchanged\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-4qdz0k80\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_regeneration_uses_new_when_current_matches_baseline",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 258, in test_regeneration_uses_new_when_current_matches_baseline\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-qee1_nd7\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_required_result_cannot_preserve_a_user_deletion",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 301, in test_required_result_cannot_preserve_a_user_deletion\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-fx6801yg\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_requirement_mapping_must_agree_in_both_directions",
+      "result": "FAIL",
+      "seconds": 0.3899999999994179,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 186, in test_requirement_mapping_must_agree_in_both_directions\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_retry_does_not_redefine_baseline_after_partial_application",
+      "result": "FAIL",
+      "seconds": 0.4529999999977008,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 368, in test_retry_does_not_redefine_baseline_after_partial_application\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-qhurle3k\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_routing_difference_fails",
+      "result": "FAIL",
+      "seconds": 0.3899999999994179,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 376, in test_routing_difference_fails\n    self.assert_rejected(self.evaluate(), \"routing_outcomes\", \"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'builder-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_stale_builder_digest_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.4059999999990396,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 210, in test_stale_builder_digest_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_stale_contract_digest_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.39100000000325963,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 206, in test_stale_contract_digest_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_stale_output_digest_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 194, in test_stale_output_digest_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_successful_baseline_publication_matches_new_generated_bytes",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 339, in test_successful_baseline_publication_matches_new_generated_bytes\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-mlfqf069\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unknown_artifact_requirement_id_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.3899999999994179,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 182, in test_unknown_artifact_requirement_id_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unknown_evaluation_mapping_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 218, in test_unknown_evaluation_mapping_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unknown_excerpt_input_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 170, in test_unknown_excerpt_input_is_rejected\n    self.trace_rejected()\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unknown_extra_destination_file_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 198, in test_unknown_extra_destination_file_is_rejected\n    self.trace_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 106, in trace_rejected\n    self.assert_rejected(self.evaluate(\"spec-v1\"), \"build_traceability\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unknown_route_is_error",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 394, in test_unknown_route_is_error\n    self.assert_rejected(self.evaluate(), \"routing_outcomes\", \"ERROR\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'builder-v2', 'profile_version': '2', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unmodified_obsolete_owned_file_can_be_removed",
+      "result": "FAIL",
+      "seconds": 0.39099999999962165,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 285, in test_unmodified_obsolete_owned_file_can_be_removed\n    self.assert_pass(self.evaluate(\"revision-spec-v1\"))\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 64, in assert_pass\n    self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr + repr(records))\nAssertionError: 2 != 0 : {\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\builder-enhancement-test-6eozxi6m\\\\results-1.jsonl\", \"authority\": \"NONE\"}\n[{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_enhancements.EnhancementTests.test_unrelated_file_mutation_is_rejected",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 316, in test_unrelated_file_mutation_is_rejected\n    self.revision_rejected(\"FAIL\")\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 109, in revision_rejected\n    self.assert_rejected(self.evaluate(\"revision-spec-v1\"), \"revision_consistency\", status)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_enhancements.py\", line 75, in assert_rejected\n    self.assertEqual(len(selected), 1, records)\nAssertionError: 0 != 1 : [{'build_manifest_sha256': None, 'candidate_digests': {}, 'case_id': None, 'cases_sha256': None, 'error': 'ValueError: required build artifact missing, unlisted or digest mismatch', 'expectation_met': False, 'expected': None, 'grader_id': None, 'grader_sha256': None, 'grader_version': '2.0.0', 'observations': [], 'platform': 'Windows-10-10.0.26200-SP0', 'profile': 'revision-spec-v1', 'profile_version': '1', 'python_version': '3.10.11', 'run_id': 'enhancement-test', 'schema_version': '2', 'status': 'ERROR'}]\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_complete_byte_preserving_accounting_passes_with_digest_evidence",
+      "result": "FAIL",
+      "seconds": 0.3440000000009604,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 225, in test_complete_byte_preserving_accounting_passes_with_digest_evidence\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-ysxzwufz\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_existing_inline_and_reference_links_pass",
+      "result": "FAIL",
+      "seconds": 0.35899999999674037,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 272, in test_existing_inline_and_reference_links_pass\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-is7yh9_3\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_incomplete_dispositions_fail",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 248, in test_incomplete_dispositions_fail\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-hbbyz6o_\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_link_escaping_selected_package_fails_even_if_file_exists",
+      "result": "FAIL",
+      "seconds": 0.35900000000037835,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 291, in test_link_escaping_selected_package_fails_even_if_file_exists\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-vynyw5oz\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_missing_disposition_target_fails",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 261, in test_missing_disposition_target_fails\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-w6c1lmg2\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_missing_inline_link_fails",
+      "result": "FAIL",
+      "seconds": 0.35899999999674037,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 278, in test_missing_inline_link_fails\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-ht92_q6b\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_missing_reference_style_link_fails",
+      "result": "FAIL",
+      "seconds": 0.3600000000005821,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 284, in test_missing_reference_style_link_fails\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-mdp5w1ds\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_preserve_mismatch_fails_even_with_current_destination_manifest",
+      "result": "FAIL",
+      "seconds": 0.3600000000005821,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 239, in test_preserve_mismatch_fails_even_with_current_destination_manifest\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-_5q9d0s6\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_source_mutation_is_observed_even_when_baseline_files_agree",
+      "result": "FAIL",
+      "seconds": 0.375,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 232, in test_source_mutation_is_observed_even_when_baseline_files_agree\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-xwck5a15\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_unexpected_failure_sets_exit_one",
+      "result": "FAIL",
+      "seconds": 0.3600000000005821,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 297, in test_unexpected_failure_sets_exit_one\n    self.assert_exit(completed, 1)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 1 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-aagi1io2\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    },
+    {
+      "case_id": "test_evaluation.EvaluationTests.test_unmanifested_source_file_fails",
+      "result": "FAIL",
+      "seconds": 0.35900000000037835,
+      "details": [
+        "Traceback (most recent call last):\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 254, in test_unmanifested_source_file_fails\n    self.assert_exit(completed, 0)\n  File \"C:\\Projects\\DevForgeAI\\src\\agents\\skills\\skill-validator\\tests\\test_evaluation.py\", line 183, in assert_exit\n    self.assertEqual(\nAssertionError: 2 != 0 : stdout:\n{\"records\": 1, \"exit_code\": 2, \"output\": \"C:\\\\Projects\\\\DevForgeAI\\\\docs\\\\plan\\\\skill-validator-postmvp-maintenance\\\\20260914T230521566382Z\\\\regression-001\\\\temp\\\\skill-evaluation-test-kjofzwdy\\\\results\\\\observations.jsonl\", \"authority\": \"NONE\"}\n\nstderr:\n\n"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,846 @@
+[
+  {
+    "case": "release-direct-v2-binding-absent",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "MISSING_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-absent\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "MISSING_BINDING",
+      "binding_sha256": null,
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-bad-date",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-bad-date\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "1ced965ca7c35377a64e28066b667bfffa7988dd9c9a657e6ae10f97064eac3b",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-boolean-revision",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-boolean-revision\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "0f5d793904689cf92f4770b35fb55609d9c2eac9d9829c72acb5648ef3995b72",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-byte-limit",
+    "status": "PASS",
+    "exit": 2,
+    "expected": {
+      "exit": 2,
+      "field": "reason_code",
+      "value": "CAPTURE_LIMIT",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "UNAVAILABLE",
+      "reason_code": "CAPTURE_LIMIT",
+      "binding_sha256": "417e7219a5663e1ce9a4ecd9403e8c415f1b0447273ac559f8cf890532d062df",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-case-root",
+    "status": "PASS",
+    "exit": 0,
+    "expected": {
+      "exit": 0,
+      "field": "reason_code",
+      "value": "BOUND",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-case-root\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MATCH",
+      "reason_code": "BOUND",
+      "binding_sha256": "7c3334ccd7d66b6aa155fe23e2f0d60a3de096716734ccb71651ba2890fc8753",
+      "package_digest": "d78cbf363e54996f5ab1e4bd9b35580c73348699490a82d3cc309a805e019d88",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-changed",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "PACKAGE_CHANGED",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-changed\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "new.txt",
+          "bytes": 7,
+          "sha256": "d67e2e944994496c8d8ec76eed0cf9f09679448d584b532bebf941852a37f5ed"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "PACKAGE_CHANGED",
+      "binding_sha256": "e3e74e546fd11d153bba1a587012cd03887dbc8aecff4384d6a171acb2af2394",
+      "package_digest": "c762cf790ce741927d24c09564812b35471814d277ebafce96187427ce82823e",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-core-variant",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "AMBIGUOUS_ROLE",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-core-variant\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 426,
+          "sha256": "bfb2faa90c47d6104067af8135ae8a453b84a03c19840aea79f9b673eed3d3f0"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "AMBIGUOUS_ROLE",
+      "binding_sha256": "7499410f5926bc5366e7fb638b66d391c955f81db4b0d51fcbfc4f513a653a92",
+      "package_digest": "385c74c9973dfdd573d6899939235ac39cbce07c417f341d74d7d2b420f36ff2",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-correct",
+    "status": "PASS",
+    "exit": 0,
+    "expected": {
+      "exit": 0,
+      "field": "reason_code",
+      "value": "BOUND",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-correct\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MATCH",
+      "reason_code": "BOUND",
+      "binding_sha256": "084b5e9d1c63d9c44be8c53d2f9294681086e1115357ab46f65e53c5dd63e665",
+      "package_digest": "d78cbf363e54996f5ab1e4bd9b35580c73348699490a82d3cc309a805e019d88",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-duplicate-name",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-duplicate-name\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "92b28da9210c861583ed1c367d15612574c356da7dbd0176a3e7568ad5de2145",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-excluded-generated",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "UNSAFE_PATH",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "UNSAFE_PATH",
+      "binding_sha256": "d33b037a872d421950f973924f2bb4b6f7822058725b35143f6551184119f5fb",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-extra-field",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-extra-field\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "af82a89040fdd8dfb706919bd3b3509127dc0b0f00fb6354c0470da1d3cde157",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-file-limit",
+    "status": "PASS",
+    "exit": 2,
+    "expected": {
+      "exit": 2,
+      "field": "reason_code",
+      "value": "CAPTURE_LIMIT",
+      "read_only_root": null,
+      "before_manifest": null
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "UNAVAILABLE",
+      "reason_code": "CAPTURE_LIMIT",
+      "binding_sha256": "4f0a2347a8756e34c3fbbda34d4de2c912351cb181a31293c650ec4573634858",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-hostile-path",
+    "status": "PASS",
+    "exit": 0,
+    "expected": {
+      "exit": 0,
+      "field": "reason_code",
+      "value": "BOUND",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-hostile-path\\space café & $ ; ' (project)\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MATCH",
+      "reason_code": "BOUND",
+      "binding_sha256": "36671a0a96b9578d8e8007faed5067d363b61611ae50cd373c6ec8d88674ccd5",
+      "package_digest": "d78cbf363e54996f5ab1e4bd9b35580c73348699490a82d3cc309a805e019d88",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-inactive",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "NOT_SELECTED",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-inactive\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "NOT_SELECTED",
+      "binding_sha256": "b66fe91ec7efb635159cb8e3b054d07c56b9de1173c153bd099ac9b38c9e5cca",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-invalid-descriptor",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-invalid-descriptor\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 3,
+          "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "de050f60afb22f01b5eb984aee695f306f660da8ca56bc1d1603983f9a194ebf",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-invalid-related",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-invalid-related\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "e24fafb6017abe44fbae06d230064197e9dbbf94098cfa438309a709668d2ac0",
+      "package_digest": "d78cbf363e54996f5ab1e4bd9b35580c73348699490a82d3cc309a805e019d88",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-missing-resource",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-missing-resource\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 409,
+          "sha256": "430da4d3572f503e1bc8cc62a1834cff2fdb2367831fa65642beef75f0e8e6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "044543d1b7f8f1e1e6c80a835b192a200a57d0ccbe0ef59b45f016781e55d9a6",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-role",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "ROLE_MISMATCH",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-role\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "ROLE_MISMATCH",
+      "binding_sha256": "3ed77e8025ac492f9848cc503cc8919396a7977c402d97cbdb76ad7c4bd7b961",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-two-variants",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "AMBIGUOUS_ROLE",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-two-variants\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "AMBIGUOUS_ROLE",
+      "binding_sha256": "176c4f65cb9c3999fa9fc5b1bedb26d7bd560f933354b38aaf7e234b0f0c20e3",
+      "package_digest": "d78cbf363e54996f5ab1e4bd9b35580c73348699490a82d3cc309a805e019d88",
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-unbound",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "UNBOUND_SKILL",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-unbound\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "UNBOUND_SKILL",
+      "binding_sha256": "7087ef7c6f13635b6cdb18577c4abd75f92e17bfd7ea678bf95a8e9778f9b6db",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-unknown-version",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "INVALID_BINDING",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-unknown-version\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "INVALID_BINDING",
+      "binding_sha256": "db031ae462440005ca7ac47797e01c8646eb6a1161ae489498e6aa6f5adf7635",
+      "package_digest": null,
+      "details": []
+    }
+  },
+  {
+    "case": "release-direct-v2-binding-wrong-root",
+    "status": "PASS",
+    "exit": 1,
+    "expected": {
+      "exit": 1,
+      "field": "reason_code",
+      "value": "ROOT_MISMATCH",
+      "read_only_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-release\\fixtures\\extra\\binding-wrong-root\\project\\.agents\\skills\\summary-skill",
+      "before_manifest": [
+        {
+          "path": "SKILL.md",
+          "bytes": 330,
+          "sha256": "ec46e875e5688b56f14e01f4e67a5fe15b55f29f71da3dd9d6b7a60817324b67"
+        },
+        {
+          "path": "assets/devforgeai-skill.json",
+          "bytes": 431,
+          "sha256": "1dea9c740cf1d7a68219895ba9ad2a09b97b0c67ab7f807ad8fa92ebc178d6f4"
+        },
+        {
+          "path": "references/adaptive-contract.md",
+          "bytes": 297,
+          "sha256": "ee1b190a764954b0dda1b9addc95f9112deda708fa558d7a90b64374ad7dbb58"
+        },
+        {
+          "path": "scripts/check_project_binding.py",
+          "bytes": 12433,
+          "sha256": "acbbefa2d297661bac22f27bedbaf390a1f24e6e95775d8dc6f402a1b4834f16"
+        }
+      ]
+    },
+    "actual": {
+      "schema_version": "binding-observation-v1",
+      "status": "MISMATCH",
+      "reason_code": "ROOT_MISMATCH",
+      "binding_sha256": "58898ac267de7230bdfb4c3225a39d8960efab96cc01a2135e949c4021ac5592",
+      "package_digest": null,
+      "details": []
+    }
+  }
+]

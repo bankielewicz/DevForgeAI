@@ -1,0 +1,167 @@
+{
+  "schema_version": "authoring-v1",
+  "record_kind": "authoring",
+  "run_id": "qa-claude-conversion-001",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\qa",
+  "target_name": "qa",
+  "operation": "import",
+  "authorization": "Maintainer instruction 2026-09-17: convert the Codex QA skill at src/agents/skills/qa into a Claude Code skill at src/claude/skills named qa. Authorizes writing the converted package into the selected target_root only; no installation, host configuration, hook or settings registration, mirroring into .claude/, product execution, testing or validation.",
+  "contract": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\contract.json",
+    "sha256": "19a16373c9358fc0ec0162fcf304c6daca66e65159a712512bd6834a9f61a8b1"
+  },
+  "inputs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\SKILL.md",
+      "sha256": "697739fb523f4d218545137dac4f93de3b221ebc70373292ed2385503586d1bb"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\agents\\openai.yaml",
+      "sha256": "4fe069f60649fbf249916b5719e9f94983754ea69dc2a32a99bd0db2bb4daa21"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\assessment.md",
+      "sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\execution-integrity.md",
+      "sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\intake-planning.md",
+      "sha256": "2e2de980c1baea9dfe945b29253d00701d72c6c758516fd8b4efca238dbba3c4"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\references\\reporting-handoff.md",
+      "sha256": "b3b457bd5ce38a6ab890a17ea8cfde40dac9e0f7fd25aa1da0354dfa948d9006"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\qa-fix-template.md",
+      "sha256": "3bccfdb11786f445d906ee7109af406ee237d436fcd1e787757a4824f538fdaf"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\qa-report-template.md",
+      "sha256": "e7184486a110673f77d37ef5211c41d47cd4d3182bb477bed4510a67f0d90036"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa\\assets\\test-plan-template.md",
+      "sha256": "f000dc4dda27fce0e51614934385b972dbaf27f46a7d2d6d35918358362d88a7"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\qa-claude-conversion\\intake\\design.json",
+      "sha256": "c9d7c25c5f23e137b6cc3d5108be664faa91599fe86971eafeb1670668c267ed"
+    }
+  ],
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "managed_paths": [
+    "SKILL.md",
+    "assets/qa-fix-template.md",
+    "assets/qa-report-template.md",
+    "assets/test-plan-template.md",
+    "references/assessment.md",
+    "references/execution-integrity.md",
+    "references/intake-planning.md",
+    "references/reporting-handoff.md"
+  ],
+  "retained_user_paths": [],
+  "before_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\before-manifest.json",
+    "sha256": "d0b5c38956e8f3631903ede7d30cff006b4945f1664061453e3ff0ac256c189f"
+  },
+  "candidate_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\candidate-manifest.json",
+    "sha256": "28ab8267fb044d777932c40f7ee3ab9c7366415230bb21a94e761569fc21ce50"
+  },
+  "delivered_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\delivered-manifest.json",
+    "sha256": "28ab8267fb044d777932c40f7ee3ab9c7366415230bb21a94e761569fc21ce50"
+  },
+  "applied_paths": [
+    "SKILL.md",
+    "assets/qa-fix-template.md",
+    "assets/qa-report-template.md",
+    "assets/test-plan-template.md",
+    "references/assessment.md",
+    "references/execution-integrity.md",
+    "references/intake-planning.md",
+    "references/reporting-handoff.md"
+  ],
+  "authoring_state": "AUTHORED",
+  "validation_status": "NOT_PERFORMED",
+  "testing_status": "NOT_PERFORMED",
+  "unresolved_issues": [
+    "No bound Python evaluation artifacts were created for this package: no evals/, tests/ or scripts/ directory exists. AGENTS.md names such artifacts required for a skill build, and the source package's own QA-026 / QAP-014 clause states that qa's evaluated-build completeness requires exactly such a bundle. skill-builder forbids generating evaluation campaigns during authoring and the validator package is documented as owning all quality campaigns. Recorded as design open question Q1 for the maintainer; the conversion did not resolve it.",
+    "Task is omitted from allowed-tools, so QA independence from development completion claims remains a contract obligation of the single session rather than a fresh-context boundary the host enforces. Recorded as design open question Q2.",
+    "The >=95% coverage and unit-test pass-rate floors are preserved as written in references/assessment.md rather than converted into project-policy inputs. Recorded as design open question Q3.",
+    "Only the selected target_root is written. The ADR-073 mirror at .claude/skills/qa is not created by this run, matching the dev conversion whose authoring record shows its .claude/ copy was made outside the run. Recorded as design open question Q4 and reported as a separate pending action.",
+    "Unscoped Bash is granted. The skill's prohibitions on product repair, installation, deployment and persistent startup changes are contract obligations that the allowlist does not enforce; the SKILL.md body states this rather than implying enforcement.",
+    "Validation and testing are NOT_PERFORMED for the converted bytes.",
+    "The two prior runs under docs/plan/skill-authorings/qa/ (20260914T1748018341005Z and 20260914T193851Z) were inspected before staging: both bind target_root C:\\Projects\\DevForgeAI\\src\\agents\\skills\\qa with operation edit, which is the Codex source package and a different target_root from this Claude target. They are authoring history for the source, not for this destination, and no run under this target_root exists, so history_review is no_known_history. Those runs remain in place as append-only evidence."
+  ],
+  "rows": [
+    {
+      "path": "SKILL.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "35c822ac83bbbeb56afc348c49dcdee7d30c5f9d699f2ec9d05ad19c3937d28c",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/qa-fix-template.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "2d3be20a3db3b3a75e6a59da9515b28f25a1a83e1de3db1cf600eea4294411c7",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/qa-report-template.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "2844d5188d31e0f8a9f502381293b4eb01b5ca509c10593f76f96bbe67cfa91a",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "assets/test-plan-template.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "a971e719c3c70b096b22f92da62adaf9ecd80da2a85e97bd1967a48ff7082402",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/assessment.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "f2f3abc6dd2426067b359766e4fc8ce32790d528238a16101b62d7850b7b7c11",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/execution-integrity.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "467ee0fec6f661b0c361e9f70197f1d00374875e334bca2e909c88f3071afaf4",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/intake-planning.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "425e68ebc560ebe7241d31a5c0a7866ddfc203066bddd2373012d229c68be0b4",
+      "action": "USE_NEW"
+    },
+    {
+      "path": "references/reporting-handoff.md",
+      "b_sha256": null,
+      "c_sha256": null,
+      "n_sha256": "2fe3cede86f9beab735a7f4e9fdcf31c4d4863d3ceef1f48f233bd05bc97301b",
+      "action": "USE_NEW"
+    }
+  ],
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\qa\\20260917T1200Z-claude-conversion\\baseline-manifest.json",
+    "sha256": "28ab8267fb044d777932c40f7ee3ab9c7366415230bb21a94e761569fc21ce50"
+  }
+}

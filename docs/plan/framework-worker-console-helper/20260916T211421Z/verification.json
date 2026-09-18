@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "case": "green-powershell7",
+      "result": "PASS",
+      "argument_count": 116
+    },
+    {
+      "case": "green-powershell51",
+      "result": "PASS",
+      "argument_count": 116
+    },
+    {
+      "case": "reject-changed-policy-before-launch",
+      "result": "PASS"
+    }
+  ],
+  "native_codex_launches": 0,
+  "native_launch_and_ctrl_c": "NOT_RUN",
+  "script_sha256": "0ff99b0691fb4b139416526fa3a6bd588765b097a452ead135a8cb801999c284",
+  "scope": "Manual diagnostic helper; no framework acceptance"
+}

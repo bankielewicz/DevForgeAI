@@ -1,0 +1,113 @@
+{
+  "schema_version": "1",
+  "command": "records",
+  "status": "MISMATCH",
+  "coverage": [
+    "strict JSON/JSONL parsing of run records (excluding raw source, input, and trial fixtures)",
+    "extant reference bytes, normalized paths, digests, supported locators, and reference cycles",
+    "check schemas and applicability",
+    "finding schemas and deterministic identity",
+    "manifest digest accounting",
+    "status reductions when dimension-tagged checks exist; basic review-readiness consistency"
+  ],
+  "limitations": [
+    "Development observations only; no semantic, native invocation, ownership, or framework acceptance claim.",
+    "No links or junctions followed; excluded boundaries prevent a complete recovery snapshot.",
+    "Static path and readback checks do not provide OS-enforced isolation against concurrent hostile replacement.",
+    "Only extant records are checked; absent stage artifacts and semantic evidence support require the report checklist.",
+    "Finding anchor support, historical provenance validity, rule authority/applicability, and review authorization meaning require agent review.",
+    "Checks may add dimension standards, workflow, instructions, behavior for explicit reductions; long snake_case aliases are supported; missing dimensions remain incomplete.",
+    "assessment.json is optional helper input for checking declared reductions; validation-report.md prose is not parsed as machine authority."
+  ],
+  "errors": [
+    "source-readback.stdout.json:$.manifest.files[0]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\SKILL.md",
+    "source-readback.stdout.json:$.manifest.files[1]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\assets\\devforgeai-skill.json",
+    "source-readback.stdout.json:$.manifest.files[2]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\assets\\templates\\session-record.md",
+    "source-readback.stdout.json:$.manifest.files[3]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\assets\\templates\\story-template.md",
+    "source-readback.stdout.json:$.manifest.files[4]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\acceptance-criteria.md",
+    "source-readback.stdout.json:$.manifest.files[5]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\adaptive-contract.md",
+    "source-readback.stdout.json:$.manifest.files[6]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\architecture-seeds.md",
+    "source-readback.stdout.json:$.manifest.files[7]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\batch-and-dependencies.md",
+    "source-readback.stdout.json:$.manifest.files[8]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\delivery-and-resume.md",
+    "source-readback.stdout.json:$.manifest.files[9]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\domain-patterns.md",
+    "source-readback.stdout.json:$.manifest.files[10]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\intake-and-scope.md",
+    "source-readback.stdout.json:$.manifest.files[11]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\recommendations-and-gaps.md",
+    "source-readback.stdout.json:$.manifest.files[12]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\story-contract.md",
+    "source-readback.stdout.json:$.manifest.files[13]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\technical-specification.md",
+    "source-readback.stdout.json:$.manifest.files[14]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\references\\ui-specification.md",
+    "source-readback.stdout.json:$.manifest.files[15]: missing path: C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\story-create\\20260917T185301Z-records\\scripts\\check_project_binding.py"
+  ],
+  "records_checked": [
+    "assessment.json",
+    "checks.jsonl",
+    "findings.json",
+    "handoff.json",
+    "input-readback.json",
+    "metrics.json",
+    "operational-readback.json",
+    "origin-record.json",
+    "rule-set.json",
+    "source-after-manifest.json",
+    "source-manifest.json",
+    "source-readback.stdout.json",
+    "sources.json",
+    "workflow-map.json"
+  ],
+  "references_checked": 227,
+  "excluded_boundaries": [],
+  "dimensions": {
+    "standards": {
+      "outcome": "PASS",
+      "required_total": 12,
+      "required_evaluated": 12,
+      "incomplete_check_ids": []
+    },
+    "workflow": {
+      "outcome": "PASS",
+      "required_total": 21,
+      "required_evaluated": 21,
+      "incomplete_check_ids": []
+    },
+    "instructions": {
+      "outcome": "PASS",
+      "required_total": 6,
+      "required_evaluated": 6,
+      "incomplete_check_ids": []
+    },
+    "behavior": {
+      "outcome": "INCOMPLETE",
+      "required_total": 22,
+      "required_evaluated": 12,
+      "incomplete_check_ids": [
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N10",
+        "N12",
+        "N13",
+        "G01",
+        "G02",
+        "G03"
+      ]
+    }
+  },
+  "overall_assessment": "INCOMPLETE",
+  "required_coverage": {
+    "outcome": "INCOMPLETE",
+    "required_total": 61,
+    "required_evaluated": 51,
+    "incomplete_check_ids": [
+      "N02",
+      "N03",
+      "N04",
+      "N05",
+      "N10",
+      "N12",
+      "N13",
+      "G01",
+      "G02",
+      "G03"
+    ]
+  }
+}

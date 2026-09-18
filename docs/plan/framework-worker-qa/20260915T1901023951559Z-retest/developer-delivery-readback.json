@@ -1,0 +1,1934 @@
+[
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\05-independent-build\\receipt.json",
+    "actual": "b81163530217cbeaca92de1ca9a729f4552f5e59ff883b6f0900cc112a0afa9a",
+    "expected": "b81163530217cbeaca92de1ca9a729f4552f5e59ff883b6f0900cc112a0afa9a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\05-independent-build\\stderr.txt",
+    "actual": "1ba48482aae45338d1cd13b44c2ca5a06a2e39da44ac5ccb7cafb340440c6e59",
+    "expected": "1ba48482aae45338d1cd13b44c2ca5a06a2e39da44ac5ccb7cafb340440c6e59",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\05-independent-build\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\artifact-identities.json",
+    "actual": "d2e2183d5c7efafb4eb4637b6615f0f792b8fd41d131cb464082ef28e7f39894",
+    "expected": "d2e2183d5c7efafb4eb4637b6615f0f792b8fd41d131cb464082ef28e7f39894",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\build-identities.json",
+    "actual": "6b87f95401564601715038e8aced29086dc1023bf426fea71a4850c89f0ae2f1",
+    "expected": "6b87f95401564601715038e8aced29086dc1023bf426fea71a4850c89f0ae2f1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-manifest.json",
+    "actual": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+    "expected": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\Cargo.lock",
+    "actual": "b8932b591aa403a916c78d324964e52e2849444ebb4826c87653f40558f15b84",
+    "expected": "b8932b591aa403a916c78d324964e52e2849444ebb4826c87653f40558f15b84",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\Cargo.toml",
+    "actual": "54b7a567b688e87ccf8a20c73ab455c3c161af55553786c41e2f2b63a1d19bd1",
+    "expected": "54b7a567b688e87ccf8a20c73ab455c3c161af55553786c41e2f2b63a1d19bd1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\README.md",
+    "actual": "76dcd486083e65f2c44541e2fd2c5a0b0fc645741d1733dbb6aa5c962d1b181e",
+    "expected": "76dcd486083e65f2c44541e2fd2c5a0b0fc645741d1733dbb6aa5c962d1b181e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\journal.rs",
+    "actual": "732c49254e5a508c365a5bdfaee58cedc8e64c7efcbaa868033812b24192d8b6",
+    "expected": "732c49254e5a508c365a5bdfaee58cedc8e64c7efcbaa868033812b24192d8b6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\lib.rs",
+    "actual": "41f2ea0ffef063e3bc96b2cb1635a374c8f671c607b991b0302c73f2b0a46aab",
+    "expected": "41f2ea0ffef063e3bc96b2cb1635a374c8f671c607b991b0302c73f2b0a46aab",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\main.rs",
+    "actual": "5072541cc1c09e00543a512e3a9417cc786bf69798ea16ddbe057b2a55b13b5d",
+    "expected": "5072541cc1c09e00543a512e3a9417cc786bf69798ea16ddbe057b2a55b13b5d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\oracle.rs",
+    "actual": "bf11d97ec9d6082a81db68f4209db1a7e7ec3a5754d2341385f1aed4ddb44712",
+    "expected": "bf11d97ec9d6082a81db68f4209db1a7e7ec3a5754d2341385f1aed4ddb44712",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\process_windows.rs",
+    "actual": "2daedd2a45b3b33bca5ddba4333e90d60ed3e70780c85d7624cd5540305fec11",
+    "expected": "2daedd2a45b3b33bca5ddba4333e90d60ed3e70780c85d7624cd5540305fec11",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\protocol.rs",
+    "actual": "3e3d0042d078cc6608ccb49c50e768c8db8a582e660a2aec41c467aa71c05129",
+    "expected": "3e3d0042d078cc6608ccb49c50e768c8db8a582e660a2aec41c467aa71c05129",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\request.rs",
+    "actual": "0829999057ac94d8ec717116d6b47642ee10e0b804cb86e4fd1be34cc4b5e281",
+    "expected": "0829999057ac94d8ec717116d6b47642ee10e0b804cb86e4fd1be34cc4b5e281",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\src\\runner.rs",
+    "actual": "50bd52a1389c1828598010f53ab19b742dda011f8fa34395ebc19b8d547ad848",
+    "expected": "50bd52a1389c1828598010f53ab19b742dda011f8fa34395ebc19b8d547ad848",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\admission.rs",
+    "actual": "c46b517bf5c7c27a7885415d851c56ba45f1f1ac07fbb13112539f42f7002567",
+    "expected": "c46b517bf5c7c27a7885415d851c56ba45f1f1ac07fbb13112539f42f7002567",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\cli.rs",
+    "actual": "c58e3c871f383e6857419da7a0e2fcc3d88a85d61e81b81a88baf19e2887c852",
+    "expected": "c58e3c871f383e6857419da7a0e2fcc3d88a85d61e81b81a88baf19e2887c852",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\contract.rs",
+    "actual": "1334dc484c21606417f50088f713c159f00bf3c7e448ff33e17de1b8ddcebcce",
+    "expected": "1334dc484c21606417f50088f713c159f00bf3c7e448ff33e17de1b8ddcebcce",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\fixtures\\expected.json",
+    "actual": "6924dfd5d1b90d04fbdd6abf4ba67cd9ffce038e4440b57148882607fb3158ae",
+    "expected": "6924dfd5d1b90d04fbdd6abf4ba67cd9ffce038e4440b57148882607fb3158ae",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\fixtures\\output-schema.json",
+    "actual": "33bf230e62397fca3ccbdf40f94c0bfa075335035a4e274ae1f05a72a6692d0d",
+    "expected": "33bf230e62397fca3ccbdf40f94c0bfa075335035a4e274ae1f05a72a6692d0d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\fixtures\\prompt.txt",
+    "actual": "1afe6b853e1133062b095e3539b9efac66e5d6c8328c5a2fa4ca5c8c1769991d",
+    "expected": "1afe6b853e1133062b095e3539b9efac66e5d6c8328c5a2fa4ca5c8c1769991d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\fixtures\\schema-command.json",
+    "actual": "e180b070de0f62c863a4c8886a8bb9670de90cabf2656b80c77197924bc4c0c4",
+    "expected": "e180b070de0f62c863a4c8886a8bb9670de90cabf2656b80c77197924bc4c0c4",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\fixtures\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\negative_paths.rs",
+    "actual": "5ede6c71264ce1c3d3b245f87c2a1dd5699ba9574672ebc5a6927a967f7da6b6",
+    "expected": "5ede6c71264ce1c3d3b245f87c2a1dd5699ba9574672ebc5a6927a967f7da6b6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\oracle.rs",
+    "actual": "65a8e70bb9b93cf0f82669a0ec7917b551a05b891eb7e93b9b723aa5085803b6",
+    "expected": "65a8e70bb9b93cf0f82669a0ec7917b551a05b891eb7e93b9b723aa5085803b6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\process_ownership.rs",
+    "actual": "9b52fd226fe510007a9d07aaaea6563b39e6f659e94246cc35c7184477490008",
+    "expected": "9b52fd226fe510007a9d07aaaea6563b39e6f659e94246cc35c7184477490008",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\process_windows.rs",
+    "actual": "3752fb30e08fa37e01e81f3f4da379a8bfad7ede6b7d850aff9f3d6befbc27e0",
+    "expected": "3752fb30e08fa37e01e81f3f4da379a8bfad7ede6b7d850aff9f3d6befbc27e0",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\profile.rs",
+    "actual": "5cb50bc7918177c75e2272ad3a4efe81a6b4a9fe9cf05b7c193ccdf85a6762ec",
+    "expected": "5cb50bc7918177c75e2272ad3a4efe81a6b4a9fe9cf05b7c193ccdf85a6762ec",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\protocol.rs",
+    "actual": "a811bda72c0ad577e94a1891ad8bd6e6d1bf3ae3d546833eb5ded1f20643576c",
+    "expected": "a811bda72c0ad577e94a1891ad8bd6e6d1bf3ae3d546833eb5ded1f20643576c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\recovery.rs",
+    "actual": "928e1f5be56fa819dbd0365a8741fb8666f7dd624521216db45b29c2bb7979b5",
+    "expected": "928e1f5be56fa819dbd0365a8741fb8666f7dd624521216db45b29c2bb7979b5",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\remediation.rs",
+    "actual": "c02e64357c1582007734ead355971d7823a78d972d4551586abe183da58024d6",
+    "expected": "c02e64357c1582007734ead355971d7823a78d972d4551586abe183da58024d6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\requirements.rs",
+    "actual": "28a43104972426c196d451fc633dd682ad028981783f8a8f23dfd644349ab14b",
+    "expected": "28a43104972426c196d451fc633dd682ad028981783f8a8f23dfd644349ab14b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\support\\console_driver.rs",
+    "actual": "d9a1fa75bae2d817ebf3667ea71d4f85305e448cbfb908092a4908f848093974",
+    "expected": "d9a1fa75bae2d817ebf3667ea71d4f85305e448cbfb908092a4908f848093974",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\support\\crash_driver.rs",
+    "actual": "92b699737035980ec7cda114c53d6e9e308847df0e4fae676cf8cba73df8a2e1",
+    "expected": "92b699737035980ec7cda114c53d6e9e308847df0e4fae676cf8cba73df8a2e1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\support\\mod.rs",
+    "actual": "ed989afcba6eb1898214c3747fb2b751d5580eef1660df62fad4389c2ca6b5b7",
+    "expected": "ed989afcba6eb1898214c3747fb2b751d5580eef1660df62fad4389c2ca6b5b7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\candidate-snapshot\\tests\\support\\peer.rs",
+    "actual": "7d52f4186d419e8986bbeb5cfc21a0e632f2d554c20f928ddeaeff80fb8a5238",
+    "expected": "7d52f4186d419e8986bbeb5cfc21a0e632f2d554c20f928ddeaeff80fb8a5238",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\cargo-version\\receipt.json",
+    "actual": "56a714ee5e081a1f8a62c39391a3909608151bcf1ac6d0baa4e11fd703dcf4b7",
+    "expected": "56a714ee5e081a1f8a62c39391a3909608151bcf1ac6d0baa4e11fd703dcf4b7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\cargo-version\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\cargo-version\\stdout.txt",
+    "actual": "1aedaa9cce116919d39b1eb303a58865771582bc24fc259aa8e26cb212e0f59e",
+    "expected": "1aedaa9cce116919d39b1eb303a58865771582bc24fc259aa8e26cb212e0f59e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\changed-files.json",
+    "actual": "52887382785b01a59c2022b3653f247ced24a4018c8d4fb969442f5c3012d014",
+    "expected": "52887382785b01a59c2022b3653f247ced24a4018c8d4fb969442f5c3012d014",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\checkpoint-final.md",
+    "actual": "db38c745f2a7cf3a6112a40d5b313f0eb1334528f23b767545a245454f6f8e04",
+    "expected": "db38c745f2a7cf3a6112a40d5b313f0eb1334528f23b767545a245454f6f8e04",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\checkpoint.md",
+    "actual": "519767fa4b28c143e1c253ab7922672e5b7d1a207b921bf73fe02f65d2713fec",
+    "expected": "519767fa4b28c143e1c253ab7922672e5b7d1a207b921bf73fe02f65d2713fec",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\clippy-version\\receipt.json",
+    "actual": "d85e46ecd79373293606cce39bf9ba042100173995cd19dff49f82bb79e99a8b",
+    "expected": "d85e46ecd79373293606cce39bf9ba042100173995cd19dff49f82bb79e99a8b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\clippy-version\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\clippy-version\\stdout.txt",
+    "actual": "2177fec2a490ec6a4209350f975997920bceb7ad2e675217abf0c0a6fb904cad",
+    "expected": "2177fec2a490ec6a4209350f975997920bceb7ad2e675217abf0c0a6fb904cad",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\context.md",
+    "actual": "2c6d6a2f187783b221d8241a5cd38c48fd46329ff364115602e6e2efa149d6bd",
+    "expected": "2c6d6a2f187783b221d8241a5cd38c48fd46329ff364115602e6e2efa149d6bd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\contract-readback-final.json",
+    "actual": "600084a70b1af3f81c59d96b63eeace74f5d32d102f9d26fd24c85c2e6d1f66b",
+    "expected": "600084a70b1af3f81c59d96b63eeace74f5d32d102f9d26fd24c85c2e6d1f66b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\contract-readback.json",
+    "actual": "600084a70b1af3f81c59d96b63eeace74f5d32d102f9d26fd24c85c2e6d1f66b",
+    "expected": "600084a70b1af3f81c59d96b63eeace74f5d32d102f9d26fd24c85c2e6d1f66b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\copied-iq-results.json",
+    "actual": "ed53f1ca8880e04ca112ae2e6bf1b7e3d9414b077cbd824752a8d63149b13274",
+    "expected": "ed53f1ca8880e04ca112ae2e6bf1b7e3d9414b077cbd824752a8d63149b13274",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\coverage-help\\receipt.json",
+    "actual": "a40d4e48759878e729428d2b261f28f40c9755832924decc1687daf559bd57a4",
+    "expected": "a40d4e48759878e729428d2b261f28f40c9755832924decc1687daf559bd57a4",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\coverage-help\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\coverage-help\\stdout.txt",
+    "actual": "25d881594b9ea1b0fdc06e2f92bef87ad88c139a88200c51b20b27621ad44b64",
+    "expected": "25d881594b9ea1b0fdc06e2f92bef87ad88c139a88200c51b20b27621ad44b64",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\coverage-version\\receipt.json",
+    "actual": "35889699f84faec30882d7a5c030ec4f16bf4ad142a7f01701afaf82a3bb4fea",
+    "expected": "35889699f84faec30882d7a5c030ec4f16bf4ad142a7f01701afaf82a3bb4fea",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\coverage-version\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\coverage-version\\stdout.txt",
+    "actual": "e4ab4bfc959991a09c77b7e54cd48e3559bae39fbe2bafdf6cbcc8e5cb6c65fe",
+    "expected": "e4ab4bfc959991a09c77b7e54cd48e3559bae39fbe2bafdf6cbcc8e5cb6c65fe",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\delivery.md",
+    "actual": "3a244961d5e162add6100dbdf897839aea1a183981d591d2a1418b188b1f4b0e",
+    "expected": "3a244961d5e162add6100dbdf897839aea1a183981d591d2a1418b188b1f4b0e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\environment.json",
+    "actual": "33a65a227a7622c17232458c4588580627b225dfc6ce8e0fb6c9a858b4575490",
+    "expected": "33a65a227a7622c17232458c4588580627b225dfc6ce8e0fb6c9a858b4575490",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\execution-records.jsonl",
+    "actual": "8fea00fdba813dc4eac158d378325a8e762c6393de1a30fe415eb7af22fc7ddb",
+    "expected": "8fea00fdba813dc4eac158d378325a8e762c6393de1a30fe415eb7af22fc7ddb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\finalize.py",
+    "actual": "44dca23a103a2af59e4b5579256e0e7ee8b79181e965838291ef46f53d415cd8",
+    "expected": "44dca23a103a2af59e4b5579256e0e7ee8b79181e965838291ef46f53d415cd8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\format-version\\receipt.json",
+    "actual": "83f967007f5bc4922faf9b5c4ebb3dba75fc11d916116ebb4684ea7305ef47b5",
+    "expected": "83f967007f5bc4922faf9b5c4ebb3dba75fc11d916116ebb4684ea7305ef47b5",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\format-version\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\format-version\\stdout.txt",
+    "actual": "2c296b1cd25d723f6589a6b31e74ef9d790a0cb435dc3b36ed9d5c482234deec",
+    "expected": "2c296b1cd25d723f6589a6b31e74ef9d790a0cb435dc3b36ed9d5c482234deec",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\handoff.md",
+    "actual": "5b79db2681a78e3cbb056db7714446043e28e178a908f52f269f5f898f97a1dd",
+    "expected": "5b79db2681a78e3cbb056db7714446043e28e178a908f52f269f5f898f97a1dd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\host.json",
+    "actual": "d656c5d22e87e1562a5c18de6dfb0b4ba6c2659481dbffda326f2495dcd490c6",
+    "expected": "d656c5d22e87e1562a5c18de6dfb0b4ba6c2659481dbffda326f2495dcd490c6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent\\Cargo.lock",
+    "actual": "688e91da4c667615d6c69d6a1d3ae147a324e8c9fa4b107902bbf1e0e73a5b55",
+    "expected": "688e91da4c667615d6c69d6a1d3ae147a324e8c9fa4b107902bbf1e0e73a5b55",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent\\Cargo.toml",
+    "actual": "6d501b2ff77f93204acc7d268a126bc0e9de5d9cf353a0d658cdf7b3583cf12a",
+    "expected": "6d501b2ff77f93204acc7d268a126bc0e9de5d9cf353a0d658cdf7b3583cf12a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent\\driver.rs",
+    "actual": "0d46e8cda69c4900d6e4e689439b9fc64118a2cff55217bb2141802caee4af4d",
+    "expected": "0d46e8cda69c4900d6e4e689439b9fc64118a2cff55217bb2141802caee4af4d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent\\peer.rs",
+    "actual": "25d6dc046f61680ba2e3347865a4ae08f11113d8a9af9ae6fe220967be403fcf",
+    "expected": "25d6dc046f61680ba2e3347865a4ae08f11113d8a9af9ae6fe220967be403fcf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\fixture\\peer-case.txt",
+    "actual": "2ee8b77d439109ed37e08963f12d61a15f1a488478a522b52458d4a9d62cbe8e",
+    "expected": "2ee8b77d439109ed37e08963f12d61a15f1a488478a522b52458d4a9d62cbe8e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\large-request-sent",
+    "actual": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "expected": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\qa-peer-pid.txt",
+    "actual": "39220fc51eb17d1eae9e46ebd599791357b8fbc8da4fd77473876c73b5bd30f8",
+    "expected": "39220fc51eb17d1eae9e46ebd599791357b8fbc8da4fd77473876c73b5bd30f8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\qa-trace.jsonl",
+    "actual": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "expected": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\request.json",
+    "actual": "b81fc3856ee08342f17cc77da324d7892be0817cf734656e540456ba04970147",
+    "expected": "b81fc3856ee08342f17cc77da324d7892be0817cf734656e540456ba04970147",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\result.json",
+    "actual": "23ef24524822241c8c5025baf7b21178dee1814a278d1af165304040ee351e13",
+    "expected": "23ef24524822241c8c5025baf7b21178dee1814a278d1af165304040ee351e13",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\run\\inputs.json",
+    "actual": "36dc80e53e5fee10f9f089e10353f80ec041f0c7982133516fe8ed8f0415ef2d",
+    "expected": "36dc80e53e5fee10f9f089e10353f80ec041f0c7982133516fe8ed8f0415ef2d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\run\\journal.jsonl",
+    "actual": "0aaff656c316e653f662e526d55c4a98295fa1d92d7f73ac4bd54384bda3747b",
+    "expected": "0aaff656c316e653f662e526d55c4a98295fa1d92d7f73ac4bd54384bda3747b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\run\\request.json",
+    "actual": "457ff1f286f65403d7f5ed863ef5ff61070e3ff6f012f68edeef095c6c663caf",
+    "expected": "457ff1f286f65403d7f5ed863ef5ff61070e3ff6f012f68edeef095c6c663caf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-cancel\\stdout.txt",
+    "actual": "0aaff656c316e653f662e526d55c4a98295fa1d92d7f73ac4bd54384bda3747b",
+    "expected": "0aaff656c316e653f662e526d55c4a98295fa1d92d7f73ac4bd54384bda3747b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\fixture\\peer-case.txt",
+    "actual": "68e98929e867545a3226e584bfe3c5702e9c37166db2572c9c45dd83894ce46b",
+    "expected": "68e98929e867545a3226e584bfe3c5702e9c37166db2572c9c45dd83894ce46b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\large-request-sent",
+    "actual": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "expected": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\qa-peer-pid.txt",
+    "actual": "14765103586ae8384b0876c6d730b37f69630dbe7f275d3c464238e5491c8c00",
+    "expected": "14765103586ae8384b0876c6d730b37f69630dbe7f275d3c464238e5491c8c00",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\qa-trace.jsonl",
+    "actual": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "expected": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\request.json",
+    "actual": "0f07e1fac6a27eb451e48aedf7547f0f6a64f7dce60eda8bc589dca4cb966927",
+    "expected": "0f07e1fac6a27eb451e48aedf7547f0f6a64f7dce60eda8bc589dca4cb966927",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\result.json",
+    "actual": "9af6d759adc16b1428b14132802abdc28044128be18f2e92188c4dc15ca99e45",
+    "expected": "9af6d759adc16b1428b14132802abdc28044128be18f2e92188c4dc15ca99e45",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\run\\inputs.json",
+    "actual": "23c1ff18b57ded23ef6abc49197909b67e5bdd095db8c20573eb077248fe2116",
+    "expected": "23c1ff18b57ded23ef6abc49197909b67e5bdd095db8c20573eb077248fe2116",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\run\\journal.jsonl",
+    "actual": "d687a7b9f14b14373a72c28e652ab77604634f9f31674d5d0bde9f5ef6ed9a36",
+    "expected": "d687a7b9f14b14373a72c28e652ab77604634f9f31674d5d0bde9f5ef6ed9a36",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\run\\request.json",
+    "actual": "1bd86f4c75359befb2f65f73483dc7dcd8af5da40614e2cd0c05055b11f757c8",
+    "expected": "1bd86f4c75359befb2f65f73483dc7dcd8af5da40614e2cd0c05055b11f757c8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-02-deadline\\stdout.txt",
+    "actual": "d687a7b9f14b14373a72c28e652ab77604634f9f31674d5d0bde9f5ef6ed9a36",
+    "expected": "d687a7b9f14b14373a72c28e652ab77604634f9f31674d5d0bde9f5ef6ed9a36",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\fixture\\peer-case.txt",
+    "actual": "0b127735851f6f855920c14b7070eef1968cf12543b65d2929195038f9b28e12",
+    "expected": "0b127735851f6f855920c14b7070eef1968cf12543b65d2929195038f9b28e12",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\qa-peer-pid.txt",
+    "actual": "5852499846fe6de6e68ca8e4fb3d8395ff7cf562c6e940886047cc8c1a3eb2c3",
+    "expected": "5852499846fe6de6e68ca8e4fb3d8395ff7cf562c6e940886047cc8c1a3eb2c3",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\qa-trace.jsonl",
+    "actual": "26a8ef4baf1f947ef876c881c9a5c80fa63642a664ef295e28c1128ea68ba110",
+    "expected": "26a8ef4baf1f947ef876c881c9a5c80fa63642a664ef295e28c1128ea68ba110",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\request.json",
+    "actual": "017cb785de996e1a9de794ff9ef7963b86c05edbb797a5cb14d6aad405e8bfeb",
+    "expected": "017cb785de996e1a9de794ff9ef7963b86c05edbb797a5cb14d6aad405e8bfeb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\result.json",
+    "actual": "50ec549ef234996c4acedb739c3f90c18f09386178169ea43b428e29906d2cea",
+    "expected": "50ec549ef234996c4acedb739c3f90c18f09386178169ea43b428e29906d2cea",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\run\\inputs.json",
+    "actual": "9079cd4ccaf7416dc21c1ed8461056ab8d50175143a5f37ff71ec2edb379b63c",
+    "expected": "9079cd4ccaf7416dc21c1ed8461056ab8d50175143a5f37ff71ec2edb379b63c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\run\\journal.jsonl",
+    "actual": "c6339d0dffe2b4a345da8a78bc30b7185d59502c116640edc6b9ee1f58f77556",
+    "expected": "c6339d0dffe2b4a345da8a78bc30b7185d59502c116640edc6b9ee1f58f77556",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\run\\request.json",
+    "actual": "27b00166ce5d6d1a53771f82bed6a94b11958aeb190a11a90ff624cd0435efcf",
+    "expected": "27b00166ce5d6d1a53771f82bed6a94b11958aeb190a11a90ff624cd0435efcf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\stderr.txt",
+    "actual": "b4e2597304aef6663669682403c83c9919f282e90f78cfb3cf04f7b30587122a",
+    "expected": "b4e2597304aef6663669682403c83c9919f282e90f78cfb3cf04f7b30587122a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent-attempts\\IQ-05-private-error\\stdout.txt",
+    "actual": "c6339d0dffe2b4a345da8a78bc30b7185d59502c116640edc6b9ee1f58f77556",
+    "expected": "c6339d0dffe2b4a345da8a78bc30b7185d59502c116640edc6b9ee1f58f77556",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\independent_run.py",
+    "actual": "743bdfd53c991688ffe3ed532c8a2fb6f60e798dd2ccbaccb7d6071bf02f7dfd",
+    "expected": "743bdfd53c991688ffe3ed532c8a2fb6f60e798dd2ccbaccb7d6071bf02f7dfd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\input-readback.json",
+    "actual": "ab68804440508cdc178c57bf4f4d3fc685782446ec1a63970d5258f3bf75a522",
+    "expected": "ab68804440508cdc178c57bf4f4d3fc685782446ec1a63970d5258f3bf75a522",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\metrics.json",
+    "actual": "08299bad13f7aaee8cdde213f9429466c49d9d2e276834cdfe61475b9e0c9f44",
+    "expected": "08299bad13f7aaee8cdde213f9429466c49d9d2e276834cdfe61475b9e0c9f44",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\ownership-review.md",
+    "actual": "ba6bf51ce8978d076e519239c4c158b2a15376c721d5b1c51c6b628a5709ced9",
+    "expected": "ba6bf51ce8978d076e519239c4c158b2a15376c721d5b1c51c6b628a5709ced9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\raw-profile-identities.json",
+    "actual": "75add2b984a5d081175c6292a801bebb711bc9d3451c0d95c45e64ac567d66c9",
+    "expected": "75add2b984a5d081175c6292a801bebb711bc9d3451c0d95c45e64ac567d66c9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\record.py",
+    "actual": "07d26737e3baa39ffd14579dc89255efe22cdc8d59471cbe6fbee1849cf9027b",
+    "expected": "07d26737e3baa39ffd14579dc89255efe22cdc8d59471cbe6fbee1849cf9027b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\rustc-version\\receipt.json",
+    "actual": "42ba09888c5e94d640d821e677e5da002a222a705594ef4713b656a1a18dce2d",
+    "expected": "42ba09888c5e94d640d821e677e5da002a222a705594ef4713b656a1a18dce2d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\rustc-version\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\rustc-version\\stdout.txt",
+    "actual": "7fad09dd8c16d49de37932475436003b5b1763c1015c5ce081ad7692db368ca3",
+    "expected": "7fad09dd8c16d49de37932475436003b5b1763c1015c5ce081ad7692db368ca3",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\seal.py",
+    "actual": "4ec2adb54ddb9b9c768d33c0d47107eca4e213007ffc780168773029c23fd514",
+    "expected": "4ec2adb54ddb9b9c768d33c0d47107eca4e213007ffc780168773029c23fd514",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\selected-manifest.json",
+    "actual": "177b5894a236a02c7d322df7f04d647632094a4a3f3998e7f2a150db246e1604",
+    "expected": "177b5894a236a02c7d322df7f04d647632094a4a3f3998e7f2a150db246e1604",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\test-inventory.json",
+    "actual": "279bb39854c222ded6368b3491d2a9c6428d33e7aab4d286497de3da0fe0ca8a",
+    "expected": "279bb39854c222ded6368b3491d2a9c6428d33e7aab4d286497de3da0fe0ca8a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-dev\\traceability.md",
+    "actual": "e7305918fffdb3e4c3d682895944ef44bf7a1946b809becfc6e093d49527bfaf",
+    "expected": "e7305918fffdb3e4c3d682895944ef44bf7a1946b809becfc6e093d49527bfaf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\00-rustfmt\\receipt.json",
+    "actual": "1a435c0b1f6c16b6c639b2f115ceed6666d09de5fb30ea53258e438dd28a41e9",
+    "expected": "1a435c0b1f6c16b6c639b2f115ceed6666d09de5fb30ea53258e438dd28a41e9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\00-rustfmt\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\00-rustfmt\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-focused\\receipt.json",
+    "actual": "9a16c143a45b449dd61ff83be6020db7ff0c91182013f7d5b87ee74cc278cffe",
+    "expected": "9a16c143a45b449dd61ff83be6020db7ff0c91182013f7d5b87ee74cc278cffe",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-focused\\stderr.txt",
+    "actual": "60350739a254e3b7b1adb39640329e2a6b790db2fc8995b3d04ac0021b415322",
+    "expected": "60350739a254e3b7b1adb39640329e2a6b790db2fc8995b3d04ac0021b415322",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-focused\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-tests\\receipt.json",
+    "actual": "356ae8ac77bbf2b9f99d0ab1a473a31c1e1d290cc58d91425112b60edff5d26f",
+    "expected": "356ae8ac77bbf2b9f99d0ab1a473a31c1e1d290cc58d91425112b60edff5d26f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-tests\\stderr.txt",
+    "actual": "c69f68be0f774f9c02deaadf652d6ff5bbaf4a1ee0f9623fa9cfad11316f0c64",
+    "expected": "c69f68be0f774f9c02deaadf652d6ff5bbaf4a1ee0f9623fa9cfad11316f0c64",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\01-tests\\stdout.txt",
+    "actual": "88a55d29fb4a5db84195ad0f2a7cbaeaa3d61298556811355cdf0873ea697e27",
+    "expected": "88a55d29fb4a5db84195ad0f2a7cbaeaa3d61298556811355cdf0873ea697e27",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\02-focused\\receipt.json",
+    "actual": "b5ff82ca89fce9a49a7d3294bfa8c171773e4aa8b5d4e95eef27d8b6d0b3bc19",
+    "expected": "b5ff82ca89fce9a49a7d3294bfa8c171773e4aa8b5d4e95eef27d8b6d0b3bc19",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\02-focused\\stderr.txt",
+    "actual": "e67e6f8fdf5698c57e55b6b7bc4d4c9b6c13df3ebd0538adf2d0121ef18a4968",
+    "expected": "e67e6f8fdf5698c57e55b6b7bc4d4c9b6c13df3ebd0538adf2d0121ef18a4968",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\02-focused\\stdout.txt",
+    "actual": "539d6d1e76dcbd300df8ee46e4ced947abafa4c3f589b8b5b34814d7f6fa2e0a",
+    "expected": "539d6d1e76dcbd300df8ee46e4ced947abafa4c3f589b8b5b34814d7f6fa2e0a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\02-format\\receipt.json",
+    "actual": "ceec6e2638f53e220fb4997d87b967c5faa790484a6283b5973221f6a54769e1",
+    "expected": "ceec6e2638f53e220fb4997d87b967c5faa790484a6283b5973221f6a54769e1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\02-format\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\02-format\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\03-clippy\\receipt.json",
+    "actual": "1419d5c9bdc2e583015b9db2fed5c7a8af9f5e9f24a8f5cecece6638228b7d2b",
+    "expected": "1419d5c9bdc2e583015b9db2fed5c7a8af9f5e9f24a8f5cecece6638228b7d2b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\03-clippy\\stderr.txt",
+    "actual": "dfc823a392ce8d69b91d97bfd6388e93c1591bc137b6fa9ba3cc7ca97edd768d",
+    "expected": "dfc823a392ce8d69b91d97bfd6388e93c1591bc137b6fa9ba3cc7ca97edd768d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\03-clippy\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\03-rustfmt\\receipt.json",
+    "actual": "a37c5c56585233bdc3b4dbbce33c5719d40cc67c513d09ae72b53e5883938573",
+    "expected": "a37c5c56585233bdc3b4dbbce33c5719d40cc67c513d09ae72b53e5883938573",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\03-rustfmt\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\03-rustfmt\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-coverage\\receipt.json",
+    "actual": "04485877ec85aaad4b98d9d7924ed5ade98e8db1f3e3c7759e52d66e106c17c7",
+    "expected": "04485877ec85aaad4b98d9d7924ed5ade98e8db1f3e3c7759e52d66e106c17c7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-coverage\\stderr.txt",
+    "actual": "9d62bb1728ab787703c466cce6daa9829235d69a37d8487fdc64e1e1c65efcb7",
+    "expected": "9d62bb1728ab787703c466cce6daa9829235d69a37d8487fdc64e1e1c65efcb7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-coverage\\stdout.txt",
+    "actual": "44d7c4b225f940686300f0f9c8e3c9e2f82a1c12d75b60f6665775dca219aa3f",
+    "expected": "44d7c4b225f940686300f0f9c8e3c9e2f82a1c12d75b60f6665775dca219aa3f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-focused\\receipt.json",
+    "actual": "06679ba5b96ab9b650e94926f2d0a18fcaa8167ba5d83ca52ba05e4fdec9e7ff",
+    "expected": "06679ba5b96ab9b650e94926f2d0a18fcaa8167ba5d83ca52ba05e4fdec9e7ff",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-focused\\stderr.txt",
+    "actual": "1db604fdda7dbe48c36cca77ab7712b3e01f0973037333d0b900460758a076b5",
+    "expected": "1db604fdda7dbe48c36cca77ab7712b3e01f0973037333d0b900460758a076b5",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\04-focused\\stdout.txt",
+    "actual": "37ea1cf7ac5156b464953d4b58b91a0680788ebf86a8c2341839ad81baabb947",
+    "expected": "37ea1cf7ac5156b464953d4b58b91a0680788ebf86a8c2341839ad81baabb947",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\05-independent-build\\receipt.json",
+    "actual": "9e32963868a48560bd8ac285d541c8f1a41ec349b6568ef4b99b2e96e91bf6f3",
+    "expected": "9e32963868a48560bd8ac285d541c8f1a41ec349b6568ef4b99b2e96e91bf6f3",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\05-independent-build\\stderr.txt",
+    "actual": "140ab6480bc698e065bf5b6fbd07f78a63af4ca0502f65651daeaa2433930825",
+    "expected": "140ab6480bc698e065bf5b6fbd07f78a63af4ca0502f65651daeaa2433930825",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\05-independent-build\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\candidate-36f7893133fa03f4192abd605d898f2561031bc5ae2fe6c3a0250f2970f8931d.json",
+    "actual": "36f7893133fa03f4192abd605d898f2561031bc5ae2fe6c3a0250f2970f8931d",
+    "expected": "36f7893133fa03f4192abd605d898f2561031bc5ae2fe6c3a0250f2970f8931d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\candidate-70b7e209483599129b38aea7b85931fe98508ff1d2dc4cc75a9699f053687f8d.json",
+    "actual": "70b7e209483599129b38aea7b85931fe98508ff1d2dc4cc75a9699f053687f8d",
+    "expected": "70b7e209483599129b38aea7b85931fe98508ff1d2dc4cc75a9699f053687f8d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\candidate-cadaa66f3ffae91e214b0567a4cb5cf2eb924915db7c326c3126cd0cc6888484.json",
+    "actual": "cadaa66f3ffae91e214b0567a4cb5cf2eb924915db7c326c3126cd0cc6888484",
+    "expected": "cadaa66f3ffae91e214b0567a4cb5cf2eb924915db7c326c3126cd0cc6888484",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\coverage.json",
+    "actual": "054183e03ccf8aa30a44d5ff55b135c140804ee1eead28f214eab20a01aa25eb",
+    "expected": "054183e03ccf8aa30a44d5ff55b135c140804ee1eead28f214eab20a01aa25eb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\develop.py",
+    "actual": "5fa61d5a84d238c74d55f4f86cce965ea73f1470f4965329c8e6be27105b2766",
+    "expected": "5fa61d5a84d238c74d55f4f86cce965ea73f1470f4965329c8e6be27105b2766",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent\\Cargo.lock",
+    "actual": "688e91da4c667615d6c69d6a1d3ae147a324e8c9fa4b107902bbf1e0e73a5b55",
+    "expected": "688e91da4c667615d6c69d6a1d3ae147a324e8c9fa4b107902bbf1e0e73a5b55",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent\\Cargo.toml",
+    "actual": "6d501b2ff77f93204acc7d268a126bc0e9de5d9cf353a0d658cdf7b3583cf12a",
+    "expected": "6d501b2ff77f93204acc7d268a126bc0e9de5d9cf353a0d658cdf7b3583cf12a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent\\driver.rs",
+    "actual": "0d46e8cda69c4900d6e4e689439b9fc64118a2cff55217bb2141802caee4af4d",
+    "expected": "0d46e8cda69c4900d6e4e689439b9fc64118a2cff55217bb2141802caee4af4d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent\\peer.rs",
+    "actual": "25d6dc046f61680ba2e3347865a4ae08f11113d8a9af9ae6fe220967be403fcf",
+    "expected": "25d6dc046f61680ba2e3347865a4ae08f11113d8a9af9ae6fe220967be403fcf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\fixture\\peer-case.txt",
+    "actual": "6a7078bc181c39330ff7e3216b9f41a760420bc67a0e6c21b7740f9a7ccca3b9",
+    "expected": "6a7078bc181c39330ff7e3216b9f41a760420bc67a0e6c21b7740f9a7ccca3b9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\qa-peer-pid.txt",
+    "actual": "90f87fc3661aa1d2bfb049282fdfcd3b6bc547093158642f45306569cd07192a",
+    "expected": "90f87fc3661aa1d2bfb049282fdfcd3b6bc547093158642f45306569cd07192a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\qa-trace.jsonl",
+    "actual": "a5c2c4da67b107e90a4ebf90cc3082ae30fd896c3e10bce34dafec8b9be49cf8",
+    "expected": "a5c2c4da67b107e90a4ebf90cc3082ae30fd896c3e10bce34dafec8b9be49cf8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\request.json",
+    "actual": "0c7cff561cd6ef5047a1c90bc9aae0982439c81c40acc11058ca0b70796da230",
+    "expected": "0c7cff561cd6ef5047a1c90bc9aae0982439c81c40acc11058ca0b70796da230",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\result.json",
+    "actual": "c1ac1b7b00bc101c537eabddab2c3733975147bfd4d3de2f04faf05f64a36ac7",
+    "expected": "c1ac1b7b00bc101c537eabddab2c3733975147bfd4d3de2f04faf05f64a36ac7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\run\\inputs.json",
+    "actual": "2ae7fecf656686d87a62e7c33da71b6694c2cea635414fbe87aea2703e34f923",
+    "expected": "2ae7fecf656686d87a62e7c33da71b6694c2cea635414fbe87aea2703e34f923",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\run\\journal.jsonl",
+    "actual": "ef17d6b628fc07d2dd1e8038931be14a47206ca0e8c8bfde36d9e7cc2a904c67",
+    "expected": "ef17d6b628fc07d2dd1e8038931be14a47206ca0e8c8bfde36d9e7cc2a904c67",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\run\\request.json",
+    "actual": "34a0f2383398ff8c064b1ec0ac033c065bdd0ce18dc266c7ffc658ce5e80e9ee",
+    "expected": "34a0f2383398ff8c064b1ec0ac033c065bdd0ce18dc266c7ffc658ce5e80e9ee",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\stderr.txt",
+    "actual": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "expected": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-duplicate\\stdout.txt",
+    "actual": "ef17d6b628fc07d2dd1e8038931be14a47206ca0e8c8bfde36d9e7cc2a904c67",
+    "expected": "ef17d6b628fc07d2dd1e8038931be14a47206ca0e8c8bfde36d9e7cc2a904c67",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\fixture\\peer-case.txt",
+    "actual": "e003e57394857ea0e71dc64f5f31115a7e2b8da3fa58c42d35100c9345349e2e",
+    "expected": "e003e57394857ea0e71dc64f5f31115a7e2b8da3fa58c42d35100c9345349e2e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\qa-peer-pid.txt",
+    "actual": "59ae69c1396f69953e89161299ffc52437f1cbc2f36b6a50273e505ef4f9f51a",
+    "expected": "59ae69c1396f69953e89161299ffc52437f1cbc2f36b6a50273e505ef4f9f51a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\qa-trace.jsonl",
+    "actual": "4c6d2d49d944c0d976f239a66f1d4a663ccaa8bef6f88caf44c1a62cbf0b46ee",
+    "expected": "4c6d2d49d944c0d976f239a66f1d4a663ccaa8bef6f88caf44c1a62cbf0b46ee",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\request.json",
+    "actual": "4a290fffc46093e988f415b1b09f731914b5a7cddf39849da9100b9ef0c7f69b",
+    "expected": "4a290fffc46093e988f415b1b09f731914b5a7cddf39849da9100b9ef0c7f69b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\result.json",
+    "actual": "637e96170c3d3c3c050e50d1a187db47cd949632729e9c94bc41dc8aec55a666",
+    "expected": "637e96170c3d3c3c050e50d1a187db47cd949632729e9c94bc41dc8aec55a666",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\run\\inputs.json",
+    "actual": "cde62ee49ef36da92dbaadd7de2b228048c5584d20b06898bf2ecfb33ad035eb",
+    "expected": "cde62ee49ef36da92dbaadd7de2b228048c5584d20b06898bf2ecfb33ad035eb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\run\\journal.jsonl",
+    "actual": "d4656d9b516635d01524ddefb346a8ba1bf1cb4fd4f354694ea9ad0f66d35017",
+    "expected": "d4656d9b516635d01524ddefb346a8ba1bf1cb4fd4f354694ea9ad0f66d35017",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\run\\request.json",
+    "actual": "9aa98879b7fac934557219c0befc8f0dfd5e3464c20e23f78835475358023697",
+    "expected": "9aa98879b7fac934557219c0befc8f0dfd5e3464c20e23f78835475358023697",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\stderr.txt",
+    "actual": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "expected": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-extra\\stdout.txt",
+    "actual": "d4656d9b516635d01524ddefb346a8ba1bf1cb4fd4f354694ea9ad0f66d35017",
+    "expected": "d4656d9b516635d01524ddefb346a8ba1bf1cb4fd4f354694ea9ad0f66d35017",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\fixture\\peer-case.txt",
+    "actual": "78d59467e03ae7156833a35c6ce726d511b4ac041807acf3475e9fe596010fe8",
+    "expected": "78d59467e03ae7156833a35c6ce726d511b4ac041807acf3475e9fe596010fe8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\qa-peer-pid.txt",
+    "actual": "c059452f3f8e7a0fa0b1368c13425db90acacfc6c2c0bccbaf1de95e4c83499b",
+    "expected": "c059452f3f8e7a0fa0b1368c13425db90acacfc6c2c0bccbaf1de95e4c83499b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\qa-trace.jsonl",
+    "actual": "4c8ff01f256ff879ebbc67822dd900ebe9cc75b480dd7ae97638719e46831cbd",
+    "expected": "4c8ff01f256ff879ebbc67822dd900ebe9cc75b480dd7ae97638719e46831cbd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\request.json",
+    "actual": "a98856166bf964bda466e2bac5a46fa02bf1dfd784a29ae9be5808fd7a6996c2",
+    "expected": "a98856166bf964bda466e2bac5a46fa02bf1dfd784a29ae9be5808fd7a6996c2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\result.json",
+    "actual": "112ad173830304c37845a110a03805c4b9f685d3784ccad721ce7cb374c559a2",
+    "expected": "112ad173830304c37845a110a03805c4b9f685d3784ccad721ce7cb374c559a2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\run\\inputs.json",
+    "actual": "127c22dfc8c00bdb3553b89d0913a2041a92bb8cb529dbdd2831b9a2d65d7fea",
+    "expected": "127c22dfc8c00bdb3553b89d0913a2041a92bb8cb529dbdd2831b9a2d65d7fea",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\run\\journal.jsonl",
+    "actual": "0cabb06a40f332edb4ed63e4531afe8ebbdaeed7f5c5f921925ad4fd6a035967",
+    "expected": "0cabb06a40f332edb4ed63e4531afe8ebbdaeed7f5c5f921925ad4fd6a035967",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\run\\request.json",
+    "actual": "080343ea6477e99500d2c57f7ccdb7816c6c6a6ef73864fdc64110f46e816dcf",
+    "expected": "080343ea6477e99500d2c57f7ccdb7816c6c6a6ef73864fdc64110f46e816dcf",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\stderr.txt",
+    "actual": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "expected": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-missing\\stdout.txt",
+    "actual": "0cabb06a40f332edb4ed63e4531afe8ebbdaeed7f5c5f921925ad4fd6a035967",
+    "expected": "0cabb06a40f332edb4ed63e4531afe8ebbdaeed7f5c5f921925ad4fd6a035967",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\fixture\\peer-case.txt",
+    "actual": "3ed40d2b561230fdd65c9be6911b94b3c540ccc1dc06234342ab66990f426f5f",
+    "expected": "3ed40d2b561230fdd65c9be6911b94b3c540ccc1dc06234342ab66990f426f5f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\qa-peer-pid.txt",
+    "actual": "e689fb3f16ae1ae9de9d93b0b523f5b8b38a4afa3b34293679f9f6dd924b43e0",
+    "expected": "e689fb3f16ae1ae9de9d93b0b523f5b8b38a4afa3b34293679f9f6dd924b43e0",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\qa-trace.jsonl",
+    "actual": "3a720a78f745e9f1d02b519e0ad9ed6d6d6e9232b6fb10a054bffcc8596285c7",
+    "expected": "3a720a78f745e9f1d02b519e0ad9ed6d6d6e9232b6fb10a054bffcc8596285c7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\request.json",
+    "actual": "24519a4599793daf82eaaa9b92fb8765d3a3decbc8b104d5ac73c842b9327fbb",
+    "expected": "24519a4599793daf82eaaa9b92fb8765d3a3decbc8b104d5ac73c842b9327fbb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\result.json",
+    "actual": "b36568b2890a7041574fc5ad6075f59b6c9f2e95cd38fa71def0c62e73a1a73a",
+    "expected": "b36568b2890a7041574fc5ad6075f59b6c9f2e95cd38fa71def0c62e73a1a73a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\run\\inputs.json",
+    "actual": "e19a577fc252a76a811cd7e774dae4966a7fa2e631aaf56d2f17fe4f59f8b6f3",
+    "expected": "e19a577fc252a76a811cd7e774dae4966a7fa2e631aaf56d2f17fe4f59f8b6f3",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\run\\journal.jsonl",
+    "actual": "d45147608e04a81ceda21843aa9f81b6a3aa90d0eb41e080a70e40bef112a4e2",
+    "expected": "d45147608e04a81ceda21843aa9f81b6a3aa90d0eb41e080a70e40bef112a4e2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\run\\request.json",
+    "actual": "03908ca584543c0d7e3c6ad922c230582686f8c1ca7d176d0b71173457cfc3b7",
+    "expected": "03908ca584543c0d7e3c6ad922c230582686f8c1ca7d176d0b71173457cfc3b7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\stderr.txt",
+    "actual": "ec7d92845b8976c2c878bea48ff64fbccdebbfef1d89bfdee886d4df802aa97b",
+    "expected": "ec7d92845b8976c2c878bea48ff64fbccdebbfef1d89bfdee886d4df802aa97b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-policy\\stdout.txt",
+    "actual": "d45147608e04a81ceda21843aa9f81b6a3aa90d0eb41e080a70e40bef112a4e2",
+    "expected": "d45147608e04a81ceda21843aa9f81b6a3aa90d0eb41e080a70e40bef112a4e2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\fixture\\peer-case.txt",
+    "actual": "3d5e084f5106072558ace506ee5c9a50c0261f829bff2bcb558dddc32403565e",
+    "expected": "3d5e084f5106072558ace506ee5c9a50c0261f829bff2bcb558dddc32403565e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\qa-peer-pid.txt",
+    "actual": "37dc81e43d910c9dd603008f22e3fcb4b544b45d24d558553ced620f748b1973",
+    "expected": "37dc81e43d910c9dd603008f22e3fcb4b544b45d24d558553ced620f748b1973",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\qa-trace.jsonl",
+    "actual": "ad0252cfad3fb945737a7612a7a69d25ef42c3b62b57bd04dc9fb6d75df2e196",
+    "expected": "ad0252cfad3fb945737a7612a7a69d25ef42c3b62b57bd04dc9fb6d75df2e196",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\request.json",
+    "actual": "8451c6c052d3f08da1d99b84c81d85ffeae0b0cc3cefb6b6842c678750096cea",
+    "expected": "8451c6c052d3f08da1d99b84c81d85ffeae0b0cc3cefb6b6842c678750096cea",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\result.json",
+    "actual": "4c01f7e2527de9f6b1d23ce0c8e2290b4cb5381bcd4957f99249419af85dba21",
+    "expected": "4c01f7e2527de9f6b1d23ce0c8e2290b4cb5381bcd4957f99249419af85dba21",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\run\\inputs.json",
+    "actual": "cfbe69c80fa1cb6f2013e4757fce2c9f658f0ede5a3ef5ca05a3012e7cde3e64",
+    "expected": "cfbe69c80fa1cb6f2013e4757fce2c9f658f0ede5a3ef5ca05a3012e7cde3e64",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\run\\journal.jsonl",
+    "actual": "315f7bd6f62cbac6ff43c7cd797ba9ab5870c26f514d825f1ca6bd4f7403e1ef",
+    "expected": "315f7bd6f62cbac6ff43c7cd797ba9ab5870c26f514d825f1ca6bd4f7403e1ef",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\run\\request.json",
+    "actual": "65c4d77c73d90627b74580867c3557f2f725cdca809536717a9cf424ad1f11d9",
+    "expected": "65c4d77c73d90627b74580867c3557f2f725cdca809536717a9cf424ad1f11d9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\stderr.txt",
+    "actual": "981bc34f5035d4e5e6e3687a647a75e2a1ab179f797e069e62db2e4958ea04c7",
+    "expected": "981bc34f5035d4e5e6e3687a647a75e2a1ab179f797e069e62db2e4958ea04c7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-valid\\stdout.txt",
+    "actual": "315f7bd6f62cbac6ff43c7cd797ba9ab5870c26f514d825f1ca6bd4f7403e1ef",
+    "expected": "315f7bd6f62cbac6ff43c7cd797ba9ab5870c26f514d825f1ca6bd4f7403e1ef",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\fixture\\peer-case.txt",
+    "actual": "b493bfde9b8478bd497bf8a52612171b9d6df70e3016cae38d917a00cbd27a5b",
+    "expected": "b493bfde9b8478bd497bf8a52612171b9d6df70e3016cae38d917a00cbd27a5b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\qa-peer-pid.txt",
+    "actual": "3269fb1a535f8cf79f2ac0614d14977705349ba5fe811e9ee5fc6a0994edf1b8",
+    "expected": "3269fb1a535f8cf79f2ac0614d14977705349ba5fe811e9ee5fc6a0994edf1b8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\qa-trace.jsonl",
+    "actual": "50e1a9bcee7a5a9bacb5a3d1ae9a57e027afa50b1ffc211c6530c9389a1a425f",
+    "expected": "50e1a9bcee7a5a9bacb5a3d1ae9a57e027afa50b1ffc211c6530c9389a1a425f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\request.json",
+    "actual": "4e216dc19d00e5001c6bf36c0ef65c7395311eed00ab593bc0800b4e78b5551f",
+    "expected": "4e216dc19d00e5001c6bf36c0ef65c7395311eed00ab593bc0800b4e78b5551f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\result.json",
+    "actual": "6e2f67f2298503400c0856814295efe7bbd8c5ed3d2f66f6893d9f263166d624",
+    "expected": "6e2f67f2298503400c0856814295efe7bbd8c5ed3d2f66f6893d9f263166d624",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\run\\inputs.json",
+    "actual": "5b2419cb7e7ed03d790c0bd10f1fb404fc14ceb5e6c8e607add0dca8ac2b05eb",
+    "expected": "5b2419cb7e7ed03d790c0bd10f1fb404fc14ceb5e6c8e607add0dca8ac2b05eb",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\run\\journal.jsonl",
+    "actual": "78f231b0ed7a5e0e59dbe6d2be8848969273aa40f146c646324fc6d209cca2a9",
+    "expected": "78f231b0ed7a5e0e59dbe6d2be8848969273aa40f146c646324fc6d209cca2a9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\run\\request.json",
+    "actual": "828d2e66b8429819fb708d894921097693de59c231567d11c92d1a8162adfd90",
+    "expected": "828d2e66b8429819fb708d894921097693de59c231567d11c92d1a8162adfd90",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\stderr.txt",
+    "actual": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "expected": "1b7c8418460556c3d9c2146d168d68ffb2019b8fce893fadd18c75da83367f2f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-01-wrong\\stdout.txt",
+    "actual": "78f231b0ed7a5e0e59dbe6d2be8848969273aa40f146c646324fc6d209cca2a9",
+    "expected": "78f231b0ed7a5e0e59dbe6d2be8848969273aa40f146c646324fc6d209cca2a9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\fixture\\peer-case.txt",
+    "actual": "2ee8b77d439109ed37e08963f12d61a15f1a488478a522b52458d4a9d62cbe8e",
+    "expected": "2ee8b77d439109ed37e08963f12d61a15f1a488478a522b52458d4a9d62cbe8e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\large-request-sent",
+    "actual": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "expected": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\qa-peer-pid.txt",
+    "actual": "6b6935d5bef5cbed1665ad30cd4c2f5d35bf08a47783a5ba2d06dc6ed5c70d38",
+    "expected": "6b6935d5bef5cbed1665ad30cd4c2f5d35bf08a47783a5ba2d06dc6ed5c70d38",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\qa-trace.jsonl",
+    "actual": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "expected": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\request.json",
+    "actual": "a657d9300fe175585dd1cacd21525a18520d7c7c3d03d3e4fcf21bd733c105b9",
+    "expected": "a657d9300fe175585dd1cacd21525a18520d7c7c3d03d3e4fcf21bd733c105b9",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\result.json",
+    "actual": "9a6b3ce5401c785519b3b91323b2a2c072043d41e357f7e1d568aacd8c94b818",
+    "expected": "9a6b3ce5401c785519b3b91323b2a2c072043d41e357f7e1d568aacd8c94b818",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\run\\inputs.json",
+    "actual": "9b82ee28f00a6e0d3d796a0cf7e7e61c5eb3a9559a8653d461b0a68d4d467cf1",
+    "expected": "9b82ee28f00a6e0d3d796a0cf7e7e61c5eb3a9559a8653d461b0a68d4d467cf1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\run\\journal.jsonl",
+    "actual": "7613e2f5a1247e5654a71492e9d6be49e14b2929a1bd1cc268b5def80c2735c5",
+    "expected": "7613e2f5a1247e5654a71492e9d6be49e14b2929a1bd1cc268b5def80c2735c5",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\run\\request.json",
+    "actual": "246b42891fbe4712618b8b32cd31355a44eebb060a645b98a82685c24e47eca8",
+    "expected": "246b42891fbe4712618b8b32cd31355a44eebb060a645b98a82685c24e47eca8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\stderr.txt",
+    "actual": "a5da5243011ad835155b8fbfa95f085d71f68af315af20f0e145df90dae2696f",
+    "expected": "a5da5243011ad835155b8fbfa95f085d71f68af315af20f0e145df90dae2696f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-cancel\\stdout.txt",
+    "actual": "7613e2f5a1247e5654a71492e9d6be49e14b2929a1bd1cc268b5def80c2735c5",
+    "expected": "7613e2f5a1247e5654a71492e9d6be49e14b2929a1bd1cc268b5def80c2735c5",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\fixture\\peer-case.txt",
+    "actual": "68e98929e867545a3226e584bfe3c5702e9c37166db2572c9c45dd83894ce46b",
+    "expected": "68e98929e867545a3226e584bfe3c5702e9c37166db2572c9c45dd83894ce46b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\large-request-sent",
+    "actual": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "expected": "6f47814b145c128d9a9943930a6906f44eaedb7e8a5474e93163b1c6d6ad67b2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\qa-peer-pid.txt",
+    "actual": "4ea42f7784df86dedcd1d142986845c8d8423f30215642b795b66d91ef9ea999",
+    "expected": "4ea42f7784df86dedcd1d142986845c8d8423f30215642b795b66d91ef9ea999",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\qa-trace.jsonl",
+    "actual": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "expected": "a527a962a403161825a11c716ab3e36361b1db76518dd08d0e8b67d8f7c8441a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\request.json",
+    "actual": "13171ecc374815721791d78a843e8c73251e38d7dadabf456df97829f39e0bb7",
+    "expected": "13171ecc374815721791d78a843e8c73251e38d7dadabf456df97829f39e0bb7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\result.json",
+    "actual": "ab76feda78f2e7f6168344a5db4aa19398f09db1a2fb0d4e4a00f17d0bfb439e",
+    "expected": "ab76feda78f2e7f6168344a5db4aa19398f09db1a2fb0d4e4a00f17d0bfb439e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\run\\inputs.json",
+    "actual": "766f39c5f398dfa789e5380920c0e52809731da44ff2c1dc275ad063454ab839",
+    "expected": "766f39c5f398dfa789e5380920c0e52809731da44ff2c1dc275ad063454ab839",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\run\\journal.jsonl",
+    "actual": "f12aba66b320dde38208cbb6a3fc29c16f87a79947770b8b7c00d32a9fe92f96",
+    "expected": "f12aba66b320dde38208cbb6a3fc29c16f87a79947770b8b7c00d32a9fe92f96",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\run\\request.json",
+    "actual": "c26c849dc3040a6f83e47f0de28ac5481f075c668c6d61e3bd575f4c99585429",
+    "expected": "c26c849dc3040a6f83e47f0de28ac5481f075c668c6d61e3bd575f4c99585429",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\stderr.txt",
+    "actual": "9fea29aa85d7358d949158d7fc7b9234794b046b735e9049c12250bee97ba6c1",
+    "expected": "9fea29aa85d7358d949158d7fc7b9234794b046b735e9049c12250bee97ba6c1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-02-deadline\\stdout.txt",
+    "actual": "f12aba66b320dde38208cbb6a3fc29c16f87a79947770b8b7c00d32a9fe92f96",
+    "expected": "f12aba66b320dde38208cbb6a3fc29c16f87a79947770b8b7c00d32a9fe92f96",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\console-observation.json",
+    "actual": "d396669330d082fbba5fb375f326d0cc933cc6305d6c1d315ae4e654834317e6",
+    "expected": "d396669330d082fbba5fb375f326d0cc933cc6305d6c1d315ae4e654834317e6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\fixture\\peer-case.txt",
+    "actual": "c1282116b5b40784efe2fa29ba895fb1c4116ac70cf00ac087328cfb37f59133",
+    "expected": "c1282116b5b40784efe2fa29ba895fb1c4116ac70cf00ac087328cfb37f59133",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\peer-pids.json",
+    "actual": "53803b90809a6d69eeceee4b801a1b7e37356f24218930a5570ae7f3ea4030a2",
+    "expected": "53803b90809a6d69eeceee4b801a1b7e37356f24218930a5570ae7f3ea4030a2",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\peer-trace.jsonl",
+    "actual": "a6eb77be00d2879cfeefa7f7df76994d0b4898809f555cac1b5d99b40fd5e0e6",
+    "expected": "a6eb77be00d2879cfeefa7f7df76994d0b4898809f555cac1b5d99b40fd5e0e6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\request.json",
+    "actual": "60096698baf596b469424c82d48e925a1eb68cb009c53e2cb987b9e9b18476ef",
+    "expected": "60096698baf596b469424c82d48e925a1eb68cb009c53e2cb987b9e9b18476ef",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\result.json",
+    "actual": "741341e04b46dcd149715c547cc59c432b1c2776fd0443814a4548693627ca5c",
+    "expected": "741341e04b46dcd149715c547cc59c432b1c2776fd0443814a4548693627ca5c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\run\\inputs.json",
+    "actual": "37ddaa813d382dae0a1a591a0928ab0ee30d2355dad3f6d91fbd62921a7b938d",
+    "expected": "37ddaa813d382dae0a1a591a0928ab0ee30d2355dad3f6d91fbd62921a7b938d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\run\\journal.jsonl",
+    "actual": "3282f71862362fea86feea14841a61a0204b5c3c476e079d4298e526281ec6e8",
+    "expected": "3282f71862362fea86feea14841a61a0204b5c3c476e079d4298e526281ec6e8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\run\\request.json",
+    "actual": "2efefc6a5effeb308d8ef878c8429f99185adacc1be922a8d38e3974f952ae8a",
+    "expected": "2efefc6a5effeb308d8ef878c8429f99185adacc1be922a8d38e3974f952ae8a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\signal-ready",
+    "actual": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+    "expected": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-ctrlc\\stdout.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\fixture\\peer-case.txt",
+    "actual": "291295507970dcb52876d7242a32076a6d2112862e091402f1c82de2e5c9675f",
+    "expected": "291295507970dcb52876d7242a32076a6d2112862e091402f1c82de2e5c9675f",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\peer-pids.json",
+    "actual": "f48d902584e33f5a14f6bb078eda494e9ab4d383acc1965275fc962bfd3ccee7",
+    "expected": "f48d902584e33f5a14f6bb078eda494e9ab4d383acc1965275fc962bfd3ccee7",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\peer-trace.jsonl",
+    "actual": "8706a2217a3fb67756affa31614de79a5ed7cd8b1ca43ea11465dfa694f577ef",
+    "expected": "8706a2217a3fb67756affa31614de79a5ed7cd8b1ca43ea11465dfa694f577ef",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\request.json",
+    "actual": "26a8f3364bd05c3f7e9565ed03a58ae69e2b4ba7fec3c0ff98b4a7b317ed0fc1",
+    "expected": "26a8f3364bd05c3f7e9565ed03a58ae69e2b4ba7fec3c0ff98b4a7b317ed0fc1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\result.json",
+    "actual": "c75a4e2f6df0a9f39faf2dc1ff5cb6040738ec4da431f44566070660ae43c1cd",
+    "expected": "c75a4e2f6df0a9f39faf2dc1ff5cb6040738ec4da431f44566070660ae43c1cd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\run\\inputs.json",
+    "actual": "04b5f7eae7c74075c96868933a074f61a3f5764ac485cceb511f14e7097e1d8b",
+    "expected": "04b5f7eae7c74075c96868933a074f61a3f5764ac485cceb511f14e7097e1d8b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\run\\journal.jsonl",
+    "actual": "f165e8fd2c96387d2ccc8fe4cbfb46b5ff367b0b3f8ede5e6f19c079b290b60a",
+    "expected": "f165e8fd2c96387d2ccc8fe4cbfb46b5ff367b0b3f8ede5e6f19c079b290b60a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\run\\request.json",
+    "actual": "7eba193db8006cf342d2a678fb37d29e8db2e52093253521b035d6c96a44b52c",
+    "expected": "7eba193db8006cf342d2a678fb37d29e8db2e52093253521b035d6c96a44b52c",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-kill\\stdout.txt",
+    "actual": "f165e8fd2c96387d2ccc8fe4cbfb46b5ff367b0b3f8ede5e6f19c079b290b60a",
+    "expected": "f165e8fd2c96387d2ccc8fe4cbfb46b5ff367b0b3f8ede5e6f19c079b290b60a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\fixture\\peer-case.txt",
+    "actual": "c1282116b5b40784efe2fa29ba895fb1c4116ac70cf00ac087328cfb37f59133",
+    "expected": "c1282116b5b40784efe2fa29ba895fb1c4116ac70cf00ac087328cfb37f59133",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\peer-pids.json",
+    "actual": "58d2cbdd72a0b2d9d8609f2d427ad9a486a477685cb6731594c36a331d8d71a1",
+    "expected": "58d2cbdd72a0b2d9d8609f2d427ad9a486a477685cb6731594c36a331d8d71a1",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\peer-trace.jsonl",
+    "actual": "b20baafb3fc2ced75f7058d6801156f8a45bf2a346a327c097fb6046b36bcd29",
+    "expected": "b20baafb3fc2ced75f7058d6801156f8a45bf2a346a327c097fb6046b36bcd29",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\request.json",
+    "actual": "0d86362ff516d8c0336042d6c0edbd1cede25690a921f7f6e3f4b7c0dadc4c7d",
+    "expected": "0d86362ff516d8c0336042d6c0edbd1cede25690a921f7f6e3f4b7c0dadc4c7d",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\result.json",
+    "actual": "406b5c8ab1971bb7fdf103690366ec29aba28452cdd5a999dfe4898e927096e0",
+    "expected": "406b5c8ab1971bb7fdf103690366ec29aba28452cdd5a999dfe4898e927096e0",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\run\\inputs.json",
+    "actual": "ff7280f79abaac0a37e16afbde83172aafc780113c775ba8c04cf8c875beb562",
+    "expected": "ff7280f79abaac0a37e16afbde83172aafc780113c775ba8c04cf8c875beb562",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\run\\journal.jsonl",
+    "actual": "19624348c969849ac1832e7d618d7fda83b832d758a016e54041655f89ad2142",
+    "expected": "19624348c969849ac1832e7d618d7fda83b832d758a016e54041655f89ad2142",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\run\\request.json",
+    "actual": "98c9188cabe54c3dd566814528d632e0efc4a706a198720ba02cf1e367236ce8",
+    "expected": "98c9188cabe54c3dd566814528d632e0efc4a706a198720ba02cf1e367236ce8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-03-stdin\\stdout.txt",
+    "actual": "19624348c969849ac1832e7d618d7fda83b832d758a016e54041655f89ad2142",
+    "expected": "19624348c969849ac1832e7d618d7fda83b832d758a016e54041655f89ad2142",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\fixture\\peer-case.txt",
+    "actual": "0834c559a9884fe506174576349daa74fe8e50358cd9ae1fb9fa12b1c2980f71",
+    "expected": "0834c559a9884fe506174576349daa74fe8e50358cd9ae1fb9fa12b1c2980f71",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\peer-trace.jsonl",
+    "actual": "de667e64a025312556a785bae175bd42a23f58c8c274af158ce0ed34049a9150",
+    "expected": "de667e64a025312556a785bae175bd42a23f58c8c274af158ce0ed34049a9150",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\request.json",
+    "actual": "0a75a95015e0f0a13fb51b0b24630cc378fea93df749e1aac4f7c04e2946498e",
+    "expected": "0a75a95015e0f0a13fb51b0b24630cc378fea93df749e1aac4f7c04e2946498e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\result.json",
+    "actual": "96ee60b7abe40232c0bd09737c0332ff68b8b74fbd03ec044c65a4244c3b33d6",
+    "expected": "96ee60b7abe40232c0bd09737c0332ff68b8b74fbd03ec044c65a4244c3b33d6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\run\\inputs.json",
+    "actual": "d4c12983af6366aaa9e7b5be2636a0da1f8b255ed3042f041f8e135c4e28cfff",
+    "expected": "d4c12983af6366aaa9e7b5be2636a0da1f8b255ed3042f041f8e135c4e28cfff",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\run\\journal.jsonl",
+    "actual": "43020c9c0c32a36811c0895cf2b093db655d3041ca7abc3b6d2ff1186ee08a17",
+    "expected": "43020c9c0c32a36811c0895cf2b093db655d3041ca7abc3b6d2ff1186ee08a17",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\run\\request.json",
+    "actual": "d750fd8d78c82471a68656797eded5fc16b88c62a35a181d34276a2f83dc82ce",
+    "expected": "d750fd8d78c82471a68656797eded5fc16b88c62a35a181d34276a2f83dc82ce",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\stderr.txt",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-04-inspect\\stdout.txt",
+    "actual": "43020c9c0c32a36811c0895cf2b093db655d3041ca7abc3b6d2ff1186ee08a17",
+    "expected": "43020c9c0c32a36811c0895cf2b093db655d3041ca7abc3b6d2ff1186ee08a17",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\fixture\\peer-case.txt",
+    "actual": "0b127735851f6f855920c14b7070eef1968cf12543b65d2929195038f9b28e12",
+    "expected": "0b127735851f6f855920c14b7070eef1968cf12543b65d2929195038f9b28e12",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\fixture\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\qa-peer-pid.txt",
+    "actual": "b9a4ae241240e4d9b1a70e29ab64dde5eb977a725aeb04a862cf311c5752984e",
+    "expected": "b9a4ae241240e4d9b1a70e29ab64dde5eb977a725aeb04a862cf311c5752984e",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\qa-trace.jsonl",
+    "actual": "3812e8f75bc7c069ae9ed81db941b0a855d8ac1c506a0a904d83a8faef5a5437",
+    "expected": "3812e8f75bc7c069ae9ed81db941b0a855d8ac1c506a0a904d83a8faef5a5437",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\request.json",
+    "actual": "f210ba1c229a8305af4db5d3858ff3f2967ae7dd43d3ae4a28d905497c0c4586",
+    "expected": "f210ba1c229a8305af4db5d3858ff3f2967ae7dd43d3ae4a28d905497c0c4586",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\result.json",
+    "actual": "16bb0d041c2e5d8234677a12e843d3ff9da5df2f3675248e865b4e6180d0a1b4",
+    "expected": "16bb0d041c2e5d8234677a12e843d3ff9da5df2f3675248e865b4e6180d0a1b4",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\run\\inputs.json",
+    "actual": "ed8eeabadce69508924c05f0e03951336b3775943e3fd7aaed45255f1f506362",
+    "expected": "ed8eeabadce69508924c05f0e03951336b3775943e3fd7aaed45255f1f506362",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\run\\journal.jsonl",
+    "actual": "c0027c06a912bf2dae234a4eb03642babd3b9b1247ad03a28a27b6a59cd58083",
+    "expected": "c0027c06a912bf2dae234a4eb03642babd3b9b1247ad03a28a27b6a59cd58083",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\run\\request.json",
+    "actual": "ad34c78069fe36ac2a0a87001f47a1c40248b79705d03206094a355f58389dd6",
+    "expected": "ad34c78069fe36ac2a0a87001f47a1c40248b79705d03206094a355f58389dd6",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\run\\task.json",
+    "actual": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "expected": "b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\stderr.txt",
+    "actual": "62a11a9e9171668ed75f702d1b656e97a5fdf6ea759e8eba7840ae1ba692a3e8",
+    "expected": "62a11a9e9171668ed75f702d1b656e97a5fdf6ea759e8eba7840ae1ba692a3e8",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent-attempts\\IQ-05-private-error\\stdout.txt",
+    "actual": "c0027c06a912bf2dae234a4eb03642babd3b9b1247ad03a28a27b6a59cd58083",
+    "expected": "c0027c06a912bf2dae234a4eb03642babd3b9b1247ad03a28a27b6a59cd58083",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\independent_run.py",
+    "actual": "743bdfd53c991688ffe3ed532c8a2fb6f60e798dd2ccbaccb7d6071bf02f7dfd",
+    "expected": "743bdfd53c991688ffe3ed532c8a2fb6f60e798dd2ccbaccb7d6071bf02f7dfd",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\record.py",
+    "actual": "07d26737e3baa39ffd14579dc89255efe22cdc8d59471cbe6fbee1849cf9027b",
+    "expected": "07d26737e3baa39ffd14579dc89255efe22cdc8d59471cbe6fbee1849cf9027b",
+    "matches": true
+  },
+  {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1834258428322Z-green\\selected-manifest.json",
+    "actual": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+    "expected": "3f65ade36cf8186fe711da73f1a2794a17d7fb51e02bf66261e9bba0ce158e39",
+    "matches": true
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "command": "python -B -X utf8 docs/plan/skill-validations/story-create/20260917T185301Z/write_supplement.py",
+  "exit_code": 1,
+  "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+  "classification": "Evaluator record assembly error: attempted to parse the expected empty CLI-usage stdout as a binding observation.",
+  "effects": "No supplemental records written before the failure.",
+  "correction": "Retain H13 usage-error and H14 help cases in CLI results; omit their non-binding output from BindingRecord arrays. No target or actual result changed."
+}

@@ -1,0 +1,3 @@
+usage: check_project_binding.py [-h] --project-root PROJECT_ROOT --skill-root
+                                SKILL_ROOT
+check_project_binding.py: error: the following arguments are required: --project-root, --skill-root

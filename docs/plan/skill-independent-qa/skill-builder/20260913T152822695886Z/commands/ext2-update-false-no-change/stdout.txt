@@ -1,0 +1,1 @@
+{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["proposal state disagrees with gaps/actions"], "ordered_member_ids": []}

@@ -1,0 +1,26 @@
+{
+  "root": "regression-release\\commands\\v2-ext-linked-request-identity",
+  "scope": "recursive",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 1383,
+      "sha256": "33c03842643f105fef4bec45586cce815667b76208b5998ff5653b7881e302e1"
+    },
+    {
+      "path": "result.json",
+      "bytes": 308,
+      "sha256": "3608cbc3a342f341b6c44f7d490b93413b9c2adf4873b4b54f86b7e94794ff92"
+    },
+    {
+      "path": "stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdout.txt",
+      "bytes": 146,
+      "sha256": "88cfbf378100806a6e60f1c556a9861e2191d14c4875fab1deaa9be797ab39cf"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "C1": [
+    "exact three table columns Action, Owner, Due date",
+    "archive obsolete checklist: Unassigned / Not specified",
+    "verify checksum: Robin / Not specified",
+    "no action from cost discussion",
+    "chat output"
+  ],
+  "C2": [
+    "possibility, approval condition, and uncertainty retained",
+    "relative next Friday retained",
+    "no license purchase decision invented"
+  ],
+  "C3": [
+    "both Kira and Omar preserved as conflicting/unresolved owners",
+    "Tuesday and Thursday preserved as conflicting/unresolved dates",
+    "no invented resolution"
+  ],
+  "C4": [
+    "one action row",
+    "literal pipes in action and owner escaped or encoded to preserve three cells",
+    "date unchanged"
+  ],
+  "F1": [
+    "literal relative Unicode/spaced path exists under fixture root",
+    "table has Lena and Friday with supported publish action",
+    "actual successful file path reported",
+    "readback evidenced",
+    "source unchanged"
+  ],
+  "F2": [
+    "directory and sentinel unchanged",
+    "failure and destination reported",
+    "delivery explicitly incomplete",
+    "no alternate file silently chosen"
+  ],
+  "F3": [
+    "source remains byte-identical",
+    "no successful overwrite claimed",
+    "conflict with input preservation identified"
+  ]
+}

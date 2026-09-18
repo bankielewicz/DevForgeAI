@@ -1,0 +1,41 @@
+{
+  "schema_version": "set-assessment-v1",
+  "run_id": "set-review",
+  "input": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\attempt-03\\input\\input.json",
+    "sha256": "d2271adaa3fb765c8077e09752efb8a7ee8ddd4bf0501d8969149c1da466fe8f"
+  },
+  "scope": "full_set",
+  "omitted_member_ids": [],
+  "omitted_handoff_ids": [],
+  "members": [
+    {
+      "member_id": "A",
+      "package_digest": "b52b9edc21205e7063a41352ce00da340573657452cdd306e075b3771e94a0cf",
+      "report": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\attempt-03\\IR-20\\member\\report.md",
+        "sha256": "de3d8f9d8c4371a577fd3112d234395520bb8d1778a23beb9cecbf555fbc7958"
+      },
+      "checks": {
+        "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\attempt-03\\IR-20\\member\\checks.jsonl",
+        "sha256": "44315b94b8c3459dce89ff0670610f57626d73ab4d25ab067c89279e04033ffb"
+      },
+      "outcome": "PASS",
+      "source_state": "UNCHANGED",
+      "reason": "Synthetic retained member observation."
+    }
+  ],
+  "integration_checks": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-adaptive-implementations\\skill-validator\\20260913T085122108787Z\\independent-review\\attempt-03\\IR-20\\set\\integration.jsonl",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "outcome": "PASS",
+  "assessment_completed": true,
+  "required_evaluated": 19,
+  "required_total": 19,
+  "unknown_applicability": 0,
+  "limitations": [
+    "No handoffs are declared; record integrity only."
+  ],
+  "prior_assessment": null
+}

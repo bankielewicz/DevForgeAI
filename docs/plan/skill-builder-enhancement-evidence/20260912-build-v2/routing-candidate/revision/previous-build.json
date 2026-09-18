@@ -1,0 +1,15 @@
+{
+  "baseline": [
+    {
+      "path": "SKILL.md",
+      "sha256": "a7a3359ec8c0d0cbcb7ccb7e0241028ae85c50ac08e4f8bd2d6401acb16f4824"
+    }
+  ],
+  "provenance": {
+    "path": "revision/previous-provenance.json",
+    "sha256": "0186d7332f85a0418f2047acbdf9160f4c8bb50b9a489817d5e027d8e86c44b8"
+  },
+  "result": "COMPLETE",
+  "run_id": "previous-synthetic-run",
+  "schema_version": "1"
+}

@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "C:\\Program Files\\Python310\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\evaluator\\skill-validator\\scripts\\observe.py",
+    "structure",
+    "--source",
+    "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project\\docs\\plan\\skill-validations\\ledger-c\\20260915T001901336490Z\\source"
+  ],
+  "cwd": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-postmvp-maintenance\\20260914T230521566382Z\\independent\\forward-002\\ledger-c\\project",
+  "timeout_seconds": 120,
+  "started_at": "2026-09-15T00:19:10.657382+00:00",
+  "ended_at": "2026-09-15T00:19:10.776824+00:00",
+  "exit_code": 0
+}
