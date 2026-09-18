@@ -1,7 +1,9 @@
-#Requires -Version 7.2
+#Requires -Version 5.1
 <#
 .SYNOPSIS
-Human-operated Git safety menu and Rust CLI build helper. Run with pwsh.exe.
+Human-operated Git safety menu and Rust CLI build helper for Windows PowerShell 5.1 and PowerShell 7.
+.EXAMPLE
+.\DevForgeAI-Console.ps1
 .EXAMPLE
 pwsh -File .\DevForgeAI-Console.ps1 -RepositoryPath C:\Projects\DevForgeAI
 .EXAMPLE
