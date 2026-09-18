@@ -1,8 +1,10 @@
-BeforeAll {
+﻿BeforeAll {
     $script:projectRoot = Split-Path (Split-Path $PSScriptRoot)
     Import-Module (Join-Path $script:projectRoot 'scripts/operator-console/OperatorConsole.psm1') -Force
     function Invoke-TestGit {
         param([string]$At, [string[]]$Arguments)
+        # Windows PowerShell wraps native stderr as ErrorRecords, even on success.
+        $ErrorActionPreference = 'Continue'
         $text = & git -C $At @Arguments 2>&1
         if ($LASTEXITCODE -ne 0) { throw "Fixture Git failure: $Arguments`n$text" }
         ($text -join "`n")
@@ -121,6 +123,7 @@ Describe 'Safe main synchronization' {
         $fixture = New-TestRepository
         Mock Get-OperatorGit -ModuleName OperatorConsole -ParameterFilter { $Arguments[0] -eq 'fetch' } -MockWith {
             param($Root, $Arguments)
+            $ErrorActionPreference = 'Continue'
             $result = & git -C $Root @Arguments 2>&1
             if ($LASTEXITCODE -ne 0) { throw 'Fixture fetch failed.' }
             [IO.File]::WriteAllText((Join-Path $Root 'concurrent.txt'), 'concurrent writer')
@@ -145,7 +148,7 @@ Describe 'Checkpoints and mutation admission' {
         Invoke-TestGit $fixture.Repo @('show', ($manifest.IndexRef + ':tracked.txt')) | Should -Be 'staged'
         Invoke-TestGit $fixture.Repo @('show', ($manifest.HeadRef + ':tracked.txt')) | Should -Be 'original'
         [IO.File]::ReadAllText((Join-Path $directory 'files/tracked.txt')) | Should -Be 'working'
-        [Convert]::ToHexString([IO.File]::ReadAllBytes((Join-Path $directory 'files/日本語 file.bin'))) | Should -Be '00FF800A0D'
+        [BitConverter]::ToString([IO.File]::ReadAllBytes((Join-Path $directory 'files/日本語 file.bin'))).Replace('-', '') | Should -Be '00FF800A0D'
         ($manifest.Files | Where-Object Path -EQ '.gitignore').Missing | Should -BeTrue
         Invoke-TestGit $fixture.Repo @('status', '--porcelain=v1') | Should -Be $before
     }
@@ -248,6 +251,7 @@ Describe 'Rust build and console entry' {
     BeforeAll {
         function Add-RustFixture {
             param($Fixture, [string]$Code = 'fn main() { println!("fixture"); }')
+            $ErrorActionPreference = 'Continue'
             $source = Join-Path $Fixture.Repo 'devforgeai/src'
             New-Item -ItemType Directory -Path $source -Force | Out-Null
             [IO.File]::WriteAllText((Join-Path $Fixture.Repo 'devforgeai/Cargo.toml'), "[package]`nname = `"operator-build-fixture`"`nversion = `"0.1.0`"`nedition = `"2021`"`n[[bin]]`nname = `"devforgeai`"`npath = `"src/main.rs`"`n")
@@ -294,7 +298,9 @@ Describe 'Rust build and console entry' {
         $fixture = New-TestRepository
         $entry = Join-Path $script:projectRoot 'DevForgeAI-Console.ps1'
         & $entry -RepositoryPath $fixture.Repo -Action Status | Out-String | Should -Match 'main'
-        $output = & pwsh -NoProfile -File $entry -RepositoryPath $fixture.Repo -Action SyncMain 2>&1
+        $hostPath = (Get-Process -Id $PID).Path
+        $ErrorActionPreference = 'Continue'
+        $output = & $hostPath -NoProfile -File $entry -RepositoryPath $fixture.Repo -Action SyncMain 2>&1
         $LASTEXITCODE | Should -Be 1
         ($output -join "`n") | Should -Match 'explicit approval'
     }
@@ -347,6 +353,7 @@ Describe 'Hidden changes and concurrent branch movement' {
         Invoke-TestGit $fixture.Repo @('branch', 'task/concurrent') | Out-Null
         Mock Get-OperatorGit -ModuleName OperatorConsole -ParameterFilter { $Arguments[0] -eq 'fetch' } {
             param($Root, $Arguments)
+            $ErrorActionPreference = 'Continue'
             & git -C $Root @Arguments 2>&1 | Out-Null
             if ($LASTEXITCODE -ne 0) { throw 'Fixture fetch failed.' }
             & git -C $Root switch task/concurrent 2>&1 | Out-Null

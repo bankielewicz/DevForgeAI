@@ -1,11 +1,12 @@
 # Human-operated Git and Rust console
 
 Run the root [DevForgeAI-Console.ps1](../../DevForgeAI-Console.ps1) with native
-Windows **PowerShell 7.2 or later** (`pwsh`, not Windows PowerShell 5.1):
+Windows **PowerShell 5.1 or PowerShell 7.2 or later**. It runs in the selected
+host directly; PowerShell 5.1 does not need to launch or install PowerShell 7:
 
 ```powershell
 Set-Location C:\Projects\DevForgeAI
-pwsh -NoProfile -File .\DevForgeAI-Console.ps1
+.\DevForgeAI-Console.ps1
 ```
 
 The script loads its companion [module](../../scripts/operator-console/OperatorConsole.psm1).
@@ -16,6 +17,11 @@ change your parent console's directory. Stop editors, agents and other Git write
 for that checkout before mutating it.
 
 ## Menu
+
+Choices appear on separate aligned lines, grouped into Repository, Safety and
+recovery, Branches and delivery, and Build Rust CLI. Blank lines separate groups;
+option numbers retain their original actions. The header puts root, branch and
+HEAD on separate lines. Plain text remains readable without color or ANSI support.
 
 | Option | Operation | Safety behavior |
 | --- | --- | --- |
@@ -36,9 +42,9 @@ for that checkout before mutating it.
 Changes require typing `YES`. Noninteractive actions require `-Approve` instead:
 
 ```powershell
-pwsh -NoProfile -File .\DevForgeAI-Console.ps1 -Action Status
-pwsh -NoProfile -File .\DevForgeAI-Console.ps1 -Action SyncMain -Approve
-pwsh -NoProfile -File .\DevForgeAI-Console.ps1 -Action BuildDebug -Approve
+.\DevForgeAI-Console.ps1 -Action Status
+.\DevForgeAI-Console.ps1 -Action SyncMain -Approve
+.\DevForgeAI-Console.ps1 -Action BuildDebug -Approve
 ```
 
 For branch actions use `-Branch 'feat/my-task'`; for commits use
@@ -125,7 +131,10 @@ and the selected implementation/QA contracts separately.
 
 The [Pester suite](../../tests/operator-console/OperatorConsole.Tests.ps1) uses
 disposable local bare remotes and worktrees, actual Git operations and tiny Rust
-build fixtures. GitHub and interactive prompts are tested at their command/input
+build fixtures. The [compatibility suite](../../tests/operator-console/Compatibility.Tests.ps1)
+also checks public-host startup, literal native arguments, separate output streams,
+exit codes and menu layout. Its argument echo fixture uses Python 3; Python is not
+a console runtime dependency. GitHub and interactive prompts are tested at their command/input
 boundaries; tests do not publish PRs. Pester 5.7.1 and PSScriptAnalyzer 1.25.0 were
 available on the development host; neither is needed to use the console.
 
@@ -143,7 +152,7 @@ Import-Module Pester -MinimumVersion 5.7.1
 $run = Join-Path 'tmp' ('operator-check-' + [guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $run | Out-Null
 $config = New-PesterConfiguration
-$config.Run.Path = 'tests/operator-console/OperatorConsole.Tests.ps1'
+$config.Run.Path = 'tests/operator-console'
 $config.Run.PassThru = $true
 $config.TestResult.Enabled = $true
 $config.TestResult.OutputPath = Join-Path $run 'tests.xml'
@@ -155,6 +164,12 @@ $config.CodeCoverage.CoveragePercentTarget = 95
 $result = Invoke-Pester -Configuration $config
 if ($result.Result -ne 'Passed') { throw 'Checks failed; inspect retained reports.' }
 ```
+
+Run the suite independently in `powershell.exe` (5.1) and `pwsh.exe` (7), recording
+`$PSVersionTable.PSVersion` in each result. If Pester 5 is installed outside the
+host's module search path, import its existing absolute manifest path; Pester 3
+bundled with Windows PowerShell cannot run this suite. No installation is performed
+by the console or its tests.
 
 Pester's test isolation needs access to the user's temporary directory and test
 registry; a restrictive sandbox may block that setup. Treat such a failure as a

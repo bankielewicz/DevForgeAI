@@ -1,8 +1,16 @@
 Set-StrictMode -Version Latest
 
+function ConvertTo-OperatorArgument {
+    param([AllowEmptyString()][string]$Value)
+    # Windows native argv quoting: escape quotes and double trailing backslashes.
+    # ProcessStartInfo.ArgumentList is unavailable in Windows PowerShell 5.1.
+    $escaped = [regex]::Replace($Value, '(\\*)"', '$1$1\"')
+    '"' + [regex]::Replace($escaped, '(\\+)$', '$1$1') + '"'
+}
+
 function Invoke-OperatorTool {
     param([string]$Directory, [string]$Program, [string[]]$Arguments, [switch]$AllowFailure)
-    $executable = (Get-Command $Program -CommandType Application -ErrorAction Stop).Source
+    $executable = (Get-Command $Program -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
     $start = [Diagnostics.ProcessStartInfo]::new()
     $start.FileName = $executable
     $start.WorkingDirectory = $Directory
@@ -12,8 +20,8 @@ function Invoke-OperatorTool {
     $start.RedirectStandardError = $true
     $start.StandardOutputEncoding = [Text.UTF8Encoding]::new($false)
     $start.StandardErrorEncoding = [Text.UTF8Encoding]::new($false)
-    $start.Environment['GIT_TERMINAL_PROMPT'] = '0'
-    foreach ($argument in $Arguments) { $start.ArgumentList.Add($argument) }
+    $start.EnvironmentVariables['GIT_TERMINAL_PROMPT'] = '0'
+    $start.Arguments = (@($Arguments | ForEach-Object { ConvertTo-OperatorArgument $_ }) -join ' ')
     $process = [Diagnostics.Process]::new()
     $process.StartInfo = $start
     try {
@@ -114,9 +122,9 @@ function New-OperatorCheckpoint {
         $status = Get-OperatorGit $repo.Root @('status', '--porcelain=v1', '-z', '--untracked-files=all', '--ignore-submodules=none')
         $indexTree = Get-OperatorGit $repo.Root @('write-tree')
         $paths = @(
-            (Get-OperatorGit $repo.Root @('diff', '--name-only', '--no-renames', '-z')).Split([char]0, [StringSplitOptions]::RemoveEmptyEntries)
-            (Get-OperatorGit $repo.Root @('diff', '--cached', '--name-only', '--no-renames', '-z')).Split([char]0, [StringSplitOptions]::RemoveEmptyEntries)
-            (Get-OperatorGit $repo.Root @('ls-files', '--others', '--exclude-standard', '-z')).Split([char]0, [StringSplitOptions]::RemoveEmptyEntries)
+            (Get-OperatorGit $repo.Root @('diff', '--name-only', '--no-renames', '-z')).Split([char[]]@([char]0), [StringSplitOptions]::RemoveEmptyEntries)
+            (Get-OperatorGit $repo.Root @('diff', '--cached', '--name-only', '--no-renames', '-z')).Split([char[]]@([char]0), [StringSplitOptions]::RemoveEmptyEntries)
+            (Get-OperatorGit $repo.Root @('ls-files', '--others', '--exclude-standard', '-z')).Split([char[]]@([char]0), [StringSplitOptions]::RemoveEmptyEntries)
         ) | Sort-Object -Unique
         $records = @()
         [long]$total = 0
@@ -261,14 +269,18 @@ function Invoke-OperatorBuild {
     if ($Release) { $arguments += '--release' }
     $buildProfile = if ($Release) { 'release' } else { 'debug' }
     $before = (Get-FileHash -LiteralPath $lock -Algorithm SHA256).Hash
-    $cargo = (Get-Command cargo -CommandType Application -ErrorAction Stop).Source
+    $cargo = (Get-Command cargo -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
     $PSNativeCommandUseErrorActionPreference = $false
+    $previousErrorPreference = $ErrorActionPreference
     Push-Location $repo.Root
     try {
+        # Windows PowerShell turns redirected native stderr into ErrorRecords.
+        # Capture compiler diagnostics and decide success from the actual exit code.
+        $ErrorActionPreference = 'Continue'
         $output = @(& $cargo @arguments 2>&1 | ForEach-Object { Write-Host $_; $_.ToString() })
         $code = $LASTEXITCODE
     }
-    finally { Pop-Location }
+    finally { $ErrorActionPreference = $previousErrorPreference; Pop-Location }
     $null = New-Item -ItemType Directory -Path $target -Force
     $receipt = Join-Path $target ('operator-build-' + [guid]::NewGuid().ToString('N') + '.json')
     $binary = Join-Path $target "$buildProfile/devforgeai.exe"
@@ -313,12 +325,39 @@ function Start-OperatorMenu {
     $actions = @('Status', 'Fetch', 'Checkpoint', 'SyncMain', 'SwitchBranch', 'Worktree', 'Commit', 'Push', 'PullRequests', 'DraftPr', 'Recovery', 'BuildDebug', 'BuildRelease')
     while ($true) {
         $repo = Get-OperatorRepository $RepositoryPath
-        Write-Host "`nDevForgeAI operator console`nRoot: $($repo.Root)`nBranch: $($repo.Branch)  HEAD: $($repo.Head)"
-        Write-Host '1 Status/branches/worktrees  2 Fetch  3 Safety checkpoint  4 Switch to main + fast-forward'
-        Write-Host '5 Switch local branch  6 New task worktree  7 Commit staged files  8 Push task branch'
-        Write-Host '9 List PRs  10 Open draft PR  11 List recovery checkpoints  12 Build CLI debug  13 Build CLI release  0 Exit'
-        Write-Host 'No automatic stash, reset, clean, force-push, PR merge, install, or worktree deletion.'
-        $choice = Read-Host 'Option'
+        Write-Host ''
+        Write-Host '  DevForgeAI | Operator console' -ForegroundColor Cyan
+        Write-Host '  ------------------------------------------------------------'
+        Write-Host "  Root:   $($repo.Root)"
+        Write-Host "  Branch: $($repo.Branch)"
+        Write-Host "  HEAD:   $($repo.Head)"
+        Write-Host ''
+        Write-Host '  Repository' -ForegroundColor Cyan
+        Write-Host '   1  View status, branches and worktrees'
+        Write-Host '   2  Fetch from origin'
+        Write-Host ''
+        Write-Host '  Safety and recovery' -ForegroundColor Cyan
+        Write-Host '   3  Create a safety checkpoint'
+        Write-Host '  11  List recovery checkpoints'
+        Write-Host ''
+        Write-Host '  Branches and delivery' -ForegroundColor Cyan
+        Write-Host '   4  Switch to main and fast-forward'
+        Write-Host '   5  Switch to an existing local branch'
+        Write-Host '   6  Create a task branch and worktree'
+        Write-Host '   7  Commit staged files'
+        Write-Host '   8  Push the task branch'
+        Write-Host '   9  List pull requests'
+        Write-Host '  10  Open a draft pull request'
+        Write-Host ''
+        Write-Host '  Build Rust CLI' -ForegroundColor Cyan
+        Write-Host '  12  Build debug'
+        Write-Host '  13  Build release'
+        Write-Host ''
+        Write-Host '   0  Exit'
+        Write-Host ''
+        Write-Host '  Changes require confirmation. Existing safety checks apply.'
+        Write-Host ''
+        $choice = Read-Host 'Select an option (0-13)'
         if ($choice -eq '0') { return }
         [int]$number = 0
         if (-not [int]::TryParse($choice, [ref]$number) -or $number -lt 1 -or $number -gt $actions.Count) { Write-Host 'Choose a displayed number.'; continue }

@@ -1,0 +1,259 @@
+{
+  "Version": 1,
+  "Root": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility",
+  "Branch": "fix/operator-console-compatibility",
+  "Base": "317b193eacdb9cb9602a726bbfa74f2854516f1c",
+  "Scope": "Native Windows PowerShell 5.1 and PowerShell 7 compatibility; menu layout",
+  "Source": [
+    {
+      "Path": "DevForgeAI-Console.ps1",
+      "Bytes": 1153,
+      "SHA256": "a77130c15e20ac6113adffdf89e8876cce19b79fef6866423d5c7290a3e0fd68"
+    },
+    {
+      "Path": "scripts/operator-console/OperatorConsole.psm1",
+      "Bytes": 23795,
+      "SHA256": "86bf8445d254f4da37bf1d47a9422d5f1d96b11f0a5836b500e51f609ee29da5"
+    },
+    {
+      "Path": "tests/operator-console/OperatorConsole.Tests.ps1",
+      "Bytes": 23454,
+      "SHA256": "d6f2f0a1256f001609414fba3e52afd5088c88992cfa3814f6646a2a413200f6"
+    },
+    {
+      "Path": "tests/operator-console/Compatibility.Tests.ps1",
+      "Bytes": 2786,
+      "SHA256": "109feac80c717cf14d8046f3b2abdcd2e046e7590bcacb4b35991d585af0fe7c"
+    },
+    {
+      "Path": "docs/workflows/operator-console.md",
+      "Bytes": 10286,
+      "SHA256": "4ca56863ab6360c07eb7a1bb9a225ef8e6fbffb78209ab551a83b51252422e49"
+    },
+    {
+      "Path": "docs/plan/operator-console/20260918-powershell-compatibility/validation-report.md",
+      "Bytes": 7878,
+      "SHA256": "25aa5b1416a5cbf93c75588ffb5375f6d3ba891421eafc2299b539aa6179be33"
+    }
+  ],
+  "Evidence": [
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\menu-ps51-002.txt",
+      "Bytes": 784,
+      "SHA256": "b98ab626785bc3ae3eb5bc256e376c034c5864449dadbed2990a93d06b1afc26",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\menu-ps51.txt",
+      "Bytes": 784,
+      "SHA256": "b98ab626785bc3ae3eb5bc256e376c034c5864449dadbed2990a93d06b1afc26",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\menu-ps7-002.txt",
+      "Bytes": 784,
+      "SHA256": "b98ab626785bc3ae3eb5bc256e376c034c5864449dadbed2990a93d06b1afc26",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\menu-smoke-002.json",
+      "Bytes": 480,
+      "SHA256": "6e5d5493edad61c0b093c9e768753ab7ff3845e68ffce0a01b1394db93c2eb18",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\static-entry.json",
+      "Bytes": 4,
+      "SHA256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\static-module-native51.json",
+      "Bytes": 23259,
+      "SHA256": "1f15bd4073613402fb0fccaf0ca6d0eecff8b2a7821a77915c857deaf465c06b",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native51\\coverage-detail.json",
+      "Bytes": 408363,
+      "SHA256": "186d75f8a7869322682f4d3d9004ad426d95bbb5ab2cb852eb3461d0771c1c38",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native51\\coverage.xml",
+      "Bytes": 22540,
+      "SHA256": "af03f91615246850993c21bca05e5fab89609ce8a33834e67c52e03c4dba709c",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native51\\result.json",
+      "Bytes": 170,
+      "SHA256": "689223c9ae43edef060e218fcac327c431d1f3cb325dd338e69bded57cb867c3",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native51\\tests.xml",
+      "Bytes": 13992,
+      "SHA256": "729a53b7d2cb8e224a485e4f4ae8acff84f524f18703f50494e10d4a0c8a86ef",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native7\\coverage-detail.json",
+      "Bytes": 230802,
+      "SHA256": "7d1bc84ca374de630c9e84bd3f9b9636a9b9ac8b50b33b7e682816730ba15418",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native7\\coverage.xml",
+      "Bytes": 22537,
+      "SHA256": "1a5eda959c0030ee81a72b5b8a6e5b932a582c5964252fd15348bd56ff1ac305",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native7\\result.json",
+      "Bytes": 137,
+      "SHA256": "ba89929bf40d9af10ff7af75fa5866c05ccfd21ccd624c9602fcba315ac85549",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\final-native7\\tests.xml",
+      "Bytes": 13984,
+      "SHA256": "1a572139be9b6fe6d4eaa72b2dd13acc8acfac9bcd0f65ca6a880e9cb4a16fe1",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native51\\coverage-detail.json",
+      "Bytes": 497749,
+      "SHA256": "8e3aa61322dad80ce8f0dda4d3b3c8bf720466a858c272dc359418a5d9f320e9",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native51\\coverage.xml",
+      "Bytes": 22550,
+      "SHA256": "df2e258cef1dce5740887da679a83acd8e8237df304fc95f9bfdffbddc6bdaec",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native51\\result.json",
+      "Bytes": 170,
+      "SHA256": "18142dafef206c8b2ed1349b38dddd1c422b934826a85bac96b6011d772837c1",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native51\\tests.xml",
+      "Bytes": 35297,
+      "SHA256": "94f459f1030a7413623577319fb07a52aad2922e946d2321d5683332a8b6c32d",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native7\\coverage-detail.json",
+      "Bytes": 229527,
+      "SHA256": "88d7e7e80a44583f2ef433b432b917c90a5c50ba9aecbc224076c46cf5229e94",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native7\\coverage.xml",
+      "Bytes": 22536,
+      "SHA256": "e2d29888f1d82da6a694d1690007f4e47cee154507db3e47234542e15d262141",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native7\\result.json",
+      "Bytes": 137,
+      "SHA256": "ba89929bf40d9af10ff7af75fa5866c05ccfd21ccd624c9602fcba315ac85549",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\green-native7\\tests.xml",
+      "Bytes": 13985,
+      "SHA256": "2a8185cd62283aa4473bbe96d7ae3ba5ba0ac30e9c9759114594fdf1c01c2047",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-native51\\result.json",
+      "Bytes": 170,
+      "SHA256": "090a8a7a093c41a27d9fe91dea6ae8a731e6a35a7be9207c8342abeaa64020e7",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-native51\\tests.xml",
+      "Bytes": 4800,
+      "SHA256": "b2727ac683411a51043721804d220222611aa9887333a03c1389c73c570806a5",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-ps51\\coverage-detail.json",
+      "Bytes": 6,
+      "SHA256": "abdfbffecbe18ed94df9829819e596ee285b52a94aa108514452a9121721c789",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-ps51\\result.json",
+      "Bytes": 137,
+      "SHA256": "7128328d4a1f8ed75af16a5f112f9693a55db3c09af01fd3ffb93a2dfcb9fc43",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-ps51\\tests.xml",
+      "Bytes": 4411,
+      "SHA256": "7f5080a7d515be6e3a4dd8ca84e7c024a46eec7011aaf79f3a5b3a9f1304f149",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-ps7\\coverage-detail.json",
+      "Bytes": 6,
+      "SHA256": "abdfbffecbe18ed94df9829819e596ee285b52a94aa108514452a9121721c789",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-ps7\\result.json",
+      "Bytes": 137,
+      "SHA256": "7128328d4a1f8ed75af16a5f112f9693a55db3c09af01fd3ffb93a2dfcb9fc43",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\red-ps7\\tests.xml",
+      "Bytes": 4410,
+      "SHA256": "8db9dae8ac0b2b6a07c854d06f723193ddd1ae5fe39fe3cdf860182b058bd29e",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\regression-native51-002\\coverage-detail.json",
+      "Bytes": 437767,
+      "SHA256": "71abdff07e231822f86a3d06ea7ce72f4fbc57e3489a9d807e23612a9a4d3c7b",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\regression-native51-002\\coverage.xml",
+      "Bytes": 22548,
+      "SHA256": "a5d5a623c20521a14ec93f375e63d9e2ff5b2f5ba45c8df4f709bfd31f5c5160",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\regression-native51-002\\result.json",
+      "Bytes": 171,
+      "SHA256": "bae184720dd2274699143889b236e95844564eff448ef6c2cb64f94c434860fd",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\console-compatibility-001\\regression-native51-002\\tests.xml",
+      "Bytes": 27573,
+      "SHA256": "3f92ae832eea460a5e879a8f25d6a523de157bf508eb67b44a685904d41442a9",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\run-console-checks.ps1",
+      "Bytes": 1461,
+      "SHA256": "b7d4df1c3222cbce18c167c90b6ef9f45860d40523df47ea7b4ee4b9b54d7f3f",
+      "Availability": "LOCAL_ONLY"
+    },
+    {
+      "Path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\operator-console-compatibility\\tmp\\check-console-static.ps1",
+      "Bytes": 559,
+      "SHA256": "8bca0d43b2f7329316a3c8b6a0f8d46f7696280c8149a7e6a31e4e344b180586",
+      "Availability": "LOCAL_ONLY"
+    }
+  ],
+  "IndependentQA": "NOT_RUN",
+  "FrameworkAcceptance": "NOT_EVALUATED"
+}
