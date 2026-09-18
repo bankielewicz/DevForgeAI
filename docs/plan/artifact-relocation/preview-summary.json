@@ -1,0 +1,308 @@
+[
+  {
+    "Collection": "advisor-auth-fix",
+    "Files": 57,
+    "Bytes": 357839.0,
+    "TreeDigest": "ee73a43abdfa3e05937ccb1c57fb425fa050dadfc3581903a21081c2fc6ea77d",
+    "PlanSHA256": "ac59a1a5a681852282f362203f31b600954d67107a7725ae93ce3d6f7cf2c1e1",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-2ac7fb126b9d422e9791f1eeecc96c12.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "advisor-build",
+    "Files": 131,
+    "Bytes": 628682.0,
+    "TreeDigest": "76a4abda3ae747cac9e213261430257620e810f81308abe732d7563e595303f7",
+    "PlanSHA256": "620dc6ce053853f750eda462c54d892495121b664ac7acfaa8cdd8c6d1052f8f",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-81a150a2a6e34def9643616c3137b5e5.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "advisor-claude-conversion",
+    "Files": 3,
+    "Bytes": 35978.0,
+    "TreeDigest": "027635cbc14e2736cdfc051ca6d3c18963dfbf7a3c869a9b115e229f50005382",
+    "PlanSHA256": "ec14beb05aa12cd204e92fd2dc14b6a1c43433210ab4ed00eb31a60d6d2499d3",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-60903f76f2444c9e9e050e0b9c3315fa.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "advisor-guidance",
+    "Files": 3,
+    "Bytes": 19611.0,
+    "TreeDigest": "4a25faeed5be459ca9c70ad588af57798d3c7460a3efae5191e94936b16a3432",
+    "PlanSHA256": "3a3fbb900c98833cc243ced88f060378cdf201d187ee01a232aafc7dbf52c024",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-7c6982790f634c43b19379f93b9de3ce.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "advisor-streaming-dev",
+    "Files": 80,
+    "Bytes": 209094.0,
+    "TreeDigest": "38182e6484c92d9c2feacacfbf41ef6f8c04e00350a6371374870d3a8610d359",
+    "PlanSHA256": "d47604a5731bba43a6fb674d73655c6ac237c1b1887215f68c0a76c59d8ef6b4",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-2a5c36d362024a3a8b3ad0df64647f1a.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "dev-claude-conversion",
+    "Files": 4,
+    "Bytes": 47372.0,
+    "TreeDigest": "be2efd5373e20a552a051e319dd82fe39024d31a0e48fba826bf07d6991892ef",
+    "PlanSHA256": "1b9b89a1921e2f70505ffcbdfefb9e95a08690d9a1966c8c5bd1952108ed63ce",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-93837a23d01f468782cc2802bb59c953.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "dev-qa-remediation",
+    "Files": 492,
+    "Bytes": 3084026.0,
+    "TreeDigest": "7de1e2f8e86d7ded6b058160e0264eed72b102225352505a4e6883bc2ee66a69",
+    "PlanSHA256": "918205ce17bb0b4b9e808e6f7c81ad1b4316fc73db52da66941c2da09ce32334",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-f22dd7df73d74da9932f6cf250c629ac.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "framework-discovery-planning",
+    "Files": 23,
+    "Bytes": 199219.0,
+    "TreeDigest": "95d86c9820855cf577e77a37785678223d99afcbff14c420e754d8e25aac1c85",
+    "PlanSHA256": "c7c044ba036046516c7a120b4ce8a7beaab2e3d95c69eb2b57acb178ac61ae8e",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-bfe2bc5521ec4692a666026554bc20f4.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "framework-foundation",
+    "Files": 6,
+    "Bytes": 23083.0,
+    "TreeDigest": "bed27450d253a4b43f9a2150573b35659d0affb5eb72310201971252f55ab1ce",
+    "PlanSHA256": "8b8c8274a8d54d295f5f10601437ea72f613e6e47eb7352933b2c9b5d8f7f3c0",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-d7801ffef22143858555f1dcd7c5df0f.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "framework-mvp-planning",
+    "Files": 20,
+    "Bytes": 135096.0,
+    "TreeDigest": "c419a4ad15cd9b74e50bf9a64f7fbbfa2569a2efdb6808e76dbf35aa8ca7c1dc",
+    "PlanSHA256": "18c35ba514f255e335d80f68896a8f79e815c3901647131417273e0b2683e423",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-a52ded39a0f045bfab82f3647369bb63.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "framework-prd-planning",
+    "Files": 10,
+    "Bytes": 71810.0,
+    "TreeDigest": "abf1c23ac68875559fcef460370e1520ccd9907a50b37217d81c8c9022eafa49",
+    "PlanSHA256": "2af26f928f5318a0edfbcc87228a3671322cbdebd11b4e05371f28c499b3c896",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-461568f3ea1b44f2a3e0a3ecfad46ac1.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "framework-prd-review-planning",
+    "Files": 9,
+    "Bytes": 83355.0,
+    "TreeDigest": "a3ef3e7b0fd4d99654db355f834cb2ffd78680b66262293a106ce914a88d54da",
+    "PlanSHA256": "d58135393c0c0a94baac6cbf39e56bb3d8c5658d45c00b9248feb5a2c4dcf50c",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-b44792c716a14db5a552c0093a62d5a1.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "index-service-qa",
+    "Files": 277,
+    "Bytes": 8493481.0,
+    "TreeDigest": "1c8714b9f014b3534895658eee3f81f414de7a9d648bc0430703ab2527971529",
+    "PlanSHA256": "35f6213af5760989b77b070ace9d603a8dcf1bb00316809a967c89457af8709f",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-90feddef9a6648a7838471058f8da985.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "index-service-remediation",
+    "Files": 918,
+    "Bytes": 94437557.0,
+    "TreeDigest": "61f4d81396cc360372f608537658c2e37e26e3b8b3de1f4e7e298999679f1359",
+    "PlanSHA256": "8d41ff2e2068af2f129116f408da213610c6a971bda53f1d2797970b841c0d7f",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-c76f880a41604e8ea086be78b6d7f582.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "qa-claude-conversion",
+    "Files": 5,
+    "Bytes": 75669.0,
+    "TreeDigest": "6204c1b5c8d9e7ac2f6fc77aae03803a3920202f109b0d76cb79dd3d2dd2a881",
+    "PlanSHA256": "6d9a17e80a2dbc86c7529e5126953abcee924495368a79798367780e01caa70d",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-cf65aa28cbce48cc9fbfdd78a2a975bb.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "root-cause-analyses",
+    "Files": 53,
+    "Bytes": 822230.0,
+    "TreeDigest": "efd600bb02beb48ed9769a8225e71c84065a5481f043230c5a1e61969937511a",
+    "PlanSHA256": "0779bfac0d7daec17190c0f2a64e4f9723f1e2f2201f0db8151c7f4a8f02548e",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-886354ffa57b47f7902b115614402862.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-adoptions",
+    "Files": 537,
+    "Bytes": 5245738.0,
+    "TreeDigest": "7a25c1f2ce3fce95bc51e8a9106e53ef912a6cd172228db8eb09ce6807bd04c2",
+    "PlanSHA256": "66dba87bf85add7b40b3a1f7d4d038d2e1b6375e80169d2a9d25b36498a0b725",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-783ffc46213f4f25bd52d99687e37254.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-authorings",
+    "Files": 2352,
+    "Bytes": 20322318.0,
+    "TreeDigest": "38f7f3592302d99b11e64bada646877f6e7fa2c2fb916293af1044ef27a8f3ae",
+    "PlanSHA256": "28754450487925a6e56072e79ef2b16007a5e8eac06890dca78c6473728f86ba",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-f235f485e7964e3295c154a51198fce1.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912",
+    "Files": 793,
+    "Bytes": 1749707.0,
+    "TreeDigest": "6ffd28ac6f057277c679ec5e6ba782986cc91de8d2fc3a107dbef815b1b640a0",
+    "PlanSHA256": "95ee2cfcd4943bf0020664476d6d3c1231d2f15f0f80ca370249d3b41714bf98",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-ef3920605c8740dd955f56a3b27f2e5b.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-adoption-trial",
+    "Files": 399,
+    "Bytes": 685592.0,
+    "TreeDigest": "04226f8753b92b9830b0278f986d3a06471e2297ba84d6f24f2377c384077970",
+    "PlanSHA256": "dfb28eb53c98ab02d1b9dd8d506c04ac38aa6e3c1732a88758c8e2ce30b52deb",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-ee980872d7694c48b7a3efa8814d890b.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+    "Files": 384,
+    "Bytes": 1537079.0,
+    "TreeDigest": "76e7d8d77da7afd5ae59791f0dad4eabf9d3af13c71f4d9e8d3f329060b40766",
+    "PlanSHA256": "21aec7eef9b2a418a26b69e02a3c6ae2d2b69bc80373af15137fb53d4508a3f5",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-c7f746739b8443bb8fff9b6747235748.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-adoption-trial-final2",
+    "Files": 676,
+    "Bytes": 2155906.0,
+    "TreeDigest": "0a0133e652b66527d6ec10e62ca735539597b556b7ee6d60595ae17d2ec064de",
+    "PlanSHA256": "83c733f643c2466b51868df14fd0ae5b758e78309990b3e16e5e3d381896fad9",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-8527e17addf34cd889bb19802dc9b383.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-build-trials",
+    "Files": 567,
+    "Bytes": 1062771.0,
+    "TreeDigest": "e8543554bf7a13a85d7ce1dc83eaf62b481f3960f45b7c19f460e2a293e07845",
+    "PlanSHA256": "aebd632304bc0e8e2cc2bd3d04c20a8e514b7c7baa8b1c709a545cdce54fba36",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-3024e5dbc61d4a03bc3c4e049e14d802.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-build-trials-final",
+    "Files": 564,
+    "Bytes": 1057404.0,
+    "TreeDigest": "bcd8a0988e00a0c7903182950fb9fa4b944709bc429148cb6ac153dd7f1de666",
+    "PlanSHA256": "410a681811d5a613eb12d786b06b3eda7623a56c0badff6b0ebf6156dba6a81e",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-1b2ef7a1584c4b4a92240fd015d9b3c8.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-build-trials-final2",
+    "Files": 564,
+    "Bytes": 1057383.0,
+    "TreeDigest": "3b2d6b76677cbdbff76746cfdf9575add565e97644a291aeae4cd86d97ef78fe",
+    "PlanSHA256": "5035d3942567a0d384894eac13ba2691807788437a7aeb6dabbf5df19d1e525e",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-0f0d67404eaf4370a93468deaa116e95.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-failure-trials",
+    "Files": 816,
+    "Bytes": 931428.0,
+    "TreeDigest": "1d44d120e63f55ff3ad1e205616aed7ef43872fca12df3832346fa09433c99f9",
+    "PlanSHA256": "f9f94cde7a29cc5054c9021d67ef3dcf5907e20e87681847156933e04107f486",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-f0b865f138794522889ff083eda7f004.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-remediation",
+    "Files": 16326,
+    "Bytes": 119234638.0,
+    "TreeDigest": "813390b8ece694bc7291b2e8a1736852a5447e21291c40977dfd113004677a63",
+    "PlanSHA256": "68a86550d897b59d754d6b43e19a494097952254479831b5948332ddfaf463c7",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-06a49f1492cb4e3885430e46f21b90dd.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-builder-review-20260916",
+    "Files": 4,
+    "Bytes": 45969.0,
+    "TreeDigest": "d9f62cece394dab7bdde83523e482824ebec721048f95fd57a76aff368d0718b",
+    "PlanSHA256": "563790872495fe929e0d17723f9aa2adef329d6138fc227523720882b030c9ab",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-a212ef64de564501a558c5093a409a14.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-creator-reviews",
+    "Files": 218,
+    "Bytes": 355014.0,
+    "TreeDigest": "48eeb27d15ff57dee38a8ae99511e9b14f30c9491d670f3f2d101c92f7ae9d72",
+    "PlanSHA256": "3ab89eb8439db15fa32bf6e741b3cd678cd0ef87d0e8dc7725c5fc6bfe3837c9",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-2a2ab1dccd1c49029ab7289db0e767dc.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-set-validations",
+    "Files": 611,
+    "Bytes": 2772924.0,
+    "TreeDigest": "9169c30a20224f0af16d62ff45a9b11b847659c1d633750dbd8ca0351a17e022",
+    "PlanSHA256": "fe568d930909d1605d69eee0236e248401e645fc4c6587ef8aad9fc7c82f1b5d",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-ccbf43302f9d41088179798f34eb6ce7.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-validator-claude-conversion",
+    "Files": 1,
+    "Bytes": 22205.0,
+    "TreeDigest": "595a404db266d4e3cc1d07460b6d6f2270524c1de977e0df709021c02164c244",
+    "PlanSHA256": "e442502dc57a47d1f548a920f9eec58e49fa3aefff1e5633a345b78c148333c9",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-17c606bc37a84c6cb372f7afa096bee1.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "skill-validator-postmvp-maintenance",
+    "Files": 3279,
+    "Bytes": 77058925.0,
+    "TreeDigest": "8dbcdc7e71f9b7da95caabc78780bdc64d4d2970d5fd21871395a65e8347e398",
+    "PlanSHA256": "a0878ba84e0cb4f13c910f8b5d7d1909901d72e3d6a55b0452f0de7265a45011",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-de0fba5ac2474ffeb32677f05f92b366.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "specification-reviews",
+    "Files": 2,
+    "Bytes": 7808.0,
+    "TreeDigest": "ee39dbbb80308e32f8ba5999e03f69a4cb3208dae76abc7d538ca8dae22275f5",
+    "PlanSHA256": "909bfad46e064536be70d726724127e3245ed9b55bbf2789c76c2e5f4e20e477",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-202be87d6b0e4e5baa6f38c2a78c0820.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  },
+  {
+    "Collection": "ubuntu-results-20260914-123258",
+    "Files": 175,
+    "Bytes": 2490312.0,
+    "TreeDigest": "1374442f66c92a7bf1cd5e59deccfff57b3d457bda22313b10bf19030ead5be7",
+    "PlanSHA256": "d8ac163eb11cb6a91d759957ca7da7eabb358691807b4b88c1038e80407b1b9c",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-tool\\tmp\\relocation-tool-001\\preview-001\\plan-ec77be83b564404bb5bf56f36dc3f2be.json",
+    "Status": "PREVIEWED_NOT_MOVED"
+  }
+]

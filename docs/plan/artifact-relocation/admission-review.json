@@ -1,0 +1,771 @@
+[
+  {
+    "Collection": "advisor-auth-fix",
+    "Source": "worktrees/advisor-auth-fix",
+    "Destination": "artifacts/evidence/advisor-auth-fix",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5777637Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "advisor-build",
+    "Source": "worktrees/advisor-build",
+    "Destination": "artifacts/evidence/advisor-build",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5846340Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "advisor-claude-conversion",
+    "Source": "worktrees/advisor-claude-conversion",
+    "Destination": "artifacts/evidence/advisor-claude-conversion",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5847953Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "advisor-guidance",
+    "Source": "worktrees/advisor-guidance",
+    "Destination": "artifacts/evidence/advisor-guidance",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5848403Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "advisor-runs",
+    "Source": "worktrees/advisor-runs",
+    "Destination": "artifacts/evidence/advisor-runs",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5852081Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REVIEWER_RUN_LEASE_AND_CONSUMER_REVIEW_REQUIRED"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "advisor-streaming-dev",
+    "Source": "worktrees/advisor-streaming-dev",
+    "Destination": "artifacts/evidence/advisor-streaming-dev",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5857428Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "dev-claude-conversion",
+    "Source": "worktrees/dev-claude-conversion",
+    "Destination": "artifacts/evidence/dev-claude-conversion",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5858157Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "dev-qa-remediation",
+    "Source": "worktrees/dev-qa-remediation",
+    "Destination": "artifacts/evidence/dev-qa-remediation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5858454Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "framework-discovery-planning",
+    "Source": "worktrees/framework-discovery-planning",
+    "Destination": "artifacts/evidence/framework-discovery-planning",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5858722Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "framework-foundation",
+    "Source": "worktrees/framework-foundation",
+    "Destination": "artifacts/evidence/framework-foundation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5858934Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "framework-mvp-planning",
+    "Source": "worktrees/framework-mvp-planning",
+    "Destination": "artifacts/evidence/framework-mvp-planning",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5859166Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "framework-native-readiness",
+    "Source": "worktrees/framework-native-readiness",
+    "Destination": "artifacts/evidence/framework-native-readiness",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5859414Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-prd-planning",
+    "Source": "worktrees/framework-prd-planning",
+    "Destination": "artifacts/evidence/framework-prd-planning",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5859859Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "framework-prd-review-planning",
+    "Source": "worktrees/framework-prd-review-planning",
+    "Destination": "artifacts/evidence/framework-prd-review-planning",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5860113Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "framework-worker-config-fix",
+    "Source": "worktrees/framework-worker-config-fix",
+    "Destination": "artifacts/evidence/framework-worker-config-fix",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5860351Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-console-helper",
+    "Source": "worktrees/framework-worker-console-helper",
+    "Destination": "artifacts/evidence/framework-worker-console-helper",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5860627Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-contract",
+    "Source": "worktrees/framework-worker-contract",
+    "Destination": "artifacts/evidence/framework-worker-contract",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5861119Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "LOCATION_REFERENCES_REQUIRE_REVIEW",
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-diagnostics",
+    "Source": "worktrees/framework-worker-diagnostics",
+    "Destination": "artifacts/evidence/framework-worker-diagnostics",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5862649Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-diagnostics-qa",
+    "Source": "worktrees/framework-worker-diagnostics-qa",
+    "Destination": "artifacts/evidence/framework-worker-diagnostics-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5863017Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-implementation",
+    "Source": "worktrees/framework-worker-implementation",
+    "Destination": "artifacts/evidence/framework-worker-implementation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5863283Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-logging",
+    "Source": "worktrees/framework-worker-logging",
+    "Destination": "artifacts/evidence/framework-worker-logging",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5863549Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW",
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-native-completion",
+    "Source": "worktrees/framework-worker-native-completion",
+    "Destination": "artifacts/evidence/framework-worker-native-completion",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5863901Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-native-completion-qa",
+    "Source": "worktrees/framework-worker-native-completion-qa",
+    "Destination": "artifacts/evidence/framework-worker-native-completion-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5864168Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-native-continuation",
+    "Source": "worktrees/framework-worker-native-continuation",
+    "Destination": "artifacts/evidence/framework-worker-native-continuation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5864416Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-native-diagnostics",
+    "Source": "worktrees/framework-worker-native-diagnostics",
+    "Destination": "artifacts/evidence/framework-worker-native-diagnostics",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5864732Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-native-implementation",
+    "Source": "worktrees/framework-worker-native-implementation",
+    "Destination": "artifacts/evidence/framework-worker-native-implementation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5864984Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW",
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-native-qa",
+    "Source": "worktrees/framework-worker-native-qa",
+    "Destination": "artifacts/evidence/framework-worker-native-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5865284Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-qa",
+    "Source": "worktrees/framework-worker-qa",
+    "Destination": "artifacts/evidence/framework-worker-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5865519Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-source-identity",
+    "Source": "worktrees/framework-worker-source-identity",
+    "Destination": "artifacts/evidence/framework-worker-source-identity",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5865789Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-source-identity-qa",
+    "Source": "worktrees/framework-worker-source-identity-qa",
+    "Destination": "artifacts/evidence/framework-worker-source-identity-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5866052Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW",
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-startup-investigation",
+    "Source": "worktrees/framework-worker-startup-investigation",
+    "Destination": "artifacts/evidence/framework-worker-startup-investigation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5866309Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "framework-worker-trials",
+    "Source": "worktrees/framework-worker-trials",
+    "Destination": "artifacts/evidence/framework-worker-trials",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5866582Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "UNRESOLVED_NATIVE_DIAGNOSTIC_CHAIN"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "index-service-implementation",
+    "Source": "worktrees/index-service-implementation",
+    "Destination": "artifacts/evidence/index-service-implementation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5866814Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "LOCATION_REFERENCES_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "index-service-qa",
+    "Source": "worktrees/index-service-qa",
+    "Destination": "artifacts/evidence/index-service-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5867093Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "index-service-remediation",
+    "Source": "worktrees/index-service-remediation",
+    "Destination": "artifacts/evidence/index-service-remediation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5867307Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "qa-claude-conversion",
+    "Source": "worktrees/qa-claude-conversion",
+    "Destination": "artifacts/evidence/qa-claude-conversion",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5867516Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "root-cause-analyses",
+    "Source": "worktrees/root-cause-analyses",
+    "Destination": "artifacts/evidence/root-cause-analyses",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5867744Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-adaptive-implementations",
+    "Source": "worktrees/skill-adaptive-implementations",
+    "Destination": "artifacts/evidence/skill-adaptive-implementations",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5867973Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-adoptions",
+    "Source": "worktrees/skill-adoptions",
+    "Destination": "artifacts/evidence/skill-adoptions",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5868210Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-authoring-enhancement",
+    "Source": "worktrees/skill-authoring-enhancement",
+    "Destination": "artifacts/evidence/skill-authoring-enhancement",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5868427Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-authorings",
+    "Source": "worktrees/skill-authorings",
+    "Destination": "artifacts/evidence/skill-authorings",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5868692Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5868921Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-adoption-trial",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-adoption-trial",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-adoption-trial",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5869141Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-adoption-trial-final",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5869361Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-adoption-trial-final2",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-adoption-trial-final2",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-adoption-trial-final2",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5869583Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-build-trials",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-build-trials",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-build-trials",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5869821Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-build-trials-final",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-build-trials-final",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-build-trials-final",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5870035Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-build-trials-final2",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-build-trials-final2",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-build-trials-final2",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5870239Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-adoption-verification-20260912-independent-failure-trials",
+    "Source": "worktrees/skill-builder-adoption-verification-20260912-independent-failure-trials",
+    "Destination": "artifacts/evidence/skill-builder-adoption-verification-20260912-independent-failure-trials",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5870468Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-custody-remediation",
+    "Source": "worktrees/skill-builder-custody-remediation",
+    "Destination": "artifacts/evidence/skill-builder-custody-remediation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5870682Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-builder-enhancement-evidence",
+    "Source": "worktrees/skill-builder-enhancement-evidence",
+    "Destination": "artifacts/evidence/skill-builder-enhancement-evidence",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5870945Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "LOCATION_REFERENCES_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-builder-evaluation",
+    "Source": "worktrees/skill-builder-evaluation",
+    "Destination": "artifacts/evidence/skill-builder-evaluation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5871177Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "LOCATION_REFERENCES_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-builder-postmvp-maintenance",
+    "Source": "worktrees/skill-builder-postmvp-maintenance",
+    "Destination": "artifacts/evidence/skill-builder-postmvp-maintenance",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5871441Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-builder-remediation",
+    "Source": "worktrees/skill-builder-remediation",
+    "Destination": "artifacts/evidence/skill-builder-remediation",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5871690Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builder-review-20260916",
+    "Source": "worktrees/skill-builder-review-20260916",
+    "Destination": "artifacts/evidence/skill-builder-review-20260916",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5871927Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-builds",
+    "Source": "worktrees/skill-builds",
+    "Destination": "artifacts/evidence/skill-builds",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5872147Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "LOCATION_REFERENCES_REQUIRE_REVIEW",
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-creator-reviews",
+    "Source": "worktrees/skill-creator-reviews",
+    "Destination": "artifacts/evidence/skill-creator-reviews",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5872432Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-independent-qa",
+    "Source": "worktrees/skill-independent-qa",
+    "Destination": "artifacts/evidence/skill-independent-qa",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5872650Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-set-validations",
+    "Source": "worktrees/skill-set-validations",
+    "Destination": "artifacts/evidence/skill-set-validations",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5872891Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-validations",
+    "Source": "worktrees/skill-validations",
+    "Destination": "artifacts/evidence/skill-validations",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5873136Z",
+    "NextHoldReview": "UNSET_REQUIRES_OWNER_DECISION",
+    "Holds": [
+      "REPARSE_POINTS_REQUIRE_REVIEW"
+    ],
+    "Disposition": "RETAIN_WITH_HOLD",
+    "Reason": "Preserve active/location-sensitive or incompletely inspected material; do not infer disposal eligibility."
+  },
+  {
+    "Collection": "skill-validator-claude-conversion",
+    "Source": "worktrees/skill-validator-claude-conversion",
+    "Destination": "artifacts/evidence/skill-validator-claude-conversion",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5873376Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "skill-validator-postmvp-maintenance",
+    "Source": "worktrees/skill-validator-postmvp-maintenance",
+    "Destination": "artifacts/evidence/skill-validator-postmvp-maintenance",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5873590Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "specification-reviews",
+    "Source": "worktrees/specification-reviews",
+    "Destination": "artifacts/evidence/specification-reviews",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5873801Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  },
+  {
+    "Collection": "ubuntu-results-20260914-123258",
+    "Source": "worktrees/ubuntu-results-20260914-123258",
+    "Destination": "artifacts/evidence/ubuntu-results-20260914-123258",
+    "Owner": "Bryan (migration reviewer)",
+    "ReviewedUtc": "2026-09-18T15:49:53.5874041Z",
+    "NextHoldReview": "NOT_APPLICABLE",
+    "Holds": [],
+    "Disposition": "ELIGIBLE_SUBJECT_TO_LIVE_RECHECK",
+    "Reason": "No current tracked runtime/configuration literal consumer identified; no reparse/read-error finding; migration ownership selected by user. Hash, process and admission rechecks still required."
+  }
+]
