@@ -1,7 +1,7 @@
 [
   {
     "Original": "docs/plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
-    "Local": "worktrees/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "Local": "artifacts/evidence/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
     "PlannedLocal": "artifacts/evidence/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
     "SHA256": "9487f25a4b1665cf90894313b27326cf1097b4aa68550c054bf530289489491a",
     "Bytes": 7669,
@@ -49,7 +49,7 @@
   },
   {
     "Original": "docs/plan/framework-prd-planning/20260918T030029557Z/inputs-before.json",
-    "Local": "worktrees/framework-prd-planning/20260918T030029557Z/inputs-before.json",
+    "Local": "artifacts/evidence/framework-prd-planning/20260918T030029557Z/inputs-before.json",
     "PlannedLocal": "artifacts/evidence/framework-prd-planning/20260918T030029557Z/inputs-before.json",
     "SHA256": "f1b44505172f31f2bcf1b0e73ede37a044f1e0391eca948b22dbb0f44c13d0f8",
     "Bytes": 9958,
@@ -61,7 +61,7 @@
   },
   {
     "Original": "docs/plan/framework-prd-review-planning/20260918T125021440Z/inputs-before.json",
-    "Local": "worktrees/framework-prd-review-planning/20260918T125021440Z/inputs-before.json",
+    "Local": "artifacts/evidence/framework-prd-review-planning/20260918T125021440Z/inputs-before.json",
     "PlannedLocal": "artifacts/evidence/framework-prd-review-planning/20260918T125021440Z/inputs-before.json",
     "SHA256": "bfd18cc720c14ea52cb344571c4fb62181b56c90171f152ec196892c878b92f5",
     "Bytes": 10058,
@@ -361,7 +361,7 @@
   },
   {
     "Original": "docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md",
-    "Local": "worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md",
+    "Local": "artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md",
     "PlannedLocal": "artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md",
     "SHA256": "31adb590beacbfa27d9c10859f7701eb9ddc12195969b824c5cf26fa290c0e20",
     "Bytes": 2054,
@@ -373,7 +373,7 @@
   },
   {
     "Original": "docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md",
-    "Local": "worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md",
+    "Local": "artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md",
     "PlannedLocal": "artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md",
     "SHA256": "847c8afcc49509fa23d680a7b13413a02699b56c9f077b0359550a8ef30ecafe",
     "Bytes": 7938,
@@ -385,7 +385,7 @@
   },
   {
     "Original": "docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md",
-    "Local": "worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md",
+    "Local": "artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md",
     "PlannedLocal": "artifacts/evidence/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md",
     "SHA256": "441a62b60fd4dfc62a5bcd028cdf8fc0319b20e43fae9f222817fbe1c6c4d812",
     "Bytes": 18955,
@@ -397,7 +397,7 @@
   },
   {
     "Original": "docs/plan/index-service-remediation/20260914T1950304158791Z/final-delivery.md",
-    "Local": "worktrees/index-service-remediation/20260914T1950304158791Z/final-delivery.md",
+    "Local": "artifacts/evidence/index-service-remediation/20260914T1950304158791Z/final-delivery.md",
     "PlannedLocal": "artifacts/evidence/index-service-remediation/20260914T1950304158791Z/final-delivery.md",
     "SHA256": "284a7ae8909ecd4e4a7ae96f0fbffcd28416fb705d5a58b171e6d49723283b92",
     "Bytes": 3516,
@@ -409,7 +409,7 @@
   },
   {
     "Original": "docs/plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
-    "Local": "worktrees/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
+    "Local": "artifacts/evidence/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
     "PlannedLocal": "artifacts/evidence/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
     "SHA256": "f59f751634f4b5f157b6bee8b0838a7d0343b96707a6e95a2ba402a120104cb7",
     "Bytes": 27970,
@@ -781,7 +781,7 @@
   },
   {
     "Original": "docs/plan/skill-builder-remediation/20260913T190249336501Z/REPORT.md",
-    "Local": "worktrees/skill-builder-remediation/20260913T190249336501Z/REPORT.md",
+    "Local": "artifacts/evidence/skill-builder-remediation/20260913T190249336501Z/REPORT.md",
     "PlannedLocal": "artifacts/evidence/skill-builder-remediation/20260913T190249336501Z/REPORT.md",
     "SHA256": "c64feb3e483e5df111fc8996451d5c5009cc47ce142524e56a85c248125ba50b",
     "Bytes": 9211,
