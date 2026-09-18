@@ -1,0 +1,212 @@
+[
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 268,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 316,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 317,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 318,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 319,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 320,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 324,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 331,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 332,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSAvoidUsingWriteHost",
+    "Severity": 1,
+    "Line": 336,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "File 'OperatorConsole.psm1' uses Write-Host. Avoid using Write-Host because it might not work in all hosts, does not work when there is no host, and (prior to PS 5.0) cannot be suppressed, captured, or redirected. Instead, use Write-Output, Write-Verbose, or Write-Information."
+  },
+  {
+    "RuleName": "PSUseShouldProcessForStateChangingFunctions",
+    "Severity": 1,
+    "Line": 105,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Function 'New-OperatorCheckpoint' has verb that could change system state. Therefore, the function has to support 'ShouldProcess'."
+  },
+  {
+    "RuleName": "PSUseShouldProcessForStateChangingFunctions",
+    "Severity": 1,
+    "Line": 210,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Function 'New-OperatorWorktree' has verb that could change system state. Therefore, the function has to support 'ShouldProcess'."
+  },
+  {
+    "RuleName": "PSUseShouldProcessForStateChangingFunctions",
+    "Severity": 1,
+    "Line": 311,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Function 'Start-OperatorMenu' has verb that could change system state. Therefore, the function has to support 'ShouldProcess'."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 50,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Get-OperatorRepository' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 105,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'New-OperatorCheckpoint' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 159,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Sync-OperatorMain' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 184,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Switch-OperatorBranch' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 197,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Get-OperatorRecovery' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 210,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'New-OperatorWorktree' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 226,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Save-OperatorCommit' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 239,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Push-OperatorBranch' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 247,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Invoke-OperatorBuild' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 281,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Invoke-OperatorAction' does not have a help comment."
+  },
+  {
+    "RuleName": "PSProvideCommentHelp",
+    "Severity": 0,
+    "Line": 311,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "The cmdlet 'Start-OperatorMenu' does not have a help comment."
+  },
+  {
+    "RuleName": "PSAvoidUsingPositionalParameters",
+    "Severity": 0,
+    "Line": 35,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Cmdlet 'Invoke-OperatorTool' has positional parameter. Please use named parameters instead of positional parameters when calling a command."
+  },
+  {
+    "RuleName": "PSAvoidUsingPositionalParameters",
+    "Severity": 0,
+    "Line": 87,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Cmdlet 'Invoke-OperatorTool' has positional parameter. Please use named parameters instead of positional parameters when calling a command."
+  },
+  {
+    "RuleName": "PSAvoidUsingPositionalParameters",
+    "Severity": 0,
+    "Line": 169,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Cmdlet 'Invoke-OperatorTool' has positional parameter. Please use named parameters instead of positional parameters when calling a command."
+  },
+  {
+    "RuleName": "PSAvoidUsingPositionalParameters",
+    "Severity": 0,
+    "Line": 254,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Cmdlet 'Invoke-OperatorTool' has positional parameter. Please use named parameters instead of positional parameters when calling a command."
+  },
+  {
+    "RuleName": "PSAvoidUsingPositionalParameters",
+    "Severity": 0,
+    "Line": 301,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Cmdlet 'Invoke-OperatorTool' has positional parameter. Please use named parameters instead of positional parameters when calling a command."
+  },
+  {
+    "RuleName": "PSAvoidUsingPositionalParameters",
+    "Severity": 0,
+    "Line": 305,
+    "ScriptName": "OperatorConsole.psm1",
+    "Message": "Cmdlet 'Invoke-OperatorTool' has positional parameter. Please use named parameters instead of positional parameters when calling a command."
+  }
+]
