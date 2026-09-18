@@ -1,0 +1,590 @@
+[
+  {
+    "Document": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "Link": "index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md",
+    "Original": "docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md",
+    "Current": "worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-report.md"
+  },
+  {
+    "Document": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "Link": "index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md",
+    "Original": "docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md",
+    "Current": "worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/qa-fix.md"
+  },
+  {
+    "Document": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "Link": "index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md",
+    "Original": "docs/plan/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md",
+    "Current": "worktrees/index-service-qa/20260914T184442947070Z/executions/20260914T191133863776Z/dev-handoff.md"
+  },
+  {
+    "Document": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "Link": "index-service-remediation/20260914T1950304158791Z/final-delivery.md",
+    "Original": "docs/plan/index-service-remediation/20260914T1950304158791Z/final-delivery.md",
+    "Current": "worktrees/index-service-remediation/20260914T1950304158791Z/final-delivery.md"
+  },
+  {
+    "Document": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "Link": "root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
+    "Original": "docs/plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
+    "Current": "worktrees/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md"
+  },
+  {
+    "Document": "docs/plan/devforgeai-adaptive-framework-enhancement-notes.md",
+    "Link": "framework-mvp-planning/20260915T145455Z/verification.md",
+    "Original": "docs/plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Current": "worktrees/framework-mvp-planning/20260915T145455Z/verification.md"
+  },
+  {
+    "Document": "docs/plan/framework-mvp-next-session.md",
+    "Link": "framework-worker-contract/20260915T151300Z/verification.md",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/verification.md"
+  },
+  {
+    "Document": "docs/plan/framework-mvp-next-session.md",
+    "Link": "framework-mvp-planning/20260915T145455Z/verification.md",
+    "Original": "docs/plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Current": "worktrees/framework-mvp-planning/20260915T145455Z/verification.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-coding-handoff.md",
+    "Link": "framework-worker-contract/20260915T151300Z/delivery-manifest.json",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/delivery-manifest.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-coding-handoff.md",
+    "Link": "framework-worker-contract/20260915T151300Z/schema-manifest.json",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/schema-manifest.json",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/schema-manifest.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-coding-handoff.md",
+    "Link": "framework-worker-contract/20260915T151300Z/verification.md",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/verification.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-startup-investigation/20260916T204555Z/investigation-report.md",
+    "Original": "docs/plan/framework-worker-startup-investigation/20260916T204555Z/investigation-report.md",
+    "Current": "worktrees/framework-worker-startup-investigation/20260916T204555Z/investigation-report.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-startup-investigation/20260916T204555Z/logging-design.md",
+    "Original": "docs/plan/framework-worker-startup-investigation/20260916T204555Z/logging-design.md",
+    "Current": "worktrees/framework-worker-startup-investigation/20260916T204555Z/logging-design.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T105456Z-qa-retest/qa-report.md",
+    "Original": "docs/plan/framework-worker-logging/20260917T105456Z-qa-retest/qa-report.md",
+    "Current": "worktrees/framework-worker-logging/20260917T105456Z-qa-retest/qa-report.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/execute_once.py",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/execute_once.py",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/execute_once.py"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/execution-stop-002.json",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/execution-stop-002.json",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/execution-stop-002.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/review.proposed.json",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/review.proposed.json",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/review.proposed.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/sites-version-update.md",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/sites-version-update.md",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/sites-version-update.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/inputs-002-reviewed/approval-summary.md",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/inputs-002-reviewed/approval-summary.md",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/inputs-002-reviewed/approval-summary.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/selection-final.md",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/selection-final.md",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/selection-final.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/drift-report.md",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/drift-report.md",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/drift-report.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T105456Z-qa-retest/handoff-manifest.json",
+    "Original": "docs/plan/framework-worker-logging/20260917T105456Z-qa-retest/handoff-manifest.json",
+    "Current": "worktrees/framework-worker-logging/20260917T105456Z-qa-retest/handoff-manifest.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T122229Z-native-plan/handoff-manifest.json",
+    "Original": "docs/plan/framework-worker-logging/20260917T122229Z-native-plan/handoff-manifest.json",
+    "Current": "worktrees/framework-worker-logging/20260917T122229Z-native-plan/handoff-manifest.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T105456Z-qa-retest/candidate-manifest.json",
+    "Original": "docs/plan/framework-worker-logging/20260917T105456Z-qa-retest/candidate-manifest.json",
+    "Current": "worktrees/framework-worker-logging/20260917T105456Z-qa-retest/candidate-manifest.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T105456Z-qa-retest/build-target/debug/devforgeai-codex-worker-probe.exe",
+    "Original": "docs/plan/framework-worker-logging/20260917T105456Z-qa-retest/build-target/debug/devforgeai-codex-worker-probe.exe",
+    "Current": "worktrees/framework-worker-logging/20260917T105456Z-qa-retest/build-target/debug/devforgeai-codex-worker-probe.exe"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/handoff-manifest.json",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/handoff-manifest.json",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/native-execution-001/source-review-002/handoff-manifest.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T105456Z-qa-retest/specification-bindings.json",
+    "Original": "docs/plan/framework-worker-logging/20260917T105456Z-qa-retest/specification-bindings.json",
+    "Current": "worktrees/framework-worker-logging/20260917T105456Z-qa-retest/specification-bindings.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T122229Z-native-plan/native-diagnostic-plan.md",
+    "Original": "docs/plan/framework-worker-logging/20260917T122229Z-native-plan/native-diagnostic-plan.md",
+    "Current": "worktrees/framework-worker-logging/20260917T122229Z-native-plan/native-diagnostic-plan.md"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-trials/20260917T122229Z-logging-diagnostic/recorder-checks/final-evidence.json",
+    "Original": "docs/plan/framework-worker-trials/20260917T122229Z-logging-diagnostic/recorder-checks/final-evidence.json",
+    "Current": "worktrees/framework-worker-trials/20260917T122229Z-logging-diagnostic/recorder-checks/final-evidence.json"
+  },
+  {
+    "Document": "docs/plan/framework-worker-diagnostic-outstanding-work.md",
+    "Link": "framework-worker-logging/20260917T160006Z-outstanding-work-docs/verification.json",
+    "Original": "docs/plan/framework-worker-logging/20260917T160006Z-outstanding-work-docs/verification.json",
+    "Current": "worktrees/framework-worker-logging/20260917T160006Z-outstanding-work-docs/verification.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/artifact-delta.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/artifact-delta.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/artifact-delta.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-final.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-final.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-final.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-through-verification.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-through-verification.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/root-command-log-through-verification.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/docs-agent-log.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/docs-agent-log.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/docs-agent-log.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/evaluator-agent-log.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/evaluator-agent-log.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/evaluator-agent-log.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/tests-agent-log.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/tests-agent-log.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/tests-agent-log.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/reviewer-repair-agent-log.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/reviewer-repair-agent-log.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/reviewer-repair-agent-log.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/regressions-final-03.txt",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/regressions-final-03.txt",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/regressions-final-03.txt"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/builder-observations-03.jsonl",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/builder-observations-03.jsonl",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/builder-observations-03.jsonl"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/legacy-observations-03.jsonl",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/legacy-observations-03.jsonl",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/legacy-observations-03.jsonl"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/gap-trial-observations.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/gap-trial-observations.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/gap-trial-observations.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/routing-observations.jsonl",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/routing-observations.jsonl",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/routing-observations.jsonl"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/independent-readback-before-revision.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/independent-readback-before-revision.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/independent-readback-before-revision.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/forward/import-project/docs/plan/skill-imports/decimal-ledger-import/20260912T123934371592Z/conversion-report.md",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/import-project/docs/plan/skill-imports/decimal-ledger-import/20260912T123934371592Z/conversion-report.md",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/forward/import-project/docs/plan/skill-imports/decimal-ledger-import/20260912T123934371592Z/conversion-report.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/forward/spec-project/docs/plan/skill-builds/decimal-ledger-spec/20260912T123744Z-spec/build-report.md",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/spec-project/docs/plan/skill-builds/decimal-ledger-spec/20260912T123744Z-spec/build-report.md",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/forward/spec-project/docs/plan/skill-builds/decimal-ledger-spec/20260912T123744Z-spec/build-report.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/revision-final-independent-readback.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/revision-final-independent-readback.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/revision-final-independent-readback.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/revision-resolution-directive.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/revision-resolution-directive.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/revision-resolution-directive.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/published-revision-plan.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/published-revision-plan.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/published-revision-plan.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/conversion-report.md",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/conversion-report.md",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/conversion-report.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/command-log.md",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/command-log.md",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/forward/revision-project/docs/plan/skill-imports/decimal-ledger-import/revision-20260912-independent-02/command-log.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/completion-receipt.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/completion-receipt.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/completion-receipt.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/verify-gap-trials.py",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/verify-gap-trials.py",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/verify-gap-trials.py"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/rejected-manifest-02.json",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/rejected-manifest-02.json",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/rejected-manifest-02.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-enhancement-implementation-log.md",
+    "Link": "skill-builder-enhancement-evidence/20260912-build-v2/regressions-final.txt",
+    "Original": "docs/plan/skill-builder-enhancement-evidence/20260912-build-v2/regressions-final.txt",
+    "Current": "worktrees/skill-builder-enhancement-evidence/20260912-build-v2/regressions-final.txt"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/build-observations-02.jsonl",
+    "Original": "docs/plan/skill-builder-evaluation/build-observations-02.jsonl",
+    "Current": "worktrees/skill-builder-evaluation/build-observations-02.jsonl"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/regression-tests-02.txt",
+    "Original": "docs/plan/skill-builder-evaluation/regression-tests-02.txt",
+    "Current": "worktrees/skill-builder-evaluation/regression-tests-02.txt"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/documentation-command-results.json",
+    "Original": "docs/plan/skill-builder-evaluation/documentation-command-results.json",
+    "Current": "worktrees/skill-builder-evaluation/documentation-command-results.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/command-results.json",
+    "Original": "docs/plan/skill-builder-evaluation/command-results.json",
+    "Current": "worktrees/skill-builder-evaluation/command-results.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/documentation-command-results.json",
+    "Original": "docs/plan/skill-builder-evaluation/documentation-command-results.json",
+    "Current": "worktrees/skill-builder-evaluation/documentation-command-results.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/regression-tests-01.txt",
+    "Original": "docs/plan/skill-builder-evaluation/regression-tests-01.txt",
+    "Current": "worktrees/skill-builder-evaluation/regression-tests-01.txt"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/build-observations-01.jsonl",
+    "Original": "docs/plan/skill-builder-evaluation/build-observations-01.jsonl",
+    "Current": "worktrees/skill-builder-evaluation/build-observations-01.jsonl"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/build-observations-02.jsonl",
+    "Original": "docs/plan/skill-builder-evaluation/build-observations-02.jsonl",
+    "Current": "worktrees/skill-builder-evaluation/build-observations-02.jsonl"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/regression-tests-02.txt",
+    "Original": "docs/plan/skill-builder-evaluation/regression-tests-02.txt",
+    "Current": "worktrees/skill-builder-evaluation/regression-tests-02.txt"
+  },
+  {
+    "Document": "docs/plan/skill-builder-mandatory-evaluation-log.md",
+    "Link": "skill-builder-evaluation/documentation-command-results.json",
+    "Original": "docs/plan/skill-builder-evaluation/documentation-command-results.json",
+    "Current": "worktrees/skill-builder-evaluation/documentation-command-results.json"
+  },
+  {
+    "Document": "docs/plan/skill-builder-qa-remediation-plan.md",
+    "Link": "skill-independent-qa/skill-builder/20260913T152822695886Z/qa-report.md",
+    "Original": "docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/qa-report.md",
+    "Current": "worktrees/skill-independent-qa/skill-builder/20260913T152822695886Z/qa-report.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-qa-remediation-plan.md",
+    "Link": "skill-independent-qa/skill-builder/20260913T152822695886Z/findings-ledger.md",
+    "Original": "docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/findings-ledger.md",
+    "Current": "worktrees/skill-independent-qa/skill-builder/20260913T152822695886Z/findings-ledger.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-qa-remediation-plan.md",
+    "Link": "skill-independent-qa/skill-builder/20260913T152822695886Z/traceability-matrix.md",
+    "Original": "docs/plan/skill-independent-qa/skill-builder/20260913T152822695886Z/traceability-matrix.md",
+    "Current": "worktrees/skill-independent-qa/skill-builder/20260913T152822695886Z/traceability-matrix.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-qa-remediation-plan.md",
+    "Link": "skill-builder-remediation/20260913T190249336501Z/REPORT.md",
+    "Original": "docs/plan/skill-builder-remediation/20260913T190249336501Z/REPORT.md",
+    "Current": "worktrees/skill-builder-remediation/20260913T190249336501Z/REPORT.md"
+  },
+  {
+    "Document": "docs/plan/skill-builder-qa-remediation-plan.md",
+    "Link": "skill-independent-qa/skill-builder/20260913T190357053555Z/qa-report.md",
+    "Original": "docs/plan/skill-independent-qa/skill-builder/20260913T190357053555Z/qa-report.md",
+    "Current": "worktrees/skill-independent-qa/skill-builder/20260913T190357053555Z/qa-report.md"
+  },
+  {
+    "Document": "docs/plan/skill-validator-confirmed-findings-remediation-workflow.md",
+    "Link": "skill-validations/skill-validator/20260913T201813155594Z/revision-spec.md",
+    "Original": "docs/plan/skill-validations/skill-validator/20260913T201813155594Z/revision-spec.md",
+    "Current": "worktrees/skill-validations/skill-validator/20260913T201813155594Z/revision-spec.md"
+  },
+  {
+    "Document": "docs/specs/skill-builder-postmvp-spec.md",
+    "Link": "../plan/skill-validations/qa/20260914T1949120508210Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/qa/20260914T1949120508210Z/validation-report.md",
+    "Current": "worktrees/skill-validations/qa/20260914T1949120508210Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/skill-builder-postmvp-spec.md",
+    "Link": "../plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
+    "Original": "docs/plan/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md",
+    "Current": "worktrees/root-cause-analyses/qa-completion/20260914T2024442802835Z/analysis.md"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "Original": "docs/plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "Current": "worktrees/framework-discovery-planning/20260918T014059438Z/inputs-before.json"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md",
+    "Current": "worktrees/skill-validations/brainstorm/20260918T021707Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/skill-validations/brainstorm/20260918T021707Z/handoff.json",
+    "Original": "docs/plan/skill-validations/brainstorm/20260918T021707Z/handoff.json",
+    "Current": "worktrees/skill-validations/brainstorm/20260918T021707Z/handoff.json"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/skill-validations/prd-create/20260918T121331Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/prd-create/20260918T121331Z/validation-report.md",
+    "Current": "worktrees/skill-validations/prd-create/20260918T121331Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/skill-validations/prd-create/20260918T121331Z/finding-retest.json",
+    "Original": "docs/plan/skill-validations/prd-create/20260918T121331Z/finding-retest.json",
+    "Current": "worktrees/skill-validations/prd-create/20260918T121331Z/finding-retest.json"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/framework-foundation/20260915T111940Z/verification.md",
+    "Original": "docs/plan/framework-foundation/20260915T111940Z/verification.md",
+    "Current": "worktrees/framework-foundation/20260915T111940Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/index.md",
+    "Link": "../../plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Original": "docs/plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Current": "worktrees/framework-mvp-planning/20260915T145455Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "Original": "docs/plan/framework-discovery-planning/20260918T014059438Z/inputs-before.json",
+    "Current": "worktrees/framework-discovery-planning/20260918T014059438Z/inputs-before.json"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md",
+    "Current": "worktrees/skill-validations/brainstorm/20260918T021707Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/framework-prd-planning/20260918T030029557Z/inputs-before.json",
+    "Original": "docs/plan/framework-prd-planning/20260918T030029557Z/inputs-before.json",
+    "Current": "worktrees/framework-prd-planning/20260918T030029557Z/inputs-before.json"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/skill-validations/prd-create/20260918T121331Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/prd-create/20260918T121331Z/validation-report.md",
+    "Current": "worktrees/skill-validations/prd-create/20260918T121331Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/framework-prd-review-planning/20260918T125021440Z/inputs-before.json",
+    "Original": "docs/plan/framework-prd-review-planning/20260918T125021440Z/inputs-before.json",
+    "Current": "worktrees/framework-prd-review-planning/20260918T125021440Z/inputs-before.json"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/framework-foundation/20260915T111940Z/verification.md",
+    "Original": "docs/plan/framework-foundation/20260915T111940Z/verification.md",
+    "Current": "worktrees/framework-foundation/20260915T111940Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/roadmap-and-decisions.md",
+    "Link": "../../plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Original": "docs/plan/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Current": "worktrees/framework-mvp-planning/20260915T145455Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "Link": "../../../plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/verification.md",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/verification.md"
+  },
+  {
+    "Document": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "Link": "../../../plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/delivery-manifest.json",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/delivery-manifest.json"
+  },
+  {
+    "Document": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "Link": "../../../plan/framework-worker-contract/20260915T151300Z/inputs-before.json",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/inputs-before.json",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/inputs-before.json"
+  },
+  {
+    "Document": "docs/specs/framework/runtime/codex-worker-feasibility-v1.md",
+    "Link": "../../../plan/framework-worker-contract/20260915T151300Z/schema-manifest.json",
+    "Original": "docs/plan/framework-worker-contract/20260915T151300Z/schema-manifest.json",
+    "Current": "worktrees/framework-worker-contract/20260915T151300Z/schema-manifest.json"
+  },
+  {
+    "Document": "docs/specs/framework/runtime/codex-worker-native-readiness-v1.md",
+    "Link": "../../../plan/framework-native-readiness/20260915T1937559109498Z/launcher-identity.json",
+    "Original": "docs/plan/framework-native-readiness/20260915T1937559109498Z/launcher-identity.json",
+    "Current": "worktrees/framework-native-readiness/20260915T1937559109498Z/launcher-identity.json"
+  },
+  {
+    "Document": "docs/specs/framework/runtime/codex-worker-source-identity-v1.md",
+    "Link": "../../../plan/framework-worker-native-continuation/20260916T013303Z/source-inventory-proposal.md",
+    "Original": "docs/plan/framework-worker-native-continuation/20260916T013303Z/source-inventory-proposal.md",
+    "Current": "worktrees/framework-worker-native-continuation/20260916T013303Z/source-inventory-proposal.md"
+  },
+  {
+    "Document": "docs/specs/framework/workflows/phase-2-prd-create-spec.md",
+    "Link": "../../../plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/brainstorm/20260918T021707Z/validation-report.md",
+    "Current": "worktrees/skill-validations/brainstorm/20260918T021707Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/framework/workflows/phase-2-prd-create-spec.md",
+    "Link": "../../../plan/skill-validations/brainstorm/20260918T021707Z/handoff.json",
+    "Original": "docs/plan/skill-validations/brainstorm/20260918T021707Z/handoff.json",
+    "Current": "worktrees/skill-validations/brainstorm/20260918T021707Z/handoff.json"
+  },
+  {
+    "Document": "docs/specs/framework/workflows/phase-3-prd-review-spec.md",
+    "Link": "../../../plan/skill-validations/prd-create/20260918T121331Z/validation-report.md",
+    "Original": "docs/plan/skill-validations/prd-create/20260918T121331Z/validation-report.md",
+    "Current": "worktrees/skill-validations/prd-create/20260918T121331Z/validation-report.md"
+  },
+  {
+    "Document": "docs/specs/framework/workflows/phase-3-prd-review-spec.md",
+    "Link": "../../../plan/skill-validations/prd-create/20260918T121331Z/finding-retest.json",
+    "Original": "docs/plan/skill-validations/prd-create/20260918T121331Z/finding-retest.json",
+    "Current": "worktrees/skill-validations/prd-create/20260918T121331Z/finding-retest.json"
+  }
+]

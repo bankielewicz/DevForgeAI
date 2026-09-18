@@ -1,0 +1,29 @@
+{
+  "Version": 1,
+  "Checkpoint": 1,
+  "CandidateBranch": "docs/artifact-inventory",
+  "PrimaryRoot": "C:\\Projects\\DevForgeAI",
+  "Bindings": [
+    {
+      "Path": "docs/plan/artifact-relocation/plan.md",
+      "Bytes": 5834,
+      "SHA256": "24215a125efa5ab3e4eabaf1c9c5915ddda5a2f25657d834e1ab1c7e0710149d"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/inventory.json",
+      "Bytes": 44387,
+      "SHA256": "e0ff82685ff039e01245f6fea7f4e05ee80743e8b899b47b222383db52fe7588"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/broken-links.json",
+      "Bytes": 38848,
+      "SHA256": "7411d2a687b5af3dd9e5be4f78a3f6d80e6a384437171d9bbc0f51813748af90"
+    },
+    {
+      "Path": "docs/plan/artifact-relocation/checkpoint-1.md",
+      "Bytes": 8319,
+      "SHA256": "fe03e429840687723d3154da68df97ebbb96679639e97764982a685a4e53c3af"
+    }
+  ],
+  "Relocation": "NOT_STARTED"
+}
