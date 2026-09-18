@@ -13,7 +13,7 @@
   },
   {
     "Original": "docs/plan/framework-foundation/20260915T111940Z/verification.md",
-    "Local": "worktrees/framework-foundation/20260915T111940Z/verification.md",
+    "Local": "artifacts/evidence/framework-foundation/20260915T111940Z/verification.md",
     "PlannedLocal": "artifacts/evidence/framework-foundation/20260915T111940Z/verification.md",
     "SHA256": "b17d6513dd70644a96ecb1536d0730b2fce19cea73058d0352c1c6657292103a",
     "Bytes": 1010,
@@ -25,7 +25,7 @@
   },
   {
     "Original": "docs/plan/framework-mvp-planning/20260915T145455Z/verification.md",
-    "Local": "worktrees/framework-mvp-planning/20260915T145455Z/verification.md",
+    "Local": "artifacts/evidence/framework-mvp-planning/20260915T145455Z/verification.md",
     "PlannedLocal": "artifacts/evidence/framework-mvp-planning/20260915T145455Z/verification.md",
     "SHA256": "e29958c4f31eb581d6823ae5431590e160c8c6b030be983ae8785ab949520a0d",
     "Bytes": 920,

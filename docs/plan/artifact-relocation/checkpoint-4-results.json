@@ -1,0 +1,30 @@
+[
+  {
+    "Collection": "framework-foundation",
+    "Status": "VERIFIED",
+    "Files": 6,
+    "Bytes": 23083.0,
+    "Source": "worktrees/framework-foundation",
+    "Destination": "artifacts/evidence/framework-foundation",
+    "TreeDigest": "bed27450d253a4b43f9a2150573b35659d0affb5eb72310201971252f55ab1ce",
+    "PlanSHA256": "bfe90e7e3933a3cca9552392bff92626a10828c5f520af33ba6a4c596ee22573",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-pilot\\tmp\\relocation-pilot-001\\plan-6fc8be18843d4713ada27e28e9d29858.json",
+    "LocalReceipt": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-pilot\\tmp\\relocation-pilot-001\\receipt-24c24f608e7a4eda8d22e44a72b22ec5.json",
+    "ReceiptSHA256": "c3415f7d886c19c03a2d3e5ac29c4b9807ececdf2e69655b3bc965728c3f0398",
+    "Availability": "LOCAL_ONLY"
+  },
+  {
+    "Collection": "framework-mvp-planning",
+    "Status": "VERIFIED",
+    "Files": 20,
+    "Bytes": 135096.0,
+    "Source": "worktrees/framework-mvp-planning",
+    "Destination": "artifacts/evidence/framework-mvp-planning",
+    "TreeDigest": "c419a4ad15cd9b74e50bf9a64f7fbbfa2569a2efdb6808e76dbf35aa8ca7c1dc",
+    "PlanSHA256": "ab848a450dfb3724815aba9da1e8725e79c4c92d2b8452c2f264c4862558299c",
+    "LocalPlan": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-pilot\\tmp\\relocation-pilot-001\\plan-2de8ea3b7da145b78692e49bede05c95.json",
+    "LocalReceipt": "C:\\Projects\\DevForgeAI\\worktrees\\git\\artifact-relocation-pilot\\tmp\\relocation-pilot-001\\receipt-6b29417239c44610aff22b75bd3d575b.json",
+    "ReceiptSHA256": "ab5b6751a10732207aba2d9be0d914082ef8bcc0b835d09d992c9ea5bccd435e",
+    "Availability": "LOCAL_ONLY"
+  }
+]

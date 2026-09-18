@@ -1,0 +1,28 @@
+{
+  "ToolSHA256": "A6F4A9491A418617DF2F40E0056FACB6BB596CD6A563D5045411864B3C0FC971",
+  "Version": 1,
+  "Bindings": [
+    {
+      "SHA256": "A656B4017196DCC7379AE6868A61F948B2177DAE37382BBBBD44B65C26F03037",
+      "Path": "docs/plan/artifact-relocation/checkpoint-4.md",
+      "Bytes": 2550
+    },
+    {
+      "SHA256": "BE0F8A78B986C1BE372312A1AA25C7C26FA5C455815EB29504A172DE6D2596ED",
+      "Path": "docs/plan/artifact-relocation/checkpoint-4-results.json",
+      "Bytes": 1727
+    },
+    {
+      "SHA256": "A1CFF08057A992ED4BFFE6C742623A7F733D429FE90F655B01C998FE40CA8EB8",
+      "Path": "docs/plan/artifact-relocation/retrieval-catalog.json",
+      "Bytes": 62107
+    },
+    {
+      "SHA256": "2B0B0818A1D8E4167F667BB0F7F2E1C5CFEADDC4C69441E387A0F3F65F5FC72A",
+      "Path": "docs/plan/artifact-relocation/retrieval-catalog.md",
+      "Bytes": 50528
+    }
+  ],
+  "Checkpoint": 4,
+  "PrimaryBeforeSHA256": "5BDD7E29AE813E670FB38DD21BF5CC45BB9514EF463E953940EB7B0CCB8FD382"
+}
