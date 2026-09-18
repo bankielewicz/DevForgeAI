@@ -1,1 +1,0 @@
-Wrote JSON report to C:\Projects\DevForgeAI\docs\plan\advisor-build\20260915-initial\final-checks\coverage.json

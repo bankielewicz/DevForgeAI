@@ -1,1 +1,0 @@
-Fresh evidence-layout attempt. The original self-review/ and failed legacy-records-001 output remain intact. Raw native/helper JSON now lives under inputs/observations so the unchanged schema-1 reader treats it as input bytes, not evaluator-owned records. References retain their run-relative base and actual byte digests.

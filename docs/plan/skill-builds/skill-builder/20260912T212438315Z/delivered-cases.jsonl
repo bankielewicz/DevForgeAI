@@ -1,3 +1,0 @@
-{"case_id": "delivered-links", "grader_id": "package_links", "params": {"path": "revision/after"}, "expected": "PASS"}
-{"case_id": "delivered-traceability", "grader_id": "build_traceability_v2", "params": {"evidence": "revision/evidence", "destination": "revision/after"}, "expected": "PASS"}
-{"case_id": "delivered-revision", "grader_id": "revision_consistency_v2", "params": {"path": "revision/evidence/revision-plan.json"}, "expected": "PASS"}

@@ -1,6 +1,0 @@
-{"id":1,"method":"initialize","params":{"capabilities":{"experimentalApi":false},"clientInfo":{"name":"devforgeai_worker_probe","version":"0.1.0"}}}
-{"method":"initialized","params":{}}
-{"id":2,"method":"account/read","params":{"refreshToken":false}}
-{"id":3,"method":"model/list","params":{"cursor":null,"limit":100}}
-{"id":4,"method":"account/rateLimits/read","params":{}}
-{"id":5,"method":"thread/start","params":{"approvalPolicy":"never","approvalsReviewer":"user","cwd":"\\\\?\\C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-qa\\20260915T1901023951559Z-retest\\independent-attempts\\IQ-01-policy\\fixture","ephemeral":true,"model":"test-model","modelProvider":"openai","sandbox":"read-only"}}

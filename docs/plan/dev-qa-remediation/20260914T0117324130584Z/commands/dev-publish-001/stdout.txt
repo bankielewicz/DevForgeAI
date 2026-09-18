@@ -1,1 +1,0 @@
-{"state": "AUTHORED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260914T0117324130584Z", "applied_paths": ["SKILL.md", "assets/checkpoint.md", "assets/context.md", "assets/delivery.md", "assets/traceability.md", "references/context.md", "references/evidence-resume.md", "references/failure-delivery.md"], "issues": []}

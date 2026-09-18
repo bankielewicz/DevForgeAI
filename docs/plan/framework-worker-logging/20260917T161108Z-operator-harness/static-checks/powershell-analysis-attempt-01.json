@@ -1,6 +1,0 @@
-{
-  "status": "ERROR",
-  "command": "Invoke-ScriptAnalyzer -LiteralPath C:\\Projects\\DevForgeAI\\Invoke-CodexWorkerDiagnostic.ps1",
-  "reason": "Installed PSScriptAnalyzer 1.25.0 has no LiteralPath parameter. The invocation did not analyze source; its empty issues output is not a pass.",
-  "next_action": "Use the discovered Path parameter and retain a fresh result."
-}

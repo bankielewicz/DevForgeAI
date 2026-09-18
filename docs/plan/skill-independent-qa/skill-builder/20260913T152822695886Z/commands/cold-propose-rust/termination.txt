@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 37108 (child process of PID 32436) has been terminated.
-SUCCESS: The process with PID 42468 (child process of PID 36184) has been terminated.
-SUCCESS: The process with PID 29116 (child process of PID 79148) has been terminated.
-SUCCESS: The process with PID 32436 (child process of PID 79148) has been terminated.
-SUCCESS: The process with PID 36184 (child process of PID 79148) has been terminated.
-SUCCESS: The process with PID 31824 (child process of PID 79148) has been terminated.
-SUCCESS: The process with PID 79148 (child process of PID 64392) has been terminated.

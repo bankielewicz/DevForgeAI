@@ -1,5 +1,0 @@
-{"id":1,"method":"initialize","params":{"capabilities":{"experimentalApi":false},"clientInfo":{"name":"devforgeai_worker_probe","version":"0.1.0"}}}
-{"method":"initialized","params":{}}
-{"id":2,"method":"account/read","params":{"refreshToken":false}}
-{"id":3,"method":"model/list","params":{"cursor":null,"limit":100}}
-{"id":4,"method":"account/rateLimits/read","params":{}}

@@ -1,9 +1,0 @@
-{
-  "scope": "Top-level original Markdown specifications in both documented roots; nested historical run/capture/implementation evidence excluded. No directory precedence.",
-  "matches": [
-    {
-      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
-      "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053"
-    }
-  ]
-}

@@ -1,1 +1,0 @@
-{"case_id": "adoption-positive-adoption_consistency", "grader_id": "adoption_consistency", "params": {"evidence": "adoption/evidence", "destination": "adoption/destination"}, "expected": "PASS"}

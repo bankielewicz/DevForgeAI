@@ -1,8 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.54s
-     Running unittests src\lib.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity\20260916T021843Z-dev\profile-sources-dev\target-dev\debug\deps\devforgeai_codex_worker_probe-eb81978344f0e095.exe)
-
-thread 'runner::final_source_check_cases::si_t08_changed_source_after_intent_stops_before_real_process_creation' (55304) panicked at src\..\tests\support\final_source_check_cases.rs:33:5:
-build the required peer before this unit test
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-error: test failed, to rerun pass `--lib`

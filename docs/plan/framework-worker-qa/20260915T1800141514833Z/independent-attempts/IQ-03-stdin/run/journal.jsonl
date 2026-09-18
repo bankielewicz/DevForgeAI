@@ -1,8 +1,0 @@
-{"data":{"candidate_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a","checkout_id":"qa-checkout","project_id":"qa-project","work_id":"qa-work"},"elapsed_ms":0,"kind":"admitted","observed_at":"2026-09-15T18:17:39Z","run_id":"IQ-03-stdin","schema_version":1,"seq":1}
-{"data":{"adapter":"peer","worker_sha256":"fe92c51313a2769bbfc34b16e77f2f70ff4514af78a5ea41150d67eddcf19511"},"elapsed_ms":2,"kind":"spawn_intent","observed_at":"2026-09-15T18:17:39Z","run_id":"IQ-03-stdin","schema_version":1,"seq":2}
-{"data":{"pid_observation":56128},"elapsed_ms":11,"kind":"server_started","observed_at":"2026-09-15T18:17:39Z","run_id":"IQ-03-stdin","schema_version":1,"seq":3}
-{"data":{"effort":"test-effort","mode":"chatgpt","model":"test-model","plan":"pro"},"elapsed_ms":44,"kind":"profile_checked","observed_at":"2026-09-15T18:17:40Z","run_id":"IQ-03-stdin","schema_version":1,"seq":4}
-{"data":{"thread_id":"thread-1"},"elapsed_ms":46,"kind":"thread_bound","observed_at":"2026-09-15T18:17:40Z","run_id":"IQ-03-stdin","schema_version":1,"seq":5}
-{"data":{"reason":"user_cancel"},"elapsed_ms":47,"kind":"stop_requested","observed_at":"2026-09-15T18:17:40Z","run_id":"IQ-03-stdin","schema_version":1,"seq":6}
-{"data":{"tree_stopped":true,"worker_exit_code":0},"elapsed_ms":5050,"kind":"process_exit","observed_at":"2026-09-15T18:17:45Z","run_id":"IQ-03-stdin","schema_version":1,"seq":7}
-{"data":{"fixture_unchanged":true,"open_work":["qa-work"],"oracle":"not_evaluated","outcome":"cancelled","reason":"user_cancel","thread_id":"thread-1","tree_stopped":true,"turn_id":null,"usage":null,"worker_exit_code":0},"elapsed_ms":5054,"kind":"terminal","observed_at":"2026-09-15T18:17:45Z","run_id":"IQ-03-stdin","schema_version":1,"seq":8}

@@ -1,5 +1,0 @@
-Get-CimInstance: C:\Projects\DevForgeAI\docs\plan\framework-worker-source-identity-qa\20260916T021843Z-retest\harness\environment.ps1:3
-Line |
-   3 |  Get-CimInstance Win32_OperatingSystem |
-     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | Access denied 

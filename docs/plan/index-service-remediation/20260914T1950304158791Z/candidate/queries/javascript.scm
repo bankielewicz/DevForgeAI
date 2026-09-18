@@ -1,9 +1,0 @@
-(function_declaration) @declaration.function
-(generator_function_declaration) @declaration.function
-(method_definition) @declaration.method
-(class_declaration) @declaration.class
-(arrow_function) @declaration.anonymous
-(function_expression) @declaration.anonymous
-(import_statement) @import
-(call_expression) @call
-(comment) @comment

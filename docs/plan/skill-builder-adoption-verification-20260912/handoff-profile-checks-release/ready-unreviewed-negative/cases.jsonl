@@ -1,1 +1,0 @@
-{"case_id": "ready-unreviewed-negative", "grader_id": "adoption_consistency", "params": {"evidence": "adoption/evidence", "destination": "adoption/destination"}, "expected": "FAIL"}

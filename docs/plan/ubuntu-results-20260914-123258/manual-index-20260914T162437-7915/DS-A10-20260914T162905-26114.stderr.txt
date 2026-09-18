@@ -1,2 +1,0 @@
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
-     Running tests/capture.rs (/tmp/devforgeai-manual-build.k0dzpK/debug/deps/capture-3445bfb6c738df50)

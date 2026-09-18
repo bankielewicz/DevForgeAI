@@ -1,1 +1,0 @@
-cargo test --locked --test tray tray_startup_defaults_are_opt_in_and_polling_is_bounded -- --nocapture 

@@ -1,3 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.94s
-     Running tests\effective_profile_edges.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-completion\20260916T003840Z-dev\effective-dev\target\debug\deps\effective_profile_edges-1ca36778eed9db74.exe)

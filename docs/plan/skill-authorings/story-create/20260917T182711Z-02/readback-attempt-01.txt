@@ -1,1 +1,0 @@
-Final ad hoc readback command exited 1 after delivered-byte/source/publication-reference comparisons, when summarizing authoring-record using nonexistent key state. Traceback: KeyError: state. No final-readback file was created. This is evidence-summary setup failure, not a product test result.

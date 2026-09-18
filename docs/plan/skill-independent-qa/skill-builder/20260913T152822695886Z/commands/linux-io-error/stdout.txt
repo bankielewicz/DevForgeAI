@@ -1,1 +1,0 @@
-{"schema_version": "binding-observation-v1", "status": "UNAVAILABLE", "reason_code": "IO_ERROR", "binding_sha256": null, "package_digest": null, "details": []}

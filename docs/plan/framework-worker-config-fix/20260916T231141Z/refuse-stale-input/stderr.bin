@@ -1,5 +1,0 @@
-Exception: C:\Projects\DevForgeAI\docs\plan\framework-worker-config-fix\20260916T231141Z\refuse-stale-input\apply_notify.ps1:22
-Line |
-  22 |          throw 'Config changed since preparation; nothing was changed. …
-     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     | Config changed since preparation; nothing was changed.

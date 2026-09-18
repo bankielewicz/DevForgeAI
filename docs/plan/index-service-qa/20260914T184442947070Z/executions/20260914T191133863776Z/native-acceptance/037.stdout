@@ -1,1 +1,0 @@
-{"protocol_version":1,"request_id":"f016cd04-c745-4979-bfbc-40dd6abbed9a","service_version":null,"environment_id":null,"ok":false,"data":null,"error":{"code":"PROTOCOL_INCOMPATIBLE","message":"Protocol major version 1 required","details":{}}}

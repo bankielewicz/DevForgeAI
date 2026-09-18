@@ -1,3 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.78s
-     Running tests\service.rs (target\debug\deps\service-9731fd7ce631b2e7.exe)

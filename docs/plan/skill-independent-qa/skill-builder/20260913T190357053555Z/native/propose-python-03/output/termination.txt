@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 102108 (child process of PID 81712) has been terminated.
-SUCCESS: The process with PID 80248 (child process of PID 53116) has been terminated.
-SUCCESS: The process with PID 55916 (child process of PID 64836) has been terminated.
-SUCCESS: The process with PID 81712 (child process of PID 64836) has been terminated.
-SUCCESS: The process with PID 53116 (child process of PID 64836) has been terminated.
-SUCCESS: The process with PID 103756 (child process of PID 64836) has been terminated.
-SUCCESS: The process with PID 64836 (child process of PID 69484) has been terminated.

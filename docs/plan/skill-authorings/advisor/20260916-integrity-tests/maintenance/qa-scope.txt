@@ -1,4 +1,0 @@
-Declared final QA: all 105 unit cases and 38 JSONL cases, each counted once. Mutation checks are separate sensitivity evidence. Full unit run captures ResourceWarnings including forced GC and fails on any occurrence.
-Required baseline denominator remains all executable Python in scripts/ and evals/, including entry points, tests/fixtures excluded. >=95% aggregate executed lines required; branch and per-file numbers reported separately. Optional exclude_also config supplies a separately labeled entry-point-excluded report from the same data.
-Retain unit-only data before appending standalone JSONL evaluation to reconcile execution-scope differences.
-Native Windows; PowerShell; C:/Program Files/Python310/python.exe; cwd C:/Projects/DevForgeAI on Windows filesystem. No live Claude, operational installation, or policy change.

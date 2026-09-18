@@ -1,5 +1,0 @@
-# QA-H01: junction preparation gap
-
-Attempt06-qa01 failed at independent.rs:90 before the junction rejection assertion. Cargo exit101; mklink exit1 with "The filename, directory name, or volume label syntax is incorrect." Earlier negative-config subfixtures executed, but QA-01 remains ERROR until its complete case executes. This is a QA-owned preparation fault, not a demonstrated candidate defect or valid complete subthreshold metric.
-
-The invocation selected C:/Windows/System32/cmd.exe with forward slashes. The inspected, executed package junction fixtures select cmd.exe with the same argument-array shape. The bounded correction selects cmd.exe and persists the exact fixture arguments/output. Root cause is not established from this one setup error. Existing source/binary and original raw output are retained in attempts/06-qa01/helper-before. No source, developer test or assertion is changed. Reinspect/rebuild the changed QA helper and execute one corrected attempt, as allowed by the original plan. No terminal stop has occurred.

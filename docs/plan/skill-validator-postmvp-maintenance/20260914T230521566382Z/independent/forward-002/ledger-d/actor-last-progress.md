@@ -1,1 +1,0 @@
-The fresh host workflow trials agree with the helper results. The valid-input task delivered `{"total": 0}` and flagged it as incorrect; the Boolean-input task rejected the input without creating output. I’m writing the FAIL report, revision proposal, and delivery summary, then checking source hashes and report references.

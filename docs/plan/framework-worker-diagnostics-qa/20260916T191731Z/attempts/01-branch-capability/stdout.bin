@@ -1,9 +1,0 @@
-LLVM_PROFILE_FILE=C:\Projects\DevForgeAI\docs\plan\framework-worker-diagnostics-qa\20260916T191731Z\coverage-target\codex-worker-probe-%p-%24m.profraw
-__CARGO_LLVM_COV_RUSTC_WRAPPER=1
-__CARGO_LLVM_COV_RUSTC_WRAPPER_RUSTFLAGS=-Cinstrument-coverage-Zcoverage-options=branch--cfg=coverage
-__CARGO_LLVM_COV_RUSTC_WRAPPER_CRATE_NAMES=devforgeai_codex_worker_probe,devforgeai_codex_worker_probe_tests,devforgeai_codex_worker_probe,console_driver,crash_driver,devforgeai_codex_worker_probe,profile_peer,protocol_edges_peer,protocol_peer,admission,cli,contract,effective_profile,effective_profile_edges,launch_policy,native_identity,negative_paths,oracle,preflight_cli,preflight_recovery,process_ownership,process_windows,profile,profile_protocol,protocol,protocol_edges,recovery,remediation,requirements,runtime_edges
-RUSTC_WRAPPER=C:\Users\bryan\.cargo\bin\cargo-llvm-cov.exe
-CARGO_LLVM_COV=1
-CARGO_LLVM_COV_SHOW_ENV=1
-CARGO_LLVM_COV_TARGET_DIR=C:\Projects\DevForgeAI\docs\plan\framework-worker-diagnostics-qa\20260916T191731Z\target
-CARGO_LLVM_COV_BUILD_DIR=C:\Projects\DevForgeAI\docs\plan\framework-worker-diagnostics-qa\20260916T191731Z\target

@@ -1,7 +1,0 @@
-{
-  "scope": "Custody and reporting only; no quality evaluation.",
-  "exit_code": 0,
-  "prior_attempt": "delivery-attempt-001.json",
-  "command": "python -B -X utf8 docs/plan/skill-authorings/qa/20260914T193851Z/delivery-002.py",
-  "observed": "Complete delivered byte readback matches candidate and manifest; operational copy and inputs unchanged. Delivery artifacts written."
-}

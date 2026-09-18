@@ -1,1 +1,0 @@
-{"observations": ["reference digest mismatch: adoption/evidence/adoption-record.json", "first revision origin differs from adoption origin", "published-before pointer does not bind selected origin/target/baseline"], "status": "INVALID_EVIDENCE"}

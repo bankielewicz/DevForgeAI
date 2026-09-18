@@ -1,4 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.79s
-     Running tests\platform.rs (target\debug\deps\platform-d1e95632d3e93b22.exe)
-error: test failed, to rerun pass `--test platform`

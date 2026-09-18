@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "C:\Projects\DevForgeAI\src\agents\skills\skill-builder\scripts\generate_openai_yaml.py", line 13, in <module>
-    from authoring import safe, read_bytes
-ModuleNotFoundError: No module named 'authoring'

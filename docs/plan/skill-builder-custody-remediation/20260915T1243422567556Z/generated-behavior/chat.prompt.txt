@@ -1,7 +1,0 @@
-Use the skill at C:\Users\bryan\AppData\Local\Temp\meeting-actions-independent-20map638\meeting-actions\SKILL.md to complete these requests. Read that SKILL.md first. Work only in C:\Users\bryan\AppData\Local\Temp\meeting-actions-independent-20map638. Do not use other skills or external services.
-
-These are four separate user requests; label each response by its case ID.
-CASE C1: Extract the meeting actions from these notes: "We need to archive the obsolete checklist. Robin will verify the checksum. The cost trend was discussed."
-CASE C2: Extract the meeting actions from these notes: "Possibly ask Jules to trial the revised process next Friday, if the director approves? No decision was reached on purchasing licenses."
-CASE C3: Extract the meeting actions from these notes: "Draft 1: Kira owns delivery of the release notes, due Tuesday. Draft 2: delivery of the same release notes belongs to Omar, due Thursday. Neither draft was approved; the assignment and deadline remain unresolved."
-CASE C4: Extract the meeting actions from these notes: "Owner: Dev | Ops. Task: document the A | B fallback. Due: 2026-10-09. We discussed overall progress without assigning other work."

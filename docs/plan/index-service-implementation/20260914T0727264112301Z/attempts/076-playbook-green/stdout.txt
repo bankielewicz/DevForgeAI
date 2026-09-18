@@ -1,1 +1,0 @@
-PASS: JavaScript syntax; 19 unique scenarios; fresh defaults; exact release; missing coverage; subthreshold arithmetic; retry retention; platform isolation; copy-command newlines; evidence-only export.

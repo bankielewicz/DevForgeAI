@@ -1,2 +1,0 @@
-{"case_id": "spec-package-links", "grader_id": "package_links", "params": {"path": "destination"}, "expected": "PASS"}
-{"case_id": "spec-build-traceability", "grader_id": "build_traceability", "params": {"evidence": "evidence", "destination": "destination"}, "expected": "PASS"}

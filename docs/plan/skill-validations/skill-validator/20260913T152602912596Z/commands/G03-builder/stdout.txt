@@ -1,1 +1,0 @@
-{"schema_version": "adaptive-observation-v1", "status": "INVALID", "errors": ["subset is not dependency closed"], "ordered_member_ids": []}

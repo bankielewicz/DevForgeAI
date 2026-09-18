@@ -1,8 +1,0 @@
-{
-  "required": 150,
-  "passing": 150,
-  "pass_percent": 100.0,
-  "nonpasses": {},
-  "unknown_cases": [],
-  "kind": "maintenance-evidence-only"
-}

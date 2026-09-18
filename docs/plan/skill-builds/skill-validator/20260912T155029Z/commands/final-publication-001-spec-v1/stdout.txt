@@ -1,1 +1,0 @@
-{"records": 2, "exit_code": 0, "output": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builds\\skill-validator\\20260912T155029Z\\evaluations\\final-publication-001\\results.jsonl", "authority": "NONE"}

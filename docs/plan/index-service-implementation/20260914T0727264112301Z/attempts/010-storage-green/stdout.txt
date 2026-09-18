@@ -1,9 +1,0 @@
-
-running 4 tests
-test newer_schema_and_corruption_are_refused_without_destroying_bytes ... ok
-test mutation_retries_survive_restart_and_payload_changes_conflict ... ok
-test unpublished_and_cancelled_generation_never_replace_current ... ok
-test retention_keeps_exactly_two_published_generations_and_deletes_only_cache ... ok
-
-test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
-

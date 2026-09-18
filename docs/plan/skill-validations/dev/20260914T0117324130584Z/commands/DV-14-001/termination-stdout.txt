@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 31640 (child process of PID 56640) has been terminated.
-SUCCESS: The process with PID 35888 (child process of PID 100640) has been terminated.
-SUCCESS: The process with PID 49296 (child process of PID 62104) has been terminated.
-SUCCESS: The process with PID 56640 (child process of PID 62104) has been terminated.
-SUCCESS: The process with PID 100640 (child process of PID 62104) has been terminated.
-SUCCESS: The process with PID 99924 (child process of PID 62104) has been terminated.
-SUCCESS: The process with PID 62104 (child process of PID 67116) has been terminated.

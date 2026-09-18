@@ -1,3 +1,0 @@
-{"case_id": "revision-02-resolved-package_links", "grader_id": "package_links", "params": {"path": "revision-02-resolved/after"}, "expected": "PASS"}
-{"case_id": "revision-02-resolved-build_traceability_v2", "grader_id": "build_traceability_v2", "params": {"evidence": "revision-02-resolved/evidence", "destination": "revision-02-resolved/after"}, "expected": "PASS"}
-{"case_id": "revision-02-resolved-revision_consistency_v2", "grader_id": "revision_consistency_v2", "params": {"path": "revision-02-resolved/evidence/revision-plan.json"}, "expected": "PASS"}

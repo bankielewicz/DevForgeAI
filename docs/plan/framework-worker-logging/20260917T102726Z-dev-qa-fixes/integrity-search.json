@@ -1,6 +1,0 @@
-{
-  "command": "rg -n mock|#[ignore|coverage(off)|coverage_exclude|cfg.*coverage over candidate src and tests",
-  "exit_code": 1,
-  "matches": [],
-  "interpretation": "Exit 1 with zero matches means no matching mock/ignore/coverage-exclusion marker; semantic review remains separate"
-}

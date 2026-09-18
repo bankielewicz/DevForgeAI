@@ -1,9 +1,0 @@
-{
-  "schema_version": "1",
-  "started": "2026-09-12T21:31:05.938250+00:00",
-  "finished": "2026-09-12T21:31:06.232113+00:00",
-  "exit_code": 0,
-  "expected_exit": 0,
-  "stdout_sha256": "0f8a5cdc49f0f5e5636dcb2fec01fc223cefb5642d726b086d8b9762be63ef8a",
-  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-}

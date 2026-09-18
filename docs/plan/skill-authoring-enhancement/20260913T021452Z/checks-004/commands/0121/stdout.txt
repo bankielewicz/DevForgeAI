@@ -1,6 +1,0 @@
-usage: observe.py readback [-h] --source SOURCE --manifest MANIFEST
-
-options:
-  -h, --help           show this help message and exit
-  --source SOURCE
-  --manifest MANIFEST

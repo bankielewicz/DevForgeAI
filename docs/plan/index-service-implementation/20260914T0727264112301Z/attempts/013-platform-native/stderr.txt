@@ -1,2 +1,0 @@
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.14s
-     Running tests\platform.rs (target\debug\deps\platform-d1e95632d3e93b22.exe)

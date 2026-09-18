@@ -1,3 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.65s
-     Running tests\tray.rs (target\debug\deps\tray-d093761c717358fb.exe)

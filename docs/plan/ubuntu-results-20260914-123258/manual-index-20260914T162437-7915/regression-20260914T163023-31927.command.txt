@@ -1,1 +1,0 @@
-cargo test --locked --all-targets -- --nocapture 

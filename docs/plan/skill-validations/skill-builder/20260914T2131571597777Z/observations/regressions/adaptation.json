@@ -1,9 +1,0 @@
-{
-  "changes": [
-    "BUILDER resolved through supported AUTHORING_BUILDER_ROOT to retained source",
-    "fixture_data.PACKAGE points to original validator schemas/resources",
-    "setUp writes fresh per-case retained directories instead of TemporaryDirectory; no cleanup"
-  ],
-  "assertions": "Unchanged",
-  "timeout_seconds": 120
-}

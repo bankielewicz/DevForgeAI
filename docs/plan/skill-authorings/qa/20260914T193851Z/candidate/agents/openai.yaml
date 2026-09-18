@@ -1,4 +1,0 @@
-interface:
-  display_name: "Independent QA"
-  short_description: "Plan and run independent specification-driven QA"
-  default_prompt: "Use $qa to perform independent QA against the selected specifications and current development candidate."

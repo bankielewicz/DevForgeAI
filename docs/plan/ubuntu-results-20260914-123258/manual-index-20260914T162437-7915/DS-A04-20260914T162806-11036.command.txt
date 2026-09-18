@@ -1,1 +1,0 @@
-cargo test --locked --test storage unpublished_and_cancelled_generation_never_replace_current -- --nocapture 

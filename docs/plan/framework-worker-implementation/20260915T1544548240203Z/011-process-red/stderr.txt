@@ -1,4 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.49s
-     Running tests\process_ownership.rs (target\debug\deps\process_ownership-ff37bab604a3f8e3.exe)
-error: test failed, to rerun pass `--test process_ownership`

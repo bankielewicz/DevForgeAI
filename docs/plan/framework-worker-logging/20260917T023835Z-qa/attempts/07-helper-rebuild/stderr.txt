@@ -1,3 +1,0 @@
-   Compiling logging-independent-qa v0.1.0 (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T023835Z-qa\qa-harness)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.00s
-  Executable independent.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T023835Z-qa\independent-target\debug\deps\independent-614fb6185e5955ca.exe)

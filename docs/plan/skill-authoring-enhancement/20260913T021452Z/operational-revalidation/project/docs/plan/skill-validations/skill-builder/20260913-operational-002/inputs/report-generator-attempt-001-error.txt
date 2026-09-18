@@ -1,1 +1,0 @@
-write_revalidation.py, line 50: assertion expecting four changed paths failed. Actual comparison contained five, including schemas/authoring-contract.schema.json. Report generation stopped before assessment/report publication. The subsequent records-attempt-001 checked only existing partial stage records and is not complete-report validation.

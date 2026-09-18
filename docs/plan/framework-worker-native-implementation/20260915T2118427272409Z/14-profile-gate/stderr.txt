@@ -1,3 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.49s
-     Running tests\native_identity.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-native-implementation\20260915T2118427272409Z\target\debug\deps\native_identity-b0c361473e3bdc9e.exe)

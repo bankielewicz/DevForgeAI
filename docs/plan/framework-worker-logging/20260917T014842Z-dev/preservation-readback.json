@@ -1,9 +1,0 @@
-{
-  "original_source_files": 58,
-  "frozen_snapshot_files": 58,
-  "selected_inputs": 14,
-  "candidate_path": "C:\\Projects\\DevForgeAI\\devforgeai\\experiments\\codex-worker-probe-logging",
-  "evidence_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\framework-worker-logging\\20260917T014842Z-dev",
-  "root_console_helper_sha256": "f69da72fb44737127dcfde3607fb0e027e4afeb2463a78ac8f844bc3abfc58a0",
-  "native_codex_launched_by_this_development": false
-}

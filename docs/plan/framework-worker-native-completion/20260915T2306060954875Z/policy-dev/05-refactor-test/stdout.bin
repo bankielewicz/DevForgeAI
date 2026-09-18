@@ -1,7 +1,0 @@
-
-running 2 tests
-test policy_binding_rejects_every_caller_controlled_identity_mismatch ... ok
-test fixed_policy_has_exact_closed_identity_and_argument_vector ... ok
-
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
-

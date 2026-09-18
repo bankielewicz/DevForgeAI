@@ -1,1 +1,0 @@
-Current user request: run checks with the updated skill-validator to understand whether it meets the needs of the updated skill-builder. Selected pair is validator and builder only. Scope is read-only compatibility assessment and fresh bounded synthetic tests; no repair or installation.

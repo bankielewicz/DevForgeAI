@@ -1,1 +1,0 @@
-cargo build --locked --release --bin devforgeai --bin devforgeai-indexd 

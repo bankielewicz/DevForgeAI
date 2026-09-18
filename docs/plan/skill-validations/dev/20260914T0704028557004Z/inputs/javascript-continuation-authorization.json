@@ -1,7 +1,0 @@
-{
-  "user_response": "Authorize the bounded continuation",
-  "scope": "One 600-second warm continuation; same thread/model/product; new evidence files only.",
-  "proposal_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev\\20260914T0704028557004Z\\inputs\\javascript-continuation-proposal.md",
-  "prompt_sha256": "5310ea55230604da954efac4f727274e8b3e047f868bcdb160bd7d3603474b9e",
-  "recorded_at_utc": "2026-09-14T07:28:20.433147Z"
-}

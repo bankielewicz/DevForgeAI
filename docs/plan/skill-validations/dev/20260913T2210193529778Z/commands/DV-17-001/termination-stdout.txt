@@ -1,7 +1,0 @@
-SUCCESS: The process with PID 16556 (child process of PID 33496) has been terminated.
-SUCCESS: The process with PID 32240 (child process of PID 41500) has been terminated.
-SUCCESS: The process with PID 33496 (child process of PID 38840) has been terminated.
-SUCCESS: The process with PID 64920 (child process of PID 38840) has been terminated.
-SUCCESS: The process with PID 41500 (child process of PID 38840) has been terminated.
-SUCCESS: The process with PID 81400 (child process of PID 38840) has been terminated.
-SUCCESS: The process with PID 38840 (child process of PID 69316) has been terminated.

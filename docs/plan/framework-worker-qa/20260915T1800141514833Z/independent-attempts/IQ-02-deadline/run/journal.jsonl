@@ -1,3 +1,0 @@
-{"data":{"candidate_sha256":"b35366b508eea199c12142a8a4a8d13a083426c35c4b9ebaf9f0ccf168eeab3a","checkout_id":"qa-checkout","project_id":"qa-project","work_id":"qa-work"},"elapsed_ms":0,"kind":"admitted","observed_at":"2026-09-15T18:17:25Z","run_id":"IQ-02-deadline","schema_version":1,"seq":1}
-{"data":{"adapter":"peer","worker_sha256":"64c611d2efb4d6251dd20a188d9f796ee48eeb893b29b1e342f3200a5494ce06"},"elapsed_ms":1,"kind":"spawn_intent","observed_at":"2026-09-15T18:17:25Z","run_id":"IQ-02-deadline","schema_version":1,"seq":2}
-{"data":{"pid_observation":64356},"elapsed_ms":9,"kind":"server_started","observed_at":"2026-09-15T18:17:25Z","run_id":"IQ-02-deadline","schema_version":1,"seq":3}

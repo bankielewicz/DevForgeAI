@@ -1,1 +1,0 @@
-{"argv": ["python", "-B", "-X", "utf8", "-m", "unittest", "discover", "-s", "src/agents/skills/skill-validator/tests", "-v"], "cwd": "C:\\Projects\\DevForgeAI", "timeout_seconds": 120, "start": "2026-09-13T13:26:37.656207+00:00"}

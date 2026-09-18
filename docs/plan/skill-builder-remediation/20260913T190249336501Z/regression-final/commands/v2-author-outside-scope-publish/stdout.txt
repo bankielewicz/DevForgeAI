@@ -1,1 +1,0 @@
-{"state": "BLOCKED", "run_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-builder-remediation\\20260913T190249336501Z\\regression-final\\fixtures\\followup-02\\author-outside-scope\\docs\\plan\\author-outside-scope-run", "applied_paths": [], "issues": ["candidate changes outside authorized paths: user.txt"]}

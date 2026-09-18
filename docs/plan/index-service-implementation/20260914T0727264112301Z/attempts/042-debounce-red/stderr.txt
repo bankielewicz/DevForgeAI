@@ -1,4 +1,0 @@
-   Compiling devforgeai-index v0.1.0 (C:\Projects\DevForgeAI\devforgeai)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.16s
-     Running tests\service.rs (target\debug\deps\service-46454336c85ed642.exe)
-error: test failed, to rerun pass `--test service`

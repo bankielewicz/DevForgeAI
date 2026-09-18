@@ -1,4 +1,0 @@
-   Compiling devforgeai-codex-worker-probe v0.1.0 (C:\Projects\DevForgeAI\devforgeai\experiments\codex-worker-probe-logging)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.22s
-     Running tests\logging.rs (C:\Projects\DevForgeAI\docs\plan\framework-worker-logging\20260917T014842Z-dev\target\debug\deps\logging-6b96b3ef72d5426a.exe)
-error: test failed, to rerun pass `--test logging`
