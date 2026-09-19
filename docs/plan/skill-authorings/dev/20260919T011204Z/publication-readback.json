@@ -1,0 +1,16 @@
+{
+  "state": "PUBLISHED",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\authoring-record.json",
+    "sha256": "a6b7bf898b329321d2e919de8706c771ac1a90a3875175c6b67377d6dd292b3a"
+  },
+  "baseline": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\authoring-baseline.json",
+    "sha256": "909fbc95cb1fe79dea4cacbabc1695ebde011bceb2fc3599ca5f126ef5b682fe"
+  },
+  "request": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\validation-request.json",
+    "sha256": "2d76f0954dcfb378b1411099619802add7415ffc53564dfa6ba19f9c45ddcb8c"
+  },
+  "package_digest": "8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81"
+}

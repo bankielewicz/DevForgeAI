@@ -1,0 +1,29 @@
+# Primary-source verification: Claude Code `allowed-tools`
+
+Fetched 2026-09-18 from https://code.claude.com/docs/en/skills
+(301 redirect from https://docs.claude.com/en/docs/claude-code/skills).
+
+Quoted from the skills reference:
+
+> The `allowed-tools` field grants permission for the listed tools during the turn
+> that invokes the skill, so Claude can use them without prompting you for approval.
+> The grant clears when you send your next message, even though the skill content
+> stays in context; invoking the skill again re-applies it for that turn. It does not
+> restrict which tools are available: every tool remains callable, and your permission
+> settings still govern tools that are not listed.
+
+> To remove tools from Claude's available pool while a skill is active, list them in
+> `disallowed-tools` in the skill's frontmatter.
+
+## Consequences for this edit
+
+1. Absence from `allowed-tools` produces a permission prompt for an unlisted tool under
+   default settings. It is not an inability to call the tool.
+2. `disallowed-tools` is the restricting field. The `dev` package does not use it.
+3. `disallowed-tools` is turn-scoped: the restriction clears on the user's next message,
+   so it would not deliver a durable structural boundary either.
+4. `references/implementation.md:13` states that "separately authorized delegation must
+   preserve ownership and evidence", which presupposes delegation is possible. Adding
+   `disallowed-tools: [Skill, Task]` would contradict that line.
+
+Disposition (b) from finding F-c3d23eda is therefore rejected; disposition (a) is selected.

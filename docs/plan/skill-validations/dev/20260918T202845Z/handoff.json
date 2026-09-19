@@ -1,0 +1,153 @@
+{
+  "schema_version": "1",
+  "run_id": "20260918T202845Z",
+  "target_name": "dev",
+  "assessment_completed": true,
+  "outcome": "FAIL",
+  "builder_readiness": "REVIEW_REQUIRED",
+  "proposal_review_state": "pending",
+  "readiness_rationale": "One unresolved contract question exists and is recorded as ORG-U2: no specification governs the assessed Claude Code variant. It is not material to this change set, because RR-001's correction is derived from the live Claude Code skills reference rather than from any specification, and acceptance cases AC-1 through AC-4 are verifiable against the package itself. That is why RR-004 is an optional enhancement rather than a prerequisite, and why this is not BLOCKED. A change is proposed, so it is not NO_CHANGE. Review has not occurred, so it is not READY. Pending review alone is REVIEW_REQUIRED.",
+  "target": {
+    "original_absolute_target": "C:\\Projects\\DevForgeAI\\.claude\\skills\\dev",
+    "mirror_path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev",
+    "package_digest": "45dd959122125222d68e6f156d72fa20bd52ec50d5fa095857603b0166cbe2f9",
+    "source_manifest": {
+      "path": "source-manifest.json",
+      "sha256": "1a56881bdace250be312f81605698a16b05063c59227f2a9ddd9ada9fb2c203e"
+    },
+    "source_after_manifest": {
+      "path": "source-after-manifest.json",
+      "sha256": "35e000f34da9a71cd6277998b8d169aeb63334ffd86d6372cd5944d11e0f6135"
+    },
+    "source_readback_state": "UNCHANGED",
+    "readback_note": "readback returned MATCH with an empty changed list. Conclusions apply to the current bytes, not only to the retained snapshot."
+  },
+  "specification": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+    "captured": {
+      "path": "inputs/dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    "governs": "the Codex package src/agents/skills/dev, not the assessed Claude Code variant"
+  },
+  "proposal": {
+    "path": "revision-spec.md",
+    "sha256": "1396a6405d093f46945a2464da2944c5641d00163fba6eed09b32e84fea3fd65",
+    "scope": "Three mandatory instruction fixes and one optional specification enhancement. No workflow, resource, asset or schema change."
+  },
+  "artifacts": {
+    "validation_report": {
+      "path": "validation-report.md",
+      "sha256": "c14976f7523d3a544415c3cf175e9830b86b8a6dfc159bcb2f2919da2f653d97"
+    },
+    "findings": {
+      "path": "findings.json",
+      "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be"
+    },
+    "checks": {
+      "path": "checks.jsonl",
+      "sha256": "456162cd4babdf322b89e5877f4adffda98729ca5b065186422e93f8b83318ec"
+    },
+    "workflow_map": {
+      "path": "workflow-map.json",
+      "sha256": "755f1c38e75efe54ab96fb23f436fcf40b736e68621a6beba3c0b628497d5bac"
+    },
+    "origin_record": {
+      "path": "origin-record.json",
+      "sha256": "c10c2a08b35bd6e2d883cf1fad232c63e39911ed5854d1f266b01aa2020e57ff"
+    },
+    "rule_set": {
+      "path": "rule-set.json",
+      "sha256": "303c4154b9fd9ac15a25c01f7d53c490e36f78a59b545fcb115379365c3c0004"
+    },
+    "sources": {
+      "path": "sources.json",
+      "sha256": "f268d7b05a71ad4d39654f0769e04456a26b9833a9b466cd7f02311541710027"
+    },
+    "enforcement_register": {
+      "path": "enforcement-recommendations.md",
+      "sha256": "e66484e3179bbeaaa00cd32c2823b2e52a50fb9a79cf3d85dbeca6cfc0db3362"
+    }
+  },
+  "selected_findings": [],
+  "deferred_findings": [],
+  "proposed_findings": [
+    {
+      "finding_id": "F-c3d23edad8c479f39a8164df0bb99b1098c0e98c483515cbad174432ce685df9",
+      "severity": "major",
+      "category": "instruction_issue",
+      "subject_path": "source/SKILL.md",
+      "disposition": "proposed"
+    },
+    {
+      "finding_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606",
+      "severity": "minor",
+      "category": "input_evidence_limitation",
+      "subject_path": "source/SKILL.md",
+      "disposition": "proposed"
+    }
+  ],
+  "change_set": [
+    {
+      "id": "RR-001",
+      "kind": "mandatory_fix",
+      "subject": ".claude/skills/dev/SKILL.md line 33",
+      "summary": "Remove the claim that absence from allowed-tools structurally prevents tool use; preserve the non-delegation instruction.",
+      "blocked_by": "OQ-1"
+    },
+    {
+      "id": "RR-002",
+      "kind": "mandatory_fix",
+      "subject": ".claude/skills/dev/SKILL.md lines 33 and 50",
+      "summary": "Apply one consistent model of allowed-tools across both passages.",
+      "blocked_by": "OQ-1"
+    },
+    {
+      "id": "RR-003",
+      "kind": "mandatory_fix",
+      "subject": "both mirrored Claude Code paths",
+      "summary": "Write the identical string to .claude/skills/dev and src/claude/skills/dev; diff -rq must be empty.",
+      "blocked_by": null
+    },
+    {
+      "id": "RR-004",
+      "kind": "optional_enhancement",
+      "subject": "docs/specs/dev-skill-spec.md",
+      "summary": "Record a governing contract for the Claude Code variant and correct the stale frontmatter.",
+      "blocked_by": null
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "id": "OQ-1",
+      "question": "Should the non-delegation boundary be stated as an obligation (recommended) or made real with disallowed-tools: [Skill, Task]?",
+      "why_it_blocks": "The answer determines whether the frontmatter changes, so a build cannot start without it.",
+      "validator_recommendation": "Option (a), state it as an obligation. Option (b) introduces a turn-scoped control that no package here uses and whose interaction with resumed multi-turn work is untested.",
+      "decision_owner": "maintainer"
+    },
+    {
+      "id": "OQ-2",
+      "question": "Should validation runs be opened on qa, skill-builder, skill-validator and advisor, which carry the same claim pattern?",
+      "why_it_blocks": "Does not block this target. Recorded so the family pattern is not lost.",
+      "validator_recommendation": "Observed by string search only; these packages were not assessed. Assessing them requires selecting them as targets.",
+      "decision_owner": "maintainer"
+    }
+  ],
+  "baseline_and_adoption_prerequisites": {
+    "baseline_verified": true,
+    "baseline_note": "Exact target bytes are retained at source/ with a verified manifest, and readback confirms the live target still matches. An authorized edit has a verified baseline.",
+    "adoption_required": false,
+    "adoption_note": "This is a scoped edit to an existing observed package, not a first repair relying on adoption. No adoption specification is invoked."
+  },
+  "preservation_boundaries": [
+    "Everything not named in the change set is preserved unchanged, including the workflow, all six assets, all four references, the resource graph, and the name and description fields.",
+    "The Codex packages at src/agents/skills/dev and .agents/skills/dev are out of scope and must not be modified by this proposal.",
+    "docs/specs/dev-skill-spec.md must not be relocated or duplicated; its section 1.1 forbids another authoritative copy.",
+    "Existing evidence runs under docs/plan/ are append-only; this run wrote only to its own new directory."
+  ],
+  "builder_invocation": {
+    "invoked": false,
+    "note": "This workflow did not invoke skill-builder and must not before OQ-1 is answered. Validation does not repair, install, adopt or configure the target."
+  },
+  "authority_note": "Every observation here is development evidence. Nothing in this run authorizes a mutation, advances a phase, waives a gate or issues acceptance. No operational installation or Rust qualification is implied."
+}

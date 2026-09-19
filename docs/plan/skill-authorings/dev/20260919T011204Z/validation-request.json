@@ -1,0 +1,56 @@
+{
+  "schema_version": "validation-request-v1",
+  "record_kind": "validation_request",
+  "authoring_run_id": "20260919T011204Z",
+  "project_root": "C:\\Projects\\DevForgeAI",
+  "target_root": "C:\\Projects\\DevForgeAI\\.claude\\skills\\dev",
+  "target_name": "dev",
+  "target_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\delivered-manifest.json",
+    "sha256": "8b17958af5b1904c0d1c29d8aee0b7534666cb6adfc44c72b9e6f3a2c56a076f"
+  },
+  "package_digest": "8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\authoring-record.json",
+    "sha256": "a6b7bf898b329321d2e919de8706c771ac1a90a3875175c6b67377d6dd292b3a"
+  },
+  "specification_refs": [
+    {
+      "path": "C:/Projects/DevForgeAI/docs/plan/skill-validations/dev/20260918T202845Z/findings.json",
+      "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be"
+    },
+    {
+      "path": "C:/Users/bryan/AppData/Local/Temp/claude/C--Projects-DevForgeAI/fc098a00-8661-4ab5-9438-fdfd18461454/scratchpad/dev-fix/allowed-tools-verification.md",
+      "sha256": "e91b30d8ec2b5299b5357eef1327b4f1ad96fdd7c95cf8846223a53d53468c31"
+    },
+    {
+      "path": "C:/Users/bryan/AppData/Local/Temp/claude/C--Projects-DevForgeAI/fc098a00-8661-4ab5-9438-fdfd18461454/scratchpad/dev-fix/design.json",
+      "sha256": "351aaba4b96f92c027e53b9b8b55bd9ecdbbe53e484e18782ef9cc4318ee9b9c"
+    }
+  ],
+  "changed_paths": [
+    "SKILL.md"
+  ],
+  "known_issues": [
+    "Verified no known history: docs/plan/skill-authorings does not exist and the package carries no custody, baseline or build-contract record. assets/execution-record.jsonl is a runtime template, not an authoring record. Finding F-7eb942c2 records the same absence. The edit base is therefore observed, and only SKILL.md is managed.",
+    "Provenance is inferred, not verified: this Claude Code package is a derived port of the Codex parent at src/agents/skills/dev. Eight of eleven files are byte-identical to it; the corrected passage has no counterpart there and was introduced by the port.",
+    "The same unenforced-control claim exists in qa/SKILL.md:55, skill-validator/SKILL.md:32 and skill-builder/SKILL.md:27, each in both mirror paths. Not edited: no assessment was supplied for those packages and editing them would reset their separately bound validation state.",
+    "Root cause not edited: .claude/skills/skill-builder/references/claude-frontmatter.md lines 13 and 28 state that allowed-tools restricts, which is what generates this defect on every future port.",
+    "Finding F-7eb942c2 (minor) is not addressed here: it calls for a governing contract for the Claude Code variant, which is a specification/process change outside this skill's charter.",
+    "The mirror copy at src/claude/skills/dev is outside this contract's single target_root; it is updated with the identical string and verified by diff outside the custody harness."
+  ],
+  "capabilities": [
+    "Read",
+    "Edit",
+    "Bash"
+  ],
+  "expected_outputs": [
+    "Corrected scope paragraph in .claude/skills/dev/SKILL.md",
+    "Authoring record and baseline under this run root"
+  ],
+  "side_effects": [
+    "Rewrites one paragraph of the dev package entry instructions",
+    "Resets any quality result previously bound to the prior SKILL.md bytes"
+  ],
+  "permission": "Assessment proposal only; current user invocation determines permitted effects."
+}

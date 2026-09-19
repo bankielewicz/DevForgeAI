@@ -1,0 +1,158 @@
+{
+  "schema_version": "1",
+  "run_id": "20260919T021255Z",
+  "target_name": "dev",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev",
+  "selection_note": "The user selected src/claude/skills/dev. That is the development path of the ADR-073 mirror pair, and it is a different root from the prior run's target (.claude/skills/dev) and from the builder's custody target_root (.claude/skills/dev). The selection is honoured as given rather than silently retargeted to the custody path. diff -rq across all 11 files is empty, so the two mirror paths carry identical bytes and conclusions drawn here apply to both; that equality is an observation recorded in trials/T2-line-endings/observed.md, not an assumption.",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "9c5794d988728ea5237f090da95f998b7ae31a79c66b6edd6c368addab412ec2"
+  },
+  "specification": {
+    "path": "inputs/dev-skill-spec.md",
+    "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265",
+    "source_id": "project-spec",
+    "locator": "frontmatter id DEVFORGEAI-DEV-SKILL-001, skill_name dev",
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": {
+    "path": "inputs/prior-findings.json",
+    "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be",
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validations\\dev60918T202845Z\findings.json",
+    "note": "Exact bytes of the prior run's findings record, copied into this run so the reference is run-relative and the run is self-contained. The digest was verified against the prior run's file and against the digest the builder independently cited for the same file; all three agree."
+  },
+  "completeness": "complete",
+  "historical_origin": "unknown",
+  "source_readback_state": "UNCHANGED",
+  "readback_note": "observe.py readback returned MATCH with empty added, removed and changed lists. The complete stdout observation is retained verbatim at readback-observation.txt, deliberately not given a .json extension so the records helper does not misread its target-relative manifest rows as run-relative references. The extracted manifest object is source-after-manifest.json. Conclusions therefore apply to the current live bytes, not only to the retained snapshot.",
+  "revalidation": {
+    "prior_run_id": "20260918T202845Z",
+    "prior_package_digest": "45dd959122125222d68e6f156d72fa20bd52ec50d5fa095857603b0166cbe2f9",
+    "this_package_digest": "8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81",
+    "intervening_build": {
+      "authoring_run": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z",
+      "operation": "edit",
+      "managed_paths": [
+        "SKILL.md"
+      ],
+      "authoring_state": "AUTHORED",
+      "validation_status_declared_by_builder": "NOT_PERFORMED",
+      "testing_status_declared_by_builder": "NOT_PERFORMED",
+      "note": "The builder correctly declined to test its own output, which is what makes this run the first assessment of these bytes. Discovered as read-only repository evidence; the builder's validation-request.json was not a user-selected input to this run, so the authoring-intake byte-binding path was not entered and the request was not treated as authorization for anything."
+    },
+    "custody_chain_verified": [
+      "Prior run assessed SKILL.md ec47a6826276edc93675b0631d01aaa388f01d4fc0c68c71adf673e3ab27763f.",
+      "Builder before-row records the identical digest, so the build started from exactly the assessed bytes.",
+      "Builder new-row and delivered-manifest record 212f99c38b4014b020de49f0514d36719849a148ded01ccb1611e45d6e4cb4d6.",
+      "The selected target hashes to that value, so the mirror carries the delivered bytes.",
+      "Builder-declared package_digest 8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81 equals the digest recomputed here from the live target.",
+      "The three specification_refs the builder cited were each verified against their recorded digests and all three still match."
+    ],
+    "prior_findings_classification": [
+      {
+        "finding_id": "F-c3d23edad8c479f39a8164df0bb99b1098c0e98c483515cbad174432ce685df9",
+        "rule_id": "PRJ-003",
+        "severity": "major",
+        "class": "resolved",
+        "supporting_cases": [
+          "C-INS-001",
+          "C-INS-002",
+          "T1-boundary"
+        ]
+      },
+      {
+        "finding_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606",
+        "rule_id": "PRJ-001",
+        "severity": "minor",
+        "class": "persistent",
+        "supporting_cases": [
+          "C-ORG-002"
+        ]
+      }
+    ],
+    "new_findings": [
+      {
+        "finding_id": "F-cb3c4b14057cb4b10bb307c16378de290042cdd156dd7f5d95b3b5e421a8d41b",
+        "rule_id": "PRJ-007",
+        "severity": "minor",
+        "class": "new",
+        "supporting_cases": [
+          "C-STD-006",
+          "C-STD-007",
+          "T2-line-endings"
+        ]
+      }
+    ]
+  },
+  "uncertainties": [
+    {
+      "id": "ORG-U1",
+      "statement": "The bounded lookup roots named by the validator workflow (docs/plan and docs/design/specs) do not contain the governing specification. docs/design/specs does not exist; docs/plan holds no dev-skill specification.",
+      "resolution": "Carried unchanged from the prior run. Not treated as absence, so reconstruction from the origin template was not permitted and was not performed. The specification exists at docs/specs/dev-skill-spec.md and self-identifies at that exact absolute path in its own authoring-metadata table.",
+      "status": "RESOLVED_WITH_DISCLOSURE"
+    },
+    {
+      "id": "ORG-U2",
+      "statement": "The governing specification specifies a Codex skill and names C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev as its final development package. No specification in the repository explicitly governs the assessed Claude Code variant.",
+      "resolution": "Carried unchanged. Host-neutral requirements are assessed against the target; host-specific port decisions have no governing specification and are assessed against Claude Code source guidance only. Still an unresolved input decision, carried into the handoff. Not material to this run's conclusions: the resolved finding was verified against the live Claude Code reference, and the new finding against the repository's own .gitattributes and observable convention.",
+      "status": "UNRESOLVED_INPUT_DECISION"
+    },
+    {
+      "id": "ORG-U3",
+      "statement": "Specification frontmatter reads status: proposed and package_status: not_authored while the package exists on disk in three host copies.",
+      "resolution": "Carried unchanged. Repository instructions record this frontmatter as stale and direct that it not be read as unbuilt. Treated as stale specification metadata.",
+      "status": "RESOLVED_WITH_DISCLOSURE"
+    },
+    {
+      "id": "ORG-U4",
+      "statement": "No builder authoring record accompanied the original Codex-to-Claude-Code port; conversion history is inferred from the byte delta rather than from retained builder custody evidence.",
+      "resolution": "PARTIALLY ADVANCED but not resolved. A builder authoring run now exists for the 2026-09-19 edit, with contract, before/candidate/delivered manifests and a validation request, and this run verified that chain against retained bytes. That establishes custody for the edit only. The original port still has no retained record, so history_kind remains observed and historical_origin remains unknown. An authored baseline now exists for a future scoped edit to SKILL.md; it is not a generated or adopted baseline for the package as a whole.",
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "ORG-U5",
+      "statement": "The user selected the mirror path src/claude/skills/dev, while the builder's custody target_root and the prior assessment target were both .claude/skills/dev. The builder's own known_issues records that it wrote the mirror copy 'outside the custody harness'.",
+      "resolution": "New in this run. The selected root is assessed as given. Byte equality across the pair was verified rather than assumed, so the assessment applies to both paths. The residual risk is process, not bytes: nothing mechanical requires the out-of-custody write to match, which is recorded as enforcement candidate ENF-003.",
+      "status": "RESOLVED_WITH_DISCLOSURE"
+    }
+  ],
+  "mirror_pair": {
+    "path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\dev",
+    "relation": "byte-identical to the assessed target",
+    "verification": "diff -rq empty across all 11 files, retained in trials/T2-line-endings/observed.md section 5",
+    "note": "ADR-073 dual-path contract; an accepted revision must be applied to both paths with identical strings."
+  },
+  "excluded_candidates": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+      "reason": "Codex package carrying no allowed-tools. Assessing it against Claude Code frontmatter guidance would fail a package against a specification it does not claim. Observed only for the line-ending comparison, where it is LF like the rest of the family."
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev",
+      "reason": "Codex operational copy."
+    }
+  ],
+  "package_digest": "8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81",
+  "capture": {
+    "file_count": 11,
+    "total_bytes": 39817,
+    "ceiling": {
+      "max_files": 2000,
+      "max_bytes": 33554432
+    },
+    "excluded_boundaries": []
+  },
+  "authorized_effects": [
+    "Read-only inspection of the target and repository.",
+    "Writes confined to this run directory and to disposable fixtures under its trials/ subtree.",
+    "One outbound read-only documentation retrieval.",
+    "Helper stdout and generator scripts written to the session scratchpad, recorded in command-log.md."
+  ],
+  "limitations": [
+    "An observed origin is not an adopted or generated baseline.",
+    "Prose is not an exact backup; exact restoration uses source/ with source-manifest.json.",
+    "devforgeai-validate is absent from this environment. No observation here depends on it, and this validator requires no future CLI, so its absence is an environment record rather than a finding about the target."
+  ]
+}
