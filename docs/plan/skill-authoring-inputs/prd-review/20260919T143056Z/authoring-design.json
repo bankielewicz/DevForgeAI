@@ -1,0 +1,751 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "prd-review",
+  "source_refs": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\framework\\workflows\\phase-3-prd-review-spec.md",
+      "sha256": "f0a43675fe3a2bfe0fef7f8c8a9a672e8e58d6bdd41b43133b001dc04992f1cf"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\plan\\skill-authoring-inputs\\prd-review\\20260919T143056Z\\request.md",
+      "sha256": "0f3a04e413760db0ff0d08082a5bbb7912e622c6ce591a8d24ebee29be30503b"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\AGENTS.md",
+      "sha256": "cc0ed8bc550bf6cb0c82b6040b6d3c561c8ff494d76ee2a5f80e4e5c3a46c242"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\specs\\framework\\workflows\\phase-2-prd-create-spec.md",
+      "sha256": "c4c7570fd8dd13de021c4581ea3f8e3f9b5756a8446d0d908cd86dd498e07232"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\specs\\framework\\core-workflows.md",
+      "sha256": "968c9b02829b90bf55a908c199507c02c1d093ce5d42745301db00393e6c4174"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\specs\\framework\\project-context-and-policy.md",
+      "sha256": "3639eae29ab1dbd89ee567b1eac332bc3bdc0a915edc4a74ca93873c029ad099"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\specs\\framework\\work-items-and-dependencies.md",
+      "sha256": "3a1b851b114ec7ae72413bb01a4d7582cbb5064a816a42c58cef37bcc696796c"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\specs\\framework\\quality-and-delivery.md",
+      "sha256": "bf15df8b4b671d61fcf6b2eb63f8692266e028eba32258f0e55618eb21f51735"
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\worktrees\\git\\prd-review-skill\\docs\\specs\\framework\\index.md",
+      "sha256": "c79de483edac6306c6936188b35f7f45189b597fc4b55f91cc66ee76830ebacd"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "B-001",
+      "requirement_ids": [
+        "PRR-001"
+      ],
+      "trigger": "Review requested in an arbitrary selected project",
+      "inputs": [
+        "Selected scope and actual project conventions"
+      ],
+      "completion": "Standalone activation needs no Git, binding, producer run or inherited framework policy.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "agents/openai.yaml"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Name the affected gap; no setup or installation.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-002",
+      "requirement_ids": [
+        "PRR-002"
+      ],
+      "trigger": "Review or a near-miss request arrives",
+      "inputs": [
+        "Current request and selected effects"
+      ],
+      "completion": "Review/retest activates; near misses receive the correct manual responsibility with no product effects.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "SKILL.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Route without automatically invoking another workflow.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-003",
+      "requirement_ids": [
+        "PRR-003"
+      ],
+      "trigger": "Start or resume a selected assessment",
+      "inputs": [
+        "Root, candidate, scope, prior findings, destination and permissions"
+      ],
+      "completion": "Full/focused scope and next use are explicit; work planning is default; answered questions are reused.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/intake-and-evidence.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Continue useful discussion; block saving or preserve no-write scope.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-004",
+      "requirement_ids": [
+        "PRR-004"
+      ],
+      "trigger": "Consume PRD metadata and semantics",
+      "inputs": [
+        "Actual selected PRD and producer correspondence"
+      ],
+      "completion": "Exact six-field v1 or documented selected legacy correspondence; lineage and remaining content defects recorded.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/intake-and-evidence.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "No invented document, forced conversion or guessed unknown-version parsing.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-005",
+      "requirement_ids": [
+        "PRR-005"
+      ],
+      "trigger": "Acquire evidence for a conclusion",
+      "inputs": [
+        "Selected local bytes, conversations and inspected external sources"
+      ],
+      "completion": "Each local content/digest pair comes from the same buffer or verified immutable snapshot; locators and roles are recorded.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/intake-and-evidence.md",
+        "references/assessment-and-retest.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Reacquire paired evidence or withhold the affected conclusion.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-006",
+      "requirement_ids": [
+        "PRR-006"
+      ],
+      "trigger": "Establish a requirement oracle",
+      "inputs": [
+        "Original obligations, decisions, policy and observations"
+      ],
+      "completion": "Governing authority and conflicts remain explicit; author rationale and code are verified claims.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/intake-and-evidence.md",
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Preserve conflict and dependent incompleteness; reject embedded effects.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-007",
+      "requirement_ids": [
+        "PRR-007"
+      ],
+      "trigger": "Inventory the selected scope",
+      "inputs": [
+        "Original clauses, PRD requirements, criteria and shared dependencies"
+      ],
+      "completion": "Bidirectional matrix gives each selected obligation one status and detects omissions, additions and orphan criteria.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Retain dependency or traceable finding; no whole-PRD PASS.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-008",
+      "requirement_ids": [
+        "PRR-008"
+      ],
+      "trigger": "Challenge functional acceptance",
+      "inputs": [
+        "Actors, triggers, states, effects, criteria and recovery"
+      ],
+      "completion": "Relevant counterexamples expose missing rules, circular criteria and weakened acceptance without claiming tests.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Request the rule from its owner rather than inventing it.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-009",
+      "requirement_ids": [
+        "PRR-009"
+      ],
+      "trigger": "Review quality and observability",
+      "inputs": [
+        "Actual policy, thresholds, workload, units and verification proposals"
+      ],
+      "completion": "Applicable quality obligations and host/boundary observability are assessed with source-backed claims.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Attribute missing targets and evidence limits without inventing metrics.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-010",
+      "requirement_ids": [
+        "PRR-010"
+      ],
+      "trigger": "Determine architecture sufficiency for selected next use",
+      "inputs": [
+        "State/trust/component/transaction/deployment decisions"
+      ],
+      "completion": "Planning-safe deferrals are distinguished from missing essential product/shared rules with named blocking activities.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Offer evidence-grounded alternatives and retain decision ownership.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-011",
+      "requirement_ids": [
+        "PRR-011"
+      ],
+      "trigger": "Inspect cross-component and consumer interactions",
+      "inputs": [
+        "Canonical interfaces, dependencies, UI or headless interaction contracts"
+      ],
+      "completion": "Contract, implementation and evidence prerequisites are separate; shared writes and integration remain visible.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Record applicable interface findings without decomposition or worktree creation.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-012",
+      "requirement_ids": [
+        "PRR-012"
+      ],
+      "trigger": "Write a supported finding",
+      "inputs": [
+        "Bound evidence, affected IDs and expected obligation"
+      ],
+      "completion": "Stable ID includes correction/decision owner, consequence, blocking activity and independently observable resolution.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/review-and-findings.md",
+        "assets/prd-review-template.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Deduplicate one defect; retain distinct issues; label suggestions without mandatory severity.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-013",
+      "requirement_ids": [
+        "PRR-013"
+      ],
+      "trigger": "Reduce an assessment",
+      "inputs": [
+        "Current findings, required-area completeness and independence"
+      ],
+      "completion": "Ordered CHANGES_REQUIRED, INCOMPLETE, PASS and separate Boolean reflect exact scope; delivery remains separate.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/assessment-and-retest.md",
+        "references/report-and-delivery.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "CHANGES_REQUIRED with assessment_complete false; retain known defects.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-014",
+      "requirement_ids": [
+        "PRR-014"
+      ],
+      "trigger": "Claim independent review or closure",
+      "inputs": [
+        "Known author/reviewer context and original sources"
+      ],
+      "completion": "Self-review is disclosed and cannot grant independent PASS or VERIFIED_FIXED.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/assessment-and-retest.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Preserve useful findings and request separate review context; no invented actor isolation.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-015",
+      "requirement_ids": [
+        "PRR-015"
+      ],
+      "trigger": "Before persistence, final readback, or observed drift",
+      "inputs": [
+        "Paired original/current candidate and governing sources"
+      ],
+      "completion": "Old/new identities and affected rows, findings, resolutions, retest statuses and result are semantically reassessed.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/assessment-and-retest.md",
+        "references/report-and-delivery.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Retain stale attempt; reconcile to fresh authorized report or declare incomplete current delivery; label historical scope.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-016",
+      "requirement_ids": [
+        "PRR-016"
+      ],
+      "trigger": "Create the review artifact",
+      "inputs": [
+        "Selected format, safe identity, actual UTC time and complete assessment"
+      ],
+      "completion": "One Markdown report carries exact default header and eight semantic sections with report digest delivered externally.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/report-and-delivery.md",
+        "assets/prd-review-template.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Map compatible format and safe topic ID without changing PRD identity; preserve required content.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-017",
+      "requirement_ids": [
+        "PRR-017"
+      ],
+      "trigger": "Save, resume or reuse review",
+      "inputs": [
+        "Literal disjoint paths, intended bytes and retained attempts"
+      ],
+      "completion": "Exclusive fresh write plus complete readback and final input comparison establish delivery only for observed bytes.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/report-and-delivery.md",
+        "references/assessment-and-retest.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Preserve actual attempt and errors; no root evasion, overwrite, blind replay or rollback claim.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-018",
+      "requirement_ids": [
+        "PRR-018"
+      ],
+      "trigger": "Retest selected corrections",
+      "inputs": [
+        "Prior report identity/finding IDs, original conditions, revised PRD and decisions"
+      ],
+      "completion": "Each selected finding has VERIFIED_FIXED, STILL_PRESENT, NOT_VERIFIED or authorized SUPERSEDED with impact/regression evidence.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "references/assessment-and-retest.md",
+        "references/review-and-findings.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Withhold false closure, retain untargeted statuses and current applicability limits; no whole-PRD promotion.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-019",
+      "requirement_ids": [
+        "PRR-019"
+      ],
+      "trigger": "Deliver bounded result to next owner",
+      "inputs": [
+        "Assessment, completeness, actual report/candidate identity and remaining obligations"
+      ],
+      "completion": "Manual revision, missing-input or scoped work-planning request names owner, evidence and integration prerequisites.",
+      "outputs": [
+        "Selected report or conversation assessment under report-and-delivery.md"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/report-and-delivery.md"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Name responsibility without invented executable command or automatic invocation.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    },
+    {
+      "id": "B-020",
+      "requirement_ids": [
+        "PRR-020"
+      ],
+      "trigger": "Author and hand off this skill package",
+      "inputs": [
+        "Original PRR/PRV specification and completed external design"
+      ],
+      "completion": "Development bytes, authoring records and digest-bound manual validator handoff are delivered; quality remains unperformed.",
+      "outputs": [
+        "External authoring records and manual validator request"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "agents/openai.yaml"
+      ],
+      "prerequisites": [
+        "Selected source evidence and authorization for the dependent operation"
+      ],
+      "effects": [
+        "Bounded inspection and selected report writes only; authoring custody uses external development evidence"
+      ],
+      "failure": "Keep evaluated build incomplete; separate validator supplies JSONL runner, graders, fixtures, expected results, schema and manifests.",
+      "recovery": "Inspect retained state, reacquire relevant source pairs and resume only supported authorized work."
+    }
+  ],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "kind": "instruction",
+      "purpose": "Activation, ownership, routing and bounded delivery",
+      "load_when": "Every invocation",
+      "helper_contract": null
+    },
+    {
+      "path": "references/intake-and-evidence.md",
+      "kind": "reference",
+      "purpose": "Select candidate, interpret producer contract and acquire paired evidence",
+      "load_when": "Before using inputs or reusing an existing review",
+      "helper_contract": null
+    },
+    {
+      "path": "references/review-and-findings.md",
+      "kind": "reference",
+      "purpose": "Review matrix, behavior, quality, architecture and actionable findings",
+      "load_when": "When assessing selected PRD obligations",
+      "helper_contract": null
+    },
+    {
+      "path": "references/assessment-and-retest.md",
+      "kind": "reference",
+      "purpose": "Independence, result reduction, semantic drift and retest",
+      "load_when": "Before conclusions; also on drift, resume or selected retest",
+      "helper_contract": null
+    },
+    {
+      "path": "references/report-and-delivery.md",
+      "kind": "reference",
+      "purpose": "Report semantics, exclusive persistence, full readback and manual handoff",
+      "load_when": "When selecting, saving, reusing or delivering a report",
+      "helper_contract": null
+    },
+    {
+      "path": "assets/prd-review-template.md",
+      "kind": "template",
+      "purpose": "Writing aid for one default-format report",
+      "load_when": "When a new report has no compatible governing project format",
+      "helper_contract": null
+    },
+    {
+      "path": "agents/openai.yaml",
+      "kind": "reference",
+      "purpose": "Human-facing discovery metadata with automatic invocation preserved",
+      "load_when": "Host skill discovery and invocation UI",
+      "helper_contract": null
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "A-001",
+      "behavior_id": "B-001",
+      "condition": "Missing essential project fact",
+      "expected_observation": "Name the affected gap; no setup or installation.",
+      "requirement_basis": "PRR-001"
+    },
+    {
+      "id": "A-002",
+      "behavior_id": "B-002",
+      "condition": "Prompt asks for PRD repair, QA or story authoring",
+      "expected_observation": "Route without automatically invoking another workflow.",
+      "requirement_basis": "PRR-002"
+    },
+    {
+      "id": "A-003",
+      "behavior_id": "B-003",
+      "condition": "Root or saving destination missing; conversation-only scope",
+      "expected_observation": "Continue useful discussion; block saving or preserve no-write scope.",
+      "requirement_basis": "PRR-003"
+    },
+    {
+      "id": "A-004",
+      "behavior_id": "B-004",
+      "condition": "Absent, malformed or unsupported PRD",
+      "expected_observation": "No invented document, forced conversion or guessed unknown-version parsing.",
+      "requirement_basis": "PRR-004"
+    },
+    {
+      "id": "A-005",
+      "behavior_id": "B-005",
+      "condition": "Source mutates between exploratory text and hashing; unavailable read/hash",
+      "expected_observation": "Reacquire paired evidence or withhold the affected conclusion.",
+      "requirement_basis": "PRR-005"
+    },
+    {
+      "id": "A-006",
+      "behavior_id": "B-006",
+      "condition": "Co-owner conflict, missing essential input or embedded malicious instruction",
+      "expected_observation": "Preserve conflict and dependent incompleteness; reject embedded effects.",
+      "requirement_basis": "PRR-006"
+    },
+    {
+      "id": "A-007",
+      "behavior_id": "B-007",
+      "condition": "Focused scope omits a shared dependency or deletes a rule without authority",
+      "expected_observation": "Retain dependency or traceable finding; no whole-PRD PASS.",
+      "requirement_basis": "PRR-007"
+    },
+    {
+      "id": "A-008",
+      "behavior_id": "B-008",
+      "condition": "Cancellation/dispatch race has no defined outcome",
+      "expected_observation": "Request the rule from its owner rather than inventing it.",
+      "requirement_basis": "PRR-008"
+    },
+    {
+      "id": "A-009",
+      "behavior_id": "B-009",
+      "condition": "Vague essential security or performance target; unsupported test claim",
+      "expected_observation": "Attribute missing targets and evidence limits without inventing metrics.",
+      "requirement_basis": "PRR-009"
+    },
+    {
+      "id": "A-010",
+      "behavior_id": "B-010",
+      "condition": "Unsupported dependency, conflicting owner or missing material design choice",
+      "expected_observation": "Offer evidence-grounded alternatives and retain decision ownership.",
+      "requirement_basis": "PRR-010"
+    },
+    {
+      "id": "A-011",
+      "behavior_id": "B-011",
+      "condition": "Duplicate state owners, dependency cycle or invented UI obligations",
+      "expected_observation": "Record applicable interface findings without decomposition or worktree creation.",
+      "requirement_basis": "PRR-011"
+    },
+    {
+      "id": "A-012",
+      "behavior_id": "B-012",
+      "condition": "Duplicate observations or unsupported preference",
+      "expected_observation": "Deduplicate one defect; retain distinct issues; label suggestions without mandatory severity.",
+      "requirement_basis": "PRR-012"
+    },
+    {
+      "id": "A-013",
+      "behavior_id": "B-013",
+      "condition": "Proven blocker plus unavailable review area",
+      "expected_observation": "CHANGES_REQUIRED with assessment_complete false; retain known defects.",
+      "requirement_basis": "PRR-013"
+    },
+    {
+      "id": "A-014",
+      "behavior_id": "B-014",
+      "condition": "Current actor/session authored or repaired exact candidate",
+      "expected_observation": "Preserve useful findings and request separate review context; no invented actor isolation.",
+      "requirement_basis": "PRR-014"
+    },
+    {
+      "id": "A-015",
+      "behavior_id": "B-015",
+      "condition": "Prewrite or postwrite drift; authority conflict; historical snapshot",
+      "expected_observation": "Retain stale attempt; reconcile to fresh authorized report or declare incomplete current delivery; label historical scope.",
+      "requirement_basis": "PRR-015"
+    },
+    {
+      "id": "A-016",
+      "behavior_id": "B-016",
+      "condition": "Legacy format, unsafe ID, spaces/non-ASCII path or missing semantic section",
+      "expected_observation": "Map compatible format and safe topic ID without changing PRD identity; preserve required content.",
+      "requirement_basis": "PRR-016"
+    },
+    {
+      "id": "A-017",
+      "behavior_id": "B-017",
+      "condition": "Collision, escape, access denial, partial write or successful write with failed full readback",
+      "expected_observation": "Preserve actual attempt and errors; no root evasion, overwrite, blind replay or rollback claim.",
+      "requirement_basis": "PRR-017"
+    },
+    {
+      "id": "A-018",
+      "behavior_id": "B-018",
+      "condition": "Fixed sentence conflicts elsewhere; scope deletion; untouched findings",
+      "expected_observation": "Withhold false closure, retain untargeted statuses and current applicability limits; no whole-PRD promotion.",
+      "requirement_basis": "PRR-018"
+    },
+    {
+      "id": "A-019",
+      "behavior_id": "B-019",
+      "condition": "Next workflow unavailable",
+      "expected_observation": "Name responsibility without invented executable command or automatic invocation.",
+      "requirement_basis": "PRR-019"
+    },
+    {
+      "id": "A-020",
+      "behavior_id": "B-020",
+      "condition": "Evaluator artifacts or future host support absent",
+      "expected_observation": "Keep evaluated build incomplete; separate validator supplies JSONL runner, graders, fixtures, expected results, schema and manifests.",
+      "requirement_basis": "PRR-020"
+    }
+  ],
+  "execution_limits": [],
+  "open_questions": []
+}

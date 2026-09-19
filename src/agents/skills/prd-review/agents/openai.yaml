@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD Review"
+  short_description: "Review PRD completeness, architecture and corrections"
+  default_prompt: "Use $prd-review to independently assess the selected PRD for work planning and return actionable findings."
