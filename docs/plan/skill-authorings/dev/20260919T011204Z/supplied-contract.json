@@ -1,0 +1,56 @@
+{
+  "schema_version": "authoring-contract-v1",
+  "run_id": "20260919T011204Z",
+  "project_root": "C:/Projects/DevForgeAI",
+  "target_root": "C:/Projects/DevForgeAI/.claude/skills/dev",
+  "target_name": "dev",
+  "operation": "edit",
+  "authorization": "User invoked /skill-builder and supplied the dev validation report from docs/plan/skill-validations/dev/20260918T202845Z (FAIL, REVIEW_REQUIRED). That is a clear current request to apply the reported Instructions finding as a focused edit.",
+  "history_review": "no_known_history",
+  "change_paths": [
+    "SKILL.md"
+  ],
+  "requirements": [
+    "R1 Remove the claim at SKILL.md:33 that absence of Skill and Task from allowed-tools prevents this workflow from invoking a skill or spawning a subagent.",
+    "R2 Preserve the substantive instruction not to delegate product implementation to another skill or a subagent.",
+    "R3 Preserve resistance to later instructions that ask the workflow to delegate.",
+    "R4 Make SKILL.md:33 and SKILL.md:50 apply the same model of the allowlist.",
+    "R5 Select finding disposition (a), honest restatement. Reject disposition (b), adding disallowed-tools, because the restriction is turn-scoped and would contradict references/implementation.md:13."
+  ],
+  "capabilities": [
+    "Read",
+    "Edit",
+    "Bash"
+  ],
+  "expected_outputs": [
+    "Corrected scope paragraph in .claude/skills/dev/SKILL.md",
+    "Authoring record and baseline under this run root"
+  ],
+  "side_effects": [
+    "Rewrites one paragraph of the dev package entry instructions",
+    "Resets any quality result previously bound to the prior SKILL.md bytes"
+  ],
+  "inputs": [
+    {
+      "path": "C:/Projects/DevForgeAI/docs/plan/skill-validations/dev/20260918T202845Z/findings.json",
+      "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be"
+    },
+    {
+      "path": "C:/Users/bryan/AppData/Local/Temp/claude/C--Projects-DevForgeAI/fc098a00-8661-4ab5-9438-fdfd18461454/scratchpad/dev-fix/allowed-tools-verification.md",
+      "sha256": "e91b30d8ec2b5299b5357eef1327b4f1ad96fdd7c95cf8846223a53d53468c31"
+    },
+    {
+      "path": "C:/Users/bryan/AppData/Local/Temp/claude/C--Projects-DevForgeAI/fc098a00-8661-4ab5-9438-fdfd18461454/scratchpad/dev-fix/design.json",
+      "sha256": "351aaba4b96f92c027e53b9b8b55bd9ecdbbe53e484e18782ef9cc4318ee9b9c"
+    }
+  ],
+  "known_issues": [
+    "Verified no known history: docs/plan/skill-authorings does not exist and the package carries no custody, baseline or build-contract record. assets/execution-record.jsonl is a runtime template, not an authoring record. Finding F-7eb942c2 records the same absence. The edit base is therefore observed, and only SKILL.md is managed.",
+    "Provenance is inferred, not verified: this Claude Code package is a derived port of the Codex parent at src/agents/skills/dev. Eight of eleven files are byte-identical to it; the corrected passage has no counterpart there and was introduced by the port.",
+    "The same unenforced-control claim exists in qa/SKILL.md:55, skill-validator/SKILL.md:32 and skill-builder/SKILL.md:27, each in both mirror paths. Not edited: no assessment was supplied for those packages and editing them would reset their separately bound validation state.",
+    "Root cause not edited: .claude/skills/skill-builder/references/claude-frontmatter.md lines 13 and 28 state that allowed-tools restricts, which is what generates this defect on every future port.",
+    "Finding F-7eb942c2 (minor) is not addressed here: it calls for a governing contract for the Claude Code variant, which is a specification/process change outside this skill's charter.",
+    "The mirror copy at src/claude/skills/dev is outside this contract's single target_root; it is updated with the identical string and verified by diff outside the custody harness."
+  ],
+  "purpose": "Correct an unenforced-control claim in the dev package entry instructions reported by an independent validation run."
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": "1",
+  "run_id": "20260918T202845Z",
+  "target_name": "dev",
+  "findings": [
+    {
+      "finding_id": "F-c3d23edad8c479f39a8164df0bb99b1098c0e98c483515cbad174432ce685df9",
+      "identity": [
+        "PRJ-003",
+        "source/SKILL.md",
+        "That separation is structural here rather than asserted: `Skill` and `Task` are absent from `allowed-tools`, so this workflow cannot invoke another skill or spawn a subagent. The whole cycle runs in one session, and delegation is not required to finish it.",
+        0
+      ],
+      "rule_id": "PRJ-003",
+      "category": "instruction_issue",
+      "severity": "major",
+      "subject_path": "source/SKILL.md",
+      "locator": {
+        "line_start": 33,
+        "line_end": 33,
+        "start_byte": 2106,
+        "end_byte": 2331
+      },
+      "source_refs": [
+        {
+          "path": "inputs/rule-sources/claude-code-skills-allowed-tools.md",
+          "sha256": "07ab488c43a12359f780f22864a129240e9f89d46c17b1f71fd4a77ae11dd67f",
+          "source_id": "claude-code-skills",
+          "locator": "section 'allowed-tools (quoted)'"
+        },
+        {
+          "path": "inputs/rule-sources/claude-frontmatter-guidance.md",
+          "sha256": "4dfb31a1bff74627deb2f4ac99cec53b1c1b7b0e0ab13090354413acb7fe3618",
+          "source_id": "claude-frontmatter-guidance",
+          "locator": "Fields table, allowed-tools and disallowed-tools rows"
+        }
+      ],
+      "observation_refs": [
+        {
+          "path": "checks.jsonl",
+          "sha256": "456162cd4babdf322b89e5877f4adffda98729ca5b065186422e93f8b83318ec"
+        },
+        {
+          "path": "source-manifest.json",
+          "sha256": "1a56881bdace250be312f81605698a16b05063c59227f2a9ddd9ada9fb2c203e"
+        }
+      ],
+      "classification": "unenforced_control_claim",
+      "description": "SKILL.md line 33 states that the separation between product implementation and skill authoring is 'structural here rather than asserted' because 'Skill and Task are absent from allowed-tools, so this workflow cannot invoke another skill or spawn a subagent'. The live Claude Code skills reference states the opposite: allowed-tools 'grants permission for the listed tools during the turn that invokes the skill' and 'does not restrict which tools are available: every tool remains callable, and your permission settings still govern tools that are not listed.' The field that removes tools from the pool is disallowed-tools, which this package does not use. Absence from allowed-tools therefore produces a permission prompt for an unlisted tool under default settings, not an inability to call it.\n\nThe claim is contradicted twice inside the package itself. SKILL.md line 50, added in the same port, correctly describes the unscoped Bash grant as 'an obligation this workflow keeps, not one the allowlist enforces'. references/implementation.md line 13 states that 'separately authorized delegation must preserve ownership and evidence', which presupposes delegation is possible. Line 33 and line 50 apply opposite models of the same frontmatter field.\n\nThe passage has no counterpart in the Codex parent package at src/agents/skills/dev; it was introduced by the Claude Code port, in prose that no specification governs (see the companion finding).",
+      "user_impact": "A reader who trusts line 33 will believe a host-enforced boundary exists where only an instruction does. If a later instruction inside a specification or a user message asks this workflow to delegate, nothing structural stops it, and the skill has told its operator that something does. The practical risk is misplaced confidence during exactly the scenario the sentence was written to address: prompt content attempting to expand scope. The functional behavior of the skill is unaffected, which is why this is major rather than a blocker.",
+      "proposed_correction": "Choose one of two dispositions, and record which. (a) Keep the boundary as an obligation and state it honestly, matching the wording already used at line 50 - for example: 'This workflow does not invoke another skill or spawn a subagent. The whole cycle runs in one session; delegation is not required to finish it. That is an obligation this workflow keeps, not one the allowlist enforces.' (b) Make the boundary real by adding 'disallowed-tools: [Skill, Task]' to the frontmatter, and describe it accurately as turn-scoped, since the restriction clears when the user sends the next message.",
+      "preserved_requirements": [
+        "The substantive instruction not to delegate product implementation to another skill or a subagent is correct and must survive any rewording.",
+        "The resistance to later instructions that ask the workflow to delegate must survive; only the false claim about the mechanism is removed."
+      ],
+      "verification_cases": [
+        "Re-read SKILL.md and confirm no sentence asserts that absence from allowed-tools prevents tool use.",
+        "Confirm lines 33 and 50 apply the same model of the allowlist.",
+        "If disposition (b) is chosen, invoke the skill and confirm a Task call is refused within the invoking turn and permitted again on the following message."
+      ],
+      "disposition": "proposed"
+    },
+    {
+      "finding_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606",
+      "identity": [
+        "PRJ-001",
+        "source/SKILL.md",
+        "MISSING_FILE",
+        0
+      ],
+      "rule_id": "PRJ-001",
+      "category": "input_evidence_limitation",
+      "severity": "minor",
+      "subject_path": "source/SKILL.md",
+      "locator": {
+        "note": "Package-level provenance, not a passage. Anchor MISSING_FILE denotes an absent governing specification for this host variant."
+      },
+      "source_refs": [
+        {
+          "path": "inputs/dev-skill-spec.md",
+          "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265",
+          "source_id": "project-spec",
+          "locator": "section 1 'Authoring contract and scope' and section 1.1 authoring-metadata table"
+        }
+      ],
+      "observation_refs": [
+        {
+          "path": "origin-record.json",
+          "sha256": "c10c2a08b35bd6e2d883cf1fad232c63e39911ed5854d1f266b01aa2020e57ff"
+        }
+      ],
+      "description": "The only specification naming skill 'dev' is docs/specs/dev-skill-spec.md. It specifies a Codex skill and its authoring-metadata table names C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev as the final development package. The assessed Claude Code package at .claude/skills/dev is a derived port of that package, and no specification in the repository governs it. Eight of its eleven files are byte-identical to the Codex parent; the three that differ carry every host-specific decision, including the defective passage in the companion finding. No builder authoring record accompanied the port, so its history is inferred from the byte delta rather than verified (ORG-U4).\n\nTwo adjacent observations are recorded but are not package defects. The specification's frontmatter reads status: proposed and package_status: not_authored while three copies of the package exist on disk; repository instructions already record that frontmatter as stale. And the validator's bounded lookup roots, docs/plan and docs/design/specs, do not contain this specification - docs/design/specs does not exist - which the specification itself anticipates by naming its own absolute path and noting that builder lookup searches elsewhere. Absence from the lookup roots was therefore not treated as absence, and no origin specification was reconstructed.",
+      "user_impact": "Host-specific port decisions have no contract to be assessed against, so conformance for those three files can only be judged against general Claude Code guidance. That is precisely where the one real defect in this package was introduced and would not have been caught by specification conformance.",
+      "proposed_correction": "Record a governing contract for the Claude Code variant. Either extend dev-skill-spec.md with a host-variant section naming both Claude Code paths and their permitted deltas, or retain a derived-port provenance record with the ported package. Separately, correct the stale status and package_status frontmatter. These are specification and process changes, not edits to the assessed package.",
+      "preserved_requirements": [
+        "The existing specification's content and its Codex build target must not be overwritten or relocated; it explicitly forbids creating another authoritative copy."
+      ],
+      "verification_cases": [
+        "A later validation run resolves a governing contract for .claude/skills/dev without falling back to the Codex specification.",
+        "The specification frontmatter reflects the authored state of the package."
+      ],
+      "disposition": "proposed"
+    }
+  ]
+}

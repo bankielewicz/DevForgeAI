@@ -1,0 +1,184 @@
+{
+  "schema_version": "1",
+  "record_kind": "workflow-map",
+  "target": {
+    "original_source_root": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev",
+    "package_digest": "8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81"
+  },
+  "snapshot_reference": {
+    "path": "source-manifest.json",
+    "sha256": "9c5794d988728ea5237f090da95f998b7ae31a79c66b6edd6c368addab412ec2"
+  },
+  "note": "One row per actual step traced from its cited entrypoint. Entrypoints are linked instructions and headings; no phase registry, fixed headings or separate scripts are required or expected. | Revalidation 20260919T021255Z: steps unchanged. The corrected scope-boundary paragraph removed a claim that the allowed-tools allowlist structurally prevented delegation; it states the same non-delegation obligation, so no step's executor, inputs, outputs or failure route changed.",
+  "steps": [
+    {
+      "step_id": "S1",
+      "entrypoint": "SKILL.md 'Workflow' item 1 -> references/context.md",
+      "entry_conditions": "Invocation supplies a project, at least one explicitly selected specification, and requested scope.",
+      "inputs": [
+        "selected project",
+        "selected specification document(s)",
+        "applicable project instructions",
+        "optional checkpoint/evidence destination"
+      ],
+      "executor": "primary agent",
+      "action": "Resolve environment and project identity in the real shell; read applicable project instructions; select and bind the literal evidence destination before first write; capture bounded context.",
+      "outputs": [
+        "bound evidence root and output mapping",
+        "context record from assets/context.md"
+      ],
+      "completion_evidence": "context record containing selected_evidence_value, selection_source, resolved_evidence_root and output mapping (context.md:15-17, evidence-resume.md:9)",
+      "next": [
+        "S2"
+      ],
+      "failure_route": "context.md:13 ask once with AskUserQuestion when no destination resolves; context.md:15 an ambiguous or unavailable destination is a precise gap, not permission to default.",
+      "terminal_user_outcome": "n/a (intermediate)"
+    },
+    {
+      "step_id": "S2",
+      "entrypoint": "SKILL.md 'Workflow' item 2 -> references/context.md 'Read and account for requirements'",
+      "entry_conditions": "Context bound; specifications readable.",
+      "inputs": [
+        "all selected specifications",
+        "referenced necessary documents"
+      ],
+      "executor": "primary agent",
+      "action": "Inventory every requirement with stable source-qualified IDs; resolve constitutional decisions, shared-contract ownership, dependency edges and material gaps.",
+      "outputs": [
+        "traceability record from assets/traceability.md",
+        "named material gaps"
+      ],
+      "completion_evidence": "every selected requirement carries an ID and a verification method or a precise gap (context.md:29, implementation.md:11)",
+      "next": [
+        "S3"
+      ],
+      "failure_route": "context.md:33,35 source-qualified conflicts and absent prerequisites raise a specific AskUserQuestion, then independent work continues.",
+      "terminal_user_outcome": "An explicit request for a material decision is a permitted terminal outcome here."
+    },
+    {
+      "step_id": "S3",
+      "entrypoint": "SKILL.md 'Workflow' item 3 -> references/implementation.md 'Inspect for reuse, then plan'",
+      "entry_conditions": "Requirements inventoried.",
+      "inputs": [
+        "traceability record",
+        "existing code and tests"
+      ],
+      "executor": "primary agent",
+      "action": "Search for existing responsibility before adding one; record reuse/extend/compose/new with references; plan dependency-ordered slices.",
+      "outputs": [
+        "slice plan from assets/slice-plan.md"
+      ],
+      "completion_evidence": "slice plan rows carry requirement IDs, contracts, owned scope and verification (implementation.md:9-11)",
+      "next": [
+        "S4"
+      ],
+      "failure_route": "implementation.md:19 absent tooling resolves to the project-prescribed toolchain or a material decision; language substitution to evade missing tools is prohibited.",
+      "terminal_user_outcome": "Plan-only requests stop here and deliver the plan (SKILL.md 'Scope and inputs')."
+    },
+    {
+      "step_id": "S4",
+      "entrypoint": "SKILL.md 'Workflow' item 4 -> references/implementation.md 'Red' / 'Green' / 'Refactor and integration'",
+      "entry_conditions": "Slice plan exists; commands resolved (implementation.md:17).",
+      "inputs": [
+        "slice plan",
+        "resolved build/test commands"
+      ],
+      "executor": "primary agent",
+      "action": "Per behavioral slice write a failing test, preserve the failure, implement minimum real behavior, rerun, refactor, then integrate in dependency order.",
+      "outputs": [
+        "product source and tests",
+        "execution records (assets/execution-record.jsonl)"
+      ],
+      "completion_evidence": "one append-only JSONL line per actual attempt with exact command, exit/timeout and stream locators (evidence-resume.md:22)",
+      "next": [
+        "S5"
+      ],
+      "failure_route": "implementation.md:25 prerequisite failures are not valid red; implementation.md:33 a contradictory expectation stops the dependent change instead of being rewritten.",
+      "terminal_user_outcome": "n/a (intermediate)"
+    },
+    {
+      "step_id": "S5",
+      "entrypoint": "SKILL.md 'Workflow' item 4 -> references/implementation.md 'QA and metrics' / 'Native and external behavior'",
+      "entry_conditions": "Integrated candidate exists.",
+      "inputs": [
+        "integrated candidate",
+        "project-derived metric definitions and thresholds"
+      ],
+      "executor": "primary agent",
+      "action": "Declare candidate, required-case set, metric definitions, exclusions, thresholds and platforms before measuring; run applicable checks; run required native cases on their declared host when available.",
+      "outputs": [
+        "raw measurements, counts and per-platform results in assets/delivery.md"
+      ],
+      "completion_evidence": "declared denominator with each required case counted once; missing measurement recorded unperformed (implementation.md:43-47)",
+      "next": [
+        "S6"
+      ],
+      "failure_route": "implementation.md:51 an unavailable native host yields named unperformed cases and a partial result, never an inferred pass.",
+      "terminal_user_outcome": "n/a (intermediate)"
+    },
+    {
+      "step_id": "S6",
+      "entrypoint": "SKILL.md 'Workflow' item 6 -> references/failure-delivery.md 'Report actual delivery'",
+      "entry_conditions": "Checks have final observations or explicit unperformed reasons.",
+      "inputs": [
+        "execution records",
+        "measurements",
+        "original destination selection"
+      ],
+      "executor": "primary agent",
+      "action": "Reread the original destination selection and read back each promised file at its actual path; account for every requirement; choose one overall status.",
+      "outputs": [
+        "delivery report",
+        "overall status COMPLETE | PARTIAL | BLOCKED"
+      ],
+      "completion_evidence": "required-versus-actual path table with a supporting observation (failure-delivery.md:17)",
+      "next": [],
+      "failure_route": "failure-delivery.md:17 a wrong root, missing file or unresolved selection conflict leaves the task PARTIAL or BLOCKED.",
+      "terminal_user_outcome": "Usable outcome: a delivery report with an honest status, plus separately reported external acceptance or NOT_EVALUATED (failure-delivery.md:29)."
+    },
+    {
+      "step_id": "S7",
+      "entrypoint": "SKILL.md 'Workflow' item 5 -> references/evidence-resume.md 'Checkpoint and resume'",
+      "entry_conditions": "Cross-cutting; applies after meaningful verified progress, before yielding unfinished work, and on a user-selected resume.",
+      "inputs": [
+        "checkpoint",
+        "context record",
+        "current source/tool/specification hashes"
+      ],
+      "executor": "primary agent",
+      "action": "Write checkpoints; on resume verify current identity, mark stale results, reconcile owned jobs, preserve other actors' changes, record drift and the next safe action.",
+      "outputs": [
+        "checkpoint record from assets/checkpoint.md"
+      ],
+      "completion_evidence": "six-step resume sequence with drift and carried-forward evidence recorded (evidence-resume.md:30-37)",
+      "next": [
+        "S1",
+        "S4"
+      ],
+      "failure_route": "evidence-resume.md:39 a checkpoint is navigation, not truth; no rollback or completion claim without actual evidence.",
+      "terminal_user_outcome": "Concrete next safe action with retained evidence."
+    }
+  ],
+  "coverage_assessment": {
+    "all_steps_reach_a_terminal_outcome": true,
+    "branches_inspected": [
+      "success",
+      "missing input (S1,S2)",
+      "plan-only early stop (S3)",
+      "prerequisite failure (S4)",
+      "unavailable platform (S5)",
+      "destination mismatch (S6)",
+      "resume and drift (S7)"
+    ],
+    "inputs_without_a_producer": "none found; every step's inputs come from a prior step or from the invocation",
+    "unreachable_steps": "none found",
+    "missing_failure_exit": "none found; each step names a cited failure route"
+  },
+  "run_id": "20260919T021255Z",
+  "target_name": "dev",
+  "carried_from_run": {
+    "run_id": "20260918T202845Z",
+    "workflow_map_sha256": "755f1c38e75efe54ab96fb23f436fcf40b736e68621a6beba3c0b628497d5bac",
+    "revalidation_basis": "Carried forward after verifying that every workflow-bearing byte is unchanged. All four files under references/ and all six under assets/ are byte-identical to the prior assessed bytes (digests compared in source-manifest.json against the prior run's manifest). The only content change in SKILL.md is the scope-boundary paragraph, which is not a workflow step and is not cited by any step row: with line endings normalised, diff reports exactly one changed line, and the numbered Workflow items 1-6 are untouched. The step rows are therefore re-asserted against current bytes, not merely inherited."
+  }
+}

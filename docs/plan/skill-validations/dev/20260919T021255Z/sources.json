@@ -1,0 +1,92 @@
+{
+  "schema_version": "1",
+  "run_id": "20260919T021255Z",
+  "target_name": "dev",
+  "sources": [
+    {
+      "source_id": "claude-code-skills",
+      "url": "https://code.claude.com/docs/en/skills",
+      "original_path": null,
+      "retrieved_at_utc": "2026-09-19T02:16:00+00:00",
+      "sha256": "b72119c944a61c90aea35c820d56008326c350a9a8896360823cce45ba4841d1",
+      "snapshot_path": "inputs/rule-sources/claude-code-skills-allowed-tools.md",
+      "sections": [
+        "allowed-tools",
+        "disallowed-tools"
+      ],
+      "freshness": "live_verified",
+      "representation_honesty": "Model-extracted quotation of the live page performed by the fetch tool, not a byte-exact page capture. The digest covers the retained extract, not the upstream page. This is a refresh of the prior run's extract (sha256 07ab488c43a12359f780f22864a129240e9f89d46c17b1f71fd4a77ae11dd67f); both retrievals agree that allowed-tools does not restrict tool availability, and this refresh additionally confirms in the field description that a YAML list is accepted."
+    },
+    {
+      "source_id": "rules-snapshot",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\assets\\rules-snapshot.json",
+      "retrieved_at_utc": "2026-09-17T00:00:00+00:00",
+      "sha256": "2c4b5f2b4a50165a987c2d9755a31ff716666dede6b338f6bc111c4e4ffc5936",
+      "snapshot_path": "inputs/rule-sources/rules-snapshot.json",
+      "sections": [
+        "sources",
+        "rules"
+      ],
+      "freshness": "snapshot_only",
+      "representation_honesty": "Dated bundled catalog, revision 2026-09-17.1. Establishes compliance with this identified snapshot only."
+    },
+    {
+      "source_id": "claude-frontmatter-guidance",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\skill-validator\\assets\\claude-frontmatter-guidance.md",
+      "retrieved_at_utc": null,
+      "sha256": "4dfb31a1bff74627deb2f4ac99cec53b1c1b7b0e0ab13090354413acb7fe3618",
+      "snapshot_path": "inputs/rule-sources/claude-frontmatter-guidance.md",
+      "sections": [
+        "Fields",
+        "Recorded source divergences"
+      ],
+      "freshness": "snapshot_only",
+      "representation_honesty": "Bundled field table and divergence register used for applicability, not promoted to universal format rules."
+    },
+    {
+      "source_id": "project-spec",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265",
+      "snapshot_path": "inputs/dev-skill-spec.md",
+      "sections": [
+        "1 Authoring contract and scope",
+        "1.1 Authoring metadata",
+        "1.2 Selected decisions"
+      ],
+      "freshness": "live_verified",
+      "representation_honesty": "Exact bytes of the in-repository specification copied into this run. Digest is unchanged from the prior run, so the governing specification did not move or change between runs."
+    },
+    {
+      "source_id": "validator-spec",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+      "retrieved_at_utc": null,
+      "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+      "snapshot_path": "inputs/skill-validator-spec.md",
+      "sections": [
+        "6. Origin, recovery, and provenance",
+        "7. SV-007: ceremonial and enforcement review",
+        "9. Work-product contracts"
+      ],
+      "freshness": "live_verified",
+      "representation_honesty": "Exact bytes of the in-repository validator specification, the authority for the PRJ-* project-policy rules."
+    },
+    {
+      "source_id": "project-gitattributes",
+      "url": null,
+      "original_path": "C:\\Projects\\DevForgeAI\\.gitattributes",
+      "retrieved_at_utc": null,
+      "sha256": "4f5e77a3a25fab9b314aee7547f8e1324feb2970c30aefb757d58253a74ca714",
+      "snapshot_path": "inputs/gitattributes.txt",
+      "sections": [
+        "whole file"
+      ],
+      "freshness": "live_verified",
+      "representation_honesty": "Exact bytes of the repository attributes file. Two lines: a comment reading 'Retained manifests bind exact bytes. Do not normalize line endings on add/checkout.' and the pattern '* -text'. Cited as the stated rationale for treating line endings as byte-significant in this repository. It does not itself mandate any particular line ending for a file, which is why PRJ-007 is advisory."
+    }
+  ]
+}

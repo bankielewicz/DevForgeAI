@@ -1,0 +1,17 @@
+{
+  "prior_origin": {
+    "kind": "observed",
+    "historical_origin": "unknown"
+  },
+  "baseline": {
+    "SKILL.md": "ec47a6826276edc93675b0631d01aaa388f01d4fc0c68c71adf673e3ab27763f"
+  },
+  "design_capture_requested": true,
+  "contract_sha256": "56a3cb90a43f68dd0275c11ad9ed658173b2877c2370817b1d0f5e8bd9135baf",
+  "supplied_contract_sha256": "dbf0dd141ceed8f2499918b24f859ea779571c0a411edb33edce0484ce982f04",
+  "path_resolution_sha256": "5845a1743886ef20adc9e2b718264c8ac7f932c85a53a44b86c22d695840f4d5",
+  "design_capture_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\design-capture.json",
+    "sha256": "c7dbf02cff7c5ad938b29eb9bf93aa72d959ec4c07c6a65b88a9a520c0f47179"
+  }
+}

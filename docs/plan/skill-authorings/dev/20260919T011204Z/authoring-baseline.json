@@ -1,0 +1,16 @@
+{
+  "schema_version": "authoring-baseline-v1",
+  "record_kind": "authoring_baseline",
+  "run_id": "20260919T011204Z",
+  "target_root": "C:\\Projects\\DevForgeAI\\.claude\\skills\\dev",
+  "target_name": "dev",
+  "authoring_record": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\authoring-record.json",
+    "sha256": "a6b7bf898b329321d2e919de8706c771ac1a90a3875175c6b67377d6dd292b3a"
+  },
+  "baseline_manifest": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\baseline-manifest.json",
+    "sha256": "37c23da8db2248c61670db703dda796cd166586c170bf08259e82d382f5843cb"
+  },
+  "baseline_root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\baseline"
+}

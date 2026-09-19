@@ -1,0 +1,512 @@
+{
+  "schema_version": "1",
+  "run_id": "20260919T021255Z",
+  "target_name": "dev",
+  "rule_set_revision": "2026-09-17.1+prj007",
+  "selected_before_results": true,
+  "carried_from_run": {
+    "run_id": "20260918T202845Z",
+    "rule_set_sha256": "303c4154b9fd9ac15a25c01f7d53c490e36f78a59b545fcb115379365c3c0004",
+    "note": "Sixteen rules carried unchanged from the prior run so expectations do not shift mid-revalidation. PRJ-007 is added for a condition the prior run had no occasion to select, and is advisory."
+  },
+  "adaptive_catalog": {
+    "pinned": true,
+    "source": "references/adaptive-validation.md",
+    "disposition": "The target declares runtime derivation of language, architecture, tools, thresholds, platforms and delivery locations in its 'Portability and authority' section, so adaptive portability rules are applicable and were assessed as part of PRJ-002 and PRJ-004. The target is an ordinary skill: it declares no adaptive descriptor and no installed operational binding, and requires none. Descriptor-bound and binding-bound adaptive rules are therefore NOT_APPLICABLE with that reason, not by blanket exemption."
+  },
+  "rules": [
+    {
+      "rule_id": "FMT-001",
+      "revision": "2",
+      "title": "Required entry file and metadata",
+      "source_refs": [
+        {
+          "source_id": "claude-code-skills",
+          "url": "https://code.claude.com/docs/en/skills",
+          "original_path": null,
+          "sha256": "d4558cc4cde03c0ad61d383455d29a36aab0970855a7277d84b079187aeb0320",
+          "locator": {
+            "section": "Frontmatter fields"
+          },
+          "retained_build_snapshot": "guidance/claude-code-skills-20260917.md"
+        },
+        {
+          "source_id": "agent-skills",
+          "url": "https://agentskills.io/specification",
+          "original_path": null,
+          "sha256": "5dedaac494fafddc29516f5bca98178c2fdf98ffc394d44c844ea1bdaddab79a",
+          "locator": {
+            "section": "Directory structure; Frontmatter"
+          },
+          "retained_build_snapshot": "guidance/agentskills-specification-20260917.md"
+        }
+      ],
+      "authority_class": "format_requirement",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "SKILL.md exists, its opening --- is the file's first line, and it parses as a YAML mapping with name and description; optional folders are not demanded.",
+      "required": true,
+      "limitation": "Claude Code falls back to the directory name and the first non-empty markdown line when the fields are absent, so absence degrades discovery rather than breaking loading. Bounded development observation; no framework acceptance."
+    },
+    {
+      "rule_id": "FMT-002",
+      "revision": "2",
+      "title": "Name and description constraints",
+      "source_refs": [
+        {
+          "source_id": "agent-skills",
+          "url": "https://agentskills.io/specification",
+          "original_path": null,
+          "sha256": "5dedaac494fafddc29516f5bca98178c2fdf98ffc394d44c844ea1bdaddab79a",
+          "locator": {
+            "section": "name field; description field"
+          },
+          "retained_build_snapshot": "guidance/agentskills-specification-20260917.md"
+        },
+        {
+          "source_id": "claude-skill-best-practices",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "original_path": null,
+          "sha256": "d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e",
+          "locator": {
+            "section": "Technical notes: YAML frontmatter requirements"
+          },
+          "retained_build_snapshot": "guidance/claude-skill-best-practices-20260917.md"
+        },
+        {
+          "source_id": "claude-code-skills",
+          "url": "https://code.claude.com/docs/en/skills",
+          "original_path": null,
+          "sha256": "d4558cc4cde03c0ad61d383455d29a36aab0970855a7277d84b079187aeb0320",
+          "locator": {
+            "section": "Frontmatter fields"
+          },
+          "retained_build_snapshot": "guidance/claude-code-skills-20260917.md"
+        }
+      ],
+      "authority_class": "format_requirement",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Name is 1-64 lowercase letters/digits with single separating hyphens matching the original directory identity; description is a nonempty string of at most 1024 characters.",
+      "required": true,
+      "limitation": "Sources disagree on the boundaries: the Claude Code reference states no name length limit, no reserved-word rule, and a 1,536-character listing truncation for description plus when_to_use; the Agent Skills specification and the Anthropic authoring guidance state 64 and 1024 character maxima, and the authoring guidance additionally prohibits XML tags and the reserved words anthropic and claude. Only the constraints both sides support are required here. The disputed ones are emitted as advisory divergences by scripts/skill_format.py advisory_checks and must not be reported as defects. Directory identity compares the original root, not a renamed snapshot folder."
+    },
+    {
+      "rule_id": "FMT-003",
+      "revision": "2",
+      "title": "Supported optional field types",
+      "source_refs": [
+        {
+          "source_id": "claude-code-skills",
+          "url": "https://code.claude.com/docs/en/skills",
+          "original_path": null,
+          "sha256": "d4558cc4cde03c0ad61d383455d29a36aab0970855a7277d84b079187aeb0320",
+          "locator": {
+            "section": "Frontmatter fields"
+          },
+          "retained_build_snapshot": "guidance/claude-code-skills-20260917.md"
+        },
+        {
+          "source_id": "agent-skills",
+          "url": "https://agentskills.io/specification",
+          "original_path": null,
+          "sha256": "5dedaac494fafddc29516f5bca98178c2fdf98ffc394d44c844ea1bdaddab79a",
+          "locator": {
+            "section": "Frontmatter; compatibility field; metadata field"
+          },
+          "retained_build_snapshot": "guidance/agentskills-specification-20260917.md"
+        }
+      ],
+      "authority_class": "format_requirement",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Present optional fields hold supported Claude Code shapes and value domains: allowed-tools and disallowed-tools as a string or a nonempty list of strings; paths and arguments likewise; metadata and hooks as mappings; disable-model-invocation, user-invocable and background as booleans accepting true/false, yes/no, on/off and 1/0 in any case; effort in low/medium/high/xhigh/max; shell in bash/powershell; context equal to fork; compatibility 1-500 characters; metadata mapping string keys to string values.",
+      "required": true,
+      "limitation": "A YAML-list allowed-tools is valid Claude Code and non-conformant to the Agent Skills specification, which defines only a space-separated string and marks the field experimental; the divergence is advisory, never a defect. Fields outside the supported table are an applicability question, not a failure. The installed Skill Creator checker omits compatibility and is a separately recorded limited observation."
+    },
+    {
+      "rule_id": "FMT-004",
+      "revision": "2",
+      "title": "Optional frontmatter configuration and absent host configuration file",
+      "source_refs": [
+        {
+          "source_id": "claude-code-skills",
+          "url": "https://code.claude.com/docs/en/skills",
+          "original_path": null,
+          "sha256": "d4558cc4cde03c0ad61d383455d29a36aab0970855a7277d84b079187aeb0320",
+          "locator": {
+            "section": "Frontmatter fields; Separate configuration files"
+          },
+          "retained_build_snapshot": "guidance/claude-code-skills-20260917.md"
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Optional frontmatter fields express actual supported invocation policy and tool interfaces. Claude Code reads no separate metadata or configuration file, so a package carrying agents/openai.yaml or another host's configuration document holds bytes this host never reads and needs a disposition decision; an absent optional field is not a defect.",
+      "required": false,
+      "limitation": "Do not enforce sample keys as required, and do not parse another host's configuration against a Claude Code contract. Explicit invocation differs from automatic discovery: disable-model-invocation: true removes the description from context and leaves /name working."
+    },
+    {
+      "rule_id": "REC-001",
+      "revision": "2",
+      "title": "Focused triggers and routing",
+      "source_refs": [
+        {
+          "source_id": "claude-skill-best-practices",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "original_path": null,
+          "sha256": "d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e",
+          "locator": {
+            "section": "Skill structure: Writing effective descriptions"
+          },
+          "retained_build_snapshot": "guidance/claude-skill-best-practices-20260917.md"
+        },
+        {
+          "source_id": "local-optimizing-descriptions",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\optimizing-descriptions.md",
+          "sha256": "73e7f39e66a07fc19fa23cfdfd118f41fa46db49439bf57195afa01cd70aefea",
+          "locator": {
+            "section": "How skill triggering works; Writing effective descriptions"
+          },
+          "retained_build_snapshot": "guidance/local/optimizing-descriptions.md"
+        },
+        {
+          "source_id": "claude-code-skills",
+          "url": "https://code.claude.com/docs/en/skills",
+          "original_path": null,
+          "sha256": "d4558cc4cde03c0ad61d383455d29a36aab0970855a7277d84b079187aeb0320",
+          "locator": {
+            "section": "Invocation Control Summary"
+          },
+          "retained_build_snapshot": "guidance/claude-code-skills-20260917.md"
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Positive and near-miss prompts classify with stated scope; report classification separately from native invocation.",
+      "required": false,
+      "limitation": "The description is the entire trigger, written in third person, stating what the skill does and the contexts that should invoke it. Near-miss and duplicate-name behavior is observed, not asserted; description classification is separate from actual native implicit activation."
+    },
+    {
+      "rule_id": "REC-002",
+      "revision": "2",
+      "title": "Progressive disclosure",
+      "source_refs": [
+        {
+          "source_id": "claude-skill-best-practices",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "original_path": null,
+          "sha256": "d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e",
+          "locator": {
+            "section": "Skill structure: Progressive disclosure patterns; Avoid deeply nested references"
+          },
+          "retained_build_snapshot": "guidance/claude-skill-best-practices-20260917.md"
+        },
+        {
+          "source_id": "agent-skills",
+          "url": "https://agentskills.io/specification",
+          "original_path": null,
+          "sha256": "5dedaac494fafddc29516f5bca98178c2fdf98ffc394d44c844ea1bdaddab79a",
+          "locator": {
+            "section": "Progressive disclosure; File references"
+          },
+          "retained_build_snapshot": "guidance/agentskills-specification-20260917.md"
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Essential decisions are reachable from entrypoint; conditional details are linked and loaded when needed.",
+      "required": false,
+      "limitation": "Under 500 lines for the SKILL.md body and one-level-deep references are recommendations with stated reasons, not universal caps. Demonstrate retrieval or workflow harm before proposing a fix."
+    },
+    {
+      "rule_id": "REC-003",
+      "revision": "2",
+      "title": "Explicit workflow inputs and outputs",
+      "source_refs": [
+        {
+          "source_id": "claude-skill-best-practices",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "original_path": null,
+          "sha256": "d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e",
+          "locator": {
+            "section": "Workflows and feedback loops"
+          },
+          "retained_build_snapshot": "guidance/claude-skill-best-practices-20260917.md"
+        },
+        {
+          "source_id": "local-using-scripts",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\using-scripts.md",
+          "sha256": "9e9534fde0e30b34eddfbb1b41f190bbea1a739ac709ef8e4b4f0b1c7aa20a5c",
+          "locator": {
+            "section": "Designing scripts for agentic use"
+          },
+          "retained_build_snapshot": "guidance/local/using-scripts.md"
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Instructions make the intended result and step inputs/outputs understandable.",
+      "required": false,
+      "limitation": "Checklists, validator feedback loops and verifiable intermediate outputs are recommended patterns for complex or high-stakes work, not required anatomy for every skill."
+    },
+    {
+      "rule_id": "PRJ-001",
+      "revision": "1",
+      "title": "Origin and exact preservation",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "6. Origin, recovery, and provenance"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Snapshot exact bytes, distinguish history, resolve origin before conformance and retain source readback.",
+      "required": true,
+      "limitation": "Bounded development observation; no framework acceptance."
+    },
+    {
+      "rule_id": "PRJ-002",
+      "revision": "1",
+      "title": "Resources and workflow completeness",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "5. Cohesive workflow; 7. Required assessment families"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Every relevant path has produced inputs, reachable transitions, a terminal user outcome and bounded recovery; resource targets resolve.",
+      "required": true,
+      "limitation": "Markdown parser coverage is bounded; manually inspect unsupported syntax."
+    },
+    {
+      "rule_id": "PRJ-003",
+      "revision": "1",
+      "title": "Instruction consistency and ceremonial context",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "7. SV-007: ceremonial and enforcement review"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Inspect examples, schemas and contextual control claims; retain useful safeguards and explicit review boundaries.",
+      "required": true,
+      "limitation": "Bounded development observation; no framework acceptance."
+    },
+    {
+      "rule_id": "PRJ-004",
+      "revision": "1",
+      "title": "Bounded behavior and honest limitations",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "8. Bounded trials and interruption"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "behavioral",
+      "expected_observation": "Preplan expected behavior, inspect commands, execute authorized disposable cases and retain effects, errors, timeouts and NOT_RUN.",
+      "required": true,
+      "limitation": "Bounded development observation; no framework acceptance."
+    },
+    {
+      "rule_id": "PRJ-005",
+      "revision": "1",
+      "title": "Evidence identity and status accounting",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "9. Work-product contracts"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "References bind real bytes; JSON rejects duplicates/nonfinite; full finding identities and coverage/status reductions are coherent.",
+      "required": true,
+      "limitation": "Bounded development observation; no framework acceptance."
+    },
+    {
+      "rule_id": "PRJ-006",
+      "revision": "1",
+      "title": "Review before repair and revalidation",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "10. Builder handoff and revalidation"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Proposal is complete or explicit about missing decisions; never invoke builder or reuse changed-byte approval; baseline/adoption prerequisites stay separate.",
+      "required": true,
+      "limitation": "Bounded development observation; no framework acceptance."
+    },
+    {
+      "rule_id": "REC-004",
+      "revision": "2",
+      "title": "Grounded prompt structure and examples",
+      "source_refs": [
+        {
+          "source_id": "claude-skill-best-practices",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "original_path": null,
+          "sha256": "d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e",
+          "locator": {
+            "section": "Core principles: Concise is key; Set appropriate degrees of freedom; Common patterns"
+          },
+          "retained_build_snapshot": "guidance/claude-skill-best-practices-20260917.md"
+        },
+        {
+          "source_id": "local-skill-best-practices",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\best-practrices.md",
+          "sha256": "c65a42509f88f1df3283e9b9f162ec86ad967c6112707e2ca10243e2fbf4b471",
+          "locator": {
+            "section": "Start from real expertise; Spending context wisely"
+          },
+          "retained_build_snapshot": "guidance/local/best-practrices.md"
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Instructions add context the model lacks, match specificity to task fragility, keep terminology consistent, avoid time-sensitive statements, and use concrete input/output examples where output quality depends on seeing them.",
+      "required": false,
+      "limitation": "These are authoring recommendations for skills, not API parameters. Do not apply API prompt guidance to an instruction-only skill and do not impose a fixed example count."
+    },
+    {
+      "rule_id": "REC-005",
+      "revision": "2",
+      "title": "Model-specific follow-through",
+      "source_refs": [
+        {
+          "source_id": "claude-skill-best-practices",
+          "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices",
+          "original_path": null,
+          "sha256": "d8b591cc1ed8c36624c203896d71c68d9cf46420d6d74a2b998d11c9b993ca3e",
+          "locator": {
+            "section": "Core principles: Test with all models you plan to use"
+          },
+          "retained_build_snapshot": "guidance/claude-skill-best-practices-20260917.md"
+        },
+        {
+          "source_id": "local-evaluating-skills",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\Agentskills\\evaluating-skils.md",
+          "sha256": "b71de19c5a3320547e559980635db3aef17a1375829868d8ddc253b246ae84e8",
+          "locator": {
+            "section": "Designing test cases; Running evals"
+          },
+          "retained_build_snapshot": "guidance/local/evaluating-skils.md"
+        }
+      ],
+      "authority_class": "official_recommendation",
+      "applicability": "not_applicable",
+      "method": "semantic",
+      "expected_observation": "Instructions honor current user intent, avoid repeated approval rituals, and are exercised against the models the skill is actually intended for.",
+      "required": false,
+      "limitation": "Model-specific tuning is conditional on the identified host and model; no model selection is mandatory and an absent model override inherits the session. Cross-model coverage is unverified unless a trial actually ran it.",
+      "applicability_reason": "Model-specific guidance. The package declares no model, effort or API parameter and is instruction-only, so model tuning rules have no subject here."
+    },
+    {
+      "rule_id": "REC-006",
+      "revision": "2",
+      "title": "Citation identity and support",
+      "source_refs": [
+        {
+          "source_id": "project-spec",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-validator-spec.md",
+          "sha256": "59b2a47ce8063783b281f1bc526cb3ae73f98b49907d4a36121fb5816f46d053",
+          "locator": {
+            "section": "7. Rules, evidence, and applicability"
+          },
+          "retained_build_snapshot": "inputs/skill-validator-spec.md"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "semantic",
+      "expected_observation": "Cite stable observed sources with precise supporting locators.",
+      "required": false,
+      "limitation": "No Anthropic or Claude Code citation-formatting source was retrieved for this revision, so the prior OpenAI citation-formatting authority is dropped rather than carried forward under a host it does not describe. The requirement survives as project policy. Syntax does not prove support; special citation renderers are not required for Markdown reports. Freshness for an official-host citation source is unavailable and remains an open sourcing question."
+    },
+    {
+      "rule_id": "PRJ-007",
+      "revision": "1",
+      "title": "Line-ending consistency within a package",
+      "source_refs": [
+        {
+          "source_id": "project-gitattributes",
+          "url": null,
+          "original_path": "C:\\Projects\\DevForgeAI\\.gitattributes",
+          "sha256": "4f5e77a3a25fab9b314aee7547f8e1324feb2970c30aefb757d58253a74ca714",
+          "locator": {
+            "line_start": 1,
+            "line_end": 2
+          },
+          "retained_build_snapshot": "inputs/gitattributes.txt"
+        }
+      ],
+      "authority_class": "project_policy",
+      "applicability": "applicable",
+      "method": "deterministic",
+      "expected_observation": "Files within one package use consistent line endings, and a scoped content edit does not silently convert a file's line endings, because this repository declares '* -text' with the stated rationale that retained manifests bind exact bytes.",
+      "required": false,
+      "limitation": "ADVISORY ONLY. No authoritative Claude Code or Agent Skills source requires any particular line ending, and .gitattributes forbids git from normalizing rather than mandating LF in a file. This rule is therefore advisory and may not fail a required dimension. It is selected because a concrete review harm is demonstrable in this repository, not because a format requirement exists."
+    }
+  ]
+}

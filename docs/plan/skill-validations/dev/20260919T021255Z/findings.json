@@ -1,0 +1,118 @@
+{
+  "schema_version": "1",
+  "run_id": "20260919T021255Z",
+  "target_name": "dev",
+  "findings": [
+    {
+      "finding_id": "F-cb3c4b14057cb4b10bb307c16378de290042cdd156dd7f5d95b3b5e421a8d41b",
+      "identity": [
+        "PRJ-007",
+        "source/SKILL.md",
+        "FILE_LINE_ENDINGS",
+        0
+      ],
+      "rule_id": "PRJ-007",
+      "category": "standards_defect",
+      "severity": "minor",
+      "subject_path": "source/SKILL.md",
+      "locator": {
+        "note": "Whole-file byte property, not a passage. Anchor FILE_LINE_ENDINGS denotes the file's line-ending encoding rather than a text span, by the same convention the prior run used for a package-level finding. All 50 line terminators are affected.",
+        "line_start": 1,
+        "line_end": 50
+      },
+      "source_refs": [
+        {
+          "path": "inputs/gitattributes.txt",
+          "sha256": "4f5e77a3a25fab9b314aee7547f8e1324feb2970c30aefb757d58253a74ca714",
+          "source_id": "project-gitattributes",
+          "locator": {
+            "line_start": 1,
+            "line_end": 2
+          }
+        }
+      ],
+      "observation_refs": [
+        {
+          "path": "trials/T2-line-endings/observed.md",
+          "sha256": "25b6aff520c3256d40c74c04b7c3ffd0f792b1dba26bb20f88df7ea184e98da1"
+        },
+        {
+          "path": "source-manifest.json",
+          "sha256": "9c5794d988728ea5237f090da95f998b7ae31a79c66b6edd6c368addab412ec2"
+        },
+        {
+          "path": "inputs/prior-findings.json",
+          "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be"
+        }
+      ],
+      "description": "The delivered SKILL.md uses CRLF on all 50 lines. It is the only one of the package's 11 files that does; the other 10 are LF and byte-identical to the prior assessed bytes. The prior assessed bytes of SKILL.md itself were LF: 50 bare LF, 5,479 bytes, digest ec47a682. The delivered file is 50 CRLF, 5,809 bytes, digest 212f99c3. The builder's authoring run 20260919T011204Z declared changed_paths ['SKILL.md'] with expected output 'Corrected scope paragraph', and the paragraph is indeed correct, but the file's line endings were also converted. This is a byte change of 330 bytes across every line, outside the declared change description. On the mechanism, what is established and what is not: git check-attr reports 'text: unset' and git ls-files --eol reports 'attr/-text', confirming the .gitattributes '* -text' rule is genuinely in force for this path, so git does not normalise on checkout or add and core.autocrlf true is overridden for it. Git normalisation is therefore ruled out as the cause, and the conversion is attributable to whatever wrote the file. The specific writing tool is NOT identified by these observations and the attribution goes no further than that. One consequence matters for the fix: ls-files --eol reports 'i/lf w/crlf', so the index still holds LF and the CRLF is confined to the working tree and is not yet committed. Restoring LF returns the path to agreement with the index and keeps the conversion out of history entirely, whereas committing the current state would introduce it. Wider context: of the 26 SKILL.md files under src/claude/skills, 24 are LF; the only two CRLF files are this target and qa/SKILL.md, whose HEAD blob is already CRLF and whose index reads i/crlf, so that file's conversion reached history earlier. The same effect has therefore occurred at least twice, which is what makes it a recurring property of the editing path rather than a one-off slip. The Codex parent this package was ported from is also LF.",
+      "user_impact": "Review cost, measured rather than asserted: for this one-line content change, git diff --stat reports 50 insertions and 50 deletions, while git diff --ignore-cr-at-eol --stat reports 1 and 1. A reviewer reading the commit sees a 100-line diff for a 2-line change, and the substantive correction is buried in noise. The repository states in .gitattributes that 'Retained manifests bind exact bytes' and disables normalisation with '* -text', so digests over these packages move for reasons unrelated to content, which is exactly what byte-binding evidence is meant to avoid. Nothing about the skill's function is impaired: the frontmatter parses, all 24 links resolve, and the workflow is unaffected.",
+      "proposed_correction": "Rewrite SKILL.md with LF line endings, preserving the corrected paragraph's text exactly, and apply the identical bytes to both mirror paths so diff -rq stays empty. Verify afterwards that git diff --ignore-cr-at-eol --stat and git diff --stat agree. Separately, and outside this package, consider whether qa/SKILL.md should be normalised in the same way and whether the LF convention should be written down, since it is currently only observable statistically. See ENF-005.",
+      "preserved_requirements": [
+        "The corrected scope-boundary paragraph's wording must not change; it is verified accurate against the live Claude Code reference and verified operative by trial T1-boundary.",
+        "All 10 other files must remain byte-identical.",
+        "The ADR-073 mirror contract: both .claude/skills/dev and src/claude/skills/dev receive the identical string."
+      ],
+      "verification_cases": [
+        "SKILL.md contains 50 bare LF and 0 CRLF; byte length returns to a value consistent with LF endings.",
+        "The paragraph beginning 'That separation is an obligation this workflow keeps' is present and character-identical to the assessed bytes.",
+        "diff -rq .claude/skills/dev src/claude/skills/dev is empty.",
+        "git diff --stat and git diff --ignore-cr-at-eol --stat report the same figures for SKILL.md.",
+        "All 11 files in the package share one line-ending convention."
+      ],
+      "disposition": "selected",
+      "revalidation_class": "new",
+      "predecessor_id": null,
+      "review_note": "Approved by the maintainer after this run completed, in the same session, in answer to OQ-101 (scope: dev plus qa). RR-101 was then applied to src/claude/skills/dev/SKILL.md and .claude/skills/dev/SKILL.md. This records the review decision only; it does NOT reclassify the finding as resolved. Resolution is a claim about delivered bytes and belongs to a fresh validation run. See post_run_actions in handoff.json for the applied change and its acceptance-case results."
+    },
+    {
+      "finding_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606",
+      "identity": [
+        "PRJ-001",
+        "source/SKILL.md",
+        "MISSING_FILE",
+        0
+      ],
+      "rule_id": "PRJ-001",
+      "category": "input_evidence_limitation",
+      "severity": "minor",
+      "subject_path": "source/SKILL.md",
+      "locator": {
+        "note": "Package-level provenance, not a passage. Anchor MISSING_FILE denotes an absent governing specification for this host variant."
+      },
+      "source_refs": [
+        {
+          "path": "inputs/dev-skill-spec.md",
+          "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265",
+          "source_id": "project-spec",
+          "locator": "1.1 Authoring metadata"
+        }
+      ],
+      "observation_refs": [
+        {
+          "path": "source-manifest.json",
+          "sha256": "9c5794d988728ea5237f090da95f998b7ae31a79c66b6edd6c368addab412ec2"
+        },
+        {
+          "path": "rule-set.json",
+          "sha256": "47e428f3b5feeb83f5b6d3d00263be77a2b177a0c25e38b76f71b402d6360440"
+        }
+      ],
+      "description": "PERSISTENT, unchanged from run 20260918T202845Z where this same finding ID was first recorded. The only specification naming skill 'dev' is docs/specs/dev-skill-spec.md. It specifies a Codex skill and its authoring-metadata table names C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev as the final development package. The assessed Claude Code package is a derived port of that package, and no specification in the repository governs it. The specification is byte-unchanged between the two runs (b9783ca0), so nothing about this has moved. The builder's authoring run addressed the instruction finding and explicitly declined this one, on the correct ground that writing a governing contract is a specification and process change outside a skill edit's charter. Host-neutral requirements can still be assessed against the target; host-specific port decisions have no governing contract and were assessed against Claude Code source guidance only. One thing has advanced since the prior run: a builder authoring record now exists for the edit at docs/plan/skill-authorings/dev/20260919T011204Z/, so the package is no longer entirely without retained custody. That covers the edit, not the original port, so ORG-U4 stands and history_kind remains observed.",
+      "user_impact": "Future changes to this Claude Code variant have no contract to be assessed against, so a reviewer cannot distinguish an intended host-specific decision from drift. The prior run noted that the port-introduced defect lived precisely in prose no specification covered; that defect is now fixed, which removes the immediate consequence but not the structural gap. The stale frontmatter compounds it: the specification still reads status 'proposed' and package_status 'not_authored' while three host copies exist on disk.",
+      "proposed_correction": "Record a governing contract for the Claude Code variant, either as a section in the existing specification or as a sibling document that cites it as parent, stating the host, the two mirrored install paths, the frontmatter decisions including the deliberate absence of disallowed-tools, the line-ending convention, and the derived-port provenance. Correct the stale frontmatter in the same change. This is an optional enhancement, not a prerequisite for the line-ending fix.",
+      "preserved_requirements": [
+        "docs/specs/dev-skill-spec.md must not be relocated or duplicated; its section 1.1 forbids another authoritative copy.",
+        "The Codex packages at src/agents/skills/dev and .agents/skills/dev stay out of scope."
+      ],
+      "verification_cases": [
+        "A specification reference resolves for the Claude Code variant and names both mirror paths.",
+        "The frontmatter status and package_status fields match what exists on disk.",
+        "A bounded skill_name lookup for 'dev' returns the variant contract without ambiguity."
+      ],
+      "disposition": "proposed",
+      "revalidation_class": "persistent",
+      "predecessor_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606"
+    }
+  ]
+}

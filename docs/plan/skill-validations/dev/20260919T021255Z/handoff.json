@@ -1,0 +1,313 @@
+{
+  "schema_version": "1",
+  "run_id": "20260919T021255Z",
+  "target_name": "dev",
+  "run_kind": "revalidation",
+  "assessment_completed": true,
+  "outcome": "INCOMPLETE",
+  "builder_readiness": "REVIEW_REQUIRED",
+  "proposal_review_state": "pending",
+  "readiness_rationale": "REVIEW_REQUIRED. RR-101 was approved and applied, so nothing mandatory awaits a builder; RR-102 is a specification and process change rather than a skill edit, so it is not a builder task either. What keeps this REVIEW_REQUIRED rather than READY or NO_CHANGE is that material decisions remain open: the qa scope inside RR-101, plus RR-102, OQ-102 and OQ-103. Not BLOCKED: nothing material obstructs any of them, and the baseline is verified exact. Note that the overall outcome INCOMPLETE is separate from readiness and is caused only by two required behavioural checks a validator session structurally cannot perform.",
+  "target": {
+    "original_absolute_target": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev",
+    "selection_note": "Selected by the user as this path. The builder's custody target_root and the prior assessment target were both .claude/skills/dev; the selection was honoured as given rather than retargeted, and byte equality across the mirror pair was verified rather than assumed.",
+    "mirror_path": "C:\\Projects\\DevForgeAI\\.claude\\skills\\dev",
+    "mirror_state": "byte-identical, diff -rq empty across all 11 files",
+    "package_digest": "8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81",
+    "source_manifest": {
+      "path": "source-manifest.json",
+      "sha256": "9c5794d988728ea5237f090da95f998b7ae31a79c66b6edd6c368addab412ec2"
+    },
+    "source_after_manifest": {
+      "path": "source-after-manifest.json",
+      "sha256": "496b156eea8472a22f967420f14f87475eff6927199ee0c2ed1de2c40deba61a"
+    },
+    "source_readback_state": "UNCHANGED",
+    "readback_note": "readback returned MATCH with empty added, removed and changed lists. Conclusions apply to the current live bytes, not only to the retained snapshot. Complete stdout observation retained at readback-observation.txt."
+  },
+  "specification": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md",
+    "captured": {
+      "path": "inputs/dev-skill-spec.md",
+      "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265"
+    },
+    "governs": "the Codex package src/agents/skills/dev, not the assessed Claude Code variant",
+    "unchanged_since_prior_run": true
+  },
+  "proposal": {
+    "path": "revision-spec.md",
+    "sha256": "4a9f6bff37463cf051e1ea5182bd54697086ff826174d6ecc9d4c65be555c06b",
+    "id": "DEVFORGEAI-DEV-CLAUDE-REVISION-002",
+    "scope": "One mandatory line-ending fix to SKILL.md in both mirror paths, changing no characters, plus one carried optional specification enhancement. No workflow, resource, asset, frontmatter or schema change."
+  },
+  "artifacts": {
+    "validation_report": {
+      "path": "validation-report.md",
+      "sha256": "f10e28f0c091d33ab64bc6721a3a47a21129ad1007d6569183fe1c463c6eb465"
+    },
+    "findings": {
+      "path": "findings.json",
+      "sha256": "e9c841f5c01da0467e59e60889ce92c44cf98acba03d5dbf4216fce97903d1bc"
+    },
+    "checks": {
+      "path": "checks.jsonl",
+      "sha256": "160bb75d049fe28493024be5810906cb7eed50b7ccf480cac0f2697f7a57ad73"
+    },
+    "workflow_map": {
+      "path": "workflow-map.json",
+      "sha256": "5827a020d0ad95e80e9d60790bda22a96c729864dc0ffe4ca6a3dfad69b5bc62"
+    },
+    "origin_record": {
+      "path": "origin-record.json",
+      "sha256": "965e10ea62ea227d3da8d44e000d9e3477a154c2bc03677ab1ecd013f2e24c96"
+    },
+    "rule_set": {
+      "path": "rule-set.json",
+      "sha256": "47e428f3b5feeb83f5b6d3d00263be77a2b177a0c25e38b76f71b402d6360440"
+    },
+    "sources": {
+      "path": "sources.json",
+      "sha256": "c4504227fbb9165a140b1a97adbac5afb01f0f5879bc273235d022c724eb7c76"
+    },
+    "enforcement_register": {
+      "path": "enforcement-recommendations.md",
+      "sha256": "a7de3f8a78a6869e51beaa5b40f1e56eea760f13caa18b5ea9c80e00385486c6"
+    },
+    "command_log": {
+      "path": "command-log.md",
+      "sha256": "e8f23e8faba59ac09250688a0c89130ab13e1cf4047e1c665e8483914668af1d"
+    },
+    "trial_boundary": {
+      "path": "trials/T1-boundary/attempt-001.json",
+      "sha256": "57d80a1650e85cabb747c7169f484bd9c541c42ad4e1fdb5ca72f4abec722930"
+    },
+    "trial_line_endings": {
+      "path": "trials/T2-line-endings/observed.md",
+      "sha256": "25b6aff520c3256d40c74c04b7c3ffd0f792b1dba26bb20f88df7ea184e98da1"
+    }
+  },
+  "revalidation": {
+    "prior_run": {
+      "run_id": "20260918T202845Z",
+      "outcome": "FAIL",
+      "builder_readiness": "REVIEW_REQUIRED",
+      "package_digest": "45dd959122125222d68e6f156d72fa20bd52ec50d5fa095857603b0166cbe2f9",
+      "findings_captured": {
+        "path": "inputs/prior-findings.json",
+        "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be"
+      }
+    },
+    "intervening_build": {
+      "authoring_run_id": "20260919T011204Z",
+      "root": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z",
+      "authoring_state": "AUTHORED",
+      "builder_declared_validation_status": "NOT_PERFORMED",
+      "builder_declared_testing_status": "NOT_PERFORMED",
+      "custody_chain_verified": true,
+      "note": "Discovered as read-only repository evidence. The builder's validation-request.json was not a user-selected input, so the authoring-intake byte-binding path was not entered and the request conferred no authorization. The builder correctly did not test its own output, which is what makes this run the first assessment of the delivered bytes."
+    },
+    "classification": [
+      {
+        "finding_id": "F-c3d23edad8c479f39a8164df0bb99b1098c0e98c483515cbad174432ce685df9",
+        "rule_id": "PRJ-003",
+        "severity": "major",
+        "class": "resolved",
+        "supporting_cases": [
+          "C-INS-001",
+          "C-INS-002",
+          "T1-boundary"
+        ],
+        "basis": "The passage now states the allowlist relationship accurately, matches line 50, preserves and strengthens the non-delegation safeguard, and was shown operative by a cold reader who held the boundary against an embedded delegation instruction while delegation tooling was available."
+      },
+      {
+        "finding_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606",
+        "rule_id": "PRJ-001",
+        "severity": "minor",
+        "class": "persistent",
+        "supporting_cases": [
+          "C-ORG-002"
+        ],
+        "basis": "Specification byte-unchanged and still Codex-scoped. The builder declined this item by design. Finding ID recomputes identically from its retained identity array, so continuity is deterministic."
+      },
+      {
+        "finding_id": "F-cb3c4b14057cb4b10bb307c16378de290042cdd156dd7f5d95b3b5e421a8d41b",
+        "rule_id": "PRJ-007",
+        "severity": "minor",
+        "class": "new",
+        "supporting_cases": [
+          "C-STD-006",
+          "C-STD-007",
+          "T2-line-endings"
+        ],
+        "basis": "The delivered write converted SKILL.md from LF to CRLF across all 50 lines, outside the builder's declared change description. Advisory rule; does not fail a required dimension."
+      }
+    ],
+    "unverified_prior_findings": [],
+    "overwritten_prior_outcomes": []
+  },
+  "selected_findings": [
+    {
+      "finding_id": "F-cb3c4b14057cb4b10bb307c16378de290042cdd156dd7f5d95b3b5e421a8d41b",
+      "severity": "minor",
+      "category": "standards_defect",
+      "subject_path": "source/SKILL.md",
+      "disposition": "selected",
+      "change_id": "RR-101",
+      "approved_by": "maintainer, in session, answering OQ-101",
+      "approved_scope": "dev and qa"
+    }
+  ],
+  "deferred_findings": [],
+  "proposed_findings": [
+    {
+      "finding_id": "F-7eb942c2a0129bdb66fe75c4883354235fa7493d94da2bd298fe875f0a14a606",
+      "severity": "minor",
+      "category": "input_evidence_limitation",
+      "subject_path": "source/SKILL.md",
+      "disposition": "proposed",
+      "change_id": "RR-102"
+    }
+  ],
+  "change_set": [
+    {
+      "id": "RR-101",
+      "kind": "mandatory_fix",
+      "subject": "SKILL.md in both mirror paths",
+      "summary": "Rewrite with LF line endings, changing no characters. Acceptance cases AC-101 to AC-107 in revision-spec.md.",
+      "blocked_by": "OQ-101"
+    },
+    {
+      "id": "RR-102",
+      "kind": "optional_enhancement",
+      "subject": "docs/specs/dev-skill-spec.md",
+      "summary": "Record a governing contract for the Claude Code variant, including the LF convention and the deliberate absence of disallowed-tools, and correct the stale frontmatter. A specification and process change, not a skill edit.",
+      "blocked_by": null
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "id": "OQ-101",
+      "question": "Apply RR-101 as a pure line-ending rewrite of SKILL.md, guaranteeing no character changes?",
+      "why_it_blocks": "A build cannot start without the decision to make the change at all.",
+      "validator_recommendation": "Yes. Leaving the file CRLF keeps the package internally inconsistent and every future diff noisy for no benefit. The risk is a careless rewrite also reflowing text, which AC-102 exists to catch.",
+      "decision_owner": "maintainer"
+    },
+    {
+      "id": "OQ-102",
+      "question": "Should qa/SKILL.md (also CRLF, already committed) and the surviving allowlist claim in qa, skill-builder and skill-validator be opened as their own validation targets?",
+      "why_it_blocks": "Does not block this target. Recorded so the family pattern is not lost.",
+      "validator_recommendation": "Each needs selecting as a target. Editing them under this proposal would reset validation state bound to their current bytes. Carried from the prior run's OQ-2.",
+      "decision_owner": "maintainer"
+    },
+    {
+      "id": "OQ-103",
+      "question": "Should the LF convention be written down rather than left statistically observable?",
+      "why_it_blocks": "Does not block RR-101. Until it is written down, PRJ-007 can only flag that a conversion happened, not assert a direction.",
+      "validator_recommendation": "Recommended, as part of RR-102 or in .gitattributes. See ENF-005.",
+      "decision_owner": "maintainer"
+    }
+  ],
+  "baseline_and_adoption_prerequisites": {
+    "baseline_verified": true,
+    "baseline_note": "Exact target bytes are retained at source/ with a verified manifest, and readback confirms the live target still matches. A builder authoring baseline for SKILL.md additionally exists from run 20260919T011204Z and its chain was verified here. An authorized edit has a verified baseline.",
+    "adoption_required": false,
+    "adoption_note": "A scoped edit to an existing observed package with a verified authored baseline for the managed file, not a first repair relying on adoption. No adoption specification is invoked."
+  },
+  "preservation_boundaries": [
+    "The corrected scope-boundary paragraph's wording is preserved character for character; AC-102 and AC-103 enforce that. Reopening it invalidates trial T1-boundary and requires a fresh cold trial.",
+    "The frontmatter is preserved: name, description, and the seven-entry YAML-list allowed-tools. The list form is valid on this host and must not be converted to a space-separated string.",
+    "No disallowed-tools field is added; that is a separate policy decision recorded as ENF-002.",
+    "All 10 non-entrypoint files remain byte-identical.",
+    "The Codex packages at src/agents/skills/dev and .agents/skills/dev are out of scope.",
+    "docs/specs/dev-skill-spec.md must not be relocated or duplicated; its section 1.1 forbids another authoritative copy.",
+    "Existing evidence runs under docs/plan/ are append-only. Run 20260918T202845Z was preserved untouched and verified intact; this run wrote only to its own new directory."
+  ],
+  "environment_record": {
+    "os": "Windows 11 Pro 10.0.26200",
+    "shells": [
+      "Git Bash (MSYS)",
+      "PowerShell available"
+    ],
+    "python": "3.10.11",
+    "pyyaml": "6.0.2",
+    "tiktoken": "absent; adaptive token counts NOT_RUN",
+    "installed_skill_checker": "absent; named-checker observation NOT_RUN, not a target defect",
+    "devforgeai_validate": "ABSENT, AND EXPECTED TO REMAIN SO. Not on PATH and not at ~/.cargo/bin/devforgeai-validate. Maintainer direction supplied during this run states the binary is legacy and will not be installed, so its absence is a settled environment property rather than a setup gap or an open discrepancy; CLAUDE.md's claim that it is installed at ~/.cargo/bin is stale against that direction. No rule in the selected set requires it, this validator requires no future CLI, and a scan of all 11 captured files for devforgeai-validate, devforgeai_cli and devforgeai/specs returns no hits, so the assessed package carries no dependency on it either (retained in trials/T3-claim-scan/observed.md). A future run in an environment without the legacy CLI assesses this package no differently. Other src/claude/skills packages that do invoke the binary are a separate matter: for those, gate results are permanently NOT_RUN or BLOCKED rather than locally unavailable.",
+    "host_task_runner": "available; used for trial T1-boundary",
+    "live_retrieval": "available; claude-code-skills refreshed and retained"
+  },
+  "builder_invocation": {
+    "invoked": false,
+    "note": "This workflow did not invoke skill-builder and must not before OQ-101 is answered. Validation does not repair, install, adopt or configure the target. Skill is absent from this package's allowed-tools, which is declared scope rather than a host-enforced restriction; the boundary was kept as an obligation."
+  },
+  "next_action": "Human review of revision-spec.md, then a decision on OQ-101. If approved, a skill-builder run applies RR-101 to both mirror paths; a fresh validation run then assesses the delivered bytes against AC-101 to AC-107.",
+  "authority_note": "Every observation in this run is development evidence. Nothing here authorizes a mutation, advances a phase, waives a gate or issues acceptance. The enforcement register holds design candidates, not implemented gates. assessment_completed true means the selected review was finished honestly, not that every capability executed.",
+  "post_run_actions": {
+    "note": "Recorded AFTER this validation run completed. The assessment above describes package digest 8321da52e578ce1d72ce40b281882c756c03b260c75953820b4f209f90eb2d81, retained exactly at source/. Its source_readback_state UNCHANGED was true when recorded and is now HISTORICAL: the live target has since been modified under approved RR-101. No observation, check result, finding or dimension outcome above was altered. Nothing here claims the finding is resolved; resolution is a claim about delivered bytes and requires a fresh validation run.",
+    "oq_101": {
+      "decision": "approved",
+      "scope_approved": "dev and qa",
+      "decided_by": "maintainer, in session"
+    },
+    "rr_101_applied": {
+      "applied_by": "validating session, direct deterministic rewrite, NOT skill-builder",
+      "why_not_builder": "The conversion this fix reverses is attributable to a writing tool, and skill-builder is the writing tool whose runs produced it in both observed instances. Using it to repair a line-ending defect risks reintroducing the defect. The tradeoff is accepted and disclosed: this fix therefore has NO builder custody record. The deterministic byte-level transform and the acceptance-case output below stand as its evidence instead.",
+      "method": "read bytes, replace b'\r\n' with b'\n', assert no stray CR, write in binary mode",
+      "paths": [
+        "src/claude/skills/dev/SKILL.md",
+        ".claude/skills/dev/SKILL.md"
+      ],
+      "before_sha256": "212f99c38b4014b020de49f0514d36719849a148ded01ccb1611e45d6e4cb4d6",
+      "after_sha256": "798f679082a07df5eb6a0baf215c49ec194ceaf8d9572ba8b20c96c598265d75",
+      "bytes": "5809 -> 5759 (50 CRLF terminators became 50 LF)",
+      "new_package_digest": "8a835222128fceb9935b7128da400b944a4c0914caa368756066e05374659a8d",
+      "acceptance_cases": {
+        "AC-101 50 bare LF, 0 CRLF": "PASS",
+        "AC-102 normalised content identical to assessed bytes": "PASS (proven by byte comparison against source/SKILL.md)",
+        "AC-103 corrected paragraph present and character-identical": "PASS",
+        "AC-104 diff -rq between mirrors empty": "PASS",
+        "AC-105 git diff --stat equals --ignore-cr-at-eol --stat": "PASS (both report 1 insertion, 1 deletion)",
+        "AC-106 all package files share one line-ending convention": "PASS (22 of 22 across both mirrors are LF)",
+        "AC-107 observe.py structure still clean": "PASS (30 PASS, 1 advisory NOT_RUN divergence, 24 links, no required non-PASS)"
+      },
+      "git_eol_after": "i/lf w/lf for both mirror paths; the conversion never entered history"
+    },
+    "qa_scope_deferred": {
+      "state": "NOT APPLIED — returned to the maintainer for a scope decision",
+      "reason": "The approval was given against a preview describing qa/SKILL.md alone. Inspection afterwards found the ENTIRE qa package is CRLF: 8 files per mirror, of which assets/qa-report-template.md (76 CRLF + 1 bare LF) and assets/test-plan-template.md (125 CRLF + 1 bare LF) are mixed. Converting only SKILL.md would leave qa internally inconsistent at 1 LF against 7 CRLF, which is the opposite of the consistency argument that justifies RR-101 for dev. Acting on the literal approved scope would have made qa worse, so it was not done.",
+      "correction_to_the_stated_caveat": "The option text warned that editing qa would reset separately bound validation state. That was wrong: docs/plan/skill-validations/ and docs/plan/skill-authorings/ contain only dev, so qa has no bound validation or authoring state and nothing would be reset.",
+      "also_note": "qa's CRLF is already committed (i/crlf), unlike dev's, so any qa change alters history-visible bytes."
+    }
+  },
+  "proposal_review_detail": {
+    "why_pending_not_approved": "The proposal is PART approved, and the enum has no value for that, so the conservative value is kept and the granular truth is recorded here, in selected_findings and in post_run_actions. RR-101 (mandatory) was approved by the maintainer answering OQ-101 and has been applied. Two items remain undecided: the qa scope within RR-101, returned to the maintainer because the approval was given against a preview that described qa/SKILL.md alone while the whole qa package is CRLF; and RR-102, which is optional and was not put to a decision. Marking the proposal 'approved' would conceal both.",
+    "approved_items": [
+      {
+        "change_id": "RR-101",
+        "scope_applied": "dev only, both mirror paths",
+        "bound_to_proposal_digest": "4a9f6bff37463cf051e1ea5182bd54697086ff826174d6ecc9d4c65be555c06b",
+        "bound_to_target": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev",
+        "state": "APPLIED, all seven acceptance cases PASS"
+      }
+    ],
+    "outstanding": [
+      {
+        "id": "OQ-101-qa",
+        "question": "Normalize the whole qa package to LF (8 files per mirror), leave qa untouched, or SKILL.md only?",
+        "validator_recommendation": "Whole package, or leave it. SKILL.md alone makes qa internally inconsistent."
+      },
+      {
+        "id": "OQ-102",
+        "question": "Open qa, skill-builder and skill-validator as their own validation targets for the surviving allowlist claim?"
+      },
+      {
+        "id": "OQ-103",
+        "question": "Write the LF convention down rather than leaving it statistically observable?"
+      },
+      {
+        "id": "RR-102",
+        "question": "Record a governing contract for the Claude Code variant and correct the stale specification frontmatter?"
+      }
+    ]
+  }
+}

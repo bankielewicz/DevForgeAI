@@ -1,0 +1,2 @@
+# Retained manifests bind exact bytes. Do not normalize line endings on add/checkout.
+* -text

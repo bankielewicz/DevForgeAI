@@ -1,0 +1,97 @@
+{
+  "schema_version": "1",
+  "run_id": "20260918T202845Z",
+  "target_name": "dev",
+  "original_source_root": "C:\\Projects\\DevForgeAI\\.claude\\skills\\dev",
+  "manifest": {
+    "path": "source-manifest.json",
+    "sha256": "1a56881bdace250be312f81605698a16b05063c59227f2a9ddd9ada9fb2c203e"
+  },
+  "specification": {
+    "path": "inputs/dev-skill-spec.md",
+    "sha256": "b9783ca08d86fa734c89ce76623ff6c45b2640781d3955f16ea54ea659c7b265",
+    "source_id": "project-spec",
+    "locator": "frontmatter id DEVFORGEAI-DEV-SKILL-001, skill_name dev",
+    "original_path": "C:\\Projects\\DevForgeAI\\docs\\specs\\dev-skill-spec.md"
+  },
+  "origin_kind": "existing_spec",
+  "history_kind": "observed",
+  "prior_evidence": null,
+  "completeness": "complete",
+  "historical_origin": "unknown",
+  "source_readback_state": "NOT_RUN",
+  "uncertainties": [
+    {
+      "id": "ORG-U1",
+      "statement": "The bounded lookup roots named by the validator workflow (docs/plan and docs/design/specs) do not contain the governing specification. docs/design/specs does not exist; docs/plan holds no dev-skill specification.",
+      "resolution": "Not treated as absence, so reconstruction from the origin template was not permitted and was not performed. The specification exists at docs/specs/dev-skill-spec.md and self-identifies at that exact absolute path in its own authoring-metadata table, which additionally records that the builder name-based lookup searches other locations.",
+      "status": "RESOLVED_WITH_DISCLOSURE"
+    },
+    {
+      "id": "ORG-U2",
+      "statement": "The governing specification specifies a Codex skill and names C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev as its final development package. No specification in the repository explicitly governs the assessed Claude Code variant.",
+      "resolution": "Host-neutral requirements are assessed against the target. Host-specific port decisions have no governing specification and are assessed against Claude Code source guidance only. This is an unresolved input decision carried into the handoff.",
+      "status": "UNRESOLVED_INPUT_DECISION"
+    },
+    {
+      "id": "ORG-U3",
+      "statement": "Specification frontmatter reads status: proposed and package_status: not_authored while the package exists on disk in three host copies.",
+      "resolution": "Repository instructions record this frontmatter as stale and direct that it not be read as unbuilt. Treated as stale specification metadata, not as evidence of an unauthored package.",
+      "status": "RESOLVED_WITH_DISCLOSURE"
+    },
+    {
+      "id": "ORG-U4",
+      "statement": "No builder authoring record or validation-request.json accompanied the Codex-to-Claude-Code port; conversion history is inferred from the byte delta rather than from retained builder custody evidence.",
+      "resolution": "history_kind remains observed and historical_origin remains unknown. The port delta is recorded descriptively under port_observation below and is not claimed as verified builder history.",
+      "status": "UNRESOLVED"
+    }
+  ],
+  "port_observation": {
+    "note": "Descriptive observation, not verified builder custody.",
+    "inferred_parent": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+    "files_differing": 3,
+    "files_identical": 8,
+    "changes": [
+      "description reflowed to a YAML folded scalar and extended with an explicit 'Use when' trigger sentence",
+      "allowed-tools YAML list added (Read, Write, Edit, Glob, Grep, Bash, AskUserQuestion)",
+      "SKILL.md line 33 added: a tool-boundary claim with no counterpart in the Codex parent",
+      "host name changed from Codex CLI to Claude Code in SKILL.md and references/implementation.md",
+      "AskUserQuestion named explicitly at two previously tool-agnostic ask points in references/context.md",
+      "SKILL.md line 50 extended with an unscoped-Bash rationale that correctly states the allowlist does not enforce"
+    ],
+    "residual_source_host_syntax": "none found; no $skill-name syntax, no agents/*.yaml, no Codex references remain"
+  },
+  "mirror_pair": {
+    "path": "C:\\Projects\\DevForgeAI\\src\\claude\\skills\\dev",
+    "relation": "byte-identical to the assessed target",
+    "note": "ADR-073 dual-path contract; an accepted revision must be applied to both paths with identical strings."
+  },
+  "excluded_candidates": [
+    {
+      "path": "C:\\Projects\\DevForgeAI\\src\\agents\\skills\\dev",
+      "reason": "Codex package carrying no allowed-tools. Assessing it against Claude Code frontmatter guidance would fail a package against a specification it does not claim."
+    },
+    {
+      "path": "C:\\Projects\\DevForgeAI\\.agents\\skills\\dev",
+      "reason": "Codex operational copy, byte-identical to src/agents/skills/dev."
+    }
+  ],
+  "package_digest": "45dd959122125222d68e6f156d72fa20bd52ec50d5fa095857603b0166cbe2f9",
+  "capture": {
+    "file_count": 11,
+    "total_bytes": 39487,
+    "ceiling": {
+      "max_files": 2000,
+      "max_bytes": 33554432
+    },
+    "excluded_boundaries": []
+  },
+  "authorized_effects": [
+    "Read-only inspection of the target and repository.",
+    "Writes confined to this run directory and to disposable fixtures under its trials/ subtree."
+  ],
+  "limitations": [
+    "An observed origin is not an adopted or generated baseline.",
+    "Prose is not an exact backup; exact restoration uses source/ with source-manifest.json."
+  ]
+}

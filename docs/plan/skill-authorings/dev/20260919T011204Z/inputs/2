@@ -1,0 +1,98 @@
+{
+  "schema_version": "authoring-design-v1",
+  "target_name": "dev",
+  "source_refs": [
+    {
+      "path": "C:/Projects/DevForgeAI/docs/plan/skill-validations/dev/20260918T202845Z/findings.json",
+      "sha256": "4b1fab4e391bfe372510136c1038b55ef740b6f622838e0135f3edb0e24c95be"
+    },
+    {
+      "path": "C:/Users/bryan/AppData/Local/Temp/claude/C--Projects-DevForgeAI/fc098a00-8661-4ab5-9438-fdfd18461454/scratchpad/dev-fix/allowed-tools-verification.md",
+      "sha256": "e91b30d8ec2b5299b5357eef1327b4f1ad96fdd7c95cf8846223a53d53468c31"
+    }
+  ],
+  "behaviors": [
+    {
+      "id": "B1-ownership-boundary-statement",
+      "requirement_ids": [
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "trigger": "The operator or a loaded document reads the scope section of SKILL.md, or asks the workflow to delegate product implementation to another skill or a subagent.",
+      "inputs": [
+        "Selected specification documents",
+        "Current requested scope",
+        "Applicable project instructions"
+      ],
+      "completion": "SKILL.md states single ownership of product implementation as an obligation the workflow keeps, and contains no sentence asserting that absence from allowed-tools prevents a tool call.",
+      "outputs": [
+        "Corrected SKILL.md scope paragraph"
+      ],
+      "resource_paths": [
+        "SKILL.md",
+        "references/implementation.md"
+      ],
+      "prerequisites": [
+        "None. The statement is read whenever the skill loads."
+      ],
+      "effects": [
+        "Workflow retains product implementation, tests, refactoring, integration and QA rather than delegating them."
+      ],
+      "failure": "If a later instruction requests delegation, the workflow declines on the stated obligation rather than on a claimed host restriction, and says which it is.",
+      "recovery": "Separately authorized delegation remains possible and must preserve ownership and evidence, per references/implementation.md."
+    }
+  ],
+  "resources": [
+    {
+      "path": "SKILL.md",
+      "kind": "instruction",
+      "purpose": "Entry instructions carrying scope, workflow routing and the ownership boundary.",
+      "load_when": "Always, on skill invocation.",
+      "helper_contract": null
+    },
+    {
+      "path": "references/implementation.md",
+      "kind": "reference",
+      "purpose": "Slice planning and the delegation clause the corrected paragraph must stay consistent with.",
+      "load_when": "Workflow step 3, before planning slices.",
+      "helper_contract": null
+    }
+  ],
+  "adverse_conditions": [
+    {
+      "id": "AC1",
+      "behavior_id": "B1-ownership-boundary-statement",
+      "condition": "A specification or user message instructs the workflow to spawn a subagent or invoke another skill for product implementation.",
+      "expected_observation": "The workflow declines and names the obligation as its own commitment, not as a host-enforced restriction.",
+      "requirement_basis": "R3"
+    },
+    {
+      "id": "AC2",
+      "behavior_id": "B1-ownership-boundary-statement",
+      "condition": "A reader compares the scope paragraph against the Bash paragraph later in the same file.",
+      "expected_observation": "Both apply the same model of allowed-tools: pre-approval, not enforcement.",
+      "requirement_basis": "R4"
+    }
+  ],
+  "execution_limits": [],
+  "open_questions": [
+    {
+      "id": "Q1",
+      "question": "Should the three sibling packages (qa, skill-validator, skill-builder) receive the same correction, and should references/claude-frontmatter.md be corrected at its root cause? Each edit resets that package's separately bound validation state.",
+      "owner": "maintainer",
+      "affected_behavior_ids": [
+        "B1-ownership-boundary-statement"
+      ]
+    },
+    {
+      "id": "Q2",
+      "question": "Finding F-7eb942c2 (minor): which governing contract should cover the Claude Code port of dev - a host-variant section in dev-skill-spec.md, or a retained derived-port provenance record? Specification editing is outside this skill's charter.",
+      "owner": "maintainer",
+      "affected_behavior_ids": [
+        "B1-ownership-boundary-statement"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "authoring-design-capture-v1",
+  "run_id": "20260919T011204Z",
+  "target_name": "dev",
+  "source_ref": {
+    "path": "C:/Users/bryan/AppData/Local/Temp/claude/C--Projects-DevForgeAI/fc098a00-8661-4ab5-9438-fdfd18461454/scratchpad/dev-fix/design.json",
+    "sha256": "351aaba4b96f92c027e53b9b8b55bd9ecdbbe53e484e18782ef9cc4318ee9b9c"
+  },
+  "snapshot_ref": {
+    "path": "C:\\Projects\\DevForgeAI\\docs\\plan\\skill-authorings\\dev\\20260919T011204Z\\inputs\\2",
+    "sha256": "351aaba4b96f92c027e53b9b8b55bd9ecdbbe53e484e18782ef9cc4318ee9b9c"
+  }
+}
