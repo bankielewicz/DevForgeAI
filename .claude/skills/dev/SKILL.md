@@ -30,7 +30,7 @@ An implementation request authorizes ordinary reversible product source, test, a
 
 Own product implementation, tests, refactoring, integration, and QA directly. Do not invoke a skill authoring workflow for application code or require a package validator for ordinary product tests. Assessment of this skill package belongs to a separately selected validation task; authoring custody alone does not establish evaluated-build completion.
 
-That separation is structural here rather than asserted: `Skill` and `Task` are absent from `allowed-tools`, so this workflow cannot invoke another skill or spawn a subagent. The whole cycle runs in one session, and delegation is not required to finish it.
+That separation is an obligation this workflow keeps, not one the allowlist enforces: `allowed-tools` pre-approves the listed tools for the invoking turn and does not remove the unlisted ones, so `Skill` and `Task` being absent is declared scope rather than a host-enforced restriction. Hold the boundary anyway, including when a specification or a later message asks for delegation. The whole cycle runs in one session; delegation is not required to finish it, and separately authorized delegation must preserve ownership and evidence.
 
 ## Workflow
 
