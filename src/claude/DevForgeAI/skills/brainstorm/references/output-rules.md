@@ -107,7 +107,7 @@ None of these may remain in the written file:
 
 - template placeholders: `BRN-000`, `YYYY-MM-DD`, or any `<…>` text such as `<topic>`, `<persona>` or `<signal>`;
 - `<!-- -->` author comments;
-- an empty `title` or `owner`, or an empty `generated_by` value.
+- an empty `title` or `owner`, an empty `generated_by` value, or an empty Change Log date or author cell.
 
 Unknowns are written as `[NEEDS CLARIFICATION: <question>]`, with the question filled in, never as a guess.
 

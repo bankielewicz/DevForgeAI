@@ -115,7 +115,7 @@ defined fields. Framework-specific reasoning goes in the prose of sections 5 and
 5. Record the evaluation method (the framework's *Evaluation method text*) in section 5. In section 6, record the
    proposals and what the user confirmed. Fill section 8 with outcome signals drawn from the promoted (or
    proposed) ideas, or one `[NEEDS CLARIFICATION: …]` marker. In section 7, delete the marker bullet if no
-   question is open.
+   question is open. In the Change Log's first row, the date is today and the author is `claude-code`.
 6. **Extending a BRN** (the user chose it in step 2): edit the existing file in place. Keep `id`, `created` and
    every existing item. Set `updated` to today, add 1 to `version`, and append a Change Log row. Keep every
    disposition already in the file, and apply only the ones the user confirmed in this session.
