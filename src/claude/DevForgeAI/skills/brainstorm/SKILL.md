@@ -58,7 +58,8 @@ similar BRN exists (step 2). Both stop the session until they are answered, and 
    entry) **or create a new BRN**? End your turn and wait for the answer. Never overwrite a BRN, and
    never pick either option yourself.
 3. For a new BRN, take the highest `BRN-NNN` number found plus one, or `BRN-001` if there is none. Derive the
-   slug from the topic: lowercase, hyphenated, at most five words. If `docs/specs/brainstorms/` is missing,
+   slug from the topic: lowercase, hyphenated, at most five words. If the user names the file, use that name,
+   provided it has this form and the allocated number. If `docs/specs/brainstorms/` is missing,
    create it when you write the file (step 6), and tell the user it was created.
 4. When extending, keep every existing item ID and its meaning. New items take the next free number in their
    collection. Retire an item with `status: deprecated`; never delete or renumber one, because PRD
@@ -121,7 +122,7 @@ defined fields. Framework-specific reasoning goes in the prose of sections 5 and
 
 ### 8. Report and hand off
 
-1. Report: the BRN path; how many problems, ideas and assumptions it holds; the ideas promoted (or, if none
+1. Report: the BRN path; the framework used, by name; how many problems, ideas and assumptions it holds; the ideas promoted (or, if none
    were confirmed, the proposed dispositions awaiting confirmation); and the open questions (`[NEEDS CLARIFICATION]` markers).
 2. Name the next step. Check whether `${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md` exists.
    - If it does: tell the user to run `/devforgeai:prd <BRN path>`.

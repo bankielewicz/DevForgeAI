@@ -10,3 +10,5 @@ Help me brainstorm options for reducing onboarding drop-off in our mobile bankin
 The trigger: our support team reported that new users abandon the app at the identity-verification step, and sign-up completion fell from 62% to 48% last quarter. Affected users: first-time customers signing up on iOS and Android. Constraints: no new third-party vendors this quarter, and a two-person mobile team. I'm Dana Reyes and I own this work.
 
 Go ahead without questions and write up the brainstorm document.
+
+Save it as docs/specs/brainstorms/BRN-001-onboarding-drop-off.md.

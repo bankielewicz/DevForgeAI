@@ -1,6 +1,8 @@
 ---
 type: regex
-target: files
+target:
+  source: file
+  path: docs/specs/brainstorms/BRN-001-onboarding-drop-off.md
 match: not_contains
 pattern: 'BRN-000|YYYY-MM-DD|<!--|<topic>|<persona>|<idea>|<signal>|<one sentence'
 ---
