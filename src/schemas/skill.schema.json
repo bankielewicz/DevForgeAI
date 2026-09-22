@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.devforgeai.local/sdd/skill.schema.json",
+  "title": "skill document (frontmatter plus item blocks)",
+  "type": "object",
+  "required": [
+    "frontmatter"
+  ],
+  "properties": {
+    "frontmatter": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "title",
+        "status",
+        "version",
+        "created",
+        "updated",
+        "owner",
+        "authors",
+        "upstream",
+        "supersedes",
+        "superseded_by",
+        "blocked_by",
+        "skill_name",
+        "packaging"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/docId"
+        },
+        "type": {
+          "const": "skill"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "in-review",
+            "approved",
+            "superseded",
+            "deprecated"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "updated": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "generated_by": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tool": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "session": {
+              "type": "string"
+            }
+          }
+        },
+        "reviewed_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approved_by": {
+          "type": "string"
+        },
+        "approved_on": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upstream": {
+          "$ref": "common.schema.json#/$defs/links"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/docId"
+          }
+        },
+        "superseded_by": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/docId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+          }
+        },
+        "skill_name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "maxLength": 64
+        },
+        "packaging": {
+          "enum": [
+            "plugin",
+            "project",
+            "personal"
+          ]
+        },
+        "plugin": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "eval_tag": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

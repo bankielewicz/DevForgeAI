@@ -1,0 +1,249 @@
+---
+id: ADR-001
+type: adr
+title: "Build and validate each skill change in its own git worktree"
+status: accepted
+version: 2
+created: 2026-09-22
+updated: 2026-09-22
+owner: "Bryan"
+authors: ["Bryan", "claude-code"]
+generated_by:
+  tool: "claude-code"
+  model: "claude-opus-5-5"
+  session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
+reviewed_by: []
+approved_by: "Bryan"
+approved_on: 2026-09-22
+upstream:
+  - {id: PRD-001, item: NFR-002, relation: informed_by, version: 2, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: informed_by, version: 2, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+# --- adr-specific ---
+consulted: []
+informed: []
+---
+
+# ADR-001 — Build and validate each skill change in its own git worktree
+
+## Context and problem statement
+
+DevForgeAI skills are authored in `src/claude/DevForgeAI/` and run from an operational copy
+under `.claude/`. The operational copy is gitignored and contains no symlinks. The repository
+will be published on GitHub, and several skill changes may be in progress at once.
+
+We need a way to change a skill and validate exactly what will ship, without contaminating
+the main checkout or other work in progress. It has to work with what exists today:
+**git, rsync and the Claude Code CLI (v2.1.280)**. The `devforgeai` CLI doesn't exist yet,
+and this ADR doesn't depend on it.
+
+## Decision drivers
+
+- PRD-001#NFR-002: skills must validate against the Agent Skills and Claude Code formats.
+- PRD-001#NFR-003: skill behavior is verified with `claude plugin eval`, which targets plugins only.
+- `src/claude/DevForgeAI/` is the only source. Operational copies are never edited by hand.
+- A Claude Code session loads skills from several places. Validation must know which copy it tested.
+
+## Considered options
+
+1. **One git worktree per story, deployed and validated inside the worktree.**
+2. Build and validate in the main checkout on a feature branch.
+3. Validate the `src/` tree directly, with no operational copy.
+
+## Decision outcome
+
+**Chosen option:** option 1. Worktrees isolate one change's source *and* its deployed copy, and
+Claude Code's `--worktree` sessions block edits to the main checkout. Option 2 lets one branch's
+deployed copy stand in for another's. Option 3 validates something other than what ships.
+
+### Layout
+
+| Path | Tracked | Contents |
+|---|---|---|
+| `src/claude/DevForgeAI/` | yes | Plugin source: `.claude-plugin/plugin.json`, `skills/<name>/`, `evals/<name>/` |
+| `src/schemas/` | yes | Canonical JSON Schemas. Never deployed. A skill that needs one at runtime carries an unchanged copy in its `assets/` |
+| `.claude/skills/devforgeai/` | **no** | Operational copy: a skills-directory plugin, loaded as `devforgeai@skills-dir` |
+| `.claude/worktrees/` | **no** | Worktrees, one per story |
+| `.claude/settings.json` | yes | Project settings, including the deny rule below |
+
+`.gitignore` names the two generated paths exactly. It does **not** ignore all of `.claude/`,
+because `.claude/settings.json` must be tracked:
+
+```gitignore
+.claude/worktrees/
+.claude/skills/devforgeai/
+src/claude/DevForgeAI/evals/results/
+```
+
+The third line covers eval results in case someone runs `claude plugin eval` against `src/`.
+
+`.claude/settings.json` blocks Claude's file tools from editing the operational copy. Edits go to `src/`:
+
+```json
+{
+  "permissions": {
+    "deny": ["Edit(/.claude/skills/devforgeai/**)"]
+  }
+}
+```
+
+`plugin.json` includes `author`, because `claude plugin validate --strict` fails without it.
+
+### Lifecycle
+
+Run every command from the **main checkout root** unless a step says otherwise. `<name>` is the
+worktree name, for example `story-001-brainstorm`. `W=.claude/worktrees/<name>`.
+
+1. **Create the worktree** on a story branch from `main`:
+   ```bash
+   git worktree add .claude/worktrees/<name> -b story/STORY-NNN-<slug> main
+   ```
+2. **Deploy into the worktree before starting Claude there.** If a worktree has no
+   `.claude/skills/` directory, Claude Code loads the *main checkout's* project skills instead, so a
+   session started before deploying tests main's skills:
+   ```bash
+   test -z "$(find $W/src/claude/DevForgeAI -type l)" \
+     && mkdir -p $W/.claude/skills/devforgeai \
+     && rsync -a --delete --exclude=/evals/results/ $W/src/claude/DevForgeAI/ $W/.claude/skills/devforgeai/
+   ```
+   The commands are chained, so a symlink in `src/` stops the deploy. Otherwise `rsync -a` would copy the
+   link into the operational copy. `mkdir -p` is needed because rsync doesn't create the missing parent.
+   `--exclude` keeps eval results out of `--delete`.
+3. **Start the session in the worktree:**
+   ```bash
+   claude --worktree <name> -n <name>
+   ```
+   The name matters. When an *unnamed* `--worktree` session exits and the worktree has no changes
+   (ignored files don't count), Claude Code removes the worktree and its branch. A named session asks
+   first. This opens the existing worktree, and Claude Code then blocks edits and git commands aimed at the
+   main checkout. Run `/plugin` and `/skills` to confirm `devforgeai@skills-dir` loaded from the
+   worktree's path. Accept the trust prompt if it appears.
+4. **Iterate:** edit `src/` → deploy (step 2 commands) → validate (step 5). Deploy again after every
+   change to `src/`, then run `/reload-plugins` or restart the session.
+5. **Validate what ships**, from the worktree root:
+   ```bash
+   diff -r -x results src/claude/DevForgeAI .claude/skills/devforgeai
+   for f in src/claude/DevForgeAI/skills/*/assets/*.schema.json; do [ -e "$f" ] || continue; cmp -s "$f" "src/schemas/$(basename "$f")" || echo "SCHEMA DRIFT: $f"; done
+   claude plugin validate .claude/skills/devforgeai --strict
+   claude plugin eval .claude/skills/devforgeai --allow-tools Write Edit --scaffold --no-publish --threshold 0.8
+   ```
+   - `diff -r -x results` confirms the operational copy equals `src/`. It ignores any path named `results`,
+     which is where `claude plugin eval` writes its reports inside the plugin.
+   - The `for … cmp` loop prints `SCHEMA DRIFT` for any schema copy in a skill's `assets/` that differs
+     from `src/schemas/` or has no canonical file there. It prints nothing when all copies match, including
+     when no skill ships a schema. Copies are whole, unchanged files. A skill that needs
+     `<type>.schema.json` also carries `common.schema.json`, because the type schemas reference it.
+   - `claude plugin validate --strict` checks the **plugin manifest**. It does **not** catch an unknown or
+     misspelled `SKILL.md` frontmatter field: a scratch test with `disable-model-invokation: true` passed.
+     The DevForgeAI frontmatter and provenance schemas are not part of this lifecycle, because no
+     validator for them exists in the repository.
+   - `claude plugin eval` flags:
+     - `--allow-tools Write Edit` grants the write tools that skills writing files need. A case's
+       `allowed_tools` grants only read-only tools.
+     - `--scaffold` runs the cases' `scaffold_script`s. They're authored in this repo.
+     - `--no-publish` keeps the report local. Otherwise it is published to claude.ai by default when the account supports it.
+     - `--threshold 0.8` makes the command exit 1 when any case scores below PRD-001#NFR-003's 0.8.
+   The eval step is the behavioral verdict. It runs in its own sandbox and loads no personal or
+   project skills, so it is unaffected by anything else installed. Manual testing in the session is
+   only a smoke test.
+6. **Commit and open a PR** from the worktree. Commits reference the story ID.
+7. **After merge**, update the main checkout and redeploy it, since the fast-forward doesn't touch the
+   gitignored copy:
+   ```bash
+   git pull --ff-only
+   test -z "$(find src/claude/DevForgeAI -type l)" \
+     && mkdir -p .claude/skills/devforgeai \
+     && rsync -a --delete --exclude=/evals/results/ src/claude/DevForgeAI/ .claude/skills/devforgeai/
+   diff -r -x results src/claude/DevForgeAI .claude/skills/devforgeai
+   ```
+8. **Remove the worktree** and its branch:
+   ```bash
+   git worktree remove .claude/worktrees/<name>
+   git branch -d story/STORY-NNN-<slug>
+   ```
+   `git branch -d` refuses a branch that GitHub merged by squash or rebase ("not fully merged"). After
+   confirming on GitHub that the PR merged, use `git branch -D` in that case. `git worktree remove`
+   without `--force` refuses a worktree with uncommitted changes, which is intended.
+
+### Rules
+
+- Never list `.claude/skills/devforgeai/` in `.worktreeinclude`. That file copies gitignored files
+  from the main checkout into new worktrees, so listing it would seed the worktree with main's stale build.
+- Don't install the `devforgeai` plugin from a marketplace at project scope in this repository.
+  Project-scope plugins installed from the main checkout also load in every worktree, next to the
+  worktree's own skills-directory copy.
+- Start worktree sessions with `claude --worktree <name>` from the main checkout, not by `cd` into
+  the worktree. Only `--worktree` sessions get the isolation checks.
+
+### Consequences
+
+- Good: each story validates its own build. The main checkout can't be edited from a worktree session, and parallel stories don't interact.
+- Good: every step uses git, rsync or Claude Code commands that exist today.
+- Bad: no step checks `SKILL.md` frontmatter against the Agent Skills field list, or `provenance.yaml`
+  against its schema. A misspelled frontmatter field passes every check above, and Claude Code ignores it at runtime.
+- Bad: every change to `src/` needs a manual redeploy and a plugin reload or session restart.
+- Bad: the main checkout goes stale after each merge until step 7 is run. `diff -r` detects it.
+- Bad: the deny rule covers Claude's file tools and commands Claude Code recognizes (such as `sed`,
+  `tee` and redirections). It doesn't stop a script or `cp`/`rsync` from writing the operational copy.
+  The `diff -r` check is what detects such edits.
+- Bad: parallel worktrees can allocate the same next ID (for example two `SKL-002`). Nothing in this
+  ADR prevents that; it surfaces at merge.
+
+### Confirmation
+
+Verified on 2026-09-22 in a scratch repository, with git 2.43.0, rsync 3.2.7 and Claude Code 2.1.280.
+Steps 1, 2, 5 (except the eval run) and 8 were run as written:
+- `git worktree add` under `.claude/worktrees/` on a new story branch.
+- The chained deploy refuses when `src/` contains a symlink, and no symlink reaches the copy.
+- The deploy succeeds otherwise. The worktree stays clean in `git status`, because the copy is ignored.
+- A file under the copy's `evals/results/` survives a redeploy, and `diff -r -x results` still exits 0.
+- `diff -r` reports the file after an edit to the operational copy.
+- The `for … cmp` schema-copy loop is silent when copies match or none exist, and reports a drifted copy and a copy with no canonical file.
+- `claude plugin validate --strict` fails without `author` in `plugin.json` and passes with it. It
+  passes a `SKILL.md` with the unknown field `disable-model-invokation`.
+- The main checkout gains no `.claude/skills/` from work in a worktree.
+- `git worktree remove` without `--force` removes a clean worktree. `git branch -d` deletes a branch
+  with no unmerged commits. The squash-merge refusal was not exercised.
+
+Taken from the Claude Code documentation but not yet exercised in this repository:
+- The skills read-through when a worktree has no `.claude/skills/`.
+- `--worktree` reopening an existing worktree.
+- The isolation checks.
+- Deny-rule anchoring in worktree sessions.
+- Trust behavior for skills-directory plugins.
+- `claude plugin eval` against the skills-directory plugin. (Its `--help` confirms that path and skills-directory targets resolve, and lists the flags used in step 5.)
+- Whether exiting an unnamed session removes a worktree that `git worktree add` created. Step 3 names the session either way.
+
+The first real skill story must confirm each of these, and step 3's `/plugin` and `/skills` check covers the loading questions.
+
+## Pros and cons of the options
+
+### One worktree per story (chosen)
+- Good, because the source and the operational copy are isolated per change.
+- Good, because `--worktree` sessions block writes to the main checkout.
+- Bad, because the deploy is manual and the main checkout needs a redeploy after merges.
+
+### Feature branch in the main checkout
+- Good, because it needs no extra directories.
+- Bad, because there's one operational copy for all branches, so switching branches without
+  redeploying validates the wrong build. It also allows only one change at a time.
+
+### Validate `src/` directly
+- Good, because it has no deploy step.
+- Bad, because it validates the source layout, not the operational copy that Claude Code actually loads.
+
+## Out of scope
+
+- CI on GitHub (a fresh clone running the same step 5 checks). This needs its own decision about
+  running `claude plugin eval` with credentials in CI.
+- Replacing these commands with `devforgeai` subcommands, once that CLI exists.
+
+## Status history
+
+| Date | Status | Note |
+|---|---|---|
+| 2026-09-22 | proposed | |
+| 2026-09-22 | accepted | Approved by Bryan |
+| 2026-09-22 | accepted | Version 2: `src/schemas/` canonical, schema-copy check in step 5 (agreed with Bryan) |

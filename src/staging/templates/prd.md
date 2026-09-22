@@ -1,0 +1,137 @@
+---
+id: PRD-000
+type: prd
+title: ""
+status: draft          # draft | in-review | approved | superseded | deprecated
+version: 1
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+owner: ""
+authors: []
+generated_by:
+  tool: ""
+  model: ""
+  session: ""
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:              # document-level: the brainstorm problems this PRD addresses
+  - {id: BRN-000, item: PRB-01, relation: derives, version: 1, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+# --- prd-specific ---
+target_release: ""
+stakeholders: []
+---
+
+# PRD-000 — <product or release name>
+
+<!-- The PRD states WHAT and WHY, not HOW. Every requirement is an item with its
+     own ID and its own upstream link. Design choices belong in a Spec or ADR. -->
+
+## 1. Summary
+
+<!-- Two or three sentences a stakeholder can read in 20 seconds. -->
+
+## 2. Problem and opportunity
+
+<!-- Prose. The problems themselves are linked in frontmatter `upstream`. -->
+
+## 3. Users and personas
+
+<!-- Prose or a table: persona, goal, context and frequency. -->
+
+## 4. Goals and non-goals
+
+**Goals**
+- <outcome>
+
+**Non-goals** (explicitly out of scope)
+- <thing we will not do, and why>
+
+## 5. Success metrics
+
+<!-- Outcome measures, often observed after release. These are NOT story acceptance criteria. -->
+
+```yaml items
+success_metrics:
+  - id: SM-01
+    status: active
+    metric: "<metric>"
+    baseline: "<today's value>"
+    target: "<target value>"
+    measured_by: "<dashboard or query>"
+    upstream:
+      - {id: BRN-000, item: IDEA-01, relation: derives, version: 1, hash: null}
+```
+
+## 6. Functional requirements
+
+<!-- One testable capability per item. Use "shall". Every item needs an upstream link.
+     priority: must | should | could | wont (MoSCoW). -->
+
+```yaml items
+functional_requirements:
+  - id: FR-001
+    status: active
+    statement: "The system shall <capability>."
+    priority: must
+    notes: null
+    upstream:
+      - {id: BRN-000, item: IDEA-01, relation: derives, version: 1, hash: null}
+```
+
+## 7. Non-functional requirements
+
+<!-- Make each one measurable. category: performance | security | privacy | accessibility |
+     reliability | compliance | observability | usability | maintainability | other -->
+
+```yaml items
+non_functional_requirements:
+  - id: NFR-001
+    status: active
+    category: performance
+    statement: "<p95 latency < N ms at M requests/s>"
+    upstream:
+      - {id: BRN-000, item: PRB-01, relation: derives, version: 1, hash: null}
+```
+
+## 8. User experience
+
+<!-- Key flows, wireframe links, content requirements. Link to designs; do not embed large ones. -->
+
+## 9. Constraints and dependencies
+
+<!-- Prose: external dependencies, regulatory constraints, owning teams. -->
+
+## 10. Assumptions and risks
+
+```yaml items
+assumptions:
+  - id: ASM-01
+    status: active
+    statement: "<assumption or risk>"
+    validation: "<how we will confirm it or mitigate it>"
+    state: open               # open | validated | invalidated
+    upstream:                 # delete if the assumption is new in this PRD
+      - {id: BRN-000, item: ASM-01, relation: derives, version: 1, hash: null}
+```
+
+## 11. Release and rollout
+
+<!-- Phasing, feature flags, migration, launch criteria. -->
+
+## 12. Open questions
+
+- [NEEDS CLARIFICATION: <question>]
+
+## 13. Epic map
+
+<!-- GENERATED: epics whose upstream cites this PRD. Do not edit by hand. -->
+
+## Change Log
+
+| Version | Date | Author | Change | Items affected |
+|---|---|---|---|---|
+| 1 | YYYY-MM-DD | | Initial draft | all |

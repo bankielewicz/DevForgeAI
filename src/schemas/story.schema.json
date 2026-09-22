@@ -1,0 +1,441 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.devforgeai.local/sdd/story.schema.json",
+  "title": "story document (frontmatter plus item blocks)",
+  "type": "object",
+  "required": [
+    "frontmatter"
+  ],
+  "properties": {
+    "frontmatter": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "title",
+        "status",
+        "version",
+        "created",
+        "updated",
+        "owner",
+        "authors",
+        "upstream",
+        "supersedes",
+        "superseded_by",
+        "blocked_by",
+        "spec_mode"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/docId"
+        },
+        "type": {
+          "const": "story"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "ready",
+            "in-progress",
+            "in-review",
+            "done",
+            "blocked",
+            "cancelled"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "updated": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "generated_by": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tool": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "session": {
+              "type": "string"
+            }
+          }
+        },
+        "reviewed_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approved_by": {
+          "type": "string"
+        },
+        "approved_on": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upstream": {
+          "$ref": "common.schema.json#/$defs/links"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/docId"
+          }
+        },
+        "superseded_by": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/docId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+          }
+        },
+        "estimate": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "spec_mode": {
+          "enum": [
+            "separate",
+            "embedded"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "given",
+          "id",
+          "name",
+          "status",
+          "then",
+          "upstream",
+          "when"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^AC-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links",
+            "minItems": 1
+          },
+          "name": {
+            "type": "string"
+          },
+          "given": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "when": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "then": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "behaviors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "rule",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^BEH-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "condition",
+          "handling",
+          "id",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ERR-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links"
+          },
+          "condition": {
+            "type": "string"
+          },
+          "handling": {
+            "type": "string"
+          },
+          "user_result": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "quality_responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "response",
+          "status",
+          "upstream"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^QR-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links",
+            "minItems": 1
+          },
+          "response": {
+            "type": "string"
+          },
+          "measured_by": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "verifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "level",
+          "obligation",
+          "status",
+          "upstream"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^VER-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links",
+            "minItems": 1
+          },
+          "obligation": {
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "unit",
+              "integration",
+              "e2e",
+              "performance",
+              "security",
+              "manual"
+            ]
+          },
+          "covers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(DM|IF|BEH|ERR|QR)-\\d{2}$"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "frontmatter": {
+        "properties": {
+          "spec_mode": {
+            "const": "separate"
+          }
+        }
+      }
+    }
+  },
+  "then": {
+    "not": {
+      "anyOf": [
+        {
+          "required": [
+            "behaviors"
+          ]
+        },
+        {
+          "required": [
+            "errors"
+          ]
+        },
+        {
+          "required": [
+            "quality_responses"
+          ]
+        },
+        {
+          "required": [
+            "verifications"
+          ]
+        }
+      ]
+    },
+    "description": "spec item blocks are allowed in a story only when spec_mode is embedded"
+  }
+}

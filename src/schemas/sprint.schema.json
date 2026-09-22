@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.devforgeai.local/sdd/sprint.schema.json",
+  "title": "sprint document (frontmatter plus item blocks)",
+  "type": "object",
+  "required": [
+    "frontmatter"
+  ],
+  "properties": {
+    "frontmatter": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "title",
+        "status",
+        "version",
+        "created",
+        "updated",
+        "owner",
+        "authors",
+        "upstream",
+        "supersedes",
+        "superseded_by",
+        "blocked_by",
+        "start",
+        "end",
+        "stories"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/docId"
+        },
+        "type": {
+          "const": "sprint"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "active",
+            "closed"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "updated": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "generated_by": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tool": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "session": {
+              "type": "string"
+            }
+          }
+        },
+        "reviewed_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approved_by": {
+          "type": "string"
+        },
+        "approved_on": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upstream": {
+          "$ref": "common.schema.json#/$defs/links"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/docId"
+          }
+        },
+        "superseded_by": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/docId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+          }
+        },
+        "start": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "end": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "capacity": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "capacity_unit": {
+          "enum": [
+            "points",
+            "person-days"
+          ]
+        },
+        "stories": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/storyId"
+          },
+          "uniqueItems": true
+        },
+        "stretch": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/storyId"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "date",
+          "change",
+          "story",
+          "reason"
+        ],
+        "properties": {
+          "date": {
+            "$ref": "common.schema.json#/$defs/date"
+          },
+          "change": {
+            "enum": [
+              "added",
+              "removed"
+            ]
+          },
+          "story": {
+            "$ref": "common.schema.json#/$defs/storyId"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "approved_by": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "story",
+          "outcome"
+        ],
+        "properties": {
+          "story": {
+            "$ref": "common.schema.json#/$defs/storyId"
+          },
+          "outcome": {
+            "enum": [
+              "done",
+              "carried-over",
+              "dropped"
+            ]
+          },
+          "evidence": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

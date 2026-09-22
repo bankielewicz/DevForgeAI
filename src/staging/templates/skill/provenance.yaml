@@ -1,0 +1,28 @@
+# DevForgeAI provenance record for one skill. Validated against schemas/skill.schema.json.
+# Common keys follow src/staging/templates/README.md §2.2. Claude never loads this file.
+id: SKL-000
+type: skill
+title: ""
+status: draft          # draft | in-review | approved | superseded | deprecated
+version: 1             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+owner: ""
+authors: []
+generated_by:
+  tool: ""
+  model: ""
+  session: ""
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:              # the specification this skill implements
+  - {id: SPEC-000, relation: implements, version: 1, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+# --- skill-specific ---
+skill_name: skill-name # must equal the directory name and SKILL.md `name`
+packaging: plugin      # plugin | project | personal
+plugin: devforgeai     # plugin name when packaging is plugin, else null
+eval_tag: skill-name   # tag every eval case of this skill carries
