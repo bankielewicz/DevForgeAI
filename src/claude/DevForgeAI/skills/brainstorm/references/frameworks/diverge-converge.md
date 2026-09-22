@@ -9,7 +9,8 @@ narrow it with an impact/effort evaluation, and end with dispositions the user c
 explore and narrow down. It is also the fallback when no other framework fits.
 
 **Don't use when** the user already has one fixed solution and only wants it critiqued or planned.
-Say so, and ask whether they still want a brainstorm.
+Say so, and ask whether they still want a brainstorm. In a non-interactive session, note it in
+section 1 of the BRN and proceed.
 
 ## Steps
 
@@ -18,7 +19,7 @@ Say so, and ask whether they still want a brainstorm.
    own problems in their words. Don't evaluate yet.
 3. **Diverge on ideas.** For each problem, generate ideas. Aim for range: quick fixes, bigger bets,
    non-software options and "do nothing". Record the user's ideas in their own words next to yours.
-   Generate 5 to 15 ideas in total unless the user asks otherwise. Don't evaluate yet.
+   Don't evaluate yet.
 4. **Surface assumptions.** For the most promising ideas, name what must be true for them to work,
    and how each could be checked.
 5. **Evaluate.** Rate each idea on value, effort and risk (high, medium or low) and compute a score

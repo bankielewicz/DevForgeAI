@@ -117,7 +117,8 @@ Read the written file back, then confirm each line:
 
 1. The file name is `BRN-NNN-<slug>.md` and matches the frontmatter `id`.
 2. The frontmatter has only the allowed keys, with the types above.
-3. `generated_by` has non-empty `tool`, `model` and `session`. `reviewed_by` is `[]`. Every `hash` is `null`.
+3. `generated_by` has non-empty `tool`, `model` and `session`, and no `${` text remains anywhere in the file.
+   `reviewed_by` is `[]`. Every `hash` is `null`.
 4. Every `yaml items` fence has exactly one top-level key, from the three collections.
 5. Every item has its required fields, uses only allowed fields, and has an ID in the right pattern, with no duplicates.
 6. Every free-text value is quoted. Enum values are from the allowed lists.

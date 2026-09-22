@@ -47,8 +47,10 @@ similar BRN exists (step 2). Both stop the session until they are answered, and 
 1. Find the topic in `$ARGUMENTS` or the conversation. If there is none, ask "What topic should we
    brainstorm?" and **end your turn**. Write no file and create no directory until a topic is given.
 2. Ask at most three clarifying questions, in one message: what triggered this, who is affected, and
-   what constraints apply. Skip any the request already answers. Ask none in a non-interactive session.
-3. Record whatever is still unknown as `[NEEDS CLARIFICATION: <question>]`. Never guess.
+   what constraints apply. Skip any the request already answers. If you ask, end your turn and wait for the
+   answers. Ask none in a non-interactive session.
+3. Record whatever is still unknown as `[NEEDS CLARIFICATION: <question>]`, with the question written out.
+   Never guess.
 
 ### 2. Check existing BRNs and allocate the ID
 
@@ -96,26 +98,33 @@ defined fields. Framework-specific reasoning goes in the prose of sections 5 and
 ### 6. Write the BRN
 
 1. Read `${CLAUDE_SKILL_DIR}/references/output-rules.md` if you haven't already.
-2. Build the file from `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`. Keep every section heading. Replace every
-   placeholder, or mark it `[NEEDS CLARIFICATION: <question>]`. Delete every HTML author comment.
+2. **New BRN:** if the target path already exists, stop and ask; never overwrite. Otherwise build the file from
+   `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`. Keep every section heading. Replace every placeholder, or mark it
+   `[NEEDS CLARIFICATION: <question>]` with the question written out. Delete every HTML author comment.
 3. Fill the frontmatter:
    - `id` is the allocated `BRN-NNN`. `title` is the topic. `created` and `updated` are today's date.
    - `generated_by.tool` is `claude-code`, `generated_by.model` is your current model ID, and
      `generated_by.session` is `${CLAUDE_SESSION_ID}`.
    - `authors` is the user's name and `claude-code`. `owner` is the user's name. Ask for it only if the
-     conversation doesn't give it. In a non-interactive session, write `"[NEEDS CLARIFICATION: owner]"`.
+     conversation doesn't give it. In a non-interactive session without it, write `authors: ["claude-code"]`
+     and `owner: "[NEEDS CLARIFICATION: owner]"`.
    - `reviewed_by: []`. Every `hash` is `null`. `approved_by: ""`, `approved_on: null`.
    - `status` is `converged` only if the user confirmed convergence. Otherwise it is `draft`.
 4. Write each `disposition` and `reason` **only as the user confirmed it**. Every other idea stays `open`
    with `reason: null`.
 5. Record the evaluation method (the framework's *Evaluation method text*) in section 5. In section 6, record the
-   proposals and what the user confirmed.
+   proposals and what the user confirmed. Fill section 8 with outcome signals drawn from the promoted (or
+   proposed) ideas, or one `[NEEDS CLARIFICATION: …]` marker. In section 7, delete the marker bullet if no
+   question is open.
+6. **Extending a BRN** (the user chose it in step 2): edit the existing file in place. Keep `id`, `created` and
+   every existing item. Set `updated` to today, add 1 to `version`, and append a Change Log row. Keep every
+   disposition already in the file, and apply only the ones the user confirmed in this session.
 
 ### 7. Validate the BRN
 
-1. If you can run shell commands, run `devforgeai check --json <file>`. If it succeeds with JSON output, fix
-   every error it reports. If it isn't found, exits non-zero without JSON, or you can't run commands, check the
-   file instead against the **Self-check list** in `output-rules.md`, reading the file back first.
+1. If you can run shell commands, run `devforgeai check --json <file>`. If it prints JSON (whatever the exit
+   code), fix every error it lists. If it prints no JSON (not found, or some other program), or you can't run
+   commands, check the file instead against the **Self-check list** in `output-rules.md`, reading the file back first.
 2. Fix every problem found, then check again. Stop after three attempts.
 3. If errors remain after three attempts, leave `status: draft`, and list the file path and the remaining errors
    in your reply.
