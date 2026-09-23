@@ -20,7 +20,7 @@ upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 2, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 2, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 2, hash: null}
-  - {id: ADR-001, relation: constrains, version: 2, hash: null}
+  - {id: ADR-001, relation: constrains, version: 3, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []

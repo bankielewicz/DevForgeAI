@@ -105,17 +105,17 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | Prefix | Artifact | File name | Status |
 |---|---|---|---|
 | `BRN-NNN` | Brainstorm | `brainstorm/BRN-NNN.md` | templated |
-| `PRD-NNN` | Product Requirements Document | `prd/PRD-NNN-<slug>.md` | templated |
-| `EPIC-NNN` | Epic | `epics/EPIC-NNN-<slug>.md` | templated |
-| `SPR-NNN` | Sprint | `sprints/SPR-NNN.md` | templated |
-| `STORY-NNN` | Story | `stories/STORY-NNN-<slug>.md` | templated |
-| `SPEC-NNN` | Specification | `specs/SPEC-NNN-<slug>.md` | templated |
-| `ADR-NNN` | Architecture Decision Record | `adr/ADR-NNN-<slug>.md` | templated |
+| `PRD-NNN` | Product Requirements Document | `prd/PRD-NNN.md` | templated |
+| `EPIC-NNN` | Epic | `epic/EPIC-NNN.md` | templated |
+| `SPR-NNN` | Sprint | `sprint/SPR-NNN.md` | templated |
+| `STORY-NNN` | Story | `story/STORY-NNN.md` | templated |
+| `SPEC-NNN` | Specification | `spec/SPEC-NNN.md` | templated |
+| `ADR-NNN` | Architecture Decision Record | `adr/ADR-NNN.md` | templated |
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
 
-File names that a skill generates are ID-only, with the topic kept in the document's `title`. Brainstorms already follow this (the brainstorm skill allocates the ID and never takes a file name). ID-only names are the intended direction for the other skill-generated artifacts; their rows change when each skill is built.
+Paths are relative to `docs/specs/`. Every document is named by its ID only, in a singular folder named for its type, with the topic kept in the document's `title`. The skill that writes a document allocates the next free number and never takes a file name. ID-only names turn a duplicate number from two parallel branches into a git conflict at merge, instead of two files that both merge silently.
 
 Item IDs are listed in 1.2. They are unique within their document.
 

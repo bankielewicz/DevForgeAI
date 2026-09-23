@@ -5,9 +5,9 @@ context from earlier conversations.
 
 | | |
 |---|---|
-| Implements | `docs/specs/specs/SPEC-001-brainstorm-skill.md` (version 5) |
-| Story | `docs/specs/stories/STORY-001-brainstorm-topic-into-brn.md` (version 3) |
-| Build and validation process | `docs/specs/adr/ADR-001-worktree-skill-validation.md` (accepted, version 2) |
+| Implements | `docs/specs/spec/SPEC-001.md` (version 5) |
+| Story | `docs/specs/story/STORY-001.md` (version 3) |
+| Build and validation process | `docs/specs/adr/ADR-001.md` (accepted, version 2) |
 | Branch / worktree | `story/STORY-001-brainstorm` / `.claude/worktrees/story-001-brainstorm` |
 | Produces | Plugin `devforgeai` with skill `brainstorm`, invoked as `/devforgeai:brainstorm` |
 

@@ -30,7 +30,7 @@ and each step is a skill in the `devforgeai` Claude Code plugin.
 
 ## Building a skill
 
-Follow `docs/specs/adr/ADR-001-worktree-skill-validation.md`: one worktree and branch
+Follow `docs/specs/adr/ADR-001.md`: one worktree and branch
 (`story/STORY-NNN-<slug>`) per story, deploy before starting the session, validate the deployed copy.
 
 - Run `claude plugin eval` from a plain terminal in the worktree root. Claude Code worktree
