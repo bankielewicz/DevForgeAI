@@ -137,10 +137,10 @@
           "enum": [
             "prototype",
             "mvp",
-            "expansion",
+            "evolution",
             null
           ],
-          "description": "Scope maturity: prototype (exploratory, may be discarded), mvp (smallest scope that delivers value to real users and is built upon), expansion (extends an established product). null until the user decides. Controls interview depth."
+          "description": "Scope maturity: prototype (exploratory, may be discarded), mvp (smallest scope that delivers value to real users and is built upon), evolution (changes an established product: new capability, maintenance, migration or refactoring). null until the user decides. Controls interview depth."
         },
         "operating_context": {
           "enum": [

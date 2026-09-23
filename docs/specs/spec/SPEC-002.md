@@ -3,7 +3,7 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: draft
-version: 6
+version: 7
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -17,12 +17,12 @@ approved_by: ""
 approved_on: null
 upstream:
   - {id: STORY-002, relation: specifies, version: 6, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 5, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 5, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 5, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 6, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 6, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 6, hash: null}
   - {id: ADR-001, relation: constrains, version: 3, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
-  - {id: ADR-003, relation: informed_by, version: 2, hash: null, note: "proposed: configuration contract v1"}
+  - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-001, relation: informed_by, version: 5, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
 supersedes: []
 superseded_by: null
@@ -108,7 +108,7 @@ policy documents in `docs/specs/policy/` (BEH-17), and accepted ADRs (BEH-16).
 
 | Field | Where | Values | Meaning |
 |---|---|---|---|
-| `stage` | frontmatter | `prototype`, `mvp`, `expansion`, `null` | **Scope maturity.** prototype: exploratory, may be discarded. mvp: the smallest scope that delivers value to real users and is built upon. expansion: extends an established product. Controls interview **depth** (BEH-03) |
+| `stage` | frontmatter | `prototype`, `mvp`, `evolution`, `null` | **Scope maturity.** prototype: exploratory, may be discarded. mvp: the smallest scope that delivers value to real users and is built upon. evolution: changes an established product (new capability, maintenance, migration or refactoring). Controls interview **depth** (BEH-03) |
 | `operating_context` | frontmatter | `local`, `internal`, `pilot`, `production`, `null` | **Who uses it, with what data.** local: developers only, synthetic data. internal: own organization, may touch real internal data. pilot: limited real external users or real customer data. production: generally available to real users with real data. Controls which quality categories **must** be asked (BEH-03) |
 | `priority` | each FR and NFR | `must`, `should`, `could`, `wont`, `null` | MoSCoW importance **within its release**. Now nullable |
 | `release` | each FR and NFR | `current`, `later`, `null` | **Which release**: `current` = the PRD's `target_release` (e.g. "MVP"), `later` = backlog |
@@ -170,7 +170,7 @@ behaviors:
     rule: "Read the BRN's frontmatter status, problems, ideas, assumptions and candidate success signals. Use only ideas with disposition promoted. Never cite an open, parked or rejected idea anywhere in the PRD."
   - id: BEH-03
     status: active
-    rule: "Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; expansion also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement."
+    rule: "Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; evolution also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement."
   - id: BEH-04
     status: active
     rule: "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea into one or more requirements that start 'The system shall', each with an upstream derives link to its idea; assumptions carried over with derives links; success signals into metrics."
@@ -273,19 +273,19 @@ quality_responses:
     response: "SKILL.md holds only the workflow checklist, decision rules, output contract and links. The BRN mapping, the question bank and the output rules live in references/."
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 5, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 6, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance kept in provenance.yaml; metadata values quoted"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 5, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 6, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged prd and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 5, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 6, hash: null}
 ```
 
 ## 9. Verification
@@ -544,7 +544,7 @@ already been updated with `null` values.
 ## 13. Open questions
 
 - Resolved by ADR-002 (proposed): a system-architecture step sits between the PRD and epics and resolves [NEEDS ADR] markers; the prd skill hands off to it. Its skill is specified separately.
-- [NEEDS CLARIFICATION: the third stage value is named `expansion` (extends an established product). Bryan to confirm the name]
+- Resolved: the third stage value is `evolution` (Bryan, 2026-09-23).
 - [NEEDS CLARIFICATION: PRD-001's own stage, and release per requirement, are null for Bryan to decide]
 - [NEEDS CLARIFICATION: whether the VER-09 draft BRN from STORY-001's manual test becomes the not-converged fixture for VER-04, or the fixture is written fresh]
 
@@ -595,3 +595,4 @@ its priority and release are decided.
 | 4 | 2026-09-23 | claude-code | Handoff goes to the architecture step per ADR-002; §13 architecture question resolved | §1, §5, BEH-13, VER-07, §13 |
 | 5 | 2026-09-23 | claude-code | Configuration contract v1 (ADR-003): policy resolution BEH-17, ERR-08, policy-aware BEH-03, BEH-05 and BEH-16, VER-15 to VER-17, references/defaults.md and policy.md | §3, §4, §5, BEH-03, BEH-05, BEH-16, BEH-17, ERR-08, VER-15 to VER-17, §11 |
 | 6 | 2026-09-23 | claude-code | ADR-003 v2: resolution sequence and resolution line (BEH-17), local preferences (BEH-18), ERR-08 names SV rules, precedence tests VER-18 to VER-23, verification status table; ADR-002 accepted (constrains); stale versions, limits and ranges reconciled | BEH-17, BEH-18, ERR-08, VER-11, VER-18 to VER-23, §9, §10, §11, Appendix A |
+| 7 | 2026-09-23 | claude-code | ADR-003 accepted (constrains); third stage value renamed evolution (Bryan) | frontmatter, §4, BEH-03, §13 |

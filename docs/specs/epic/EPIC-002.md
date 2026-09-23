@@ -16,12 +16,12 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: FR-005,  relation: refines, version: 5, hash: null}
-  - {id: PRD-001, item: FR-003,  relation: refines, version: 5, hash: null, note: "provenance and user decisions, applied to the PRD skill"}
-  - {id: PRD-001, item: FR-004,  relation: refines, version: 5, hash: null, note: "handoff from prd to the architecture step (ADR-002)"}
-  - {id: PRD-001, item: NFR-001, relation: refines, version: 5, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: refines, version: 5, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: refines, version: 5, hash: null}
+  - {id: PRD-001, item: FR-005,  relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: FR-003,  relation: refines, version: 6, hash: null, note: "provenance and user decisions, applied to the PRD skill"}
+  - {id: PRD-001, item: FR-004,  relation: refines, version: 6, hash: null, note: "handoff from prd to the architecture step (ADR-002)"}
+  - {id: PRD-001, item: NFR-001, relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: refines, version: 6, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []

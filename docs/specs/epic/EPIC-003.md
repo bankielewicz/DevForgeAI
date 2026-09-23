@@ -16,10 +16,10 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: FR-006, relation: refines, version: 5, hash: null}
-  - {id: PRD-001, item: FR-007, relation: refines, version: 5, hash: null}
-  - {id: PRD-001, item: FR-008, relation: refines, version: 5, hash: null}
-  - {id: PRD-001, item: FR-009, relation: refines, version: 5, hash: null}
+  - {id: PRD-001, item: FR-006, relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: FR-007, relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: FR-008, relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: FR-009, relation: refines, version: 6, hash: null}
   - {id: ADR-003, relation: informed_by, version: 2, hash: null, note: "proposed: the design this epic delivers"}
 supersedes: []
 superseded_by: null
@@ -70,7 +70,7 @@ done_when:
 ## 5. Dependencies and risks
 
 - DW-02 depends on the Architecture Definition skill (ADR-002), which isn't specified yet, so DW-02 has no satisfying story yet.
-- ADR-002 and ADR-003 are still proposed.
+- ADR-002 and ADR-003 are accepted.
 
 ## 6. Technical notes (optional)
 

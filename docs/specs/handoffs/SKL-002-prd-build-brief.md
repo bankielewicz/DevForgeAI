@@ -5,7 +5,7 @@ context from earlier conversations. `CLAUDE.md` applies.
 
 | | |
 |---|---|
-| Implements | `docs/specs/spec/SPEC-002.md` (version 6) |
+| Implements | `docs/specs/spec/SPEC-002.md` (version 7) |
 | Story | `docs/specs/story/STORY-002.md` (version 6) |
 | Build and validation process | `docs/specs/adr/ADR-001.md` (accepted, version 3) |
 | Consumes | BRNs written by the brainstorm skill (SPEC-001 §5, downstream contract) |
@@ -18,7 +18,7 @@ context from earlier conversations. `CLAUDE.md` applies.
 
 The session checks these and **stops if any is missing**:
 
-1. `main` includes this brief, SPEC-002 v6, STORY-002 v6, EPIC-002, EPIC-003, PRD-001 v5, ADR-002 (accepted), ADR-003 v2, and the updated `src/schemas/` (`prd.schema.json`, `policy.schema.json`).
+1. `main` includes this brief, SPEC-002 v7, STORY-002 v6, EPIC-002, EPIC-003, PRD-001 v6, ADR-002 (accepted), ADR-003 v2 (accepted), and the updated `src/schemas/` (`prd.schema.json`, `policy.schema.json`).
 2. The worktree exists, is deployed, and the session was started in it (ADR-001 steps 1–3):
    ```bash
    git worktree add .claude/worktrees/story-002-prd -b story/STORY-002-prd main
@@ -45,7 +45,7 @@ SPEC-002 already settles the design, and both tools conflict with ADR-001. You m
 1. SPEC-002, which is authoritative: BEH-01…18, ERR-01…08, QR-01…03, VER-01…23, the data model and
    mapping in §4, and the frontmatter and downstream contract in §5.
 2. STORY-002: AC-01…11.
-   Read ADR-003 v2 (proposed) for configuration contract v1: the policy classes, layers, local-preference format, resolution sequence R1–R5, semantic rules SV-01 to SV-07, failure behaviour and the resolution line (A2–A5).
+   Read ADR-003 v2 (accepted) for configuration contract v1: the policy classes, layers, local-preference format, resolution sequence R1–R5, semantic rules SV-01 to SV-07, failure behaviour and the resolution line (A2–A5).
    Read `src/schemas/policy.schema.json`, `src/staging/templates/policy.md` and `src/staging/examples/policy-two-orgs/`.
    Also read SPEC-002 Appendix A and its example files in `src/staging/examples/prd-production-mvp/`. They show the intended interview for a production MVP, but they are a design illustration, not a recorded run.
 3. ADR-001: the layout, commands and rules.
@@ -66,7 +66,7 @@ All deliverables go under `src/claude/DevForgeAI/`:
 | Path | Content | Implements |
 |---|---|---|
 | `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…18, ERR-01…08, QR-01, QR-02 |
-| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 6, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
+| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 7, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
 | `skills/prd/assets/prd.md` | **Moved** with `git mv src/staging/templates/prd.md …`. Then update the prd row's link in `src/staging/templates/README.md` | BEH-11 |
 | `skills/prd/references/brn-mapping.md` | The §4 mapping, with a short worked example: BRN items in, PRD items with `upstream` links out | BEH-02, BEH-04 |
 | `skills/prd/references/interview.md` | The question bank for each round (framing, architecture context, requirements, quality and constraints, metrics); the observable definitions of each `stage` and `operating_context` value; which NFR categories each operating context must ask and how deep each stage goes; the batching limits (4 questions per call, a platform limit; calls up to the resolved `interview.max_calls`, default 8); the constraint-vs-design rule, and the new-vs-extend criteria (scope, ownership, lifecycle) | BEH-03, BEH-05, BEH-07, BEH-09, BEH-15, BEH-16 |
