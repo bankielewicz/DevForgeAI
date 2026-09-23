@@ -10,19 +10,20 @@
     "frontmatter": {
       "type": "object",
       "required": [
-        "id",
-        "type",
-        "title",
-        "status",
-        "version",
-        "created",
-        "updated",
-        "owner",
         "authors",
-        "upstream",
-        "supersedes",
+        "blocked_by",
+        "created",
+        "id",
+        "owner",
+        "stage",
+        "status",
         "superseded_by",
-        "blocked_by"
+        "supersedes",
+        "title",
+        "type",
+        "updated",
+        "upstream",
+        "version"
       ],
       "properties": {
         "id": {
@@ -130,6 +131,15 @@
           "items": {
             "type": "string"
           }
+        },
+        "stage": {
+          "enum": [
+            "prototype",
+            "mvp",
+            "production",
+            null
+          ],
+          "description": "Delivery stage of the product this PRD describes; null until the user decides. Controls which NFR categories the prd skill asks about."
         }
       },
       "additionalProperties": false
@@ -191,6 +201,7 @@
         "required": [
           "id",
           "priority",
+          "release",
           "statement",
           "status"
         ],
@@ -226,14 +237,24 @@
               "must",
               "should",
               "could",
-              "wont"
-            ]
+              "wont",
+              null
+            ],
+            "description": "MoSCoW importance within its release. null until the user decides."
           },
           "notes": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "release": {
+            "enum": [
+              "current",
+              "later",
+              null
+            ],
+            "description": "Which release the item belongs to: current = this PRD's target_release, later = backlog. null until the user decides."
           }
         },
         "additionalProperties": false
@@ -246,6 +267,8 @@
         "required": [
           "category",
           "id",
+          "priority",
+          "release",
           "statement",
           "status"
         ],
@@ -284,11 +307,30 @@
               "observability",
               "usability",
               "maintainability",
+              "constraint",
               "other"
             ]
           },
           "statement": {
             "type": "string"
+          },
+          "priority": {
+            "enum": [
+              "must",
+              "should",
+              "could",
+              "wont",
+              null
+            ],
+            "description": "MoSCoW importance within its release. null until the user decides."
+          },
+          "release": {
+            "enum": [
+              "current",
+              "later",
+              null
+            ],
+            "description": "Which release the item belongs to: current = this PRD's target_release, later = backlog. null until the user decides."
           }
         },
         "additionalProperties": false

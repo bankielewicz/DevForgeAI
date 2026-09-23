@@ -65,7 +65,7 @@ acceptance_criteria:
       - "the document validates against brainstorm.schema.json"
       - "it contains at least one problem, at least one idea and a named evaluation method"
     upstream:
-      - {id: PRD-001,  item: FR-001, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001,  item: FR-001, relation: satisfies, version: 3, hash: null}
       - {id: EPIC-001, item: DW-01,  relation: satisfies, version: 1, hash: null}
   - id: AC-02
     status: active
@@ -79,7 +79,7 @@ acceptance_criteria:
       - "only dispositions the user confirmed are written; every other idea stays open"
       - "status becomes converged only if the user confirms convergence"
     upstream:
-      - {id: PRD-001,  item: FR-003, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001,  item: FR-003, relation: satisfies, version: 3, hash: null}
       - {id: EPIC-001, item: DW-01,  relation: satisfies, version: 1, hash: null}
   - id: AC-03
     status: active
@@ -93,7 +93,7 @@ acceptance_criteria:
       - "reviewed_by is empty until the user reviews the document"
       - "no link hash is written"
     upstream:
-      - {id: PRD-001, item: FR-003, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001, item: FR-003, relation: satisfies, version: 3, hash: null}
   - id: AC-04
     status: active
     name: "Frameworks are pluggable"
@@ -106,7 +106,7 @@ acceptance_criteria:
       - "the document still uses only the brainstorm schema's collections and fields"
       - "adding the framework required no change to SKILL.md"
     upstream:
-      - {id: PRD-001,  item: FR-002, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001,  item: FR-002, relation: satisfies, version: 3, hash: null}
       - {id: EPIC-001, item: DW-02,  relation: satisfies, version: 1, hash: null}
   - id: AC-05
     status: active
@@ -118,7 +118,7 @@ acceptance_criteria:
     then:
       - "the brainstorm skill is not invoked"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 3, hash: null}
   - id: AC-06
     status: active
     name: "Asks for a missing topic"
@@ -130,7 +130,7 @@ acceptance_criteria:
       - "it asks the user for the topic"
       - "it writes no file until a topic is given"
     upstream:
-      - {id: PRD-001, item: FR-001, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001, item: FR-001, relation: satisfies, version: 3, hash: null}
   - id: AC-07
     status: active
     name: "Handoff names the PRD step and its input"
@@ -143,7 +143,7 @@ acceptance_criteria:
       - "if the PRD skill is not installed, it says the step is not yet available instead of naming a command that does not exist"
       - "it does not start writing a PRD itself"
     upstream:
-      - {id: PRD-001, item: FR-004, relation: satisfies, version: 2, hash: null}
+      - {id: PRD-001, item: FR-004, relation: satisfies, version: 3, hash: null}
 ```
 
 ## 5. Specification

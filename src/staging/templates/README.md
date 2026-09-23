@@ -75,8 +75,8 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 | brainstorm | `ideas` | `IDEA-NN` | `idea`, `addresses`, `value`, `effort`, `risk`, `score`, `disposition`, `reason` |
 | brainstorm, prd | `assumptions` | `ASM-NN` | `statement`, `validation`, `state` |
 | prd | `success_metrics` | `SM-NN` | `metric`, `baseline`, `target`, `measured_by` |
-| prd | `functional_requirements` | `FR-NNN` | `statement`, `priority`, `notes` |
-| prd | `non_functional_requirements` | `NFR-NNN` | `category`, `statement` |
+| prd | `functional_requirements` | `FR-NNN` | `statement`, `priority`, `release`, `notes` |
+| prd | `non_functional_requirements` | `NFR-NNN` | `category`, `statement`, `priority`, `release` |
 | epic | `done_when` | `DW-NN` | `criterion`, `evidence_method` |
 | story | `acceptance_criteria` | `AC-NN` | `name`, `given`, `when`, `then` |
 | spec | `behaviors` | `BEH-NN` | `rule` |
@@ -323,8 +323,9 @@ framework's Rust CLI, `devforgeai`.
 
 `src/schemas/` contains one JSON Schema (draft 2020-12) per document type plus
 `common.schema.json` (ID patterns, dates, hash, relation vocabulary, link record).
-The shared frontmatter and item keys are copied into each type schema, so they must be
-changed in all seven. Regenerate the schemas rather than hand-editing them. A checker extracts each document into:
+The shared frontmatter and item keys are copied into each type schema, so a change to them
+must be made in every type schema. No schema generator exists in the repository yet: edit the
+JSON by hand, and validate a document of each affected type afterwards. A checker extracts each document into:
 
 ```json
 { "frontmatter": { ... }, "<collection>": [ ... ], "...": [ ... ] }
