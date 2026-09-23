@@ -70,7 +70,7 @@ acceptance_criteria:
       - "with no argument, it lists only BRNs with at least one promoted idea that no PRD item cites, and asks which to use"
       - "if no such BRN exists, it says so and writes nothing"
     upstream:
-      - {id: PRD-001, item: FR-005, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001, item: FR-005, relation: satisfies, version: 7, hash: null}
   - id: AC-02
     status: active
     name: "PRD requirements trace to promoted ideas"
@@ -84,7 +84,7 @@ acceptance_criteria:
       - "every functional requirement has an upstream derives link to a promoted idea of that BRN"
       - "no open, parked or rejected idea is cited anywhere in the PRD"
     upstream:
-      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 7, hash: null}
       - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 3, hash: null}
   - id: AC-03
     status: active
@@ -98,7 +98,7 @@ acceptance_criteria:
       - "gaps the user did not answer are [NEEDS CLARIFICATION] markers, not guesses"
       - "a new PRD is written with status draft; the skill never sets approved (extension status follows AC-06)"
     upstream:
-      - {id: PRD-001,  item: FR-003, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001,  item: FR-003, relation: satisfies, version: 7, hash: null}
       - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 3, hash: null}
   - id: AC-04
     status: active
@@ -115,7 +115,7 @@ acceptance_criteria:
       - "an open architecture decision becomes a [NEEDS ADR] marker naming the requirements it affects"
       - "it writes no architecture or design decision into the PRD"
     upstream:
-      - {id: PRD-001, item: FR-005, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001, item: FR-005, relation: satisfies, version: 7, hash: null}
   - id: AC-05
     status: active
     name: "Unusable input is handled"
@@ -127,7 +127,7 @@ acceptance_criteria:
       - "for a BRN that is not converged, it warns and continues only after the user confirms"
       - "for a BRN with no promoted idea, it stops, writes nothing, and points back to the brainstorm workflow"
     upstream:
-      - {id: PRD-001, item: FR-005, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001, item: FR-005, relation: satisfies, version: 7, hash: null}
   - id: AC-06
     status: active
     name: "New PRD or extension, decided by scope, ownership and lifecycle"
@@ -142,7 +142,7 @@ acceptance_criteria:
       - "extending an approved PRD returns it to in-review as an explicit, reviewable scope change"
       - "it tells the user that epics citing the extended PRD are now suspect links to re-review"
     upstream:
-      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 7, hash: null}
       - {id: EPIC-002, item: DW-02,  relation: satisfies, version: 3, hash: null}
   - id: AC-07
     status: active
@@ -156,7 +156,7 @@ acceptance_criteria:
       - "if the architecture skill is not installed, it says the step is done by hand with ADRs for now, instead of naming a command that does not exist"
       - "it does not start architecture work or write an epic itself"
     upstream:
-      - {id: PRD-001, item: FR-004, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001, item: FR-004, relation: satisfies, version: 7, hash: null}
   - id: AC-08
     status: active
     name: "Does not trigger on unrelated requests"
@@ -167,7 +167,7 @@ acceptance_criteria:
     then:
       - "the prd skill is not invoked"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 7, hash: null}
   - id: AC-09
     status: active
     name: "AI provenance is recorded"
@@ -179,7 +179,7 @@ acceptance_criteria:
       - "generated_by names the tool, the model and the session ID"
       - "reviewed_by is empty and every link hash is null"
     upstream:
-      - {id: PRD-001, item: FR-003, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001, item: FR-003, relation: satisfies, version: 7, hash: null}
   - id: AC-10
     status: active
     name: "Stage and operating context are independent, and production is never under-asked"
@@ -193,7 +193,7 @@ acceptance_criteria:
       - "each required category left unanswered becomes a [NEEDS CLARIFICATION] marker, not a placeholder requirement"
       - "when the operating context is unknown, it is treated as production for deciding which gaps to mark, and left null"
     upstream:
-      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 7, hash: null}
       - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 3, hash: null}
   - id: AC-11
     status: active
@@ -211,9 +211,9 @@ acceptance_criteria:
       - "each applied policy setting is an upstream link with the policy version, and the Change Log carries the resolution line, including defaults and local values"
       - "an invalid, contradictory or disallowed approved setting stops the skill before anything is written, naming the file, setting and rule"
     upstream:
-      - {id: PRD-001,  item: FR-006, relation: satisfies, version: 6, hash: null}
-      - {id: PRD-001,  item: FR-007, relation: satisfies, version: 6, hash: null}
-      - {id: PRD-001,  item: FR-008, relation: satisfies, version: 6, hash: null}
+      - {id: PRD-001,  item: FR-006, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001,  item: FR-007, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001,  item: FR-008, relation: satisfies, version: 7, hash: null}
       - {id: EPIC-003, item: DW-01,  relation: satisfies, version: 1, hash: null}
 ```
 

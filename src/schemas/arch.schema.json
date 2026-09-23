@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.devforgeai.local/sdd/brainstorm.schema.json",
-  "title": "brainstorm document (frontmatter plus item blocks)",
+  "$id": "https://schemas.devforgeai.local/sdd/arch.schema.json",
+  "title": "arch document (architecture description: components, architectural questions, evidence)",
   "type": "object",
   "required": [
     "frontmatter"
@@ -10,26 +10,29 @@
     "frontmatter": {
       "type": "object",
       "required": [
-        "id",
-        "type",
-        "title",
-        "status",
-        "version",
-        "created",
-        "updated",
-        "owner",
         "authors",
-        "upstream",
-        "supersedes",
+        "blocked_by",
+        "created",
+        "id",
+        "inspection_scope",
+        "outcome",
+        "owner",
+        "status",
         "superseded_by",
-        "blocked_by"
+        "supersedes",
+        "system",
+        "title",
+        "type",
+        "updated",
+        "upstream",
+        "version"
       ],
       "properties": {
         "id": {
           "$ref": "common.schema.json#/$defs/docId"
         },
         "type": {
-          "const": "brainstorm"
+          "const": "arch"
         },
         "title": {
           "type": "string"
@@ -37,8 +40,10 @@
         "status": {
           "enum": [
             "draft",
-            "converged",
-            "archived"
+            "in-review",
+            "approved",
+            "superseded",
+            "deprecated"
           ]
         },
         "version": {
@@ -120,34 +125,44 @@
             "pattern": "^(BRN|PRD|ARCH|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
           }
         },
-        "participants": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "outcome": {
+          "enum": [
+            "reuse",
+            "amend",
+            "create",
+            null
+          ],
+          "description": "Architecture Definition outcome for the PRD version examined; null until the user confirms it. Confirming the outcome never accepts the decisions inside."
         },
-        "sources": {
+        "system": {
+          "type": "string",
+          "description": "The system or product this architecture description covers"
+        },
+        "inspection_scope": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "description": "Components or directories the user named for read-only inspection"
         }
       },
       "additionalProperties": false
     },
-    "problems": {
+    "components": {
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "required": [
           "id",
-          "statement",
+          "name",
+          "responsibility",
           "status"
         ],
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^PRB-\\d{2}$"
+            "pattern": "^CMP-\\d{2}$"
           },
           "status": {
             "enum": [
@@ -168,127 +183,48 @@
           "upstream": {
             "$ref": "common.schema.json#/$defs/links"
           },
-          "statement": {
+          "name": {
             "type": "string"
           },
-          "who": {
+          "responsibility": {
             "type": "string"
           },
-          "evidence": {
-            "type": "string"
-          },
-          "severity": {
-            "enum": [
-              "high",
-              "medium",
-              "low"
-            ]
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "ideas": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "disposition",
-          "id",
-          "idea",
-          "status"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^IDEA-\\d{2}$"
-          },
-          "status": {
-            "enum": [
-              "active",
-              "deprecated"
-            ]
-          },
-          "superseded_by": {
-            "oneOf": [
-              {
-                "$ref": "common.schema.json#/$defs/itemId"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "upstream": {
-            "$ref": "common.schema.json#/$defs/links"
-          },
-          "idea": {
-            "type": "string"
-          },
-          "addresses": {
+          "owns_data": {
             "type": "array",
             "items": {
-              "type": "string",
-              "pattern": "^PRB-\\d{2}$"
+              "type": "string"
             }
           },
-          "value": {
-            "type": [
-              "string",
-              "null"
-            ]
+          "interacts_with": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
-          "effort": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "risk": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "score": {
-            "type": [
-              "number",
-              "string",
-              "null"
-            ]
-          },
-          "disposition": {
-            "enum": [
-              "open",
-              "promoted",
-              "parked",
-              "rejected"
-            ]
-          },
-          "reason": {
-            "type": [
-              "string",
-              "null"
-            ]
+          "deployment": {
+            "type": "string"
           }
-        },
-        "additionalProperties": false
+        }
       }
     },
-    "assumptions": {
+    "decisions": {
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "required": [
+          "blocking",
           "id",
+          "question",
+          "resolved_by",
           "state",
-          "statement",
-          "status"
+          "status",
+          "upstream"
         ],
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^ASM-\\d{2}$"
+            "pattern": "^DEC-\\d{2}$"
           },
           "status": {
             "enum": [
@@ -307,23 +243,134 @@
             ]
           },
           "upstream": {
-            "$ref": "common.schema.json#/$defs/links"
+            "$ref": "common.schema.json#/$defs/links",
+            "minItems": 1
           },
-          "statement": {
+          "question": {
             "type": "string"
           },
-          "validation": {
-            "type": "string"
+          "blocking": {
+            "type": "boolean",
+            "description": "true: epics for the affected requirements must wait until this question is resolved"
           },
           "state": {
             "enum": [
               "open",
-              "validated",
-              "invalidated"
+              "resolved"
+            ]
+          },
+          "resolved_by": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^(ADR-\\d{3}|POL-\\d{3}#SET-\\d{2})$"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
             ]
           }
         },
-        "additionalProperties": false
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "resolved"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "resolved_by": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "open"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "resolved_by": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "classification",
+          "finding",
+          "id",
+          "kind",
+          "source",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^EVD-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links"
+          },
+          "source": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "code",
+              "document",
+              "adr",
+              "policy",
+              "prd"
+            ]
+          },
+          "finding": {
+            "type": "string"
+          },
+          "classification": {
+            "enum": [
+              "observed",
+              "policy",
+              "decided"
+            ],
+            "description": "observed practice, approved policy, or an accepted decision: never conflated"
+          }
+        }
       }
     }
   },

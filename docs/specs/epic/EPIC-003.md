@@ -16,10 +16,10 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: FR-006, relation: refines, version: 6, hash: null}
-  - {id: PRD-001, item: FR-007, relation: refines, version: 6, hash: null}
-  - {id: PRD-001, item: FR-008, relation: refines, version: 6, hash: null}
-  - {id: PRD-001, item: FR-009, relation: refines, version: 6, hash: null}
+  - {id: PRD-001, item: FR-006, relation: refines, version: 7, hash: null}
+  - {id: PRD-001, item: FR-007, relation: refines, version: 7, hash: null}
+  - {id: PRD-001, item: FR-008, relation: refines, version: 7, hash: null}
+  - {id: PRD-001, item: FR-009, relation: refines, version: 7, hash: null}
   - {id: ADR-003, relation: informed_by, version: 2, hash: null, note: "proposed: the design this epic delivers"}
 supersedes: []
 superseded_by: null
