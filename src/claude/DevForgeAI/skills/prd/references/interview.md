@@ -15,7 +15,10 @@
 
 ## Stage and operating context
 
-Two independent fields. Record each only when the user stated or confirmed it.
+Two independent fields. Record each only when the user stated or confirmed it. A request that describes the
+product in the terms of exactly one definition below states that value, for example "real patients will book
+through it from day one" states `operating_context: production`. Never infer a value from the other field, from
+the BRN's ideas, or from how the product sounds; when the request doesn't describe it, it is unknown.
 
 **`stage`**: scope maturity. Controls interview depth.
 
@@ -121,11 +124,12 @@ One question per drafted FR (and per NFR drafted from the request), showing the 
 |---|---|---|
 | Must, now | `must` | `current` |
 | Should, now | `should` | `current` |
-| Later | PENDING-A12 | `later` |
-| Won't | `wont` | PENDING-A12 |
+| Later | `null` (only the release was decided) | `later` |
+| Won't | `wont` | `current` (an explicit exclusion from this release) |
 | "Decide later", or no answer | `null` | `null` |
 
-The user may edit the statement in "Other". For `prototype`, ask at capability level: one question may
+If the user means a requirement should never be built, they edit or drop it ("Other") instead of choosing
+Won't. The user may edit the statement in "Other". For `prototype`, ask at capability level: one question may
 cover several FRs of the same idea. For `evolution`, add one question on effects on existing behaviour.
 
 ## Round 4: quality and constraints

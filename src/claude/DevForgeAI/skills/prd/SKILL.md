@@ -47,13 +47,16 @@ non-interactively: which BRN (step 2), whether to continue with an unconverged B
 (step 4), and saving a draft when the user stops. For a gating question, first write everything the user
 needs to decide in your reply text (the list, the warning, the reasons), then ask with AskUserQuestion, or in
 plain text if it is unavailable, and **end your turn**. Write no file and create no directory until it is answered.
+A gate counts as answered only when the request answers that exact question (for example "extend PRD-001" or
+"continue even though BRN-001 is a draft"). "Proceed without questions" answers no gate.
 
 ### 1. Resolve policy (R1, R2)
 
 1. Read `${CLAUDE_SKILL_DIR}/references/policy.md` and `${CLAUDE_SKILL_DIR}/references/defaults.md`.
 2. Run R1: load `docs/specs/policy/POL-*.md`, skip and note draft or in-review documents, and validate every
-   approved one against the schema and semantic rules. On any violation, reply with the policy.md **Stop
-   message** and stop. Write nothing.
+   approved one against the schema and semantic rules. On a schema violation, an SV-01 to SV-04 violation or a
+   disallowed override, reply with the policy.md **Stop message** and stop. Write nothing. SV-05 to SV-07 never
+   stop the run: they skip or ignore, and are reported.
 3. Run R2: resolve `interview.max_calls` (the interview budget) and `architecture.mandated_platforms`, reading
    `.claude/devforgeai.local.md` if it exists. Note every ignored document and local entry for the resolution line.
 
@@ -61,7 +64,7 @@ plain text if it is unavailable, and **end your turn**. Write no file and create
 
 1. If `$ARGUMENTS` is a BRN ID, read `docs/specs/brainstorm/<ID>.md`. If it doesn't exist, say so, list the
    BRN IDs that do exist with their titles, and stop (ERR-01). If `$ARGUMENTS` is a path or anything else,
-   say that only a BRN ID is accepted, and list the BRNs.
+   say that only a BRN ID is accepted, list the BRNs, and stop. Write nothing.
 2. If it is empty, find the **unprocessed** BRNs (`brn-mapping.md`, Unprocessed BRNs). List each one with its
    ID, title and number of uncited promoted ideas, ask which to use, and end your turn. Ask even when only one
    is listed. Never pick one yourself.
@@ -79,7 +82,7 @@ plain text if it is unavailable, and **end your turn**. Write no file and create
 ### 4. Decide new PRD or extension
 
 1. Glob `docs/specs/prd/PRD-*.md`. If there is none, this is a new PRD.
-2. Otherwise follow `interview.md` (New PRD or extension): compare scope, ownership and lifecycle, state a
+2. Otherwise read `${CLAUDE_SKILL_DIR}/references/interview.md` and follow its New PRD or extension section: compare scope, ownership and lifecycle, state a
    recommendation with reasons for each, and ask. End your turn. Never default to extending, and never
    treat the existence of a PRD, or of only one, as a reason.
 3. **New PRD:** the ID is the highest `PRD-NNN` number plus one (`PRD-001` if none). The path is
@@ -96,7 +99,9 @@ section says. Each mandated platform from R2 becomes a constraint NFR citing its
 Before asking anything, draft the PRD in memory following `brn-mapping.md`: problems into section 2 with
 frontmatter `derives` links, each promoted idea into FRs starting "The system shall", assumptions with
 `derives` links, success signals into metrics. Add constraint NFRs from steps 5 and the request, following
-`interview.md` (Constraint or design). Cite shared constraints from other PRDs instead of copying them (BEH-15).
+`interview.md` (Constraint or design). Add an NFR in its category for every quality requirement the request
+states (for example "users must sign in" is security), with `priority` and `release` `null` unless the request
+gives them. Take stage and operating context from the request as `interview.md` (Stage and operating context) says. Cite shared constraints from other PRDs instead of copying them (BEH-15).
 
 ### 7. Interview for gaps (R3)
 
@@ -122,7 +127,8 @@ frontmatter `derives` links, each promoted idea into FRs starting "The system sh
 5. Frontmatter provenance: `generated_by.tool` `claude-code`, `generated_by.model` your current model ID,
    `generated_by.session` `${CLAUDE_SESSION_ID}`; `authors` the user's name and `claude-code`; `reviewed_by: []`;
    `approved_by: ""`, `approved_on: null`; every `hash: null`; `created` and `updated` today. Put the product
-   or release name in `title`. `owner` is the user's name, else the BRN's owner.
+   or release name in `title`. `owner` is the user's name, else the BRN's owner. If the user's name isn't
+   known, `authors` is the BRN owner's name (if any) and `claude-code`; never invent a name.
 6. Run R5: add the policy links, and end the new Change Log row's Change cell with the resolution line.
 7. **Extension:** edit the PRD in place as `interview.md` (New PRD or extension) says. Leave every existing
    item byte-identical. Keep `status` unless it was `approved` (then `in-review`, approval cleared).
@@ -172,7 +178,8 @@ batching of questions, and the classification of architecture context, which you
 - Content: the template `${CLAUDE_SKILL_DIR}/assets/prd.md`, filled in, with every heading kept; valid against the
   PRD schema as restated in `output-rules.md`.
 - Every FR `derives` from a promoted idea of the BRN. No open, parked or rejected idea is cited or named.
-- `stage`, `operating_context`, `priority` and `release` are `null` unless the user decided them.
+- `stage`, `operating_context`, `priority` and `release` are `null` unless the user decided them. `wont` with
+  `release: current` is an explicit exclusion from the current release; no epic is written for it.
 - Constraints are `category: constraint` NFRs; design is never a requirement. Open decisions are `[NEEDS ADR]` markers.
 - Applied policy settings are upstream links with the policy version; the Change Log row carries the resolution line.
 - `status` is `draft` (or `in-review` after extending an approved PRD), never `approved`. The BRN is never modified.

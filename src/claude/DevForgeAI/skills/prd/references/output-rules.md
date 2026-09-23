@@ -71,8 +71,8 @@ Which links go where:
 | BRN assumption | the ASM's `upstream` | `derives` |
 | accepted ADR that applies | frontmatter `upstream` | `constrains` |
 | another PRD's constraint or cross-cutting NFR (BEH-15) | frontmatter `upstream`, with `item` | `constrains` |
-| policy `architecture.mandated_platforms` setting | PENDING-A1 | `constrains` |
-| any other applied policy setting | frontmatter `upstream`, with `item: SET-NN` and the policy `version` | `informed_by` |
+| policy `architecture.mandated_platforms` setting | the `upstream` of the constraint NFR it produced, **never also in frontmatter** | `constrains` |
+| `interview.max_calls` or `quality.required_categories` setting that applied | frontmatter `upstream`, with `item: SET-NN` and the policy `version` | `informed_by` |
 
 Never cite an open, parked or rejected idea, anywhere: not in a link, not in prose, not as
 `IDEA-NN` text. Describe a parked or rejected idea in words when it becomes a non-goal. Never link a
@@ -153,6 +153,10 @@ constraint; otherwise it goes to open questions (see Markers).
 **Null decisions.** `stage`, `operating_context`, every `priority` and every `release` are `null` unless
 the user supplied or confirmed the value. A suggestion the user did not confirm is never written. A PRD
 with any of them `null` can't be approved; that is expected for a draft.
+
+**`priority: wont` with `release: current`** is an explicit exclusion from the current release ("won't have
+this time"). The current release delivers only `release: current` items with `must`, `should` or `could`.
+Downstream, no epic is written for a `wont` item.
 
 ## Markers
 

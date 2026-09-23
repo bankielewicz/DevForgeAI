@@ -119,8 +119,10 @@ the request says to proceed without questions), it stays unknown and `operating_
 ## R5. Record
 
 1. For each applied policy setting, add an upstream link carrying the policy's current `version`:
-   - `architecture.mandated_platforms`: `constrains`, placed as `output-rules.md` (Links) says;
-   - every other key: `informed_by`, in the frontmatter, for example
+   - `architecture.mandated_platforms`: `constrains`, on the `upstream` of the constraint NFR it produced,
+     never also in the frontmatter, for example `{id: POL-001, item: SET-01, relation: constrains, version: 3, hash: null}`;
+   - `interview.max_calls` and `quality.required_categories` (they govern how the PRD is produced): `informed_by`,
+     in the frontmatter, for example
      `{id: POL-001, item: SET-02, relation: informed_by, version: 3, hash: null}`.
 2. Never link a default, a local value, a deprecated setting, a not-applicable setting or an ignored document.
 3. Write the resolution line (below) into the Change Log row this run adds.

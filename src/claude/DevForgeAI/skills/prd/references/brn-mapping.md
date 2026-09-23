@@ -33,7 +33,7 @@ The BRN is `docs/specs/brainstorm/BRN-NNN.md`. Read it; never edit it.
 
 - FR statements describe **what** the system does for the user, not how. Split an idea into several FRs
   only where it holds separately testable capabilities (for example book, move, cancel).
-- The PRD's `owner` is the user's name if given, else the BRN's `owner`. Ask only in an interactive run.
+- The PRD's `owner` is the user's name if given, else the BRN's `owner`. Never invent a name.
 - `priority` and `release` stay `null` until the interview (BEH-05, BEH-06).
 - FR, NFR and SM numbering starts at `FR-001`, `NFR-001`, `SM-01`, `ASM-01` in a new PRD, and continues
   from the highest existing number when extending.
@@ -66,6 +66,7 @@ ideas:
 assumptions:
   - id: ASM-01
     statement: "Most patients will book online if it is available"
+    validation: "Share of bookings made online in the first month"
     state: open
 ```
 
