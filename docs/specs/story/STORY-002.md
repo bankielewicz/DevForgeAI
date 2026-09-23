@@ -2,8 +2,8 @@
 id: STORY-002
 type: story
 title: "Turn a brainstorm into a PRD"
-status: draft
-version: 6
+status: done
+version: 7
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -226,7 +226,7 @@ acceptance_criteria:
 - [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-002#AC-NN`)
 - [x] Skill files reviewed; commits reference `STORY-002`
 - [x] SPEC-002 items implemented, or explicitly deferred to a new story
-- [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
+- [x] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 Evidence (2026-09-23):
 - **Automated:** 20 prd eval cases, one per automated VER, each citing its AC in the case description. Full-plugin run
@@ -254,3 +254,4 @@ Evidence (2026-09-23):
 | 4 | 2026-09-23 | claude-code | AC-07: handoff goes to the architecture step (ADR-002) | AC-07 |
 | 5 | 2026-09-23 | claude-code | AC-11: policy resolved, applied and recorded (ADR-003) | AC-11 |
 | 6 | 2026-09-23 | claude-code | AC-11 follows ADR-003 v2: sequence, overrides, retired settings, local preferences, resolution line | AC-11 |
+| 7 | 2026-09-23 | claude-code | Status done: automated VER items scored at least 0.8 and manual VER-11, VER-12 and VER-23 recorded on PR #5; deferred gaps listed there; merged to main | status, Definition of Done |

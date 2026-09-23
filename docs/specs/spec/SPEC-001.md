@@ -2,7 +2,7 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: draft
+status: approved
 version: 6
 created: 2026-09-22
 updated: 2026-09-23
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-23
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 6, hash: null}
@@ -357,7 +357,7 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 
 ## 13. Open questions
 
-- [NEEDS CLARIFICATION: eval pass threshold — 0.8 is proposed in PRD-001#NFR-003]
+- Resolved: the eval pass threshold is 0.8, a DevForgeAI framework requirement (PRD-001#NFR-003; ADR-003 A2, accepted by Bryan 2026-09-23).
 
 ## Change Log
 
@@ -369,3 +369,4 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 | 4 | 2026-09-22 | claude-code | Handoff to the PRD workflow (BEH-10, VER-10), stable IDs (BEH-11), downstream contract, BEH-01 skips answered questions, schema not shipped in assets, framework source moved to src/staging/templates and src/schemas; links re-reviewed at PRD v2, STORY v2 | §5, §6, §9, §11 |
 | 5 | 2026-09-22 | claude-code | BRN path is ID-only: docs/specs/brainstorm/BRN-NNN.md, never a user-supplied name, topic kept in title (agreed with Bryan); VER-04 documents interim regex plus llm file grading, CLI NOT_RUN; links re-reviewed at STORY v3 | §4, BEH-02, ERR-03, VER-01, VER-04, VER-08 |
 | 6 | 2026-09-23 | claude-code | Handoff command takes the BRN ID, not the path, matching SPEC-002 §5; VER-10 updated now that the prd skill ships (found in the STORY-002 full-plugin eval, agreed with Bryan) | §5, BEH-10, VER-10 |
+| 6 | 2026-09-23 | Bryan | Approved; §13 eval-threshold question resolved by ADR-003 A2 | status, §13 |
