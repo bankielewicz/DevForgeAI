@@ -222,10 +222,22 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-002#AC-NN`)
-- [ ] Skill files reviewed; commits reference `STORY-002`
-- [ ] SPEC-002 items implemented, or explicitly deferred to a new story
+- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-002#AC-NN`)
+- [x] Skill files reviewed; commits reference `STORY-002`
+- [x] SPEC-002 items implemented, or explicitly deferred to a new story
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
+
+Evidence (2026-09-23):
+- **Automated:** 20 prd eval cases, one per automated VER, each citing its AC in the case description. Full-plugin run
+  `evals/results/2026-09-23T16-15-59-135Z`: 28/28 cases pass at the 0.8 threshold over 3 runs, mean Δ +0.57 against the
+  no-plugin baseline. The 8 brainstorm cases show no regression.
+- **Manual:** VER-11, VER-12 and VER-23 run by hand in scratch projects, all pass. The results are in the STORY-002 build
+  report.
+- **Review:** the skill was reviewed by the advisory `plugin-dev:skill-reviewer` and `plugin-validator` agents; human
+  review happens on the pull request. Every commit message references `STORY-002`.
+- **Last item open:** `blocked_by` is empty, but SPEC-002 §13 still has two `[NEEDS CLARIFICATION]` markers: PRD-001's
+  own stage (Bryan to decide), and the VER-04 fixture question. That fixture was written fresh, as the build brief
+  directs, so the second marker can be closed.
 
 ## 7. Open questions
 
