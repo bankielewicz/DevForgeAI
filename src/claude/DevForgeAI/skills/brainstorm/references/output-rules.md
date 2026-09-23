@@ -115,7 +115,7 @@ Unknowns are written as `[NEEDS CLARIFICATION: <question>]`, with the question f
 
 Read the written file back, then confirm each line:
 
-1. The file name is `BRN-NNN-<slug>.md` and matches the frontmatter `id`.
+1. The file is `docs/specs/brainstorm/BRN-NNN.md`, and `NNN` matches the frontmatter `id`.
 2. The frontmatter has only the allowed keys, with the types above.
 3. `generated_by` has non-empty `tool`, `model` and `session`, and no `${` text remains anywhere in the file.
    `reviewed_by` is `[]`. Every `hash` is `null`.

@@ -2,6 +2,6 @@
 type: regex
 target:
   source: file
-  path: docs/specs/brainstorms/BRN-001-onboarding-drop-off.md
+  path: docs/specs/brainstorm/BRN-001.md
 pattern: '(^|\n)reviewed_by:\s*\[\]'
 ---

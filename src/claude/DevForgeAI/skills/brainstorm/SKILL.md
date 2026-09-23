@@ -10,13 +10,13 @@ metadata:
 # Brainstorm
 
 Run a brainstorming session on one topic and write it as a BRN document,
-`docs/specs/brainstorms/BRN-NNN-<slug>.md`, that a PRD can cite item by item.
+`docs/specs/brainstorm/BRN-NNN.md`, that a PRD can cite item by item.
 
 ## Inputs
 
 - `$ARGUMENTS`: the topic. When it is empty, take the topic from the conversation. If there is
   none, ask for it (step 1).
-- `docs/specs/brainstorms/`: existing BRN files, read for ID allocation and duplicate topics.
+- `docs/specs/brainstorm/`: existing BRN files, read for ID allocation and duplicate topics.
 - `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`: the BRN template.
 - `${CLAUDE_SKILL_DIR}/references/frameworks/INDEX.md`: the framework catalog.
 - `${CLAUDE_SKILL_DIR}/references/output-rules.md`: the rules the written file must satisfy.
@@ -54,15 +54,15 @@ similar BRN exists (step 2). Both stop the session until they are answered, and 
 
 ### 2. Check existing BRNs and allocate the ID
 
-1. Glob `docs/specs/brainstorms/BRN-*.md`. Read the `title` of each match.
-2. If one covers the same or a closely similar topic (by title or slug, not only an exact match),
+1. Glob `docs/specs/brainstorm/BRN-*.md`. Read the `title` of each match.
+2. If one covers the same or a closely similar topic (judged by its `title`, not only an exact match),
    show its path and title, and ask: **extend it** (its `version` goes up by one, with a Change Log
    entry) **or create a new BRN**? End your turn and wait for the answer. Never overwrite a BRN, and
    never pick either option yourself.
-3. For a new BRN, take the highest `BRN-NNN` number found plus one, or `BRN-001` if there is none. Derive the
-   slug from the topic: lowercase, hyphenated, at most five words. If the user names the file, use that name,
-   provided it has this form and the allocated number. If `docs/specs/brainstorms/` is missing,
-   create it when you write the file (step 6), and tell the user it was created.
+3. For a new BRN, take the highest `BRN-NNN` number found plus one, or `BRN-001` if there is none. The file is
+   `docs/specs/brainstorm/BRN-NNN.md`: the ID only, with the topic in the document's `title`. Never ask for or
+   accept an output file name; if the user offers one, say the name is allocated automatically. If
+   `docs/specs/brainstorm/` is missing, create it when you write the file (step 6), and tell the user it was created.
 4. When extending, keep every existing item ID and its meaning. New items take the next free number in their
    collection. Retire an item with `status: deprecated`; never delete or renumber one, because PRD
    requirements cite these IDs.
@@ -152,12 +152,12 @@ If the user stops mid-session, ask whether to save what has been captured as a d
 - **Saving a draft** when the user stops early: ask (Stopping early).
 - **The owner**, when the conversation doesn't give it (step 6).
 
-You decide on your own: the framework (the user can override it), the BRN number and slug, the generated ideas,
+You decide on your own: the framework (the user can override it), the BRN number, the generated ideas,
 and the proposed ratings.
 
 ## Output contract
 
-- Path: `docs/specs/brainstorms/BRN-NNN-<slug>.md`, with the ID from step 2.
+- Path: `docs/specs/brainstorm/BRN-NNN.md`, with the ID from step 2. The topic is in `title`, not the file name.
 - Content: the template `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`, filled in, with every heading kept.
 - Item blocks: only `problems` (`PRB-NN`), `ideas` (`IDEA-NN`) and `assumptions` (`ASM-NN`), with the fields in
   `output-rules.md`. At least one problem and one idea.

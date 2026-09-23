@@ -2,8 +2,8 @@
 # Seeds an existing brainstorm on the same topic as the prompt.
 # The graders check that the SEED-MARKER line and version 1 survive the run.
 set -euo pipefail
-mkdir -p docs/specs/brainstorms
-cat > docs/specs/brainstorms/BRN-001-reduce-onboarding-drop-off.md <<'EOF'
+mkdir -p docs/specs/brainstorm
+cat > docs/specs/brainstorm/BRN-001.md <<'EOF'
 ---
 id: BRN-001
 type: brainstorm

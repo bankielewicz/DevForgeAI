@@ -1,5 +1,5 @@
 ---
 type: file_exists
-path: "docs/specs/brainstorms/*"
+path: "docs/specs/brainstorm/*"
 exists: false
 ---
