@@ -3,7 +3,7 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: draft
-version: 8
+version: 9
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -20,7 +20,7 @@ upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 6, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 6, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 6, hash: null}
-  - {id: ADR-001, relation: constrains, version: 3, hash: null}
+  - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-001, relation: informed_by, version: 6, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
@@ -252,7 +252,7 @@ errors:
   - id: ERR-06
     status: active
     condition: "Validation still fails after three fix attempts"
-    handling: "Stop, leave status draft, and list the remaining errors"
+    handling: "Stop, leave the PRD's status as it was before this write (draft for a new PRD, unchanged for an extension), and list the remaining errors"
     user_result: "The file path and the unresolved errors"
   - id: ERR-07
     status: active
@@ -261,7 +261,7 @@ errors:
     user_result: "Either a draft file or no file, as the user chose"
   - id: ERR-08
     status: active
-    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it)"
+    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local"
     handling: "Stop before writing anything. Name the policy file, the setting and the rule broken (schema or SV-NN). Never guess or fall back silently"
     user_result: "The policy error to fix; no PRD file"
 ```
@@ -515,8 +515,7 @@ verifications:
 ## 10. Rollout, migration and rollback
 
 The skill is new; removing its directory rolls it back. The schema change is additive (`stage`,
-`release`, nullable `priority`, the `constraint` category). The one existing PRD, PRD-001 (now v5), has
-already been updated with `null` values.
+`release`, nullable `priority`, the `constraint` category). The one existing PRD, PRD-001, has been updated; as of v6 its `stage` and `operating_context` are set (`mvp`, `internal`) and its release values remain `null`.
 
 ## 11. Implementation plan
 
@@ -547,8 +546,8 @@ already been updated with `null` values.
 
 - Resolved by ADR-002 (proposed): a system-architecture step sits between the PRD and epics and resolves [NEEDS ADR] markers; the prd skill hands off to it. Its skill is specified separately.
 - Resolved: the third stage value is `evolution` (Bryan, 2026-09-23).
-- [NEEDS CLARIFICATION: PRD-001's own stage, and release per requirement, are null for Bryan to decide]
-- [NEEDS CLARIFICATION: whether the VER-09 draft BRN from STORY-001's manual test becomes the not-converged fixture for VER-04, or the fixture is written fresh]
+- Resolved: PRD-001 v6 has `stage: mvp` and `operating_context: internal` (Bryan, 2026-09-23). Its per-requirement release values remain `null` for Bryan.
+- Resolved: the STORY-001 test draft was deleted (Bryan, 2026-09-23); VER-04 uses a fixture written fresh during STORY-002.
 
 ## Appendix A — Illustrative interview (design example, not an executed run)
 
@@ -599,3 +598,4 @@ its priority and release are decided.
 | 6 | 2026-09-23 | claude-code | ADR-003 v2: resolution sequence and resolution line (BEH-17), local preferences (BEH-18), ERR-08 names SV rules, precedence tests VER-18 to VER-23, verification status table; ADR-002 accepted (constrains); stale versions, limits and ranges reconciled | BEH-17, BEH-18, ERR-08, VER-11, VER-18 to VER-23, §9, §10, §11, Appendix A |
 | 7 | 2026-09-23 | claude-code | ADR-003 accepted (constrains); third stage value renamed evolution (Bryan) | frontmatter, §4, BEH-03, §13 |
 | 8 | 2026-09-23 | claude-code | Mandated-platform link on the constraint NFR only, process settings as frontmatter informed_by (BEH-16, BEH-17 R5, VER-15); round-3 answer mapping, and wont + current as an explicit exclusion the epic workflow never builds (BEH-05, §5). Found while building STORY-002, approved by Bryan | §5, BEH-05, BEH-16, BEH-17, VER-15 |
+| 9 | 2026-09-23 | claude-code | Housekeeping after STORY-002: ERR-06 status wording; ERR-08 covers any disallowed override (ADR-003 A4); stale §10 text; two resolved §13 markers; ADR-001 link at v4 | ERR-06, ERR-08, §10, §13 |

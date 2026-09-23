@@ -38,9 +38,10 @@ This is the second DevForgeAI skill. It consumes `docs/specs/brainstorm/BRN-NNN.
 the brainstorm skill (SPEC-001 §5, downstream contract).
 - **Input selection** was stated by Bryan: an explicit `BRN-NNN` argument, or a scan for BRNs not yet
   turned into requirements, followed by a question.
-- **Stage and scoping.** Delivery stage (prototype, MVP or production) and per-requirement scoping
-  (MVP vs later) are part of the PRD.
-- **Architecture** enters only as constraints.
+- **Stage and scoping.** Scope maturity (`stage`: prototype, mvp or evolution), who uses the product
+  (`operating_context`), and per-requirement scoping (`release`: current or later) are part of the PRD.
+- **Architecture** is read and classified (commitments, constraints, preferences, open decisions), never
+  designed in the PRD (SPEC-002 BEH-16).
 - **Evals are non-interactive.** No user is present, so every decision must stay visibly open (`null`)
   unless the prompt supplies it.
 

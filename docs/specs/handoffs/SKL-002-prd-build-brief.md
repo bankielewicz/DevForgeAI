@@ -23,9 +23,11 @@ The session checks these and **stops if any is missing**:
    ```bash
    git worktree add .claude/worktrees/story-002-prd -b story/STORY-002-prd main
    W=.claude/worktrees/story-002-prd
-   test -z "$(find $W/src/claude/DevForgeAI -type l)" \
-     && mkdir -p $W/.claude/skills/devforgeai \
-     && rsync -a --delete --exclude=/evals/results/ $W/src/claude/DevForgeAI/ $W/.claude/skills/devforgeai/
+   [ -d "$W/src/claude/DevForgeAI" ] \
+     && test -z "$(find "$W/src/claude/DevForgeAI" -type l)" \
+     && mkdir -p "$W/.claude/skills/devforgeai" \
+     && rsync -a --delete --exclude=/evals/results/ "$W/src/claude/DevForgeAI/" "$W/.claude/skills/devforgeai/" \
+     && diff -r -x results "$W/src/claude/DevForgeAI" "$W/.claude/skills/devforgeai" && echo deployed
    claude --worktree story-002-prd -n story-002-prd
    ```
    The plugin already contains the brainstorm skill, so deploying **before** starting the session matters.
@@ -119,7 +121,8 @@ From the **worktree root**, as in ADR-001 steps 2, 4 and 5:
 
 ```bash
 # deploy (after every change to src/)
-test -z "$(find src/claude/DevForgeAI -type l)" \
+[ -d src/claude/DevForgeAI ] \
+  && test -z "$(find src/claude/DevForgeAI -type l)" \
   && mkdir -p .claude/skills/devforgeai \
   && rsync -a --delete --exclude=/evals/results/ src/claude/DevForgeAI/ .claude/skills/devforgeai/
 
