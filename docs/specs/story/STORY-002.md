@@ -3,7 +3,7 @@ id: STORY-002
 type: story
 title: "Turn a brainstorm into a PRD"
 status: draft
-version: 1
+version: 2
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -127,14 +127,16 @@ acceptance_criteria:
       - {id: PRD-001, item: FR-005, relation: satisfies, version: 3, hash: null}
   - id: AC-06
     status: active
-    name: "New PRD or extension of an existing one"
+    name: "New PRD or extension, decided by scope, ownership and lifecycle"
     given:
       - "one or more existing PRDs"
     when:
       - "the skill is about to write"
     then:
-      - "it asks whether to create a new PRD or extend a named existing one"
+      - "it recommends a new PRD or extending a named one, giving its reasons in terms of scope, owner and lifecycle, and the user decides"
+      - "the existence of a PRD, even a single one for the same product, is never on its own a reason to extend it"
       - "extending bumps the version, continues item numbering, keeps every existing item unchanged, and adds a Change Log entry"
+      - "extending an approved PRD returns it to in-review as an explicit, reviewable scope change"
       - "it tells the user that epics citing the extended PRD are now suspect links to re-review"
     upstream:
       - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
@@ -197,3 +199,4 @@ acceptance_criteria:
 | Version | Date | Author | Change | AC affected |
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
+| 2 | 2026-09-23 | claude-code | AC-06: new vs extend decided by scope, ownership and lifecycle; approved PRDs re-enter review when extended (agreed with Bryan) | AC-06 |

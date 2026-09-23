@@ -188,7 +188,7 @@ downstream views (a PRD's epics, a story's specs and tests, a traceability matri
 | `refines` | EPIC → PRD item, STORY → EPIC | Narrows scope into a smaller deliverable |
 | `satisfies` | AC → FR/NFR/DW, QR → NFR | Demonstrates or meets that requirement |
 | `specifies` | SPEC → STORY | Defines how the story's AC will be met |
-| `constrains` | SPEC → NFR, SPEC → ADR | The spec must obey this constraint or decision |
+| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it |
 | `implements` | SKL → SPEC, TASK/commit → SPEC item | Realizes this specification or design element |
 | `verifies` | VER → AC, TEST → AC/VER | Planned or actual evidence for this criterion |
 | `supersedes` | any → same type | Replaces an earlier document or item |

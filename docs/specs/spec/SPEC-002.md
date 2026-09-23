@@ -3,7 +3,7 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: draft
-version: 1
+version: 2
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -16,7 +16,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: STORY-002, relation: specifies, version: 1, hash: null}
+  - {id: STORY-002, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 3, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 3, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 3, hash: null}
@@ -141,7 +141,7 @@ metadata:
   - PRD path `docs/specs/prd/PRD-NNN.md`, and stable FR, NFR and SM IDs (BEH-09 extends without renumbering).
   - `release: current` marks what the current release must deliver. `null` values are open decisions
     that the epic skill must not treat as decided.
-  - `status` stays `draft` until the user approves it.
+  - `status` stays `draft` until the user approves it. An approved PRD is a scope baseline; widening it goes through an extension that returns it to `in-review` (BEH-09).
   - Epics cite PRD items with `refines` links such as `{id: PRD-001, item: FR-004, relation: refines}`.
 
 ## 6. Behavior
@@ -168,13 +168,16 @@ behaviors:
     rule: "Write stage, priority and release only when the user supplied or confirmed them. Otherwise write null. Questions may suggest a value, but a suggestion is never written unconfirmed. Mark any other unanswered gap [NEEDS CLARIFICATION]. Always write status draft. Never set approved."
   - id: BEH-07
     status: active
-    rule: "Record fixed external conditions (mandated platforms, required integrations, data residency, existing systems, regulatory mandates) as NFR items with category constraint, stated as the condition and not as a design. When the user offers a design preference (for example an architecture style or a framework), ask whether it is a hard constraint. If it is, record it as a constraint. If not, list it under open questions as a design decision for a future ADR, and never as a requirement."
+    rule: "Record fixed external conditions (mandated platforms, required integrations, data residency, existing systems, regulatory mandates) as NFR items with category constraint, stated as the condition and not as a design, with where it applies (the whole product, a named capability or an environment). When the user offers a design preference (for example an architecture style or a framework), ask whether it is a hard constraint. If it is, record it as a constraint. If not, list it under open questions as a design decision for a future ADR, and never as a requirement."
   - id: BEH-08
     status: active
     rule: "For a new PRD, allocate the ID by scanning docs/specs/prd/ for PRD-NNN.md files and using the highest number plus one (PRD-001 if none). Write to docs/specs/prd/PRD-NNN.md, creating the directory if it is missing. Never ask for or accept a file name. Put the product or release name in the title."
   - id: BEH-09
     status: active
-    rule: "If any PRD exists, ask whether to create a new PRD or extend an existing one, listing the PRD IDs and titles. To extend: raise the version by one and update the date; give new items the next free number in each collection; leave every existing item unchanged; add a Change Log entry; add the new BRN links. Then tell the user that epics citing this PRD are now suspect links to re-review."
+    rule: "Decide new versus extend on scope, ownership and lifecycle, never on product identity or the number of existing PRDs. Read each existing PRD's title, goals, non-goals, owner, status and target_release. Recommend extending one only when the BRN's promoted ideas belong to that PRD's existing initiative and scope, share its owner, and fit its release lifecycle. Recommend a new PRD when they form a distinct initiative, have a different owner or approval path, or follow a different schedule, even within the same product. State the reasons and let the user decide. Ask when it is ambiguous; a single existing PRD is not evidence that it is the right destination. To extend: raise the version by one, update the date, give new items the next free number in each collection, leave every existing item unchanged, add a Change Log entry and add the new BRN links. If the PRD was approved, set status to in-review and clear approved_by and approved_on, so the scope change is reviewed explicitly. Then tell the user that epics citing this PRD are now suspect links to re-review."
+  - id: BEH-15
+    status: active
+    rule: "Don't copy a constraint or cross-cutting NFR that another PRD already defines. Cite it from its authoritative source with a frontmatter upstream link {id: PRD-NNN, item: NFR-NNN, relation: constrains}, and say in the PRD what it applies to. When the user states a new constraint, record where it applies in the statement: the whole product, a named capability, or an environment."
   - id: BEH-10
     status: active
     rule: "Fill the frontmatter provenance: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date."
@@ -277,7 +280,7 @@ verifications:
       - BEH-11
       - BEH-12
     upstream:
-      - {id: STORY-002, item: AC-02, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-02, relation: verifies, version: 2, hash: null}
   - id: VER-02
     status: active
     obligation: "With a prompt that gives the stage (prototype) but no priorities or releases and says to proceed without questions, the file has stage: prototype, only null priority and release values, and status draft. Eval case no-invented-decisions: regex on the file."
@@ -285,7 +288,7 @@ verifications:
     covers:
       - BEH-06
     upstream:
-      - {id: STORY-002, item: AC-03, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 2, hash: null}
   - id: VER-03
     status: active
     obligation: "With BRN-001 fully cited by an existing PRD-001 and BRN-002 not cited, '/devforgeai:prd' with no argument offers BRN-002 and not BRN-001, and writes no file. Eval case selects-unprocessed-brn: regex and llm on the reply, file_exists false for PRD-002.md."
@@ -293,7 +296,7 @@ verifications:
     covers:
       - BEH-01
     upstream:
-      - {id: STORY-002, item: AC-01, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-01, relation: verifies, version: 2, hash: null}
   - id: VER-04
     status: active
     obligation: "With a draft (not converged) BRN-001, the skill warns and, with no user to confirm, writes no PRD. Eval case warns-unconverged: llm on the reply, file_exists false."
@@ -301,7 +304,7 @@ verifications:
     covers:
       - ERR-02
     upstream:
-      - {id: STORY-002, item: AC-05, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-05, relation: verifies, version: 2, hash: null}
   - id: VER-05
     status: active
     obligation: "With a converged BRN-001 that has no promoted idea, the skill stops, writes no PRD and points to the brainstorm workflow. Eval case stops-without-promoted: regex on the reply for brainstorm, file_exists false."
@@ -309,15 +312,15 @@ verifications:
     covers:
       - ERR-03
     upstream:
-      - {id: STORY-002, item: AC-05, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-05, relation: verifies, version: 2, hash: null}
   - id: VER-06
     status: active
-    obligation: "With an existing PRD-001 and an unprocessed BRN-002, the skill asks whether to create a new PRD or extend PRD-001, and leaves PRD-001 unchanged. Eval case extend-or-new: llm on the reply, regex that PRD-001.md still has version: 1."
+    obligation: "Fixture: PRD-001 covers one initiative (for example onboarding recovery, with its own owner and target release). BRN-002 promotes ideas for a different initiative in the same product (for example account closure). The skill doesn't default to extending PRD-001: it recommends a new PRD with reasons about scope, ownership or lifecycle, asks the user, writes nothing without an answer, and leaves PRD-001 unchanged. Eval case extend-or-new: llm on the reply, regex that PRD-001.md still has version: 1, file_exists false for PRD-002.md."
     level: e2e
     covers:
       - BEH-09
     upstream:
-      - {id: STORY-002, item: AC-06, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 2, hash: null}
   - id: VER-07
     status: active
     obligation: "After writing the PRD, the final reply names the epic workflow as the next step with the PRD ID. This plugin has no epic skill, so the reply says the step does not exist yet and names no runnable command. Eval case hands-off-to-epic: regex on last_message."
@@ -325,7 +328,7 @@ verifications:
     covers:
       - BEH-13
     upstream:
-      - {id: STORY-002, item: AC-07, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-07, relation: verifies, version: 2, hash: null}
   - id: VER-08
     status: active
     obligation: "A request such as 'open a PR for my staged changes and write its description' does not invoke the prd skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -334,7 +337,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-002, item: AC-08, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-08, relation: verifies, version: 2, hash: null}
   - id: VER-09
     status: active
     obligation: "The written PRD's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
@@ -342,7 +345,7 @@ verifications:
     covers:
       - BEH-10
     upstream:
-      - {id: STORY-002, item: AC-09, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-09, relation: verifies, version: 2, hash: null}
   - id: VER-10
     status: active
     obligation: "A prompt stating 'it must run on AWS and must integrate with Stripe; I'm leaning towards microservices', with instructions to proceed without questions, yields constraint NFRs for AWS and Stripe, and no requirement or constraint about microservices. Eval case constraints-not-design: regex on the file for category: constraint, llm on the file for the microservices rule."
@@ -350,7 +353,7 @@ verifications:
     covers:
       - BEH-07
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 2, hash: null}
   - id: VER-11
     status: active
     obligation: "In an interactive session with a BRN that already names the users and a request that states the stage: no question repeats either answer, every batch has at most four questions, and the NFR categories asked match the stated stage. Stopping mid-interview offers a draft save."
@@ -360,21 +363,22 @@ verifications:
       - BEH-05
       - ERR-07
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 2, hash: null}
   - id: VER-12
     status: active
-    obligation: "Manual extension run: extending PRD-001 from a second BRN raises the version, continues numbering, leaves existing items byte-identical, adds a Change Log entry and warns about suspect epics. git diff shows no change to any BRN. Also check that an unknown BRN ID lists the available BRNs, that a malformed BRN stops with the failing block named, and that SKILL.md is within the NFR-001 limits."
+    obligation: "Manual extension run: extending PRD-001 from a second BRN of the same initiative raises the version, continues numbering, leaves existing items byte-identical, adds a Change Log entry and warns about suspect epics. With PRD-001 approved beforehand, the extension returns it to in-review and clears the approval. git diff shows no change to any BRN. A new PRD that shares a constraint with PRD-001 cites it with a constrains link, not a copy. Also check that an unknown BRN ID lists the available BRNs, that a malformed BRN stops with the failing block named, and that SKILL.md is within the NFR-001 limits."
     level: manual
     covers:
       - BEH-09
       - BEH-14
+      - BEH-15
       - ERR-01
       - ERR-04
       - ERR-05
       - ERR-06
       - QR-01
     upstream:
-      - {id: STORY-002, item: AC-06, relation: verifies, version: 1, hash: null}
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 2, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -404,6 +408,7 @@ already been updated with `null` values.
 | Let the skill assign priority and release | These are scope decisions (PRD-001 FR-003). Required non-null fields would force the AI to decide whenever no user is present, as in evals |
 | One question per interaction | Too slow for a whole PRD. Batches of up to four follow the AskUserQuestion limits |
 | Ask the full question bank every time | Repeats what the BRN already answers. The draft-first approach (BEH-04) asks only for gaps |
+| One living PRD per product, extended by every brainstorm | Product identity and change scope differ. Initiatives in one product can have different owners, outcomes, schedules and approvals. An ever-growing PRD also flags every child as suspect on any change, until item-level hashes exist. New versus extend is decided per BEH-09; shared constraints are cited, not copied (BEH-15) |
 | Name the item field `scope: mvp` | "mvp" would mean two things: a stage and a release. `release: current \| later` is relative to `target_release` |
 
 ## 13. Open questions
@@ -417,3 +422,4 @@ already been updated with `null` values.
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
+| 2 | 2026-09-23 | claude-code | New vs extend by scope, ownership and lifecycle; approved PRDs re-enter review when extended; shared constraints cited, not copied (agreed with Bryan) | BEH-07, BEH-09, BEH-15, VER-06, VER-12, §5, §12 |
