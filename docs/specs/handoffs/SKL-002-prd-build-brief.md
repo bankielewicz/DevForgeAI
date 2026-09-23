@@ -5,8 +5,8 @@ context from earlier conversations. `CLAUDE.md` applies.
 
 | | |
 |---|---|
-| Implements | `docs/specs/spec/SPEC-002.md` (version 1) |
-| Story | `docs/specs/story/STORY-002.md` (version 1) |
+| Implements | `docs/specs/spec/SPEC-002.md` (version 2) |
+| Story | `docs/specs/story/STORY-002.md` (version 2) |
 | Build and validation process | `docs/specs/adr/ADR-001.md` (accepted, version 3) |
 | Consumes | BRNs written by the brainstorm skill (SPEC-001 §5, downstream contract) |
 | Branch / worktree | `story/STORY-002-prd` / `.claude/worktrees/story-002-prd` |
@@ -42,7 +42,7 @@ SPEC-002 already settles the design, and both tools conflict with ADR-001. You m
 
 ## 2. Read in this order
 
-1. SPEC-002, which is authoritative: BEH-01…14, ERR-01…07, QR-01…03, VER-01…12, the data model and
+1. SPEC-002, which is authoritative: BEH-01…15, ERR-01…07, QR-01…03, VER-01…12, the data model and
    mapping in §4, and the frontmatter and downstream contract in §5.
 2. STORY-002: AC-01…09.
 3. ADR-001: the layout, commands and rules.
@@ -62,11 +62,11 @@ All deliverables go under `src/claude/DevForgeAI/`:
 
 | Path | Content | Implements |
 |---|---|---|
-| `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…14, ERR-01…07, QR-01, QR-02 |
-| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 1, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
+| `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…15, ERR-01…07, QR-01, QR-02 |
+| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 2, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
 | `skills/prd/assets/prd.md` | **Moved** with `git mv src/staging/templates/prd.md …`. Then update the prd row's link in `src/staging/templates/README.md` | BEH-11 |
 | `skills/prd/references/brn-mapping.md` | The §4 mapping, with a short worked example: BRN items in, PRD items with `upstream` links out | BEH-02, BEH-04 |
-| `skills/prd/references/interview.md` | The question bank for each round (framing, requirements, quality and constraints, metrics), which NFR categories each stage asks, the batching limits (4 per call, 5 calls), and the constraint-vs-design rule | BEH-03, BEH-05, BEH-07 |
+| `skills/prd/references/interview.md` | The question bank for each round (framing, requirements, quality and constraints, metrics), which NFR categories each stage asks, the batching limits (4 per call, 5 calls), the constraint-vs-design rule, and the new-vs-extend criteria (scope, ownership, lifecycle) | BEH-03, BEH-05, BEH-07, BEH-09, BEH-15 |
 | `skills/prd/references/output-rules.md` | PRD item-block rules, including `stage`, `priority` and `release` as `null` until decided, and the `constraint` category | BEH-12 |
 | `evals/prd/<case>/` | One case per automated VER (table below), each with its fixture files and `case.yaml` scaffold | QR-03 |
 
@@ -79,7 +79,7 @@ Eval cases. Each is tagged `prd` plus the tag shown:
 | `selects-unprocessed-brn` | `ver-03` | AC-01 | BRN-001 fully cited by PRD-001; BRN-002 not cited |
 | `warns-unconverged` | `ver-04` | AC-05 | Draft BRN-001 with ideas still open |
 | `stops-without-promoted` | `ver-05` | AC-05 | Converged BRN-001 with no promoted idea |
-| `extend-or-new` | `ver-06` | AC-06 | PRD-001 (version 1) and an uncited BRN-002 |
+| `extend-or-new` | `ver-06` | AC-06 | PRD-001 (version 1) for one initiative with its own owner and release, and an uncited BRN-002 for a *different* initiative in the same product. The skill must not default to extending |
 | `hands-off-to-epic` | `ver-07` | AC-07 | Converged BRN-001 |
 | `ignores-unrelated-request` | `ver-08` | AC-08 | None. The prompt asks to open a pull request |
 | `records-provenance` | `ver-09` | AC-09 | Converged BRN-001 |
