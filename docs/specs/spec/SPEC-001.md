@@ -3,9 +3,9 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: draft
-version: 5
+version: 6
 created: 2026-09-22
-updated: 2026-09-22
+updated: 2026-09-23
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -119,7 +119,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ```
 
 - **Arguments:** `$ARGUMENTS` is the topic, and may be empty (BEH-01).
@@ -166,7 +166,7 @@ behaviors:
     rule: "Validate after writing. If the devforgeai CLI is on PATH, run devforgeai check --json on the file and fix what it reports. Otherwise check against references/output-rules.md: frontmatter keys, ID patterns, quoted free text, one top-level key per item block, no leftover placeholders. Repeat until clean, at most three attempts."
   - id: BEH-10
     status: active
-    rule: "Hand off with counts of problems, ideas and assumptions, the ideas promoted, the open questions and the BRN file path. Then name the next workflow step: if ${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md exists, tell the user to run /devforgeai:prd with the BRN path; otherwise say the PRD workflow (planned as /devforgeai:prd) is not built yet and that this BRN is its input. Never start writing a PRD."
+    rule: "Hand off with counts of problems, ideas and assumptions, the ideas promoted, the open questions and the BRN file path. Then name the next workflow step: if ${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md exists, tell the user to run /devforgeai:prd with the BRN ID (for example /devforgeai:prd BRN-001; the prd skill takes an ID, never a path, per SPEC-002 §5) and give the BRN path as its input; otherwise say the PRD workflow (planned as /devforgeai:prd) is not built yet and that this BRN is its input. Never start writing a PRD."
   - id: BEH-11
     status: active
     rule: "When extending an existing BRN, keep every existing item ID and its meaning. Give new items the next free number in their collection. Retire an item by setting status deprecated, never by deleting or renumbering it, because PRD requirements cite these IDs."
@@ -321,7 +321,7 @@ verifications:
       - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
   - id: VER-10
     status: active
-    obligation: "After writing the BRN, the final reply names the PRD workflow as the next step with the BRN path. In the MVP plugin, which has no prd skill, it says the step is not yet available and names no runnable command. Eval case hands-off-to-prd: regex on last_message for the BRN path and for 'not yet available' or equivalent, llm rubric."
+    obligation: "After writing the BRN, the final reply names the PRD workflow as the next step with the BRN path. The plugin ships the prd skill, so the reply tells the user to run /devforgeai:prd with the BRN ID and never passes a file path to it. Eval case hands-off-to-prd: regex on last_message for the BRN path, for '/devforgeai:prd BRN-001', and for the absence of a path argument; llm rubric. The not-yet-built branch of BEH-10 can no longer be exercised in this plugin and is not covered by an eval."
     level: e2e
     covers:
       - BEH-10
@@ -368,3 +368,4 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 | 3 | 2026-09-22 | claude-code | Layout and build steps follow ADR-001; plugin location resolved | frontmatter, §3, §11, §12, §13 |
 | 4 | 2026-09-22 | claude-code | Handoff to the PRD workflow (BEH-10, VER-10), stable IDs (BEH-11), downstream contract, BEH-01 skips answered questions, schema not shipped in assets, framework source moved to src/staging/templates and src/schemas; links re-reviewed at PRD v2, STORY v2 | §5, §6, §9, §11 |
 | 5 | 2026-09-22 | claude-code | BRN path is ID-only: docs/specs/brainstorm/BRN-NNN.md, never a user-supplied name, topic kept in title (agreed with Bryan); VER-04 documents interim regex plus llm file grading, CLI NOT_RUN; links re-reviewed at STORY v3 | §4, BEH-02, ERR-03, VER-01, VER-04, VER-08 |
+| 6 | 2026-09-23 | claude-code | Handoff command takes the BRN ID, not the path, matching SPEC-002 §5; VER-10 updated now that the prd skill ships (found in the STORY-002 full-plugin eval, agreed with Bryan) | §5, BEH-10, VER-10 |

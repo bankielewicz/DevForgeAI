@@ -1,5 +1,5 @@
 ---
-description: "VER-10 (STORY-001#AC-07): after writing the BRN, the reply names the PRD step as not yet available and gives the BRN path."
+description: "VER-10 (STORY-001#AC-07): after writing the BRN, the reply tells the user to run /devforgeai:prd BRN-001 and gives the BRN path as its input."
 tags: [brainstorm, ver-10]
 max_turns: 30
 timeout_seconds: 900
