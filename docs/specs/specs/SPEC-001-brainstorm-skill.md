@@ -3,7 +3,7 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: draft
-version: 4
+version: 5
 created: 2026-09-22
 updated: 2026-09-22
 owner: "Bryan"
@@ -16,7 +16,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: STORY-001, relation: specifies, version: 2, hash: null}
+  - {id: STORY-001, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 2, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 2, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 2, hash: null}
@@ -87,8 +87,8 @@ flowchart LR
 
 The skill has no database. It has two data contracts:
 
-**Output: the BRN document.** Written to `docs/specs/brainstorms/BRN-NNN-<slug>.md` from the brainstorm
-template. It must validate against `schemas/brainstorm.schema.json`. It uses only the
+**Output: the BRN document.** Written to `docs/specs/brainstorm/BRN-NNN.md` from the brainstorm
+template. The file name is the ID only; the topic lives in the document's `title`. It must validate against `schemas/brainstorm.schema.json`. It uses only the
 `problems`, `ideas` and `assumptions` collections and their defined fields.
 
 **Extension point: a framework reference.** Each file in `references/frameworks/` has these sections,
@@ -142,7 +142,7 @@ behaviors:
     rule: "Take the topic from $ARGUMENTS or the conversation. If there is none, ask for it and write nothing until it is given. Ask at most three clarifying questions (trigger, affected users, constraints) before diverging, and skip any question the request already answers. When the request says to proceed without questions, ask none. Record anything still unknown as [NEEDS CLARIFICATION] markers, not guesses."
   - id: BEH-02
     status: active
-    rule: "Allocate the ID by scanning docs/specs/brainstorms/ for BRN-NNN files and using the highest number plus one (BRN-001 if none). Create the directory if it is missing. Derive the slug from the topic: lowercase, hyphenated, at most five words."
+    rule: "Allocate the ID by scanning docs/specs/brainstorm/ for BRN-NNN.md files and using the highest number plus one (BRN-001 if none). Write the document to docs/specs/brainstorm/BRN-NNN.md. Never ask for or accept an output file name. Keep the descriptive topic in the title. Create the directory if it is missing."
   - id: BEH-03
     status: active
     rule: "Read references/frameworks/INDEX.md and choose the framework whose use-when criteria best fit the topic, or the one the user names. Use diverge-converge when nothing fits better. Tell the user which framework was chosen and why, and switch if they ask."
@@ -189,7 +189,7 @@ errors:
   - id: ERR-03
     status: active
     condition: "The project has no docs/specs/ directory"
-    handling: "Create docs/specs/brainstorms/ and state that this was done"
+    handling: "Create docs/specs/brainstorm/ and state that this was done"
     user_result: "The file path, and a note that the directory was created"
   - id: ERR-04
     status: active
@@ -237,7 +237,7 @@ VER-02 can check that nothing gets promoted.
 verifications:
   - id: VER-01
     status: active
-    obligation: "Asked to brainstorm a named topic in an empty workspace, the skill fires, creates docs/specs/brainstorms/BRN-001-<slug>.md containing problems and ideas item blocks, and hands off. Eval case writes-valid-brn: tool_used Skill, file_exists, regex on the file, llm rubric."
+    obligation: "Asked to brainstorm a named topic in an empty workspace, the skill fires, creates docs/specs/brainstorm/BRN-001.md containing problems and ideas item blocks, and hands off. Eval case writes-valid-brn: tool_used Skill, file_exists, regex on the file, llm rubric."
     level: e2e
     covers:
       - BEH-01
@@ -247,7 +247,7 @@ verifications:
       - BEH-09
       - ERR-03
     upstream:
-      - {id: STORY-001, item: AC-01, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
   - id: VER-02
     status: active
     obligation: "With no user present to confirm, no idea in the written file has disposition promoted, parked or rejected, and status is not converged. Eval case no-unconfirmed-dispositions: regex not_contains on the file."
@@ -255,7 +255,7 @@ verifications:
     covers:
       - BEH-06
     upstream:
-      - {id: STORY-001, item: AC-02, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 3, hash: null}
   - id: VER-03
     status: active
     obligation: "The written file's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
@@ -263,16 +263,16 @@ verifications:
     covers:
       - BEH-07
     upstream:
-      - {id: STORY-001, item: AC-03, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-03, relation: verifies, version: 3, hash: null}
   - id: VER-04
     status: active
-    obligation: "Asked to brainstorm with the diverge-converge framework, the skill names the framework and the file uses only schema collections and fields. Eval case uses-named-framework: llm rubric on the reply and the file."
+    obligation: "Asked to brainstorm with the diverge-converge framework, the skill names the framework in its reply, and the written file uses only the brainstorm schema's collections and fields and explains the selected method in section 5. Eval case uses-named-framework: an llm grader on the reply; on the file, regex graders and an llm grader. The regex graders are partial structural checks (allowed collection keys, one key per item block, field names from the combined brainstorm field list, framework named in section 5), not schema validation. The file llm grader receives the complete document and each collection's allowed fields separately, checks collection-specific fields and whether section 5 explains the selected method, and must cite the offending passage or field and the violated requirement when it fails. Interim until devforgeai check exists: CLI validation is recorded as NOT_RUN; the CLI will provide deterministic validation and the llm will continue to assess meaning and method quality."
     level: e2e
     covers:
       - BEH-03
       - BEH-04
     upstream:
-      - {id: STORY-001, item: AC-04, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 3, hash: null}
   - id: VER-05
     status: active
     obligation: "Adding a test framework file and index row, with SKILL.md unchanged, lets the skill select it; removing the file makes the skill fall back to the default and say so."
@@ -281,7 +281,7 @@ verifications:
       - BEH-03
       - ERR-04
     upstream:
-      - {id: STORY-001, item: AC-04, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 3, hash: null}
   - id: VER-06
     status: active
     obligation: "An unrelated request that mentions ideas (for example: review the ideas in this pull request description) does not invoke the skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -290,7 +290,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-001, item: AC-05, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-05, relation: verifies, version: 3, hash: null}
   - id: VER-07
     status: active
     obligation: "Invoked with no topic, the skill asks for one and creates no file. Eval case asks-for-topic: file_exists exists false, llm rubric."
@@ -298,17 +298,17 @@ verifications:
     covers:
       - BEH-01
     upstream:
-      - {id: STORY-001, item: AC-06, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 3, hash: null}
   - id: VER-08
     status: active
-    obligation: "With a BRN-001 on the same topic seeded by scaffold, the skill asks whether to extend it or create a new one, and does not overwrite it. Eval case existing-brn: scaffold, llm rubric, regex that BRN-001 is unchanged."
+    obligation: "With docs/specs/brainstorm/BRN-001.md on the same topic seeded by scaffold, the skill asks whether to extend it or create a new one, and does not overwrite it. Eval case existing-brn: scaffold, llm rubric, regex that BRN-001 is unchanged."
     level: e2e
     covers:
       - ERR-01
       - BEH-02
       - BEH-11
     upstream:
-      - {id: STORY-001, item: AC-01, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
   - id: VER-09
     status: active
     obligation: "Stopping mid-session offers a draft save; a document that cannot be fixed within three attempts is left as draft with the errors listed. SKILL.md is within the NFR-001 limits and its frontmatter validates."
@@ -318,7 +318,7 @@ verifications:
       - ERR-05
       - QR-01
     upstream:
-      - {id: STORY-001, item: AC-01, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
   - id: VER-10
     status: active
     obligation: "After writing the BRN, the final reply names the PRD workflow as the next step with the BRN path. In the MVP plugin, which has no prd skill, it says the step is not yet available and names no runnable command. Eval case hands-off-to-prd: regex on last_message for the BRN path and for 'not yet available' or equivalent, llm rubric."
@@ -326,7 +326,7 @@ verifications:
     covers:
       - BEH-10
     upstream:
-      - {id: STORY-001, item: AC-07, relation: verifies, version: 2, hash: null}
+      - {id: STORY-001, item: AC-07, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -367,3 +367,4 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 | 2 | 2026-09-22 | claude-code | Decision: templates live only in their skill's assets/; removed the sync question | §3, §11, §12, §13 |
 | 3 | 2026-09-22 | claude-code | Layout and build steps follow ADR-001; plugin location resolved | frontmatter, §3, §11, §12, §13 |
 | 4 | 2026-09-22 | claude-code | Handoff to the PRD workflow (BEH-10, VER-10), stable IDs (BEH-11), downstream contract, BEH-01 skips answered questions, schema not shipped in assets, framework source moved to src/staging/templates and src/schemas; links re-reviewed at PRD v2, STORY v2 | §5, §6, §9, §11 |
+| 5 | 2026-09-22 | claude-code | BRN path is ID-only: docs/specs/brainstorm/BRN-NNN.md, never a user-supplied name, topic kept in title (agreed with Bryan); VER-04 documents interim regex plus llm file grading, CLI NOT_RUN; links re-reviewed at STORY v3 | §4, BEH-02, ERR-03, VER-01, VER-04, VER-08 |

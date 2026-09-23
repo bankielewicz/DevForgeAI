@@ -104,7 +104,7 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 
 | Prefix | Artifact | File name | Status |
 |---|---|---|---|
-| `BRN-NNN` | Brainstorm | `brainstorms/BRN-NNN-<slug>.md` | templated |
+| `BRN-NNN` | Brainstorm | `brainstorm/BRN-NNN.md` | templated |
 | `PRD-NNN` | Product Requirements Document | `prd/PRD-NNN-<slug>.md` | templated |
 | `EPIC-NNN` | Epic | `epics/EPIC-NNN-<slug>.md` | templated |
 | `SPR-NNN` | Sprint | `sprints/SPR-NNN.md` | templated |
@@ -114,6 +114,8 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
+
+File names that a skill generates are ID-only, with the topic kept in the document's `title`. Brainstorms already follow this (the brainstorm skill allocates the ID and never takes a file name). ID-only names are the intended direction for the other skill-generated artifacts; their rows change when each skill is built.
 
 Item IDs are listed in 1.2. They are unique within their document.
 

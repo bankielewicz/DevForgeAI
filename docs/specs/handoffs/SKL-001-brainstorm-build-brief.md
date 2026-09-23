@@ -5,8 +5,8 @@ context from earlier conversations.
 
 | | |
 |---|---|
-| Implements | `docs/specs/specs/SPEC-001-brainstorm-skill.md` (version 4) |
-| Story | `docs/specs/stories/STORY-001-brainstorm-topic-into-brn.md` (version 2) |
+| Implements | `docs/specs/specs/SPEC-001-brainstorm-skill.md` (version 5) |
+| Story | `docs/specs/stories/STORY-001-brainstorm-topic-into-brn.md` (version 3) |
 | Build and validation process | `docs/specs/adr/ADR-001-worktree-skill-validation.md` (accepted, version 2) |
 | Branch / worktree | `story/STORY-001-brainstorm` / `.claude/worktrees/story-001-brainstorm` |
 | Produces | Plugin `devforgeai` with skill `brainstorm`, invoked as `/devforgeai:brainstorm` |
@@ -76,7 +76,7 @@ All deliverables go under `src/claude/DevForgeAI/`. The only other edit is one l
 |---|---|---|
 | `.claude-plugin/plugin.json` | `name: devforgeai`, `version: 0.1.0`, `description`, `author: {name: "Bryan"}` | ADR-001 |
 | `skills/brainstorm/SKILL.md` | Frontmatter exactly as in SPEC-001 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…11, ERR-01…05, QR-01, QR-02 |
-| `skills/brainstorm/provenance.yaml` | From the template: `id: SKL-001`, `upstream: [{id: SPEC-001, relation: implements, version: 4, hash: null}]`, `skill_name: brainstorm`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: brainstorm`, `status: draft`, `generated_by` filled in | QR-02 |
+| `skills/brainstorm/provenance.yaml` | From the template: `id: SKL-001`, `upstream: [{id: SPEC-001, relation: implements, version: 5, hash: null}]`, `skill_name: brainstorm`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: brainstorm`, `status: draft`, `generated_by` filled in | QR-02 |
 | `skills/brainstorm/assets/brainstorm.md` | **Moved** with `git mv src/staging/templates/brainstorm.md …`. Then update the brainstorm row's link in `src/staging/templates/README.md` to the new path | BEH-08 |
 | `skills/brainstorm/references/output-rules.md` | The rules the skill self-checks against when `devforgeai` isn't installed: frontmatter keys, ID patterns, quoting, one top-level key per `yaml items` block, allowed collections and fields, no leftover placeholders. Taken from templates README §1.1–§1.2 and `brainstorm.schema.json` | BEH-09 |
 | `skills/brainstorm/references/frameworks/INDEX.md` | Table with columns *framework, file, use when, avoid when*, and one row: diverge-converge | BEH-03 |
@@ -91,11 +91,13 @@ Eval cases. Each is tagged `brainstorm` plus the tag shown:
 | `writes-valid-brn` | `ver-01` | AC-01 | The prompt gives the topic, trigger, users and constraints, and says to proceed without questions |
 | `no-unconfirmed-dispositions` | `ver-02` | AC-02 | Regex `not_contains` on the written file for `disposition: promoted`, `parked` and `rejected` |
 | `records-provenance` | `ver-03` | AC-03 | Regex on the file for `generated_by`, `reviewed_by: []` and `hash: null` |
-| `uses-named-framework` | `ver-04` | AC-04 | The prompt names diverge-converge; an llm grader checks the reply and the file |
+| `uses-named-framework` | `ver-04` | AC-04 | The prompt names diverge-converge. An llm grader checks the reply. On `docs/specs/brainstorm/BRN-001.md`: regex graders (partial structural checks, not schema validation) and an llm grader given the complete document and each collection's allowed fields. CLI validation is NOT_RUN until `devforgeai check` exists |
 | `ignores-unrelated-request` | `ver-06` | AC-05 | `tool_used: Skill`, `min: 0`, `max: 0`, `arm: both` |
 | `asks-for-topic` | `ver-07` | AC-06 | No topic given; `file_exists` with `exists: false`; llm grader |
-| `existing-brn` | `ver-08` | AC-01 | `case.yaml` scaffold creates `docs/specs/brainstorms/BRN-001-<same topic>.md`; the skill must ask, not overwrite |
+| `existing-brn` | `ver-08` | AC-01 | `case.yaml` scaffold creates `docs/specs/brainstorm/BRN-001.md` on the same topic; the skill must ask, not overwrite |
 | `hands-off-to-prd` | `ver-10` | AC-07 | This plugin has no `prd` skill, so the reply must say the PRD step isn't available yet and give the BRN path |
+
+**Amended 2026-09-22 (SPEC-001 v5, STORY-001 v3):** BRN documents are written to `docs/specs/brainstorm/BRN-NNN.md`. The skill allocates the ID itself and never asks for or accepts a file name, so eval prompts name no file and graders read `docs/specs/brainstorm/BRN-001.md` directly.
 
 **Eval constraints** (from the `claude plugin eval` documentation):
 - Each run is non-interactive and starts in an empty workspace. No user answers questions, so put
