@@ -21,7 +21,9 @@ supersedes: []
 superseded_by: null
 blocked_by: []
 # --- prd-specific ---
-target_release: ""
+target_release: ""     # name of the release "current" items belong to, e.g. "MVP"
+stage: null            # prototype | mvp | evolution (scope maturity); null until the user decides
+operating_context: null  # local | internal | pilot | production (who uses it, with what data); null until decided
 stakeholders: []
 ---
 
@@ -69,14 +71,17 @@ success_metrics:
 ## 6. Functional requirements
 
 <!-- One testable capability per item. Use "shall". Every item needs an upstream link.
-     priority: must | should | could | wont (MoSCoW). -->
+     priority: must | should | could | wont (MoSCoW importance within its release).
+     release: current (this PRD's target_release) | later (backlog).
+     Both stay null until the user decides; a PRD can't be approved while any is null. -->
 
 ```yaml items
 functional_requirements:
   - id: FR-001
     status: active
     statement: "The system shall <capability>."
-    priority: must
+    priority: null            # must | should | could | wont
+    release: null             # current | later
     notes: null
     upstream:
       - {id: BRN-000, item: IDEA-01, relation: derives, version: 1, hash: null}
@@ -85,7 +90,9 @@ functional_requirements:
 ## 7. Non-functional requirements
 
 <!-- Make each one measurable. category: performance | security | privacy | accessibility |
-     reliability | compliance | observability | usability | maintainability | other -->
+     reliability | compliance | observability | usability | maintainability | constraint | other
+     "constraint" records a fixed external condition (mandated platform, integration, data
+     residency, existing system). It never records a design choice: those go in an ADR or spec. -->
 
 ```yaml items
 non_functional_requirements:
@@ -93,6 +100,8 @@ non_functional_requirements:
     status: active
     category: performance
     statement: "<p95 latency < N ms at M requests/s>"
+    priority: null
+    release: null
     upstream:
       - {id: BRN-000, item: PRB-01, relation: derives, version: 1, hash: null}
 ```
@@ -103,7 +112,8 @@ non_functional_requirements:
 
 ## 9. Constraints and dependencies
 
-<!-- Prose: external dependencies, regulatory constraints, owning teams. -->
+<!-- Prose context only. Each constraint that a spec must obey is an NFR item with
+     category: constraint (section 7), so specs can cite it. -->
 
 ## 10. Assumptions and risks
 

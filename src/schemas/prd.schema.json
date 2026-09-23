@@ -10,19 +10,21 @@
     "frontmatter": {
       "type": "object",
       "required": [
-        "id",
-        "type",
-        "title",
-        "status",
-        "version",
-        "created",
-        "updated",
-        "owner",
         "authors",
-        "upstream",
-        "supersedes",
+        "blocked_by",
+        "created",
+        "id",
+        "operating_context",
+        "owner",
+        "stage",
+        "status",
         "superseded_by",
-        "blocked_by"
+        "supersedes",
+        "title",
+        "type",
+        "updated",
+        "upstream",
+        "version"
       ],
       "properties": {
         "id": {
@@ -119,7 +121,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
           }
         },
         "target_release": {
@@ -130,6 +132,25 @@
           "items": {
             "type": "string"
           }
+        },
+        "stage": {
+          "enum": [
+            "prototype",
+            "mvp",
+            "evolution",
+            null
+          ],
+          "description": "Scope maturity: prototype (exploratory, may be discarded), mvp (smallest scope that delivers value to real users and is built upon), evolution (changes an established product: new capability, maintenance, migration or refactoring). null until the user decides. Controls interview depth."
+        },
+        "operating_context": {
+          "enum": [
+            "local",
+            "internal",
+            "pilot",
+            "production",
+            null
+          ],
+          "description": "Who uses it and with what data: local (developers only, synthetic data), internal (own organization, may touch real internal data), pilot (limited real external users or real customer data), production (generally available to real users with real data). null until the user decides. Controls which quality categories must be asked."
         }
       },
       "additionalProperties": false
@@ -191,6 +212,7 @@
         "required": [
           "id",
           "priority",
+          "release",
           "statement",
           "status"
         ],
@@ -226,14 +248,24 @@
               "must",
               "should",
               "could",
-              "wont"
-            ]
+              "wont",
+              null
+            ],
+            "description": "MoSCoW importance within its release. null until the user decides."
           },
           "notes": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "release": {
+            "enum": [
+              "current",
+              "later",
+              null
+            ],
+            "description": "Which release the item belongs to: current = this PRD's target_release, later = backlog. null until the user decides."
           }
         },
         "additionalProperties": false
@@ -246,6 +278,8 @@
         "required": [
           "category",
           "id",
+          "priority",
+          "release",
           "statement",
           "status"
         ],
@@ -284,11 +318,30 @@
               "observability",
               "usability",
               "maintainability",
+              "constraint",
               "other"
             ]
           },
           "statement": {
             "type": "string"
+          },
+          "priority": {
+            "enum": [
+              "must",
+              "should",
+              "could",
+              "wont",
+              null
+            ],
+            "description": "MoSCoW importance within its release. null until the user decides."
+          },
+          "release": {
+            "enum": [
+              "current",
+              "later",
+              null
+            ],
+            "description": "Which release the item belongs to: current = this PRD's target_release, later = backlog. null until the user decides."
           }
         },
         "additionalProperties": false

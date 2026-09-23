@@ -18,6 +18,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [story.md](story.md) | What exact behavior do we build next? | **Testable Given/When/Then AC (`AC-`)** |
 | [spec.md](spec.md) | How exactly will it be built and verified? | Verification obligations (`VER-`) that cover each AC |
 | [adr.md](adr.md) | Why did we choose this design? | None (records a decision) |
+| [policy.md](policy.md) | Which organizational rules and preferences apply? | None; settings consumed by workflows (ADR-003) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
 
 Arrows show the direction of refinement (upstream → downstream). `upstream`
@@ -75,14 +76,15 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 | brainstorm | `ideas` | `IDEA-NN` | `idea`, `addresses`, `value`, `effort`, `risk`, `score`, `disposition`, `reason` |
 | brainstorm, prd | `assumptions` | `ASM-NN` | `statement`, `validation`, `state` |
 | prd | `success_metrics` | `SM-NN` | `metric`, `baseline`, `target`, `measured_by` |
-| prd | `functional_requirements` | `FR-NNN` | `statement`, `priority`, `notes` |
-| prd | `non_functional_requirements` | `NFR-NNN` | `category`, `statement` |
+| prd | `functional_requirements` | `FR-NNN` | `statement`, `priority`, `release`, `notes` |
+| prd | `non_functional_requirements` | `NFR-NNN` | `category`, `statement`, `priority`, `release` |
 | epic | `done_when` | `DW-NN` | `criterion`, `evidence_method` |
 | story | `acceptance_criteria` | `AC-NN` | `name`, `given`, `when`, `then` |
 | spec | `behaviors` | `BEH-NN` | `rule` |
 | spec | `errors` | `ERR-NN` | `condition`, `handling`, `user_result` |
 | spec | `quality_responses` | `QR-NN` | `response`, `measured_by` |
 | spec | `verifications` | `VER-NN` | `obligation`, `level`, `covers` |
+| policy | `settings` | `SET-NN` | `key`, `class`, `value`, `applies_when`, `overridable_by`, `rationale` |
 | sprint | `scope_changes` | (none) | `date`, `change`, `story`, `reason`, `approved_by` |
 | sprint | `review` | (none) | `story`, `outcome`, `evidence` |
 
@@ -111,6 +113,7 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `STORY-NNN` | Story | `story/STORY-NNN.md` | templated |
 | `SPEC-NNN` | Specification | `spec/SPEC-NNN.md` | templated |
 | `ADR-NNN` | Architecture Decision Record | `adr/ADR-NNN.md` | templated |
+| `POL-NNN` | Policy (organizational or project settings, configuration contract v1, ADR-003) | `policy/POL-NNN.md` | templated |
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
@@ -188,11 +191,11 @@ downstream views (a PRD's epics, a story's specs and tests, a traceability matri
 | `refines` | EPIC → PRD item, STORY → EPIC | Narrows scope into a smaller deliverable |
 | `satisfies` | AC → FR/NFR/DW, QR → NFR | Demonstrates or meets that requirement |
 | `specifies` | SPEC → STORY | Defines how the story's AC will be met |
-| `constrains` | SPEC → NFR, SPEC → ADR | The spec must obey this constraint or decision |
+| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR, PRD → accepted ADR, PRD → POL setting (mandated platform) | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it |
 | `implements` | SKL → SPEC, TASK/commit → SPEC item | Realizes this specification or design element |
 | `verifies` | VER → AC, TEST → AC/VER | Planned or actual evidence for this criterion |
 | `supersedes` | any → same type | Replaces an earlier document or item |
-| `informed_by` | any → any | Non-binding context (research, prior art, a metric) |
+| `informed_by` | any → any | Context, including the policy settings a workflow applied (`{id: POL-NNN, item: SET-NN, relation: informed_by, version: N}`) |
 
 Sprint membership is **not** a link. The sprint's `stories:` list is the only record of
 which stories are in a sprint, and stories carry no `sprint:` field.
@@ -243,6 +246,10 @@ every child of that PRD. Item hashes remove this over-flagging.
 Never guess. Mark unknowns inline as `[NEEDS CLARIFICATION: <question>]`, in prose or inside a
 quoted item value. The marker itself is the record: resolving it means replacing it with the answer.
 A document may not move to `approved` or `ready` while any marker remains.
+
+A second marker, `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]`, records an architecture decision that
+is still open (no accepted ADR). It does **not** block approving the PRD, because design may be deferred,
+but it **does** block writing epics for the requirements it names until an accepted ADR resolves it.
 
 `<!-- ... -->` comments are instructions for the author. Delete them when you fill in the template.
 
@@ -323,8 +330,9 @@ framework's Rust CLI, `devforgeai`.
 
 `src/schemas/` contains one JSON Schema (draft 2020-12) per document type plus
 `common.schema.json` (ID patterns, dates, hash, relation vocabulary, link record).
-The shared frontmatter and item keys are copied into each type schema, so they must be
-changed in all seven. Regenerate the schemas rather than hand-editing them. A checker extracts each document into:
+The shared frontmatter and item keys are copied into each type schema, so a change to them
+must be made in every type schema. No schema generator exists in the repository yet: edit the
+JSON by hand, and validate a document of each affected type afterwards. A checker extracts each document into:
 
 ```json
 { "frontmatter": { ... }, "<collection>": [ ... ], "...": [ ... ] }

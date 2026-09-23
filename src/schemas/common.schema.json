@@ -5,11 +5,11 @@
   "$defs": {
     "docId": {
       "type": "string",
-      "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|TASK|TEST)-\\d{3}$"
+      "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST)-\\d{3}$"
     },
     "itemId": {
       "type": "string",
-      "pattern": "^((PRB|IDEA|ASM|SM|DW|AC|BEH|ERR|QR|VER|DM|IF)-\\d{2}|(FR|NFR)-\\d{3})$"
+      "pattern": "^((PRB|IDEA|ASM|SM|DW|AC|BEH|ERR|QR|VER|DM|IF|SET)-\\d{2}|(FR|NFR)-\\d{3})$"
     },
     "storyId": {
       "type": "string",
