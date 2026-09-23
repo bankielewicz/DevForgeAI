@@ -192,7 +192,8 @@ None of these may remain in the written file:
 - template placeholders: `PRD-000`, `BRN-000`, `YYYY-MM-DD`, or any `<…>` text such as `<outcome>`,
   `<metric>` or `<capability>`;
 - `<!-- -->` author comments, **except** the GENERATED comment under `## 13. Epic map`, which stays;
-- an empty `title` or `owner`, an empty `generated_by` value, or an empty Change Log date or author cell;
+- an empty `title`, `owner` or `target_release` (write `"[NEEDS CLARIFICATION: name of the current release]"`
+  when the release name is unknown), an empty `generated_by` value, or an empty Change Log date or author cell;
 - the template's example items (the `BRN-000` links, `"<p95 latency …>"`).
 
 ## Self-check list

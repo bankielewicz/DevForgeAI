@@ -114,7 +114,8 @@ Never decide a design question in the PRD.
 
 ## Round 3: requirements
 
-One question per drafted FR (and per NFR drafted from the request), showing the statement:
+One question per drafted FR (and per NFR drafted from the request), showing the statement. Never combine
+several requirements in one question:
 
 > FR-002: "The system shall let a patient move or cancel their own appointment online." For the current
 > release (`<target_release>`)?
@@ -146,8 +147,10 @@ concrete options, for example:
 - accessibility: "Which accessibility standard applies (for example WCAG 2.2 AA)?"
 - constraint: "Which platforms, integrations, data residency or existing systems are fixed?"
 
-Plus the open "anything else" question. Each answer becomes an NFR in its category, with priority and release
-asked or `null`. Each required category not answered becomes
+Plus the open "anything else" question. Each answer becomes an NFR in its category. Then ask each new NFR's
+priority and release with **one question per NFR**, the same way as round 3; never one question covering
+several requirements (except capability-level questions in a `prototype`). NFRs left unasked when the budget
+runs out keep `null`. Each required category not answered becomes
 `[NEEDS CLARIFICATION: <category> requirements for <context>]`. Never write a placeholder NFR.
 
 **Shared constraints (BEH-15).** Before writing a constraint or cross-cutting NFR, check the other PRDs in

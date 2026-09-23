@@ -109,8 +109,9 @@ gives them. Take stage and operating context from the request as `interview.md` 
 2. Establish the operating context (R3) and the stage from the request, then the BRN, then round 1.
 3. Ask at most 4 questions per call and at most `interview.max_calls` calls, unless the user asks for more.
 4. Non-interactive: ask nothing and go to step 8.
-5. If the user stops mid-interview, ask whether to save a draft. If yes, write it (steps 8 and 9) with every
-   undecided field `null`. If no, write nothing.
+5. If the user stops mid-interview, write nothing yet and ask, as a direct question: "Save a draft PRD now,
+   with every undecided field left open?" End your turn. If yes, write it (steps 8 and 9) with every undecided
+   field `null`. If no, write nothing.
 
 ### 8. Write the PRD (R4, R5)
 
@@ -147,8 +148,8 @@ gives them. Take stage and operating context from the request as `interview.md` 
 1. Report the PRD path; the counts of functional requirements, constraint NFRs, other NFRs and success metrics;
    the number of `null` decisions (stage, operating context, priorities, releases); the open questions; the
    policy resolution line; and any ignored policy document or local entry.
-2. List every `[NEEDS ADR]` marker and say that epics for the requirements it names must wait until an accepted
-   ADR resolves it.
+2. Quote every `[NEEDS ADR: …]` marker exactly as written in the PRD, and say that epics for the requirements it
+   names must wait until an accepted ADR resolves it.
 3. If this run extended a PRD, say that epics citing it are now suspect links to re-review.
 4. Name the next step, the **architecture step** (ADR-002). Check whether
    `${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md` exists.
