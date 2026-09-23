@@ -1,0 +1,28 @@
+# DevForgeAI provenance record for one skill. Validated against schemas/skill.schema.json.
+# Common keys follow the DevForgeAI templates README §2.2. Claude never loads this file.
+id: SKL-001
+type: skill
+title: "Brainstorm a topic into a BRN document"
+status: draft          # draft | in-review | approved | superseded | deprecated
+version: 1             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+created: 2026-09-22
+updated: 2026-09-22
+owner: "Bryan"
+authors: ["Bryan", "claude-code"]
+generated_by:
+  tool: "claude-code"
+  model: "claude-opus-5-5"
+  session: "1e787f66-41b5-4b99-a456-78b54cdbba1a"
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:              # the specification this skill implements
+  - {id: SPEC-001, relation: implements, version: 5, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+# --- skill-specific ---
+skill_name: brainstorm # must equal the directory name and SKILL.md `name`
+packaging: plugin      # plugin | project | personal
+plugin: devforgeai     # plugin name when packaging is plugin, else null
+eval_tag: brainstorm   # tag every eval case of this skill carries

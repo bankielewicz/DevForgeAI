@@ -3,7 +3,7 @@ id: STORY-001
 type: story
 title: "Brainstorm a topic into a BRN document"
 status: draft
-version: 2
+version: 3
 created: 2026-09-22
 updated: 2026-09-22
 owner: "Bryan"
@@ -56,11 +56,12 @@ acceptance_criteria:
     status: active
     name: "Topic becomes a valid BRN document"
     given:
-      - "a project with or without an existing docs/specs/brainstorms/ directory"
+      - "a project with or without an existing docs/specs/brainstorm/ directory"
     when:
       - "the user asks to brainstorm a named topic"
     then:
-      - "the skill writes docs/specs/brainstorms/BRN-NNN-<slug>.md using the next free BRN number"
+      - "the skill writes docs/specs/brainstorm/BRN-NNN.md using the next free BRN number, without asking for or accepting a file name"
+      - "the document's title carries the descriptive topic"
       - "the document validates against brainstorm.schema.json"
       - "it contains at least one problem, at least one idea and a named evaluation method"
     upstream:
@@ -166,3 +167,4 @@ acceptance_criteria:
 |---|---|---|---|---|
 | 1 | 2026-09-22 | claude-code | Initial draft | all |
 | 2 | 2026-09-22 | claude-code | Added AC-07 (handoff to the PRD workflow) | AC-07 |
+| 3 | 2026-09-22 | claude-code | AC-01: ID-only BRN path docs/specs/brainstorm/BRN-NNN.md, no user-supplied file name, topic in title (agreed with Bryan) | AC-01 |

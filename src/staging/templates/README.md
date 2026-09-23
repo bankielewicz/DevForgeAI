@@ -11,7 +11,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 
 | Template | Answers | Acceptance content |
 |---|---|---|
-| [brainstorm.md](brainstorm.md) | What could we build, and why? | None (only candidate success signals) |
+| [brainstorm.md](../../claude/DevForgeAI/skills/brainstorm/assets/brainstorm.md) | What could we build, and why? | None (only candidate success signals) |
 | [prd.md](prd.md) | What are we building, for whom, and how do we measure success? | Success metrics (`SM-`), not testable AC |
 | [epic.md](epic.md) | What large slice of value are we delivering? | "Done when" criteria (`DW-`) spanning stories |
 | [sprint.md](sprint.md) | What are we doing in this time-box? | None (references story AC and the sprint goal) |
@@ -104,7 +104,7 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 
 | Prefix | Artifact | File name | Status |
 |---|---|---|---|
-| `BRN-NNN` | Brainstorm | `brainstorms/BRN-NNN-<slug>.md` | templated |
+| `BRN-NNN` | Brainstorm | `brainstorm/BRN-NNN.md` | templated |
 | `PRD-NNN` | Product Requirements Document | `prd/PRD-NNN-<slug>.md` | templated |
 | `EPIC-NNN` | Epic | `epics/EPIC-NNN-<slug>.md` | templated |
 | `SPR-NNN` | Sprint | `sprints/SPR-NNN.md` | templated |
@@ -114,6 +114,8 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
+
+File names that a skill generates are ID-only, with the topic kept in the document's `title`. Brainstorms already follow this (the brainstorm skill allocates the ID and never takes a file name). ID-only names are the intended direction for the other skill-generated artifacts; their rows change when each skill is built.
 
 Item IDs are listed in 1.2. They are unique within their document.
 
