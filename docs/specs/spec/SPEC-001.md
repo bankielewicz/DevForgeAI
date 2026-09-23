@@ -2,7 +2,7 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: draft
+status: approved
 version: 6
 created: 2026-09-22
 updated: 2026-09-23
@@ -13,14 +13,14 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-23
 upstream:
-  - {id: STORY-001, relation: specifies, version: 3, hash: null}
+  - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 6, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 6, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 6, hash: null}
-  - {id: ADR-001, relation: constrains, version: 3, hash: null}
+  - {id: ADR-001, relation: constrains, version: 4, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -247,7 +247,7 @@ verifications:
       - BEH-09
       - ERR-03
     upstream:
-      - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
   - id: VER-02
     status: active
     obligation: "With no user present to confirm, no idea in the written file has disposition promoted, parked or rejected, and status is not converged. Eval case no-unconfirmed-dispositions: regex not_contains on the file."
@@ -255,7 +255,7 @@ verifications:
     covers:
       - BEH-06
     upstream:
-      - {id: STORY-001, item: AC-02, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
   - id: VER-03
     status: active
     obligation: "The written file's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
@@ -263,7 +263,7 @@ verifications:
     covers:
       - BEH-07
     upstream:
-      - {id: STORY-001, item: AC-03, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-03, relation: verifies, version: 4, hash: null}
   - id: VER-04
     status: active
     obligation: "Asked to brainstorm with the diverge-converge framework, the skill names the framework in its reply, and the written file uses only the brainstorm schema's collections and fields and explains the selected method in section 5. Eval case uses-named-framework: an llm grader on the reply; on the file, regex graders and an llm grader. The regex graders are partial structural checks (allowed collection keys, one key per item block, field names from the combined brainstorm field list, framework named in section 5), not schema validation. The file llm grader receives the complete document and each collection's allowed fields separately, checks collection-specific fields and whether section 5 explains the selected method, and must cite the offending passage or field and the violated requirement when it fails. Interim until devforgeai check exists: CLI validation is recorded as NOT_RUN; the CLI will provide deterministic validation and the llm will continue to assess meaning and method quality."
@@ -272,7 +272,7 @@ verifications:
       - BEH-03
       - BEH-04
     upstream:
-      - {id: STORY-001, item: AC-04, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
   - id: VER-05
     status: active
     obligation: "Adding a test framework file and index row, with SKILL.md unchanged, lets the skill select it; removing the file makes the skill fall back to the default and say so."
@@ -281,7 +281,7 @@ verifications:
       - BEH-03
       - ERR-04
     upstream:
-      - {id: STORY-001, item: AC-04, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
   - id: VER-06
     status: active
     obligation: "An unrelated request that mentions ideas (for example: review the ideas in this pull request description) does not invoke the skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -290,7 +290,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-001, item: AC-05, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-05, relation: verifies, version: 4, hash: null}
   - id: VER-07
     status: active
     obligation: "Invoked with no topic, the skill asks for one and creates no file. Eval case asks-for-topic: file_exists exists false, llm rubric."
@@ -298,7 +298,7 @@ verifications:
     covers:
       - BEH-01
     upstream:
-      - {id: STORY-001, item: AC-06, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
   - id: VER-08
     status: active
     obligation: "With docs/specs/brainstorm/BRN-001.md on the same topic seeded by scaffold, the skill asks whether to extend it or create a new one, and does not overwrite it. Eval case existing-brn: scaffold, llm rubric, regex that BRN-001 is unchanged."
@@ -308,7 +308,7 @@ verifications:
       - BEH-02
       - BEH-11
     upstream:
-      - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
   - id: VER-09
     status: active
     obligation: "Stopping mid-session offers a draft save; a document that cannot be fixed within three attempts is left as draft with the errors listed. SKILL.md is within the NFR-001 limits and its frontmatter validates."
@@ -318,7 +318,7 @@ verifications:
       - ERR-05
       - QR-01
     upstream:
-      - {id: STORY-001, item: AC-01, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
   - id: VER-10
     status: active
     obligation: "After writing the BRN, the final reply names the PRD workflow as the next step with the BRN path. The plugin ships the prd skill, so the reply tells the user to run /devforgeai:prd with the BRN ID and never passes a file path to it. Eval case hands-off-to-prd: regex on last_message for the BRN path, for '/devforgeai:prd BRN-001', and for the absence of a path argument; llm rubric. The not-yet-built branch of BEH-10 can no longer be exercised in this plugin and is not covered by an eval."
@@ -326,7 +326,7 @@ verifications:
     covers:
       - BEH-10
     upstream:
-      - {id: STORY-001, item: AC-07, relation: verifies, version: 3, hash: null}
+      - {id: STORY-001, item: AC-07, relation: verifies, version: 4, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -357,7 +357,7 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 
 ## 13. Open questions
 
-- [NEEDS CLARIFICATION: eval pass threshold — 0.8 is proposed in PRD-001#NFR-003]
+- Resolved: the eval pass threshold is 0.8, a DevForgeAI framework requirement (PRD-001#NFR-003; ADR-003 A2, accepted by Bryan 2026-09-23).
 
 ## Change Log
 
@@ -369,3 +369,4 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 | 4 | 2026-09-22 | claude-code | Handoff to the PRD workflow (BEH-10, VER-10), stable IDs (BEH-11), downstream contract, BEH-01 skips answered questions, schema not shipped in assets, framework source moved to src/staging/templates and src/schemas; links re-reviewed at PRD v2, STORY v2 | §5, §6, §9, §11 |
 | 5 | 2026-09-22 | claude-code | BRN path is ID-only: docs/specs/brainstorm/BRN-NNN.md, never a user-supplied name, topic kept in title (agreed with Bryan); VER-04 documents interim regex plus llm file grading, CLI NOT_RUN; links re-reviewed at STORY v3 | §4, BEH-02, ERR-03, VER-01, VER-04, VER-08 |
 | 6 | 2026-09-23 | claude-code | Handoff command takes the BRN ID, not the path, matching SPEC-002 §5; VER-10 updated now that the prd skill ships (found in the STORY-002 full-plugin eval, agreed with Bryan) | §5, BEH-10, VER-10 |
+| 6 | 2026-09-23 | Bryan | Approved; §13 eval-threshold question resolved by ADR-003 A2 | status, §13 |

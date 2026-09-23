@@ -113,7 +113,8 @@ Run everything from the **worktree root**, as in ADR-001 steps 2, 4 and 5:
 
 ```bash
 # deploy (after every change to src/)
-test -z "$(find src/claude/DevForgeAI -type l)" \
+[ -d src/claude/DevForgeAI ] \
+  && test -z "$(find src/claude/DevForgeAI -type l)" \
   && mkdir -p .claude/skills/devforgeai \
   && rsync -a --delete --exclude=/evals/results/ src/claude/DevForgeAI/ .claude/skills/devforgeai/
 

@@ -2,8 +2,8 @@
 id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
-status: draft
-version: 8
+status: approved
+version: 9
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -13,14 +13,14 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-23
 upstream:
-  - {id: STORY-002, relation: specifies, version: 6, hash: null}
+  - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 6, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 6, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 6, hash: null}
-  - {id: ADR-001, relation: constrains, version: 3, hash: null}
+  - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-001, relation: informed_by, version: 6, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
@@ -252,7 +252,7 @@ errors:
   - id: ERR-06
     status: active
     condition: "Validation still fails after three fix attempts"
-    handling: "Stop, leave status draft, and list the remaining errors"
+    handling: "Stop, leave the PRD's status as it was before this write (draft for a new PRD, unchanged for an extension), and list the remaining errors"
     user_result: "The file path and the unresolved errors"
   - id: ERR-07
     status: active
@@ -261,7 +261,7 @@ errors:
     user_result: "Either a draft file or no file, as the user chose"
   - id: ERR-08
     status: active
-    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it)"
+    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local"
     handling: "Stop before writing anything. Name the policy file, the setting and the rule broken (schema or SV-NN). Never guess or fall back silently"
     user_result: "The policy error to fix; no PRD file"
 ```
@@ -317,7 +317,7 @@ verifications:
       - BEH-11
       - BEH-12
     upstream:
-      - {id: STORY-002, item: AC-02, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-02, relation: verifies, version: 7, hash: null}
   - id: VER-02
     status: active
     obligation: "With a prompt that gives the stage (prototype) but no priorities or releases and says to proceed without questions, the file has stage: prototype, only null priority and release values, and status draft. Eval case no-invented-decisions: regex on the file."
@@ -325,7 +325,7 @@ verifications:
     covers:
       - BEH-06
     upstream:
-      - {id: STORY-002, item: AC-03, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 7, hash: null}
   - id: VER-03
     status: active
     obligation: "With BRN-001 fully cited by an existing PRD-001 and BRN-002 not cited, '/devforgeai:prd' with no argument offers BRN-002 and not BRN-001, and writes no file. Eval case selects-unprocessed-brn: regex and llm on the reply, file_exists false for PRD-002.md."
@@ -333,7 +333,7 @@ verifications:
     covers:
       - BEH-01
     upstream:
-      - {id: STORY-002, item: AC-01, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-01, relation: verifies, version: 7, hash: null}
   - id: VER-04
     status: active
     obligation: "With a draft (not converged) BRN-001, the skill warns and, with no user to confirm, writes no PRD. Eval case warns-unconverged: llm on the reply, file_exists false."
@@ -341,7 +341,7 @@ verifications:
     covers:
       - ERR-02
     upstream:
-      - {id: STORY-002, item: AC-05, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-05, relation: verifies, version: 7, hash: null}
   - id: VER-05
     status: active
     obligation: "With a converged BRN-001 that has no promoted idea, the skill stops, writes no PRD and points to the brainstorm workflow. Eval case stops-without-promoted: regex on the reply for brainstorm, file_exists false."
@@ -349,7 +349,7 @@ verifications:
     covers:
       - ERR-03
     upstream:
-      - {id: STORY-002, item: AC-05, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-05, relation: verifies, version: 7, hash: null}
   - id: VER-06
     status: active
     obligation: "Fixture: PRD-001 covers one initiative (for example onboarding recovery, with its own owner and target release). BRN-002 promotes ideas for a different initiative in the same product (for example account closure). The skill doesn't default to extending PRD-001: it recommends a new PRD with reasons about scope, ownership or lifecycle, asks the user, writes nothing without an answer, and leaves PRD-001 unchanged. Eval case extend-or-new: llm on the reply, regex that PRD-001.md still has version: 1, file_exists false for PRD-002.md."
@@ -357,7 +357,7 @@ verifications:
     covers:
       - BEH-09
     upstream:
-      - {id: STORY-002, item: AC-06, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
   - id: VER-07
     status: active
     obligation: "After writing the PRD, the final reply names the architecture step as next, with the PRD ID. This plugin has no architecture skill, so the reply says the step is done by hand with ADRs for now and names no runnable command. Eval case hands-off-to-architecture: regex on last_message."
@@ -365,7 +365,7 @@ verifications:
     covers:
       - BEH-13
     upstream:
-      - {id: STORY-002, item: AC-07, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-07, relation: verifies, version: 7, hash: null}
   - id: VER-08
     status: active
     obligation: "A request such as 'open a PR for my staged changes and write its description' does not invoke the prd skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -374,7 +374,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-002, item: AC-08, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-08, relation: verifies, version: 7, hash: null}
   - id: VER-09
     status: active
     obligation: "The written PRD's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
@@ -382,7 +382,7 @@ verifications:
     covers:
       - BEH-10
     upstream:
-      - {id: STORY-002, item: AC-09, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-09, relation: verifies, version: 7, hash: null}
   - id: VER-10
     status: active
     obligation: "A prompt stating 'it must run on AWS and must integrate with Stripe; I'm leaning towards microservices', with instructions to proceed without questions, yields constraint NFRs for AWS and Stripe, and no requirement or constraint about microservices. Eval case constraints-not-design: regex on the file for category: constraint, llm on the file for the microservices rule."
@@ -390,7 +390,7 @@ verifications:
     covers:
       - BEH-07
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
   - id: VER-11
     status: active
     obligation: "In an interactive session with a BRN that already names the users and a request that states the stage and operating context: no question repeats those answers, every batch has at most four questions, the whole interview stays within the resolved interview.max_calls, the NFR categories asked match the operating context, and an 'anything else' quality question is offered. Stopping mid-interview offers a draft save."
@@ -400,7 +400,7 @@ verifications:
       - BEH-05
       - ERR-07
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
   - id: VER-12
     status: active
     obligation: "Manual extension run: extending PRD-001 from a second BRN of the same initiative raises the version, continues numbering, leaves existing items byte-identical, adds a Change Log entry and warns about suspect epics. With PRD-001 approved beforehand, the extension returns it to in-review and clears the approval. git diff shows no change to any BRN. A new PRD that shares a constraint with PRD-001 cites it with a constrains link, not a copy. Also check that an unknown BRN ID lists the available BRNs, that a malformed BRN stops with the failing block named, and that SKILL.md is within the NFR-001 limits."
@@ -415,7 +415,7 @@ verifications:
       - ERR-06
       - QR-01
     upstream:
-      - {id: STORY-002, item: AC-06, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
   - id: VER-13
     status: active
     obligation: "Production MVP: with the partially specified BRN in src/staging/examples/prd-production-mvp/ as fixture, a prompt stating 'this is our MVP and real patients will book through it from day one; patients must sign in; appointment details are private to the patient and staff; decide nothing else; proceed without questions' writes docs/specs/prd/PRD-001.md with stage: mvp, operating_context: production, security and privacy NFRs, and a [NEEDS CLARIFICATION] marker in open questions for each of reliability, observability, compliance, performance and accessibility. Eval case production-mvp: regex on the file."
@@ -424,7 +424,7 @@ verifications:
       - BEH-03
       - BEH-06
     upstream:
-      - {id: STORY-002, item: AC-10, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-10, relation: verifies, version: 7, hash: null}
   - id: VER-14
     status: active
     obligation: "Architecture context: fixtures are an accepted ADR-002 ('ClinicCore is the calendar of record') and a proposed ADR-003 ('synchronous booking writes vs scheduled import'), with a request that names both. The PRD gets a constrains link to ADR-002, no link to ADR-003, and a [NEEDS ADR] marker naming the booking requirements. The handoff says those epics must wait. Eval case architecture-context: regex on the file and on last_message."
@@ -432,7 +432,7 @@ verifications:
     covers:
       - BEH-16
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
   - id: VER-15
     status: active
     obligation: "Policy applied: fixtures are Organization A's policy (src/staging/examples/policy-two-orgs/org-a/POL-001.md, copied to docs/specs/policy/) and a converged BRN. The prompt states operating context internal and proceeds without questions. The PRD has a constraint NFR whose item upstream cites POL-001#SET-01 with relation constrains (and no frontmatter link to SET-01), a frontmatter informed_by link to POL-001#SET-02 at version 3, and [NEEDS CLARIFICATION] markers for compliance and accessibility, which the policy adds to the internal floor. Eval case policy-applied: regex on the file."
@@ -442,7 +442,7 @@ verifications:
       - BEH-03
       - BEH-16
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-16
     status: active
     obligation: "Invalid policy: an approved policy whose interview.max_calls is 50 (out of range) makes the skill stop, write no PRD and name the file and setting. Eval case invalid-policy-stops: file_exists false for docs/specs/prd/PRD-001.md, regex on last_message for SET- and max_calls."
@@ -450,7 +450,7 @@ verifications:
     covers:
       - ERR-08
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-17
     status: active
     obligation: "No policy: with no docs/specs/policy/ directory, the PRD has no POL link and its Change Log entry states framework defaults. Eval case no-policy-defaults: regex on the file."
@@ -458,7 +458,7 @@ verifications:
     covers:
       - BEH-17
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-18
     status: active
     obligation: "Permitted project override: an approved organization policy sets interview.max_calls 8 with overridable_by [project]; an approved project policy sets it to 4. The PRD's resolution line contains 'interview.max_calls=4 (POL-002#SET-01)'. Eval case project-override-permitted: regex on the file."
@@ -466,7 +466,7 @@ verifications:
     covers:
       - BEH-17
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-19
     status: active
     obligation: "Forbidden project override: the organization mandates an identity platform with overridable_by []; the project policy mandates a different identity platform. The skill stops, writes no PRD and names both settings and SV-04. Eval case project-override-forbidden: file_exists false, regex on last_message for SV-04."
@@ -474,7 +474,7 @@ verifications:
     covers:
       - ERR-08
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-20
     status: active
     obligation: "Conditional setting not applicable: the organization requires compliance when operating_context is production; the prompt states internal. The PRD has no compliance marker from policy, and the resolution line contains 'not applicable (internal)'. Eval case conditional-not-applicable: regex on the file."
@@ -483,7 +483,7 @@ verifications:
       - BEH-17
       - BEH-03
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-21
     status: active
     obligation: "Unknown context fails safe: the same policy, with a prompt that gives no operating context and says to proceed without questions. The PRD keeps operating_context: null, has the compliance marker, and the resolution line contains 'operating context unknown, resolved as production'. Eval case unknown-context-failsafe: regex on the file."
@@ -492,7 +492,7 @@ verifications:
       - BEH-17
       - BEH-03
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-22
     status: active
     obligation: "Retired setting: the organization's identity-platform setting has status deprecated. The PRD has no constraint NFR and no link for it. Eval case retired-setting-ignored: regex not_contains on the file."
@@ -500,7 +500,7 @@ verifications:
     covers:
       - BEH-17
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
   - id: VER-23
     status: active
     obligation: "Manual. Local preferences: interview.max_calls: 5 with no policy gives '(local)' in the resolution line and an interview of at most five calls; a local organizational-policy key and an out-of-range value are ignored and reported. Semantic rules: a duplicate SET id (SV-01) and two approved organization policies (SV-02) each stop the skill with the rule named; a draft policy is ignored and reported (SV-06). Eval workspaces don't load project .claude/ files, so local preferences are checked by hand."
@@ -509,14 +509,13 @@ verifications:
       - BEH-18
       - ERR-08
     upstream:
-      - {id: STORY-002, item: AC-11, relation: verifies, version: 6, hash: null}
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
 
 The skill is new; removing its directory rolls it back. The schema change is additive (`stage`,
-`release`, nullable `priority`, the `constraint` category). The one existing PRD, PRD-001 (now v5), has
-already been updated with `null` values.
+`release`, nullable `priority`, the `constraint` category). The one existing PRD, PRD-001, has been updated; as of v6 its `stage` and `operating_context` are set (`mvp`, `internal`) and its release values remain `null`.
 
 ## 11. Implementation plan
 
@@ -547,8 +546,8 @@ already been updated with `null` values.
 
 - Resolved by ADR-002 (proposed): a system-architecture step sits between the PRD and epics and resolves [NEEDS ADR] markers; the prd skill hands off to it. Its skill is specified separately.
 - Resolved: the third stage value is `evolution` (Bryan, 2026-09-23).
-- [NEEDS CLARIFICATION: PRD-001's own stage, and release per requirement, are null for Bryan to decide]
-- [NEEDS CLARIFICATION: whether the VER-09 draft BRN from STORY-001's manual test becomes the not-converged fixture for VER-04, or the fixture is written fresh]
+- Resolved: PRD-001 v6 has `stage: mvp` and `operating_context: internal` (Bryan, 2026-09-23). Its per-requirement release values remain `null` for Bryan.
+- Resolved: the STORY-001 test draft was deleted (Bryan, 2026-09-23); VER-04 uses a fixture written fresh during STORY-002.
 
 ## Appendix A — Illustrative interview (design example, not an executed run)
 
@@ -599,3 +598,5 @@ its priority and release are decided.
 | 6 | 2026-09-23 | claude-code | ADR-003 v2: resolution sequence and resolution line (BEH-17), local preferences (BEH-18), ERR-08 names SV rules, precedence tests VER-18 to VER-23, verification status table; ADR-002 accepted (constrains); stale versions, limits and ranges reconciled | BEH-17, BEH-18, ERR-08, VER-11, VER-18 to VER-23, §9, §10, §11, Appendix A |
 | 7 | 2026-09-23 | claude-code | ADR-003 accepted (constrains); third stage value renamed evolution (Bryan) | frontmatter, §4, BEH-03, §13 |
 | 8 | 2026-09-23 | claude-code | Mandated-platform link on the constraint NFR only, process settings as frontmatter informed_by (BEH-16, BEH-17 R5, VER-15); round-3 answer mapping, and wont + current as an explicit exclusion the epic workflow never builds (BEH-05, §5). Found while building STORY-002, approved by Bryan | §5, BEH-05, BEH-16, BEH-17, VER-15 |
+| 9 | 2026-09-23 | claude-code | Housekeeping after STORY-002: ERR-06 status wording; ERR-08 covers any disallowed override (ADR-003 A4); stale §10 text; two resolved §13 markers; ADR-001 link at v4 | ERR-06, ERR-08, §10, §13 |
+| 9 | 2026-09-23 | Bryan | Approved | status |

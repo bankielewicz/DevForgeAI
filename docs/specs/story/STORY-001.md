@@ -2,8 +2,8 @@
 id: STORY-001
 type: story
 title: "Brainstorm a topic into a BRN document"
-status: draft
-version: 3
+status: done
+version: 4
 created: 2026-09-22
 updated: 2026-09-22
 owner: "Bryan"
@@ -152,10 +152,10 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one test or eval case that cites it (`STORY-001#AC-NN`)
-- [ ] Skill files reviewed; commits reference `STORY-001`
-- [ ] SPEC-001 items implemented, or explicitly deferred to a new story
-- [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
+- [x] Every AC is verified by at least one test or eval case that cites it (`STORY-001#AC-NN`)
+- [x] Skill files reviewed; commits reference `STORY-001`
+- [x] SPEC-001 items implemented, or explicitly deferred to a new story
+- [x] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 ## 7. Open questions
 
@@ -168,3 +168,4 @@ acceptance_criteria:
 | 1 | 2026-09-22 | claude-code | Initial draft | all |
 | 2 | 2026-09-22 | claude-code | Added AC-07 (handoff to the PRD workflow) | AC-07 |
 | 3 | 2026-09-22 | claude-code | AC-01: ID-only BRN path docs/specs/brainstorm/BRN-NNN.md, no user-supplied file name, topic in title (agreed with Bryan) | AC-01 |
+| 4 | 2026-09-23 | claude-code | Status done: VER-01 to VER-10 recorded as passing on PR #2 (automated evals and manual VER-05/VER-09); merged to main | status, Definition of Done |
