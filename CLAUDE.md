@@ -1,6 +1,6 @@
 # DevForgeAI
 
-A spec-driven development framework. The workflow is brainstorm → prd → epic → story → spec,
+A spec-driven development framework. The workflow is brainstorm → prd ⇄ architecture → epic → story → spec (ADR-002),
 and each step is a skill in the `devforgeai` Claude Code plugin.
 
 ## Layout

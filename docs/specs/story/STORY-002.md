@@ -3,7 +3,7 @@ id: STORY-002
 type: story
 title: "Turn a brainstorm into a PRD"
 status: draft
-version: 3
+version: 4
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -16,7 +16,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: EPIC-002, relation: refines, version: 2, hash: null}
+  - {id: EPIC-002, relation: refines, version: 3, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -51,7 +51,7 @@ the brainstorm skill (SPEC-001 §5, downstream contract).
 - Writing or extending the PRD, validating it, and handing off.
 
 **Out of scope**
-- The epic skill, architecture design, and editing the BRN.
+- The architecture and epic skills, architecture design, and editing the BRN.
 
 ## 4. Acceptance criteria
 
@@ -84,7 +84,7 @@ acceptance_criteria:
       - "no open, parked or rejected idea is cited anywhere in the PRD"
     upstream:
       - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 2, hash: null}
+      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 3, hash: null}
   - id: AC-03
     status: active
     name: "Decisions stay the user's"
@@ -98,7 +98,7 @@ acceptance_criteria:
       - "a new PRD is written with status draft; the skill never sets approved (extension status follows AC-06)"
     upstream:
       - {id: PRD-001,  item: FR-003, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 2, hash: null}
+      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 3, hash: null}
   - id: AC-04
     status: active
     name: "Interview asks only what is missing; architecture is read and classified, not designed"
@@ -142,18 +142,18 @@ acceptance_criteria:
       - "it tells the user that epics citing the extended PRD are now suspect links to re-review"
     upstream:
       - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-02,  relation: satisfies, version: 2, hash: null}
+      - {id: EPIC-002, item: DW-02,  relation: satisfies, version: 3, hash: null}
   - id: AC-07
     status: active
-    name: "Handoff names the epic step and its input"
+    name: "Handoff names the architecture step and its input"
     given:
       - "the skill has written or extended a PRD"
     when:
       - "it hands off"
     then:
-      - "it names the epic workflow as the next step and gives the PRD path as its input"
-      - "if the epic skill is not installed, it says the step is not yet available instead of naming a command that does not exist"
-      - "it does not start writing an epic itself"
+      - "it names the architecture step (ADR-002) as the next step and gives the PRD path as its input, listing any [NEEDS ADR] markers"
+      - "if the architecture skill is not installed, it says the step is done by hand with ADRs for now, instead of naming a command that does not exist"
+      - "it does not start architecture work or write an epic itself"
     upstream:
       - {id: PRD-001, item: FR-004, relation: satisfies, version: 3, hash: null}
   - id: AC-08
@@ -193,7 +193,7 @@ acceptance_criteria:
       - "when the operating context is unknown, it is treated as production for deciding which gaps to mark, and left null"
     upstream:
       - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 2, hash: null}
+      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 3, hash: null}
 ```
 
 ## 5. Specification
@@ -218,3 +218,4 @@ acceptance_criteria:
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
 | 2 | 2026-09-23 | claude-code | AC-06: new vs extend decided by scope, ownership and lifecycle; approved PRDs re-enter review when extended (agreed with Bryan) | AC-06 |
 | 3 | 2026-09-23 | claude-code | AC-03 status wording no longer contradicts AC-06; AC-04 reads and classifies architecture context; AC-10 stage vs operating context | AC-03, AC-04, AC-10 |
+| 4 | 2026-09-23 | claude-code | AC-07: handoff goes to the architecture step (ADR-002) | AC-07 |

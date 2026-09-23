@@ -3,7 +3,7 @@ id: EPIC-002
 type: epic
 title: "PRD skill MVP"
 status: draft
-version: 2
+version: 3
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -18,7 +18,7 @@ approved_on: null
 upstream:
   - {id: PRD-001, item: FR-005,  relation: refines, version: 3, hash: null}
   - {id: PRD-001, item: FR-003,  relation: refines, version: 3, hash: null, note: "provenance and user decisions, applied to the PRD skill"}
-  - {id: PRD-001, item: FR-004,  relation: refines, version: 3, hash: null, note: "handoff from prd to the epic workflow"}
+  - {id: PRD-001, item: FR-004,  relation: refines, version: 3, hash: null, note: "handoff from prd to the architecture step (ADR-002)"}
   - {id: PRD-001, item: NFR-001, relation: refines, version: 3, hash: null}
   - {id: PRD-001, item: NFR-002, relation: refines, version: 3, hash: null}
   - {id: PRD-001, item: NFR-003, relation: refines, version: 3, hash: null}
@@ -54,8 +54,8 @@ the chain from idea to test breaks at its second link.
 - Architecture context read and classified (commitments, constraints, preferences, open decisions); design itself stays in ADRs.
 
 **Out of scope**
-- The `epic` skill. The PRD skill hands off to it when it exists.
-- Architecture design. There's no architecture step in the chain yet (SPEC-002 §13).
+- The architecture and `epic` skills. The PRD skill hands off to the architecture step (ADR-002).
+- Architecture design, which belongs to the architecture step (ADR-002).
 - The `devforgeai` CLI.
 
 ## 4. Done when
@@ -95,3 +95,4 @@ See SPEC-002.
 |---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft |
 | 2 | 2026-09-23 | claude-code | Operating context as a separate decision; architecture context read and classified |
+| 3 | 2026-09-23 | claude-code | Handoff goes to the architecture step (ADR-002) |

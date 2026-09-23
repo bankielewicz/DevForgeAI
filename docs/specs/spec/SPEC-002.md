@@ -3,7 +3,7 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: draft
-version: 3
+version: 4
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -16,11 +16,12 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: STORY-002, relation: specifies, version: 3, hash: null}
+  - {id: STORY-002, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 3, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 3, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 3, hash: null}
   - {id: ADR-001, relation: constrains, version: 3, hash: null}
+  - {id: ADR-002, relation: informed_by, version: 1, hash: null, note: "proposed: architecture step between PRD and epics"}
   - {id: SPEC-001, relation: informed_by, version: 5, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
 supersedes: []
 superseded_by: null
@@ -40,7 +41,7 @@ automatically when a user asks to write a PRD from a brainstorm. It:
 3. interviews the user **only for what the BRN and the request leave open**;
 4. writes a new PRD or extends an existing one;
 5. validates it;
-6. hands off to the epic workflow.
+6. hands off to the architecture step (ADR-002).
 
 Two rules shape everything else:
 - **The PRD records decisions; the AI doesn't make them.** Stage, operating context, priority and
@@ -143,10 +144,10 @@ metadata:
 - **Arguments:** `$ARGUMENTS` is a BRN ID (`BRN-NNN`) or empty (BEH-01). File paths aren't accepted.
 - **Tools:** Read, Glob and Grep to read BRNs and PRDs; Write and Edit for the PRD; AskUserQuestion for the interview.
   AskUserQuestion takes at most 4 questions per call, with 2–4 options each. The interview budget in BEH-05 is sized to that.
-- **Downstream contract (consumed by the epic workflow):**
+- **Downstream contract (consumed by the architecture step, then the epic workflow, per ADR-002):**
   - PRD path `docs/specs/prd/PRD-NNN.md`, and stable FR, NFR and SM IDs (BEH-09 extends without renumbering).
   - `release: current` marks what the current release must deliver. `null` values are open decisions
-    that the epic skill must not treat as decided.
+    that neither the architecture step nor the epic skill may treat as decided.
   - `status` stays `draft` until the user approves it. An approved PRD is a scope baseline; widening it goes through an extension that returns it to `in-review` (BEH-09).
   - Epics cite PRD items with `refines` links such as `{id: PRD-001, item: FR-004, relation: refines}`.
   - A `[NEEDS ADR: <decision>; affects FR-…]` marker in §12 means no epic may be written for the named
@@ -200,7 +201,7 @@ behaviors:
     rule: "Validate after writing. If the devforgeai CLI is on PATH, run devforgeai check --json on the file and fix what it reports. Otherwise check against references/output-rules.md. Repeat until clean, at most three attempts."
   - id: BEH-13
     status: active
-    rule: "Hand off with counts of requirements, constraints and metrics, the number of null decisions, the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step: if ${CLAUDE_PLUGIN_ROOT}/skills/epic/SKILL.md exists, tell the user to run /devforgeai:epic with the PRD ID. Otherwise say the epic workflow (planned as /devforgeai:epic) does not exist yet and that this PRD is its input. Never start writing an epic."
+    rule: "Hand off with counts of requirements, constraints and metrics, the number of null decisions, the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step, which is the architecture step (ADR-002): if ${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md exists, tell the user to run /devforgeai:architecture with the PRD ID. Otherwise say the architecture skill (planned as /devforgeai:architecture) does not exist yet, that for now the step is done by hand by writing ADRs with the ADR template, and that this PRD and its [NEEDS ADR] markers are its input. Never start architecture work or write an epic."
   - id: BEH-14
     status: active
     rule: "Never modify a BRN document."
@@ -292,7 +293,7 @@ verifications:
       - BEH-11
       - BEH-12
     upstream:
-      - {id: STORY-002, item: AC-02, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-02, relation: verifies, version: 4, hash: null}
   - id: VER-02
     status: active
     obligation: "With a prompt that gives the stage (prototype) but no priorities or releases and says to proceed without questions, the file has stage: prototype, only null priority and release values, and status draft. Eval case no-invented-decisions: regex on the file."
@@ -300,7 +301,7 @@ verifications:
     covers:
       - BEH-06
     upstream:
-      - {id: STORY-002, item: AC-03, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 4, hash: null}
   - id: VER-03
     status: active
     obligation: "With BRN-001 fully cited by an existing PRD-001 and BRN-002 not cited, '/devforgeai:prd' with no argument offers BRN-002 and not BRN-001, and writes no file. Eval case selects-unprocessed-brn: regex and llm on the reply, file_exists false for PRD-002.md."
@@ -308,7 +309,7 @@ verifications:
     covers:
       - BEH-01
     upstream:
-      - {id: STORY-002, item: AC-01, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-01, relation: verifies, version: 4, hash: null}
   - id: VER-04
     status: active
     obligation: "With a draft (not converged) BRN-001, the skill warns and, with no user to confirm, writes no PRD. Eval case warns-unconverged: llm on the reply, file_exists false."
@@ -316,7 +317,7 @@ verifications:
     covers:
       - ERR-02
     upstream:
-      - {id: STORY-002, item: AC-05, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-05, relation: verifies, version: 4, hash: null}
   - id: VER-05
     status: active
     obligation: "With a converged BRN-001 that has no promoted idea, the skill stops, writes no PRD and points to the brainstorm workflow. Eval case stops-without-promoted: regex on the reply for brainstorm, file_exists false."
@@ -324,7 +325,7 @@ verifications:
     covers:
       - ERR-03
     upstream:
-      - {id: STORY-002, item: AC-05, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-05, relation: verifies, version: 4, hash: null}
   - id: VER-06
     status: active
     obligation: "Fixture: PRD-001 covers one initiative (for example onboarding recovery, with its own owner and target release). BRN-002 promotes ideas for a different initiative in the same product (for example account closure). The skill doesn't default to extending PRD-001: it recommends a new PRD with reasons about scope, ownership or lifecycle, asks the user, writes nothing without an answer, and leaves PRD-001 unchanged. Eval case extend-or-new: llm on the reply, regex that PRD-001.md still has version: 1, file_exists false for PRD-002.md."
@@ -332,15 +333,15 @@ verifications:
     covers:
       - BEH-09
     upstream:
-      - {id: STORY-002, item: AC-06, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 4, hash: null}
   - id: VER-07
     status: active
-    obligation: "After writing the PRD, the final reply names the epic workflow as the next step with the PRD ID. This plugin has no epic skill, so the reply says the step does not exist yet and names no runnable command. Eval case hands-off-to-epic: regex on last_message."
+    obligation: "After writing the PRD, the final reply names the architecture step as next, with the PRD ID. This plugin has no architecture skill, so the reply says the step is done by hand with ADRs for now and names no runnable command. Eval case hands-off-to-architecture: regex on last_message."
     level: e2e
     covers:
       - BEH-13
     upstream:
-      - {id: STORY-002, item: AC-07, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-07, relation: verifies, version: 4, hash: null}
   - id: VER-08
     status: active
     obligation: "A request such as 'open a PR for my staged changes and write its description' does not invoke the prd skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -349,7 +350,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-002, item: AC-08, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-08, relation: verifies, version: 4, hash: null}
   - id: VER-09
     status: active
     obligation: "The written PRD's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
@@ -357,7 +358,7 @@ verifications:
     covers:
       - BEH-10
     upstream:
-      - {id: STORY-002, item: AC-09, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-09, relation: verifies, version: 4, hash: null}
   - id: VER-10
     status: active
     obligation: "A prompt stating 'it must run on AWS and must integrate with Stripe; I'm leaning towards microservices', with instructions to proceed without questions, yields constraint NFRs for AWS and Stripe, and no requirement or constraint about microservices. Eval case constraints-not-design: regex on the file for category: constraint, llm on the file for the microservices rule."
@@ -365,7 +366,7 @@ verifications:
     covers:
       - BEH-07
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 4, hash: null}
   - id: VER-11
     status: active
     obligation: "In an interactive session with a BRN that already names the users and a request that states the stage and operating context: no question repeats those answers, every batch has at most four questions, the whole interview uses at most eight calls, the NFR categories asked match the operating context, and an 'anything else' quality question is offered. Stopping mid-interview offers a draft save."
@@ -375,7 +376,7 @@ verifications:
       - BEH-05
       - ERR-07
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 4, hash: null}
   - id: VER-12
     status: active
     obligation: "Manual extension run: extending PRD-001 from a second BRN of the same initiative raises the version, continues numbering, leaves existing items byte-identical, adds a Change Log entry and warns about suspect epics. With PRD-001 approved beforehand, the extension returns it to in-review and clears the approval. git diff shows no change to any BRN. A new PRD that shares a constraint with PRD-001 cites it with a constrains link, not a copy. Also check that an unknown BRN ID lists the available BRNs, that a malformed BRN stops with the failing block named, and that SKILL.md is within the NFR-001 limits."
@@ -390,7 +391,7 @@ verifications:
       - ERR-06
       - QR-01
     upstream:
-      - {id: STORY-002, item: AC-06, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 4, hash: null}
   - id: VER-13
     status: active
     obligation: "Production MVP: with the partially specified BRN in src/staging/examples/prd-production-mvp/ as fixture, a prompt stating 'this is our MVP and real patients will book through it from day one; patients must sign in; appointment details are private to the patient and staff; decide nothing else; proceed without questions' writes docs/specs/prd/PRD-001.md with stage: mvp, operating_context: production, security and privacy NFRs, and a [NEEDS CLARIFICATION] marker in open questions for each of reliability, observability, compliance, performance and accessibility. Eval case production-mvp: regex on the file."
@@ -399,7 +400,7 @@ verifications:
       - BEH-03
       - BEH-06
     upstream:
-      - {id: STORY-002, item: AC-10, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-10, relation: verifies, version: 4, hash: null}
   - id: VER-14
     status: active
     obligation: "Architecture context: fixtures are an accepted ADR-002 ('ClinicCore is the calendar of record') and a proposed ADR-003 ('synchronous booking writes vs scheduled import'), with a request that names both. The PRD gets a constrains link to ADR-002, no link to ADR-003, and a [NEEDS ADR] marker naming the booking requirements. The handoff says those epics must wait. Eval case architecture-context: regex on the file and on last_message."
@@ -407,7 +408,7 @@ verifications:
     covers:
       - BEH-16
     upstream:
-      - {id: STORY-002, item: AC-04, relation: verifies, version: 3, hash: null}
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 4, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -443,7 +444,7 @@ already been updated with `null` values.
 
 ## 13. Open questions
 
-- [NEEDS CLARIFICATION: the workflow has no architecture skill. BEH-16 narrows the gap: the PRD reads and classifies architecture context, and [NEEDS ADR] markers block the affected epics until an ADR is accepted. Whether ADRs are written by hand or by a future architecture skill between prd and epic is still Bryan's decision]
+- Resolved by ADR-002 (proposed): a system-architecture step sits between the PRD and epics and resolves [NEEDS ADR] markers; the prd skill hands off to it. Its skill is specified separately.
 - [NEEDS CLARIFICATION: the third stage value is named `expansion` (extends an established product). Bryan to confirm the name]
 - [NEEDS CLARIFICATION: PRD-001's own stage, and release per requirement, are null for Bryan to decide]
 - [NEEDS CLARIFICATION: whether the VER-09 draft BRN from STORY-001's manual test becomes the not-converged fixture for VER-04, or the fixture is written fresh]
@@ -492,3 +493,4 @@ its priority and release are decided.
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
 | 2 | 2026-09-23 | claude-code | New vs extend by scope, ownership and lifecycle; approved PRDs re-enter review when extended; shared constraints cited, not copied (agreed with Bryan) | BEH-07, BEH-09, BEH-15, VER-06, VER-12, §5, §12 |
 | 3 | 2026-09-23 | claude-code | Stage vs operating context; architecture context read and classified with [NEEDS ADR] markers (BEH-16); status rules reconciled; interview budget 8 calls; VER-13 and VER-14; planned-coverage note; Appendix A (Codex review, agreed with Bryan) | §1, §4, §5, BEH-03, BEH-05, BEH-06, BEH-13, BEH-16, VER-11, VER-13, VER-14, §12, §13 |
+| 4 | 2026-09-23 | claude-code | Handoff goes to the architecture step per ADR-002; §13 architecture question resolved | §1, §5, BEH-13, VER-07, §13 |

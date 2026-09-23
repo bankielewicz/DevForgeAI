@@ -5,8 +5,8 @@ context from earlier conversations. `CLAUDE.md` applies.
 
 | | |
 |---|---|
-| Implements | `docs/specs/spec/SPEC-002.md` (version 3) |
-| Story | `docs/specs/story/STORY-002.md` (version 3) |
+| Implements | `docs/specs/spec/SPEC-002.md` (version 4) |
+| Story | `docs/specs/story/STORY-002.md` (version 4) |
 | Build and validation process | `docs/specs/adr/ADR-001.md` (accepted, version 3) |
 | Consumes | BRNs written by the brainstorm skill (SPEC-001 §5, downstream contract) |
 | Branch / worktree | `story/STORY-002-prd` / `.claude/worktrees/story-002-prd` |
@@ -64,7 +64,7 @@ All deliverables go under `src/claude/DevForgeAI/`:
 | Path | Content | Implements |
 |---|---|---|
 | `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…16, ERR-01…07, QR-01, QR-02 |
-| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 3, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
+| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 4, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
 | `skills/prd/assets/prd.md` | **Moved** with `git mv src/staging/templates/prd.md …`. Then update the prd row's link in `src/staging/templates/README.md` | BEH-11 |
 | `skills/prd/references/brn-mapping.md` | The §4 mapping, with a short worked example: BRN items in, PRD items with `upstream` links out | BEH-02, BEH-04 |
 | `skills/prd/references/interview.md` | The question bank for each round (framing, architecture context, requirements, quality and constraints, metrics); the observable definitions of each `stage` and `operating_context` value; which NFR categories each operating context must ask and how deep each stage goes; the batching limits (4 per call, 8 calls); the constraint-vs-design rule, and the new-vs-extend criteria (scope, ownership, lifecycle) | BEH-03, BEH-05, BEH-07, BEH-09, BEH-15, BEH-16 |
@@ -81,7 +81,7 @@ Eval cases. Each is tagged `prd` plus the tag shown:
 | `warns-unconverged` | `ver-04` | AC-05 | Draft BRN-001 with ideas still open |
 | `stops-without-promoted` | `ver-05` | AC-05 | Converged BRN-001 with no promoted idea |
 | `extend-or-new` | `ver-06` | AC-06 | PRD-001 (version 1) for one initiative with its own owner and release, and an uncited BRN-002 for a *different* initiative in the same product. The skill must not default to extending |
-| `hands-off-to-epic` | `ver-07` | AC-07 | Converged BRN-001 |
+| `hands-off-to-architecture` | `ver-07` | AC-07 | Converged BRN-001 |
 | `ignores-unrelated-request` | `ver-08` | AC-08 | None. The prompt asks to open a pull request |
 | `records-provenance` | `ver-09` | AC-09 | Converged BRN-001 |
 | `constraints-not-design` | `ver-10` | AC-04 | Converged BRN-001. The prompt names AWS, Stripe and "leaning towards microservices" |
@@ -158,7 +158,7 @@ claude plugin eval .claude/skills/devforgeai --allow-tools Write Edit --scaffold
 - Don't create symlinks under `src/`. No skill file may reference `src/`, `docs/specs/` or `${CLAUDE_PROJECT_DIR}`.
 - Don't modify the brainstorm skill, except to report a problem found through the handoff.
 - Don't design architecture in the PRD skill. Constraints only (BEH-07).
-- Don't build the epic skill.
+- Don't build the architecture or epic skills.
 - Don't push, open a PR or merge without asking the user first.
 
 ## 7. Done when
@@ -178,7 +178,8 @@ claude plugin eval .claude/skills/devforgeai --allow-tools Write Edit --scaffold
 
 ## 9. After this build
 
-The next workflow is the **`epic` skill** (`/devforgeai:epic PRD-NNN`). It consumes the PRD through
-the downstream contract in SPEC-002 §5. The prd skill's handoff (BEH-13) detects it by checking for
-`${CLAUDE_PLUGIN_ROOT}/skills/epic/SKILL.md`. SPEC-002 §13 has an open decision on whether an
-architecture step comes first.
+The next workflow step is the **architecture step** (ADR-002, proposed): a system-architecture review
+between the PRD and epics that resolves `[NEEDS ADR]` markers and records shared decisions as ADRs. Its
+skill (`/devforgeai:architecture PRD-NNN`) isn't specified yet. Until it exists, the step is done by hand
+with the ADR template. The prd skill's handoff (BEH-13) detects it by checking for
+`${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md`.
