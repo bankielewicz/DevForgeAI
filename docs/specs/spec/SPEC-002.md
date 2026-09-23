@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 3, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
-  - {id: SPEC-001, relation: informed_by, version: 5, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
+  - {id: SPEC-001, relation: informed_by, version: 6, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []

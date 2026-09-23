@@ -4,9 +4,9 @@ id: SKL-001
 type: skill
 title: "Brainstorm a topic into a BRN document"
 status: draft          # draft | in-review | approved | superseded | deprecated
-version: 1             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+version: 2             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-22
-updated: 2026-09-22
+updated: 2026-09-23
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -17,7 +17,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:              # the specification this skill implements
-  - {id: SPEC-001, relation: implements, version: 5, hash: null}
+  - {id: SPEC-001, relation: implements, version: 6, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []

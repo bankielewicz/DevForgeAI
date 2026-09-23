@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Brainstorm
@@ -134,7 +134,8 @@ defined fields. Framework-specific reasoning goes in the prose of sections 5 and
 1. Report: the BRN path; the framework used, by name; how many problems, ideas and assumptions it holds; the ideas promoted (or, if none
    were confirmed, the proposed dispositions awaiting confirmation); and the open questions (`[NEEDS CLARIFICATION]` markers).
 2. Name the next step. Check whether `${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md` exists.
-   - If it does: tell the user to run `/devforgeai:prd <BRN path>`.
+   - If it does: tell the user to run `/devforgeai:prd <BRN-ID>` (for example `/devforgeai:prd BRN-001`), and give
+     the BRN path as its input. Never put the path in the command: the prd skill takes only an ID.
    - If it doesn't: say the PRD step isn't available yet: the PRD workflow, planned as `/devforgeai:prd`, isn't
      built. Say this BRN is its input, and give the path. Don't present it as a command to run now.
 3. Never start writing a PRD.
