@@ -18,6 +18,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [story.md](story.md) | What exact behavior do we build next? | **Testable Given/When/Then AC (`AC-`)** |
 | [spec.md](spec.md) | How exactly will it be built and verified? | Verification obligations (`VER-`) that cover each AC |
 | [adr.md](adr.md) | Why did we choose this design? | None (records a decision) |
+| [arch.md](arch.md) | How do the pieces fit, and which shared architectural questions are settled? | None; readiness per architectural question (`DEC-`) |
 | [policy.md](policy.md) | Which organizational rules and preferences apply? | None; settings consumed by workflows (ADR-003) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
 
@@ -84,6 +85,9 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 | spec | `errors` | `ERR-NN` | `condition`, `handling`, `user_result` |
 | spec | `quality_responses` | `QR-NN` | `response`, `measured_by` |
 | spec | `verifications` | `VER-NN` | `obligation`, `level`, `covers` |
+| arch | `components` | `CMP-NN` | `name`, `responsibility`, `owns_data`, `interacts_with`, `deployment` |
+| arch | `decisions` | `DEC-NN` | `question`, `blocking`, `state`, `resolved_by`, `notes` (upstream: affected requirements) |
+| arch | `evidence` | `EVD-NN` | `source`, `kind`, `finding`, `classification` |
 | policy | `settings` | `SET-NN` | `key`, `class`, `value`, `applies_when`, `overridable_by`, `rationale` |
 | sprint | `scope_changes` | (none) | `date`, `change`, `story`, `reason`, `approved_by` |
 | sprint | `review` | (none) | `story`, `outcome`, `evidence` |
@@ -113,6 +117,7 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `STORY-NNN` | Story | `story/STORY-NNN.md` | templated |
 | `SPEC-NNN` | Specification | `spec/SPEC-NNN.md` | templated |
 | `ADR-NNN` | Architecture Decision Record | `adr/ADR-NNN.md` | templated |
+| `ARCH-NNN` | Architecture description (components, architectural questions, evidence; SPEC-003) | `arch/ARCH-NNN.md` | templated |
 | `POL-NNN` | Policy (organizational or project settings, configuration contract v1, ADR-003) | `policy/POL-NNN.md` | templated |
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
