@@ -121,7 +121,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+            "pattern": "^(BRN|PRD|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
           }
         },
         "target_release": {

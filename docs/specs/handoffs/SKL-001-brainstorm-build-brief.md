@@ -146,8 +146,10 @@ Do these by hand in the worktree session and record the results:
 
 - Don't write validator scripts (Python or otherwise) into the repository, and don't start the `devforgeai` Rust CLI.
 - Don't create symlinks anywhere under `src/`.
-- Don't reference `src/` (including `src/staging/` and `src/schemas/`), `docs/specs/` or `${CLAUDE_PROJECT_DIR}` from any skill file. Every
-  path a skill uses resolves inside the skill or plugin (`${CLAUDE_SKILL_DIR}`, `${CLAUDE_PLUGIN_ROOT}`).
+- Don't reference `src/` (including `src/staging/` and `src/schemas/`) from any skill file. A skill's own
+  resources resolve inside the skill or plugin (`${CLAUDE_SKILL_DIR}`, `${CLAUDE_PLUGIN_ROOT}`); the project
+  documents it reads and writes live in `docs/specs/`. (Wording corrected on 2026-09-23; the earlier text
+  also forbade `docs/specs/`, which contradicted the skill's own output path.)
 - Don't add brainstorming frameworks beyond diverge-converge; the catalog is deferred (PRD-001 §12).
 - Don't build the PRD skill.
 - Don't push, open a PR or merge without asking the user first.

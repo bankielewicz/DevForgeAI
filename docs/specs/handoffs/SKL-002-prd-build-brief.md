@@ -5,8 +5,8 @@ context from earlier conversations. `CLAUDE.md` applies.
 
 | | |
 |---|---|
-| Implements | `docs/specs/spec/SPEC-002.md` (version 4) |
-| Story | `docs/specs/story/STORY-002.md` (version 4) |
+| Implements | `docs/specs/spec/SPEC-002.md` (version 5) |
+| Story | `docs/specs/story/STORY-002.md` (version 5) |
 | Build and validation process | `docs/specs/adr/ADR-001.md` (accepted, version 3) |
 | Consumes | BRNs written by the brainstorm skill (SPEC-001 §5, downstream contract) |
 | Branch / worktree | `story/STORY-002-prd` / `.claude/worktrees/story-002-prd` |
@@ -42,9 +42,11 @@ SPEC-002 already settles the design, and both tools conflict with ADR-001. You m
 
 ## 2. Read in this order
 
-1. SPEC-002, which is authoritative: BEH-01…16, ERR-01…07, QR-01…03, VER-01…12, the data model and
+1. SPEC-002, which is authoritative: BEH-01…17, ERR-01…08, QR-01…03, VER-01…12, the data model and
    mapping in §4, and the frontmatter and downstream contract in §5.
-2. STORY-002: AC-01…10.
+2. STORY-002: AC-01…11.
+   Read ADR-003 (proposed) for configuration contract v1: the policy classes, layers, precedence, failure rules and recording (A2–A5).
+   Read `src/schemas/policy.schema.json`, `src/staging/templates/policy.md` and `src/staging/examples/policy-two-orgs/`.
    Also read SPEC-002 Appendix A and its example files in `src/staging/examples/prd-production-mvp/`. They show the intended interview for a production MVP, but they are a design illustration, not a recorded run.
 3. ADR-001: the layout, commands and rules.
 4. SPEC-001 §5 and the built brainstorm skill in `src/claude/DevForgeAI/skills/brainstorm/`. It shows
@@ -63,11 +65,13 @@ All deliverables go under `src/claude/DevForgeAI/`:
 
 | Path | Content | Implements |
 |---|---|---|
-| `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…16, ERR-01…07, QR-01, QR-02 |
-| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 4, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
+| `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…17, ERR-01…08, QR-01, QR-02 |
+| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 5, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
 | `skills/prd/assets/prd.md` | **Moved** with `git mv src/staging/templates/prd.md …`. Then update the prd row's link in `src/staging/templates/README.md` | BEH-11 |
 | `skills/prd/references/brn-mapping.md` | The §4 mapping, with a short worked example: BRN items in, PRD items with `upstream` links out | BEH-02, BEH-04 |
 | `skills/prd/references/interview.md` | The question bank for each round (framing, architecture context, requirements, quality and constraints, metrics); the observable definitions of each `stage` and `operating_context` value; which NFR categories each operating context must ask and how deep each stage goes; the batching limits (4 per call, 8 calls); the constraint-vs-design rule, and the new-vs-extend criteria (scope, ownership, lifecycle) | BEH-03, BEH-05, BEH-07, BEH-09, BEH-15, BEH-16 |
+| `skills/prd/references/defaults.md` | The framework-default layer for the three v1 settings (`quality.required_categories` adds nothing beyond the BEH-03 floor, `architecture.mandated_platforms` is empty, `interview.max_calls` is 8), each labelled with its ADR-003 class | BEH-17 |
+| `skills/prd/references/policy.md` | The ADR-003 A3–A5 resolution rules: approved-only, one document per scope, layer order, `overridable_by`, additive floor, the failure table, and how applied settings are recorded | BEH-17, ERR-08 |
 | `skills/prd/references/output-rules.md` | PRD item-block rules, including `stage`, `operating_context`, `priority` and `release` as `null` until decided, the `constraint` category, and the `[NEEDS ADR]` marker format | BEH-12 |
 | `evals/prd/<case>/` | One case per automated VER (table below), each with its fixture files and `case.yaml` scaffold | QR-03 |
 
@@ -86,6 +90,9 @@ Eval cases. Each is tagged `prd` plus the tag shown:
 | `records-provenance` | `ver-09` | AC-09 | Converged BRN-001 |
 | `constraints-not-design` | `ver-10` | AC-04 | Converged BRN-001. The prompt names AWS, Stripe and "leaning towards microservices" |
 | `production-mvp` | `ver-13` | AC-10 | A copy of `src/staging/examples/prd-production-mvp/BRN-001.md`. The prompt: MVP, real patients from day one, answers security and privacy only |
+| `policy-applied` | `ver-15` | AC-11 | Organization A's policy copied to `docs/specs/policy/POL-001.md`, plus a converged BRN-001. The prompt states operating context internal |
+| `invalid-policy-stops` | `ver-16` | AC-11 | An approved policy with `interview.max_calls: 50` |
+| `no-policy-defaults` | `ver-17` | AC-11 | A converged BRN-001 only; no `docs/specs/policy/` |
 | `architecture-context` | `ver-14` | AC-04 | Converged BRN-001, an accepted ADR-002 and a proposed ADR-003 in `docs/specs/adr/`, both named in the prompt |
 
 **Fixtures.** Write every fixture BRN and PRD by hand. Check each one by reading it against its schema,
@@ -155,7 +162,7 @@ claude plugin eval .claude/skills/devforgeai --allow-tools Write Edit --scaffold
 ## 6. Don't
 
 - Don't write validator scripts into the repository, and don't start the `devforgeai` CLI.
-- Don't create symlinks under `src/`. No skill file may reference `src/`, `docs/specs/` or `${CLAUDE_PROJECT_DIR}`.
+- Don't create symlinks under `src/`. A skill's own resources are referenced only inside its skill or plugin folder (`${CLAUDE_SKILL_DIR}`, `${CLAUDE_PLUGIN_ROOT}`), never through `src/`. Project documents (BRNs, PRDs, ADRs, policy) are read and written in `docs/specs/`.
 - Don't modify the brainstorm skill, except to report a problem found through the handoff.
 - Don't design architecture in the PRD skill. Constraints only (BEH-07).
 - Don't build the architecture or epic skills.
