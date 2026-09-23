@@ -3,7 +3,7 @@ id: STORY-002
 type: story
 title: "Turn a brainstorm into a PRD"
 status: draft
-version: 2
+version: 3
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -16,7 +16,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: EPIC-002, relation: refines, version: 1, hash: null}
+  - {id: EPIC-002, relation: refines, version: 2, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -84,7 +84,7 @@ acceptance_criteria:
       - "no open, parked or rejected idea is cited anywhere in the PRD"
     upstream:
       - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 1, hash: null}
+      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 2, hash: null}
   - id: AC-03
     status: active
     name: "Decisions stay the user's"
@@ -93,15 +93,15 @@ acceptance_criteria:
     when:
       - "the skill writes the PRD"
     then:
-      - "stage, priority and release are null wherever the user did not supply or confirm them"
+      - "stage, operating context, priority and release are null wherever the user did not supply or confirm them"
       - "gaps the user did not answer are [NEEDS CLARIFICATION] markers, not guesses"
-      - "the PRD status is draft; the skill never sets approved"
+      - "a new PRD is written with status draft; the skill never sets approved (extension status follows AC-06)"
     upstream:
       - {id: PRD-001,  item: FR-003, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 1, hash: null}
+      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 2, hash: null}
   - id: AC-04
     status: active
-    name: "Interview asks only what is missing; architecture only as constraints"
+    name: "Interview asks only what is missing; architecture is read and classified, not designed"
     given:
       - "a BRN and a request that answer some questions already"
     when:
@@ -109,7 +109,9 @@ acceptance_criteria:
     then:
       - "it asks nothing the BRN or the request already answers"
       - "it asks in batches of at most four questions"
-      - "fixed external conditions such as a mandated platform or integration become NFR items with category constraint"
+      - "it reads accepted ADRs in docs/specs/adr/ and any architecture document the BRN or request names"
+      - "existing commitments become constrains links to the accepted ADR; hard constraints become NFR items with category constraint; preferences become open questions"
+      - "an open architecture decision becomes a [NEEDS ADR] marker naming the requirements it affects"
       - "it writes no architecture or design decision into the PRD"
     upstream:
       - {id: PRD-001, item: FR-005, relation: satisfies, version: 3, hash: null}
@@ -140,7 +142,7 @@ acceptance_criteria:
       - "it tells the user that epics citing the extended PRD are now suspect links to re-review"
     upstream:
       - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
-      - {id: EPIC-002, item: DW-02,  relation: satisfies, version: 1, hash: null}
+      - {id: EPIC-002, item: DW-02,  relation: satisfies, version: 2, hash: null}
   - id: AC-07
     status: active
     name: "Handoff names the epic step and its input"
@@ -177,6 +179,21 @@ acceptance_criteria:
       - "reviewed_by is empty and every link hash is null"
     upstream:
       - {id: PRD-001, item: FR-003, relation: satisfies, version: 3, hash: null}
+  - id: AC-10
+    status: active
+    name: "Stage and operating context are independent, and production is never under-asked"
+    given:
+      - "an MVP that will serve real users with real data in production"
+    when:
+      - "the skill interviews and writes the PRD"
+    then:
+      - "it records stage mvp and operating_context production as separate values"
+      - "it asks about every quality category that production requires, whatever the stage, and offers any other category"
+      - "each required category left unanswered becomes a [NEEDS CLARIFICATION] marker, not a placeholder requirement"
+      - "when the operating context is unknown, it is treated as production for deciding which gaps to mark, and left null"
+    upstream:
+      - {id: PRD-001,  item: FR-005, relation: satisfies, version: 3, hash: null}
+      - {id: EPIC-002, item: DW-01,  relation: satisfies, version: 2, hash: null}
 ```
 
 ## 5. Specification
@@ -200,3 +217,4 @@ acceptance_criteria:
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
 | 2 | 2026-09-23 | claude-code | AC-06: new vs extend decided by scope, ownership and lifecycle; approved PRDs re-enter review when extended (agreed with Bryan) | AC-06 |
+| 3 | 2026-09-23 | claude-code | AC-03 status wording no longer contradicts AC-06; AC-04 reads and classifies architecture context; AC-10 stage vs operating context | AC-03, AC-04, AC-10 |

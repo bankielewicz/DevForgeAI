@@ -5,8 +5,8 @@ context from earlier conversations. `CLAUDE.md` applies.
 
 | | |
 |---|---|
-| Implements | `docs/specs/spec/SPEC-002.md` (version 2) |
-| Story | `docs/specs/story/STORY-002.md` (version 2) |
+| Implements | `docs/specs/spec/SPEC-002.md` (version 3) |
+| Story | `docs/specs/story/STORY-002.md` (version 3) |
 | Build and validation process | `docs/specs/adr/ADR-001.md` (accepted, version 3) |
 | Consumes | BRNs written by the brainstorm skill (SPEC-001 §5, downstream contract) |
 | Branch / worktree | `story/STORY-002-prd` / `.claude/worktrees/story-002-prd` |
@@ -42,9 +42,10 @@ SPEC-002 already settles the design, and both tools conflict with ADR-001. You m
 
 ## 2. Read in this order
 
-1. SPEC-002, which is authoritative: BEH-01…15, ERR-01…07, QR-01…03, VER-01…12, the data model and
+1. SPEC-002, which is authoritative: BEH-01…16, ERR-01…07, QR-01…03, VER-01…12, the data model and
    mapping in §4, and the frontmatter and downstream contract in §5.
-2. STORY-002: AC-01…09.
+2. STORY-002: AC-01…10.
+   Also read SPEC-002 Appendix A and its example files in `src/staging/examples/prd-production-mvp/`. They show the intended interview for a production MVP, but they are a design illustration, not a recorded run.
 3. ADR-001: the layout, commands and rules.
 4. SPEC-001 §5 and the built brainstorm skill in `src/claude/DevForgeAI/skills/brainstorm/`. It shows
    what a BRN looks like, and how that skill structured `SKILL.md`, its references and its evals.
@@ -62,12 +63,12 @@ All deliverables go under `src/claude/DevForgeAI/`:
 
 | Path | Content | Implements |
 |---|---|---|
-| `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…15, ERR-01…07, QR-01, QR-02 |
-| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 2, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
+| `skills/prd/SKILL.md` | Frontmatter exactly as in SPEC-002 §5. The body follows the skill template: inputs, workflow checklist, steps, decisions that need the user, output contract, references. At most 500 lines, and no `<!-- -->` comments left | BEH-01…16, ERR-01…07, QR-01, QR-02 |
+| `skills/prd/provenance.yaml` | `id: SKL-002`, `upstream: [{id: SPEC-002, relation: implements, version: 3, hash: null}]`, `skill_name: prd`, `packaging: plugin`, `plugin: devforgeai`, `eval_tag: prd`, `status: draft`, `generated_by` filled in | QR-02 |
 | `skills/prd/assets/prd.md` | **Moved** with `git mv src/staging/templates/prd.md …`. Then update the prd row's link in `src/staging/templates/README.md` | BEH-11 |
 | `skills/prd/references/brn-mapping.md` | The §4 mapping, with a short worked example: BRN items in, PRD items with `upstream` links out | BEH-02, BEH-04 |
-| `skills/prd/references/interview.md` | The question bank for each round (framing, requirements, quality and constraints, metrics), which NFR categories each stage asks, the batching limits (4 per call, 5 calls), the constraint-vs-design rule, and the new-vs-extend criteria (scope, ownership, lifecycle) | BEH-03, BEH-05, BEH-07, BEH-09, BEH-15 |
-| `skills/prd/references/output-rules.md` | PRD item-block rules, including `stage`, `priority` and `release` as `null` until decided, and the `constraint` category | BEH-12 |
+| `skills/prd/references/interview.md` | The question bank for each round (framing, architecture context, requirements, quality and constraints, metrics); the observable definitions of each `stage` and `operating_context` value; which NFR categories each operating context must ask and how deep each stage goes; the batching limits (4 per call, 8 calls); the constraint-vs-design rule, and the new-vs-extend criteria (scope, ownership, lifecycle) | BEH-03, BEH-05, BEH-07, BEH-09, BEH-15, BEH-16 |
+| `skills/prd/references/output-rules.md` | PRD item-block rules, including `stage`, `operating_context`, `priority` and `release` as `null` until decided, the `constraint` category, and the `[NEEDS ADR]` marker format | BEH-12 |
 | `evals/prd/<case>/` | One case per automated VER (table below), each with its fixture files and `case.yaml` scaffold | QR-03 |
 
 Eval cases. Each is tagged `prd` plus the tag shown:
@@ -84,6 +85,8 @@ Eval cases. Each is tagged `prd` plus the tag shown:
 | `ignores-unrelated-request` | `ver-08` | AC-08 | None. The prompt asks to open a pull request |
 | `records-provenance` | `ver-09` | AC-09 | Converged BRN-001 |
 | `constraints-not-design` | `ver-10` | AC-04 | Converged BRN-001. The prompt names AWS, Stripe and "leaning towards microservices" |
+| `production-mvp` | `ver-13` | AC-10 | A copy of `src/staging/examples/prd-production-mvp/BRN-001.md`. The prompt: MVP, real patients from day one, answers security and privacy only |
+| `architecture-context` | `ver-14` | AC-04 | Converged BRN-001, an accepted ADR-002 and a proposed ADR-003 in `docs/specs/adr/`, both named in the prompt |
 
 **Fixtures.** Write every fixture BRN and PRD by hand. Check each one by reading it against its schema,
 because no validator exists in the repository. The user hasn't yet decided whether the draft BRN from
@@ -134,14 +137,16 @@ claude plugin eval .claude/skills/devforgeai --allow-tools Write Edit --scaffold
 ## 5. Manual verifications
 
 - **VER-11:** run an interactive session with a BRN that already names the users and a request that
-  states the stage. Record:
+  states the stage and the operating context. Record:
   - that no question repeated those answers;
-  - the size of each batch (at most 4);
-  - which NFR categories were asked, compared with the stage rule in BEH-03;
+  - the size of each batch (at most 4) and the number of calls (at most 8);
+  - which NFR categories were asked, compared with the operating-context rule in BEH-03, and whether an "anything else" question was offered;
   - that stopping mid-interview offers a draft save.
-- **VER-12:** extend a PRD from a second BRN. Check:
+- **VER-12:** extend a PRD from a second BRN of the same initiative. Check:
   - the version rose by one, numbering continued, and existing items are byte-identical (`git diff`);
   - a Change Log entry was added and the suspect-epics warning appeared;
+  - with the PRD approved beforehand, the extension set `status: in-review` and cleared `approved_by` and `approved_on`;
+  - a new PRD that shares a constraint with the first one cites it with a `constrains` link rather than copying it;
   - no BRN changed.
 
   Then try an unknown BRN ID (it must list the available BRNs) and a BRN with a malformed item block

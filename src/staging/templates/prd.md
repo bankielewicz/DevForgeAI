@@ -22,7 +22,8 @@ superseded_by: null
 blocked_by: []
 # --- prd-specific ---
 target_release: ""     # name of the release "current" items belong to, e.g. "MVP"
-stage: null            # prototype | mvp | production; null until the user decides
+stage: null            # prototype | mvp | expansion (scope maturity); null until the user decides
+operating_context: null  # local | internal | pilot | production (who uses it, with what data); null until decided
 stakeholders: []
 ---
 

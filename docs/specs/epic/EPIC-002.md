@@ -3,7 +3,7 @@ id: EPIC-002
 type: epic
 title: "PRD skill MVP"
 status: draft
-version: 1
+version: 2
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -35,8 +35,8 @@ target_release: "MVP"
 ## 1. Goal
 
 A user runs `/devforgeai:prd` after a brainstorm and ends up with a schema-valid PRD. Every
-requirement in it traces to a promoted brainstorm idea. Every decision in it (stage, priority,
-release, scope) was made by the user or is visibly left open.
+requirement in it traces to a promoted brainstorm idea. Every decision in it (stage, operating
+context, priority, release, scope) was made by the user or is visibly left open.
 
 ## 2. Business value
 
@@ -50,8 +50,8 @@ the chain from idea to test breaks at its second link.
 - The `prd` skill in the `devforgeai` plugin, with its provenance record and eval suite.
 - Selecting a BRN as input, writing a new PRD, or extending an existing one.
 - An interview limited to what the BRN and the request don't answer.
-- Delivery stage, and priority and release per requirement, as user decisions.
-- Architecture captured only as constraints.
+- Scope maturity (stage), operating context, and priority and release per requirement, as user decisions.
+- Architecture context read and classified (commitments, constraints, preferences, open decisions); design itself stays in ADRs.
 
 **Out of scope**
 - The `epic` skill. The PRD skill hands off to it when it exists.
@@ -64,7 +64,7 @@ the chain from idea to test breaks at its second link.
 done_when:
   - id: DW-01
     status: active
-    criterion: "From a converged BRN, /devforgeai:prd writes docs/specs/prd/PRD-NNN.md that validates against prd.schema.json, where every requirement cites a promoted idea and every stage, priority and release value was supplied by the user or is null."
+    criterion: "From a converged BRN, /devforgeai:prd writes docs/specs/prd/PRD-NNN.md that validates against prd.schema.json, where every requirement cites a promoted idea and every stage, operating context, priority and release value was supplied by the user or is null."
     evidence_method: "claude plugin eval suite for the prd skill passes at threshold 0.8"
   - id: DW-02
     status: active
@@ -94,3 +94,4 @@ See SPEC-002.
 | Version | Date | Author | Change |
 |---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft |
+| 2 | 2026-09-23 | claude-code | Operating context as a separate decision; architecture context read and classified |

@@ -188,7 +188,7 @@ downstream views (a PRD's epics, a story's specs and tests, a traceability matri
 | `refines` | EPIC → PRD item, STORY → EPIC | Narrows scope into a smaller deliverable |
 | `satisfies` | AC → FR/NFR/DW, QR → NFR | Demonstrates or meets that requirement |
 | `specifies` | SPEC → STORY | Defines how the story's AC will be met |
-| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it |
+| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR, PRD → accepted ADR | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it |
 | `implements` | SKL → SPEC, TASK/commit → SPEC item | Realizes this specification or design element |
 | `verifies` | VER → AC, TEST → AC/VER | Planned or actual evidence for this criterion |
 | `supersedes` | any → same type | Replaces an earlier document or item |
@@ -243,6 +243,10 @@ every child of that PRD. Item hashes remove this over-flagging.
 Never guess. Mark unknowns inline as `[NEEDS CLARIFICATION: <question>]`, in prose or inside a
 quoted item value. The marker itself is the record: resolving it means replacing it with the answer.
 A document may not move to `approved` or `ready` while any marker remains.
+
+A second marker, `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]`, records an architecture decision that
+is still open (no accepted ADR). It does **not** block approving the PRD, because design may be deferred,
+but it **does** block writing epics for the requirements it names until an accepted ADR resolves it.
 
 `<!-- ... -->` comments are instructions for the author. Delete them when you fill in the template.
 
