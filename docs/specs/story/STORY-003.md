@@ -217,13 +217,14 @@ acceptance_criteria:
   The v3 full-plugin run (40/40, Claude Code 2.1.281, SPEC-003 §9 row j) is the brainstorm and prd regression evidence; those skills and every eval are unchanged in v4.
 
   Caveats:
-  - superseded-adr run 1 of 3 reported NFR-001 as blocked by DEC-01, which doesn't cite it. This is a real failure: two regex graders and three blind re-judges agree. The case scored 0.87. The cause is unknown; the same misreport appeared once on v1;
+  - superseded-adr run 1 of 3 reported NFR-001 as blocked by DEC-01, which doesn't cite it. This is a real failure: two regex graders and three blind re-judges agree. The case scored 0.87. The cause is unknown; the same misreport appeared once on v1. VER-05's readiness-attribution obligation therefore failed; deferred to STORY-004 (AC-04);
+  - the VER-12 (k) run read ARCH-001, the ARCH it amended, but recorded no EVD for it (BEH-05), while the (j) run did (EVD-03): failed; deferred to STORY-004 (AC-05);
   - VER-12 (a), (d) and the ERR-04 check are carried forward from build 469e984, and (b) (passed every clause, AC-05) from 36328fc;
   - VER-12 (c) failed: the draft warning comes after the ARCH write, not when the PRD is read. It is deferred to STORY-004. AC-01's "with a warning" is met by the warning in the handoff and ARCH §1;
   - ERR-05 is exercised only through a stand-in CLI. It last ran on v2 (feec61c) and is carried forward, not rerun on v3 or v4; that it still holds is an inference, because step 10 is unchanged since v2;
   - VER-12 (f) and (h) were re-checked on v4: SKILL.md is 272 lines and its description 460 characters.
 - [ ] Skill files reviewed; commits reference `STORY-003`
-- [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, and ERR-05 on the self-check path
+- [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, ERR-05 on the self-check path, the readiness attribution (VER-05 failed in 1 of 3 v4 runs; STORY-004 AC-04) and evidence completeness (BEH-05 failed in VER-12 (k); STORY-004 AC-05)
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 ## 7. Open questions
