@@ -2,7 +2,7 @@
 id: STORY-003
 type: story
 title: "Define the architecture for a PRD"
-status: in-progress
+status: in-review
 version: 2
 created: 2026-09-23
 updated: 2026-09-23
