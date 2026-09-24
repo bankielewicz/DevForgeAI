@@ -209,16 +209,19 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). On SKL-003 v3 (2026-09-24, SPEC-003 §9 rows i and j):
-  - all 12 architecture cases scored ≥ 0.8 over 3 runs in the full-plugin run (40/40);
+- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). On SKL-003 v4 (2026-09-24, Claude Code 2.1.282, SPEC-003 §9 rows k and l):
+  - all 12 architecture cases scored ≥ 0.8 over 3 runs in the `--tag architecture` run;
   - the fresh Organization A/B sequence passed with identical hashes;
-  - VER-12 (b) passed every clause (AC-05).
+  - VER-12 (j), (k), (e) and (g) passed on v4, and (f) and (h) were re-checked on v4.
+
+  The v3 full-plugin run (40/40, Claude Code 2.1.281, SPEC-003 §9 row j) is the brainstorm and prd regression evidence; those skills and every eval are unchanged in v4.
 
   Caveats:
-  - VER-12 (a), (d), (e), (g) and the ERR-04 check are carried forward from build 469e984;
+  - superseded-adr run 1 of 3 reported NFR-001 as blocked by DEC-01, which doesn't cite it. This is a real failure: two regex graders and three blind re-judges agree. The case scored 0.87. The cause is unknown; the same misreport appeared once on v1;
+  - VER-12 (a), (d) and the ERR-04 check are carried forward from build 469e984, and (b) (passed every clause, AC-05) from 36328fc;
   - VER-12 (c) failed: the draft warning comes after the ARCH write, not when the PRD is read. It is deferred to STORY-004. AC-01's "with a warning" is met by the warning in the handoff and ARCH §1;
-  - ERR-05 is exercised only through a stand-in CLI. It last ran on v2 (feec61c) and is carried forward, not rerun on v3; that it still holds is an inference, because step 10 is unchanged in v3;
-  - VER-12 (f) and (h) were re-checked on v3: SKILL.md is 272 lines and its description 460 characters.
+  - ERR-05 is exercised only through a stand-in CLI. It last ran on v2 (feec61c) and is carried forward, not rerun on v3 or v4; that it still holds is an inference, because step 10 is unchanged since v2;
+  - VER-12 (f) and (h) were re-checked on v4: SKILL.md is 272 lines and its description 460 characters.
 - [ ] Skill files reviewed; commits reference `STORY-003`
 - [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, and ERR-05 on the self-check path
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
