@@ -209,7 +209,15 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). The twelve architecture cases each scored ≥ 0.8 over 3 runs, and VER-12 ran on 2026-09-24. This stays open: AC-05's "asking before going further" was not exercised (VER-12 (b) partial, SPEC-003 §9)
+- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). On SKL-003 v3 (2026-09-24, SPEC-003 §9 rows i and j):
+  - all 12 architecture cases scored ≥ 0.8 over 3 runs in the full-plugin run (40/40);
+  - the fresh Organization A/B sequence passed with identical hashes;
+  - VER-12 (b) passed every clause (AC-05).
+
+  Caveats:
+  - VER-12 (a), (d), (e), (g) and the ERR-04 check are carried forward from build 469e984;
+  - VER-12 (c)'s early draft warning is a known limit, since the warning appears only in the handoff and ARCH (AC-01's "with a warning" holds);
+  - ERR-05 is exercised only through a stand-in CLI.
 - [ ] Skill files reviewed; commits reference `STORY-003`
 - [ ] SPEC-003 items implemented, or explicitly deferred to a new story
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
