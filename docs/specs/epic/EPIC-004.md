@@ -16,15 +16,15 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: FR-013,  relation: refines, version: 8, hash: null}
-  - {id: PRD-001, item: FR-003,  relation: refines, version: 8, hash: null, note: "decisions stay the user's; outcome confirmation is not decision acceptance"}
-  - {id: PRD-001, item: FR-004,  relation: refines, version: 8, hash: null, note: "handoff from architecture to the epic workflow"}
-  - {id: PRD-001, item: FR-006,  relation: refines, version: 8, hash: null, note: "partial: the Architecture Definition half of the initial rollout"}
-  - {id: PRD-001, item: FR-007,  relation: refines, version: 8, hash: null, note: "partial: the Architecture Definition half of the initial rollout"}
-  - {id: PRD-001, item: FR-008,  relation: refines, version: 8, hash: null, note: "partial: the Architecture Definition half of the initial rollout"}
-  - {id: PRD-001, item: NFR-001, relation: refines, version: 8, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: refines, version: 8, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: FR-013,  relation: refines, version: 9, hash: null}
+  - {id: PRD-001, item: FR-003,  relation: refines, version: 9, hash: null, note: "decisions stay the user's; outcome confirmation is not decision acceptance"}
+  - {id: PRD-001, item: FR-004,  relation: refines, version: 9, hash: null, note: "handoff from architecture to the epic workflow"}
+  - {id: PRD-001, item: FR-006,  relation: refines, version: 9, hash: null, note: "partial: the Architecture Definition half of the initial rollout"}
+  - {id: PRD-001, item: FR-007,  relation: refines, version: 9, hash: null, note: "partial: the Architecture Definition half of the initial rollout"}
+  - {id: PRD-001, item: FR-008,  relation: refines, version: 9, hash: null, note: "partial: the Architecture Definition half of the initial rollout"}
+  - {id: PRD-001, item: NFR-001, relation: refines, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: refines, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: refines, version: 9, hash: null}
   - {id: ADR-002, relation: informed_by, version: 2, hash: null, note: "accepted: the step this skill performs"}
 supersedes: []
 superseded_by: null
