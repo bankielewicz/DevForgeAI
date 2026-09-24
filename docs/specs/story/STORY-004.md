@@ -85,7 +85,7 @@ acceptance_criteria:
       - "after the user agrees to widen the scope, reading that path is allowed"
       - "reads inside the scope and the contract document folders are never blocked"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
   - id: AC-02
     status: active
     name: "A draft PRD's warning comes before any question or write"
@@ -97,7 +97,7 @@ acceptance_criteria:
       - "the proposal warning has already been shown; otherwise the question or write does not happen until it is"
       - "a run on an approved PRD is not affected"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
   - id: AC-03
     status: active
     name: "ERR-05 on the self-check path"
@@ -108,7 +108,7 @@ acceptance_criteria:
     then:
       - "the skill stops, lists the files and remaining errors, restores only statuses, approval fields, dependent DEC state and the audit record, and skips the readiness handoff, as on the CLI path"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
   - id: AC-04
     status: active
     name: "The readiness report matches the §4 rule on every run"
@@ -119,7 +119,7 @@ acceptance_criteria:
     then:
       - "every reported status and blocking DEC ID matches SPEC-003 §4 applied to the ARCH and the ADRs' current statuses"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
   - id: AC-05
     status: active
     name: "Every consulted project document has an EVD"
@@ -130,7 +130,7 @@ acceptance_criteria:
     then:
       - "every PRD, ARCH (including the one being amended) and ADR the run read is recorded as an EVD per inspection.md"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
 ```
 
 ## 5. Specification

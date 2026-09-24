@@ -2,7 +2,7 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: draft
+status: approved
 version: 6
 created: 2026-09-23
 updated: 2026-09-24
@@ -13,13 +13,13 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-24
 upstream:
-  - {id: STORY-003, relation: specifies, version: 2, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 7, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 7, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 7, hash: null}
+  - {id: STORY-003, relation: specifies, version: 3, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 8, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 8, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 8, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
@@ -266,19 +266,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the decision and readiness rules and the output contract; readiness, inspection, policy and output rules live in references/"
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 8, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 8, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged architecture and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 8, hash: null}
 ```
 
 ## 9. Verification
@@ -321,7 +321,7 @@ verifications:
       - BEH-14
       - BEH-15
     upstream:
-      - {id: STORY-003, item: AC-01, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-01, relation: verifies, version: 3, hash: null}
   - id: VER-02
     status: active
     obligation: "Demonstration, Organization A: the shared fixture plus Organization A's policy (src/staging/examples/policy-two-orgs/org-a/POL-001.md). The identity-provider DEC is resolved_by POL-001#SET-01; the session-revocation DEC stays open; FR-001 is still blocked; outcome is null (not reuse). Eval case org-a-policy: regex on the file and last_message."
@@ -332,7 +332,7 @@ verifications:
       - BEH-08
       - BEH-11
     upstream:
-      - {id: STORY-003, item: AC-07, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-07, relation: verifies, version: 3, hash: null}
   - id: VER-03
     status: active
     obligation: "Demonstration, Organization B: identical to VER-02 except for Organization B's policy. The identity-provider DEC stays open with an empty resolved_by. Eval case org-b-policy: regex on the file."
@@ -341,7 +341,7 @@ verifications:
       - BEH-07
       - BEH-11
     upstream:
-      - {id: STORY-003, item: AC-07, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-07, relation: verifies, version: 3, hash: null}
   - id: VER-04
     status: active
     obligation: "Unrelated ADR: the fixture adds an accepted ADR-001 about logging that cites PRD-001#FR-001. Both identity DECs stay open, nothing is resolved_by ADR-001, and FR-001 is blocked. Eval case unrelated-adr: regex on the file."
@@ -350,7 +350,7 @@ verifications:
       - BEH-07
       - BEH-11
     upstream:
-      - {id: STORY-003, item: AC-02, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-02, relation: verifies, version: 3, hash: null}
   - id: VER-05
     status: active
     obligation: "Superseded ADR: an existing ARCH-001 has the provider DEC resolved_by ADR-002, which is superseded by ADR-003 (a different topic). The prompt chooses to amend ARCH-001 and confirms that outcome. The handoff names ADR-002 as the superseded resolver (equivalent wording such as 'replaced' is accepted; negated or reversed statements are not) and reports readiness derived from the amended ARCH: FR-001 blocked by DEC-01; FR-002 and NFR-001 ready, because DEC-02 stays resolved by the accepted ADR-001, unless the amendment adds a DEC (DEC-03 or higher) that cites them. Every requirement is listed, no summary contradicts the lists, and no requirement is attributed to a DEC that doesn't cite it. In the amended ARCH-001 the provider DEC is open with an empty resolved_by, DEC-02 is still resolved by ADR-001, and an EVD records ADR-002 with classification context. Eval case superseded-adr: regex on the file and last_message, plus an llm grader for the readiness mapping."
@@ -358,7 +358,7 @@ verifications:
     covers:
       - BEH-11
     upstream:
-      - {id: STORY-003, item: AC-02, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-02, relation: verifies, version: 3, hash: null}
   - id: VER-06
     status: active
     obligation: "No user, no acceptance: in VER-01's run, no ADR in docs/specs/adr/ has status accepted, no DEC is resolved_by an ADR, and outcome is null. Eval case no-acceptance-without-user: regex not_contains on the written files."
@@ -367,7 +367,7 @@ verifications:
       - BEH-07
       - BEH-08
     upstream:
-      - {id: STORY-003, item: AC-03, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-03, relation: verifies, version: 3, hash: null}
   - id: VER-07
     status: active
     obligation: "Existing ARCH-001 for the same system: the skill proposes reuse or amend and asks; no ARCH-002.md is created. Eval case existing-arch-not-duplicated: file_exists false, regex on last_message."
@@ -376,7 +376,7 @@ verifications:
       - BEH-04
       - ERR-04
     upstream:
-      - {id: STORY-003, item: AC-04, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
   - id: VER-08
     status: active
     obligation: "Insufficient evidence: the prompt says 'reuse our current auth service' but names no inspection scope, and no code exists. The outcome is not reuse, and the file has a [NEEDS CLARIFICATION] marker about the missing evidence. Eval case insufficient-evidence: regex on the file."
@@ -384,7 +384,7 @@ verifications:
     covers:
       - BEH-05
     upstream:
-      - {id: STORY-003, item: AC-05, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-05, relation: verifies, version: 3, hash: null}
   - id: VER-09
     status: active
     obligation: "Requirement handback: the fixture PRD has an NFR that conflicts with Organization A's mandated platform. ARCH §7 and the handoff propose a change for the PRD owner; PRD-001.md still has its original version line. Eval case prd-change-handed-back: regex on the ARCH and the PRD."
@@ -393,7 +393,7 @@ verifications:
       - BEH-12
       - BEH-16
     upstream:
-      - {id: STORY-003, item: AC-08, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-08, relation: verifies, version: 3, hash: null}
   - id: VER-10
     status: active
     obligation: "Handoff: the final reply lists ready and blocked requirements with DEC IDs, names the epic workflow and, since this plugin has no epic skill, says it is not built yet. Eval case hands-off-to-epic: regex on last_message."
@@ -401,7 +401,7 @@ verifications:
     covers:
       - BEH-15
     upstream:
-      - {id: STORY-003, item: AC-09, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-09, relation: verifies, version: 3, hash: null}
   - id: VER-11
     status: active
     obligation: "A request such as 'explain the architecture of the Linux kernel' does not invoke the skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -410,7 +410,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-003, item: AC-10, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-10, relation: verifies, version: 3, hash: null}
   - id: VER-12
     status: active
     obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with a test stand-in for devforgeai that always reports an unfixable error and one decision accepted before validation: the skill stops after three attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. This exercises only the devforgeai check path; the self-check failure path is not exercised. (j) In a fresh fixture copy, amending an existing ARCH whose links cite PRD v2, against PRD v3 with one new [NEEDS ADR] marker: links on existing items stay at v2, the links added in this run (and the frontmatter PRD link) use v3, and validation passes without ERR-05. (k) In a fresh fixture copy, an explicitly approved supersession of an accepted ADR passes validation: the old ADR changes only status: superseded, superseded_by and one Status history row; the new ADR is accepted with supersedes: [ADR-old]; the DEC's resolved_by changes from [ADR-old] to [ADR-new], logged in the Change Log; the old ADR is recorded as a context EVD; and readiness reports the requirement ready."
@@ -428,8 +428,8 @@ verifications:
       - ERR-06
       - QR-01
     upstream:
-      - {id: STORY-003, item: AC-03, relation: verifies, version: 2, hash: null}
-      - {id: STORY-003, item: AC-05, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-03, relation: verifies, version: 3, hash: null}
+      - {id: STORY-003, item: AC-05, relation: verifies, version: 3, hash: null}
   - id: VER-13
     status: active
     obligation: "Operator check for the demonstration: run VER-02 and VER-03 with the same PRD, prompt and other fixtures, in fresh workspaces. A SHA-256 manifest of the deployed plugin (find .claude/skills/devforgeai -path '*/evals/results' -prune -o -type f -print0 | sort -z | xargs -0 sha256sum) is identical before VER-02, between the runs and after VER-03, and git diff src/ is empty. Record the three manifest hashes in the PR."
@@ -437,7 +437,7 @@ verifications:
     covers:
       - BEH-03
     upstream:
-      - {id: STORY-003, item: AC-07, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-07, relation: verifies, version: 3, hash: null}
   - id: VER-14
     status: active
     obligation: "Provenance and policy recording: in VER-01's run (no policy), the ARCH's generated_by has non-empty tool, model and session, reviewed_by is empty, every hash is null, the Change Log's 'Policy resolution:' line contains interview.max_calls=8 (default), architecture.mandated_platforms=none (default) and quality.required_categories=floor only (default), and the ARCH contains no 'id: POL-' link. Eval case records-provenance: one regex per check on the file, and a not_contains for 'id: POL-'."
@@ -446,8 +446,8 @@ verifications:
       - BEH-13
       - BEH-03
     upstream:
-      - {id: STORY-003, item: AC-11, relation: verifies, version: 2, hash: null}
-      - {id: STORY-003, item: AC-06, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-11, relation: verifies, version: 3, hash: null}
+      - {id: STORY-003, item: AC-06, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -477,7 +477,7 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 
 ## 13. Open questions
 
-- [NEEDS CLARIFICATION: PRD-001#FR-013 priority and release are null for Bryan to decide]
+- None. (PRD-001 v8 records FR-013 as must/current, decided by Bryan on 2026-09-24.)
 
 ## Change Log
 
@@ -489,3 +489,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 4 | 2026-09-24 | claude-code | SKL-003 version 2 (§5 example). Code inspection defined as a property: read-only, every path inside the scope, tools when available, no whole-repository listing, contract documents and validation outside the rule (§5, BEH-05). ERR-05 restores only statuses, approval fields, the dependent DEC state and one audit record, keeps the user's choices, and ends with a validation-failure report. VER-05 readiness expectations derived from the amended ARCH. VER-12 (b) adds the out-of-scope request in two fixture copies and the command-path check, (c) warns when the PRD is read, (i) the ERR-05 stand-in check; VER-12 verifies AC-05. Found in VER-12 and the superseded-adr diagnosis, approved by Bryan | §5, BEH-05, ERR-05, VER-05, VER-12 |
 | 5 | 2026-09-24 | claude-code | §5 skill-version example "3" for SKL-003 v3 (wording fixes: exact contract paths without Glob, no root or parent listing, the draft warning as its own line). Approved by Bryan | §5 |
 | 6 | 2026-09-24 | claude-code | §5 skill-version example "4" for SKL-003 v4 (output-rules.md: links added in a run use current versions while links on existing items keep theirs; separate checks for a new ADR and for an existing ADR marked superseded; a superseding ADR lists supersedes: [ADR-old]; the DEC's resolved_by is replaced by the new ADR; an ADR decided in this run resolves by means 3). VER-12 adds (j), amending an ARCH across a PRD version change, and (k), an explicitly approved ADR supersession, and now covers BEH-09 and BEH-14. Found by a Codex review of SKL-003 v3, approved by Bryan | §5, VER-12 |
+| 6 | 2026-09-24 | Bryan | Approved, with the exceptions deferred to STORY-004 (VER-12 (c), readiness attribution, evidence completeness, BEH-05 enforcement, ERR-05 self-check path) | status |

@@ -2,10 +2,10 @@
 id: STORY-003
 type: story
 title: "Define the architecture for a PRD"
-status: in-review
-version: 2
+status: done
+version: 3
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-09-24
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -69,7 +69,7 @@ acceptance_criteria:
       - "questions cover only what separate epics must share, not feature-level detail"
       - "a draft PRD produces proposals with a warning; unanswered product questions are not turned into decisions"
     upstream:
-      - {id: PRD-001,  item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001,  item: FR-013, relation: satisfies, version: 8, hash: null}
       - {id: EPIC-004, item: DW-01,  relation: satisfies, version: 1, hash: null}
   - id: AC-02
     status: active
@@ -84,7 +84,7 @@ acceptance_criteria:
       - "a question resolved by an ADR that is later superseded is reported open again"
       - "a policy setting resolves only the question it actually answers"
     upstream:
-      - {id: PRD-001,  item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001,  item: FR-013, relation: satisfies, version: 8, hash: null}
       - {id: EPIC-004, item: DW-01,  relation: satisfies, version: 1, hash: null}
   - id: AC-03
     status: active
@@ -98,7 +98,7 @@ acceptance_criteria:
       - "confirming reuse, amend or create never accepts the decisions inside"
       - "with no user present, nothing is accepted: any ADR written is proposed, the questions stay open, and the outcome stays null"
     upstream:
-      - {id: PRD-001, item: FR-003, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-003, relation: satisfies, version: 8, hash: null}
   - id: AC-04
     status: active
     name: "An existing architecture is reused or amended, not duplicated"
@@ -111,7 +111,7 @@ acceptance_criteria:
       - "it never creates a second baseline without the user's choice"
       - "reusing one platform or component is not reported as a reuse outcome for the whole architecture"
     upstream:
-      - {id: PRD-001,  item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001,  item: FR-013, relation: satisfies, version: 8, hash: null}
       - {id: EPIC-004, item: DW-02,  relation: satisfies, version: 1, hash: null}
   - id: AC-05
     status: active
@@ -125,7 +125,7 @@ acceptance_criteria:
       - "every source consulted is recorded as evidence with its kind and, separately, its classification: observed practice, approved policy, an accepted decision, or context (inputs and historical material, such as the PRD itself, an existing ARCH or a superseded ADR, that establish neither implemented behavior nor a decision)"
       - "insufficient evidence produces an explicit unknown, never a confident reuse recommendation"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
   - id: AC-06
     status: active
     name: "Organizational policy is applied as in ADR-003"
@@ -137,9 +137,9 @@ acceptance_criteria:
       - "it follows the ADR-003 sequence and failure rules, and records the resolution line and links"
       - "an approved mandated-platform setting resolves only the question it answers, cited as POL-NNN#SET-NN"
     upstream:
-      - {id: PRD-001, item: FR-006, relation: satisfies, version: 7, hash: null}
-      - {id: PRD-001, item: FR-007, relation: satisfies, version: 7, hash: null}
-      - {id: PRD-001, item: FR-008, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-006, relation: satisfies, version: 8, hash: null}
+      - {id: PRD-001, item: FR-007, relation: satisfies, version: 8, hash: null}
+      - {id: PRD-001, item: FR-008, relation: satisfies, version: 8, hash: null}
   - id: AC-07
     status: active
     name: "Two organizations, one unchanged workflow"
@@ -153,7 +153,7 @@ acceptance_criteria:
       - "neither run reports a reuse outcome merely because a platform is reused"
       - "the deployed plugin is byte-identical before and after both runs"
     upstream:
-      - {id: PRD-001,  item: FR-009, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001,  item: FR-009, relation: satisfies, version: 8, hash: null}
       - {id: EPIC-003, item: DW-02,  relation: satisfies, version: 1, hash: null}
   - id: AC-08
     status: active
@@ -166,7 +166,7 @@ acceptance_criteria:
       - "it records a proposed requirement change in the ARCH and the handoff"
       - "it never edits the PRD"
     upstream:
-      - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-013, relation: satisfies, version: 8, hash: null}
   - id: AC-09
     status: active
     name: "Handoff reports readiness and names the epic step"
@@ -178,7 +178,7 @@ acceptance_criteria:
       - "it lists requirements ready for epic work and requirements blocked, with the blocking question IDs"
       - "it names the epic workflow as next, or says it is not yet available, and never starts it"
     upstream:
-      - {id: PRD-001, item: FR-004, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-004, relation: satisfies, version: 8, hash: null}
   - id: AC-10
     status: active
     name: "Does not trigger on unrelated requests"
@@ -189,7 +189,7 @@ acceptance_criteria:
     then:
       - "the architecture skill is not invoked"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 8, hash: null}
   - id: AC-11
     status: active
     name: "AI provenance is recorded"
@@ -200,7 +200,7 @@ acceptance_criteria:
     then:
       - "generated_by names the tool, the model and the session ID; reviewed_by is empty; every hash is null"
     upstream:
-      - {id: PRD-001, item: FR-003, relation: satisfies, version: 7, hash: null}
+      - {id: PRD-001, item: FR-003, relation: satisfies, version: 8, hash: null}
 ```
 
 ## 5. Specification
@@ -225,7 +225,7 @@ acceptance_criteria:
   - VER-12 (f) and (h) were re-checked on v4: SKILL.md is 272 lines and its description 460 characters.
 - [x] Skill files reviewed; commits reference `STORY-003`. Bryan confirmed his review of `src/claude/DevForgeAI/skills/architecture/` on 2026-09-24, and every commit on the branch (`main..e5000f2`, 25 commits) starts with `STORY-003:`
 - [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, ERR-05 on the self-check path, the readiness attribution (VER-05 failed in 1 of 3 v4 runs; STORY-004 AC-04) and evidence completeness (BEH-05 failed in VER-12 (k); STORY-004 AC-05)
-- [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
+- [x] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty (SPEC-003's FR-013 marker resolved by PRD-001 v8)
 
 ## 7. Open questions
 
@@ -237,3 +237,4 @@ acceptance_criteria:
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
 | 2 | 2026-09-23 | claude-code | AC-05: evidence classification adds context, independent of kind (SPEC-003 v3). Approved by Bryan | AC-05 |
+| 3 | 2026-09-24 | claude-code | Status done: merged in PR #8; SPEC-003 v6 and SKL-003 v4 approved by Bryan with the STORY-004 exceptions | status, Definition of Done |

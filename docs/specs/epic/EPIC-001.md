@@ -16,14 +16,14 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: FR-001,  relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: FR-002,  relation: refines, version: 7, hash: null, note: "partial: extension point and one default framework only"}
-  - {id: PRD-001, item: FR-003,  relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: FR-004,  relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: SM-01,   relation: informed_by, version: 7, hash: null, note: "brainstorm documents are the first measured artifacts"}
+  - {id: PRD-001, item: FR-001,  relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: FR-002,  relation: refines, version: 8, hash: null, note: "partial: extension point and one default framework only"}
+  - {id: PRD-001, item: FR-003,  relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: FR-004,  relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: SM-01,   relation: informed_by, version: 8, hash: null, note: "brainstorm documents are the first measured artifacts"}
 supersedes: []
 superseded_by: null
 blocked_by: []
