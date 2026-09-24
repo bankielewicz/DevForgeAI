@@ -86,8 +86,11 @@ decisions:
 
 ## 5. Evidence inspected
 
-<!-- Every source consulted. classification keeps observed practice, approved policy and accepted
-     decisions apart. Insufficient evidence is an explicit unknown, never a confident "reuse". -->
+<!-- Every project source consulted for architecture analysis, with the version and status examined.
+     classification is independent of kind and keeps observed practice (code or configuration inspected
+     in scope), approved policy, accepted decisions and context (the PRD, existing ARCHs, non-accepted
+     ADRs, uncorroborated documentation) apart. Context establishes neither behavior nor a decision.
+     Insufficient evidence is an explicit unknown, never a confident "reuse". -->
 
 ```yaml items
 evidence:
@@ -96,7 +99,7 @@ evidence:
     source: "<path, ADR-NNN or POL-NNN#SET-NN>"
     kind: code                # code | document | adr | policy | prd
     finding: "<what it shows>"
-    classification: observed  # observed | policy | decided
+    classification: observed  # observed | policy | decided | context
 ```
 
 ## 6. Deployment

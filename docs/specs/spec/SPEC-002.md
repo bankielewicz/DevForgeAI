@@ -3,7 +3,7 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: approved
-version: 9
+version: 10
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -297,7 +297,12 @@ quality_responses:
 | Kind | Status |
 |---|---|
 | Structural: schemas, templates, examples, cross-document links, and the policy negative tests (ADR-003 Confirmation) | **Completed** on 2026-09-23 |
-| Behavioural: every VER item below | **Planned.** No eval case exists and nothing has run until the skill is built (STORY-002) |
+| Behavioural (a): automated VERs, v8 (PR #5, 2026-09-23) | **Passed.** One case per automated VER (VER-01 to VER-10, VER-13 to VER-22). Full-plugin run `results/2026-09-23T16-15-59-135Z`, 3 runs per arm: 28/28 cases, score 0.996, mean Δ +0.57. Per-VER scores are in PR #5 |
+| Behavioural (b): one-run grader misses, v8 | VER-07: one run missed a grader through a grader defect, since fixed. VER-14: one run's handoff paraphrased the `[NEEDS ADR]` marker, and the skill now quotes it verbatim. Re-checks: 1.00 in 3 of 3 runs each, Δ +0.67 |
+| Behavioural (c): manual checks, v8 | VER-11 (interview), VER-12 (extension, approved PRD, shared constraint, unknown or malformed BRN) and VER-23 (local preferences, SV-01, SV-02, SV-06): all passed, in scratch git repos |
+| Behavioural (d): known limits | VER-09 doesn't discriminate: the no-plugin baseline copies the brainstorm's provenance fields, so its Δ is 0. VER-21 can't show the policy applied: the production floor already requires compliance, so only the resolution line shows it |
+| Behavioural (e): not exercised | ERR-04 (no unprocessed BRN) and ERR-06 (validation still failing after three attempts) |
+| Behavioural (f): v10 (2026-09-24, STORY-003 branch) | Full-plugin run `results/2026-09-24T02-25-22-717Z`: 40/40 cases, score 0.999. hands-off-to-architecture scored 1.00 (Δ +0.30) under the rewritten VER-07 graders. No prd grader failed in that run |
 
 Structural checks show that documents are well formed. Only behavioural runs can show that the skill works. Each automated VER item has one eval case under `evals/prd/`, tagged `prd` and `ver-NN`. Runs are
 non-interactive, so each case's `case.yaml` scaffold places its fixture BRNs and PRDs.
@@ -360,7 +365,7 @@ verifications:
       - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
   - id: VER-07
     status: active
-    obligation: "After writing the PRD, the final reply names the architecture step as next, with the PRD ID. This plugin has no architecture skill, so the reply says the step is done by hand with ADRs for now and names no runnable command. Eval case hands-off-to-architecture: regex on last_message."
+    obligation: "After writing the PRD, the final reply names the architecture step as next and, since this plugin ships the architecture skill, tells the user to run /devforgeai:architecture PRD-001: with the PRD ID, never a file path, and without claiming the skill is unavailable or that the step is done by hand. It starts no architecture work and writes no ADR or epic. BEH-13's fallback branch (no architecture skill) is no longer exercised by this eval. Eval case hands-off-to-architecture: regex and llm on last_message."
     level: e2e
     covers:
       - BEH-13
@@ -600,3 +605,5 @@ its priority and release are decided.
 | 8 | 2026-09-23 | claude-code | Mandated-platform link on the constraint NFR only, process settings as frontmatter informed_by (BEH-16, BEH-17 R5, VER-15); round-3 answer mapping, and wont + current as an explicit exclusion the epic workflow never builds (BEH-05, §5). Found while building STORY-002, approved by Bryan | §5, BEH-05, BEH-16, BEH-17, VER-15 |
 | 9 | 2026-09-23 | claude-code | Housekeeping after STORY-002: ERR-06 status wording; ERR-08 covers any disallowed override (ADR-003 A4); stale §10 text; two resolved §13 markers; ADR-001 link at v4 | ERR-06, ERR-08, §10, §13 |
 | 9 | 2026-09-23 | Bryan | Approved | status |
+| 10 | 2026-09-23 | claude-code | VER-07 expects /devforgeai:architecture PRD-001 now that the architecture skill ships (STORY-003); BEH-13's fallback branch is no longer eval-covered. Approved by Bryan | VER-07 |
+| 10 | 2026-09-23 | Bryan | Re-approved | status |

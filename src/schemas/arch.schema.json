@@ -366,9 +366,10 @@
             "enum": [
               "observed",
               "policy",
-              "decided"
+              "decided",
+              "context"
             ],
-            "description": "observed practice, approved policy, or an accepted decision: never conflated"
+            "description": "observed practice, approved policy, an accepted decision, or context (inputs and history that establish neither implemented behavior nor an accepted decision): never conflated"
           }
         }
       }

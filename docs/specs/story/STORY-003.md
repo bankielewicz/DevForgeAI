@@ -2,8 +2,8 @@
 id: STORY-003
 type: story
 title: "Define the architecture for a PRD"
-status: draft
-version: 1
+status: in-review
+version: 2
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -122,7 +122,7 @@ acceptance_criteria:
       - "the skill examines the existing system"
     then:
       - "it uses read-only searches within that scope and follows references only inside it, asking before going further"
-      - "every source consulted is recorded as evidence, classified as observed practice, approved policy or an accepted decision"
+      - "every source consulted is recorded as evidence with its kind and, separately, its classification: observed practice, approved policy, an accepted decision, or context (inputs and historical material, such as the PRD itself, an existing ARCH or a superseded ADR, that establish neither implemented behavior nor a decision)"
       - "insufficient evidence produces an explicit unknown, never a confident reuse recommendation"
     upstream:
       - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
@@ -209,9 +209,22 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`)
-- [ ] Skill files reviewed; commits reference `STORY-003`
-- [ ] SPEC-003 items implemented, or explicitly deferred to a new story
+- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). On SKL-003 v4 (2026-09-24, Claude Code 2.1.282, SPEC-003 §9 rows k and l):
+  - all 12 architecture cases scored ≥ 0.8 over 3 runs in the `--tag architecture` run;
+  - the fresh Organization A/B sequence passed with identical hashes;
+  - VER-12 (j), (k), (e) and (g) passed on v4, and (f) and (h) were re-checked on v4.
+
+  The v3 full-plugin run (40/40, Claude Code 2.1.281, SPEC-003 §9 row j) is the brainstorm and prd regression evidence; those skills and every eval are unchanged in v4.
+
+  Caveats:
+  - superseded-adr run 1 of 3 reported NFR-001 as blocked by DEC-01, which doesn't cite it. This is a real failure: two regex graders and three blind re-judges agree. The case scored 0.87. The cause is unknown; the same misreport appeared once on v1. VER-05's readiness-attribution obligation therefore failed; deferred to STORY-004 (AC-04);
+  - the VER-12 (k) run read ARCH-001, the ARCH it amended, but recorded no EVD for it (BEH-05), while the (j) run did (EVD-03): failed; deferred to STORY-004 (AC-05);
+  - VER-12 (a), (d) and the ERR-04 check are carried forward from build 469e984, and (b) (passed every clause, AC-05) from 36328fc;
+  - VER-12 (c) failed: the draft warning comes after the ARCH write, not when the PRD is read. It is deferred to STORY-004. AC-01's "with a warning" is met by the warning in the handoff and ARCH §1;
+  - ERR-05 is exercised only through a stand-in CLI. It last ran on v2 (feec61c) and is carried forward, not rerun on v3 or v4; that it still holds is an inference, because step 10 is unchanged since v2;
+  - VER-12 (f) and (h) were re-checked on v4: SKILL.md is 272 lines and its description 460 characters.
+- [x] Skill files reviewed; commits reference `STORY-003`. Bryan confirmed his review of `src/claude/DevForgeAI/skills/architecture/` on 2026-09-24, and every commit on the branch (`main..e5000f2`, 25 commits) starts with `STORY-003:`
+- [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, ERR-05 on the self-check path, the readiness attribution (VER-05 failed in 1 of 3 v4 runs; STORY-004 AC-04) and evidence completeness (BEH-05 failed in VER-12 (k); STORY-004 AC-05)
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 ## 7. Open questions
@@ -223,3 +236,4 @@ acceptance_criteria:
 | Version | Date | Author | Change | AC affected |
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
+| 2 | 2026-09-23 | claude-code | AC-05: evidence classification adds context, independent of kind (SPEC-003 v3). Approved by Bryan | AC-05 |

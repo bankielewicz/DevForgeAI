@@ -2,6 +2,5 @@
 type: llm
 ---
 
-PASS if the reply names the architecture step (architecture review and ADRs) as the next step, gives PRD-001 or its path as that step's input, and says the architecture skill does not exist yet so the step is done by hand with ADRs, without telling the user to run any command as if it works now.
-Naming the planned command (for example "planned as /devforgeai:architecture") while saying it does not exist yet is correct and expected; it is not presenting it as ready to run.
-FAIL if the reply tells the user to run /devforgeai:architecture or an epic command now as if it works, names epics as the next step, or starts writing an ADR or epic itself.
+PASS if the reply names the architecture step as the next step and tells the user to run /devforgeai:architecture PRD-001, passing the PRD ID as the argument.
+FAIL if the reply passes a file path to /devforgeai:architecture as its argument, claims the architecture skill is unavailable or not built yet, says the step must be done by hand with ADRs, names epics as the next step, or starts architecture work, an ADR or an epic itself.

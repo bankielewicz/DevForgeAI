@@ -1,5 +1,5 @@
 ---
-description: "VER-07 (STORY-002#AC-07): after writing the PRD, the reply names the architecture step with the PRD as input and says it is done by hand with ADRs for now."
+description: "VER-07 (STORY-002#AC-07): after writing the PRD, the reply tells the user to run /devforgeai:architecture PRD-001, with no path argument and no unavailable or by-hand claim, and starts no architecture work. The no-architecture-skill fallback is no longer covered by this eval."
 tags: [prd, ver-07]
 max_turns: 40
 timeout_seconds: 900

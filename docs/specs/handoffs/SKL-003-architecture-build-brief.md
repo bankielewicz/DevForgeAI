@@ -4,8 +4,8 @@
 
 | | |
 |---|---|
-| Implements | `docs/specs/spec/SPEC-003.md` (version 1) |
-| Story | `docs/specs/story/STORY-003.md` (version 1) |
+| Implements | `docs/specs/spec/SPEC-003.md` (version 6) |
+| Story | `docs/specs/story/STORY-003.md` (version 2) |
 | Process | `docs/specs/adr/ADR-001.md` (accepted, v4); ADR-002 and ADR-003 (accepted) |
 | Branch / worktree | `story/STORY-003-architecture` / `.claude/worktrees/story-003-architecture` |
 | Produces | Skill `architecture` in plugin `devforgeai`, invoked as `/devforgeai:architecture PRD-NNN` |
@@ -56,7 +56,7 @@ All deliverables go under `src/claude/DevForgeAI/`:
 | Path | Content |
 |---|---|
 | `skills/architecture/SKILL.md` | Frontmatter exactly as in SPEC-003 §5. The body follows the skill template. At most 500 lines, and no author comments left |
-| `skills/architecture/provenance.yaml` | `SKL-003`, `implements` SPEC-003 v1, `skill_name: architecture`, `eval_tag: architecture`, `status: draft` |
+| `skills/architecture/provenance.yaml` | `SKL-003`, `implements` SPEC-003 v6, `skill_name: architecture`, `eval_tag: architecture`, `status: draft` |
 | `skills/architecture/assets/arch.md`, `adr.md` | **Moved** with `git mv` from `src/staging/templates/`. Update the README rows |
 | `skills/architecture/references/policy.md`, `defaults.md` | Copied unchanged from the prd skill |
 | `skills/architecture/references/readiness.md`, `inspection.md`, `output-rules.md` | From SPEC-003 §4, BEH-05 to BEH-07 and BEH-11, and the schema |

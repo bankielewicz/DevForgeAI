@@ -17,8 +17,8 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [sprint.md](sprint.md) | What are we doing in this time-box? | None (references story AC and the sprint goal) |
 | [story.md](story.md) | What exact behavior do we build next? | **Testable Given/When/Then AC (`AC-`)** |
 | [spec.md](spec.md) | How exactly will it be built and verified? | Verification obligations (`VER-`) that cover each AC |
-| [adr.md](adr.md) | Why did we choose this design? | None (records a decision) |
-| [arch.md](arch.md) | How do the pieces fit, and which shared architectural questions are settled? | None; readiness per architectural question (`DEC-`) |
+| [adr.md](../../claude/DevForgeAI/skills/architecture/assets/adr.md) | Why did we choose this design? | None (records a decision) |
+| [arch.md](../../claude/DevForgeAI/skills/architecture/assets/arch.md) | How do the pieces fit, and which shared architectural questions are settled? | None; readiness per architectural question (`DEC-`) |
 | [policy.md](policy.md) | Which organizational rules and preferences apply? | None; settings consumed by workflows (ADR-003) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
 
