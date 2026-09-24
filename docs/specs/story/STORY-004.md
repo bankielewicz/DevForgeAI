@@ -41,7 +41,7 @@ manual checks. SPEC-003 §9 records what instructions alone could not guarantee:
 - **Inspection scope (BEH-05).** On SKL-003 v2, both VER-12 (b) runs listed the project root and the
   scope's parent. The v3 wording fixed this in the two v3 runs (row i), but nothing prevents it.
 - **Draft-PRD warning (BEH-02, VER-12 (c)).** On v2 and v3 the warning appeared only in the handoff and
-  in ARCH §1, not when the PRD was read. After v3, the last wording round, it is a known limit (row i).
+  in ARCH §1, not when the PRD was read. VER-12 (c) fails on v3, the last wording round (row i).
 - **ERR-05.** Exercised once, only through the `devforgeai check` path with a test stand-in. The
   self-check path (no `devforgeai` on PATH) is not exercised (row e).
 
