@@ -25,6 +25,11 @@ and recorded. Observed practice is never policy, and a missing answer is stated 
   question: don't stop to ask for a scope. Carry on, and record what couldn't be checked (Insufficient evidence).
 - Never crawl or index the codebase, never list or search the whole repository, and never read code outside
   the scope "to get a feel for it".
+- Never list the project root or any folder outside `docs/specs/` and the inspection scope. A one-level `ls` of
+  the root, or of a scope's parent, counts as listing outside the scope. Forbidden examples: `ls` or `ls -la`
+  at the root, `ls services` when the scope is `services/auth`, `find .`, `ls -R`, `grep -r .`. Without a
+  Glob tool, find the project documents by these exact paths: `ls docs/specs/policy/ docs/specs/prd/
+  docs/specs/adr/ docs/specs/arch/` and `test -e .claude/devforgeai.local.md`.
 
 ## Project documents
 

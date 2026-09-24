@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # Architecture
@@ -76,6 +76,10 @@ counts as answered only when the request answers that exact question (for exampl
    approved one against the schema and semantic rules. On a schema violation, an SV-01 to SV-04 violation or
    a disallowed override, reply with the **Stop message** (mapped above), naming the file, the setting and
    the rule, and stop. Write nothing (ERR-02). SV-05 to SV-07 never stop the run.
+   Without a Glob tool, check only these exact paths: `ls docs/specs/policy/ docs/specs/prd/ docs/specs/adr/
+   docs/specs/arch/` and `test -e .claude/devforgeai.local.md`. Never list the project root or any folder
+   outside `docs/specs/` and the inspection scope. A one-level `ls` of the root, or of a scope's parent, counts
+   as listing outside the scope.
 3. Run R2: resolve `interview.max_calls` and `architecture.mandated_platforms`, reading
    `.claude/devforgeai.local.md` if it exists. Note every ignored document and local entry.
 
@@ -92,9 +96,10 @@ counts as answered only when the request answers that exact question (for exampl
 1. Read the PRD's `version`, `status`, `stage`, `operating_context`, functional requirements, non-functional
    requirements (including `category: constraint`), its upstream links, section 12's `[NEEDS ADR: …]` and
    `[NEEDS CLARIFICATION: …]` markers, and its owner. Record the version: every link to the PRD carries it.
-2. If `status` isn't `approved`, warn at once: put this sentence in the very next text you write after reading
-   the PRD, before any question, inspection or file write, and repeat it in the handoff: "PRD-NNN is a
-   <status>, so this architecture is a proposal until the PRD is approved."
+2. If `status` isn't `approved`, write the warning as its own line immediately after reading the PRD, even in a
+   non-interactive run and even if you have nothing else to say yet, and repeat it in the handoff: "PRD-NNN is
+   a <status>, so this architecture is a proposal until the PRD is approved." Don't tick step 3 until it is
+   written.
 3. Never turn an unanswered product question (a `null` priority or release, or a `[NEEDS CLARIFICATION]`
    marker) into an architectural decision. Never edit the PRD.
 4. Run R3 and R4 as mapped above.
