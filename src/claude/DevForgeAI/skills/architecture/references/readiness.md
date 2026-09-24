@@ -99,6 +99,9 @@ Check every `resolved_by` entry now, when writing, not as recorded earlier:
 1. **ADR:** read `docs/specs/adr/<ADR-ID>.md`. It must exist, with `status: accepted` and
    `superseded_by: null`. If it is superseded, the question is **open again**. Its successor doesn't
    inherit the resolution: the successor resolves the question only by means 2, with the user's confirmation.
+   That applies only to a successor that existed before this run. An ADR written in this run from the user's
+   explicit decision resolves its DEC by means 3, with no second confirmation (`output-rules.md`, Amending an
+   ARCH).
 2. **Policy setting:** it must be in an approved policy document, `status: active`, and effective after
    R2. Otherwise the question is open again.
 3. If an entry fails, the DEC is open. When amending, change it to `state: open`, `resolved_by: []`, and

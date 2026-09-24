@@ -55,7 +55,9 @@ every link in **flow style, keys in this order**:
 ```
 
 - **`hash` is always `null`.** Only the checker writes hashes.
-- `version` is the linked document's current `version`: the PRD version examined, the policy version.
+- A link added in this run uses the linked document's current `version`: the PRD version examined, the
+  policy version. Links on existing items keep their versions and are never updated (Amending an ARCH): an
+  older version is how a suspect link shows up for review.
 - A link lives in exactly one place: on the item that owns it, or in the frontmatter when the whole ARCH
   owns it. Never repeat a link in prose; prose uses the qualified reference, such as `PRD-001#FR-001`.
 
@@ -168,8 +170,11 @@ A §7 bullet names the requirement, the finding and the proposed change, and add
 - Bump `version` by one and set `updated` to today. Add a Change Log row.
 - Leave every existing CMP, DEC and EVD **byte-identical**, except a DEC's `state` and `resolved_by` when it
   moves between open and resolved. Log each such transition, with its reason, in the new Change Log row.
+- When the user explicitly approves superseding an ADR that a DEC cites, and decides that DEC in this run, the
+  DEC stays resolved and `resolved_by` changes from `[ADR-old]` to `[ADR-new]` (replace, don't append), logged
+  in one Change Log row, for example `DEC-01 resolved_by ADR-001 → ADR-002: ADR-001 superseded by ADR-002`.
 - New items continue the numbering. Update the frontmatter PRD link to the version examined, or add it if
-  this PRD isn't linked yet. New items' links use current versions; existing items' links stay as they are.
+  this PRD isn't linked yet. New items' links use current versions; links on existing items keep their versions and are never updated.
 - `outcome` records the outcome for the PRD version examined: set it only when the user confirmed it in this
   run, and otherwise set it to `null`.
 - If `status` was `approved`, set it to `in-review`, `approved_by: ""` and `approved_on: null`.
@@ -189,7 +194,8 @@ from `${CLAUDE_SKILL_DIR}/assets/adr.md`.
 | `owner`, `authors`, `generated_by`, `reviewed_by` | as for the ARCH |
 | `approved_by`, `approved_on` | accepted: the deciding user's name and today. Proposed: `""` and `null` |
 | `upstream` | the requirements its DEC cites, `informed_by`, at the PRD version examined |
-| `supersedes`, `superseded_by`, `blocked_by` | `[]`, `null`, `[]` |
+| `supersedes` | `[ADR-old]` when this ADR supersedes one (a supersession the user explicitly approved), otherwise `[]` |
+| `superseded_by`, `blocked_by` | `null`, `[]` |
 | `consulted`, `informed` | lists of names, `[]` when none |
 
 - Say in the context section which question it answers, as a qualified reference: `Answers ARCH-001#DEC-02.`
@@ -197,7 +203,8 @@ from `${CLAUDE_SKILL_DIR}/assets/adr.md`.
   for a proposed ADR), consequences, and how the decision will be confirmed.
 - The Status history table has one row: today, the status, and who decided.
 - **Never modify an existing ADR**, except to record a supersession the user explicitly approved: then
-  set the old ADR's `status: superseded` and `superseded_by`, and add a Status history row.
+  set the old ADR's `status: superseded` and `superseded_by` (the accepted ADR written in this run), and add
+  one Status history row. Everything else in the old ADR stays byte-identical, including `version` and `updated`.
 
 ## Change Log and resolution line
 
@@ -238,12 +245,14 @@ Read each written file back, then confirm each line.
    that is accepted and not superseded, or an effective policy setting. `upstream` has at least one link.
 8. Every `[NEEDS ADR]` marker in the PRD has a DEC citing every requirement it names.
 9. Every EVD `classification` follows `inspection.md`, and the input PRD has an EVD with `kind: prd`.
-10. Every link record follows Links: flow style, key order, placement, relation, current version.
+10. Every link record follows Links: flow style, key order, placement and relation. Links added in this run use
+    current versions; links on existing items keep their versions and must not be updated. An older version
+    is how a suspect link shows up.
 11. Every free-text value is quoted. Every heading from the template is present.
 12. The newest Change Log row ends with one `Policy resolution:` line.
 13. No leftovers remain, and no item line carries a trailing `#` comment.
 
-**Each ADR written**
+**Each new ADR**
 
 1. The path is `docs/specs/adr/ADR-NNN.md`, `NNN` matches `id`, and the number was free.
 2. The frontmatter has only the keys of the ADR template, `status` is `accepted` or `proposed`, and
@@ -251,3 +260,10 @@ Read each written file back, then confirm each line.
 3. Provenance as for the ARCH; every `hash` is `null`.
 4. It names the one DEC it answers, and only that DEC lists it in `resolved_by`.
 5. No leftovers remain.
+6. `supersedes` is `[ADR-old]` when this run supersedes an ADR, otherwise `[]`.
+
+**Each existing ADR marked superseded**
+
+1. The user explicitly approved the supersession in this run.
+2. Only these changed: `status: superseded`, `superseded_by` (an accepted ADR written in this run, whose
+   `supersedes` names this ADR) and one new Status history row. Everything else is byte-identical.

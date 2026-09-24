@@ -3,7 +3,7 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: draft
-version: 5
+version: 6
 created: 2026-09-23
 updated: 2026-09-24
 owner: "Bryan"
@@ -153,7 +153,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ```
 
 - **The name must be exactly `architecture`.** The prd skill's handoff looks for `${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md`.
@@ -410,12 +410,14 @@ verifications:
       - {id: STORY-003, item: AC-10, relation: verifies, version: 2, hash: null}
   - id: VER-12
     status: active
-    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with a test stand-in for devforgeai that always reports an unfixable error and one decision accepted before validation: the skill stops after three attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. This exercises only the devforgeai check path; the self-check failure path is not exercised."
+    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with a test stand-in for devforgeai that always reports an unfixable error and one decision accepted before validation: the skill stops after three attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. This exercises only the devforgeai check path; the self-check failure path is not exercised. (j) In a fresh fixture copy, amending an existing ARCH whose links cite PRD v2, against PRD v3 with one new [NEEDS ADR] marker: links on existing items stay at v2, the links added in this run (and the frontmatter PRD link) use v3, and validation passes without ERR-05. (k) In a fresh fixture copy, an explicitly approved supersession of an accepted ADR passes validation: the old ADR changes only status: superseded, superseded_by and one Status history row; the new ADR is accepted with supersedes: [ADR-old]; the DEC's resolved_by changes from [ADR-old] to [ADR-new], logged in the Change Log; the old ADR is recorded as a context EVD; and readiness reports the requirement ready."
     level: manual
     covers:
       - BEH-01
       - BEH-05
+      - BEH-09
       - BEH-13
+      - BEH-14
       - ERR-01
       - ERR-02
       - ERR-03
@@ -483,3 +485,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 3 | 2026-09-23 | claude-code | Evidence classification gains context (inputs and historical material: the input PRD, existing ARCHs, non-accepted ADRs, uncorroborated documentation), independent of kind, with the version and status examined; context establishes neither behavior nor a decision. VER-01 and VER-05 grade it; VER-12 (b) by hand; arch.schema.json enum and the ARCH template updated. STORY-003 links re-reviewed at v2. Found while building STORY-003, approved by Bryan | §4, BEH-05, VER-01, VER-05, VER-12, frontmatter |
 | 4 | 2026-09-24 | claude-code | SKL-003 version 2 (§5 example). Code inspection defined as a property: read-only, every path inside the scope, tools when available, no whole-repository listing, contract documents and validation outside the rule (§5, BEH-05). ERR-05 restores only statuses, approval fields, the dependent DEC state and one audit record, keeps the user's choices, and ends with a validation-failure report. VER-05 readiness expectations derived from the amended ARCH. VER-12 (b) adds the out-of-scope request in two fixture copies and the command-path check, (c) warns when the PRD is read, (i) the ERR-05 stand-in check; VER-12 verifies AC-05. Found in VER-12 and the superseded-adr diagnosis, approved by Bryan | §5, BEH-05, ERR-05, VER-05, VER-12 |
 | 5 | 2026-09-24 | claude-code | §5 skill-version example "3" for SKL-003 v3 (wording fixes: exact contract paths without Glob, no root or parent listing, the draft warning as its own line). Approved by Bryan | §5 |
+| 6 | 2026-09-24 | claude-code | §5 skill-version example "4" for SKL-003 v4 (output-rules.md: links added in a run use current versions while links on existing items keep theirs; separate checks for a new ADR and for an existing ADR marked superseded; a superseding ADR lists supersedes: [ADR-old]; the DEC's resolved_by is replaced by the new ADR; an ADR decided in this run resolves by means 3). VER-12 adds (j), amending an ARCH across a PRD version change, and (k), an explicitly approved ADR supersession, and now covers BEH-09 and BEH-14. Found by a Codex review of SKL-003 v3, approved by Bryan | §5, VER-12 |
