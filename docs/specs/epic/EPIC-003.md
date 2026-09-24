@@ -5,7 +5,7 @@ title: "Adaptive foundations"
 status: draft
 version: 1
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-09-24
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -16,16 +16,16 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: FR-006, relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: FR-007, relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: FR-008, relation: refines, version: 7, hash: null}
-  - {id: PRD-001, item: FR-009, relation: refines, version: 7, hash: null}
+  - {id: PRD-001, item: FR-006, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: FR-007, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: FR-008, relation: refines, version: 8, hash: null}
+  - {id: PRD-001, item: FR-009, relation: refines, version: 8, hash: null}
   - {id: ADR-003, relation: informed_by, version: 2, hash: null, note: "proposed: the design this epic delivers"}
 supersedes: []
 superseded_by: null
 blocked_by: []
 # --- epic-specific ---
-priority: null
+priority: must
 target_release: "MVP"
 ---
 
@@ -89,3 +89,4 @@ See ADR-003.
 | Version | Date | Author | Change |
 |---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft |
+| 1 | 2026-09-24 | claude-code | Priority must (Bryan), recorded after delivery; links re-reviewed at PRD-001 v8 |
