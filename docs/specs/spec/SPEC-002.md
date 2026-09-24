@@ -3,7 +3,7 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: approved
-version: 9
+version: 10
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -360,7 +360,7 @@ verifications:
       - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
   - id: VER-07
     status: active
-    obligation: "After writing the PRD, the final reply names the architecture step as next, with the PRD ID. This plugin has no architecture skill, so the reply says the step is done by hand with ADRs for now and names no runnable command. Eval case hands-off-to-architecture: regex on last_message."
+    obligation: "After writing the PRD, the final reply names the architecture step as next and, since this plugin ships the architecture skill, tells the user to run /devforgeai:architecture PRD-001: with the PRD ID, never a file path, and without claiming the skill is unavailable or that the step is done by hand. It starts no architecture work and writes no ADR or epic. BEH-13's fallback branch (no architecture skill) is no longer exercised by this eval. Eval case hands-off-to-architecture: regex and llm on last_message."
     level: e2e
     covers:
       - BEH-13
@@ -600,3 +600,5 @@ its priority and release are decided.
 | 8 | 2026-09-23 | claude-code | Mandated-platform link on the constraint NFR only, process settings as frontmatter informed_by (BEH-16, BEH-17 R5, VER-15); round-3 answer mapping, and wont + current as an explicit exclusion the epic workflow never builds (BEH-05, §5). Found while building STORY-002, approved by Bryan | §5, BEH-05, BEH-16, BEH-17, VER-15 |
 | 9 | 2026-09-23 | claude-code | Housekeeping after STORY-002: ERR-06 status wording; ERR-08 covers any disallowed override (ADR-003 A4); stale §10 text; two resolved §13 markers; ADR-001 link at v4 | ERR-06, ERR-08, §10, §13 |
 | 9 | 2026-09-23 | Bryan | Approved | status |
+| 10 | 2026-09-23 | claude-code | VER-07 expects /devforgeai:architecture PRD-001 now that the architecture skill ships (STORY-003); BEH-13's fallback branch is no longer eval-covered. Approved by Bryan | VER-07 |
+| 10 | 2026-09-23 | Bryan | Re-approved | status |
