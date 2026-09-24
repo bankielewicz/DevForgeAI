@@ -68,7 +68,7 @@ All deliverables go under `src/claude/DevForgeAI/`:
 | `selects-ready-current` | ver-01 | The shared fixture (SPEC-004 §9). The prompt asks for one epic covering everything eligible |
 | `blocked-not-included` | ver-02 | As `selects-ready-current` |
 | `reports-left-out` | ver-03 | As `selects-ready-current` |
-| `orders-by-priority` | ver-04 | Shared fixture. The prompt asks for one epic per priority level |
+| `orders-by-priority` | ver-04 | Shared fixture. The prompt asks for one epic per priority level, with NFR-001 only in the Must epic |
 | `no-arch-hands-back` | ver-05 | Shared PRD and ADRs, no ARCH |
 | `stale-arch-stops` | ver-06 | Shared fixture with the ARCH's PRD link at version 1 |
 | `existing-epic-not-duplicated` | ver-07 | Shared fixture plus an existing EPIC-001 (version 1, a sentinel line) refining FR-002 |
@@ -87,8 +87,9 @@ order, answers hidden).
 `hands-off-to-epic` case (SPEC-003 VER-10) fail, because it expects "not built yet". SPEC-003 is approved,
 so propose the change and get Bryan's explicit approval before making it: SPEC-003 v7 changes VER-10 so the
 handoff names `/devforgeai:epic PRD-001`, and a grader that doesn't depend on whether the skill exists; the
-graders in `evals/architecture/hands-off-to-epic/` are updated; SKL-003's `provenance.yaml` link moves to
-v7 (SKL-003 keeps its version, since SKILL.md is unchanged). Don't change the architecture skill otherwise.
+graders in `evals/architecture/hands-off-to-epic/` are updated; the links citing SPEC-003 v6 move to v7:
+SKL-003's `provenance.yaml` (SKL-003 keeps its version, since SKILL.md is unchanged) and SPEC-004's
+`informed_by` link. Don't change the architecture skill otherwise.
 
 ## 4. Build loop
 

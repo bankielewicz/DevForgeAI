@@ -124,7 +124,8 @@ no DEC citing R, blocks R ("marker without a question").
 2. R is ready;
 3. `release: current`;
 4. `priority` is `must`, `should` or `could`;
-5. no existing epic already has a `refines` link to R, at any version.
+5. no existing epic that is active (not `superseded` or `deprecated`) has a `refines` link to this PRD's R
+   (the PRD ID and the item both match), at any version.
 
 Every other requirement is **left out**, with the first reason that applies:
 
@@ -135,11 +136,12 @@ Every other requirement is **left out**, with the first reason that applies:
 | `later` | `release: later` |
 | `wont` | `priority: wont` |
 | `undecided` | `priority` or `release` is `null`; reported to the PRD owner |
-| `covered` | an existing epic refines R; the report names the epic |
+| `covered` | an active existing epic refines this PRD's R; the report names the epic |
 
 **Grouping.** Each eligible FR is refined by exactly one new epic. An eligible NFR is refined by every
 new epic whose capability it constrains, with `note: "partial: <which part>"` when shared. An epic's
-`priority` is the highest priority among the requirements it refines. New epics are numbered, and
+`priority` is the highest priority among the **FRs** it refines; a shared NFR never raises it (an epic that
+refines only NFRs takes the NFRs' highest priority). New epics are numbered, and
 listed, Must first, then Should, then Could.
 
 ## 5. Interfaces and contracts
@@ -158,7 +160,8 @@ metadata:
 - **The version isn't fixed here.** `metadata.devforgeai-version` must equal `provenance.yaml`'s `version`,
   so a skill fix bumps the skill, not this spec.
 - **Tools:** Read and Glob (or read-only `ls` and `cat` on `docs/specs/` when Glob isn't available); Write
-  for new epics; AskUserQuestion, with at most 4 questions per call. No code inspection, and no shell
+  for new epics, and Edit only on epics written in this run (BEH-10's fix loop); AskUserQuestion, with at most
+  4 questions per call. No code inspection, and no shell
   command other than read-only listing and reading of `docs/specs/`.
 - **Downstream contract (consumed by the story step):**
   - the epic path and stable `DW-NN` IDs; stories cite them with `satisfies` links;
@@ -185,16 +188,16 @@ behaviors:
     rule: "Compute readiness for every active FR and NFR of the PRD from the ARCH file and the ADR files, exactly as SPEC-003 §4, reading each resolving ADR's current status and superseded_by now. A DEC blocks only the requirements its own upstream cites. A [NEEDS ADR] marker naming a requirement that no DEC cites blocks it. Never use a skill's reply as the source."
   - id: BEH-05
     status: active
-    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and not already refined by an existing epic. Give every other requirement its reason: deprecated, blocked (with the DEC IDs and any superseded resolver), later, wont, undecided (for the PRD owner) or covered (with the epic ID)."
+    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and not already refined by an active existing epic (§4). Give every other requirement its reason: deprecated, blocked (with the DEC IDs and any superseded resolver), later, wont, undecided (for the PRD owner) or covered (with the epic ID)."
   - id: BEH-06
     status: active
-    rule: "Read every existing epic in docs/specs/epic/. A requirement an existing epic refines, at any version, is covered. Never modify, renumber or duplicate an existing epic."
+    rule: "Read every existing epic in docs/specs/epic/. A requirement of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered. Never modify, renumber or duplicate an existing epic."
   - id: BEH-07
     status: active
     rule: "Propose how to group the eligible requirements into epics: each a deliverable capability, each eligible FR in exactly one epic, a shared NFR in every epic it constrains. Show each proposed epic's title, requirements and priority, and ask the user to confirm or change the grouping; write nothing until they do. A grouping stated in the request counts as confirmed. If no one can confirm (the request says to proceed without questions and gives no grouping), write the proposal and add to §8 of each epic: [NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]."
   - id: BEH-08
     status: active
-    rule: "Write each confirmed epic to the next free docs/specs/epic/EPIC-NNN.md from ${CLAUDE_SKILL_DIR}/assets/epic.md, numbered Must first, then Should, then Could. Frontmatter: status draft; priority the highest among its requirements; target_release the PRD's target_release; upstream a refines link to every requirement it groups at the PRD version (partial note for a shared NFR) and an informed_by link to the ARCH at its version. Fill the goal, value and scope, at least one DW item with a criterion and an evidence method, and the dependencies. Keep the story map as a GENERATED placeholder."
+    rule: "Write each confirmed epic to the next free docs/specs/epic/EPIC-NNN.md from ${CLAUDE_SKILL_DIR}/assets/epic.md, numbered Must first, then Should, then Could. Frontmatter: status draft; priority the highest among the FRs it refines (a shared NFR never raises it; an NFR-only epic takes its NFRs' highest priority); target_release the PRD's target_release; upstream a refines link to every requirement it groups at the PRD version (partial note for a shared NFR) and an informed_by link to the ARCH at its version. Fill the goal, value and scope, at least one DW item with a criterion and an evidence method, and the dependencies. Keep the story map as a GENERATED placeholder."
   - id: BEH-09
     status: active
     rule: "Fill provenance on every epic written: generated_by with the tool, model and session; authors; reviewed_by empty; every hash null; today's dates; approved_by empty. Delete every template author comment."
@@ -296,10 +299,12 @@ a different topic).
 | FR-006 | wont / current | no DEC | left out: wont |
 | FR-007 | null / current | no DEC | left out: undecided |
 | FR-008 | must / current | DEC-03 resolved by ADR-002, superseded | left out: blocked by DEC-03 |
+| FR-009 | must / current | no DEC; a PRD `[NEEDS ADR]` marker names FR-009 | left out: blocked (marker without a question) |
 | NFR-001 | must / current | DEC-02 | eligible |
 
 So the eligible set is FR-002, FR-003, FR-004 and NFR-001. FR-001 shows that DEC-01 blocks only what it
-cites (FR-002 stays eligible), and FR-008 shows that a superseded resolver blocks again. File graders
+cites (FR-002 stays eligible), FR-008 shows that a superseded resolver blocks again, and FR-009 shows that
+a `[NEEDS ADR]` marker with no question still blocks. File graders
 check the written epics, not the reply, because a wrong epic is worse than a wrong sentence. Unless a
 case says otherwise, the prompt states the grouping, so the run is non-interactive and confirmed.
 
@@ -307,7 +312,7 @@ case says otherwise, the prompt states the grouping, so the run is non-interacti
 verifications:
   - id: VER-01
     status: active
-    obligation: "Shared fixture; the prompt asks for one epic covering everything eligible. docs/specs/epic/EPIC-001.md refines FR-002, FR-003, FR-004 and NFR-001 at PRD-001 version 2, and contains no refines link to FR-001, FR-005, FR-006, FR-007 or FR-008. Eval case selects-ready-current: regex on the file."
+    obligation: "Shared fixture; the prompt asks for one epic covering everything eligible. docs/specs/epic/EPIC-001.md refines FR-002, FR-003, FR-004 and NFR-001 at PRD-001 version 2, and contains no refines link to FR-001, FR-005, FR-006, FR-007, FR-008 or FR-009. Eval case selects-ready-current: regex on the file."
     level: e2e
     covers:
       - BEH-02
@@ -320,7 +325,7 @@ verifications:
       - {id: STORY-005, item: AC-01, relation: verifies, version: 1, hash: null}
   - id: VER-02
     status: active
-    obligation: "In VER-01's setup, no epic refines FR-001 or FR-008, and the reply reports FR-001 blocked by DEC-01 and FR-008 blocked by DEC-03, naming ADR-002 as superseded; FR-002 is not reported blocked. Eval case blocked-not-included: regex on the file and last_message."
+    obligation: "In VER-01's setup, no epic refines FR-001, FR-008 or FR-009, and the reply reports FR-001 blocked by DEC-01, FR-008 blocked by DEC-03 (naming ADR-002 as superseded) and FR-009 blocked by a [NEEDS ADR] marker with no question; FR-002 is not reported blocked. Eval case blocked-not-included: regex on the file and last_message."
     level: e2e
     covers:
       - BEH-04
@@ -337,7 +342,7 @@ verifications:
       - {id: STORY-005, item: AC-03, relation: verifies, version: 1, hash: null}
   - id: VER-04
     status: active
-    obligation: "Shared fixture; the prompt asks for one epic per priority level. EPIC-001.md has priority must and refines FR-002 and NFR-001; EPIC-002.md has priority should and refines FR-003; EPIC-003.md has priority could and refines FR-004. Eval case orders-by-priority: regex on the three files."
+    obligation: "Shared fixture; the prompt asks for one epic per priority level, with NFR-001 only in the Must epic. EPIC-001.md has priority must and refines FR-002 and NFR-001; EPIC-002.md has priority should and refines FR-003; EPIC-003.md has priority could and refines FR-004. Eval case orders-by-priority: regex on the three files."
     level: e2e
     covers:
       - BEH-07

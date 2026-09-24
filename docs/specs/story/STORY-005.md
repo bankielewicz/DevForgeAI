@@ -125,7 +125,7 @@ acceptance_criteria:
     when:
       - "the skill writes epics"
     then:
-      - "each epic's priority is the highest priority among the requirements it refines"
+      - "each epic's priority is the highest priority among the functional requirements it refines; a shared NFR never raises it"
       - "epics are numbered and listed Must, then Should, then Could"
     upstream:
       - {id: PRD-001, item: FR-014, relation: satisfies, version: 9, hash: null}
