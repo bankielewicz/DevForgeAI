@@ -209,7 +209,7 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). The twelve architecture cases each scored ≥ 0.8 over 3 runs (2026-09-24); this stays open until VER-12 is done
+- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). The twelve architecture cases each scored ≥ 0.8 over 3 runs, and VER-12 ran on 2026-09-24. This stays open: AC-05's "asking before going further" was not exercised (VER-12 (b) partial, SPEC-003 §9)
 - [ ] Skill files reviewed; commits reference `STORY-003`
 - [ ] SPEC-003 items implemented, or explicitly deferred to a new story
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
