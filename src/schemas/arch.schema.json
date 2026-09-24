@@ -366,7 +366,8 @@
             "enum": [
               "observed",
               "policy",
-              "decided"
+              "decided",
+              "context"
             ],
             "description": "observed practice, approved policy, or an accepted decision: never conflated"
           }

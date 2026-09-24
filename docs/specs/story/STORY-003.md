@@ -3,7 +3,7 @@ id: STORY-003
 type: story
 title: "Define the architecture for a PRD"
 status: draft
-version: 1
+version: 2
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -122,7 +122,7 @@ acceptance_criteria:
       - "the skill examines the existing system"
     then:
       - "it uses read-only searches within that scope and follows references only inside it, asking before going further"
-      - "every source consulted is recorded as evidence, classified as observed practice, approved policy or an accepted decision"
+      - "every source consulted is recorded as evidence with its kind and, separately, its classification: observed practice, approved policy, an accepted decision, or context (inputs and historical material, such as the PRD itself, an existing ARCH or a superseded ADR, that establish neither implemented behavior nor a decision)"
       - "insufficient evidence produces an explicit unknown, never a confident reuse recommendation"
     upstream:
       - {id: PRD-001, item: FR-013, relation: satisfies, version: 7, hash: null}
@@ -223,3 +223,4 @@ acceptance_criteria:
 | Version | Date | Author | Change | AC affected |
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
+| 2 | 2026-09-23 | claude-code | AC-05: evidence classification adds context, independent of kind (SPEC-003 v3). Approved by Bryan | AC-05 |
