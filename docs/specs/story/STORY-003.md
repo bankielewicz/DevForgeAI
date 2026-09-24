@@ -217,7 +217,8 @@ acceptance_criteria:
   Caveats:
   - VER-12 (a), (d), (e), (g) and the ERR-04 check are carried forward from build 469e984;
   - VER-12 (c) failed: the draft warning comes after the ARCH write, not when the PRD is read. It is deferred to STORY-004. AC-01's "with a warning" is met by the warning in the handoff and ARCH §1;
-  - ERR-05 is exercised only through a stand-in CLI.
+  - ERR-05 is exercised only through a stand-in CLI. It last ran on v2 (feec61c) and is carried forward, not rerun on v3; that it still holds is an inference, because step 10 is unchanged in v3;
+  - VER-12 (f) and (h) were re-checked on v3: SKILL.md is 272 lines and its description 460 characters.
 - [ ] Skill files reviewed; commits reference `STORY-003`
 - [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, and ERR-05 on the self-check path
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
@@ -225,7 +226,6 @@ acceptance_criteria:
 ## 7. Open questions
 
 - None beyond SPEC-003 §13.
-- AC-05's bounded-inspection and classification clauses are cited only by SPEC-003 VER-08, which doesn't test them; VER-12 (b) does, by hand. The next SPEC-003 revision should add AC-05 to VER-12's upstream links.
 
 ## Change Log
 
