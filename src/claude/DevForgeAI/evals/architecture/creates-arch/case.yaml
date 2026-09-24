@@ -1,0 +1,5 @@
+# Seeds the fixture documents for this case. Run with --scaffold.
+schema_version: "1.1"
+name: creates-arch
+context:
+  scaffold_script: scaffold.sh
