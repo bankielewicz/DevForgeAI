@@ -2,7 +2,7 @@
 id: STORY-003
 type: story
 title: "Define the architecture for a PRD"
-status: draft
+status: in-progress
 version: 2
 created: 2026-09-23
 updated: 2026-09-23
@@ -209,7 +209,7 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`): the twelve architecture cases, each ≥ 0.8 over 3 runs (2026-09-24)
+- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`). The twelve architecture cases each scored ≥ 0.8 over 3 runs (2026-09-24); this stays open until VER-12 is done
 - [ ] Skill files reviewed; commits reference `STORY-003`
 - [ ] SPEC-003 items implemented, or explicitly deferred to a new story
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
@@ -217,6 +217,7 @@ acceptance_criteria:
 ## 7. Open questions
 
 - None beyond SPEC-003 §13.
+- AC-05's bounded-inspection and classification clauses are cited only by SPEC-003 VER-08, which doesn't test them; VER-12 (b) does, by hand. The next SPEC-003 revision should add AC-05 to VER-12's upstream links.
 
 ## Change Log
 

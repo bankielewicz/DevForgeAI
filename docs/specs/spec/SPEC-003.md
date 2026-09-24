@@ -286,7 +286,12 @@ quality_responses:
 | Kind | Status |
 |---|---|
 | Structural: `arch.schema.json`, the ARCH template, the negative schema tests, and cross-document links | **Completed** on 2026-09-23 |
-| Behavioural: every VER below | **Planned.** Nothing has run until STORY-003 is built |
+| Behavioural (a): case thresholds | **Passed**, 2026-09-24, Claude Code 2.1.281, 3 runs per arm against the no-plugin baseline. The 12 architecture cases (VER-01 to VER-11, VER-14) each scored ≥ 0.8 in `results/2026-09-24T02-03-06-267Z` (`--tag architecture`: score 0.989, mean Δ +0.65). org-a-policy 1.00 (Δ +0.92, `results/2026-09-24T01-45-49-046Z`); org-b-policy 1.00 (Δ +0.58, `results/2026-09-24T01-55-07-371Z`). Full-plugin run `results/2026-09-24T02-25-22-717Z`: 40/40 cases, score 0.999, mean Δ +0.58 |
+| Behavioural (b): individual grader failures (with-plugin arm) | Tag run: superseded-adr `names-superseded-adr`, 2 of 3 runs. Full-plugin run: brainstorm hands-off-to-prd `criteria` (llm judge), 1 of 3 runs. The org-a and org-b runs: none |
+| Behavioural (c): manual checks done | VER-12 (f): `references/policy.md` and `defaults.md` byte-identical to the prd skill's. VER-12 (h): SKILL.md 249 lines, description 460 characters. VER-13: deployed-plugin SHA-256 `05a8356f2f857e553e2e252e00054f0b6e26bf3a94a6275de161b143587085e2` before org-a-policy, between the runs and after org-b-policy, with `git diff src/` empty each time |
+| Behavioural (d): manual checks pending | VER-12 (a) to (e) and (g), plus an extra ERR-04 check (several ARCHs) |
+| Behavioural (e): not exercised | ERR-05 (validation still failing after three attempts), until its scratch test runs. Being listed under VER-12 `covers` doesn't verify it |
+| Demonstration vs ADR-003 | ADR-003's demonstration plan (its Organization A and B pass criteria) is refined by VER-02 and VER-03, not met literally. Under Organization A the identity-provider question resolves by `POL-001#SET-01` while session revocation stays open, with no reuse outcome (`outcome: null`). Under Organization B the identity-provider question is an open DEC, not a `[NEEDS ADR]` marker. ADR-003 is unchanged |
 
 **Shared fixture:** one policy-neutral PRD (`PRD-001`) in which FR-001, "users sign in", is affected by two
 architectural questions (a `[NEEDS ADR]` marker for the identity provider, and NFR-001 requiring session

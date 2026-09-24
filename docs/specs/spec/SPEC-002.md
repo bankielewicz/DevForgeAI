@@ -297,7 +297,12 @@ quality_responses:
 | Kind | Status |
 |---|---|
 | Structural: schemas, templates, examples, cross-document links, and the policy negative tests (ADR-003 Confirmation) | **Completed** on 2026-09-23 |
-| Behavioural: every VER item below | **Planned.** No eval case exists and nothing has run until the skill is built (STORY-002) |
+| Behavioural (a): automated VERs, v8 (PR #5, 2026-09-23) | **Passed.** One case per automated VER (VER-01 to VER-10, VER-13 to VER-22). Full-plugin run `results/2026-09-23T16-15-59-135Z`, 3 runs per arm: 28/28 cases, score 0.996, mean Δ +0.57. Per-VER scores are in PR #5 |
+| Behavioural (b): one-run grader misses, v8 | VER-07: one run missed a grader through a grader defect, since fixed. VER-14: one run's handoff paraphrased the `[NEEDS ADR]` marker, and the skill now quotes it verbatim. Re-checks: 1.00 in 3 of 3 runs each, Δ +0.67 |
+| Behavioural (c): manual checks, v8 | VER-11 (interview), VER-12 (extension, approved PRD, shared constraint, unknown or malformed BRN) and VER-23 (local preferences, SV-01, SV-02, SV-06): all passed, in scratch git repos |
+| Behavioural (d): known limits | VER-09 doesn't discriminate: the no-plugin baseline copies the brainstorm's provenance fields, so its Δ is 0. VER-21 can't show the policy applied: the production floor already requires compliance, so only the resolution line shows it |
+| Behavioural (e): not exercised | ERR-04 (no unprocessed BRN) and ERR-06 (validation still failing after three attempts) |
+| Behavioural (f): v10 (2026-09-24, STORY-003 branch) | Full-plugin run `results/2026-09-24T02-25-22-717Z`: 40/40 cases, score 0.999. hands-off-to-architecture scored 1.00 (Δ +0.30) under the rewritten VER-07 graders. No prd grader failed in that run |
 
 Structural checks show that documents are well formed. Only behavioural runs can show that the skill works. Each automated VER item has one eval case under `evals/prd/`, tagged `prd` and `ver-NN`. Runs are
 non-interactive, so each case's `case.yaml` scaffold places its fixture BRNs and PRDs.
