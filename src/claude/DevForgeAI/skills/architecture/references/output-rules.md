@@ -74,7 +74,8 @@ or an ADR that isn't accepted. `resolved_by` entries are IDs, not links.
 
 - An item block is a fence whose info string is exactly `yaml items`, with **exactly one top-level key**:
   `components`, `decisions` or `evidence`.
-- Inside a fence, use only `#` comments; never `<!-- -->`.
+- Inside a fence, never `<!-- -->`. Delete the template's inline `# …` hints (such as
+  `# open | resolved`); write no trailing comment on an item line.
 - **Quote every free-text value** with `"…"`. Enum values (`status`, `state`, `kind`, `classification`),
   booleans, `null` and IDs stay unquoted.
 - Lists of prose use block sequences (`- "…"`), never flow lists.
@@ -165,8 +166,8 @@ A §7 bullet names the requirement, the finding and the proposed change, and add
 ## Amending an ARCH
 
 - Bump `version` by one and set `updated` to today. Add a Change Log row.
-- Leave every existing CMP, DEC and EVD **byte-identical**, except a DEC's `state`, `resolved_by` and
-  `notes` when it moves between open and resolved. Log each such transition in the new Change Log row.
+- Leave every existing CMP, DEC and EVD **byte-identical**, except a DEC's `state` and `resolved_by` when it
+  moves between open and resolved. Log each such transition, with its reason, in the new Change Log row.
 - New items continue the numbering. Update the frontmatter PRD link to the version examined, or add it if
   this PRD isn't linked yet. New items' links use current versions; existing items' links stay as they are.
 - `outcome` records the outcome for the PRD version examined: set it only when the user confirmed it in this
@@ -240,7 +241,7 @@ Read each written file back, then confirm each line.
 10. Every link record follows Links: flow style, key order, placement, relation, current version.
 11. Every free-text value is quoted. Every heading from the template is present.
 12. The newest Change Log row ends with one `Policy resolution:` line.
-13. No leftovers remain.
+13. No leftovers remain, and no item line carries a trailing `#` comment.
 
 **Each ADR written**
 

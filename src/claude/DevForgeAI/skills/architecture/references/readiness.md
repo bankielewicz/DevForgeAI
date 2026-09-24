@@ -13,7 +13,7 @@
 ## When to use this
 
 Read this before identifying questions (step 6), when resolving them (step 7) and when computing
-readiness (steps 4 and 10). The readiness rule here is the contract the epic workflow consumes.
+readiness (steps 4 and 11). The readiness rule here is the contract the epic workflow consumes.
 
 ## Identify the questions
 
@@ -103,7 +103,8 @@ Check every `resolved_by` entry now, when writing, not as recorded earlier:
    R2. Otherwise the question is open again.
 3. If an entry fails, the DEC is open. When amending, change it to `state: open`, `resolved_by: []`, and
    log the transition in the Change Log, naming the failed resolver and why, for example
-   `DEC-01 resolved → open: ADR-002 superseded by ADR-003`. Put the same fact in the DEC's `notes`.
+   `DEC-01 resolved → open: ADR-002 superseded by ADR-003`. Change nothing else in the DEC. In a new ARCH,
+   write the DEC open and put the reason in its `notes`.
 
 ## Readiness report
 

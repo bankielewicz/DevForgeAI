@@ -44,11 +44,12 @@ Copy this checklist into your response and tick items off as you go:
 ```
 
 **Interactive or not.** The run is *non-interactive* when the request says to proceed without questions, or
-when no one can answer (for example, an automated run). Then ask no decision or outcome question: every
-question without a policy mandate stays open, no ADR is accepted, and `outcome` stays `null`.
+when no one can answer (for example, an automated run). Then ask no decision, ADR-confirmation or outcome
+question: every question without a policy mandate stays open, no ADR is written or accepted, and `outcome`
+stays `null` unless the request itself explicitly confirms that outcome (for example "I confirm the amend outcome").
 **Gating questions are never skipped**, even non-interactively: which PRD (step 2), which ARCH when several
 could apply (step 4), reuse or amend when an ARCH already covers the system (step 4), and saving a draft
-when the user stops. For a gating question, first write everything the user needs to decide in your reply
+when the user stops, at any step. For a gating question, first write everything the user needs to decide in your reply
 text (the list, the reasons, the current readiness), then ask with AskUserQuestion, or in plain text if it
 is unavailable, and **end your turn**. Write no file and create no directory until it is answered. A gate
 counts as answered only when the request answers that exact question (for example "amend ARCH-001").
@@ -80,7 +81,7 @@ counts as answered only when the request answers that exact question (for exampl
 
 ### 2. Select the PRD
 
-1. If `$ARGUMENTS` is a PRD ID, read `docs/specs/prd/<ID>.md`. If it doesn't exist, say so, list the PRD IDs
+1. If `$ARGUMENTS` (or, when it is empty, the request) names a PRD ID, read `docs/specs/prd/<ID>.md`. If it doesn't exist, say so, list the PRD IDs
    that exist with their titles and status, and stop. Write nothing (ERR-01).
 2. If `$ARGUMENTS` is a path or anything else, say that only a PRD ID is accepted, list the PRDs, and stop.
 3. If it is empty, list every PRD with its ID, title and status, ask which to use, and end your turn. Ask
@@ -130,7 +131,8 @@ each linked to the NFRs it serves. Leave feature-level detail to specs.
 
 ### 7. Resolve the questions
 
-Follow `readiness.md` (Resolve a question):
+Follow `readiness.md` (Resolve a question). **Non-interactive:** do only item 1 below. Every other question
+stays open, no ADR is shown for confirmation, and no ADR is written.
 
 1. **Mandates first.** For each question a mandated platform from R2 answers exactly, set `state: resolved`,
    `resolved_by: [POL-NNN#SET-NN]`, and link the setting on the CMP that provides the capability. Tell the user
@@ -142,8 +144,7 @@ Follow `readiness.md` (Resolve a question):
    at most `interview.max_calls` calls for steps 7 and 8 together. Each explicit choice becomes a new ADR,
    `status: accepted`, that resolves that question only. A question the user defers may get a proposed ADR,
    which resolves nothing. Questions left over stay open; say so.
-4. **Non-interactive:** do 1 only. Every other question stays open, and no ADR is written.
-5. If the user stops mid-session, write nothing yet and ask, as a direct question: "Save a draft ARCH now,
+4. If the user stops mid-session (here or at any other step), write nothing yet and ask, as a direct question: "Save a draft ARCH now,
    with every unanswered question open and the outcome unset?" End your turn. If yes, write it (steps 9 and
    10) with those questions open and `outcome: null`. If no, write nothing (ERR-06).
 
@@ -152,8 +153,8 @@ Follow `readiness.md` (Resolve a question):
 Propose **reuse** (an existing ARCH covers the PRD unchanged), **amend** (an existing ARCH needs new or changed
 questions or components) or **create** (no ARCH covers the system), with reasons. Reusing one platform or
 component, including a mandated one, is not a reuse outcome. Ask the user to confirm it, in the same call as
-decision questions if possible. Write `outcome` only when the user confirms it; otherwise leave it `null`
-(non-interactive: always `null`). Confirming the outcome accepts no decision.
+decision questions if possible. Write `outcome` only when the user confirms it, in an answer or explicitly in the request; otherwise leave it
+`null`. Confirming the outcome accepts no decision.
 
 ### 9. Write the ARCH and ADRs (R5)
 
@@ -163,7 +164,7 @@ decision questions if possible. Write `outcome` only when the user confirms it; 
    `[NEEDS CLARIFICATION: …]`, and delete every author comment and the template's example items. `status: draft`.
    Create `docs/specs/arch/` if missing.
 3. **Amend:** edit the existing ARCH as `output-rules.md` (Amending an ARCH) says. Existing items stay
-   byte-identical except DEC state transitions, each logged in the Change Log.
+   byte-identical except a DEC's `state` and `resolved_by` transitions, each logged in the Change Log.
 4. Write each ADR from step 7 from `${CLAUDE_SKILL_DIR}/assets/adr.md`, as `output-rules.md` (ADRs) says.
 5. Provenance on the ARCH and every ADR: `generated_by.tool` `claude-code`, `generated_by.model` your current
    model ID, `generated_by.session` `${CLAUDE_SESSION_ID}`; `authors` the user's name (if known) and
@@ -182,8 +183,9 @@ decision questions if possible. Write `outcome` only when the user confirms it; 
    other program), or you can't run commands, check each file against the **Self-check list** in
    `output-rules.md`, reading the file back first.
 2. Fix every problem found, then check again. Stop after three attempts.
-3. If errors remain, stop: change no status further (nothing becomes approved or accepted by this), and list the
-   file paths and the remaining errors in your reply (ERR-05).
+3. If errors remain, stop: set every `status` you changed in this write back to its value before the write
+   (a new ARCH stays `draft`; nothing becomes approved or accepted), and list the file paths and the remaining
+   errors in your reply (ERR-05).
 
 ### 11. Report readiness and hand off
 
@@ -207,12 +209,15 @@ decision questions if possible. Write `outcome` only when the user confirms it; 
 
 ## Decisions that need the user
 
-- **Which PRD**, when no ID is given (step 2).
-- **Which ARCH**, when several could apply, and **reuse or amend**, when one covers the system (step 4).
-- **Reading outside the inspection scope** (step 5).
+Gates (asked even non-interactively, see Interactive or not) are marked *gate*. The others are asked only
+when someone can answer; otherwise the question stays open or the value `null`.
+
+- *gate* **Which PRD**, when no ID is given (step 2).
+- *gate* **Which ARCH**, when several could apply, and **reuse or amend**, when one covers the system (step 4).
+- **Reading outside the inspection scope** (step 5). With no one to ask, don't read it; record an unknown.
 - **Whether an existing ADR answers a question**, and **each architectural decision** (step 7).
 - **The outcome** (step 8). Suggest it; never write it unconfirmed.
-- **Saving a draft** when the user stops early (step 7).
+- *gate* **Saving a draft** when the user stops early (any step).
 - **Any requirement change**: the PRD owner decides it outside this skill.
 
 You decide on your own: the ARCH number, the wording of questions and components (the user may edit them),
