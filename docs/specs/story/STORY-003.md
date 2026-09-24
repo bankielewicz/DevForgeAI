@@ -219,7 +219,7 @@ acceptance_criteria:
   - VER-12 (c)'s early draft warning is a known limit, since the warning appears only in the handoff and ARCH (AC-01's "with a warning" holds);
   - ERR-05 is exercised only through a stand-in CLI.
 - [ ] Skill files reviewed; commits reference `STORY-003`
-- [ ] SPEC-003 items implemented, or explicitly deferred to a new story
+- [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) known limit), deterministic enforcement of the BEH-05 path rule, and ERR-05 on the self-check path
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 ## 7. Open questions
