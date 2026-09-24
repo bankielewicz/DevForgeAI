@@ -223,7 +223,7 @@ acceptance_criteria:
   - VER-12 (c) failed: the draft warning comes after the ARCH write, not when the PRD is read. It is deferred to STORY-004. AC-01's "with a warning" is met by the warning in the handoff and ARCH §1;
   - ERR-05 is exercised only through a stand-in CLI. It last ran on v2 (feec61c) and is carried forward, not rerun on v3 or v4; that it still holds is an inference, because step 10 is unchanged since v2;
   - VER-12 (f) and (h) were re-checked on v4: SKILL.md is 272 lines and its description 460 characters.
-- [ ] Skill files reviewed; commits reference `STORY-003`
+- [x] Skill files reviewed; commits reference `STORY-003`. Bryan confirmed his review of `src/claude/DevForgeAI/skills/architecture/` on 2026-09-24, and every commit on the branch (`main..e5000f2`, 25 commits) starts with `STORY-003:`
 - [x] SPEC-003 items implemented, or explicitly deferred to a new story: deferred to STORY-004 (draft) are the early draft-PRD warning (VER-12 (c) failed), deterministic enforcement of the BEH-05 path rule, ERR-05 on the self-check path, the readiness attribution (VER-05 failed in 1 of 3 v4 runs; STORY-004 AC-04) and evidence completeness (BEH-05 failed in VER-12 (k); STORY-004 AC-05)
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
