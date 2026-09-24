@@ -209,7 +209,7 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`)
+- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-003#AC-NN`): the twelve architecture cases, each ≥ 0.8 over 3 runs (2026-09-24)
 - [ ] Skill files reviewed; commits reference `STORY-003`
 - [ ] SPEC-003 items implemented, or explicitly deferred to a new story
 - [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
