@@ -3,7 +3,7 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: draft
-version: 1
+version: 2
 created: 2026-09-23
 updated: 2026-09-23
 owner: "Bryan"
@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
-  - {id: SPEC-002, relation: informed_by, version: 9, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
+  - {id: SPEC-002, relation: informed_by, version: 10, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -410,7 +410,7 @@ verifications:
       - {id: STORY-003, item: AC-07, relation: verifies, version: 1, hash: null}
   - id: VER-14
     status: active
-    obligation: "Provenance and policy recording: in VER-01's run, the ARCH's generated_by has non-empty tool, model and session, reviewed_by is empty, every hash is null, and the Change Log carries 'Policy resolution:' with 'no approved policy'. Eval case records-provenance: regex on the file."
+    obligation: "Provenance and policy recording: in VER-01's run (no policy), the ARCH's generated_by has non-empty tool, model and session, reviewed_by is empty, every hash is null, the Change Log's 'Policy resolution:' line contains interview.max_calls=8 (default), architecture.mandated_platforms=none (default) and quality.required_categories=floor only (default), and the ARCH contains no 'id: POL-' link. Eval case records-provenance: one regex per check on the file, and a not_contains for 'id: POL-'."
     level: e2e
     covers:
       - BEH-13
@@ -454,3 +454,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
+| 2 | 2026-09-23 | claude-code | VER-14 checks the framework-default resolution-line entries that references/policy.md emits and the absence of a POL link, instead of the phrase 'no approved policy', which the unchanged policy.md never produces. SPEC-002 link re-reviewed at v10. Found while building STORY-003, approved by Bryan | VER-14, frontmatter |
