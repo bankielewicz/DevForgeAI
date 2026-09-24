@@ -108,10 +108,14 @@ Check every `resolved_by` entry now, when writing, not as recorded earlier:
 
 ## Readiness report
 
-For the handoff (and for the reuse or amend proposal, when an ARCH exists):
+For the handoff (and for the reuse or amend proposal, when an ARCH exists), build the mapping first: for each
+active FR and NFR, the active blocking DECs whose own `upstream` cites it, and which of those are open. A
+requirement is blocked by exactly those open DECs; a DEC never blocks a requirement it doesn't cite. Then report:
 
 - **Ready:** every active FR and NFR of the PRD that the rule reports ready.
 - **Blocked:** every other active FR and NFR, each with the open DEC IDs blocking it, for example
   `FR-001: blocked by DEC-01, DEC-02`.
 - For every DEC reopened because its resolver failed, name the resolver and the reason, for example
   `DEC-01 is open: ADR-002 was superseded by ADR-003, which answers a different question`.
+- Every active FR and NFR appears exactly once. A summary sentence must agree with the lists: never "nothing
+  is ready" while a requirement is ready.

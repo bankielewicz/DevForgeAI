@@ -3,9 +3,9 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: draft
-version: 3
+version: 4
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-09-24
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -153,12 +153,12 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ```
 
 - **The name must be exactly `architecture`.** The prd skill's handoff looks for `${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md`.
 - **Tools:**
-  - Read, Glob and Grep, read-only and within the inspection scope for code;
+  - code inspection: read-only, and every path read, listed or searched is inside the inspection scope. Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope; never a whole-repository listing or search. The project documents read by contract (docs/specs/prd/, arch/, adr/, policy/ and .claude/devforgeai.local.md) are outside this rule, and validation commands (devforgeai check) are separate from inspection;
   - Write and Edit for the ARCH and ADRs;
   - AskUserQuestion, with at most 4 questions per call.
 - **Downstream contract (consumed by the epic workflow):**
@@ -185,7 +185,7 @@ behaviors:
     rule: "Select the architecture description. Read docs/specs/arch/ARCH-*.md. If one covers the same system, propose reusing it (no change) or amending it (new questions or components), with reasons, and ask. Create a new ARCH, the next free ARCH-NNN.md, only when none covers the system or the user chooses to. Never create a second baseline automatically. Ask when several could apply."
   - id: BEH-05
     status: active
-    rule: "Inspect only the components or directories the user names (inspection_scope), read-only, with Glob, Grep and Read. References such as imports and configuration may be followed only within that scope; ask before going outside it. Record every project source consulted for architecture analysis as an EVD item, with the version and status examined where applicable, classified independently of its kind as observed (code or configuration directly inspected within inspection_scope), policy (an approved, active, applicable setting), decided (an accepted, non-superseded ADR) or context (any other consulted input or historical material, including the input PRD, existing ARCHs, proposed, rejected or superseded ADRs, and documentation claims not corroborated by the implementation). Context establishes neither implemented behavior nor an accepted decision, and no classification resolves a DEC by itself. When evidence is insufficient, say so explicitly with a [NEEDS CLARIFICATION] marker, and never recommend reuse on assumption."
+    rule: "Inspect only the components or directories the user names (inspection_scope). Code inspection is read-only, and every path it reads, lists or searches is inside inspection_scope: use Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope, with no redirection, no writes and no running or building project code; never list or search the whole repository. The project documents read by contract (docs/specs/prd/, arch/, adr/ and policy/, and .claude/devforgeai.local.md) are outside this rule, and validation commands (devforgeai check) are separate from inspection. References such as imports and configuration may be followed only within that scope; ask before going outside it. Record every project source consulted for architecture analysis as an EVD item, with the version and status examined where applicable, classified independently of its kind as observed (code or configuration directly inspected within inspection_scope), policy (an approved, active, applicable setting), decided (an accepted, non-superseded ADR) or context (any other consulted input or historical material, including the input PRD, existing ARCHs, proposed, rejected or superseded ADRs, and documentation claims not corroborated by the implementation). Context establishes neither implemented behavior nor an accepted decision, and no classification resolves a DEC by itself. When evidence is insufficient, say so explicitly with a [NEEDS CLARIFICATION] marker, and never recommend reuse on assumption."
   - id: BEH-06
     status: active
     rule: "Identify the architectural questions that separate epics must share: component boundaries and responsibilities, data ownership, major interactions and interfaces, deployment, and how quality requirements are met. Every [NEEDS ADR] marker in the PRD becomes a DEC. Each DEC cites every affected requirement in its upstream links and is blocking unless the user says otherwise. Leave feature-level detail to specs."
@@ -248,8 +248,8 @@ errors:
   - id: ERR-05
     status: active
     condition: "Validation still fails after three fix attempts"
-    handling: "Stop, leave statuses as they were before this write, and list the remaining errors"
-    user_result: "The file paths and the unresolved errors"
+    handling: "Stop. Restore only what can't stand unvalidated: every status and approval field (approved_by, approved_on) this write changed, back to its value before the write (a new ARCH stays draft; a new ADR the user accepted becomes proposed with empty approval fields and is kept); the DEC state and resolved_by that depended on a restored ADR; and one matching audit record (Change Log row, and Status history row for an ADR). Keep the user's architectural choices and unrelated content. End with a validation-failure report; skip the readiness handoff and never present readiness as validated"
+    user_result: "A validation-failure report: the file paths, the unresolved errors and what was restored; no readiness presented as validated"
   - id: ERR-06
     status: active
     condition: "The user stops mid-session"
@@ -346,7 +346,7 @@ verifications:
       - {id: STORY-003, item: AC-02, relation: verifies, version: 2, hash: null}
   - id: VER-05
     status: active
-    obligation: "Superseded ADR: an existing ARCH-001 has the provider DEC resolved_by ADR-002, which is superseded by ADR-003 (a different topic). The prompt chooses to amend ARCH-001 and confirms that outcome. The handoff reports the provider DEC open and FR-001 blocked, naming the superseded ADR; in the amended ARCH-001 the provider DEC is open with an empty resolved_by, and an EVD records ADR-002 with classification context. Eval case superseded-adr: regex on last_message and the file."
+    obligation: "Superseded ADR: an existing ARCH-001 has the provider DEC resolved_by ADR-002, which is superseded by ADR-003 (a different topic). The prompt chooses to amend ARCH-001 and confirms that outcome. The handoff names ADR-002 as the superseded resolver (equivalent wording such as 'replaced' is accepted; negated or reversed statements are not) and reports readiness derived from the amended ARCH: FR-001 blocked by DEC-01; FR-002 and NFR-001 ready, because DEC-02 stays resolved by the accepted ADR-001, unless the amendment adds a DEC (DEC-03 or higher) that cites them. Every requirement is listed, no summary contradicts the lists, and no requirement is attributed to a DEC that doesn't cite it. In the amended ARCH-001 the provider DEC is open with an empty resolved_by, DEC-02 is still resolved by ADR-001, and an EVD records ADR-002 with classification context. Eval case superseded-adr: regex on the file and last_message, plus an llm grader for the readiness mapping."
     level: e2e
     covers:
       - BEH-11
@@ -406,7 +406,7 @@ verifications:
       - {id: STORY-003, item: AC-10, relation: verifies, version: 2, hash: null}
   - id: VER-12
     status: active
-    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope. (c) A draft PRD shows the proposal warning. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits."
+    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with a test stand-in for devforgeai that always reports an unfixable error and one decision accepted before validation: the skill stops after three attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. This exercises only the devforgeai check path; the self-check failure path is not exercised."
     level: manual
     covers:
       - BEH-01
@@ -420,6 +420,7 @@ verifications:
       - QR-01
     upstream:
       - {id: STORY-003, item: AC-03, relation: verifies, version: 2, hash: null}
+      - {id: STORY-003, item: AC-05, relation: verifies, version: 2, hash: null}
   - id: VER-13
     status: active
     obligation: "Operator check for the demonstration: run VER-02 and VER-03 with the same PRD, prompt and other fixtures, in fresh workspaces. A SHA-256 manifest of the deployed plugin (find .claude/skills/devforgeai -path '*/evals/results' -prune -o -type f -print0 | sort -z | xargs -0 sha256sum) is identical before VER-02, between the runs and after VER-03, and git diff src/ is empty. Record the three manifest hashes in the PR."
@@ -476,3 +477,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 1 | 2026-09-23 | claude-code | Initial draft | all |
 | 2 | 2026-09-23 | claude-code | VER-14 checks the framework-default resolution-line entries that references/policy.md emits and the absence of a POL link, instead of the phrase 'no approved policy', which the unchanged policy.md never produces. SPEC-002 link re-reviewed at v10. Found while building STORY-003, approved by Bryan | VER-14, frontmatter |
 | 3 | 2026-09-23 | claude-code | Evidence classification gains context (inputs and historical material: the input PRD, existing ARCHs, non-accepted ADRs, uncorroborated documentation), independent of kind, with the version and status examined; context establishes neither behavior nor a decision. VER-01 and VER-05 grade it; VER-12 (b) by hand; arch.schema.json enum and the ARCH template updated. STORY-003 links re-reviewed at v2. Found while building STORY-003, approved by Bryan | §4, BEH-05, VER-01, VER-05, VER-12, frontmatter |
+| 4 | 2026-09-24 | claude-code | SKL-003 version 2 (§5 example). Code inspection defined as a property: read-only, every path inside the scope, tools when available, no whole-repository listing, contract documents and validation outside the rule (§5, BEH-05). ERR-05 restores only statuses, approval fields, the dependent DEC state and one audit record, keeps the user's choices, and ends with a validation-failure report. VER-05 readiness expectations derived from the amended ARCH. VER-12 (b) adds the out-of-scope request in two fixture copies and the command-path check, (c) warns when the PRD is read, (i) the ERR-05 stand-in check; VER-12 verifies AC-05. Found in VER-12 and the superseded-adr diagnosis, approved by Bryan | §5, BEH-05, ERR-05, VER-05, VER-12 |

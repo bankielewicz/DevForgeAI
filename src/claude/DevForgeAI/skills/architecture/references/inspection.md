@@ -23,23 +23,31 @@ and recorded. Observed practice is never policy, and a missing answer is stated 
   user named them.
 - If the user names none, `inspection_scope: []` and you read no code at all. This isn't a gating
   question: don't stop to ask for a scope. Carry on, and record what couldn't be checked (Insufficient evidence).
-- Never crawl or index the codebase, and never read code outside the scope "to get a feel for it".
+- Never crawl or index the codebase, never list or search the whole repository, and never read code outside
+  the scope "to get a feel for it".
 
 ## Project documents
 
-Always read these, whatever the scope. They are project documents, not code:
+Always read these, whatever the scope. They are project documents read by contract, not code, so the scope
+rule below doesn't apply to them:
 
 - the input PRD, `docs/specs/prd/<PRD-ID>.md`;
 - `docs/specs/policy/POL-*.md` (policy resolution);
 - `docs/specs/adr/ADR-*.md`: every ADR, to know its status, `superseded_by` and what it decides;
-- `docs/specs/arch/ARCH-*.md`: existing architecture descriptions.
+- `docs/specs/arch/ARCH-*.md`: existing architecture descriptions;
+- `.claude/devforgeai.local.md`, if it exists (policy resolution).
 
 Framework files (this skill's instructions, references and templates) are not project evidence.
 Never record them as EVD.
 
 ## Inspecting code
 
-- Use only Glob, Grep and Read, and only inside the scope. Never run the code, build it, or modify anything.
+- Inspection is read-only, and **every path it reads, lists or searches is inside the scope**.
+- Use Read, Glob and Grep when they are available. When they aren't (some interactive sessions have only Read),
+  use read-only shell commands (`ls`, `find`, `grep`, `cat`, `head`) whose every path argument is inside the
+  scope, for example `find services/auth -type f`, never `find .`. No redirection, no writes, and never run or
+  build project code.
+- Validation commands (`devforgeai check`, SKILL.md step 10) are not inspection and don't count against the scope.
 - You may follow references (imports, configuration keys, file includes) only while the target is inside
   the scope.
 - Look for what the architectural questions need: which component owns which data, how components

@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Architecture
@@ -92,8 +92,9 @@ counts as answered only when the request answers that exact question (for exampl
 1. Read the PRD's `version`, `status`, `stage`, `operating_context`, functional requirements, non-functional
    requirements (including `category: constraint`), its upstream links, section 12's `[NEEDS ADR: …]` and
    `[NEEDS CLARIFICATION: …]` markers, and its owner. Record the version: every link to the PRD carries it.
-2. If `status` isn't `approved`, warn now, and again in the handoff: "PRD-NNN is a <status>, so this
-   architecture is a proposal until the PRD is approved."
+2. If `status` isn't `approved`, warn at once: put this sentence in the very next text you write after reading
+   the PRD, before any question, inspection or file write, and repeat it in the handoff: "PRD-NNN is a
+   <status>, so this architecture is a proposal until the PRD is approved."
 3. Never turn an unanswered product question (a `null` priority or release, or a `[NEEDS CLARIFICATION]`
    marker) into an architectural decision. Never edit the PRD.
 4. Run R3 and R4 as mapped above.
@@ -117,9 +118,11 @@ counts as answered only when the request answers that exact question (for exampl
 ### 5. Inspect within scope
 
 Read `${CLAUDE_SKILL_DIR}/references/inspection.md` and follow it. Read the project documents it lists.
-Read code only inside the components or directories the user named, with Glob, Grep and Read; ask before
-leaving that scope, and record what you can't read as an unknown (ERR-03). With no scope named, read no code
-and don't stop to ask. Record every project source consulted as an EVD item, classified as it says. When
+Code inspection is read-only, and every path it reads, lists or searches is inside the components or
+directories the user named. Use Read, Glob and Grep when they are available; otherwise use read-only shell
+commands (`ls`, `find`, `grep`, `cat`, `head`) with explicit paths inside the scope. Never list or search the
+whole repository. Ask before leaving the scope, and record what you can't read as an unknown (ERR-03). With
+no scope named, read no code and don't stop to ask. Record every project source consulted as an EVD item, classified as it says. When
 evidence is insufficient, write a `[NEEDS CLARIFICATION: …]` marker, and never recommend reuse on assumption.
 
 ### 6. Identify the questions
@@ -183,14 +186,25 @@ decision questions if possible. Write `outcome` only when the user confirms it, 
    other program), or you can't run commands, check each file against the **Self-check list** in
    `output-rules.md`, reading the file back first.
 2. Fix every problem found, then check again. Stop after three attempts.
-3. If errors remain, stop: set every `status` you changed in this write back to its value before the write
-   (a new ARCH stays `draft`; nothing becomes approved or accepted), and list the file paths and the remaining
-   errors in your reply (ERR-05).
+3. If errors remain after the third attempt, stop fixing and restore only what can't stand unvalidated (ERR-05):
+   - every `status`, `approved_by` and `approved_on` this write changed, back to its value before the write.
+     A new ARCH stays `draft`. A new ADR the user accepted becomes `proposed` with empty approval fields; keep
+     the file;
+   - the DEC `state` and `resolved_by` that depended on a restored ADR: an ADR set back to `proposed` resolves
+     nothing, so its DEC returns to `open` with `resolved_by: []`;
+   - the matching audit record: one Change Log row (and, for an ADR, one Status history row) saying what was
+     restored and why.
+
+   Keep everything else as written, including the user's architectural choices and any content unrelated to
+   the restore. Then end with a **validation-failure report**: each file path, each unresolved error, and what
+   was restored. Skip step 11: leave it unticked in the checklist, and don't present readiness as validated.
 
 ### 11. Report readiness and hand off
 
-1. Compute readiness with the readiness rule for every active FR and NFR of the PRD, checking each ADR's
-   current `status` and `superseded_by` now (`readiness.md`, Check the resolvers).
+1. Build the readiness mapping before writing anything (`readiness.md`, Readiness report). For each active FR
+   and NFR of the PRD, take the active blocking DECs whose own `upstream` cites it, in the ARCH as written, and
+   check each one's resolvers now (Check the resolvers). The requirement is **blocked by exactly the open ones
+   among those DECs**, and ready if there are none. A DEC never blocks a requirement it doesn't cite.
 2. Report:
    - the ARCH path, or that ARCH-NNN was reused unchanged;
    - the outcome, or that it is **unconfirmed** (`null`);
@@ -201,6 +215,10 @@ decision questions if possible. Write `outcome` only when the user confirms it, 
    - the requirement changes proposed to the PRD owner, or "none";
    - the draft-PRD warning, if step 3 gave one;
    - the policy resolution line, and every ignored policy document or local entry.
+
+   Before sending, check the reply against the mapping: every active FR and NFR appears once, as ready or as
+   blocked by its own DEC IDs, and no summary sentence contradicts the lists (never "nothing is ready" while a
+   requirement is ready, or the reverse).
 3. Name the next step, the **epic workflow**. Check whether `${CLAUDE_PLUGIN_ROOT}/skills/epic/SKILL.md` exists.
    - If it does: tell the user to run `/devforgeai:epic <PRD-ID>`, for the ready requirements only.
    - If it doesn't: say the epic workflow (planned as `/devforgeai:epic`) is not built yet, and that epics may be
