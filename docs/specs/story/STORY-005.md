@@ -220,8 +220,8 @@ acceptance_criteria:
       grader false negatives in blocked-not-included, and the reason-label format only partly followed
 - [ ] Skill files reviewed; commits reference `STORY-005` (every commit does; Bryan's review of the skill files is pending)
 - [x] SPEC-004 items implemented, or explicitly deferred to a new story. Every BEH, ERR and QR item is implemented;
-      nothing in SPEC-004 is deferred. The architecture skill's `sed -i` deviation in VER-13 (i) is a SPEC-003 item,
-      deferred to STORY-004 (R2-Q2)
+      nothing in SPEC-004 is deferred. The architecture skill's `sed -i` deviation in VER-13 (i) was fixed in SKL-003 v6
+      and (i) re-passed (R3-Q3); SKL-003 v6 awaits Bryan's approval in the housekeeping PR
 - [x] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 ## 7. Open questions
