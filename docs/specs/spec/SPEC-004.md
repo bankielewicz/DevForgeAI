@@ -22,7 +22,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 9, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: epics come after the Architecture Definition step"}
-  - {id: SPEC-003, relation: informed_by, version: 6, hash: null, note: "consumes the readiness rule (§4) and the downstream contract (§5)"}
+  - {id: SPEC-003, relation: informed_by, version: 7, hash: null, note: "consumes the readiness rule (§4) and the downstream contract (§5)"}
   - {id: SPEC-002, relation: informed_by, version: 10, hash: null, note: "priority and release semantics, where null is undecided (§5)"}
 supersedes: []
 superseded_by: null

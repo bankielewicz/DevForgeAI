@@ -3,7 +3,7 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 6
+version: 7
 created: 2026-09-23
 updated: 2026-09-24
 owner: "Bryan"
@@ -153,7 +153,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "4"
+  devforgeai-version: "5"
 ```
 
 - **The name must be exactly `architecture`.** The prd skill's handoff looks for `${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md`.
@@ -194,10 +194,10 @@ behaviors:
     rule: "Resolve each question only by one of three means. (1) An approved, active mandated-platform setting that answers exactly this question: resolved_by POL-NNN#SET-NN, applied as policy, not a user decision. (2) An existing accepted, non-superseded ADR that the user confirms answers exactly this question. (3) The user's explicit decision among the options presented with trade-offs, which is written as a new ADR with status accepted and approved_by the user. Anything else stays open. A deferred decision may be written as a proposed ADR that resolves nothing. An ADR or setting resolves only the question it answers, never every question that cites the same requirement."
   - id: BEH-08
     status: active
-    rule: "Propose the outcome with reasons: reuse (the existing ARCH covers the PRD unchanged), amend (the existing ARCH needs new or changed questions or components) or create (no ARCH covers the system). Reusing one platform or component is not a reuse outcome. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision."
+    rule: "Propose the outcome with reasons: reuse (the existing ARCH covers the PRD unchanged), amend (the existing ARCH needs new or changed questions or components) or create (no ARCH covers the system). Reusing one platform or component is not a reuse outcome. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing."
   - id: BEH-09
     status: active
-    rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review."
+    rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review. A review record, written when the user confirms reuse against a newer PRD version, makes exactly three changes: the frontmatter PRD link moves to the reviewed version, outcome becomes reuse, and one Change Log row is added, 'Reviewed against PRD-NNN vN: reuse confirmed, no architectural change', ending with the policy resolution line. Everything else stays byte-identical, including version, updated, status, the approval fields and every item with its links, which still show as suspect. It is a relink, not an amendment, so an approved ARCH stays approved. With no user, nothing is confirmed and nothing is written."
   - id: BEH-10
     status: active
     rule: "Describe the components that separate epics must share, as CMP items with a Mermaid overview. Link each to the quality drivers (NFR items) and constraints it serves, and to the POL setting when a mandated platform applies (relation constrains)."
@@ -396,7 +396,7 @@ verifications:
       - {id: STORY-003, item: AC-08, relation: verifies, version: 3, hash: null}
   - id: VER-10
     status: active
-    obligation: "Handoff: the final reply lists ready and blocked requirements with DEC IDs, names the epic workflow and, since this plugin has no epic skill, says it is not built yet. Eval case hands-off-to-epic: regex on last_message."
+    obligation: "Handoff: the final reply lists ready and blocked requirements with DEC IDs, names the epic step as next and tells the user to run /devforgeai:epic PRD-001, and no epic is written. The graders read the reply and the written files, never whether the epic skill exists. With the epic skill in this plugin (SKL-004), the not-built fallback is no longer covered by an eval, as SPEC-002 v10 did for the prd skill's handoff. Eval case hands-off-to-epic: regex on last_message and file_exists false."
     level: e2e
     covers:
       - BEH-15
@@ -448,6 +448,24 @@ verifications:
     upstream:
       - {id: STORY-003, item: AC-11, relation: verifies, version: 3, hash: null}
       - {id: STORY-003, item: AC-06, relation: verifies, version: 3, hash: null}
+  - id: VER-15
+    status: active
+    obligation: "Review record: an approved ARCH-001 cites PRD-001 version 1, and PRD-001 is at version 2 after a priority-only change. The prompt chooses to reuse ARCH-001 and confirms the reuse outcome. In ARCH-001 the frontmatter PRD link is at version 2, outcome is reuse, version, status and the approval fields are unchanged, a DEC's upstream link still cites version 1, and the Change Log has exactly one review row. Eval case reuse-records-review: regex on the file."
+    level: e2e
+    covers:
+      - BEH-08
+      - BEH-09
+    upstream:
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 1, hash: null}
+  - id: VER-16
+    status: active
+    obligation: "Review record, repeated: as VER-15, but ARCH-001 already cites PRD-001 version 2 and has one review row. ARCH-001 is unchanged: the same version, and still exactly one review row. Eval case reuse-review-idempotent: regex on the file."
+    level: e2e
+    covers:
+      - BEH-08
+      - BEH-09
+    upstream:
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 1, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -490,3 +508,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 5 | 2026-09-24 | claude-code | §5 skill-version example "3" for SKL-003 v3 (wording fixes: exact contract paths without Glob, no root or parent listing, the draft warning as its own line). Approved by Bryan | §5 |
 | 6 | 2026-09-24 | claude-code | §5 skill-version example "4" for SKL-003 v4 (output-rules.md: links added in a run use current versions while links on existing items keep theirs; separate checks for a new ADR and for an existing ADR marked superseded; a superseding ADR lists supersedes: [ADR-old]; the DEC's resolved_by is replaced by the new ADR; an ADR decided in this run resolves by means 3). VER-12 adds (j), amending an ARCH across a PRD version change, and (k), an explicitly approved ADR supersession, and now covers BEH-09 and BEH-14. Found by a Codex review of SKL-003 v3, approved by Bryan | §5, VER-12 |
 | 6 | 2026-09-24 | Bryan | Approved, with the exceptions deferred to STORY-004 (VER-12 (c), readiness attribution, evidence completeness, BEH-05 enforcement, ERR-05 self-check path) | status |
+| 7 | 2026-09-24 | claude-code | SKL-003 version 5 (§5 example). The review record: a confirmed reuse against a newer PRD version moves the frontmatter PRD link, sets outcome reuse and adds one Change Log row; everything else stays byte-identical and an approved ARCH stays approved; a repeat writes nothing (BEH-08, BEH-09; VER-15 and VER-16, verifying STORY-005#AC-12). The skill's "never approved" rules now apply to new and amended ARCHs only (R1-Q3 of STORY-005). VER-10's handoff names /devforgeai:epic PRD-001, since the epic skill ships in this plugin. Specified in SPEC-004 §4 and §10 and the SKL-004 build brief; approved by Bryan on 2026-09-24 (PR #10), and his approval covers v7 | §5, BEH-08, BEH-09, VER-10, VER-15, VER-16 |
