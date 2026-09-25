@@ -80,6 +80,7 @@ acceptance_criteria:
       - "a question blocks only the requirements its upstream links cite"
       - "a question resolved by a superseded ADR blocks its requirements again"
       - "each [NEEDS ADR] marker needs its own matching question; without one, the requirements it names are blocked even if other questions citing them are resolved"
+      - "a policy resolver counts only when its policy document is approved, its setting active, its version unchanged since the ARCH linked it, and no other approved policy sets the same key; otherwise the requirement is unknown"
       - "when readiness can't be established, the requirement is reported as unknown, never asserted ready or blocked"
     upstream:
       - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}
@@ -141,7 +142,8 @@ acceptance_criteria:
       - "the skill runs"
     then:
       - "the existing epic is unchanged, and the functional requirements it refines are reported as covered and get no new epic; a covered requirement that is now blocked is reported as both"
-      - "a shared NFR is never covered: it still applies to every new epic it constrains"
+      - "a shared NFR is never covered: it attaches to every new epic it constrains, and gets a standalone epic only when no active epic refines it"
+      - "rerunning with unchanged inputs writes nothing"
     upstream:
       - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}
       - {id: EPIC-005, item: DW-02,  relation: satisfies, version: 1, hash: null}
@@ -197,7 +199,8 @@ acceptance_criteria:
     when:
       - "the user runs the architecture step and confirms reuse, then runs the epic skill"
     then:
-      - "the architecture step records the review against the new PRD version without changing the ARCH's version or approval"
+      - "the architecture step records the review: the ARCH's PRD link moves to the new version, outcome becomes reuse and one Change Log row is added, while its version, status, approval fields and items stay unchanged"
+      - "confirming the same review again changes nothing"
       - "the epic skill accepts the reviewed ARCH and writes epics"
     upstream:
       - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}

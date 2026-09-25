@@ -37,7 +37,7 @@ the result, but SPEC-004 wins any conflict. Follow the conventions of the built 
 ## 2. Read in this order
 
 1. SPEC-004 (authoritative): the §4 current-ARCH, readiness and selection rules, BEH-01…12, ERR-01…07,
-   QR-01…03, VER-01…13, and the §9 shared fixture table.
+   QR-01…03, VER-01…15, and the §9 shared fixture table.
 2. STORY-005: AC-01…11.
 3. SPEC-003 §4 and §5, and the architecture skill's `references/readiness.md`: the readiness rule you consume.
    For the two approved architecture changes (§3): its `SKILL.md` step 4, `references/output-rules.md`
@@ -73,12 +73,14 @@ All deliverables go under `src/claude/DevForgeAI/`:
 | `orders-by-priority` | ver-04 | Shared fixture. The prompt asks for one epic per priority level, with NFR-001 only in the Must epic |
 | `no-arch-hands-back` | ver-05 | Shared PRD and ADRs, no ARCH |
 | `stale-arch-stops` | ver-06 | Shared fixture with the ARCH's PRD link at version 1 |
-| `existing-epic-not-duplicated` | ver-07 | Shared fixture plus an existing EPIC-001 (version 1, a sentinel line) refining FR-002 |
+| `existing-epic-not-duplicated` | ver-07 | Shared fixture plus an existing EPIC-001 (version 1, a sentinel line) refining FR-002, FR-008 and NFR-001 |
 | `draft-inputs` | ver-08 | Shared fixture with PRD-001 at status draft |
 | `unconfirmed-grouping` | ver-09 | Shared fixture. The prompt says to proceed without questions and gives no grouping |
 | `hands-off-to-story` | ver-10 | As `selects-ready-current` |
 | `ignores-unrelated-request` | ver-11 | None |
 | `records-provenance` | ver-12 | As `selects-ready-current` |
+| `rerun-writes-nothing` | ver-14 | Shared fixture plus an existing EPIC-001 (version 1, a sentinel line) refining every eligible requirement |
+| `policy-resolver-revoked` | ver-15 | Shared fixture with POL-001's SET-01 at status deprecated |
 
 Write every fixture fresh and check it against its schema. Runs are non-interactive: put every answer in the
 prompt, and file graders need literal paths. Grade selection on the **written epic files**; the reply is
@@ -92,20 +94,26 @@ bumps, and the links citing SPEC-003 v6 moved to v7 (SKL-003's `provenance.yaml`
 Don't change the architecture skill in any other way; anything else you find is a follow-up.
 
 1. **The review record (SPEC-003 BEH-08 and BEH-09; SKILL.md step 4; `output-rules.md`).** When the user
-   confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review:
-   - move only the frontmatter PRD link to the reviewed version;
-   - add one Change Log row, "Reviewed against PRD-NNN vN: reuse confirmed, no architectural change",
-     ending with the policy resolution line;
-   - set `outcome: reuse` (the user confirmed it);
-   - don't bump the version or change `status` or the approval fields; this is a relink, not an amendment,
-     so BEH-09's "an approved ARCH returns to in-review" doesn't apply;
-   - leave every existing item's links unchanged, so they still show as suspect.
+   confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review.
+   These three changes, and nothing else (SPEC-004 §4):
+   - the frontmatter PRD link moves to the reviewed version;
+   - `outcome` becomes `reuse` (the user confirmed it);
+   - one Change Log row is added, "Reviewed against PRD-NNN vN: reuse confirmed, no architectural change",
+     ending with the policy resolution line.
 
-   With no user, nothing is confirmed and nothing is written, as today. Add SPEC-003 **VER-15** and an eval
-   case, `reuse-records-review`, tagged `architecture` and `ver-15`: ARCH-001 cites PRD-001 v1, PRD-001 is at
-   v2 after a priority-only change, and the prompt confirms reuse. Grade that the frontmatter PRD link is v2,
-   the ARCH's `version` and `status` are unchanged, a DEC's upstream link still cites v1, and the Change Log
-   has the review row.
+   Everything else stays byte-identical: `version`, `status`, the approval fields and every item, including
+   their links, which still show as suspect. This is a relink, not an amendment, so BEH-09's "an approved
+   ARCH returns to in-review" doesn't apply. When the PRD link already equals the PRD's version, confirming
+   reuse writes nothing.
+
+   With no user, nothing is confirmed and nothing is written, as today. Add SPEC-003 **VER-15** and **VER-16**
+   with eval cases tagged `architecture`:
+   - `reuse-records-review` (`ver-15`): ARCH-001 cites PRD-001 v1, PRD-001 is at v2 after a priority-only
+     change, and the prompt confirms reuse. Grade that the frontmatter PRD link is v2, `outcome` is `reuse`,
+     the ARCH's `version`, `status` and approval fields are unchanged, a DEC's upstream link still cites v1,
+     and the Change Log has exactly one review row.
+   - `reuse-review-idempotent` (`ver-16`): the same, but ARCH-001 already cites PRD-001 v2 with one review
+     row. Grade that the ARCH is unchanged: the same `version`, and still exactly one review row.
 2. **VER-10 (the handoff).** The `hands-off-to-epic` case expects "not built yet", which fails once this skill
    ships. VER-10 changes so the handoff names `/devforgeai:epic PRD-001`, with a grader that doesn't depend
    on whether the epic skill exists. Update the graders in `evals/architecture/hands-off-to-epic/`.
@@ -125,9 +133,9 @@ claude plugin validate .claude/skills/devforgeai --strict
 ```
 
 The user runs evals from a **plain terminal** in the worktree root. **State the estimated cost before each
-paid run**: roughly $27 for the `epic` tag run (12 cases × 3 runs × 2 arms), roughly $30 for the
-`architecture` tag run (13 cases) plus $5 for the Organization A/B sequence, and roughly $97 for the
-full-plugin run (53 cases). About $160 in all if nothing needs a rerun.
+paid run**: roughly $31 for the `epic` tag run (14 cases × 3 runs × 2 arms), roughly $32 for the
+`architecture` tag run (14 cases) plus $5 for the Organization A/B sequence, and roughly $103 for the
+full-plugin run (56 cases). About $170 in all if nothing needs a rerun.
 
 ```bash
 claude plugin eval .claude/skills/devforgeai --tag epic --allow-tools Write Edit --scaffold --no-publish --threshold 0.8
@@ -173,14 +181,15 @@ To iterate cheaply on one case: `--case <name> --runs 1 --ablation none`. To dia
 - [ ] The deliverables exist, and the template was moved, not copied.
 - [ ] `diff` is clean, the schema-copy loop prints nothing, and `validate --strict` passes.
 - [ ] Every epic case scores at least 0.8 over 3 runs, with its delta reported, and the full-plugin run shows
-      no regression, including the updated `hands-off-to-epic` and the new `reuse-records-review` cases.
+      no regression, including the updated `hands-off-to-epic` and the new `reuse-records-review` and
+      `reuse-review-idempotent` cases.
 - [ ] The Organization A/B checksum sequence passes on SKL-003 v5, with the new hashes recorded.
 - [ ] VER-13 is done and recorded, with (h) marked as a reading check and (i) run end to end across both skills.
 - [ ] Every commit references `STORY-005`.
 
 ## 9. Report back
 
-- A table of VER-01…13 with the score and delta, or the manual result, and the Claude Code version.
+- A table of VER-01…15 with the score and delta, or the manual result, and the Claude Code version.
 - The eval report paths, and every individual grader failure.
 - Deviations from the spec, proposed spec changes, and open questions.
 - The ambiguity list: the question, what you checked, what depended on it, and whether it interrupted work.

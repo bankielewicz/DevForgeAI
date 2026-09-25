@@ -70,8 +70,8 @@ done_when:
     evidence_method: "epic eval suite passes at threshold 0.8, including the negative selection cases graded on the written files"
   - id: DW-02
     status: active
-    criterion: "Existing epics are never modified or duplicated: a requirement an existing epic already refines is reported as covered and gets no new epic."
-    evidence_method: "Eval case existing-epic-not-duplicated"
+    criterion: "Existing epics are never modified or duplicated: an FR an active existing epic already refines is reported as covered and gets no new epic; a shared NFR attaches to new epics but never becomes a second deliverable; rerunning with unchanged inputs writes nothing."
+    evidence_method: "Eval cases existing-epic-not-duplicated and rerun-writes-nothing"
 ```
 
 ## 5. Dependencies and risks
