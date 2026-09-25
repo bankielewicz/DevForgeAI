@@ -213,10 +213,16 @@ acceptance_criteria:
 
 ## 6. Definition of Done
 
-- [ ] Every AC is verified by at least one eval case or manual check that cites it (`STORY-005#AC-NN`)
-- [ ] Skill files reviewed; commits reference `STORY-005`
-- [ ] SPEC-004 items implemented, or explicitly deferred to a new story
-- [ ] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
+- [x] Every AC is verified by at least one eval case or manual check that cites it (`STORY-005#AC-NN`). AC-01 to
+      AC-11 by the 14 epic cases (SPEC-004 VER-01 to VER-12, VER-14, VER-15), AC-12 by SPEC-003 VER-15 and VER-16, and
+      AC-05 and AC-12 also by VER-13. SKL-004 v2 passed the epic tag run and, on build 641a388, the full-plugin run
+      (56/56 ≥ 0.8); VER-13 passed on v2, with (h) a reading check (ERR-06 not exercised). Caveats in SPEC-004 §9:
+      grader false negatives in blocked-not-included, and the reason-label format only partly followed
+- [ ] Skill files reviewed; commits reference `STORY-005` (every commit does; Bryan's review of the skill files is pending)
+- [x] SPEC-004 items implemented, or explicitly deferred to a new story. Every BEH, ERR and QR item is implemented;
+      nothing in SPEC-004 is deferred. The architecture skill's `sed -i` deviation in VER-13 (i) is a SPEC-003 item,
+      deferred to STORY-004 (R2-Q2)
+- [x] No open `[NEEDS CLARIFICATION]` markers; `blocked_by` empty
 
 ## 7. Open questions
 
