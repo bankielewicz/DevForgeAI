@@ -17,9 +17,9 @@ approved_by: "Bryan"
 approved_on: 2026-09-24
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 8, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 8, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 8, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 9, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
@@ -266,19 +266,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the decision and readiness rules and the output contract; readiness, inspection, policy and output rules live in references/"
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 8, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 9, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 8, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 9, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged architecture and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 8, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 9, hash: null}
 ```
 
 ## 9. Verification
