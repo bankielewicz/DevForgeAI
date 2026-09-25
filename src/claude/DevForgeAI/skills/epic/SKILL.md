@@ -4,7 +4,7 @@ description: Turns a DevForgeAI PRD into epic documents for the requirements tha
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-004"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Epic
@@ -97,8 +97,8 @@ per active FR and NFR. The selection and every left-out row must agree with it.
 2. Apply `selection.md` (The selection rule). **Eligible:** active, ready, `release: current`, `priority`
    `must`, `should` or `could`, and, for an FR, not covered by an active existing epic. NFRs are never covered.
 3. Build one left-out row for every other requirement (`selection.md`, Left-out rows): every reason that
-   applies, in order, and one next action, the first listed reason's. Several reasons never mean several
-   questions.
+   applies, in order and named by its word from the table (deprecated, won't have, later, undecided, covered,
+   blocked, unknown), and one next action, the first listed reason's. Several reasons never mean several questions.
 4. **Nothing to write (ERR-05):** if there is no eligible FR, and every eligible NFR is already refined by an
    active existing epic, write nothing. Say that no requirement needs a new epic, report every left-out row,
    and stop.

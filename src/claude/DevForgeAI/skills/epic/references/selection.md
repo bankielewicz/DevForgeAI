@@ -141,7 +141,8 @@ applies, in this order**, and **one next action: the first listed reason's**.
 | 6 | `blocked` | R is not ready: name the blocking DEC IDs, any superseded resolver, or the marker without a matching question | resolve it with `/devforgeai:architecture PRD-NNN` |
 | 7 | `unknown` | readiness can't be established: name the missing or unreadable input, or the policy resolver and the failed check | fix that input, or review the architecture, then run again |
 
-Write each row as one line, the requirement ID first:
+Write each row as one line: the requirement ID first, then each reason **named by its word from the table**
+(`won't have` for `wont`), followed by its detail, then the next action. For example:
 
 - `FR-031: later; DEC-17 open. No action for the current release.`
 - `FR-032: won't have. No action for this release.`

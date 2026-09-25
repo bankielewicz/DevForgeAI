@@ -4,7 +4,7 @@ id: SKL-004
 type: skill
 title: "Turn a PRD's ready requirements into epics"
 status: draft          # draft | in-review | approved | superseded | deprecated
-version: 1             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+version: 2             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-24
 updated: 2026-09-24
 owner: "Bryan"
