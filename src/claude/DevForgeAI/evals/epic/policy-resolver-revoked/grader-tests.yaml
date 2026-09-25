@@ -1,0 +1,25 @@
+# Independent examples for this case's reply graders (STORY-005, R2-Q1), written by hand, not taken from
+# eval replies. Every `pass` text must satisfy its grader (a not_contains grader must not catch it); every
+# `fail` text must not. Checked offline before every paid run. The eval itself doesn't read this file.
+fr-012-unknown-set-01:
+  pass:
+  - '- FR-012: unknown: POL-001#SET-01 fails the policy check (setting deprecated). Review the architecture with /devforgeai:architecture PRD-001, then run again.'
+  - '- FR-012: can''t be checked, because the policy setting it relies on, POL-001#SET-01, is deprecated. Review the architecture with /devforgeai:architecture PRD-001, then run again.'
+  - '- **FR-012:** readiness unknown: POL-001 SET-01 is no longer active. Review the architecture, then run this skill again.'
+  fail:
+  - text: '- FR-012: ready, not unknown: POL-001#SET-01 is not deprecated. Review the architecture, then run again.'
+    why: negated (Bryan R2-Q1)
+  - text: '- FR-012: unknown: POL-999#SET-01 is deprecated. Review the architecture, then run again.'
+    why: wrong policy ID (Bryan R2-Q1)
+  - text: '- FR-012: blocked by DEC-07 (reason unknown); POL-001#SET-01 deprecated. Review the architecture, then run again.'
+    why: blocked containing "unknown" (Bryan R2-Q1)
+  - text: '- FR-012: unknown: POL-001#SET-02 is deprecated. Review the architecture, then run again.'
+    why: wrong setting ID
+  - text: '- FR-012: unknown: POL-001#SET-01. Review the architecture, then run again.'
+    why: failed check not named
+  - text: '- FR-012: unknown: a policy setting is deprecated. Review the architecture, then run again.'
+    why: no cause ID
+  - text: '- FR-012: unknown: POL-001#SET-01 is deprecated.'
+    why: no next action
+  - text: '- FR-012: ready: POL-001#SET-01 is deprecated, but readiness is otherwise fine. Review the architecture, then run again.'
+    why: contradictory readiness
