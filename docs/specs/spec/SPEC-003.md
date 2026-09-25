@@ -3,9 +3,9 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 7
+version: 8
 created: 2026-09-23
-updated: 2026-09-24
+updated: 2026-09-25
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -153,7 +153,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "5"
+  devforgeai-version: "6"
 ```
 
 - **The name must be exactly `architecture`.** The prd skill's handoff looks for `${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md`.
@@ -512,3 +512,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 6 | 2026-09-24 | claude-code | §5 skill-version example "4" for SKL-003 v4 (output-rules.md: links added in a run use current versions while links on existing items keep theirs; separate checks for a new ADR and for an existing ADR marked superseded; a superseding ADR lists supersedes: [ADR-old]; the DEC's resolved_by is replaced by the new ADR; an ADR decided in this run resolves by means 3). VER-12 adds (j), amending an ARCH across a PRD version change, and (k), an explicitly approved ADR supersession, and now covers BEH-09 and BEH-14. Found by a Codex review of SKL-003 v3, approved by Bryan | §5, VER-12 |
 | 6 | 2026-09-24 | Bryan | Approved, with the exceptions deferred to STORY-004 (VER-12 (c), readiness attribution, evidence completeness, BEH-05 enforcement, ERR-05 self-check path) | status |
 | 7 | 2026-09-24 | claude-code | SKL-003 version 5 (§5 example). The review record: a confirmed reuse against a newer PRD version moves the frontmatter PRD link, sets outcome reuse and adds one Change Log row; everything else stays byte-identical and an approved ARCH stays approved; a repeat writes nothing (BEH-08, BEH-09; VER-15 and VER-16, verifying STORY-005#AC-12). The skill's "never approved" rules now apply to new and amended ARCHs only (R1-Q3 of STORY-005). VER-10's handoff names /devforgeai:epic PRD-001, since the epic skill ships in this plugin. Specified in SPEC-004 §4 and §10 and the SKL-004 build brief; approved by Bryan on 2026-09-24 (PR #10), and his approval covers v7 | §5, BEH-08, BEH-09, VER-10, VER-15, VER-16 |
+| 8 | 2026-09-25 | claude-code | SKL-003 version 6 (§5 example): the skill writes the ARCH and ADRs only with Write or Edit, never through Bash (no sed -i, redirection or heredoc), in step 9, on the review path and in the fix loop; §5 already required it. Found in STORY-005 VER-13 (i) (R3-Q3). Approved by Bryan on 2026-09-25, and his approval covers v8 | §5 |
