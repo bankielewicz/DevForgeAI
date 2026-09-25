@@ -49,3 +49,12 @@ Only the lead session edits it; subagents report results, and the lead ticks
 an item after checking the evidence. Tag each item with the spec ID it serves
 (AC-, VER-, BEH-). Record durable outcomes in the story's Definition of Done
 and in commit messages, not in TASKS.md.
+
+Work that isn't scheduled goes in one of two backlogs, never in TASKS.md:
+
+- **Product backlog:** PRD requirements with `release: later` (SPEC-002 §5). A new
+  capability becomes a requirement first; issue #22 lists the named capabilities
+  that aren't requirements yet.
+- **Engineering backlog:** GitHub issues labelled `backlog` (`gh issue list --label backlog`).
+  Issues labelled `needs-decision` wait on the owner and list the options. Reference
+  the issue in the commit or PR that resolves it (`Closes #NN`).
