@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "5"
+  devforgeai-version: "6"
 ---
 
 # Architecture
@@ -120,10 +120,10 @@ counts as answered only when the request answers that exact question (for exampl
    Show the current readiness, including every reopened DEC and why. Ask, and end your turn. Never create a
    second ARCH for the same system unless the user chooses to.
 5. **The user confirms reuse:** if the ARCH's frontmatter PRD link is older than the PRD's `version`, record
-   the review exactly as `output-rules.md` (Recording a review) says: that link, `outcome: reuse` and one Change
-   Log row, and nothing else, not even `updated`. Read the file back, confirm it against that section's
-   self-check, and say in the handoff that the review was recorded. If the link already equals the PRD's
-   version, write nothing. Then go to step 11. Without the user's confirmation, nothing is written.
+   the review exactly as `output-rules.md` (Recording a review) says, with the Edit tool and never through Bash
+   (step 9): that link, `outcome: reuse` and one Change Log row, and nothing else, not even `updated`. Read the
+   file back, confirm it against that section's self-check, and say in the handoff that the review was recorded.
+   If the link already equals the PRD's version, write nothing. Then go to step 11. Without the user's confirmation, nothing is written.
 
 ### 5. Inspect within scope
 
@@ -171,6 +171,10 @@ decision questions if possible. Write `outcome` only when the user confirms it, 
 
 ### 9. Write the ARCH and ADRs (R5)
 
+**Write only with the Write and Edit tools.** Create a new ARCH or ADR with Write, and change an existing file (an
+amendment, a review record, a recorded supersession, a fix or a restore) with Edit. Never write or change the ARCH
+or an ADR through Bash: no `sed -i`, no redirection (`>`, `>>`, `tee`) and no heredoc.
+
 1. Read `${CLAUDE_SKILL_DIR}/references/output-rules.md` if you haven't already.
 2. **New ARCH:** if the target path exists, stop and ask; never overwrite. Build the file from
    `${CLAUDE_SKILL_DIR}/assets/arch.md`: keep every heading, replace each placeholder or mark it
@@ -195,7 +199,7 @@ decision questions if possible. Write `outcome` only when the user confirms it, 
    prints JSON (whatever the exit code), fix every error it lists. If it prints no JSON (not found, or some
    other program), or you can't run commands, check each file against the **Self-check list** in
    `output-rules.md`, reading the file back first.
-2. Fix every problem found, then check again. Stop after three attempts.
+2. Fix every problem found with Edit (never through Bash), then check again. Stop after three attempts.
 3. If errors remain after the third attempt, stop fixing and restore only what can't stand unvalidated (ERR-05):
    - every `status`, `approved_by` and `approved_on` this write changed, back to its value before the write.
      A new ARCH stays `draft`. A new ADR the user accepted becomes `proposed` with empty approval fields; keep

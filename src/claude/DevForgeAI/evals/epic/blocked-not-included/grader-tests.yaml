@@ -54,6 +54,7 @@ fr-009-marker-unmatched:
   pass:
   - '- FR-009: blocked: the [NEEDS ADR: integration with the studio''s accounting system] marker has no matching question. Resolve it with /devforgeai:architecture PRD-001.'
   - '- FR-009: blocked, because the PRD''s open question on the accounting system integration has no matching decision in the ARCH. Resolve it with `/devforgeai:architecture PRD-001`.'
+  - '- **FR-009 (daily roster export):** blocked, since no architecture question answers the ''accounting integration'' marker. Resolve it with `/devforgeai:architecture PRD-001`.'
   fail:
   - text: '- FR-009: blocked: the accounting-system NEEDS ADR marker is matched by DEC-08, which is open. Resolve it with /devforgeai:architecture PRD-001.'
     why: marker said to be matched
@@ -67,10 +68,17 @@ fr-009-marker-unmatched:
     why: negated
   - text: '- FR-009: ready, although the accounting marker has no matching question. Resolve it with /devforgeai:architecture PRD-001.'
     why: contradictory readiness
+  - text: '- FR-009: blocked because an architecture question answers the accounting-system marker, and it is still open. Resolve it with /devforgeai:architecture PRD-001.'
+    why: marker answered, not unmatched (R3-Q4)
+  - text: '- FR-009: not blocked: no architecture question answers the accounting-system marker. Resolve it with /devforgeai:architecture PRD-001.'
+    why: negated (R3-Q4)
+  - text: '- FR-009: blocked because no architecture question answers the accounting-system marker.'
+    why: no next action (R3-Q4)
 fr-010-marker-unmatched:
   pass:
   - '- FR-010: blocked: the [NEEDS ADR: payment provider for refunds] marker has no matching question (DEC-04 answers audit storage). Resolve it with /devforgeai:architecture PRD-001.'
   - '| FR-010 | blocked | the payment-provider open question has no matching decision; DEC-04 covers only audit records | /devforgeai:architecture PRD-001 |'
+  - '- FR-010 (staff refunds): blocked because no architecture question answers the ''refund payment provider'' marker; DEC-04 is only about audit records. Resolve it with /devforgeai:architecture PRD-001.'
   fail:
   - text: '- FR-010: blocked by DEC-04 (audit storage) and the payment-provider marker, which has no matching question. Resolve it with /devforgeai:architecture PRD-001.'
     why: blocked by a resolved DEC
@@ -82,6 +90,10 @@ fr-010-marker-unmatched:
     why: no next action
   - text: '- FR-010: blocked: an open question has no matching decision. Resolve it with /devforgeai:architecture PRD-001.'
     why: 'no cause: which marker'
+  - text: '- FR-010: blocked because no architecture question answers the marker. Resolve it with /devforgeai:architecture PRD-001.'
+    why: 'no cause: which marker (R3-Q4)'
+  - text: '- FR-010: blocked because DEC-04 answers the payment-provider marker. Resolve it with /devforgeai:architecture PRD-001.'
+    why: marker said to be answered by a DEC (R3-Q4)
 fr-011-unknown-adr-004:
   pass:
   - '- FR-011: unknown: ADR-004 (resolver of DEC-05) not found. Fix that input, or review the architecture, then run again.'
