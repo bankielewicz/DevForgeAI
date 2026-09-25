@@ -9,6 +9,7 @@
 - ARCH collections
 - ARCH sections
 - Amending an ARCH
+- Recording a review
 - ADRs
 - Change Log and resolution line
 - Leftovers
@@ -16,9 +17,9 @@
 
 ## When to use this
 
-Read this before writing an ARCH or an ADR (step 9), and check every file written against the **Self-check
-list** when `devforgeai check --json` is unavailable (not on PATH, or output that isn't JSON). These rules
-restate the ARCH and ADR schemas. A file that breaks any of them is invalid.
+Read this before writing an ARCH or an ADR (step 9) or recording a review (step 4), and check every file
+written against the **Self-check list** when `devforgeai check --json` is unavailable (not on PATH, or output
+that isn't JSON). These rules restate the ARCH and ADR schemas. A file that breaks any of them is invalid.
 
 ## ARCH frontmatter
 
@@ -29,14 +30,14 @@ The YAML between the first two whole `---` lines. Allowed keys, and **no others*
 | `id` | `ARCH-NNN`: three digits, for example `ARCH-001`, matching the file name |
 | `type` | exactly `arch` |
 | `title` | quoted string, for example `"Studio booking platform architecture"` |
-| `status` | `draft` for a new ARCH; `in-review` after amending an approved one. **Never `approved`** |
+| `status` | `draft` for a new ARCH; `in-review` after amending an approved one. **Never set to `approved`**. A review record leaves it as it was (Recording a review) |
 | `version` | integer, at least 1 |
 | `created`, `updated` | `YYYY-MM-DD` |
 | `owner` | quoted string: the user's name, else the PRD's owner |
 | `authors` | list: the user's name (if known) and `claude-code`. Never invent a name |
 | `generated_by` | map with only `tool` (`"claude-code"`), `model` (your model ID) and `session` (`"${CLAUDE_SESSION_ID}"`, substituted), each quoted and non-empty |
 | `reviewed_by` | `[]` |
-| `approved_by`, `approved_on` | `""` and `null` |
+| `approved_by`, `approved_on` | `""` and `null` for a new or amended ARCH. A review record leaves them as they were |
 | `upstream` | list of link records (Links) |
 | `supersedes` | `[]` |
 | `superseded_by` | `null` |
@@ -178,6 +179,27 @@ A §7 bullet names the requirement, the finding and the proposed change, and add
 - `outcome` records the outcome for the PRD version examined: set it only when the user confirmed it in this
   run, and otherwise set it to `null`.
 - If `status` was `approved`, set it to `in-review`, `approved_by: ""` and `approved_on: null`.
+- A confirmed reuse is not an amendment: follow Recording a review instead.
+
+## Recording a review
+
+When the user confirms **reuse** and the ARCH's frontmatter PRD link (the link to the PRD with no `item`) has
+a `version` older than the PRD's `version`, record the review. Make exactly these three changes:
+
+1. That frontmatter link's `version` becomes the PRD's current `version`. Nothing else in the link changes.
+2. `outcome` becomes `reuse`.
+3. Add one Change Log row: the ARCH's current `version` (unchanged), today's date, author `claude-code`, Change
+   `Reviewed against PRD-NNN vN: reuse confirmed, no architectural change.` followed by the policy
+   resolution line, and Items affected `frontmatter`. For example:
+   `| 2 | 2026-09-24 | claude-code | Reviewed against PRD-001 v3: reuse confirmed, no architectural change. Policy resolution: … | frontmatter |`
+
+Everything else stays **byte-identical**: `version`, `updated`, `status`, `approved_by`, `approved_on`, every
+section, and every CMP, DEC and EVD, including their links, which keep their older versions and still show as
+suspect for review. A review is a relink, not an amendment: no version bump, no change to `updated`, and an
+approved ARCH stays approved.
+
+- If the frontmatter PRD link already equals the PRD's `version`, confirming reuse writes nothing.
+- With no one to confirm reuse, nothing is confirmed and nothing is written.
 
 ## ADRs
 
@@ -209,9 +231,9 @@ from `${CLAUDE_SKILL_DIR}/assets/adr.md`.
 ## Change Log and resolution line
 
 The ARCH Change Log table has columns Version, Date, Author, Change, Items affected. Each row the skill adds
-has the new version, today's date and author `claude-code`. Its **Change** cell summarizes the change (for
-example `Initial draft for PRD-001 v2` or `DEC-01 resolved → open: ADR-002 superseded by ADR-003`) and
-**ends with the policy resolution line**, as one line:
+has the new version (a review record's row keeps the current one), today's date and author `claude-code`. Its
+**Change** cell summarizes the change (for example `Initial draft for PRD-001 v2` or
+`DEC-01 resolved → open: ADR-002 superseded by ADR-003`) and **ends with the policy resolution line**, as one line:
 
 `Policy resolution: <entry>; <entry>; …`
 
@@ -231,7 +253,7 @@ None of these may remain in a written file:
 
 Read each written file back, then confirm each line.
 
-**ARCH**
+**ARCH** (new or amended; a review record uses its own list below)
 
 1. The path is `docs/specs/arch/ARCH-NNN.md`, and `NNN` matches the frontmatter `id`.
 2. The frontmatter has only the allowed keys, with the types above. `status` is not `approved`.
@@ -267,3 +289,12 @@ Read each written file back, then confirm each line.
 1. The user explicitly approved the supersession in this run.
 2. Only these changed: `status: superseded`, `superseded_by` (an accepted ADR written in this run, whose
    `supersedes` names this ADR) and one new Status history row. Everything else is byte-identical.
+
+**A review record**
+
+1. The user confirmed reuse, and before this run the frontmatter PRD link was older than the PRD's `version`.
+2. Only these changed: that link's `version` (now the PRD's), `outcome: reuse`, and one new Change Log row
+   with the unchanged ARCH version, starting `Reviewed against PRD-NNN vN` and ending with one
+   `Policy resolution:` line.
+3. `version`, `updated`, `status`, `approved_by` and `approved_on` are as they were, and every item and its
+   links are byte-identical.

@@ -1,0 +1,43 @@
+# Independent examples for this case's reply graders (STORY-005, R2-Q1), written by hand, not taken from
+# eval replies. Every `pass` text must satisfy its grader (a not_contains grader must not catch it); every
+# `fail` text must not. Checked offline before every paid run. The eval itself doesn't read this file.
+fr-002-covered-by-epic-001:
+  pass:
+  - '- FR-002: covered by EPIC-001. No action.'
+  - '- **FR-002:** already covered by EPIC-001, so no new epic.'
+  fail:
+  - text: '- FR-002: covered by EPIC-003. No action.'
+    why: wrong epic
+  - text: '- FR-002: not covered by EPIC-001. No action.'
+    why: negated
+  - text: '- FR-002: covered by EPIC-001.'
+    why: no next action
+  - text: '- FR-002: covered. No action.'
+    why: 'no cause: which epic'
+  - text: '- FR-002: covered by EPIC-001; blocked by DEC-02. No action.'
+    why: contradictory readiness
+fr-008-covered-and-blocked:
+  pass:
+  - '- FR-008: covered by EPIC-001; now blocked by DEC-03 (ADR-002 superseded by ADR-003). Review EPIC-001''s work before continuing.'
+  - '- FR-008: blocked by DEC-03 (open again); covered by EPIC-001. Review EPIC-001''s work before continuing.'
+  fail:
+  - text: '- FR-008: covered by EPIC-001; now blocked by DEC-03. Resolve it with /devforgeai:architecture PRD-001.'
+    why: wrong next action
+  - text: '- FR-008: covered by EPIC-001. Review EPIC-001''s work before continuing.'
+    why: blocked not reported
+  - text: '- FR-008: covered by EPIC-001; now blocked by DEC-04. Review EPIC-001''s work before continuing.'
+    why: wrong DEC
+  - text: '- FR-008: covered by EPIC-002; now blocked by DEC-03. Review EPIC-002''s work before continuing.'
+    why: wrong epic
+  - text: '- FR-008: covered by EPIC-001, not blocked by DEC-03. Review EPIC-001''s work before continuing.'
+    why: negated
+nfr-001-not-covered:
+  pass:
+  - '- NFR-001 is never covered: it is attached to EPIC-002 as well.'
+  - '- EPIC-002 refines FR-003, FR-004, FR-012 and NFR-001 (partial).'
+  - '- NFR-001: not covered by EPIC-001; it attaches to every new epic it constrains.'
+  fail:
+  - text: '- NFR-001: covered by EPIC-001. No action.'
+    why: NFR reported covered
+  - text: '| NFR-001 | covered by EPIC-001 | none |'
+    why: NFR reported covered (table)

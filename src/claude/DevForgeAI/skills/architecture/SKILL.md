@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "4"
+  devforgeai-version: "6"
 ---
 
 # Architecture
@@ -114,11 +114,16 @@ counts as answered only when the request answers that exact question (for exampl
    and why, ask which to use, and end your turn. Never pick one silently.
 4. **One covers it:** read `${CLAUDE_SKILL_DIR}/references/readiness.md`, compute the existing ARCH's current
    readiness for this PRD (Check the resolvers, then the readiness rule), and propose, with reasons:
-   - **reuse**: it covers this PRD unchanged. Nothing is written;
+   - **reuse**: it covers this PRD unchanged. The architecture doesn't change; at most the review is recorded (item 5);
    - **amend**: it needs new or changed questions or components, for example a requirement or `[NEEDS ADR]`
      marker no DEC cites, or a DEC whose resolver is no longer valid.
    Show the current readiness, including every reopened DEC and why. Ask, and end your turn. Never create a
-   second ARCH for the same system unless the user chooses to. If the user chooses reuse, go to step 11.
+   second ARCH for the same system unless the user chooses to.
+5. **The user confirms reuse:** if the ARCH's frontmatter PRD link is older than the PRD's `version`, record
+   the review exactly as `output-rules.md` (Recording a review) says, with the Edit tool and never through Bash
+   (step 9): that link, `outcome: reuse` and one Change Log row, and nothing else, not even `updated`. Read the
+   file back, confirm it against that section's self-check, and say in the handoff that the review was recorded.
+   If the link already equals the PRD's version, write nothing. Then go to step 11. Without the user's confirmation, nothing is written.
 
 ### 5. Inspect within scope
 
@@ -166,6 +171,10 @@ decision questions if possible. Write `outcome` only when the user confirms it, 
 
 ### 9. Write the ARCH and ADRs (R5)
 
+**Write only with the Write and Edit tools.** Create a new ARCH or ADR with Write, and change an existing file (an
+amendment, a review record, a recorded supersession, a fix or a restore) with Edit. Never write or change the ARCH
+or an ADR through Bash: no `sed -i`, no redirection (`>`, `>>`, `tee`) and no heredoc.
+
 1. Read `${CLAUDE_SKILL_DIR}/references/output-rules.md` if you haven't already.
 2. **New ARCH:** if the target path exists, stop and ask; never overwrite. Build the file from
    `${CLAUDE_SKILL_DIR}/assets/arch.md`: keep every heading, replace each placeholder or mark it
@@ -190,7 +199,7 @@ decision questions if possible. Write `outcome` only when the user confirms it, 
    prints JSON (whatever the exit code), fix every error it lists. If it prints no JSON (not found, or some
    other program), or you can't run commands, check each file against the **Self-check list** in
    `output-rules.md`, reading the file back first.
-2. Fix every problem found, then check again. Stop after three attempts.
+2. Fix every problem found with Edit (never through Bash), then check again. Stop after three attempts.
 3. If errors remain after the third attempt, stop fixing and restore only what can't stand unvalidated (ERR-05):
    - every `status`, `approved_by` and `approved_on` this write changed, back to its value before the write.
      A new ARCH stays `draft`. A new ADR the user accepted becomes `proposed` with empty approval fields; keep
@@ -258,8 +267,8 @@ classification, which you show the user.
   user's explicit decision recorded as a new accepted ADR. Each resolver resolves only its own question.
 - `outcome` is `null` unless the user confirmed it. No ADR is `accepted` without the user's explicit decision.
 - Every project source consulted is an EVD item with its kind and classification.
-- `status` is `draft` (or `in-review` after amending an approved ARCH), never `approved`. The PRD, BRNs and
-  policy are never modified.
+- A new or amended ARCH has `status` `draft` (or `in-review` after amending an approved ARCH), never `approved`;
+  a review record leaves `status` and the approval fields as they were. The PRD, BRNs and policy are never modified.
 - Stable CMP, DEC and EVD IDs: the epic workflow cites them. Epics may be written only for requirements the
   readiness rule reports ready.
 
@@ -269,4 +278,4 @@ classification, which you show the user.
 - [defaults.md](references/defaults.md): read in step 1, every run.
 - [readiness.md](references/readiness.md): read in steps 4, 6, 7 and 11.
 - [inspection.md](references/inspection.md): read in step 5, and whenever you record evidence.
-- [output-rules.md](references/output-rules.md): read before writing (step 9) and when validating (step 10).
+- [output-rules.md](references/output-rules.md): read before writing (steps 4 and 9) and when validating (step 10).

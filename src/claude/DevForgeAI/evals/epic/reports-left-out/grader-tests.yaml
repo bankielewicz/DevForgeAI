@@ -1,0 +1,50 @@
+# Independent examples for this case's reply graders (STORY-005, R2-Q1), written by hand, not taken from
+# eval replies. Every `pass` text must satisfy its grader (a not_contains grader must not catch it); every
+# `fail` text must not. Checked offline before every paid run. The eval itself doesn't read this file.
+fr-005-later-dec-06:
+  pass:
+  - '- FR-005: later; DEC-06 open. No action for the current release.'
+  - '- **FR-005:** planned for a later release, and also blocked by DEC-06 (which SMS gateway). No action for the current release.'
+  fail:
+  - text: '- FR-005: later. No action for the current release.'
+    why: 'no cause: DEC-06'
+  - text: '- FR-005: later; DEC-07 open. No action for the current release.'
+    why: wrong DEC
+  - text: '- FR-005: later; DEC-06 open.'
+    why: no next action
+  - text: '- FR-005: later; DEC-06 resolved. No action for the current release.'
+    why: cause contradicted
+  - text: '- FR-005: not later; DEC-06 open. No action for the current release.'
+    why: negated
+  - text: '- FR-005: ready and later; DEC-06 open. No action for the current release.'
+    why: contradictory readiness
+fr-006-wont:
+  pass:
+  - '- FR-006: won''t have. No action for this release.'
+  - '- **FR-006:** priority is "won''t have". No action for this release.'
+  - '| FR-006 | wont / current | none | none for this release |'
+  fail:
+  - text: '- FR-006: won''t have.'
+    why: no next action
+  - text: '- FR-006: not a won''t-have; it is eligible. No action.'
+    why: negated
+  - text: '- FR-006: undecided. No action for this release.'
+    why: wrong reason
+  - text: '- FR-006: eligible, won''t have. No action for this release.'
+    why: contradictory readiness
+fr-007-undecided-owner:
+  pass:
+  - '- FR-007: undecided (priority not set). The PRD owner decides.'
+  - '- FR-007: its priority isn''t set. Priya Nair, the PRD owner, decides.'
+  - '| FR-007 | null / current | none | the PRD owner decides |'
+  fail:
+  - text: '- FR-007: undecided. The PRD owner decides.'
+    why: 'no cause: which field'
+  - text: '- FR-007: undecided (priority not set).'
+    why: no next action
+  - text: '- FR-007: priority is should. The PRD owner decides.'
+    why: cause contradicted
+  - text: '- FR-007: not undecided; priority set. The PRD owner decided.'
+    why: negated
+  - text: '- FR-007: eligible; priority not set. The PRD owner decides.'
+    why: contradictory readiness

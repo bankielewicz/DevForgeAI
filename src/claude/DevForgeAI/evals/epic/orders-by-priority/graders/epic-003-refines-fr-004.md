@@ -1,0 +1,7 @@
+---
+type: regex
+target:
+  source: file
+  path: docs/specs/epic/EPIC-003.md
+pattern: '\{\s*id:\s*PRD-001,\s*item:\s*FR-004,\s*relation:\s*refines,\s*version:\s*2\b'
+---
