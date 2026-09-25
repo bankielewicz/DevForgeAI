@@ -106,9 +106,12 @@ All of these are read-only. **Output:** new epics at `docs/specs/epic/EPIC-NNN.m
 `epic.schema.json`.
 
 **The current ARCH.** The skill uses the ARCH whose frontmatter `upstream` links cite this PRD. It is
-**current** when that link's `version` equals the PRD's `version`. No such ARCH, or an ARCH that examined
-an older PRD version, means the skill writes nothing and hands back to the architecture step
-(ERR-02, ERR-03).
+**current** when that link's `version` equals the PRD's `version`. The architecture skill records that link
+when it creates or amends an ARCH and, from SKL-003 v5 (SPEC-003 v7), when the user confirms reuse against a
+newer PRD version: a **review record** that moves only the frontmatter PRD link to the reviewed version and
+adds one Change Log row, with no version bump and no approval change. A version mismatch means a review is
+due, not that the architecture must change. No such ARCH, or one not reviewed against the PRD's current
+version, means the skill writes nothing and hands back to `/devforgeai:architecture PRD-NNN` (ERR-02, ERR-03).
 
 **Readiness** (`references/selection.md`), exactly SPEC-003 §4, applied to the ARCH file. A requirement R
 is **ready** when, for every active `DEC` with `blocking: true` whose `upstream` cites R:
@@ -116,27 +119,37 @@ is **ready** when, for every active `DEC` with `blocking: true` whose `upstream`
 - every `resolved_by` entry is an ADR whose file now has `status: accepted` and no `superseded_by`, or an
   approved policy's active setting.
 
-A DEC blocks only the requirements its own `upstream` cites. A PRD `[NEEDS ADR]` marker that names R, with
-no DEC citing R, blocks R ("marker without a question").
+A DEC blocks only the requirements its own `upstream` cites. Every PRD `[NEEDS ADR]` marker needs **its own
+matching DEC**: one whose question answers the marker's decision and whose `upstream` cites every
+requirement the marker names. When no DEC clearly answers a marker, every requirement it names is blocked
+("marker without a matching question"), even if other DECs citing them are resolved. When readiness can't
+be established, for example a resolving ADR's file is missing, R is `unknown`: never asserted ready or
+blocked.
 
 **The selection rule.** A requirement R of the PRD (an FR or an NFR) is **eligible** when all hold:
 1. R is `status: active`;
 2. R is ready;
 3. `release: current`;
 4. `priority` is `must`, `should` or `could`;
-5. no existing epic that is active (not `superseded` or `deprecated`) has a `refines` link to this PRD's R
-   (the PRD ID and the item both match), at any version.
+5. for an FR only: no active existing epic (not `superseded` or `deprecated`) has a `refines` link to this
+   PRD's R (the PRD ID and the item both match), at any version. NFRs are never "covered": an eligible NFR
+   can be refined by every new epic it constrains, even when an existing epic already refines it.
 
-Every other requirement is **left out**, with the first reason that applies:
+Every other requirement is **left out**. The report gives each one **one compact row with every reason that
+applies**, in the order below, and **one next action**. Several reasons never mean several questions.
 
-| Reason | When |
-|---|---|
-| `deprecated` | R is not active |
-| `blocked` | R is not ready; the report names the blocking DEC IDs, and any superseded resolver |
-| `later` | `release: later` |
-| `wont` | `priority: wont` |
-| `undecided` | `priority` or `release` is `null`; reported to the PRD owner |
-| `covered` | an active existing epic refines this PRD's R; the report names the epic |
+| Reason | When | Next action |
+|---|---|---|
+| `deprecated` | R is not active | none |
+| `wont` | `priority: wont` | none for this release |
+| `later` | `release: later` | none for the current release |
+| `undecided` | `priority` or `release` is `null` | the PRD owner decides |
+| `blocked` | R is not ready; names the blocking DEC IDs, any superseded resolver, or the marker without a matching question | resolve it with `/devforgeai:architecture` |
+| `unknown` | readiness can't be established; names the missing or unreadable input | fix that input, then run again |
+| `covered` | an active existing epic refines this PRD's FR; names the epic | none, unless it is also blocked: then review that epic's work before continuing |
+
+For example: `FR-005: later; DEC-04 open. No action for the current release.` and
+`FR-008: covered by EPIC-002; now blocked by DEC-03 (ADR-002 superseded). Review EPIC-002's work before continuing.`
 
 **Grouping.** Each eligible FR is refined by exactly one new epic. An eligible NFR is refined by every
 new epic whose capability it constrains, with `note: "partial: <which part>"` when shared. An epic's
@@ -182,16 +195,16 @@ behaviors:
     rule: "Read the PRD's requirements (FR and NFR items with status, priority and release), its target_release, its status and its [NEEDS ADR] markers, and record its version in every link. If the PRD or the ARCH is a draft, say in the handoff and in each epic written that the epics are proposals because an input is a draft. Never edit the PRD."
   - id: BEH-03
     status: active
-    rule: "Find the ARCH whose frontmatter upstream links cite this PRD, and check that its PRD link version equals the PRD's version (§4). Use it only then; otherwise stop as ERR-02, ERR-03 or ERR-04."
+    rule: "Find the ARCH whose frontmatter upstream links cite this PRD, and check that its PRD link version equals the PRD's version (§4), which the architecture skill records on create, amend or a confirmed reuse review. Use it only then; otherwise stop as ERR-02, ERR-03 or ERR-04."
   - id: BEH-04
     status: active
-    rule: "Compute readiness for every active FR and NFR of the PRD from the ARCH file and the ADR files, exactly as SPEC-003 §4, reading each resolving ADR's current status and superseded_by now. A DEC blocks only the requirements its own upstream cites. A [NEEDS ADR] marker naming a requirement that no DEC cites blocks it. Never use a skill's reply as the source."
+    rule: "Compute readiness for every active FR and NFR of the PRD from the ARCH file and the ADR files, exactly as SPEC-003 §4, reading each resolving ADR's current status and superseded_by now. A DEC blocks only the requirements its own upstream cites. Match every PRD [NEEDS ADR] marker to its own DEC (one whose question answers the marker's decision); when none clearly does, every requirement the marker names is blocked, even if other DECs citing it are resolved. When readiness can't be established, report the requirement as unknown, naming the missing input. Never use a skill's reply as the source."
   - id: BEH-05
     status: active
-    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and not already refined by an active existing epic (§4). Give every other requirement its reason: deprecated, blocked (with the DEC IDs and any superseded resolver), later, wont, undecided (for the PRD owner) or covered (with the epic ID)."
+    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and, for an FR, not already refined by an active existing epic. NFRs are never covered. Give every other requirement one compact row with every reason that applies (deprecated, wont, later, undecided, blocked with the DEC IDs or unmatched marker, unknown, covered with the epic ID), in the §4 order, and one next action."
   - id: BEH-06
     status: active
-    rule: "Read every existing epic in docs/specs/epic/. A requirement of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered. Never modify, renumber or duplicate an existing epic."
+    rule: "Read every existing epic in docs/specs/epic/. An FR of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered; if it is also blocked now, say so. NFRs are never covered. Never modify, renumber or duplicate an existing epic."
   - id: BEH-07
     status: active
     rule: "Propose how to group the eligible requirements into epics: each a deliverable capability, each eligible FR in exactly one epic, a shared NFR in every epic it constrains. Show each proposed epic's title, requirements and priority, and ask the user to confirm or change the grouping; write nothing until they do. A grouping stated in the request counts as confirmed. If no one can confirm (the request says to proceed without questions and gives no grouping), write the proposal and add to §8 of each epic: [NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]."
@@ -206,7 +219,7 @@ behaviors:
     rule: "Validate every epic written against the self-check list in references/output-rules.md, reading each file back. Fix and check again, at most three attempts. Don't call any devforgeai command."
   - id: BEH-11
     status: active
-    rule: "Hand off with each epic written (path, title, priority and the requirements it refines), every requirement left out grouped by reason (blocked with DEC IDs, later, wont, undecided for the PRD owner, covered with the epic ID, deprecated), and the proposal warning if an input is a draft. Then name the next step, the story step, with the new epic IDs as its input: if ${CLAUDE_PLUGIN_ROOT}/skills/story/SKILL.md exists, tell the user to run /devforgeai:story with an epic ID; otherwise say stories are written by hand from the story template for now. Never write a story."
+    rule: "Hand off with each epic written (path, title, priority and the requirements it refines), then the left-out rows (§4: every reason that applies and one next action per requirement, with no extra questions), and the proposal warning if an input is a draft. Then name the next step, the story step, with the new epic IDs as its input: if ${CLAUDE_PLUGIN_ROOT}/skills/story/SKILL.md exists, tell the user to run /devforgeai:story with an epic ID; otherwise say stories are written by hand from the story template for now. Never write a story."
   - id: BEH-12
     status: active
     rule: "Never modify a PRD, BRN, ARCH, ADR, policy document or existing epic."
@@ -228,9 +241,9 @@ errors:
     user_result: "A handback to the architecture step; no epic written"
   - id: ERR-03
     status: active
-    condition: "The ARCH that cites the PRD examined an older PRD version"
-    handling: "Write nothing. Name both versions and tell the user to amend the ARCH with /devforgeai:architecture and the PRD ID"
-    user_result: "A handback to amend the ARCH; no epic written"
+    condition: "The ARCH that cites the PRD hasn't been reviewed against the PRD's current version (its PRD link version is older)"
+    handling: "Write nothing. Name both versions, and tell the user to review the architecture against this PRD version with /devforgeai:architecture and the PRD ID; confirming reuse there records the review, and changes are made only if the review finds them"
+    user_result: "A handback to review the architecture; no epic written"
   - id: ERR-04
     status: active
     condition: "Several ARCH documents cite the PRD"
@@ -286,8 +299,8 @@ quality_responses:
 
 **Shared fixture.** One approved PRD, `PRD-001` v2 with `target_release: "Spring launch"`, and one
 approved `ARCH-001` whose frontmatter cites PRD-001 v2. Each is written fresh and checked against its
-schema. The ADRs are `ADR-001` (accepted), `ADR-002` (superseded by `ADR-003`) and `ADR-003` (accepted,
-a different topic).
+schema. The ADRs are `ADR-001` (accepted, answers DEC-02), `ADR-002` (superseded by `ADR-003`) and `ADR-003`
+(accepted, a different topic: it answers DEC-04, audit storage).
 
 | Requirement | Priority / release | ARCH | Expected |
 |---|---|---|---|
@@ -299,12 +312,14 @@ a different topic).
 | FR-006 | wont / current | no DEC | left out: wont |
 | FR-007 | null / current | no DEC | left out: undecided |
 | FR-008 | must / current | DEC-03 resolved by ADR-002, superseded | left out: blocked by DEC-03 |
-| FR-009 | must / current | no DEC; a PRD `[NEEDS ADR]` marker names FR-009 | left out: blocked (marker without a question) |
+| FR-009 | must / current | no DEC; a PRD `[NEEDS ADR]` marker names FR-009 | left out: blocked (marker without a matching question) |
+| FR-010 | must / current | DEC-04 (audit storage) resolved by ADR-003, cites FR-010; a PRD `[NEEDS ADR]` marker for a different decision (payment provider) names FR-010, and no DEC answers it | left out: blocked (marker without a matching question) |
 | NFR-001 | must / current | DEC-02 | eligible |
 
 So the eligible set is FR-002, FR-003, FR-004 and NFR-001. FR-001 shows that DEC-01 blocks only what it
 cites (FR-002 stays eligible), FR-008 shows that a superseded resolver blocks again, and FR-009 shows that
-a `[NEEDS ADR]` marker with no question still blocks. File graders
+a `[NEEDS ADR]` marker with no question still blocks, and FR-010 shows that one resolved DEC doesn't
+answer a different marker. File graders
 check the written epics, not the reply, because a wrong epic is worse than a wrong sentence. Unless a
 case says otherwise, the prompt states the grouping, so the run is non-interactive and confirmed.
 
@@ -312,7 +327,7 @@ case says otherwise, the prompt states the grouping, so the run is non-interacti
 verifications:
   - id: VER-01
     status: active
-    obligation: "Shared fixture; the prompt asks for one epic covering everything eligible. docs/specs/epic/EPIC-001.md refines FR-002, FR-003, FR-004 and NFR-001 at PRD-001 version 2, and contains no refines link to FR-001, FR-005, FR-006, FR-007, FR-008 or FR-009. Eval case selects-ready-current: regex on the file."
+    obligation: "Shared fixture; the prompt asks for one epic covering everything eligible. docs/specs/epic/EPIC-001.md refines FR-002, FR-003, FR-004 and NFR-001 at PRD-001 version 2, and contains no refines link to FR-001, FR-005, FR-006, FR-007, FR-008, FR-009 or FR-010. Eval case selects-ready-current: regex on the file."
     level: e2e
     covers:
       - BEH-02
@@ -325,7 +340,7 @@ verifications:
       - {id: STORY-005, item: AC-01, relation: verifies, version: 1, hash: null}
   - id: VER-02
     status: active
-    obligation: "In VER-01's setup, no epic refines FR-001, FR-008 or FR-009, and the reply reports FR-001 blocked by DEC-01, FR-008 blocked by DEC-03 (naming ADR-002 as superseded) and FR-009 blocked by a [NEEDS ADR] marker with no question; FR-002 is not reported blocked. Eval case blocked-not-included: regex on the file and last_message."
+    obligation: "In VER-01's setup, no epic refines FR-001, FR-008, FR-009 or FR-010, and the reply reports FR-001 blocked by DEC-01, FR-008 blocked by DEC-03 (naming ADR-002 as superseded), and FR-009 and FR-010 blocked by a [NEEDS ADR] marker without a matching question; FR-002 is not reported blocked. Eval case blocked-not-included: regex on the file and last_message."
     level: e2e
     covers:
       - BEH-04
@@ -333,7 +348,7 @@ verifications:
       - {id: STORY-005, item: AC-02, relation: verifies, version: 1, hash: null}
   - id: VER-03
     status: active
-    obligation: "In VER-01's setup, the reply reports FR-005 as later, FR-006 as won't have, and FR-007 as undecided for the PRD owner. Eval case reports-left-out: regex on last_message."
+    obligation: "In VER-01's setup, the reply gives one row each for FR-005 (later), FR-006 (won't have) and FR-007 (undecided, for the PRD owner), each with a next action, and asks no question about them. Eval case reports-left-out: regex on last_message."
     level: e2e
     covers:
       - BEH-05
@@ -360,7 +375,7 @@ verifications:
       - {id: STORY-005, item: AC-04, relation: verifies, version: 1, hash: null}
   - id: VER-06
     status: active
-    obligation: "The shared fixture with the ARCH's PRD link at version 1 while PRD-001 is at version 2: no EPIC-001.md is written, and the reply names both versions and tells the user to amend the ARCH with /devforgeai:architecture PRD-001. Eval case stale-arch-stops: file_exists false and regex on last_message."
+    obligation: "The shared fixture with the ARCH's PRD link at version 1 while PRD-001 is at version 2: no EPIC-001.md is written, and the reply names both versions and tells the user to review the architecture with /devforgeai:architecture PRD-001. Eval case stale-arch-stops: file_exists false and regex on last_message."
     level: e2e
     covers:
       - BEH-03
@@ -369,7 +384,7 @@ verifications:
       - {id: STORY-005, item: AC-04, relation: verifies, version: 1, hash: null}
   - id: VER-07
     status: active
-    obligation: "The shared fixture plus an existing EPIC-001.md (version 1, a unique sentinel line) that refines FR-002. EPIC-001.md still has version 1 and the sentinel; the new EPIC-002.md refines FR-003, FR-004 and NFR-001 and not FR-002; the reply reports FR-002 as covered by EPIC-001. Eval case existing-epic-not-duplicated: regex on both files and last_message."
+    obligation: "The shared fixture plus an existing EPIC-001.md (version 1, a unique sentinel line) that refines FR-002, FR-008 and NFR-001 (partial). The prompt asks for one epic covering everything eligible, with NFR-001 applying to it. EPIC-001.md still has version 1 and the sentinel; the new EPIC-002.md refines FR-003, FR-004 and NFR-001 and not FR-002; the reply reports FR-002 as covered by EPIC-001, reports FR-008 as covered by EPIC-001 and now blocked by DEC-03, and doesn't report NFR-001 as covered. Eval case existing-epic-not-duplicated: regex on both files and last_message."
     level: e2e
     covers:
       - BEH-06
@@ -419,7 +434,7 @@ verifications:
       - {id: STORY-005, item: AC-11, relation: verifies, version: 1, hash: null}
   - id: VER-13
     status: active
-    obligation: "Manual, interactive, one fixture copy per check: (a) the skill proposes a grouping, the user changes it, and the epics written follow the changed grouping; (b) an unknown PRD ID lists the available PRDs and writes nothing; (c) two ARCHs citing the PRD are listed and the skill asks; (d) with no eligible requirement it writes nothing and reports every reason; (e) stopping before confirming writes nothing; (f) SKILL.md is within the NFR-001 limits, and metadata.devforgeai-version equals provenance.yaml's version; (g) run on this repository's own PRD-001, which has no ARCH, it writes nothing and hands back to the architecture step; (h) by reading only: SKILL.md states the three-attempt limit and the ERR-06 failure report. ERR-06 can't be forced without a CLI, so (h) is a reading check, not an exercise."
+    obligation: "Manual, interactive, one fixture copy per check: (a) the skill proposes a grouping, the user changes it, and the epics written follow the changed grouping; (b) an unknown PRD ID lists the available PRDs and writes nothing; (c) two ARCHs citing the PRD are listed and the skill asks; (d) with no eligible requirement it writes nothing and reports every reason; (e) stopping before confirming writes nothing; (f) SKILL.md is within the NFR-001 limits, and metadata.devforgeai-version equals provenance.yaml's version; (g) run on this repository's own PRD-001, which has no ARCH, it writes nothing and hands back to the architecture step; (h) by reading only: SKILL.md states the three-attempt limit and the ERR-06 failure report; (i) the review loop: PRD-001 gets a priority-only change to version 3, the skill stops (ERR-03), /devforgeai:architecture PRD-001 with reuse confirmed moves only the ARCH's frontmatter PRD link to version 3 and adds one Change Log row, with the ARCH's version and status unchanged, and the skill then writes epics. ERR-06 can't be forced without a CLI, so (h) is a reading check, not an exercise."
     level: manual
     covers:
       - BEH-01
@@ -430,16 +445,21 @@ verifications:
       - ERR-06
       - ERR-07
       - QR-01
+      - BEH-03
     upstream:
       - {id: STORY-005, item: AC-05, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 1, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
 
 The skill is new; removing its directory rolls it back. No schema changes: `epic.schema.json` already
-covers the epic document. Shipping the skill makes the architecture skill's `hands-off-to-epic` case
-(SPEC-003 VER-10), which expects "not built yet", fail. SPEC-003 is approved, so its VER-10 change needs
-Bryan's explicit approval during the build, as SPEC-002 v10 did for prd's handoff.
+covers the epic document. Two changes to the approved architecture skill ship with it, both approved by
+Bryan on 2026-09-24 (PR #10) and specified in the SKL-004 build brief: SPEC-003 v7 and SKL-003 v5.
+- **The review record:** a confirmed reuse against a newer PRD version records the review (§4). Without
+  it, a reuse writes nothing and this skill's current-ARCH check would reject the ARCH forever.
+- **VER-10:** the architecture skill's `hands-off-to-epic` case expects "not built yet", which fails once
+  this skill ships, as SPEC-002 v10 did for prd's handoff.
 
 ## 11. Implementation plan
 
@@ -448,7 +468,7 @@ Bryan's explicit approval during the build, as SPEC-002 v10 did for prd's handof
 3. Write `references/selection.md` and `references/output-rules.md` from §4, BEH-03 to BEH-10 and the epic schema.
 4. Write `SKILL.md` from §5–§7, and `provenance.yaml` as SKL-004 implementing SPEC-004.
 5. Write the shared fixture and the case variants, checking each file against its schema, then the eval cases for VER-01 to VER-12.
-6. Propose the SPEC-003 VER-10 change and its graders for Bryan's approval.
+6. Make the two approved architecture changes (SPEC-003 v7, SKL-003 v5): the review record and VER-10.
 7. Deploy and validate per ADR-001, iterating until every case scores at least 0.8. Do VER-13 by hand.
 
 ## 12. Alternatives considered
@@ -460,6 +480,7 @@ Bryan's explicit approval during the build, as SPEC-002 v10 did for prd's handof
 | Treat a PRD with no ARCH as "nothing blocking" | Every requirement would look ready without anyone having looked. The skill hands back instead |
 | Select by priority (Musts only) | MoSCoW keeps Shoulds and Coulds in the release as contingency; priority orders, release selects |
 | Extend or rewrite existing epics | Needs a change-control design; v1 reports covered requirements and adds new epics only |
+| Stop until the ARCH is amended whenever the PRD version changes | A priority-only PRD change would force an amendment with nothing to change, and a confirmed reuse, which writes nothing, would never clear it. A review record clears it instead |
 | Validate with `devforgeai check` when on PATH | The CLI doesn't exist, and an unrelated `devforgeai` was found on PATH; self-check only |
 
 ## 13. Open questions

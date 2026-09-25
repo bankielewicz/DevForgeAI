@@ -80,8 +80,9 @@ done_when:
   DEC IDs, and the readiness rule. The architecture skill's reply is advisory; this skill reads the file.
 - Risk: the architecture skill misreported readiness in its reply once in 3 v4 runs (STORY-004 AC-04).
   This skill computes readiness from the ARCH file itself, so that failure mode doesn't carry over.
-- Shipping this skill makes the architecture skill's `hands-off-to-epic` "not built yet" check fail, as
-  happened to prd's handoff check. SPEC-003 VER-10 needs an approved change during the build.
+- It ships with two changes to the approved architecture skill (SPEC-003 v7, SKL-003 v5), approved by Bryan
+  in PR #10: a confirmed reuse against a newer PRD version records the review, so this skill's current-ARCH
+  check can clear; and VER-10's handoff check, which expects "not built yet", is updated.
 
 ## 6. Technical notes (optional)
 

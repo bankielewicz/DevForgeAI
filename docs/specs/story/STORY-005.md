@@ -79,6 +79,8 @@ acceptance_criteria:
       - "it applies SPEC-003 §4 to the ARCH's questions and the ADRs' current status, not to any skill's reply"
       - "a question blocks only the requirements its upstream links cite"
       - "a question resolved by a superseded ADR blocks its requirements again"
+      - "each [NEEDS ADR] marker needs its own matching question; without one, the requirements it names are blocked even if other questions citing them are resolved"
+      - "when readiness can't be established, the requirement is reported as unknown, never asserted ready or blocked"
     upstream:
       - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}
       - {id: EPIC-005, item: DW-01,  relation: satisfies, version: 1, hash: null}
@@ -90,18 +92,19 @@ acceptance_criteria:
     when:
       - "the skill hands off"
     then:
-      - "each is listed with its reason: the blocking question IDs, later, won't have, undecided (a null priority or release, for the PRD owner) or the epic that covers it"
+      - "each gets one compact row with every reason that applies (blocking question IDs or an unmatched marker, later, won't have, undecided for the PRD owner, unknown, or the covering epic) and one next action"
+      - "reporting several reasons never asks several questions"
     upstream:
       - {id: PRD-001, item: FR-014, relation: satisfies, version: 9, hash: null}
   - id: AC-04
     status: active
-    name: "No current architecture, no epics"
+    name: "No reviewed architecture, no epics"
     given:
-      - "a PRD with no ARCH, or an ARCH that examined an older PRD version"
+      - "a PRD with no ARCH, or an ARCH not reviewed against the PRD's current version"
     when:
       - "the user runs the skill"
     then:
-      - "it writes nothing and hands back to the architecture step with the PRD ID"
+      - "it writes nothing and hands back to the architecture step with the PRD ID, asking for a review of the architecture against this PRD version, not necessarily a change"
     upstream:
       - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}
       - {id: EPIC-005, item: DW-01,  relation: satisfies, version: 1, hash: null}
@@ -137,7 +140,8 @@ acceptance_criteria:
     when:
       - "the skill runs"
     then:
-      - "the existing epic is unchanged, and the requirements it refines are reported as covered and get no new epic"
+      - "the existing epic is unchanged, and the functional requirements it refines are reported as covered and get no new epic; a covered requirement that is now blocked is reported as both"
+      - "a shared NFR is never covered: it still applies to every new epic it constrains"
     upstream:
       - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}
       - {id: EPIC-005, item: DW-02,  relation: satisfies, version: 1, hash: null}
@@ -185,6 +189,19 @@ acceptance_criteria:
       - "generated_by names the tool, model and session, reviewed_by is empty, every hash is null and status is draft"
     upstream:
       - {id: PRD-001, item: FR-003, relation: satisfies, version: 9, hash: null}
+  - id: AC-12
+    status: active
+    name: "A confirmed architecture review clears a newer PRD version"
+    given:
+      - "a PRD whose version changed after its ARCH was written, with no architectural impact"
+    when:
+      - "the user runs the architecture step and confirms reuse, then runs the epic skill"
+    then:
+      - "the architecture step records the review against the new PRD version without changing the ARCH's version or approval"
+      - "the epic skill accepts the reviewed ARCH and writes epics"
+    upstream:
+      - {id: PRD-001,  item: FR-014, relation: satisfies, version: 9, hash: null}
+      - {id: EPIC-005, item: DW-01,  relation: satisfies, version: 1, hash: null}
 ```
 
 ## 5. Specification

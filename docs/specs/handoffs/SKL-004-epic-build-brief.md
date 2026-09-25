@@ -40,6 +40,8 @@ the result, but SPEC-004 wins any conflict. Follow the conventions of the built 
    QR-01…03, VER-01…13, and the §9 shared fixture table.
 2. STORY-005: AC-01…11.
 3. SPEC-003 §4 and §5, and the architecture skill's `references/readiness.md`: the readiness rule you consume.
+   For the two approved architecture changes (§3): its `SKILL.md` step 4, `references/output-rules.md`
+   (Amending an ARCH) and `evals/architecture/hands-off-to-epic/`.
 4. ADR-001 (process) and ADR-002 (the step).
 5. `src/staging/templates/epic.md` and README §1–§2; `src/schemas/epic.schema.json`, `arch.schema.json`,
    `adr.schema.json` and `prd.schema.json`.
@@ -83,13 +85,33 @@ prompt, and file graders need literal paths. Grade selection on the **written ep
 secondary. Prefer regex graders; if you need an llm judge, test it blind offline first (neutral IDs, shuffled
 order, answers hidden).
 
-**The one permitted change outside the new skill.** Shipping this skill makes the architecture skill's
-`hands-off-to-epic` case (SPEC-003 VER-10) fail, because it expects "not built yet". SPEC-003 is approved,
-so propose the change and get Bryan's explicit approval before making it: SPEC-003 v7 changes VER-10 so the
-handoff names `/devforgeai:epic PRD-001`, and a grader that doesn't depend on whether the skill exists; the
-graders in `evals/architecture/hands-off-to-epic/` are updated; the links citing SPEC-003 v6 move to v7:
-SKL-003's `provenance.yaml` (SKL-003 keeps its version, since SKILL.md is unchanged) and SPEC-004's
-`informed_by` link. Don't change the architecture skill otherwise.
+**The two permitted changes to the architecture skill, both approved by Bryan on 2026-09-24 (PR #10).**
+Make them together as SPEC-003 v7 and SKL-003 v5, in their own commit, with the Change Log row, the version
+bumps, and the links citing SPEC-003 v6 moved to v7 (SKL-003's `provenance.yaml` and SPEC-004's
+`informed_by` link). SPEC-003 stays approved (Bryan's approval covers v7), and SKL-003's approval stands.
+Don't change the architecture skill in any other way; anything else you find is a follow-up.
+
+1. **The review record (SPEC-003 BEH-08 and BEH-09; SKILL.md step 4; `output-rules.md`).** When the user
+   confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review:
+   - move only the frontmatter PRD link to the reviewed version;
+   - add one Change Log row, "Reviewed against PRD-NNN vN: reuse confirmed, no architectural change",
+     ending with the policy resolution line;
+   - set `outcome: reuse` (the user confirmed it);
+   - don't bump the version or change `status` or the approval fields; this is a relink, not an amendment,
+     so BEH-09's "an approved ARCH returns to in-review" doesn't apply;
+   - leave every existing item's links unchanged, so they still show as suspect.
+
+   With no user, nothing is confirmed and nothing is written, as today. Add SPEC-003 **VER-15** and an eval
+   case, `reuse-records-review`, tagged `architecture` and `ver-15`: ARCH-001 cites PRD-001 v1, PRD-001 is at
+   v2 after a priority-only change, and the prompt confirms reuse. Grade that the frontmatter PRD link is v2,
+   the ARCH's `version` and `status` are unchanged, a DEC's upstream link still cites v1, and the Change Log
+   has the review row.
+2. **VER-10 (the handoff).** The `hands-off-to-epic` case expects "not built yet", which fails once this skill
+   ships. VER-10 changes so the handoff names `/devforgeai:epic PRD-001`, with a grader that doesn't depend
+   on whether the epic skill exists. Update the graders in `evals/architecture/hands-off-to-epic/`.
+
+Because SKL-003 changes, rerun the architecture suite and a fresh Organization A/B checksum sequence on
+SKL-003 v5, recording the new hashes (VER-13 of SPEC-003).
 
 ## 4. Build loop
 
@@ -103,11 +125,13 @@ claude plugin validate .claude/skills/devforgeai --strict
 ```
 
 The user runs evals from a **plain terminal** in the worktree root. **State the estimated cost before each
-paid run**: roughly $27 for the `epic` tag run (12 cases × 3 runs × 2 arms) and roughly $95 for the
-full-plugin run (52 cases).
+paid run**: roughly $27 for the `epic` tag run (12 cases × 3 runs × 2 arms), roughly $30 for the
+`architecture` tag run (13 cases) plus $5 for the Organization A/B sequence, and roughly $97 for the
+full-plugin run (53 cases). About $160 in all if nothing needs a rerun.
 
 ```bash
 claude plugin eval .claude/skills/devforgeai --tag epic --allow-tools Write Edit --scaffold --no-publish --threshold 0.8
+claude plugin eval .claude/skills/devforgeai --tag architecture --allow-tools Write Edit --scaffold --no-publish --threshold 0.8
 claude plugin eval .claude/skills/devforgeai --allow-tools Write Edit --scaffold --no-publish --threshold 0.8   # before the PR: no regression
 ```
 
@@ -140,7 +164,7 @@ To iterate cheaply on one case: `--case <name> --runs 1 --ablation none`. To dia
 
 - Don't write stories, plan sprints, modify existing epics, resolve policy, or call any `devforgeai` command.
 - Don't write validator scripts into the repository, and don't start the `devforgeai` CLI.
-- Don't modify the brainstorm, prd or architecture skills, except the approved SPEC-003 VER-10 change above.
+- Don't modify the brainstorm, prd or architecture skills, except the two approved architecture changes above.
 - Don't create symlinks under `src/`. Skill resources resolve inside the skill or plugin.
 - Don't push, open a PR or merge without asking the user.
 
@@ -149,8 +173,9 @@ To iterate cheaply on one case: `--case <name> --runs 1 --ablation none`. To dia
 - [ ] The deliverables exist, and the template was moved, not copied.
 - [ ] `diff` is clean, the schema-copy loop prints nothing, and `validate --strict` passes.
 - [ ] Every epic case scores at least 0.8 over 3 runs, with its delta reported, and the full-plugin run shows
-      no regression, including the updated `hands-off-to-epic` case.
-- [ ] VER-13 is done and recorded, with (h) marked as a reading check.
+      no regression, including the updated `hands-off-to-epic` and the new `reuse-records-review` cases.
+- [ ] The Organization A/B checksum sequence passes on SKL-003 v5, with the new hashes recorded.
+- [ ] VER-13 is done and recorded, with (h) marked as a reading check and (i) run end to end across both skills.
 - [ ] Every commit references `STORY-005`.
 
 ## 9. Report back
