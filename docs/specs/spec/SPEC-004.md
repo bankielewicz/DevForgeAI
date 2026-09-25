@@ -3,7 +3,7 @@ id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
 status: draft
-version: 1
+version: 2
 created: 2026-09-24
 updated: 2026-09-24
 owner: "Bryan"
@@ -151,7 +151,8 @@ with `/devforgeai:architecture`, which re-resolves policy.
    is attached to every new epic it constrains, even when an existing epic already refines it (Grouping).
 
 Every other requirement is **left out**. The report gives each one **one compact row with every reason that
-applies**, in the order below, and **one next action**. Several reasons never mean several questions.
+applies**, in the order below, and **one next action: the first listed reason's**. Several reasons never mean
+several questions.
 
 | Reason | When | Next action |
 |---|---|---|
@@ -159,9 +160,9 @@ applies**, in the order below, and **one next action**. Several reasons never me
 | `wont` | `priority: wont` | none for this release |
 | `later` | `release: later` | none for the current release |
 | `undecided` | `priority` or `release` is `null` | the PRD owner decides |
+| `covered` | an active existing epic refines this PRD's FR; names the epic | none, unless it is also blocked: then review that epic's work before continuing |
 | `blocked` | R is not ready; names the blocking DEC IDs, any superseded resolver, or the marker without a matching question | resolve it with `/devforgeai:architecture` |
 | `unknown` | readiness can't be established: a missing or unreadable input, or a policy resolver that fails the bounded check; names it | fix that input, or review the architecture, then run again |
-| `covered` | an active existing epic refines this PRD's FR; names the epic | none, unless it is also blocked: then review that epic's work before continuing |
 
 For example: `FR-005: later; DEC-04 open. No action for the current release.` and
 `FR-008: covered by EPIC-002; now blocked by DEC-03 (ADR-002 superseded). Review EPIC-002's work before continuing.`
@@ -218,7 +219,7 @@ behaviors:
     rule: "Compute readiness for every active FR and NFR of the PRD from the ARCH file and the ADR files, exactly as SPEC-003 §4, reading each resolving ADR's current status and superseded_by now. A DEC blocks only the requirements its own upstream cites. A policy resolver counts only if it passes the bounded check in §4 (approved document, active setting, the ARCH's link version, no other approved document setting the same key); resolve no policy beyond that. Match every PRD [NEEDS ADR] marker to its own DEC (one whose question answers the marker's decision); when none clearly does, every requirement the marker names is blocked, even if other DECs citing it are resolved. When readiness can't be established, report the requirement as unknown, naming the missing input or failed check. Never use a skill's reply as the source."
   - id: BEH-05
     status: active
-    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and, for an FR, not already refined by an active existing epic. NFRs are never covered. Give every other requirement one compact row with every reason that applies (deprecated, wont, later, undecided, blocked with the DEC IDs or unmatched marker, unknown, covered with the epic ID), in the §4 order, and one next action."
+    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and, for an FR, not already refined by an active existing epic. NFRs are never covered. Give every other requirement one compact row with every reason that applies (deprecated, wont, later, undecided, covered with the epic ID, blocked with the DEC IDs or unmatched marker, unknown), in the §4 order, and one next action, the first listed reason's."
   - id: BEH-06
     status: active
     rule: "Read every existing epic in docs/specs/epic/. An FR of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered; if it is also blocked now, say so. NFRs are never covered. Never modify, renumber or duplicate an existing epic."
@@ -531,3 +532,4 @@ Bryan on 2026-09-24 (PR #10) and specified in the SKL-004 build brief: SPEC-003 
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-09-24 | claude-code | Initial draft | all |
+| 2 | 2026-09-24 | claude-code | Left-out reasons: `covered` now comes before `blocked`, and the next action is the first listed reason's, so both §4 examples follow from the rule (FR-005 takes later's action, FR-008 covered's). Found while building STORY-005 (R1-Q1), approved by Bryan | §4, BEH-05 |
