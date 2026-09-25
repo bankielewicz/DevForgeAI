@@ -1,7 +1,7 @@
 {
   "name": "devforgeai",
-  "version": "0.3.0",
-  "description": "DevForgeAI spec-driven development skills: planning-chain workflows that write traceable documents: brainstorm, then PRD, then architecture.",
+  "version": "0.4.0",
+  "description": "DevForgeAI spec-driven development skills: planning-chain workflows that write traceable documents: brainstorm, then PRD, then architecture, then epics.",
   "author": {
     "name": "Bryan"
   }

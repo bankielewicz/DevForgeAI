@@ -13,7 +13,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 |---|---|---|
 | [brainstorm.md](../../claude/DevForgeAI/skills/brainstorm/assets/brainstorm.md) | What could we build, and why? | None (only candidate success signals) |
 | [prd.md](../../claude/DevForgeAI/skills/prd/assets/prd.md) | What are we building, for whom, and how do we measure success? | Success metrics (`SM-`), not testable AC |
-| [epic.md](epic.md) | What large slice of value are we delivering? | "Done when" criteria (`DW-`) spanning stories |
+| [epic.md](../../claude/DevForgeAI/skills/epic/assets/epic.md) | What large slice of value are we delivering? | "Done when" criteria (`DW-`) spanning stories |
 | [sprint.md](sprint.md) | What are we doing in this time-box? | None (references story AC and the sprint goal) |
 | [story.md](story.md) | What exact behavior do we build next? | **Testable Given/When/Then AC (`AC-`)** |
 | [spec.md](spec.md) | How exactly will it be built and verified? | Verification obligations (`VER-`) that cover each AC |
