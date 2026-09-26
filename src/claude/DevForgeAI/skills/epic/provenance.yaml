@@ -3,10 +3,10 @@
 id: SKL-004
 type: skill
 title: "Turn a PRD's ready requirements into epics"
-status: draft          # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 2             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-24
-updated: 2026-09-24
+updated: 2026-09-25
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,8 +14,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "85deb379-5613-4fb9-a8f1-53f9024dc1cf"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-25
 upstream:              # the specification this skill implements
   - {id: SPEC-004, relation: implements, version: 2, hash: null}
 supersedes: []
