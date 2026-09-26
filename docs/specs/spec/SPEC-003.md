@@ -460,7 +460,7 @@ verifications:
       - BEH-08
       - BEH-09
     upstream:
-      - {id: STORY-005, item: AC-12, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 2, hash: null}
   - id: VER-16
     status: active
     obligation: "Review record, repeated: as VER-15, but ARCH-001 already cites PRD-001 version 2 and has one review row. ARCH-001 is unchanged: the same version, and still exactly one review row. Eval case reuse-review-idempotent: regex on the file."
@@ -469,7 +469,7 @@ verifications:
       - BEH-08
       - BEH-09
     upstream:
-      - {id: STORY-005, item: AC-12, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 2, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback

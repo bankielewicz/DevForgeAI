@@ -2,10 +2,10 @@
 id: STORY-005
 type: story
 title: "Turn a PRD's ready requirements into epics"
-status: draft
-version: 1
+status: done
+version: 2
 created: 2026-09-24
-updated: 2026-09-24
+updated: 2026-09-25
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -218,7 +218,7 @@ acceptance_criteria:
       AC-05 and AC-12 also by VER-13. SKL-004 v2 passed the epic tag run and, on build 641a388, the full-plugin run
       (56/56 ≥ 0.8); VER-13 passed on v2, with (h) a reading check (ERR-06 not exercised). Caveats in SPEC-004 §9:
       grader false negatives in blocked-not-included, and the reason-label format only partly followed
-- [ ] Skill files reviewed; commits reference `STORY-005` (every commit does; Bryan's review of the skill files is pending)
+- [x] Skill files reviewed; commits reference `STORY-005`. Every commit on the branch does; Bryan reviewed `src/claude/DevForgeAI/skills/epic/` and the architecture skill's v6 write rule on 2026-09-25, with no changes
 - [x] SPEC-004 items implemented, or explicitly deferred to a new story. Every BEH, ERR and QR item is implemented;
       nothing in SPEC-004 is deferred. The architecture skill's `sed -i` deviation in VER-13 (i) was fixed in SKL-003 v6
       and (i) re-passed (R3-Q3); SKL-003 v6 awaits Bryan's approval in the housekeeping PR
@@ -233,3 +233,4 @@ acceptance_criteria:
 | Version | Date | Author | Change | AC affected |
 |---|---|---|---|---|
 | 1 | 2026-09-24 | claude-code | Initial draft | all |
+| 2 | 2026-09-25 | claude-code | Status done: merged in PR #24; SPEC-004 v2, SKL-004 v2 and SKL-003 v6 approved by Bryan (SKL-003 with the STORY-004 exceptions) | status, Definition of Done |

@@ -2,10 +2,10 @@
 id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
-status: draft
+status: approved
 version: 2
 created: 2026-09-24
-updated: 2026-09-24
+updated: 2026-09-25
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -13,10 +13,10 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-25
 upstream:
-  - {id: STORY-005, relation: specifies, version: 1, hash: null}
+  - {id: STORY-005, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 9, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 9, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 9, hash: null}
@@ -367,7 +367,7 @@ verifications:
       - BEH-08
       - BEH-10
     upstream:
-      - {id: STORY-005, item: AC-01, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-01, relation: verifies, version: 2, hash: null}
   - id: VER-02
     status: active
     obligation: "In VER-01's setup, no epic refines FR-001, FR-008, FR-009, FR-010 or FR-011, and the reply reports FR-001 blocked by DEC-01, FR-008 blocked by DEC-03 (naming ADR-002 as superseded), FR-009 and FR-010 blocked by a [NEEDS ADR] marker without a matching question, and FR-011 as unknown because ADR-004 isn't found; FR-002 and FR-012 are not reported blocked or unknown. Eval case blocked-not-included: regex on the file and last_message."
@@ -375,7 +375,7 @@ verifications:
     covers:
       - BEH-04
     upstream:
-      - {id: STORY-005, item: AC-02, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
   - id: VER-03
     status: active
     obligation: "In VER-01's setup, the reply gives one row each for FR-005 (later, with DEC-06 open and no action for the current release), FR-006 (won't have) and FR-007 (undecided, for the PRD owner), each with a next action, and asks no question about them. Eval case reports-left-out: regex on last_message."
@@ -384,7 +384,7 @@ verifications:
       - BEH-05
       - BEH-11
     upstream:
-      - {id: STORY-005, item: AC-03, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-03, relation: verifies, version: 2, hash: null}
   - id: VER-04
     status: active
     obligation: "Shared fixture; the prompt asks for one epic per priority level, with NFR-001 only in the Must epic. EPIC-001.md has priority must and refines FR-002, FR-012 and NFR-001; EPIC-002.md has priority should and refines FR-003; EPIC-003.md has priority could and refines FR-004. Eval case orders-by-priority: regex on the three files."
@@ -393,7 +393,7 @@ verifications:
       - BEH-07
       - BEH-08
     upstream:
-      - {id: STORY-005, item: AC-06, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-06, relation: verifies, version: 2, hash: null}
   - id: VER-05
     status: active
     obligation: "The shared PRD and ADRs with no ARCH: no docs/specs/epic/EPIC-001.md is written, and the reply tells the user to run /devforgeai:architecture PRD-001 first. Eval case no-arch-hands-back: file_exists false and regex on last_message."
@@ -402,7 +402,7 @@ verifications:
       - BEH-03
       - ERR-02
     upstream:
-      - {id: STORY-005, item: AC-04, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-04, relation: verifies, version: 2, hash: null}
   - id: VER-06
     status: active
     obligation: "The shared fixture with the ARCH's PRD link at version 1 while PRD-001 is at version 2: no EPIC-001.md is written, and the reply names both versions and tells the user to review the architecture with /devforgeai:architecture PRD-001. Eval case stale-arch-stops: file_exists false and regex on last_message."
@@ -411,7 +411,7 @@ verifications:
       - BEH-03
       - ERR-03
     upstream:
-      - {id: STORY-005, item: AC-04, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-04, relation: verifies, version: 2, hash: null}
   - id: VER-07
     status: active
     obligation: "The shared fixture plus an existing EPIC-001.md (version 1, a unique sentinel line) that refines FR-002, FR-008 and NFR-001 (partial). The prompt asks for one epic covering everything eligible, with NFR-001 applying to it. EPIC-001.md still has version 1 and the sentinel; the new EPIC-002.md refines FR-003, FR-004, FR-012 and NFR-001 and not FR-002; the reply reports FR-002 as covered by EPIC-001, reports FR-008 as covered by EPIC-001 and now blocked by DEC-03, and doesn't report NFR-001 as covered. Eval case existing-epic-not-duplicated: regex on both files and last_message."
@@ -420,7 +420,7 @@ verifications:
       - BEH-06
       - BEH-12
     upstream:
-      - {id: STORY-005, item: AC-07, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-07, relation: verifies, version: 2, hash: null}
   - id: VER-08
     status: active
     obligation: "The shared fixture with PRD-001 at status draft: EPIC-001.md and the reply say the epics are proposals because the PRD is a draft. Eval case draft-inputs: regex on the file and last_message."
@@ -428,7 +428,7 @@ verifications:
     covers:
       - BEH-02
     upstream:
-      - {id: STORY-005, item: AC-08, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-08, relation: verifies, version: 2, hash: null}
   - id: VER-09
     status: active
     obligation: "Shared fixture; the prompt says to proceed without questions and gives no grouping. EPIC-001.md exists, has status draft, and carries a [NEEDS CLARIFICATION] marker saying the grouping is unconfirmed. Eval case unconfirmed-grouping: regex on the file."
@@ -436,7 +436,7 @@ verifications:
     covers:
       - BEH-07
     upstream:
-      - {id: STORY-005, item: AC-05, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-05, relation: verifies, version: 2, hash: null}
   - id: VER-10
     status: active
     obligation: "In VER-01's setup, the final reply names the story step as next with EPIC-001 as its input, and no file is written under docs/specs/story/. The grader doesn't check whether the story skill exists, so shipping it won't break this case. Eval case hands-off-to-story: regex on last_message and file_exists false."
@@ -444,7 +444,7 @@ verifications:
     covers:
       - BEH-11
     upstream:
-      - {id: STORY-005, item: AC-09, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-09, relation: verifies, version: 2, hash: null}
   - id: VER-11
     status: active
     obligation: "A request such as 'write an epic poem about the sea' does not invoke the skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both."
@@ -453,7 +453,7 @@ verifications:
       - QR-02
       - QR-03
     upstream:
-      - {id: STORY-005, item: AC-10, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-10, relation: verifies, version: 2, hash: null}
   - id: VER-12
     status: active
     obligation: "In VER-01's run, EPIC-001.md has non-empty generated_by tool, model and session, reviewed_by empty, every hash null, status draft, approved_by empty, target_release 'Spring launch', and an informed_by link to ARCH-001. Eval case records-provenance: regex on the file."
@@ -461,7 +461,7 @@ verifications:
     covers:
       - BEH-09
     upstream:
-      - {id: STORY-005, item: AC-11, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-11, relation: verifies, version: 2, hash: null}
   - id: VER-13
     status: active
     obligation: "Manual, interactive, one fixture copy per check: (a) the skill proposes a grouping, the user changes it, and the epics written follow the changed grouping; (b) an unknown PRD ID lists the available PRDs and writes nothing; (c) two ARCHs citing the PRD are listed and the skill asks; (d) with no eligible requirement it writes nothing and reports every reason; (e) stopping before confirming writes nothing; (f) SKILL.md is within the NFR-001 limits, and metadata.devforgeai-version equals provenance.yaml's version; (g) run on this repository's own PRD-001, which has no ARCH, it writes nothing and hands back to the architecture step; (h) by reading only: SKILL.md states the three-attempt limit and the ERR-06 failure report; (i) the review loop: PRD-001 gets a priority-only change to version 3, the skill stops (ERR-03), /devforgeai:architecture PRD-001 with reuse confirmed moves the ARCH's frontmatter PRD link to version 3, sets outcome reuse and adds one Change Log row, with the ARCH's version, status, approval fields and items unchanged, and the skill then writes epics; confirming reuse again at version 3 changes nothing in the ARCH. ERR-06 can't be forced without a CLI, so (h) is a reading check, not an exercise."
@@ -477,8 +477,8 @@ verifications:
       - QR-01
       - BEH-03
     upstream:
-      - {id: STORY-005, item: AC-05, relation: verifies, version: 1, hash: null}
-      - {id: STORY-005, item: AC-12, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-05, relation: verifies, version: 2, hash: null}
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 2, hash: null}
   - id: VER-14
     status: active
     obligation: "The shared fixture plus an existing EPIC-001.md (version 1, a unique sentinel line) that already refines FR-002, FR-003, FR-004, FR-012 and NFR-001, as a first run would have written. No docs/specs/epic/EPIC-002.md is written, EPIC-001.md still has version 1 and the sentinel, and the reply says no requirement needs a new epic. Eval case rerun-writes-nothing: file_exists false, regex on the file and last_message."
@@ -488,7 +488,7 @@ verifications:
       - BEH-07
       - ERR-05
     upstream:
-      - {id: STORY-005, item: AC-07, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-07, relation: verifies, version: 2, hash: null}
   - id: VER-15
     status: active
     obligation: "The shared fixture with POL-001's SET-01 at status deprecated: EPIC-001.md contains no refines link to FR-012, and the reply reports FR-012 as unknown, naming POL-001#SET-01 and the failed check. Eval case policy-resolver-revoked: regex on the file and last_message."
@@ -496,7 +496,7 @@ verifications:
     covers:
       - BEH-04
     upstream:
-      - {id: STORY-005, item: AC-02, relation: verifies, version: 1, hash: null}
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -541,3 +541,4 @@ Bryan on 2026-09-24 (PR #10) and specified in the SKL-004 build brief: SPEC-003 
 |---|---|---|---|---|
 | 1 | 2026-09-24 | claude-code | Initial draft | all |
 | 2 | 2026-09-24 | claude-code | Left-out reasons: `covered` now comes before `blocked`, and the next action is the first listed reason's, so both §4 examples follow from the rule (FR-005 takes later's action, FR-008 covered's). Found while building STORY-005 (R1-Q1), approved by Bryan | §4, BEH-05 |
+| 2 | 2026-09-25 | Bryan | Approved, with the recorded limits: reason labels used in about 84% of left-out rows (a format point, not a SPEC-004 obligation; §9 row d); the FR-009/FR-010 grader false negatives (§9 row h, issue #25); ERR-06 checked only by reading (VER-13 (h)) | status |
