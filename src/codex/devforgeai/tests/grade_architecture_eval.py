@@ -6,6 +6,7 @@ REVIEW_REQUIRED until an independent assessor writes ``semantic-review.json``.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import re
 from pathlib import Path
@@ -72,6 +73,38 @@ def parse_frontmatter(path):
     except yaml.YAMLError:
         return {}
     return value if isinstance(value, dict) else {}
+
+
+def change_log_rows(path):
+    """Return authored Change Log rows without treating headers as history."""
+    if not path.is_file():
+        return []
+    rows, in_log = [], False
+    for line in path.read_text().splitlines():
+        if line == "## Change Log":
+            in_log = True
+            continue
+        if in_log and line.startswith("## "):
+            break
+        if not in_log or not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 5 or cells[0] == "Version" or all(set(cell) <= {"-", ":"} for cell in cells):
+            continue
+        rows.append({"raw": line, "author": cells[2]})
+    return rows
+
+
+def new_rows(before_rows, after_rows):
+    """Subtract row occurrences while retaining after-order and parsed authors."""
+    remaining = Counter(row["raw"] for row in before_rows)
+    added = []
+    for row in after_rows:
+        if remaining[row["raw"]]:
+            remaining[row["raw"]] -= 1
+        else:
+            added.append(row)
+    return added
 
 
 def arm_applies(definition, arm):
@@ -182,21 +215,74 @@ def grade(trial):
     if arm == "plugin" and expected_question:
         guards["choice_uses_native_question"] = bool(questions)
 
-    arch = trial / "workspace/docs/specs/arch/ARCH-001.md"
-    created = "docs/specs/arch/ARCH-001.md" not in before and arch.is_file()
     provenance = {}
-    if arm == "plugin" and created:
-        generated = parse_frontmatter(arch).get("generated_by", {})
+    authored_paths = [p for p in changed if p.startswith(("docs/specs/arch/", "docs/specs/adr/"))]
+    if arm == "plugin" and authored_paths:
         runtime_model, runtime_session = result.get("model"), result.get("threadId")
-        provenance = {"recorded": generated,
-                      "runtime": {"tool": "codex", "model": runtime_model, "session": runtime_session}}
+        expected_identity = {"tool": "codex", "model": runtime_model, "session": runtime_session}
+        artifact_rows = []
+        preserved_generated_by = True
+        current_identity_matches = True
+        current_identity_records = []
+        historical_rows_preserved = True
+        new_log_rows = []
+        changed_arches = []
+        for artifact_path in authored_paths:
+            before_path = trial / "before-workspace" / artifact_path
+            after_path = trial / "workspace" / artifact_path
+            existed = artifact_path in before
+            before_generated = parse_frontmatter(before_path).get("generated_by", {})
+            after_generated = parse_frontmatter(after_path).get("generated_by", {})
+            preserve_identity = existed and (
+                artifact_path.startswith("docs/specs/adr/") or case == "reuse-records-review")
+            require_current_identity = not existed or (
+                artifact_path.startswith("docs/specs/arch/") and case != "reuse-records-review")
+            if preserve_identity:
+                preserved_generated_by = preserved_generated_by and after_path.is_file() and \
+                    before_generated == after_generated
+            if require_current_identity:
+                current_identity_records.append(after_generated)
+                current_identity_matches = current_identity_matches and after_path.is_file() and \
+                    after_generated == expected_identity
+            before_rows = change_log_rows(before_path)
+            after_rows = change_log_rows(after_path)
+            historical_rows_preserved = historical_rows_preserved and not (
+                Counter(row["raw"] for row in before_rows) - Counter(row["raw"] for row in after_rows))
+            added = new_rows(before_rows, after_rows)
+            if artifact_path.startswith("docs/specs/arch/"):
+                changed_arches.append({"path": artifact_path, "new_rows": added})
+                new_log_rows.extend({"path": artifact_path, **row} for row in added)
+            artifact_rows.append({
+                "path": artifact_path, "existed": existed,
+                "preserve_identity": preserve_identity, "require_current_identity": require_current_identity,
+                "before_generated_by": before_generated, "after_generated_by": after_generated,
+                "new_change_log_rows": added,
+            })
+        expected_author = f"codex (session {runtime_session})" if runtime_session else None
+        provenance = {
+            "runtime": expected_identity, "artifacts": artifact_rows,
+            "new_change_log_rows": new_log_rows, "expected_change_log_author": expected_author,
+            "recorded": artifact_rows[0]["after_generated_by"] if len(artifact_rows) == 1 else None,
+        }
         guards.update({
             "runtime_model_known": bool(runtime_model and str(runtime_model).lower() != "unknown"),
             "runtime_session_known": bool(runtime_session and str(runtime_session).lower() != "unknown"),
-            "provenance_tool_is_codex": generated.get("tool") == "codex",
-            "provenance_model_matches_runtime": bool(runtime_model) and generated.get("model") == runtime_model,
-            "provenance_session_matches_runtime": bool(runtime_session) and generated.get("session") == runtime_session,
+            "preexisting_generated_by_preserved": preserved_generated_by,
+            "new_artifact_provenance_matches_runtime": bool(runtime_model and runtime_session) and
+                current_identity_matches,
+            "historical_change_log_rows_preserved": historical_rows_preserved,
+            "changed_arch_has_new_change_log_row": all(row["new_rows"] for row in changed_arches),
+            "new_change_log_rows_use_runtime_session": bool(runtime_session) and
+                all(row["author"] == expected_author for row in new_log_rows),
         })
+        if current_identity_records:
+            guards.update({
+                "provenance_tool_is_codex": all(row.get("tool") == "codex" for row in current_identity_records),
+                "provenance_model_matches_runtime": bool(runtime_model) and
+                    all(row.get("model") == runtime_model for row in current_identity_records),
+                "provenance_session_matches_runtime": bool(runtime_session) and
+                    all(row.get("session") == runtime_session for row in current_identity_records),
+            })
 
     scored = [g for g in grades if g.get("scored")]
     score = None if not scored or any(g["passed"] is None for g in scored) else \

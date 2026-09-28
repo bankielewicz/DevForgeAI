@@ -3,7 +3,7 @@ name: architecture
 description: "Performs DevForgeAI Architecture Definition for a PRD. It identifies the architectural questions separate epics must share, settles each only by an explicit decision, an accepted ADR or approved policy, and writes an architecture description (ARCH) with ADRs and a report of which requirements are ready for epic work. Use after a PRD is written, when deciding system architecture, components, data ownership or deployment, or when resolving NEEDS ADR markers. Load this skill before any repository discovery. Before loading, access only contract document paths or user-approved inspection scope; never list or search the repository root."
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # Architecture

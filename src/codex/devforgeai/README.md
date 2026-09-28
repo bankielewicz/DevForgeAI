@@ -6,7 +6,7 @@ version 0.3.0; this directory is not an installation or marketplace registration
 | Skill | Purpose | Source and evaluation report |
 |---|---|---|
 | Brainstorm (SKL-001 v7) | Explore ideas and record user-confirmed decisions in BRN documents | [Brainstorm import report](IMPORT-REPORT.md) |
-| Architecture (SKL-003 v3) | Resolve PRD architecture questions with accepted decisions, bounded evidence and per-requirement readiness | [Architecture import report](ARCHITECTURE-IMPORT-REPORT.md) |
+| Architecture (SKL-003 v4) | Resolve PRD architecture questions with accepted decisions, bounded evidence and per-requirement readiness | [Architecture import report](ARCHITECTURE-IMPORT-REPORT.md) |
 | Documents Updater (SKL-005 v2) | Update README files, changelogs and guides from verified repository changes, or prepare exact proposals | [Documents Updater import report](DOCUMENTS-UPDATER-IMPORT-REPORT.md) |
 
 ## Using the source

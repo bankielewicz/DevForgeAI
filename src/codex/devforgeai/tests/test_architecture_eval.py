@@ -68,6 +68,7 @@ class ArchitectureGradeRegressionTest(unittest.TestCase):
         trial = self.evidence / "matrix" / f"{case}--{arm}--{repeat}"
         workspace = trial / "workspace"
         workspace.mkdir(parents=True)
+        (trial / "before-workspace").mkdir()
         write_json(trial / "result.json", {
             "case": case,
             "verification": "VER-TEST",
@@ -93,6 +94,41 @@ class ArchitectureGradeRegressionTest(unittest.TestCase):
     @staticmethod
     def grade_row(result, name):
         return next(row for row in result["source_grades"] if row["grader"] == name)
+
+    @staticmethod
+    def artifact_text(tool, model, session, rows=()):
+        log = "\n".join(rows)
+        if log:
+            log += "\n"
+        return (
+            "---\n"
+            "generated_by:\n"
+            f"  tool: \"{tool}\"\n"
+            f"  model: \"{model}\"\n"
+            f"  session: \"{session}\"\n"
+            "---\n"
+            "# Artifact\n\n"
+            "## Change Log\n\n"
+            "| Version | Date | Author | Change | Items affected |\n"
+            "|---|---|---|---|---|\n"
+            f"{log}"
+        )
+
+    def set_artifact_pair(self, trial, relative, before_text, after_text):
+        before = json.loads((trial / "before.json").read_text())
+        after = json.loads((trial / "after.json").read_text())
+        if before_text is not None:
+            path = trial / "before-workspace" / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(before_text)
+            before[relative] = "before-artifact"
+        if after_text is not None:
+            path = trial / "workspace" / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(after_text)
+            after[relative] = "after-artifact"
+        write_json(trial / "before.json", before)
+        write_json(trial / "after.json", after)
 
     def test_activation_requires_observed_skill_read_not_catalog_presence(self):
         catalog = {
@@ -194,6 +230,122 @@ class ArchitectureGradeRegressionTest(unittest.TestCase):
                 if label == "stale-record":
                     self.assertFalse(result["supplemental_guards"]["provenance_session_matches_runtime"])
                 self.assertFalse(result["strict_pass"])
+
+    def test_reuse_preserves_generated_by_but_new_review_row_uses_current_session(self):
+        historical_row = (
+            "| 1 | 2026-09-21 | claude-code (session fixture-session) | "
+            "Initial architecture | all |"
+        )
+        before_text = self.artifact_text(
+            "claude-code", "claude-opus-5-5", "fixture-session", [historical_row])
+        current_row = (
+            f"| 1 | 2026-09-28 | codex (session {RUNTIME_SESSION}) | "
+            "Reviewed against PRD-001 v2: reuse confirmed | none |"
+        )
+        good = self.make_trial("reuse-records-review", messages=[load_event()])
+        self.set_artifact_pair(
+            good, "docs/specs/arch/ARCH-001.md", before_text,
+            self.artifact_text(
+                "claude-code", "claude-opus-5-5", "fixture-session",
+                [historical_row, current_row]),
+        )
+        good_result = grader.grade(good)
+        good_guards = good_result["supplemental_guards"]
+        self.assertTrue(good_guards["preexisting_generated_by_preserved"])
+        self.assertTrue(good_guards["historical_change_log_rows_preserved"])
+        self.assertTrue(good_guards["changed_arch_has_new_change_log_row"])
+        self.assertTrue(good_guards["new_change_log_rows_use_runtime_session"])
+        self.assertTrue(good_guards["new_artifact_provenance_matches_runtime"])
+
+        for repeat, bad_session in enumerate(("fixture-session", "unknown"), 2):
+            with self.subTest(new_row_session=bad_session):
+                bad_row = (
+                    f"| 1 | 2026-09-28 | codex (session {bad_session}) | "
+                    "Reviewed against PRD-001 v2: reuse confirmed | none |"
+                )
+                bad = self.make_trial(
+                    "reuse-records-review", repeat=repeat, messages=[load_event()])
+                self.set_artifact_pair(
+                    bad, "docs/specs/arch/ARCH-001.md", before_text,
+                    self.artifact_text(
+                        "claude-code", "claude-opus-5-5", "fixture-session",
+                        [historical_row, bad_row]),
+                )
+                bad_result = grader.grade(bad)
+                self.assertTrue(
+                    bad_result["supplemental_guards"]["preexisting_generated_by_preserved"])
+                self.assertFalse(
+                    bad_result["supplemental_guards"]["new_change_log_rows_use_runtime_session"])
+                self.assertFalse(bad_result["strict_pass"])
+
+    def test_amended_arch_rebinds_generated_by_and_change_row_to_runtime(self):
+        historical_row = (
+            "| 1 | 2026-09-21 | claude-code (session fixture-session) | "
+            "Initial architecture | all |"
+        )
+        before_text = self.artifact_text(
+            "claude-code", "claude-opus-5-5", "fixture-session", [historical_row])
+        current_row = (
+            f"| 2 | 2026-09-28 | codex (session {RUNTIME_SESSION}) | "
+            "Amended architecture | DEC-01 |"
+        )
+        good = self.make_trial("superseded-adr", messages=[load_event()])
+        self.set_artifact_pair(
+            good, "docs/specs/arch/ARCH-001.md", before_text,
+            self.artifact_text("codex", RUNTIME_MODEL, RUNTIME_SESSION,
+                               [historical_row, current_row]),
+        )
+        good_result = grader.grade(good)
+        good_guards = good_result["supplemental_guards"]
+        self.assertTrue(good_guards["preexisting_generated_by_preserved"])
+        self.assertTrue(good_guards["new_artifact_provenance_matches_runtime"])
+        self.assertTrue(good_guards["historical_change_log_rows_preserved"])
+        self.assertTrue(good_guards["new_change_log_rows_use_runtime_session"])
+
+        stale = self.make_trial("superseded-adr", repeat=2, messages=[load_event()])
+        self.set_artifact_pair(
+            stale, "docs/specs/arch/ARCH-001.md", before_text,
+            self.artifact_text("codex", "old-model", "fixture-session",
+                               [historical_row, current_row]),
+        )
+        stale_result = grader.grade(stale)
+        self.assertFalse(
+            stale_result["supplemental_guards"]["new_artifact_provenance_matches_runtime"])
+        self.assertFalse(stale_result["strict_pass"])
+
+    def test_every_new_arch_and_adr_uses_current_runtime_identity(self):
+        current_row = (
+            f"| 1 | 2026-09-28 | codex (session {RUNTIME_SESSION}) | "
+            "Initial architecture | all |"
+        )
+        good = self.make_trial("creates-arch", messages=[load_event()])
+        self.set_artifact_pair(
+            good, "docs/specs/arch/ARCH-001.md", None,
+            self.artifact_text("codex", RUNTIME_MODEL, RUNTIME_SESSION, [current_row]),
+        )
+        self.set_artifact_pair(
+            good, "docs/specs/adr/ADR-001.md", None,
+            self.artifact_text("codex", RUNTIME_MODEL, RUNTIME_SESSION),
+        )
+        good_result = grader.grade(good)
+        self.assertTrue(
+            good_result["supplemental_guards"]["new_artifact_provenance_matches_runtime"])
+        self.assertTrue(
+            good_result["supplemental_guards"]["new_change_log_rows_use_runtime_session"])
+
+        stale_adr = self.make_trial("creates-arch", repeat=2, messages=[load_event()])
+        self.set_artifact_pair(
+            stale_adr, "docs/specs/arch/ARCH-001.md", None,
+            self.artifact_text("codex", RUNTIME_MODEL, RUNTIME_SESSION, [current_row]),
+        )
+        self.set_artifact_pair(
+            stale_adr, "docs/specs/adr/ADR-001.md", None,
+            self.artifact_text("codex", "old-model", "fixture-session"),
+        )
+        stale_result = grader.grade(stale_adr)
+        self.assertFalse(
+            stale_result["supplemental_guards"]["new_artifact_provenance_matches_runtime"])
+        self.assertFalse(stale_result["strict_pass"])
 
     def test_malformed_authored_frontmatter_fails_provenance_without_aborting(self):
         before = {"docs/specs/prd/PRD-001.md": "prd-original"}

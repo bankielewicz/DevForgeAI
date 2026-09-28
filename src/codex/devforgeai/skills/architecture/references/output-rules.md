@@ -168,9 +168,10 @@ No `<!--` comment is left anywhere in the file.
 ## Change Log
 
 One row per write: version, date, author, change, items affected. The author of a row you write is
-`codex (session <value>)`, where `<value>` is exactly `generated_by.session`: the actual host
-session/thread ID when exposed, or the word `unknown` when unavailable. The change text ends with
-the
+`codex (session <value>)`, where `<value>` is the current actual host session/thread ID when
+exposed, or the word `unknown` when unavailable. For a new or amended ARCH, this value equals
+`generated_by.session`. A review record uses the current session value while keeping the historical
+`generated_by` byte-identical. The change text ends with the
 policy resolution line (policy.md), with no `|` inside it:
 
 ```markdown
@@ -301,8 +302,10 @@ Read each written file back and check every item. Fix and re-check, at most thre
     default, a local value, or a deprecated or non-applicable setting.
 14. All nine headings are present; sections 7 and 8 hold bullets or `- None.`; no `<!--`, no `<…>`
     placeholder, no `ARCH-000`, `PRD-000` or `YYYY-MM-DD`, and no template example item is left.
-15. The last Change Log row's author is `codex (session <ID or unknown>)`, matching
-    `generated_by.session`; formatting `unknown` this way does not satisfy item 3, and its
+15. The last Change Log row's author is `codex (session <current ID or unknown>)`. It matches
+    `generated_by.session` for a new or amended ARCH. For a review record, it uses the current
+    session value while historical `generated_by` stays byte-identical. Formatting `unknown` this
+    way does not satisfy item 3, and its
     change text ends with a `Policy resolution:` line in the policy.md format.
 
 **Each ADR written or changed**

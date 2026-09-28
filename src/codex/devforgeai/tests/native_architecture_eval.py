@@ -29,6 +29,7 @@ CASE_VER = {
 }
 SMOKE_CASES = ("creates-arch", "existing-arch-not-duplicated", "ignores-unrelated-request")
 PLAN_CASES = {"existing-arch-not-duplicated"}
+PRIORITY_CASES = ("reuse-records-review", "reuse-review-idempotent")
 
 
 class ArchitectureServer(Server):
@@ -79,10 +80,20 @@ def freeze_candidate(evidence):
     return candidate, expected, digest
 
 
-def trial(case, arm, repeat, evidence, definitions, candidate, candidate_manifest, plan_hash, stage):
+def trial(case, arm, repeat, evidence, definitions, candidate, candidate_manifest, plan_hash, stage,
+          stop_file=None):
     identity = f"{case}--{arm}--{repeat}"
     out = evidence / stage / identity
     out.mkdir(parents=True, exist_ok=False)
+    if stop_file and stop_file.exists():
+        result = {
+            "status": "cancelled", "reason": f"stop file exists: {stop_file}",
+            "case": case, "verification": CASE_VER[case], "arm": arm, "repeat": repeat,
+            "plan_sha256": plan_hash, "scratch_parent": None, "scratch_workspace": None,
+        }
+        save(out / "result.json", result)
+        print(json.dumps({"trial": identity, "status": "cancelled", "elapsed_seconds": 0}), flush=True)
+        return result
     parent = Path(tempfile.mkdtemp(prefix="dfai-architecture-eval-"))
     cwd = parent / "project"
     cwd.mkdir()
@@ -140,13 +151,17 @@ def main():
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--stage", choices=["smoke", "matrix"], required=True)
     parser.add_argument("--jobs", type=int, default=4)
+    parser.add_argument("--stop-file", type=Path,
+                        help="Do not start queued trials after this file appears; cancelled results are retained")
     args = parser.parse_args()
     evidence = args.evidence.resolve()
+    stop_file = args.stop_file.resolve() if args.stop_file else None
     suite = PACKAGE / "evals/architecture"
     discovered = sorted(p.name for p in suite.iterdir() if p.is_dir())
     if set(discovered) != set(CASE_VER):
         raise RuntimeError(f"Architecture denominator mismatch: expected={sorted(CASE_VER)} discovered={discovered}")
-    cases = list(SMOKE_CASES) if args.stage == "smoke" else sorted(CASE_VER)
+    cases = list(SMOKE_CASES) if args.stage == "smoke" else [
+        *PRIORITY_CASES, *(case for case in sorted(CASE_VER) if case not in PRIORITY_CASES)]
     repeats = range(1, 2) if args.stage == "smoke" else range(1, 4)
     arms = ("plugin",) if args.stage == "smoke" else ("plugin", "baseline")
     tasks = [(c, a, n) for n in repeats for c in cases for a in arms]
@@ -169,6 +184,7 @@ def main():
         "score_contract": "Source regex/file/semantic graders only; activation and supplemental guards are separate. Semantic graders remain REVIEW_REQUIRED until independently assessed. Every plugin repeat must reach 0.8; no failed grader or mandatory obligation is waived by the threshold.",
         "isolation": "Unique temp parent per trial; runtime candidate contains only manifest plus Architecture. Ephemeral app-server with memories, noncandidate skills, configured plugins and configured MCP servers disabled. Evidence and graders are outside the model workspace. This is not an OS-hermetic boundary.",
         "questions": "VER-07 uses Plan mode in both arms. Native request_user_input requests are recorded and interrupted unanswered; only an explicit supplemental scenario may answer.",
+        "stop_file": str(stop_file) if stop_file else None,
         "source_suite": frozen_suite,
         "definitions_sha256": hashlib.sha256("".join(
             f"{p}\0{h}\n" for p, h in frozen_suite.items()).encode()).hexdigest(),
@@ -186,7 +202,8 @@ def main():
     save(plan_path, plan)
     plan_hash = hashlib.sha256(plan_path.read_bytes()).hexdigest()
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        futures = [pool.submit(trial, c, a, n, evidence, definitions, candidate, manifest, plan_hash, args.stage)
+        futures = [pool.submit(trial, c, a, n, evidence, definitions, candidate, manifest, plan_hash,
+                               args.stage, stop_file)
                    for c, a, n in tasks]
         for future in concurrent.futures.as_completed(futures):
             future.result()
