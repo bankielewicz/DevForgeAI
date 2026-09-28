@@ -1,5 +1,5 @@
 ---
-description: "VER-07 (current branch): no architecture skill ships, so the reply ends with a Next step paragraph that names /devforgeai:architecture PRD-001 as not built yet."
+description: "VER-07 (shipped branch): the architecture skill ships, so the reply ends with a Next step paragraph that tells the user to run /devforgeai:architecture PRD-001."
 tags: [prd, ver-07]
 max_turns: 60
 timeout_seconds: 1200
