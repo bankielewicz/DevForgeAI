@@ -1,0 +1,28 @@
+{
+  "name": "devforgeai",
+  "version": "0.1.0",
+  "description": "DevForgeAI Brainstorm for Codex: structured idea exploration and traceable BRN documents with user-confirmed decisions.",
+  "author": {
+    "name": "Bryan"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DevForgeAI Brainstorm",
+    "shortDescription": "Explore ideas and record user-confirmed decisions.",
+    "longDescription": "Brainstorm problems, ideas, and assumptions using an extensible framework. Write a traceable DevForgeAI BRN document and validate its structure. This source package contains Brainstorm; the PRD workflow is not included.",
+    "developerName": "Bryan",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Brainstorm ways to improve customer onboarding."
+    ]
+  },
+  "keywords": [
+    "brainstorm",
+    "planning",
+    "devforgeai"
+  ]
+}

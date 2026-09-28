@@ -1,0 +1,51 @@
+{
+  "schema_errors": {
+    "skill-frontmatter.schema.json": [],
+    "skill.schema.json": []
+  },
+  "skill_lines": 246,
+  "metadata_matches": true,
+  "local_links": [
+    {
+      "file": "skills/brainstorm/SKILL.md",
+      "target": "references/output-rules.md",
+      "exists": true,
+      "inside_plugin": true
+    },
+    {
+      "file": "skills/brainstorm/SKILL.md",
+      "target": "references/output-rules.md",
+      "exists": true,
+      "inside_plugin": true
+    },
+    {
+      "file": "skills/brainstorm/SKILL.md",
+      "target": "references/output-rules.md",
+      "exists": true,
+      "inside_plugin": true
+    },
+    {
+      "file": "skills/brainstorm/SKILL.md",
+      "target": "references/frameworks/INDEX.md",
+      "exists": true,
+      "inside_plugin": true
+    },
+    {
+      "file": "skills/brainstorm/SKILL.md",
+      "target": "references/output-rules.md",
+      "exists": true,
+      "inside_plugin": true
+    },
+    {
+      "file": "skills/brainstorm/references/frameworks/INDEX.md",
+      "target": "diverge-converge.md",
+      "exists": true,
+      "inside_plugin": true
+    }
+  ],
+  "implicit_invocation": true,
+  "e2e_definition_count": 8,
+  "mandatory_native_denominator": 10,
+  "native_status": "NOT_RUN",
+  "source_inputs_unchanged": 71
+}

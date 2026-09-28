@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "three-attempt-limit",
+      "status": "PASS",
+      "evidence": "Test validator persisted attempt count=3"
+    },
+    {
+      "name": "draft-and-errors",
+      "status": "PASS",
+      "evidence": "Final document is draft and final response quotes the remaining failure."
+    },
+    {
+      "name": "validator-not-rewritten",
+      "status": "PASS",
+      "evidence": "Disposable plugin before/after inventories match."
+    }
+  ]
+}

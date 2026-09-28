@@ -1,0 +1,293 @@
+{
+  "captured_utc": "2026-09-28T02:35:46.906162+00:00",
+  "candidate_root": "/home/bryan/Projects/DevForgeAI/src/codex/devforgeai",
+  "candidate_sha256": "b740cd0d3a5227e9e9653a39e9cda418d02344d90fe452acbb6dc6d5c68ae9c3",
+  "digest_rule": "SHA256 of UTF-8 sorted relative-path + NUL + file-SHA256 + LF records; report and import-evidence excluded.",
+  "files": {
+    ".codex-plugin/plugin.json": {
+      "sha256": "325b77008a77ddf032acced820ae0d63d95e27f77e7c941c43fb511725e49eb4",
+      "bytes": 926
+    },
+    "README.md": {
+      "sha256": "029d5353c8fcc074ecec23df7885327f1c25dddf1440df7329fdc853de267217",
+      "bytes": 2370
+    },
+    "evals/README.md": {
+      "sha256": "241ed8063882f136834e4cff65b0c28613f6eb96744a81c1f0416e8a172c9dbd",
+      "bytes": 2697
+    },
+    "evals/brainstorm/asks-for-topic/graders/asks-for-topic.md": {
+      "sha256": "5b209c8fa8dd9b4747f179481ffb8d0805880143187a24b12cdd74e72d969efd",
+      "bytes": 321
+    },
+    "evals/brainstorm/asks-for-topic/graders/no-file-written.md": {
+      "sha256": "ebf57364b08ce1b557ba810e85576d0b36448a29906a7b3cabf5c6243a2d2b84",
+      "bytes": 54
+    },
+    "evals/brainstorm/asks-for-topic/graders/skill-fired.md": {
+      "sha256": "3a7ec84d0c70cc13c3360362c1cd9cfbdbcc5d9668345ed229adaed79fa99bcc",
+      "bytes": 294
+    },
+    "evals/brainstorm/asks-for-topic/prompt.md": {
+      "sha256": "13f6b5cc2a354199b22aaaf96ea0a2726182be5ab3379df7b0fb324b0a655c8e",
+      "bytes": 198
+    },
+    "evals/brainstorm/existing-brn/case.yaml": {
+      "sha256": "6f105c4330393982dddde478f21d9c68e41fb43e7782aa23c2ab9e99defb7873",
+      "bytes": 81
+    },
+    "evals/brainstorm/existing-brn/graders/asks-extend-or-new.md": {
+      "sha256": "d8d4099f266158aa34c4c7d483f75bd216b9a4b6f2f7d2176076ff20945b3b76",
+      "bytes": 435
+    },
+    "evals/brainstorm/existing-brn/graders/brn-001-unchanged.md": {
+      "sha256": "dfd3b3b8157e8fe2b0da44661a47594bdeec1e6c02cf9c1e434bc301a25f1eb9",
+      "bytes": 227
+    },
+    "evals/brainstorm/existing-brn/graders/no-new-brn.md": {
+      "sha256": "7980aa83ec6be3236d33ade64940754b3733985663a17ab8246bb033226ad625",
+      "bytes": 79
+    },
+    "evals/brainstorm/existing-brn/prompt.md": {
+      "sha256": "bd349a241037023b315ddfb315bc060558997529b2454dca90dfc2fec30729d2",
+      "bytes": 253
+    },
+    "evals/brainstorm/existing-brn/scaffold.sh": {
+      "sha256": "a46376c958ca3f0b36ddd67fa28fe46762ae4febd7a7d14e70292368c2ce68e4",
+      "bytes": 2003
+    },
+    "evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md": {
+      "sha256": "7f639cfc3381132622ff84f3a9f8476daeae31c9bef05ac39c31fdbbc590b421",
+      "bytes": 636
+    },
+    "evals/brainstorm/hands-off-to-prd/graders/names-brn-path.md": {
+      "sha256": "3f8160f4d6f64bf64784b7b306ee63299938d83794e692f623c042eb9347486a",
+      "bytes": 91
+    },
+    "evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md": {
+      "sha256": "08e7d6cd34e888fa09261b0eb301223a37ca5288cd20c02e413090058bc1aaf2",
+      "bytes": 61
+    },
+    "evals/brainstorm/hands-off-to-prd/graders/no-path-argument.md": {
+      "sha256": "6884a5a8985e58f81d2a2e4ba73dd2356bab9b1649122bc552612ec1a4e90259",
+      "bytes": 92
+    },
+    "evals/brainstorm/hands-off-to-prd/graders/no-prd-written.md": {
+      "sha256": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+      "bytes": 64
+    },
+    "evals/brainstorm/hands-off-to-prd/prompt.md": {
+      "sha256": "9ab4acfd0642f9ea04b37b7d3aff38e6c8806ad2000d3af7bb3ed83fa5888d2a",
+      "bytes": 356
+    },
+    "evals/brainstorm/ignores-unrelated-request/graders/no-brn-written.md": {
+      "sha256": "c5bd869277a1a83515a4238edca00932b3441bdc1d6c59e088eb492d95f6c6cf",
+      "bytes": 71
+    },
+    "evals/brainstorm/ignores-unrelated-request/graders/reviews-the-pr.md": {
+      "sha256": "10abd022e6bfa8cf5f2c62e42a0877c5d532e9dd2124c5c8301d6fb1f12ef0fc",
+      "bytes": 355
+    },
+    "evals/brainstorm/ignores-unrelated-request/graders/skill-not-fired.md": {
+      "sha256": "c715ea4028135532782ae7ce17f6a9e7ad6245b8c6c73af9a9de869f2ffbe14b",
+      "bytes": 303
+    },
+    "evals/brainstorm/ignores-unrelated-request/prompt.md": {
+      "sha256": "efbe7e2c85aebec44eaa786f84aee08161b48d76283c5b481f6abd1de6d0b232",
+      "bytes": 635
+    },
+    "evals/brainstorm/no-unconfirmed-dispositions/graders/brn-exists.md": {
+      "sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "bytes": 78
+    },
+    "evals/brainstorm/no-unconfirmed-dispositions/graders/ideas-recorded-open.md": {
+      "sha256": "0bb1f064c8a4e4e10ebb152afacfa2f63be755fb9c1ce203af1529e0bba76338",
+      "bytes": 122
+    },
+    "evals/brainstorm/no-unconfirmed-dispositions/graders/no-decided-disposition.md": {
+      "sha256": "0f9d322baad990a440f732c1620f45ad17d71f0eba322639be0bc492649d6694",
+      "bytes": 153
+    },
+    "evals/brainstorm/no-unconfirmed-dispositions/graders/not-converged.md": {
+      "sha256": "cd80b1163d9d0b74421b11645fe14acdf3f344d84185f4470d225408a9da3be0",
+      "bytes": 139
+    },
+    "evals/brainstorm/no-unconfirmed-dispositions/prompt.md": {
+      "sha256": "91d9db96294bac510d92dd3cb5e2f90d0145c5a4b06f5b740764dac5f1845e71",
+      "bytes": 430
+    },
+    "evals/brainstorm/records-provenance/graders/brn-exists.md": {
+      "sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "bytes": 78
+    },
+    "evals/brainstorm/records-provenance/graders/changelog-names-session.md": {
+      "sha256": "60191bb35f9d7544af8995a87d1ae9b325465ee94972c9bf4cccbd2de5dc87f1",
+      "bytes": 195
+    },
+    "evals/brainstorm/records-provenance/graders/generated-by-filled.md": {
+      "sha256": "973c3ed6929dda1ed71ade071b89ab8d79075cf469dadbb8887936979dd158ce",
+      "bytes": 255
+    },
+    "evals/brainstorm/records-provenance/graders/hashes-null.md": {
+      "sha256": "220a6b6fd782d5c3dd497e25924398fecf255d1da1ec0f2f8e64525cc07682b0",
+      "bytes": 132
+    },
+    "evals/brainstorm/records-provenance/graders/reviewed-by-empty.md": {
+      "sha256": "e71a11760a0bddaafb421f25bee77cb31c14f0df23180e569b5a4e8d604d4329",
+      "bytes": 139
+    },
+    "evals/brainstorm/records-provenance/graders/session-substituted.md": {
+      "sha256": "f97c6e527e045aa9bbdfbba59bb3ef220f430cb59d6b22731091671998eada96",
+      "bytes": 183
+    },
+    "evals/brainstorm/records-provenance/prompt.md": {
+      "sha256": "94a148727e295a57bd3fd5bbdf0381a78f3cd34cefff1514cdc156fdf99df659",
+      "bytes": 329
+    },
+    "evals/brainstorm/uses-named-framework/graders/file-conforms.md": {
+      "sha256": "b28a698ff2da01ff1aec3ba75c2a017c1081e179cddb158d762c5f7d4e50ebfa",
+      "bytes": 834
+    },
+    "evals/brainstorm/uses-named-framework/graders/framework-in-section-5.md": {
+      "sha256": "2553c91fdc5b1d3862ecfda4223b8f21fe4cf159216b61b6eeec2f461a3500dc",
+      "bytes": 173
+    },
+    "evals/brainstorm/uses-named-framework/graders/one-key-per-block.md": {
+      "sha256": "1bd999ac305d3641f91763c194a6af652d9753029d5ec338d90ed1ea05cadb7f",
+      "bytes": 162
+    },
+    "evals/brainstorm/uses-named-framework/graders/only-allowed-collections.md": {
+      "sha256": "3e57e34ad06a37937e8fc3d5e717d62abb028b774284784469db0921dc72ab08",
+      "bytes": 160
+    },
+    "evals/brainstorm/uses-named-framework/graders/only-allowed-fields.md": {
+      "sha256": "f2383027debdc41892c0e8bc597fa68f0fbb4ecbee20656495dc9be4b62a582d",
+      "bytes": 311
+    },
+    "evals/brainstorm/uses-named-framework/graders/reply-names-framework.md": {
+      "sha256": "397f10ba7f6533bee6b5ea0e8d9228869c13dd0a7fa57259d75e555cf729c623",
+      "bytes": 182
+    },
+    "evals/brainstorm/uses-named-framework/prompt.md": {
+      "sha256": "373bad45dfe3a864331b0f6853147c66527bb2c505079c596f28e0066d2c5ffd",
+      "bytes": 418
+    },
+    "evals/brainstorm/writes-valid-brn/graders/all-sections.md": {
+      "sha256": "8acdcb6b4f83112d8ac7ac9117386813b865840f866bf5cc8589dbdd0c1fd647",
+      "bytes": 400
+    },
+    "evals/brainstorm/writes-valid-brn/graders/brn-exists.md": {
+      "sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "bytes": 78
+    },
+    "evals/brainstorm/writes-valid-brn/graders/document-quality.md": {
+      "sha256": "a29fa1b17bc6e8988951bbd3694f9005c50dedec30289e337c65f248e1978f94",
+      "bytes": 670
+    },
+    "evals/brainstorm/writes-valid-brn/graders/hands-off.md": {
+      "sha256": "606c3dc1991db9bbc4af00553356ba2ddc87eb66e7146596446b15a24b27c15a",
+      "bytes": 262
+    },
+    "evals/brainstorm/writes-valid-brn/graders/has-ideas-block.md": {
+      "sha256": "20cf7f8ed79ea5b8a0e0b2c66fa5cd647bd1e2fc206f5696b6cbee90914cce57",
+      "bytes": 154
+    },
+    "evals/brainstorm/writes-valid-brn/graders/has-problems-block.md": {
+      "sha256": "5594e4dcf174d3e2d1439a6de9d4e13be6aa6185ae8667604eed632d117d55ea",
+      "bytes": 156
+    },
+    "evals/brainstorm/writes-valid-brn/graders/no-leftovers.md": {
+      "sha256": "d729326a4d8bd1b15d809cd41e52789222655b735a6479a540e7de974327a953",
+      "bytes": 208
+    },
+    "evals/brainstorm/writes-valid-brn/graders/ran-validator.md": {
+      "sha256": "daf0bfa5a1392dabc51e337a908cbb7513fb13ea075b3fec8f71930c36937996",
+      "bytes": 51
+    },
+    "evals/brainstorm/writes-valid-brn/graders/skill-fired.md": {
+      "sha256": "3a7ec84d0c70cc13c3360362c1cd9cfbdbcc5d9668345ed229adaed79fa99bcc",
+      "bytes": 294
+    },
+    "evals/brainstorm/writes-valid-brn/prompt.md": {
+      "sha256": "3a8079033f0bf5bf607211cc5e4ce65a76cece38395c8600d2e93fb422987406",
+      "bytes": 453
+    },
+    "evals/verification-plan.json": {
+      "sha256": "f7a9f3a7a9314448d1a68f078923e9cc6ad7585dcafd67feef567b03a9069306",
+      "bytes": 2208
+    },
+    "skills/brainstorm/SKILL.md": {
+      "sha256": "7f4a4465079f60cc615a8aca5a52fa391da977011df02a942ea9bb920cb49b82",
+      "bytes": 13562
+    },
+    "skills/brainstorm/agents/openai.yaml": {
+      "sha256": "0e3ba2cd7e9b9c40e9ef584ccd4b1e4ba712e7f988307ba0e6ee2daf316baae3",
+      "bytes": 269
+    },
+    "skills/brainstorm/assets/brainstorm.md": {
+      "sha256": "ae440f3da41e59bc584102a0a036e5cb76bdf70b01b31ce3b0fdea9f40ecaad1",
+      "bytes": 2858
+    },
+    "skills/brainstorm/provenance.yaml": {
+      "sha256": "8c7273592c009a6644758a6cc4866340407e8252fdd2f5a5867d8f7843c4a7b9",
+      "bytes": 793
+    },
+    "skills/brainstorm/references/frameworks/INDEX.md": {
+      "sha256": "a2b1e33f26f704a2ceec9754f904ce12b6207753c86ddf71e08eef12c807f4a2",
+      "bytes": 958
+    },
+    "skills/brainstorm/references/frameworks/diverge-converge.md": {
+      "sha256": "c38b0ee37e3107a645d6f4f2da7ff3f1bbef9b98339f1adbd5c1be2cda4e1ec1",
+      "bytes": 3728
+    },
+    "skills/brainstorm/references/output-rules.md": {
+      "sha256": "6c4e1685b0735b2fe723a8d6f3212fb34d6d53853bd209a7a9d07df05587cec2",
+      "bytes": 7244
+    },
+    "skills/brainstorm/scripts/validate_brn.py": {
+      "sha256": "fbdda4f94518eb7a8c8f4246a156af8bfa9803f9a82c5bb8bd56bf686c5ebeb0",
+      "bytes": 15531
+    },
+    "tests/test_validate_brn.py": {
+      "sha256": "ee09f5c486068ecd862fbcda934533011fff36d2b2e68c3a9a3ad27cb11be1a3",
+      "bytes": 4616
+    }
+  },
+  "protected_inputs_unchanged": 71,
+  "source_files_added_by_concurrent_work": [
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/case.yaml",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/ends-with-next-step.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/handoff-quality.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/names-architecture-command.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/next-step-has-no-path.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/no-adr-written.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/no-epic-written.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/no-path-argument.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/graders/prd-exists.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/prompt.md",
+    "src/claude/DevForgeAI/evals/prd/hands-off-to-architecture/scaffold.sh",
+    "src/claude/DevForgeAI/evals/prd/ignores-unrelated-request/graders/no-prd-written.md",
+    "src/claude/DevForgeAI/evals/prd/ignores-unrelated-request/graders/skill-not-fired.md",
+    "src/claude/DevForgeAI/evals/prd/ignores-unrelated-request/graders/works-on-the-pr.md",
+    "src/claude/DevForgeAI/evals/prd/ignores-unrelated-request/prompt.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/case.yaml",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/all-sections.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/cites-promoted-ideas.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/no-leftovers.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/no-unpromoted-ideas.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/prd-exists.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/requirements-match-answers.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/graders/skill-fired.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/prompt.md",
+    "src/claude/DevForgeAI/evals/prd/writes-prd-from-brn/scaffold.sh",
+    "src/claude/DevForgeAI/skills/prd/SKILL.md",
+    "src/claude/DevForgeAI/skills/prd/provenance.yaml",
+    "src/claude/DevForgeAI/skills/prd/references/brn-mapping.md",
+    "src/claude/DevForgeAI/skills/prd/references/defaults.md",
+    "src/claude/DevForgeAI/skills/prd/references/interview.md",
+    "src/claude/DevForgeAI/skills/prd/references/output-rules.md",
+    "src/claude/DevForgeAI/skills/prd/references/policy.md"
+  ],
+  "native_verification_status": "NOT_RUN",
+  "installation_status": "NOT_PERFORMED"
+}

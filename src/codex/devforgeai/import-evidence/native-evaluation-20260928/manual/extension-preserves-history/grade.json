@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "old-items-exact",
+      "status": "PASS",
+      "evidence": "Original problem, idea and assumption objects retained exactly."
+    },
+    {
+      "name": "history-row-exact",
+      "status": "PASS",
+      "evidence": "| 1 | 2026-09-01 | claude-code | Initial draft |"
+    },
+    {
+      "name": "version-authors-ids",
+      "status": "PASS",
+      "evidence": "Version 2, original authors plus Codex, new ideas allocated 02..04."
+    },
+    {
+      "name": "unconfirmed-open-draft",
+      "status": "PASS",
+      "evidence": "All ideas open/null; status draft."
+    }
+  ]
+}

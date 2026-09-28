@@ -1,0 +1,407 @@
+[
+  {
+    "trial": "asks-for-topic--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "skill-fired"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "asks-for-topic--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "skill-fired"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "asks-for-topic--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "skill-fired"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "asks-for-topic--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "asks-for-topic--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "asks-for-topic--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "existing-brn--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "asks-extend-or-new"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "existing-brn--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "asks-extend-or-new"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "existing-brn--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "asks-extend-or-new"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "existing-brn--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "existing-brn--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "existing-brn--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "hands-off-to-prd--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "handoff-quality",
+      "names-brn-path",
+      "names-prd-command"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "hands-off-to-prd--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "handoff-quality",
+      "names-brn-path",
+      "names-prd-command"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "hands-off-to-prd--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "handoff-quality",
+      "names-brn-path",
+      "names-prd-command"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "hands-off-to-prd--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "hands-off-to-prd--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "hands-off-to-prd--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "ignores-unrelated-request--baseline--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "ignores-unrelated-request--baseline--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "ignores-unrelated-request--baseline--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "ignores-unrelated-request--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "ignores-unrelated-request--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "ignores-unrelated-request--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "no-unconfirmed-dispositions--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "brn-exists",
+      "ideas-recorded-open",
+      "no-decided-disposition",
+      "not-converged"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "no-unconfirmed-dispositions--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "brn-exists",
+      "ideas-recorded-open",
+      "no-decided-disposition",
+      "not-converged"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "no-unconfirmed-dispositions--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "brn-exists",
+      "ideas-recorded-open",
+      "no-decided-disposition",
+      "not-converged"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "no-unconfirmed-dispositions--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "no-unconfirmed-dispositions--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "no-unconfirmed-dispositions--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "records-provenance--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "brn-exists",
+      "changelog-names-session",
+      "generated-by-filled",
+      "hashes-null",
+      "reviewed-by-empty",
+      "session-substituted"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "records-provenance--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "brn-exists",
+      "changelog-names-session",
+      "generated-by-filled",
+      "hashes-null",
+      "reviewed-by-empty",
+      "session-substituted"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "records-provenance--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "brn-exists",
+      "changelog-names-session",
+      "generated-by-filled",
+      "hashes-null",
+      "reviewed-by-empty",
+      "session-substituted"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "records-provenance--plugin--1",
+    "status": "FAIL",
+    "failed": [
+      "session-substituted",
+      "host-provenance-match"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "records-provenance--plugin--2",
+    "status": "FAIL",
+    "failed": [
+      "session-substituted",
+      "host-provenance-match"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "records-provenance--plugin--3",
+    "status": "FAIL",
+    "failed": [
+      "session-substituted",
+      "host-provenance-match"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "uses-named-framework--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "file-conforms",
+      "framework-in-section-5",
+      "one-key-per-block",
+      "only-allowed-collections",
+      "only-allowed-fields"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "uses-named-framework--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "file-conforms",
+      "framework-in-section-5",
+      "one-key-per-block",
+      "only-allowed-collections",
+      "only-allowed-fields"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "uses-named-framework--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "file-conforms",
+      "framework-in-section-5",
+      "one-key-per-block",
+      "only-allowed-collections",
+      "only-allowed-fields"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "uses-named-framework--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "uses-named-framework--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "uses-named-framework--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "writes-valid-brn--baseline--1",
+    "status": "FAIL",
+    "failed": [
+      "all-sections",
+      "brn-exists",
+      "document-quality",
+      "hands-off",
+      "has-ideas-block",
+      "has-problems-block",
+      "no-leftovers",
+      "ran-validator",
+      "skill-fired"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "writes-valid-brn--baseline--2",
+    "status": "FAIL",
+    "failed": [
+      "all-sections",
+      "brn-exists",
+      "document-quality",
+      "hands-off",
+      "has-ideas-block",
+      "has-problems-block",
+      "no-leftovers",
+      "ran-validator",
+      "skill-fired"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "writes-valid-brn--baseline--3",
+    "status": "FAIL",
+    "failed": [
+      "all-sections",
+      "brn-exists",
+      "document-quality",
+      "hands-off",
+      "has-ideas-block",
+      "has-problems-block",
+      "no-leftovers",
+      "ran-validator",
+      "skill-fired"
+    ],
+    "pending": []
+  },
+  {
+    "trial": "writes-valid-brn--plugin--1",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "writes-valid-brn--plugin--2",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  },
+  {
+    "trial": "writes-valid-brn--plugin--3",
+    "status": "PASS",
+    "failed": [],
+    "pending": []
+  }
+]

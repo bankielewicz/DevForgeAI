@@ -1,0 +1,69 @@
+{
+  "sibling_filename_exposure": [
+    {
+      "trial": "hands-off-to-prd--baseline--3",
+      "item_id": "exec-7388b41b-cc49-4bea-9427-503e538a604b",
+      "other_trials": [
+        "existing-brn--baseline--1",
+        "existing-brn--baseline--2",
+        "existing-brn--baseline--3",
+        "existing-brn--plugin--1",
+        "existing-brn--plugin--2",
+        "existing-brn--plugin--3",
+        "hands-off-to-prd--plugin--1",
+        "hands-off-to-prd--plugin--2",
+        "no-unconfirmed-dispositions--plugin--1",
+        "no-unconfirmed-dispositions--plugin--2",
+        "records-provenance--plugin--1",
+        "records-provenance--plugin--2",
+        "uses-named-framework--plugin--1",
+        "uses-named-framework--plugin--2",
+        "writes-valid-brn--plugin--1"
+      ],
+      "command": "/bin/bash -lc \"rg --files --hidden -g '\"'!.git/**'\"' -g '\"'!node_modules'\"' . /tmp/devforgeai-codex-eval-20260928 2>/dev/null\""
+    },
+    {
+      "trial": "uses-named-framework--plugin--2",
+      "item_id": "exec-25a39e01-f4a7-4d54-9cfd-ae009e83f677",
+      "other_trials": [
+        "existing-brn--baseline--1",
+        "existing-brn--baseline--2",
+        "existing-brn--plugin--1",
+        "existing-brn--plugin--2",
+        "hands-off-to-prd--plugin--1",
+        "no-unconfirmed-dispositions--plugin--1",
+        "records-provenance--plugin--1",
+        "uses-named-framework--plugin--1",
+        "writes-valid-brn--plugin--1"
+      ],
+      "command": "/bin/bash -lc \"ls -la; rg --files --hidden -g 'AGENTS.md' -g 'BRN-*.md' -g '\"'!'\"\\\\.git' /tmp/devforgeai-codex-eval-20260928/runs 2>/dev/null\""
+    },
+    {
+      "trial": "uses-named-framework--plugin--3",
+      "item_id": "exec-6f04f2c2-0234-49e9-95e6-56fb70d226bc",
+      "other_trials": [
+        "existing-brn--baseline--1",
+        "existing-brn--baseline--2",
+        "existing-brn--baseline--3",
+        "existing-brn--plugin--1",
+        "existing-brn--plugin--2",
+        "existing-brn--plugin--3",
+        "hands-off-to-prd--plugin--1",
+        "hands-off-to-prd--plugin--2",
+        "hands-off-to-prd--plugin--3",
+        "no-unconfirmed-dispositions--plugin--1",
+        "no-unconfirmed-dispositions--plugin--2",
+        "records-provenance--plugin--1",
+        "records-provenance--plugin--2",
+        "uses-named-framework--plugin--1",
+        "uses-named-framework--plugin--2",
+        "writes-valid-brn--plugin--1",
+        "writes-valid-brn--plugin--2"
+      ],
+      "command": "/bin/bash -lc \"ls -la && rg --files --hidden -g 'AGENTS.md' -g 'BRN-*.md' -g '\"'!'\"\\\\.git/**' /tmp/devforgeai-codex-eval-20260928/runs /tmp/devforgeai-codex-eval-20260928/candidate/skills/brainstorm\""
+    }
+  ],
+  "explicit_sibling_document_reads": [],
+  "control_cross_trial_references": [],
+  "interpretation": "Two original framework plugin trials and one original handoff baseline trial listed sibling filenames. No explicit sibling-document read was observed. All three received additional controls in unique temporary parent trees; no cross-trial path references were observed in controls. This is an observational trace audit, not a claim of enforced read isolation."
+}

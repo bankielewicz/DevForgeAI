@@ -1,0 +1,60 @@
+--- v006/skills/brainstorm/SKILL.md
++++ v007/skills/brainstorm/SKILL.md
+@@ -3,7 +3,7 @@
+ description: Runs a structured brainstorming session and writes a DevForgeAI brainstorm (BRN) document with identified problems, ideas, assumptions and user-confirmed dispositions. Use whenever the user asks to brainstorm, explore ideas or options, come up with ways to solve a problem, or generate ideas for a product, feature or process, even when they don't mention a document, and to start the DevForgeAI planning chain before a PRD.
+ metadata:
+   devforgeai-id: "SKL-001"
+-  devforgeai-version: "6"
++  devforgeai-version: "7"
+ ---
+ 
+ # Brainstorm
+@@ -68,8 +68,9 @@
+    the request says to proceed without questions. Record anything still unknown as
+    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
+ 
+-Use an available Codex question tool when appropriate to its supported mode; otherwise ask
+-in plain text and end your turn. A pending question, silence, or timeout is never confirmation.
++Use Codex's native `request_user_input` tool for questions and confirmations. If that tool
++is unavailable or disallowed in the current mode, ask in plain text and end your turn.
++A pending question, silence, or timeout is never confirmation.
+ 
+ ### 2. Select a framework
+ 
+--- v006/skills/brainstorm/provenance.yaml
++++ v007/skills/brainstorm/provenance.yaml
+@@ -1,12 +1,12 @@
+ # Codex provider variant of SKL-001; original source identity is retained in import-evidence/.
+-# This is port revision 6 from Claude revision 5, not approval or behavioral qualification.
++# This is port revision 7 from Claude revision 5, not approval or behavioral qualification.
+ id: SKL-001
+ type: skill
+ title: "Brainstorm skill (Codex port)"
+ status: draft
+-version: 6
++version: 7
+ created: 2026-09-26
+-updated: 2026-09-27
++updated: 2026-09-28
+ owner: "Bryan"
+ authors: ["Bryan", "claude-code", "codex"]
+ generated_by:
+--- v006/README.md
++++ v007/README.md
+@@ -2,13 +2,14 @@
+ 
+ Source port of the Claude Brainstorm skill, SKL-001 v5, implementing the planning workflow
+ in SPEC-001 v10 with the provider adaptations described in [IMPORT-REPORT.md](IMPORT-REPORT.md).
+-This Codex variant is SKL-001 v6 and the plugin manifest version is 0.1.0.
++This Codex variant is SKL-001 v7 and the plugin manifest version is 0.1.0.
+ 
+ The package contains `.codex-plugin/plugin.json`, `skills/brainstorm/`, and eight imported
+ evaluation definitions. The skill includes its BRN template, framework catalog, default
+ framework, output rules, Python validator, and `agents/openai.yaml` for implicit invocation.
+ It writes into the consuming project's `docs/specs/brainstorm/`; plugin resources resolve
+-relative to the loaded skill. It never decides dispositions or convergence for the user.
++relative to the loaded skill. It uses Codex's native `request_user_input` for questions and confirmations when available.
++It never decides dispositions or convergence for the user.
+ 
+ ## Using the source
+ 

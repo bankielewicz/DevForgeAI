@@ -1,0 +1,703 @@
+{
+  "captured_utc": "2026-09-28T02:25:55.562996+00:00",
+  "source_plugin": "/home/bryan/Projects/DevForgeAI/src/claude/DevForgeAI",
+  "target_plugin": "/home/bryan/Projects/DevForgeAI/src/codex/devforgeai",
+  "source_skill_version": 5,
+  "target_skill_version": 7,
+  "specification_version": 10,
+  "authoring_session": "01a0e031-e008-7a12-9587-fea433e7e5c2",
+  "protected_inputs": {
+    "src/claude/DevForgeAI/.claude-plugin/plugin.json": {
+      "sha256": "32739d4478b2cd8b9740602cede1274dfb64619d6ffe18d5bba5ba3e5a8b5fec",
+      "bytes": 245
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/asks-for-topic.md": {
+      "sha256": "5b209c8fa8dd9b4747f179481ffb8d0805880143187a24b12cdd74e72d969efd",
+      "bytes": 321
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/no-file-written.md": {
+      "sha256": "ebf57364b08ce1b557ba810e85576d0b36448a29906a7b3cabf5c6243a2d2b84",
+      "bytes": 54
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/skill-fired.md": {
+      "sha256": "bd8d62af55f1934634e518dbb84afbb6225b8be8ea1c0a237d7c2ec6363d4982",
+      "bytes": 90
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/prompt.md": {
+      "sha256": "c0e2daf8175501b657923fa81e88dd6818280223914a9f8d92dda26f3e586f8d",
+      "bytes": 258
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/existing-brn/case.yaml": {
+      "sha256": "6f105c4330393982dddde478f21d9c68e41fb43e7782aa23c2ab9e99defb7873",
+      "bytes": 81
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/existing-brn/graders/asks-extend-or-new.md": {
+      "sha256": "d8d4099f266158aa34c4c7d483f75bd216b9a4b6f2f7d2176076ff20945b3b76",
+      "bytes": 435
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/existing-brn/graders/brn-001-unchanged.md": {
+      "sha256": "dfd3b3b8157e8fe2b0da44661a47594bdeec1e6c02cf9c1e434bc301a25f1eb9",
+      "bytes": 227
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/existing-brn/graders/no-new-brn.md": {
+      "sha256": "7980aa83ec6be3236d33ade64940754b3733985663a17ab8246bb033226ad625",
+      "bytes": 79
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/existing-brn/prompt.md": {
+      "sha256": "bbf9da72d5c1e85728da5bd0f87005bc48910a26b2e5fea2e8f7c6105af7388c",
+      "bytes": 313
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/existing-brn/scaffold.sh": {
+      "sha256": "a46376c958ca3f0b36ddd67fa28fe46762ae4febd7a7d14e70292368c2ce68e4",
+      "bytes": 2003
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md": {
+      "sha256": "277de178772a9afe1c9359edfafa48365c9799bfe015332ad15ccabe2dc132d6",
+      "bytes": 381
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/names-brn-path.md": {
+      "sha256": "3f8160f4d6f64bf64784b7b306ee63299938d83794e692f623c042eb9347486a",
+      "bytes": 91
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md": {
+      "sha256": "8c86e3d7be7478f3b9c43f25c50c52c8c2a4654e26cf27bc2bb9b97f923f950d",
+      "bytes": 73
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/no-path-argument.md": {
+      "sha256": "fb84fb66efcc29689c282045e765f4dc29431298f39db3e7d4e057b10571d04b",
+      "bytes": 102
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/no-prd-written.md": {
+      "sha256": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+      "bytes": 64
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/prompt.md": {
+      "sha256": "ab154259a749ba6c3f68ea34a20c4a1150bee4e77578d2c84c7f64dd1c476ebf",
+      "bytes": 416
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/no-brn-written.md": {
+      "sha256": "c5bd869277a1a83515a4238edca00932b3441bdc1d6c59e088eb492d95f6c6cf",
+      "bytes": 71
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/reviews-the-pr.md": {
+      "sha256": "10abd022e6bfa8cf5f2c62e42a0877c5d532e9dd2124c5c8301d6fb1f12ef0fc",
+      "bytes": 355
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/skill-not-fired.md": {
+      "sha256": "726763e1da60628477b9163b2b1eea4bca61d9a7a13a1fc8a3553df168d82918",
+      "bytes": 114
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/prompt.md": {
+      "sha256": "27d2e61660420398b3f6bbf596821c9e787c41e7793fb00eb18659cccf4e0b5d",
+      "bytes": 695
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/brn-exists.md": {
+      "sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "bytes": 78
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/ideas-recorded-open.md": {
+      "sha256": "0bb1f064c8a4e4e10ebb152afacfa2f63be755fb9c1ce203af1529e0bba76338",
+      "bytes": 122
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/no-decided-disposition.md": {
+      "sha256": "0f9d322baad990a440f732c1620f45ad17d71f0eba322639be0bc492649d6694",
+      "bytes": 153
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/not-converged.md": {
+      "sha256": "cd80b1163d9d0b74421b11645fe14acdf3f344d84185f4470d225408a9da3be0",
+      "bytes": 139
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/prompt.md": {
+      "sha256": "389b7e192e832c9d90a6a293300359ee02d132f269fc401f706b41d5d7eff65e",
+      "bytes": 490
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/brn-exists.md": {
+      "sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "bytes": 78
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/changelog-names-session.md": {
+      "sha256": "570265ef4c89f4896f812bb415ba631082ce887d9093b52f60417fa0d7655d8c",
+      "bytes": 201
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/generated-by-filled.md": {
+      "sha256": "1cc3666c9cc3ce9020cf8bb0f5a36a3cb1f821b7ecad63edc62e6bd3136b7349",
+      "bytes": 261
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/hashes-null.md": {
+      "sha256": "220a6b6fd782d5c3dd497e25924398fecf255d1da1ec0f2f8e64525cc07682b0",
+      "bytes": 132
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/reviewed-by-empty.md": {
+      "sha256": "e71a11760a0bddaafb421f25bee77cb31c14f0df23180e569b5a4e8d604d4329",
+      "bytes": 139
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/session-substituted.md": {
+      "sha256": "c1880e774c73662387375616a0e5fd4735206b87a7b28a9d818913cf2bb7d3d8",
+      "bytes": 127
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/records-provenance/prompt.md": {
+      "sha256": "7dae7d113e21e5efbd520f61f771a9f90ac6b61cf7c0e6a904e47522ba7f9045",
+      "bytes": 389
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/file-conforms.md": {
+      "sha256": "b28a698ff2da01ff1aec3ba75c2a017c1081e179cddb158d762c5f7d4e50ebfa",
+      "bytes": 834
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/framework-in-section-5.md": {
+      "sha256": "2553c91fdc5b1d3862ecfda4223b8f21fe4cf159216b61b6eeec2f461a3500dc",
+      "bytes": 173
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/one-key-per-block.md": {
+      "sha256": "1bd999ac305d3641f91763c194a6af652d9753029d5ec338d90ed1ea05cadb7f",
+      "bytes": 162
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/only-allowed-collections.md": {
+      "sha256": "3e57e34ad06a37937e8fc3d5e717d62abb028b774284784469db0921dc72ab08",
+      "bytes": 160
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/only-allowed-fields.md": {
+      "sha256": "f2383027debdc41892c0e8bc597fa68f0fbb4ecbee20656495dc9be4b62a582d",
+      "bytes": 311
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/reply-names-framework.md": {
+      "sha256": "397f10ba7f6533bee6b5ea0e8d9228869c13dd0a7fa57259d75e555cf729c623",
+      "bytes": 182
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/prompt.md": {
+      "sha256": "900b883e43a2bc55d520aa6aa6c3f7e973f2002cf5a4e7348b157fe9f64f7b34",
+      "bytes": 478
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/all-sections.md": {
+      "sha256": "8acdcb6b4f83112d8ac7ac9117386813b865840f866bf5cc8589dbdd0c1fd647",
+      "bytes": 400
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/brn-exists.md": {
+      "sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "bytes": 78
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/document-quality.md": {
+      "sha256": "a29fa1b17bc6e8988951bbd3694f9005c50dedec30289e337c65f248e1978f94",
+      "bytes": 670
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/hands-off.md": {
+      "sha256": "606c3dc1991db9bbc4af00553356ba2ddc87eb66e7146596446b15a24b27c15a",
+      "bytes": 262
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/has-ideas-block.md": {
+      "sha256": "20cf7f8ed79ea5b8a0e0b2c66fa5cd647bd1e2fc206f5696b6cbee90914cce57",
+      "bytes": 154
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/has-problems-block.md": {
+      "sha256": "5594e4dcf174d3e2d1439a6de9d4e13be6aa6185ae8667604eed632d117d55ea",
+      "bytes": 156
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/no-leftovers.md": {
+      "sha256": "d729326a4d8bd1b15d809cd41e52789222655b735a6479a540e7de974327a953",
+      "bytes": 208
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/ran-validator.md": {
+      "sha256": "daf0bfa5a1392dabc51e337a908cbb7513fb13ea075b3fec8f71930c36937996",
+      "bytes": 51
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/skill-fired.md": {
+      "sha256": "bd8d62af55f1934634e518dbb84afbb6225b8be8ea1c0a237d7c2ec6363d4982",
+      "bytes": 90
+    },
+    "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/prompt.md": {
+      "sha256": "5b99b69bd4c9f84d2a8ee654122eed4f9ea2a020f2aeddfb6557e811e04c9986",
+      "bytes": 513
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/SKILL.md": {
+      "sha256": "fea91a393ea884d069237b107f7f4a2b74ceb3eb97af8d88660baff8366b190e",
+      "bytes": 12055
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/assets/brainstorm.md": {
+      "sha256": "ae440f3da41e59bc584102a0a036e5cb76bdf70b01b31ce3b0fdea9f40ecaad1",
+      "bytes": 2858
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/provenance.yaml": {
+      "sha256": "34424c8743589841621bdfc80e14fba6d82b31957c9c61574b9de92882bbdbbf",
+      "bytes": 1139
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/references/frameworks/INDEX.md": {
+      "sha256": "a2b1e33f26f704a2ceec9754f904ce12b6207753c86ddf71e08eef12c807f4a2",
+      "bytes": 958
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/references/frameworks/diverge-converge.md": {
+      "sha256": "c38b0ee37e3107a645d6f4f2da7ff3f1bbef9b98339f1adbd5c1be2cda4e1ec1",
+      "bytes": 3728
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/references/output-rules.md": {
+      "sha256": "bb4597962f5a8db147bd82d1618e9d39a827f9598bf87883abcfe2ca94eff30d",
+      "bytes": 7043
+    },
+    "src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py": {
+      "sha256": "0e71e786e1a85b9183b5a0432b2cf13bcb9750d37585c27e1985fc1510d2f4c7",
+      "bytes": 15122
+    },
+    "src/claude/DevForgeAI/skills/prd/assets/prd.md": {
+      "sha256": "0a244e645dd5c046a89ac12c7e32c4c4c78b810993f2bf527c15573bdc7d3729",
+      "bytes": 4386
+    },
+    "docs/specs/spec/SPEC-001.md": {
+      "sha256": "6e3f685033e1f6c07829022aeb5567a339c50399f3df654a78bfe284f8f96267",
+      "bytes": 25650
+    },
+    "src/schemas/adr.schema.json": {
+      "sha256": "3f7095904260792749910e17b6592c6a6909dd91732df48ef3aa060031095d62",
+      "bytes": 3174
+    },
+    "src/schemas/arch.schema.json": {
+      "sha256": "08708d3c23a4998eefebcd92d66132d7398d8eb804d52e7891dabb6615810ebd",
+      "bytes": 8981
+    },
+    "src/schemas/brainstorm.schema.json": {
+      "sha256": "d6e73956e3d697d979ff7e98cbfb1328f482cc0fd7f6113668d430258c83d28c",
+      "bytes": 7233
+    },
+    "src/schemas/common.schema.json": {
+      "sha256": "7ac3037bbabbf90e4f00ba5809e30b5460e3fafc561403a376f2bae65eeac963",
+      "bytes": 1803
+    },
+    "src/schemas/epic.schema.json": {
+      "sha256": "964b14b381270d1d2bb6b1e2ad21954fb78cb9cacbd4be28da6ab0f182821136",
+      "bytes": 4089
+    },
+    "src/schemas/policy.schema.json": {
+      "sha256": "3c26737476f50aca180bd39005eee655e5563c71b5f70ada8ae20eab085450de",
+      "bytes": 9729
+    },
+    "src/schemas/prd.schema.json": {
+      "sha256": "be1fa3d6c661f5bc1655b5105942dde2863692e9153854c39cfeba6b3ff92772",
+      "bytes": 9899
+    },
+    "src/schemas/skill-frontmatter.schema.json": {
+      "sha256": "2cca5392f9a49d92cbc71252be2a79375144d1eeba9e99bbaa827764fa0d2f71",
+      "bytes": 2815
+    },
+    "src/schemas/skill.schema.json": {
+      "sha256": "0283ebbc112865086d8ce3ef21f5d491c6bd101ecab321e0cc13774b61131058",
+      "bytes": 3461
+    },
+    "src/schemas/spec.schema.json": {
+      "sha256": "14a4cbcb68c1761b1f02c73908e83c615f76d9f398e3b41ffd11dd79332213e8",
+      "bytes": 7307
+    },
+    "src/schemas/sprint.schema.json": {
+      "sha256": "1a7e68e7ba52c6c21a00e9461c00c7ea5fc903a2437ee08e6d6d48e060359553",
+      "bytes": 4931
+    },
+    "src/schemas/story.schema.json": {
+      "sha256": "cb81fc48a958f16b7ca601708193ce5cbfb0ece57330664424f00b4e63af1f0e",
+      "bytes": 9579
+    }
+  },
+  "files": [
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/SKILL.md",
+      "target": "src/codex/devforgeai/skills/brainstorm/SKILL.md",
+      "classification": "adapted",
+      "source_sha256": "fea91a393ea884d069237b107f7f4a2b74ceb3eb97af8d88660baff8366b190e",
+      "target_sha256": "4ffed3450272439f457da0d237c822f8a81a811f22629572f2ba934063f050fe"
+    },
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/assets/brainstorm.md",
+      "target": "src/codex/devforgeai/skills/brainstorm/assets/brainstorm.md",
+      "classification": "byte-identical",
+      "source_sha256": "ae440f3da41e59bc584102a0a036e5cb76bdf70b01b31ce3b0fdea9f40ecaad1",
+      "target_sha256": "ae440f3da41e59bc584102a0a036e5cb76bdf70b01b31ce3b0fdea9f40ecaad1"
+    },
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/provenance.yaml",
+      "target": "src/codex/devforgeai/skills/brainstorm/provenance.yaml",
+      "classification": "adapted",
+      "source_sha256": "34424c8743589841621bdfc80e14fba6d82b31957c9c61574b9de92882bbdbbf",
+      "target_sha256": "0b1062cf92304a849dad488f74f21af4388abbd167aeb4bb1026ebe760ad705c"
+    },
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/references/frameworks/INDEX.md",
+      "target": "src/codex/devforgeai/skills/brainstorm/references/frameworks/INDEX.md",
+      "classification": "byte-identical",
+      "source_sha256": "a2b1e33f26f704a2ceec9754f904ce12b6207753c86ddf71e08eef12c807f4a2",
+      "target_sha256": "a2b1e33f26f704a2ceec9754f904ce12b6207753c86ddf71e08eef12c807f4a2"
+    },
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/references/frameworks/diverge-converge.md",
+      "target": "src/codex/devforgeai/skills/brainstorm/references/frameworks/diverge-converge.md",
+      "classification": "byte-identical",
+      "source_sha256": "c38b0ee37e3107a645d6f4f2da7ff3f1bbef9b98339f1adbd5c1be2cda4e1ec1",
+      "target_sha256": "c38b0ee37e3107a645d6f4f2da7ff3f1bbef9b98339f1adbd5c1be2cda4e1ec1"
+    },
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/references/output-rules.md",
+      "target": "src/codex/devforgeai/skills/brainstorm/references/output-rules.md",
+      "classification": "adapted",
+      "source_sha256": "bb4597962f5a8db147bd82d1618e9d39a827f9598bf87883abcfe2ca94eff30d",
+      "target_sha256": "6c4e1685b0735b2fe723a8d6f3212fb34d6d53853bd209a7a9d07df05587cec2"
+    },
+    {
+      "source": "src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py",
+      "target": "src/codex/devforgeai/skills/brainstorm/scripts/validate_brn.py",
+      "classification": "adapted",
+      "source_sha256": "0e71e786e1a85b9183b5a0432b2cf13bcb9750d37585c27e1985fc1510d2f4c7",
+      "target_sha256": "fbdda4f94518eb7a8c8f4246a156af8bfa9803f9a82c5bb8bd56bf686c5ebeb0"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/asks-for-topic.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/asks-for-topic/graders/asks-for-topic.md",
+      "classification": "byte-identical",
+      "source_sha256": "5b209c8fa8dd9b4747f179481ffb8d0805880143187a24b12cdd74e72d969efd",
+      "target_sha256": "5b209c8fa8dd9b4747f179481ffb8d0805880143187a24b12cdd74e72d969efd"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/no-file-written.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/asks-for-topic/graders/no-file-written.md",
+      "classification": "byte-identical",
+      "source_sha256": "ebf57364b08ce1b557ba810e85576d0b36448a29906a7b3cabf5c6243a2d2b84",
+      "target_sha256": "ebf57364b08ce1b557ba810e85576d0b36448a29906a7b3cabf5c6243a2d2b84"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/skill-fired.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/asks-for-topic/graders/skill-fired.md",
+      "classification": "adapted",
+      "source_sha256": "bd8d62af55f1934634e518dbb84afbb6225b8be8ea1c0a237d7c2ec6363d4982",
+      "target_sha256": "3a7ec84d0c70cc13c3360362c1cd9cfbdbcc5d9668345ed229adaed79fa99bcc"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/asks-for-topic/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "c0e2daf8175501b657923fa81e88dd6818280223914a9f8d92dda26f3e586f8d",
+      "target_sha256": "13f6b5cc2a354199b22aaaf96ea0a2726182be5ab3379df7b0fb324b0a655c8e"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/existing-brn/case.yaml",
+      "target": "src/codex/devforgeai/evals/brainstorm/existing-brn/case.yaml",
+      "classification": "byte-identical",
+      "source_sha256": "6f105c4330393982dddde478f21d9c68e41fb43e7782aa23c2ab9e99defb7873",
+      "target_sha256": "6f105c4330393982dddde478f21d9c68e41fb43e7782aa23c2ab9e99defb7873"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/existing-brn/graders/asks-extend-or-new.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/existing-brn/graders/asks-extend-or-new.md",
+      "classification": "byte-identical",
+      "source_sha256": "d8d4099f266158aa34c4c7d483f75bd216b9a4b6f2f7d2176076ff20945b3b76",
+      "target_sha256": "d8d4099f266158aa34c4c7d483f75bd216b9a4b6f2f7d2176076ff20945b3b76"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/existing-brn/graders/brn-001-unchanged.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/existing-brn/graders/brn-001-unchanged.md",
+      "classification": "byte-identical",
+      "source_sha256": "dfd3b3b8157e8fe2b0da44661a47594bdeec1e6c02cf9c1e434bc301a25f1eb9",
+      "target_sha256": "dfd3b3b8157e8fe2b0da44661a47594bdeec1e6c02cf9c1e434bc301a25f1eb9"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/existing-brn/graders/no-new-brn.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/existing-brn/graders/no-new-brn.md",
+      "classification": "byte-identical",
+      "source_sha256": "7980aa83ec6be3236d33ade64940754b3733985663a17ab8246bb033226ad625",
+      "target_sha256": "7980aa83ec6be3236d33ade64940754b3733985663a17ab8246bb033226ad625"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/existing-brn/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/existing-brn/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "bbf9da72d5c1e85728da5bd0f87005bc48910a26b2e5fea2e8f7c6105af7388c",
+      "target_sha256": "bd349a241037023b315ddfb315bc060558997529b2454dca90dfc2fec30729d2"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/existing-brn/scaffold.sh",
+      "target": "src/codex/devforgeai/evals/brainstorm/existing-brn/scaffold.sh",
+      "classification": "byte-identical",
+      "source_sha256": "a46376c958ca3f0b36ddd67fa28fe46762ae4febd7a7d14e70292368c2ce68e4",
+      "target_sha256": "a46376c958ca3f0b36ddd67fa28fe46762ae4febd7a7d14e70292368c2ce68e4"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md",
+      "classification": "adapted",
+      "source_sha256": "277de178772a9afe1c9359edfafa48365c9799bfe015332ad15ccabe2dc132d6",
+      "target_sha256": "7f639cfc3381132622ff84f3a9f8476daeae31c9bef05ac39c31fdbbc590b421"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/names-brn-path.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/names-brn-path.md",
+      "classification": "byte-identical",
+      "source_sha256": "3f8160f4d6f64bf64784b7b306ee63299938d83794e692f623c042eb9347486a",
+      "target_sha256": "3f8160f4d6f64bf64784b7b306ee63299938d83794e692f623c042eb9347486a"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md",
+      "classification": "adapted",
+      "source_sha256": "8c86e3d7be7478f3b9c43f25c50c52c8c2a4654e26cf27bc2bb9b97f923f950d",
+      "target_sha256": "08e7d6cd34e888fa09261b0eb301223a37ca5288cd20c02e413090058bc1aaf2"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/no-path-argument.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/no-path-argument.md",
+      "classification": "adapted",
+      "source_sha256": "fb84fb66efcc29689c282045e765f4dc29431298f39db3e7d4e057b10571d04b",
+      "target_sha256": "6884a5a8985e58f81d2a2e4ba73dd2356bab9b1649122bc552612ec1a4e90259"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/no-prd-written.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/no-prd-written.md",
+      "classification": "byte-identical",
+      "source_sha256": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+      "target_sha256": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "ab154259a749ba6c3f68ea34a20c4a1150bee4e77578d2c84c7f64dd1c476ebf",
+      "target_sha256": "9ab4acfd0642f9ea04b37b7d3aff38e6c8806ad2000d3af7bb3ed83fa5888d2a"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/no-brn-written.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/ignores-unrelated-request/graders/no-brn-written.md",
+      "classification": "byte-identical",
+      "source_sha256": "c5bd869277a1a83515a4238edca00932b3441bdc1d6c59e088eb492d95f6c6cf",
+      "target_sha256": "c5bd869277a1a83515a4238edca00932b3441bdc1d6c59e088eb492d95f6c6cf"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/reviews-the-pr.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/ignores-unrelated-request/graders/reviews-the-pr.md",
+      "classification": "byte-identical",
+      "source_sha256": "10abd022e6bfa8cf5f2c62e42a0877c5d532e9dd2124c5c8301d6fb1f12ef0fc",
+      "target_sha256": "10abd022e6bfa8cf5f2c62e42a0877c5d532e9dd2124c5c8301d6fb1f12ef0fc"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/skill-not-fired.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/ignores-unrelated-request/graders/skill-not-fired.md",
+      "classification": "adapted",
+      "source_sha256": "726763e1da60628477b9163b2b1eea4bca61d9a7a13a1fc8a3553df168d82918",
+      "target_sha256": "c715ea4028135532782ae7ce17f6a9e7ad6245b8c6c73af9a9de869f2ffbe14b"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/ignores-unrelated-request/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "27d2e61660420398b3f6bbf596821c9e787c41e7793fb00eb18659cccf4e0b5d",
+      "target_sha256": "efbe7e2c85aebec44eaa786f84aee08161b48d76283c5b481f6abd1de6d0b232"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/brn-exists.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/no-unconfirmed-dispositions/graders/brn-exists.md",
+      "classification": "byte-identical",
+      "source_sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "target_sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/ideas-recorded-open.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/no-unconfirmed-dispositions/graders/ideas-recorded-open.md",
+      "classification": "byte-identical",
+      "source_sha256": "0bb1f064c8a4e4e10ebb152afacfa2f63be755fb9c1ce203af1529e0bba76338",
+      "target_sha256": "0bb1f064c8a4e4e10ebb152afacfa2f63be755fb9c1ce203af1529e0bba76338"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/no-decided-disposition.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/no-unconfirmed-dispositions/graders/no-decided-disposition.md",
+      "classification": "byte-identical",
+      "source_sha256": "0f9d322baad990a440f732c1620f45ad17d71f0eba322639be0bc492649d6694",
+      "target_sha256": "0f9d322baad990a440f732c1620f45ad17d71f0eba322639be0bc492649d6694"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/graders/not-converged.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/no-unconfirmed-dispositions/graders/not-converged.md",
+      "classification": "byte-identical",
+      "source_sha256": "cd80b1163d9d0b74421b11645fe14acdf3f344d84185f4470d225408a9da3be0",
+      "target_sha256": "cd80b1163d9d0b74421b11645fe14acdf3f344d84185f4470d225408a9da3be0"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/no-unconfirmed-dispositions/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "389b7e192e832c9d90a6a293300359ee02d132f269fc401f706b41d5d7eff65e",
+      "target_sha256": "91d9db96294bac510d92dd3cb5e2f90d0145c5a4b06f5b740764dac5f1845e71"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/brn-exists.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/graders/brn-exists.md",
+      "classification": "byte-identical",
+      "source_sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "target_sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/changelog-names-session.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/graders/changelog-names-session.md",
+      "classification": "adapted",
+      "source_sha256": "570265ef4c89f4896f812bb415ba631082ce887d9093b52f60417fa0d7655d8c",
+      "target_sha256": "60191bb35f9d7544af8995a87d1ae9b325465ee94972c9bf4cccbd2de5dc87f1"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/generated-by-filled.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/graders/generated-by-filled.md",
+      "classification": "adapted",
+      "source_sha256": "1cc3666c9cc3ce9020cf8bb0f5a36a3cb1f821b7ecad63edc62e6bd3136b7349",
+      "target_sha256": "973c3ed6929dda1ed71ade071b89ab8d79075cf469dadbb8887936979dd158ce"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/hashes-null.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/graders/hashes-null.md",
+      "classification": "byte-identical",
+      "source_sha256": "220a6b6fd782d5c3dd497e25924398fecf255d1da1ec0f2f8e64525cc07682b0",
+      "target_sha256": "220a6b6fd782d5c3dd497e25924398fecf255d1da1ec0f2f8e64525cc07682b0"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/reviewed-by-empty.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/graders/reviewed-by-empty.md",
+      "classification": "byte-identical",
+      "source_sha256": "e71a11760a0bddaafb421f25bee77cb31c14f0df23180e569b5a4e8d604d4329",
+      "target_sha256": "e71a11760a0bddaafb421f25bee77cb31c14f0df23180e569b5a4e8d604d4329"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/session-substituted.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/graders/session-substituted.md",
+      "classification": "adapted",
+      "source_sha256": "c1880e774c73662387375616a0e5fd4735206b87a7b28a9d818913cf2bb7d3d8",
+      "target_sha256": "f97c6e527e045aa9bbdfbba59bb3ef220f430cb59d6b22731091671998eada96"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/records-provenance/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/records-provenance/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "7dae7d113e21e5efbd520f61f771a9f90ac6b61cf7c0e6a904e47522ba7f9045",
+      "target_sha256": "94a148727e295a57bd3fd5bbdf0381a78f3cd34cefff1514cdc156fdf99df659"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/file-conforms.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/graders/file-conforms.md",
+      "classification": "byte-identical",
+      "source_sha256": "b28a698ff2da01ff1aec3ba75c2a017c1081e179cddb158d762c5f7d4e50ebfa",
+      "target_sha256": "b28a698ff2da01ff1aec3ba75c2a017c1081e179cddb158d762c5f7d4e50ebfa"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/framework-in-section-5.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/graders/framework-in-section-5.md",
+      "classification": "byte-identical",
+      "source_sha256": "2553c91fdc5b1d3862ecfda4223b8f21fe4cf159216b61b6eeec2f461a3500dc",
+      "target_sha256": "2553c91fdc5b1d3862ecfda4223b8f21fe4cf159216b61b6eeec2f461a3500dc"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/one-key-per-block.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/graders/one-key-per-block.md",
+      "classification": "byte-identical",
+      "source_sha256": "1bd999ac305d3641f91763c194a6af652d9753029d5ec338d90ed1ea05cadb7f",
+      "target_sha256": "1bd999ac305d3641f91763c194a6af652d9753029d5ec338d90ed1ea05cadb7f"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/only-allowed-collections.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/graders/only-allowed-collections.md",
+      "classification": "byte-identical",
+      "source_sha256": "3e57e34ad06a37937e8fc3d5e717d62abb028b774284784469db0921dc72ab08",
+      "target_sha256": "3e57e34ad06a37937e8fc3d5e717d62abb028b774284784469db0921dc72ab08"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/only-allowed-fields.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/graders/only-allowed-fields.md",
+      "classification": "byte-identical",
+      "source_sha256": "f2383027debdc41892c0e8bc597fa68f0fbb4ecbee20656495dc9be4b62a582d",
+      "target_sha256": "f2383027debdc41892c0e8bc597fa68f0fbb4ecbee20656495dc9be4b62a582d"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/graders/reply-names-framework.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/graders/reply-names-framework.md",
+      "classification": "byte-identical",
+      "source_sha256": "397f10ba7f6533bee6b5ea0e8d9228869c13dd0a7fa57259d75e555cf729c623",
+      "target_sha256": "397f10ba7f6533bee6b5ea0e8d9228869c13dd0a7fa57259d75e555cf729c623"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/uses-named-framework/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "900b883e43a2bc55d520aa6aa6c3f7e973f2002cf5a4e7348b157fe9f64f7b34",
+      "target_sha256": "373bad45dfe3a864331b0f6853147c66527bb2c505079c596f28e0066d2c5ffd"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/all-sections.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/all-sections.md",
+      "classification": "byte-identical",
+      "source_sha256": "8acdcb6b4f83112d8ac7ac9117386813b865840f866bf5cc8589dbdd0c1fd647",
+      "target_sha256": "8acdcb6b4f83112d8ac7ac9117386813b865840f866bf5cc8589dbdd0c1fd647"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/brn-exists.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/brn-exists.md",
+      "classification": "byte-identical",
+      "source_sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f",
+      "target_sha256": "d72e1f1ddc659e65236928c448d9caf222e8aae36f4e3cfbe085985ed07b434f"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/document-quality.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/document-quality.md",
+      "classification": "byte-identical",
+      "source_sha256": "a29fa1b17bc6e8988951bbd3694f9005c50dedec30289e337c65f248e1978f94",
+      "target_sha256": "a29fa1b17bc6e8988951bbd3694f9005c50dedec30289e337c65f248e1978f94"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/hands-off.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/hands-off.md",
+      "classification": "byte-identical",
+      "source_sha256": "606c3dc1991db9bbc4af00553356ba2ddc87eb66e7146596446b15a24b27c15a",
+      "target_sha256": "606c3dc1991db9bbc4af00553356ba2ddc87eb66e7146596446b15a24b27c15a"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/has-ideas-block.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/has-ideas-block.md",
+      "classification": "byte-identical",
+      "source_sha256": "20cf7f8ed79ea5b8a0e0b2c66fa5cd647bd1e2fc206f5696b6cbee90914cce57",
+      "target_sha256": "20cf7f8ed79ea5b8a0e0b2c66fa5cd647bd1e2fc206f5696b6cbee90914cce57"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/has-problems-block.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/has-problems-block.md",
+      "classification": "byte-identical",
+      "source_sha256": "5594e4dcf174d3e2d1439a6de9d4e13be6aa6185ae8667604eed632d117d55ea",
+      "target_sha256": "5594e4dcf174d3e2d1439a6de9d4e13be6aa6185ae8667604eed632d117d55ea"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/no-leftovers.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/no-leftovers.md",
+      "classification": "byte-identical",
+      "source_sha256": "d729326a4d8bd1b15d809cd41e52789222655b735a6479a540e7de974327a953",
+      "target_sha256": "d729326a4d8bd1b15d809cd41e52789222655b735a6479a540e7de974327a953"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/ran-validator.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/ran-validator.md",
+      "classification": "byte-identical",
+      "source_sha256": "daf0bfa5a1392dabc51e337a908cbb7513fb13ea075b3fec8f71930c36937996",
+      "target_sha256": "daf0bfa5a1392dabc51e337a908cbb7513fb13ea075b3fec8f71930c36937996"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/skill-fired.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/skill-fired.md",
+      "classification": "adapted",
+      "source_sha256": "bd8d62af55f1934634e518dbb84afbb6225b8be8ea1c0a237d7c2ec6363d4982",
+      "target_sha256": "3a7ec84d0c70cc13c3360362c1cd9cfbdbcc5d9668345ed229adaed79fa99bcc"
+    },
+    {
+      "source": "src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/prompt.md",
+      "target": "src/codex/devforgeai/evals/brainstorm/writes-valid-brn/prompt.md",
+      "classification": "adapted",
+      "source_sha256": "5b99b69bd4c9f84d2a8ee654122eed4f9ea2a020f2aeddfb6557e811e04c9986",
+      "target_sha256": "3a8079033f0bf5bf607211cc5e4ce65a76cece38395c8600d2e93fb422987406"
+    }
+  ],
+  "source_unchanged_after_import": true,
+  "source_unchanged_after_final_checks": true,
+  "notes": [
+    "source-manifest.json and claude-to-codex.patch retain the initial import.",
+    "The final patch and manifest include review corrections to the topic example and historical-fixture grader.",
+    "The native verification denominator remains 10, all NOT_RUN."
+  ],
+  "comparison_base": "Original Claude source snapshot recorded in source-manifest.json; no reimport.",
+  "incremental_patch": "question-tool-r007.patch",
+  "source_drift_since_original_import": [
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md",
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md",
+    "src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/prompt.md"
+  ]
+}

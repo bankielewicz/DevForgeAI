@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "unchanged-skill",
+      "status": "PASS",
+      "evidence": "4ffed3450272439f457da0d237c822f8a81a811f22629572f2ba934063f050fe"
+    },
+    {
+      "name": "missing-file-fallback",
+      "status": "PASS",
+      "evidence": "Final discloses missing validation-probe.md and selects diverge-converge."
+    }
+  ]
+}

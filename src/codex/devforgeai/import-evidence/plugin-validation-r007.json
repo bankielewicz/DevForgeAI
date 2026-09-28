@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/mnt/c/Users/bryan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py",
+    "/home/bryan/Projects/DevForgeAI/src/codex/devforgeai"
+  ],
+  "cwd": "/home/bryan/Projects/DevForgeAI",
+  "exit_code": 0,
+  "stdout": "Plugin validation passed: /home/bryan/Projects/DevForgeAI/src/codex/devforgeai\n",
+  "stderr": ""
+}

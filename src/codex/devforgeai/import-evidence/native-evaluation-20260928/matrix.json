@@ -1,0 +1,306 @@
+{
+  "mandatory_VER": [
+    "VER-01",
+    "VER-02",
+    "VER-03",
+    "VER-04",
+    "VER-05",
+    "VER-06",
+    "VER-07",
+    "VER-08",
+    "VER-09",
+    "VER-10"
+  ],
+  "case_threshold": 0.8,
+  "scoring": "mean of three binary trial scores; each trial requires all applicable graders",
+  "trials": [
+    {
+      "case": "asks-for-topic",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "asks-for-topic",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-brn",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-brn",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-prd",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-unconfirmed-dispositions",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-unconfirmed-dispositions",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "uses-named-framework",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "writes-valid-brn",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "writes-valid-brn",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "asks-for-topic",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "asks-for-topic",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-brn",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-brn",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-prd",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-unconfirmed-dispositions",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-unconfirmed-dispositions",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "uses-named-framework",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "writes-valid-brn",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "writes-valid-brn",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "asks-for-topic",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "asks-for-topic",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-brn",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-brn",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-prd",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-unconfirmed-dispositions",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-unconfirmed-dispositions",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "uses-named-framework",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "writes-valid-brn",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "writes-valid-brn",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "FAIL",
+  "checks": [
+    {
+      "name": "exact-user-dispositions-and-reasons",
+      "status": "PASS",
+      "evidence": "[('promoted', 'Try the smallest useful pilot'), ('parked', 'Wait for volunteer capacity'), ('rejected', 'Outside this month budget'), ('open', None), ('open', None)]"
+    },
+    {
+      "name": "confirmed-convergence",
+      "status": "FAIL",
+      "evidence": "User explicitly confirmed convergence, but metadata is draft"
+    }
+  ],
+  "port_fallback_conformance": "PASS: the port itself requires draft for unknown model.",
+  "specification_impact": "BEH-06 confirmed-convergence behavior diverges under the missing-model fallback D-04."
+}

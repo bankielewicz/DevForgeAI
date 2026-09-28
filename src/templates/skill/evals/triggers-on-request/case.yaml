@@ -1,0 +1,5 @@
+# Optional. Only needed when the run needs files in its workspace. Run with --scaffold.
+schema_version: "1.1"
+name: triggers-on-request
+context:
+  scaffold_script: scaffold.sh   # a Bash script in this directory that creates fixture files

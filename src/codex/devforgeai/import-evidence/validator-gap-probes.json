@@ -1,0 +1,50 @@
+[
+  {
+    "probe": "authors-not-a-list",
+    "expected_by_output_rules": "REJECT",
+    "results": {
+      "claude": {
+        "validator_errors": [],
+        "accepted": true,
+        "fixture": "import-evidence/validator-probes/authors-not-a-list/claude/docs/specs/brainstorm/BRN-001.md"
+      },
+      "codex": {
+        "validator_errors": [],
+        "accepted": true,
+        "fixture": "import-evidence/validator-probes/authors-not-a-list/codex/docs/specs/brainstorm/BRN-001.md"
+      }
+    }
+  },
+  {
+    "probe": "unknown-provenance-key",
+    "expected_by_output_rules": "REJECT",
+    "results": {
+      "claude": {
+        "validator_errors": [],
+        "accepted": true,
+        "fixture": "import-evidence/validator-probes/unknown-provenance-key/claude/docs/specs/brainstorm/BRN-001.md"
+      },
+      "codex": {
+        "validator_errors": [],
+        "accepted": true,
+        "fixture": "import-evidence/validator-probes/unknown-provenance-key/codex/docs/specs/brainstorm/BRN-001.md"
+      }
+    }
+  },
+  {
+    "probe": "placeholder-in-change-log",
+    "expected_by_output_rules": "REJECT",
+    "results": {
+      "claude": {
+        "validator_errors": [],
+        "accepted": true,
+        "fixture": "import-evidence/validator-probes/placeholder-in-change-log/claude/docs/specs/brainstorm/BRN-001.md"
+      },
+      "codex": {
+        "validator_errors": [],
+        "accepted": true,
+        "fixture": "import-evidence/validator-probes/placeholder-in-change-log/codex/docs/specs/brainstorm/BRN-001.md"
+      }
+    }
+  }
+]

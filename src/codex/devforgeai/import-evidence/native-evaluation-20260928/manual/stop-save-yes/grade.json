@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "no-write-before-save-choice-1",
+      "status": "PASS",
+      "evidence": "Saved filesystem snapshot after turn 1"
+    },
+    {
+      "name": "no-write-before-save-choice-2",
+      "status": "PASS",
+      "evidence": "Saved filesystem snapshot after turn 2"
+    },
+    {
+      "name": "offers-save-on-stop",
+      "status": "PASS",
+      "evidence": "Stopped. Would you like to save the captured ideas as a draft BRN, with every disposition left **open**, or leave everything unsaved? No document has been written.\n\nThe [brainstorm skill](/tmp/devforgeai-codex-eval-20260928/candidate/skills/brainstorm/SKILL.md) requires this check: \u201cIf the user stops partway through the session, ask whether to save what has been captured as a draft BRN.\u201d"
+    },
+    {
+      "name": "accepted-draft-all-open",
+      "status": "PASS",
+      "evidence": "Final BRN parses as draft; all ideas open with null reasons."
+    },
+    {
+      "name": "user-words-preserved",
+      "status": "PASS",
+      "evidence": "Both supplied ideas appear verbatim."
+    },
+    {
+      "name": "native-question-observed",
+      "status": "PASS",
+      "evidence": "1 item/tool/requestUserInput event(s)."
+    }
+  ]
+}

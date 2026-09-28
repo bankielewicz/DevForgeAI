@@ -1,0 +1,1130 @@
+{
+  "candidate_sha256": "319fdfe17a22688e7a39ae4018d3914777cbd2c76616f4486aaeba2e3e46ce8e",
+  "runtime": "Codex 0.158.0 app-server on WSL Ubuntu",
+  "model": "gpt-6-astra",
+  "reasoning_effort": "high",
+  "overall": "NOT_QUALIFIED",
+  "mandatory_denominator": 10,
+  "verification_counts": {
+    "PASS": 7,
+    "FAIL": 2,
+    "BLOCKED": 1
+  },
+  "mandatory_verification": [
+    {
+      "id": "VER-01",
+      "status": "PASS",
+      "evidence": "writes-valid-brn 3/3; validator executed successfully in native traces."
+    },
+    {
+      "id": "VER-02",
+      "status": "PASS",
+      "evidence": "no-unconfirmed-dispositions 3/3; every unconfirmed idea open/null and status draft."
+    },
+    {
+      "id": "VER-03",
+      "status": "FAIL",
+      "evidence": "records-provenance 0/3: session matches host, model is unknown rather than host-selected gpt-6-astra."
+    },
+    {
+      "id": "VER-04",
+      "status": "PASS",
+      "evidence": "uses-named-framework 3/3; see isolated supplemental controls and discovery-audit limitation."
+    },
+    {
+      "id": "VER-05",
+      "status": "PASS",
+      "evidence": "Added framework selected, missing-file variant falls back and discloses the cause; SKILL.md hashes unchanged."
+    },
+    {
+      "id": "VER-06",
+      "status": "PASS",
+      "evidence": "ignores-unrelated-request 3/3; complete retained traces show no candidate SKILL read."
+    },
+    {
+      "id": "VER-07",
+      "status": "PASS",
+      "evidence": "asks-for-topic 3/3; asks before writing."
+    },
+    {
+      "id": "VER-08",
+      "status": "PASS",
+      "evidence": "existing-brn 3/3 with full-file hashes unchanged; additional extension scenario preserves exact original items/history."
+    },
+    {
+      "id": "VER-09",
+      "status": "FAIL",
+      "evidence": "Expanded imported manual plan includes confirmed convergence, which remains draft because model provenance is unknown. The literal SPEC VER-09 core (save yes/no, three failures, static limits) passes. No expanded manual failure is waived."
+    },
+    {
+      "id": "VER-10",
+      "status": "BLOCKED",
+      "evidence": "PRD-present branch NOT_RUN: Codex PRD skill is absent. The imported absent-PRD case passes 3/3 but does not satisfy the specification branch."
+    }
+  ],
+  "matrix_total": 48,
+  "matrix_executed": 48,
+  "plugin_passes": 21,
+  "plugin_total": 24,
+  "baseline_passes": 3,
+  "baseline_total": 24,
+  "case_results": {
+    "asks-for-topic": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    "existing-brn": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    "hands-off-to-prd": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    "ignores-unrelated-request": {
+      "baseline": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    "no-unconfirmed-dispositions": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    "records-provenance": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      }
+    },
+    "uses-named-framework": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    },
+    "writes-valid-brn": {
+      "baseline": {
+        "passes": 0,
+        "total": 3,
+        "score": 0.0,
+        "threshold": 0.8,
+        "status": "FAIL",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 2,
+            "status": "FAIL"
+          },
+          {
+            "repeat": 3,
+            "status": "FAIL"
+          }
+        ]
+      },
+      "plugin": {
+        "passes": 3,
+        "total": 3,
+        "score": 1.0,
+        "threshold": 0.8,
+        "status": "PASS",
+        "runs": [
+          {
+            "repeat": 1,
+            "status": "PASS"
+          },
+          {
+            "repeat": 2,
+            "status": "PASS"
+          },
+          {
+            "repeat": 3,
+            "status": "PASS"
+          }
+        ]
+      }
+    }
+  },
+  "trials": [
+    {
+      "id": "asks-for-topic--baseline--1",
+      "case": "asks-for-topic",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/asks-for-topic--baseline--1/grade.json"
+    },
+    {
+      "id": "asks-for-topic--baseline--2",
+      "case": "asks-for-topic",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/asks-for-topic--baseline--2/grade.json"
+    },
+    {
+      "id": "asks-for-topic--baseline--3",
+      "case": "asks-for-topic",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/asks-for-topic--baseline--3/grade.json"
+    },
+    {
+      "id": "asks-for-topic--plugin--1",
+      "case": "asks-for-topic",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/asks-for-topic--plugin--1/grade.json"
+    },
+    {
+      "id": "asks-for-topic--plugin--2",
+      "case": "asks-for-topic",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/asks-for-topic--plugin--2/grade.json"
+    },
+    {
+      "id": "asks-for-topic--plugin--3",
+      "case": "asks-for-topic",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/asks-for-topic--plugin--3/grade.json"
+    },
+    {
+      "id": "existing-brn--baseline--1",
+      "case": "existing-brn",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/existing-brn--baseline--1/grade.json"
+    },
+    {
+      "id": "existing-brn--baseline--2",
+      "case": "existing-brn",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/existing-brn--baseline--2/grade.json"
+    },
+    {
+      "id": "existing-brn--baseline--3",
+      "case": "existing-brn",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/existing-brn--baseline--3/grade.json"
+    },
+    {
+      "id": "existing-brn--plugin--1",
+      "case": "existing-brn",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/existing-brn--plugin--1/grade.json"
+    },
+    {
+      "id": "existing-brn--plugin--2",
+      "case": "existing-brn",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/existing-brn--plugin--2/grade.json"
+    },
+    {
+      "id": "existing-brn--plugin--3",
+      "case": "existing-brn",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/existing-brn--plugin--3/grade.json"
+    },
+    {
+      "id": "hands-off-to-prd--baseline--1",
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/hands-off-to-prd--baseline--1/grade.json"
+    },
+    {
+      "id": "hands-off-to-prd--baseline--2",
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/hands-off-to-prd--baseline--2/grade.json"
+    },
+    {
+      "id": "hands-off-to-prd--baseline--3",
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/hands-off-to-prd--baseline--3/grade.json"
+    },
+    {
+      "id": "hands-off-to-prd--plugin--1",
+      "case": "hands-off-to-prd",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/hands-off-to-prd--plugin--1/grade.json"
+    },
+    {
+      "id": "hands-off-to-prd--plugin--2",
+      "case": "hands-off-to-prd",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/hands-off-to-prd--plugin--2/grade.json"
+    },
+    {
+      "id": "hands-off-to-prd--plugin--3",
+      "case": "hands-off-to-prd",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/hands-off-to-prd--plugin--3/grade.json"
+    },
+    {
+      "id": "ignores-unrelated-request--baseline--1",
+      "case": "ignores-unrelated-request",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/ignores-unrelated-request--baseline--1/grade.json"
+    },
+    {
+      "id": "ignores-unrelated-request--baseline--2",
+      "case": "ignores-unrelated-request",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/ignores-unrelated-request--baseline--2/grade.json"
+    },
+    {
+      "id": "ignores-unrelated-request--baseline--3",
+      "case": "ignores-unrelated-request",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/ignores-unrelated-request--baseline--3/grade.json"
+    },
+    {
+      "id": "ignores-unrelated-request--plugin--1",
+      "case": "ignores-unrelated-request",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/ignores-unrelated-request--plugin--1/grade.json"
+    },
+    {
+      "id": "ignores-unrelated-request--plugin--2",
+      "case": "ignores-unrelated-request",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/ignores-unrelated-request--plugin--2/grade.json"
+    },
+    {
+      "id": "ignores-unrelated-request--plugin--3",
+      "case": "ignores-unrelated-request",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/ignores-unrelated-request--plugin--3/grade.json"
+    },
+    {
+      "id": "no-unconfirmed-dispositions--baseline--1",
+      "case": "no-unconfirmed-dispositions",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/no-unconfirmed-dispositions--baseline--1/grade.json"
+    },
+    {
+      "id": "no-unconfirmed-dispositions--baseline--2",
+      "case": "no-unconfirmed-dispositions",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/no-unconfirmed-dispositions--baseline--2/grade.json"
+    },
+    {
+      "id": "no-unconfirmed-dispositions--baseline--3",
+      "case": "no-unconfirmed-dispositions",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/no-unconfirmed-dispositions--baseline--3/grade.json"
+    },
+    {
+      "id": "no-unconfirmed-dispositions--plugin--1",
+      "case": "no-unconfirmed-dispositions",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/no-unconfirmed-dispositions--plugin--1/grade.json"
+    },
+    {
+      "id": "no-unconfirmed-dispositions--plugin--2",
+      "case": "no-unconfirmed-dispositions",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/no-unconfirmed-dispositions--plugin--2/grade.json"
+    },
+    {
+      "id": "no-unconfirmed-dispositions--plugin--3",
+      "case": "no-unconfirmed-dispositions",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/no-unconfirmed-dispositions--plugin--3/grade.json"
+    },
+    {
+      "id": "records-provenance--baseline--1",
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/records-provenance--baseline--1/grade.json"
+    },
+    {
+      "id": "records-provenance--baseline--2",
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/records-provenance--baseline--2/grade.json"
+    },
+    {
+      "id": "records-provenance--baseline--3",
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/records-provenance--baseline--3/grade.json"
+    },
+    {
+      "id": "records-provenance--plugin--1",
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/records-provenance--plugin--1/grade.json"
+    },
+    {
+      "id": "records-provenance--plugin--2",
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/records-provenance--plugin--2/grade.json"
+    },
+    {
+      "id": "records-provenance--plugin--3",
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/records-provenance--plugin--3/grade.json"
+    },
+    {
+      "id": "uses-named-framework--baseline--1",
+      "case": "uses-named-framework",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/uses-named-framework--baseline--1/grade.json"
+    },
+    {
+      "id": "uses-named-framework--baseline--2",
+      "case": "uses-named-framework",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/uses-named-framework--baseline--2/grade.json"
+    },
+    {
+      "id": "uses-named-framework--baseline--3",
+      "case": "uses-named-framework",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/uses-named-framework--baseline--3/grade.json"
+    },
+    {
+      "id": "uses-named-framework--plugin--1",
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/uses-named-framework--plugin--1/grade.json"
+    },
+    {
+      "id": "uses-named-framework--plugin--2",
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/uses-named-framework--plugin--2/grade.json"
+    },
+    {
+      "id": "uses-named-framework--plugin--3",
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/uses-named-framework--plugin--3/grade.json"
+    },
+    {
+      "id": "writes-valid-brn--baseline--1",
+      "case": "writes-valid-brn",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "FAIL",
+      "grade": "runs/writes-valid-brn--baseline--1/grade.json"
+    },
+    {
+      "id": "writes-valid-brn--baseline--2",
+      "case": "writes-valid-brn",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "FAIL",
+      "grade": "runs/writes-valid-brn--baseline--2/grade.json"
+    },
+    {
+      "id": "writes-valid-brn--baseline--3",
+      "case": "writes-valid-brn",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "grade": "runs/writes-valid-brn--baseline--3/grade.json"
+    },
+    {
+      "id": "writes-valid-brn--plugin--1",
+      "case": "writes-valid-brn",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "PASS",
+      "grade": "runs/writes-valid-brn--plugin--1/grade.json"
+    },
+    {
+      "id": "writes-valid-brn--plugin--2",
+      "case": "writes-valid-brn",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "grade": "runs/writes-valid-brn--plugin--2/grade.json"
+    },
+    {
+      "id": "writes-valid-brn--plugin--3",
+      "case": "writes-valid-brn",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "grade": "runs/writes-valid-brn--plugin--3/grade.json"
+    }
+  ],
+  "manual_scenarios": {
+    "confirmed-decisions": {
+      "status": "FAIL",
+      "checks": [
+        {
+          "name": "exact-user-dispositions-and-reasons",
+          "status": "PASS",
+          "evidence": "[('promoted', 'Try the smallest useful pilot'), ('parked', 'Wait for volunteer capacity'), ('rejected', 'Outside this month budget'), ('open', None), ('open', None)]"
+        },
+        {
+          "name": "confirmed-convergence",
+          "status": "FAIL",
+          "evidence": "User explicitly confirmed convergence, but metadata is draft"
+        }
+      ],
+      "port_fallback_conformance": "PASS: the port itself requires draft for unknown model.",
+      "specification_impact": "BEH-06 confirmed-convergence behavior diverges under the missing-model fallback D-04."
+    },
+    "extension-preserves-history": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "old-items-exact",
+          "status": "PASS",
+          "evidence": "Original problem, idea and assumption objects retained exactly."
+        },
+        {
+          "name": "history-row-exact",
+          "status": "PASS",
+          "evidence": "| 1 | 2026-09-01 | claude-code | Initial draft |"
+        },
+        {
+          "name": "version-authors-ids",
+          "status": "PASS",
+          "evidence": "Version 2, original authors plus Codex, new ideas allocated 02..04."
+        },
+        {
+          "name": "unconfirmed-open-draft",
+          "status": "PASS",
+          "evidence": "All ideas open/null; status draft."
+        }
+      ]
+    },
+    "framework-added": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "unchanged-skill",
+          "status": "PASS",
+          "evidence": "4ffed3450272439f457da0d237c822f8a81a811f22629572f2ba934063f050fe"
+        },
+        {
+          "name": "select-added-framework",
+          "status": "PASS",
+          "evidence": "Final names validation-probe; section 5 contains the test framework marker."
+        }
+      ]
+    },
+    "framework-missing": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "unchanged-skill",
+          "status": "PASS",
+          "evidence": "4ffed3450272439f457da0d237c822f8a81a811f22629572f2ba934063f050fe"
+        },
+        {
+          "name": "missing-file-fallback",
+          "status": "PASS",
+          "evidence": "Final discloses missing validation-probe.md and selects diverge-converge."
+        }
+      ]
+    },
+    "native-question-plan": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "native-request-user-input",
+          "status": "PASS",
+          "evidence": "Native item/tool/requestUserInput event requests extend/new choice."
+        },
+        {
+          "name": "pending-question-no-write",
+          "status": "PASS",
+          "evidence": "Original full-file hash unchanged; no new BRN while question is unanswered."
+        }
+      ]
+    },
+    "stop-save-no": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "no-write-before-save-choice-1",
+          "status": "PASS",
+          "evidence": "Saved filesystem snapshot after turn 1"
+        },
+        {
+          "name": "no-write-before-save-choice-2",
+          "status": "PASS",
+          "evidence": "Saved filesystem snapshot after turn 2"
+        },
+        {
+          "name": "offers-save-on-stop",
+          "status": "PASS",
+          "evidence": "Stopped, Dana. No document has been written; all dispositions remain unconfirmed.\n\nWould you like to save a draft with all ideas open, or leave the session unsaved?\n\nThe [brainstorm skill](/tmp/devforgeai-codex-eval-20260928/candidate/skills/brainstorm/SKILL.md) requires this closing question: \u201cIf the user stops partway through the session, ask whether to save what has been captured as a draft BRN.\u201d"
+        },
+        {
+          "name": "declined-no-write",
+          "status": "PASS",
+          "evidence": "No docs artifact after declining the draft save."
+        },
+        {
+          "name": "native-question-observed",
+          "status": "PASS",
+          "evidence": "1 item/tool/requestUserInput event(s)."
+        }
+      ]
+    },
+    "stop-save-yes": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "no-write-before-save-choice-1",
+          "status": "PASS",
+          "evidence": "Saved filesystem snapshot after turn 1"
+        },
+        {
+          "name": "no-write-before-save-choice-2",
+          "status": "PASS",
+          "evidence": "Saved filesystem snapshot after turn 2"
+        },
+        {
+          "name": "offers-save-on-stop",
+          "status": "PASS",
+          "evidence": "Stopped. Would you like to save the captured ideas as a draft BRN, with every disposition left **open**, or leave everything unsaved? No document has been written.\n\nThe [brainstorm skill](/tmp/devforgeai-codex-eval-20260928/candidate/skills/brainstorm/SKILL.md) requires this check: \u201cIf the user stops partway through the session, ask whether to save what has been captured as a draft BRN.\u201d"
+        },
+        {
+          "name": "accepted-draft-all-open",
+          "status": "PASS",
+          "evidence": "Final BRN parses as draft; all ideas open with null reasons."
+        },
+        {
+          "name": "user-words-preserved",
+          "status": "PASS",
+          "evidence": "Both supplied ideas appear verbatim."
+        },
+        {
+          "name": "native-question-observed",
+          "status": "PASS",
+          "evidence": "1 item/tool/requestUserInput event(s)."
+        }
+      ]
+    },
+    "validator-three-attempts": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "three-attempt-limit",
+          "status": "PASS",
+          "evidence": "Test validator persisted attempt count=3"
+        },
+        {
+          "name": "draft-and-errors",
+          "status": "PASS",
+          "evidence": "Final document is draft and final response quotes the remaining failure."
+        },
+        {
+          "name": "validator-not-rewritten",
+          "status": "PASS",
+          "evidence": "Disposable plugin before/after inventories match."
+        }
+      ]
+    }
+  },
+  "manual_counts": {
+    "FAIL": 1,
+    "PASS": 7
+  },
+  "grading": "Frozen regex/file assertions plus native successful-execution checks, complete trace reads, full-file hashes, host identity comparisons, and primary importing-agent semantic review. Not an independent qualification.",
+  "baseline_caveat": "Same full contract is scored for both arms. Positive skill-load assertions necessarily fail without the plugin; baseline topic-question semantics pass in all three runs.",
+  "installation": "NOT_PERFORMED; runtime skill discovery through process-scoped extra roots is separate from installed plugin qualification.",
+  "source_candidate_modified": false,
+  "isolation_controls": {
+    "hands-off-to-prd--baseline--3": {
+      "case": "hands-off-to-prd",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "FAIL",
+      "checks": [
+        {
+          "name": "execution-complete",
+          "status": "PASS",
+          "evidence": "completed"
+        },
+        {
+          "name": "handoff-quality",
+          "status": "FAIL",
+          "evidence": "Final is a free-form expense-approval brainstorm. It does not name the PRD workflow, BRN-001 or the required next-step handoff."
+        },
+        {
+          "name": "names-brn-path",
+          "status": "FAIL",
+          "evidence": "Pattern matched=False; expected=True"
+        },
+        {
+          "name": "names-prd-command",
+          "status": "FAIL",
+          "evidence": "Pattern matched=False; expected=True"
+        },
+        {
+          "name": "no-path-argument",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "no-prd-written",
+          "status": "PASS",
+          "evidence": "docs/specs/prd/**: exists=False"
+        }
+      ]
+    },
+    "uses-named-framework--plugin--2": {
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "execution-complete",
+          "status": "PASS",
+          "evidence": "completed"
+        },
+        {
+          "name": "file-conforms",
+          "status": "PASS",
+          "evidence": "All collection-specific key sets are allowed. Section 5 names diverge-converge, defines value/effort/risk and explains high=3/medium=2/low=1 and score=2*value-effort-risk."
+        },
+        {
+          "name": "framework-in-section-5",
+          "status": "PASS",
+          "evidence": "Pattern matched=True; expected=True"
+        },
+        {
+          "name": "one-key-per-block",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "only-allowed-collections",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "only-allowed-fields",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "reply-names-framework",
+          "status": "PASS",
+          "evidence": "Opening report explicitly names diverge-converge."
+        },
+        {
+          "name": "independent-validator",
+          "status": "PASS",
+          "evidence": "OK: src/codex/devforgeai/import-evidence/native-evaluation-20260928/isolation-controls/uses-named-framework--plugin--2/workspace/docs/specs/brainstorm/BRN-001.md"
+        }
+      ]
+    },
+    "uses-named-framework--plugin--3": {
+      "case": "uses-named-framework",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "execution-complete",
+          "status": "PASS",
+          "evidence": "completed"
+        },
+        {
+          "name": "file-conforms",
+          "status": "PASS",
+          "evidence": "All collection-specific key sets are allowed. Section 5 names diverge-converge, defines value/effort/risk and explains high=3/medium=2/low=1 and score=2*value-effort-risk."
+        },
+        {
+          "name": "framework-in-section-5",
+          "status": "PASS",
+          "evidence": "Pattern matched=True; expected=True"
+        },
+        {
+          "name": "one-key-per-block",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "only-allowed-collections",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "only-allowed-fields",
+          "status": "PASS",
+          "evidence": "Pattern matched=False; expected=False"
+        },
+        {
+          "name": "reply-names-framework",
+          "status": "PASS",
+          "evidence": "Opening report explicitly names diverge-converge."
+        },
+        {
+          "name": "independent-validator",
+          "status": "PASS",
+          "evidence": "OK: src/codex/devforgeai/import-evidence/native-evaluation-20260928/isolation-controls/uses-named-framework--plugin--3/workspace/docs/specs/brainstorm/BRN-001.md"
+        }
+      ]
+    }
+  },
+  "discovery_audit": "discovery-audit.json"
+}

@@ -1,0 +1,61 @@
+{
+  "synthetic_user_answers": true,
+  "tests": {
+    "framework-added": {
+      "ver": "VER-05",
+      "turns": [
+        "I am Dana. Brainstorm five ideas for reducing queue time at a community tool library using the validation-probe framework. Skip questions and write it up."
+      ]
+    },
+    "framework-missing": {
+      "ver": "VER-05",
+      "turns": [
+        "I am Dana. Brainstorm five ideas for reducing queue time at a community tool library using the validation-probe framework. Skip questions and write it up."
+      ]
+    },
+    "stop-save-yes": {
+      "ver": "VER-09",
+      "turns": [
+        "I am Dana. Brainstorm ways our two-person community tool library can reduce queues, with no software budget. My ideas are \"a paper express-return tray\" and \"a volunteer queue greeter\". Present options and proposed dispositions for confirmation; do not write a document yet.",
+        "Stop the session here.",
+        "Yes, save the captured ideas as a draft. Leave every disposition open. Do not ask any more questions."
+      ]
+    },
+    "stop-save-no": {
+      "ver": "VER-09",
+      "turns": [
+        "I am Dana. Brainstorm ways our two-person community tool library can reduce queues, with no software budget. My ideas are \"a paper express-return tray\" and \"a volunteer queue greeter\". Present options and proposed dispositions for confirmation; do not write a document yet.",
+        "Stop the session here.",
+        "No, do not save anything."
+      ]
+    },
+    "validator-three-attempts": {
+      "ver": "VER-09",
+      "turns": [
+        "I am Dana. Brainstorm exactly five ideas for reducing queues at a community tool library. Skip questions and write it up."
+      ]
+    },
+    "confirmed-decisions": {
+      "ver": "VER-09 supplementary",
+      "turns": [
+        "I am Dana. Brainstorm exactly five ideas for reducing queues at a community tool library with two volunteers and no software budget. Present a numbered IDEA-01 through IDEA-05 table of proposed dispositions and reasons for my confirmation before writing.",
+        "I confirm IDEA-01 promoted, reason \"Try the smallest useful pilot\"; IDEA-02 parked, reason \"Wait for volunteer capacity\"; IDEA-03 rejected, reason \"Outside this month budget\". Leave IDEA-04 and IDEA-05 open with no reason. I confirm the brainstorm has converged. Write it now without more questions."
+      ]
+    },
+    "extension-preserves-history": {
+      "ver": "VER-08 supplementary",
+      "turns": [
+        "Brainstorm ways to reduce appointment no-shows at our dental clinic.",
+        "Extend BRN-001. I am Dana. Add three more ideas, keep existing item meanings and all prior history, and proceed without further questions. I have not confirmed any dispositions or convergence."
+      ]
+    },
+    "native-question-plan": {
+      "ver": "Native question-tool adaptation",
+      "mode": "plan",
+      "turns": [
+        "Brainstorm ways to reduce appointment no-shows at our dental clinic."
+      ]
+    }
+  },
+  "policy": "All scenarios retained; no hidden retries or changes to source candidate."
+}
