@@ -41,12 +41,12 @@ repository's source.
 | `brainstorm` | `/devforgeai:brainstorm [topic]` | Runs a structured brainstorm and writes a BRN document with problems, ideas, assumptions and the dispositions you confirmed | Implemented ([SPEC-001](docs/specs/spec/SPEC-001.md)) |
 | `prd` | `/devforgeai:prd [BRN-NNN]` | Drafts a PRD from a converged brainstorm's promoted ideas, interviews you only for the gaps, and applies any approved policy | Implemented ([SPEC-002](docs/specs/spec/SPEC-002.md)) |
 | `documents-updater` | `/devforgeai:documents-updater [base-revision-or-range] [propose]` | Updates a repository's README, CHANGELOG and guides from its git changes, or proposes the edits | Implemented ([SPEC-006](docs/specs/spec/SPEC-006.md)) |
-| `architecture` | — | Architecture Definition: an ARCH document and ADRs for a PRD | Specified only ([SPEC-003](docs/specs/spec/SPEC-003.md)) |
-| `epic` | — | Epics refining PRD requirements | Specified only ([SPEC-004](docs/specs/spec/SPEC-004.md)) |
+| `architecture` | `/devforgeai:architecture [PRD-NNN]` | Identifies the architectural questions separate epics must share, settles each only by your decision, an accepted ADR or approved policy, and writes an ARCH document with ADRs and a report of which requirements are ready for epics | Implemented ([SPEC-003](docs/specs/spec/SPEC-003.md)) |
+| `epic` | `/devforgeai:epic [PRD-NNN]` | Groups a PRD's ready, current-release requirements into epics you confirm, and reports every requirement left out and why | Implemented ([SPEC-004](docs/specs/spec/SPEC-004.md)) |
 
 The planning chain is Brainstorm → PRD → Architecture Definition → Epic → Story → Spec; the first
-two steps are implemented. Until the architecture skill exists, the PRD skill's handoff says to write
-ADRs by hand.
+four steps are implemented. Until a story skill exists, the epic skill's handoff says to write stories
+by hand from the story template.
 
 ## Where documents go
 

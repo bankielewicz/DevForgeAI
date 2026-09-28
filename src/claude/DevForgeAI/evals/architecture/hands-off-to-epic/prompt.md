@@ -1,5 +1,5 @@
 ---
-description: "VER-10 (current branch): no epic skill ships, so the reply lists ready and blocked requirements and ends with a Next step paragraph naming /devforgeai:epic PRD-001 as not built yet."
+description: "VER-10 (shipped branch): the epic skill ships, so the reply lists ready and blocked requirements and ends with a Next step paragraph telling the user to run /devforgeai:epic PRD-001."
 tags: [architecture, ver-10]
 max_turns: 60
 timeout_seconds: 1200
