@@ -1,0 +1,82 @@
+{
+  "case": "insufficient-evidence",
+  "verification": "VER-08",
+  "arm": "plugin",
+  "repeat": 1,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "arch-exists",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": true
+    },
+    {
+      "grader": "clarification-marker",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "outcome-not-reuse",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    }
+  ],
+  "source_score": 1.0,
+  "threshold_pass": true,
+  "activation": {
+    "expected": true,
+    "observed": true,
+    "loads": [
+      {
+        "id": "exec-701e4bb2-e776-4e2f-acc0-6703dafa54c5",
+        "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-8r4rjq0q/devforgeai/skills/architecture/SKILL.md'",
+        "paths": [
+          "/tmp/dfai-architecture-eval-8r4rjq0q/devforgeai/skills/architecture/SKILL.md"
+        ]
+      }
+    ]
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "runtime_candidate_preserved": true,
+    "runtime_model_known": true,
+    "runtime_session_known": true,
+    "provenance_tool_is_codex": true,
+    "provenance_model_matches_runtime": false,
+    "provenance_session_matches_runtime": false
+  },
+  "changed_paths": [
+    "docs/specs/arch/ARCH-001.md"
+  ],
+  "provenance": {
+    "recorded": {
+      "tool": "codex",
+      "model": "unknown",
+      "session": "unknown"
+    },
+    "runtime": {
+      "tool": "codex",
+      "model": "gpt-6-astra",
+      "session": "01a0e9ee-1356-7841-89e2-8e9124a367ff"
+    }
+  },
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

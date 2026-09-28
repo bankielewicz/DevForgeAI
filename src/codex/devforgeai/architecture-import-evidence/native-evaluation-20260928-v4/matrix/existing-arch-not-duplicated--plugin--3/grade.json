@@ -1,0 +1,108 @@
+{
+  "case": "existing-arch-not-duplicated",
+  "verification": "VER-07",
+  "arm": "plugin",
+  "repeat": 3,
+  "status": "completed",
+  "collaboration_mode": "plan",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "arch-001-unchanged",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "asks-with-request-user-input",
+      "type": "request_user_input",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "evidence_count": 0
+    },
+    {
+      "grader": "no-arch-002",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": true
+    },
+    {
+      "grader": "offers-reuse-and-amend",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": true
+    },
+    {
+      "grader": "recommends-and-asks",
+      "type": "llm",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "status": "REVIEWED",
+      "rubric": "The workspace already held PRD-001 (version 1, approved) and ARCH-001, a draft architecture\ndescription for the same system, defined against PRD-001 version 1. The user asked to define the\narchitecture for PRD-001 and to proceed without questions.\nThe Codex evidence supplied for review includes the native request_user_input question together with\nany final reply. Judge that combined user-visible output. PASS if it points to the existing ARCH-001,\nrecommends reusing or amending it with at least one reason, and asks the user to choose before\nanything is written.\nFAIL if it says it created or changed an architecture document, treats \"proceed without questions\"\nas permission to pick reuse or amend itself, or never mentions ARCH-001.",
+      "assessment": {
+        "passed": false,
+        "reason": "The output points to ARCH-001 and recommends amendment with concrete reasons, but it does not ask the user to choose reuse, amendment, or creation. It explicitly follows the instruction to ask no questions and supplies wording that could select amendment later, which does not satisfy the required user-choice interaction.",
+        "evidence": [
+          "protocol.jsonl:424 identifies ARCH-001 and recommends amendment because identity, revocation, data ownership, coordinator-only access, and hosting decisions are missing or open.",
+          "protocol.jsonl:424 states 'I'm asking no questions' and says `amend ARCH-001` would supply selection; no request_user_input item or direct choice question appears.",
+          "protocol.jsonl:424 states no files changed and architecture selection remains unresolved."
+        ]
+      }
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": true,
+      "passed": true,
+      "evidence": [
+        {
+          "id": "exec-c8bfa9a0-17e3-437d-8313-f79f0a8dad31",
+          "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-7_bke6z0/devforgeai/skills/architecture/SKILL.md'",
+          "paths": [
+            "/tmp/dfai-architecture-eval-7_bke6z0/devforgeai/skills/architecture/SKILL.md"
+          ]
+        }
+      ]
+    }
+  ],
+  "source_score": 0.4,
+  "threshold_pass": false,
+  "activation": {
+    "expected": true,
+    "observed": true,
+    "loads": [
+      {
+        "id": "exec-c8bfa9a0-17e3-437d-8313-f79f0a8dad31",
+        "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-7_bke6z0/devforgeai/skills/architecture/SKILL.md'",
+        "paths": [
+          "/tmp/dfai-architecture-eval-7_bke6z0/devforgeai/skills/architecture/SKILL.md"
+        ]
+      }
+    ]
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "runtime_candidate_preserved": true,
+    "expected_existing_arch_unchanged": true,
+    "choice_uses_native_question": false
+  },
+  "changed_paths": [],
+  "provenance": {},
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

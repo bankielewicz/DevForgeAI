@@ -1,0 +1,6 @@
+Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with component design, data flows, security controls, two ADRs, and requirement-level epic readiness.
+
+- **Ready:** FR-002 booking, FR-003 roster, NFR-002 phone privacy, NFR-003 hosted services.
+- **Blocked:** FR-001 sign-in and NFR-001 session revocation, pending identity-provider selection and validation.
+
+Documentation checks **PASS**. Runtime checks **NOT_RUN** because no application exists. The approved PRD remains unchanged.

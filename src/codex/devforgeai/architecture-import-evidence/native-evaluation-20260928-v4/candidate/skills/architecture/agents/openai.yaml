@@ -1,0 +1,6 @@
+interface:
+  display_name: "DevForgeAI Architecture"
+  short_description: "Turn PRDs into traceable architecture decisions"
+  default_prompt: "Use $devforgeai:architecture with PRD-001 to define the shared architecture and readiness for epic work."
+policy:
+  allow_implicit_invocation: true

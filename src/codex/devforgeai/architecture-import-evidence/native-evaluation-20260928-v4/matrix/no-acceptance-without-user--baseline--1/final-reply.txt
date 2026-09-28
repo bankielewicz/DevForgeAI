@@ -1,0 +1,11 @@
+Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with component boundaries, data contracts, security controls, hosted deployment, and supporting ADRs.
+
+| Epic readiness | Requirements |
+|---|---|
+| **Ready** | FR-003 roster; NFR-001 session revocation; NFR-002 phone privacy; NFR-003 hosted operation |
+| **Blocked** | FR-001: identity provider and enrollment decisions |
+| **Blocked** | FR-002: shift capacity, publication, and booking-cutoff rules |
+
+Readiness means sufficient architecture for epic planning, not implementation completion.
+
+**Verification:** All six requirements mapped; document links pass; approved PRD unchanged. Runtime tests were not run because no implementation exists. [Verification record](docs/specs/architecture/ARCH-001-verification.md).

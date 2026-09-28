@@ -1,0 +1,812 @@
+{
+  "candidate_sha256": "002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92",
+  "candidate_files": [
+    {
+      "path": ".codex-plugin/plugin.json",
+      "sha256": "e2c1aac8675f08049d2db5eb74d33aa6605f5e68779a2bf142f4f7a406e2f2ea"
+    },
+    {
+      "path": "skills/architecture/SKILL.md",
+      "sha256": "677d913926bf90033a9ee94f8ee6637cfdbe11d7aed7ba94f690fa1af8e7baa0"
+    },
+    {
+      "path": "skills/architecture/agents/openai.yaml",
+      "sha256": "3cb877c21bc2c91909c5be90f2890591159c7f579bd92ed0e23dbd9b8d620f97"
+    },
+    {
+      "path": "skills/architecture/assets/adr.md",
+      "sha256": "191a4c73f870bd35c4e42253ac906714519fe412af79ec3511b2852c8c58438d"
+    },
+    {
+      "path": "skills/architecture/assets/arch.md",
+      "sha256": "c0ae0af128c62ea07dcae5fd5d9f10fcd7255f942e1594e89c703dcf7980eb7b"
+    },
+    {
+      "path": "skills/architecture/provenance.yaml",
+      "sha256": "ac96a39f1ab75a7e4f6ad3ed5be76e77995b4b7b79b24e5b1a81cfbe9eb89c35"
+    },
+    {
+      "path": "skills/architecture/references/defaults.md",
+      "sha256": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab"
+    },
+    {
+      "path": "skills/architecture/references/inspection.md",
+      "sha256": "ae7444594a46796b6dda0ba86788a12c03212a53de899d3a5300738b03198ad2"
+    },
+    {
+      "path": "skills/architecture/references/output-rules.md",
+      "sha256": "8b6a2ccafeeeac8bef87d52ded458a40b083ce1de94165201b6bd6143a302f38"
+    },
+    {
+      "path": "skills/architecture/references/policy.md",
+      "sha256": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847"
+    },
+    {
+      "path": "skills/architecture/references/readiness.md",
+      "sha256": "76aaa148759ec25c1a670d4f1d1d07846d104e0d4c5003f701244927e5614729"
+    }
+  ],
+  "codex_executable": "/home/bryan/.local/bin/codex",
+  "codex_version": "codex-cli 0.158.0",
+  "mandatory": [
+    "VER-01",
+    "VER-02",
+    "VER-03",
+    "VER-04",
+    "VER-05",
+    "VER-06",
+    "VER-07",
+    "VER-08",
+    "VER-09",
+    "VER-10",
+    "VER-11",
+    "VER-12",
+    "VER-13",
+    "VER-14",
+    "VER-15",
+    "VER-16"
+  ],
+  "automated_case_map": {
+    "creates-arch": "VER-01",
+    "org-a-policy": "VER-02",
+    "org-b-policy": "VER-03",
+    "unrelated-adr": "VER-04",
+    "superseded-adr": "VER-05",
+    "no-acceptance-without-user": "VER-06",
+    "existing-arch-not-duplicated": "VER-07",
+    "insufficient-evidence": "VER-08",
+    "prd-change-handed-back": "VER-09",
+    "hands-off-to-epic": "VER-10",
+    "ignores-unrelated-request": "VER-11",
+    "records-provenance": "VER-14",
+    "reuse-records-review": "VER-15",
+    "reuse-review-idempotent": "VER-16"
+  },
+  "manual_owner_cases": {
+    "VER-12": "NOT_RUN",
+    "VER-13": "NOT_RUN"
+  },
+  "threshold": 0.8,
+  "score_contract": "Source regex/file/semantic graders only; activation and supplemental guards are separate. Semantic graders remain REVIEW_REQUIRED until independently assessed. Every plugin repeat must reach 0.8; no failed grader or mandatory obligation is waived by the threshold.",
+  "isolation": "Unique temp parent per trial; runtime candidate contains only manifest plus Architecture. Ephemeral app-server with memories, noncandidate skills, configured plugins and configured MCP servers disabled. Evidence and graders are outside the model workspace. This is not an OS-hermetic boundary.",
+  "questions": "VER-07 uses Plan mode in both arms. Native request_user_input requests are recorded and interrupted unanswered; only an explicit supplemental scenario may answer.",
+  "stop_file": "/home/bryan/Projects/DevForgeAI-worktrees/architecture-codex/src/codex/devforgeai/architecture-import-evidence/stop-v4",
+  "source_suite": {
+    "README.md": "7fe44ab0a2b093dbde85fec030ef9cd50d7f20ba1bff74bc022a8a18dcbf92d9",
+    "creates-arch/case.yaml": "ed3381e97c96bd4e9623899456cb1acf59dc785d8fae5ad3f87bb13c101850b4",
+    "creates-arch/graders/all-sections.md": "c3472bd078feea80a12d10362f3de8f4420941bce314f3bc6925bb3acab41c68",
+    "creates-arch/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "creates-arch/graders/handoff-blocks-fr-001.md": "a8f195590497cabd7e049939720b711eb761188bacf2e2752a0721b069102bbb",
+    "creates-arch/graders/has-components.md": "776245b3a3f573149d766eda20e725a578abb2475f4a139635337153ab34371e",
+    "creates-arch/graders/identity-dec-open.md": "a9847c84fd60536eb4840021c878cef5673d4c0f74460df10dff473f4f27a4e4",
+    "creates-arch/graders/no-leftovers.md": "8391750bfbfb842da4bf2f28f16c299142c09d426efc373380ca192cf7f5a45d",
+    "creates-arch/graders/outcome-null.md": "90f276a147e9666fac669fa6f8b0dd056cf72e05ac6b10bf2bf23eeb2f018018",
+    "creates-arch/graders/prd-evidence-context.md": "ab85396fde739629b76b2742d69808a6711cd832e617ad9abf1af2c35bfef874",
+    "creates-arch/graders/revocation-dec-open.md": "9234d83d2bf1231be689ae0a1e2d35b5fb99b9cd3928cd88da7938b26c9f9489",
+    "creates-arch/graders/skill-fired.md": "dcf368d5df1a47536d38b843febd247abaf681257a84cfd3534984488152f699",
+    "creates-arch/prompt.md": "920a347dad9d388086a5509550bd2b2a8a0af62cc1ff8fdff50aa81277c6d790",
+    "creates-arch/scaffold.sh": "1947e80f44646cb0912354edf134801f15863819941d4ae907b4f9b5daa28af7",
+    "existing-arch-not-duplicated/case.yaml": "56f34d9b2ddb6ca99c2188a9ff863a4a33d76afa67924f0027893398a1813ce2",
+    "existing-arch-not-duplicated/graders/arch-001-unchanged.md": "40959e293faf3bdb2390df2c19cede9edb065e9f0a551f671187045aa8ed6b4a",
+    "existing-arch-not-duplicated/graders/asks-with-request-user-input.md": "c9e6fb16448b633c1b671cc5efc48fbc5fcca5a31035b609755416df018f7669",
+    "existing-arch-not-duplicated/graders/no-arch-002.md": "39a387b12006bb59cd6144e54cd0d61c1e0b469b5dd8816ccda09e92a8b9629d",
+    "existing-arch-not-duplicated/graders/offers-reuse-and-amend.md": "72de83d198f421e305a5c83eb9c8c1cfc4af2e44e01b949b39eef4d2639b5e34",
+    "existing-arch-not-duplicated/graders/recommends-and-asks.md": "fc7967d7d1c71c6bcebaddf0e8ed3dd8c749c67849202fc0518b8b5d8e9f353a",
+    "existing-arch-not-duplicated/graders/skill-fired.md": "dcf368d5df1a47536d38b843febd247abaf681257a84cfd3534984488152f699",
+    "existing-arch-not-duplicated/prompt.md": "ebd33f080c8fb94d544ad0bd2e71a32809839b07651ec12d3ce1e96efa143e6a",
+    "existing-arch-not-duplicated/scaffold.sh": "9282a38aaf26eeb0b2977f1cfbbabad85de886c6070dae0ad67a84ab13001caa",
+    "hands-off-to-epic/case.yaml": "5f74225550ce2fa8b45bb02d655a3cfabec43384f98cf2969ca3598189328562",
+    "hands-off-to-epic/graders/ends-with-next-step.md": "fdbe7ed66acbdc6ea7fe463ba112a6daa0b270e4a64effb02f55fa136d3cb1ab",
+    "hands-off-to-epic/graders/lists-blocked-with-decs.md": "a8f195590497cabd7e049939720b711eb761188bacf2e2752a0721b069102bbb",
+    "hands-off-to-epic/graders/lists-ready.md": "0a6c55b9aabfefa24d5b34782f7f4d59221afc4b6d830fa410c04ccfda8dd065",
+    "hands-off-to-epic/graders/names-epic-command.md": "9c04fdfc3e13199cfe0309e2140232c35364382b9f0c8add30855c8f2147b66b",
+    "hands-off-to-epic/graders/next-step-has-no-path.md": "e6b87d6110cd45275b262015e9eef021ba14af7d4cc8d5b9e3eeb777d70a8cc4",
+    "hands-off-to-epic/graders/no-epic-written.md": "5009fc40856c61e620909732b618da337dc16e511d3ffe778467c10f2df4b4f4",
+    "hands-off-to-epic/graders/no-path-argument.md": "b1ae44132c938e67c193ef8e139768deb8a0b78ba367775182c77bcb04b66d03",
+    "hands-off-to-epic/graders/says-not-built.md": "467a317fed61cd2423c6cb2b85ab2a799b0985fd915cb4de4304eed4ba2e4508",
+    "hands-off-to-epic/prompt.md": "1a7462ebb2f2f7a7c2df3fa4748c4b5131c6564277b2fca1f1f7c2bb253c8160",
+    "hands-off-to-epic/scaffold.sh": "0f40fe8c3e4015954a4fe1c771a88ed74475a3b620e40120125a00be36e8d702",
+    "ignores-unrelated-request/case.yaml": "7c315099329d591c4dc93baaea7f1963a65cc443ecb6ba6153267f529cecf629",
+    "ignores-unrelated-request/graders/no-arch-written.md": "92455b03dc58d3a2d026440d16fd79e9702526c660aff066d50a4e1b9b215ad8",
+    "ignores-unrelated-request/graders/skill-not-fired.md": "00f290afe70d6b9007b6fbef689063503b57be4ca6af82440c2b0c24530db5c7",
+    "ignores-unrelated-request/prompt.md": "0308637b9d5fd686509fbb70338253008b7d002421c6a165e65414dc93328ea2",
+    "ignores-unrelated-request/scaffold.sh": "24df285fd9fd02ae9e11a40c824513817ca6949a7d21a148ff7274536987f26e",
+    "insufficient-evidence/case.yaml": "58a5ff2b4db3391c729641b60df69298b0b80c3723e4fc4b229efe99d7a3d185",
+    "insufficient-evidence/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "insufficient-evidence/graders/clarification-marker.md": "cba214be06824ea54d71d9116fe44a20bced0754655fe05bbb958e6332907db8",
+    "insufficient-evidence/graders/outcome-not-reuse.md": "7a9f013c60d5c2a6a103f2f2bf7e4dfd7adac276288ab5d19aba00f65cb82a6c",
+    "insufficient-evidence/prompt.md": "8f0a3109ad9fa930fb4949780f230cd41462c65368b9aa2bcce3ea170c3dae25",
+    "insufficient-evidence/scaffold.sh": "477cec1b4cddf263dc6c73fb44acedcde6acdc229d0f9b4e8b09bcdd7b2d5f1e",
+    "no-acceptance-without-user/case.yaml": "a32d38aa10bb444df6de9ff8d471df78740344a9109e325a825e3fec83e03243",
+    "no-acceptance-without-user/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "no-acceptance-without-user/graders/no-adr-written.md": "6dd9572db0ecfbec19bd81f297c36bd7228af228040b8f25e4925725861a6585",
+    "no-acceptance-without-user/graders/nothing-resolved-by-an-adr.md": "56c6b5de899bd35d0b8cf30d50019211bd2e9c0a595900aad35f4600c0ba1081",
+    "no-acceptance-without-user/graders/outcome-null.md": "90f276a147e9666fac669fa6f8b0dd056cf72e05ac6b10bf2bf23eeb2f018018",
+    "no-acceptance-without-user/prompt.md": "b9d5345db9a76d08b067b7c2d7e157a8a76707c814900ed0d808ce2321945e2e",
+    "no-acceptance-without-user/scaffold.sh": "ffb9507efcb3ce3e9358ef42d869c6a7049d240d72001be475791cfb4fabe70f",
+    "org-a-policy/case.yaml": "91069b5a23c9abf9a51dca83ac574865b4fb98189c93de1a5d26c1b58cb8bec3",
+    "org-a-policy/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "org-a-policy/graders/handoff-blocks-fr-001.md": "a8f195590497cabd7e049939720b711eb761188bacf2e2752a0721b069102bbb",
+    "org-a-policy/graders/identity-resolved-by-policy.md": "a127a803e8cf31003d524fb65ea57867ea1af4a8db96d8a2621a96a26223de84",
+    "org-a-policy/graders/outcome-null.md": "90f276a147e9666fac669fa6f8b0dd056cf72e05ac6b10bf2bf23eeb2f018018",
+    "org-a-policy/graders/revocation-dec-open.md": "9234d83d2bf1231be689ae0a1e2d35b5fb99b9cd3928cd88da7938b26c9f9489",
+    "org-a-policy/prompt.md": "d8d80311a6d6f27e9a2fb36c59ac7d2888b871c86771960253464f80adf60e2d",
+    "org-a-policy/scaffold.sh": "a262958a70d16351fba7e3fe4258dac4185269a93394a46ed9878214851f8915",
+    "org-b-policy/case.yaml": "61bbfb06b90b126e18c02b71ec55879f3e2d0bc73f635430ca75a379895e8b2e",
+    "org-b-policy/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "org-b-policy/graders/identity-dec-open-empty.md": "4c8c62f0a9c2997fcfc5c2928e688ab7db9be0746a8a510f3283b230828caddb",
+    "org-b-policy/graders/no-policy-resolution.md": "f5bfcea8f178cc057fde6b2430e5ada9503bc9342559a2cf29f65f9e99f53446",
+    "org-b-policy/prompt.md": "63bf531dcf6702e3d31a2ff037b861341f1146cfdac79682f1b8bc0ed16b9e34",
+    "org-b-policy/scaffold.sh": "5fe99be4e6f531b1973b6dd9476999c8761e8b7e471935244e3a4be4a66e5b7e",
+    "prd-change-handed-back/case.yaml": "53f6a8c93c5de67d0526bfaddb14a31ab8ebedb629b6d09d50d430a49be97d83",
+    "prd-change-handed-back/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "prd-change-handed-back/graders/handoff-names-nfr-004.md": "e94d913792e16e5d8fcd2940940255df7a66bce08b07409c2e6a90c7061b5a3c",
+    "prd-change-handed-back/graders/prd-nfr-004-unchanged.md": "35e3feae65baa10d69b29b2812ddcd7fffe3d624211352157d37c6c9dc5fbc6f",
+    "prd-change-handed-back/graders/prd-version-unchanged.md": "446335bdea1685d1b4c0121f3def8b95dbbe0a7c6be6a637bc20123bcf4ca768",
+    "prd-change-handed-back/graders/section-7-names-nfr-004.md": "c64ea5d4aca49bfca3c07a0e8d8bf131fce312d64ce7a5dc22f3ad16ac2549e1",
+    "prd-change-handed-back/prompt.md": "ca51beebf8526c179d59804e1c3f6fd8d190d4acf78cc3cfba730b22cc39d456",
+    "prd-change-handed-back/scaffold.sh": "5d3b4f06afbe6390fe95cc1c66953120104675c99d5d1f4ab0cc67dafc834393",
+    "records-provenance/case.yaml": "65f6f15f561d4d4c5e54c66ef3b1d7e418c5ec63dd5ff89f8a62256c5485a3f5",
+    "records-provenance/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "records-provenance/graders/changelog-names-session.md": "58d05ea29a2b084a3333e0737fd828cdf6d73d71cbc5e4a7a5fff2f986a55b06",
+    "records-provenance/graders/generated-by-filled.md": "a4db9eb5719dd11b60a511f4756f3ac423efb83b13b9d93dadc9ac972ede5481",
+    "records-provenance/graders/hashes-null.md": "a3719ce2762a74e41c492c1d59692d3943fa1a9da74f4054dbbb34c491d8c3ee",
+    "records-provenance/graders/no-policy-link.md": "f5ddeda84af50fa331a6bdb48ae19554b14128a5208acd2736f1f04e437f1e5d",
+    "records-provenance/graders/resolution-categories.md": "f21a0e06318c54ddcdd4f25a22dfdc8f5fdb258fee4e1c8c0dc3c8358fecbd1d",
+    "records-provenance/graders/resolution-max-calls.md": "44fe6b6fb13f3cf80f761a2ecc25aa8dd459096644d93dcf972edcfbb2f7ad5a",
+    "records-provenance/graders/resolution-platforms.md": "359c7925dd3c5fd3abf463e181ee078e05a0beb316537117017ea0c546f30c97",
+    "records-provenance/graders/reviewed-by-empty.md": "f42d83a70daea248c2b7752100d7fb7e9e8e9f6d75c49e84bcbb0fff89a6bc4b",
+    "records-provenance/graders/session-substituted.md": "d2cd18d48de84d520a4fa7c290f4e2c4e9a2a46d61bf560a25614858244e4539",
+    "records-provenance/prompt.md": "591c92926bc1ea8e76bcc0b9ab8b3a58f8255f7109256a89fa20da60f5071dc5",
+    "records-provenance/scaffold.sh": "0085783593850bdb98871d9187f536483294c0c01a5b5d8ec76caeda2399995f",
+    "reuse-records-review/case.yaml": "b3bb591eb54c70735d81dc28872db00d53f535bb8e042fa0beea2e40e4c5c89d",
+    "reuse-records-review/graders/approval-unchanged.md": "4eda76a29c1b97f7b7c2bc27b2aa4ae77475d5cfd415f7aaaf5869ee9efa1098",
+    "reuse-records-review/graders/generated-by-unchanged.md": "7afbc6662d55774127e88b1f868cd41a1bdd343eafa2f10ea28f9d9560aa5cd1",
+    "reuse-records-review/graders/item-link-still-v1.md": "1557315b1a5d00056c363b21737f0d7b8872d860d43c8f91a606b22e532a0434",
+    "reuse-records-review/graders/one-review-row.md": "30030379609af6b7cd828601fba5ffe57023b5c6deb2c35e6206143396ee01d2",
+    "reuse-records-review/graders/outcome-reuse.md": "aa21ab87de01d495d5721229ee0cba5ab356c4a1e9d1892d13ea7e2630c13575",
+    "reuse-records-review/graders/prd-link-v2.md": "df1cff2bd6750e154d0d163e06e3391fc7aada6bad7c17e2817acc4ffd61aa24",
+    "reuse-records-review/graders/review-row.md": "8687422e499a31ae2ab6626bddb0b4b2dae0f879148775cb1f93195ac4188e14",
+    "reuse-records-review/graders/version-status-unchanged.md": "65941f13e528d4f09dc0e550ad00f0df5a24631b89dbfb79c5bc6a08be0b0d15",
+    "reuse-records-review/prompt.md": "4b8c93b8044772362bade4d5d4f78a9ee857d2358493cceb56ed67aded0dcb94",
+    "reuse-records-review/scaffold.sh": "a44a238df555075ec934767d4c6f489365589f69ad329acfb88c3cee4361eb72",
+    "reuse-review-idempotent/case.yaml": "c90514e9d8af77531ff99a68cdcaec9c718269be769b5c6ccf29a0a382813abf",
+    "reuse-review-idempotent/graders/no-arch-002.md": "39a387b12006bb59cd6144e54cd0d61c1e0b469b5dd8816ccda09e92a8b9629d",
+    "reuse-review-idempotent/graders/one-review-row.md": "7e6e19c20b79932fd6abfc192d54dd1a6537cfe8c6d8d610b44da17e6d40713c",
+    "reuse-review-idempotent/graders/prd-link-v2.md": "df1cff2bd6750e154d0d163e06e3391fc7aada6bad7c17e2817acc4ffd61aa24",
+    "reuse-review-idempotent/graders/version-status-unchanged.md": "65941f13e528d4f09dc0e550ad00f0df5a24631b89dbfb79c5bc6a08be0b0d15",
+    "reuse-review-idempotent/prompt.md": "27d3457c5e1196af5f4103b163004ff382b7726c5382ac8c6c8b19307767e886",
+    "reuse-review-idempotent/scaffold.sh": "cf1f2a06facd4cd511e61e0cd3bc622a0faa375e55f2d02887ae779d69533c0b",
+    "superseded-adr/case.yaml": "e56e5f320c36b2b6028dc3456b1408adfe731b4a7a93494d3c978005c86423f8",
+    "superseded-adr/graders/adr-002-context-evidence.md": "615d06d11e2902369f7724433f10ee58de071e5486e14b22054736316037dd2e",
+    "superseded-adr/graders/dec-01-open.md": "ee908aa09c54659d8aef70e3da891a7a9ee1fceec3f19e434e806af8c7fc42d5",
+    "superseded-adr/graders/dec-02-still-adr-001.md": "904a8f14dddd671fb437c1bd8139450ba640e8af9f0ac6bcea3ff3200ddf6f1e",
+    "superseded-adr/graders/names-superseded-resolver.md": "5a71142a9d7d9a0005b00dbca3c97785ffbf635c8b0179bd1761fc02fd4bbab2",
+    "superseded-adr/graders/readiness-mapping.md": "10bdded2f8092278d7b512e9ee063982fd18b4f84c332351bb5a5cf261b77f52",
+    "superseded-adr/prompt.md": "8d699d5d35f992d3735bf5cfd4578ccfbf48f0a0d6235fcf07cbde7ed712116c",
+    "superseded-adr/scaffold.sh": "763013a7a7a2d82c6941626a3deaf82bc401b00c89b9d3a6e59a12640f7fe527",
+    "unrelated-adr/case.yaml": "f88d8307f1f4b166e4cfa9ed902e3a22e5d81fadb1ada5db70705f7e5ffa46a2",
+    "unrelated-adr/graders/arch-exists.md": "78a7c6c007ca5abfba24dd9f2a15660d297ecf715bae15c342c4b60110073fd5",
+    "unrelated-adr/graders/handoff-blocks-fr-001.md": "a8f195590497cabd7e049939720b711eb761188bacf2e2752a0721b069102bbb",
+    "unrelated-adr/graders/identity-dec-open.md": "a9847c84fd60536eb4840021c878cef5673d4c0f74460df10dff473f4f27a4e4",
+    "unrelated-adr/graders/nothing-resolved-by-adr-001.md": "8a0008bd9790a2fa1be3f90271a1bbbabf340baa659c42efc11c0d0231070511",
+    "unrelated-adr/graders/revocation-dec-open.md": "9234d83d2bf1231be689ae0a1e2d35b5fb99b9cd3928cd88da7938b26c9f9489",
+    "unrelated-adr/prompt.md": "7e84161ef368761d2732c74c2ced3325a30a6ec362c5e90ac0a41e2661176fc8",
+    "unrelated-adr/scaffold.sh": "5e65739bcd02fa4a3262abf073db31bba0fca0952866bc86b45c9fd36694bd12"
+  },
+  "definitions_sha256": "050863b32468d45437425116e5ce4868ff928cb37ece9f66bfc130d2b0c18323",
+  "server_harness_sha256": "50ff68293759672b625a55c137a8c825f93089d51ecd1c69313e0d6b97ed0c44",
+  "harness_sha256": "e0ae19e16872aedff3db4200d3384dff4040d0fef8ff087529d0e5e76682d84e",
+  "grader_sha256": "b16ffb9d64604f8ddf9c73e289effca10eb915fd681522c7e8c94abed3a7a0b9",
+  "summarizer_sha256": "8e99c89496f39bb88ffdb225edfe16e33ede6c737d54a92bf7c109bccbfc7574",
+  "trials": [
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    }
+  ]
+}

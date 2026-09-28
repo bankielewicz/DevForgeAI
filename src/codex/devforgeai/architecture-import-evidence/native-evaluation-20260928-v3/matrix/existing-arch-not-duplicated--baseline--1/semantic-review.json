@@ -1,0 +1,12 @@
+{
+  "recommends-and-asks": {
+    "passed": false,
+    "reason": "The baseline recognizes the existing ARCH-001 and proposes extending it, but it never asks the user to choose reuse or amendment before proceeding. Its completed plan selects extension of ARCH-001 under the instruction to proceed without questions, so the combined user-visible output does not satisfy the rubric's required choice gate.",
+    "evidence": [
+      "protocol.jsonl:62 states that it will record blockers without asking questions.",
+      "protocol.jsonl:130 identifies ARCH-001 and its identity and session-revocation blockers.",
+      "protocol.jsonl:1019 completes a plan whose Summary begins 'Extend the existing draft ARCH-001'; no request_user_input item or user-choice question appears in the protocol.",
+      "before.json and after.json retain the same ARCH-001 and PRD-001 content hashes, so no document was written."
+    ]
+  }
+}

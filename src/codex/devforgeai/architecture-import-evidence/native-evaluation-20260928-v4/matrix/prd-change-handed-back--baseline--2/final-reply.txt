@@ -1,0 +1,9 @@
+Created the [architecture and requirement-readiness matrix](docs/specs/architecture/ARCH-001.md) and [identity ADR](docs/specs/adr/ADR-001.md).
+
+**No requirement is unconditionally ready for an implementation epic.** Blockers include:
+
+- Unverified personal-Google support through the mandated Org A identity platform.
+- Missing mandatory compliance and accessibility criteria.
+- Unresolved booking and roster rules.
+
+Each blocker has closure evidence and a proposed owner. Documentation checks **PASS**; runtime checks are **NOT_RUN**. Approved PRD and policy remain unchanged.

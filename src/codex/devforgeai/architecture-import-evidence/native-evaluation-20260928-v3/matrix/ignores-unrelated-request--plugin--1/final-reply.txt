@@ -1,0 +1,25 @@
+Linux uses a **monolithic, modular kernel**: scheduling, memory management, filesystems, and device drivers run in kernel space and call one another directly. “Modular” means many components, such as drivers, can be loaded separately.
+
+The three subsystems manage different resources:
+
+| Subsystem | Main responsibility | Key abstractions |
+|---|---|---|
+| Scheduler | Decide which runnable thread gets CPU time | Tasks, run queues, priorities |
+| Memory management | Provide virtual address spaces and manage physical RAM | Virtual mappings, pages, page tables |
+| Virtual file system (VFS) | Provide a common interface to different filesystems | Files, inodes, directory entries, mounts |
+
+**The scheduler manages execution.** Linux schedules individual threads, represented internally as tasks. A runnable task competes for CPU time; a task waiting for disk data or another event can sleep, allowing another task to run. When the event completes, the waiting task becomes runnable again—it does not necessarily execute immediately.
+
+**Memory management manages where execution’s data lives.** Each process normally has its own virtual address space; threads within that process share it. Page tables translate virtual addresses into physical memory. The kernel allocates RAM, enforces access permissions, shares pages where appropriate, and reclaims memory under pressure. A page fault lets the kernel handle a missing mapping—for example, by allocating a page or fetching file contents.
+
+**The VFS manages access to files through a common interface.** Calls such as `open()` and `read()` work across different filesystem implementations because the VFS resolves paths, tracks open files, and dispatches operations to the appropriate filesystem. That filesystem supplies the details of locating and accessing the data.
+
+A typical **buffered file read** shows how they fit together:
+
+1. A thread calls `read()`. The kernel uses its file descriptor to find the open file and dispatch the operation through the VFS.
+2. The filesystem checks the **page cache**, which holds file contents in RAM and connects filesystem operations with memory management.
+3. If the data is cached, the kernel can copy it into the process’s buffer.
+4. If storage access is needed, the kernel initiates I/O. The requesting thread may sleep, and the scheduler runs another runnable task.
+5. When the I/O completes, the data is available in memory and the waiting thread is awakened. Once scheduled, it can finish the read.
+
+With **`mmap()`**, the connection is even tighter: a file becomes part of a process’s virtual address space. Accessing an unmapped portion can trigger a page fault, bringing filesystem data into memory and potentially making the thread wait for I/O. Thus ordinary memory access can involve all three subsystems.

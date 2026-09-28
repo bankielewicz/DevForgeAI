@@ -1,0 +1,8 @@
+Amended [ARCH-001](/tmp/dfai-architecture-eval-kov5649o/project/docs/specs/arch/ARCH-001.md) to version 2, draft.
+
+- Applied ADR-003’s hosting requirement.
+- Reopened blocking DEC-01: replacement identity provider remains undecided.
+- Preserved ADR-001’s database decision.
+- Updated evidence and change log.
+
+PASS: Python/YAML consistency checks and unchanged-file checksums. PRD-001 and all ADRs remain unchanged.

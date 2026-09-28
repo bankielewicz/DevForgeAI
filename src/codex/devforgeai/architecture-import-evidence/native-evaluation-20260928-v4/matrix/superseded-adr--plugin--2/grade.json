@@ -1,0 +1,155 @@
+{
+  "case": "superseded-adr",
+  "verification": "VER-05",
+  "arm": "plugin",
+  "repeat": 2,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "adr-002-context-evidence",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "dec-01-open",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "dec-02-still-adr-001",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "names-superseded-resolver",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "readiness-mapping",
+      "type": "llm",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "status": "REVIEWED",
+      "rubric": "Context the reply was written in: PRD-001 has exactly three requirements, FR-001, FR-002 and NFR-001.\nThe existing ARCH-001 had two architectural questions: DEC-01 (identity provider), which cites FR-001\nonly, and DEC-02 (data ownership), which cites FR-002 and NFR-001 only. DEC-01 was resolved by\nADR-002, which has since been superseded by ADR-003, an ADR about hosting, not identity. DEC-02 is\nresolved by ADR-001, which is still accepted. The user asked to amend ARCH-001.\n\nJudge only the readiness that the final reply reports.\nPASS if all of these hold:\n- FR-001 is reported blocked, with DEC-01 named as a blocker.\n- FR-002 and NFR-001 are each reported ready, or reported blocked only by questions numbered DEC-03\n  or higher (questions this run added). Neither is attributed to DEC-01 or DEC-02.\n- All three requirements appear in the readiness report.\n- No other sentence contradicts the lists (for example, saying FR-001 is ready or everything is ready).\nFAIL if any of these fails, or if the reply says DEC-01 is still resolved, by ADR-002 or by ADR-003.",
+      "assessment": {
+        "passed": false,
+        "reason": "The output correctly reopens DEC-01 after ADR-002's supersession and preserves DEC-02, but it withholds readiness because exact model provenance is unavailable. The final reply does not report FR-001 blocked by DEC-01 or report FR-002 and NFR-001 ready, so all three required readiness entries are absent.",
+        "evidence": [
+          "protocol.jsonl:356 correctly determines that ADR-002 is superseded, ADR-003 settles hosting only, DEC-01 must reopen, and DEC-02 remains valid.",
+          "protocol.jsonl:627 explicitly says the readiness handoff is withheld because validation failed.",
+          "protocol.jsonl:820 says readiness is not validated and contains no readiness statuses for FR-001, FR-002, or NFR-001."
+        ]
+      }
+    }
+  ],
+  "source_score": 0.8,
+  "threshold_pass": true,
+  "activation": {
+    "expected": true,
+    "observed": true,
+    "loads": [
+      {
+        "id": "exec-f5692a19-daa5-41fb-bc63-0c4c0ff0ea31",
+        "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-5srgkfp9/devforgeai/skills/architecture/SKILL.md'",
+        "paths": [
+          "/tmp/dfai-architecture-eval-5srgkfp9/devforgeai/skills/architecture/SKILL.md"
+        ]
+      }
+    ]
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "runtime_candidate_preserved": true,
+    "runtime_model_known": true,
+    "runtime_session_known": true,
+    "preexisting_generated_by_preserved": true,
+    "new_artifact_provenance_matches_runtime": false,
+    "historical_change_log_rows_preserved": true,
+    "changed_arch_has_new_change_log_row": true,
+    "new_change_log_rows_use_runtime_session": true,
+    "provenance_tool_is_codex": true,
+    "provenance_model_matches_runtime": false,
+    "provenance_session_matches_runtime": true
+  },
+  "changed_paths": [
+    "docs/specs/arch/ARCH-001.md"
+  ],
+  "provenance": {
+    "runtime": {
+      "tool": "codex",
+      "model": "gpt-6-astra",
+      "session": "01a0ea20-a9c9-7640-8851-c80038a5c1af"
+    },
+    "artifacts": [
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "existed": true,
+        "preserve_identity": false,
+        "require_current_identity": true,
+        "before_generated_by": {
+          "tool": "claude-code",
+          "model": "claude-opus-5-5",
+          "session": "fixture-session"
+        },
+        "after_generated_by": {
+          "tool": "codex",
+          "model": "unknown",
+          "session": "01a0ea20-a9c9-7640-8851-c80038a5c1af"
+        },
+        "new_change_log_rows": [
+          {
+            "raw": "| 2 | 2026-09-28 | codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af) | Amendment confirmed in the user request for PRD-001 v1. DEC-01 resolved \u2192 open: ADR-002 superseded by ADR-003, which settles hosting only. Preserved DEC-02 and all existing component and evidence items; added current ADR evidence and open authorization and authentication-interface questions; corrected deployment prose and recorded quality and provenance gaps. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | DEC-01, DEC-03, DEC-04, EVD-04, EVD-05; metadata and sections 2, 3, 4, 6, 8 |",
+            "author": "codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af)"
+          },
+          {
+            "raw": "| 2 | 2026-09-28 | codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af) | ERR-05: validation failed because exact host model identity is unavailable (self-check 3; BEH-13/VER-14). Restored pre-write status approved, approved_by Priya Nair and approved_on 2026-09-22; these historical fields do not approve the amendment. Retained amendment content; readiness handoff withheld. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | status, approved_by, approved_on; validation audit |",
+            "author": "codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af)"
+          }
+        ]
+      }
+    ],
+    "new_change_log_rows": [
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "raw": "| 2 | 2026-09-28 | codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af) | Amendment confirmed in the user request for PRD-001 v1. DEC-01 resolved \u2192 open: ADR-002 superseded by ADR-003, which settles hosting only. Preserved DEC-02 and all existing component and evidence items; added current ADR evidence and open authorization and authentication-interface questions; corrected deployment prose and recorded quality and provenance gaps. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | DEC-01, DEC-03, DEC-04, EVD-04, EVD-05; metadata and sections 2, 3, 4, 6, 8 |",
+        "author": "codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af)"
+      },
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "raw": "| 2 | 2026-09-28 | codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af) | ERR-05: validation failed because exact host model identity is unavailable (self-check 3; BEH-13/VER-14). Restored pre-write status approved, approved_by Priya Nair and approved_on 2026-09-22; these historical fields do not approve the amendment. Retained amendment content; readiness handoff withheld. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | status, approved_by, approved_on; validation audit |",
+        "author": "codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af)"
+      }
+    ],
+    "expected_change_log_author": "codex (session 01a0ea20-a9c9-7640-8851-c80038a5c1af)",
+    "recorded": {
+      "tool": "codex",
+      "model": "unknown",
+      "session": "01a0ea20-a9c9-7640-8851-c80038a5c1af"
+    }
+  },
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

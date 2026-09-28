@@ -1,0 +1,120 @@
+{
+  "record_type": "architecture-codex-static-validation",
+  "record_version": 4,
+  "checkpoint_commit": "5e041cced955ea817fd113a4d44353201cf55426",
+  "candidate": {
+    "sha256": "002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92",
+    "file_count": 11,
+    "source_matches_frozen_candidate": true
+  },
+  "definitions_sha256": "050863b32468d45437425116e5ce4868ff928cb37ece9f66bfc130d2b0c18323",
+  "checks": [
+    {
+      "name": "plugin-validator",
+      "command": "python3 -B /mnt/c/Users/bryan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py src/codex/devforgeai",
+      "exit_code": 0,
+      "stdout": "Plugin validation passed: /home/bryan/Projects/DevForgeAI-worktrees/architecture-codex/src/codex/devforgeai",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "name": "skill-validator",
+      "command": "python3 -B /mnt/c/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py src/codex/devforgeai/skills/architecture",
+      "exit_code": 0,
+      "stdout": "Skill is valid!",
+      "stderr": "",
+      "status": "PASS"
+    },
+    {
+      "name": "provenance-schema",
+      "instance": "src/codex/devforgeai/skills/architecture/provenance.yaml",
+      "schema": "src/schemas/skill.schema.json",
+      "registry": "src/schemas/*.json",
+      "date_normalization": "YAML date objects converted to JSON strings before validation",
+      "valid": true,
+      "errors": [],
+      "status": "PASS"
+    },
+    {
+      "name": "generated-fixture-validation",
+      "generator": "src/codex/devforgeai/tests/make_architecture_evals.py",
+      "fixture_count": 15,
+      "declared_case_count": 14,
+      "regenerated": false,
+      "stdout": "validated 15 fixtures; definitions declare 14 cases; no files regenerated",
+      "status": "PASS"
+    }
+  ],
+  "regression_test_receipt": {
+    "path": "src/codex/devforgeai/architecture-import-evidence/regression-tests-v4.txt",
+    "sha256": "b59d1c6e2780312b84a351fe0d25add4d494c8760db8180451edcfe5eda3321a",
+    "architecture_grader_regressions": 11,
+    "other_codex_regressions": 33,
+    "total_tests": 44,
+    "observed_result": "Ran 44 tests in 0.200s; OK",
+    "rerun_for_this_record": false,
+    "status": "PASS"
+  },
+  "ver_12h_source_budget": {
+    "spec_reference": "docs/specs/spec/SPEC-003.md VER-12(h), using NFR-001 limits defined in docs/specs/prd/PRD-001.md",
+    "skill_path": "src/codex/devforgeai/skills/architecture/SKILL.md",
+    "full_line_count": 371,
+    "body_line_count": 363,
+    "body_line_limit": 500,
+    "description_characters": 638,
+    "description_character_limit": 1024,
+    "body_within_limit": true,
+    "description_within_limit": true,
+    "status": "PASS"
+  },
+  "skill_metadata": {
+    "skill_version": "4",
+    "provenance_version": "4",
+    "versions_match": true,
+    "spec_proposed_frontmatter_keys": [
+      "name",
+      "description",
+      "argument-hint",
+      "metadata"
+    ],
+    "codex_frontmatter_keys": [
+      "name",
+      "description",
+      "metadata"
+    ],
+    "keys_match_spec_proposal": false,
+    "classification": "PROVIDER_ADAPTATION",
+    "note": "The Codex port omits SPEC-003's Claude argument-hint key; the plugin and skill validators accept the Codex frontmatter."
+  },
+  "ver_12f_shared_references": {
+    "comparison_commit": "fb8bc29f5adf2db07f2694b989bf4ecce82d95c3",
+    "policy": {
+      "architecture_path": "src/codex/devforgeai/skills/architecture/references/policy.md",
+      "prd_path_at_commit": "src/codex/devforgeai/skills/prd/references/policy.md",
+      "architecture_sha256": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+      "prd_sha256": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+      "byte_identical": true
+    },
+    "defaults": {
+      "architecture_path": "src/codex/devforgeai/skills/architecture/references/defaults.md",
+      "prd_path_at_commit": "src/codex/devforgeai/skills/prd/references/defaults.md",
+      "architecture_sha256": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+      "prd_sha256": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+      "byte_identical": true
+    },
+    "shared_bytes_status": "PASS",
+    "same_package_prd_integration": {
+      "status": "NOT_RUN",
+      "reason": "This static check compares Architecture with the committed PRD sibling at fb8bc29; it does not execute an Architecture-to-PRD package integration."
+    }
+  },
+  "limits": [
+    "This record covers static source validation only; it did not run native trials.",
+    "The retained 44-test receipt was hash-bound and read, not rerun for this record.",
+    "VER-12(f) establishes exact shared-reference bytes against commit fb8bc29, not same-package PRD integration.",
+    "Manual VER-12 execution beyond the recorded source checks and manual VER-13 remain NOT_RUN.",
+    "Installation, deployment, framework acceptance, and user review were not tested by this record.",
+    "Native artifact semantics and full ARCH/ADR behavior are assessed separately from these static checks."
+  ],
+  "status": "STATIC_CHECKS_PASS_WITH_LIMITS"
+}

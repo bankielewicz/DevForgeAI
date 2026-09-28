@@ -1,0 +1,49 @@
+Linux uses a **monolithic kernel with loadable modules**: scheduling, memory management, filesystems, and drivers run in a shared privileged environment and communicate through internal interfaces. Applications enter the kernel through system calls; hardware interrupts and memory faults also trigger kernel work.
+
+The three subsystems answer different questions:
+
+| Subsystem | Main responsibility | Main abstractions |
+|---|---|---|
+| Scheduler | Which runnable thread gets a CPU, and when? | Tasks, scheduling classes, per-CPU run queues |
+| Memory management | What memory can each process access, and how is RAM used? | Virtual address spaces, page tables, physical pages |
+| Virtual file system (VFS) | How can programs access files through one common interface? | File descriptors, open file objects, dentries, inodes |
+
+Their relationship is cooperative, rather than a strict stack:
+
+```mermaid
+flowchart TB
+    A[Applications] -->|System calls and memory faults| K[Kernel]
+    subgraph K[Kernel]
+        S[Scheduler]
+        M[Memory management]
+        V[VFS and filesystem implementations]
+        D[Storage and device drivers]
+        V <-->|File data in the page cache| M
+        V -->|I/O requests| D
+        M -->|Page reads and writeback| D
+        V <-->|Sleep and wakeup| S
+        M <-->|Sleep and wakeup| S
+    end
+```
+
+**The scheduler supplies execution time.** Linux schedules individual threads, including kernel threads. It selects runnable tasks according to policy, priority, CPU affinity, and load. A task waiting for storage normally sleeps, allowing another task to use the CPU. When the data arrives, it becomes runnable again—it does not necessarily run immediately.
+
+Scheduling supports several classes. Modern Linux uses EEVDF for ordinary fair scheduling, with separate policies for real-time and deadline workloads. [Kernel scheduler documentation](https://docs.kernel.org/scheduler/sched-eevdf.html)
+
+**Memory management supplies address spaces and physical storage.** Each process normally has its own virtual address space; threads within a process share it. The kernel maintains page tables, while the hardware translates virtual addresses and enforces access permissions.
+
+Memory can be allocated on demand: accessing a valid but currently unmapped page triggers a page fault, which the kernel resolves by allocating memory or loading data. Under pressure, memory management reclaims cached pages and may swap anonymous memory. [Kernel memory concepts](https://docs.kernel.org/admin-guide/mm/concepts.html)
+
+**The VFS supplies a common file interface.** Calls such as `open()`, `read()`, and `write()` work across filesystem implementations such as ext4, XFS, and NFS. The VFS resolves names and dispatches operations to the appropriate implementation.
+
+Its objects distinguish a filename association—a **dentry**—from the underlying file’s identity and metadata—an **inode**—and a particular open instance—a **file object**, which tracks state such as the current offset. A file descriptor indexes a process’s table of references to these open objects. [VFS documentation](https://docs.kernel.org/filesystems/vfs.html)
+
+Consider a **buffered read from a regular file on disk**:
+
+1. A running thread calls `read(fd, buffer, size)`.
+2. The VFS finds the open file object and invokes its read operation.
+3. The filesystem read path checks the **page cache**, which holds file contents in RAM. If the data is present, it can be copied into the application’s buffer.
+4. If the data is absent, the kernel allocates cache memory and requests storage I/O. The thread may sleep while waiting; the scheduler runs other work.
+5. I/O completion makes the data available and wakes the waiting thread. Once scheduled, it finishes the read and returns to user space.
+
+The page cache is a central connection between filesystems and memory management. Ordinary file-backed `mmap()` can map those cached pages into an application’s address space. Buffered writes dirty cached pages, which are subsequently written back through the filesystem. Memory pressure can therefore cause filesystem I/O, and that I/O can change which tasks are runnable. [Page cache and reclaim](https://docs.kernel.org/admin-guide/mm/concepts.html#page-cache)

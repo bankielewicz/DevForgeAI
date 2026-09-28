@@ -1,0 +1,21 @@
+{
+  "id": "01a0ea26-1e75-7a00-b812-be341cd2b4af",
+  "items": [],
+  "itemsView": "notLoaded",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790634761,
+  "completedAt": 1790634838,
+  "durationMs": 76500,
+  "threadId": "01a0ea26-1dd4-7830-abd7-ffd2d57169d7",
+  "model": "gpt-6-astra",
+  "case": "existing-arch-not-duplicated",
+  "verification": "VER-07",
+  "arm": "baseline",
+  "repeat": 3,
+  "collaboration_mode": "plan",
+  "elapsed_seconds": 76.907,
+  "plan_sha256": "0fb9cab9abcc3721332c60f16a817500261cac438939d77f6ef5571e91b21618",
+  "scratch_parent": "/tmp/dfai-architecture-eval-s2p9d6ti",
+  "scratch_workspace": "/tmp/dfai-architecture-eval-s2p9d6ti/project"
+}

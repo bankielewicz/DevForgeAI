@@ -1,0 +1,45 @@
+Linux has a **monolithic, modular kernel**: core services run together in privileged kernel space, and many components can be loaded as modules. The scheduler, memory manager, and virtual file system are cooperating subsystems within that kernel.
+
+| Subsystem | Main responsibility | Key abstractions |
+|---|---|---|
+| **Scheduler** | Decide which runnable thread executes on each CPU | Tasks, scheduling policies, per-CPU run queues |
+| **Memory management** | Provide virtual address spaces and manage physical RAM | Address spaces, page tables, physical pages, page cache |
+| **Virtual file system (VFS)** | Provide a common interface to different filesystems | Files, inodes, directory entries, mounts |
+
+**The scheduler manages execution.** Linux schedules threads, represented by task structures. It considers scheduling policy, priority, fairness, and CPU placement. A thread waiting for disk data normally sleeps; the scheduler lets another runnable thread use the CPU. When the data arrives, the waiting thread becomes runnable again—it does not necessarily execute immediately.
+
+**Memory management supplies the memory those threads use.** Threads in the same process generally share a virtual address space. Page tables map virtual addresses to physical pages, while protection rules isolate processes. Memory management also handles demand paging, allocation, reclaim, and the **page cache**, which holds cached file contents in RAM.
+
+During a context switch, the kernel also switches address-space context when necessary. Switching between threads sharing an address space usually avoids that change.
+
+**The VFS supplies a uniform file interface.** Applications use operations such as `open()`, `read()`, and `mmap()` without needing to know whether a file lives on ext4, XFS, a network filesystem, or another implementation. The VFS resolves paths, performs common checks, and dispatches operations to the appropriate filesystem.
+
+Its central objects include:
+
+- **Inode:** represents a filesystem object and its metadata.
+- **Dentry:** represents a name within the directory hierarchy.
+- **File object:** represents an open instance, including its offset and operations.
+- **Mount:** connects a filesystem to the visible directory tree.
+
+A typical buffered file read shows how the three fit together:
+
+```mermaid
+flowchart TD
+    A["Running thread calls read()"] --> B["VFS dispatches to filesystem"]
+    B --> C{"Requested data in page cache?"}
+    C -- Yes --> D["Copy data to user memory"]
+    C -- No --> E["Allocate cache pages and request storage I/O"]
+    E --> F["Thread sleeps; scheduler runs another task"]
+    F --> G["I/O completes; pages become ready"]
+    G --> H["Waiting thread becomes runnable"]
+    H --> I["Scheduler eventually resumes thread"]
+    I --> D
+    D --> J["read() returns"]
+```
+
+The **page cache is the main connection between filesystems and memory management**. A buffered read can use cached data without accessing storage. A buffered write usually modifies cached pages, marks them dirty, and leaves writeback to persist them later; returning from `write()` alone does not guarantee durability.
+
+Two other interactions matter:
+
+- **Memory-mapped files:** `mmap()` connects a file to a process’s virtual address space. Accessing an unmapped page can cause a page fault, bringing memory management and the filesystem together to supply the data. The thread may sleep while it waits.
+- **Memory pressure:** Memory management can discard clean cached file pages or arrange writeback of dirty pages to reclaim RAM. Threads waiting for memory or I/O interact with the scheduler, so storage performance and memory pressure can affect application responsiveness.

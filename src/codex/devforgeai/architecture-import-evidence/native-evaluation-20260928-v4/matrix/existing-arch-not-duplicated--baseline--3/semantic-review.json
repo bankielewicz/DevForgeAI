@@ -1,0 +1,11 @@
+{
+  "recommends-and-asks": {
+    "passed": false,
+    "reason": "The baseline identifies ARCH-001 and proposes extending it, but it never asks the user to choose reuse or amendment. Its completed plan selects extension under the instruction to proceed without questions, so the required selection gate is absent.",
+    "evidence": [
+      "protocol.jsonl:63 says it will proceed without questions.",
+      "protocol.jsonl:156 identifies open identity and revocation questions plus missing readiness mapping in ARCH-001.",
+      "protocol.jsonl:1122 begins the completed plan with 'Extend ARCH-001'; no request_user_input item or user-choice question appears."
+    ]
+  }
+}

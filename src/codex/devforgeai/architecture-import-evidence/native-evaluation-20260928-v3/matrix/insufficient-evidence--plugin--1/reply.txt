@@ -1,0 +1,7 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-8r4rjq0q/project/docs/specs/arch/ARCH-001.md) for PRD-001, including the current auth service, component diagram, and seven unresolved architectural questions. No ADRs were written.
+
+- **PASS:** `python3` checks verified document structure and requirement links.
+- **BLOCKED:** Exact host model/session identifiers are unavailable; full validation remains incomplete.
+- Draft retained; nothing required restoration. Auth-service capabilities remain unverified because no inspection scope was supplied.
+
+The [architecture skill](/tmp/dfai-architecture-eval-8r4rjq0q/devforgeai/skills/architecture/SKILL.md) requires unavailable provenance to “leave validation unresolved,” so no validated readiness handoff is claimed.

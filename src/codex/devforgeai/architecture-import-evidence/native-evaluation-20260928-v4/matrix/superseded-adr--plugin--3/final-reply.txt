@@ -1,0 +1,11 @@
+Amended [ARCH-001](/tmp/dfai-architecture-eval-i746ex34/project/docs/specs/arch/ARCH-001.md) to version 2, but validation remains incomplete.
+
+- Reopened DEC-01: ADR-002 was superseded; ADR-003 leaves the identity provider undecided.
+- Preserved DEC-02 and existing items; appended current ADR evidence.
+- No PRD or ADR files changed.
+- **PASS:** structure, item preservation and resolver checks.
+- **FAIL:** exact host model ID unavailable.
+
+The [architecture skill](/tmp/dfai-architecture-eval-i746ex34/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” for unavailable provenance. Its ERR-05 procedure restored the prior status and approval fields and added an audit record. Those fields represent historical approval, not approval of this amendment.
+
+Verification: `python3 /tmp/validate-arch-001-amend.py` exited 1 for provenance. Readiness handoff withheld.

@@ -1,0 +1,32 @@
+{
+  "candidate_sha256": "002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92",
+  "runtime_file_count": 11,
+  "source_matches_frozen_candidate": true,
+  "frozen_candidate_unchanged": true,
+  "per_plugin_trial_candidate_checks": {
+    "count": 42,
+    "all_unchanged": true
+  },
+  "frozen_evaluator_hash_matches": {
+    "harness_sha256": true,
+    "grader_sha256": true,
+    "summarizer_sha256": true,
+    "server_harness_sha256": true
+  },
+  "native_results": {
+    "count": 84,
+    "exact_plan_identity_match": true,
+    "statuses": {
+      "completed": 84
+    }
+  },
+  "semantic_reviews": 12,
+  "evidence_structure": {
+    "nested_git": [],
+    "symlinks": [],
+    "json_files_checked": 1538,
+    "invalid_json": []
+  },
+  "source_commit": "5e041cced955ea817fd113a4d44353201cf55426",
+  "scope": "Runtime/evaluator custody and publication structure. Does not waive failed native behavior or manual acceptance."
+}

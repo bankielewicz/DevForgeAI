@@ -1,0 +1,121 @@
+{
+  "case": "VER12e-invalid-policy",
+  "ver": "VER-12(e)",
+  "status": "FAIL",
+  "turn_status": "completed",
+  "checks": {
+    "no_workspace_writes": {
+      "status": "PASS",
+      "evidence": {
+        "before": {
+          "docs/specs/policy/POL-001.md": "9cffe36288d2847fc4745f19c1680c3bd861eeb126f306f61b485f18b978c834",
+          "docs/specs/prd/PRD-001.md": "73a324099d4ea11fd4a99ab8f48f944ce36a2a0e955803de3f918bc9d5ac88ef"
+        },
+        "after": {
+          "docs/specs/policy/POL-001.md": "9cffe36288d2847fc4745f19c1680c3bd861eeb126f306f61b485f18b978c834",
+          "docs/specs/prd/PRD-001.md": "73a324099d4ea11fd4a99ab8f48f944ce36a2a0e955803de3f918bc9d5ac88ef"
+        }
+      }
+    },
+    "names_file": {
+      "status": "PASS",
+      "evidence": "Blocked by a policy error in [POL-001.md](/tmp/dfai-architecture-extra-kpcf9cmi/project/docs/specs/policy/POL-001.md): **SET-03 (`interview.max_calls`) is 50**, outside the allowed **1\u201320** range.\n\nThe [architecture skill](/tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md) requires: \u201cAny violation stops the skill (ERR-02).\u201d Nothing was written; epic readiness remains unassessed.\n\nCorrect the policy value, then rerun architecture for PRD-001."
+    },
+    "names_setting_and_key": {
+      "status": "PASS",
+      "evidence": "Blocked by a policy error in [POL-001.md](/tmp/dfai-architecture-extra-kpcf9cmi/project/docs/specs/policy/POL-001.md): **SET-03 (`interview.max_calls`) is 50**, outside the allowed **1\u201320** range.\n\nThe [architecture skill](/tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md) requires: \u201cAny violation stops the skill (ERR-02).\u201d Nothing was written; epic readiness remains unassessed.\n\nCorrect the policy value, then rerun architecture for PRD-001."
+    },
+    "names_schema": {
+      "status": "FAIL",
+      "evidence": "Blocked by a policy error in [POL-001.md](/tmp/dfai-architecture-extra-kpcf9cmi/project/docs/specs/policy/POL-001.md): **SET-03 (`interview.max_calls`) is 50**, outside the allowed **1\u201320** range.\n\nThe [architecture skill](/tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md) requires: \u201cAny violation stops the skill (ERR-02).\u201d Nothing was written; epic readiness remains unassessed.\n\nCorrect the policy value, then rerun architecture for PRD-001."
+    },
+    "states_nothing_written": {
+      "status": "PASS",
+      "evidence": "Blocked by a policy error in [POL-001.md](/tmp/dfai-architecture-extra-kpcf9cmi/project/docs/specs/policy/POL-001.md): **SET-03 (`interview.max_calls`) is 50**, outside the allowed **1\u201320** range.\n\nThe [architecture skill](/tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md) requires: \u201cAny violation stops the skill (ERR-02).\u201d Nothing was written; epic readiness remains unassessed.\n\nCorrect the policy value, then rerun architecture for PRD-001."
+    },
+    "runtime_candidate_unchanged": {
+      "status": "PASS",
+      "evidence": {
+        "expected": {
+          ".codex-plugin/plugin.json": "e2c1aac8675f08049d2db5eb74d33aa6605f5e68779a2bf142f4f7a406e2f2ea",
+          "skills/architecture/SKILL.md": "c209c9f1e1845435b5d4e270fd0c79463c774e6f6d7e8380ecd4634917687bdc",
+          "skills/architecture/agents/openai.yaml": "6e495f71422e19e15f75a56e6cabef09d9ff9d0813c55f7c20cbc46cfcadb227",
+          "skills/architecture/assets/adr.md": "191a4c73f870bd35c4e42253ac906714519fe412af79ec3511b2852c8c58438d",
+          "skills/architecture/assets/arch.md": "c0ae0af128c62ea07dcae5fd5d9f10fcd7255f942e1594e89c703dcf7980eb7b",
+          "skills/architecture/provenance.yaml": "932242cc354a31ce0d4918407c151068d939f0e205b33a210e5218e592510279",
+          "skills/architecture/references/defaults.md": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+          "skills/architecture/references/inspection.md": "ae7444594a46796b6dda0ba86788a12c03212a53de899d3a5300738b03198ad2",
+          "skills/architecture/references/output-rules.md": "ba41ef7573c5a063274df8aa3c0b9fa45a67bfdbdc568024666935055aa6df1f",
+          "skills/architecture/references/policy.md": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+          "skills/architecture/references/readiness.md": "76aaa148759ec25c1a670d4f1d1d07846d104e0d4c5003f701244927e5614729"
+        },
+        "actual": {
+          ".codex-plugin/plugin.json": "e2c1aac8675f08049d2db5eb74d33aa6605f5e68779a2bf142f4f7a406e2f2ea",
+          "skills/architecture/SKILL.md": "c209c9f1e1845435b5d4e270fd0c79463c774e6f6d7e8380ecd4634917687bdc",
+          "skills/architecture/agents/openai.yaml": "6e495f71422e19e15f75a56e6cabef09d9ff9d0813c55f7c20cbc46cfcadb227",
+          "skills/architecture/assets/adr.md": "191a4c73f870bd35c4e42253ac906714519fe412af79ec3511b2852c8c58438d",
+          "skills/architecture/assets/arch.md": "c0ae0af128c62ea07dcae5fd5d9f10fcd7255f942e1594e89c703dcf7980eb7b",
+          "skills/architecture/provenance.yaml": "932242cc354a31ce0d4918407c151068d939f0e205b33a210e5218e592510279",
+          "skills/architecture/references/defaults.md": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+          "skills/architecture/references/inspection.md": "ae7444594a46796b6dda0ba86788a12c03212a53de899d3a5300738b03198ad2",
+          "skills/architecture/references/output-rules.md": "ba41ef7573c5a063274df8aa3c0b9fa45a67bfdbdc568024666935055aa6df1f",
+          "skills/architecture/references/policy.md": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+          "skills/architecture/references/readiness.md": "76aaa148759ec25c1a670d4f1d1d07846d104e0d4c5003f701244927e5614729"
+        }
+      }
+    }
+  },
+  "final_message": "Blocked by a policy error in [POL-001.md](/tmp/dfai-architecture-extra-kpcf9cmi/project/docs/specs/policy/POL-001.md): **SET-03 (`interview.max_calls`) is 50**, outside the allowed **1\u201320** range.\n\nThe [architecture skill](/tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md) requires: \u201cAny violation stops the skill (ERR-02).\u201d Nothing was written; epic readiness remains unassessed.\n\nCorrect the policy value, then rerun architecture for PRD-001.",
+  "timeline": [
+    {
+      "line": 24,
+      "method": "item/completed",
+      "type": "userMessage",
+      "phase": null
+    },
+    {
+      "line": 69,
+      "method": "item/completed",
+      "type": "agentMessage",
+      "phase": "commentary",
+      "text": "I\u2019m using the devforgeai:architecture skill to assess PRD-001, document supported decisions, and identify which requirements are ready for epics. I\u2019ll proceed without questions and record unresolved decisions as blockers.\n"
+    },
+    {
+      "line": 71,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md'",
+      "possible_write": false
+    },
+    {
+      "line": 76,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/references/policy.md /tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/references/defaults.md'",
+      "possible_write": false
+    },
+    {
+      "line": 77,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc 'for f in docs/specs/policy/POL-*.md .codex/devforgeai.local.md; do if [ -f \"$f\" ]; then printf '\"'\\\\nFile: %s\\\\n' \\\"\"'$f\"; cat \"$f\"; fi; done'",
+      "possible_write": false
+    },
+    {
+      "line": 81,
+      "method": "item/completed",
+      "type": "reasoning",
+      "phase": null
+    },
+    {
+      "line": 216,
+      "method": "item/completed",
+      "type": "agentMessage",
+      "phase": "final_answer",
+      "text": "Blocked by a policy error in [POL-001.md](/tmp/dfai-architecture-extra-kpcf9cmi/project/docs/specs/policy/POL-001.md): **SET-03 (`interview.max_calls`) is 50**, outside the allowed **1\u201320** range.\n\nThe [architecture skill](/tmp/dfai-architecture-extra-kpcf9cmi/devforgeai/skills/architecture/SKILL.md) requires: \u201cAny violation stops the skill (ERR-02).\u201d Nothing was written; epic readiness remains unassessed.\n\nCorrect the policy value, then rerun architecture for PRD-001."
+    }
+  ]
+}

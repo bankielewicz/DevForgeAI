@@ -1,0 +1,71 @@
+{
+  "record_type": "architecture-codex-source-preservation",
+  "record_version": 4,
+  "baseline": {
+    "path": "src/codex/devforgeai/architecture-import-evidence/source-baseline.json",
+    "sha256": "9dc2df404cfd7c5de1842274960ce03fa67d1d2ac32908c0a6ed7f83df028fe7",
+    "commit": "969932483d301df2b9eb1ca27a166c38efe1b75b"
+  },
+  "checkpoint_commit": "5e041cced955ea817fd113a4d44353201cf55426",
+  "groups": {
+    "source_skill": {
+      "checked": 9,
+      "unchanged": 9,
+      "changed_paths": [],
+      "missing_paths": [],
+      "unexpected_changes": []
+    },
+    "source_evals": {
+      "checked": 119,
+      "unchanged": 119,
+      "changed_paths": [],
+      "missing_paths": [],
+      "unexpected_changes": []
+    },
+    "source_tests": {
+      "checked": 2,
+      "unchanged": 2,
+      "changed_paths": [],
+      "missing_paths": [],
+      "unexpected_changes": []
+    },
+    "specification": {
+      "checked": 1,
+      "unchanged": 1,
+      "changed_paths": [],
+      "missing_paths": [],
+      "unexpected_changes": []
+    },
+    "existing_codex": {
+      "checked": 1736,
+      "unchanged": 1734,
+      "changed_paths": [
+        "src/codex/devforgeai/.codex-plugin/plugin.json",
+        "src/codex/devforgeai/README.md"
+      ],
+      "missing_paths": [],
+      "authorized_changed_paths": [
+        "src/codex/devforgeai/.codex-plugin/plugin.json",
+        "src/codex/devforgeai/README.md"
+      ],
+      "unexpected_changes": []
+    }
+  },
+  "authorized_existing_codex_changes_expected": [
+    "src/codex/devforgeai/.codex-plugin/plugin.json",
+    "src/codex/devforgeai/README.md"
+  ],
+  "authorized_existing_codex_changes_observed": [
+    "src/codex/devforgeai/.codex-plugin/plugin.json",
+    "src/codex/devforgeai/README.md"
+  ],
+  "original_claude_spec_and_tests_preserved": true,
+  "unexpected_changes": [],
+  "runtime_binding": {
+    "candidate_sha256": "002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92",
+    "candidate_file_count": 11,
+    "source_matches_frozen_candidate": true
+  },
+  "scope_note": "New Architecture task-owned files are additions and are not members of the pre-import source-baseline map; this check verifies that baseline members retained their bytes except for the two authorized integration files.",
+  "status": "PASS"
+}

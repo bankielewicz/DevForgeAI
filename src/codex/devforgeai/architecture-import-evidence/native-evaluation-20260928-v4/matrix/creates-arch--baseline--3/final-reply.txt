@@ -1,0 +1,7 @@
+Created the [architecture and readiness map](/tmp/dfai-architecture-eval-7le5xjwu/project/docs/specs/architecture/ARC-001.md).
+
+- **Ready for epic decomposition:** FR-002, FR-003, and NFR-001–003.
+- **Blocked:** FR-001, pending the identity-provider decision in [ADR-001](/tmp/dfai-architecture-eval-7le5xjwu/project/docs/specs/adr/ADR-001.md).
+- Booking and roster production integration still depend on sign-in.
+
+Coverage and document checks passed; PRD-001 remains unchanged. Runtime validation is not run because no implementation exists.

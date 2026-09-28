@@ -1,0 +1,84 @@
+{
+  "case": "superseded-adr",
+  "verification": "VER-05",
+  "arm": "baseline",
+  "repeat": 1,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "adr-002-context-evidence",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "dec-01-open",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "dec-02-still-adr-001",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "names-superseded-resolver",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": true
+    },
+    {
+      "grader": "readiness-mapping",
+      "type": "llm",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "status": "REVIEWED",
+      "rubric": "Context the reply was written in: PRD-001 has exactly three requirements, FR-001, FR-002 and NFR-001.\nThe existing ARCH-001 had two architectural questions: DEC-01 (identity provider), which cites FR-001\nonly, and DEC-02 (data ownership), which cites FR-002 and NFR-001 only. DEC-01 was resolved by\nADR-002, which has since been superseded by ADR-003, an ADR about hosting, not identity. DEC-02 is\nresolved by ADR-001, which is still accepted. The user asked to amend ARCH-001.\n\nJudge only the readiness that the final reply reports.\nPASS if all of these hold:\n- FR-001 is reported blocked, with DEC-01 named as a blocker.\n- FR-002 and NFR-001 are each reported ready, or reported blocked only by questions numbered DEC-03\n  or higher (questions this run added). Neither is attributed to DEC-01 or DEC-02.\n- All three requirements appear in the readiness report.\n- No other sentence contradicts the lists (for example, saying FR-001 is ready or everything is ready).\nFAIL if any of these fails, or if the reply says DEC-01 is still resolved, by ADR-002 or by ADR-003.",
+      "assessment": {
+        "passed": false,
+        "reason": "The baseline final reply correctly reopens DEC-01 after ADR-002's supersession and preserves ADR-001's still-valid decision, but it never reports requirement-level readiness. FR-001, FR-002, and NFR-001 are not listed, so the rubric's complete readiness mapping is absent.",
+        "evidence": [
+          "protocol.jsonl:140 recognizes that ADR-003 supersedes ADR-002 without choosing a replacement identity provider and says DEC-01 will reopen.",
+          "protocol.jsonl:339 says the blocking DEC-01 was reopened and ADR-001's database decision was preserved, but gives no FR-001, FR-002, or NFR-001 readiness statuses.",
+          "No other final-answer sentence supplies the required three-requirement readiness mapping."
+        ]
+      }
+    }
+  ],
+  "source_score": 0.6,
+  "threshold_pass": false,
+  "activation": {
+    "expected": false,
+    "observed": false,
+    "loads": []
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true
+  },
+  "changed_paths": [
+    "docs/specs/arch/ARCH-001.md"
+  ],
+  "provenance": {},
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

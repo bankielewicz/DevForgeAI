@@ -1,0 +1,105 @@
+{
+  "parent": {
+    "pid": 1595887,
+    "cwd": "/home/bryan/Projects/DevForgeAI-worktrees/architecture-codex",
+    "args": [
+      "python3",
+      "-B",
+      "-u",
+      "src/codex/devforgeai/tests/native_architecture_eval.py",
+      "--evidence",
+      "src/codex/devforgeai/architecture-import-evidence/native-evaluation-20260928-v3",
+      "--stage",
+      "matrix",
+      "--jobs",
+      "4",
+      ""
+    ]
+  },
+  "children": [
+    {
+      "pid": 1617485,
+      "ppid": 1595887,
+      "cwd": "/tmp/dfai-architecture-eval-qg0aqo4b/project",
+      "args": [
+        "/home/bryan/.local/bin/codex",
+        "app-server",
+        "--listen",
+        "stdio://",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "mcp_servers.openaiDeveloperDocs.enabled=false",
+        "-c",
+        "plugins.alphatrace-engineering@alphatrace-ai.enabled=false",
+        "-c",
+        "plugins.codex-security@openai-curated.enabled=false",
+        ""
+      ],
+      "pgid": 1617485
+    },
+    {
+      "pid": 1622017,
+      "ppid": 1595887,
+      "cwd": "/tmp/dfai-architecture-eval-qnb0lwon/project",
+      "args": [
+        "/home/bryan/.local/bin/codex",
+        "app-server",
+        "--listen",
+        "stdio://",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "mcp_servers.openaiDeveloperDocs.enabled=false",
+        "-c",
+        "plugins.alphatrace-engineering@alphatrace-ai.enabled=false",
+        "-c",
+        "plugins.codex-security@openai-curated.enabled=false",
+        ""
+      ],
+      "pgid": 1622017
+    },
+    {
+      "pid": 1624929,
+      "ppid": 1595887,
+      "cwd": "/tmp/dfai-architecture-eval-zeeruwgu/project",
+      "args": [
+        "/home/bryan/.local/bin/codex",
+        "app-server",
+        "--listen",
+        "stdio://",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "mcp_servers.openaiDeveloperDocs.enabled=false",
+        "-c",
+        "plugins.alphatrace-engineering@alphatrace-ai.enabled=false",
+        "-c",
+        "plugins.codex-security@openai-curated.enabled=false",
+        ""
+      ],
+      "pgid": 1624929
+    },
+    {
+      "pid": 1625078,
+      "ppid": 1595887,
+      "cwd": "/tmp/dfai-architecture-eval-g0w6f41s/project",
+      "args": [
+        "/home/bryan/.local/bin/codex",
+        "app-server",
+        "--listen",
+        "stdio://",
+        "-c",
+        "features.memories=false",
+        "-c",
+        "mcp_servers.openaiDeveloperDocs.enabled=false",
+        "-c",
+        "plugins.alphatrace-engineering@alphatrace-ai.enabled=false",
+        "-c",
+        "plugins.codex-security@openai-curated.enabled=false",
+        ""
+      ],
+      "pgid": 1625078
+    }
+  ]
+}

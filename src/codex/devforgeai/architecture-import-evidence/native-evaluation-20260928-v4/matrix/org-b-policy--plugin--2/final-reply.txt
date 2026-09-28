@@ -1,0 +1,9 @@
+Saved [ARCH-001.md](/tmp/dfai-architecture-eval-5simzszz/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1: four proposed components and eight open decisions covering all six requirements.
+
+- **PASS:** Python/YAML checks for structure, requirement links, policy, and decision states.
+- **BLOCKED:** Required provenance validation—the exact host model and session IDs are unavailable.
+- **NOT_RUN:** Validated epic-readiness handoff.
+
+The ARCH remains draft with an unconfirmed outcome. No ADRs were written; nothing required restoration.
+
+The [architecture skill](/tmp/dfai-architecture-eval-5simzszz/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” when host identity is unavailable. The draft records this limitation explicitly.

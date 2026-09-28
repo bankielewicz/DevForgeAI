@@ -1,0 +1,6 @@
+Created [ARCH-001](docs/specs/architecture/ARCH-001.md), defining hosted components, booking transactions, session revocation, privacy controls, and epic dependencies.
+
+- **Ready for epics:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.
+- **Blocked:** FR-001 needs an identity-provider decision, documented in [ADR-001](docs/specs/adr/ADR-001.md).
+
+Documentation checks passed; PRD-001 is unchanged. Runtime tests were not run because no implementation exists.

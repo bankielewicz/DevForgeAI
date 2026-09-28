@@ -1,0 +1,7 @@
+Created the [architecture](docs/specs/architecture/ARCH-001.md) and [identity ADR](docs/specs/adr/ADR-001.md).
+
+- **Ready for epic drafting:** FR-002, FR-003, and NFR-001–003.
+- **Blocked:** FR-001, pending validation of volunteer identity and enrollment needs.
+- Booking and roster completion still depend on working sign-in.
+
+Requirement coverage and document checks passed. Runtime tests were not run; no application exists. [Verification record](docs/specs/architecture/VERIFICATION-001.md).

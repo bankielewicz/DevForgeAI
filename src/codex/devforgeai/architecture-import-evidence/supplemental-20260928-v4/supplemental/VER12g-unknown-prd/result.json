@@ -1,0 +1,29 @@
+{
+  "id": "01a0ea03-ea2a-77d0-af7e-34cb9726b5f4",
+  "items": [
+    {
+      "type": "agentMessage",
+      "id": "msg_0d11dd54b165ef5c016abae26fa5bc87d1a24717d60e27be1f",
+      "text": "Blocked (ERR-01): `docs/specs/prd/PRD-999.md` does not exist. Nothing was written; epic readiness could not be assessed.\n\nAvailable PRD:\n\n- **PRD-001** \u2014 \u201cVolunteer shift sign-up for the Riverside Food Bank\u201d \u2014 approved, version 1.\n\nProvide PRD-999 or rerun with PRD-001.",
+      "phase": "final_answer",
+      "memoryCitation": null,
+      "delivery": null,
+      "questions": null
+    }
+  ],
+  "itemsView": "summary",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790632520,
+  "completedAt": 1790632562,
+  "durationMs": 42073,
+  "threadId": "01a0ea03-e9c9-76a0-a5d6-9d4b49fabf94",
+  "model": "gpt-6-astra",
+  "case": "VER12g-unknown-prd",
+  "ver": "VER-12(g)",
+  "collaboration_mode": "default",
+  "elapsed_seconds": 42.414,
+  "plan_sha256": "27cd7a8a88c11f415845b3341a879250c861dfc6bb634edcf655d8034d3d525f",
+  "scratch_parent": "/tmp/dfai-architecture-extra-d6nzamf7",
+  "scratch_workspace": "/tmp/dfai-architecture-extra-d6nzamf7/project"
+}

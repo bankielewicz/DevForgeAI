@@ -1,0 +1,7 @@
+Amended [ARCH-001](/tmp/dfai-architecture-eval-9dk4kbmx/project/docs/specs/arch/ARCH-001.md) to version 2, draft.
+
+- Applied ADR-003’s hosting decision.
+- Reopened the blocking identity-provider question.
+- Preserved ADR-001’s database ownership decision.
+
+PASS: `python3 /tmp/verify_arch_amend.py` — all nine consistency checks passed; PRD and ADR files unchanged.

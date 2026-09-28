@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "attempt": "supplemental-launch-attempt1",
+  "observed_at_utc": "2026-09-28T21:26:38Z",
+  "status": "HARNESS_PREFLIGHT_FAILED",
+  "observed_error": "RuntimeError: Expected native Codex executable /home/bryan/.local/bin/codex; harness resolved /home/bryan/.local/bin/codex",
+  "effect": "The launch stopped before the evidence directory was created and before any native trial started.",
+  "pre_fix_script": {
+    "path": "src/codex/devforgeai/tests/supplemental_architecture_eval.py",
+    "sha256": "461019056fdffef2423d0a4649f73a829b581a2f0b35cd2c54aced6aebe85460"
+  },
+  "path_observation": {
+    "expected_lexical_path": "/home/bryan/.local/bin/codex",
+    "harness_lexical_path": "/home/bryan/.local/bin/codex",
+    "resolved_executable": "/home/bryan/.codex/packages/standalone/releases/0.158.0-x86_64-unknown-linux-musl/bin/codex",
+    "exists": true,
+    "is_file": true,
+    "is_executable": true
+  },
+  "cause": "The preflight compared Path(EXE).resolve() with the unresolved expected symlink path.",
+  "retention": "This record was written before the evaluator fix. No supplemental evidence directory or native result existed to retain.",
+  "related_papercut": "The Codex 2026-09-28 native-evaluation entry at papercuts.md:58 established the absolute launcher path but did not cover symlink-aware equality."
+}

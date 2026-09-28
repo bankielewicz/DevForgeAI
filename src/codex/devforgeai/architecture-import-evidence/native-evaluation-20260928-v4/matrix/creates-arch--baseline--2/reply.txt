@@ -1,0 +1,7 @@
+Created [ARCH-001](/tmp/dfai-architecture-eval-ps8kqycp/project/docs/specs/architecture/ARCH-001.md) with component design, data flows, three ADRs, and requirement-level verification plans.
+
+- **Ready for epics:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.
+- **Blocked:** FR-001 needs identity-provider selection.
+- Booking and roster can be planned now; delivery depends on sign-in integration.
+
+Documentation checks passed. Runtime tests remain unrun because no implementation exists. The approved PRD is unchanged.

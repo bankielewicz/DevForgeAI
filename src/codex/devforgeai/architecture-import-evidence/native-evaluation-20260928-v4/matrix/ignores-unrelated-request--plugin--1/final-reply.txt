@@ -1,0 +1,32 @@
+Linux uses a **monolithic, modular kernel**: scheduling, memory management, filesystems, and device drivers operate within the same privileged kernel, while many components can be loaded as modules. These subsystems work together to give programs three basic resources: **CPU time, memory, and access to files**.
+
+```mermaid
+flowchart TD
+    P[User processes] -->|Run threads| S[Scheduler]
+    P -->|Access virtual memory| M[Memory management]
+    P -->|Open, read, write| V[Virtual file system]
+    V <-->|Page cache and mapped files| M
+    V --> F[Specific filesystems]
+    F --> D[Device drivers or network]
+    D -->|Completion wakes waiting tasks| S
+```
+
+**The scheduler decides which runnable thread gets CPU time.** Linux schedules individual tasks—roughly, threads—across available CPUs, accounting for scheduling policy, priority, fairness, and CPU affinity. A task waiting for disk data usually sleeps, allowing another task to run. When the data arrives, the waiting task becomes runnable again; the scheduler decides when it executes.
+
+**Memory management gives each process a virtual address space.** Page tables translate virtual addresses into physical memory, with permissions that isolate processes. Memory is often allocated or loaded only when first accessed: a *page fault* transfers control to the kernel, which can allocate a page, retrieve file contents, or reject an invalid access.
+
+Memory management also handles shared memory, the file page cache, and reclamation under memory pressure. A context switch between processes includes switching the active address-space context; threads in the same process normally share that context.
+
+**The virtual file system, or VFS, gives different filesystems a common interface.** Operations such as `open()`, `read()`, and `write()` enter this layer. The VFS resolves paths, checks access, and dispatches operations to the relevant implementation, such as ext4, XFS, or a network filesystem.
+
+Its main objects describe filesystem instances, file identities and metadata (*inodes*), pathname entries (*dentries*), and open files. This lets applications use the same interface across different storage implementations.
+
+Their cooperation is easiest to see in a typical buffered file read:
+
+1. A running thread calls `read()`. The VFS routes the request to the file’s implementation.
+2. If the requested data is in the **page cache**, the kernel can copy it into the process’s buffer.
+3. If storage access is needed, the kernel requests I/O. The thread may sleep, and the scheduler runs another task.
+4. When I/O completes, the data becomes available in memory and the waiting thread is awakened.
+5. Once scheduled again, it finishes the read.
+
+A memory-mapped file connects the subsystems even more directly: `mmap()` establishes a mapping, and later memory accesses can trigger page faults that bring file data into memory. Those faults may require I/O and put the accessing thread to sleep. Thus, a seemingly ordinary memory access can involve memory management, the filesystem, and the scheduler.

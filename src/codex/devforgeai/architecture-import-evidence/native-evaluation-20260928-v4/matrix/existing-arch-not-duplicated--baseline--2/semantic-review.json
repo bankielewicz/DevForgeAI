@@ -1,0 +1,12 @@
+{
+  "recommends-and-asks": {
+    "passed": false,
+    "reason": "The baseline points to the existing ARCH-001 and its completed plan proposes extending it, but it does not ask the user to choose reuse or amendment. It therefore misses the required selection gate even though no file was written.",
+    "evidence": [
+      "protocol.jsonl:62 says it will proceed without asking questions.",
+      "protocol.jsonl:130 identifies unresolved identity, revocation, coordinator-access, and readiness gaps in ARCH-001.",
+      "protocol.jsonl:1181 begins the completed plan with 'Extend the existing draft ARCH-001'; no request_user_input item or user-choice question appears.",
+      "before.json and after.json are identical."
+    ]
+  }
+}

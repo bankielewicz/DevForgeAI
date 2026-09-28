@@ -1,0 +1,7 @@
+Created [ARCH-001](/tmp/dfai-architecture-eval-_vwr5a7m/project/docs/specs/arch/ARCH-001.md) for PRD-001, covering components, data ownership, security, privacy, and hosting. Current auth reuse is recorded as your preference.
+
+- **PASS:** Structure and requirement-link checks.
+- **BLOCKED:** Exact host model/session IDs are unavailable.
+- **NOT_RUN:** Readiness handoff.
+
+The [architecture skill](/tmp/dfai-architecture-eval-_vwr5a7m/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” when host identity is unavailable. The document remains a draft with eight open decisions; no ADRs or approvals were written, and nothing required restoration.

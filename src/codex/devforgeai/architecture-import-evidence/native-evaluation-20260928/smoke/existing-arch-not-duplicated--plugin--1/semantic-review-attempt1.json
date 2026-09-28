@@ -1,0 +1,47 @@
+{
+  "reviewer": "architecture_spec_review",
+  "case": "existing-arch-not-duplicated",
+  "verification": "VER-07",
+  "arm": "plugin",
+  "repeat": 1,
+  "decision": "FAIL",
+  "source_grader": "recommends-and-asks",
+  "rationale": "The combined user-visible output points to ARCH-001, recommends amending it because it already covers approved PRD-001 v1, and preserves both existing files. It does not offer reuse as a selectable alternative and does not ask the user to choose before proceeding. user-visible-questions.json is empty and the final reply expressly says it honored 'Proceed without questions' by asking no questions. The source rubric therefore fails. This failure exposes a fixture/contract conflict rather than permission to waive the result: the prompt prohibits questions, while VER-07 and BEH-04 require a selection question when an existing ARCH covers the system.",
+  "evidence": [
+    {
+      "path": "prompt.md",
+      "detail": "The user says: 'Proceed without questions.'"
+    },
+    {
+      "path": "protocol.jsonl",
+      "lines": [86, 87, 89, 607],
+      "detail": "The completed commentary promises to proceed without questions; the runtime then launches a repository-root pwd/rg --files discovery command concurrently with loading SKILL.md; the final message recommends amend and explicitly declines to ask."
+    },
+    {
+      "path": "user-visible-questions.json",
+      "detail": "The native question list is empty."
+    },
+    {
+      "path": "reply.txt",
+      "detail": "The reply recommends amending ARCH-001 with reasons and says nothing was written, but provides no reuse option and no selection question."
+    },
+    {
+      "path": "before.json",
+      "detail": "ARCH-001 and PRD-001 hashes are 2c8c7c730a4324f292f8e3f6a18feceb0937679e7987eba2687303059cc222ae and 73a324099d4ea11fd4a99ab8f48f944ce36a2a0e955803de3f918bc9d5ac88ef."
+    },
+    {
+      "path": "after.json",
+      "detail": "The same two hashes remain; no document changed and no ARCH-002 was created."
+    },
+    {
+      "path": "grade.json",
+      "detail": "asks-with-request-user-input and offers-reuse-and-amend fail; source threshold and strict pass are false."
+    }
+  ],
+  "additional_finding": {
+    "id": "bounded-discovery",
+    "status": "FAIL",
+    "detail": "protocol.jsonl lines 87 and 89 show a repository-root pwd plus rg --files scan with broad patterns before SKILL.md completed loading. SPEC-003 BEH-05 and the port require fixed contract-document paths and prohibit repository-root listing. The command happened before the skill instructions were available, so it is a native activation-order/runtime finding and not evidence that the static port omitted the rule."
+  },
+  "qualification_boundary": "The run is retained as a failed VER-07 smoke. Its correct no-write custody behavior and reasonable handling of the literal prompt do not satisfy the source grader or establish native request_user_input behavior. An unambiguous supplemental prompt is required to exercise the native question path."
+}

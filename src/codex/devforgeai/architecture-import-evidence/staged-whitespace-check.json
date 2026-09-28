@@ -1,0 +1,9 @@
+{
+  "command": "git diff --cached --check",
+  "exit": 2,
+  "stdout": "src/codex/devforgeai/skills/architecture/agents/openai.yaml:7: new blank line at EOF.\n",
+  "stderr": "",
+  "disposition": "One empty trailing line in agents/openai.yaml. Preserve exact frozen v3 bytes; no formatter or whitespace CI gate is configured. This is a reported warning, not a clean whitespace result.",
+  "staged_file_count": 141,
+  "candidate_matches": true
+}

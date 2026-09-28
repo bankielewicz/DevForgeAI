@@ -1,0 +1,7 @@
+Created [ARCH-001](docs/specs/arch/ARCH-001.md) for PRD-001 v1 with four proposed components and eight open architecture decisions. No ADRs were written; outcome remains unconfirmed.
+
+- **PASS:** Structure and requirement traceability checks.
+- **BLOCKED:** Exact host model/session identifiers are unavailable, preventing provenance validation.
+- **NOT_RUN:** Validated epic-readiness handoff.
+
+The draft is retained with an audit note; no approval fields needed restoration. The [architecture skill](/tmp/dfai-architecture-eval-b1jh_s52/devforgeai/skills/architecture/SKILL.md) requires “skip the readiness handoff” when validation remains unresolved. No requirements are certified ready for epics.

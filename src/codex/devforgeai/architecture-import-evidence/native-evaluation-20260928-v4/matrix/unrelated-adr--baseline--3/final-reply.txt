@@ -1,0 +1,5 @@
+Created [ARCH-001](docs/specs/architecture/ARCH-001.md) and three proposed ADRs covering identity/session revocation, phone privacy, and hosted deployment.
+
+All six requirements have architectural coverage. **None is unconditionally ready for committed epics**: hosting remains a product-wide gate, with identity, privacy, and booking clarifications also recorded. Four candidate epic scopes are defined.
+
+Validation passed for references, metadata, and requirement coverage. The approved PRD and existing ADR remain unchanged. Runtime tests were not run; this workspace contains specifications only.

@@ -1,0 +1,31 @@
+{
+  "id": "01a0ea1e-fa76-7901-a50f-1212200237b2",
+  "items": [
+    {
+      "type": "agentMessage",
+      "id": "msg_0e0d46eabf619733016abaea5a18d887d18957769554b58ec9",
+      "text": "Created [ADD-001 architecture and readiness matrix](/tmp/dfai-architecture-eval-391pr43p/project/docs/specs/add/ADD-001.md).\n\n- **Ready for epic drafting:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.\n- **Blocked:** FR-001 pending the identity-provider decision documented in [ADR-001](/tmp/dfai-architecture-eval-391pr43p/project/docs/specs/adr/ADR-001.md).\n- Booking and roster delivery still depend on sign-in integration.\n\nDefined hosted components, data contracts, session revocation, phone privacy, booking concurrency, and verification criteria. Document checks passed; implementation tests remain unrun. The approved PRD is unchanged.",
+      "phase": "final_answer",
+      "memoryCitation": null,
+      "delivery": null,
+      "questions": null
+    }
+  ],
+  "itemsView": "summary",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790634293,
+  "completedAt": 1790634591,
+  "durationMs": 297413,
+  "threadId": "01a0ea1e-f9dd-72d1-84af-37a64887e917",
+  "model": "gpt-6-astra",
+  "case": "records-provenance",
+  "verification": "VER-14",
+  "arm": "baseline",
+  "repeat": 2,
+  "collaboration_mode": "default",
+  "elapsed_seconds": 297.805,
+  "plan_sha256": "0fb9cab9abcc3721332c60f16a817500261cac438939d77f6ef5571e91b21618",
+  "scratch_parent": "/tmp/dfai-architecture-eval-391pr43p",
+  "scratch_workspace": "/tmp/dfai-architecture-eval-391pr43p/project"
+}

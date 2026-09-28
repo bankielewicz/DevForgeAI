@@ -1,0 +1,11 @@
+{
+  "readiness-mapping": {
+    "passed": false,
+    "reason": "The final reply correctly says DEC-01 was reopened because ADR-002 is superseded and ADR-003 does not select an identity provider, while DEC-02 was preserved. It nevertheless withholds the readiness handoff entirely, so it does not report FR-001 blocked by DEC-01 or report FR-002 and NFR-001 ready. All three requirements required by the rubric are absent from the reported readiness.",
+    "evidence": [
+      "protocol.jsonl:372 correctly determines that ADR-002 is superseded, ADR-003 leaves identity undecided, DEC-01 must reopen, and DEC-02 retains a valid resolver.",
+      "protocol.jsonl:525 says provenance validation remains blocked and that the readiness handoff will be withheld.",
+      "protocol.jsonl:749 reports 'NOT_RUN: Readiness handoff' and contains no readiness entries for FR-001, FR-002, or NFR-001."
+    ]
+  }
+}

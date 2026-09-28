@@ -1,0 +1,703 @@
+{
+  "reason": "Introduced v3 review-record provenance regression: new Codex Change Log row copied historical fixture-session. Preserve the attempt; correct runtime and rerun full final-candidate matrix.",
+  "parent_pid": 1595887,
+  "stopped_children": [
+    {
+      "pid": 1624929,
+      "cwd": "/tmp/dfai-architecture-eval-zeeruwgu/project"
+    },
+    {
+      "pid": 1625078,
+      "cwd": "/tmp/dfai-architecture-eval-g0w6f41s/project"
+    },
+    {
+      "pid": 1626295,
+      "cwd": "/tmp/dfai-architecture-eval-07jsckw3/project"
+    },
+    {
+      "pid": 1626580,
+      "cwd": "/tmp/dfai-architecture-eval-omwzhye8/project"
+    }
+  ],
+  "candidate_sha256": "9b60b259dc26720d3cd5797a4fe7b6a7800746482e9897d5fece0bd8e8e36e7d",
+  "planned_trials": 84,
+  "counts": {
+    "COMPLETED": 24,
+    "INTERRUPTED": 4,
+    "NOT_RUN": 56
+  },
+  "trials": [
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "creates-arch--plugin--1"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "creates-arch--baseline--1"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "existing-arch-not-duplicated--plugin--1"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "existing-arch-not-duplicated--baseline--1"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "hands-off-to-epic--plugin--1"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "hands-off-to-epic--baseline--1"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "ignores-unrelated-request--plugin--1"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "ignores-unrelated-request--baseline--1"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "insufficient-evidence--plugin--1"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "insufficient-evidence--baseline--1"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "no-acceptance-without-user--plugin--1"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "no-acceptance-without-user--baseline--1"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "org-a-policy--plugin--1"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "org-a-policy--baseline--1"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "org-b-policy--plugin--1"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "org-b-policy--baseline--1"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "prd-change-handed-back--plugin--1"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "prd-change-handed-back--baseline--1"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "records-provenance--plugin--1"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "records-provenance--baseline--1"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "reuse-records-review--plugin--1"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "reuse-records-review--baseline--1"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "reuse-review-idempotent--plugin--1"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "COMPLETED",
+      "trial": "reuse-review-idempotent--baseline--1"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "INTERRUPTED",
+      "trial": "superseded-adr--plugin--1"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "INTERRUPTED",
+      "trial": "superseded-adr--baseline--1"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "INTERRUPTED",
+      "trial": "unrelated-adr--plugin--1"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "INTERRUPTED",
+      "trial": "unrelated-adr--baseline--1"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "creates-arch--plugin--2"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "creates-arch--baseline--2"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "existing-arch-not-duplicated--plugin--2"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "existing-arch-not-duplicated--baseline--2"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "hands-off-to-epic--plugin--2"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "hands-off-to-epic--baseline--2"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "ignores-unrelated-request--plugin--2"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "ignores-unrelated-request--baseline--2"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "insufficient-evidence--plugin--2"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "insufficient-evidence--baseline--2"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "no-acceptance-without-user--plugin--2"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "no-acceptance-without-user--baseline--2"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "org-a-policy--plugin--2"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "org-a-policy--baseline--2"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "org-b-policy--plugin--2"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "org-b-policy--baseline--2"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "prd-change-handed-back--plugin--2"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "prd-change-handed-back--baseline--2"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "records-provenance--plugin--2"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "records-provenance--baseline--2"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "reuse-records-review--plugin--2"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "reuse-records-review--baseline--2"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "reuse-review-idempotent--plugin--2"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "reuse-review-idempotent--baseline--2"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "superseded-adr--plugin--2"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "superseded-adr--baseline--2"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "unrelated-adr--plugin--2"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "trial": "unrelated-adr--baseline--2"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "creates-arch--plugin--3"
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "creates-arch--baseline--3"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "existing-arch-not-duplicated--plugin--3"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "existing-arch-not-duplicated--baseline--3"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "hands-off-to-epic--plugin--3"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "hands-off-to-epic--baseline--3"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "ignores-unrelated-request--plugin--3"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "ignores-unrelated-request--baseline--3"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "insufficient-evidence--plugin--3"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "insufficient-evidence--baseline--3"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "no-acceptance-without-user--plugin--3"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "no-acceptance-without-user--baseline--3"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "org-a-policy--plugin--3"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "org-a-policy--baseline--3"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "org-b-policy--plugin--3"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "org-b-policy--baseline--3"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "prd-change-handed-back--plugin--3"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "prd-change-handed-back--baseline--3"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "records-provenance--plugin--3"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "records-provenance--baseline--3"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "reuse-records-review--plugin--3"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "reuse-records-review--baseline--3"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "reuse-review-idempotent--plugin--3"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "reuse-review-idempotent--baseline--3"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "superseded-adr--plugin--3"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "superseded-adr--baseline--3"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "unrelated-adr--plugin--3"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "trial": "unrelated-adr--baseline--3"
+    }
+  ]
+}

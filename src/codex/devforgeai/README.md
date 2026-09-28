@@ -37,6 +37,9 @@ The package does not yet include the PRD or Epic skills; Architecture can consum
 existing PRD and names Epic as the planned next step. Runtime question availability is
 host-dependent; unanswered decisions remain open.
 
+Architecture remains a draft port. Its import report records native evaluation
+failures, specification discrepancies and unrun manual acceptance checks.
+
 ## Local checks
 
 Run from this package directory with Python 3:

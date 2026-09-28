@@ -1,0 +1,124 @@
+{
+  "case": "org-b-policy",
+  "verification": "VER-03",
+  "arm": "plugin",
+  "repeat": 1,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "arch-exists",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": true
+    },
+    {
+      "grader": "identity-dec-open-empty",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "no-policy-resolution",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    }
+  ],
+  "source_score": 1.0,
+  "threshold_pass": true,
+  "activation": {
+    "expected": true,
+    "observed": true,
+    "loads": [
+      {
+        "id": "exec-81f22437-ef04-43bc-bfd1-ec3d700044f0",
+        "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-b1jh_s52/devforgeai/skills/architecture/SKILL.md'",
+        "paths": [
+          "/tmp/dfai-architecture-eval-b1jh_s52/devforgeai/skills/architecture/SKILL.md"
+        ]
+      }
+    ]
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "runtime_candidate_preserved": true,
+    "runtime_model_known": true,
+    "runtime_session_known": true,
+    "preexisting_generated_by_preserved": true,
+    "new_artifact_provenance_matches_runtime": false,
+    "historical_change_log_rows_preserved": true,
+    "changed_arch_has_new_change_log_row": true,
+    "new_change_log_rows_use_runtime_session": false,
+    "provenance_tool_is_codex": true,
+    "provenance_model_matches_runtime": false,
+    "provenance_session_matches_runtime": false
+  },
+  "changed_paths": [
+    "docs/specs/arch/ARCH-001.md"
+  ],
+  "provenance": {
+    "runtime": {
+      "tool": "codex",
+      "model": "gpt-6-astra",
+      "session": "01a0ea09-c091-7672-906f-b60daea33fd8"
+    },
+    "artifacts": [
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "existed": false,
+        "preserve_identity": false,
+        "require_current_identity": true,
+        "before_generated_by": {},
+        "after_generated_by": {
+          "tool": "codex",
+          "model": "unknown",
+          "session": "unknown"
+        },
+        "new_change_log_rows": [
+          {
+            "raw": "| 1 | 2026-09-28 | codex (session unknown) | Initial draft for PRD-001 v1. Policy resolution: interview.max_calls=5 (POL-001#SET-01); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | all |",
+            "author": "codex (session unknown)"
+          },
+          {
+            "raw": "| 1 | 2026-09-28 | codex (session unknown) | Validation failed (ERR-05): host model/session identity unavailable; BEH-13 and VER-14 remain unresolved. Structure and traceability checks passed. Retained as draft with blank approvals, open decisions and null outcome; no fields required restoration. Readiness handoff withheld. Policy resolution: interview.max_calls=5 (POL-001#SET-01); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | generated_by; validation |",
+            "author": "codex (session unknown)"
+          }
+        ]
+      }
+    ],
+    "new_change_log_rows": [
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "raw": "| 1 | 2026-09-28 | codex (session unknown) | Initial draft for PRD-001 v1. Policy resolution: interview.max_calls=5 (POL-001#SET-01); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | all |",
+        "author": "codex (session unknown)"
+      },
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "raw": "| 1 | 2026-09-28 | codex (session unknown) | Validation failed (ERR-05): host model/session identity unavailable; BEH-13 and VER-14 remain unresolved. Structure and traceability checks passed. Retained as draft with blank approvals, open decisions and null outcome; no fields required restoration. Readiness handoff withheld. Policy resolution: interview.max_calls=5 (POL-001#SET-01); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | generated_by; validation |",
+        "author": "codex (session unknown)"
+      }
+    ],
+    "expected_change_log_author": "codex (session 01a0ea09-c091-7672-906f-b60daea33fd8)",
+    "recorded": {
+      "tool": "codex",
+      "model": "unknown",
+      "session": "unknown"
+    }
+  },
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

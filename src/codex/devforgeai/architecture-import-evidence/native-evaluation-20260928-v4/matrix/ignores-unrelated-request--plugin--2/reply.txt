@@ -1,0 +1,47 @@
+Linux is a **monolithic kernel with loadable modules**: the scheduler, memory manager, filesystems, and drivers run in kernel space and cooperate through function calls and shared data structures.
+
+Their responsibilities fit together like this:
+
+| Subsystem | Main responsibility | Connection to the others |
+|---|---|---|
+| **Scheduler** | Decides which runnable thread gets CPU time | Runs other threads while one waits for memory or file I/O |
+| **Memory management** | Manages virtual addresses, physical RAM, and cached data | Supplies memory to tasks and filesystems; handles file-backed memory |
+| **Virtual file system (VFS)** | Provides a common interface to files and directories | Connects file operations to specific filesystems and the memory cache |
+
+```mermaid
+flowchart TD
+    A[Application threads] -->|open, read, write| V[VFS]
+    A -->|Memory access and page faults| M[Memory management]
+    V --> F[Filesystem implementation]
+    F <-->|Cached file contents| P[Page cache in RAM]
+    M <-->|Allocation and reclamation| P
+    F --> D[Storage or network drivers]
+    V -.->|Wait and wake up| S[Scheduler]
+    M -.->|Wait and wake up| S
+    S -->|Assign CPU time| A
+```
+
+**The scheduler controls execution.** Linux schedules individual threads, including kernel threads. It tracks which are runnable, selects work for each CPU, and switches execution between them. A thread waiting for disk data can sleep, freeing the CPU for another thread. Modern Linux uses EEVDF for ordinary fair scheduling, alongside separate real-time and deadline scheduling classes. [Scheduler documentation](https://docs.kernel.org/scheduler/), [EEVDF documentation](https://docs.kernel.org/scheduler/sched-eevdf.html)
+
+**Memory management provides address spaces and manages RAM.** Each process normally has its own virtual address space; threads within a process share it. Page tables map virtual addresses to physical memory and enforce access permissions. A page fault lets the kernel supply a missing mapping—for example, by allocating memory or loading file contents. Memory management also reclaims RAM when needed. [Memory concepts](https://cdn.kernel.org/doc/html/latest/admin-guide/mm/concepts.html)
+
+**The VFS gives applications a uniform file interface.** An application uses `open()`, `read()`, and `write()` whether a file lives on ext4, a network filesystem, or an in-memory filesystem. The VFS resolves names and dispatches operations to the appropriate implementation. Its main objects include:
+
+- **Dentry:** associates a name within a directory with a filesystem object.
+- **Inode:** represents that object and its metadata.
+- **File object:** represents an open instance, including its position and operations.
+- **Superblock:** represents a filesystem instance.
+
+[VFS documentation](https://docs.kernel.org/filesystems/vfs.html)
+
+A normal **buffered file read** shows the cooperation:
+
+1. A running thread calls `read(fd, buffer, size)`, entering the kernel.
+2. The VFS finds the open file object and invokes its read operation.
+3. The filesystem’s read path checks the **page cache**, which holds file contents in RAM.
+4. If the data is missing, the kernel requests I/O. The thread may sleep while the scheduler runs something else.
+5. When the data arrives, the waiting thread becomes runnable. Once scheduled, it finishes copying the data into the application’s buffer and returns.
+
+This combines the documented [VFS dispatch mechanism](https://docs.kernel.org/filesystems/vfs.html), [page cache](https://cdn.kernel.org/doc/html/latest/admin-guide/mm/concepts.html#page-cache), and kernel [waiting and wake-up mechanisms](https://docs.kernel.org/driver-api/basics.html).
+
+The **page cache is the central connection between filesystems and memory management**. Ordinary buffered I/O and file-backed `mmap()` generally use the same cached file contents. Under memory pressure, clean cached pages can be discarded and reread later; modified pages require writeback before reclamation. These waits, page faults, and background writeback activities all create work for the scheduler. [Memory concepts](https://cdn.kernel.org/doc/html/latest/admin-guide/mm/concepts.html)

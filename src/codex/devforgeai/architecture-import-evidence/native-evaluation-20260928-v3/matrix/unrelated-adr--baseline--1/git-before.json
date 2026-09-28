@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 128,
+    "output": ""
+  },
+  "head": {
+    "exit": 128,
+    "output": ""
+  },
+  "index": {
+    "exit": 128,
+    "output": ""
+  },
+  "refs": {
+    "exit": 128,
+    "output": ""
+  }
+}

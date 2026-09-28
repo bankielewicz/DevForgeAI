@@ -1,0 +1,67 @@
+{
+  "thread": {
+    "id": "01a0ea34-0b0d-76a3-9a64-8d4b22ed7c07",
+    "environments": [
+      {
+        "environmentId": "local",
+        "cwd": "/tmp/dfai-architecture-eval-hyu7e3at/project",
+        "runtimeWorkspaceRoots": [
+          "/tmp/dfai-architecture-eval-hyu7e3at/project"
+        ]
+      }
+    ],
+    "extra": null,
+    "sessionId": "01a0ea34-0b0d-76a3-9a64-8d4b22ed7c07",
+    "forkedFromId": null,
+    "parentThreadId": null,
+    "preview": "",
+    "ephemeral": true,
+    "section": null,
+    "sectionEnteredAt": null,
+    "projectId": null,
+    "historyMode": "paginated",
+    "modelProvider": "openai",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "high",
+    "createdAt": 1790635674,
+    "updatedAt": 1790635674,
+    "recencyAt": 1790635674,
+    "status": {
+      "type": "idle"
+    },
+    "path": null,
+    "cwd": "/tmp/dfai-architecture-eval-hyu7e3at/project",
+    "cliVersion": "0.158.0",
+    "originator": "devforgeai_eval",
+    "source": "vscode",
+    "canAcceptDirectInput": true,
+    "threadSource": null,
+    "agentNickname": null,
+    "agentRole": null,
+    "gitInfo": null,
+    "name": null,
+    "daybreakEnabled": null,
+    "turns": []
+  },
+  "model": "gpt-6-astra",
+  "modelProvider": "openai",
+  "serviceTier": null,
+  "disabledPluginIds": [],
+  "cwd": "/tmp/dfai-architecture-eval-hyu7e3at/project",
+  "runtimeWorkspaceRoots": [
+    "/tmp/dfai-architecture-eval-hyu7e3at/project"
+  ],
+  "instructionSources": [],
+  "approvalPolicy": "never",
+  "approvalsReviewer": "user",
+  "sandbox": {
+    "type": "workspaceWrite",
+    "writableRoots": [],
+    "networkAccess": true,
+    "excludeTmpdirEnvVar": false,
+    "excludeSlashTmp": false
+  },
+  "activePermissionProfile": null,
+  "reasoningEffort": "high",
+  "multiAgentMode": "explicitRequestOnly"
+}

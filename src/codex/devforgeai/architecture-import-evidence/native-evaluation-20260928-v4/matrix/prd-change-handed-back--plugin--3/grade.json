@@ -1,0 +1,140 @@
+{
+  "case": "prd-change-handed-back",
+  "verification": "VER-09",
+  "arm": "plugin",
+  "repeat": 3,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "arch-exists",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": true
+    },
+    {
+      "grader": "handoff-names-nfr-004",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": true
+    },
+    {
+      "grader": "prd-nfr-004-unchanged",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "prd-version-unchanged",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "section-7-names-nfr-004",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    }
+  ],
+  "source_score": 0.8,
+  "threshold_pass": true,
+  "activation": {
+    "expected": true,
+    "observed": true,
+    "loads": [
+      {
+        "id": "exec-bfc2cc8a-e9b9-4cd3-86c5-3548b39fb536",
+        "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-9pkyrsxl/devforgeai/skills/architecture/SKILL.md'",
+        "paths": [
+          "/tmp/dfai-architecture-eval-9pkyrsxl/devforgeai/skills/architecture/SKILL.md"
+        ]
+      }
+    ]
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "runtime_candidate_preserved": true,
+    "runtime_model_known": true,
+    "runtime_session_known": true,
+    "preexisting_generated_by_preserved": true,
+    "new_artifact_provenance_matches_runtime": false,
+    "historical_change_log_rows_preserved": true,
+    "changed_arch_has_new_change_log_row": true,
+    "new_change_log_rows_use_runtime_session": false,
+    "provenance_tool_is_codex": true,
+    "provenance_model_matches_runtime": false,
+    "provenance_session_matches_runtime": false
+  },
+  "changed_paths": [
+    "docs/specs/arch/ARCH-001.md"
+  ],
+  "provenance": {
+    "runtime": {
+      "tool": "codex",
+      "model": "gpt-6-astra",
+      "session": "01a0ea2e-36bc-7ca0-9ca3-dba33b1b69cf"
+    },
+    "artifacts": [
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "existed": false,
+        "preserve_identity": false,
+        "require_current_identity": true,
+        "before_generated_by": {},
+        "after_generated_by": {
+          "tool": "codex",
+          "model": "unknown",
+          "session": "unknown"
+        },
+        "new_change_log_rows": [
+          {
+            "raw": "| 1 | 2026-09-28 | codex (session unknown) | Initial draft for PRD-001 v1. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=Org A Identity Platform (OIDC) for identity and authentication (POL-001#SET-01); quality.required_categories=+compliance,+accessibility (POL-001#SET-02) | all |",
+            "author": "codex (session unknown)"
+          },
+          {
+            "raw": "| 1 | 2026-09-28 | codex (session unknown) | Validation unresolved: host model and session identity unavailable. Draft retained; no status or approval fields required restoration and no ADR was written. Readiness handoff withheld. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=Org A Identity Platform (OIDC) for identity and authentication (POL-001#SET-01); quality.required_categories=+compliance,+accessibility (POL-001#SET-02) | generated_by |",
+            "author": "codex (session unknown)"
+          }
+        ]
+      }
+    ],
+    "new_change_log_rows": [
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "raw": "| 1 | 2026-09-28 | codex (session unknown) | Initial draft for PRD-001 v1. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=Org A Identity Platform (OIDC) for identity and authentication (POL-001#SET-01); quality.required_categories=+compliance,+accessibility (POL-001#SET-02) | all |",
+        "author": "codex (session unknown)"
+      },
+      {
+        "path": "docs/specs/arch/ARCH-001.md",
+        "raw": "| 1 | 2026-09-28 | codex (session unknown) | Validation unresolved: host model and session identity unavailable. Draft retained; no status or approval fields required restoration and no ADR was written. Readiness handoff withheld. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=Org A Identity Platform (OIDC) for identity and authentication (POL-001#SET-01); quality.required_categories=+compliance,+accessibility (POL-001#SET-02) | generated_by |",
+        "author": "codex (session unknown)"
+      }
+    ],
+    "expected_change_log_author": "codex (session 01a0ea2e-36bc-7ca0-9ca3-dba33b1b69cf)",
+    "recorded": {
+      "tool": "codex",
+      "model": "unknown",
+      "session": "unknown"
+    }
+  },
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

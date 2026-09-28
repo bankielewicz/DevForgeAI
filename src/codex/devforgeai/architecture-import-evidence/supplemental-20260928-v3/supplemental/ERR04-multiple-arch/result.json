@@ -1,0 +1,45 @@
+{
+  "status": "awaiting_input",
+  "turnId": "01a0e9ec-8dbe-7051-9fc2-2d5eb222f9a9",
+  "questions": [
+    {
+      "method": "item/tool/requestUserInput",
+      "id": 0,
+      "params": {
+        "threadId": "01a0e9ec-8d59-7bf1-be7c-c79d78aeb80c",
+        "turnId": "01a0e9ec-8dbe-7051-9fc2-2d5eb222f9a9",
+        "itemId": "call_Hod4j5tFyHSAu17mW4phafMa",
+        "questions": [
+          {
+            "id": "architecture_baseline",
+            "header": "Architecture",
+            "question": "Which existing architecture should be the baseline for PRD-001? Both are draft v1 for Riverside Food Bank volunteer shift sign-up.",
+            "isOther": true,
+            "isSecret": false,
+            "options": [
+              {
+                "label": "ARCH-001",
+                "description": "Use docs/specs/arch/ARCH-001.md as the baseline for review."
+              },
+              {
+                "label": "ARCH-002",
+                "description": "Use docs/specs/arch/ARCH-002.md as the baseline for review."
+              }
+            ]
+          }
+        ],
+        "isBlocking": true,
+        "autoResolutionMs": null
+      }
+    }
+  ],
+  "threadId": "01a0e9ec-8d59-7bf1-be7c-c79d78aeb80c",
+  "model": "gpt-6-astra",
+  "case": "ERR04-multiple-arch",
+  "ver": "ERR-04 supplemental",
+  "collaboration_mode": "plan",
+  "elapsed_seconds": 44.44,
+  "plan_sha256": "71ccf4149e992dfea6d265d8914feef86c403484fe1598daf930a5c377dc0ee5",
+  "scratch_parent": "/tmp/dfai-architecture-extra-akrog1f6",
+  "scratch_workspace": "/tmp/dfai-architecture-extra-akrog1f6/project"
+}

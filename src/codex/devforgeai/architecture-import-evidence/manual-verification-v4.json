@@ -1,0 +1,77 @@
+{
+  "candidate_sha256": "002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92",
+  "VER-12": {
+    "status": "NOT_RUN",
+    "meaning": "The complete eleven-subcase manual obligation is not qualified. Scoped evidence below must not be promoted to an overall pass.",
+    "subcases": [
+      {
+        "id": "VER-12(a)",
+        "status": "NOT_RUN",
+        "basis": "Explicit per-decision ADR acceptance with a separate accepted outcome was not exercised."
+      },
+      {
+        "id": "VER-12(b)",
+        "status": "NOT_RUN",
+        "basis": "The separate user-approved and declined out-of-scope shared/config.js paths were not exercised."
+      },
+      {
+        "id": "VER-12(c)",
+        "status": "PASS",
+        "basis": "The v4 supplemental draft-PRD probe warns after reading the draft, before its first write, and in the final response."
+      },
+      {
+        "id": "VER-12(d)",
+        "status": "NOT_RUN",
+        "basis": "A stopped session followed by the draft-save choice was not exercised."
+      },
+      {
+        "id": "VER-12(e)",
+        "status": "PASS",
+        "basis": "The v4 invalid-policy probe names POL-001, SET-03, schema, the invalid value and allowed range, then stops without writes."
+      },
+      {
+        "id": "VER-12(f)",
+        "status": "NOT_RUN",
+        "basis": "Static byte parity passes against committed PRD sibling fb8bc29; this package has no PRD skill, so same-package integration remains untested."
+      },
+      {
+        "id": "VER-12(g)",
+        "status": "PASS",
+        "basis": "The v4 unknown-PRD probe lists PRD-001 and writes nothing."
+      },
+      {
+        "id": "VER-12(h)",
+        "status": "PASS",
+        "basis": "Static checks: 363 body lines within 500, and 638 description characters within 1024."
+      },
+      {
+        "id": "VER-12(i)",
+        "status": "NOT_RUN",
+        "basis": "ERR-05 rollback after three failed checks and an earlier accepted decision was not exercised."
+      },
+      {
+        "id": "VER-12(j)",
+        "status": "NOT_RUN",
+        "basis": "Amendment preserving older PRD-version item links while adding newer links was not exercised."
+      },
+      {
+        "id": "VER-12(k)",
+        "status": "NOT_RUN",
+        "basis": "Explicitly approved supersession of an accepted ADR was not exercised."
+      }
+    ]
+  },
+  "VER-13": {
+    "status": "NOT_RUN",
+    "reason": "No installation or deployment was requested or performed. Source candidate immutability does not replace the deployed-plugin before/between/after Org A/B check."
+  },
+  "ERR-04-supplemental": {
+    "status": "PASS",
+    "basis": "One native Plan-mode multiple-ARCH selection probe asked request_user_input and stopped unanswered without writes."
+  },
+  "sources": [
+    "static-validation-v4.json",
+    "supplemental-review-v4.md",
+    "supplemental-20260928-v4/supplemental-summary.json"
+  ]
+}

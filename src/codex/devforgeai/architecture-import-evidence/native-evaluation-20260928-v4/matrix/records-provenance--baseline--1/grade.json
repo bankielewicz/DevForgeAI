@@ -1,0 +1,115 @@
+{
+  "case": "records-provenance",
+  "verification": "VER-14",
+  "arm": "baseline",
+  "repeat": 1,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "arch-exists",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": false
+    },
+    {
+      "grader": "changelog-names-session",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "generated-by-filled",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "hashes-null",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "no-policy-link",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "resolution-categories",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "resolution-max-calls",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "resolution-platforms",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "reviewed-by-empty",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    },
+    {
+      "grader": "session-substituted",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": false
+    }
+  ],
+  "source_score": 0.0,
+  "threshold_pass": false,
+  "activation": {
+    "expected": false,
+    "observed": false,
+    "loads": []
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": false,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true
+  },
+  "changed_paths": [
+    "docs/specs/adr/ADR-001.md",
+    "docs/specs/architecture/ARCH-001-readiness.md",
+    "docs/specs/architecture/ARCH-001.md"
+  ],
+  "provenance": {},
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

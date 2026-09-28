@@ -1,0 +1,22 @@
+{
+  "scope": "JSON Schema structure only; does not verify decision acceptance, readiness semantics, or actual provenance identity.",
+  "stage": "smoke",
+  "artifacts": [
+    {
+      "trial": "creates-arch--plugin--1",
+      "path": "docs/specs/arch/ARCH-001.md",
+      "sha256": "5e160c6c316575f59f08500fd82300f4e718f48d5e6bbf44e9dd4a15e0ed1c8c",
+      "authored_or_modified": true,
+      "status": "PASS"
+    },
+    {
+      "trial": "existing-arch-not-duplicated--plugin--1",
+      "path": "docs/specs/arch/ARCH-001.md",
+      "sha256": "2c8c7c730a4324f292f8e3f6a18feceb0937679e7987eba2687303059cc222ae",
+      "authored_or_modified": false,
+      "status": "PASS"
+    }
+  ],
+  "authored_or_modified_count": 1,
+  "failures": 0
+}

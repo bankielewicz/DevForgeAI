@@ -1,0 +1,211 @@
+{
+  "data": [
+    {
+      "cwd": "/tmp/dfai-architecture-eval-uui6pbv3/project",
+      "skills": [
+        {
+          "name": "alphatrace-data-backfill",
+          "description": "Implement, inspect, or run AlphaTraceAI historical market-data backfills from existing Unusual Whales ZIP archives or Full Tape. Reuse the UW data-lake skill for Full Tape acquisition and conversion while keeping legacy dataset ingestion separate. Not for ordinary API lookups, trading advice, or unrelated AlphaTraceAI work.",
+          "interface": {
+            "displayName": "AlphaTrace Data Backfill",
+            "shortDescription": "Integrate legacy UW archives and Full Tape history",
+            "iconSmall": null,
+            "iconLarge": null,
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": "Use $alphatrace-data-backfill to implement or run the requested AlphaTraceAI backfill, selecting the correct archive format and preserving raw sources."
+          },
+          "path": "/home/bryan/.codex/skills/alphatrace-data-backfill/SKILL.md",
+          "scope": "user",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "unusual-whales-api",
+          "description": "Query Unusual Whales REST data for options flow, dark-pool prints, market tide, Greeks, fundamentals, and charts; use its official API examples without inventing routes or overstating data completeness. Use the specialized UW skills for 13F analysis, Full Tape lake builds, or earnings-volatility scans.",
+          "interface": {
+            "displayName": "Unusual Whales API",
+            "shortDescription": "Query UW data with verified routes and quota awareness",
+            "iconSmall": null,
+            "iconLarge": null,
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": null
+          },
+          "path": "/home/bryan/.codex/skills/unusual-whales-api/SKILL.md",
+          "scope": "user",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "uw-earnings-vol-scan",
+          "description": "Run or explain the Unusual Whales earnings-volatility scanner for long call calendar research, including IV/RV, term-structure filters, and report deadlines. Use for the named provider strategy; do not turn a scan label into a trade order or independently validated return forecast.",
+          "interface": {
+            "displayName": "UW Earnings Vol Scan",
+            "shortDescription": "Run the provider earnings-volatility research scanner",
+            "iconSmall": null,
+            "iconLarge": null,
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": null
+          },
+          "path": "/home/bryan/.codex/skills/uw-earnings-vol-scan/SKILL.md",
+          "scope": "user",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "uw-institutional",
+          "description": "Query and analyze institutional 13F filings, holdings, activity, ownership, CIKs, and tags through Unusual Whales; optionally maintain an explicitly requested local SQLite cache. Use for filing-based institutional analysis, not current broker positions or trade execution.",
+          "interface": {
+            "displayName": "UW Institutional",
+            "shortDescription": "Analyze institutional filings, CIKs, and holdings",
+            "iconSmall": null,
+            "iconLarge": null,
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": null
+          },
+          "path": "/home/bryan/.codex/skills/uw-institutional/SKILL.md",
+          "scope": "user",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "uw-options-data-lake",
+          "description": "Build or inspect a local Unusual Whales Full Tape options lake, convert archives to bronze Parquet, derive one-minute contract bars, and run the provider's example screen/forward analysis. Use for explicitly requested local tape workflows, not ordinary API lookups or automatic bulk downloads.",
+          "interface": {
+            "displayName": "UW Options Data Lake",
+            "shortDescription": "Build and inspect local options tape and minute bars",
+            "iconSmall": null,
+            "iconLarge": null,
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": null
+          },
+          "path": "/home/bryan/.codex/skills/uw-options-data-lake/SKILL.md",
+          "scope": "user",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "imagegen",
+          "description": "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.",
+          "interface": {
+            "displayName": "Image Gen",
+            "shortDescription": "Generate or edit images for websites, games, and more",
+            "iconSmall": "/home/bryan/.codex/skills/.system/imagegen/assets/imagegen-small.svg",
+            "iconLarge": "/home/bryan/.codex/skills/.system/imagegen/assets/imagegen.png",
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": "Use $imagegen to make or edit an image for this project."
+          },
+          "path": "/home/bryan/.codex/skills/.system/imagegen/SKILL.md",
+          "scope": "system",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "openai-docs",
+          "description": "Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge\u2014including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex\u2014and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex.",
+          "shortDescription": "Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, and self-knowledge; OpenAI APIs and ChatGPT Work. 'You'/'this app' means Codex only.",
+          "interface": {
+            "displayName": "OpenAI Docs",
+            "shortDescription": "OpenAI and Codex docs for models, skills, tasks, and setup",
+            "iconSmall": "/home/bryan/.codex/skills/.system/openai-docs/assets/openai-small.svg",
+            "iconLarge": "/home/bryan/.codex/skills/.system/openai-docs/assets/openai.png",
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": "Use OpenAI Docs for official docs lookup, questions about Codex itself or Codex surfaces, model selection, model migration, and prompt-upgrade work."
+          },
+          "path": "/home/bryan/.codex/skills/.system/openai-docs/SKILL.md",
+          "scope": "system",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "plugin-creator",
+          "description": "Create and scaffold plugin directories for Codex with a required `.codex-plugin/plugin.json`, optional plugin folders/files, valid manifest defaults, and personal-marketplace entries by default. Use when Codex needs to create a new personal plugin, add optional plugin structure, generate or update marketplace entries for plugin ordering and availability metadata, or update an existing local plugin during development with the CLI-driven cachebuster and reinstall flow.",
+          "interface": {
+            "displayName": "Plugin Creator",
+            "shortDescription": "Scaffold plugins and marketplace entries",
+            "iconSmall": "/home/bryan/.codex/skills/.system/plugin-creator/assets/plugin-creator-small.svg",
+            "iconLarge": "/home/bryan/.codex/skills/.system/plugin-creator/assets/plugin-creator.png",
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": "Use $plugin-creator to scaffold a valid plugin in the personal marketplace, then validate it before handing it back."
+          },
+          "path": "/home/bryan/.codex/skills/.system/plugin-creator/SKILL.md",
+          "scope": "system",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "review-agent",
+          "description": "Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions.",
+          "interface": {
+            "displayName": "Review Agent",
+            "shortDescription": "Find actionable bugs in code changes",
+            "iconSmall": null,
+            "iconLarge": null,
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": "Use $review-agent to review the requested code changes and return actionable findings."
+          },
+          "path": "/home/bryan/.codex/skills/.system/review-agent/SKILL.md",
+          "scope": "system",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "skill-creator",
+          "description": "Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.",
+          "shortDescription": "Create or update a skill",
+          "interface": {
+            "displayName": "Skill Creator",
+            "shortDescription": "Create or update a skill",
+            "iconSmall": "/home/bryan/.codex/skills/.system/skill-creator/assets/skill-creator-small.svg",
+            "iconLarge": "/home/bryan/.codex/skills/.system/skill-creator/assets/skill-creator.png",
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": null
+          },
+          "path": "/home/bryan/.codex/skills/.system/skill-creator/SKILL.md",
+          "scope": "system",
+          "enabled": true,
+          "pluginId": null
+        },
+        {
+          "name": "skill-installer",
+          "description": "Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos).",
+          "shortDescription": "Install curated skills from openai/skills or other repos",
+          "interface": {
+            "displayName": "Skill Installer",
+            "shortDescription": "Install curated skills from openai/skills or other repos",
+            "iconSmall": "/home/bryan/.codex/skills/.system/skill-installer/assets/skill-installer-small.svg",
+            "iconLarge": "/home/bryan/.codex/skills/.system/skill-installer/assets/skill-installer.png",
+            "iconSmallUrl": null,
+            "iconLargeUrl": null,
+            "brandColor": null,
+            "defaultPrompt": null
+          },
+          "path": "/home/bryan/.codex/skills/.system/skill-installer/SKILL.md",
+          "scope": "system",
+          "enabled": true,
+          "pluginId": null
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

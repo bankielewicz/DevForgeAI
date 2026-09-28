@@ -1,0 +1,7 @@
+Created [architecture and readiness assessment](docs/specs/architecture/ARC-001.md), [identity ADR](docs/specs/adr/ADR-001.md), and [verification record](docs/specs/architecture/VER-001.md).
+
+- **Ready for epic drafting:** FR-002, FR-003, NFR-002, NFR-003.
+- **Blocked on identity integration evidence:** FR-001, NFR-001.
+- **Final handoff blocked across all requirements:** mandatory compliance and accessibility acceptance criteria remain unresolved.
+
+The design uses hosted services and the mandated Org A OIDC platform. Document checks passed; runtime controls remain untested. The approved PRD and policy were preserved.

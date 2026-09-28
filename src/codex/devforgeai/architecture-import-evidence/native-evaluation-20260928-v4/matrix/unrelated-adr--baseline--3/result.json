@@ -1,0 +1,31 @@
+{
+  "id": "01a0ea34-0b6b-73b3-9336-dfc37941279b",
+  "items": [
+    {
+      "type": "agentMessage",
+      "id": "msg_0b03b400577295f4016abaf001b98887d1a386f95a13d285fc",
+      "text": "Created [ARCH-001](docs/specs/architecture/ARCH-001.md) and three proposed ADRs covering identity/session revocation, phone privacy, and hosted deployment.\n\nAll six requirements have architectural coverage. **None is unconditionally ready for committed epics**: hosting remains a product-wide gate, with identity, privacy, and booking clarifications also recorded. Four candidate epic scopes are defined.\n\nValidation passed for references, metadata, and requirement coverage. The approved PRD and existing ADR remain unchanged. Runtime tests were not run; this workspace contains specifications only.",
+      "phase": "final_answer",
+      "memoryCitation": null,
+      "delivery": null,
+      "questions": null
+    }
+  ],
+  "itemsView": "summary",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790635674,
+  "completedAt": 1790636037,
+  "durationMs": 363004,
+  "threadId": "01a0ea34-0b0d-76a3-9a64-8d4b22ed7c07",
+  "model": "gpt-6-astra",
+  "case": "unrelated-adr",
+  "verification": "VER-04",
+  "arm": "baseline",
+  "repeat": 3,
+  "collaboration_mode": "default",
+  "elapsed_seconds": 363.336,
+  "plan_sha256": "0fb9cab9abcc3721332c60f16a817500261cac438939d77f6ef5571e91b21618",
+  "scratch_parent": "/tmp/dfai-architecture-eval-hyu7e3at",
+  "scratch_workspace": "/tmp/dfai-architecture-eval-hyu7e3at/project"
+}

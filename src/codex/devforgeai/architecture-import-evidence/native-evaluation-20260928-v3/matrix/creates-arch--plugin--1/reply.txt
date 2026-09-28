@@ -1,0 +1,9 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-wdogf6_o/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and eight open architectural decisions. No ADRs were written; the PRD is unchanged.
+
+Validation using `python3 /tmp/validate-riverside-arch.py`:
+
+- **PASS:** structure and requirement traceability.
+- **BLOCKED:** exact host model/session identity unavailable.
+- **NOT_RUN:** validated epic-readiness handoff.
+
+The draft was retained; no approvals required restoration. The [architecture skill](/tmp/dfai-architecture-eval-wdogf6_o/devforgeai/skills/architecture/SKILL.md) requires unresolved provenance to “leave validation unresolved,” so readiness cannot yet be certified.
