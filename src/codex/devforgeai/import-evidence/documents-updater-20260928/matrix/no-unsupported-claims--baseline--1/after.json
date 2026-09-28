@@ -1,0 +1,15 @@
+{
+  ".pytest_cache/.gitignore": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+  ".pytest_cache/CACHEDIR.TAG": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+  ".pytest_cache/README.md": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+  ".pytest_cache/v/cache/nodeids": "92984b54f43383450501dbf98802ff6a86d498316cf71f8ab8b4a2fad866e435",
+  "CHANGELOG.md": "b10e31f3e81449b0137493ef6b401d62fa2170aa93b607dcea6572d911ea174e",
+  "README.md": "32fd0af8e938b75198f14fe84e81b9a7a236d4fbaf35d2a5d2a6ada0ed5a0b82",
+  "pyproject.toml": "fcbf20650e77b25382e362f6d14c9d95a10614b855ac205a12e32f3123f350a8",
+  "src/wordcount/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/wordcount/__pycache__/__init__.cpython-312.pyc": "cca0d5e353b61e12b137e1784a940f2afce741aa4efa0ec8e676c4182defbfb5",
+  "src/wordcount/__pycache__/cli.cpython-312.pyc": "ecf8c30a2236eef9d2020b74f8a09c5949f03efa1668bdf4404fba18dda7f150",
+  "src/wordcount/cli.py": "d485dc5516264f969b86c55bd3b5c91cb56dceea9aa78d38516b0b8dcc1bfd45",
+  "tests/__pycache__/test_jobs.cpython-312-pytest-9.0.2.pyc": "ca20f5b744402c687e0d1310305deba908c082b400b2b5caae12ed06b723ea67",
+  "tests/test_jobs.py": "fb796eee7129401b5ffeee79c0cb4a5dd9d5201722b8a4ea2078fd97a63b3b69"
+}

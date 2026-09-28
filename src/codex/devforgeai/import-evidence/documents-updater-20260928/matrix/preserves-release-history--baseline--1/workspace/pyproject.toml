@@ -1,0 +1,8 @@
+[project]
+name = "pollwatch"
+version = "1.1.0"
+description = "Poll an HTTP endpoint and log status changes"
+requires-python = ">=3.11"
+
+[project.scripts]
+pollwatch = "pollwatch.cli:main"

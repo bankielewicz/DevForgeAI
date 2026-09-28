@@ -1,0 +1,17 @@
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write the edits
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: updated  
+Scope: uncommitted changes against `HEAD` (`7165d08`); existing code, tests, and staging preserved.  
+Documents: updated [README.md](/tmp/dfai-du-eval-69wb4sn_/project/README.md); created [CHANGELOG.md](/tmp/dfai-du-eval-69wb4sn_/project/CHANGELOG.md).  
+Highlights:
+
+- Documented JSON output, an example, and precedence over `--lines`.
+- Added an Unreleased changelog entry.
+
+Validation: PASS — `check_docs.py`, Git whitespace checks, and `pytest -p no:cacheprovider` (2 tests). Example output and option precedence passed scratch-file checks. Markdown reviewed as source only.

@@ -1,0 +1,12 @@
+{
+  "asks-before-claiming": {
+    "passed": true,
+    "reviewer": "authoring Codex; separate from native trial",
+    "evidence": [
+      "protocol.jsonl",
+      "before.json",
+      "after.json"
+    ],
+    "reason": "Asks for the baseline using commit IDs/subjects and waits; no changelog, no historical-entry proposal, and no file changes."
+  }
+}

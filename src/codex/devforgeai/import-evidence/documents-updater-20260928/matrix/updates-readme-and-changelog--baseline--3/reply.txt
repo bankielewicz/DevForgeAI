@@ -1,0 +1,3 @@
+Updated README.md with `--json` usage, example output, and precedence over `--lines`. Created CHANGELOG.md with an Unreleased entry. Preserved your code and test changes.
+
+Verification: PASS — 2 tests via `PYTHONPATH=src python3 -m pytest -q`, JSON example and precedence checks, and `git diff --check`.

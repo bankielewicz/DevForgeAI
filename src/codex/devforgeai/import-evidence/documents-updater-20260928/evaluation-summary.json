@@ -1,0 +1,215 @@
+{
+  "candidate_sha256": "6db9f222372adc2618f9e3050c9d329160de90449b6a617a153907fdb6c7a9f3",
+  "runtime": "codex-cli 0.158.0",
+  "models": [
+    "gpt-6-astra"
+  ],
+  "total_trials": 48,
+  "cases": [
+    {
+      "case": "updates-readme-and-changelog",
+      "verification": "VER-01",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.8571428571428571,
+          0.8571428571428571,
+          0.8571428571428571
+        ],
+        "mean": 0.8571428571428571,
+        "strict_passes": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "proposal-mode-no-edits",
+      "verification": "VER-02",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.75,
+          0.75,
+          0.75
+        ],
+        "mean": 0.75,
+        "strict_passes": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "no-change-when-accurate",
+      "verification": "VER-03",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "strict_passes": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "no-unsupported-claims",
+      "verification": "VER-04",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "preserves-release-history",
+      "verification": "VER-05",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.9166666666666666,
+          0.9166666666666666,
+          0.9166666666666666
+        ],
+        "mean": 0.9166666666666666,
+        "strict_passes": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "asks-for-unknown-baseline",
+      "verification": "VER-06",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "strict_passes": 0
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "creates-readme-from-profile",
+      "verification": "VER-07",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "strict_passes": 3
+      },
+      "status": "PASS"
+    }
+  ],
+  "plugin_mean": 1.0,
+  "baseline_mean": 0.6904761904761905,
+  "plugin_strict_passes": 24,
+  "baseline_strict_passes": 5,
+  "run_errors": [],
+  "obligations": {
+    "VER-01": "PASS",
+    "VER-02": "PASS",
+    "VER-03": "PASS",
+    "VER-04": "PASS",
+    "VER-05": "PASS",
+    "VER-06": "PASS",
+    "VER-07": "PASS",
+    "VER-08": "PASS",
+    "VER-09": "PASS (23 checker unit tests)",
+    "VER-10": "NOT_RUN",
+    "VER-11": "NOT_RUN",
+    "VER-12": "NOT_RUN"
+  },
+  "qualification": "Source evaluation; installation and owner manual acceptance not performed.",
+  "mean_delta": 0.30952380952380953
+}

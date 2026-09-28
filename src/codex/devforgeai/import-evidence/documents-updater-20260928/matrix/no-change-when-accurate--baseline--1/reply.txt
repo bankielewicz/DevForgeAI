@@ -1,0 +1,3 @@
+Updated [README.md](/tmp/dfai-du-eval-3bznbwpq/project/README.md) with helper documentation, counting rules, and an example. Added the refactor to [CHANGELOG.md](/tmp/dfai-du-eval-3bznbwpq/project/CHANGELOG.md).
+
+Verification: **PASS** — all 3 tests, README example, documented edge cases, and `git diff --check`. Your code and test edits are preserved.

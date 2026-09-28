@@ -1,0 +1,25 @@
+Proposed update to [README.md](/tmp/dfai-du-eval-dmq8qza5/project/README.md), based on your uncommitted implementation. No files changed.
+
+````diff
+ | Option | Effect |
+ | --- | --- |
+ | `--lines` | Print only the line count |
++| `--json` | Print both counts as a JSON object |
++
++For JSON output:
++
++```bash
++wordcount notes.txt --json
++```
++
++For a file containing 12 words and 3 lines, prints:
++
++```json
++{"words": 12, "lines": 3}
++```
++
++The `words` and `lines` fields are integer counts. If both `--json` and
++`--lines` are supplied, `--json` takes precedence and both counts are included.
+````
+
+Verified against the code and the new JSON test by inspection. Tests were not run.

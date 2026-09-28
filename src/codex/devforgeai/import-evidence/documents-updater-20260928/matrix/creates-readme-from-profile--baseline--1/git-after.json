@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 0,
+    "output": "?? README.md\n?? pyproject.toml\n?? src/csvtidy/__init__.py\n?? src/csvtidy/__pycache__/__init__.cpython-312.pyc\n?? src/csvtidy/__pycache__/cli.cpython-312.pyc\n?? src/csvtidy/cli.py\n?? tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc\n?? tests/test_cli.py\n"
+  },
+  "head": {
+    "exit": 128,
+    "output": ""
+  },
+  "index": {
+    "exit": 0,
+    "output": ""
+  },
+  "refs": {
+    "exit": 0,
+    "output": ""
+  }
+}

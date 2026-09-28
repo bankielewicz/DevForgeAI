@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "id": "native-question-plan",
+      "fixture": "asks-for-unknown-baseline",
+      "mode": "plan",
+      "prompts": [
+        "Update the changelog with the work on my branch."
+      ]
+    },
+    {
+      "id": "proposal-apply-repeat",
+      "fixture": "updates-readme-and-changelog",
+      "mode": null,
+      "prompts": [
+        "Draft the documentation updates for my uncommitted --json change, but do not touch files.",
+        "Apply the documentation proposal you just prepared.",
+        "Refresh the documentation again for the same uncommitted --json changes against HEAD."
+      ]
+    },
+    {
+      "id": "invalid-revision",
+      "fixture": "updates-readme-and-changelog",
+      "mode": null,
+      "prompts": [
+        "Update the README and changelog for the changes since the revision nonexistent-du-revision."
+      ]
+    }
+  ],
+  "status": "Frozen before runs",
+  "purpose": "Native question-tool routing, proposal/apply/idempotence, and ERR-03.",
+  "manual_VER_10_to_12": "NOT_RUN: these are controlled fixtures, not owner real-session or deployed-plugin acceptance."
+}

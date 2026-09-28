@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 0,
+    "output": " M CHANGELOG.md\n M README.md\n M src/wordcount/cli.py\n?? src/wordcount/__pycache__/__init__.cpython-312.pyc\n?? src/wordcount/__pycache__/cli.cpython-312.pyc\n?? tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc\n?? tests/__pycache__/test_helpers.cpython-312-pytest-9.0.2.pyc\n?? tests/__pycache__/test_json.cpython-312-pytest-9.0.2.pyc\n?? tests/test_helpers.py\n"
+  },
+  "head": {
+    "exit": 0,
+    "output": "40e1dae39419a99901a13cb1bff643f4d272ae52\n"
+  },
+  "index": {
+    "exit": 0,
+    "output": "100644 de4d7452a823d39935cd3ac8556072f9f3d541b2 0\tCHANGELOG.md\u0000100644 ebe5f9e74bb47b4910b38be4aa493394f4fbe7b6 0\tREADME.md\u0000100644 3e0f5a70f0b51fc05b91db119864fc83ecbf5b1e 0\tpyproject.toml\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tsrc/wordcount/__init__.py\u0000100644 55bec22b597e544669c86961394246b81a4b6a86 0\tsrc/wordcount/cli.py\u0000100644 af5dd7b12d67d02c83c5e5324446b755ad154613 0\ttests/test_cli.py\u0000100644 f50db0ea2a86d9b37d7832a897fa9e55c5bb0690 0\ttests/test_json.py\u0000"
+  },
+  "refs": {
+    "exit": 0,
+    "output": "refs/heads/main 40e1dae39419a99901a13cb1bff643f4d272ae52\n"
+  }
+}

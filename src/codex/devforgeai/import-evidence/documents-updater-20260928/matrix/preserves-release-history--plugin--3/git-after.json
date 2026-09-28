@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 0,
+    "output": " M CHANGELOG.md\n M README.md\n M docs/configuration.md\n M pollwatch.example.toml\nM  pyproject.toml\nM  src/pollwatch/cli.py\nM  src/pollwatch/config.py\n"
+  },
+  "head": {
+    "exit": 0,
+    "output": "e323ffba8e403cb661290cf8003852efb331387c\n"
+  },
+  "index": {
+    "exit": 0,
+    "output": "100644 79c607cf204b29b9c46913b0eac1f08d611ce30d 0\tCHANGELOG.md\u0000100644 c4fd7ffe12c967d918c034bcb5f1a30eed6ed0fb 0\tREADME.md\u0000100644 0148044a3daf930c6b01c35c14d51725744fcbdd 0\tdocs/configuration.md\u0000100644 c5699f3f63843979b24fe4f3b24173da98ed2c30 0\tpollwatch.example.toml\u0000100644 f42425c95900149c85fa86549444c2b27f010e8c 0\tpyproject.toml\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tsrc/pollwatch/__init__.py\u0000100644 64f7b9592c12abe805f453be889ff985cfebf004 0\tsrc/pollwatch/cli.py\u0000100644 ae44924af6cf9a7461c8db87cc281c348e98f82e 0\tsrc/pollwatch/config.py\u0000"
+  },
+  "refs": {
+    "exit": 0,
+    "output": "refs/heads/main e323ffba8e403cb661290cf8003852efb331387c\nrefs/tags/v1.0.0 c0816fc656d428bd3b84e8ea92750e9fb33683d0\n"
+  }
+}

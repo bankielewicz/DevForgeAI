@@ -1,0 +1,12 @@
+{
+  "asks-before-claiming": {
+    "passed": false,
+    "reviewer": "authoring Codex; separate from native trial",
+    "evidence": [
+      "protocol.jsonl",
+      "before.json",
+      "after.json"
+    ],
+    "reason": "Creates a changelog for all three commits and calls them branch changes without resolving the comparison point."
+  }
+}

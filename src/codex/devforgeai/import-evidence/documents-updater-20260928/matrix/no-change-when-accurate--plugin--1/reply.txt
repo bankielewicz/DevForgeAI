@@ -1,0 +1,17 @@
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write edits (skipped: docs already accurate)
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: no_change  
+Scope: Uncommitted changes against `HEAD` (`40e1dae`).  
+Documents: Reviewed `README.md` and `CHANGELOG.md`; unchanged.
+
+Highlights:
+
+- The helper refactor preserves documented behavior; `--json` is already covered.
+
+Validation: PASS — all 3 tests via `PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src python3 -m pytest -p no:cacheprovider`; `check_docs.py` and documentation whitespace checks passed. Reviewed source only; README example not executed. Your existing edits remain intact.

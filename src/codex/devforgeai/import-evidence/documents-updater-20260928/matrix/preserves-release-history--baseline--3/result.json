@@ -1,0 +1,28 @@
+{
+  "id": "01a0e9b8-0ff4-7340-b64c-18b1531bfe13",
+  "items": [
+    {
+      "type": "agentMessage",
+      "id": "msg_05cef7772ab45c51016abaceffa6e887d1a695f48aa4f5b35a",
+      "text": "Updated README and configuration docs to use `poll_interval_seconds`. Added an Unreleased changelog entry explaining the rename and configuration migration.\n\nPASS: Reference search and `git diff --check`. Existing user edits preserved.",
+      "phase": "final_answer",
+      "memoryCitation": null,
+      "delivery": null,
+      "questions": null
+    }
+  ],
+  "itemsView": "summary",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790627549,
+  "completedAt": 1790627585,
+  "durationMs": 36086,
+  "threadId": "01a0e9b8-0f90-7760-8e39-0fb0bb58eb70",
+  "model": "gpt-6-astra",
+  "case": "preserves-release-history",
+  "arm": "baseline",
+  "repeat": 3,
+  "workspace": "/tmp/dfai-du-eval-o3tmloum/project",
+  "elapsed_seconds": 36.416,
+  "plan_sha256": "1d78352057d7ad0fcff92c4dd3531053288e35867f16d0bfdf87d39ff0c0422f"
+}

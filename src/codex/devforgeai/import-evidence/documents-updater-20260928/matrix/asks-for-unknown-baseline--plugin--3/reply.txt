@@ -1,0 +1,13 @@
+I need the baseline commit before writing entries. The [documents-updater skill](/tmp/dfai-du-eval-10606ms4/devforgeai/skills/documents-updater/SKILL.md) says, “If none applies, ask for the comparison point.” This repository identifies no integration branch.
+
+- [ ] 1. Establish the scope — awaiting baseline
+- [ ] 2. Build the evidence inventory
+- [ ] 3. Select what deserves documentation
+- [ ] 4. Choose documents and templates
+- [ ] 5. Write the edits
+- [ ] 6. Validate the documents
+- [x] 7. Report
+
+Result: blocked  
+Scope: comparison point unresolved; no files changed.  
+Action required: Which commit should changes be compared against: `12b54ae`, `a58a4ec`, `d99e1d1`, or another revision?

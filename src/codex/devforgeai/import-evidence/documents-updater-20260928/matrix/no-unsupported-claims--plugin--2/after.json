@@ -1,0 +1,8 @@
+{
+  "CHANGELOG.md": "da86cabe4ce1980991a2dfad5612def21955b4405a7b057497ffccbbff43bf7b",
+  "README.md": "2817135a14a4e0770b1032a5e7432d4fed98e80326c6ec76a23cfc763bb3aa65",
+  "pyproject.toml": "fcbf20650e77b25382e362f6d14c9d95a10614b855ac205a12e32f3123f350a8",
+  "src/wordcount/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/wordcount/cli.py": "d485dc5516264f969b86c55bd3b5c91cb56dceea9aa78d38516b0b8dcc1bfd45",
+  "tests/test_jobs.py": "fb796eee7129401b5ffeee79c0cb4a5dd9d5201722b8a4ea2078fd97a63b3b69"
+}

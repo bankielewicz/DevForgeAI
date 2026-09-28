@@ -1,0 +1,13 @@
+The [documents-updater skill](/tmp/dfai-du-eval-ty9fyguh/devforgeai/skills/documents-updater/SKILL.md) says: “If none applies, ask for the comparison point.” This repository has no integration branch or remote to establish one.
+
+- [ ] 1. Establish the scope — awaiting baseline
+- [ ] 2. Build the evidence inventory
+- [ ] 3. Select what deserves documentation
+- [ ] 4. Choose documents and templates
+- [ ] 5. Write or propose the edits
+- [ ] 6. Validate the documents
+- [x] 7. Report
+
+Result: blocked  
+Scope: comparison point unresolved; files unchanged.  
+Action required: Which commit should precede the changes included: `12b54ae` (Initial import), `a58a4ec` (Add CSV export), or `d99e1d1` (Fix date parsing)?

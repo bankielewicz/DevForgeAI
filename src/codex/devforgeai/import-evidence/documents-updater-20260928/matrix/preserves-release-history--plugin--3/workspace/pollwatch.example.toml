@@ -1,0 +1,2 @@
+url = "https://status.example.com/health"
+poll_interval_seconds = 30

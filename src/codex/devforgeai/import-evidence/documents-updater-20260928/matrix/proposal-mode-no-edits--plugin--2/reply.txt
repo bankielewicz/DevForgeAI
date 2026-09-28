@@ -1,0 +1,58 @@
+No files were changed. Proposed edits:
+
+`README.md`:
+
+````diff
+--- a/README.md
++++ b/README.md
+@@ -24,4 +24,19 @@
+ 
+ | Option | Effect |
+ | --- | --- |
+-| `--lines` | Print only the line count |
++| `--lines` | Print only the line count (unless `--json` is also supplied) |
++| `--json` | Print a JSON object with integer `words` and `lines` counts |
++
++For JSON output:
++
++```bash
++wordcount notes.txt --json
++```
++
++For a file containing 12 words across 3 lines, this prints:
++
++```json
++{"words": 12, "lines": 3}
++```
++
++When combined with `--lines`, `--json` takes precedence and prints both counts.
+````
+
+New `CHANGELOG.md`, full proposed content:
+
+```markdown
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## Unreleased
+
+### Added
+
+- Added `--json` to print word and line counts as a JSON object, taking precedence over `--lines` when both options are supplied.
+```
+
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write or propose the edits
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: proposed  
+Scope: Uncommitted `--json` changes against HEAD (`7165d08`).  
+Documents: `README.md`, new `CHANGELOG.md`.  
+Validation: PASS — in-memory CLI checks confirmed default, line-only, JSON, and combined-flag output; `git apply --check` accepted the README proposal. Source reviewed; NOT_RUN — test suite and rendered preview. Git status unchanged.

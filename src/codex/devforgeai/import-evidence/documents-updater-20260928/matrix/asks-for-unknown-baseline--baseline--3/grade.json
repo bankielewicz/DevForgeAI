@@ -1,0 +1,70 @@
+{
+  "case": "asks-for-unknown-baseline",
+  "arm": "baseline",
+  "repeat": 3,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "asks-before-claiming",
+      "type": "llm",
+      "scored": true,
+      "passed": false,
+      "status": "REVIEWED",
+      "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+      "assessment": {
+        "passed": false,
+        "reviewer": "authoring Codex; separate from native trial",
+        "evidence": [
+          "protocol.jsonl",
+          "before.json",
+          "after.json"
+        ],
+        "reason": "Without resolving a comparison point, the trial creates CHANGELOG.md and claims entries for all three changes."
+      }
+    },
+    {
+      "grader": "names-comparison-point",
+      "type": "regex",
+      "scored": true,
+      "passed": false
+    },
+    {
+      "grader": "no-changelog",
+      "type": "file_exists",
+      "scored": true,
+      "passed": false
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": false,
+      "passed": false,
+      "evidence": []
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "all_files_unchanged": false
+  },
+  "changed_paths": [
+    "CHANGELOG.md"
+  ],
+  "postrun_validation": [
+    {
+      "path": "CHANGELOG.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    }
+  ],
+  "skill_load_ids": [],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 0.0,
+  "strict_pass": false
+}

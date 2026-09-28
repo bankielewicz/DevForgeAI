@@ -1,0 +1,3 @@
+Updated [README.md](/tmp/dfai-du-eval-qg88490v/project/README.md) with `--jobs N` usage, default, valid values, and output ordering. Added an Unreleased entry in [CHANGELOG.md](/tmp/dfai-du-eval-qg88490v/project/CHANGELOG.md).
+
+Verification: PASS — existing test, CLI examples and validation checks, and `git diff --check`. Your code and tests were preserved.

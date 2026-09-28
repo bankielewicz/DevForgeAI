@@ -1,0 +1,55 @@
+{
+  "case": "proposal-mode-no-edits",
+  "arm": "baseline",
+  "repeat": 2,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "no-changelog",
+      "type": "file_exists",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "proposes-json",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-unchanged",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "result-proposed",
+      "type": "regex",
+      "scored": true,
+      "passed": false
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": false,
+      "passed": false,
+      "evidence": []
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "all_files_unchanged": true
+  },
+  "changed_paths": [],
+  "postrun_validation": [],
+  "skill_load_ids": [],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 0.75,
+  "strict_pass": false
+}

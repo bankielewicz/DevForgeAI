@@ -1,0 +1,5 @@
+Updated [README.md](/tmp/dfai-du-eval-i7vcqh39/project/README.md) with `--json` usage, example output, and precedence over `--lines`. Added an Unreleased entry in [CHANGELOG.md](/tmp/dfai-du-eval-i7vcqh39/project/CHANGELOG.md).
+
+Your code and test changes are preserved.
+
+Verification: PASS — 2 tests via `PYTHONPATH=src python3 -m pytest -q`, documented output checks, and `git diff --check`.

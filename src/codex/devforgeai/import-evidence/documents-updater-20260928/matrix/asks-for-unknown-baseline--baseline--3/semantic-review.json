@@ -1,0 +1,12 @@
+{
+  "asks-before-claiming": {
+    "passed": false,
+    "reviewer": "authoring Codex; separate from native trial",
+    "evidence": [
+      "protocol.jsonl",
+      "before.json",
+      "after.json"
+    ],
+    "reason": "Without resolving a comparison point, the trial creates CHANGELOG.md and claims entries for all three changes."
+  }
+}

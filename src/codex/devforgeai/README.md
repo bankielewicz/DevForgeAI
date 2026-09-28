@@ -1,28 +1,32 @@
-# DevForgeAI Brainstorm for Codex
+# DevForgeAI for Codex
 
-Source port of the Claude Brainstorm skill, SKL-001 v5, implementing the planning workflow
-in SPEC-001 v10 with the provider adaptations described in [IMPORT-REPORT.md](IMPORT-REPORT.md).
-This Codex variant is SKL-001 v7 and the plugin manifest version is 0.1.0.
+Source package containing Brainstorm and Documents Updater. The plugin manifest is
+version 0.2.0; this directory is not an installation or marketplace registration.
 
-The package contains `.codex-plugin/plugin.json`, `skills/brainstorm/`, and eight imported
-evaluation definitions. The skill includes its BRN template, framework catalog, default
-framework, output rules, Python validator, and `agents/openai.yaml` for implicit invocation.
-It writes into the consuming project's `docs/specs/brainstorm/`; plugin resources resolve
-relative to the loaded skill. It uses Codex's native `request_user_input` for questions and confirmations when available.
-It never decides dispositions or convergence for the user.
+| Skill | Purpose | Source and evaluation report |
+|---|---|---|
+| Brainstorm (SKL-001 v7) | Explore ideas and record user-confirmed decisions in BRN documents | [Brainstorm import report](IMPORT-REPORT.md) |
+| Documents Updater (SKL-005 v2) | Update README files, changelogs and guides from verified repository changes, or prepare exact proposals | [Documents Updater import report](DOCUMENTS-UPDATER-IMPORT-REPORT.md) |
 
 ## Using the source
 
-This directory is source, not an installation or marketplace registration. After enabling
-the plugin in Codex, select **DevForgeAI Brainstorm**, or use `$brainstorm` in Codex CLI:
+After enabling the plugin in Codex, select the skill or invoke it explicitly:
 
 ```text
 $brainstorm ways our dental clinic could reduce appointment no-shows
+$documents-updater update the documentation for my uncommitted changes
+$documents-updater v1.0.0..HEAD propose
 ```
 
-Natural-language brainstorming requests may also select it. The PRD skill is not included;
-the handoff names that missing workflow and the BRN ID without invoking Claude commands.
-No connector, credentials, MCP server, or background hook is needed.
+Natural-language requests can also select either skill. Questions use native
+`request_user_input` when the current host mode permits it; otherwise the skill asks
+in plain text. Resources resolve from the loaded skill directory. No connector,
+credentials, MCP server or background hook is required by either skill.
+
+Documents Updater preserves published release sections, staging choices and unrelated
+work. It runs only when requested or matched to a documentation request. Repository
+templates take priority over its twelve fallback templates. Its Python Markdown checker
+uses the standard library and cannot determine whether a documentation claim is true.
 
 ## Local checks
 
@@ -30,18 +34,14 @@ Run from this package directory with Python 3:
 
 ```bash
 python3 -B -m unittest discover -s tests -p 'test_*.py' -v
-python3 skills/brainstorm/scripts/validate_brn.py /path/to/project/docs/specs/brainstorm/BRN-001.md
+python3 -B skills/documents-updater/scripts/check_docs.py /path/to/project/README.md
+python3 -B skills/brainstorm/scripts/validate_brn.py /path/to/project/docs/specs/brainstorm/BRN-001.md
 ```
 
-The validator uses the standard library; PyYAML, when available, adds YAML parsing. It is
-a partial structural check and cannot prove user consent or complete schema conformance.
-The session-aware validator tests are distinct from the native skill evaluations described
-in [evals/README.md](evals/README.md), which remain NOT_RUN.
+The [Documents Updater evaluation guide](evals/documents-updater/README.md) explains
+fixture generation and native Codex evaluations. Tests and import evidence are development
+resources; only the manifest and skills are needed at runtime.
 
-The import retains source hashes and changes in [import-evidence/](import-evidence/).
-Provider edits do not approve the specification, install the plugin, or qualify native
-behavior. The exact authoring model was not exposed, so the port provenance states unknown.
-
-Packaging follows the supported plugin-creator compatibility layout:
-[OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins).
-Invocation and metadata follow [OpenAI skill guidance](https://learn.chatgpt.com/docs/build-skills).
+Brainstorm source and historical evaluation evidence are preserved. Adding Documents
+Updater does not qualify, install or approve either skill. The new port's provenance
+records unknown authoring model/session identifiers rather than inventing them.
