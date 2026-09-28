@@ -18,8 +18,10 @@ an approved spec in `docs/specs/`, and its eval suite, not a reading of its inst
 | `architecture` | SPEC-003 v1 | Approved spec only |
 | `epic` | SPEC-004 v1 | Approved spec only |
 | `documents-updater` (SKL-005 v1) | SPEC-006 v1 | Built and deployed, with 8 eval cases (3 runs: 8 of 8 at 1.00, mean Δ +0.15); manual VER-10..12 not run. Outside the chain: it updates a repository's README, CHANGELOG and guides from git evidence |
+| `git` (SKL-006, proposed) | SPEC-007 v1 (draft) | Draft spec only, no open questions; awaiting approval. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
+| `qa` (SKL-007, reserved) | SPEC-008 v1 (stub) | Stub spec only: the contract SPEC-007 reads (verdict comment naming the reviewed SHA, `merge-approved`/`qa-failed` labels) is fixed; the review criteria are open. Meant to approve PRs from an independent session. Until built, QA follows SPEC-008 §4 by hand |
 
-SKL-003 and SKL-004 are reserved for `architecture` and `epic` by their specs.
+SKL-003 and SKL-004 are reserved for `architecture` and `epic` by their specs, and SKL-007 for `qa` by SPEC-008.
 
 There is no build system or linter; the checks that exist are under Commands. The workspace is a git
 repository (remote `origin`), but most files are untracked, so git history doesn't show how the specs
@@ -189,7 +191,9 @@ byte-identical (SPEC-003 §3), so both are written skill-neutral; change them in
 
 The planning chain's last skill, whichever that turns out to be, ends its Next step by recommending
 `/devforgeai:documents-updater` (SPEC-006 §13, decided by Bryan on 2026-09-28). Put that in its spec
-and give it an eval grader. No other skill hands off to documents-updater, and documents-updater never
+and give it an eval grader. The `git` skill also recommends it before opening a PR whose branch
+changes neither README nor CHANGELOG (SPEC-007 BEH-19, decided by Bryan on 2026-09-28), and runs it
+only on the user's yes. No other skill hands off to documents-updater, and documents-updater never
 starts itself.
 
 `src/schemas/spec.schema.json` requires a VER item's `upstream` only when the spec specifies a story.
