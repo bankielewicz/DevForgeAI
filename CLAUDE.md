@@ -15,17 +15,17 @@ an approved spec in `docs/specs/`, and its eval suite, not a reading of its inst
 |---|---|---|
 | `brainstorm` (SKL-001 v5) | SPEC-001 v10 | Built, with 8 eval cases |
 | `prd` (SKL-002 v1) | SPEC-002 v1 | Built and deployed, with 20 eval cases; manual VER-11, VER-12 and VER-23 not run |
-| `architecture` | SPEC-003 v1 | Approved spec only |
+| `architecture` (SKL-003 v1) | SPEC-003 v1 | Built, with 14 eval cases (3 runs: 14 of 14 at 1.00, mean Δ +0.67); not deployed yet; manual VER-12 and VER-13 not run |
 | `epic` | SPEC-004 v1 | Approved spec only |
 | `documents-updater` (SKL-005 v1) | SPEC-006 v1 | Built and deployed, with 8 eval cases (3 runs: 8 of 8 at 1.00, mean Δ +0.15); manual VER-10..12 not run. Outside the chain: it updates a repository's README, CHANGELOG and guides from git evidence |
 | `git` (SKL-006, proposed) | SPEC-007 v1 (draft) | Draft spec only, no open questions; awaiting approval. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
 | `qa` (SKL-007, reserved) | SPEC-008 v1 (stub) | Stub spec only: the contract SPEC-007 reads (verdict comment naming the reviewed SHA, `merge-approved`/`qa-failed` labels) is fixed; the review criteria are open. Meant to approve PRs from an independent session. Until built, QA follows SPEC-008 §4 by hand |
 
-SKL-003 and SKL-004 are reserved for `architecture` and `epic` by their specs, and SKL-007 for `qa` by SPEC-008.
+SKL-004 is reserved for `epic` by its spec, and SKL-007 for `qa` by SPEC-008.
 
 There is no build system or linter; the checks that exist are under Commands. The workspace is a git
-repository (remote `origin`), but most files are untracked, so git history doesn't show how the specs
-or the plugin evolved; each spec's Change Log does.
+repository (remote `origin`). Everything was imported in one commit (PR #1, 2026-09-28), so git history
+doesn't show how the specs or the plugin evolved before then; each spec's Change Log does.
 Every document uses the typed folders described in `AGENTS.md` (`docs/specs/spec/SPEC-002.md`,
 `docs/specs/prd/PRD-002.md`). `docs/research/Claude/` holds saved Claude Code docs whose links point
 to code.claude.com; it and the skills-guide PDF in `docs/` are local only (`.gitignore`). `src/codex/devforgeai/` is a Codex port of the brainstorm skill, built and kept by
@@ -50,6 +50,9 @@ PYTHONDONTWRITEBYTECODE=1 python3 src/claude/DevForgeAI/skills/documents-updater
 # documents-updater evals: regenerate every case from its generator; check one case's regex graders offline
 python3 src/tests/documents-updater/make_evals.py
 node src/tests/documents-updater/grade_evals.mjs src/claude/DevForgeAI/evals/documents-updater/<case> <workspace> <reply.txt>
+# architecture evals: regenerate every case (validates each fixture against src/schemas/ first); check one offline
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/architecture/make_evals.py
+node src/tests/architecture/grade_evals.mjs src/claude/DevForgeAI/evals/architecture/<case> <workspace> <reply.txt>
 # Plugin evals (plain terminal only, see "Evaluating a skill"): one skill's suite, or one case cheaply
 claude plugin eval src/claude/DevForgeAI --tag prd --allow-tools Write Edit Bash --scaffold \
   --judge-model sonnet --threshold 0.8 -j 4 --output-dir tmp/eval-results/$(date +%Y%m%dT%H%M%S)
@@ -70,7 +73,7 @@ workspace; translate the rest before using them:
 | `src/staging/templates/` | `src/templates/` |
 | `src/staging/examples/` | The same: `policy-two-orgs/` and `prd-production-mvp/`, copied unchanged from DevForgeAI-SDF2 (`ef78b83`) on 2026-09-27 |
 | `src/schemas/`, `schemas/*.schema.json` | `src/schemas/`. No skill reads a schema at run time: each skill's `references/output-rules.md` (and brainstorm's validator script) is its validation contract |
-| PRD-001, STORY-001..005, ADR-001..003 | ADR-001..003, PRD-001 and STORY-002 are in `docs/specs/adr/`, `prd/` and `story/`, copied unchanged from DevForgeAI-SDF2 (`ef78b83`) on 2026-09-27. STORY-001, STORY-003..005 and the epics they cite are absent. ADR-001's worktree process assumes git history, which this workspace mostly lacks (most files are untracked) |
+| PRD-001, STORY-001..005, ADR-001..003 | ADR-001..003, PRD-001 and STORY-002 are in `docs/specs/adr/`, `prd/` and `story/`, copied unchanged from DevForgeAI-SDF2 (`ef78b83`) on 2026-09-27. STORY-001, STORY-003..005 and the epics they cite are absent. ADR-001's worktree process applies here: `architecture` was built in `.claude/worktrees/story-003-architecture` |
 | `devforgeai check` ("the checker") | Does not exist. SPEC-004 §2: never trust anything named `devforgeai` on PATH |
 
 ## Source and deployed copy
@@ -80,8 +83,8 @@ workspace; translate the rest before using them:
   the deploy command below once. The names differ on purpose: a
   skills-dir plugin must sit at `.claude/skills/<name>/`, and the plugin's name is `devforgeai`.
   Claude Code loads it in this directory, which is where `/devforgeai:brainstorm` comes from, so
-  edits to `src/` take effect only after redeploying. Claude's sandbox denies writes to `.claude/skills/`, and the deploy
-  procedure (ADR-001) is not in this workspace: redeploying is the owner's step.
+  edits to `src/` take effect only after redeploying. Claude's sandbox denies writes to `.claude/skills/`, in the main
+  checkout and in every worktree, so deploying (ADR-001 steps 2 and 7) is the owner's step.
 - Deploy (owner, from a plain shell): `rsync -a --delete --exclude __pycache__ --exclude results src/claude/DevForgeAI/ .claude/skills/devforgeai/`.
   `--delete` also clears stray files such as Windows `*:Zone.Identifier` copies and sandbox placeholders.
 - `src/tools/session-archive/` is not part of the plugin and is never synced into `.claude/`. It
@@ -99,11 +102,13 @@ suite command is under Commands.
 - `--scaffold`: runs `case.yaml` scaffold scripts. Brainstorm's `existing-brn` and every prd case but
   `ignores-unrelated-request` have one; they seed the BRNs, PRDs, ADRs and policies the case reads.
   Every documents-updater case has one that builds a small git repository with dated commits. Those
-  cases are generated by `src/tests/documents-updater/make_evals.py`: edit fixtures and graders
-  there and regenerate, never the case files.
+  cases are generated by `src/tests/documents-updater/make_evals.py`, and every architecture case (each
+  seeds a PRD, plus ARCHs, ADRs or a policy) by `src/tests/architecture/make_evals.py`: edit fixtures
+  and graders there and regenerate, never the case files.
 - `--threshold 0.8`: the default is 1.0. The framework bar is ≥ 0.8 per case over 3 runs, the default run count.
-- Narrow a run with `--case existing-brn`, `--tag brainstorm` or `--tag prd`. `ver-NN` tags repeat across
-  skills (both have a `ver-08`). Use `--runs 1` for a quick pass.
+- Narrow a run with `--case existing-brn`, or `--tag brainstorm`, `--tag prd` or `--tag architecture`.
+  `ver-NN` tags repeat across skills (brainstorm, prd and architecture each have a `ver-08`). Use
+  `--runs 1` for a quick pass.
 - A no-plugin baseline arm runs by default. `tool_used: Skill` graders then only indicate that the plugin fired and don't count toward the score.
 - The HTML report publishes to claude.ai by default when the account supports it; add `--no-publish`
   to keep it local. Without `--output-dir`, results land in the plugin's `evals/results/` and would
@@ -134,10 +139,10 @@ are SPEC-002 VER-11, VER-12 and VER-23.
 - `skills/<name>/scripts/`: executed, not loaded. Brainstorm's `validate_brn.py` applies the output
   rules at step 7. It can't check what the user confirmed, so step 7 also reads the file back. Keep
   `__pycache__/` out of the deployed copy. The prd skill has no script (SPEC-002 §3): step 9 reads the
-  file back against the self-check list. documents-updater's `check_docs.py` checks Markdown structure
-  and links at step 6; its tests live in `src/tests/documents-updater/` so they don't deploy.
-- `skills/<name>/assets/<type>.md`: the canonical document template. `src/templates/brainstorm.md` is a
-  leftover identical copy; edit the asset.
+  file back against the self-check list, as architecture's step 10 does for the ARCH and each ADR.
+  documents-updater's `check_docs.py` checks Markdown structure and links at step 6; its tests live in `src/tests/documents-updater/` so they don't deploy.
+- `skills/<name>/assets/<type>.md`: the canonical document template; architecture holds two, `arch.md`
+  and `adr.md`. `src/templates/brainstorm.md` is a leftover identical copy; edit the asset.
 - `evals/<name>/<case>/`: `prompt.md`, `graders/*.md`, optional `case.yaml` + `scaffold.sh`; one case per
   automated VER item, tagged `<name>` and `ver-NN`. Runs start in an empty workspace, so the scaffold
   must seed anything the skill reads.
@@ -183,10 +188,10 @@ Follow the implementing spec's §11, translating paths as above:
    the baseline. For prd's 20 cases the last two cost about $8 and $41. Then deploy, and do the manual
    VER items by hand.
 
-When `architecture` ships, the prd `hands-off-to-architecture` graders still expect the "not built
-yet" handoff. SPEC-002 VER-07 describes the shipped branch: `/devforgeai:architecture PRD-001`, with the
-ID, never a path. Flip them in the same change, as the brainstorm `hands-off-to-prd` case was flipped when
-`prd` shipped. The architecture skill copies the prd skill's `references/policy.md` and `defaults.md`
+When `epic` ships, the architecture `hands-off-to-epic` graders still expect the "not built yet"
+handoff. SPEC-003 VER-10 describes the shipped branch: `/devforgeai:epic PRD-001`, with the ID, never a
+path. Flip them in the same change (in `src/tests/architecture/make_evals.py`), as the prd
+`hands-off-to-architecture` case was flipped when `architecture` shipped. The architecture skill copies the prd skill's `references/policy.md` and `defaults.md`
 byte-identical (SPEC-003 §3), so both are written skill-neutral; change them in both skills together.
 
 The planning chain's last skill, whichever that turns out to be, ends its Next step by recommending
