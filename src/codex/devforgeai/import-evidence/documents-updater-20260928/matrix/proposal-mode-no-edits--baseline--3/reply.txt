@@ -1,0 +1,25 @@
+Proposed update to [README.md](/tmp/dfai-du-eval-brjgsqy1/project/README.md): replace the options table and add a JSON example.
+
+````markdown
+| Option | Effect |
+| --- | --- |
+| `--lines` | Print only the line count |
+| `--json` | Print a JSON object containing both word and line counts |
+
+To get JSON output:
+
+```bash
+wordcount notes.txt --json
+```
+
+For a file containing 12 words across 3 lines, the output is:
+
+```json
+{"words": 12, "lines": 3}
+```
+
+Both values are integers. If `--json` and `--lines` are used together,
+`--json` takes precedence and both counts are included.
+````
+
+Verification: **PASS** — draft matches the current implementation. **NOT_RUN** — tests; this was a documentation review only. No files changed.

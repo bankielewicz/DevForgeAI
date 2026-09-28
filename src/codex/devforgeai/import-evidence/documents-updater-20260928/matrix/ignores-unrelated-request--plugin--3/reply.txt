@@ -1,0 +1,6 @@
+```text
+Add JSON output option to wordcount CLI
+
+Support --json to print word and line counts as a JSON object.
+Give --json precedence when combined with --lines.
+```

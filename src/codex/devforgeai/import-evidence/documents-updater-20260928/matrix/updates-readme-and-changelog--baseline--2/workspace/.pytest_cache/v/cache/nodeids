@@ -1,0 +1,4 @@
+[
+  "tests/test_cli.py::test_count",
+  "tests/test_json.py::test_json_output"
+]

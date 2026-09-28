@@ -1,0 +1,458 @@
+[
+  {
+    "trial": "asks-for-unknown-baseline--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "asks-for-unknown-baseline--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "asks-for-unknown-baseline--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "asks-for-unknown-baseline--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "asks-for-unknown-baseline--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "asks-for-unknown-baseline--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "creates-readme-from-profile--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "creates-readme-from-profile--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "creates-readme-from-profile--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "creates-readme-from-profile--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "README.md"
+    ],
+    "validator_coverage": {
+      "README.md": [
+        "exec-1a8ce269-f58b-4c66-9ba0-6fb59d6f7a59"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "creates-readme-from-profile--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "README.md"
+    ],
+    "validator_coverage": {
+      "README.md": [
+        "exec-0618a1dc-0024-48ff-85ef-e6d76c2a3eb2"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "creates-readme-from-profile--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "README.md"
+    ],
+    "validator_coverage": {
+      "README.md": [
+        "exec-82c3c4fe-14bf-4ffc-8b44-981dc01690ed"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "ignores-unrelated-request--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "ignores-unrelated-request--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "ignores-unrelated-request--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "ignores-unrelated-request--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "ignores-unrelated-request--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "ignores-unrelated-request--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "no-change-when-accurate--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "no-change-when-accurate--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "no-change-when-accurate--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "no-change-when-accurate--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "no-change-when-accurate--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "no-change-when-accurate--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "no-unsupported-claims--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "no-unsupported-claims--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "no-unsupported-claims--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "no-unsupported-claims--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-99c631ee-8669-45dd-8cc4-cf66aea5fd16"
+      ],
+      "README.md": [
+        "exec-99c631ee-8669-45dd-8cc4-cf66aea5fd16"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "no-unsupported-claims--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-239174e4-293e-4dba-8143-45fcf6eb6801"
+      ],
+      "README.md": [
+        "exec-239174e4-293e-4dba-8143-45fcf6eb6801"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "no-unsupported-claims--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-4afecac3-9c88-42aa-8fd5-7f49520d8de5"
+      ],
+      "README.md": [
+        "exec-4afecac3-9c88-42aa-8fd5-7f49520d8de5"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "preserves-release-history--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "preserves-release-history--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "preserves-release-history--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "preserves-release-history--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-1e5cfc56-8f88-4f4b-a239-cd7ff535b3b8"
+      ],
+      "README.md": [
+        "exec-1e5cfc56-8f88-4f4b-a239-cd7ff535b3b8"
+      ],
+      "docs/configuration.md": [
+        "exec-1e5cfc56-8f88-4f4b-a239-cd7ff535b3b8"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "preserves-release-history--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-da49dd9d-7ab2-4328-b0f1-fa0c8e0886cd"
+      ],
+      "README.md": [
+        "exec-da49dd9d-7ab2-4328-b0f1-fa0c8e0886cd"
+      ],
+      "docs/configuration.md": [
+        "exec-da49dd9d-7ab2-4328-b0f1-fa0c8e0886cd"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "preserves-release-history--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-92e05649-fc53-4817-80d9-7f60b605646a"
+      ],
+      "README.md": [
+        "exec-92e05649-fc53-4817-80d9-7f60b605646a"
+      ],
+      "docs/configuration.md": [
+        "exec-92e05649-fc53-4817-80d9-7f60b605646a"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "proposal-mode-no-edits--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "proposal-mode-no-edits--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "proposal-mode-no-edits--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "proposal-mode-no-edits--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "proposal-mode-no-edits--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "proposal-mode-no-edits--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [],
+    "validator_coverage": {},
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "updates-readme-and-changelog--baseline--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "updates-readme-and-changelog--baseline--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "updates-readme-and-changelog--baseline--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": []
+  },
+  {
+    "trial": "updates-readme-and-changelog--plugin--1",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-2000ea4d-6b96-4ede-9190-2ec92f6eb483"
+      ],
+      "README.md": [
+        "exec-2000ea4d-6b96-4ede-9190-2ec92f6eb483"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "updates-readme-and-changelog--plugin--2",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-9ce1cd49-5db4-4574-b3cd-74417fb0ea3e"
+      ],
+      "README.md": [
+        "exec-9ce1cd49-5db4-4574-b3cd-74417fb0ea3e"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  },
+  {
+    "trial": "updates-readme-and-changelog--plugin--3",
+    "foreign_trial_paths": [],
+    "evaluation_artifact_commands": [],
+    "candidate_preserved": true,
+    "changed_markdown": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "validator_coverage": {
+      "CHANGELOG.md": [
+        "exec-72fa175f-921f-45d6-b9b2-ac6bc862414e"
+      ],
+      "README.md": [
+        "exec-72fa175f-921f-45d6-b9b2-ac6bc862414e"
+      ]
+    },
+    "all_changed_markdown_checked": true
+  }
+]

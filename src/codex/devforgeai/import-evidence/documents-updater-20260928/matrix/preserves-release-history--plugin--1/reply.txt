@@ -1,0 +1,17 @@
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write the edits
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: updated  
+Scope: setting rename in uncommitted changes against HEAD.  
+Documents: README.md, docs/configuration.md, CHANGELOG.md.  
+Highlights:
+- Updated examples and reference to `poll_interval_seconds`.
+- Added an Unreleased breaking-change entry and migration guidance.
+
+Validation: PASS — `check_docs.py`, `git diff --check`, configuration example checks, and published changelog preservation. Reviewed source only.  
+Action required: Rename existing configuration keys, keeping their values.

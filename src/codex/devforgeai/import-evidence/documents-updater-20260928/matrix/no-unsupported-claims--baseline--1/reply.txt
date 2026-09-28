@@ -1,0 +1,3 @@
+Updated [README.md](/tmp/dfai-du-eval-mvv04ldg/project/README.md) with a parallel-counting example, valid values, default, and output ordering. Added an Unreleased entry in [CHANGELOG.md](/tmp/dfai-du-eval-mvv04ldg/project/CHANGELOG.md).
+
+Verification: PASS — `PYTHONPATH=src python3 -m pytest -q` (1 test); `git diff --check`. Existing code and tests were preserved.

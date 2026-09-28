@@ -1,0 +1,6 @@
+interface:
+  display_name: "Documents Updater"
+  short_description: "Update repository docs from verified changes"
+  default_prompt: "Use $documents-updater to update the docs for my uncommitted changes."
+policy:
+  allow_implicit_invocation: true

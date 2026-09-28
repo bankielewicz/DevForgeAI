@@ -1,0 +1,7 @@
+{
+  "README.md": "d658c8ede078afa2af4ab05726a4a9adfdf9ccfcaf3d2f91fccd71f6aa07fe29",
+  "pyproject.toml": "477412e7477cea2a4df531488e5cdf1891c71e8b78001ced03f6c847b3cac2f8",
+  "src/csvtidy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/csvtidy/cli.py": "eaa6b18a915f34d6e9d51f184a30227ff33a538d10ab7bfe57ee1dca41c11dbe",
+  "tests/test_cli.py": "862a362958b9f173bde1e4ec3bee3d5dc7bd1f123b6eda6e6b348a90c4acfa7f"
+}

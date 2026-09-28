@@ -1,0 +1,76 @@
+{
+  "case": "no-unsupported-claims",
+  "arm": "plugin",
+  "repeat": 2,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "changelog-names-jobs",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "changelog-no-unsupported-claim",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-names-jobs",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-no-unsupported-claim",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": true,
+      "passed": true,
+      "evidence": [
+        "exec-92955871-5dd7-4295-ac21-f0a54a88caa7"
+      ]
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "changed_markdown_valid": true,
+    "native_validator_executed": true
+  },
+  "changed_paths": [
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "postrun_validation": [
+    {
+      "path": "CHANGELOG.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    },
+    {
+      "path": "README.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    }
+  ],
+  "skill_load_ids": [
+    "exec-92955871-5dd7-4295-ac21-f0a54a88caa7"
+  ],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 1.0,
+  "strict_pass": true
+}

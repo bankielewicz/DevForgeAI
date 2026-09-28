@@ -1,0 +1,13 @@
+{
+  ".pytest_cache/.gitignore": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+  ".pytest_cache/CACHEDIR.TAG": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+  ".pytest_cache/README.md": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+  ".pytest_cache/v/cache/nodeids": "a266a264785f35189a049a7295ed71a93163ef58c95da98513a92853172b434b",
+  "CHANGELOG.md": "0684d751697fff0aa0f10501be766ec4304d86da9e93d247620e13bc4266bca6",
+  "README.md": "26552656c742bbd4b04f84b24ddad53ce15e5cd14fb6cb0846c6765e5e84bdda",
+  "pyproject.toml": "fcbf20650e77b25382e362f6d14c9d95a10614b855ac205a12e32f3123f350a8",
+  "src/wordcount/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/wordcount/cli.py": "4447c97c24b0e060bc1dbbf26c344595f8044bcfde785bf532320137fc30e4d3",
+  "tests/test_cli.py": "e93d9dac790f901de27fffaae4cf8c581ca57803b2dabd9ed168cbd5b544cf4b",
+  "tests/test_json.py": "7bf77b2fd0cacddb41d075b463e740ec7e9199480c2b8a76e9a593dc9ca8e1cf"
+}

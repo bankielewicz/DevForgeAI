@@ -1,0 +1,102 @@
+{
+  "case": "updates-readme-and-changelog",
+  "arm": "baseline",
+  "repeat": 2,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "changelog-added-json",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "changelog-created",
+      "type": "file_exists",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "changelog-unreleased",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-date",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-version-heading",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-names-json",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "result-updated",
+      "type": "regex",
+      "scored": true,
+      "passed": false
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": false,
+      "passed": false,
+      "evidence": []
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": false,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true
+  },
+  "changed_paths": [
+    ".pytest_cache/.gitignore",
+    ".pytest_cache/CACHEDIR.TAG",
+    ".pytest_cache/README.md",
+    ".pytest_cache/v/cache/nodeids",
+    "CHANGELOG.md",
+    "README.md",
+    "src/wordcount/__pycache__/__init__.cpython-312.pyc",
+    "src/wordcount/__pycache__/cli.cpython-312.pyc",
+    "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc",
+    "tests/__pycache__/test_json.cpython-312-pytest-9.0.2.pyc"
+  ],
+  "postrun_validation": [
+    {
+      "path": ".pytest_cache/README.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    },
+    {
+      "path": "CHANGELOG.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    },
+    {
+      "path": "README.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    }
+  ],
+  "skill_load_ids": [],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 0.8571428571428571,
+  "strict_pass": false
+}

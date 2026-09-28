@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 0,
+    "output": " M README.md\n M src/wordcount/cli.py\n?? CHANGELOG.md\n?? tests/test_jobs.py\n"
+  },
+  "head": {
+    "exit": 0,
+    "output": "684c0599333f8243b94a9f2d0bffe0493a7f41d9\n"
+  },
+  "index": {
+    "exit": 0,
+    "output": "100644 e513e777d5c6778bbe7e2c4c50445beefbaadd08 0\tREADME.md\u0000100644 3e0f5a70f0b51fc05b91db119864fc83ecbf5b1e 0\tpyproject.toml\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tsrc/wordcount/__init__.py\u0000100644 8c7cb1a983c0b5ae69b0c21c4515b68d3c73c391 0\tsrc/wordcount/cli.py\u0000"
+  },
+  "refs": {
+    "exit": 0,
+    "output": "refs/heads/main 684c0599333f8243b94a9f2d0bffe0493a7f41d9\n"
+  }
+}

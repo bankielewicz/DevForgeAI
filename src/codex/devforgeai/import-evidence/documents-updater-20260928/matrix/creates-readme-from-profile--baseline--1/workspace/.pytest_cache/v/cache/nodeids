@@ -1,0 +1,3 @@
+[
+  "tests/test_cli.py::test_tidy_drops_empty_rows"
+]

@@ -1,0 +1,8 @@
+- [ ] 1. Establish the scope — baseline needed
+- [x] 2–6. Inventory, selection, editing and validation (skipped: unresolved baseline)
+- [x] 7. Report
+
+Result: blocked  
+Scope: `topic`; no remote or known integration branch identifies the comparison point. No files changed.  
+Validation: BLOCKED pending baseline.  
+Action required: Which commit should I compare against: `12b54ae`, `a58a4ec`, or `d99e1d1`? The [documents-updater skill](/tmp/dfai-du-eval-zzllbmwm/devforgeai/skills/documents-updater/SKILL.md) requires: “If none applies, ask for the comparison point.”

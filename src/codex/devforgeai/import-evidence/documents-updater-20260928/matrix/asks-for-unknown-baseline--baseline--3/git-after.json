@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 0,
+    "output": "?? CHANGELOG.md\n"
+  },
+  "head": {
+    "exit": 0,
+    "output": "8b14bf8a16892c3bd8f59b4276ae9d60eb257cc7\n"
+  },
+  "index": {
+    "exit": 0,
+    "output": "100644 7e3b6b2786827f64dc52f728ac8cb2d8af6349e3 0\tREADME.md\u0000100644 6ee265c5e9e08b2d34165a3a8736ccb5a50052e6 0\tsrc/reportgen/__main__.py\u0000"
+  },
+  "refs": {
+    "exit": 0,
+    "output": "refs/heads/topic 8b14bf8a16892c3bd8f59b4276ae9d60eb257cc7\n"
+  }
+}

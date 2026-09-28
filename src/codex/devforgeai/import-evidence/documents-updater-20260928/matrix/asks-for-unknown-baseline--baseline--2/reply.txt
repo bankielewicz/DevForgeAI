@@ -1,0 +1,4 @@
+Created [CHANGELOG.md](/tmp/dfai-du-eval-dnu6r9nn/project/CHANGELOG.md) with an Unreleased section covering CSV export, ISO week parsing, and inclusive week filtering.
+
+- PASS: Entries verified against all three branch changes.
+- NOT_RUN: Tests; documentation-only change.

@@ -1,0 +1,17 @@
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write the edits
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: updated  
+Scope: uncommitted `--jobs` changes against HEAD (`684c059`).  
+Documents: updated [README.md](/tmp/dfai-du-eval-ljjpwow6/project/README.md); created [CHANGELOG.md](/tmp/dfai-du-eval-ljjpwow6/project/CHANGELOG.md).  
+Highlights:
+
+- Documented parallel counting, default 1, positive-integer requirement, output order, and an example.
+- Added an Unreleased changelog entry.
+
+Validation: PASS — `check_docs.py`, whitespace checks, `pytest tests/test_jobs.py` (1 passed), and scratch-file usage checks. Reviewed Markdown source only.

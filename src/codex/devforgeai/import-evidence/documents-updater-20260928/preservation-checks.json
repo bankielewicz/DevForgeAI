@@ -1,0 +1,11 @@
+{
+  "source": true,
+  "source_tests": true,
+  "source_evals": true,
+  "brainstorm": true,
+  "spec": true,
+  "candidate_unchanged": true,
+  "frozen_case_files_unchanged": true,
+  "templates_identical": true,
+  "checker_identical": true
+}

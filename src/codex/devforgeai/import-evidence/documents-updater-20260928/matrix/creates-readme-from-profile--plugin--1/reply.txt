@@ -1,0 +1,13 @@
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select documentation
+- [x] 4. Choose the template
+- [x] 5. Write the README
+- [x] 6. Validate
+- [x] 7. Report
+
+Result: updated  
+Scope: current working tree; new README only.  
+Documents: Created [README.md](/tmp/dfai-du-eval-q05s4953/project/README.md).  
+Highlights: Covers installation, CSV examples, command options, and testing.  
+Validation: PASS — `check_docs.py`, whitespace check, examples via source module, and pytest (1 test). NOT_RUN — installation commands. Reviewed source only.

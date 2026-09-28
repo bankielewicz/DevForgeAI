@@ -1,0 +1,15 @@
+[
+  {
+    "path": "src/codex/devforgeai/skills/documents-updater/SKILL.md",
+    "schema": "skill-frontmatter.schema.json",
+    "errors": []
+  },
+  {
+    "path": "src/codex/devforgeai/skills/documents-updater/provenance.yaml",
+    "schema": "skill.schema.json",
+    "errors": [
+      "'frontmatter' is a required property",
+      "Additional properties are not allowed ('approved_by', 'approved_on', 'authors', 'blocked_by', 'created', 'eval_tag', 'generated_by', 'id', 'owner', 'packaging', 'plugin', 'reviewed_by', 'skill_name', 'status', 'superseded_by', 'supersedes', 'title', 'type', 'updated', 'upstream', 'version' were unexpected)"
+    ]
+  }
+]

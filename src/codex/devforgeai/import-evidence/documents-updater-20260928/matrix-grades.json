@@ -1,0 +1,3828 @@
+[
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": false,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": false,
+          "reviewer": "authoring Codex; separate from native trial",
+          "evidence": [
+            "reply.txt",
+            "before.json",
+            "after.json",
+            "workspace/CHANGELOG.md"
+          ],
+          "reason": "The reply claims CSV export, ISO week parsing and week filtering as branch changes and creates CHANGELOG.md without a supplied comparison point."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": false
+    },
+    "changed_paths": [
+      "CHANGELOG.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.0,
+    "strict_pass": false
+  },
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": false,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": false,
+          "reviewer": "authoring Codex; separate from native trial",
+          "evidence": [
+            "protocol.jsonl",
+            "before.json",
+            "after.json"
+          ],
+          "reason": "Creates a changelog for all three commits and calls them branch changes without resolving the comparison point."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": false
+    },
+    "changed_paths": [
+      "CHANGELOG.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.0,
+    "strict_pass": false
+  },
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": false,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": false,
+          "reviewer": "authoring Codex; separate from native trial",
+          "evidence": [
+            "protocol.jsonl",
+            "before.json",
+            "after.json"
+          ],
+          "reason": "Without resolving a comparison point, the trial creates CHANGELOG.md and claims entries for all three changes."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": false
+    },
+    "changed_paths": [
+      "CHANGELOG.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.0,
+    "strict_pass": false
+  },
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": true,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": true,
+          "reviewer": "authoring Codex; separate from native trial",
+          "evidence": [
+            "reply.txt",
+            "before.json",
+            "after.json"
+          ],
+          "reason": "The reply explicitly asks which commit to compare against. It proposes no historical entry, and all files are unchanged."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-287ff91c-8af7-4dd0-82c8-f9236c94dd9f"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-287ff91c-8af7-4dd0-82c8-f9236c94dd9f"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": true,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": true,
+          "reviewer": "authoring Codex; separate from native trial",
+          "evidence": [
+            "protocol.jsonl",
+            "before.json",
+            "after.json"
+          ],
+          "reason": "Asks for the baseline using commit IDs/subjects and waits; no changelog, no historical-entry proposal, and no file changes."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-ecd9eaf8-9321-4e1a-a7b5-872af19f5388"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-ecd9eaf8-9321-4e1a-a7b5-872af19f5388"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": true,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": true,
+          "reviewer": "authoring Codex; separate from native trial",
+          "evidence": [
+            "protocol.jsonl",
+            "before.json",
+            "after.json"
+          ],
+          "reason": "The reply asks for a comparison commit, only lists candidate commit subjects, and leaves every file unchanged. No change entries are drafted."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-8338d67d-2e1e-404f-bb24-07081c27c4eb"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-8338d67d-2e1e-404f-bb24-07081c27c4eb"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "creates-readme-from-profile",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "local-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-command",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-python-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-index-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-invented-license",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-template-leftovers",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-title",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "README.md",
+      "src/csvtidy/__pycache__/__init__.cpython-312.pyc",
+      "src/csvtidy/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": false
+  },
+  {
+    "case": "creates-readme-from-profile",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "local-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-command",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-python-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-index-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-invented-license",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-template-leftovers",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-title",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "creates-readme-from-profile",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "local-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-command",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-python-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-index-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-invented-license",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-template-leftovers",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-title",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "README.md",
+      "src/csvtidy/__pycache__/__init__.cpython-312.pyc",
+      "src/csvtidy/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": false
+  },
+  {
+    "case": "creates-readme-from-profile",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "local-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-command",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-python-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-index-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-invented-license",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-template-leftovers",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-title",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-d7472839-0750-4141-a5af-3a3475e8161f"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-d7472839-0750-4141-a5af-3a3475e8161f"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "creates-readme-from-profile",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "local-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-command",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-python-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-index-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-invented-license",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-template-leftovers",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-title",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-3ef601da-1d3d-469a-803c-e0f35fa132f9"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-3ef601da-1d3d-469a-803c-e0f35fa132f9"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "creates-readme-from-profile",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "local-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-command",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "names-python-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-index-install",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-invented-license",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-template-leftovers",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-title",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-4a0b7b98-d56e-4610-98aa-672403477e78"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-4a0b7b98-d56e-4610-98aa-672403477e78"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-change-when-accurate",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-no-internal-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "changelog-single-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "readme-no-internal-names",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "result-no-change",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": false
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md",
+      "src/wordcount/__pycache__/__init__.cpython-312.pyc",
+      "src/wordcount/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc",
+      "tests/__pycache__/test_helpers.cpython-312-pytest-9.0.2.pyc",
+      "tests/__pycache__/test_json.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.0,
+    "strict_pass": false
+  },
+  {
+    "case": "no-change-when-accurate",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-no-internal-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "changelog-single-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "readme-no-internal-names",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "result-no-change",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": false
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md",
+      "src/wordcount/__pycache__/__init__.cpython-312.pyc",
+      "src/wordcount/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc",
+      "tests/__pycache__/test_helpers.cpython-312-pytest-9.0.2.pyc",
+      "tests/__pycache__/test_json.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.0,
+    "strict_pass": false
+  },
+  {
+    "case": "no-change-when-accurate",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-no-internal-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "changelog-single-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "readme-no-internal-names",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "result-no-change",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": false
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.0,
+    "strict_pass": false
+  },
+  {
+    "case": "no-change-when-accurate",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-no-internal-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-single-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-internal-names",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-no-change",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-a8da5f9f-577d-4c8b-84f9-8afc21b68759"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-a8da5f9f-577d-4c8b-84f9-8afc21b68759"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-change-when-accurate",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-no-internal-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-single-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-internal-names",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-no-change",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-878896c2-9c73-4c8d-a62c-9d364e333892"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-878896c2-9c73-4c8d-a62c-9d364e333892"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-change-when-accurate",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-no-internal-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-single-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-internal-names",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-no-change",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-3744d1ca-ff5e-4f8a-b148-7c168237791f"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-3744d1ca-ff5e-4f8a-b148-7c168237791f"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-unsupported-claims",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md",
+      "src/wordcount/__pycache__/__init__.cpython-312.pyc",
+      "src/wordcount/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_jobs.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": false
+  },
+  {
+    "case": "no-unsupported-claims",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-unsupported-claims",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md",
+      "src/wordcount/__pycache__/__init__.cpython-312.pyc",
+      "src/wordcount/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_jobs.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": false
+  },
+  {
+    "case": "no-unsupported-claims",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-c4e3256a-2c9a-4303-be64-17c2f8c42607"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-c4e3256a-2c9a-4303-be64-17c2f8c42607"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-unsupported-claims",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-92955871-5dd7-4295-ac21-f0a54a88caa7"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-92955871-5dd7-4295-ac21-f0a54a88caa7"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "no-unsupported-claims",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-jobs",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-no-unsupported-claim",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-0b398035-d059-4250-b1d0-9051c0bbf659"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-0b398035-d059-4250-b1d0-9051c0bbf659"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "preserves-release-history",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "breaking-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "config-doc-old-row-gone",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "keeps-once-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-1-1-0",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "published-sections-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-renamed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      },
+      {
+        "grader": "unreleased-first",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "docs/configuration.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.9166666666666666,
+    "strict_pass": false
+  },
+  {
+    "case": "preserves-release-history",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "breaking-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "config-doc-old-row-gone",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "keeps-once-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-1-1-0",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "published-sections-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-renamed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      },
+      {
+        "grader": "unreleased-first",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "docs/configuration.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.9166666666666666,
+    "strict_pass": false
+  },
+  {
+    "case": "preserves-release-history",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "breaking-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "config-doc-old-row-gone",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "keeps-once-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-1-1-0",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "published-sections-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-renamed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      },
+      {
+        "grader": "unreleased-first",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "docs/configuration.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.9166666666666666,
+    "strict_pass": false
+  },
+  {
+    "case": "preserves-release-history",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "breaking-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-old-row-gone",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "keeps-once-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-1-1-0",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "published-sections-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-renamed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-c14d8c64-b5fb-4bf0-9f4f-3057a3f630e5"
+        ]
+      },
+      {
+        "grader": "unreleased-first",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "docs/configuration.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-c14d8c64-b5fb-4bf0-9f4f-3057a3f630e5"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "preserves-release-history",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "breaking-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-old-row-gone",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "keeps-once-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-1-1-0",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "published-sections-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-renamed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-5eb9a9fd-fe7f-4d82-b2d1-1d168f5ad832"
+        ]
+      },
+      {
+        "grader": "unreleased-first",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "docs/configuration.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-5eb9a9fd-fe7f-4d82-b2d1-1d168f5ad832"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "preserves-release-history",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "breaking-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-old-row-gone",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "config-doc-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "keeps-once-entry",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-1-1-0",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-new-version",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "one-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "published-sections-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-renamed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-example-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-e49bb114-eb69-433e-a7b5-9eb4487169fd"
+        ]
+      },
+      {
+        "grader": "unreleased-first",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "docs/configuration.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "docs/configuration.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-e49bb114-eb69-433e-a7b5-9eb4487169fd"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "proposal-mode-no-edits",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "proposes-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-proposed",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.75,
+    "strict_pass": false
+  },
+  {
+    "case": "proposal-mode-no-edits",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "proposes-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-proposed",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.75,
+    "strict_pass": false
+  },
+  {
+    "case": "proposal-mode-no-edits",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "proposes-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-proposed",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.75,
+    "strict_pass": false
+  },
+  {
+    "case": "proposal-mode-no-edits",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "proposes-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-proposed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-d646e8b9-c1c3-4957-bf7f-ca4c97f68e40"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-d646e8b9-c1c3-4957-bf7f-ca4c97f68e40"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "proposal-mode-no-edits",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "proposes-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-proposed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-6980d6fe-f297-4eea-9cb4-aa559cc0d47d"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-6980d6fe-f297-4eea-9cb4-aa559cc0d47d"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "proposal-mode-no-edits",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "proposes-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-unchanged",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-proposed",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-6aafb94d-1bd0-4be0-ad33-bf64130449e9"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-6aafb94d-1bd0-4be0-ad33-bf64130449e9"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.8571428571428571,
+    "strict_pass": false
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "baseline",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md",
+      "src/wordcount/__pycache__/__init__.cpython-312.pyc",
+      "src/wordcount/__pycache__/cli.cpython-312.pyc",
+      "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc",
+      "tests/__pycache__/test_json.cpython-312-pytest-9.0.2.pyc"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.8571428571428571,
+    "strict_pass": false
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "baseline",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": false,
+        "evidence": []
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": false,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      ".pytest_cache/.gitignore",
+      ".pytest_cache/CACHEDIR.TAG",
+      ".pytest_cache/README.md",
+      ".pytest_cache/v/cache/nodeids",
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": ".pytest_cache/README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 0.8571428571428571,
+    "strict_pass": false
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-3c8edaae-689b-41df-a747-7e755dcd7b04"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-3c8edaae-689b-41df-a747-7e755dcd7b04"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "plugin",
+    "repeat": 2,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-3bf3aeaa-8244-479d-9459-6d342c1a27e7"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-3bf3aeaa-8244-479d-9459-6d342c1a27e7"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "plugin",
+    "repeat": 3,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-ec632509-ef7f-42d0-9a1d-fb1050f007bc"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-ec632509-ef7f-42d0-9a1d-fb1050f007bc"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  }
+]

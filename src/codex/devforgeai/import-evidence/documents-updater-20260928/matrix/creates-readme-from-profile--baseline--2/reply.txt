@@ -1,0 +1,3 @@
+Created [README.md](/tmp/dfai-du-eval-rqweuwwk/project/README.md) with installation instructions, CLI options, an example, and development commands.
+
+Verification: **PASS** — existing test, documented CSV example, file output, and whitespace check. No implementation files changed.

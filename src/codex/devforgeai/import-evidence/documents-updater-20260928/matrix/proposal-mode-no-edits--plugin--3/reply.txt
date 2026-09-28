@@ -1,0 +1,56 @@
+No files changed. Proposed edits:
+
+[README.md](/tmp/dfai-du-eval-_34sk42g/project/README.md):
+
+```diff
+--- a/README.md
++++ b/README.md
+@@ -25,3 +25,16 @@
+ | Option | Effect |
+ | --- | --- |
+ | `--lines` | Print only the line count |
++| `--json` | Print word and line counts as a JSON object |
++
++For JSON output:
++
++```bash
++wordcount notes.txt --json
++```
++
++For a file containing `a b` on the first line and `c` on the second:
++
++```json
++{"words": 3, "lines": 2}
++```
++
++When combined with `--lines`, `--json` takes precedence and prints both counts.
+```
+
+New `CHANGELOG.md`, full proposed content:
+
+```markdown
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## Unreleased
+
+### Added
+
+- Added `--json` to print word and line counts as a JSON object, taking precedence over `--lines` when combined.
+```
+
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write or propose the edits
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: proposed  
+Scope: uncommitted `--json` changes against HEAD (`7165d08`).  
+Documents: README.md; new CHANGELOG.md.  
+Validation: PASS — in-memory checks using `python3` confirmed default, line-only, JSON, and combined-option output without writing files. Proposal self-check passed; source reviewed only. NOT_RUN — pytest, Markdown validator, rendered preview.

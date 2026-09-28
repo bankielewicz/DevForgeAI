@@ -1,0 +1,27 @@
+{
+  "native-question-plan": {
+    "passed": true,
+    "evidence": [
+      "supplemental/native-question-plan/protocol.jsonl",
+      "supplemental/native-question-plan/turns.json"
+    ],
+    "reason": "Native item/tool/requestUserInput event asks for comparison commit in Plan mode; no writes before answer."
+  },
+  "proposal-apply-repeat": {
+    "passed": true,
+    "evidence": [
+      "supplemental/proposal-apply-repeat/protocol.jsonl",
+      "supplemental/proposal-apply-repeat/turns.json"
+    ],
+    "reason": "Proposal changes no files; apply changes only README.md and CHANGELOG.md; third turn is Result: no_change and hashes stay identical."
+  },
+  "invalid-revision": {
+    "passed": true,
+    "evidence": [
+      "supplemental/invalid-revision/protocol.jsonl",
+      "supplemental/invalid-revision/turns.json"
+    ],
+    "reason": "Invalid revision reported blocked; branch and tag availability named; no files changed."
+  },
+  "qualification_limit": "Controlled native fixtures; VER-10 to VER-12 remain NOT_RUN."
+}

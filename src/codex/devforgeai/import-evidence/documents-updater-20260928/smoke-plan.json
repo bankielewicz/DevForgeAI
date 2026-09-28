@@ -1,0 +1,204 @@
+{
+  "candidate_sha256": "6db9f222372adc2618f9e3050c9d329160de90449b6a617a153907fdb6c7a9f3",
+  "candidate_files": [
+    {
+      "path": ".codex-plugin/plugin.json",
+      "sha256": "8905f3800f9fa4670d3939de84307f37dfa2f93c18488d9b88b7be56acc97180"
+    },
+    {
+      "path": "skills/documents-updater/SKILL.md",
+      "sha256": "84ff7a0ce48324967579650f8d11da5a74efe4f4c37f651a13153195e1d4bd1c"
+    },
+    {
+      "path": "skills/documents-updater/agents/openai.yaml",
+      "sha256": "763eecc68fd64809cc0fda9b76fdb9dfe532f4fe40abdb9cd6b111551640d874"
+    },
+    {
+      "path": "skills/documents-updater/assets/adr.md",
+      "sha256": "f5baaa2d2afbb32c08e1aa1c4793ea325e9ecf45af7f792d8729fa51fbea9f23"
+    },
+    {
+      "path": "skills/documents-updater/assets/architecture.md",
+      "sha256": "a1745a319c0fe3d34b646b0bffcd5905bca18edd7ec0cb6240404e6113ece816"
+    },
+    {
+      "path": "skills/documents-updater/assets/changelog.md",
+      "sha256": "2e4d544dc170917d3d3ca6c05a9071c9af601563947207965bf63901e104551f"
+    },
+    {
+      "path": "skills/documents-updater/assets/configuration.md",
+      "sha256": "40a4319caff51d8d9fabd4d67fc4d1fc2301807d7e14599fc2379706c2acb93b"
+    },
+    {
+      "path": "skills/documents-updater/assets/contributing.md",
+      "sha256": "aa0536aafeb09c87c3e2390feb68164cbcf1299f5c0c49321ec0ed52a0c83e6b"
+    },
+    {
+      "path": "skills/documents-updater/assets/how-to.md",
+      "sha256": "f27551aaf72a7e2388d92c5e2854d6897a31ca4f221908c41cb110b91be7af8b"
+    },
+    {
+      "path": "skills/documents-updater/assets/migration.md",
+      "sha256": "e447f6a1ed9053989593aa1016e7b1d8886e383aefa4322c7cec03f4dece05c8"
+    },
+    {
+      "path": "skills/documents-updater/assets/readme.md",
+      "sha256": "15e3c3682348d64feb5ac660f09a89aa2a94029b092a37816d6d17a76b6a617d"
+    },
+    {
+      "path": "skills/documents-updater/assets/reference.md",
+      "sha256": "765f2c04c00fb56c4e5175a9ea58575012e06f7b1d621719ec96196c5112971c"
+    },
+    {
+      "path": "skills/documents-updater/assets/runbook.md",
+      "sha256": "8c6dd380e67fdc5f19879c5a752033e7c8f37dc02868d55ac223d9dd8f843ad3"
+    },
+    {
+      "path": "skills/documents-updater/assets/specification.md",
+      "sha256": "404049546e2c2177323424ec32cc719509c8d1c10bb16c7e7d857748488b9636"
+    },
+    {
+      "path": "skills/documents-updater/assets/tutorial.md",
+      "sha256": "3d038602bc6311639265dffddaff5d413b23fbaef865e688f105bf8a49701078"
+    },
+    {
+      "path": "skills/documents-updater/provenance.yaml",
+      "sha256": "e339b2f5ce018dedf96d1996c4d9235e30a91f4f16b173123ebef2af0ec737f2"
+    },
+    {
+      "path": "skills/documents-updater/references/document-selection.md",
+      "sha256": "1ca34d1f5d50367ab3addf966c8e987480cc9c4548229f2b96276800f2abed65"
+    },
+    {
+      "path": "skills/documents-updater/references/output-rules.md",
+      "sha256": "f01586f1f9d4bab8a5ef94de1d7bf54232d9418cd5b5b2cc099b2cd1e0088339"
+    },
+    {
+      "path": "skills/documents-updater/references/scope-and-evidence.md",
+      "sha256": "7c6ed22e14ffb0721b9b7d3b70003e7500d61421653df13bc402772941fc31fc"
+    },
+    {
+      "path": "skills/documents-updater/references/writing-standards.md",
+      "sha256": "11d325120c3c69d15d65efe470f074e16cc1b482d22993e6938021bbe0b3e2b7"
+    },
+    {
+      "path": "skills/documents-updater/scripts/check_docs.py",
+      "sha256": "19e5ca44d0a036993da4b79379fee332a88717c05bc15c9df96d23eb4ee2f6c5"
+    }
+  ],
+  "codex_version": "codex-cli 0.158.0",
+  "mandatory": [
+    "VER-01",
+    "VER-02",
+    "VER-03",
+    "VER-04",
+    "VER-05",
+    "VER-06",
+    "VER-07",
+    "VER-08",
+    "VER-09",
+    "VER-10",
+    "VER-11",
+    "VER-12"
+  ],
+  "manual_owner_cases": {
+    "VER-10": "NOT_RUN",
+    "VER-11": "NOT_RUN",
+    "VER-12": "NOT_RUN"
+  },
+  "threshold": 0.8,
+  "score": "Mean of source regex/file_exists and independently assessed semantic graders; skill activation excluded from score and checked separately. Report all grader passes and strict full-contract trial counts too. Each of three plugin runs must reach threshold; threshold never waives a failed obligation.",
+  "isolation": "Unique temp parent per trial; ephemeral app-server, memories and other skills/plugins/MCP disabled. Not an OS-hermetic boundary.",
+  "source_suite": {
+    "asks-for-unknown-baseline/case.yaml": "56027a8f82c6601c54343d44497df2bb04dd9182a26c46c89e4782e4a6cc69aa",
+    "asks-for-unknown-baseline/graders/asks-before-claiming.md": "c33ab754387a94582c459990dd5d9505f2843e9a535c0eca40520603a1aaa004",
+    "asks-for-unknown-baseline/graders/names-comparison-point.md": "ba30760f6f34828aee8b6066878c4a99a519d0ba11dcfb83ca9126621318a76e",
+    "asks-for-unknown-baseline/graders/no-changelog.md": "75b73ff32148f20e5e454f621e3bb6aae058d317f025ca28ad252cd6944f0ac4",
+    "asks-for-unknown-baseline/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "asks-for-unknown-baseline/prompt.md": "59223c31c6c3767d19cb811a0dbc3ddefd8ab3425cc10ee9a8401dce3b97550c",
+    "asks-for-unknown-baseline/scaffold.sh": "dc3e05bf451f28af40ef176f42ce731d9658d61878ddec68e8aadaa4e9ebf21a",
+    "creates-readme-from-profile/case.yaml": "1aec0f5d241ff0e15608c356b51e9a3a087518b1da8cba466b2513c29419c846",
+    "creates-readme-from-profile/graders/local-install.md": "5c541131496a9267b6051845c097617584854a60e82a871e645b8270874c33ac",
+    "creates-readme-from-profile/graders/names-command.md": "4c2f79423a2777c3152029bd95b18507ebb27064bdb724ef2cb5ead680132334",
+    "creates-readme-from-profile/graders/names-python-version.md": "926bd9e3915814d1274a5959a08f3138018c24587f79f5f416fcc1866a277b67",
+    "creates-readme-from-profile/graders/no-index-install.md": "c6e4d5d6d711c527f37e6d69301168f1c8e0a4880a1b71758ed118694d7a6be6",
+    "creates-readme-from-profile/graders/no-invented-license.md": "ab30f01aca5c67100388be3891778bef5ef6f624792dad02526d0b48847bff6b",
+    "creates-readme-from-profile/graders/no-template-leftovers.md": "d31383897923986a5a03adfc0c4e4a84a3a65cf70c5a26fd348f9103d72a9914",
+    "creates-readme-from-profile/graders/one-title.md": "9df2ab2f65e73124b7eafef1456af05a455e4baacd9433ffde40d872cb3364e2",
+    "creates-readme-from-profile/graders/readme-created.md": "3aa87ed81f8ae6a1583f6ea077419ada9e9a3303f44715e01aa279b6d1ba930d",
+    "creates-readme-from-profile/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "creates-readme-from-profile/prompt.md": "4eff14240309cd30f6dac770fe7965fd7369c8ea4ab749dac66f760e10f73c32",
+    "creates-readme-from-profile/scaffold.sh": "38146ed627d30e58177552902b904a9bd1f11bb19441a0e291b50a4a3fe7eac4",
+    "ignores-unrelated-request/case.yaml": "7c315099329d591c4dc93baaea7f1963a65cc443ecb6ba6153267f529cecf629",
+    "ignores-unrelated-request/graders/no-changelog.md": "75b73ff32148f20e5e454f621e3bb6aae058d317f025ca28ad252cd6944f0ac4",
+    "ignores-unrelated-request/graders/readme-unchanged.md": "fc88fee6bec21e0cf701f5a541ae523b49fe5ed3d73604f22c5bb52ce3ebdc87",
+    "ignores-unrelated-request/graders/skill-not-fired.md": "43b6e41f272aa900af8417c90caae024e315363aaff3bc9cc095729aaea86da7",
+    "ignores-unrelated-request/prompt.md": "d9c851d0ffce466f33fc44c927efda9068b1e0895b318376470a56168f68420d",
+    "ignores-unrelated-request/scaffold.sh": "cf883ff08bea5658e5595856f15d9d3de7a58032b91aed5b328818c5f313c2f0",
+    "no-change-when-accurate/case.yaml": "6efc303821d878cf696310bf687a45d44959ee7f762f7cbecb1be5f5c84422dd",
+    "no-change-when-accurate/graders/changelog-no-internal-entry.md": "44bef051a769c1c732447e93f1439f07957c73c5ffe85b356b7ea822ff8f9aea",
+    "no-change-when-accurate/graders/changelog-single-entry.md": "8df61c08a3772106eb3b263f5a4d51fdc3f26bc735ee88d96c19ce9a3dfc6250",
+    "no-change-when-accurate/graders/readme-no-internal-names.md": "501a6c277f102831daa0e704103248d6ec958d7e5af45e6563c77240144c844b",
+    "no-change-when-accurate/graders/result-no-change.md": "7c6b357cf174894ae6799858afa08e10da35a2c8a94d3677494d8b9a958a4d98",
+    "no-change-when-accurate/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "no-change-when-accurate/prompt.md": "53cb7cd633f7e9ad94826c86d141e13e20634ab07c0989602f582002fcb69f42",
+    "no-change-when-accurate/scaffold.sh": "5c8af898e61c2d8394b08ec41673bae2fc5afefbdb68a060c3eb67f4b3aea38f",
+    "no-unsupported-claims/case.yaml": "30fe4a281bc35d5f266a8b3017434ca27933dfb1f15a0d929266be96032c9f9e",
+    "no-unsupported-claims/graders/changelog-names-jobs.md": "1a10813c42be90331625e171dcb42b357049c3ad159f1337ba99ded6af43cf1b",
+    "no-unsupported-claims/graders/changelog-no-unsupported-claim.md": "592e32b74183da5b82e74a17e48bc476e93b72ef04978122461c764bd38213b6",
+    "no-unsupported-claims/graders/readme-names-jobs.md": "caabe2839259cf1d7dbb06721ab237e89ea969d5650642aecf9a6441c027f69a",
+    "no-unsupported-claims/graders/readme-no-unsupported-claim.md": "d6ba58c68876579f590aa05b188d1273ae339ef8c9476c8abbe017adb12dc33f",
+    "no-unsupported-claims/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "no-unsupported-claims/prompt.md": "61ab2065423b787d0a771cd7cac65c759bcb14c6569f0a35b5bb8183c3ae4514",
+    "no-unsupported-claims/scaffold.sh": "39eece87aed2d6cb4695c2116df0ec54b652b0fde6055b5bf70cbce040c7ea75",
+    "preserves-release-history/case.yaml": "5ffa6a99408157932cc2e545392393fad90919233a24e506af531932cb26f6c7",
+    "preserves-release-history/graders/breaking-entry.md": "ef5c6e1b515f014f564538b1e6a8d059953c76a2d43e5dbea95a2afcdd019483",
+    "preserves-release-history/graders/config-doc-old-row-gone.md": "ee870f1ae2ad654df1ed032e70b2a523f6155b18e20fd01fbb6e19392b47e3ea",
+    "preserves-release-history/graders/config-doc-updated.md": "2bc28cf277eadfe89d7d4039806797db2923b32ebd1f1341651ffd0a97d8a64f",
+    "preserves-release-history/graders/keeps-once-entry.md": "9dff45fea0766c94bb6757959841e939d720cdcc389de59325cb4be1e7f41ff7",
+    "preserves-release-history/graders/no-1-1-0.md": "9cb41a00145f68a63df5f21dde95f4a215fdf77fa1348306e2448d0493887583",
+    "preserves-release-history/graders/no-new-date.md": "e798de42d5ab07874a2a38d20e0d85421596abdbbe3e559830042add0cbc3d57",
+    "preserves-release-history/graders/no-new-version.md": "0645aad05a70ff6789979ac565faed044a6a4e7efda27bbd93322b66699de91d",
+    "preserves-release-history/graders/one-unreleased.md": "b851e03d6dd6e65daf52d94a7c07b4fdce353e86523786caa9b79f928d581d6e",
+    "preserves-release-history/graders/published-sections-unchanged.md": "1370cd4d1d05fbaaf726f5e88e4b6859a13045ebaf5018afedef8f4778b6b2eb",
+    "preserves-release-history/graders/readme-example-renamed.md": "815b130c747979cb01698fdfd482e40e7924e5b0dbc6fa0cee50f23b5de33c46",
+    "preserves-release-history/graders/readme-example-updated.md": "60b99f49cf2371a33223ff563c3923495348c46ac90dd50cc3c98fbaa2eebfea",
+    "preserves-release-history/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "preserves-release-history/graders/unreleased-first.md": "66582f00b782250a3b034bf7402774903ea38f6b5c095bc78fa348f1d71322a7",
+    "preserves-release-history/prompt.md": "7ca22f377a13812613cf46e1b996e32b9ac83282e26207d5ff95f8abce9ef8ec",
+    "preserves-release-history/scaffold.sh": "abc5aae4e0b55019144fdb7013cb091474821d0747feee6f3844d8cfefa6f024",
+    "proposal-mode-no-edits/case.yaml": "41c7e3e0f3d4f2b38eb16e883f437ead73267c79dcf05f8ced43da181e528c04",
+    "proposal-mode-no-edits/graders/no-changelog.md": "75b73ff32148f20e5e454f621e3bb6aae058d317f025ca28ad252cd6944f0ac4",
+    "proposal-mode-no-edits/graders/proposes-json.md": "acef632b31cff121a358269427651656f538d4d2add8508b231435e78bdfcbf6",
+    "proposal-mode-no-edits/graders/readme-unchanged.md": "fc88fee6bec21e0cf701f5a541ae523b49fe5ed3d73604f22c5bb52ce3ebdc87",
+    "proposal-mode-no-edits/graders/result-proposed.md": "10647ec8dd7838dab4d125370c0cb9a0b534d399dc031e13b0282bb22ac71d7b",
+    "proposal-mode-no-edits/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "proposal-mode-no-edits/prompt.md": "9660d123394a9a21fa4fe05bc64ad17704c2c5c3b73700a3185d6f8c319521f3",
+    "proposal-mode-no-edits/scaffold.sh": "cf883ff08bea5658e5595856f15d9d3de7a58032b91aed5b328818c5f313c2f0",
+    "updates-readme-and-changelog/case.yaml": "198dc7472ca13c57c7103a3616c4a41f9a504537e731ffa39ca8c39905d16dc1",
+    "updates-readme-and-changelog/graders/changelog-added-json.md": "f186490a98acaff86d42a11b51961a2fbf3c40d084fe31992ba37ace9ad42d3b",
+    "updates-readme-and-changelog/graders/changelog-created.md": "6875de95d9f0a57c47d1d5c1a34fa7de2ad22badf3e1af008f796ae872a49afa",
+    "updates-readme-and-changelog/graders/changelog-unreleased.md": "03d738b521f62e791d7cf5cdd3380e52810ab5c95af713593ab79c1645e153f0",
+    "updates-readme-and-changelog/graders/no-date.md": "c22405f085e612645cc3e97f54d15241ae2a305b4aabdbc1b9c3c71a12e94285",
+    "updates-readme-and-changelog/graders/no-version-heading.md": "ed1848e9e2d70d441d87052dbad97ad50f3ea198f810ad93d63cbc540323d719",
+    "updates-readme-and-changelog/graders/readme-names-json.md": "6fef85ed9b65d68c242cbaf39feb78887c1b500729ea9ee60076d8a2cd9b55e4",
+    "updates-readme-and-changelog/graders/result-updated.md": "81fd50bd1b47125c8ebf594841efcddde6fbc4988731a20ea3e5d5eb6f3e0da6",
+    "updates-readme-and-changelog/graders/skill-fired.md": "6b09696d3ab82cc68a56c6b6f1471e8c95f0385a823492b55ac755ceea938ac0",
+    "updates-readme-and-changelog/prompt.md": "5c14d3b3ad16a7503c0a0614e889c497c201a2c4df4c104817308208eba08503",
+    "updates-readme-and-changelog/scaffold.sh": "cf883ff08bea5658e5595856f15d9d3de7a58032b91aed5b328818c5f313c2f0"
+  },
+  "trials": [
+    {
+      "case": "updates-readme-and-changelog",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "case": "asks-for-unknown-baseline",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    }
+  ]
+}

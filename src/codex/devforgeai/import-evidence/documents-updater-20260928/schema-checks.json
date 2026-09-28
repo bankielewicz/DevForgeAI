@@ -1,0 +1,12 @@
+[
+  {
+    "path": "src/codex/devforgeai/skills/documents-updater/SKILL.md",
+    "schema": "skill-frontmatter.schema.json",
+    "errors": []
+  },
+  {
+    "path": "src/codex/devforgeai/skills/documents-updater/provenance.yaml",
+    "schema": "skill.schema.json",
+    "errors": []
+  }
+]

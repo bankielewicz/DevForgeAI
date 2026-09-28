@@ -1,0 +1,5 @@
+Created [README.md](/tmp/dfai-du-eval-ydk7tmif/project/README.md) with installation, usage, CLI options, an example, and development instructions.
+
+- PASS: Existing test via `PYTHONPATH=src python3 -m pytest`.
+- PASS: Documented example, file output, and help.
+- NOT_RUN: Package installation commands.

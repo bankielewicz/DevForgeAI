@@ -1,0 +1,162 @@
+[
+  {
+    "case": "asks-for-unknown-baseline",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "asks-before-claiming",
+        "type": "llm",
+        "scored": true,
+        "passed": true,
+        "status": "REVIEWED",
+        "rubric": "PASS if the reply asks the user for, or says it needs, the commit, tag or branch where their\nwork on the branch began before any changelog entries are written, and it neither writes nor\nproposes changelog entries built from the branch's commits.\nFAIL if it writes or proposes changelog entries without that answer, or picks a baseline itself\n(the root commit, the whole history, the last commit or an assumed main branch) and proceeds.",
+        "assessment": {
+          "passed": true,
+          "reviewer": "authoring Codex, separate from trial thread",
+          "evidence": [
+            "reply.txt",
+            "before.json",
+            "after.json"
+          ],
+          "reason": "Requests a comparison commit and gives candidate commit IDs/subjects only. No changelog or historical-entry proposal; all project files unchanged."
+        }
+      },
+      {
+        "grader": "names-comparison-point",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-changelog",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-c366e002-429f-46c4-adad-8b9bb9b8bfe8"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "all_files_unchanged": true,
+      "changed_markdown_valid": true
+    },
+    "changed_paths": [],
+    "postrun_validation": [],
+    "skill_load_ids": [
+      "exec-c366e002-429f-46c4-adad-8b9bb9b8bfe8"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  },
+  {
+    "case": "updates-readme-and-changelog",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "native_question_count": 0,
+    "grades": [
+      {
+        "grader": "changelog-added-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-created",
+        "type": "file_exists",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "changelog-unreleased",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-date",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "no-version-heading",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "readme-names-json",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "result-updated",
+        "type": "regex",
+        "scored": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          "exec-df16100b-0e2f-49bf-8210-e1df3ecf01a0"
+        ]
+      }
+    ],
+    "guards": {
+      "completed_or_expected_question": true,
+      "only_documentation_changed": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "changed_markdown_valid": true,
+      "native_validator_executed": true
+    },
+    "changed_paths": [
+      "CHANGELOG.md",
+      "README.md"
+    ],
+    "postrun_validation": [
+      {
+        "path": "CHANGELOG.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      },
+      {
+        "path": "README.md",
+        "exit": 0,
+        "stdout": "OK: 1 file(s), no errors\n",
+        "stderr": ""
+      }
+    ],
+    "skill_load_ids": [
+      "exec-df16100b-0e2f-49bf-8210-e1df3ecf01a0"
+    ],
+    "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+    "score": 1.0,
+    "strict_pass": true
+  }
+]

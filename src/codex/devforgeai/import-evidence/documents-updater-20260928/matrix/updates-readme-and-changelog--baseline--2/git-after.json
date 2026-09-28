@@ -1,0 +1,18 @@
+{
+  "status": {
+    "exit": 0,
+    "output": " M README.md\nM  src/wordcount/cli.py\n?? CHANGELOG.md\n?? src/wordcount/__pycache__/__init__.cpython-312.pyc\n?? src/wordcount/__pycache__/cli.cpython-312.pyc\n?? tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc\n?? tests/__pycache__/test_json.cpython-312-pytest-9.0.2.pyc\n?? tests/test_json.py\n"
+  },
+  "head": {
+    "exit": 0,
+    "output": "7165d085df0089283785e093893217dd98b8bc8d\n"
+  },
+  "index": {
+    "exit": 0,
+    "output": "100644 588f9ab0237207d1b8fe7e16a81c0eae4c1e8569 0\tREADME.md\u0000100644 3e0f5a70f0b51fc05b91db119864fc83ecbf5b1e 0\tpyproject.toml\u0000100644 e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 0\tsrc/wordcount/__init__.py\u0000100644 55bec22b597e544669c86961394246b81a4b6a86 0\tsrc/wordcount/cli.py\u0000100644 af5dd7b12d67d02c83c5e5324446b755ad154613 0\ttests/test_cli.py\u0000"
+  },
+  "refs": {
+    "exit": 0,
+    "output": "refs/heads/main 7165d085df0089283785e093893217dd98b8bc8d\n"
+  }
+}

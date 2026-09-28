@@ -1,0 +1,14 @@
+{
+  ".pytest_cache/.gitignore": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+  ".pytest_cache/CACHEDIR.TAG": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+  ".pytest_cache/README.md": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+  ".pytest_cache/v/cache/nodeids": "a4ebf476f77ee918671a2c719c4f98717e522128892b7461fe0137be71ea1a8c",
+  "README.md": "1aa796d7022a3d15fd94dcb7cdc0af26e340e7854748593b6730f6eb978bd736",
+  "pyproject.toml": "477412e7477cea2a4df531488e5cdf1891c71e8b78001ced03f6c847b3cac2f8",
+  "src/csvtidy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/csvtidy/__pycache__/__init__.cpython-312.pyc": "f522e9b921dd8f7e79678970748724e3b4f329638475f8a6c1d782fba75707db",
+  "src/csvtidy/__pycache__/cli.cpython-312.pyc": "d7ee27b01f2b16e55fb679ebe82f4ffae3bf0ea9ebbbac8da3f62d4fc94dfd64",
+  "src/csvtidy/cli.py": "eaa6b18a915f34d6e9d51f184a30227ff33a538d10ab7bfe57ee1dca41c11dbe",
+  "tests/__pycache__/test_cli.cpython-312-pytest-9.0.2.pyc": "f573d647831f1609e4f389652ce7516e0ff8f413c99761123868a7d32bad984a",
+  "tests/test_cli.py": "862a362958b9f173bde1e4ec3bee3d5dc7bd1f123b6eda6e6b348a90c4acfa7f"
+}

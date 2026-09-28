@@ -1,0 +1,12 @@
+{
+  "asks-before-claiming": {
+    "passed": true,
+    "reviewer": "authoring Codex; separate from native trial",
+    "evidence": [
+      "reply.txt",
+      "before.json",
+      "after.json"
+    ],
+    "reason": "The reply explicitly asks which commit to compare against. It proposes no historical entry, and all files are unchanged."
+  }
+}

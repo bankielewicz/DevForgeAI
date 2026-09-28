@@ -1,0 +1,17 @@
+- [x] 1. Establish the scope
+- [x] 2. Build the evidence inventory
+- [x] 3. Select what deserves documentation
+- [x] 4. Choose documents and templates
+- [x] 5. Write the edits
+- [x] 6. Validate the documents
+- [x] 7. Report
+
+Result: updated  
+Scope: setting rename against HEAD (`e323ffb`); existing edits preserved.  
+Documents: README.md, docs/configuration.md, CHANGELOG.md.  
+Highlights:
+- Updated settings and examples to `poll_interval_seconds`.
+- Added migration guidance and an Unreleased breaking-change entry.
+
+Validation: PASS — `check_docs.py`, `git diff --check`, configuration example checks, and release-history preservation. Reviewed source only.  
+Action required: Rename the key in existing configurations, retaining its value.

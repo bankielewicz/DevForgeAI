@@ -1,0 +1,60 @@
+{
+  "case": "no-change-when-accurate",
+  "arm": "plugin",
+  "repeat": 3,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "changelog-no-internal-entry",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "changelog-single-entry",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-no-internal-names",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "result-no-change",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": true,
+      "passed": true,
+      "evidence": [
+        "exec-3744d1ca-ff5e-4f8a-b148-7c168237791f"
+      ]
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "all_files_unchanged": true,
+    "changed_markdown_valid": true
+  },
+  "changed_paths": [],
+  "postrun_validation": [],
+  "skill_load_ids": [
+    "exec-3744d1ca-ff5e-4f8a-b148-7c168237791f"
+  ],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 1.0,
+  "strict_pass": true
+}

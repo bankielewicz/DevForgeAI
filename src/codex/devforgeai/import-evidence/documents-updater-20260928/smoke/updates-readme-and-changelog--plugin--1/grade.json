@@ -1,0 +1,94 @@
+{
+  "case": "updates-readme-and-changelog",
+  "arm": "plugin",
+  "repeat": 1,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "changelog-added-json",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "changelog-created",
+      "type": "file_exists",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "changelog-unreleased",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-date",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-version-heading",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-names-json",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "result-updated",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": true,
+      "passed": true,
+      "evidence": [
+        "exec-df16100b-0e2f-49bf-8210-e1df3ecf01a0"
+      ]
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "changed_markdown_valid": true,
+    "native_validator_executed": true
+  },
+  "changed_paths": [
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "postrun_validation": [
+    {
+      "path": "CHANGELOG.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    },
+    {
+      "path": "README.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    }
+  ],
+  "skill_load_ids": [
+    "exec-df16100b-0e2f-49bf-8210-e1df3ecf01a0"
+  ],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 1.0,
+  "strict_pass": true
+}

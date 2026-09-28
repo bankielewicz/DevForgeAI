@@ -1,0 +1,54 @@
+[
+  {
+    "number": 1,
+    "prompt": "Update the changelog with the work on my branch.",
+    "result": {
+      "status": "awaiting_input",
+      "turnId": "01a0e9b0-68e6-7c53-b8af-c17869318059",
+      "questions": [
+        {
+          "method": "item/tool/requestUserInput",
+          "id": 0,
+          "params": {
+            "threadId": "01a0e9b0-687f-74b0-bd50-5d9ae63b20c6",
+            "turnId": "01a0e9b0-68e6-7c53-b8af-c17869318059",
+            "itemId": "call_tJC8OmUBDdDopTUWe8EWwEws",
+            "questions": [
+              {
+                "id": "changelog_base",
+                "header": "Baseline",
+                "question": "Which commit should be the baseline for the changelog (entries will cover work after it through HEAD)?",
+                "isOther": true,
+                "isSecret": false,
+                "options": [
+                  {
+                    "label": "12b54ae \u2014 Initial import",
+                    "description": "Use the commit titled \u201cInitial import of reportgen\u201d as the baseline."
+                  },
+                  {
+                    "label": "a58a4ec \u2014 CSV export",
+                    "description": "Use the commit titled \u201cAdd CSV export\u201d as the baseline."
+                  },
+                  {
+                    "label": "d99e1d1 \u2014 Date parsing",
+                    "description": "Use the commit titled \u201cFix date parsing for ISO week dates\u201d as the baseline."
+                  }
+                ]
+              }
+            ],
+            "isBlocking": true,
+            "autoResolutionMs": null
+          }
+        }
+      ]
+    },
+    "before": {
+      "README.md": "3365a00cdf7e895e58b2fbb072a1ac1d2c17e66b026b647ffbf34b9d0e5f496f",
+      "src/reportgen/__main__.py": "fb3504822ccd32ac0a1662971f1bbb9e4c82a4e8ece03561d9150ea1fe935084"
+    },
+    "after": {
+      "README.md": "3365a00cdf7e895e58b2fbb072a1ac1d2c17e66b026b647ffbf34b9d0e5f496f",
+      "src/reportgen/__main__.py": "fb3504822ccd32ac0a1662971f1bbb9e4c82a4e8ece03561d9150ea1fe935084"
+    }
+  }
+]

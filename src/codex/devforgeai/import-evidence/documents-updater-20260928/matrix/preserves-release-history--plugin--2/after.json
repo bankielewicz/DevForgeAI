@@ -1,0 +1,10 @@
+{
+  "CHANGELOG.md": "80d53f5d3d26e70d3fa63dbf534669dad4f8443437a82f492d77243370b4e569",
+  "README.md": "d3bd28a24351e756e8135c0e6f95cb36012b974204bc127ddf10bd5a7d88a899",
+  "docs/configuration.md": "0e989d5c60b25fc909a2690fb29f0ac54f4a2ca2747e4b30ca473bbc00f421b8",
+  "pollwatch.example.toml": "302d92127d74b5f769b8c4ac66fad2e2dfb06f5b91216cce9e80aae8c434196f",
+  "pyproject.toml": "8b1393e916d662136a1edff727b916cbb1025fe323860a9dd85a63d7f5149d62",
+  "src/pollwatch/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "src/pollwatch/cli.py": "c49d82cb406bd7445d48129a682981de605164537b48a8c439f86bcbaf4c3ad3",
+  "src/pollwatch/config.py": "94b0425667744c3a18d9ad5ba675ed838367d5db6dc5797ef84e3aadb9738a84"
+}

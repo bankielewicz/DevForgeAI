@@ -1,0 +1,131 @@
+{
+  "case": "preserves-release-history",
+  "arm": "plugin",
+  "repeat": 1,
+  "status": "completed",
+  "native_question_count": 0,
+  "grades": [
+    {
+      "grader": "breaking-entry",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "config-doc-old-row-gone",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "config-doc-updated",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "keeps-once-entry",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-1-1-0",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-new-date",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "no-new-version",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "one-unreleased",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "published-sections-unchanged",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-example-renamed",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "readme-example-updated",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": true,
+      "passed": true,
+      "evidence": [
+        "exec-c14d8c64-b5fb-4bf0-9f4f-3057a3f630e5"
+      ]
+    },
+    {
+      "grader": "unreleased-first",
+      "type": "regex",
+      "scored": true,
+      "passed": true
+    }
+  ],
+  "guards": {
+    "completed_or_expected_question": true,
+    "only_documentation_changed": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "changed_markdown_valid": true,
+    "native_validator_executed": true
+  },
+  "changed_paths": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/configuration.md"
+  ],
+  "postrun_validation": [
+    {
+      "path": "CHANGELOG.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    },
+    {
+      "path": "README.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    },
+    {
+      "path": "docs/configuration.md",
+      "exit": 0,
+      "stdout": "OK: 1 file(s), no errors\n",
+      "stderr": ""
+    }
+  ],
+  "skill_load_ids": [
+    "exec-c14d8c64-b5fb-4bf0-9f4f-3057a3f630e5"
+  ],
+  "semantic_note": "Regexes are source-suite checks; their success is not a claim of complete semantic correctness.",
+  "score": 1.0,
+  "strict_pass": true
+}

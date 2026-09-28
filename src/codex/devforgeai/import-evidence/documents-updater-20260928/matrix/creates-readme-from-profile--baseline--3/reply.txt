@@ -1,0 +1,3 @@
+Created [README.md](/tmp/dfai-du-eval-1dv_54rx/project/README.md) with installation instructions, CLI options, an example, and development steps.
+
+Verification: PASS — existing test, README example, and whitespace check.

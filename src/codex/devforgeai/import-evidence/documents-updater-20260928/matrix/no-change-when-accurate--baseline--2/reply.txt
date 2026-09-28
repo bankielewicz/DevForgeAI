@@ -1,0 +1,9 @@
+Updated [README.md](/tmp/dfai-du-eval-wovjfvym/project/README.md) with helper examples and counting rules, and [CHANGELOG.md](/tmp/dfai-du-eval-wovjfvym/project/CHANGELOG.md) with the helper additions and refactor.
+
+Verification on the updated working tree:
+
+- PASS: `PYTHONPATH=src python3 -m pytest -q` — 3 tests.
+- PASS: README examples via `python3 -m doctest`.
+- PASS: `git diff --check`.
+
+Your code and test edits were preserved.

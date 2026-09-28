@@ -1,0 +1,5 @@
+[
+  "tests/test_cli.py::test_count",
+  "tests/test_helpers.py::test_helpers",
+  "tests/test_json.py::test_json_output"
+]

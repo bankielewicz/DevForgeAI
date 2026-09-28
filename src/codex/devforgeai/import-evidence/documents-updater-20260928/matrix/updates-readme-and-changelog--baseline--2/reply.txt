@@ -1,0 +1,5 @@
+Updated [README.md](/tmp/dfai-du-eval-gfrh6nfr/project/README.md) with JSON usage, output format, and precedence over `--lines`. Created [CHANGELOG.md](/tmp/dfai-du-eval-gfrh6nfr/project/CHANGELOG.md) with an Unreleased entry.
+
+Your implementation and tests are unchanged.
+
+PASS: 2 tests via `python3 -m pytest`, README example and flag precedence checks, and `git diff --check`.

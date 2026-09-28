@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/home/bryan/.local/bin/codex",
+    "app-server",
+    "--listen",
+    "stdio://",
+    "-c",
+    "features.memories=false",
+    "-c",
+    "mcp_servers.openaiDeveloperDocs.enabled=false",
+    "-c",
+    "plugins.alphatrace-engineering@alphatrace-ai.enabled=false",
+    "-c",
+    "plugins.codex-security@openai-curated.enabled=false"
+  ],
+  "cwd": "/tmp/dfai-du-eval-yeipaegg/project"
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "src/codex/devforgeai/tests",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": "test_assets_are_flagged_until_filled (test_documents_updater.CheckDocsTest.test_assets_are_flagged_until_filled) ... ok\ntest_broken_link_and_anchor (test_documents_updater.CheckDocsTest.test_broken_link_and_anchor) ... ok\ntest_changelog_duplicates (test_documents_updater.CheckDocsTest.test_changelog_duplicates) ... ok\ntest_changelog_rules_apply_only_to_changelog_files (test_documents_updater.CheckDocsTest.test_changelog_rules_apply_only_to_changelog_files) ... ok\ntest_changelog_sections_end_at_h1_releases (test_documents_updater.CheckDocsTest.test_changelog_sections_end_at_h1_releases) ... ok\ntest_changelog_unreleased_rules (test_documents_updater.CheckDocsTest.test_changelog_unreleased_rules) ... ok\ntest_changelog_warnings (test_documents_updater.CheckDocsTest.test_changelog_warnings) ... ok\ntest_clean_readme_and_changelog_have_no_findings (test_documents_updater.CheckDocsTest.test_clean_readme_and_changelog_have_no_findings) ... ok\ntest_comment_marker_in_inline_code_hides_nothing (test_documents_updater.CheckDocsTest.test_comment_marker_in_inline_code_hides_nothing) ... ok\ntest_empty_section_but_not_parent_heading (test_documents_updater.CheckDocsTest.test_empty_section_but_not_parent_heading) ... ok\ntest_every_asset_placeholder_is_detected (test_documents_updater.CheckDocsTest.test_every_asset_placeholder_is_detected) ... ok\ntest_exit_codes (test_documents_updater.CheckDocsTest.test_exit_codes) ... ok\ntest_front_matter_title_replaces_h1 (test_documents_updater.CheckDocsTest.test_front_matter_title_replaces_h1) ... ok\ntest_guide_comment (test_documents_updater.CheckDocsTest.test_guide_comment) ... ok\ntest_headings_in_code_and_comments_are_ignored (test_documents_updater.CheckDocsTest.test_headings_in_code_and_comments_are_ignored) ... ok\ntest_image_without_alt_text_is_a_warning (test_documents_updater.CheckDocsTest.test_image_without_alt_text_is_a_warning) ... ok\ntest_links_in_subfolder_resolve_from_the_file (test_documents_updater.CheckDocsTest.test_links_in_subfolder_resolve_from_the_file) ... ok\ntest_missing_and_second_h1 (test_documents_updater.CheckDocsTest.test_missing_and_second_h1) ... ok\ntest_placeholder_in_prose_and_in_code (test_documents_updater.CheckDocsTest.test_placeholder_in_prose_and_in_code) ... ok\ntest_placeholders_in_inline_code_and_every_placeholder_reported (test_documents_updater.CheckDocsTest.test_placeholders_in_inline_code_and_every_placeholder_reported) ... ok\ntest_setext_and_html_headings_count (test_documents_updater.CheckDocsTest.test_setext_and_html_headings_count) ... ok\ntest_skipped_heading_level (test_documents_updater.CheckDocsTest.test_skipped_heading_level) ... ok\ntest_unclosed_fence (test_documents_updater.CheckDocsTest.test_unclosed_fence) ... ok\ntest_agent_must_match_generated_by_tool (test_validate_brn.CodexProvenanceTests.test_agent_must_match_generated_by_tool) ... ok\ntest_cli_works_without_site_packages (test_validate_brn.CodexProvenanceTests.test_cli_works_without_site_packages) ... ok\ntest_existing_brn_grader_matches_historical_fixture (test_validate_brn.CodexProvenanceTests.test_existing_brn_grader_matches_historical_fixture) ... ok\ntest_extension_preserves_old_claude_row (test_validate_brn.CodexProvenanceTests.test_extension_preserves_old_claude_row) ... ok\ntest_missing_session_in_codex_author_is_rejected (test_validate_brn.CodexProvenanceTests.test_missing_session_in_codex_author_is_rejected) ... ok\ntest_unknown_model_or_session_is_not_complete_provenance (test_validate_brn.CodexProvenanceTests.test_unknown_model_or_session_is_not_complete_provenance) ... ok\ntest_unresolved_environment_variable_is_rejected (test_validate_brn.CodexProvenanceTests.test_unresolved_environment_variable_is_rejected) ... ok\ntest_valid_claude_latest_row_remains_readable (test_validate_brn.CodexProvenanceTests.test_valid_claude_latest_row_remains_readable) ... ok\ntest_valid_codex_session (test_validate_brn.CodexProvenanceTests.test_valid_codex_session) ... ok\ntest_wrong_session_is_rejected (test_validate_brn.CodexProvenanceTests.test_wrong_session_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 33 tests in 0.108s\n\nOK\n"
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "src/codex/devforgeai/skills/documents-updater/scripts/check_docs.py",
+      "src/codex/devforgeai/README.md",
+      "src/codex/devforgeai/DOCUMENTS-UPDATER-IMPORT-REPORT.md",
+      "src/codex/devforgeai/evals/documents-updater/README.md"
+    ],
+    "exit": 0,
+    "stdout": "OK: 3 file(s), no errors\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]
