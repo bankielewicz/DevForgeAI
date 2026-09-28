@@ -1,15 +1,15 @@
 {
   "name": "devforgeai",
-  "version": "0.2.0",
-  "description": "DevForgeAI for Codex: structured brainstorming and repository documentation updates grounded in verified changes.",
+  "version": "0.3.0",
+  "description": "DevForgeAI for Codex: structured brainstorming, requirement-linked architecture decisions, and documentation updates grounded in verified changes.",
   "author": {
     "name": "Bryan"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "DevForgeAI",
-    "shortDescription": "Brainstorm ideas and update repository documentation.",
-    "longDescription": "Explore ideas and record user-confirmed decisions with Brainstorm. Update README files, changelogs, and guides from Git evidence with Documents Updater, or prepare exact proposals for review.",
+    "shortDescription": "Brainstorm, resolve architecture, and update documentation.",
+    "longDescription": "Explore ideas with Brainstorm. Resolve architecture questions for a PRD using bounded evidence, explicit decision acceptance, and requirement readiness. Update README files, changelogs, and guides from Git evidence with Documents Updater.",
     "developerName": "Bryan",
     "category": "Productivity",
     "capabilities": [
@@ -18,6 +18,7 @@
     ],
     "defaultPrompt": [
       "Brainstorm ways to improve customer onboarding.",
+      "Define the architecture for PRD-001.",
       "Update the documentation for my uncommitted changes."
     ]
   },
@@ -27,6 +28,9 @@
     "devforgeai",
     "documents-updater",
     "documentation",
-    "changelog"
+    "changelog",
+    "architecture",
+    "adr",
+    "readiness"
   ]
 }

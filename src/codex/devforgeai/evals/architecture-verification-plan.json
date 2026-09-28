@@ -1,0 +1,43 @@
+{
+  "specification": "SPEC-003",
+  "version": 1,
+  "mandatory_denominator": 16,
+  "automated_case_count": 14,
+  "native_runs_per_case_per_arm": 3,
+  "arms": ["plugin", "baseline"],
+  "required_native_trial_count": 84,
+  "case_threshold": 0.8,
+  "baseline": "no-plugin",
+  "question_tool": "request_user_input",
+  "host_mode_overrides": {
+    "existing-arch-not-duplicated": {
+      "mode": "plan",
+      "arms": ["plugin", "baseline"],
+      "stop_at_question": true,
+      "writes_allowed": false,
+      "plain_text_fallback_semantically_valid_outside_native_gate": true
+    }
+  },
+  "cases": [
+    {"id": "VER-01", "case": "creates-arch", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-02", "case": "org-a-policy", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-03", "case": "org-b-policy", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-04", "case": "unrelated-adr", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-05", "case": "superseded-adr", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run; readiness-mapping requires semantic review."},
+    {"id": "VER-06", "case": "no-acceptance-without-user", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-07", "case": "existing-arch-not-duplicated", "source_level": "e2e", "host_mode": "plan", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run; request_user_input and semantic review are required."},
+    {"id": "VER-08", "case": "insufficient-evidence", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-09", "case": "prd-change-handed-back", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-10", "case": "hands-off-to-epic", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-11", "case": "ignores-unrelated-request", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-12", "case": null, "source_level": "manual", "status": "NOT_RUN", "reason": "The interactive, inspection-scope, rollback, version-link, and supersession checks require manual evidence."},
+    {"id": "VER-13", "case": null, "source_level": "operator", "status": "NOT_RUN", "reason": "The deployed-plugin manifest and source-custody check requires an operator run."},
+    {"id": "VER-14", "case": "records-provenance", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-15", "case": "reuse-records-review", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."},
+    {"id": "VER-16", "case": "reuse-review-idempotent", "source_level": "e2e", "status": "NOT_RUN", "reason": "Native Codex evaluation has not run."}
+  ],
+  "semantic_graders": [
+    {"case": "existing-arch-not-duplicated", "grader": "recommends-and-asks", "status": "REVIEW_REQUIRED"},
+    {"case": "superseded-adr", "grader": "readiness-mapping", "status": "REVIEW_REQUIRED"}
+  ]
+}
