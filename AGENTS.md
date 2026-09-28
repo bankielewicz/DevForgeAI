@@ -2,9 +2,9 @@
 
 ## Project Structure & Module Organization
 
-DevForgeAI provides specification-driven Claude Code planning skills. Brainstorm, PRD and documents-updater are implemented; architecture and epic have specifications.
+DevForgeAI provides specification-driven Claude Code planning skills. Brainstorm, PRD and documents-updater are implemented; architecture and epic have specifications; the git skill has a draft specification.
 
-- `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows and `SPEC-006.md` the documents updater. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
+- `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-006.md` the documents updater, `SPEC-007.md` (draft) the git workflow and `SPEC-008.md` (stub) the QA review. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
 - `src/templates/` holds staged document templates; `src/templates/skill/` contains skill, provenance, and evaluation examples.
 - `src/schemas/` holds document JSON Schemas.
 - `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `documents-updater`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
