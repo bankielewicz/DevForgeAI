@@ -1,0 +1,8 @@
+{
+  "name": "devforgeai",
+  "version": "0.2.0",
+  "description": "DevForgeAI spec-driven planning skills for Claude Code: brainstorm ideas, then turn the promoted ones into a PRD with traceable IDs, plus a documents updater that refreshes a repository's README, CHANGELOG and guides from its git changes.",
+  "author": {
+    "name": "Bryan"
+  }
+}

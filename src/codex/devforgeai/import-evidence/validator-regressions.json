@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "/home/bryan/Projects/DevForgeAI/src/codex/devforgeai/tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd": "/home/bryan/Projects/DevForgeAI",
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "test_agent_must_match_generated_by_tool (test_validate_brn.CodexProvenanceTests.test_agent_must_match_generated_by_tool) ... ok\ntest_cli_works_without_site_packages (test_validate_brn.CodexProvenanceTests.test_cli_works_without_site_packages) ... ok\ntest_extension_preserves_old_claude_row (test_validate_brn.CodexProvenanceTests.test_extension_preserves_old_claude_row) ... ok\ntest_missing_session_in_codex_author_is_rejected (test_validate_brn.CodexProvenanceTests.test_missing_session_in_codex_author_is_rejected) ... ok\ntest_unresolved_environment_variable_is_rejected (test_validate_brn.CodexProvenanceTests.test_unresolved_environment_variable_is_rejected) ... ok\ntest_valid_claude_latest_row_remains_readable (test_validate_brn.CodexProvenanceTests.test_valid_claude_latest_row_remains_readable) ... ok\ntest_valid_codex_session (test_validate_brn.CodexProvenanceTests.test_valid_codex_session) ... ok\ntest_wrong_session_is_rejected (test_validate_brn.CodexProvenanceTests.test_wrong_session_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.061s\n\nOK\n"
+}

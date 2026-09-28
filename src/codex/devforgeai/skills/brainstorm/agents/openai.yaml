@@ -1,0 +1,6 @@
+interface:
+  display_name: "DevForgeAI Brainstorm"
+  short_description: "Brainstorm ideas with traceable, user-owned decisions"
+  default_prompt: "Use $brainstorm to explore a topic and write a DevForgeAI brainstorm document."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,80 @@
+{
+  "specification": "SPEC-001",
+  "version": 10,
+  "mandatory_denominator": 10,
+  "native_runs_per_case": 3,
+  "case_threshold": 0.8,
+  "baseline": "no-plugin",
+  "cases": [
+    {
+      "id": "VER-01",
+      "case": "writes-valid-brn",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-02",
+      "case": "no-unconfirmed-dispositions",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-03",
+      "case": "records-provenance",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-04",
+      "case": "uses-named-framework",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-05",
+      "case": null,
+      "source_level": "manual",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-06",
+      "case": "ignores-unrelated-request",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-07",
+      "case": "asks-for-topic",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-08",
+      "case": "existing-brn",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-09",
+      "case": null,
+      "source_level": "manual",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    },
+    {
+      "id": "VER-10",
+      "case": "hands-off-to-prd",
+      "source_level": "e2e",
+      "status": "NOT_RUN",
+      "reason": "Native Codex evaluation not performed during source import."
+    }
+  ]
+}

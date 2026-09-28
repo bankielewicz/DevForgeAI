@@ -1,0 +1,457 @@
+--- src/claude/DevForgeAI/skills/brainstorm/SKILL.md
++++ src/codex/devforgeai/skills/brainstorm/SKILL.md
+@@ -1,10 +1,9 @@
+ ---
+ name: brainstorm
+ description: Runs a structured brainstorming session and writes a DevForgeAI brainstorm (BRN) document with identified problems, ideas, assumptions and user-confirmed dispositions. Use whenever the user asks to brainstorm, explore ideas or options, come up with ways to solve a problem, or generate ideas for a product, feature or process, even when they don't mention a document, and to start the DevForgeAI planning chain before a PRD.
+-argument-hint: "[topic]"
+ metadata:
+   devforgeai-id: "SKL-001"
+-  devforgeai-version: "5"
++  devforgeai-version: "6"
+ ---
+ 
+ # Brainstorm
+@@ -16,9 +15,15 @@
+ 
+ ## Inputs
+ 
+-- `$ARGUMENTS`: the topic. It may be empty; then take the topic from the conversation, or ask for it.
++- The topic supplied with the Brainstorm skill mention (for example `$brainstorm dental
++  appointment no-shows`), or in the conversation. If absent, ask for it.
+ - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
+-- The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
++- The template: `assets/brainstorm.md`.
++
++Resolve every asset, reference, and script path relative to the directory containing this
++`SKILL.md`, using its actual loaded location. Do not resolve these paths from the user's project
++or assume a provider environment variable. Resolve `docs/specs/` from the user's project root.
++Use the host's normal file, shell, and question capabilities; this skill grants no tool approvals.
+ 
+ ## Decisions that belong to the user
+ 
+@@ -51,10 +56,10 @@
+ 
+ ### 1. Intake
+ 
+-1. **Topic.** Use `$ARGUMENTS`, or the topic stated in the conversation. If there is none, ask
++1. **Topic.** Use the topic accompanying the skill mention, or stated in the conversation. If there is none, ask
+    "What topic should we brainstorm?" and stop. Create no file and no directory until the user
+    gives a topic.
+-2. **Existing BRNs.** Glob `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one
++2. **Existing BRNs.** Find `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one
+    covers the same or a closely similar topic, show its ID, title and path and ask:
+    *extend it* (version + 1, with a Change Log entry) or *create a new BRN*. Wait for the answer
+    and write nothing before it. Never overwrite an existing BRN silently.
+@@ -63,12 +68,12 @@
+    the request says to proceed without questions. Record anything still unknown as
+    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
+ 
+-Use AskUserQuestion for questions and confirmations when it is available; otherwise ask in plain
+-text and end your turn.
++Use an available Codex question tool when appropriate to its supported mode; otherwise ask
++in plain text and end your turn. A pending question, silence, or timeout is never confirmation.
+ 
+ ### 2. Select a framework
+ 
+-Read `${CLAUDE_SKILL_DIR}/references/frameworks/INDEX.md`. Pick the framework the user named, or
++Read `references/frameworks/INDEX.md`. Pick the framework the user named, or
+ the one whose *use when* criteria best fit the topic; use `diverge-converge` when nothing fits
+ better. Read the chosen framework file and follow it from here on. Tell the user in one
+ sentence which framework you chose and why, and switch if they ask.
+@@ -112,7 +117,7 @@
+    `docs/specs/brainstorm/BRN-NNN.md`. The file name is the ID only: never ask for a file name, and
+    if the user offers one, say the file is named by its ID and put their wording in the title.
+    Create `docs/specs/brainstorm/` if it is missing, and say that you created it.
+-2. **Build from the template.** Read `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`. Keep every section
++2. **Build from the template.** Read `assets/brainstorm.md`. Keep every section
+    heading. Replace every placeholder with content or with a `[NEEDS CLARIFICATION: …]` marker.
+    Replace the example items with the real ones. Delete every HTML comment.
+ 3. **Frontmatter.**
+@@ -121,20 +126,27 @@
+    - `status`: see step 5.
+    - `owner`: the user's name if the conversation or existing `docs/specs/` documents show it.
+      Otherwise ask, or use `"[NEEDS CLARIFICATION: owner]"` when you cannot ask.
+-   - `authors`: the user (the owner's name) and `"claude-code"`.
+-   - `generated_by`: `tool: "claude-code"`, `model:` your own model ID (for example
+-     `"claude-opus-5-5"`), `session: "${CLAUDE_SESSION_ID}"`: the latest session to write the BRN.
++   - `authors`: the user (the owner's name) and `"codex"`.
++   - `generated_by`: `tool: "codex"`, `model:` the actual model ID exposed by the host, and
++     `session:` the current Codex task/session ID exposed by the host (for example the value
++     of `CODEX_THREAD_ID` when available). Read the values; never write variable names or
++     invent identifiers. If the host does not expose a value, use the explicit sentinel
++     `"unknown"`, keep the document draft, and disclose the missing provenance in section 7
++     and the handoff. This is incomplete provenance, not successful verification of VER-03.
+    - `reviewed_by: []`, `approved_by: ""`, `approved_on: null`. Every `hash` is `null`.
+    - `upstream`, `participants` and `sources`: fill from the conversation, or leave them empty.
+-4. **Change Log.** One row: version, today's date, `claude-code (session ${CLAUDE_SESSION_ID})`,
+-   what changed. The session ID is the name of the conversation's transcript, so
+-   `claude --resume` with that ID reopens the conversation behind that version.
++4. **Change Log.** One row: version, today's date, `codex (session ACTUAL-SESSION-ID)`,
++   what changed. Substitute the same session value as `generated_by.session`. Preserve that
++   identifier for traceability; do not promise a transcript location, retention period, or
++   a provider-specific resume command. If unavailable, use `codex (session unknown)` and
++   disclose incomplete provenance as above.
+ 
+ **Extending an existing BRN.** Keep every existing item ID with its meaning unchanged, because PRD
+ requirements cite these IDs. Give new items the next free number in their collection. Retire an
+ item by setting `status: deprecated` (plus `superseded_by` if replaced), never by deleting or
+-renumbering it. Bump `version`, set `updated`, set `generated_by.session` to this session, and
+-add a Change Log row naming this session. Never edit earlier Change Log rows: they keep the
++renumbering it. Bump `version`, set `updated`, update `generated_by.tool` to `codex`,
++`generated_by.model` to the actual current model and `generated_by.session` to this session,
++and add a Change Log row naming this session. Retain prior authors and add `codex` once. Never edit earlier Change Log rows: they keep the
+ sessions that wrote earlier versions.
+ 
+ Read [output-rules.md](references/output-rules.md) before writing: it defines the frontmatter
+@@ -145,8 +157,11 @@
+ 1. Run the validator:
+ 
+    ```bash
+-   python3 ${CLAUDE_SKILL_DIR}/scripts/validate_brn.py docs/specs/brainstorm/BRN-NNN.md
++   python3 "/absolute/path/to/brainstorm/scripts/validate_brn.py" docs/specs/brainstorm/BRN-NNN.md
+    ```
++
++   Substitute the actual loaded skill directory in the command and run from the user's
++   project root. Use the available Python 3 executable on the host.
+ 
+    It prints one line per problem (`line N: message`) and exits 1, or prints `OK: path` and
+    exits 0. Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or
+@@ -179,22 +194,26 @@
+ 3. The next step, as its own paragraph outside any code block, starting with the words
+    **Next step**. Nothing follows it.
+ 
+-For the next step, check whether `${CLAUDE_SKILL_DIR}/../prd/SKILL.md` exists:
+-
+-- **It exists:** tell the user to run `/devforgeai:prd BRN-NNN` with the BRN **ID**, never a
+-  path, and say the BRN at its path is the input.
+-- **It does not exist:** say the PRD workflow (planned as `/devforgeai:prd`) is not built yet,
+-  and that once it is, `/devforgeai:prd BRN-NNN` (the ID, never a path) runs on this BRN.
+-
+-For example: "Next step: the PRD workflow isn't built yet. Once it is, run
+-`/devforgeai:prd BRN-001` to turn this brainstorm into a PRD."
++For the next step, check whether `../prd/SKILL.md`, relative to this skill, exists
++and is available as the DevForgeAI PRD skill in Codex:
++
++- **It exists and is available:** tell the user to select the DevForgeAI PRD skill
++  (for example `$prd BRN-NNN` in Codex CLI) with the BRN **ID**, never a path, and name the
++  BRN path separately as its input.
++- **It is absent or unavailable:** say this Codex package does not provide the PRD workflow.
++  Once the DevForgeAI Codex PRD skill is supplied and available, it can take this BRN's ID.
++  Do not imply that a Claude command or an unrelated installed `prd` skill is equivalent.
++
++For example: "Next step: this Codex package does not provide the PRD workflow yet. Once the
++DevForgeAI Codex PRD skill is available, use it with `BRN-001`; the input is
++`docs/specs/brainstorm/BRN-001.md`."
+ 
+ Do not start writing a PRD.
+ 
+ ## Output contract
+ 
+ - **Path:** `docs/specs/brainstorm/BRN-NNN.md` in the current project; the name is the ID only.
+-- **Shape:** the template `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`, with every heading kept and
++- **Shape:** the template `assets/brainstorm.md`, with every heading kept and
+   no author comments.
+ - **Data:** only the `problems`, `ideas` and `assumptions` collections with their defined fields
+   ([output-rules.md](references/output-rules.md)).
+--- src/claude/DevForgeAI/skills/brainstorm/provenance.yaml
++++ src/codex/devforgeai/skills/brainstorm/provenance.yaml
+@@ -1,28 +1,27 @@
+-# DevForgeAI provenance record for one skill. Validated against src/schemas/skill.schema.json.
+-# Common keys follow src/templates/README.md §2.2. Claude never loads this file.
++# Codex provider variant of SKL-001; original source identity is retained in import-evidence/.
++# This is port revision 6 from Claude revision 5, not approval or behavioral qualification.
+ id: SKL-001
+ type: skill
+-title: "Brainstorm skill"
+-status: draft          # draft | in-review | approved | superseded | deprecated
+-version: 5             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
++title: "Brainstorm skill (Codex port)"
++status: draft
++version: 6
+ created: 2026-09-26
+ updated: 2026-09-27
+ owner: "Bryan"
+-authors: ["Bryan", "claude-code"]
++authors: ["Bryan", "claude-code", "codex"]
+ generated_by:
+-  tool: "claude-code"
+-  model: "claude-opus-5-5"
+-  session: "86470fb4-119e-49d1-8adc-0f575bcc5b9a"
++  tool: "codex"
++  model: "unknown" # Exact model identifier was not exposed to the authoring task.
++  session: "01a0e031-e008-7a12-9587-fea433e7e5c2"
+ reviewed_by: []
+ approved_by: ""
+ approved_on: null
+-upstream:              # the specification this skill implements
++upstream:
+   - {id: SPEC-001, relation: implements, version: 10, hash: null}
+ supersedes: []
+ superseded_by: null
+ blocked_by: []
+-# --- skill-specific ---
+-skill_name: brainstorm # must equal the directory name and SKILL.md `name`
+-packaging: plugin      # plugin | project | personal
+-plugin: devforgeai     # plugin name when packaging is plugin, else null
+-eval_tag: brainstorm   # tag every eval case of this skill carries
++skill_name: brainstorm
++packaging: plugin
++plugin: devforgeai
++eval_tag: brainstorm
+--- src/claude/DevForgeAI/skills/brainstorm/references/output-rules.md
++++ src/codex/devforgeai/skills/brainstorm/references/output-rules.md
+@@ -15,8 +15,9 @@
+ ## When to use this
+ 
+ Read this before writing a BRN document, and use the validation checklist after writing it. The
+-rules exist because the PRD workflow and the `devforgeai check` validator parse these documents
+-mechanically. A document that reads well but breaks a rule here breaks everything downstream.
++rules define the downstream PRD contract and the checks performed by the bundled
++`scripts/validate_brn.py`. That script is a partial structural check, not a JSON Schema
++validator or proof of user confirmation. Never run a `devforgeai` command.
+ 
+ ## File and IDs
+ 
+@@ -44,7 +45,7 @@
+ | `version` | Integer, `1` for a new BRN |
+ | `created`, `updated` | Unquoted `YYYY-MM-DD` dates |
+ | `owner` | Quoted name of the accountable human |
+-| `authors` | List of quoted names, e.g. `["Bryan", "claude-code"]` |
++| `authors` | List of quoted names, e.g. `["Bryan", "codex"]` |
+ | `generated_by` | Map with quoted `tool`, `model` and `session`, all non-empty |
+ | `reviewed_by` | `[]` (only humans who reviewed it; never filled by the AI) |
+ | `approved_by` | `""` |
+@@ -123,14 +124,16 @@
+ ## Change Log
+ 
+ Add one row per version: version, date, author, what changed. When you write the row, the author
+-is `claude-code (session <session ID>)`, with the same ID as `generated_by.session`:
++is `codex (session <session ID>)`, with the same ID as `generated_by.session`:
+ 
+ ```markdown
+-| 2 | 2026-09-27 | claude-code (session 7b7b72c0-8b14-4b7d-aba5-f21cdbadc51f) | Added IDEA-13 to IDEA-22 |
++| 2 | 2026-09-27 | codex (session 7b7b72c0-8b14-4b7d-aba5-f21cdbadc51f) | Added IDEA-13 to IDEA-22 |
+ ```
+ 
+-The session ID is the name of that conversation's transcript, so `claude --resume <ID>` can reopen
+-it. Never edit earlier rows: they record the sessions that wrote earlier versions.
++Use the actual Codex task/session ID supplied by the host. Do not invent transcript paths
++or retention guarantees. If a model or session ID is unavailable, use `"unknown"`, keep the
++BRN draft, and disclose incomplete provenance; VER-03 remains unverified. Never edit earlier
++rows, including Claude-authored rows: they record who wrote earlier versions.
+ 
+ ## Validation checklist
+ 
+@@ -149,7 +152,7 @@
+ 9. All eight numbered section headings and `## Change Log` are present.
+ 10. No leftovers remain: no `<!--`, no `<…>` placeholders, no `BRN-000`, no `YYYY-MM-DD`, and no
+     empty `title`.
+-11. The last Change Log row's author is `claude-code (session <ID>)` with the ID in
++11. The last Change Log row's author is `codex (session <ID>)` with the ID in
+     `generated_by.session`, unless a person wrote that row.
+ 
+ ## Example item blocks
+--- src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py
++++ src/codex/devforgeai/skills/brainstorm/scripts/validate_brn.py
+@@ -201,15 +201,20 @@
+         else:
+             ln, cells = rows[-1]
+             author = cells[2] if len(cells) > 2 else ""
+-            if author.startswith("claude-code"):
+-                m = re.fullmatch(r"claude-code \(session ([A-Za-z0-9-]+)\)", author)
++            if author.startswith(("claude-code", "codex")):
++                m = re.fullmatch(r"(claude-code|codex) \(session ([A-Za-z0-9-]+)\)", author)
+                 session = (fm.get("generated_by") and next(
+                     (value_of(l.split(":", 1)[1]) for _, l in nested["generated_by"]
+                      if l.strip().startswith("session:")), None))
+                 if not m:
+-                    err(ln, "last Change Log row: author must be 'claude-code (session <ID>)'")
+-                elif session and m.group(1) != session.strip('"'):
++                    err(ln, "last Change Log row: author must be 'codex (session <ID>)' or 'claude-code (session <ID>)'")
++                elif session and m.group(2) != session.strip('"'):
+                     err(ln, "last Change Log row: session must match generated_by.session")
++                tool = next(
++                    (value_of(l.split(":", 1)[1]).strip('"') for _, l in nested.get("generated_by", [])
++                     if l.strip().startswith("tool:")), None)
++                if m and tool in {"codex", "claude-code"} and m.group(1) != tool:
++                    err(ln, "last Change Log row: agent must match generated_by.tool")
+ 
+     # --- item blocks -------------------------------------------------------------------
+     items = {c: [] for c in COLLECTIONS}  # collection -> list of (line, id, fields)
+--- src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/graders/skill-fired.md
++++ src/codex/devforgeai/evals/brainstorm/asks-for-topic/graders/skill-fired.md
+@@ -1,5 +1,7 @@
+ ---
+-type: tool_used
+-tool: Skill
+-input_match: '"skill"\s*:\s*"(?:[\w-]+:)?brainstorm"'
++type: manual
++target: trace
+ ---
++PASS only when the host skill-load trace or a recorded read of this candidate's
++`skills/brainstorm/SKILL.md` identifies the loaded candidate. If loading is not observable,
++mark this check NOT_RUN. A literal Claude `Skill` tool event is not required in Codex.
+--- src/claude/DevForgeAI/evals/brainstorm/asks-for-topic/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/asks-for-topic/prompt.md
+@@ -3,6 +3,5 @@
+ tags: [brainstorm, ver-07]
+ max_turns: 10
+ timeout_seconds: 300
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ I want to run a brainstorming session.
+--- src/claude/DevForgeAI/evals/brainstorm/existing-brn/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/existing-brn/prompt.md
+@@ -3,6 +3,5 @@
+ tags: [brainstorm, ver-08]
+ max_turns: 40
+ timeout_seconds: 900
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ Brainstorm ways to reduce appointment no-shows at our dental clinic.
+--- src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md
++++ src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/handoff-quality.md
+@@ -2,8 +2,12 @@
+ type: llm
+ ---
+ 
+-PASS if the final reply names the PRD workflow (/devforgeai:prd) as the next step,
++PASS if the final reply names the PRD workflow (the DevForgeAI Codex PRD skill) as the next step,
+ says that workflow is not built yet, and gives the brainstorm at
+ docs/specs/brainstorm/BRN-001.md as its input.
+ FAIL if it claims the PRD skill is available to run now, passes a file path as the
+ command's argument, or starts drafting PRD content (requirements, success metrics).
++
++The last paragraph must start with "Next step", be outside a code block, name the
++BRN ID as the future workflow input, and have nothing after it. The initial report block
++comes before any discussion. Do not suggest a Claude slash command.
+--- src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md
++++ src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/names-prd-command.md
+@@ -3,4 +3,4 @@
+ target: last_message
+ match: contains
+ ---
+-/devforgeai:prd
++PRD
+--- src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/graders/no-path-argument.md
++++ src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/graders/no-path-argument.md
+@@ -3,4 +3,4 @@
+ target: last_message
+ match: not_contains
+ ---
+-/devforgeai:prd[ \t]+`?[^\s`]*(?:/|\.md)
++\$prd[ \t]+`?[^\s`]*(?:/|\.md)
+--- src/claude/DevForgeAI/evals/brainstorm/hands-off-to-prd/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/hands-off-to-prd/prompt.md
+@@ -3,7 +3,6 @@
+ tags: [brainstorm, ver-10]
+ max_turns: 40
+ timeout_seconds: 900
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ Brainstorm ideas for making our internal expense-report approvals faster; right now an
+ approval takes about nine working days. Skip any questions and write it up.
+--- src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/graders/skill-not-fired.md
++++ src/codex/devforgeai/evals/brainstorm/ignores-unrelated-request/graders/skill-not-fired.md
+@@ -1,8 +1,7 @@
+ ---
+-type: tool_used
+-tool: Skill
+-input_match: '"skill"\s*:\s*"(?:[\w-]+:)?brainstorm"'
+-min: 0
+-max: 0
+-arm: both
++type: manual
++target: trace
+ ---
++PASS only when a complete host skill-load trace shows that the DevForgeAI Brainstorm
++skill was not loaded, and the response performs the requested PR review. If skill loading
++is not observable, mark this check NOT_RUN; absence of a literal Skill event proves nothing.
+--- src/claude/DevForgeAI/evals/brainstorm/ignores-unrelated-request/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/ignores-unrelated-request/prompt.md
+@@ -3,7 +3,6 @@
+ tags: [brainstorm, ver-06, negative-trigger]
+ max_turns: 10
+ timeout_seconds: 300
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ Here's the description of a pull request a contributor opened on our repo. Can you
+ review the ideas in it and tell me whether the approach is sound?
+--- src/claude/DevForgeAI/evals/brainstorm/no-unconfirmed-dispositions/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/no-unconfirmed-dispositions/prompt.md
+@@ -3,7 +3,6 @@
+ tags: [brainstorm, ver-02]
+ max_turns: 40
+ timeout_seconds: 900
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ Our open-source CLI tool has 400 open GitHub issues and most were never triaged. There
+ are only two of us maintaining it, in our spare time. Brainstorm how we could get issue
+--- src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/changelog-names-session.md
++++ src/codex/devforgeai/evals/brainstorm/records-provenance/graders/changelog-names-session.md
+@@ -2,4 +2,4 @@
+ type: regex
+ target: {source: file, path: docs/specs/brainstorm/BRN-001.md}
+ ---
+-\n[ \t]+session:[ \t]*"([A-Za-z0-9][A-Za-z0-9-]*)"[\s\S]*\n\| 1 \| \d{4}-\d{2}-\d{2} \| claude-code \(session \1\) \|
++\n[ \t]+session:[ \t]*"([A-Za-z0-9][A-Za-z0-9-]*)"[\s\S]*\n\| 1 \| \d{4}-\d{2}-\d{2} \| codex \(session \1\) \|
+--- src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/generated-by-filled.md
++++ src/codex/devforgeai/evals/brainstorm/records-provenance/graders/generated-by-filled.md
+@@ -3,4 +3,4 @@
+ target: {source: file, path: docs/specs/brainstorm/BRN-001.md}
+ match: contains
+ ---
+-\ngenerated_by:[ \t]*\n[ \t]+tool:[ \t]*\"?claude-code\"?[ \t]*\n[ \t]+model:[ \t]*\"?[A-Za-z0-9][^\"\s]*\"?[ \t]*\n[ \t]+session:[ \t]*\"?[A-Za-z0-9][^\"\s]*\"?
++\ngenerated_by:[ \t]*\n[ \t]+tool:[ \t]*\"?codex\"?[ \t]*\n[ \t]+model:[ \t]*\"?[A-Za-z0-9][^\"\s]*\"?[ \t]*\n[ \t]+session:[ \t]*\"?[A-Za-z0-9][^\"\s]*\"?
+--- src/claude/DevForgeAI/evals/brainstorm/records-provenance/graders/session-substituted.md
++++ src/codex/devforgeai/evals/brainstorm/records-provenance/graders/session-substituted.md
+@@ -3,4 +3,4 @@
+ target: {source: file, path: docs/specs/brainstorm/BRN-001.md}
+ match: not_contains
+ ---
+-\$\{CLAUDE_SESSION_ID\}
++\$\{(?:CLAUDE_SESSION_ID|CODEX_THREAD_ID)\}|\b(?:model|session):[ \t]*"unknown"
+--- src/claude/DevForgeAI/evals/brainstorm/records-provenance/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/records-provenance/prompt.md
+@@ -3,7 +3,6 @@
+ tags: [brainstorm, ver-03]
+ max_turns: 40
+ timeout_seconds: 900
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ Brainstorm ideas for a feature that helps remote teams run better asynchronous
+ stand-ups in Slack. No need to check in with me; go straight to the written brainstorm.
+--- src/claude/DevForgeAI/evals/brainstorm/uses-named-framework/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/uses-named-framework/prompt.md
+@@ -3,7 +3,6 @@
+ tags: [brainstorm, ver-04]
+ max_turns: 40
+ timeout_seconds: 900
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ Let's brainstorm using the diverge-converge framework: how could a neighbourhood public
+ library get more teenagers through its doors? Proceed without questions and write the
+--- src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/graders/skill-fired.md
++++ src/codex/devforgeai/evals/brainstorm/writes-valid-brn/graders/skill-fired.md
+@@ -1,5 +1,7 @@
+ ---
+-type: tool_used
+-tool: Skill
+-input_match: '"skill"\s*:\s*"(?:[\w-]+:)?brainstorm"'
++type: manual
++target: trace
+ ---
++PASS only when the host skill-load trace or a recorded read of this candidate's
++`skills/brainstorm/SKILL.md` identifies the loaded candidate. If loading is not observable,
++mark this check NOT_RUN. A literal Claude `Skill` tool event is not required in Codex.
+--- src/claude/DevForgeAI/evals/brainstorm/writes-valid-brn/prompt.md
++++ src/codex/devforgeai/evals/brainstorm/writes-valid-brn/prompt.md
+@@ -3,7 +3,6 @@
+ tags: [brainstorm, ver-01]
+ max_turns: 40
+ timeout_seconds: 900
+-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+ ---
+ I run a small dental clinic with two dentists and a hygienist. About one in eight booked
+ appointments ends in a no-show, and it's costing us real money. Brainstorm ways we could

@@ -1,0 +1,12 @@
+{
+  "schema_errors": {
+    "skill-frontmatter.schema.json": [],
+    "skill.schema.json": []
+  },
+  "skill_lines": 247,
+  "metadata_matches": true,
+  "question_tool": "request_user_input",
+  "validator_and_tests_unchanged_from_v006": true,
+  "regression_evidence": "validator-regressions-final.json",
+  "native_verification_status": "NOT_RUN"
+}

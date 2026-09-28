@@ -1,0 +1,379 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.devforgeai.local/sdd/arch.schema.json",
+  "title": "arch document (architecture description: components, architectural questions, evidence)",
+  "type": "object",
+  "required": [
+    "frontmatter"
+  ],
+  "properties": {
+    "frontmatter": {
+      "type": "object",
+      "required": [
+        "authors",
+        "blocked_by",
+        "created",
+        "id",
+        "inspection_scope",
+        "outcome",
+        "owner",
+        "status",
+        "superseded_by",
+        "supersedes",
+        "system",
+        "title",
+        "type",
+        "updated",
+        "upstream",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/docId"
+        },
+        "type": {
+          "const": "arch"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "in-review",
+            "approved",
+            "superseded",
+            "deprecated"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "updated": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "generated_by": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tool": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "session": {
+              "type": "string"
+            }
+          }
+        },
+        "reviewed_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "approved_by": {
+          "type": "string"
+        },
+        "approved_on": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "upstream": {
+          "$ref": "common.schema.json#/$defs/links"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/docId"
+          }
+        },
+        "superseded_by": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/docId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "blocked_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(BRN|PRD|ARCH|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+          }
+        },
+        "outcome": {
+          "enum": [
+            "reuse",
+            "amend",
+            "create",
+            null
+          ],
+          "description": "Architecture Definition outcome for the PRD version examined; null until the user confirms it. Confirming the outcome never accepts the decisions inside."
+        },
+        "system": {
+          "type": "string",
+          "description": "The system or product this architecture description covers"
+        },
+        "inspection_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Components or directories the user named for read-only inspection"
+        }
+      },
+      "additionalProperties": false
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "responsibility",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^CMP-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links"
+          },
+          "name": {
+            "type": "string"
+          },
+          "responsibility": {
+            "type": "string"
+          },
+          "owns_data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interacts_with": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "deployment": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "blocking",
+          "id",
+          "question",
+          "resolved_by",
+          "state",
+          "status",
+          "upstream"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^DEC-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links",
+            "minItems": 1
+          },
+          "question": {
+            "type": "string"
+          },
+          "blocking": {
+            "type": "boolean",
+            "description": "true: epics for the affected requirements must wait until this question is resolved"
+          },
+          "state": {
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          },
+          "resolved_by": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^(ADR-\\d{3}|POL-\\d{3}#SET-\\d{2})$"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "resolved"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "resolved_by": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "state": {
+                  "const": "open"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "resolved_by": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "classification",
+          "finding",
+          "id",
+          "kind",
+          "source",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^EVD-\\d{2}$"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "deprecated"
+            ]
+          },
+          "superseded_by": {
+            "oneOf": [
+              {
+                "$ref": "common.schema.json#/$defs/itemId"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upstream": {
+            "$ref": "common.schema.json#/$defs/links"
+          },
+          "source": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "code",
+              "document",
+              "adr",
+              "policy",
+              "prd"
+            ]
+          },
+          "finding": {
+            "type": "string"
+          },
+          "classification": {
+            "enum": [
+              "observed",
+              "policy",
+              "decided",
+              "context"
+            ],
+            "description": "observed practice, approved policy, an accepted decision, or context (inputs and history that establish neither implemented behavior nor an accepted decision): never conflated"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: updates-readme-and-changelog
+context:
+  scaffold_script: scaffold.sh

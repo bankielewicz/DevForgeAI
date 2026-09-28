@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "native-request-user-input",
+      "status": "PASS",
+      "evidence": "Native item/tool/requestUserInput event requests extend/new choice."
+    },
+    {
+      "name": "pending-question-no-write",
+      "status": "PASS",
+      "evidence": "Original full-file hash unchanged; no new BRN while question is unanswered."
+    }
+  ]
+}

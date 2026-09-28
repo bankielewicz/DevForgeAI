@@ -1,0 +1,6 @@
+{
+  "status": "HARNESS_ERROR",
+  "error": "FileNotFoundError: 'codex' with direct WSL Python subprocess; login-shell PATH differs.",
+  "fix": "Use verified /home/bryan/.local/bin/codex absolute executable.",
+  "model_started": false
+}

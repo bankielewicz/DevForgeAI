@@ -1,0 +1,32 @@
+# Eval results and other scratch output
+tmp/
+# Where claude plugin eval writes when run without --output-dir
+src/claude/DevForgeAI/evals/results/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Windows download metadata, copied in from NTFS
+*:Zone.Identifier
+
+# Personal Claude Code settings and DevForgeAI local preferences (ADR-003)
+.claude/settings.local.json
+.claude/*.local.md
+
+# Placeholder folders the Claude Code sandbox leaves behind
+.cc-writes/
+
+# The deployed plugin copy; regenerate it from src/ with the rsync command in CLAUDE.md
+.claude/skills/devforgeai/
+
+# Third-party reference material, kept locally only
+docs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf
+docs/research/
+
+# Raw Codex eval runs (transcripts, protocol dumps, workspaces). Keep the top-level summaries that
+# IMPORT-REPORT.md and REPORT.md link to, and each manual check's grade.json.
+src/codex/devforgeai/import-evidence/native-evaluation-*/*/
+!src/codex/devforgeai/import-evidence/native-evaluation-*/manual/
+src/codex/devforgeai/import-evidence/native-evaluation-*/manual/*/*
+!src/codex/devforgeai/import-evidence/native-evaluation-*/manual/*/grade.json
