@@ -1,0 +1,1545 @@
+{
+  "document_links": [
+    {
+      "from": "README.md",
+      "target": "IMPORT-REPORT.md"
+    },
+    {
+      "from": "README.md",
+      "target": "PRD-IMPORT-REPORT.md"
+    },
+    {
+      "from": "README.md",
+      "target": "ARCHITECTURE-IMPORT-REPORT.md"
+    },
+    {
+      "from": "README.md",
+      "target": "DOCUMENTS-UPDATER-IMPORT-REPORT.md"
+    },
+    {
+      "from": "README.md",
+      "target": "evals/documents-updater/README.md"
+    },
+    {
+      "from": "README.md",
+      "target": "evals/architecture/README.md"
+    },
+    {
+      "from": "README.md",
+      "target": "evals/prd/README.md"
+    },
+    {
+      "from": "PRD-IMPORT-REPORT.md",
+      "target": "prd-import-evidence/candidate.json"
+    },
+    {
+      "from": "PRD-IMPORT-REPORT.md",
+      "target": "prd-import-evidence/source-baseline.json"
+    },
+    {
+      "from": "PRD-IMPORT-REPORT.md",
+      "target": "prd-import-evidence/comparison-evidence.json"
+    },
+    {
+      "from": "PRD-IMPORT-REPORT.md",
+      "target": "prd-import-evidence/claude-to-codex.patch"
+    },
+    {
+      "from": "PRD-IMPORT-REPORT.md",
+      "target": "prd-import-evidence/evaluation-plan.json"
+    },
+    {
+      "from": "PRD-IMPORT-REPORT.md",
+      "target": "PRD-SPEC-002-PROPOSALS.md"
+    },
+    {
+      "from": "evals/prd/README.md",
+      "target": "../../prd-import-evidence/evaluation-plan.json"
+    }
+  ],
+  "new_file_whitespace_errors": [
+    {
+      "path": "src/codex/devforgeai/PRD-IMPORT-REPORT.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/PRD-SPEC-002-PROPOSALS.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/README.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/handoff-says-epics-wait.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/links-adr-002.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/marker-names-booking-fr.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/needs-adr-marker.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/no-link-adr-001.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/no-link-adr-003.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/architecture-context/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/conditional-not-applicable/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/conditional-not-applicable/graders/no-compliance-marker.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/conditional-not-applicable/graders/not-applicable-recorded.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/conditional-not-applicable/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/conditional-not-applicable/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/conditional-not-applicable/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/graders/aws-constraint.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/graders/has-constraint-category.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/graders/microservices-is-open.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/graders/no-microservices-statement.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/graders/stripe-constraint.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/constraints-not-design/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/extend-or-new/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/extend-or-new/graders/no-prd-002.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/extend-or-new/graders/prd-001-unchanged.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/extend-or-new/graders/recommends-new-and-asks.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/extend-or-new/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/extend-or-new/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/ends-with-next-step.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/handoff-quality.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/names-architecture-command.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/next-step-has-no-path.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/no-adr-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/no-epic-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/no-path-argument.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/hands-off-to-architecture/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/ignores-unrelated-request/graders/no-prd-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/ignores-unrelated-request/graders/skill-not-fired.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/ignores-unrelated-request/graders/works-on-the-pr.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/ignores-unrelated-request/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/graders/names-file.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/graders/names-key.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/graders/names-setting.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/graders/no-prd-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/invalid-policy-stops/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/graders/has-null-priority.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/graders/no-decided-priority.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/graders/no-decided-release.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/graders/stage-prototype.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/graders/status-draft.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-invented-decisions/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-policy-defaults/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-policy-defaults/graders/defaults-recorded.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-policy-defaults/graders/no-policy-link.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-policy-defaults/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-policy-defaults/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/no-policy-defaults/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/graders/constraint-cites-set-01.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/graders/informed-by-set-02.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/graders/marker-accessibility.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/graders/marker-compliance.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/graders/set-01-linked-once.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/policy-applied/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/context-production.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/marker-accessibility.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/marker-compliance.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/marker-observability.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/marker-performance.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/marker-reliability.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/privacy-nfr.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/security-nfr.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/graders/stage-mvp.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/production-mvp/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-forbidden/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-forbidden/graders/names-both-settings.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-forbidden/graders/names-sv-04.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-forbidden/graders/no-prd-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-forbidden/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-forbidden/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-permitted/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-permitted/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-permitted/graders/project-value-wins.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-permitted/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/project-override-permitted/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/provider-mapping.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/graders/changelog-names-session.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/graders/generated-by-filled.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/graders/hashes-null.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/graders/reviewed-by-empty.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/graders/session-substituted.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/records-provenance/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/retired-setting-ignored/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/retired-setting-ignored/graders/no-retired-platform.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/retired-setting-ignored/graders/no-set-01-link.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/retired-setting-ignored/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/retired-setting-ignored/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/retired-setting-ignored/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/graders/no-prd-002.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/graders/offers-brn-002.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/graders/offers-only-unprocessed.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/graders/prd-001-unchanged.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/graders/skill-fired.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/selects-unprocessed-brn/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/stops-without-promoted/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/stops-without-promoted/graders/explains-why.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/stops-without-promoted/graders/no-prd-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/stops-without-promoted/graders/points-to-brainstorm.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/stops-without-promoted/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/stops-without-promoted/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/graders/compliance-marker.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/graders/context-null.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/graders/failsafe-recorded.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/unknown-context-failsafe/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/warns-unconverged/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/warns-unconverged/graders/no-prd-written.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/warns-unconverged/graders/warns-and-asks.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/warns-unconverged/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/warns-unconverged/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/case.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/all-sections.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/cites-promoted-ideas.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/framing-from-answers.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/frs-start-with-shall.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/idea-01-frs-must-current.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/idea-03-frs-should-current.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/no-leftovers.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/no-other-idea-01-decision.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/no-other-idea-03-decision.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/no-unpromoted-ideas.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/prd-exists.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/graders/skill-fired.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/prompt.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/evals/prd/writes-prd-from-brn/scaffold.sh",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/author_prd_port.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/finalize_prd_port.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/prd_catalog_preflight.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/prd_port_inventory.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/prepare_prd_evaluation.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/validate_prd_port.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/authoring-tools/write_prd_report.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/.codex-plugin/plugin.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/SKILL.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/agents/openai.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/assets/adr.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/assets/arch.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/provenance.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/references/defaults.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/references/inspection.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/references/output-rules.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/references/policy.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/architecture/references/readiness.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/SKILL.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/agents/openai.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/assets/brainstorm.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/provenance.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/references/frameworks/INDEX.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/references/frameworks/diverge-converge.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/references/output-rules.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/brainstorm/scripts/validate_brn.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/SKILL.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/agents/openai.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/adr.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/architecture.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/changelog.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/configuration.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/contributing.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/how-to.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/migration.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/readme.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/reference.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/runbook.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/specification.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/assets/tutorial.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/provenance.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/references/document-selection.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/references/output-rules.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/references/scope-and-evidence.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/references/writing-standards.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/documents-updater/scripts/check_docs.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/SKILL.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/agents/openai.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/assets/prd.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/provenance.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/references/brn-mapping.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/references/codex.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/references/defaults.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/references/interview.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/references/output-rules.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/candidate/skills/prd/references/policy.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/catalog-preflight/launch.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/catalog-preflight/no-extra-root-catalog.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/catalog-preflight/plugin-catalog.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/catalog-preflight/result.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/codex-regression-tests.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/comparison-evidence.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/evaluation-plan.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/evaluation-source-correspondence.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/final-preservation.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/plugin-validator.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/prior-attempts/final-audit-attempt-1.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/prior-attempts/finalize-prd-port-v1.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/scaffold-syntax.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/skill-validator.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/source-baseline.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/source-correspondence.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/static-validation.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/prd-import-evidence/tracked-whitespace.json",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/SKILL.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/agents/openai.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/assets/prd.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/provenance.yaml",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/references/brn-mapping.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/references/codex.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/references/defaults.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/references/interview.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/references/output-rules.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/skills/prd/references/policy.md",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "src/codex/devforgeai/tests/make_prd_evals.py",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "status": "FAIL"
+}

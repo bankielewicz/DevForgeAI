@@ -1,0 +1,12 @@
+{
+  "check": "tracked-whitespace",
+  "argv": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "",
+  "status": "PASS"
+}

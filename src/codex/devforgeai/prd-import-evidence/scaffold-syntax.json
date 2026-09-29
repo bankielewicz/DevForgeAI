@@ -1,0 +1,97 @@
+[
+  {
+    "path": "evals/prd/architecture-context/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/conditional-not-applicable/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/constraints-not-design/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/extend-or-new/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/hands-off-to-architecture/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/invalid-policy-stops/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/no-invented-decisions/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/no-policy-defaults/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/policy-applied/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/production-mvp/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/project-override-forbidden/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/project-override-permitted/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/records-provenance/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/retired-setting-ignored/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/selects-unprocessed-brn/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/stops-without-promoted/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/unknown-context-failsafe/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/warns-unconverged/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "path": "evals/prd/writes-prd-from-brn/scaffold.sh",
+    "exit_code": 0,
+    "stderr": ""
+  }
+]

@@ -1,0 +1,27 @@
+# Codex provider variant of SKL-001; original source identity is retained in import-evidence/.
+# This is port revision 7 from Claude revision 5, not approval or behavioral qualification.
+id: SKL-001
+type: skill
+title: "Brainstorm skill (Codex port)"
+status: draft
+version: 7
+created: 2026-09-26
+updated: 2026-09-28
+owner: "Bryan"
+authors: ["Bryan", "claude-code", "codex"]
+generated_by:
+  tool: "codex"
+  model: "unknown" # Exact model identifier was not exposed to the authoring task.
+  session: "01a0e031-e008-7a12-9587-fea433e7e5c2"
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:
+  - {id: SPEC-001, relation: implements, version: 10, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+skill_name: brainstorm
+packaging: plugin
+plugin: devforgeai
+eval_tag: brainstorm

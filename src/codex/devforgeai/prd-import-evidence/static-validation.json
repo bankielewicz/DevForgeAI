@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "skill/frontmatter/provenance/agent metadata",
+      "status": "PASS",
+      "skill_lines": 354,
+      "description_characters": 404,
+      "qualification": "Structure only; unknown authoring model/session are disclosed, not verified."
+    },
+    {
+      "check": "runtime resources and selected-package Architecture handoff",
+      "status": "PASS",
+      "relative_links": 17
+    },
+    {
+      "check": "template/BRN mapping preservation and Codex policy/defaults equality",
+      "status": "PASS"
+    },
+    {
+      "check": "plugin-validator",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "skill-validator",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "evaluation-source-correspondence",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "codex-regression-tests",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "tracked-whitespace",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "check": "19 original fixture scaffold syntax checks",
+      "status": "PASS"
+    }
+  ]
+}

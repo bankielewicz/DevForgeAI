@@ -1,0 +1,13 @@
+{
+  "check": "skill-validator",
+  "argv": [
+    "python3",
+    "-B",
+    "/mnt/c/Users/bryan/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+    "/home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai/skills/prd"
+  ],
+  "exit_code": 0,
+  "stdout": "Skill is valid!\n",
+  "stderr": "",
+  "status": "PASS"
+}

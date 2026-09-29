@@ -1,0 +1,2683 @@
+{
+  "candidate_sha256": "c46638c6881a99b3b29ac30e523bbe5e88f176ccb227292b19e2f40fd1947aef",
+  "spec_version": 1,
+  "spec_sha256": "90b539a7a4ebdc57da1343c3e11099946872768d97bb66a50af6ab50e5e84e6c",
+  "source_baseline_sha256": "0aa88d994e55736d0aa8edb82176717dd460265bff02a63495d839db0405985d",
+  "source_suite_files": {
+    "architecture-context/case.yaml": "b1049333a8bf048191e1ddde91a1b41efddc76625348cad9b9a76a7d18ee0bba",
+    "architecture-context/graders/handoff-says-epics-wait.md": "db71bb16e17403c981b262f67688378d5e687a177a206a645e050e70baba17c6",
+    "architecture-context/graders/links-adr-002.md": "6ac2d1d4a5eb6acba47e1de93670694db644ac0cb5e9f8f741778fd39d040e1d",
+    "architecture-context/graders/marker-names-booking-fr.md": "62389a547a8e8901ffde7b202ed31085d81575ea1ac0153c56af80d2206c3652",
+    "architecture-context/graders/needs-adr-marker.md": "897eca50ac292ae0736d8aa7d0e0fed0c609772ba895983a5638e5cc5501622c",
+    "architecture-context/graders/no-link-adr-001.md": "a063f495c000a723bc618f0916d05ff72bd51ab7cfbcb252f0296dc8a8242ee8",
+    "architecture-context/graders/no-link-adr-003.md": "1626a3e095f86d358229951fc5b67af06827e8dbef004f74c490698239bdbbc2",
+    "architecture-context/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "architecture-context/prompt.md": "901529e0370b0d1cbf74f700edbd1ab71f52dfe791d8ade1fb43f50178c58110",
+    "architecture-context/scaffold.sh": "f2292870682ba56d70c1369e3b1e31fa0fa219c50c3db11231452015ef408375",
+    "conditional-not-applicable/case.yaml": "9b49cd55502d9f33a6aa49ea5c8d0c8d74457f2a413a02b5bd47b209a3b6365d",
+    "conditional-not-applicable/graders/no-compliance-marker.md": "e42d8f696ab7823cba72708178546626aa0feb783de9290afe2051a9fa9f0683",
+    "conditional-not-applicable/graders/not-applicable-recorded.md": "8ea60f0f0db597d0b0dc4fb2417ec1e53642924b68bd966e739d052ae0fb8c1e",
+    "conditional-not-applicable/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "conditional-not-applicable/prompt.md": "918fa8001d97834412a4d605eaa4f682909433fafd2da718da945621e85de557",
+    "conditional-not-applicable/scaffold.sh": "5de80f34dd2321a9169a113b17ee30a7d50f37c9a0a6a7e8606d299b969d5fde",
+    "constraints-not-design/case.yaml": "6dc92a1130b19b0dc049a6d7a5b977ed7314e538ce4a1aa181d8d27e2f6adfe9",
+    "constraints-not-design/graders/aws-constraint.md": "868cb6f841f55f500232efaa1071a4361d90fbe0fa0925f7c71151e1cf792fb8",
+    "constraints-not-design/graders/has-constraint-category.md": "5189ab1d5fb9eb844e85828c3ace60afbf779d13021c630ffa42240fda7481a4",
+    "constraints-not-design/graders/microservices-is-open.md": "b131d3adc2dc885849d987e01bed269f1f0df1542f84014fa03cb3c29ef59730",
+    "constraints-not-design/graders/no-microservices-statement.md": "458dc3e8688948a80d55bdcac27e2c793222d7c5486c53ba4ba43249f8d10f6f",
+    "constraints-not-design/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "constraints-not-design/graders/stripe-constraint.md": "bacefdbb6c3cc808f770f205abed68ad78543d1af624d83e5544df5d851a00ef",
+    "constraints-not-design/prompt.md": "34ae79d73ed4c0faa6e60517e1429418f27dfe28a07476c9bf270a644ae68108",
+    "constraints-not-design/scaffold.sh": "8be9c33eeeb670c19f2cc9c1990eb21fca8046c28cb185897e2b4eb5c543771a",
+    "extend-or-new/case.yaml": "c0d98ba1f7d96e8df86e0f56de113a1c758c562e3fc544ac0faa80ffe12e2124",
+    "extend-or-new/graders/no-prd-002.md": "17e050d98304a057d6235e549305da893426247873abb605dbefce28299fa5f4",
+    "extend-or-new/graders/prd-001-unchanged.md": "4935e9f26b4c85ad5f3d01d7e966f370f03f55b6ba9df9da94f471e24d15cde0",
+    "extend-or-new/graders/recommends-new-and-asks.md": "d09be76e163bf3845c45e29e397b2ce7c1771fd6b9171346df547ff69c09b298",
+    "extend-or-new/prompt.md": "b978f1e51f771a76bd4ccd290c629379d1478db6a6f7818433204b3a2c82b7c1",
+    "extend-or-new/scaffold.sh": "89b46f7e08b4d0acf2fd30ed1bdbda8b6e74d8ab28a7d7ae2577fdef0463c1ad",
+    "hands-off-to-architecture/case.yaml": "3decc1ecc3537c484e821321d6905fc88b021eda186a1431ef92d36892d24667",
+    "hands-off-to-architecture/graders/ends-with-next-step.md": "fdbe7ed66acbdc6ea7fe463ba112a6daa0b270e4a64effb02f55fa136d3cb1ab",
+    "hands-off-to-architecture/graders/handoff-quality.md": "ca968a1df15549dc98598a43cae09dc15fb618586bb8800ac35739a7be08ab53",
+    "hands-off-to-architecture/graders/names-architecture-command.md": "bf8ac187d780c5d5012ac4ac7a48cad6764166454b26bb11a43f766dede38c2a",
+    "hands-off-to-architecture/graders/next-step-has-no-path.md": "e6b87d6110cd45275b262015e9eef021ba14af7d4cc8d5b9e3eeb777d70a8cc4",
+    "hands-off-to-architecture/graders/no-adr-written.md": "6dd9572db0ecfbec19bd81f297c36bd7228af228040b8f25e4925725861a6585",
+    "hands-off-to-architecture/graders/no-epic-written.md": "5009fc40856c61e620909732b618da337dc16e511d3ffe778467c10f2df4b4f4",
+    "hands-off-to-architecture/graders/no-path-argument.md": "903e0be4e2b760e872772d948cd17e75b90c9289754ee10fe58b3e8c24449029",
+    "hands-off-to-architecture/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "hands-off-to-architecture/prompt.md": "7d6409c3a307433a12f38dd1f1f5747815493577a990931d229c00ab667de675",
+    "hands-off-to-architecture/scaffold.sh": "a013e014559f6733a11b9e793bc2387f7c5b95d027b77fe6560a5b663ba72288",
+    "ignores-unrelated-request/graders/no-prd-written.md": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+    "ignores-unrelated-request/graders/skill-not-fired.md": "d2a20cd1e884abcfa577ab12f2c5f5c2f89dde3979a008ae37dba16b1a881cfd",
+    "ignores-unrelated-request/graders/works-on-the-pr.md": "3d42f0bfa338a717be48f2d6c7076b59be75f7ca3ed0cef694e7c79cbc069087",
+    "ignores-unrelated-request/prompt.md": "1266d9c1940be73588f5f1114ec50a59ff1b81c0bd188b4b8a34f6fc12bdfe84",
+    "invalid-policy-stops/case.yaml": "af5ac1b5c039748fb44ec412fde6d83dc81a34a2f451da6690f5a8e215ad4d47",
+    "invalid-policy-stops/graders/names-file.md": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "invalid-policy-stops/graders/names-key.md": "bcd053a195e6ac200302b031432a0393c1407714dbfa4597e15e634767e296bf",
+    "invalid-policy-stops/graders/names-setting.md": "3a5bca04f66ee2f44bb51c50af73bc72df877ef4f700c6e55880261fed41c591",
+    "invalid-policy-stops/graders/no-prd-written.md": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "invalid-policy-stops/prompt.md": "b0c8e65a49a80cf6860bcc8e08f130e4a281f6eef883bb8173574de9a1b8a9ce",
+    "invalid-policy-stops/scaffold.sh": "8d52f76878c4728471247c0fad3457b2e5be282a55f87252d501022771c9068d",
+    "no-invented-decisions/case.yaml": "418669667bd3a5aee0691509c2c66f60cc5c0b409d30c339c61b108dca8a3405",
+    "no-invented-decisions/graders/has-null-priority.md": "4f955452d9fe1bf617ba7b9def3bde775db27bc6006c171aef41d95df4314c46",
+    "no-invented-decisions/graders/no-decided-priority.md": "ce20df0d09519bd8cf3b0d13b839b788b2d90489e0086ad25018f434fb6399cd",
+    "no-invented-decisions/graders/no-decided-release.md": "9dd52dfaf763f8f14ecab18178312bdca38af45754f6127cd382a0230d4f3b42",
+    "no-invented-decisions/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "no-invented-decisions/graders/stage-prototype.md": "b8cfe198a293968e214ee7edb6b5fff35c919eac70ef66e7bad710a5d789fa8a",
+    "no-invented-decisions/graders/status-draft.md": "76c351971de2dccab6ceb480a2755f45ddec933bb4181d3e058043064e136224",
+    "no-invented-decisions/prompt.md": "98c5177a0703c457c47b84c0df4111eecf882f613876750b95667d008fe2ba7d",
+    "no-invented-decisions/scaffold.sh": "de3ba881af0144631b0fb3f011f7eb259ace446b52ff59f56ca22b4f87caa003",
+    "no-policy-defaults/case.yaml": "06993fc3480830ba1f616e0fde922b7f3e1e64148bf48479011f7a4fd9a2dbc2",
+    "no-policy-defaults/graders/defaults-recorded.md": "b93489aa694833f7271e17ff251ca71e80762ac89ae7ee71cc1d2578bba3d06f",
+    "no-policy-defaults/graders/no-policy-link.md": "e139f2f7f21b359d2737afe47c3f1d5670ecfc8f2b780e39eaf246cd875e4392",
+    "no-policy-defaults/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "no-policy-defaults/prompt.md": "c10e3dd5bf919cbc57d64e4bc4ce4aa82562ff247e8f08eb0e4d2ccd9dcdf36a",
+    "no-policy-defaults/scaffold.sh": "be0807fd3ad046e970538a33f8f48b86538e3819d918dac92ebdcff08efa55bb",
+    "policy-applied/case.yaml": "97d47cd554faf6da2382fdda5173054ecbe94d5466bb647e5ca36701040e5bd5",
+    "policy-applied/graders/constraint-cites-set-01.md": "a50cd9870ca63ff3827962c1866340d1f8e41179f270e53c0a2b2d4ec8faba1f",
+    "policy-applied/graders/informed-by-set-02.md": "8cbc1a4df96ddbdc3aa2124184aad575e28c24cf450306723a170a7c392710e0",
+    "policy-applied/graders/marker-accessibility.md": "caaf07e66925e882a87554e97ba215b6536f414f9475165629c9ef9aab3a8177",
+    "policy-applied/graders/marker-compliance.md": "0c8dcb65dd7dc0ddfce8e8495add69355bbd4fae6deedcafa16cfd163ba38beb",
+    "policy-applied/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "policy-applied/graders/set-01-linked-once.md": "8e390253c25a8b58b4e1c830511a5c0a8363866caa808c85efa450d432f5537c",
+    "policy-applied/prompt.md": "aba35ba511079612833ec1c3f237cf633aec7490680ffaca867c9e3dd66ab8e0",
+    "policy-applied/scaffold.sh": "4af6c73414cbcd0b0c8c2b26ac0fd97993d910fb50803157a3ce980d3e9364c7",
+    "production-mvp/case.yaml": "6f5ea57c3f9c71541b33daf9c01ca263d05e340acdc2798a21cce0b2915ab67e",
+    "production-mvp/graders/context-production.md": "c7f58eb6fb3336292e610da1b581ae101de7cf8980bdfc9ac18416d7ed7b739c",
+    "production-mvp/graders/marker-accessibility.md": "ae3eb6ac650d4b64985418e6b5d30aa0608dc32c2fcd84ae51743dd3e27c9655",
+    "production-mvp/graders/marker-compliance.md": "299a93adf7ff1a4c0c697e407f9075e8fef5d3305c4a060ec120487b23294b31",
+    "production-mvp/graders/marker-observability.md": "338ad1aa6f41199c93a30da499dcfb608d5815941542cddf8c3ad2460388875c",
+    "production-mvp/graders/marker-performance.md": "2545a7073bde03beded3382ff1998d12e53cb1fecbf880fa16f947c321324c2f",
+    "production-mvp/graders/marker-reliability.md": "89b2b14f6905e5936234ec787f2adfc84fea92ce72270182253f41b217c672de",
+    "production-mvp/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "production-mvp/graders/privacy-nfr.md": "c1ae715d2719d2bdde5817b8ba533eb5c9d08033d261abe6edb02e166d9cd9fa",
+    "production-mvp/graders/security-nfr.md": "2753357914ecf4857adc8a7b9e1c2a60c962b52d4842aad993dfcf03d5026e2e",
+    "production-mvp/graders/stage-mvp.md": "af48671982bfeb7c63583b6a49b05504ed07b2fb13af2683fdbdba19b7674d9e",
+    "production-mvp/prompt.md": "5acdb280ffe237613e36171386dcebd1f5db0679e2ac12cae1a2fa86ae4bd901",
+    "production-mvp/scaffold.sh": "5ff4448efe311b82cdf6d6e0918dd876e59e7b36d4d9df66a3fe44657dee53de",
+    "project-override-forbidden/case.yaml": "f53b17e0efa3add797495ea29489e0e005717c192e3f9e52dde511eb4ca6640d",
+    "project-override-forbidden/graders/names-both-settings.md": "21be2f600da501731f5e5d10ce64dcc0333be9838b4968712fea6934c0802879",
+    "project-override-forbidden/graders/names-sv-04.md": "a80269cba244d0be2ec252311927a8e82fb53d967d63586d2c0103c34154a4ae",
+    "project-override-forbidden/graders/no-prd-written.md": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "project-override-forbidden/prompt.md": "731a505dbaf798935827caac415ae8531fc17cc070007fbfea2dc06676166bd1",
+    "project-override-forbidden/scaffold.sh": "98b54f2de04697c82e44d6c8ce0e637a44f6f8922ee7967aeb09749eddef0d1f",
+    "project-override-permitted/case.yaml": "7c4026be0fd25a56e4092117f7a9fe9ec351bd070a6459e40deba1d6736f5c9c",
+    "project-override-permitted/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "project-override-permitted/graders/project-value-wins.md": "2f73d89fc43f023c0410a886a676a4465963296f47b9e8561a94149eebc04042",
+    "project-override-permitted/prompt.md": "702e767e7b63ef287a2009916a5ad52638fdfb79b671bf28e81d5b558dbb7eda",
+    "project-override-permitted/scaffold.sh": "086bcf9e73cb9c1f078d46e96de55664f8efeb74ebc4e563dcc7f916584e0e10",
+    "records-provenance/case.yaml": "65f6f15f561d4d4c5e54c66ef3b1d7e418c5ec63dd5ff89f8a62256c5485a3f5",
+    "records-provenance/graders/changelog-names-session.md": "5fe16010caeafd107485af7d742491fce4950645f354550f1062c896dbfe79c4",
+    "records-provenance/graders/generated-by-filled.md": "a961f57b7bf444b9316b794e76b5b3d9abd8789faa389a8a5e1be4c2c7daa9d2",
+    "records-provenance/graders/hashes-null.md": "89bbb17946b98762163ed27d1e42c4d526c621864ec7adbe7b7bed8006b26022",
+    "records-provenance/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "records-provenance/graders/reviewed-by-empty.md": "fb41763b24dcb72793f765627ec5a79a4456526c287c61eae704a11ea40680cd",
+    "records-provenance/graders/session-substituted.md": "ca6c6c89534dbe27e3bf6cea9ed31a6b37a0b2e876a0b22fe796fdff57fcabef",
+    "records-provenance/prompt.md": "0eb3b108ae6a2c51dd7d79736eb4902777ece7b8a5d542c21c00102cd1bfc2bb",
+    "records-provenance/scaffold.sh": "200f45cb57968423841b7d7c46949d3b6e4a920b360b5b1634b1190749f03b6a",
+    "retired-setting-ignored/case.yaml": "d6438e841ca01670cd9384e3fe26ceabbb37ba5a7a4c96e5bafed28af8edc592",
+    "retired-setting-ignored/graders/no-retired-platform.md": "46726b89a59ee75ce1e1afd19ebb44ab90e43fbbdf5a7c8c3adf34ef0e704488",
+    "retired-setting-ignored/graders/no-set-01-link.md": "52656575b395c136c039997be186896563aaabbed268c2952ec2ac02e7ea47e4",
+    "retired-setting-ignored/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "retired-setting-ignored/prompt.md": "5f0b53a6ab689f06608aed33cac03a4799040c964e7d2b75e387fcb8ca2eaf0f",
+    "retired-setting-ignored/scaffold.sh": "1772a46aef30206c6467c2c7e0db402a8dab6f6546112a04588f11d5c63206b7",
+    "selects-unprocessed-brn/case.yaml": "0083444e9a4baa2eb911a1687da6f83c0487d8fd621097e017274cd3eb1f5476",
+    "selects-unprocessed-brn/graders/no-prd-002.md": "17e050d98304a057d6235e549305da893426247873abb605dbefce28299fa5f4",
+    "selects-unprocessed-brn/graders/offers-brn-002.md": "410a2b99372c68dcf5a448b4cfcc868881c80466d79fff394421ef87916a3a70",
+    "selects-unprocessed-brn/graders/offers-only-unprocessed.md": "1ee8398acf4dc26e934c5389fe1a00f96dbe0a18569c5f32069cab8f16a23739",
+    "selects-unprocessed-brn/graders/prd-001-unchanged.md": "c2cb3485d16ca0bb448d0cd9d6fd1d2e4939c97df39faa75b96729ea27d74bef",
+    "selects-unprocessed-brn/graders/skill-fired.md": "6c939deb5f80f2b5b4ba02a08e4b0da1a33145eb0959c21a83b1815fee9b0ef1",
+    "selects-unprocessed-brn/prompt.md": "90caf3fe0d23063d41521c70f30238fed2908d346349a5c8ee99ac7da3ba47d7",
+    "selects-unprocessed-brn/scaffold.sh": "d953170af35fca65e3d5e9f36ec6eea344ec7b8d9f0299bec176629d67c8935c",
+    "stops-without-promoted/case.yaml": "5b320113dc44075391b102eadc12bd4a2993fdb13046188b3314f6e10013cd6c",
+    "stops-without-promoted/graders/explains-why.md": "9855b106fd75c4e076b335913848806863a9f577b72065f265c3ada1ccb0bac9",
+    "stops-without-promoted/graders/no-prd-written.md": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+    "stops-without-promoted/graders/points-to-brainstorm.md": "f3882614b0a0825c335828165c161c2cf659bb67671b7e0d0ecedc9c89a325fa",
+    "stops-without-promoted/prompt.md": "333d932670f9f449ead5a747f8de07bfd20a32ce498d4fa504d595227c176705",
+    "stops-without-promoted/scaffold.sh": "cd7a2446b234672f577f85890668ed0ce9e20210792ea970a616dbc1cbb07a61",
+    "unknown-context-failsafe/case.yaml": "bab0502094423a4c07fd6970a934ccb265b9940a429cf1f478b8c65bf5fc870f",
+    "unknown-context-failsafe/graders/compliance-marker.md": "1c06c57bda010c9d48452395708a7f4ec20e40e030950842ca305168d38923c9",
+    "unknown-context-failsafe/graders/context-null.md": "005b853a21b12fcd1fcbdc9b60d3489201614161104987825937fcb86783135e",
+    "unknown-context-failsafe/graders/failsafe-recorded.md": "59eee7a7ad6bfcbde30591a6ff677586b51a33593942ebc78392990d57d652e6",
+    "unknown-context-failsafe/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "unknown-context-failsafe/prompt.md": "78a1269dca2a0cdb5c9e5691e3891c2b609ed3bad124c4d7528b16a216668bff",
+    "unknown-context-failsafe/scaffold.sh": "bc7bcdf36fddc310e2c4c27f3ff5cd335a8cd05761bb33600e5aabc8311ab98d",
+    "warns-unconverged/case.yaml": "4428247b87f67e356c75d11588b7b52425f8dbac0e16db300637557dd8922531",
+    "warns-unconverged/graders/no-prd-written.md": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+    "warns-unconverged/graders/warns-and-asks.md": "723cf53d9356cc358c2fe65440b58ca8fa167bb269b140c00618eb91de4fe4a6",
+    "warns-unconverged/prompt.md": "95250943a96f05c1b0ed114b768b276531cbd488f9f4a5a07dd9c7d4420e64cc",
+    "warns-unconverged/scaffold.sh": "c44f312e2942c6962706723265a1287e3bbdace825c027844d36a83d9ea9f3c4",
+    "writes-prd-from-brn/case.yaml": "4cd9c814568f0bcdc80e4b3f5d2210a4513b7a0a012ed6751e135433a11f3214",
+    "writes-prd-from-brn/graders/all-sections.md": "8c594f3ae0a6c16e98d4b86440114acfdff6f58d31d2a92fdc5e2c1b4786a312",
+    "writes-prd-from-brn/graders/cites-promoted-ideas.md": "01e4c3e262ec219e23107d270989f8bc3026b90b0eef234e42ca6f98bc1a9f39",
+    "writes-prd-from-brn/graders/framing-from-answers.md": "e013b28752279d040944d8ed49935550251cb8c5296e61ff4e2a79aa7fcd7639",
+    "writes-prd-from-brn/graders/frs-start-with-shall.md": "d2142d0a6043a99a86916defdea5df2c6ef82f1c5cf4ee7b194d00a79fb0aa1f",
+    "writes-prd-from-brn/graders/idea-01-frs-must-current.md": "a7df4c1117da5022de67af21c2dd23320b8efccf45add5b82047c5ccfaf818b5",
+    "writes-prd-from-brn/graders/idea-03-frs-should-current.md": "0d5b8e4c31dd4e508f60b19a832be96a1239853b43febd9548d9a0c4f4f63cb1",
+    "writes-prd-from-brn/graders/no-leftovers.md": "59a2eabcae9743c241b4dbed75ab9033cf691492eab65f233dcf3d64566c8f49",
+    "writes-prd-from-brn/graders/no-other-idea-01-decision.md": "2be731143fbe2e426d1e7b8f367823703648b12b7240847886b7050c09ca4ce8",
+    "writes-prd-from-brn/graders/no-other-idea-03-decision.md": "cf3e0d67708289ba3b29303c87e0731f04401b7f493de06391aa6619c2acf345",
+    "writes-prd-from-brn/graders/no-unpromoted-ideas.md": "1479a1adf8f17f90e5d2c6244750233dd815b1d623a3283fb3489255290bd492",
+    "writes-prd-from-brn/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "writes-prd-from-brn/graders/skill-fired.md": "6c939deb5f80f2b5b4ba02a08e4b0da1a33145eb0959c21a83b1815fee9b0ef1",
+    "writes-prd-from-brn/prompt.md": "3ba612f0b7b892ab63478b996f1036b94b242d65e68895435a31c7b2cda5757d",
+    "writes-prd-from-brn/scaffold.sh": "35d79a4002d7c8e1a0f09fb0939e77f8e3aad61bcfc994f3fb72498e696c0042"
+  },
+  "adapted_suite_files": {
+    "architecture-context/case.yaml": "b1049333a8bf048191e1ddde91a1b41efddc76625348cad9b9a76a7d18ee0bba",
+    "architecture-context/graders/handoff-says-epics-wait.md": "db71bb16e17403c981b262f67688378d5e687a177a206a645e050e70baba17c6",
+    "architecture-context/graders/links-adr-002.md": "6ac2d1d4a5eb6acba47e1de93670694db644ac0cb5e9f8f741778fd39d040e1d",
+    "architecture-context/graders/marker-names-booking-fr.md": "62389a547a8e8901ffde7b202ed31085d81575ea1ac0153c56af80d2206c3652",
+    "architecture-context/graders/needs-adr-marker.md": "897eca50ac292ae0736d8aa7d0e0fed0c609772ba895983a5638e5cc5501622c",
+    "architecture-context/graders/no-link-adr-001.md": "a063f495c000a723bc618f0916d05ff72bd51ab7cfbcb252f0296dc8a8242ee8",
+    "architecture-context/graders/no-link-adr-003.md": "1626a3e095f86d358229951fc5b67af06827e8dbef004f74c490698239bdbbc2",
+    "architecture-context/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "architecture-context/prompt.md": "e9abf241cd8fd22c0543e6997be518758d62940e5fd0056cf444279b302b9fb1",
+    "architecture-context/scaffold.sh": "f2292870682ba56d70c1369e3b1e31fa0fa219c50c3db11231452015ef408375",
+    "conditional-not-applicable/case.yaml": "9b49cd55502d9f33a6aa49ea5c8d0c8d74457f2a413a02b5bd47b209a3b6365d",
+    "conditional-not-applicable/graders/no-compliance-marker.md": "e42d8f696ab7823cba72708178546626aa0feb783de9290afe2051a9fa9f0683",
+    "conditional-not-applicable/graders/not-applicable-recorded.md": "8ea60f0f0db597d0b0dc4fb2417ec1e53642924b68bd966e739d052ae0fb8c1e",
+    "conditional-not-applicable/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "conditional-not-applicable/prompt.md": "2c06dc2a460bfebb0538538f0acf92be9c37ccc74617f8fee5bb11a2fab685fc",
+    "conditional-not-applicable/scaffold.sh": "5de80f34dd2321a9169a113b17ee30a7d50f37c9a0a6a7e8606d299b969d5fde",
+    "constraints-not-design/case.yaml": "6dc92a1130b19b0dc049a6d7a5b977ed7314e538ce4a1aa181d8d27e2f6adfe9",
+    "constraints-not-design/graders/aws-constraint.md": "868cb6f841f55f500232efaa1071a4361d90fbe0fa0925f7c71151e1cf792fb8",
+    "constraints-not-design/graders/has-constraint-category.md": "5189ab1d5fb9eb844e85828c3ace60afbf779d13021c630ffa42240fda7481a4",
+    "constraints-not-design/graders/microservices-is-open.md": "b131d3adc2dc885849d987e01bed269f1f0df1542f84014fa03cb3c29ef59730",
+    "constraints-not-design/graders/no-microservices-statement.md": "458dc3e8688948a80d55bdcac27e2c793222d7c5486c53ba4ba43249f8d10f6f",
+    "constraints-not-design/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "constraints-not-design/graders/stripe-constraint.md": "bacefdbb6c3cc808f770f205abed68ad78543d1af624d83e5544df5d851a00ef",
+    "constraints-not-design/prompt.md": "7aa5ff5e43525e2a623356a93b6e7a4e99e74697300cd06b5bc173e41e8a09ea",
+    "constraints-not-design/scaffold.sh": "8be9c33eeeb670c19f2cc9c1990eb21fca8046c28cb185897e2b4eb5c543771a",
+    "extend-or-new/case.yaml": "c0d98ba1f7d96e8df86e0f56de113a1c758c562e3fc544ac0faa80ffe12e2124",
+    "extend-or-new/graders/no-prd-002.md": "17e050d98304a057d6235e549305da893426247873abb605dbefce28299fa5f4",
+    "extend-or-new/graders/prd-001-unchanged.md": "4935e9f26b4c85ad5f3d01d7e966f370f03f55b6ba9df9da94f471e24d15cde0",
+    "extend-or-new/graders/recommends-new-and-asks.md": "d09be76e163bf3845c45e29e397b2ce7c1771fd6b9171346df547ff69c09b298",
+    "extend-or-new/prompt.md": "7d38bfd0f086a045ea0fa33984a478c46f19c9de2bd9353f5660993151025475",
+    "extend-or-new/scaffold.sh": "89b46f7e08b4d0acf2fd30ed1bdbda8b6e74d8ab28a7d7ae2577fdef0463c1ad",
+    "hands-off-to-architecture/case.yaml": "3decc1ecc3537c484e821321d6905fc88b021eda186a1431ef92d36892d24667",
+    "hands-off-to-architecture/graders/ends-with-next-step.md": "fdbe7ed66acbdc6ea7fe463ba112a6daa0b270e4a64effb02f55fa136d3cb1ab",
+    "hands-off-to-architecture/graders/handoff-quality.md": "c6c6ea360c1d88e0d4a078209b4f609ed419a412b2ba8a49366da6aeb1fe34bc",
+    "hands-off-to-architecture/graders/names-architecture-command.md": "e666428e0dd29097a5f901d16e0d2b66c4f805f2eec5e75642a69e099b8ad72d",
+    "hands-off-to-architecture/graders/next-step-has-no-path.md": "e6b87d6110cd45275b262015e9eef021ba14af7d4cc8d5b9e3eeb777d70a8cc4",
+    "hands-off-to-architecture/graders/no-adr-written.md": "6dd9572db0ecfbec19bd81f297c36bd7228af228040b8f25e4925725861a6585",
+    "hands-off-to-architecture/graders/no-epic-written.md": "5009fc40856c61e620909732b618da337dc16e511d3ffe778467c10f2df4b4f4",
+    "hands-off-to-architecture/graders/no-path-argument.md": "9a27ccba5cef65eb100c3dd07bc14e9e9275026e33d9b2e7db42aa148c28fb83",
+    "hands-off-to-architecture/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "hands-off-to-architecture/prompt.md": "215f11f1a6f69618d10097d642823490fa5cb92acd4300b29f4d27d28c0b60ad",
+    "hands-off-to-architecture/scaffold.sh": "a013e014559f6733a11b9e793bc2387f7c5b95d027b77fe6560a5b663ba72288",
+    "ignores-unrelated-request/graders/no-prd-written.md": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+    "ignores-unrelated-request/graders/skill-not-fired.md": "368bdb5c3587b1e3847b57391cb1277a459191788c359810ad549a3d3c26a75e",
+    "ignores-unrelated-request/graders/works-on-the-pr.md": "3d42f0bfa338a717be48f2d6c7076b59be75f7ca3ed0cef694e7c79cbc069087",
+    "ignores-unrelated-request/prompt.md": "cf808bb2912ebc22b35bce3ef66112103d644f5ac6dd11728c878d5b7751737c",
+    "invalid-policy-stops/case.yaml": "af5ac1b5c039748fb44ec412fde6d83dc81a34a2f451da6690f5a8e215ad4d47",
+    "invalid-policy-stops/graders/names-file.md": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "invalid-policy-stops/graders/names-key.md": "bcd053a195e6ac200302b031432a0393c1407714dbfa4597e15e634767e296bf",
+    "invalid-policy-stops/graders/names-setting.md": "3a5bca04f66ee2f44bb51c50af73bc72df877ef4f700c6e55880261fed41c591",
+    "invalid-policy-stops/graders/no-prd-written.md": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "invalid-policy-stops/prompt.md": "a49f3020915b99e25eeb84d9c2c87eccc4fb9859cb17ac0a8280ffe956772d01",
+    "invalid-policy-stops/scaffold.sh": "8d52f76878c4728471247c0fad3457b2e5be282a55f87252d501022771c9068d",
+    "no-invented-decisions/case.yaml": "418669667bd3a5aee0691509c2c66f60cc5c0b409d30c339c61b108dca8a3405",
+    "no-invented-decisions/graders/has-null-priority.md": "4f955452d9fe1bf617ba7b9def3bde775db27bc6006c171aef41d95df4314c46",
+    "no-invented-decisions/graders/no-decided-priority.md": "ce20df0d09519bd8cf3b0d13b839b788b2d90489e0086ad25018f434fb6399cd",
+    "no-invented-decisions/graders/no-decided-release.md": "9dd52dfaf763f8f14ecab18178312bdca38af45754f6127cd382a0230d4f3b42",
+    "no-invented-decisions/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "no-invented-decisions/graders/stage-prototype.md": "b8cfe198a293968e214ee7edb6b5fff35c919eac70ef66e7bad710a5d789fa8a",
+    "no-invented-decisions/graders/status-draft.md": "76c351971de2dccab6ceb480a2755f45ddec933bb4181d3e058043064e136224",
+    "no-invented-decisions/prompt.md": "3a0e0fc487fdff6644040a9acac783daef1d27cd3e39914ae9cfd64ac4a5ec62",
+    "no-invented-decisions/scaffold.sh": "de3ba881af0144631b0fb3f011f7eb259ace446b52ff59f56ca22b4f87caa003",
+    "no-policy-defaults/case.yaml": "06993fc3480830ba1f616e0fde922b7f3e1e64148bf48479011f7a4fd9a2dbc2",
+    "no-policy-defaults/graders/defaults-recorded.md": "b93489aa694833f7271e17ff251ca71e80762ac89ae7ee71cc1d2578bba3d06f",
+    "no-policy-defaults/graders/no-policy-link.md": "e139f2f7f21b359d2737afe47c3f1d5670ecfc8f2b780e39eaf246cd875e4392",
+    "no-policy-defaults/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "no-policy-defaults/prompt.md": "f192d6987b69ad40380debf24910c3fcc1fdebfe8131cd082f60cef0c1f1e3c8",
+    "no-policy-defaults/scaffold.sh": "be0807fd3ad046e970538a33f8f48b86538e3819d918dac92ebdcff08efa55bb",
+    "policy-applied/case.yaml": "97d47cd554faf6da2382fdda5173054ecbe94d5466bb647e5ca36701040e5bd5",
+    "policy-applied/graders/constraint-cites-set-01.md": "a50cd9870ca63ff3827962c1866340d1f8e41179f270e53c0a2b2d4ec8faba1f",
+    "policy-applied/graders/informed-by-set-02.md": "8cbc1a4df96ddbdc3aa2124184aad575e28c24cf450306723a170a7c392710e0",
+    "policy-applied/graders/marker-accessibility.md": "caaf07e66925e882a87554e97ba215b6536f414f9475165629c9ef9aab3a8177",
+    "policy-applied/graders/marker-compliance.md": "0c8dcb65dd7dc0ddfce8e8495add69355bbd4fae6deedcafa16cfd163ba38beb",
+    "policy-applied/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "policy-applied/graders/set-01-linked-once.md": "8e390253c25a8b58b4e1c830511a5c0a8363866caa808c85efa450d432f5537c",
+    "policy-applied/prompt.md": "ad11c13fa02d15032c854243cf467174c6fea090019a0eb6067a91939dfafb2f",
+    "policy-applied/scaffold.sh": "4af6c73414cbcd0b0c8c2b26ac0fd97993d910fb50803157a3ce980d3e9364c7",
+    "production-mvp/case.yaml": "6f5ea57c3f9c71541b33daf9c01ca263d05e340acdc2798a21cce0b2915ab67e",
+    "production-mvp/graders/context-production.md": "c7f58eb6fb3336292e610da1b581ae101de7cf8980bdfc9ac18416d7ed7b739c",
+    "production-mvp/graders/marker-accessibility.md": "ae3eb6ac650d4b64985418e6b5d30aa0608dc32c2fcd84ae51743dd3e27c9655",
+    "production-mvp/graders/marker-compliance.md": "299a93adf7ff1a4c0c697e407f9075e8fef5d3305c4a060ec120487b23294b31",
+    "production-mvp/graders/marker-observability.md": "338ad1aa6f41199c93a30da499dcfb608d5815941542cddf8c3ad2460388875c",
+    "production-mvp/graders/marker-performance.md": "2545a7073bde03beded3382ff1998d12e53cb1fecbf880fa16f947c321324c2f",
+    "production-mvp/graders/marker-reliability.md": "89b2b14f6905e5936234ec787f2adfc84fea92ce72270182253f41b217c672de",
+    "production-mvp/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "production-mvp/graders/privacy-nfr.md": "c1ae715d2719d2bdde5817b8ba533eb5c9d08033d261abe6edb02e166d9cd9fa",
+    "production-mvp/graders/security-nfr.md": "2753357914ecf4857adc8a7b9e1c2a60c962b52d4842aad993dfcf03d5026e2e",
+    "production-mvp/graders/stage-mvp.md": "af48671982bfeb7c63583b6a49b05504ed07b2fb13af2683fdbdba19b7674d9e",
+    "production-mvp/prompt.md": "2bd9b634687a1750551713f90834ca700dcb69a9dd1b911292eccff1a094e0d1",
+    "production-mvp/scaffold.sh": "5ff4448efe311b82cdf6d6e0918dd876e59e7b36d4d9df66a3fe44657dee53de",
+    "project-override-forbidden/case.yaml": "f53b17e0efa3add797495ea29489e0e005717c192e3f9e52dde511eb4ca6640d",
+    "project-override-forbidden/graders/names-both-settings.md": "21be2f600da501731f5e5d10ce64dcc0333be9838b4968712fea6934c0802879",
+    "project-override-forbidden/graders/names-sv-04.md": "a80269cba244d0be2ec252311927a8e82fb53d967d63586d2c0103c34154a4ae",
+    "project-override-forbidden/graders/no-prd-written.md": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "project-override-forbidden/prompt.md": "61949cef14c4685b2a2f5beba42860af449eaa7aaae4ab644781049986ceed00",
+    "project-override-forbidden/scaffold.sh": "98b54f2de04697c82e44d6c8ce0e637a44f6f8922ee7967aeb09749eddef0d1f",
+    "project-override-permitted/case.yaml": "7c4026be0fd25a56e4092117f7a9fe9ec351bd070a6459e40deba1d6736f5c9c",
+    "project-override-permitted/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "project-override-permitted/graders/project-value-wins.md": "2f73d89fc43f023c0410a886a676a4465963296f47b9e8561a94149eebc04042",
+    "project-override-permitted/prompt.md": "ad8a8b8c70277eb718e4d5b803c3b39139e9d984f3d2347ec941735077848ed1",
+    "project-override-permitted/scaffold.sh": "086bcf9e73cb9c1f078d46e96de55664f8efeb74ebc4e563dcc7f916584e0e10",
+    "provider-mapping.json": "8035f50eaba1cd270a16c87fc9a4974b755c2043ea16e2f8f04629d2f7fdb527",
+    "records-provenance/case.yaml": "65f6f15f561d4d4c5e54c66ef3b1d7e418c5ec63dd5ff89f8a62256c5485a3f5",
+    "records-provenance/graders/changelog-names-session.md": "523cdb7be0616da042aa64f7561c2519cbeb9eec683ac38b5675781962e2f521",
+    "records-provenance/graders/generated-by-filled.md": "69db2d7cef50386fa444dca060274fa7365b4425569e5edc8c07d595cb712cca",
+    "records-provenance/graders/hashes-null.md": "89bbb17946b98762163ed27d1e42c4d526c621864ec7adbe7b7bed8006b26022",
+    "records-provenance/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "records-provenance/graders/reviewed-by-empty.md": "fb41763b24dcb72793f765627ec5a79a4456526c287c61eae704a11ea40680cd",
+    "records-provenance/graders/session-substituted.md": "ca6c6c89534dbe27e3bf6cea9ed31a6b37a0b2e876a0b22fe796fdff57fcabef",
+    "records-provenance/prompt.md": "93472ae5e459760aa3b1903b260ebaec5a26fda16669db769355ee72de80120e",
+    "records-provenance/scaffold.sh": "200f45cb57968423841b7d7c46949d3b6e4a920b360b5b1634b1190749f03b6a",
+    "retired-setting-ignored/case.yaml": "d6438e841ca01670cd9384e3fe26ceabbb37ba5a7a4c96e5bafed28af8edc592",
+    "retired-setting-ignored/graders/no-retired-platform.md": "46726b89a59ee75ce1e1afd19ebb44ab90e43fbbdf5a7c8c3adf34ef0e704488",
+    "retired-setting-ignored/graders/no-set-01-link.md": "52656575b395c136c039997be186896563aaabbed268c2952ec2ac02e7ea47e4",
+    "retired-setting-ignored/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "retired-setting-ignored/prompt.md": "3cfd18ceaeab1c4999b8532f0579223966e11e5b87330b23475d4a717234ea22",
+    "retired-setting-ignored/scaffold.sh": "1772a46aef30206c6467c2c7e0db402a8dab6f6546112a04588f11d5c63206b7",
+    "selects-unprocessed-brn/case.yaml": "0083444e9a4baa2eb911a1687da6f83c0487d8fd621097e017274cd3eb1f5476",
+    "selects-unprocessed-brn/graders/no-prd-002.md": "17e050d98304a057d6235e549305da893426247873abb605dbefce28299fa5f4",
+    "selects-unprocessed-brn/graders/offers-brn-002.md": "410a2b99372c68dcf5a448b4cfcc868881c80466d79fff394421ef87916a3a70",
+    "selects-unprocessed-brn/graders/offers-only-unprocessed.md": "1ee8398acf4dc26e934c5389fe1a00f96dbe0a18569c5f32069cab8f16a23739",
+    "selects-unprocessed-brn/graders/prd-001-unchanged.md": "c2cb3485d16ca0bb448d0cd9d6fd1d2e4939c97df39faa75b96729ea27d74bef",
+    "selects-unprocessed-brn/graders/skill-fired.md": "3ae72edeee4b29b2b3ed41b66f74502e34330588f4157bc5cfeae5199262ec5a",
+    "selects-unprocessed-brn/prompt.md": "d778252482c48b6e0311c77b3a61a502db5376255d17aaccdc5c2595d3e3cca7",
+    "selects-unprocessed-brn/scaffold.sh": "d953170af35fca65e3d5e9f36ec6eea344ec7b8d9f0299bec176629d67c8935c",
+    "stops-without-promoted/case.yaml": "5b320113dc44075391b102eadc12bd4a2993fdb13046188b3314f6e10013cd6c",
+    "stops-without-promoted/graders/explains-why.md": "9855b106fd75c4e076b335913848806863a9f577b72065f265c3ada1ccb0bac9",
+    "stops-without-promoted/graders/no-prd-written.md": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+    "stops-without-promoted/graders/points-to-brainstorm.md": "d00b10676bd6b913bfee99dcf6656a07168d2aa68e209fee91c666c3e2f7267f",
+    "stops-without-promoted/prompt.md": "027b91249dfd359383de3955866add60a6b9f4b5417ce933d81c7919f6d50448",
+    "stops-without-promoted/scaffold.sh": "cd7a2446b234672f577f85890668ed0ce9e20210792ea970a616dbc1cbb07a61",
+    "unknown-context-failsafe/case.yaml": "bab0502094423a4c07fd6970a934ccb265b9940a429cf1f478b8c65bf5fc870f",
+    "unknown-context-failsafe/graders/compliance-marker.md": "1c06c57bda010c9d48452395708a7f4ec20e40e030950842ca305168d38923c9",
+    "unknown-context-failsafe/graders/context-null.md": "005b853a21b12fcd1fcbdc9b60d3489201614161104987825937fcb86783135e",
+    "unknown-context-failsafe/graders/failsafe-recorded.md": "59eee7a7ad6bfcbde30591a6ff677586b51a33593942ebc78392990d57d652e6",
+    "unknown-context-failsafe/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "unknown-context-failsafe/prompt.md": "d6e94989a971579777e3aa61bac11615ee2ff677b0429976a2bdc6d068bb669c",
+    "unknown-context-failsafe/scaffold.sh": "bc7bcdf36fddc310e2c4c27f3ff5cd335a8cd05761bb33600e5aabc8311ab98d",
+    "warns-unconverged/case.yaml": "4428247b87f67e356c75d11588b7b52425f8dbac0e16db300637557dd8922531",
+    "warns-unconverged/graders/no-prd-written.md": "c27010bfaf8568fe2808d842b18595410d848cf663a9671daf322fb7db0fcc5f",
+    "warns-unconverged/graders/warns-and-asks.md": "723cf53d9356cc358c2fe65440b58ca8fa167bb269b140c00618eb91de4fe4a6",
+    "warns-unconverged/prompt.md": "0da4dd259622269385d424cbfadcde75a42f3ec8be56c921f22c60147f7c751a",
+    "warns-unconverged/scaffold.sh": "c44f312e2942c6962706723265a1287e3bbdace825c027844d36a83d9ea9f3c4",
+    "writes-prd-from-brn/case.yaml": "4cd9c814568f0bcdc80e4b3f5d2210a4513b7a0a012ed6751e135433a11f3214",
+    "writes-prd-from-brn/graders/all-sections.md": "8c594f3ae0a6c16e98d4b86440114acfdff6f58d31d2a92fdc5e2c1b4786a312",
+    "writes-prd-from-brn/graders/cites-promoted-ideas.md": "01e4c3e262ec219e23107d270989f8bc3026b90b0eef234e42ca6f98bc1a9f39",
+    "writes-prd-from-brn/graders/framing-from-answers.md": "e013b28752279d040944d8ed49935550251cb8c5296e61ff4e2a79aa7fcd7639",
+    "writes-prd-from-brn/graders/frs-start-with-shall.md": "d2142d0a6043a99a86916defdea5df2c6ef82f1c5cf4ee7b194d00a79fb0aa1f",
+    "writes-prd-from-brn/graders/idea-01-frs-must-current.md": "a7df4c1117da5022de67af21c2dd23320b8efccf45add5b82047c5ccfaf818b5",
+    "writes-prd-from-brn/graders/idea-03-frs-should-current.md": "0d5b8e4c31dd4e508f60b19a832be96a1239853b43febd9548d9a0c4f4f63cb1",
+    "writes-prd-from-brn/graders/no-leftovers.md": "59a2eabcae9743c241b4dbed75ab9033cf691492eab65f233dcf3d64566c8f49",
+    "writes-prd-from-brn/graders/no-other-idea-01-decision.md": "2be731143fbe2e426d1e7b8f367823703648b12b7240847886b7050c09ca4ce8",
+    "writes-prd-from-brn/graders/no-other-idea-03-decision.md": "cf3e0d67708289ba3b29303c87e0731f04401b7f493de06391aa6619c2acf345",
+    "writes-prd-from-brn/graders/no-unpromoted-ideas.md": "1479a1adf8f17f90e5d2c6244750233dd815b1d623a3283fb3489255290bd492",
+    "writes-prd-from-brn/graders/prd-exists.md": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "writes-prd-from-brn/graders/skill-fired.md": "3ae72edeee4b29b2b3ed41b66f74502e34330588f4157bc5cfeae5199262ec5a",
+    "writes-prd-from-brn/prompt.md": "345ba1c056739c3a30eac209ddaa726a432a6d331eadfe587f4c7f0f7aea6c9c",
+    "writes-prd-from-brn/scaffold.sh": "35d79a4002d7c8e1a0f09fb0939e77f8e3aad61bcfc994f3fb72498e696c0042"
+  },
+  "generator_sha256": "fad04a5de069fc03b79fe32e400c47daee764e4f7855879d66504e0e0812024f",
+  "mandatory_VER_count": 23,
+  "automated_case_count": 20,
+  "repetitions": 3,
+  "arms": [
+    "plugin",
+    "baseline"
+  ],
+  "trial_count": 120,
+  "per_case_threshold": 0.8,
+  "acceptance": "Three binary repetitions require 3/3 PASS. A score never waives a failed or NOT_RUN obligation. Semantic checks require independent review of sealed raw artifacts.",
+  "runtime": {
+    "executable": null,
+    "version": null,
+    "status": "NOT_RUN"
+  },
+  "case_map": {
+    "architecture-context": "VER-14",
+    "conditional-not-applicable": "VER-20",
+    "constraints-not-design": "VER-10",
+    "extend-or-new": "VER-06",
+    "hands-off-to-architecture": "VER-07",
+    "ignores-unrelated-request": "VER-08",
+    "invalid-policy-stops": "VER-16",
+    "no-invented-decisions": "VER-02",
+    "no-policy-defaults": "VER-17",
+    "policy-applied": "VER-15",
+    "production-mvp": "VER-13",
+    "project-override-forbidden": "VER-19",
+    "project-override-permitted": "VER-18",
+    "records-provenance": "VER-09",
+    "retired-setting-ignored": "VER-22",
+    "selects-unprocessed-brn": "VER-03",
+    "stops-without-promoted": "VER-05",
+    "unknown-context-failsafe": "VER-21",
+    "warns-unconverged": "VER-04",
+    "writes-prd-from-brn": "VER-01"
+  },
+  "obligations": {
+    "BEH-01": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-01",
+        "status": "active",
+        "rule": "Select the input. If $ARGUMENTS is a BRN ID, read docs/specs/brainstorm/<ID>.md. If it is empty, list the unprocessed BRNs (\u00a74) with their titles and the number of uncited promoted ideas, then ask which one to use. Never guess the BRN, and never take a file path."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-03"
+      ],
+      "cases": [
+        "selects-unprocessed-brn"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-02": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-02",
+        "status": "active",
+        "rule": "Read the BRN's frontmatter status, problems, ideas, assumptions and candidate success signals. Use only ideas with disposition promoted. Never cite an open, parked or rejected idea anywhere in the PRD."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-01"
+      ],
+      "cases": [
+        "writes-prd-from-brn"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-03": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-03",
+        "status": "active",
+        "rule": "Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; evolution also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-11",
+        "VER-13",
+        "VER-15",
+        "VER-20",
+        "VER-21"
+      ],
+      "cases": [
+        "conditional-not-applicable",
+        "policy-applied",
+        "production-mvp",
+        "unknown-context-failsafe"
+      ],
+      "manual_verifications": [
+        "VER-11"
+      ]
+    },
+    "BEH-04": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-04",
+        "status": "active",
+        "rule": "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea into one or more requirements that start 'The system shall', each with an upstream derives link to its idea; assumptions carried over with derives links; success signals into metrics."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-01"
+      ],
+      "cases": [
+        "writes-prd-from-brn"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-05": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-05",
+        "status": "active",
+        "rule": "Interview only for gaps, in batched rounds using references/interview.md: framing (stage, operating context, target_release name, primary users, non-goals), architecture context (BEH-16), requirements, quality and constraints (BEH-03), and success metrics (baseline and target). Each requirement gets one question that shows its drafted statement and offers must now, should now, later, or won't: must now and should now write that priority with release current; later writes release later and leaves priority null; won't writes priority wont with release current (an explicit exclusion from this release; a requirement that should never be built is edited or dropped instead). The user can edit the statement or answer 'decide later', which leaves priority and release null. Ask at most four questions per call (a platform limit) and at most interview.max_calls calls (framework default 8, resolved by BEH-17) unless the user asks for more. Record anything left over when the budget runs out as [NEEDS CLARIFICATION]. Skip any question the BRN or the request already answers. When the request says to proceed without questions, ask none."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-11"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-11"
+      ]
+    },
+    "BEH-06": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-06",
+        "status": "active",
+        "rule": "Write stage, operating context, priority and release only when the user supplied or confirmed them. Otherwise write null. Questions may suggest a value, but a suggestion is never written unconfirmed. Mark any other unanswered gap [NEEDS CLARIFICATION]. Write a new PRD with status draft. Extending a draft or in-review PRD keeps its status; extending an approved PRD follows BEH-09. Never set approved."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-02",
+        "VER-13"
+      ],
+      "cases": [
+        "no-invented-decisions",
+        "production-mvp"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-07": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-07",
+        "status": "active",
+        "rule": "Record fixed external conditions (mandated platforms, required integrations, data residency, existing systems, regulatory mandates) as NFR items with category constraint, stated as the condition and not as a design, with where it applies (the whole product, a named capability or an environment). When the user offers a design preference (for example an architecture style or a framework), ask whether it is a hard constraint. If it is, record it as a constraint. If not, list it under open questions as a design decision for a future ADR, and never as a requirement."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-10"
+      ],
+      "cases": [
+        "constraints-not-design"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-08": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-08",
+        "status": "active",
+        "rule": "For a new PRD, allocate the ID by scanning docs/specs/prd/ for PRD-NNN.md files and using the highest number plus one (PRD-001 if none). Write to docs/specs/prd/PRD-NNN.md, creating the directory if it is missing. Never ask for or accept a file name. Put the product or release name in the title."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-01"
+      ],
+      "cases": [
+        "writes-prd-from-brn"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-09": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-09",
+        "status": "active",
+        "rule": "Decide new versus extend on scope, ownership and lifecycle, never on product identity or the number of existing PRDs. Read each existing PRD's title, goals, non-goals, owner, status and target_release. Recommend extending one only when the BRN's promoted ideas belong to that PRD's existing initiative and scope, share its owner, and fit its release lifecycle. Recommend a new PRD when they form a distinct initiative, have a different owner or approval path, or follow a different schedule, even within the same product. State the reasons and let the user decide. Ask when it is ambiguous; a single existing PRD is not evidence that it is the right destination. To extend: raise the version by one, update the date, give new items the next free number in each collection, leave every existing item unchanged, add a Change Log entry and add the new BRN links. If the PRD was approved, set status to in-review and clear approved_by and approved_on, so the scope change is reviewed explicitly. Then tell the user that epics citing this PRD are now suspect links to re-review."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-06",
+        "VER-12"
+      ],
+      "cases": [
+        "extend-or-new"
+      ],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "BEH-15": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-15",
+        "status": "active",
+        "rule": "Don't copy a constraint or cross-cutting NFR that another PRD already defines. Cite it from its authoritative source with a frontmatter upstream link {id: PRD-NNN, item: NFR-NNN, relation: constrains}, and say in the PRD what it applies to. When the user states a new constraint, record where it applies in the statement: the whole product, a named capability, or an environment."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "BEH-16": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-16",
+        "status": "active",
+        "rule": "Read architecture context from two sources only: ADRs in docs/specs/adr/ and documents that the BRN or the request names. Never crawl the codebase. Propose which accepted ADRs apply to this product and let the user confirm; with no user present, use only ADRs the request names. Ignore superseded ADRs. Classify what is learned: an existing commitment (an accepted ADR) becomes a frontmatter upstream link {id: ADR-NNN, relation: constrains}; a hard constraint becomes an NFR with category constraint; a preference becomes an open question; an unresolved decision (including a proposed ADR) becomes [NEEDS ADR: <decision>; affects FR-NNN, ...] in open questions, naming the requirements whose epics it blocks. Each applicable architecture.mandated_platforms setting (BEH-17) becomes a constraint NFR whose own item upstream cites its setting with {id: POL-NNN, item: SET-NN, relation: constrains, version: <policy version>, hash: null}; the link is not repeated in frontmatter. Ask about architecture context in the interview, but never decide a design question in the PRD."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-14",
+        "VER-15"
+      ],
+      "cases": [
+        "architecture-context",
+        "policy-applied"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-17": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-17",
+        "status": "active",
+        "rule": "Resolve policy with the ADR-003 A4 sequence, following references/policy.md. R1: read docs/specs/policy/POL-*.md, validate approved documents against the schema and SV-01 to SV-06, and skip and report draft or in-review ones. R2: resolve the unconditional settings (interview.max_calls, architecture.mandated_platforms) across framework defaults (references/defaults.md), organization, project and local preference (BEH-18), honouring overridable_by. R3: establish the operating context from the request, the BRN or the first framing question. R4: apply each active quality.required_categories setting whose applies_when includes that context, additively to the BEH-03 floor; if the context is still unknown, evaluate as production and say so. R5: record each applied policy setting as an upstream link with the policy version, in exactly one place: a mandated platform's constrains link on the item upstream of the constraint NFR it produced (BEH-16), and every setting that governs how the document is produced (interview.max_calls, quality.required_categories) as a frontmatter informed_by link. Then write the ADR-003 A5 resolution line into the Change Log entry, including defaults, local values, settings that didn't apply, the fail-safe context and ignored documents."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-15",
+        "VER-17",
+        "VER-18",
+        "VER-20",
+        "VER-21",
+        "VER-22"
+      ],
+      "cases": [
+        "conditional-not-applicable",
+        "no-policy-defaults",
+        "policy-applied",
+        "project-override-permitted",
+        "retired-setting-ignored",
+        "unknown-context-failsafe"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-18": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-18",
+        "status": "active",
+        "rule": "Read local preferences from .claude/devforgeai.local.md if it exists: YAML frontmatter with devforgeai_local: 1 and interaction-default keys only (v1: interview.max_calls). Use an entry only if the effective setting's overridable_by includes local. Ignore and report any other entry (unknown key, organizational-policy key, bad type or range, not allowed). A local file never stops the skill. Record used values as '<key>=<value> (local)' in the resolution line, never as a link."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-23"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-23"
+      ]
+    },
+    "BEH-10": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-10",
+        "status": "active",
+        "rule": "Fill the frontmatter provenance: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-09"
+      ],
+      "cases": [
+        "records-provenance"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-11": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-11",
+        "status": "active",
+        "rule": "Build the document from ${CLAUDE_SKILL_DIR}/assets/prd.md. Keep every section heading, including the GENERATED epic map. Replace each placeholder or mark it [NEEDS CLARIFICATION]. Delete author comments."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-01"
+      ],
+      "cases": [
+        "writes-prd-from-brn"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-12": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-12",
+        "status": "active",
+        "rule": "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Fix and check again, at most three attempts. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 \u00a72)."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-01"
+      ],
+      "cases": [
+        "writes-prd-from-brn"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-13": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-13",
+        "status": "active",
+        "rule": "Hand off with counts of requirements, constraints and metrics, the number of null decisions, the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step, which is the architecture step (ADR-002): if ${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md exists, tell the user to run /devforgeai:architecture with the PRD ID. Otherwise say the architecture skill (planned as /devforgeai:architecture) does not exist yet, that for now the step is done by hand by writing ADRs with the ADR template, and that this PRD and its [NEEDS ADR] markers are its input; once the skill is built, /devforgeai:architecture with this PRD's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-07"
+      ],
+      "cases": [
+        "hands-off-to-architecture"
+      ],
+      "manual_verifications": []
+    },
+    "BEH-14": {
+      "kind": "behaviors",
+      "specification": {
+        "id": "BEH-14",
+        "status": "active",
+        "rule": "Never modify a BRN document."
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "ERR-01": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-01",
+        "status": "active",
+        "condition": "The BRN ID given does not exist",
+        "handling": "Say so, list the BRN IDs that do exist, and write nothing",
+        "user_result": "The list of available BRNs"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "ERR-02": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-02",
+        "status": "active",
+        "condition": "The selected BRN's status is not converged",
+        "handling": "Warn that some ideas may not be decided, and continue only after the user confirms. If there is no confirmation, as in a non-interactive run, write nothing",
+        "user_result": "A warning and a question; no file unless confirmed"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-04"
+      ],
+      "cases": [
+        "warns-unconverged"
+      ],
+      "manual_verifications": []
+    },
+    "ERR-03": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-03",
+        "status": "active",
+        "condition": "The selected BRN has no promoted idea",
+        "handling": "Stop, write nothing, and point the user back to the brainstorm workflow to converge",
+        "user_result": "An explanation and the next step (/devforgeai:brainstorm)"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-05"
+      ],
+      "cases": [
+        "stops-without-promoted"
+      ],
+      "manual_verifications": []
+    },
+    "ERR-04": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-04",
+        "status": "active",
+        "condition": "No argument was given and no unprocessed BRN exists",
+        "handling": "Say that every promoted idea is already cited by a PRD, and write nothing",
+        "user_result": "A statement that there is nothing to process"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "ERR-05": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-05",
+        "status": "active",
+        "condition": "The BRN's item blocks can't be read (malformed YAML or missing collections)",
+        "handling": "Report which block failed and stop. Never repair the BRN",
+        "user_result": "The error and the BRN path"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "ERR-06": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-06",
+        "status": "active",
+        "condition": "Validation still fails after three fix attempts",
+        "handling": "Stop, leave the PRD's status as it was before this write (draft for a new PRD, unchanged for an extension), and list the remaining errors",
+        "user_result": "The file path and the unresolved errors"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "ERR-07": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-07",
+        "status": "active",
+        "condition": "The user stops mid-interview",
+        "handling": "Ask whether to save a draft PRD. If yes, write it with every undecided field null",
+        "user_result": "Either a draft file or no file, as the user chose"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-11"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-11"
+      ]
+    },
+    "ERR-08": {
+      "kind": "errors",
+      "specification": {
+        "id": "ERR-08",
+        "status": "active",
+        "condition": "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local",
+        "handling": "Stop before writing anything. Name the policy file, the setting and the rule broken (schema or SV-NN). Never guess or fall back silently",
+        "user_result": "The policy error to fix; no PRD file"
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-16",
+        "VER-19",
+        "VER-23"
+      ],
+      "cases": [
+        "invalid-policy-stops",
+        "project-override-forbidden"
+      ],
+      "manual_verifications": [
+        "VER-23"
+      ]
+    },
+    "QR-01": {
+      "kind": "quality_responses",
+      "specification": {
+        "id": "QR-01",
+        "status": "active",
+        "response": "SKILL.md holds only the workflow checklist, decision rules, output contract and links. The BRN mapping, the question bank and the output rules live in references/.",
+        "measured_by": "SKILL.md line count and description length",
+        "upstream": [
+          {
+            "id": "PRD-001",
+            "item": "NFR-001",
+            "relation": "satisfies",
+            "version": 9,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "QR-02": {
+      "kind": "quality_responses",
+      "specification": {
+        "id": "QR-02",
+        "status": "active",
+        "response": "Frontmatter limited to the fields in \u00a75; provenance kept in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version",
+        "measured_by": "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values",
+        "upstream": [
+          {
+            "id": "PRD-001",
+            "item": "NFR-002",
+            "relation": "satisfies",
+            "version": 9,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-08"
+      ],
+      "cases": [
+        "ignores-unrelated-request"
+      ],
+      "manual_verifications": []
+    },
+    "QR-03": {
+      "kind": "quality_responses",
+      "specification": {
+        "id": "QR-03",
+        "status": "active",
+        "response": "One eval case per automated VER item, tagged prd and ver-NN, run against the no-plugin baseline",
+        "measured_by": "claude plugin eval --threshold 0.8 over 3 runs",
+        "upstream": [
+          {
+            "id": "PRD-001",
+            "item": "NFR-003",
+            "relation": "satisfies",
+            "version": 9,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-08"
+      ],
+      "cases": [
+        "ignores-unrelated-request"
+      ],
+      "manual_verifications": []
+    },
+    "VER-01": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-01",
+        "status": "active",
+        "obligation": "Given a converged BRN-001 with IDEA-01 and IDEA-03 promoted, IDEA-02 parked and IDEA-04 rejected, '/devforgeai:prd BRN-001' with all answers in the prompt writes docs/specs/prd/PRD-001.md. Its requirements cite IDEA-01 and IDEA-03 and never IDEA-02 or IDEA-04. Eval case writes-prd-from-brn: file_exists, regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-02",
+          "BEH-04",
+          "BEH-08",
+          "BEH-11",
+          "BEH-12"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-02",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-01"
+      ],
+      "cases": [
+        "writes-prd-from-brn"
+      ],
+      "manual_verifications": []
+    },
+    "VER-02": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-02",
+        "status": "active",
+        "obligation": "With a prompt that gives the stage (prototype) but no priorities or releases and says to proceed without questions, the file has stage: prototype, only null priority and release values, and status draft. Eval case no-invented-decisions: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-06"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-03",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-02"
+      ],
+      "cases": [
+        "no-invented-decisions"
+      ],
+      "manual_verifications": []
+    },
+    "VER-03": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-03",
+        "status": "active",
+        "obligation": "With BRN-001 fully cited by an existing PRD-001 and BRN-002 not cited, '/devforgeai:prd' with no argument offers BRN-002 and not BRN-001, and writes no file. Eval case selects-unprocessed-brn: regex and llm on the reply, file_exists false for PRD-002.md.",
+        "level": "e2e",
+        "covers": [
+          "BEH-01"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-01",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-03"
+      ],
+      "cases": [
+        "selects-unprocessed-brn"
+      ],
+      "manual_verifications": []
+    },
+    "VER-04": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-04",
+        "status": "active",
+        "obligation": "With a draft (not converged) BRN-001, the skill warns and, with no user to confirm, writes no PRD. Eval case warns-unconverged: llm on the reply, file_exists false.",
+        "level": "e2e",
+        "covers": [
+          "ERR-02"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-05",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-04"
+      ],
+      "cases": [
+        "warns-unconverged"
+      ],
+      "manual_verifications": []
+    },
+    "VER-05": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-05",
+        "status": "active",
+        "obligation": "With a converged BRN-001 that has no promoted idea, the skill stops, writes no PRD and points to the brainstorm workflow. Eval case stops-without-promoted: regex on the reply for brainstorm, file_exists false.",
+        "level": "e2e",
+        "covers": [
+          "ERR-03"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-05",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-05"
+      ],
+      "cases": [
+        "stops-without-promoted"
+      ],
+      "manual_verifications": []
+    },
+    "VER-06": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-06",
+        "status": "active",
+        "obligation": "Fixture: PRD-001 covers one initiative (for example onboarding recovery, with its own owner and target release). BRN-002 promotes ideas for a different initiative in the same product (for example account closure). The skill doesn't default to extending PRD-001: it recommends a new PRD with reasons about scope, ownership or lifecycle, asks the user, writes nothing without an answer, and leaves PRD-001 unchanged. Eval case extend-or-new: llm on the reply, regex that PRD-001.md still has version: 1, file_exists false for PRD-002.md.",
+        "level": "e2e",
+        "covers": [
+          "BEH-09"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-06",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-06"
+      ],
+      "cases": [
+        "extend-or-new"
+      ],
+      "manual_verifications": []
+    },
+    "VER-07": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-07",
+        "status": "active",
+        "obligation": "After writing the PRD, the final reply hands off to the architecture step (BEH-13). The handoff is the last paragraph of the reply, outside any code block; it starts with the words Next step, and nothing follows it. It names the PRD by its ID, never by a file path, and the skill starts no architecture work and writes no ADR or epic. What it says depends on the plugin. Without an architecture skill, it says the architecture skill (planned as /devforgeai:architecture) does not exist yet, that for now the step is done by hand by writing ADRs with the ADR template, and that once the skill is built /devforgeai:architecture PRD-001 runs on it. With an architecture skill, it tells the user to run /devforgeai:architecture PRD-001 and doesn't claim that the skill is unavailable or that the step is done by hand. Eval case hands-off-to-architecture checks the branch the plugin ships, with regex and llm on last_message; the change that ships the architecture skill switches the case to the other branch.",
+        "level": "e2e",
+        "covers": [
+          "BEH-13"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-07",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-07"
+      ],
+      "cases": [
+        "hands-off-to-architecture"
+      ],
+      "manual_verifications": []
+    },
+    "VER-08": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-08",
+        "status": "active",
+        "obligation": "A request such as 'open a PR for my staged changes and write its description' does not invoke the prd skill. Eval case ignores-unrelated-request: tool_used Skill min 0 max 0 arm both.",
+        "level": "e2e",
+        "covers": [
+          "QR-02",
+          "QR-03"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-08",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-08"
+      ],
+      "cases": [
+        "ignores-unrelated-request"
+      ],
+      "manual_verifications": []
+    },
+    "VER-09": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-09",
+        "status": "active",
+        "obligation": "The written PRD's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-10"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-09",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-09"
+      ],
+      "cases": [
+        "records-provenance"
+      ],
+      "manual_verifications": []
+    },
+    "VER-10": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-10",
+        "status": "active",
+        "obligation": "A prompt stating 'it must run on AWS and must integrate with Stripe; I'm leaning towards microservices', with instructions to proceed without questions, yields constraint NFRs for AWS and Stripe, and no requirement or constraint about microservices. Eval case constraints-not-design: regex on the file for category: constraint, llm on the file for the microservices rule.",
+        "level": "e2e",
+        "covers": [
+          "BEH-07"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-04",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-10"
+      ],
+      "cases": [
+        "constraints-not-design"
+      ],
+      "manual_verifications": []
+    },
+    "VER-11": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-11",
+        "status": "active",
+        "obligation": "In an interactive session with a BRN that already names the users and a request that states the stage and operating context: no question repeats those answers, every batch has at most four questions, the whole interview stays within the resolved interview.max_calls, the NFR categories asked match the operating context, and an 'anything else' quality question is offered. Stopping mid-interview offers a draft save.",
+        "level": "manual",
+        "covers": [
+          "BEH-03",
+          "BEH-05",
+          "ERR-07"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-04",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-11"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-11"
+      ]
+    },
+    "VER-12": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-12",
+        "status": "active",
+        "obligation": "Manual extension run: extending PRD-001 from a second BRN of the same initiative raises the version, continues numbering, leaves existing items byte-identical, adds a Change Log entry and warns about suspect epics. With PRD-001 approved beforehand, the extension returns it to in-review and clears the approval. git diff shows no change to any BRN. A new PRD that shares a constraint with PRD-001 cites it with a constrains link, not a copy. Also check that an unknown BRN ID lists the available BRNs, that a malformed BRN stops with the failing block named, and that SKILL.md is within the NFR-001 limits.",
+        "level": "manual",
+        "covers": [
+          "BEH-09",
+          "BEH-14",
+          "BEH-15",
+          "ERR-01",
+          "ERR-04",
+          "ERR-05",
+          "ERR-06",
+          "QR-01"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-06",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-12"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-12"
+      ]
+    },
+    "VER-13": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-13",
+        "status": "active",
+        "obligation": "Production MVP: with the partially specified BRN in src/staging/examples/prd-production-mvp/ as fixture, a prompt stating 'this is our MVP and real patients will book through it from day one; patients must sign in; appointment details are private to the patient and staff; decide nothing else; proceed without questions' writes docs/specs/prd/PRD-001.md with stage: mvp, operating_context: production, security and privacy NFRs, and a [NEEDS CLARIFICATION] marker in open questions for each of reliability, observability, compliance, performance and accessibility. Eval case production-mvp: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-03",
+          "BEH-06"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-10",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-13"
+      ],
+      "cases": [
+        "production-mvp"
+      ],
+      "manual_verifications": []
+    },
+    "VER-14": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-14",
+        "status": "active",
+        "obligation": "Architecture context: fixtures are an accepted ADR-002 ('ClinicCore is the calendar of record') and a proposed ADR-003 ('synchronous booking writes vs scheduled import'), with a request that names both. The PRD gets a constrains link to ADR-002, no link to ADR-003, and a [NEEDS ADR] marker naming the booking requirements. The handoff says those epics must wait. Eval case architecture-context: regex on the file and on last_message.",
+        "level": "e2e",
+        "covers": [
+          "BEH-16"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-04",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-14"
+      ],
+      "cases": [
+        "architecture-context"
+      ],
+      "manual_verifications": []
+    },
+    "VER-15": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-15",
+        "status": "active",
+        "obligation": "Policy applied: fixtures are Organization A's policy (src/staging/examples/policy-two-orgs/org-a/POL-001.md, copied to docs/specs/policy/) and a converged BRN. The prompt states operating context internal and proceeds without questions. The PRD has a constraint NFR whose item upstream cites POL-001#SET-01 with relation constrains (and no frontmatter link to SET-01), a frontmatter informed_by link to POL-001#SET-02 at version 3, and [NEEDS CLARIFICATION] markers for compliance and accessibility, which the policy adds to the internal floor. Eval case policy-applied: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-17",
+          "BEH-03",
+          "BEH-16"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-15"
+      ],
+      "cases": [
+        "policy-applied"
+      ],
+      "manual_verifications": []
+    },
+    "VER-16": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-16",
+        "status": "active",
+        "obligation": "Invalid policy: an approved policy whose interview.max_calls is 50 (out of range) makes the skill stop, write no PRD and name the file and setting. Eval case invalid-policy-stops: file_exists false for docs/specs/prd/PRD-001.md, regex on last_message for SET- and max_calls.",
+        "level": "e2e",
+        "covers": [
+          "ERR-08"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-16"
+      ],
+      "cases": [
+        "invalid-policy-stops"
+      ],
+      "manual_verifications": []
+    },
+    "VER-17": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-17",
+        "status": "active",
+        "obligation": "No policy: with no docs/specs/policy/ directory, the PRD has no POL link and its Change Log entry states framework defaults. Eval case no-policy-defaults: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-17"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-17"
+      ],
+      "cases": [
+        "no-policy-defaults"
+      ],
+      "manual_verifications": []
+    },
+    "VER-18": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-18",
+        "status": "active",
+        "obligation": "Permitted project override: an approved organization policy sets interview.max_calls 8 with overridable_by [project]; an approved project policy sets it to 4. The PRD's resolution line contains 'interview.max_calls=4 (POL-002#SET-01)'. Eval case project-override-permitted: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-17"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-18"
+      ],
+      "cases": [
+        "project-override-permitted"
+      ],
+      "manual_verifications": []
+    },
+    "VER-19": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-19",
+        "status": "active",
+        "obligation": "Forbidden project override: the organization mandates an identity platform with overridable_by []; the project policy mandates a different identity platform. The skill stops, writes no PRD and names both settings and SV-04. Eval case project-override-forbidden: file_exists false, regex on last_message for SV-04.",
+        "level": "e2e",
+        "covers": [
+          "ERR-08"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-19"
+      ],
+      "cases": [
+        "project-override-forbidden"
+      ],
+      "manual_verifications": []
+    },
+    "VER-20": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-20",
+        "status": "active",
+        "obligation": "Conditional setting not applicable: the organization requires compliance when operating_context is production; the prompt states internal. The PRD has no compliance marker from policy, and the resolution line contains 'not applicable (internal)'. Eval case conditional-not-applicable: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-17",
+          "BEH-03"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-20"
+      ],
+      "cases": [
+        "conditional-not-applicable"
+      ],
+      "manual_verifications": []
+    },
+    "VER-21": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-21",
+        "status": "active",
+        "obligation": "Unknown context fails safe: the same policy, with a prompt that gives no operating context and says to proceed without questions. The PRD keeps operating_context: null, has the compliance marker, and the resolution line contains 'operating context unknown, resolved as production'. Eval case unknown-context-failsafe: regex on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-17",
+          "BEH-03"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-21"
+      ],
+      "cases": [
+        "unknown-context-failsafe"
+      ],
+      "manual_verifications": []
+    },
+    "VER-22": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-22",
+        "status": "active",
+        "obligation": "Retired setting: the organization's identity-platform setting has status deprecated. The PRD has no constraint NFR and no link for it. Eval case retired-setting-ignored: regex not_contains on the file.",
+        "level": "e2e",
+        "covers": [
+          "BEH-17"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-22"
+      ],
+      "cases": [
+        "retired-setting-ignored"
+      ],
+      "manual_verifications": []
+    },
+    "VER-23": {
+      "kind": "verifications",
+      "specification": {
+        "id": "VER-23",
+        "status": "active",
+        "obligation": "Manual. Local preferences: interview.max_calls: 5 with no policy gives '(local)' in the resolution line and an interview of at most five calls; a local organizational-policy key and an out-of-range value are ignored and reported. Semantic rules: a duplicate SET id (SV-01) and two approved organization policies (SV-02) each stop the skill with the rule named; a draft policy is ignored and reported (SV-06). Eval workspaces don't load project .claude/ files, so local preferences are checked by hand.",
+        "level": "manual",
+        "covers": [
+          "BEH-18",
+          "ERR-08"
+        ],
+        "upstream": [
+          {
+            "id": "STORY-002",
+            "item": "AC-11",
+            "relation": "verifies",
+            "version": 7,
+            "hash": null
+          }
+        ]
+      },
+      "status": "NOT_RUN",
+      "verifications": [
+        "VER-23"
+      ],
+      "cases": [],
+      "manual_verifications": [
+        "VER-23"
+      ]
+    }
+  },
+  "manual_branches": {
+    "VER-11": [
+      {
+        "branch": "no repeated answered questions",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "all requirement choices and statement editing",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "three-question host batches within original call budget including gates",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "context floor plus policy categories and anything-else question",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "stop then save yes",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "stop then save no",
+        "status": "NOT_RUN"
+      }
+    ],
+    "VER-12": [
+      {
+        "branch": "draft extension stable bytes and next free IDs",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "approved extension lifecycle and cleared approval",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "unchanged BRNs",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "shared constraints linked rather than copied",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "unknown BRN ID",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "no unprocessed BRN",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "malformed or missing BRN item collection",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "actual write/fix/readback exhaustion including approved extension",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "500-line and description limits",
+        "status": "NOT_RUN"
+      }
+    ],
+    "VER-23": [
+      {
+        "branch": "local budget 5",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "ignored local policy key",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "ignored local out-of-range or bad type",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "SV-01 duplicate setting ID",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "SV-02 duplicate approved scope",
+        "status": "NOT_RUN"
+      },
+      {
+        "branch": "SV-06 ignored draft policy",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "supplemental_branches": [
+    {
+      "branch": "explicit unconverged authorization versus unanswered gate",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "explicit new/extend choice versus interview-skip only",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "explicit-none quality answer versus unanswered and partial answer",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "policy-added categories and mandated platforms with unclear applicability",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "actual current provenance versus missing, stale or conflicting identity",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "handoff when Architecture is present and when absent in selected runtime package",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "extension history and existing human reviews remain unchanged",
+      "status": "NOT_RUN"
+    },
+    {
+      "branch": "approved-extension failure disposition remains blocked pending owner decision",
+      "status": "NOT_RUN"
+    }
+  ],
+  "trials": [
+    {
+      "id": "architecture-context--plugin--1",
+      "case": "architecture-context",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "architecture-context--baseline--1",
+      "case": "architecture-context",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "architecture-context--plugin--2",
+      "case": "architecture-context",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "architecture-context--baseline--2",
+      "case": "architecture-context",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "architecture-context--plugin--3",
+      "case": "architecture-context",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "architecture-context--baseline--3",
+      "case": "architecture-context",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "conditional-not-applicable--plugin--1",
+      "case": "conditional-not-applicable",
+      "verification": "VER-20",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "conditional-not-applicable--baseline--1",
+      "case": "conditional-not-applicable",
+      "verification": "VER-20",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "conditional-not-applicable--plugin--2",
+      "case": "conditional-not-applicable",
+      "verification": "VER-20",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "conditional-not-applicable--baseline--2",
+      "case": "conditional-not-applicable",
+      "verification": "VER-20",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "conditional-not-applicable--plugin--3",
+      "case": "conditional-not-applicable",
+      "verification": "VER-20",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "conditional-not-applicable--baseline--3",
+      "case": "conditional-not-applicable",
+      "verification": "VER-20",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "constraints-not-design--plugin--1",
+      "case": "constraints-not-design",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "constraints-not-design--baseline--1",
+      "case": "constraints-not-design",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "constraints-not-design--plugin--2",
+      "case": "constraints-not-design",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "constraints-not-design--baseline--2",
+      "case": "constraints-not-design",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "constraints-not-design--plugin--3",
+      "case": "constraints-not-design",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "constraints-not-design--baseline--3",
+      "case": "constraints-not-design",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "extend-or-new--plugin--1",
+      "case": "extend-or-new",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "extend-or-new--baseline--1",
+      "case": "extend-or-new",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "extend-or-new--plugin--2",
+      "case": "extend-or-new",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "extend-or-new--baseline--2",
+      "case": "extend-or-new",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "extend-or-new--plugin--3",
+      "case": "extend-or-new",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "extend-or-new--baseline--3",
+      "case": "extend-or-new",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "hands-off-to-architecture--plugin--1",
+      "case": "hands-off-to-architecture",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "hands-off-to-architecture--baseline--1",
+      "case": "hands-off-to-architecture",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "hands-off-to-architecture--plugin--2",
+      "case": "hands-off-to-architecture",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "hands-off-to-architecture--baseline--2",
+      "case": "hands-off-to-architecture",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "hands-off-to-architecture--plugin--3",
+      "case": "hands-off-to-architecture",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "hands-off-to-architecture--baseline--3",
+      "case": "hands-off-to-architecture",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ignores-unrelated-request--plugin--1",
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ignores-unrelated-request--baseline--1",
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ignores-unrelated-request--plugin--2",
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ignores-unrelated-request--baseline--2",
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ignores-unrelated-request--plugin--3",
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "ignores-unrelated-request--baseline--3",
+      "case": "ignores-unrelated-request",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "invalid-policy-stops--plugin--1",
+      "case": "invalid-policy-stops",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "invalid-policy-stops--baseline--1",
+      "case": "invalid-policy-stops",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "invalid-policy-stops--plugin--2",
+      "case": "invalid-policy-stops",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "invalid-policy-stops--baseline--2",
+      "case": "invalid-policy-stops",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "invalid-policy-stops--plugin--3",
+      "case": "invalid-policy-stops",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "invalid-policy-stops--baseline--3",
+      "case": "invalid-policy-stops",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-invented-decisions--plugin--1",
+      "case": "no-invented-decisions",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-invented-decisions--baseline--1",
+      "case": "no-invented-decisions",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-invented-decisions--plugin--2",
+      "case": "no-invented-decisions",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-invented-decisions--baseline--2",
+      "case": "no-invented-decisions",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-invented-decisions--plugin--3",
+      "case": "no-invented-decisions",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-invented-decisions--baseline--3",
+      "case": "no-invented-decisions",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-policy-defaults--plugin--1",
+      "case": "no-policy-defaults",
+      "verification": "VER-17",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-policy-defaults--baseline--1",
+      "case": "no-policy-defaults",
+      "verification": "VER-17",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-policy-defaults--plugin--2",
+      "case": "no-policy-defaults",
+      "verification": "VER-17",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-policy-defaults--baseline--2",
+      "case": "no-policy-defaults",
+      "verification": "VER-17",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-policy-defaults--plugin--3",
+      "case": "no-policy-defaults",
+      "verification": "VER-17",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "no-policy-defaults--baseline--3",
+      "case": "no-policy-defaults",
+      "verification": "VER-17",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-applied--plugin--1",
+      "case": "policy-applied",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-applied--baseline--1",
+      "case": "policy-applied",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-applied--plugin--2",
+      "case": "policy-applied",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-applied--baseline--2",
+      "case": "policy-applied",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-applied--plugin--3",
+      "case": "policy-applied",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-applied--baseline--3",
+      "case": "policy-applied",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "production-mvp--plugin--1",
+      "case": "production-mvp",
+      "verification": "VER-13",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "production-mvp--baseline--1",
+      "case": "production-mvp",
+      "verification": "VER-13",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "production-mvp--plugin--2",
+      "case": "production-mvp",
+      "verification": "VER-13",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "production-mvp--baseline--2",
+      "case": "production-mvp",
+      "verification": "VER-13",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "production-mvp--plugin--3",
+      "case": "production-mvp",
+      "verification": "VER-13",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "production-mvp--baseline--3",
+      "case": "production-mvp",
+      "verification": "VER-13",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-forbidden--plugin--1",
+      "case": "project-override-forbidden",
+      "verification": "VER-19",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-forbidden--baseline--1",
+      "case": "project-override-forbidden",
+      "verification": "VER-19",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-forbidden--plugin--2",
+      "case": "project-override-forbidden",
+      "verification": "VER-19",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-forbidden--baseline--2",
+      "case": "project-override-forbidden",
+      "verification": "VER-19",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-forbidden--plugin--3",
+      "case": "project-override-forbidden",
+      "verification": "VER-19",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-forbidden--baseline--3",
+      "case": "project-override-forbidden",
+      "verification": "VER-19",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-permitted--plugin--1",
+      "case": "project-override-permitted",
+      "verification": "VER-18",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-permitted--baseline--1",
+      "case": "project-override-permitted",
+      "verification": "VER-18",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-permitted--plugin--2",
+      "case": "project-override-permitted",
+      "verification": "VER-18",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-permitted--baseline--2",
+      "case": "project-override-permitted",
+      "verification": "VER-18",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-permitted--plugin--3",
+      "case": "project-override-permitted",
+      "verification": "VER-18",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "project-override-permitted--baseline--3",
+      "case": "project-override-permitted",
+      "verification": "VER-18",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "records-provenance--plugin--1",
+      "case": "records-provenance",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "records-provenance--baseline--1",
+      "case": "records-provenance",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "records-provenance--plugin--2",
+      "case": "records-provenance",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "records-provenance--baseline--2",
+      "case": "records-provenance",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "records-provenance--plugin--3",
+      "case": "records-provenance",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "records-provenance--baseline--3",
+      "case": "records-provenance",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "retired-setting-ignored--plugin--1",
+      "case": "retired-setting-ignored",
+      "verification": "VER-22",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "retired-setting-ignored--baseline--1",
+      "case": "retired-setting-ignored",
+      "verification": "VER-22",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "retired-setting-ignored--plugin--2",
+      "case": "retired-setting-ignored",
+      "verification": "VER-22",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "retired-setting-ignored--baseline--2",
+      "case": "retired-setting-ignored",
+      "verification": "VER-22",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "retired-setting-ignored--plugin--3",
+      "case": "retired-setting-ignored",
+      "verification": "VER-22",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "retired-setting-ignored--baseline--3",
+      "case": "retired-setting-ignored",
+      "verification": "VER-22",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "selects-unprocessed-brn--plugin--1",
+      "case": "selects-unprocessed-brn",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "selects-unprocessed-brn--baseline--1",
+      "case": "selects-unprocessed-brn",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "selects-unprocessed-brn--plugin--2",
+      "case": "selects-unprocessed-brn",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "selects-unprocessed-brn--baseline--2",
+      "case": "selects-unprocessed-brn",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "selects-unprocessed-brn--plugin--3",
+      "case": "selects-unprocessed-brn",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "selects-unprocessed-brn--baseline--3",
+      "case": "selects-unprocessed-brn",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "stops-without-promoted--plugin--1",
+      "case": "stops-without-promoted",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "stops-without-promoted--baseline--1",
+      "case": "stops-without-promoted",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "stops-without-promoted--plugin--2",
+      "case": "stops-without-promoted",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "stops-without-promoted--baseline--2",
+      "case": "stops-without-promoted",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "stops-without-promoted--plugin--3",
+      "case": "stops-without-promoted",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "stops-without-promoted--baseline--3",
+      "case": "stops-without-promoted",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-context-failsafe--plugin--1",
+      "case": "unknown-context-failsafe",
+      "verification": "VER-21",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-context-failsafe--baseline--1",
+      "case": "unknown-context-failsafe",
+      "verification": "VER-21",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-context-failsafe--plugin--2",
+      "case": "unknown-context-failsafe",
+      "verification": "VER-21",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-context-failsafe--baseline--2",
+      "case": "unknown-context-failsafe",
+      "verification": "VER-21",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-context-failsafe--plugin--3",
+      "case": "unknown-context-failsafe",
+      "verification": "VER-21",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-context-failsafe--baseline--3",
+      "case": "unknown-context-failsafe",
+      "verification": "VER-21",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "warns-unconverged--plugin--1",
+      "case": "warns-unconverged",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "warns-unconverged--baseline--1",
+      "case": "warns-unconverged",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "warns-unconverged--plugin--2",
+      "case": "warns-unconverged",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "warns-unconverged--baseline--2",
+      "case": "warns-unconverged",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "warns-unconverged--plugin--3",
+      "case": "warns-unconverged",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "warns-unconverged--baseline--3",
+      "case": "warns-unconverged",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "writes-prd-from-brn--plugin--1",
+      "case": "writes-prd-from-brn",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "writes-prd-from-brn--baseline--1",
+      "case": "writes-prd-from-brn",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "writes-prd-from-brn--plugin--2",
+      "case": "writes-prd-from-brn",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "writes-prd-from-brn--baseline--2",
+      "case": "writes-prd-from-brn",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "writes-prd-from-brn--plugin--3",
+      "case": "writes-prd-from-brn",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "writes-prd-from-brn--baseline--3",
+      "case": "writes-prd-from-brn",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN"
+    }
+  ],
+  "launch_gate": "Retained import inventory only; native qualification is NOT_RUN. Bind executable/version, isolated runtime and reviewer before launching. Keep this plan immutable; append an execution plan linked by hash.",
+  "isolation_required": "Runtime receives only manifest/skills and its own consuming-project fixture. Block access to evaluators, reference outputs, primary checkout and sibling trials. Disable noncandidate skills/plugins/MCP and memory in both arms. An advisory path instruction is not OS isolation."
+}

@@ -1,0 +1,13 @@
+{
+  "check": "evaluation-source-correspondence",
+  "argv": [
+    "python3",
+    "-B",
+    "/home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai/tests/make_prd_evals.py",
+    "--check"
+  ],
+  "exit_code": 0,
+  "stdout": "157 evaluation files verified; 29 mechanical adaptations.\n",
+  "stderr": "",
+  "status": "PASS"
+}

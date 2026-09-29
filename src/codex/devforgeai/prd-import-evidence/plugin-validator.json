@@ -1,0 +1,13 @@
+{
+  "check": "plugin-validator",
+  "argv": [
+    "python3",
+    "-B",
+    "/mnt/c/Users/bryan/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py",
+    "/home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai"
+  ],
+  "exit_code": 0,
+  "stdout": "Plugin validation passed: /home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai\n",
+  "stderr": "",
+  "status": "PASS"
+}

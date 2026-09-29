@@ -1,0 +1,6 @@
+---
+type: regex
+target: {source: file, path: docs/specs/prd/PRD-001.md}
+match: contains
+---
+category: constraint[ \t]*\n[ \t]+statement: \"[^\"\n]*\bAWS\b

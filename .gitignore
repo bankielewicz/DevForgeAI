@@ -44,3 +44,15 @@ src/codex/devforgeai/import-evidence/native-evaluation-*/manual/*/*
 src/codex/devforgeai/*-import-evidence/native-evaluation-*/matrix/
 src/codex/devforgeai/*-import-evidence/native-evaluation-*/smoke/
 src/codex/devforgeai/*-import-evidence/supplemental-*/supplemental/
+
+# Keep review summaries, candidate snapshots, manifests and evaluation cases in Git.
+# Raw catalog output and temporary authoring/diagnostic artifacts stay local.
+src/codex/devforgeai/*-import-evidence/catalog-preflight/*
+!src/codex/devforgeai/*-import-evidence/catalog-preflight/result.json
+src/codex/devforgeai/*-import-evidence/authoring-tools/
+src/codex/devforgeai/*-import-evidence/whitespace-controls/
+src/codex/devforgeai/*-import-evidence/prior-attempts/*.py
+src/codex/devforgeai/*-import-evidence/claude-to-codex.patch
+
+# Superseded local receipt for the PRD bundle before publication filtering.
+src/codex/devforgeai/prd-import-evidence/pr-publication-checks.json
