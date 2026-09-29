@@ -2,7 +2,7 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: in-review
+status: approved
 version: 4
 created: 2026-09-23
 updated: 2026-09-29
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "fdbef416-eebb-4053-95ce-624a311d72d5"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-29
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -567,3 +567,4 @@ follows the same contract.
 | 3 | 2026-09-29 | Bryan | Approved | status |
 | 3 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Record-only update, with no version bump: §9 records the 2026-09-29 architecture eval runs on SKL-003 v2 (component kinds). The re-test after PR #10 merged is bound to its commit and plugin digest (14/14 at 1.00); the earlier mixed-source run and an interrupted attempt are kept apart. No item changed | §9 |
 | 4 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Bryan's decision of 2026-09-29 on a failed supersession (ERR-05): when validation fails after an ADR accepted in the run superseded an existing ADR, the older ADR is restored byte-for-byte to its state before the run; the replacement is kept as proposed with approved_by, approved_on and supersedes cleared, its prose and Status history keeping the intended replacement and the user's decision; and the dependent DECs return to open with resolved_by [], never reconnected to the older ADR, with no readiness handoff. New VER-19, the regression case, is manual: a run with no user never supersedes an ADR (BEH-07, BEH-16). SPEC-004 and SPEC-009 relinked to version 4 (mechanical: the §4 and §5 they consume are unchanged). Awaiting Bryan's approval | ERR-05, VER-19, §9, §11, frontmatter, status |
+| 4 | 2026-09-29 | Bryan | Approved | status |
