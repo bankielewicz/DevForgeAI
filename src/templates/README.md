@@ -20,6 +20,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [adr.md](../claude/DevForgeAI/skills/architecture/assets/adr.md) | Why did we choose this design? | None (records a decision) |
 | [arch.md](../claude/DevForgeAI/skills/architecture/assets/arch.md) | How do the pieces fit, and which shared architectural questions are settled? | None; readiness per architectural question (`DEC-`) |
 | [policy.md](policy.md) | Which organizational rules and preferences apply? | None; settings consumed by workflows (ADR-003) |
+| [ambiguities.md](ambiguities.md) | Which small choices were made without stopping, for later review? | None; entries (`ENT-`) the owner accepts or rejects (ADR-004 D8; draft template, no schema yet) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
 
 Arrows show the direction of refinement (upstream → downstream). `upstream`
@@ -91,6 +92,7 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 | policy | `settings` | `SET-NN` | `key`, `class`, `value`, `applies_when`, `overridable_by`, `rationale` |
 | sprint | `scope_changes` | (none) | `date`, `change`, `story`, `reason`, `approved_by` |
 | sprint | `review` | (none) | `story`, `outcome`, `evidence` |
+| ambiguities | `entries` | `ENT-NN` | `date`, `recorded_by`, `question`, `checked`, `action`, `reverse`, `impact`, `resolve_before`, `relates_to`, `state`, `decided_by`, `decided_on`, `resolution` (draft template; `ENT` isn't in `common.schema.json` yet) |
 
 Contract items live in standard formats and are identified in place:
 
@@ -120,6 +122,7 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `ARCH-NNN` | Architecture description (components, architectural questions, evidence; SPEC-003) | `arch/ARCH-NNN.md` | templated |
 | `POL-NNN` | Policy (organizational or project settings, configuration contract v1, ADR-003) | `policy/POL-NNN.md` | templated |
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
+| `AMB-NNN` | Ambiguities log, one per work item (ADR-004 D8) | `ambiguities/AMB-NNN.md` | draft template; not in `common.schema.json` yet |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
 
