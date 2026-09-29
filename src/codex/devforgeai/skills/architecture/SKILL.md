@@ -3,7 +3,7 @@ name: architecture
 description: "Performs DevForgeAI Architecture Definition for a PRD. It identifies the architectural questions separate epics must share, settles each only by an explicit decision, an accepted ADR or approved policy, and writes an architecture description (ARCH) with ADRs and a report of which requirements are ready for epic work. Use after a PRD is written, when deciding system architecture, components, data ownership or deployment, or when resolving NEEDS ADR markers. Load this skill before any repository discovery. Before loading, access only contract document paths or user-approved inspection scope; never list or search the repository root."
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "4"
+  devforgeai-version: "5"
 ---
 
 # Architecture
@@ -192,6 +192,13 @@ Follow [readiness.md](references/readiness.md):
   given, a DEC records that choice (readiness.md). Link each CMP to the NFRs and constraints it
   serves. Each mandated platform (step 1) appears as the CMP that provides that capability, carrying
   the setting's `constrains` link: the one place R5 allows.
+- Give each new CMP its `kinds` from output-rules.md: one or more of `user-interface`, `service`,
+  `platform`, `api`, `relational-store`, `data-store` and `external`. A component can have several
+  (a service that also exposes an API has `service` and `api`). When a kind is uncertain, ask
+  using the **Asking** rules above: `request_user_input` when permitted, otherwise a plain-text
+  question and wait. With no user, record only kinds the PRD or the evidence states; if none is
+  certain, leave `kinds` out and add `[NEEDS CLARIFICATION: kinds of CMP-NN]` to section 8.
+  When amending, existing components stay unchanged, with or without `kinds`.
 - **When amending**, add new items after the existing ones, leave existing items unchanged, reopen
   any DEC whose resolver no longer counts, and give a new requirement that an existing question
   affects a new DEC of its own (readiness.md, "State changes when amending").

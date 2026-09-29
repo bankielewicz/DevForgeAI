@@ -1,0 +1,2281 @@
+{
+  "candidate_sha256": "b07c5b09a4f728391567bc8fca72cc0342ca9363a09cf3cb8168756c59b70254",
+  "codex_version": "codex-cli 0.159.0",
+  "planned": 84,
+  "selected": 66,
+  "not_run": 18,
+  "cases": {
+    "creates-arch": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            0.9,
+            0.9,
+            0.9
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "org-a-policy": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "org-b-policy": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "unrelated-adr": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "superseded-adr": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.6,
+            0.6,
+            0.6
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "no-acceptance-without-user": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "existing-arch-not-duplicated": {
+      "status": "NOT_RUN",
+      "reason": "Unchanged step-4 gate ends before component classification or output validation.",
+      "arms": {
+        "plugin": {
+          "source_scores": [],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "insufficient-evidence": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "prd-change-handed-back": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.4,
+            0.6,
+            0.6
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "hands-off-to-epic": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            0.375,
+            0.375,
+            0.375
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.375,
+            0.375,
+            0.375
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "ignores-unrelated-request": {
+      "status": "NOT_RUN",
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification.",
+      "arms": {
+        "plugin": {
+          "source_scores": [],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "records-provenance": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "reuse-records-review": {
+      "status": "RUN",
+      "reason": null,
+      "arms": {
+        "plugin": {
+          "source_scores": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "threshold_passes": 3,
+          "strict_passes": 3
+        },
+        "baseline": {
+          "source_scores": [
+            0.5,
+            0.5,
+            0.5
+          ],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    },
+    "reuse-review-idempotent": {
+      "status": "NOT_RUN",
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted.",
+      "arms": {
+        "plugin": {
+          "source_scores": [],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        },
+        "baseline": {
+          "source_scores": [],
+          "threshold_passes": 0,
+          "strict_passes": 0
+        }
+      }
+    }
+  },
+  "schedule": [
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.9,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.6,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged step-4 gate ends before component classification or output validation."
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged step-4 gate ends before component classification or output validation."
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.4,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.375,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.375,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": true
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.5,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 1,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.9,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.6,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged step-4 gate ends before component classification or output validation."
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged step-4 gate ends before component classification or output validation."
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.6,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.375,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.375,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": true
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "failed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.5,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 2,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.9,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.6,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged step-4 gate ends before component classification or output validation."
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged step-4 gate ends before component classification or output validation."
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.8,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.6,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.375,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.375,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": false
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.0,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 1.0,
+      "threshold_pass": true,
+      "strict_pass": true
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "completed",
+      "selected": true,
+      "reason": "Exercises component creation, amendment, or the changed self-check during review.",
+      "source_score": 0.5,
+      "threshold_pass": false,
+      "strict_pass": false
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "arm": "baseline",
+      "repeat": 3,
+      "status": "NOT_RUN",
+      "selected": false,
+      "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+    }
+  ],
+  "failures": [
+    {
+      "case": "creates-arch",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "all-sections",
+        "arch-exists",
+        "cmp-kinds",
+        "handoff-blocks-fr-001",
+        "has-components",
+        "identity-dec-open",
+        "no-leftovers",
+        "outcome-null",
+        "prd-evidence-context",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "creates-arch",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "all-sections",
+        "arch-exists",
+        "cmp-kinds",
+        "handoff-blocks-fr-001",
+        "has-components",
+        "identity-dec-open",
+        "no-leftovers",
+        "outcome-null",
+        "prd-evidence-context",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "creates-arch",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "all-sections",
+        "arch-exists",
+        "cmp-kinds",
+        "handoff-blocks-fr-001",
+        "has-components",
+        "identity-dec-open",
+        "no-leftovers",
+        "outcome-null",
+        "prd-evidence-context",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "creates-arch",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "creates-arch",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "creates-arch",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "hands-off-to-epic",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "hands-off-to-epic",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "hands-off-to-epic",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "hands-off-to-epic",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "hands-off-to-epic",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "hands-off-to-epic",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "insufficient-evidence",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "clarification-marker",
+        "outcome-not-reuse"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "insufficient-evidence",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "clarification-marker",
+        "outcome-not-reuse"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "insufficient-evidence",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "clarification-marker",
+        "outcome-not-reuse"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "insufficient-evidence",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "insufficient-evidence",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "insufficient-evidence",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "no-adr-written",
+        "nothing-resolved-by-an-adr",
+        "outcome-null"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "no-adr-written",
+        "nothing-resolved-by-an-adr",
+        "outcome-null"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "no-adr-written",
+        "nothing-resolved-by-an-adr",
+        "outcome-null"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "new_change_log_rows_use_runtime_session",
+        "provenance_model_matches_runtime",
+        "provenance_session_matches_runtime"
+      ]
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "org-a-policy",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "org-a-policy",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "org-a-policy",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "org-b-policy",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "org-b-policy",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "org-b-policy",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "org-b-policy",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "org-b-policy",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "org-b-policy",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "prd-change-handed-back",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-names-nfr-004",
+        "section-7-names-nfr-004"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "prd-change-handed-back",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "section-7-names-nfr-004"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "prd-change-handed-back",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "section-7-names-nfr-004"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "prd-change-handed-back",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-names-nfr-004"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "prd-change-handed-back",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-names-nfr-004"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "prd-change-handed-back",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-names-nfr-004"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "changelog-names-session",
+        "generated-by-filled",
+        "hashes-null",
+        "no-policy-link",
+        "resolution-categories",
+        "resolution-max-calls",
+        "resolution-platforms",
+        "reviewed-by-empty",
+        "session-substituted"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "changelog-names-session",
+        "generated-by-filled",
+        "hashes-null",
+        "no-policy-link",
+        "resolution-categories",
+        "resolution-max-calls",
+        "resolution-platforms",
+        "reviewed-by-empty",
+        "session-substituted"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "changelog-names-session",
+        "generated-by-filled",
+        "hashes-null",
+        "no-policy-link",
+        "resolution-categories",
+        "resolution-max-calls",
+        "resolution-platforms",
+        "reviewed-by-empty",
+        "session-substituted"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "reuse-records-review",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "approval-unchanged",
+        "item-link-still-v1",
+        "review-row",
+        "version-status-unchanged"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "reuse-records-review",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "failed",
+      "failed_graders": [
+        "approval-unchanged",
+        "item-link-still-v1",
+        "review-row",
+        "version-status-unchanged"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "completed_or_expected_native_question"
+      ]
+    },
+    {
+      "case": "reuse-records-review",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "approval-unchanged",
+        "item-link-still-v1",
+        "review-row",
+        "version-status-unchanged"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "reuse-records-review",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "reuse-records-review",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "reuse-records-review",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "superseded-adr",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "names-superseded-resolver",
+        "readiness-mapping"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "superseded-adr",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "names-superseded-resolver",
+        "readiness-mapping"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "superseded-adr",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "names-superseded-resolver",
+        "readiness-mapping"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": []
+    },
+    {
+      "case": "superseded-adr",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "readiness-mapping"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "superseded-adr",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "readiness-mapping"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "superseded-adr",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "readiness-mapping"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "unrelated-adr",
+      "arm": "baseline",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-dec-open",
+        "nothing-resolved-by-adr-001",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "unrelated-adr",
+      "arm": "baseline",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-dec-open",
+        "nothing-resolved-by-adr-001",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "unrelated-adr",
+      "arm": "baseline",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-dec-open",
+        "nothing-resolved-by-adr-001",
+        "revocation-dec-open"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "case": "unrelated-adr",
+      "arm": "plugin",
+      "repeat": 1,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "unrelated-adr",
+      "arm": "plugin",
+      "repeat": 2,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    },
+    {
+      "case": "unrelated-adr",
+      "arm": "plugin",
+      "repeat": 3,
+      "run_status": "completed",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ],
+      "pending_rubrics": [],
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ]
+    }
+  ],
+  "component_audit": {
+    "plugin": {
+      "PASS": 122
+    },
+    "baseline": {
+      "PASS": 5,
+      "FAIL": 13
+    }
+  },
+  "artifact_schemas": {
+    "plugin": {
+      "PASS": 48
+    },
+    "baseline": {
+      "FAIL": 52,
+      "PASS": 15
+    }
+  },
+  "full_requalification": false
+}

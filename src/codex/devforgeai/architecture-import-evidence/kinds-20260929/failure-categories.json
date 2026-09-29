@@ -1,0 +1,1321 @@
+{
+  "scope": "Classification of retained failures; original source graders, scores and guard results are unchanged.",
+  "native_status_counts": {
+    "completed": 65,
+    "failed": 1
+  },
+  "source_or_behavior_failures": [
+    {
+      "trial": "creates-arch--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "all-sections",
+        "arch-exists",
+        "cmp-kinds",
+        "handoff-blocks-fr-001",
+        "has-components",
+        "identity-dec-open",
+        "no-leftovers",
+        "outcome-null",
+        "prd-evidence-context",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "creates-arch--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "all-sections",
+        "arch-exists",
+        "cmp-kinds",
+        "handoff-blocks-fr-001",
+        "has-components",
+        "identity-dec-open",
+        "no-leftovers",
+        "outcome-null",
+        "prd-evidence-context",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "creates-arch--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "all-sections",
+        "arch-exists",
+        "cmp-kinds",
+        "handoff-blocks-fr-001",
+        "has-components",
+        "identity-dec-open",
+        "no-leftovers",
+        "outcome-null",
+        "prd-evidence-context",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "creates-arch--plugin--1",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "creates-arch--plugin--2",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "creates-arch--plugin--3",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--1",
+      "arm": "plugin",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--2",
+      "arm": "plugin",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--3",
+      "arm": "plugin",
+      "failed_graders": [
+        "ends-with-next-step",
+        "lists-blocked-with-decs",
+        "lists-ready",
+        "names-epic-command",
+        "says-not-built"
+      ]
+    },
+    {
+      "trial": "insufficient-evidence--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "clarification-marker",
+        "outcome-not-reuse"
+      ]
+    },
+    {
+      "trial": "insufficient-evidence--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "clarification-marker",
+        "outcome-not-reuse"
+      ]
+    },
+    {
+      "trial": "insufficient-evidence--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "clarification-marker",
+        "outcome-not-reuse"
+      ]
+    },
+    {
+      "trial": "no-acceptance-without-user--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "no-adr-written",
+        "nothing-resolved-by-an-adr",
+        "outcome-null"
+      ]
+    },
+    {
+      "trial": "no-acceptance-without-user--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "no-adr-written",
+        "nothing-resolved-by-an-adr",
+        "outcome-null"
+      ]
+    },
+    {
+      "trial": "no-acceptance-without-user--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "no-adr-written",
+        "nothing-resolved-by-an-adr",
+        "outcome-null"
+      ]
+    },
+    {
+      "trial": "org-a-policy--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "org-a-policy--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "org-a-policy--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "org-a-policy--plugin--1",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "org-a-policy--plugin--2",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "org-a-policy--plugin--3",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "org-b-policy--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ]
+    },
+    {
+      "trial": "org-b-policy--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ]
+    },
+    {
+      "trial": "org-b-policy--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-names-nfr-004",
+        "section-7-names-nfr-004"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "section-7-names-nfr-004"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "section-7-names-nfr-004"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--plugin--1",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-names-nfr-004"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--plugin--2",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-names-nfr-004"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--plugin--3",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-names-nfr-004"
+      ]
+    },
+    {
+      "trial": "records-provenance--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "changelog-names-session",
+        "generated-by-filled",
+        "hashes-null",
+        "no-policy-link",
+        "resolution-categories",
+        "resolution-max-calls",
+        "resolution-platforms",
+        "reviewed-by-empty",
+        "session-substituted"
+      ]
+    },
+    {
+      "trial": "records-provenance--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "changelog-names-session",
+        "generated-by-filled",
+        "hashes-null",
+        "no-policy-link",
+        "resolution-categories",
+        "resolution-max-calls",
+        "resolution-platforms",
+        "reviewed-by-empty",
+        "session-substituted"
+      ]
+    },
+    {
+      "trial": "records-provenance--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "changelog-names-session",
+        "generated-by-filled",
+        "hashes-null",
+        "no-policy-link",
+        "resolution-categories",
+        "resolution-max-calls",
+        "resolution-platforms",
+        "reviewed-by-empty",
+        "session-substituted"
+      ]
+    },
+    {
+      "trial": "reuse-records-review--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "approval-unchanged",
+        "item-link-still-v1",
+        "review-row",
+        "version-status-unchanged"
+      ]
+    },
+    {
+      "trial": "reuse-records-review--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "approval-unchanged",
+        "item-link-still-v1",
+        "review-row",
+        "version-status-unchanged"
+      ]
+    },
+    {
+      "trial": "reuse-records-review--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "approval-unchanged",
+        "item-link-still-v1",
+        "review-row",
+        "version-status-unchanged"
+      ]
+    },
+    {
+      "trial": "superseded-adr--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "names-superseded-resolver",
+        "readiness-mapping"
+      ]
+    },
+    {
+      "trial": "superseded-adr--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "names-superseded-resolver",
+        "readiness-mapping"
+      ]
+    },
+    {
+      "trial": "superseded-adr--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "names-superseded-resolver",
+        "readiness-mapping"
+      ]
+    },
+    {
+      "trial": "superseded-adr--plugin--1",
+      "arm": "plugin",
+      "failed_graders": [
+        "readiness-mapping"
+      ]
+    },
+    {
+      "trial": "superseded-adr--plugin--2",
+      "arm": "plugin",
+      "failed_graders": [
+        "readiness-mapping"
+      ]
+    },
+    {
+      "trial": "superseded-adr--plugin--3",
+      "arm": "plugin",
+      "failed_graders": [
+        "readiness-mapping"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--baseline--1",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-dec-open",
+        "nothing-resolved-by-adr-001",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--baseline--2",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-dec-open",
+        "nothing-resolved-by-adr-001",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--baseline--3",
+      "arm": "baseline",
+      "failed_graders": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-dec-open",
+        "nothing-resolved-by-adr-001",
+        "revocation-dec-open"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--plugin--1",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--plugin--2",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--plugin--3",
+      "arm": "plugin",
+      "failed_graders": [
+        "handoff-blocks-fr-001"
+      ]
+    }
+  ],
+  "execution_failures_or_incomplete_turns": [
+    {
+      "trial": "reuse-records-review--baseline--2",
+      "arm": "baseline",
+      "native_status": "failed",
+      "origin": "native_service_capacity",
+      "error": {
+        "message": "Selected model is at capacity. Please try a different model.",
+        "codexErrorInfo": "serverOverloaded",
+        "additionalDetails": null,
+        "misalignment": null
+      },
+      "score_scope": "Source/artifact checks may describe partial output; they do not establish completed native behavior."
+    }
+  ],
+  "provenance_identity_mismatches": [
+    {
+      "trial": "creates-arch--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edc4-2294-7582-ace9-25be3395f443"
+      },
+      "evidence": "matrix/creates-arch--plugin--1/grade.json"
+    },
+    {
+      "trial": "creates-arch--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edf7-58bb-7160-85c2-41f1d3b65fd2"
+      },
+      "evidence": "matrix/creates-arch--plugin--2/grade.json"
+    },
+    {
+      "trial": "creates-arch--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee2b-efcd-7f63-b2a7-d8b4ec7bf4bd"
+      },
+      "evidence": "matrix/creates-arch--plugin--3/grade.json"
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ede8-33ce-7a32-ad40-653fe676b42c"
+      },
+      "evidence": "matrix/hands-off-to-epic--plugin--1/grade.json"
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee1c-acdb-7d30-9299-264e2da2dee8"
+      },
+      "evidence": "matrix/hands-off-to-epic--plugin--2/grade.json"
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee53-fc80-7d50-9319-8d1a73002752"
+      },
+      "evidence": "matrix/hands-off-to-epic--plugin--3/grade.json"
+    },
+    {
+      "trial": "insufficient-evidence--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edde-86b9-7b72-bbc1-bd05516c9150"
+      },
+      "evidence": "matrix/insufficient-evidence--plugin--1/grade.json"
+    },
+    {
+      "trial": "insufficient-evidence--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee12-53a4-7d23-8f3d-1279bd089b48"
+      },
+      "evidence": "matrix/insufficient-evidence--plugin--2/grade.json"
+    },
+    {
+      "trial": "insufficient-evidence--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee49-9feb-7ca3-bf34-38dad22f3ac0"
+      },
+      "evidence": "matrix/insufficient-evidence--plugin--3/grade.json"
+    },
+    {
+      "trial": "no-acceptance-without-user--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "new_change_log_rows_use_runtime_session",
+        "provenance_model_matches_runtime",
+        "provenance_session_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edda-687a-7693-af0a-d4561c3b979c"
+      },
+      "evidence": "matrix/no-acceptance-without-user--plugin--1/grade.json"
+    },
+    {
+      "trial": "no-acceptance-without-user--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee0c-f130-7343-8efe-7099a7568137"
+      },
+      "evidence": "matrix/no-acceptance-without-user--plugin--2/grade.json"
+    },
+    {
+      "trial": "no-acceptance-without-user--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee43-8268-74c0-9902-25158b78f131"
+      },
+      "evidence": "matrix/no-acceptance-without-user--plugin--3/grade.json"
+    },
+    {
+      "trial": "org-a-policy--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edc4-2233-7381-a65f-a15630ae9e47"
+      },
+      "evidence": "matrix/org-a-policy--plugin--1/grade.json"
+    },
+    {
+      "trial": "org-a-policy--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edf9-98cd-7af0-ba53-d5ff350fb8a7"
+      },
+      "evidence": "matrix/org-a-policy--plugin--2/grade.json"
+    },
+    {
+      "trial": "org-a-policy--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee2e-2da4-7f51-954e-9f7b9642d1da"
+      },
+      "evidence": "matrix/org-a-policy--plugin--3/grade.json"
+    },
+    {
+      "trial": "org-b-policy--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edcd-d8b7-7891-9b8d-8eeb1870ca63"
+      },
+      "evidence": "matrix/org-b-policy--plugin--1/grade.json"
+    },
+    {
+      "trial": "org-b-policy--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee00-e433-70e2-b718-e65ab5251cd9"
+      },
+      "evidence": "matrix/org-b-policy--plugin--2/grade.json"
+    },
+    {
+      "trial": "org-b-policy--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee37-a809-7253-b211-463af7007bbd"
+      },
+      "evidence": "matrix/org-b-policy--plugin--3/grade.json"
+    },
+    {
+      "trial": "prd-change-handed-back--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ede4-d547-71d1-9c11-65a01c3a2dfd"
+      },
+      "evidence": "matrix/prd-change-handed-back--plugin--1/grade.json"
+    },
+    {
+      "trial": "prd-change-handed-back--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee16-ccc6-7f70-ab06-7659869bdde3"
+      },
+      "evidence": "matrix/prd-change-handed-back--plugin--2/grade.json"
+    },
+    {
+      "trial": "prd-change-handed-back--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee4d-d414-7d11-99e1-ac8e93f3f9f2"
+      },
+      "evidence": "matrix/prd-change-handed-back--plugin--3/grade.json"
+    },
+    {
+      "trial": "records-provenance--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edf0-8d74-72b0-93f5-197032df8700"
+      },
+      "evidence": "matrix/records-provenance--plugin--1/grade.json"
+    },
+    {
+      "trial": "records-provenance--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee22-5842-7462-a159-a559ab62a183"
+      },
+      "evidence": "matrix/records-provenance--plugin--2/grade.json"
+    },
+    {
+      "trial": "records-provenance--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee58-cea8-7701-93d6-03eec51e71ce"
+      },
+      "evidence": "matrix/records-provenance--plugin--3/grade.json"
+    },
+    {
+      "trial": "superseded-adr--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edd8-6342-7d03-ad9f-8a63abdc6df0"
+      },
+      "evidence": "matrix/superseded-adr--plugin--1/grade.json"
+    },
+    {
+      "trial": "superseded-adr--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee0b-9598-7eb1-9e31-e5dcaf62c09f"
+      },
+      "evidence": "matrix/superseded-adr--plugin--2/grade.json"
+    },
+    {
+      "trial": "superseded-adr--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee41-0121-7783-950b-17e6a466dc63"
+      },
+      "evidence": "matrix/superseded-adr--plugin--3/grade.json"
+    },
+    {
+      "trial": "unrelated-adr--plugin--1",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0edcf-3566-7383-91ba-a5a5fba7242d"
+      },
+      "evidence": "matrix/unrelated-adr--plugin--1/grade.json"
+    },
+    {
+      "trial": "unrelated-adr--plugin--2",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee03-2d95-7c32-9c2f-de260f0f5d43"
+      },
+      "evidence": "matrix/unrelated-adr--plugin--2/grade.json"
+    },
+    {
+      "trial": "unrelated-adr--plugin--3",
+      "arm": "plugin",
+      "failed_guards": [
+        "new_artifact_provenance_matches_runtime",
+        "provenance_model_matches_runtime"
+      ],
+      "expected_runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0ee3a-1a6b-7ac1-af96-ad9c966f8240"
+      },
+      "evidence": "matrix/unrelated-adr--plugin--3/grade.json"
+    }
+  ],
+  "other_guard_failures": [
+    {
+      "trial": "creates-arch--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "creates-arch--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "creates-arch--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "insufficient-evidence--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "insufficient-evidence--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "insufficient-evidence--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "no-acceptance-without-user--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "no-acceptance-without-user--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "no-acceptance-without-user--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "org-a-policy--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "org-a-policy--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "org-a-policy--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "org-b-policy--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "org-b-policy--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "org-b-policy--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "prd-change-handed-back--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "records-provenance--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "records-provenance--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "records-provenance--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "reuse-records-review--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "completed_or_expected_native_question"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--baseline--1",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--baseline--2",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    },
+    {
+      "trial": "unrelated-adr--baseline--3",
+      "arm": "baseline",
+      "failed_guards": [
+        "only_architecture_artifacts_changed"
+      ]
+    }
+  ],
+  "platform_identity_limit_claim": {
+    "status": "REPORTED_BY_PRODUCER; universal host inability not established",
+    "evidence": "discrepancies.md",
+    "note": "Exact runtime identity exists in evaluator metadata. Unknown output identity and withheld handoffs are observed; model reports of unavailable identity do not alone prove all supported exposure channels are absent. Confirmed native service-capacity errors are recorded separately under execution failures."
+  },
+  "grader_defects": {
+    "status": "None found in the requested kinds self-tests or retained semantic review; not a proof that all historical graders are defect-free",
+    "evidence": "static-attempt-1/package-tests.stderr.txt"
+  },
+  "missing_evidence": {
+    "not_run_trial_slots": [
+      {
+        "case": "existing-arch-not-duplicated",
+        "verification": "VER-07",
+        "arm": "plugin",
+        "repeat": 1,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged step-4 gate ends before component classification or output validation."
+      },
+      {
+        "case": "existing-arch-not-duplicated",
+        "verification": "VER-07",
+        "arm": "baseline",
+        "repeat": 1,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged step-4 gate ends before component classification or output validation."
+      },
+      {
+        "case": "ignores-unrelated-request",
+        "verification": "VER-11",
+        "arm": "plugin",
+        "repeat": 1,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+      },
+      {
+        "case": "ignores-unrelated-request",
+        "verification": "VER-11",
+        "arm": "baseline",
+        "repeat": 1,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+      },
+      {
+        "case": "reuse-review-idempotent",
+        "verification": "VER-16",
+        "arm": "plugin",
+        "repeat": 1,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+      },
+      {
+        "case": "reuse-review-idempotent",
+        "verification": "VER-16",
+        "arm": "baseline",
+        "repeat": 1,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+      },
+      {
+        "case": "existing-arch-not-duplicated",
+        "verification": "VER-07",
+        "arm": "plugin",
+        "repeat": 2,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged step-4 gate ends before component classification or output validation."
+      },
+      {
+        "case": "existing-arch-not-duplicated",
+        "verification": "VER-07",
+        "arm": "baseline",
+        "repeat": 2,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged step-4 gate ends before component classification or output validation."
+      },
+      {
+        "case": "ignores-unrelated-request",
+        "verification": "VER-11",
+        "arm": "plugin",
+        "repeat": 2,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+      },
+      {
+        "case": "ignores-unrelated-request",
+        "verification": "VER-11",
+        "arm": "baseline",
+        "repeat": 2,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+      },
+      {
+        "case": "reuse-review-idempotent",
+        "verification": "VER-16",
+        "arm": "plugin",
+        "repeat": 2,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+      },
+      {
+        "case": "reuse-review-idempotent",
+        "verification": "VER-16",
+        "arm": "baseline",
+        "repeat": 2,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+      },
+      {
+        "case": "existing-arch-not-duplicated",
+        "verification": "VER-07",
+        "arm": "plugin",
+        "repeat": 3,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged step-4 gate ends before component classification or output validation."
+      },
+      {
+        "case": "existing-arch-not-duplicated",
+        "verification": "VER-07",
+        "arm": "baseline",
+        "repeat": 3,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged step-4 gate ends before component classification or output validation."
+      },
+      {
+        "case": "ignores-unrelated-request",
+        "verification": "VER-11",
+        "arm": "plugin",
+        "repeat": 3,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+      },
+      {
+        "case": "ignores-unrelated-request",
+        "verification": "VER-11",
+        "arm": "baseline",
+        "repeat": 3,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Unchanged negative-trigger path does not load the skill or reach component classification."
+      },
+      {
+        "case": "reuse-review-idempotent",
+        "verification": "VER-16",
+        "arm": "plugin",
+        "repeat": 3,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+      },
+      {
+        "case": "reuse-review-idempotent",
+        "verification": "VER-16",
+        "arm": "baseline",
+        "repeat": 3,
+        "status": "NOT_RUN",
+        "selected": false,
+        "reason": "Confirmed current-version reuse writes nothing and skips output validation; no component classification is persisted."
+      }
+    ],
+    "pending_semantic_grades": [],
+    "other_manual_checks": "VER-12 subcases other than (l), Plan-mode question path and deployment VER-13 were NOT_RUN in this delta."
+  },
+  "review_boundary": "Primary assistant assessment is separate from native trial production, not independent of source authorship.",
+  "full_requalification": false
+}
