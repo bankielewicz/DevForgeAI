@@ -3,7 +3,7 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 2
+version: 3
 created: 2026-09-23
 updated: 2026-09-29
 owner: "Bryan"
@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
-  - {id: SPEC-002, relation: informed_by, version: 1, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
+  - {id: SPEC-002, relation: informed_by, version: 2, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -74,11 +74,14 @@ src/claude/DevForgeAI/skills/architecture/
 ├── assets/
 │   ├── arch.md                  # THE ARCH template (moved from src/templates/)
 │   └── adr.md                   # THE ADR template (moved from src/templates/)
+├── scripts/
+│   └── validate_policy.py       # policy validation against the schemas and SV rules (copied from the prd skill)
 └── references/
     ├── readiness.md             # question identification and the decision-specific readiness rule
     ├── inspection.md            # bounded read-only inspection and evidence classification
     ├── defaults.md              # framework-default layer for the v1 settings (copied from the prd skill)
     ├── policy.md                # ADR-003 resolution contract (copied from the prd skill)
+    ├── schemas/                 # policy.schema.json and common.schema.json, unchanged copies of src/schemas/
     └── output-rules.md          # ARCH and ADR item-block rules
 src/claude/DevForgeAI/evals/architecture/<case>/   # one case per automated VER item (§9)
 ```
@@ -97,9 +100,11 @@ flowchart LR
     V --> H[Readiness and handoff BEH-11 BEH-15]
 ```
 
-Keeping two copies of `policy.md` and `defaults.md`, one in each skill, is the ADR-003 consequence:
-every skill resolves policy until `devforgeai check` exists. The architecture skill's copies must stay
-byte-identical to the prd skill's, which the SPEC-003 VER-12 manual check confirms.
+Keeping two copies of `policy.md`, `defaults.md`, `scripts/validate_policy.py` and the schema copies, one
+set in each skill, is the ADR-003 consequence: every skill resolves policy until `devforgeai check` exists
+(PRD-001 FR-018), and SPEC-002 §5 makes the script the one maintained validation path. The architecture
+skill's copies must stay byte-identical to the prd skill's, and the schema copies to `src/schemas/`, which
+VER-12 (f) confirms.
 
 ## 4. Data model
 
@@ -179,6 +184,7 @@ metadata:
 - **Tools:**
   - code inspection: read-only, and every path read, listed or searched is inside the inspection scope. Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope; never a whole-repository listing or search. The project documents read by contract (docs/specs/prd/, arch/, adr/, policy/ and .claude/devforgeai.local.md) are outside this rule, and validating the documents written (BEH-14) is separate from inspection;
   - Write and Edit for the ARCH and ADRs;
+  - Bash only to run `python3` with the shared policy validation script (SPEC-002 §5);
   - AskUserQuestion, with at most 4 questions per call.
 - **Downstream contract (consumed by the epic workflow, and by the context and story steps):**
   - the ARCH path and stable CMP, DEC and EVD IDs;
@@ -200,7 +206,7 @@ behaviors:
     rule: "Read the PRD's requirements, constraints, stage, operating context and [NEEDS ADR] markers, and record its version in every link. If the PRD is a draft, warn that the result is a proposal. Never turn an unanswered product question (a null priority, a release or a [NEEDS CLARIFICATION] marker) into an architectural decision. Never edit the PRD."
   - id: BEH-03
     status: active
-    rule: "Resolve policy exactly as the prd skill does (ADR-003 A3–A5, references/policy.md): the R1–R5 sequence, the SV rules, local preferences, the resolution line, and stopping on invalid policy."
+    rule: "Resolve policy exactly as the prd skill does (ADR-003 A3–A5, references/policy.md): the R1–R5 sequence, the SV rules, local preferences, the resolution line, and stopping on invalid policy. Approved policy documents are validated in full through the shared validation script, as SPEC-002 §5 and BEH-17 R1 specify; when the script can't run while approved policy exists, stop (ERR-02)."
   - id: BEH-04
     status: active
     rule: "Select the architecture description. Read docs/specs/arch/ARCH-*.md. If one covers the same system, propose reusing it (no change) or amending it (new questions or components), with reasons, and ask. Create a new ARCH, the next free ARCH-NNN.md, only when none covers the system or the user chooses to. Never create a second baseline automatically. Ask when several could apply."
@@ -233,7 +239,7 @@ behaviors:
     rule: "Fill provenance on the ARCH and every ADR written: generated_by with the tool, model and session; authors; reviewed_by empty; every hash null; today's dates. Write ADRs from ${CLAUDE_SKILL_DIR}/assets/adr.md and the ARCH from ${CLAUDE_SKILL_DIR}/assets/arch.md, deleting author comments."
   - id: BEH-14
     status: active
-    rule: "Validate the ARCH and every ADR written against the self-check list in references/output-rules.md, reading each file back. Fix and check again, at most three attempts. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2)."
+    rule: "Validate the ARCH and every ADR written against the self-check list in references/output-rules.md, reading each file back. Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair changes a file to address a reported error; when an error can't be repaired, stop early and report it instead of repeating an unchanged check. Record each check and repair in the reply. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2)."
   - id: BEH-15
     status: active
     rule: "Hand off with the ARCH path, the outcome (or that it is unconfirmed), the ADRs written with their status, the requirements ready for epic work, the requirements blocked with their DEC IDs, the proposed PRD changes, and the policy resolution line. Then name the next step: if ${CLAUDE_PLUGIN_ROOT}/skills/epic/SKILL.md exists, tell the user to run /devforgeai:epic with the PRD ID; otherwise say the epic workflow (planned as /devforgeai:epic) is not built yet and that, once it is, /devforgeai:epic with the PRD ID runs for the ready requirements. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start it."
@@ -253,7 +259,7 @@ errors:
     user_result: "The list of PRDs"
   - id: ERR-02
     status: active
-    condition: "Policy is invalid, contradictory or disallowed (ADR-003 A4)"
+    condition: "Policy is invalid (including any schema error the shared validation script reports), contradictory or disallowed (ADR-003 A4), or the script can't run while approved policy exists"
     handling: "Stop before writing anything, naming the file, the setting and the rule"
     user_result: "The policy error; no ARCH or ADR written"
   - id: ERR-03
@@ -268,9 +274,9 @@ errors:
     user_result: "A choice of ARCH"
   - id: ERR-05
     status: active
-    condition: "Validation still fails after three fix attempts"
-    handling: "Stop. Restore only what can't stand unvalidated: every status and approval field (approved_by, approved_on) this write changed, back to its value before the write (a new ARCH stays draft; a new ADR the user accepted becomes proposed with empty approval fields and is kept); the DEC state and resolved_by that depended on a restored ADR; and one matching audit record (Change Log row, and Status history row for an ADR). Keep the user's architectural choices and unrelated content. End with a validation-failure report; skip the readiness handoff and never present readiness as validated"
-    user_result: "A validation-failure report: the file paths, the unresolved errors and what was restored; no readiness presented as validated"
+    condition: "Validation still fails after the initial check and three repair cycles, or an error can't be repaired"
+    handling: "Stop. Keep the user's architectural choices and unrelated content, and never leave approved or accepted on content that failed validation. A new ARCH stays draft. An amended ARCH keeps the status BEH-09 gave it, so an approved ARCH whose content changed stays in-review with approved_by and approved_on cleared; a review record that fails validation is treated the same way. A new ADR the user accepted becomes proposed with empty approval fields and is kept, and the DEC state and resolved_by that depended on it return to open. Add one matching audit record (Change Log row, and Status history row for an ADR). End with a validation-failure report listing the checks, the repairs and the unresolved errors; skip the readiness handoff and never present readiness as validated"
+    user_result: "A validation-failure report: the file paths, the checks and repairs made, the unresolved errors and the statuses left; no readiness presented as validated"
   - id: ERR-06
     status: active
     condition: "The user stops mid-session"
@@ -306,6 +312,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 3 | Not run. Changed: BEH-03, BEH-14, ERR-02, ERR-05, VER-12 (f) and (i); new: VER-17 and VER-18. The rows below record versions 1 and 2 |
 | Structural: schemas, templates, fixtures and cross-document links | Fixtures: `src/tests/architecture/make_evals.py` validates all 15 against `src/schemas/` before it writes the cases. Schemas, templates and cross-document links: not run |
 | Behavioural: automated VER items, one eval case each | Built as SKL-003 v1 and merged in PR #4; deployed. 14 eval cases (VER-01..11, 14, 15, 16). `claude plugin eval`, 3 runs with the no-plugin baseline, 2026-09-28, plugin 0.3.0: 14 of 14 at 1.00 in every run, mean Δ +0.67. That run checked VER-10's not-built branch; PR #5 switched `hands-off-to-epic` to the shipped branch, which scored 1.00 in 1 run with the baseline |
 | Behavioural: manual VER items (VER-12, VER-13) | Not run |
@@ -423,7 +430,7 @@ verifications:
       - {id: STORY-003, item: AC-10, relation: verifies, version: 3, hash: null}
   - id: VER-12
     status: active
-    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with one decision accepted before validation: the skill stops after three failed attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. (j) In a fresh fixture copy, amending an existing ARCH whose links cite PRD v2, against PRD v3 with one new [NEEDS ADR] marker: links on existing items stay at v2, the links added in this run (and the frontmatter PRD link) use v3, and validation passes without ERR-05. (k) In a fresh fixture copy, an explicitly approved supersession of an accepted ADR passes validation: the old ADR changes only status: superseded, superseded_by and one Status history row; the new ADR is accepted with supersedes: [ADR-old]; the DEC's resolved_by changes from [ADR-old] to [ADR-new], logged in the Change Log; the old ADR is recorded as a context EVD; and readiness reports the requirement ready. (l) A component whose kind is uncertain is asked about, and the answer is recorded as its kinds."
+    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md, defaults.md, scripts/validate_policy.py and references/schemas/ copies are byte-identical to the prd skill's, and the schema copies to src/schemas/. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with one decision accepted before validation: the skill stops after the initial check and at most three repair cycles, keeps the choice as a proposed ADR with empty approval fields, returns the dependent DEC to open, adds the audit record, and ends with a validation-failure report without presenting readiness as validated. (j) In a fresh fixture copy, amending an existing ARCH whose links cite PRD v2, against PRD v3 with one new [NEEDS ADR] marker: links on existing items stay at v2, the links added in this run (and the frontmatter PRD link) use v3, and validation passes without ERR-05. (k) In a fresh fixture copy, an explicitly approved supersession of an accepted ADR passes validation: the old ADR changes only status: superseded, superseded_by and one Status history row; the new ADR is accepted with supersedes: [ADR-old]; the DEC's resolved_by changes from [ADR-old] to [ADR-new], logged in the Change Log; the old ADR is recorded as a context EVD; and readiness reports the requirement ready. (l) A component whose kind is uncertain is asked about, and the answer is recorded as its kinds."
     level: manual
     covers:
       - BEH-01
@@ -476,6 +483,25 @@ verifications:
       - BEH-09
     upstream:
       - {id: STORY-005, item: AC-12, relation: verifies, version: 2, hash: null}
+  - id: VER-17
+    status: active
+    obligation: "Malformed policy stops Architecture Definition: the shared fixture plus an approved organization policy whose updated date is 2026-13-45. No ARCH or ADR is written, and the reply names the policy file and the field. Eval case policy-bad-date: file_exists false for docs/specs/arch/ARCH-001.md, regex on last_message."
+    level: e2e
+    covers:
+      - BEH-03
+      - ERR-02
+    upstream:
+      - {id: STORY-003, item: AC-06, relation: verifies, version: 3, hash: null}
+  - id: VER-18
+    status: active
+    obligation: "Failed amendment of an approved ARCH: an approved ARCH-001 whose existing CMP-01 has a value the self-check rejects, which an amendment must leave unchanged (BEH-09); the prompt chooses to amend ARCH-001 for a new PRD question and confirms that outcome. ARCH-001 ends in-review with approved_by and approved_on cleared, CMP-01 is byte-identical, and the reply lists the checks (at most four) and the unresolved error and presents no readiness as validated. Eval case failed-amendment-stays-in-review: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-09
+      - BEH-14
+      - ERR-05
+    upstream:
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -491,6 +517,11 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 4. Write `SKILL.md` from §5–§7, and `provenance.yaml` as SKL-003 implementing SPEC-003.
 5. Write the shared fixture PRD and the other fixtures, checking each against its schema, then the eval cases for VER-01 to VER-11 and VER-14.
 6. Deploy and validate per ADR-001, iterating until every case scores at least 0.8. Run VER-02 and VER-03 with the VER-13 operator check, and do VER-12 by hand.
+
+**Version 3** (after approval): add the shared policy files (§3) to the architecture skill as SKL-003 v3,
+implement BEH-14 and ERR-05 as changed, and add the eval cases for VER-17 and VER-18. The Codex
+architecture skill follows the same contract. Evaluate each provider independently, with the existing
+thresholds.
 
 ## 12. Alternatives considered
 
@@ -516,3 +547,5 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 1 | 2026-09-28 | claude-code (session 383de882-2b59-4b3b-808b-83bb1ab93b9b) | Status update only, at Bryan's instruction, with no version bump: §9 records that the skill is built (SKL-003 v1, PR #4) and deployed, and its fixture checks and eval results. No requirement, behavior or VER item changed | §9 |
 | 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decisions of 2026-09-29. Components carry kinds (M4): §4 lists them and their mapping to ADR-004's context documents, BEH-10 classifies them and asks when a kind is uncertain, and VER-01 and VER-12 (l) check it. §5 aligned with SPEC-004 and the shipped epic skill (M8): an epic has one document-level informed_by link to its ARCH and never cites CMP items; stories record the components they touch (SPEC-009). PRD-001 links re-reviewed at v10. Awaiting Bryan's approval | §4, §5, BEH-10, VER-01, VER-12, frontmatter, status |
 | 2 | 2026-09-29 | Bryan | Approved | status |
+| 3 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Aligned with SPEC-002 v2 (Bryan, 2026-09-29). ERR-05 follows D-03's rule: content that failed validation is never left approved or accepted; an approved ARCH whose amendment or review record fails stays in-review with approval cleared, and a newly accepted ADR becomes proposed. BEH-14 and ERR-05 count one initial check plus at most three repair cycles (D-04). BEH-03, ERR-02, §3 and §5: policy is validated in full through the shared script (D-09), and VER-12 (f) covers its byte-identity. New VER-17 (malformed policy) and VER-18 (failed amendment). SPEC-002 link at v2. Awaiting Bryan's approval | §3, §5, BEH-03, BEH-14, ERR-02, ERR-05, VER-12, VER-17, VER-18, §9, §11, frontmatter, status |
+| 3 | 2026-09-29 | Bryan | Approved | status |

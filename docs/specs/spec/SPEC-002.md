@@ -3,9 +3,9 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: approved
-version: 1
+version: 2
 created: 2026-09-23
-updated: 2026-09-27
+updated: 2026-09-29
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-09-27
+approved_on: 2026-09-29
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -148,7 +148,26 @@ metadata:
 - **The version isn't fixed here.** `metadata.devforgeai-version` must equal `provenance.yaml`'s `version`,
   so a skill fix bumps the skill, not this spec.
 - **Arguments:** `$ARGUMENTS` is a BRN ID (`BRN-NNN`) or empty (BEH-01). File paths aren't accepted.
-- **Tools:** Read, plus Glob and Grep when available, otherwise `ls` on the named folder, to read BRNs and PRDs; Write and Edit for the PRD; AskUserQuestion for the interview.
+- **Tools:** Read, plus Glob and Grep when available, otherwise `ls` on the named folder, to read BRNs and PRDs; Write and Edit for the PRD; the host's question tool for the interview (below); Bash only to run the skill's policy validation script with `python3`.
+- **Policy validation (D-09):** the skill ships `scripts/validate_policy.py` and unchanged copies of
+  `src/schemas/policy.schema.json` and `common.schema.json` in `references/schemas/`. The script validates
+  each approved policy document in full against those schemas (field types, date patterns, authors and
+  link records) with the `jsonschema` library, then against SV-01 to SV-06, and prints every error with
+  its file, field and rule. It is the one maintained validation path. The architecture skill ships
+  byte-identical copies of the script and schemas, since SPEC-003 BEH-03 resolves policy exactly as this
+  skill does. When `devforgeai check` ships (PRD-001 FR-018), both skills switch to it and drop the copies.
+- **Provider adaptations.** These are host-specific; every rule in §6 and §7 applies to every provider.
+
+  | | Claude Code | Codex |
+  |---|---|---|
+  | Invocation | `/devforgeai:prd [BRN-NNN]` | `$devforgeai:prd BRN-NNN`, skill selection or a natural request |
+  | Questions | AskUserQuestion: at most 4 questions per call, 2–4 options each | The host's question tool when it can show every choice (at most 3 per batch); otherwise numbered plain text, then wait. The same `interview.max_calls` budget |
+  | Local preferences (BEH-18) | `.claude/devforgeai.local.md` | `.codex/devforgeai.local.md` |
+  | Provenance (BEH-10) | `tool: claude-code`; the current model ID; `${CLAUDE_SESSION_ID}` | `tool: codex`; model and session only from a supported host interface; otherwise `unavailable`, disclosed |
+  | Resources | `${CLAUDE_SKILL_DIR}` | The loaded skill directory |
+
+  Each provider's qualification records which adaptations its runs exercised. A provider that can't
+  supply exact identity keeps BEH-10's obligation open in its qualification, rather than filling it.
   AskUserQuestion takes at most 4 questions per call, with 2–4 options each. The interview budget in BEH-05 is sized to that.
 - **Downstream contract (consumed by the architecture step, then the epic workflow, per ADR-002):**
   - PRD path `docs/specs/prd/PRD-NNN.md`, and stable FR, NFR and SM IDs (BEH-09 extends without renumbering).
@@ -174,16 +193,16 @@ behaviors:
     rule: "Read the BRN's frontmatter status, problems, ideas, assumptions and candidate success signals. Use only ideas with disposition promoted. Never cite an open, parked or rejected idea anywhere in the PRD."
   - id: BEH-03
     status: active
-    rule: "Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; evolution also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement."
+    rule: "Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; evolution also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement. Keep four kinds of answer apart. An explicit none (the user confirms the category needs nothing) is recorded in section 7's prose as the user's answer, and no NFR is written. No target yet keeps the requirement or metric, with its target marked [NEEDS CLARIFICATION: target for <item>]. A partial answer becomes the NFRs it states, and the rest of the category stays marked. No answer is marked as above. None of these answers waives applicable policy: a category that approved policy requires, or a mandated platform, still applies, and an explicit none for it is recorded together with a [NEEDS CLARIFICATION] marker naming the policy setting."
   - id: BEH-04
     status: active
-    rule: "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea into one or more requirements that start 'The system shall', each with an upstream derives link to its idea; assumptions carried over with derives links; success signals into metrics."
+    rule: "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea into one or more functional requirements that start 'The system shall', each with an upstream derives link to its idea, so every FR derives from a promoted idea; assumptions carried over with derives links; success signals into metrics. NFRs cite their actual source: a BRN item only when one states the requirement; otherwise the policy setting, ADR or PRD it comes from, or no link when the user stated it. Never add a brainstorm link to a requirement the user stated or policy added."
   - id: BEH-05
     status: active
-    rule: "Interview only for gaps, in batched rounds using references/interview.md: framing (stage, operating context, target_release name, primary users, non-goals), architecture context (BEH-16), requirements, quality and constraints (BEH-03), and success metrics (baseline and target). Each requirement gets one question that shows its drafted statement and offers must now, should now, later, or won't: must now and should now write that priority with release current; later writes release later and leaves priority null; won't writes priority wont with release current (an explicit exclusion from this release; a requirement that should never be built is edited or dropped instead). The user can edit the statement or answer 'decide later', which leaves priority and release null. Ask at most four questions per call (a platform limit) and at most interview.max_calls calls (framework default 8, resolved by BEH-17) unless the user asks for more. Record anything left over when the budget runs out as [NEEDS CLARIFICATION]. Skip any question the BRN or the request already answers. When the request says to proceed without questions, ask none."
+    rule: "Interview only for gaps, in batched rounds using references/interview.md: framing (stage, operating context, target_release name, primary users, non-goals), architecture context (BEH-16), requirements, quality and constraints (BEH-03), and success metrics (baseline and target). Each requirement gets one question that shows its drafted statement and offers must now, should now, later, or won't: must now and should now write that priority with release current; later writes release later and leaves priority null; won't writes priority wont with release current (an explicit exclusion from this release; a requirement that should never be built is edited or dropped instead). The user can edit the statement or answer 'decide later', which leaves priority and release null. Ask at most the host's per-call question limit (§5: four in Claude Code) and at most interview.max_calls calls (framework default 8, resolved by BEH-17) unless the user asks for more. Record anything left over when the budget runs out as [NEEDS CLARIFICATION]. Skip any question the BRN or the request already answers. When the request says to proceed without questions, ask none."
   - id: BEH-06
     status: active
-    rule: "Write stage, operating context, priority and release only when the user supplied or confirmed them. Otherwise write null. Questions may suggest a value, but a suggestion is never written unconfirmed. Mark any other unanswered gap [NEEDS CLARIFICATION]. Write a new PRD with status draft. Extending a draft or in-review PRD keeps its status; extending an approved PRD follows BEH-09. Never set approved."
+    rule: "Write stage, operating context, priority and release only when the user supplied or confirmed them. Otherwise write null. Questions may suggest a value, but a suggestion is never written unconfirmed. Mark any other unanswered gap [NEEDS CLARIFICATION]. Write a new PRD with status draft. Extending a draft or in-review PRD keeps its status; extending an approved PRD follows BEH-09. A failed validation (ERR-06) never restores approved. Never set approved."
   - id: BEH-07
     status: active
     rule: "Record fixed external conditions (mandated platforms, required integrations, data residency, existing systems, regulatory mandates) as NFR items with category constraint, stated as the condition and not as a design, with where it applies (the whole product, a named capability or an environment). When the user offers a design preference (for example an architecture style or a framework), ask whether it is a hard constraint. If it is, record it as a constraint. If not, list it under open questions as a design decision for a future ADR, and never as a requirement."
@@ -192,7 +211,7 @@ behaviors:
     rule: "For a new PRD, allocate the ID by scanning docs/specs/prd/ for PRD-NNN.md files and using the highest number plus one (PRD-001 if none). Write to docs/specs/prd/PRD-NNN.md, creating the directory if it is missing. Never ask for or accept a file name. Put the product or release name in the title."
   - id: BEH-09
     status: active
-    rule: "Decide new versus extend on scope, ownership and lifecycle, never on product identity or the number of existing PRDs. Read each existing PRD's title, goals, non-goals, owner, status and target_release. Recommend extending one only when the BRN's promoted ideas belong to that PRD's existing initiative and scope, share its owner, and fit its release lifecycle. Recommend a new PRD when they form a distinct initiative, have a different owner or approval path, or follow a different schedule, even within the same product. State the reasons and let the user decide. Ask when it is ambiguous; a single existing PRD is not evidence that it is the right destination. To extend: raise the version by one, update the date, give new items the next free number in each collection, leave every existing item unchanged, add a Change Log entry and add the new BRN links. If the PRD was approved, set status to in-review and clear approved_by and approved_on, so the scope change is reviewed explicitly. Then tell the user that epics citing this PRD are now suspect links to re-review."
+    rule: "Decide new versus extend on scope, ownership and lifecycle, never on product identity or the number of existing PRDs. Read each existing PRD's title, goals, non-goals, owner, status and target_release. Recommend extending one only when the BRN's promoted ideas belong to that PRD's existing initiative and scope, share its owner, and fit its release lifecycle. Recommend a new PRD when they form a distinct initiative, have a different owner or approval path, or follow a different schedule, even within the same product. State the reasons and let the user decide. A new-versus-extend choice the user already stated explicitly, in the request or in reply to an earlier question, answers this gate: don't ask it again, and name where the answer came from. 'Proceed without questions' is not a choice. Ask when it is ambiguous; a single existing PRD is not evidence that it is the right destination. To extend: raise the version by one, update the date, give new items the next free number in each collection, leave every existing item unchanged, add a Change Log entry and add the new BRN links. If the PRD was approved, set status to in-review and clear approved_by and approved_on, so the scope change is reviewed explicitly. Then tell the user that epics citing this PRD are now suspect links to re-review."
   - id: BEH-15
     status: active
     rule: "Don't copy a constraint or cross-cutting NFR that another PRD already defines. Cite it from its authoritative source with a frontmatter upstream link {id: PRD-NNN, item: NFR-NNN, relation: constrains}, and say in the PRD what it applies to. When the user states a new constraint, record where it applies in the statement: the whole product, a named capability, or an environment."
@@ -201,19 +220,19 @@ behaviors:
     rule: "Read architecture context from two sources only: ADRs in docs/specs/adr/ and documents that the BRN or the request names. Never crawl the codebase. Propose which accepted ADRs apply to this product and let the user confirm; with no user present, use only ADRs the request names. Ignore superseded ADRs. Classify what is learned: an existing commitment (an accepted ADR) becomes a frontmatter upstream link {id: ADR-NNN, relation: constrains}; a hard constraint becomes an NFR with category constraint; a preference becomes an open question; an unresolved decision (including a proposed ADR) becomes [NEEDS ADR: <decision>; affects FR-NNN, ...] in open questions, naming the requirements whose epics it blocks. Each applicable architecture.mandated_platforms setting (BEH-17) becomes a constraint NFR whose own item upstream cites its setting with {id: POL-NNN, item: SET-NN, relation: constrains, version: <policy version>, hash: null}; the link is not repeated in frontmatter. Ask about architecture context in the interview, but never decide a design question in the PRD."
   - id: BEH-17
     status: active
-    rule: "Resolve policy with the ADR-003 A4 sequence, following references/policy.md. R1: read docs/specs/policy/POL-*.md, validate approved documents against the schema and SV-01 to SV-06, and skip and report draft or in-review ones. R2: resolve the unconditional settings (interview.max_calls, architecture.mandated_platforms) across framework defaults (references/defaults.md), organization, project and local preference (BEH-18), honouring overridable_by. R3: establish the operating context from the request, the BRN or the first framing question. R4: apply each active quality.required_categories setting whose applies_when includes that context, additively to the BEH-03 floor; if the context is still unknown, evaluate as production and say so. R5: record each applied policy setting as an upstream link with the policy version, in exactly one place: a mandated platform's constrains link on the item upstream of the constraint NFR it produced (BEH-16), and every setting that governs how the document is produced (interview.max_calls, quality.required_categories) as a frontmatter informed_by link. Then write the ADR-003 A5 resolution line into the Change Log entry, including defaults, local values, settings that didn't apply, the fail-safe context and ignored documents."
+    rule: "Resolve policy with the ADR-003 A4 sequence, following references/policy.md. R1: read docs/specs/policy/POL-*.md, validate approved documents in full against policy.schema.json and common.schema.json and then SV-01 to SV-06, with the skill's validation script (§5), and skip and report draft or in-review ones. When the script can't run, stop (ERR-08) rather than skip validation. R2: resolve the unconditional settings (interview.max_calls, architecture.mandated_platforms) across framework defaults (references/defaults.md), organization, project and local preference (BEH-18), honouring overridable_by. R3: establish the operating context from the request, the BRN or the first framing question. R4: apply each active quality.required_categories setting whose applies_when includes that context, additively to the BEH-03 floor; if the context is still unknown, evaluate as production and say so. R5: record each applied policy setting as an upstream link with the policy version, in exactly one place: a mandated platform's constrains link on the item upstream of the constraint NFR it produced (BEH-16), and every setting that governs how the document is produced (interview.max_calls, quality.required_categories) as a frontmatter informed_by link. Then write the ADR-003 A5 resolution line into the Change Log entry, including defaults, local values, settings that didn't apply, the fail-safe context and ignored documents."
   - id: BEH-18
     status: active
     rule: "Read local preferences from .claude/devforgeai.local.md if it exists: YAML frontmatter with devforgeai_local: 1 and interaction-default keys only (v1: interview.max_calls). Use an entry only if the effective setting's overridable_by includes local. Ignore and report any other entry (unknown key, organizational-policy key, bad type or range, not allowed). A local file never stops the skill. Record used values as '<key>=<value> (local)' in the resolution line, never as a link."
   - id: BEH-10
     status: active
-    rule: "Fill the frontmatter provenance: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date."
+    rule: "Fill the frontmatter provenance with the actual authoring tool, model and session, as the host provides them (§5, Provider adaptations). Never guess, copy or fabricate them. When the host can't provide one, write unavailable and disclose it in this write's Change Log row and in the handoff. A new PRD: authors the user and the tool; reviewed_by empty; created and updated today's date. An extension: keep the existing authors (adding the tool if it is missing), reviewed_by and every Change Log row; update today's date; and say in this write's Change Log row and in the handoff that the new revision hasn't been reviewed. Every hash null."
   - id: BEH-11
     status: active
     rule: "Build the document from ${CLAUDE_SKILL_DIR}/assets/prd.md. Keep every section heading, including the GENERATED epic map. Replace each placeholder or mark it [NEEDS CLARIFICATION]. Delete author comments."
   - id: BEH-12
     status: active
-    rule: "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Fix and check again, at most three attempts. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2)."
+    rule: "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair changes the file to address a reported error; when an error can't be repaired (for example an external limitation), stop early and report it instead of repeating an unchanged check. Record each check and repair in the reply. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2)."
   - id: BEH-13
     status: active
     rule: "Hand off with counts of requirements, constraints and metrics, the number of null decisions, the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step, which is the architecture step (ADR-002): if ${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md exists, tell the user to run /devforgeai:architecture with the PRD ID. Otherwise say the architecture skill (planned as /devforgeai:architecture) does not exist yet, that for now the step is done by hand by writing ADRs with the ADR template, and that this PRD and its [NEEDS ADR] markers are its input; once the skill is built, /devforgeai:architecture with this PRD's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
@@ -253,9 +272,9 @@ errors:
     user_result: "The error and the BRN path"
   - id: ERR-06
     status: active
-    condition: "Validation still fails after three fix attempts"
-    handling: "Stop, leave the PRD's status as it was before this write (draft for a new PRD, unchanged for an extension), and list the remaining errors"
-    user_result: "The file path and the unresolved errors"
+    condition: "Validation still fails after the initial check and three repair cycles, or an error can't be repaired"
+    handling: "Stop. A new PRD stays draft. An extension keeps the status BEH-06 and BEH-09 gave it: a draft or in-review PRD keeps its status, and an approved PRD whose content changed stays in-review with approved_by and approved_on cleared. Never set approved. List the checks, the repairs and the unresolved errors, and don't present the PRD as ready for the architecture step"
+    user_result: "The file path, the checks and repairs made, and the unresolved errors"
   - id: ERR-07
     status: active
     condition: "The user stops mid-interview"
@@ -263,7 +282,7 @@ errors:
     user_result: "Either a draft file or no file, as the user chose"
   - id: ERR-08
     status: active
-    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local"
+    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local; or the validation script can't run while approved policy exists"
     handling: "Stop before writing anything. Name the policy file, the setting and the rule broken (schema or SV-NN). Never guess or fall back silently"
     user_result: "The policy error to fix; no PRD file"
 ```
@@ -298,6 +317,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 2 | Not run. The changed items (BEH-03 to BEH-06, BEH-09, BEH-10, BEH-12, BEH-17, ERR-06, ERR-08, VER-09 to VER-11) and the new VER-24 to VER-32 need fresh runs in each provider; the rows below record version 1's evidence |
 | Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-29) |
 | Structural: SKL-002's frontmatter, provenance and links | No result recorded in this workspace |
 | Behavioural (a): automated VER items, original run | `tmp/eval-results/prd-full-1/` (local, untracked). Started 2026-09-27 22:54 EDT (02:54 UTC on 09-28); Claude Code 2.1.283; 20 cases; 3 runs per arm against the no-plugin baseline; threshold 0.8; judge model sonnet; $41.51; 1,652 s; root `src/claude/DevForgeAI`. **All 20 case scores met the 0.8 threshold.** Eighteen scored 1.00 with the plugin. Two had failing graders, kept as recorded: `writes-prd-from-brn` scored 0.833 in each run, with the llm grader `requirements-match-answers` failing all three runs (VER-01). `architecture-context` averaged 0.952 (1.00, 1.00, 0.857), with the llm grader `marker-names-booking-frs` failing in run 3 (VER-14) |
@@ -386,7 +406,7 @@ verifications:
       - {id: STORY-002, item: AC-08, relation: verifies, version: 7, hash: null}
   - id: VER-09
     status: active
-    obligation: "The written PRD's generated_by has non-empty tool, model and session, reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
+    obligation: "The written new PRD's generated_by holds the host's actual tool, model and session (in Claude Code: claude-code, a model ID and a session ID; a host that can't provide one writes unavailable and discloses it), reviewed_by is empty and every hash is null. Eval case records-provenance: regex on the file."
     level: e2e
     covers:
       - BEH-10
@@ -394,7 +414,7 @@ verifications:
       - {id: STORY-002, item: AC-09, relation: verifies, version: 7, hash: null}
   - id: VER-10
     status: active
-    obligation: "A prompt stating 'it must run on AWS and must integrate with Stripe; I'm leaning towards microservices', with instructions to proceed without questions, yields constraint NFRs for AWS and Stripe, and no requirement or constraint about microservices. Eval case constraints-not-design: regex on the file for category: constraint, llm on the file for the microservices rule."
+    obligation: "A prompt stating 'it must run on AWS and must integrate with Stripe; I'm leaning towards microservices', with instructions to proceed without questions, yields constraint NFRs for AWS and Stripe with no BRN derives link, and no requirement or constraint about microservices. Eval case constraints-not-design: regex on the file for category: constraint, llm on the file for the microservices rule."
     level: e2e
     covers:
       - BEH-07
@@ -402,7 +422,7 @@ verifications:
       - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
   - id: VER-11
     status: active
-    obligation: "In an interactive session with a BRN that already names the users and a request that states the stage and operating context: no question repeats those answers, every batch has at most four questions, the whole interview stays within the resolved interview.max_calls, the NFR categories asked match the operating context, and an 'anything else' quality question is offered. Stopping mid-interview offers a draft save."
+    obligation: "In an interactive session with a BRN that already names the users and a request that states the stage and operating context: no question repeats those answers, every batch has at most four questions, the whole interview stays within the resolved interview.max_calls, the NFR categories asked match the operating context, and an 'anything else' quality question is offered. A partial answer to a category becomes the NFRs it states, with the rest of the category marked. Stopping mid-interview offers a draft save."
     level: manual
     covers:
       - BEH-03
@@ -519,6 +539,87 @@ verifications:
       - ERR-08
     upstream:
       - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-24
+    status: active
+    obligation: "Quality answers kept apart: operating context internal; the prompt confirms security needs nothing beyond the platform, gives no privacy answer, states one success metric with 'no target yet', and says to proceed without questions. The PRD has no security NFR and section 7's prose records the user's none for security; open questions hold a privacy marker; the metric keeps a marked target. Eval case quality-answers-kept-apart: regex on the file."
+    level: e2e
+    covers:
+      - BEH-03
+      - BEH-06
+    upstream:
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
+  - id: VER-25
+    status: active
+    obligation: "None doesn't waive policy: an approved organization policy requires compliance for operating context internal; the prompt states internal, answers compliance 'none' and proceeds without questions. The PRD invents no compliance NFR, records the user's none, and keeps a [NEEDS CLARIFICATION] marker that names the policy setting. Eval case none-does-not-waive-policy: regex on the file."
+    level: e2e
+    covers:
+      - BEH-03
+      - BEH-17
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-26
+    status: active
+    obligation: "Stated choice honored: the VER-06 fixture (PRD-001 for one initiative, BRN-002 for another), with a prompt that says to write a new PRD for BRN-002 and proceed without questions. PRD-002.md is written, PRD-001.md still has version: 1, and the reply names the request as the source of the choice. Eval case stated-choice-honored: file_exists and regex on the files and last_message."
+    level: e2e
+    covers:
+      - BEH-09
+    upstream:
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
+  - id: VER-27
+    status: active
+    obligation: "Failed extension of an approved PRD: an approved PRD-001 (version 1, approved_by set) whose existing FR-001 has a priority value the self-check rejects, which the extension must leave unchanged (BEH-09); the prompt asks to extend PRD-001 from a converged BRN of the same initiative and proceed without questions. PRD-001 ends with status in-review, approved_by empty and approved_on null; FR-001 is byte-identical; the reply lists the checks (at most four), the repairs and the unresolved error, and doesn't present the PRD as ready for the architecture step. Eval case failed-extension-stays-in-review: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-06
+      - BEH-12
+      - ERR-06
+    upstream:
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
+  - id: VER-28
+    status: active
+    obligation: "Malformed policy date: an approved policy whose updated date is 2026-13-45 makes the skill stop, write no PRD, and name the file and the field. Eval case policy-bad-date: file_exists false, regex on last_message."
+    level: e2e
+    covers:
+      - BEH-17
+      - ERR-08
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-29
+    status: active
+    obligation: "Malformed policy authors: an approved policy whose authors is a string, not a list, makes the skill stop, write no PRD, and name the file and the field. Eval case policy-bad-authors: file_exists false, regex on last_message."
+    level: e2e
+    covers:
+      - BEH-17
+      - ERR-08
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-30
+    status: active
+    obligation: "Malformed policy link: an approved policy whose upstream link record has no relation makes the skill stop, write no PRD, and name the file and the field. Eval case policy-bad-link: file_exists false, regex on last_message."
+    level: e2e
+    covers:
+      - BEH-17
+      - ERR-08
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-31
+    status: active
+    obligation: "Wrongly typed policy value: an approved policy whose interview.max_calls value is the string 'eight' makes the skill stop, write no PRD, and name the file, the setting and the field. Eval case policy-bad-type: file_exists false, regex on last_message."
+    level: e2e
+    covers:
+      - BEH-17
+      - ERR-08
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-32
+    status: active
+    obligation: "Review history on extension: an approved PRD-001 with reviewed_by listing a reviewer is extended validly from a converged BRN of the same initiative, with the choice stated and no questions. PRD-001 keeps its authors, reviewed_by and earlier Change Log rows unchanged, is in-review with approval cleared, and its new Change Log row says the revision hasn't been reviewed. Eval case extension-keeps-review-history: regex on the file."
+    level: e2e
+    covers:
+      - BEH-10
+      - BEH-09
+    upstream:
+      - {id: STORY-002, item: AC-09, relation: verifies, version: 7, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -537,6 +638,11 @@ The skill is new; removing its directory rolls it back. The schema change is add
 5. Write the eval cases for the automated VER items (VER-01 to VER-10, VER-13 to VER-22), each with hand-written fixture BRNs and PRDs. Check every
    fixture by reading it against `brainstorm.schema.json` or `prd.schema.json`.
 6. Deploy and validate per ADR-001, iterating until every case scores at least 0.8. Do VER-11, VER-12 and VER-23 by hand.
+
+**Version 2** (after approval): update the Claude and Codex skills against this contract, and add the
+policy validation script and schema copies to both the prd and the architecture skills (§5). Evaluate
+each provider independently, with the existing thresholds and manual obligations (the verification plan
+records the case list).
 
 ## 12. Alternatives considered
 
@@ -601,3 +707,5 @@ its priority and release are decided.
 | 1 | 2026-09-27 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Baseline for this workspace, reset from SPEC-002 v13 on Bryan's decision, since nothing has been built from it here. Versions 1–10 are in DevForgeAI-SDF2's git history (docs/specs/spec/SPEC-002.md, main at ef78b83); v13, with its Change Log for v11–v13, is kept at docs/archive/2026-09-27-spec-reset/SPEC-002-v13.md. Changed from v13, decided by Bryan: VER-07 checks the handoff branch that matches the plugin, with BEH-13's placement (v13 expected a shipped architecture skill); §5 no longer fixes the skill version, and QR-02 compares the two version values (DevForgeAI-SDF2 issue #14); the tools line names `ls` on the named folder when Glob and Grep aren't available (issue #15). Removed as DevForgeAI-SDF2 history: §9's run records (now not run), §10's PRD-001 migration note and §13's STORY-001 note. SPEC-001 link at v10. Awaiting Bryan's approval | frontmatter, §5, QR-02, §9, VER-07, §10, §13 |
 | 1 | 2026-09-27 | Bryan | Approved | status |
 | 1 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Record-only update at Bryan's instruction, with no version bump: §9 records the Claude prd skill's original evaluation run, the two reruns with changed graders (recorded separately), the case changed since, the missing revision binding, the findings shared with the Codex import, and the qualification limits. VER-11, VER-12 and VER-23 stay NOT_RUN; SKL-002's approval stays pending. No item changed | §9 |
+| 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decisions of 2026-09-29 on the Codex import findings. D-03: a failed extension of an approved PRD stays in-review with approval cleared (BEH-06, ERR-06). D-04: one initial check and at most three repair-and-readback cycles (BEH-12, ERR-06). D-05: explicit none, no target yet, partial answers and no answer kept apart, none never waiving policy (BEH-03). D-06: a stated new-versus-extend choice answers the gate (BEH-09). D-07: every FR derives from a promoted idea, NFRs cite their actual source (BEH-04). D-08: an extension keeps authorship and reviews and says the new revision is unreviewed (BEH-10). D-09: full schema validation through one shipped script, shared with the architecture skill (§5, BEH-17, ERR-08). Provider adaptations kept separate (§5, BEH-05, BEH-10); missing identity disclosed, never fabricated. VER-09 to VER-11 changed; VER-24 to VER-32 added. Links to PRD-001 at v10. Awaiting Bryan's approval | §5, BEH-03, BEH-04, BEH-05, BEH-06, BEH-09, BEH-10, BEH-12, BEH-17, ERR-06, ERR-08, VER-09, VER-10, VER-11, VER-24 to VER-32, §9, §11, frontmatter, status |
+| 2 | 2026-09-29 | Bryan | Approved | status |

@@ -24,7 +24,7 @@ upstream:
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "accepted: the project context documents this skill reads"}
   - {id: PRD-001, item: FR-016, relation: informed_by, version: 10, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: SPEC-004, relation: informed_by, version: 1, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
-  - {id: SPEC-003, relation: informed_by, version: 2, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
+  - {id: SPEC-003, relation: informed_by, version: 3, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
