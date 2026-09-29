@@ -49,12 +49,15 @@ the folder or the files are missing, there is no policy; continue with the defau
 - skips each document whose `status` is not `approved`, printing `ignored <file> (status <status>) (SV-06)`;
 - validates each approved document in full against `references/schemas/policy.schema.json` and
   `common.schema.json`, unchanged copies of the framework schemas: every frontmatter key and its type,
-  dates (as real calendar dates), `authors`, link records, and each setting's fields, key, class, value
-  type and range, `applies_when` and `overridable_by`;
+  date patterns, `authors`, link records, and each setting's fields, key, class, value type and range,
+  `applies_when` and `overridable_by`;
+- then applies one additional semantic check that the unchanged schema doesn't make: `created`,
+  `updated` and a non-null `approved_on` must be real calendar dates (the schema's date pattern accepts
+  `2026-13-45`). A failure is labelled `calendar check`, never `schema`;
 - then applies SV-01 to SV-06 below, including SV-02 and SV-04's cross-layer clause across documents;
 - prints one line per error, `<file>: <part>: <field>: <message> (<rule>)`, where `<part>` is
   `frontmatter`, `document` or a setting such as `SET-01 (interview.max_calls)`, and `<rule>` is
-  `schema` or `SV-NN`.
+  `schema`, `calendar check` or `SV-NN`.
 
 Act on its exit code:
 
@@ -192,11 +195,12 @@ every error the script printed (and for a forbidden override R2 found):
 - the policy file;
 - the setting, as its `SET-NN` and its `key` (or both settings for a cross-layer conflict), or the
   frontmatter field for an error outside the settings;
-- the field and the rule broken: `schema` with what is wrong, `SV-NN`, or `forbidden override`.
+- the field and the rule broken: `schema` with what is wrong, `calendar check`, `SV-NN`, or
+  `forbidden override`.
 
 It then says that nothing was written. Never guess a value and never fall back silently. Examples:
 
 - `Policy error in docs/specs/policy/POL-001.md, SET-01 (interview.max_calls): value 50 is outside 1–20 (schema). Nothing was written; fix the policy and run again.`
-- `Policy error in docs/specs/policy/POL-001.md, frontmatter field updated: 2026-13-45 is not a valid calendar date (schema). Nothing was written.`
+- `Policy error in docs/specs/policy/POL-001.md, frontmatter field updated: 2026-13-45 is not a real calendar date (calendar check). Nothing was written.`
 - `Policy validation couldn't run (jsonschema is not installed), and docs/specs/policy/ holds approved policy, so nothing was written. Install the Python packages PyYAML and jsonschema, then run again.`
 - `Policy error: docs/specs/policy/POL-002.md SET-01 (architecture.mandated_platforms, identity and authentication) overrides docs/specs/policy/POL-001.md SET-01, whose overridable_by doesn't include project (SV-04). Nothing was written.`

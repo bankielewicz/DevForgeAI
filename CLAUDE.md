@@ -15,7 +15,7 @@ an approved spec in `docs/specs/`, and its eval suite, not a reading of its inst
 |---|---|---|
 | `brainstorm` (SKL-001 v5) | SPEC-001 v10 | Built, with 8 eval cases |
 | `prd` (SKL-002 v2) | SPEC-002 v2 | v1 is deployed. v2 is built on branch `feat/prd-spec-002-v2`: 29 eval cases (the 20 of v1 plus VER-24..32), policy validated by `scripts/validate_policy.py`; not yet evaluated; manual VER-11, VER-12 and VER-23 not run |
-| `architecture` (SKL-003 v3) | SPEC-003 v3 | v2 is deployed; v1 scored 14 of 14 at 1.00 over 3 runs (mean Δ +0.67). v3 is built on branch `feat/prd-spec-002-v2`: the shared policy script, 16 eval cases (plus VER-17, VER-18); not yet evaluated; manual VER-12 and VER-13 not run |
+| `architecture` (SKL-003 v4) | SPEC-003 v4 (in-review) | v2 is deployed; v1 and v2 each scored 14 of 14 at 1.00 over 3 runs. v4 is built on branch `feat/prd-spec-002-v2` (plugin 0.6.0): the shared policy script, ERR-05's rollback of a failed supersession, 16 eval cases (plus VER-17, VER-18); not yet evaluated; manual VER-12, VER-13 and VER-19 not run |
 | `epic` (SKL-004 v1) | SPEC-004 v1 | Built, with 14 eval cases (3 runs: 14 of 14 at 1.00, `no-arch-hands-back` after a grader fix; mean Δ +0.51); deployed; manual VER-13 not run |
 | `documents-updater` (SKL-005 v1) | SPEC-006 v1 | Built and deployed, with 8 eval cases (3 runs: 8 of 8 at 1.00, mean Δ +0.15); manual VER-10..12 not run. Outside the chain: it updates a repository's README, CHANGELOG and guides from git evidence |
 | `git` (SKL-006 v1) | SPEC-007 v1 (draft, awaiting approval) | Built from the draft spec, with 3 scripts (57 unit tests) and 16 eval cases (3 runs: 16 of 16 at ≥ 0.8, 13 at 1.00, mean Δ +0.28, $18.22; the misses are the eval's own `.git` write refusals, which the skill reports); not deployed; manual VER-18..22 and VER-24 not run. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
@@ -179,8 +179,9 @@ are SPEC-002 VER-11, VER-12 and VER-23.
   rules at step 7. It can't check what the user confirmed, so step 7 also reads the file back. Keep
   `__pycache__/` out of the deployed copy. prd and architecture share `validate_policy.py` (SPEC-002 §5,
   D-09), byte-identical with `references/policy.md`, `defaults.md` and `references/schemas/` (unchanged
-  copies of `src/schemas/`): it validates approved policy in full with jsonschema, then SV-01..06, and
-  exits 0, 1 (invalid) or 2 (can't run). It must also work on the system's jsonschema 4.10 (no
+  copies of `src/schemas/`): it validates approved policy in full with jsonschema, then checks dates
+  against the calendar (additional semantic validation labelled `calendar check`: the unchanged schema
+  accepts `2026-13-45`), then SV-01..06, and exits 0, 1 (invalid) or 2 (can't run). It must also work on the system's jsonschema 4.10 (no
   `referencing` module), which loads whenever the user site-packages are hidden, for example under
   another HOME, as eval workspaces use. Its tests, run under both, are in `src/tests/prd/`. Neither
   skill has a document validator: prd's step 9 reads the PRD back against the self-check list, as

@@ -1,8 +1,10 @@
 """Generates evals/architecture/<case>/ (SPEC-003 VER-01..11, 14..18): prompts, graders, case.yaml
 and the inline scaffold fixtures. Every fixture is defined once here and validated against src/schemas/
 before anything is written; the two policies are read from src/staging/examples/policy-two-orgs/.
-A fixture that is invalid on purpose (VER-17's policy, VER-18's ARCH) must fail in exactly the expected
-place, and every policy fixture is also run through the skill's own scripts/validate_policy.py.
+A fixture that is invalid on purpose (VER-17's policy, VER-18's and VER-19's ARCH) must fail in exactly
+the expected place, and every policy fixture is also run through the skill's own scripts/validate_policy.py.
+It also writes the scaffold for the manual regression case VER-19 under src/tests/architecture/manual/,
+outside the plugin, so it is no eval case.
 Edit fixtures and graders here, then regenerate; it overwrites the case files and never deletes a
 grader, so remove renamed ones by hand. Run from the repository root:
 
@@ -567,6 +569,30 @@ REVIEW_ROW = ("| 1 | 2026-09-25 | claude-code (session prior-review-session) | R
 ARCH_TO_REVIEW = arch_reviewed(1, "create", "")
 ARCH_REVIEWED = arch_reviewed(2, "reuse", REVIEW_ROW)
 
+# VER-19 (manual): as VER-18, but DEC-01 is resolved by the accepted ADR-001 (Auth0), which the user then
+# replaces in the run; validation fails on CMP-01, so the supersession must be rolled back.
+ARCH_SUPERSESSION = arch(
+    status="approved", created="2026-09-21", updated="2026-09-22", approved=True, prd_version=1, outcome="create",
+    context="Defined against PRD-001 version 1 (approved): volunteers sign in, book warehouse shifts, and the "
+            "coordinator sees the roster. No inspection scope was named, and no code was inspected.",
+    drivers="NFR-001 (session revocation) and NFR-002 (private phone numbers) drive the design; NFR-003 rules "
+            "out an on-site server.",
+    mermaid=MERMAID,
+    components=CMP_WEB.replace("    status: active\n", "    status: current\n", 1) + CMP_SHIFTS
+    + item(["id: CMP-03", "status: active", 'name: "Identity provider"',
+            'responsibility: "Authenticates volunteers and issues sessions"', "owns_data:",
+            '  - "Volunteer credentials"', "interacts_with:", '  - "CMP-01"',
+            'deployment: "External: Auth0 (ADR-001)"'] + ups("NFR-001")),
+    decisions=item(["id: DEC-01", "status: active", Q_IDP, "blocking: true", "state: resolved",
+                    "resolved_by: [ADR-001]", "notes: null"] + ups("FR-001"))
+              + item(["id: DEC-02", "status: active", Q_REVOKE, "blocking: true", "state: open",
+                      "resolved_by: []", "notes: null"] + ups("FR-001", "NFR-001")),
+    evidence=EVD_PRD + item(["id: EVD-02", "status: active", 'source: "ADR-001"', "kind: adr",
+                             'finding: "Version 1, status accepted: Auth0 handles volunteer sign-in."',
+                             "classification: decided"]),
+    deployment="The web app and the shift service run on the hosting provider (NFR-003); Auth0 is external.",
+    changelog=INITIAL_ROW + "| 1 | 2026-09-22 | Priya Nair | Approved | status |\n")
+
 POL_A = (POLICIES / "org-a/POL-001.md").read_text()
 POL_B = (POLICIES / "org-b/POL-001.md").read_text()
 
@@ -651,6 +677,7 @@ FIXTURES = {
     "POL_B": (POL_B, "policy.schema.json"), "PRD_Q": (PRD_Q, "prd.schema.json"),
     "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json"),  # the schema's date pattern accepts 2026-13-45
     "ARCH_FAILING": (ARCH_FAILING, "arch.schema.json", [("components", 0, "status")]),
+    "ARCH_SUPERSESSION": (ARCH_SUPERSESSION, "arch.schema.json", [("components", 0, "status")]),
 }
 POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated"}
 
@@ -1007,6 +1034,13 @@ FAIL if any of these fails, or if the reply says it changed CMP-01.
 }
 
 
+MANUAL = Path("src/tests/architecture/manual")
+MANUAL_CASES = {
+    "failed-supersession": ("VER-19", dict(docs__specs__prd__PRD_001=PRD_Q, docs__specs__arch__ARCH_001=ARCH_SUPERSESSION,
+                                           docs__specs__adr__ADR_001=ADR_AUTH0)),
+}
+
+
 def main():
     for label, (text, schema, *expect) in FIXTURES.items():
         validate(label, text, schema, *expect)
@@ -1026,7 +1060,13 @@ def main():
         os.chmod(d / "scaffold.sh", 0o755)
         for g, body in case["graders"].items():
             (d / "graders" / f"{g}.md").write_text(body)
-    print("validated", len(FIXTURES), "fixtures; wrote", len(CASES), "cases")
+    for name, (ver, fixture_files) in MANUAL_CASES.items():
+        (MANUAL / name).mkdir(parents=True, exist_ok=True)
+        (MANUAL / name / "scaffold.sh").write_text(
+            scaffold(f"Seeds the fixtures for the manual SPEC-003 {ver} ({name}); see docs/runbooks.",
+                     **files(**fixture_files)))
+        os.chmod(MANUAL / name / "scaffold.sh", 0o755)
+    print("validated", len(FIXTURES), "fixtures; wrote", len(CASES), "cases and", len(MANUAL_CASES), "manual scaffold")
 
 
 if __name__ == "__main__":

@@ -278,16 +278,27 @@ architectural choices (the ADR text) and unrelated content:
   and `approved_on: null`, and a draft or in-review ARCH keeps its status.
 - **ADRs accepted in this run.** Each becomes `status: proposed` with `approved_by: ""` and
   `approved_on: null`, and is kept. Each DEC it resolved returns to `state: open`,
-  `resolved_by: []`. If this run recorded it superseding an existing ADR, that supersession no
-  longer stands: put the existing ADR back exactly as it was before the write (its `status`,
-  `superseded_by` and Status history), so it ends unchanged.
+  `resolved_by: []`.
+- **A supersession recorded in this run is rolled back.** When such an ADR superseded an existing
+  ADR:
+  - restore the older ADR byte-for-byte to its state before the run: its `status`,
+    `superseded_by`, Status history and every other byte, as if this run never touched it;
+  - clear the replacement's `supersedes` to `[]`, as well as its approval fields. Keep the intended
+    replacement and the user's decision in its prose: add to "Decision outcome" the sentence
+    `Intended to supersede ADR-NNN, as <name> decided in session <ID>; not in force, because
+    validation failed (ERR-05).`;
+  - leave each DEC that depended on the replacement open with `resolved_by: []`. Never reconnect it
+    to the older ADR, even though that ADR is accepted again.
 - **Audit records.** An ARCH Change Log row
   (`Validation failed (ERR-05): <the unresolved errors, briefly>. Left <status>.`, adding
-  `Approval cleared.` when the ARCH was approved), and for each ADR made proposed a Status history
-  row (`Restored to proposed: validation failed`).
+  `Approval cleared.` when the ARCH was approved, and `Supersession of ADR-NNN rolled back.` when
+  one was), and for each ADR made proposed a Status history row: `Restored to proposed: validation
+  failed`, or, for a replacement, `Restored to proposed: validation failed; the supersession of
+  ADR-NNN that <name> approved is not in force`. The restored older ADR gets no row: it is back
+  exactly as it was.
 
 End with the validation-failure report (SKILL.md step 11): each file path with the status left, the
-checks and repairs made, and the unresolved errors. Skip the readiness handoff, and never present
+checks and repairs made, the unresolved errors, and any supersession rolled back. Skip the readiness handoff, and never present
 readiness as validated.
 
 ## Self-check list
@@ -336,7 +347,8 @@ such as one inside an existing item an amendment must leave byte-identical, ends
     keys in order, with `type: adr`, and the status and approval fields in the ADRs table.
 17. `status: accepted` only for a decision the user explicitly made; every `hash` is `null`; no
     `<!--` or `<…>` placeholder is left; the Status history has the row described above.
-18. An existing ADR changed only as "Recording a supersession" allows.
+18. An existing ADR changed only as "Recording a supersession" allows, or, after ERR-05, is
+    byte-identical to its state before the run.
 
 ## Example item blocks
 

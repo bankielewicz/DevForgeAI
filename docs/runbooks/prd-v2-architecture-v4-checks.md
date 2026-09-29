@@ -1,10 +1,13 @@
-# Runbook: SKL-002 v2 and SKL-003 v3 — paid evaluation and manual checks
+# Runbook: SKL-002 v2 and SKL-003 v4 — paid evaluation and manual checks
 
 Covers what the build session couldn't run for the prd skill (SKL-002 v2, SPEC-002 v2) and the
-architecture skill (SKL-003 v3, SPEC-003 v3), both built on branch `feat/prd-spec-002-v2`:
+architecture skill (SKL-003 v4, SPEC-003 v4), both built on branch `feat/prd-spec-002-v2`:
 - section 1: the paid `claude plugin eval` runs;
 - section 2: prd VER-11, VER-12 and VER-23, and the Claude-only session check (verification plan §4);
-- section 3: architecture VER-12 (f) and (i).
+- section 3: architecture VER-12 (f) and (i), and VER-19 (the failed-supersession regression case).
+
+SKL-003 v3 (commit `9bdb87a`) is superseded by v4. A result bound to `9bdb87a` stays on record, but it
+doesn't qualify v4.
 
 Every item stays **NOT_RUN** until someone runs it. Record each result in section 4: **pass**,
 **fail** (with what happened), or **not run** (with why). A failure stays a failure: if a grader
@@ -32,7 +35,7 @@ bash src/tests/prd/record_revision.sh $R prd
 claude plugin eval $P --tag prd $A --output-dir $R
 ```
 
-For the architecture suite, use `R=tmp/eval-results/arch-v3-3run-…`, `record_revision.sh $R
+For the architecture suite, use `R=tmp/eval-results/arch-v4-3run-…`, `record_revision.sh $R
 architecture` and `--tag architecture`. Afterwards, check `cases[].arms.with[].error` in
 `$R/aggregate-result.json` and look for a `not granted` line before trusting any score.
 
@@ -61,9 +64,11 @@ T=/tmp/prd-v2-test
 rm -rf "$T" && mkdir -p "$T" && cp -r "$WT/src/claude/DevForgeAI" "$T/plugin"
 X="$WT/src/staging/examples/policy-two-orgs"
 fresh() { rm -rf "$T/ws" && mkdir "$T/ws" && cd "$T/ws" && bash "$T/plugin/evals/$1/scaffold.sh"; }
+manual() { rm -rf "$T/ws" && mkdir "$T/ws" && cd "$T/ws" && bash "$WT/src/tests/architecture/manual/$1/scaffold.sh"; }
 ```
 
-`fresh <skill>/<case>` makes an empty project in `$T/ws` and seeds it with that eval case's fixtures.
+`fresh <skill>/<case>` makes an empty project in `$T/ws` and seeds it with that eval case's fixtures;
+`manual <name>` does the same with a manual-only fixture from `src/tests/architecture/manual/`.
 It sits outside the repository, so the session doesn't load the project's `CLAUDE.md`, `AGENTS.md` or
 the deployed plugin. Then start Claude from `$T/ws` with the copied plugin:
 
@@ -190,6 +195,7 @@ Each starts with `fresh prd/writes-prd-from-brn && mkdir -p docs/specs/policy`, 
 | SV-01 | `sed 's/id: SET-02/id: SET-01/' "$X/org-a/POL-001.md" > docs/specs/policy/POL-001.md` | Stops before any question, naming `POL-001.md`, `SET-01` and `SV-01`; no PRD |
 | SV-02 | `cp "$X/org-a/POL-001.md" docs/specs/policy/` then `sed 's/POL-001/POL-002/' "$X/org-b/POL-001.md" > docs/specs/policy/POL-002.md` | Stops, naming both files and `SV-02`; no PRD |
 | SV-06 | `sed 's/status: approved/status: draft/' "$X/org-b/POL-001.md" > docs/specs/policy/POL-001.md` | Writes the PRD with the defaults; the resolution line has `ignored docs/specs/policy/POL-001.md (status draft)` |
+| Calendar check | `sed 's/updated: 2026-09-01/updated: 2026-13-45/' "$X/org-a/POL-001.md" > docs/specs/policy/POL-001.md` | Stops, naming `POL-001.md`, the field `updated` and the rule `calendar check` (not `schema`); no PRD |
 | Can't run | SV-06's seed but keep `status: approved` (`cp "$X/org-b/POL-001.md" docs/specs/policy/`), and start Claude with jsonschema hidden (below) | Stops: policy validation couldn't run, quoting `jsonschema is not installed`; no PRD |
 
 To hide jsonschema for the last row:
@@ -248,6 +254,37 @@ decides. Answer *Decide later* to any other question.
   and the unresolved CMP-01 error. It presents no readiness as validated and doesn't send you to
   `/devforgeai:epic`.
 
+### A3. Failed supersession rolls back (VER-19)
+
+`manual failed-supersession`: PRD-001 v2 adds a NEEDS ADR marker; the approved ARCH-001's DEC-01
+(identity provider) is resolved by the accepted ADR-001 (Auth0), and its existing CMP-01 has
+`status: current`, which the self-check rejects. Record the starting state, then start Claude as in 2.0:
+
+```bash
+git init -q && git add -A && git -c user.name=t -c user.email=t@t commit -qm fixtures
+```
+
+> /devforgeai:architecture PRD-001 — amend ARCH-001; I confirm the amend outcome. We're dropping
+> Auth0: I approve superseding ADR-001 with a new decision for the identity provider.
+
+Pick one identity provider when it offers options, give your name if asked who decides, and answer
+*Decide later* to anything else.
+
+**Expect:**
+- It records the supersession (a new accepted ADR with `supersedes: [ADR-001]`, and ADR-001 marked
+  superseded), then validation finds CMP-01's status, which it can't repair. It stops after at most
+  four checks.
+- `git diff --exit-code docs/specs/adr/ADR-001.md` prints nothing: ADR-001 is byte-identical to the
+  fixture (`status: accepted`, `superseded_by: null`, the same Status history).
+- The replacement ADR is kept with `status: proposed`, `approved_by: ""`, `approved_on: null` and
+  `supersedes: []`. Its "Decision outcome" says it was intended to supersede ADR-001 as you decided,
+  and is not in force; its Status history ends with a `Restored to proposed` row naming the rollback.
+- DEC-01 is `state: open` with `resolved_by: []`, not `[ADR-001]`.
+- ARCH-001 is `in-review` with `approved_by: ""` and `approved_on: null`, CMP-01 is unchanged, and
+  the Change Log row records the failure and the rolled-back supersession.
+- The reply is a validation-failure report naming the rollback. It presents no readiness as
+  validated and doesn't send you to `/devforgeai:epic`.
+
 ## 4. Results
 
 | Item | Result | Date | Notes |
@@ -260,7 +297,8 @@ decides. Answer *Decide later* to any other question.
 | M4 VER-12 shared constraint | NOT_RUN | | |
 | M5 VER-12 unknown and malformed BRN, ERR-06, QR-01 | NOT_RUN | | |
 | M6 VER-23 local preferences | NOT_RUN | | |
-| M7 VER-23 SV rules and can't run | NOT_RUN | | |
+| M7 VER-23 SV rules, calendar check and can't run | NOT_RUN | | |
 | M8 session ID | NOT_RUN | | |
 | A1 SPEC-003 VER-12 (f) | NOT_RUN | | |
 | A2 SPEC-003 VER-12 (i) | NOT_RUN | | |
+| A3 SPEC-003 VER-19 failed supersession | NOT_RUN | | |

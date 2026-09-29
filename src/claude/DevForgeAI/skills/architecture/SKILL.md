@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # Architecture
@@ -122,7 +122,7 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
      policy file, the setting (`SET-NN` and its key) or frontmatter field, the field, and the rule
-     (`schema` or `SV-NN`), and say nothing was written. Never fall back silently.
+     (`schema`, `calendar check` or `SV-NN`), and say nothing was written. Never fall back silently.
    - **2, or the script can't be run:** if any policy document has `status: approved`, stop
      (ERR-02): say that policy validation couldn't run, quote its message, and write nothing. If
      none is approved, continue with the framework defaults.
@@ -288,7 +288,9 @@ validation. Follow output-rules.md, "When validation still fails (ERR-05)": a ne
 `draft`; an amended ARCH keeps the status the amendment gave it, so an approved one stays
 `in-review` with its approval cleared; an approved ARCH whose review record failed becomes
 `in-review` with its approval cleared; an ADR accepted in this run becomes `proposed` and its DEC
-returns to open. Then end with
+returns to open with `resolved_by: []`. A supersession recorded in this run is rolled back: the
+older ADR is restored byte-for-byte, the replacement loses its `supersedes`, and the DEC is never
+reconnected to the older ADR. Then end with
 the validation-failure report (step 11), skip the readiness handoff, and never present readiness as
 validated.
 
@@ -334,8 +336,8 @@ When the skill stops without writing (a gate is open, ERR-01, ERR-02, ERR-04), t
 what the user can do, and leaves out the report block.
 
 **After ERR-05**, a validation-failure report replaces both the block and the next step. It gives
-each file path with the status left (and cleared approvals), every check and repair made, and each
-unresolved error with where it is. It lists no requirement as ready, says readiness wasn't
+each file path with the status left (and cleared approvals), any supersession rolled back, every
+check and repair made, and each unresolved error with where it is. It lists no requirement as ready, says readiness wasn't
 validated, and never tells the user to run `/devforgeai:epic`.
 
 ## Output contract

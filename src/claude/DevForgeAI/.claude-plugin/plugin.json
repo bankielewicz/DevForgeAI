@@ -1,6 +1,6 @@
 {
   "name": "devforgeai",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "DevForgeAI spec-driven planning skills for Claude Code: brainstorm ideas, turn the promoted ones into a PRD with traceable IDs, define the architecture (components, decisions and ADRs) and report which requirements are ready for epics, then group the ready, current-release requirements into epics, plus a documents updater that refreshes a repository's README, CHANGELOG and guides from its git changes, and a git workflow skill that commits and pushes work from a worktree, opens pull requests, merges them only with QA's approval and the user's go-ahead, syncs the default branch without losing data and prunes merged worktrees.",
   "author": {
     "name": "Bryan"

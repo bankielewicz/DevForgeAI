@@ -6,16 +6,18 @@ Usage: python3 validate_policy.py [POLICY_DIR]      (default: docs/specs/policy)
 Reads every POL-*.md in the folder. A document whose status is not approved takes no part: it is
 reported as "ignored <file> (status <status>)" and not checked (SV-06). Each approved document is
 validated in full against references/schemas/policy.schema.json and common.schema.json (field types,
-date patterns, authors and link records) with the jsonschema library. The schema's date pattern
-accepts impossible dates such as 2026-13-45, so every date is also checked against the calendar. Then
-the semantic rules apply: SV-01 unique setting IDs, SV-02 one approved document per scope, SV-03 one
-active interview.max_calls per document, SV-04 one active mandated platform per capability per
-document and no project override the organization setting forbids, SV-05 deprecated settings take no
-part (reported), SV-06 non-approved documents take no part (reported).
+date patterns, authors and link records) with the jsonschema library. Then comes additional semantic
+validation that the unchanged schema doesn't do: created, updated and a non-null approved_on must be
+real calendar dates (the schema's date pattern accepts 2026-13-45). Then the semantic rules apply:
+SV-01 unique setting IDs, SV-02 one approved document per scope, SV-03 one active interview.max_calls
+per document, SV-04 one active mandated platform per capability per document and no project override
+the organization setting forbids, SV-05 deprecated settings take no part (reported), SV-06
+non-approved documents take no part (reported).
 
 Output: one line per error, "<file>: <part>: <field>: <message> (<rule>)", where <part> is
-"frontmatter", "document" or a setting ("SET-01 (interview.max_calls)") and <rule> is "schema" or
-"SV-NN"; then the notes for SV-05 and SV-06; then one summary line.
+"frontmatter", "document" or a setting ("SET-01 (interview.max_calls)") and <rule> is "schema",
+"calendar check" (the additional date validation, not a schema rule) or "SV-NN"; then the notes for
+SV-05 and SV-06; then one summary line.
 
 Exit codes: 0 when every approved document is valid (or none exists), 1 when any is invalid, 2 when
 the check can't run while approved policy exists (PyYAML or jsonschema missing, a schema copy missing
@@ -157,6 +159,7 @@ def schema_errors(validator, doc):
 
 
 def calendar_errors(doc):
+    """Additional semantic validation: dates the schema's pattern accepts but the calendar doesn't have."""
     fm = doc.get("frontmatter")
     errors = []
     if isinstance(fm, dict):
@@ -166,7 +169,8 @@ def calendar_errors(doc):
                 try:
                     datetime.date.fromisoformat(value)
                 except ValueError:
-                    errors.append(("frontmatter", name, f"{value!r} is not a valid calendar date", "schema"))
+                    errors.append(("frontmatter", name, f"{value!r} is not a real calendar date; the schema's "
+                                   "date pattern accepts it", "calendar check"))
     return errors
 
 

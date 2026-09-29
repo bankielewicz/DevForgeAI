@@ -68,8 +68,8 @@ def amended(text, *, status="in-review", clear=True, fix_cmp_01=False):
                 "current is not active or deprecated. Left in-review. Approval cleared. | none |\n")
 
 
-R17 = ("Policy error in docs/specs/policy/POL-001.md, frontmatter field updated: 2026-13-45 is not a valid calendar "
-       "date (schema). Nothing was written.\n")
+R17 = ("Policy error in docs/specs/policy/POL-001.md, frontmatter field updated: 2026-13-45 is not a real calendar "
+       "date (calendar check). Nothing was written.\n")
 R18 = ("Validation failed (ERR-05). Check 1: 1 error: CMP-01 has status `current`. It can't be repaired, because\n"
        "CMP-01 is an existing item the amendment must leave unchanged. ARCH-001 is left in-review with its approval\n"
        "cleared. Readiness wasn't validated.\n")

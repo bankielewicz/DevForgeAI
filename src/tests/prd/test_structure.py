@@ -1,10 +1,10 @@
-"""Structural checks for SKL-002 v2 and SKL-003 v3 (docs/runbooks/spec-002-v2-verification-plan.md §2).
+"""Structural checks for SKL-002 v2 and SKL-003 v4 (docs/runbooks/spec-002-v2-verification-plan.md §2).
 
 - SKILL.md frontmatter against skill-frontmatter.schema.json, and the description the spec's §5 fixes;
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 and SPEC-003 validate against spec.schema.json, and every BEH, ERR and QR item is covered
+- SPEC-002 v2 and SPEC-003 v4 validate against spec.schema.json, and every BEH, ERR and QR item is covered
   by a VER item.
 
 Byte-identity of the shared policy files is in test_shared_files.py. Run from the repository root:
@@ -23,7 +23,9 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 2, "SPEC-002", 2), "architecture": ("SKL-003", 3, "SPEC-003", 3)}
+TARGETS = {"prd": ("SKL-002", 2, "SPEC-002", 2), "architecture": ("SKL-003", 4, "SPEC-003", 4)}
+# SPEC-003 v4 awaits Bryan's approval; set it to "approved" when he approves it.
+SPEC_STATE = {"SPEC-002": (2, "approved"), "SPEC-003": (4, "in-review")}
 
 
 class _Loader(yaml.SafeLoader):
@@ -92,11 +94,11 @@ class Skills(unittest.TestCase):
 
 class Specs(unittest.TestCase):
     def test_specs_validate_and_every_item_is_verified(self):
-        for spec, version in (("SPEC-002", 2), ("SPEC-003", 3)):
+        for spec, (version, status) in SPEC_STATE.items():
             with self.subTest(spec):
                 doc = spec_document((SPECS / f"{spec}.md").read_text())
                 self.assertEqual(errors("spec.schema.json", doc), [])
-                self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (version, "approved"))
+                self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (version, status))
                 ids = {i["id"] for k in ("behaviors", "errors", "quality_responses") for i in doc[k]}
                 covered = {c for v in doc["verifications"] for c in v["covers"]}
                 self.assertEqual(ids - covered, set())
