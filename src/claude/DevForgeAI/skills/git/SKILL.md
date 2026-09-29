@@ -162,7 +162,9 @@ git by `.git/info/exclude`.
   add the worktree on that branch. Never move work with stash, copies or patches. The rebase onto
   `origin/<default>` comes before the push (step 6).
 
-Then enter the worktree with EnterWorktree (`path`) when available, or tell the user how to open it.
+Then enter the worktree with EnterWorktree (`path`) when that tool is available. Otherwise the
+session stays where it was (a `cd` in Bash doesn't move it): say so, and give the command that opens
+the worktree, `claude --worktree <name>` from the main checkout.
 
 ### 5. commit
 

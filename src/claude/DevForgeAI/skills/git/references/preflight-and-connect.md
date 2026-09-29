@@ -136,8 +136,10 @@ git worktree add --no-track -b <branch> .claude/worktrees/<name> origin/<default
 ```
 
 `--no-track` keeps the command free of `.git/config` writes. Then move the session in with
-EnterWorktree (`path`) when that tool is available and the user continues there; otherwise tell
-the user how to open it: `claude --worktree <name>` from the main checkout. Run any setup the
+EnterWorktree (`path`) when that tool is available and the user continues there. Otherwise the
+session hasn't moved, even if a Bash command ran `cd` into the worktree: never say it is working
+there. Give the user the command that opens it, `claude --worktree <name>` from the main checkout,
+in Action required. Run any setup the
 repository requires in a new worktree, or report it as the user's step when the session can't.
 `start` alone commits and pushes nothing.
 

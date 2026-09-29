@@ -18,7 +18,7 @@ an approved spec in `docs/specs/`, and its eval suite, not a reading of its inst
 | `architecture` (SKL-003 v1) | SPEC-003 v1 | Built and deployed, with 14 eval cases (3 runs: 14 of 14 at 1.00, mean Δ +0.67); manual VER-12 and VER-13 not run |
 | `epic` (SKL-004 v1) | SPEC-004 v1 | Built, with 14 eval cases (3 runs: 14 of 14 at 1.00, `no-arch-hands-back` after a grader fix; mean Δ +0.51); deployed; manual VER-13 not run |
 | `documents-updater` (SKL-005 v1) | SPEC-006 v1 | Built and deployed, with 8 eval cases (3 runs: 8 of 8 at 1.00, mean Δ +0.15); manual VER-10..12 not run. Outside the chain: it updates a repository's README, CHANGELOG and guides from git evidence |
-| `git` (SKL-006 v1) | SPEC-007 v1 (draft, awaiting approval) | Built from the draft spec, with 3 scripts (57 unit tests) and 16 eval cases checked offline; not yet evaluated with `claude plugin eval` or deployed; manual VER-18..22 and VER-24 not run. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
+| `git` (SKL-006 v1) | SPEC-007 v1 (draft, awaiting approval) | Built from the draft spec, with 3 scripts (57 unit tests) and 16 eval cases checked offline; pilot 3 of 3 at 1.00 (`--runs 1 --ablation none`, $0.98); full suite not yet run; not deployed; manual VER-18..22 and VER-24 not run. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
 | `qa` (SKL-007, reserved) | SPEC-008 v1 (stub) | Stub spec only: the contract SPEC-007 reads (verdict comment naming the reviewed SHA, `merge-approved`/`qa-failed` labels) is fixed; the review criteria are open. Meant to approve PRs from an independent session. Until built, QA follows SPEC-008 §4 by hand |
 
 SKL-007 is reserved for `qa` by SPEC-008.
@@ -137,6 +137,13 @@ suite command is under Commands.
 - `--judge-model sonnet`: the default small judge failed correct replies. Even sonnet failed a correct
   8 kB PRD in 3 of 3 votes, so check claims about a written file with regex graders, and test each
   regex with `node` against a real output first.
+- The eval sandbox masks `.git/config.lock` in a repository the scaffold built, as a session's
+  sandbox does: `git config`, `remote add` and `push -u` fail there. A repository the run itself
+  creates with `git init` isn't masked. The workspace is `home/cwd`, and `home/` is itself a git
+  repository. A slash-command prompt (`/devforgeai:git status`) injects the skill without a Skill tool
+  call, so such a case can't carry a `skill-fired` grader (verified 2026-09-28, git pilot).
+- `--keep-temp` keeps `out/trace.jsonl`, the run's full transcript, with every tool call and the
+  final reply; the workspace itself is sealed (mode 000).
 - Run traces under `/tmp/claude-eval-*` are deleted when the run ends. `report.html` keeps what each llm
   grader saw (the reply or the file), which is usually enough to diagnose a failure. `--case` takes one
   name; loop for several.
