@@ -1,0 +1,9 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-4ghjeu48/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and eight open decisions covering identity, revocation, boundaries, data ownership, authorization, consistency, and hosting.
+
+- **PASS:** Structure and requirement-link checks; PRD unchanged.
+- **BLOCKED:** Provenance validation—the exact host model and session IDs are unavailable.
+- **NOT_RUN:** Validated epic-readiness handoff.
+
+The draft remains unapproved, with all decisions open and no ADRs written. No prior approvals required restoration.
+
+The [architecture skill](/tmp/dfai-architecture-eval-4ghjeu48/devforgeai/skills/architecture/SKILL.md) requires unavailable provenance to “leave validation unresolved”; its failure procedure prevents presenting readiness as validated.

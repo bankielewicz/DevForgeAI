@@ -1,0 +1,12 @@
+**I recommend amending [ARCH-001]( /tmp/dfai-architecture-eval-3vsrh9ee/project/docs/specs/arch/ARCH-001.md), which already covers approved PRD-001 v1.** Nothing was written.
+
+The existing architecture records these blockers:
+
+- **FR-001:** identity provider (DEC-01) and session revocation (DEC-02).
+- **NFR-001:** session revocation (DEC-02).
+
+A complete readiness assessment also needs decision records for component boundaries, data ownership, coordinator-only phone access, and hosting. I haven’t validated the remaining requirements as ready. No mandated platform policy resolves these choices.
+
+The [architecture skill](/tmp/dfai-architecture-eval-3vsrh9ee/devforgeai/skills/architecture/SKILL.md) requires an explicit choice when an existing ARCH covers the system: “Never create a second baseline automatically, and write nothing until the user answers.” “Proceed without questions” leaves that gate open. I’ve honored your instruction by asking no questions; Plan Mode also prevents file changes.
+
+The explicit instruction **“Amend ARCH-001 for PRD-001; proceed without questions”** would settle the architecture-selection gate. Architectural decisions would remain open unless resolved by applicable policy.

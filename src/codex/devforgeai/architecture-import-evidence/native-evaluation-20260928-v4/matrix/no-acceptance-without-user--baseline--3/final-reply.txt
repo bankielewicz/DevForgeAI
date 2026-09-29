@@ -1,0 +1,5 @@
+Defined [ARCH-001](docs/specs/architecture/ARCH-001.md) with three architecture decisions, requirement traceability, and four suggested epic boundaries.
+
+**All six requirements are ready for epic decomposition** under the documented assumptions. Account access, hosting setup, shift capacities, and time zone remain explicit implementation gates.
+
+Verification: **PASS** for requirement coverage, decision references, document links, and unchanged PRD. Runtime tests: **NOT_RUN**; no application exists yet.

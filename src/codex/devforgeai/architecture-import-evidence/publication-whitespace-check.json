@@ -1,0 +1,15 @@
+{
+  "base_commit": "969932483d301df2b9eb1ca27a166c38efe1b75b",
+  "source_and_reports": {
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "full_patch_including_retained_evidence": {
+    "exit": 2,
+    "warning_count": 3,
+    "stdout": "src/codex/devforgeai/architecture-import-evidence/native-evaluation-20260928-v3/candidate/skills/architecture/agents/openai.yaml:7: new blank line at EOF.\nsrc/codex/devforgeai/architecture-import-evidence/native-evaluation-20260928/candidate/skills/architecture/agents/openai.yaml:7: new blank line at EOF.\nsrc/codex/devforgeai/architecture-import-evidence/native-trace-review.md:97: trailing whitespace.\n+Candidate SHA-256: `002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92`  \n",
+    "stderr": ""
+  },
+  "handling": "Source and report whitespace must pass. Retained native/source attempt bytes are not reformatted to erase evidence warnings."
+}

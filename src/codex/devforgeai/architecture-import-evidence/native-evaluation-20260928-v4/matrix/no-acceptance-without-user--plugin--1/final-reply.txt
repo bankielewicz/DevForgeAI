@@ -1,0 +1,7 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-xck9bxlb/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1: four proposed components and eight open architectural decisions covering all six requirements.
+
+- **PASS:** Python YAML checks and read-back review verified structure and requirement links. PRD unchanged; no ADRs written.
+- **BLOCKED:** Exact host model and session IDs are unavailable.
+- **NOT_RUN:** Validated readiness handoff.
+
+The draft remains unapproved; no approvals required restoration. The [architecture skill](/tmp/dfai-architecture-eval-xck9bxlb/devforgeai/skills/architecture/SKILL.md) requires missing provenance to “leave validation unresolved,” so I cannot certify readiness for epics.

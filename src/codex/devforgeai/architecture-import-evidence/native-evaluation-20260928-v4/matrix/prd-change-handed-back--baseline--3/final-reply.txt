@@ -1,0 +1,13 @@
+Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with the proposed architecture, requirement coverage, and epic-readiness matrix, plus two proposed ADRs.
+
+The design uses hosted services, a transactional booking database, server-enforced access controls, and Org A’s mandated identity platform.
+
+**No delivery epic is fully ready yet.** Blockers include:
+
+- Unverified personal Google account support and session revocation through Org A.
+- Missing mandatory compliance and accessibility acceptance criteria.
+- Unresolved role provisioning, shift rules, and roster freshness.
+
+Each blocker has closure evidence and a proposed owner. The approved PRD and policy remain unchanged.
+
+[Verification](docs/specs/architecture/VERIFICATION-001.md): document structure, links, traceability, and input-preservation checks **PASS**. Runtime checks are **NOT_RUN** because no implementation exists.

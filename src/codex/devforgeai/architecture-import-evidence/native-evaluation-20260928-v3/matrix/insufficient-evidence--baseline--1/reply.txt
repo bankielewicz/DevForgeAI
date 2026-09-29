@@ -1,0 +1,5 @@
+Created [ARCH-001](/tmp/dfai-architecture-eval-q3pbw64c/project/docs/specs/architecture/ARCH-001.md) and [ADR-001](/tmp/dfai-architecture-eval-q3pbw64c/project/docs/specs/adr/ADR-001.md), defining hosted architecture, safe concurrent booking, coordinator-only phone access, and reuse of your current auth service.
+
+All six requirements have verification plans; document checks passed. The approved PRD is unchanged.
+
+Auth compatibility remains unverified: its contract must demonstrate five-minute session revocation and hosted operation before pilot release.

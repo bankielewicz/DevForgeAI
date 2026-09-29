@@ -1,0 +1,91 @@
+{
+  "case": "existing-arch-not-duplicated",
+  "verification": "VER-07",
+  "arm": "baseline",
+  "repeat": 2,
+  "status": "completed",
+  "collaboration_mode": "plan",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "arch-001-unchanged",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": true,
+      "target_present": true
+    },
+    {
+      "grader": "asks-with-request-user-input",
+      "type": "request_user_input",
+      "scored": false,
+      "applicable": false,
+      "passed": null,
+      "evidence_count": 0
+    },
+    {
+      "grader": "no-arch-002",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": true
+    },
+    {
+      "grader": "offers-reuse-and-amend",
+      "type": "regex",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "target_present": true
+    },
+    {
+      "grader": "recommends-and-asks",
+      "type": "llm",
+      "scored": true,
+      "applicable": true,
+      "passed": false,
+      "status": "REVIEWED",
+      "rubric": "The workspace already held PRD-001 (version 1, approved) and ARCH-001, a draft architecture\ndescription for the same system, defined against PRD-001 version 1. The user asked to define the\narchitecture for PRD-001 and to proceed without questions.\nThe Codex evidence supplied for review includes the native request_user_input question together with\nany final reply. Judge that combined user-visible output. PASS if it points to the existing ARCH-001,\nrecommends reusing or amending it with at least one reason, and asks the user to choose before\nanything is written.\nFAIL if it says it created or changed an architecture document, treats \"proceed without questions\"\nas permission to pick reuse or amend itself, or never mentions ARCH-001.",
+      "assessment": {
+        "passed": false,
+        "reason": "The baseline points to the existing ARCH-001 and its completed plan proposes extending it, but it does not ask the user to choose reuse or amendment. It therefore misses the required selection gate even though no file was written.",
+        "evidence": [
+          "protocol.jsonl:62 says it will proceed without asking questions.",
+          "protocol.jsonl:130 identifies unresolved identity, revocation, coordinator-access, and readiness gaps in ARCH-001.",
+          "protocol.jsonl:1181 begins the completed plan with 'Extend the existing draft ARCH-001'; no request_user_input item or user-choice question appears.",
+          "before.json and after.json are identical."
+        ]
+      }
+    },
+    {
+      "grader": "skill-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": false,
+      "passed": null,
+      "evidence": []
+    }
+  ],
+  "source_score": 0.5,
+  "threshold_pass": false,
+  "activation": {
+    "expected": false,
+    "observed": false,
+    "loads": []
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true,
+    "expected_existing_arch_unchanged": true
+  },
+  "changed_paths": [],
+  "provenance": {},
+  "strict_pass": false,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

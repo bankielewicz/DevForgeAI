@@ -1,0 +1,5 @@
+Defined [PRD-001’s architecture](/tmp/dfai-architecture-eval-31771ag4/project/docs/specs/architecture/ARCH-001.md) and recorded [reuse of the current auth service](/tmp/dfai-architecture-eval-31771ag4/project/docs/specs/adr/ADR-001.md).
+
+The design covers hosted deployment, atomic booking, coordinator-only phone access, daily rosters, and session revocation within five minutes. The approved PRD remains unchanged.
+
+Verification: **PASS** for requirement coverage and document checks. Runtime validation is **NOT_RUN**; auth compatibility remains **BLOCKED** pending the existing service’s contract and evidence.

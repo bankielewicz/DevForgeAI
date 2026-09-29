@@ -1,0 +1,60 @@
+{
+  "scope": "JSON Schema structure only; does not verify decision acceptance, readiness semantics, or actual provenance identity.",
+  "stage": "matrix",
+  "artifacts": [
+    {
+      "trial": "creates-arch--baseline--1",
+      "path": "docs/specs/adr/ADR-001.md",
+      "sha256": "740c708167137222206a74069a43d581a973826cb5528a7ef5aa7224a963543b",
+      "authored_or_modified": true,
+      "status": "FAIL",
+      "error": "src/codex/devforgeai/architecture-import-evidence/native-evaluation-20260928-v3/matrix/creates-arch--baseline--1/workspace/docs/specs/adr/ADR-001.md fails adr.schema.json: [\"['frontmatter']: 'owner' is a required property\", \"['frontmatter']: 'supersedes' is a required property\", \"['frontmatter']: 'superseded_by' is a required property\", \"['frontmatter']: 'blocked_by' is a required property\"]"
+    },
+    {
+      "trial": "creates-arch--baseline--1",
+      "path": "docs/specs/adr/ADR-002.md",
+      "sha256": "73786c4465946b61a8078242b9f82b4fee74157dcec9dc5fc17285e9e583fa91",
+      "authored_or_modified": true,
+      "status": "FAIL",
+      "error": "src/codex/devforgeai/architecture-import-evidence/native-evaluation-20260928-v3/matrix/creates-arch--baseline--1/workspace/docs/specs/adr/ADR-002.md fails adr.schema.json: [\"['frontmatter']: 'owner' is a required property\", \"['frontmatter']: 'supersedes' is a required property\", \"['frontmatter']: 'superseded_by' is a required property\", \"['frontmatter']: 'blocked_by' is a required property\"]"
+    },
+    {
+      "trial": "creates-arch--plugin--1",
+      "path": "docs/specs/arch/ARCH-001.md",
+      "sha256": "c773c794020687e3562285232ca64330849f3e5b787aa89ed605adb967001e11",
+      "authored_or_modified": true,
+      "status": "PASS"
+    },
+    {
+      "trial": "existing-arch-not-duplicated--baseline--1",
+      "path": "docs/specs/arch/ARCH-001.md",
+      "sha256": "2c8c7c730a4324f292f8e3f6a18feceb0937679e7987eba2687303059cc222ae",
+      "authored_or_modified": false,
+      "status": "PASS"
+    },
+    {
+      "trial": "existing-arch-not-duplicated--plugin--1",
+      "path": "docs/specs/arch/ARCH-001.md",
+      "sha256": "2c8c7c730a4324f292f8e3f6a18feceb0937679e7987eba2687303059cc222ae",
+      "authored_or_modified": false,
+      "status": "PASS"
+    },
+    {
+      "trial": "hands-off-to-epic--baseline--1",
+      "path": "docs/specs/adr/ADR-001.md",
+      "sha256": "c0742d3b109a7267eb58ee80c321d044eb1f7d647992a70560937035c63bf5cb",
+      "authored_or_modified": true,
+      "status": "FAIL",
+      "error": "src/codex/devforgeai/architecture-import-evidence/native-evaluation-20260928-v3/matrix/hands-off-to-epic--baseline--1/workspace/docs/specs/adr/ADR-001.md fails adr.schema.json: [\"['frontmatter']: 'owner' is a required property\", \"['frontmatter']: 'supersedes' is a required property\", \"['frontmatter']: 'superseded_by' is a required property\", \"['frontmatter']: 'blocked_by' is a required property\"]"
+    },
+    {
+      "trial": "hands-off-to-epic--plugin--1",
+      "path": "docs/specs/arch/ARCH-001.md",
+      "sha256": "2ce53c1e38710d0579c045e906413d2c756e49cd49441fad241bcfbcef610a54",
+      "authored_or_modified": true,
+      "status": "PASS"
+    }
+  ],
+  "authored_or_modified_count": 5,
+  "failures": 3
+}

@@ -1,0 +1,8 @@
+{
+  "path": "/home/bryan/Projects/DevForgeAI-worktrees/architecture-codex",
+  "branch": "codex/architecture-port",
+  "base_commit": "969932483d301df2b9eb1ca27a166c38efe1b75b",
+  "git_common_dir": "/home/bryan/Projects/DevForgeAI/.git",
+  "primary_checkout": "/home/bryan/Projects/DevForgeAI",
+  "primary_checkout_modified_by_this_import": false
+}

@@ -1,0 +1,7 @@
+Created [the architecture and readiness matrix](/tmp/dfai-architecture-eval-35n9p6ql/project/docs/specs/architecture/ARC-001.md).
+
+- **Ready for epics:** FR-002 booking, FR-003 roster, and NFR-001–003 covering session revocation, phone privacy, and hosted services.
+- **Blocked:** FR-001 sign-in, pending the identity-provider decision recorded in [ADR-001](/tmp/dfai-architecture-eval-35n9p6ql/project/docs/specs/adr/ADR-001.md).
+- Booking and roster can be planned now; integrated delivery still depends on sign-in.
+
+Document validation passed. The approved PRD is unchanged. Runtime tests were not run because no implementation exists.

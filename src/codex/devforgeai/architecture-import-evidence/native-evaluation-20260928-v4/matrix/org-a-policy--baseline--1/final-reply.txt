@@ -1,0 +1,10 @@
+Created [the architecture and readiness assessment](docs/specs/architecture/ARC-001.md), plus three supporting ADRs.
+
+The design uses Org A’s mandated OIDC platform, server-enforced sessions, transactional booking and fully hosted services.
+
+**No requirement is unconditionally ready for implementation epics:**
+
+- All six need the missing compliance and accessibility criteria.
+- Booking and roster also need confirmed shift rules and freshness expectations.
+
+The assessment includes proposed resolutions, epic boundaries and verification criteria. Document checks **PASS**; runtime tests are **NOT_RUN** because no implementation exists. The approved PRD and policy remain unchanged.

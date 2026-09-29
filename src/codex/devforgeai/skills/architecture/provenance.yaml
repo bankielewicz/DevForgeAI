@@ -1,0 +1,28 @@
+# DevForgeAI provenance record for one skill. Validated against src/schemas/skill.schema.json.
+# Codex provider revision 4 from Claude revision 1; source provenance remains in src/claude/DevForgeAI/skills/architecture/provenance.yaml.
+id: SKL-003
+type: skill
+title: "Architecture Definition skill (Codex port)"
+status: draft          # draft | in-review | approved | superseded | deprecated
+version: 4             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+created: 2026-09-28
+updated: 2026-09-28
+owner: "Bryan"
+authors: ["Bryan", "claude-code", "codex"]
+generated_by:
+  tool: "codex"
+  model: "unknown" # Exact model ID was not exposed to this authoring task.
+  session: "unknown" # The actual host session/thread ID was not exposed to this authoring task.
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:              # the specification this skill implements
+  - {id: SPEC-003, relation: implements, version: 1, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+# --- skill-specific ---
+skill_name: architecture  # must equal the directory name and SKILL.md `name`
+packaging: plugin      # plugin | project | personal
+plugin: devforgeai     # plugin name when packaging is plugin, else null
+eval_tag: architecture # tag every eval case of this skill carries

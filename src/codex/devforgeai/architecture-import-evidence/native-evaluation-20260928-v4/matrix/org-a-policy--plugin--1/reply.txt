@@ -1,0 +1,9 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-wsqpdfom/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1.
+
+- **PASS:** Python/YAML checks verified structure, requirement links, policy evidence and decision states.
+- **BLOCKED:** Exact host model ID is unavailable. The [architecture skill](/tmp/dfai-architecture-eval-wsqpdfom/devforgeai/skills/architecture/SKILL.md) requires validation to remain unresolved.
+- **NOT_RUN:** Validated epic-readiness handoff.
+
+Policy settles the identity provider. Seven decisions remain open, covering revocation, contact ownership, hosting, component boundaries, booking ownership, authorization and roster integration. Missing compliance and accessibility requirements are recorded.
+
+The ARCH remains an unapproved draft; no restoration was needed. No ADRs were written or PRD content changed.

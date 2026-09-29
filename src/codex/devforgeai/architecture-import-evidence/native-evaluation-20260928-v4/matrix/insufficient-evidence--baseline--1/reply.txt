@@ -1,0 +1,5 @@
+Created [ARCH-001](docs/specs/architecture/ARCH-001.md) covering hosted components, booking transactions, rosters, privacy, and requirement verification.
+
+[ADR-001](docs/specs/adr/ADR-001.md) records reuse of your current auth service.
+
+Document checks **PASS**; the approved PRD is unchanged. Auth integration remains **BLOCKED** pending evidence of session revocation within five minutes and hosted operation. Runtime tests were not run; no implementation is present.

@@ -1,0 +1,1075 @@
+[
+  {
+    "case": "creates-arch",
+    "verification": "VER-01",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "all-sections",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "arch-exists",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": false
+      },
+      {
+        "grader": "handoff-blocks-fr-001",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "has-components",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "identity-dec-open",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "no-leftovers",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "outcome-null",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "prd-evidence-context",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "revocation-dec-open",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": null,
+        "evidence": []
+      }
+    ],
+    "source_score": 0.0,
+    "threshold_pass": false,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": false,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "docs/specs/adr/ADR-001.md",
+      "docs/specs/adr/ADR-002.md",
+      "docs/specs/architecture/ARCH-001-verification.md",
+      "docs/specs/architecture/ARCH-001.md"
+    ],
+    "provenance": {},
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "creates-arch",
+    "verification": "VER-01",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "all-sections",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "arch-exists",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "handoff-blocks-fr-001",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "has-components",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "identity-dec-open",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "no-leftovers",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "outcome-null",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "prd-evidence-context",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "revocation-dec-open",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          {
+            "id": "exec-b339b7c1-c8ec-4ce6-a6d2-2b9fd617b2a7",
+            "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-wdogf6_o/devforgeai/skills/architecture/SKILL.md'",
+            "paths": [
+              "/tmp/dfai-architecture-eval-wdogf6_o/devforgeai/skills/architecture/SKILL.md"
+            ]
+          }
+        ]
+      }
+    ],
+    "source_score": 0.8888888888888888,
+    "threshold_pass": true,
+    "activation": {
+      "expected": true,
+      "observed": true,
+      "loads": [
+        {
+          "id": "exec-b339b7c1-c8ec-4ce6-a6d2-2b9fd617b2a7",
+          "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-wdogf6_o/devforgeai/skills/architecture/SKILL.md'",
+          "paths": [
+            "/tmp/dfai-architecture-eval-wdogf6_o/devforgeai/skills/architecture/SKILL.md"
+          ]
+        }
+      ]
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "runtime_candidate_preserved": true,
+      "runtime_model_known": true,
+      "runtime_session_known": true,
+      "provenance_tool_is_codex": true,
+      "provenance_model_matches_runtime": false,
+      "provenance_session_matches_runtime": false
+    },
+    "changed_paths": [
+      "docs/specs/arch/ARCH-001.md"
+    ],
+    "provenance": {
+      "recorded": {
+        "tool": "codex",
+        "model": "unknown",
+        "session": "unknown"
+      },
+      "runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0e9e8-d16d-7402-bf08-79b6f9e793d9"
+      }
+    },
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "existing-arch-not-duplicated",
+    "verification": "VER-07",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "plan",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "arch-001-unchanged",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "asks-with-request-user-input",
+        "type": "request_user_input",
+        "scored": false,
+        "applicable": false,
+        "passed": null,
+        "evidence_count": 0
+      },
+      {
+        "grader": "no-arch-002",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "offers-reuse-and-amend",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "recommends-and-asks",
+        "type": "llm",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "status": "REVIEWED",
+        "rubric": "The workspace already held PRD-001 (version 1, approved) and ARCH-001, a draft architecture\ndescription for the same system, defined against PRD-001 version 1. The user asked to define the\narchitecture for PRD-001 and to proceed without questions.\nThe Codex evidence supplied for review includes the native request_user_input question together with\nany final reply. Judge that combined user-visible output. PASS if it points to the existing ARCH-001,\nrecommends reusing or amending it with at least one reason, and asks the user to choose before\nanything is written.\nFAIL if it says it created or changed an architecture document, treats \"proceed without questions\"\nas permission to pick reuse or amend itself, or never mentions ARCH-001.",
+        "assessment": {
+          "passed": false,
+          "reason": "The baseline recognizes the existing ARCH-001 and proposes extending it, but it never asks the user to choose reuse or amendment before proceeding. Its completed plan selects extension of ARCH-001 under the instruction to proceed without questions, so the combined user-visible output does not satisfy the rubric's required choice gate.",
+          "evidence": [
+            "protocol.jsonl:62 states that it will record blockers without asking questions.",
+            "protocol.jsonl:130 identifies ARCH-001 and its identity and session-revocation blockers.",
+            "protocol.jsonl:1019 completes a plan whose Summary begins 'Extend the existing draft ARCH-001'; no request_user_input item or user-choice question appears in the protocol.",
+            "before.json and after.json retain the same ARCH-001 and PRD-001 content hashes, so no document was written."
+          ]
+        }
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": false,
+        "passed": null,
+        "evidence": []
+      }
+    ],
+    "source_score": 0.5,
+    "threshold_pass": false,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "expected_existing_arch_unchanged": true
+    },
+    "changed_paths": [],
+    "provenance": {},
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "existing-arch-not-duplicated",
+    "verification": "VER-07",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "plan",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "arch-001-unchanged",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "asks-with-request-user-input",
+        "type": "request_user_input",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "evidence_count": 0
+      },
+      {
+        "grader": "no-arch-002",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "offers-reuse-and-amend",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "recommends-and-asks",
+        "type": "llm",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "status": "REVIEWED",
+        "rubric": "The workspace already held PRD-001 (version 1, approved) and ARCH-001, a draft architecture\ndescription for the same system, defined against PRD-001 version 1. The user asked to define the\narchitecture for PRD-001 and to proceed without questions.\nThe Codex evidence supplied for review includes the native request_user_input question together with\nany final reply. Judge that combined user-visible output. PASS if it points to the existing ARCH-001,\nrecommends reusing or amending it with at least one reason, and asks the user to choose before\nanything is written.\nFAIL if it says it created or changed an architecture document, treats \"proceed without questions\"\nas permission to pick reuse or amend itself, or never mentions ARCH-001.",
+        "assessment": {
+          "passed": false,
+          "reason": "The output correctly identifies ARCH-001 and gives concrete reasons to amend it, but it does not ask the user to choose reuse, amendment, or creation before writing. The final answer explicitly says it respected the request to ask no questions and substitutes an imperative the user could issue; that does not satisfy the rubric's required choice request. No architecture file changed, so the failure is confined to the missing user-choice interaction.",
+          "evidence": [
+            "protocol.jsonl:325 recommends amending ARCH-001 because data ownership, phone access, component boundaries, and hosting remain untracked, and marks architecture selection unconfirmed.",
+            "protocol.jsonl:559 points to ARCH-001 and recommends amendment, but says the request does not select reuse, amendment, or creation and that it respected the instruction to ask no questions; no request_user_input item appears in the protocol.",
+            "protocol.jsonl:559 says nothing was written; before.json and after.json retain the same ARCH-001 and PRD-001 content hashes."
+          ]
+        }
+      },
+      {
+        "grader": "skill-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": [
+          {
+            "id": "exec-67a44adb-6886-4cb3-9571-ec9751e64ad1",
+            "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-8ppdwa6p/devforgeai/skills/architecture/SKILL.md'",
+            "paths": [
+              "/tmp/dfai-architecture-eval-8ppdwa6p/devforgeai/skills/architecture/SKILL.md"
+            ]
+          }
+        ]
+      }
+    ],
+    "source_score": 0.6,
+    "threshold_pass": false,
+    "activation": {
+      "expected": true,
+      "observed": true,
+      "loads": [
+        {
+          "id": "exec-67a44adb-6886-4cb3-9571-ec9751e64ad1",
+          "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-8ppdwa6p/devforgeai/skills/architecture/SKILL.md'",
+          "paths": [
+            "/tmp/dfai-architecture-eval-8ppdwa6p/devforgeai/skills/architecture/SKILL.md"
+          ]
+        }
+      ]
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "runtime_candidate_preserved": true,
+      "expected_existing_arch_unchanged": true,
+      "choice_uses_native_question": false
+    },
+    "changed_paths": [],
+    "provenance": {},
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "hands-off-to-epic",
+    "verification": "VER-10",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "ends-with-next-step",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "lists-blocked-with-decs",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "lists-ready",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "names-epic-command",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "next-step-has-no-path",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "no-epic-written",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "no-path-argument",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "says-not-built",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      }
+    ],
+    "source_score": 0.375,
+    "threshold_pass": false,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": false,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "docs/specs/adr/ADR-001.md",
+      "docs/specs/architecture/ARC-001-verification.md",
+      "docs/specs/architecture/ARC-001.md"
+    ],
+    "provenance": {},
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "hands-off-to-epic",
+    "verification": "VER-10",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "ends-with-next-step",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "lists-blocked-with-decs",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "lists-ready",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "names-epic-command",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      },
+      {
+        "grader": "next-step-has-no-path",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "no-epic-written",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "no-path-argument",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "says-not-built",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": true
+      }
+    ],
+    "source_score": 0.375,
+    "threshold_pass": false,
+    "activation": {
+      "expected": true,
+      "observed": true,
+      "loads": [
+        {
+          "id": "exec-7dc59144-341c-451b-8590-60831924b248",
+          "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-joe_3dwd/devforgeai/skills/architecture/SKILL.md'",
+          "paths": [
+            "/tmp/dfai-architecture-eval-joe_3dwd/devforgeai/skills/architecture/SKILL.md"
+          ]
+        }
+      ]
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "runtime_candidate_preserved": true,
+      "runtime_model_known": true,
+      "runtime_session_known": true,
+      "provenance_tool_is_codex": true,
+      "provenance_model_matches_runtime": false,
+      "provenance_session_matches_runtime": true
+    },
+    "changed_paths": [
+      "docs/specs/arch/ARCH-001.md"
+    ],
+    "provenance": {
+      "recorded": {
+        "tool": "codex",
+        "model": "unknown",
+        "session": "01a0e9e9-903d-7c92-88c1-71c230101669"
+      },
+      "runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0e9e9-903d-7c92-88c1-71c230101669"
+      }
+    },
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "verification": "VER-11",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "no-arch-written",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "source_score": 1.0,
+    "threshold_pass": true,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [],
+    "provenance": {},
+    "strict_pass": true,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "ignores-unrelated-request",
+    "verification": "VER-11",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "no-arch-written",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "skill-not-fired",
+        "type": "skill_loaded",
+        "scored": false,
+        "applicable": true,
+        "passed": true,
+        "evidence": []
+      }
+    ],
+    "source_score": 1.0,
+    "threshold_pass": true,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "runtime_candidate_preserved": true
+    },
+    "changed_paths": [],
+    "provenance": {},
+    "strict_pass": true,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "insufficient-evidence",
+    "verification": "VER-08",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "arch-exists",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": false
+      },
+      {
+        "grader": "clarification-marker",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "outcome-not-reuse",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      }
+    ],
+    "source_score": 0.0,
+    "threshold_pass": false,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": false,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "docs/specs/adr/ADR-001.md",
+      "docs/specs/architecture/ARCH-001-verification.md",
+      "docs/specs/architecture/ARCH-001.md"
+    ],
+    "provenance": {},
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "insufficient-evidence",
+    "verification": "VER-08",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "arch-exists",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "clarification-marker",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "outcome-not-reuse",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      }
+    ],
+    "source_score": 1.0,
+    "threshold_pass": true,
+    "activation": {
+      "expected": true,
+      "observed": true,
+      "loads": [
+        {
+          "id": "exec-701e4bb2-e776-4e2f-acc0-6703dafa54c5",
+          "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-8r4rjq0q/devforgeai/skills/architecture/SKILL.md'",
+          "paths": [
+            "/tmp/dfai-architecture-eval-8r4rjq0q/devforgeai/skills/architecture/SKILL.md"
+          ]
+        }
+      ]
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "runtime_candidate_preserved": true,
+      "runtime_model_known": true,
+      "runtime_session_known": true,
+      "provenance_tool_is_codex": true,
+      "provenance_model_matches_runtime": false,
+      "provenance_session_matches_runtime": false
+    },
+    "changed_paths": [
+      "docs/specs/arch/ARCH-001.md"
+    ],
+    "provenance": {
+      "recorded": {
+        "tool": "codex",
+        "model": "unknown",
+        "session": "unknown"
+      },
+      "runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0e9ee-1356-7841-89e2-8e9124a367ff"
+      }
+    },
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "no-acceptance-without-user",
+    "verification": "VER-06",
+    "arm": "baseline",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "arch-exists",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": false
+      },
+      {
+        "grader": "no-adr-written",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": false
+      },
+      {
+        "grader": "nothing-resolved-by-an-adr",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      },
+      {
+        "grader": "outcome-null",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": false,
+        "target_present": false
+      }
+    ],
+    "source_score": 0.0,
+    "threshold_pass": false,
+    "activation": {
+      "expected": false,
+      "observed": false,
+      "loads": []
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": false,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true
+    },
+    "changed_paths": [
+      "docs/specs/adr/ADR-001.md",
+      "docs/specs/architecture/ARC-001.md",
+      "docs/specs/architecture/verification.md"
+    ],
+    "provenance": {},
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  },
+  {
+    "case": "no-acceptance-without-user",
+    "verification": "VER-06",
+    "arm": "plugin",
+    "repeat": 1,
+    "status": "completed",
+    "collaboration_mode": "default",
+    "native_question_count": 0,
+    "source_grades": [
+      {
+        "grader": "arch-exists",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "no-adr-written",
+        "type": "file_exists",
+        "scored": true,
+        "applicable": true,
+        "passed": true
+      },
+      {
+        "grader": "nothing-resolved-by-an-adr",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      },
+      {
+        "grader": "outcome-null",
+        "type": "regex",
+        "scored": true,
+        "applicable": true,
+        "passed": true,
+        "target_present": true
+      }
+    ],
+    "source_score": 1.0,
+    "threshold_pass": true,
+    "activation": {
+      "expected": true,
+      "observed": true,
+      "loads": [
+        {
+          "id": "exec-aa365d20-fd77-4348-a2bb-7ae261aba5c5",
+          "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-eval-5mx25sbt/devforgeai/skills/architecture/SKILL.md'",
+          "paths": [
+            "/tmp/dfai-architecture-eval-5mx25sbt/devforgeai/skills/architecture/SKILL.md"
+          ]
+        }
+      ]
+    },
+    "supplemental_guards": {
+      "completed_or_expected_native_question": true,
+      "activation_matches_case": true,
+      "preexisting_prds_preserved": true,
+      "only_architecture_artifacts_changed": true,
+      "no_downstream_code_written": true,
+      "index_preserved": true,
+      "head_preserved": true,
+      "refs_preserved": true,
+      "runtime_candidate_preserved": true,
+      "runtime_model_known": true,
+      "runtime_session_known": true,
+      "provenance_tool_is_codex": true,
+      "provenance_model_matches_runtime": false,
+      "provenance_session_matches_runtime": false
+    },
+    "changed_paths": [
+      "docs/specs/arch/ARCH-001.md"
+    ],
+    "provenance": {
+      "recorded": {
+        "tool": "codex",
+        "model": "unknown",
+        "session": "unknown"
+      },
+      "runtime": {
+        "tool": "codex",
+        "model": "gpt-6-astra",
+        "session": "01a0e9ee-a822-76a1-94e4-2ed1cb97078a"
+      }
+    },
+    "strict_pass": false,
+    "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "scope": "All staged publication files before this receipt, plus all eleven frozen runtime source files.",
+  "files_checked": 3169,
+  "index_blobs_match_working_bytes": true,
+  "mismatches": [],
+  "index_binding_sha256": "782a6e59ae8202e2f8bb8e9b917673e485fc806e6267463e957bf61f95df151d"
+}

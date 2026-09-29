@@ -1,0 +1,417 @@
+{
+  "candidate_sha256": "002672e3f614de13d5268e6d34a71f95d52202f212f06d97de9388f9ceb3da92",
+  "definitions_sha256": "050863b32468d45437425116e5ce4868ff928cb37ece9f66bfc130d2b0c18323",
+  "runtime": "codex-cli 0.158.0",
+  "models": [
+    "gpt-6-astra"
+  ],
+  "total_trials": 84,
+  "cases": [
+    {
+      "case": "creates-arch",
+      "verification": "VER-01",
+      "plugin": {
+        "scores": [
+          0.8888888888888888,
+          0.8888888888888888,
+          0.8888888888888888
+        ],
+        "mean": 0.8888888888888888,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "org-a-policy",
+      "verification": "VER-02",
+      "plugin": {
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "mean": 0.8,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "org-b-policy",
+      "verification": "VER-03",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "unrelated-adr",
+      "verification": "VER-04",
+      "plugin": {
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "mean": 0.8,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "superseded-adr",
+      "verification": "VER-05",
+      "plugin": {
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "mean": 0.8,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.6,
+          0.6,
+          0.6
+        ],
+        "mean": 0.6,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "no-acceptance-without-user",
+      "verification": "VER-06",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "existing-arch-not-duplicated",
+      "verification": "VER-07",
+      "plugin": {
+        "scores": [
+          0.6,
+          0.6,
+          0.4
+        ],
+        "mean": 0.5333333333333333,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "mean": 0.5,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "insufficient-evidence",
+      "verification": "VER-08",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "prd-change-handed-back",
+      "verification": "VER-09",
+      "plugin": {
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "mean": 0.8,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.4,
+          0.4,
+          0.4
+        ],
+        "mean": 0.4,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "hands-off-to-epic",
+      "verification": "VER-10",
+      "plugin": {
+        "scores": [
+          0.375,
+          0.375,
+          0.375
+        ],
+        "mean": 0.375,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.375,
+          0.375,
+          0.375
+        ],
+        "mean": 0.375,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "ignores-unrelated-request",
+      "verification": "VER-11",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 3,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 3,
+        "activation_passes": 3
+      },
+      "status": "PASS"
+    },
+    {
+      "case": "records-provenance",
+      "verification": "VER-14",
+      "plugin": {
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "mean": 0.8,
+        "threshold_passes": 3,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "reuse-records-review",
+      "verification": "VER-15",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 1,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          0.5,
+          0.5,
+          0.625
+        ],
+        "mean": 0.5416666666666666,
+        "threshold_passes": 0,
+        "strict_passes": 0,
+        "activation_passes": 3
+      },
+      "status": "FAIL"
+    },
+    {
+      "case": "reuse-review-idempotent",
+      "verification": "VER-16",
+      "plugin": {
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mean": 1.0,
+        "threshold_passes": 3,
+        "strict_passes": 3,
+        "activation_passes": 3
+      },
+      "baseline": {
+        "scores": [
+          1.0,
+          0.75,
+          0.75
+        ],
+        "mean": 0.8333333333333334,
+        "threshold_passes": 1,
+        "strict_passes": 1,
+        "activation_passes": 3
+      },
+      "status": "PASS"
+    }
+  ],
+  "plugin_mean": 0.8426587301587302,
+  "baseline_mean": 0.30357142857142855,
+  "mean_delta": 0.5390873015873017,
+  "plugin_threshold_passes": 36,
+  "plugin_strict_passes": 7,
+  "baseline_strict_passes": 4,
+  "plugin_activation_passes": 42,
+  "baseline_activation_passes": 42,
+  "run_errors": [],
+  "obligations": {
+    "VER-01": "FAIL",
+    "VER-02": "FAIL",
+    "VER-03": "FAIL",
+    "VER-04": "FAIL",
+    "VER-05": "FAIL",
+    "VER-06": "FAIL",
+    "VER-07": "FAIL",
+    "VER-08": "FAIL",
+    "VER-09": "FAIL",
+    "VER-10": "FAIL",
+    "VER-11": "PASS",
+    "VER-14": "FAIL",
+    "VER-15": "FAIL",
+    "VER-16": "PASS",
+    "VER-12": "NOT_RUN",
+    "VER-13": "NOT_RUN"
+  },
+  "qualification": "Source evaluation only. VER-12 and VER-13 owner/manual acceptance, installation, deployment and framework acceptance were not performed."
+}

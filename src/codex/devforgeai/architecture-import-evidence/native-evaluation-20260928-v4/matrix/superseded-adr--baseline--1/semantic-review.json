@@ -1,0 +1,11 @@
+{
+  "readiness-mapping": {
+    "passed": false,
+    "reason": "The baseline final reply correctly reopens DEC-01 after ADR-002's supersession and preserves ADR-001's still-valid decision, but it never reports requirement-level readiness. FR-001, FR-002, and NFR-001 are not listed, so the rubric's complete readiness mapping is absent.",
+    "evidence": [
+      "protocol.jsonl:140 recognizes that ADR-003 supersedes ADR-002 without choosing a replacement identity provider and says DEC-01 will reopen.",
+      "protocol.jsonl:339 says the blocking DEC-01 was reopened and ADR-001's database decision was preserved, but gives no FR-001, FR-002, or NFR-001 readiness statuses.",
+      "No other final-answer sentence supplies the required three-requirement readiness mapping."
+    ]
+  }
+}

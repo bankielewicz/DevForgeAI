@@ -1,0 +1,4 @@
+Confirmed: [ARCH-001](/tmp/dfai-architecture-eval-hy761hw4/project/docs/specs/arch/ARCH-001.md) already records reuse for PRD-001 v2. No edits or version bump were needed.
+
+- **PASS:** `python3` checks verified the priority-only change and recorded reuse.
+- **BLOCKED:** Existing DEC-02 remains open: session revocation within five minutes. Your reuse confirmation does not resolve it.

@@ -1,0 +1,12 @@
+{
+  "recommends-and-asks": {
+    "passed": false,
+    "reason": "The baseline recognizes the existing ARCH-001 and proposes extending it, but it does not ask the user to choose reuse or amendment. Its completed plan selects extension under the instruction to proceed without questions, so the combined user-visible output misses the required choice gate.",
+    "evidence": [
+      "protocol.jsonl:73 promises to proceed without asking questions.",
+      "protocol.jsonl:158 identifies unresolved identity, revocation, access-control, and readiness issues in the existing architecture.",
+      "protocol.jsonl:1205 begins its completed plan with 'Extend the existing draft ARCH-001'; no request_user_input item or user-choice question appears in the protocol.",
+      "before.json and after.json preserve identical ARCH-001 and PRD-001 SHA-256 values."
+    ]
+  }
+}

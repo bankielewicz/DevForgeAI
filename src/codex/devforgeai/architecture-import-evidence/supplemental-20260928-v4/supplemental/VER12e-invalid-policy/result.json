@@ -1,0 +1,29 @@
+{
+  "id": "01a0ea03-9ce7-79d3-a6d0-80d4608f8fd6",
+  "items": [
+    {
+      "type": "agentMessage",
+      "id": "msg_0e00937d486c9dfa016abae245245887d1906728f120c7bc39",
+      "text": "Architecture definition stopped: [POL-001](docs/specs/policy/POL-001.md), `SET-03` (`interview.max_calls`) is `50`; the policy schema permits only `1\u201320` (ERR-02).\n\nNothing was written, and epic readiness was not assessed. Correct the approved policy setting, then rerun architecture definition for PRD-001.",
+      "phase": "final_answer",
+      "memoryCitation": null,
+      "delivery": null,
+      "questions": null
+    }
+  ],
+  "itemsView": "summary",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790632500,
+  "completedAt": 1790632519,
+  "durationMs": 19415,
+  "threadId": "01a0ea03-9c79-74e3-9db4-0d0b5768f79e",
+  "model": "gpt-6-astra",
+  "case": "VER12e-invalid-policy",
+  "ver": "VER-12(e)",
+  "collaboration_mode": "default",
+  "elapsed_seconds": 19.793,
+  "plan_sha256": "27cd7a8a88c11f415845b3341a879250c861dfc6bb634edcf655d8034d3d525f",
+  "scratch_parent": "/tmp/dfai-architecture-extra-bbr__dj1",
+  "scratch_workspace": "/tmp/dfai-architecture-extra-bbr__dj1/project"
+}

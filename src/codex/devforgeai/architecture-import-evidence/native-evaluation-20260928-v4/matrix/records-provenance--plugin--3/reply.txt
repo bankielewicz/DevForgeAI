@@ -1,0 +1,7 @@
+Created [ARCH-001](/tmp/dfai-architecture-eval-v0wv_13s/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1 with three proposed components and eight open decisions covering identity, revocation, privacy, hosting, boundaries, data ownership, and roster updates.
+
+- **PASS:** YAML structure and requirement links checked; PRD unchanged.
+- **BLOCKED:** Exact host model and session IDs are unavailable.
+- **NOT_RUN:** Validated epic-readiness handoff.
+
+The [architecture skill](/tmp/dfai-architecture-eval-v0wv_13s/devforgeai/skills/architecture/SKILL.md) requires unavailable provenance to “leave validation unresolved.” The file remains a draft, all decisions remain open, and the proposed create outcome is unconfirmed. No ADRs were written; no approval fields required restoration.

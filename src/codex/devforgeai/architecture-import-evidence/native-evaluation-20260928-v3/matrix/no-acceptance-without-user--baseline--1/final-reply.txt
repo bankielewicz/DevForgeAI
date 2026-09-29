@@ -1,0 +1,8 @@
+Created [ARC-001](docs/specs/architecture/ARC-001.md) with components, data flows, security controls, and requirement-level readiness.
+
+- **Ready for epics:** FR-002 booking, FR-003 roster, NFR-002 privacy, NFR-003 hosting.
+- **Blocked:** FR-001 sign-in and NFR-001 revocation, pending [ADR-001](docs/specs/adr/ADR-001.md)’s identity decision.
+
+Booking and roster still depend on identity for integrated delivery.
+
+**Verification:** All six requirements mapped; document checks passed; PRD unchanged. Runtime tests remain NOT_RUN.

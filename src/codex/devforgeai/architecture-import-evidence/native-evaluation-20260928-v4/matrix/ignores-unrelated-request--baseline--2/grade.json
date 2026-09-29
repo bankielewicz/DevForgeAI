@@ -1,0 +1,47 @@
+{
+  "case": "ignores-unrelated-request",
+  "verification": "VER-11",
+  "arm": "baseline",
+  "repeat": 2,
+  "status": "completed",
+  "collaboration_mode": "default",
+  "native_question_count": 0,
+  "source_grades": [
+    {
+      "grader": "no-arch-written",
+      "type": "file_exists",
+      "scored": true,
+      "applicable": true,
+      "passed": true
+    },
+    {
+      "grader": "skill-not-fired",
+      "type": "skill_loaded",
+      "scored": false,
+      "applicable": true,
+      "passed": true,
+      "evidence": []
+    }
+  ],
+  "source_score": 1.0,
+  "threshold_pass": true,
+  "activation": {
+    "expected": false,
+    "observed": false,
+    "loads": []
+  },
+  "supplemental_guards": {
+    "completed_or_expected_native_question": true,
+    "activation_matches_case": true,
+    "preexisting_prds_preserved": true,
+    "only_architecture_artifacts_changed": true,
+    "no_downstream_code_written": true,
+    "index_preserved": true,
+    "head_preserved": true,
+    "refs_preserved": true
+  },
+  "changed_paths": [],
+  "provenance": {},
+  "strict_pass": true,
+  "semantic_note": "Source checks remain distinct from supplemental provenance, PRD-custody, native-question, activation and downstream-write guards."
+}

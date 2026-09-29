@@ -1,0 +1,134 @@
+{
+  "case": "VER12g-unknown-prd",
+  "ver": "VER-12(g)",
+  "status": "PASS",
+  "turn_status": "completed",
+  "checks": {
+    "no_workspace_writes": {
+      "status": "PASS",
+      "evidence": {
+        "before": {
+          "docs/specs/prd/PRD-001.md": "73a324099d4ea11fd4a99ab8f48f944ce36a2a0e955803de3f918bc9d5ac88ef"
+        },
+        "after": {
+          "docs/specs/prd/PRD-001.md": "73a324099d4ea11fd4a99ab8f48f944ce36a2a0e955803de3f918bc9d5ac88ef"
+        }
+      }
+    },
+    "names_missing_prd": {
+      "status": "PASS",
+      "evidence": "Blocked (ERR-01): `docs/specs/prd/PRD-999.md` does not exist. Nothing was written; epic readiness could not be assessed.\n\nAvailable PRD:\n\n- **PRD-001** \u2014 \u201cVolunteer shift sign-up for the Riverside Food Bank\u201d \u2014 approved, version 1.\n\nProvide PRD-999 or rerun with PRD-001."
+    },
+    "lists_available_prd": {
+      "status": "PASS",
+      "evidence": "Blocked (ERR-01): `docs/specs/prd/PRD-999.md` does not exist. Nothing was written; epic readiness could not be assessed.\n\nAvailable PRD:\n\n- **PRD-001** \u2014 \u201cVolunteer shift sign-up for the Riverside Food Bank\u201d \u2014 approved, version 1.\n\nProvide PRD-999 or rerun with PRD-001."
+    },
+    "runtime_candidate_unchanged": {
+      "status": "PASS",
+      "evidence": {
+        "expected": {
+          ".codex-plugin/plugin.json": "e2c1aac8675f08049d2db5eb74d33aa6605f5e68779a2bf142f4f7a406e2f2ea",
+          "skills/architecture/SKILL.md": "677d913926bf90033a9ee94f8ee6637cfdbe11d7aed7ba94f690fa1af8e7baa0",
+          "skills/architecture/agents/openai.yaml": "3cb877c21bc2c91909c5be90f2890591159c7f579bd92ed0e23dbd9b8d620f97",
+          "skills/architecture/assets/adr.md": "191a4c73f870bd35c4e42253ac906714519fe412af79ec3511b2852c8c58438d",
+          "skills/architecture/assets/arch.md": "c0ae0af128c62ea07dcae5fd5d9f10fcd7255f942e1594e89c703dcf7980eb7b",
+          "skills/architecture/provenance.yaml": "ac96a39f1ab75a7e4f6ad3ed5be76e77995b4b7b79b24e5b1a81cfbe9eb89c35",
+          "skills/architecture/references/defaults.md": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+          "skills/architecture/references/inspection.md": "ae7444594a46796b6dda0ba86788a12c03212a53de899d3a5300738b03198ad2",
+          "skills/architecture/references/output-rules.md": "8b6a2ccafeeeac8bef87d52ded458a40b083ce1de94165201b6bd6143a302f38",
+          "skills/architecture/references/policy.md": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+          "skills/architecture/references/readiness.md": "76aaa148759ec25c1a670d4f1d1d07846d104e0d4c5003f701244927e5614729"
+        },
+        "actual": {
+          ".codex-plugin/plugin.json": "e2c1aac8675f08049d2db5eb74d33aa6605f5e68779a2bf142f4f7a406e2f2ea",
+          "skills/architecture/SKILL.md": "677d913926bf90033a9ee94f8ee6637cfdbe11d7aed7ba94f690fa1af8e7baa0",
+          "skills/architecture/agents/openai.yaml": "3cb877c21bc2c91909c5be90f2890591159c7f579bd92ed0e23dbd9b8d620f97",
+          "skills/architecture/assets/adr.md": "191a4c73f870bd35c4e42253ac906714519fe412af79ec3511b2852c8c58438d",
+          "skills/architecture/assets/arch.md": "c0ae0af128c62ea07dcae5fd5d9f10fcd7255f942e1594e89c703dcf7980eb7b",
+          "skills/architecture/provenance.yaml": "ac96a39f1ab75a7e4f6ad3ed5be76e77995b4b7b79b24e5b1a81cfbe9eb89c35",
+          "skills/architecture/references/defaults.md": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+          "skills/architecture/references/inspection.md": "ae7444594a46796b6dda0ba86788a12c03212a53de899d3a5300738b03198ad2",
+          "skills/architecture/references/output-rules.md": "8b6a2ccafeeeac8bef87d52ded458a40b083ce1de94165201b6bd6143a302f38",
+          "skills/architecture/references/policy.md": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+          "skills/architecture/references/readiness.md": "76aaa148759ec25c1a670d4f1d1d07846d104e0d4c5003f701244927e5614729"
+        }
+      }
+    }
+  },
+  "final_message": "Blocked (ERR-01): `docs/specs/prd/PRD-999.md` does not exist. Nothing was written; epic readiness could not be assessed.\n\nAvailable PRD:\n\n- **PRD-001** \u2014 \u201cVolunteer shift sign-up for the Riverside Food Bank\u201d \u2014 approved, version 1.\n\nProvide PRD-999 or rerun with PRD-001.",
+  "timeline": [
+    {
+      "line": 24,
+      "method": "item/completed",
+      "type": "userMessage",
+      "phase": null
+    },
+    {
+      "line": 69,
+      "method": "item/completed",
+      "type": "agentMessage",
+      "phase": "commentary",
+      "text": "I\u2019ll use the devforgeai:architecture skill to assess PRD-999, document supported architecture decisions, and identify which requirements are ready for epics. I\u2019ll proceed without questions and mark unresolved decisions explicitly.\n"
+    },
+    {
+      "line": 71,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-extra-d6nzamf7/devforgeai/skills/architecture/SKILL.md'",
+      "possible_write": false
+    },
+    {
+      "line": 76,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc 'cat /tmp/dfai-architecture-extra-d6nzamf7/devforgeai/skills/architecture/references/policy.md /tmp/dfai-architecture-extra-d6nzamf7/devforgeai/skills/architecture/references/defaults.md'",
+      "possible_write": false
+    },
+    {
+      "line": 78,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc \"python - <<'PY'\nfrom pathlib import Path\np=Path('docs/specs/policy')\nfor f in sorted(p.glob('POL-*.md')):\n print(f'FILE: {f}\\\\n{f.read_text()}')\nif not p.exists(): print('Policy folder absent')\np=Path('.codex/devforgeai.local.md')\nprint(f'FILE: {p}\\\\n{p.read_text()}' if p.exists() else 'Local preferences absent')\nPY\"",
+      "possible_write": false
+    },
+    {
+      "line": 82,
+      "method": "item/completed",
+      "type": "reasoning",
+      "phase": null
+    },
+    {
+      "line": 226,
+      "method": "item/completed",
+      "type": "agentMessage",
+      "phase": "commentary",
+      "text": "- [ ] 1. Resolve policy (R1, R2)\n- [ ] 2. Select the PRD\n- [ ] 3. Read the PRD; apply R3 and R4\n- [ ] 4. Select or create the ARCH\n- [ ] 5. Inspect within the scope\n- [ ] 6. Identify the architectural questions and components\n- [ ] 7. Resolve each question explicitly\n- [ ] 8. Propose and confirm the outcome\n- [ ] 9. Write the ARCH and ADRs\n- [ ] 10. Validate every file written\n- [ ] 11. Compute readiness, report and hand off\n"
+    },
+    {
+      "line": 228,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('docs/specs/policy')\nfiles=sorted(p.glob('POL-*.md'))\nfor f in files:\n print(f'FILE: {f}\\\\n{f.read_text()}')\nif not files: print('No policy files')\np=Path('.codex/devforgeai.local.md')\nprint(f'FILE: {p}\\\\n{p.read_text()}' if p.exists() else 'Local preferences absent')\nPY\"",
+      "possible_write": false
+    },
+    {
+      "line": 232,
+      "method": "item/completed",
+      "type": "commandExecution",
+      "phase": null,
+      "command": "/bin/bash -lc \"python3 - <<'PY'\nfrom pathlib import Path\np=Path('docs/specs/prd/PRD-999.md')\nif p.exists(): print(p.read_text())\nelse:\n print('ERR-01: PRD-999 does not exist. Available PRDs:')\n for f in sorted(Path('docs/specs/prd').glob('PRD-*.md')):\n  text=f.read_text()\n  fm=text.split('---',2)[1] if text.startswith('---') else ''\n  print(f'FILE: {f}\\\\n{fm}')\nPY\"",
+      "possible_write": false
+    },
+    {
+      "line": 314,
+      "method": "item/completed",
+      "type": "agentMessage",
+      "phase": "final_answer",
+      "text": "Blocked (ERR-01): `docs/specs/prd/PRD-999.md` does not exist. Nothing was written; epic readiness could not be assessed.\n\nAvailable PRD:\n\n- **PRD-001** \u2014 \u201cVolunteer shift sign-up for the Riverside Food Bank\u201d \u2014 approved, version 1.\n\nProvide PRD-999 or rerun with PRD-001."
+    }
+  ]
+}

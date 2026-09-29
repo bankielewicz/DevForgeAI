@@ -1,0 +1,10 @@
+Created [ARCH-001](/tmp/dfai-architecture-eval-n6mupxmu/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1 as a draft.
+
+- Policy resolves the identity-provider choice.
+- Seven decisions remain open: revocation, Google federation, component boundaries, booking ownership, phone privacy, hosting, and roster updates.
+- Proposed PRD changes address Google-account compatibility and missing compliance/accessibility requirements.
+- No ADRs were written; outcome remains unconfirmed.
+
+**Validation:** `python3 /tmp/validate_arch_prd001.py` passed structural and traceability checks but exited 1 because exact host model/session identifiers are unavailable. The draft and empty approval fields were retained; no restoration was necessary.
+
+**Epic readiness remains unvalidated.** The [architecture skill](/tmp/dfai-architecture-eval-n6mupxmu/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” for missing provenance and withholding the readiness handoff after validation failure.

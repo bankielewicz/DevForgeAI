@@ -1,0 +1,9 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-joe_3dwd/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and eight open architectural decisions.
+
+- **PASS:** Structure and traceability checks cover all six requirements.
+- **BLOCKED:** Exact host model ID is unavailable, leaving provenance validation incomplete.
+- **NOT_RUN:** Validated epic-readiness handoff. All six requirements have open blocking decisions.
+
+The document remains an unapproved draft. No ADRs were written, and no restoration was needed.
+
+The [architecture skill](/tmp/dfai-architecture-eval-joe_3dwd/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” when provenance is incomplete, so I cannot report validated readiness.

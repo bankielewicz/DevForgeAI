@@ -1,0 +1,48 @@
+{
+  "baseline_commit": "969932483d301df2b9eb1ca27a166c38efe1b75b",
+  "groups": {
+    "source_skill": {
+      "checked_files": 9,
+      "changed_paths": [],
+      "unexpected_changes": []
+    },
+    "source_evals": {
+      "checked_files": 119,
+      "changed_paths": [],
+      "unexpected_changes": []
+    },
+    "source_tests": {
+      "checked_files": 2,
+      "changed_paths": [],
+      "unexpected_changes": []
+    },
+    "specification": {
+      "checked_files": 1,
+      "changed_paths": [],
+      "unexpected_changes": []
+    },
+    "existing_codex": {
+      "checked_files": 1736,
+      "changed_paths": [
+        "src/codex/devforgeai/.codex-plugin/plugin.json",
+        "src/codex/devforgeai/README.md"
+      ],
+      "unexpected_changes": []
+    }
+  },
+  "runtime_matches_frozen_v3": true,
+  "runtime_checks": {
+    ".codex-plugin/plugin.json": true,
+    "skills/architecture/SKILL.md": true,
+    "skills/architecture/agents/openai.yaml": true,
+    "skills/architecture/assets/adr.md": true,
+    "skills/architecture/assets/arch.md": true,
+    "skills/architecture/provenance.yaml": true,
+    "skills/architecture/references/defaults.md": true,
+    "skills/architecture/references/inspection.md": true,
+    "skills/architecture/references/output-rules.md": true,
+    "skills/architecture/references/policy.md": true,
+    "skills/architecture/references/readiness.md": true
+  },
+  "status": "PASS"
+}

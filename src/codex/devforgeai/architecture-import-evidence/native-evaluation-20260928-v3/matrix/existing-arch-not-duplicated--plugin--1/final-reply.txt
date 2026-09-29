@@ -1,0 +1,12 @@
+**Blocked at architecture selection.** [ARCH-001](docs/specs/arch/ARCH-001.md) already covers PRD-001 v1. I recommend **amending ARCH-001** to capture missing decisions about component boundaries, data ownership, coordinator-only phone access, and hosted deployment.
+
+Existing blockers are:
+
+- **DEC-01:** Identity provider — FR-001.
+- **DEC-02:** Session revocation within five minutes — FR-001 and NFR-001.
+
+The remaining requirements’ readiness is **not validated** because shared architectural questions are missing.
+
+The [architecture skill](/tmp/dfai-architecture-eval-8ppdwa6p/devforgeai/skills/architecture/SKILL.md) requires an explicit choice when an architecture already exists: “Never create a second baseline automatically, and write nothing until the user answers.” Your request does not select reuse, amendment, or creation. I’ve respected your instruction to ask no questions.
+
+Nothing was written; this session also remains in Plan Mode. The instruction **“Amend ARCH-001”** would settle architecture selection so planning can continue.

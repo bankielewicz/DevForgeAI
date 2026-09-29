@@ -1,0 +1,15 @@
+```text
+ARCH-001 written to docs/specs/arch/ARCH-001.md (for PRD-001 v2; review recorded)
+Outcome: reuse
+ADRs written: none
+Ready for epic work: FR-002, FR-003, NFR-002, NFR-003
+Blocked: FR-001 (DEC-02); NFR-001 (DEC-02)
+Proposed PRD changes: none
+Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default)
+```
+
+PASS — Python validation confirmed exactly three permitted changes in [ARCH-001](/tmp/dfai-architecture-eval-v5xzumkz/project/docs/specs/arch/ARCH-001.md). Version 1, approval, provenance, and existing items remain unchanged.
+
+DEC-02 remains open: how sessions are revoked within five minutes.
+
+Next step: the DevForgeAI Codex Epic skill is unavailable. Once available, select it with PRD-001 for the ready requirements.

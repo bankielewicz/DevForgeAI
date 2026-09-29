@@ -1,0 +1,50 @@
+Linux has a **monolithic, modular kernel**: scheduling, memory management, filesystems, and drivers operate in kernel space and interact through internal interfaces. Many components can be loaded as modules.
+
+The three subsystems divide responsibility this way:
+
+| Subsystem | Main responsibility |
+|---|---|
+| **Scheduler** | Decides which runnable thread gets a CPU, and when. |
+| **Memory management** | Manages address spaces, physical RAM, and the movement of data into and out of memory. |
+| **Virtual File System (VFS)** | Provides a common interface for accessing files across different filesystems. |
+
+Their relationship is cooperative rather than a strict stack:
+
+```mermaid
+flowchart TB
+    A[Application threads] -->|System calls| V[VFS]
+    A -->|Memory access and page faults| M[Memory management]
+    S[Scheduler] -->|CPU time| A
+    V <-->|Cached file data and memory mappings| M
+    V --> F[Filesystem implementations]
+    F --> D[Storage or network drivers]
+    V <-->|Blocking and wakeups| S
+    M <-->|Blocking and wakeups| S
+```
+
+**The scheduler manages execution.** Linux schedules individual tasks—roughly, threads—and distributes runnable work across CPUs. When a thread must wait for file data or a memory page, it can sleep, allowing another thread to run. A wakeup makes it eligible to run again; it does not guarantee immediate execution. Scheduling policies determine which eligible task runs next. Modern Linux uses EEVDF for ordinary fair scheduling, with separate policies for real-time work. [Scheduler documentation](https://docs.kernel.org/scheduler/sched-design-CFS.html), [EEVDF documentation](https://docs.kernel.org/scheduler/sched-eevdf.html)
+
+**Memory management provides each process with a virtual address space.** Page tables translate virtual addresses into physical memory and enforce access permissions. The kernel allocates pages, handles page faults, and reclaims memory under pressure. Some memory is anonymous, such as a program’s heap; other memory contains file data.
+
+The **page cache** is a central connection to filesystems: it keeps file contents in RAM so repeated accesses can avoid storage I/O. Clean cached pages can be discarded and read again later; modified, or *dirty*, file pages generally need writing back before their memory can be reused. [Memory-management concepts](https://docs.kernel.org/admin-guide/mm/concepts.html)
+
+**The VFS provides a common file abstraction.** Applications use operations such as `open()`, `read()`, and `write()` while the VFS dispatches them to implementations such as ext4, XFS, or NFS. Its main objects include:
+
+- **Inode:** represents a filesystem object and its metadata.
+- **Dentry:** associates a name within a directory with an inode.
+- **File object:** represents an open file description, including its offset and operations.
+- **Superblock:** represents a filesystem instance.
+
+A file descriptor indexes the process’s table of references to open file objects. [VFS documentation](https://docs.kernel.org/filesystems/vfs.html)
+
+Consider a normal buffered `read()` from an already-open disk file:
+
+1. The running thread enters the kernel through a system call.
+2. The VFS resolves its file descriptor and invokes the file’s read operation.
+3. The read path checks the page cache. If the data is available, it can be copied into the application’s buffer.
+4. If storage I/O is needed, the filesystem requests it through the storage stack. The thread may sleep while waiting, and the scheduler runs other work.
+5. Completion makes the waiting thread runnable. When scheduled again, it finishes the read and returns to userspace.
+
+This example connects the VFS’s operation dispatch, the memory subsystem’s cached pages, and the scheduler’s handling of runnable and waiting tasks. [VFS and page-cache interfaces](https://docs.kernel.org/filesystems/vfs.html), [Scheduling interfaces](https://docs.kernel.org/scheduler/sched-design-CFS.html)
+
+With **`mmap()`**, the connection is even closer: file contents can be mapped into a process’s virtual address space. Accessing a missing page can trigger a page fault that fetches file data and may put the thread to sleep. Ordinary buffered I/O and file mappings generally use the same page cache, tying memory access, filesystem operations, and scheduling together. [File address-space operations](https://docs.kernel.org/filesystems/vfs.html#the-address-space-object)

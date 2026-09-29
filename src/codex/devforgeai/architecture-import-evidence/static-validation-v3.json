@@ -1,0 +1,29 @@
+{
+  "candidate_sha256": "9b60b259dc26720d3cd5797a4fe7b6a7800746482e9897d5fece0bd8e8e36e7d",
+  "checks": [
+    {
+      "check": "plugin",
+      "exit": 0,
+      "stdout": "Plugin validation passed: /home/bryan/Projects/DevForgeAI-worktrees/architecture-codex/src/codex/devforgeai\n",
+      "stderr": ""
+    },
+    {
+      "check": "skill",
+      "exit": 0,
+      "stdout": "Skill is valid!\n",
+      "stderr": ""
+    },
+    {
+      "check": "skill-provenance-schema",
+      "exit": 0,
+      "errors": []
+    }
+  ],
+  "test_results_observed": {
+    "existing_regressions": 33,
+    "new_grader_regressions": 8,
+    "total": 41,
+    "status": "PASS",
+    "note": "Raw existing-suite output retained in regression-tests.txt; new suite result observed through parent/agent tool invocations."
+  }
+}

@@ -1,0 +1,9 @@
+Amended [ARCH-001](/tmp/dfai-architecture-eval-lqrf6z4g/project/docs/specs/arch/ARCH-001.md) to version 2, draft.
+
+- Applied ADR-003 hosting requirements.
+- Reopened the blocking identity-provider decision.
+- Preserved ADR-001 data ownership.
+- PASS: 10 document checks via `python3 /tmp/validate_arch_001.py docs/specs/arch/ARCH-001.md`.
+- NOT_RUN: repository tests; none provided.
+
+PRD and ADR files remain unchanged.

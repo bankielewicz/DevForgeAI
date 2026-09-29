@@ -1,0 +1,5 @@
+Created [PRD-001 architecture](docs/specs/architecture/ARCH-001.md) and [auth reuse ADR](docs/specs/adr/ADR-001.md).
+
+The design covers hosted deployment, atomic booking, coordinator rosters, phone-number privacy, and session revocation.
+
+Documentation checks passed for all six requirements. Auth compatibility remains unverified because service artifacts weren’t supplied, particularly five-minute revocation and hosting. The approved PRD is unchanged.

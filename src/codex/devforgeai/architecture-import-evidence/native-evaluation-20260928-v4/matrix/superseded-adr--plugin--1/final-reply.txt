@@ -1,0 +1,8 @@
+Amended [ARCH-001](/tmp/dfai-architecture-eval-9wlan02b/project/docs/specs/arch/ARCH-001.md) to version 2. **Validation remains unresolved.**
+
+- **PASS:** Reopened DEC-01 because ADR-002 is superseded; ADR-003 does not select an identity provider.
+- **PASS:** Preserved DEC-02, existing component items, the PRD and all ADRs.
+- **FAIL:** Exact host model identity is unavailable. Final verification: `python3 /tmp/validate-arch001.py --restored`.
+- **NOT_RUN:** Readiness handoff, as required after validation failure.
+
+The [architecture skill](/tmp/dfai-architecture-eval-9wlan02b/devforgeai/skills/architecture/SKILL.md) requires: “If errors remain (ERR-05), restore what output-rules.md says.” Original status and approval fields were restored and audited; they do **not** signify approval of this amendment.

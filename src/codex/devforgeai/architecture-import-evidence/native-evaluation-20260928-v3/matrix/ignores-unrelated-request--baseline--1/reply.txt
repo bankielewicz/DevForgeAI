@@ -1,0 +1,47 @@
+Linux is a **monolithic, modular kernel**: its scheduler, memory manager, filesystems, and drivers run in kernel space and cooperate through internal interfaces. Modules allow some components to be loaded dynamically.
+
+These three subsystems manage different resources:
+
+| Subsystem | Main responsibility | Key abstractions |
+|---|---|---|
+| Scheduler | Decide which runnable thread executes on each CPU | Tasks, run queues, scheduling policies |
+| Memory management | Provide protected virtual address spaces and manage physical RAM | Page tables, memory mappings, physical pages |
+| Virtual File System (VFS) | Provide a common interface to different filesystems | Files, inodes, directory entries, filesystem instances |
+
+Their relationship is easiest to see as a network of interactions:
+
+```mermaid
+flowchart TD
+    A[Application threads] -->|System calls| V[VFS and filesystems]
+    A -->|Memory access and page faults| M[Memory management]
+    S[Scheduler] -->|Assigns CPU time| A
+    V <-->|Cached file data and mappings| M
+    V -->|Wait for I/O; wake on completion| S
+    M -->|Wait for pages; wake when ready| S
+    V --> D[Storage / network drivers]
+```
+
+The **scheduler** schedules individual threads, including kernel threads. Each CPU has a run queue of tasks eligible to execute. Scheduling policies determine which task runs next; a context switch saves one task’s execution state and restores another’s. Ordinary workloads use the fair scheduling class, whose modern implementation uses EEVDF; real-time and deadline workloads have separate policies. A task waiting for I/O generally sleeps, allowing another runnable task to use the CPU. [Kernel scheduling documentation](https://docs.kernel.org/scheduler/sched-design-CFS.html), [EEVDF documentation](https://docs.kernel.org/scheduler/sched-eevdf.html).
+
+**Memory management** gives each process a virtual address space, normally shared by its threads. Page tables translate virtual addresses into physical memory and enforce access permissions. Physical memory can be allocated on demand: accessing a valid mapping without a resident page causes a page fault, which the kernel resolves by allocating memory or retrieving data.
+
+RAM also holds the **page cache**, which stores file contents. Under memory pressure, Linux can reclaim clean cached pages, arrange writeback of modified file pages, or move eligible anonymous memory to swap when available. Application memory and cached file data therefore compete for the same physical RAM. [Memory-management overview](https://docs.kernel.org/admin-guide/mm/concepts.html).
+
+The **VFS** gives applications consistent operations such as `open()`, `read()`, and `write()` across filesystems such as ext4, XFS, and NFS. It resolves paths, coordinates permission checks, and dispatches operations to filesystem implementations. Its principal objects include:
+
+- **Inode:** a filesystem object and its metadata.
+- **Dentry:** a name’s association with a filesystem object.
+- **File object:** an open instance, including offset and access state.
+- **Superblock:** a filesystem instance.
+
+A process’s file descriptor refers to an open file object. [VFS documentation](https://docs.kernel.org/filesystems/vfs.html).
+
+Consider a typical **buffered read from a local regular file**:
+
+1. A scheduled thread calls `read(fd, buffer, size)`, entering kernel mode.
+2. The VFS resolves the descriptor and invokes the file’s read operation.
+3. If the requested data is already in the page cache, the kernel can copy it into the application’s buffer.
+4. Otherwise, the filesystem arranges storage I/O to populate cache pages. The thread may sleep while it waits, and the scheduler runs another task.
+5. I/O completion makes the waiting thread runnable. Once scheduled again, it finishes the read and returns to user space.
+
+With `mmap()`, file contents can instead be mapped into the process’s virtual address space. Accessing a missing page triggers a page fault that can lead through the same cache and filesystem machinery. This makes the page cache a central connection between memory management and filesystem access. [VFS page-cache documentation](https://docs.kernel.org/filesystems/vfs.html#the-address-space-object).

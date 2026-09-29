@@ -1,0 +1,7 @@
+Created [ARCH-001.md](/tmp/dfai-architecture-eval-ujh7zdds/project/docs/specs/arch/ARCH-001.md) for PRD-001, covering components, data ownership, security, interfaces, and hosting.
+
+- **PASS:** Read-back and Python/YAML structural and traceability checks.
+- **BLOCKED:** Exact host model/session IDs are unavailable, preventing full validation and readiness handoff.
+- **Retained:** Draft architecture; no restoration needed. No ADRs written.
+
+Your current auth service is recorded as the preferred sign-in provider. Seven decisions remain open: the [architecture skill](/tmp/dfai-architecture-eval-ujh7zdds/devforgeai/skills/architecture/SKILL.md) requires that, with questions disabled, “no question is newly resolved except by a mandated platform.”

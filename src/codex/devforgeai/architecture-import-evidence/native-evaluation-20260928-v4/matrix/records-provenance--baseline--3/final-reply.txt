@@ -1,0 +1,7 @@
+Created [ARCH-001]( /tmp/dfai-architecture-eval-4pqldevb/project/docs/specs/architecture/ARCH-001.md) covering hosted services, data boundaries, booking, session revocation, privacy, and acceptance evidence.
+
+- **Ready for epics:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.
+- **Blocked:** FR-001 needs identity-provider selection, documented in ADR-001.
+- Booking and roster can be decomposed now; integrated delivery depends on sign-in.
+
+**Verification:** All six requirements mapped; document checks passed; approved PRD unchanged. Runtime tests were not run because no implementation exists.
