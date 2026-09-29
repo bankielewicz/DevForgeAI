@@ -54,6 +54,8 @@ components:
   - id: CMP-01
     status: active
     name: "<component>"
+    kinds:                 # one or more: user-interface | service | platform | api | relational-store | data-store | external
+      - "service"
     responsibility: "<what it is responsible for>"
     owns_data:
       - "<data it is the owner of>"

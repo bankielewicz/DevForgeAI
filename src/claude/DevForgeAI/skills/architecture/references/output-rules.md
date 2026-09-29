@@ -107,11 +107,24 @@ and has only the fields below, in this order.
 | Field | Value |
 |---|---|
 | `name` | Quoted |
+| `kinds` | Block list of one or more quoted kinds from the table below. Leave it out only when no kind is certain, with a `[NEEDS CLARIFICATION: kinds of CMP-NN]` marker in section 8 |
 | `responsibility` | Quoted: what it is responsible for, and what it is not |
 | `owns_data` | Block list of quoted data it is the owner of, or `[]` |
 | `interacts_with` | Block list of quoted `CMP-NN` IDs or external systems, or `[]` |
 | `deployment` | Quoted deployment unit, or `"Open: see DEC-NN"` when a DEC about deployment is open |
 | `upstream` | Optional links to the NFRs and POL settings it serves |
+
+Component kinds (SPEC-003 §4; they select the project context documents, ADR-004 D2):
+
+| Kind | A component that is… |
+|---|---|
+| `user-interface` | a surface people use: web, desktop, mobile or CLI |
+| `service` | application or business logic |
+| `platform` | background jobs, workers, integrations with external systems, hosting |
+| `api` | an interface exposed to another component or to external consumers |
+| `relational-store` | a relational database |
+| `data-store` | a non-relational store: document, key-value, object, search or cache |
+| `external` | a system outside the project, such as a mandated identity platform |
 
 **`decisions`**:
 
@@ -285,7 +298,8 @@ Read each written file back and check every item. Fix and re-check, at most thre
    existing item is byte-identical except DEC `state` and `resolved_by` transitions logged in the
    Change Log.
 8. Every item has its required fields in order and only allowed fields; every enum value is valid;
-   every free-text value is double-quoted.
+   every free-text value is double-quoted. Every new CMP has `kinds` from the kinds table, or a
+   `[NEEDS CLARIFICATION: kinds of CMP-NN]` marker in section 8.
 9. Every DEC has at least one upstream link to a requirement that exists in the PRD. `state: open`
    has `resolved_by: []`; `state: resolved` has a non-empty `resolved_by`, and every entry is an
    accepted, non-superseded ADR that exists or a policy setting that step 1 applied.
@@ -317,6 +331,8 @@ components:
   - id: CMP-01
     status: active
     name: "Volunteer web app"
+    kinds:
+      - "user-interface"
     responsibility: "Sign-in flow, shift browsing and booking screens; holds no data of its own"
     owns_data: []
     interacts_with:
@@ -328,6 +344,8 @@ components:
   - id: CMP-03
     status: active
     name: "Identity platform"
+    kinds:
+      - "external"
     responsibility: "Authenticates volunteers and issues sessions; external, provided by the organization"
     owns_data:
       - "Volunteer credentials"
