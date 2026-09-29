@@ -20,6 +20,10 @@ __pycache__/
 # The deployed plugin copy; regenerate it from src/ with the rsync command in CLAUDE.md
 .claude/skills/devforgeai/
 
+# Local Codex folder: the deployed Codex plugin copy (.codex/devforgeai/, regenerated from the tracked
+# files of src/codex/devforgeai/) and local preferences such as .codex/devforgeai.local.md
+.codex/
+
 # Third-party reference material, kept locally only
 docs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf
 docs/research/

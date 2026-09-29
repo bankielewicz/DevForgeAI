@@ -2,15 +2,17 @@
 
 ## Project Structure & Module Organization
 
-DevForgeAI provides specification-driven Claude Code planning skills. Brainstorm, PRD, architecture, epic and documents-updater are implemented; the git skill has a draft specification.
+DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic and documents-updater. Codex contains brainstorm, architecture and documents-updater; PRD and epic are not yet ported. Codex architecture remains a draft with recorded evaluation failures and unrun manual checks; source presence does not establish acceptance.
 
 - `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-006.md` the documents updater, `SPEC-007.md` (draft) the git workflow and `SPEC-008.md` (stub) the QA review. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
 - `src/templates/` holds staged document templates; `src/templates/skill/` contains skill, provenance, and evaluation examples.
 - `src/schemas/` holds document JSON Schemas.
 - `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `epic`, `documents-updater`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
+- `src/codex/devforgeai/` holds the Codex manifest (`.codex-plugin/plugin.json`), skills, tests, evals and import reports. Its README and per-skill reports describe provider adaptations and qualification limits.
+- `src/tests/` holds Claude documents-updater checker tests and evaluation generators/graders for documents-updater, architecture and epic. Codex tests and generators live in its package's `tests/`.
 - `src/tools/session-archive/` holds separate user-level hooks (SPEC-005, draft).
 
-Some specs describe another layout. Verify paths against disk; see `CLAUDE.md` for mappings. Edit plugin source; deployment is the owner's step.
+Some specs describe another layout. Verify paths against disk; see `CLAUDE.md` for mappings and Claude workflows, and the Codex package README for its current contents. Edit the relevant provider's source; deployment is the owner's step. Keep historical import evidence intact.
 
 ## Build, Test, and Development Commands
 
@@ -18,10 +20,13 @@ No project-wide build system, formatter, or linter is configured. Run from the r
 
 - `rg --files src docs` inventories source and documentation.
 - `python3 -m json.tool src/claude/DevForgeAI/.claude-plugin/plugin.json` checks manifest JSON syntax.
-- `python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py'` runs archive tests.
-- In a valid Git checkout, `git diff --check` checks patch whitespace.
+- `python3 -m json.tool src/codex/devforgeai/.codex-plugin/plugin.json` checks the Codex manifest JSON syntax.
+- `python3 -B -m unittest discover -s src/tools/session-archive -p 'test_*.py'` runs archive tests.
+- `python3 -B -m unittest discover -s src/tests/documents-updater -p 'test_*.py'` runs Claude Markdown checker tests.
+- `python3 -B -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'` runs Codex package tests.
+- `git diff --check` checks patch whitespace.
 
-Follow `docs/runbooks/brainstorm-manual-test.md` for manual checks and `claude plugin eval` commands. `devforgeai check` is unavailable.
+Follow `CLAUDE.md` and `docs/runbooks/brainstorm-manual-test.md` for Claude evals and manual checks. Follow `src/codex/devforgeai/evals/<skill>/README.md` where present for native Codex evaluations; Claude evals do not qualify Codex. `devforgeai check` is unavailable; never trust a similarly named executable on PATH.
 
 ## Coding Style & Naming Conventions
 
@@ -29,13 +34,15 @@ Use Markdown with YAML frontmatter and two-space indentation for YAML/JSON. Foll
 
 Keep IDs stable; deprecate instead of deleting or renumbering. Example output path: `docs/specs/story/STORY-001.md`. Use lowercase hyphenated skill names matching directory and frontmatter. Keep `SKILL.md` concise, references separate, and provenance in `provenance.yaml`.
 
+Use each skill's `assets/` templates and `references/output-rules.md` as its output contract. Keep skill metadata versions aligned with provenance. Preserve user-owned decisions and historical authorship when adapting between providers.
+
 ## Testing Guidelines
 
-Archive tests use standard-library `unittest` and `test_*.py` names. Evaluation templates live under `src/templates/skill/evals/`; use descriptive cases such as `triggers-on-request`. Cover triggering, unrelated requests, and `VER-` obligations. Seed fixtures through `case.yaml`; compare against the no-plugin baseline. Follow `CLAUDE.md` for the eval threshold (0.8 per case over three runs). No code-coverage threshold is configured. Record unrun checks explicitly.
+Archive tests use standard-library `unittest` and `test_*.py` names. Evaluation templates live under `src/templates/skill/evals/`; cover triggering, unrelated requests and `VER-` obligations. Seed fixtures through `case.yaml`; compare against the no-plugin baseline. Edit generated fixtures and graders in their provider's generator, then regenerate the suite. Follow each suite's evaluation contract; the inherited threshold is 0.8 per case over three runs. No code-coverage threshold is configured. Record unrun checks as `NOT_RUN`; static checks and aggregate scores do not waive manual obligations or establish deployment parity.
 
 ## Commit & Pull Request Guidelines
 
-This workspace is a git repository, but most files are untracked, so check `git status` before relying on history. Use concise imperative subjects, such as `docs: clarify brainstorm validation`. In valid Git checkouts, use an isolated worktree. PRs should describe scope, cite SPEC/VER or issue IDs, and report checks and limitations.
+Check `git status` before editing and preserve unrelated changes. The repository was initially imported in PR #1; earlier evolution is recorded in document Change Logs. Use an isolated worktree (see ADR-001) and concise imperative subjects, such as `docs: clarify brainstorm validation`. PRs should describe scope, cite SPEC/VER or issue IDs, and report checks and limitations.
 
 ## Agent-Specific Instructions
 
