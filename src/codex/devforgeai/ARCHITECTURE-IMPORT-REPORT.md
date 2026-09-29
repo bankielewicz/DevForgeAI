@@ -212,3 +212,41 @@ python3 -B src/codex/devforgeai/tests/summarize_architecture_eval.py \
 The summarizer rejects an incomplete 84-trial matrix or pending semantic reviews.
 Use fresh evidence directories for revised candidates; preserve earlier attempts.
 Native source loading does not establish installed-plugin or deployed behavior.
+
+## 2026-09-29 — Component-kinds delta (SKL-003 v5)
+
+Implemented only SPEC-003 v2's component-kinds change, from Claude commit `22bcfd6`,
+against baseline `5074a5bf61bc0418b1ecf2404cb7fd3bb81df3f2` (approved SPEC-003 v3 is
+read-only; its other changes remain outside this task). Architecture metadata and
+provenance are v5, implements SPEC-003 v2; package manifest stays 0.4.0.
+
+Static validation: **50/50 package tests PASS**, plugin/skill validators PASS,
+template and valid/unknown/absent kinds schema controls PASS, and native-engine
+grader controls PASS. All original generated definitions remain unchanged; only
+the new `creates-arch/cmp-kinds` grader was added through its generator.
+
+Native evaluation: **66 selected trials retained** (11 affected cases, three runs
+per arm); three unchanged cases remain NOT_RUN. New kinds grader: plugin
+**3/3**, baseline **0/3**. Plugin source threshold **30/33**;
+strict checks **3/33**. Interactive VER-12(l): **PASS** for the
+assistant-operated question/wait/answer-recording check. Full Architecture
+qualification and owner acceptance are not established.
+
+The [dated delta report](architecture-import-evidence/kinds-20260929/REPORT.md)
+contains the exact worktree/branch, candidate digest, mapping, complete denominator,
+failures, manual evidence, NOT_RUN reasons, and before/after preservation hashes.
+The managed-worktree tool failed on WSL UNC ownership; a fresh native WSL Git
+worktree was used without user-configuration changes. At evaluation completion,
+no commit, push, PR, merge, installation, deployment or marketplace change had
+been performed. Bryan subsequently authorized commit, push and a PR; the dated
+report records its publication scope. Earlier report sections and historical
+evidence remain unchanged.
+
+Final preservation readback: **FAIL_PRIMARY_DRIFT**. During evaluation the primary
+checkout advanced to `7e87cf4` (including approved SPEC-003 v4), six original
+protected inputs changed there, and 19 protected-scope files were added. The task
+worktree retains all 170 original protected inputs unchanged at `5074a5b`; the
+runtime candidate and evaluation definitions are unchanged. The updated prompt
+permits v4 and still scopes only the kinds delta; no rebase or v4 behavior port was
+performed. The dated report retains the primary drift, prompt reconciliation and
+unknown-origin untracked-file findings; it does not claim primary preservation.

@@ -7,7 +7,7 @@ version 0.4.0; this directory is not an installation or marketplace registration
 |---|---|---|
 | Brainstorm (SKL-001 v7) | Explore ideas and record user-confirmed decisions in BRN documents | [Brainstorm import report](IMPORT-REPORT.md) |
 | PRD (SKL-002 v1, Codex) | Turn promoted BRN ideas into user-owned requirements and scope | [PRD import report](PRD-IMPORT-REPORT.md) |
-| Architecture (SKL-003 v4) | Resolve PRD architecture questions with accepted decisions, bounded evidence and per-requirement readiness | [Architecture import report](ARCHITECTURE-IMPORT-REPORT.md) |
+| Architecture (SKL-003 v5, SPEC-003 v2 kinds delta) | Classify shared components and resolve PRD architecture questions with accepted decisions, bounded evidence and per-requirement readiness | [Architecture import report](ARCHITECTURE-IMPORT-REPORT.md) |
 | Documents Updater (SKL-005 v2) | Update README files, changelogs and guides from verified repository changes, or prepare exact proposals | [Documents Updater import report](DOCUMENTS-UPDATER-IMPORT-REPORT.md) |
 
 ## Using the source

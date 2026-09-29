@@ -661,12 +661,21 @@ ALL_SECTIONS = (r"## 1\. Context and scope\n[\s\S]*\n## 2\. Quality drivers\n[\s
                 r"[\s\S]*\n## Change Log\n")
 PROMPT = "Define the architecture for PRD-001, so we know which requirements are ready for epics.\nProceed without questions.\n"
 
+# Every supplied kinds field must be a non-empty quoted block list of known kinds.
+# A valid first kind or an uncertainty marker must not mask an unknown/flow-form field.
+CMP_KIND = r"(?:user-interface|service|platform|api|relational-store|data-store|external)"
+CMP_KINDS = (
+    rf'\A(?![\s\S]*^    kinds:(?![ \t]*\r?\n(?:      - "{CMP_KIND}"[ \t]*\r?\n)+(?!      - )))'
+    rf'[\s\S]*(?:^    kinds:[ \t]*\r?\n      - "{CMP_KIND}"[ \t]*\r?$|\[NEEDS CLARIFICATION: kinds of CMP-\d{{2}}\])'
+)
+
 CASES = {
     "creates-arch": {
         "ver": "01", "files": SHARED, "prompt": PROMPT,
         "description": "VER-01: no policy and no ARCH; writes ARCH-001 with open identity-provider and session-revocation questions citing FR-001, the PRD as a context EVD, outcome null, and FR-001 reported blocked.",
         "graders": {
             "skill-fired": FIRED,
+            "cmp-kinds": regex(ARCH, "contains", CMP_KINDS, "m"),
             "arch-exists": ARCH_CREATED,
             "identity-dec-open": IDENTITY_OPEN,
             "revocation-dec-open": REVOCATION_OPEN,
