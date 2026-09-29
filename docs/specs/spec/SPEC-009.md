@@ -3,7 +3,7 @@ id: SPEC-009
 type: spec
 title: "Story skill (MVP)"
 status: draft          # draft | in-review | approved | superseded | deprecated
-version: 1
+version: 2
 created: 2026-09-29
 updated: 2026-09-29
 owner: "Bryan"
@@ -16,14 +16,15 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 9, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 9, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "stories follow epics; detailed feature design stays in specs"}
-  - {id: ADR-004, relation: constrains, version: 1, hash: null, note: "accepted: the project context documents this skill reads"}
+  - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "accepted: the project context documents this skill reads"}
+  - {id: PRD-001, item: FR-016, relation: informed_by, version: 10, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: SPEC-004, relation: informed_by, version: 1, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
-  - {id: SPEC-003, relation: informed_by, version: 1, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
+  - {id: SPEC-003, relation: informed_by, version: 2, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -133,7 +134,7 @@ flowchart LR
 - `docs/specs/epic/EPIC-NNN.md`: the `refines` links (requirements at the PRD version), the DW items, the
   ARCH link and the status;
 - the PRD at the version the epic links: each refined FR or NFR's statement, priority and release;
-- the ARCH the epic links: CMP items (with `kind` once M4 exists), DEC state, deployment;
+- the ARCH the epic links: CMP items with their `kinds` (SPEC-003 §4), DEC state, deployment;
 - accepted ADRs the ARCH or the context documents cite, when a story needs the decision's detail;
 - the context documents (ADR-004): `docs/specs/context/index.md` first, then only the documents BEH-04
   selects;
@@ -144,7 +145,7 @@ flowchart LR
 - new stories at `docs/specs/story/STORY-NNN.md` from `assets/story.md`, valid against
   `story.schema.json`;
 - for a story that needs a design, a brief at `docs/specs/story/design/STORY-NNN/brief.md`;
-- entries in the run's ambiguities log (ADR-004 D8), when BEH-14 allows one.
+- entries in the ambiguities log of the story concerned (ADR-004 D8), when BEH-14 allows one.
 
 **Coverage.** An item the epic promises is **covered** when an existing, non-cancelled story that refines
 this epic has an AC with a `satisfies` link to it, at any version. The items are each refined FR, each
@@ -233,7 +234,7 @@ behaviors:
     rule: "Read the epic's refines links, DW items, ARCH link and status, and the PRD items it refines at the linked version. If the epic, the PRD, the ARCH or a context document it relies on is a draft, say in the handoff and in each story's section 2 that the stories are proposals because an input is a draft. Never edit an input."
   - id: BEH-03
     status: active
-    rule: "Read the ARCH that the epic's informed_by link names: its components (responsibility, owned data, interactions, deployment unit, and kind once the ARCH has it) and the state of the decisions that cite the epic's requirements. When the ARCH's version is newer than the epic's link, apply ERR-03. When the ARCH gives no kind for a component a story needs, ask the user which kind it is (ERR-08)."
+    rule: "Read the ARCH that the epic's informed_by link names: its components (responsibility, kinds, owned data, interactions and deployment unit) and the state of the decisions that cite the epic's requirements. When the ARCH's version is newer than the epic's link, apply ERR-03. When the ARCH gives no kinds for a component a story needs, as in an ARCH written before SPEC-003 version 2, ask the user which kinds it has (ERR-08)."
   - id: BEH-04
     status: active
     rule: "Read docs/specs/context/index.md first. For each story being proposed, open only the context documents for the kinds of the components it touches, plus tech-stack.md, source-tree.md and testing.md when the story needs them, following references/context.md. Open a detail file only when its one-line description in the parent document applies to the story. Never open every context document by default. Record each context document a story relies on as a constrains link at its version."
@@ -266,7 +267,7 @@ behaviors:
     rule: "Write the Definition of Done from the template and add, as they apply: 'Required tests pass 100%, or each failure is a named, approved exception; coverage meets the testing policy (testing.md and the policy settings it cites)'; for a story with a design, 'The implementation matches the approved design at <path>'; and 'The ambiguities log entries for this story are reviewed'. Never state a policy value that the story skill did not read from a document; cite the document."
   - id: BEH-14
     status: active
-    rule: "Record in the run's ambiguities log (ADR-004 D8), and continue, only a small choice that changes no AC, scope, component, interface or permission: for example, a context document that is silent about a convention the story only mentions (such as the test folder for a new component). Name the context document the entry is for. Ask, never log, about anything the user decides: the slicing, an AC's behaviour, a component's kind, a design, a spec_mode or blocked_by. Logging never authorizes contradicting a spec or an input."
+    rule: "Record in the ambiguities log of the story the choice concerns (ADR-004 D8: docs/specs/ambiguities/AMB-NNN.md with that story in work_item, created when the story has none and reused across sessions), and continue, only a small choice that changes no AC, scope, component, interface or permission: for example, a context document that is silent about a convention the story only mentions (such as the test folder for a new component). Name the context document the entry is for. Ask, never log, about anything the user decides: the slicing, an AC's behaviour, a component's kind, a design, a spec_mode or blocked_by. Logging never authorizes contradicting a spec or an input."
   - id: BEH-15
     status: active
     rule: "Fill provenance on every story written: generated_by with the tool, model and session; authors; reviewed_by empty; every hash null; today's dates; approved_by empty. Delete every template author comment."
@@ -322,8 +323,8 @@ errors:
     user_result: "No story written"
   - id: ERR-08
     status: active
-    condition: "The ARCH gives no kind for a component a proposed story touches, so the skill can't tell which context documents apply"
-    handling: "Ask which kind the component is (user-facing, service, platform, API, relational or other data store), use the answer for this run only, and say in the handoff that the ARCH should record it"
+    condition: "The ARCH gives no kinds for a component a proposed story touches (an ARCH written before SPEC-003 version 2), so the skill can't tell which context documents apply"
+    handling: "Ask which kinds the component has (user-interface, service, platform, api, relational-store, data-store or external), use the answer for this run only, and say in the handoff that the ARCH should record them when it is next amended"
     user_result: "A question; the answer applies to this run"
 ```
 
@@ -336,19 +337,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the slicing, coverage and design rules and the output contract; slicing patterns, context selection and output rules live in references/"
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged story and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
 ```
 
 ## 9. Verification
@@ -512,11 +513,11 @@ and the `upstream` rule in §5.
 **Prerequisites, before the build. Each needs Bryan's yes; the TASKS.md numbers are given:**
 - ADR-004 accepted (M1);
 - context templates (M2);
-- the component kind on ARCH CMP items, or ERR-08's question as the interim (M4);
+- component kinds in the ARCH (M4): specified in SPEC-003 version 2 and written by the architecture skill from SKL-003 version 2; ERR-08 covers older ARCH files;
 - story template and schema changes (M7);
 - the design-brief format and the approved-export location (M9);
-- the ambiguities template's location rule (M13);
-- a PRD-001 requirement for this skill (M6).
+- the ambiguities template's schema (the `AMB` and `ENT` prefixes, M13);
+- PRD-001 FR-016 names this skill (M6, done in PRD-001 version 10).
 
 **Build steps:**
 1. Create a worktree for the story skill's story, following ADR-001.
@@ -544,11 +545,11 @@ and the `upstream` rule in §5.
 
 ## 13. Open questions
 
-- [NEEDS CLARIFICATION: the component kinds and their mapping to context documents, finalized by the context skill's spec and M4 (ADR-004 D2 gives the initial mapping)]
+- Resolved (Bryan, 2026-09-29): components record `kinds` in the ARCH (SPEC-003 version 2), and ADR-004 version 2 D2 maps them to context documents.
 - [NEEDS CLARIFICATION: whether refined NFRs must each be satisfied by a story AC, or may instead be met through a spec's quality responses (QR items)]
 - [NEEDS CLARIFICATION: how a later run finds the walking skeleton: the title prefix proposed in §4, or a frontmatter field]
 - [NEEDS CLARIFICATION: where approved design exports live (proposed docs/specs/story/design/STORY-NNN/) and the brief's format (M9)]
-- [NEEDS CLARIFICATION: where a story-skill run's ambiguities log lives, per the ambiguities template's location rule (M13)]
+- Resolved (Bryan, 2026-09-29): each story's ambiguities log is docs/specs/ambiguities/AMB-NNN.md, with the story in `work_item`, reused across sessions (ADR-004 D8).
 - [NEEDS CLARIFICATION: whether a story must be approved before the spec step runs on it]
 
 ## Change Log
@@ -557,3 +558,4 @@ and the `upstream` rule in §5.
 |---|---|---|---|---|
 | 1 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Initial draft from Bryan's decisions of 2026-09-29: vertical slices, design first for user-facing work, components in the frontmatter, context documents per ADR-004 (proposed), testing values cited, not resolved, and the ambiguities log. Revised after an independent review the same day: the design gate also counts designs recorded in stories, BEH-12 records the handoff-bundle link, the downstream contract names it, the SPEC-003 §5 contradiction is noted (M8), and VER-08's trace check is manual. Awaiting Bryan's review; it can't be approved before ADR-004 is accepted | all |
 | 1 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | ADR-004 accepted by Bryan: its link is now constrains, blocked_by is empty, and the "(proposed)" labels are removed. No item changed | frontmatter, §2 |
+| 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Aligned with Bryan's decisions of 2026-09-29: component kinds from SPEC-003 version 2 (BEH-03, §4; ERR-08 kept for ARCH files written before it); the ambiguities log per story (BEH-14, §4, §13); PRD-001 FR-016 names this skill (informed_by link); §11 and §13 updated. Links re-reviewed: PRD-001 v10, ADR-004 v2, SPEC-003 v2 | frontmatter, §4, BEH-03, BEH-14, ERR-08, §11, §13 |
