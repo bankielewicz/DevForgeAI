@@ -1,0 +1,165 @@
+# Preflight, connect and start
+
+## Contents
+
+- Preflight (step 1)
+- The state report
+- Claude Code's sandbox
+- connect (step 3)
+- start: branch and worktree (step 4)
+- Carrying pending work onto the branch
+
+## Preflight (step 1)
+
+Run only read-only commands until the phases are chosen.
+
+1. **Root and checkout.** `git rev-parse --show-toplevel`; compare `git rev-parse --git-dir` with
+   `--git-common-dir` to tell the main checkout from a linked worktree. Keep every command's working
+   directory at the root of the checkout it targets.
+2. **Instructions.** Read `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING*` and any ADR or runbook about
+   branches, worktrees, commits, PRs, merges or deploys. Note what they set: worktree location,
+   branch names, commit format, required checks and how to run them, merge method, post-merge steps,
+   label names. Those win over this skill's defaults, except the no-data-loss and authorization
+   rules.
+3. **Tools and identity.** `git --version`; `git config user.name` and `user.email` must resolve
+   before a commit (otherwise report it; never set them globally). ERR-01 when git is missing, or the
+   directory isn't a repository and the request doesn't ask to initialize one: change nothing, say
+   what is missing and that `connect` would initialize it, and report `blocked`.
+4. **HEAD and operations.** A detached HEAD, or a merge, rebase, cherry-pick, revert or bisect in
+   progress (the report's `operation_in_progress`), stops any phase that needs a branch (ERR-05).
+   Never continue or abort the user's operation: describe it, give the commands that would finish
+   or abort it (`git merge --continue` / `--abort`, `git rebase --continue` / `--abort`,
+   `git cherry-pick --abort`, `git revert --abort`, `git bisect reset`), and report `blocked`.
+5. **Remote.** For phases that use the remote: `git remote -v`, then `git ls-remote --symref origin HEAD`
+   for reachability and the default branch (the `ref: refs/heads/<name>` line). Never assume `main`.
+   An empty result from a reachable remote means the remote is empty.
+6. **gh**, only before creating or updating a PR, reading PR state or merging: `gh --version` and
+   `gh auth status`. The remote must be hosted on GitHub (`github.com` in its URL); another host is
+   unsupported. Fetch, rebase and push need only git (ERR-02 below).
+7. **Fetch** (`git fetch origin`, `--prune` for sync), then run the state report and base every
+   later decision on it.
+
+**ERR-02.** Without `gh`, not signed in, or a remote not on GitHub: everything that needs only git
+still runs (commit, rebase, push, sync, prune by ancestry), and the run stops before creating or
+updating a PR, reading PR state or merging. Put the command the user must run (`gh auth login`) in
+Action required. With the remote unreachable, finish the local steps from already fetched refs and
+stop before the first fetch or push. Never try another credential or host.
+
+## The state report
+
+```bash
+python3 "${CLAUDE_SKILL_DIR}/scripts/repo_state.py" --default-branch <name from ls-remote>
+```
+
+Pass `--default-branch` whenever `refs/remotes/origin/HEAD` may be missing. It never fetches, so run
+it after fetching. Fields used below:
+
+- `in_linked_worktree`, `branch`, `detached`, `unborn`, `operation_in_progress`, `identity`.
+- `remote`: name, URL and default branch, or `null` when there is no `origin`.
+- `default_branch.state`: `up_to_date`, `behind`, `ahead`, `diverged`, `unrelated`, `no_remote`,
+  `empty_remote` (fetched and empty) or `unknown` (fetch first), with `ahead`, `behind` and
+  `checked_out_at` (the checkout holding it, relative to the main checkout).
+- `changes[]`: `path`, `status`, `staged`, `incoming` (`identical`, `differs` or `untouched`
+  compared with `origin/<default>`), and `sandbox_mask: true` for a sandbox write mask.
+- `worktrees[]`: branch, head, lock, `prunable`, `current`, `uncommitted`, `untracked`, `ignored`,
+  `unpushed`, `merged_by_ancestry`, `last_activity`, `activity`, `modified_within_hour`,
+  `size_bytes`.
+- `claude_worktrees_ignored`, `sandbox.git_config_write_masked`, `id_collisions[]`.
+
+## Claude Code's sandbox
+
+A sandboxed session can write only inside the project, which is why worktrees go under it. Inside the
+sandbox:
+- **Write masks.** `git status` lists empty character devices owned by `nobody` (`.bashrc`,
+  `.gitconfig`, `.mcp.json`, `.vscode`, …) that don't exist outside the sandbox. The report marks
+  them `sandbox_mask: true`. They are `local`: never stage or delete them, and propose no ignore
+  pattern for them.
+- **`.git/config` masked** (`sandbox.git_config_write_masked`): every `.git/config` write fails:
+  `git remote add`, `git config`, `push -u`, and a branch created from a remote-tracking ref without
+  `--no-track`. Plan around it: create branches with `--no-track`, push without `-u`.
+- **ERR-16.** When the sandbox blocks a command a phase needs (a `.git/config` write, or a push or
+  `gh` call rejected by its network proxy): don't retry around it and never change sandbox settings.
+  Finish the steps that don't need it, then name the command and the settings change that would
+  allow it (for example adding `git push *` or `gh pr *` to `sandbox.excludedCommands` in
+  `.claude/settings.local.json`), which is the user's decision, or give the command for the user to
+  run in a plain shell. Report `partial` or `blocked`.
+
+## connect (step 3)
+
+1. **Not a repository** and the request asks to initialize it: `git init -b <branch>`, where the
+   branch is the one the repository's instructions name, else the remote's default when the remote
+   has commits, else git's `init.defaultBranch`.
+2. **A URL given.** No `origin`: `git remote add origin <url>`. For a local path, store an absolute
+   path (a relative one resolves against the current directory and breaks in linked worktrees).
+   `origin` already names the same repository: report it; `https://github.com/o/r(.git)` and
+   `git@github.com:o/r(.git)` are the same repository. **`origin` points elsewhere (ERR-03):** keep it
+   unchanged, show both URLs, and ask; change it (`git remote set-url`) or add the URL under another
+   name only after a confirmation. Report `awaiting_approval`.
+3. **Fetch** (`git fetch origin`), then act on the two histories:
+
+| Local | Remote | Action |
+|---|---|---|
+| No commits | Has commits | Adopt the remote's history: check out its default branch, reconciling any local files by sync's per-path rule ([sync-and-prune.md](sync-and-prune.md)) |
+| Has commits | Empty | Pushing the default branch is the bootstrap: outward-facing, so only when the request names the push; otherwise offer it |
+| No commits | Empty | Offer (a) a minimal bootstrap commit on the default branch holding the ignore file, and the README when one exists, so the rest arrives by PR (recommended), or (b) the whole classified change set as the first commit. Creating and pushing either needs the user's choice |
+| Has commits | Has commits, merge base | Normal: continue with the requested phases |
+| Has commits | Has commits, no merge base | ERR-04 |
+
+**ERR-04, unrelated histories.** Push nothing. Name both histories' latest commits (SHA and
+subject), explain that they share no commit, and offer: (a) move the local commits onto a new
+branch based on `origin/<default>` and open a PR (recommended), or (b) stop. Never force-push, and
+never use `--allow-unrelated-histories` without a confirmation. Report `awaiting_approval`.
+
+## start: branch and worktree (step 4)
+
+**Branch name.** The repository's convention (for example `story/STORY-NNN-<slug>`), else
+`<type>/<slug>` with type `feat`, `fix`, `docs`, `chore`, `refactor` or `test`, and the story or
+spec ID in the slug when the work has one; lower case, at most 64 characters. A name the user gives
+wins. Never reuse a local branch, remote branch or worktree name for different work. An existing
+worktree for the same branch is reused.
+
+**Location.** The repository's rule, else `.claude/worktrees/<name>`, where `<name>` is the branch
+with `/` replaced by `-`. It sits inside the project, where the sandbox lets a session write, and
+it's where `claude --worktree <name>` looks.
+
+**Keep it out of git.** `git check-ignore -q .claude/worktrees/` (or read
+`claude_worktrees_ignored`). When not ignored: append `.claude/worktrees/` to `.git/info/exclude`,
+which changes no tracked file and covers every worktree of the repository, and say that a
+`.gitignore` entry would share the rule. When the repository's rules require the `.gitignore` entry
+instead, add it there and name it in the next commit's message. Never edit `.gitignore` otherwise.
+
+**Base.** New work branches from `origin/<default>` as just fetched, never from a possibly stale local
+default branch:
+
+```bash
+git worktree add --no-track -b <branch> .claude/worktrees/<name> origin/<default>
+```
+
+`--no-track` keeps the command free of `.git/config` writes. Then move the session in with
+EnterWorktree (`path`) when that tool is available and the user continues there; otherwise tell
+the user how to open it: `claude --worktree <name>` from the main checkout. Run any setup the
+repository requires in a new worktree, or report it as the user's step when the session can't.
+`start` alone commits and pushes nothing.
+
+## Carrying pending work onto the branch
+
+When the work to deliver is uncommitted in the current checkout (usually the main checkout on the
+default branch), move it onto the new branch by a commit, never by stash, file copies or patches
+unless the user chooses one:
+
+1. Classify, stage, scan and check it ([classify-and-commit.md](classify-and-commit.md)).
+2. Record the pre-move content of each task path: `git hash-object <path>` (absent for a deletion).
+3. `git switch -c <branch>` at the current HEAD (with `--no-track` if HEAD is a remote-tracking
+   ref); the staged task paths and every other edit come along.
+4. Commit (classify-and-commit.md). Leave unrelated and local paths unstaged.
+5. **Verify** before switching back: for each task path, `git rev-parse <branch>:<path>` equals the
+   recorded hash, and a deleted path is absent from the branch. On a mismatch, stay on the new
+   branch and report it.
+6. `git switch <original branch>`: it carries the unrelated edits unchanged.
+7. `git worktree add .claude/worktrees/<name> <branch>` (location and ignore rule above).
+
+A path that mixes task and unrelated edits is `uncertain`: ask whether to carry the whole file or
+leave it. When the current checkout is already a linked worktree, or a non-default branch dedicated
+to this work, commit there: no new branch or worktree is needed. Rebasing the new branch onto
+`origin/<default>` happens before the push, inside the worktree
+([publish-and-merge.md](publish-and-merge.md)).
