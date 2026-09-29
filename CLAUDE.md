@@ -14,8 +14,8 @@ an approved spec in `docs/specs/`, and its eval suite, not a reading of its inst
 | Skill | Spec | State here |
 |---|---|---|
 | `brainstorm` (SKL-001 v5) | SPEC-001 v10 | Built, with 8 eval cases |
-| `prd` (SKL-002 v1) | SPEC-002 v1 | Built and deployed, with 20 eval cases; manual VER-11, VER-12 and VER-23 not run |
-| `architecture` (SKL-003 v1) | SPEC-003 v1 | Built and deployed, with 14 eval cases (3 runs: 14 of 14 at 1.00, mean Δ +0.67); manual VER-12 and VER-13 not run |
+| `prd` (SKL-002 v2) | SPEC-002 v2 | v1 is deployed. v2 is built on branch `feat/prd-spec-002-v2`: 29 eval cases (the 20 of v1 plus VER-24..32), policy validated by `scripts/validate_policy.py`; not yet evaluated; manual VER-11, VER-12 and VER-23 not run |
+| `architecture` (SKL-003 v3) | SPEC-003 v3 | v2 is deployed; v1 scored 14 of 14 at 1.00 over 3 runs (mean Δ +0.67). v3 is built on branch `feat/prd-spec-002-v2`: the shared policy script, 16 eval cases (plus VER-17, VER-18); not yet evaluated; manual VER-12 and VER-13 not run |
 | `epic` (SKL-004 v1) | SPEC-004 v1 | Built, with 14 eval cases (3 runs: 14 of 14 at 1.00, `no-arch-hands-back` after a grader fix; mean Δ +0.51); deployed; manual VER-13 not run |
 | `documents-updater` (SKL-005 v1) | SPEC-006 v1 | Built and deployed, with 8 eval cases (3 runs: 8 of 8 at 1.00, mean Δ +0.15); manual VER-10..12 not run. Outside the chain: it updates a repository's README, CHANGELOG and guides from git evidence |
 | `git` (SKL-006 v1) | SPEC-007 v1 (draft, awaiting approval) | Built from the draft spec, with 3 scripts (57 unit tests) and 16 eval cases (3 runs: 16 of 16 at ≥ 0.8, 13 at 1.00, mean Δ +0.28, $18.22; the misses are the eval's own `.git` write refusals, which the skill reports); not deployed; manual VER-18..22 and VER-24 not run. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
@@ -52,9 +52,20 @@ PYTHONDONTWRITEBYTECODE=1 python3 src/claude/DevForgeAI/skills/documents-updater
 # documents-updater evals: regenerate every case from its generator; check one case's regex graders offline
 python3 src/tests/documents-updater/make_evals.py
 node src/tests/documents-updater/grade_evals.mjs src/claude/DevForgeAI/evals/documents-updater/<case> <workspace> <reply.txt>
-# architecture evals: regenerate every case (validates each fixture against src/schemas/ first); check one offline
+# architecture evals: regenerate every case (validates each fixture against src/schemas/ first); check one offline;
+# check the VER-17/18 graders with scripted good and bad results
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/architecture/make_evals.py
 node src/tests/architecture/grade_evals.mjs src/claude/DevForgeAI/evals/architecture/<case> <workspace> <reply.txt>
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/architecture/check_graders.py
+# prd and the shared policy script: its tests, the shared files' byte-identity, structure (SKILL.md, provenance,
+# specs); regenerate the v2 cases (VER-24..32; the v1 cases are hand-written); check their graders offline
+python3 -B src/tests/prd/test_validate_policy.py
+python3 -B src/tests/prd/test_shared_files.py
+python3 -B src/tests/prd/test_structure.py
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/prd/make_evals.py
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/prd/check_graders.py
+# before every paid run: bind a new results folder to the commit, plugin digest and cases
+bash src/tests/prd/record_revision.sh tmp/eval-results/<new-folder> <tag>
 # epic evals: regenerate every case (validates each fixture against src/schemas/ and SPEC-004 §9 first); check one offline
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/epic/make_evals.py
 node src/tests/epic/grade_evals.mjs src/claude/DevForgeAI/evals/epic/<case> <workspace> <reply.txt>
@@ -83,7 +94,7 @@ workspace; translate the rest before using them:
 | `src/claude/DevForgeAI/` (plugin source) | The same. It deploys to `.claude/skills/devforgeai/` (below) |
 | `src/staging/templates/` | `src/templates/` |
 | `src/staging/examples/` | The same: `policy-two-orgs/` and `prd-production-mvp/`, copied unchanged from DevForgeAI-SDF2 (`ef78b83`) on 2026-09-27 |
-| `src/schemas/`, `schemas/*.schema.json` | `src/schemas/`. No skill reads a schema at run time: each skill's `references/output-rules.md` (and brainstorm's validator script) is its validation contract |
+| `src/schemas/`, `schemas/*.schema.json` | `src/schemas/`. Documents a skill writes are checked against its `references/output-rules.md` (and brainstorm's validator script), not a schema. The one schema read at run time is policy: prd and architecture validate approved policy against their `references/schemas/` copies with `scripts/validate_policy.py` |
 | PRD-001, STORY-001..005, ADR-001..003 | ADR-001..003, PRD-001 and STORY-002 are in `docs/specs/adr/`, `prd/` and `story/`, copied unchanged from DevForgeAI-SDF2 (`ef78b83`) on 2026-09-27. STORY-001, STORY-003..005 and the epics they cite are absent. ADR-001's worktree process applies here: `architecture` was built in `.claude/worktrees/story-003-architecture` |
 | `devforgeai check` ("the checker") | Does not exist. SPEC-004 §2: never trust anything named `devforgeai` on PATH |
 
@@ -118,7 +129,8 @@ suite command is under Commands.
 - `--scaffold`: runs `case.yaml` scaffold scripts. Brainstorm's `existing-brn` and every prd case but
   `ignores-unrelated-request` have one; they seed the BRNs, PRDs, ADRs and policies the case reads.
   Every documents-updater case has one that builds a small git repository with dated commits. Those
-  cases are generated by `src/tests/documents-updater/make_evals.py`, every architecture case (each
+  cases are generated by `src/tests/documents-updater/make_evals.py`, the prd v2 cases (VER-24..32) by
+  `src/tests/prd/make_evals.py`, every architecture case (each
   seeds a PRD, plus ARCHs, ADRs or a policy) by `src/tests/architecture/make_evals.py`, and every epic
   case (SPEC-004 §9's shared fixture and its variants) by `src/tests/epic/make_evals.py`, and every git
   case (a repository plus a local bare `origin` under `remote/`, whose push hook writes
@@ -126,7 +138,8 @@ suite command is under Commands.
   and regenerate, never the case files.
 - `--threshold 0.8`: the default is 1.0. The framework bar is ≥ 0.8 per case over 3 runs, the default run count.
 - Narrow a run with `--case existing-brn`, or `--tag brainstorm`, `--tag prd`, `--tag architecture`,
-  `--tag epic` or `--tag git`. `ver-NN` tags repeat across skills (brainstorm, prd, architecture and epic each have a `ver-08`). Use
+  `--tag epic` or `--tag git`. `ver-NN` tags repeat across skills (brainstorm, prd, architecture and epic each have a `ver-08`),
+  and so can case names (prd and architecture each have `policy-bad-date`), so pair `--case` with care. Use
   `--runs 1` for a quick pass.
 - A no-plugin baseline arm runs by default. `tool_used: Skill` graders then only indicate that the plugin fired and don't count toward the score.
 - The HTML report publishes to claude.ai by default when the account supports it; add `--no-publish`
@@ -164,9 +177,14 @@ are SPEC-002 VER-11, VER-12 and VER-23.
   patterns and allowed fields, and ends with the self-check list used in place of `devforgeai check`.
 - `skills/<name>/scripts/`: executed, not loaded. Brainstorm's `validate_brn.py` applies the output
   rules at step 7. It can't check what the user confirmed, so step 7 also reads the file back. Keep
-  `__pycache__/` out of the deployed copy. The prd skill has no script (SPEC-002 §3): step 9 reads the
-  file back against the self-check list, as architecture's step 10 does for the ARCH and each ADR, and epic's
-  step 8 for each epic.
+  `__pycache__/` out of the deployed copy. prd and architecture share `validate_policy.py` (SPEC-002 §5,
+  D-09), byte-identical with `references/policy.md`, `defaults.md` and `references/schemas/` (unchanged
+  copies of `src/schemas/`): it validates approved policy in full with jsonschema, then SV-01..06, and
+  exits 0, 1 (invalid) or 2 (can't run). It must also work on the system's jsonschema 4.10 (no
+  `referencing` module), which loads whenever the user site-packages are hidden, for example under
+  another HOME, as eval workspaces use. Its tests, run under both, are in `src/tests/prd/`. Neither
+  skill has a document validator: prd's step 9 reads the PRD back against the self-check list, as
+  architecture's step 10 does for the ARCH and each ADR, and epic's step 8 for each epic.
   documents-updater's `check_docs.py` checks Markdown structure and links at step 6; its tests live in `src/tests/documents-updater/` so they don't deploy.
   git's `repo_state.py`, `scan_staged.py` and `qa_state.py` are read-only and offline; their tests live in
   `src/tests/git/`. `repo_state.py` must never refresh the index: a plain `git diff` rewrites
