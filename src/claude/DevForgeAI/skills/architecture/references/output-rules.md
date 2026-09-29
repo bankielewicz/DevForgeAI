@@ -22,8 +22,9 @@
 ## When to use this
 
 Read this before writing (SKILL.md step 9), and check every written file against the self-check list
-(step 10). The epic workflow parses the ARCH mechanically, and a future checker validates it against
-`arch.schema.json` and ADRs against `adr.schema.json`. An ARCH that reads well but breaks a rule here
+(step 10): one initial check, then at most three repair cycles. The epic workflow parses the ARCH
+mechanically, and a future checker validates it against `arch.schema.json` and ADRs against
+`adr.schema.json`. An ARCH that reads well but breaks a rule here
 breaks readiness for every epic.
 
 ## File and IDs
@@ -267,27 +268,41 @@ Never modify an existing ADR in any other way, and never modify a PRD, BRN or po
 
 ## When validation still fails (ERR-05)
 
-After three failed fix attempts, stop and restore only what can't stand unvalidated:
-- every `status` and approval field (`approved_by`, `approved_on`) this write changed goes back to
-  its value before the write. A new ARCH stays `draft`. A new ADR the user accepted becomes
-  `status: proposed` with `approved_by: ""` and `approved_on: null`, and is kept;
-- each DEC resolved by a restored ADR goes back to `state: open`, `resolved_by: []`;
-- add one audit record per restored file: an ARCH Change Log row, and for an ADR a Status history row
-  (`Restored to proposed: validation failed`).
+When errors remain after the initial check and three repair cycles, or an error can't be repaired,
+stop. Never leave `approved` or `accepted` on content that failed validation. Keep the user's
+architectural choices (the ADR text) and unrelated content:
+- **The ARCH.** A new ARCH stays `draft`. An amended ARCH keeps the status the amendment gave it
+  ("Amending an ARCH"): `draft` and `in-review` stay, and an approved ARCH stays `in-review` with
+  `approved_by: ""` and `approved_on: null`. Never restore `approved`. A review record that fails
+  validation is treated the same way: an approved ARCH becomes `in-review` with `approved_by: ""`
+  and `approved_on: null`, and a draft or in-review ARCH keeps its status.
+- **ADRs accepted in this run.** Each becomes `status: proposed` with `approved_by: ""` and
+  `approved_on: null`, and is kept. Each DEC it resolved returns to `state: open`,
+  `resolved_by: []`. If this run recorded it superseding an existing ADR, that supersession no
+  longer stands: put the existing ADR back exactly as it was before the write (its `status`,
+  `superseded_by` and Status history), so it ends unchanged.
+- **Audit records.** An ARCH Change Log row
+  (`Validation failed (ERR-05): <the unresolved errors, briefly>. Left <status>.`, adding
+  `Approval cleared.` when the ARCH was approved), and for each ADR made proposed a Status history
+  row (`Restored to proposed: validation failed`).
 
-Keep the user's architectural choices (the ADR text) and unrelated content. End with a
-validation-failure report: the file paths, the unresolved errors and what was restored. Skip the
-readiness handoff, and never present readiness as validated.
+End with the validation-failure report (SKILL.md step 11): each file path with the status left, the
+checks and repairs made, and the unresolved errors. Skip the readiness handoff, and never present
+readiness as validated.
 
 ## Self-check list
 
-Read each written file back and check every item. Fix and re-check, at most three attempts.
+Read each written file back and check every item. That is the initial check. Repair and re-check
+anything that fails: at most three repair cycles, so at most four checks. An error you can't repair,
+such as one inside an existing item an amendment must leave byte-identical, ends the cycles early
+(SKILL.md step 10).
 
 **ARCH**
 1. The path is `docs/specs/arch/ARCH-NNN.md`, `id` equals it, and no second ARCH was created for a
    system an existing ARCH covers.
 2. The frontmatter has exactly the keys in the table, in order, with valid values. `status` is not
-   `approved` unless it was approved before and this write was a review record.
+   `approved` unless it was approved before and this write was a review record that passes every
+   check (one that fails leaves it `in-review`, ERR-05).
 3. `generated_by` has non-empty `tool`, `model` and `session` (this session, unless this write was a
    review record); `reviewed_by` is `[]` for a new ARCH; every `hash` is `null`.
 4. `outcome` is non-null only if the user confirmed it in this conversation or the request.

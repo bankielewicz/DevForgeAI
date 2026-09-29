@@ -1,6 +1,8 @@
-"""Generates evals/architecture/<case>/ (SPEC-003 VER-01..11, 14, 15, 16): prompts, graders, case.yaml
+"""Generates evals/architecture/<case>/ (SPEC-003 VER-01..11, 14..18): prompts, graders, case.yaml
 and the inline scaffold fixtures. Every fixture is defined once here and validated against src/schemas/
 before anything is written; the two policies are read from src/staging/examples/policy-two-orgs/.
+A fixture that is invalid on purpose (VER-17's policy, VER-18's ARCH) must fail in exactly the expected
+place, and every policy fixture is also run through the skill's own scripts/validate_policy.py.
 Edit fixtures and graders here, then regenerate; it overwrites the case files and never deletes a
 grader, so remove renamed ones by hand. Run from the repository root:
 
@@ -9,6 +11,9 @@ grader, so remove renamed ones by hand. Run from the repository root:
 import json
 import os
 import re
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 
 import yaml
@@ -19,6 +24,7 @@ ROOT = Path("src/claude/DevForgeAI/evals/architecture")
 SCHEMAS = Path("src/schemas")
 POLICIES = Path("src/staging/examples/policy-two-orgs")
 TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
+VALIDATE_POLICY = Path("src/claude/DevForgeAI/skills/architecture/scripts/validate_policy.py")
 
 # --- Fixtures -------------------------------------------------------------------------------------
 
@@ -473,6 +479,16 @@ INITIAL_ROW = ("| 1 | 2026-09-21 | claude-code (session fixture-session) | Initi
                "interview.max_calls=8 (default); architecture.mandated_platforms=none (default); "
                "quality.required_categories=floor only (default) | all |\n")
 
+CMP_IDP_OPEN = item(["id: CMP-03", "status: active", 'name: "Identity provider"',
+                     'responsibility: "Authenticates volunteers and issues sessions"',
+                     "owns_data:", '  - "Volunteer credentials"', "interacts_with:",
+                     '  - "CMP-01"', 'deployment: "External; the provider is open (DEC-01)"']
+                    + ups("NFR-001"))
+DECS_OPEN = (item(["id: DEC-01", "status: active", Q_IDP, "blocking: true", "state: open", "resolved_by: []",
+                   "notes: null"] + ups("FR-001"))
+             + item(["id: DEC-02", "status: active", Q_REVOKE, "blocking: true", "state: open",
+                     "resolved_by: []", "notes: null"] + ups("FR-001", "NFR-001")))
+
 # VER-07: a draft ARCH-001 for the same system, both identity questions open.
 ARCH_EXISTING = arch(
     status="draft", created="2026-09-21", updated="2026-09-21", approved=False, prd_version=1, outcome="create",
@@ -481,15 +497,8 @@ ARCH_EXISTING = arch(
     drivers="NFR-001 (session revocation) and NFR-002 (private phone numbers) drive the design; NFR-003 rules "
             "out an on-site server.",
     mermaid=MERMAID,
-    components=CMP_WEB + CMP_SHIFTS + item(["id: CMP-03", "status: active", 'name: "Identity provider"',
-                                            'responsibility: "Authenticates volunteers and issues sessions"',
-                                            "owns_data:", '  - "Volunteer credentials"', "interacts_with:",
-                                            '  - "CMP-01"', 'deployment: "External; the provider is open (DEC-01)"']
-                                           + ups("NFR-001")),
-    decisions=item(["id: DEC-01", "status: active", Q_IDP, "blocking: true", "state: open", "resolved_by: []",
-                    "notes: null"] + ups("FR-001"))
-              + item(["id: DEC-02", "status: active", Q_REVOKE, "blocking: true", "state: open",
-                      "resolved_by: []", "notes: null"] + ups("FR-001", "NFR-001")),
+    components=CMP_WEB + CMP_SHIFTS + CMP_IDP_OPEN,
+    decisions=DECS_OPEN,
     evidence=EVD_PRD,
     deployment="The web app and the shift service run on the hosting provider (NFR-003).",
     changelog=INITIAL_ROW)
@@ -561,6 +570,35 @@ ARCH_REVIEWED = arch_reviewed(2, "reuse", REVIEW_ROW)
 POL_A = (POLICIES / "org-a/POL-001.md").read_text()
 POL_B = (POLICIES / "org-b/POL-001.md").read_text()
 
+# VER-17: Organization A's policy with an impossible updated date. The schema's date pattern accepts it;
+# the skill's validation script rejects it as a calendar date.
+POL_BAD_DATE = replace(POL_A, "updated: 2026-09-01", "updated: 2026-13-45")
+
+# VER-18: PRD-001 version 2 adds one NEEDS ADR marker, and the approved ARCH-001 (defined against
+# version 1) has an existing CMP-01 whose status is a value the self-check rejects. An amendment must
+# leave CMP-01 byte-identical, so validation can't pass.
+MARKER_ROSTER = "[NEEDS ADR: where the coordinator's daily roster is served from; affects FR-003]"
+PRD_Q = replace(PRD_V1, "version: 1\ncreated: 2026-09-14\nupdated: 2026-09-20",
+                "version: 2\ncreated: 2026-09-14\nupdated: 2026-09-24")
+PRD_Q = replace(PRD_Q, "approved_on: 2026-09-20", "approved_on: 2026-09-24")
+PRD_Q = replace(PRD_Q, "- [NEEDS ADR: identity provider for volunteer sign-in; affects FR-001]\n",
+                "- [NEEDS ADR: identity provider for volunteer sign-in; affects FR-001]\n" f"- {MARKER_ROSTER}\n")
+PRD_Q += ("| 2 | 2026-09-24 | Priya Nair | Added a NEEDS ADR marker: where the roster is served from. No requirement changed | none |\n"
+          "| 2 | 2026-09-24 | Priya Nair | Approved | status |\n")
+CMP_WEB_BAD = CMP_WEB.replace("    status: active\n", "    status: current\n", 1)
+ARCH_FAILING = arch(
+    status="approved", created="2026-09-21", updated="2026-09-22", approved=True, prd_version=1, outcome="create",
+    context="Defined against PRD-001 version 1 (approved): volunteers sign in, book warehouse shifts, and the "
+            "coordinator sees the roster. No inspection scope was named, and no code was inspected.",
+    drivers="NFR-001 (session revocation) and NFR-002 (private phone numbers) drive the design; NFR-003 rules "
+            "out an on-site server.",
+    mermaid=MERMAID,
+    components=CMP_WEB_BAD + CMP_SHIFTS + CMP_IDP_OPEN,
+    decisions=DECS_OPEN,
+    evidence=EVD_PRD,
+    deployment="The web app and the shift service run on the hosting provider (NFR-003).",
+    changelog=INITIAL_ROW + "| 1 | 2026-09-22 | Priya Nair | Approved | status |\n")
+
 # --- Fixture validation ---------------------------------------------------------------------------
 
 
@@ -572,7 +610,8 @@ _Loader.yaml_implicit_resolvers = {k: [r for r in v if r[0] != "tag:yaml.org,200
                                    for k, v in yaml.SafeLoader.yaml_implicit_resolvers.items()}
 
 
-def validate(label, text, schema):
+def validate(label, text, schema, expect=()):
+    """Validates a fixture; `expect` lists the schema error paths a fixture invalid on purpose must have."""
     m = re.match(r"---\n(.*?)\n---\n", text, re.S)
     doc = {"frontmatter": yaml.load(m.group(1), Loader=_Loader)}
     for block in re.findall(r"```yaml items\n(.*?)```", text, re.S):
@@ -583,10 +622,22 @@ def validate(label, text, schema):
         s = json.loads(p.read_text())
         registry = registry.with_resource(s["$id"], Resource.from_contents(s)).with_resource(
             p.name, Resource.from_contents(s))
-    errors = [f"{list(e.path)}: {e.message}" for e in Draft202012Validator(
-        json.loads((SCHEMAS / schema).read_text()), registry=registry).iter_errors(doc)]
-    assert not errors, f"{label} fails {schema}: {errors}"
+    found = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry).iter_errors(doc)
+    errors = {tuple(e.path): e.message for e in found}
+    assert set(errors) == set(expect), f"{label} against {schema}: expected errors at {list(expect)}, got {errors}"
     assert "\nFIXTURE\n" not in text, f"{label} contains the heredoc delimiter"
+
+
+def check_policy_script(label, text, expect=None):
+    """Runs the skill's validate_policy.py on one policy fixture: exit 0, or exit 1 with an error line naming
+    `expect` ("<part>: <field>")."""
+    with tempfile.TemporaryDirectory() as tmp:
+        (Path(tmp) / "POL-001.md").write_text(text)
+        p = subprocess.run([sys.executable, "-B", str(VALIDATE_POLICY), tmp], capture_output=True, text=True)
+    if expect is None:
+        assert p.returncode == 0, f"{label}: the policy script rejects a fixture meant to be valid:\n{p.stdout}"
+    else:
+        assert p.returncode == 1 and f": {expect}: " in p.stdout, f"{label}: expected '{expect}' error:\n{p.stdout}"
 
 
 FIXTURES = {
@@ -597,8 +648,11 @@ FIXTURES = {
     "ADR_AUTH0": (ADR_AUTH0, "adr.schema.json"), "ARCH_EXISTING": (ARCH_EXISTING, "arch.schema.json"),
     "ARCH_SUPERSEDED": (ARCH_SUPERSEDED, "arch.schema.json"), "ARCH_TO_REVIEW": (ARCH_TO_REVIEW, "arch.schema.json"),
     "ARCH_REVIEWED": (ARCH_REVIEWED, "arch.schema.json"), "POL_A": (POL_A, "policy.schema.json"),
-    "POL_B": (POL_B, "policy.schema.json"),
+    "POL_B": (POL_B, "policy.schema.json"), "PRD_Q": (PRD_Q, "prd.schema.json"),
+    "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json"),  # the schema's date pattern accepts 2026-13-45
+    "ARCH_FAILING": (ARCH_FAILING, "arch.schema.json", [("components", 0, "status")]),
 }
+POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated"}
 
 
 def scaffold(comment, **files):
@@ -636,6 +690,11 @@ def regex(target, match, pattern, flags=None):
     t = target if target == "last_message" else "{source: file, path: %s}" % target
     fl = f"flags: {flags}\n" if flags else ""
     return f"---\ntype: regex\ntarget: {t}\nmatch: {match}\n{fl}---\n{pattern}\n"
+
+
+def lit(text):
+    """A one-line regex that matches `text` literally, with newlines written as \\n."""
+    return re.sub(r"([\\^$.|?*+()\[\]{}])", r"\\\1", text).replace("\n", r"\n")
 
 
 def exists(path, value):
@@ -901,12 +960,58 @@ epics or writing an epic).
             "no-arch-002": exists("docs/specs/arch/ARCH-002.md", False),
         },
     },
+    "policy-bad-date": {
+        "ver": "17", "files": dict(SHARED, docs__specs__policy__POL_001=POL_BAD_DATE), "prompt": PROMPT,
+        "description": "VER-17: an approved organization policy whose updated date is 2026-13-45 stops Architecture Definition: no ARCH or ADR is written, and the reply names the policy file and the field.",
+        "graders": {
+            "no-arch-written": exists(ARCH, False),
+            "no-adr-written": exists("docs/specs/adr/**", False),
+            "names-file": regex("last_message", "contains", r"POL-001"),
+            "names-field": regex("last_message", "contains", r"\bupdated\b"),
+        },
+    },
+    "failed-amendment-stays-in-review": {
+        "ver": "18",
+        "files": dict(docs__specs__prd__PRD_001=PRD_Q, docs__specs__arch__ARCH_001=ARCH_FAILING),
+        "prompt": "PRD-001 is now at version 2, with a new NEEDS ADR marker about the roster. Amend ARCH-001 for it; I\n"
+                  "confirm the amend outcome. Proceed without asking me anything else.\n",
+        "description": "VER-18: amending the approved ARCH-001, whose existing CMP-01 has a status the self-check rejects, fails validation; ARCH-001 ends in-review with its approval cleared and CMP-01 unchanged, and the reply lists the checks and the error and presents no readiness as validated.",
+        "graders": {
+            "arch-in-review": regex(ARCH, "contains", r"^status: in-review[ \t]*$", "m"),
+            "approval-cleared": regex(ARCH, "contains", r'^approved_by: ""[ \t]*\n^approved_on: null[ \t]*$', "m"),
+            "cmp-01-unchanged": regex(ARCH, "contains", lit(CMP_WEB_BAD)),
+            "no-arch-002": exists("docs/specs/arch/ARCH-002.md", False),
+            "reply-names-cmp-01": regex("last_message", "contains", r"CMP-01"),
+            "failure-report": """\
+---
+type: llm
+---
+
+Context the reply was written in: ARCH-001 was an approved architecture description. Its existing
+component CMP-01 has `status: current`, a value the self-check rejects (an item's status must be
+active or deprecated). The user chose to amend ARCH-001 for a new question in PRD-001 version 2 and
+confirmed the amend outcome. An amendment must leave existing items byte-identical, so no repair
+inside the amendment rules can fix CMP-01, and validation fails.
+
+Judge only the final reply. PASS if all of these hold:
+- It reports that validation failed and names the unresolved error in CMP-01 (its status value).
+- It lists the validation checks it made, and there are at most four: an initial check plus at
+  most three repair cycles. Stopping early because the error can't be repaired is fine.
+- It says ARCH-001 is left in-review (not approved), with its approval cleared.
+- It presents no readiness as validated: it doesn't report requirements as ready for epic work, and
+  it doesn't tell the user to go ahead with epics now.
+FAIL if any of these fails, or if the reply says it changed CMP-01.
+""",
+        },
+    },
 }
 
 
 def main():
-    for label, (text, schema) in FIXTURES.items():
-        validate(label, text, schema)
+    for label, (text, schema, *expect) in FIXTURES.items():
+        validate(label, text, schema, *expect)
+    for label, expect in POLICY_SCRIPT.items():
+        check_policy_script(label, FIXTURES[label][0], expect)
     for name, case in CASES.items():
         d = ROOT / name
         (d / "graders").mkdir(parents=True, exist_ok=True)

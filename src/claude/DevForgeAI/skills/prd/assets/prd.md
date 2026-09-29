@@ -29,8 +29,11 @@ stakeholders: []
 
 # PRD-000 — <product or release name>
 
-<!-- The PRD states WHAT and WHY, not HOW. Every requirement is an item with its
-     own ID and its own upstream link. Design choices belong in a Spec or ADR. -->
+<!-- The PRD states WHAT and WHY, not HOW. Every requirement is an item with its own ID.
+     Every functional requirement derives from a promoted brainstorm idea. A non-functional
+     requirement cites its actual source: a brainstorm item only when that item states the
+     requirement, otherwise the policy setting, ADR or PRD it comes from, and no link when the
+     user stated it. Design choices belong in a Spec or ADR. -->
 
 ## 1. Summary
 
@@ -70,7 +73,8 @@ success_metrics:
 
 ## 6. Functional requirements
 
-<!-- One testable capability per item. Use "shall". Every item needs an upstream link.
+<!-- One testable capability per item. Use "shall". Every item derives from a promoted idea
+     (an upstream derives link to it).
      priority: must | should | could | wont (MoSCoW importance within its release).
      release: current (this PRD's target_release) | later (backlog).
      Both stay null until the user decides; a PRD can't be approved while any is null. -->
@@ -92,7 +96,8 @@ functional_requirements:
 <!-- Make each one measurable. category: performance | security | privacy | accessibility |
      reliability | compliance | observability | usability | maintainability | constraint | other
      "constraint" records a fixed external condition (mandated platform, integration, data
-     residency, existing system). It never records a design choice: those go in an ADR or spec. -->
+     residency, existing system). It never records a design choice: those go in an ADR or spec.
+     upstream: only the actual source (see the note at the top); none when the user stated it. -->
 
 ```yaml items
 non_functional_requirements:
