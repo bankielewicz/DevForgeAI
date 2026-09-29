@@ -2,10 +2,10 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: in-review
+status: approved
 version: 2
 created: 2026-09-23
-updated: 2026-09-28
+updated: 2026-09-29
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-29
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -515,3 +515,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 1 | 2026-09-27 | Bryan | Approved | status |
 | 1 | 2026-09-28 | claude-code (session 383de882-2b59-4b3b-808b-83bb1ab93b9b) | Status update only, at Bryan's instruction, with no version bump: §9 records that the skill is built (SKL-003 v1, PR #4) and deployed, and its fixture checks and eval results. No requirement, behavior or VER item changed | §9 |
 | 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decisions of 2026-09-29. Components carry kinds (M4): §4 lists them and their mapping to ADR-004's context documents, BEH-10 classifies them and asks when a kind is uncertain, and VER-01 and VER-12 (l) check it. §5 aligned with SPEC-004 and the shipped epic skill (M8): an epic has one document-level informed_by link to its ARCH and never cites CMP items; stories record the components they touch (SPEC-009). PRD-001 links re-reviewed at v10. Awaiting Bryan's approval | §4, §5, BEH-10, VER-01, VER-12, frontmatter, status |
+| 2 | 2026-09-29 | Bryan | Approved | status |
