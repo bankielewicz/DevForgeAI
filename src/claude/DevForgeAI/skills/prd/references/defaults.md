@@ -8,7 +8,7 @@ policy keeps a byte-identical copy of this file.
 
 | Key | Class | Default | `overridable_by` of the default | Merge rule |
 |---|---|---|---|---|
-| `interview.max_calls` | interaction default | `8` calls, each with at most 4 questions | `project`, `local` | The most specific layer that is allowed to set it wins |
+| `interview.max_calls` | interaction default | `8` calls, each within the host's per-call question limit | `project`, `local` | The most specific layer that is allowed to set it wins |
 | `architecture.mandated_platforms` | organizational policy | none | — | Collected across layers; a project replaces an organization mandate for the same capability only when the organization setting allows `project` |
 | `quality.required_categories` | organizational policy | none beyond the floor below | — | Additive only: added to the floor, never removing a floor category |
 
@@ -32,6 +32,6 @@ Nothing overrides these; they change only through DevForgeAI's own specification
 
 | Class | Values |
 |---|---|
-| Framework requirement | The quality floor above; validation attempts (3); ID-only file names; provenance fields; the AI never decides scope, priority or release; the eval threshold (0.8) |
+| Framework requirement | The quality floor above; validation: one initial check and at most three repair cycles; ID-only file names; provenance fields; the AI never decides scope, priority or release; the eval threshold (0.8) |
 | Document contract | MoSCoW `priority` (`must`, `should`, `could`, `wont`); `stage`, `operating_context` and `release` values; BRN `disposition`; NFR categories; item ID prefixes |
-| Platform limit | AskUserQuestion: at most 4 questions per call, with 2–4 options each |
+| Platform limit | The host's question tool. In Claude Code, AskUserQuestion takes at most 4 questions per call, with 2–4 options each |
