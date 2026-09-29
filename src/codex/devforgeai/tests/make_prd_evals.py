@@ -1,4 +1,4 @@
-"""Generate the mechanical Codex adaptation of the original 20 PRD cases.
+"""Generate the mechanical Codex adaptation of the approved 29 PRD cases.
 
 No fixture rewriting or behavioral-rubric changes. Run with --check for drift.
 The original files stay under src/claude/DevForgeAI/evals/prd.
@@ -17,6 +17,10 @@ def adapt(relative, data):
     if relative.name == 'scaffold.sh' or relative.name == 'case.yaml':
         return data
     text = data.decode('utf-8')
+    if relative.as_posix() == 'records-provenance/graders/model-is-a-claude-model-id.md':
+        # A Claude model-family regex cannot verify Codex identity. Compare the
+        # authored value with native thread/start metadata; never inject it.
+        return b'---\ntype: codex_runtime_identity\nfield: model\ntarget: docs/specs/prd/PRD-001.md\n---\n'
     if relative.name == 'prompt.md':
         # Claude tool allow-list is runner metadata, never part of the task prompt.
         text = re.sub(r'^allowed_tools:.*\n', '', text, flags=re.M)
@@ -31,6 +35,9 @@ def adapt(relative, data):
         else:
             text = text.replace('/devforgeai:', '$devforgeai:')
         if relative.parts[0] == 'records-provenance':
+            text = text.replace('claude-code', 'codex')
+        elif relative.as_posix() == 'extension-keeps-review-history/graders/new-row-unreviewed.md':
+            # New authoring row only; historical Claude rows/authors stay unchanged.
             text = text.replace('claude-code', 'codex')
     return text.encode('utf-8')
 

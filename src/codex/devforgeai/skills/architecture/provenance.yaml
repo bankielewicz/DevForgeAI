@@ -1,23 +1,23 @@
 # DevForgeAI provenance record for one skill. Validated against src/schemas/skill.schema.json.
-# Codex provider revision 5: component-kinds delta from Claude revision 2; source provenance remains in src/claude/DevForgeAI/skills/architecture/provenance.yaml.
+# Codex provider revision 6: approved contract update; reference provider history preserved.
 id: SKL-003
 type: skill
 title: "Architecture Definition skill (Codex port)"
 status: draft          # draft | in-review | approved | superseded | deprecated
-version: 5             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+version: 6
 created: 2026-09-28
 updated: 2026-09-29
 owner: "Bryan"
 authors: ["Bryan", "claude-code", "codex"]
 generated_by:
   tool: "codex"
-  model: "unknown" # Exact model ID was not exposed to this authoring task.
-  session: "unknown" # The actual host session/thread ID was not exposed to this authoring task.
+  model: "unavailable" # Exact model ID was not exposed to this authoring task.
+  session: "unavailable" # The actual host session/thread ID was not exposed to this authoring task.
 reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:              # the specification this skill implements
-  - {id: SPEC-003, relation: implements, version: 2, hash: null}
+  - {id: SPEC-003, relation: implements, version: 4, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []

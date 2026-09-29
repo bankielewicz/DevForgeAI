@@ -56,3 +56,13 @@ src/codex/devforgeai/*-import-evidence/claude-to-codex.patch
 
 # Superseded local receipt for the PRD bundle before publication filtering.
 src/codex/devforgeai/prd-import-evidence/pr-publication-checks.json
+
+# This contract campaign publishes source and only four evidence files, as requested.
+# Preserve the full evidence folder locally; do not stage raw runs or detailed receipts.
+/src/codex/devforgeai/contract-update-evidence/20260929/*
+!/src/codex/devforgeai/contract-update-evidence/20260929/REPORT.md
+!/src/codex/devforgeai/contract-update-evidence/20260929/evaluation-summary.json
+!/src/codex/devforgeai/contract-update-evidence/20260929/failure-categories.json
+!/src/codex/devforgeai/contract-update-evidence/20260929/evidence-sha256-manifest.json
+/src/codex/devforgeai/CONTRACT-UPDATE-REPORT.md
+/src/codex/devforgeai/CONTRACT-UPDATE-DISCREPANCIES.md

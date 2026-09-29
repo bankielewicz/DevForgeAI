@@ -1,6 +1,6 @@
 {
   "name": "devforgeai",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "DevForgeAI for Codex: structured brainstorming, product requirements, requirement-linked architecture decisions, and documentation updates grounded in verified changes.",
   "author": {
     "name": "Bryan"

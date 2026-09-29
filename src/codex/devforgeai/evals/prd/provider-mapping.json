@@ -108,6 +108,12 @@
     "changed": false
   },
   {
+    "path": "constraints-not-design/graders/aws-no-brn-link.md",
+    "source_sha256": "e3c375c340d260eeadf3b807093b01046afd106609d596a83ccab3bf303dcebb",
+    "adapted_sha256": "e3c375c340d260eeadf3b807093b01046afd106609d596a83ccab3bf303dcebb",
+    "changed": false
+  },
+  {
     "path": "constraints-not-design/graders/has-constraint-category.md",
     "source_sha256": "5189ab1d5fb9eb844e85828c3ace60afbf779d13021c630ffa42240fda7481a4",
     "adapted_sha256": "5189ab1d5fb9eb844e85828c3ace60afbf779d13021c630ffa42240fda7481a4",
@@ -135,6 +141,12 @@
     "path": "constraints-not-design/graders/stripe-constraint.md",
     "source_sha256": "bacefdbb6c3cc808f770f205abed68ad78543d1af624d83e5544df5d851a00ef",
     "adapted_sha256": "bacefdbb6c3cc808f770f205abed68ad78543d1af624d83e5544df5d851a00ef",
+    "changed": false
+  },
+  {
+    "path": "constraints-not-design/graders/stripe-no-brn-link.md",
+    "source_sha256": "66b93b45caeb14553eb66a555cf04dc4adc9b2cb784e7f7e7666d3f893c95bb6",
+    "adapted_sha256": "66b93b45caeb14553eb66a555cf04dc4adc9b2cb784e7f7e7666d3f893c95bb6",
     "changed": false
   },
   {
@@ -183,6 +195,120 @@
     "path": "extend-or-new/scaffold.sh",
     "source_sha256": "89b46f7e08b4d0acf2fd30ed1bdbda8b6e74d8ab28a7d7ae2577fdef0463c1ad",
     "adapted_sha256": "89b46f7e08b4d0acf2fd30ed1bdbda8b6e74d8ab28a7d7ae2577fdef0463c1ad",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/case.yaml",
+    "source_sha256": "8f8a3aa3a771754b5b1545e040eb30cb6e785ebf479f947e126c4491717ad0de",
+    "adapted_sha256": "8f8a3aa3a771754b5b1545e040eb30cb6e785ebf479f947e126c4491717ad0de",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/approval-cleared.md",
+    "source_sha256": "83343df2663086e90759f8c85c84c85dac4460fc9ff7a088e00f8b7c4ac4f848",
+    "adapted_sha256": "83343df2663086e90759f8c85c84c85dac4460fc9ff7a088e00f8b7c4ac4f848",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/authors-unchanged.md",
+    "source_sha256": "2e45913dbecaacd69a0cba914cc5a35d0515c49c8d16d4bde8f614e7a8b91dad",
+    "adapted_sha256": "2e45913dbecaacd69a0cba914cc5a35d0515c49c8d16d4bde8f614e7a8b91dad",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/earlier-rows-unchanged.md",
+    "source_sha256": "fa28ebf6017ede1a78ffca5e101424f9d68ebf906535c172374a10f5b0853369",
+    "adapted_sha256": "fa28ebf6017ede1a78ffca5e101424f9d68ebf906535c172374a10f5b0853369",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/extended-to-version-2.md",
+    "source_sha256": "0aa418e760d7fba9651300ec689b9ecbd261d3b178d92b6fb80fe9ca63d9b897",
+    "adapted_sha256": "0aa418e760d7fba9651300ec689b9ecbd261d3b178d92b6fb80fe9ca63d9b897",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/new-fr-from-brn-002.md",
+    "source_sha256": "2c5085c4222d6b852023fd9a6f95bf64c85198b8b4a8d70a5ed9c6f54cfd1c16",
+    "adapted_sha256": "2c5085c4222d6b852023fd9a6f95bf64c85198b8b4a8d70a5ed9c6f54cfd1c16",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/new-row-unreviewed.md",
+    "source_sha256": "fed67e4ed2770aca5424dc15420ef804d9ec347a047ab2513f87a1d972be4e98",
+    "adapted_sha256": "a38d7620765240479d916a66eedec43662c55c77a305ea2a9e6118f634f5579f",
+    "changed": true
+  },
+  {
+    "path": "extension-keeps-review-history/graders/prd-in-review.md",
+    "source_sha256": "07f8ad2524ae55c51cbbce1ec1a9b6f48d896754733a42095ad91913fca6d30e",
+    "adapted_sha256": "07f8ad2524ae55c51cbbce1ec1a9b6f48d896754733a42095ad91913fca6d30e",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/graders/reviewed-by-unchanged.md",
+    "source_sha256": "3e6ac32f31e986209e232943a54bf7ffb001c21f19f3c4dd23abb263f4079a93",
+    "adapted_sha256": "3e6ac32f31e986209e232943a54bf7ffb001c21f19f3c4dd23abb263f4079a93",
+    "changed": false
+  },
+  {
+    "path": "extension-keeps-review-history/prompt.md",
+    "source_sha256": "cb594e3f24ca6f44a057dc8ea2d370498b849c8b3667392661e3beb0733b7c79",
+    "adapted_sha256": "62bfcc6c193e952c918c63c96f31743a2b483c481648930d0b853e2fe6f6388e",
+    "changed": true
+  },
+  {
+    "path": "extension-keeps-review-history/scaffold.sh",
+    "source_sha256": "644d02fe57ed885a18a39cc67925a33c31adf383cb70055d95061fdf91d28a39",
+    "adapted_sha256": "644d02fe57ed885a18a39cc67925a33c31adf383cb70055d95061fdf91d28a39",
+    "changed": false
+  },
+  {
+    "path": "failed-extension-stays-in-review/case.yaml",
+    "source_sha256": "dbe1e2dc7f6369c744f2eb1573cd2d3ca5e01c188849765f2f3e7d7731cb49b2",
+    "adapted_sha256": "dbe1e2dc7f6369c744f2eb1573cd2d3ca5e01c188849765f2f3e7d7731cb49b2",
+    "changed": false
+  },
+  {
+    "path": "failed-extension-stays-in-review/graders/approval-cleared.md",
+    "source_sha256": "83343df2663086e90759f8c85c84c85dac4460fc9ff7a088e00f8b7c4ac4f848",
+    "adapted_sha256": "83343df2663086e90759f8c85c84c85dac4460fc9ff7a088e00f8b7c4ac4f848",
+    "changed": false
+  },
+  {
+    "path": "failed-extension-stays-in-review/graders/failure-report.md",
+    "source_sha256": "4343a3f0ea938f7cce8d4bcffb767773c1eba504db712fe508229df60366bfa5",
+    "adapted_sha256": "7f0f6ac816a72ef064305a42c80f78fcd1e8cd517a51d419a3b4cf5c7fc70754",
+    "changed": true
+  },
+  {
+    "path": "failed-extension-stays-in-review/graders/fr-001-unchanged.md",
+    "source_sha256": "a4dc8670af5596308dad990a58f7edb1c35d8850d080c027a381530d2c6d4cde",
+    "adapted_sha256": "a4dc8670af5596308dad990a58f7edb1c35d8850d080c027a381530d2c6d4cde",
+    "changed": false
+  },
+  {
+    "path": "failed-extension-stays-in-review/graders/prd-in-review.md",
+    "source_sha256": "07f8ad2524ae55c51cbbce1ec1a9b6f48d896754733a42095ad91913fca6d30e",
+    "adapted_sha256": "07f8ad2524ae55c51cbbce1ec1a9b6f48d896754733a42095ad91913fca6d30e",
+    "changed": false
+  },
+  {
+    "path": "failed-extension-stays-in-review/graders/reply-names-fr-001.md",
+    "source_sha256": "70dad7bb315a8ef85fc3e97ec010ba59cbc5aac349ca120e3d9a5e67cb7b4d3f",
+    "adapted_sha256": "70dad7bb315a8ef85fc3e97ec010ba59cbc5aac349ca120e3d9a5e67cb7b4d3f",
+    "changed": false
+  },
+  {
+    "path": "failed-extension-stays-in-review/prompt.md",
+    "source_sha256": "96f74bef7f48f92c7097db2d8758cd97c8f65faa635d94785f6a01c3146cfa69",
+    "adapted_sha256": "7a6d56eac30530e2e3869ad2a8fb4f6a114ad51ad001f6fd402323149df830fa",
+    "changed": true
+  },
+  {
+    "path": "failed-extension-stays-in-review/scaffold.sh",
+    "source_sha256": "00ac9d13684c14337affb3d256186d8d0dac84b58de7fc83465ecbe5d45b6db9",
+    "adapted_sha256": "00ac9d13684c14337affb3d256186d8d0dac84b58de7fc83465ecbe5d45b6db9",
     "changed": false
   },
   {
@@ -408,6 +534,48 @@
     "changed": false
   },
   {
+    "path": "none-does-not-waive-policy/case.yaml",
+    "source_sha256": "54c7493aee0ac4fb9439d63c36f367d27562defdcdc414baee96ac608a32d0b2",
+    "adapted_sha256": "54c7493aee0ac4fb9439d63c36f367d27562defdcdc414baee96ac608a32d0b2",
+    "changed": false
+  },
+  {
+    "path": "none-does-not-waive-policy/graders/compliance-none-recorded.md",
+    "source_sha256": "24a3e6195bf5ddcc1a6f8db2e3f726b30324cd0bfa81cb3c2c849becf1642bc3",
+    "adapted_sha256": "24a3e6195bf5ddcc1a6f8db2e3f726b30324cd0bfa81cb3c2c849becf1642bc3",
+    "changed": false
+  },
+  {
+    "path": "none-does-not-waive-policy/graders/marker-names-setting.md",
+    "source_sha256": "2697821cfc48780076414dea8081bddf96f7c70e120bed122b73f25dba4e339c",
+    "adapted_sha256": "2697821cfc48780076414dea8081bddf96f7c70e120bed122b73f25dba4e339c",
+    "changed": false
+  },
+  {
+    "path": "none-does-not-waive-policy/graders/no-compliance-nfr.md",
+    "source_sha256": "3f2606db93e3311a2dac3a185c12be41315e45cff84981cd4101946ea195faa6",
+    "adapted_sha256": "3f2606db93e3311a2dac3a185c12be41315e45cff84981cd4101946ea195faa6",
+    "changed": false
+  },
+  {
+    "path": "none-does-not-waive-policy/graders/prd-exists.md",
+    "source_sha256": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "adapted_sha256": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "changed": false
+  },
+  {
+    "path": "none-does-not-waive-policy/prompt.md",
+    "source_sha256": "1976ecbd0a4928beddb27a4e2b5db6caf028b4eda0d8d072327b3213f1df6b84",
+    "adapted_sha256": "1232d8cd47f2443c24b77eea9bc1cbc0c8a6cafa56eb3f066fff5ccbb8a7a585",
+    "changed": true
+  },
+  {
+    "path": "none-does-not-waive-policy/scaffold.sh",
+    "source_sha256": "43ec47fb18a1a80214e3d6c2027ccf419351cd10773b2437296b1f71bcc0291d",
+    "adapted_sha256": "43ec47fb18a1a80214e3d6c2027ccf419351cd10773b2437296b1f71bcc0291d",
+    "changed": false
+  },
+  {
     "path": "policy-applied/case.yaml",
     "source_sha256": "97d47cd554faf6da2382fdda5173054ecbe94d5466bb647e5ca36701040e5bd5",
     "adapted_sha256": "97d47cd554faf6da2382fdda5173054ecbe94d5466bb647e5ca36701040e5bd5",
@@ -459,6 +627,156 @@
     "path": "policy-applied/scaffold.sh",
     "source_sha256": "4af6c73414cbcd0b0c8c2b26ac0fd97993d910fb50803157a3ce980d3e9364c7",
     "adapted_sha256": "4af6c73414cbcd0b0c8c2b26ac0fd97993d910fb50803157a3ce980d3e9364c7",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-authors/case.yaml",
+    "source_sha256": "dd0d831ec43ac009388713f11e62872861ebba45dc0ae72dd9ffef074bfa6ed3",
+    "adapted_sha256": "dd0d831ec43ac009388713f11e62872861ebba45dc0ae72dd9ffef074bfa6ed3",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-authors/graders/names-field.md",
+    "source_sha256": "34385bf1c666619929cf65e3248769cd12381f4b5408dce227413e9ccdef6484",
+    "adapted_sha256": "34385bf1c666619929cf65e3248769cd12381f4b5408dce227413e9ccdef6484",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-authors/graders/names-file.md",
+    "source_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "adapted_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-authors/graders/no-prd-written.md",
+    "source_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "adapted_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-authors/prompt.md",
+    "source_sha256": "a972719112abbcf0d36545a802a1197283dca32e6585c627542b4e3aea34df2b",
+    "adapted_sha256": "2ceb2abe46c1448a4db46560007b271f2cb4be8905193de372f88b67c32b5f4b",
+    "changed": true
+  },
+  {
+    "path": "policy-bad-authors/scaffold.sh",
+    "source_sha256": "360a06b9fb9a2bb6aec8c8b7ed531d82947db56003b8c0f761b18fe0ed7c09f7",
+    "adapted_sha256": "360a06b9fb9a2bb6aec8c8b7ed531d82947db56003b8c0f761b18fe0ed7c09f7",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-date/case.yaml",
+    "source_sha256": "2788cb4e6910dc2a8d04d7ef28ce1bfd0718b28b6c882f6b45aedb57907bfe8f",
+    "adapted_sha256": "2788cb4e6910dc2a8d04d7ef28ce1bfd0718b28b6c882f6b45aedb57907bfe8f",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-date/graders/names-field.md",
+    "source_sha256": "ea73a39048669beb1b8154742ac302f0f25f79f321831b47971afd69a8a26716",
+    "adapted_sha256": "ea73a39048669beb1b8154742ac302f0f25f79f321831b47971afd69a8a26716",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-date/graders/names-file.md",
+    "source_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "adapted_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-date/graders/no-prd-written.md",
+    "source_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "adapted_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-date/prompt.md",
+    "source_sha256": "a7a5e2bcb54b50293043b2dd5d2ec62943ff36c6bb27a526ba04e7f6855ee65d",
+    "adapted_sha256": "59f9b2260e13b68d8eb11d20f41f1b9e1532c77a6dd311819f7d7e65efc4a709",
+    "changed": true
+  },
+  {
+    "path": "policy-bad-date/scaffold.sh",
+    "source_sha256": "215fc8a4c2cd0484b1f28a6853e3f6528da533942f3b920cbbbd965d43ccec51",
+    "adapted_sha256": "215fc8a4c2cd0484b1f28a6853e3f6528da533942f3b920cbbbd965d43ccec51",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-link/case.yaml",
+    "source_sha256": "25fd80c9b420255fd0e6edeeab03917caae4437a26617d5f23f2b68db935aaba",
+    "adapted_sha256": "25fd80c9b420255fd0e6edeeab03917caae4437a26617d5f23f2b68db935aaba",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-link/graders/names-field.md",
+    "source_sha256": "b2d26bf76aed2cba672fbc1244f5cb7fb54ad51ba20166ff076247bf1e194bac",
+    "adapted_sha256": "b2d26bf76aed2cba672fbc1244f5cb7fb54ad51ba20166ff076247bf1e194bac",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-link/graders/names-file.md",
+    "source_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "adapted_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-link/graders/no-prd-written.md",
+    "source_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "adapted_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-link/prompt.md",
+    "source_sha256": "c5fb74192009001817be8be5612dc57c337bc5f8dbce5fc3d5641e0942f616d4",
+    "adapted_sha256": "ce8d4d31f1c6d3c0f28685d4d5267ea751f2563a5ee27e312b96d327fe2e9393",
+    "changed": true
+  },
+  {
+    "path": "policy-bad-link/scaffold.sh",
+    "source_sha256": "2cc22174f69846742fb186f12775bcc470e227b1200ae2cda7a8be1a3c054af2",
+    "adapted_sha256": "2cc22174f69846742fb186f12775bcc470e227b1200ae2cda7a8be1a3c054af2",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-type/case.yaml",
+    "source_sha256": "2bad86cdae9b9ff7e516f5ea9578249d201c91553ca7c9522e6ff56e6acf1544",
+    "adapted_sha256": "2bad86cdae9b9ff7e516f5ea9578249d201c91553ca7c9522e6ff56e6acf1544",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-type/graders/names-field.md",
+    "source_sha256": "923ef38b162c992b0c3957b1b63d321a94188d7c51d5cc291bb0c449fada1258",
+    "adapted_sha256": "923ef38b162c992b0c3957b1b63d321a94188d7c51d5cc291bb0c449fada1258",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-type/graders/names-file.md",
+    "source_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "adapted_sha256": "987c929321cfd1584a0cb96321fc76cb10c2e8c07ef45e4afaf16579c69644c9",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-type/graders/names-setting.md",
+    "source_sha256": "3a5bca04f66ee2f44bb51c50af73bc72df877ef4f700c6e55880261fed41c591",
+    "adapted_sha256": "3a5bca04f66ee2f44bb51c50af73bc72df877ef4f700c6e55880261fed41c591",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-type/graders/no-prd-written.md",
+    "source_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "adapted_sha256": "5730d90cf062468f1398e10283a449b380fdaad6c97be9b83b37a8f002e0fdd2",
+    "changed": false
+  },
+  {
+    "path": "policy-bad-type/prompt.md",
+    "source_sha256": "398b84d48f3f0f072d70598fbc58e2a6afb4d0f6c295cea99b74728c432f2650",
+    "adapted_sha256": "ab385d904f248f8bd7274c4ebb8dc6ecfe2332920b5c5a789fa79f959f802912",
+    "changed": true
+  },
+  {
+    "path": "policy-bad-type/scaffold.sh",
+    "source_sha256": "1cb730bed89c753d181ae8f9aba38a745424779fdeb3a830fd992a23c55104d5",
+    "adapted_sha256": "1cb730bed89c753d181ae8f9aba38a745424779fdeb3a830fd992a23c55104d5",
     "changed": false
   },
   {
@@ -606,15 +924,93 @@
     "changed": false
   },
   {
+    "path": "quality-answers-kept-apart/case.yaml",
+    "source_sha256": "e25ccddca4c4ad59c591d255780f8772a78b13ef8bbc15d8bc70b0bfdad893cd",
+    "adapted_sha256": "e25ccddca4c4ad59c591d255780f8772a78b13ef8bbc15d8bc70b0bfdad893cd",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/context-internal.md",
+    "source_sha256": "2f28af605744f36938cf588f731f9e139e517537aa04d66fee625885ddbe55dd",
+    "adapted_sha256": "2f28af605744f36938cf588f731f9e139e517537aa04d66fee625885ddbe55dd",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/metric-target-marked.md",
+    "source_sha256": "0191c7aae782fc0d8581f14c69b55b0c6f3ebcc93223c6a562d85b349c9f668f",
+    "adapted_sha256": "0191c7aae782fc0d8581f14c69b55b0c6f3ebcc93223c6a562d85b349c9f668f",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/no-privacy-nfr.md",
+    "source_sha256": "3add5db82fb56d5aead4dfbf286a3452b84ceaefe136c78f0aedf1d69eddf00d",
+    "adapted_sha256": "3add5db82fb56d5aead4dfbf286a3452b84ceaefe136c78f0aedf1d69eddf00d",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/no-security-nfr.md",
+    "source_sha256": "b6d16d7026d128ec76ea4019aacdccac27dd6326748a2b8215fc364851297d61",
+    "adapted_sha256": "b6d16d7026d128ec76ea4019aacdccac27dd6326748a2b8215fc364851297d61",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/prd-exists.md",
+    "source_sha256": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "adapted_sha256": "d347175d0c8e80b012bc58552a54595208c32cbbfc4a3fa467a801821a331c20",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/privacy-marker.md",
+    "source_sha256": "e04585ad4fa80eb1b6f24608bbf87afda44c0e71a4d9ceed89649a275e6748ef",
+    "adapted_sha256": "e04585ad4fa80eb1b6f24608bbf87afda44c0e71a4d9ceed89649a275e6748ef",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/security-none-in-prose.md",
+    "source_sha256": "a1df28a55e8bbfc35a6c607fa6d589dbed3fdc7e7fee1bf938272765e7ef79ec",
+    "adapted_sha256": "a1df28a55e8bbfc35a6c607fa6d589dbed3fdc7e7fee1bf938272765e7ef79ec",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/graders/security-not-marked-unanswered.md",
+    "source_sha256": "18b7788ca97247687962bf71c51de41f2d96ab93acc466cb9860bce94fb8cc32",
+    "adapted_sha256": "18b7788ca97247687962bf71c51de41f2d96ab93acc466cb9860bce94fb8cc32",
+    "changed": false
+  },
+  {
+    "path": "quality-answers-kept-apart/prompt.md",
+    "source_sha256": "0d95ed1b505c5a19769b76cf6fde771ccfb686c11386137483fa828a71bc53fe",
+    "adapted_sha256": "99f08e926f31a736229693772e33c253ef9788f242eb7c71947d4d7574989cc0",
+    "changed": true
+  },
+  {
+    "path": "quality-answers-kept-apart/scaffold.sh",
+    "source_sha256": "3e86258f1afe804d1d354554cbe271e42107dc9e6eb4ef0f85cd7e083efa5c49",
+    "adapted_sha256": "3e86258f1afe804d1d354554cbe271e42107dc9e6eb4ef0f85cd7e083efa5c49",
+    "changed": false
+  },
+  {
     "path": "records-provenance/case.yaml",
     "source_sha256": "65f6f15f561d4d4c5e54c66ef3b1d7e418c5ec63dd5ff89f8a62256c5485a3f5",
     "adapted_sha256": "65f6f15f561d4d4c5e54c66ef3b1d7e418c5ec63dd5ff89f8a62256c5485a3f5",
     "changed": false
   },
   {
+    "path": "records-provenance/graders/authors-include-the-tool.md",
+    "source_sha256": "2268ea82aa8ff608fe34bc9a62baa43aebc87410933e0eec93f2afd63ca28acd",
+    "adapted_sha256": "f9be19bdbe835fc28212673e8b2eed107b91a8999a381f4baa345ba940f1157f",
+    "changed": true
+  },
+  {
     "path": "records-provenance/graders/changelog-names-session.md",
     "source_sha256": "5fe16010caeafd107485af7d742491fce4950645f354550f1062c896dbfe79c4",
     "adapted_sha256": "523cdb7be0616da042aa64f7561c2519cbeb9eec683ac38b5675781962e2f521",
+    "changed": true
+  },
+  {
+    "path": "records-provenance/graders/changelog-session-matches.md",
+    "source_sha256": "ff2bb2f68748f0453865fa52be74af16e732964a59597779996ee52bbefb40bc",
+    "adapted_sha256": "89b9c88aa11a8a14ad8dfd8d2823fda963609feeea2b55a55ed0224772178613",
     "changed": true
   },
   {
@@ -628,6 +1024,18 @@
     "source_sha256": "89bbb17946b98762163ed27d1e42c4d526c621864ec7adbe7b7bed8006b26022",
     "adapted_sha256": "89bbb17946b98762163ed27d1e42c4d526c621864ec7adbe7b7bed8006b26022",
     "changed": false
+  },
+  {
+    "path": "records-provenance/graders/identity-not-unavailable.md",
+    "source_sha256": "9b8aeeb419a53b2a9d9ff63dff6b80a8ef0ff8007ac62f64a3cb2951fbd5b7c8",
+    "adapted_sha256": "9b8aeeb419a53b2a9d9ff63dff6b80a8ef0ff8007ac62f64a3cb2951fbd5b7c8",
+    "changed": false
+  },
+  {
+    "path": "records-provenance/graders/model-is-a-claude-model-id.md",
+    "source_sha256": "2bb83225449b075e0f150e25f2be585cef7035655e5d541cddebaded7a0ba073",
+    "adapted_sha256": "28b6fd399aebe3bd41eaf3351c777dda39ec7cb254df582fb01994bbfe9eb141",
+    "changed": true
   },
   {
     "path": "records-provenance/graders/prd-exists.md",
@@ -741,6 +1149,48 @@
     "path": "selects-unprocessed-brn/scaffold.sh",
     "source_sha256": "d953170af35fca65e3d5e9f36ec6eea344ec7b8d9f0299bec176629d67c8935c",
     "adapted_sha256": "d953170af35fca65e3d5e9f36ec6eea344ec7b8d9f0299bec176629d67c8935c",
+    "changed": false
+  },
+  {
+    "path": "stated-choice-honored/case.yaml",
+    "source_sha256": "4c7d8944a1461859af57b695fef772f8d6ffbf17a56ccd9a715d5b1c400ec267",
+    "adapted_sha256": "4c7d8944a1461859af57b695fef772f8d6ffbf17a56ccd9a715d5b1c400ec267",
+    "changed": false
+  },
+  {
+    "path": "stated-choice-honored/graders/names-request-as-source.md",
+    "source_sha256": "d4d4c06dcd029edd71a9b7b8b4abedf0b89c6b56f6d269881f0c7b9861b982ef",
+    "adapted_sha256": "d4d4c06dcd029edd71a9b7b8b4abedf0b89c6b56f6d269881f0c7b9861b982ef",
+    "changed": false
+  },
+  {
+    "path": "stated-choice-honored/graders/prd-001-unchanged.md",
+    "source_sha256": "4935e9f26b4c85ad5f3d01d7e966f370f03f55b6ba9df9da94f471e24d15cde0",
+    "adapted_sha256": "4935e9f26b4c85ad5f3d01d7e966f370f03f55b6ba9df9da94f471e24d15cde0",
+    "changed": false
+  },
+  {
+    "path": "stated-choice-honored/graders/prd-002-exists.md",
+    "source_sha256": "994a73aaed8353ab102fb122c03bea46b7c0ea1fd7c1aef69b8c0461fd802f91",
+    "adapted_sha256": "994a73aaed8353ab102fb122c03bea46b7c0ea1fd7c1aef69b8c0461fd802f91",
+    "changed": false
+  },
+  {
+    "path": "stated-choice-honored/graders/prd-002-from-brn-002.md",
+    "source_sha256": "2ec177b38e3d709466de12a260e45c36808b8a1eed87cc5d5ff412856af9a408",
+    "adapted_sha256": "2ec177b38e3d709466de12a260e45c36808b8a1eed87cc5d5ff412856af9a408",
+    "changed": false
+  },
+  {
+    "path": "stated-choice-honored/prompt.md",
+    "source_sha256": "afcad419b07e452aede36fd1740586c0624ecd5bfd8b4f8be5ba7bf4f80340c3",
+    "adapted_sha256": "c28784b6bae45d9a9401ae2b9329871b8a35b245727f5090622a0fcf4c0da68a",
+    "changed": true
+  },
+  {
+    "path": "stated-choice-honored/scaffold.sh",
+    "source_sha256": "4b909f3ed7e1921355526c3031a626c5b14b233d72cdd5a16af44a0b3f6b424d",
+    "adapted_sha256": "4b909f3ed7e1921355526c3031a626c5b14b233d72cdd5a16af44a0b3f6b424d",
     "changed": false
   },
   {

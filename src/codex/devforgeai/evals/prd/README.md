@@ -1,9 +1,12 @@
 # PRD evaluations for Codex
 
-This suite is a mechanical port of the current Claude PRD suite: **20 cases**, **3
-repetitions**, **plugin and no-plugin arms**, **120 trials**, plus all **23 mandatory
-SPEC-002 VER obligations** and explicit manual/supplemental branches. Native behavioral
-qualification is NOT_RUN. Static schema checks and discovery are separate evidence.
+This suite is a mechanical port of the current Claude PRD suite: **29 cases**, **3
+repetitions**, **plugin and no-plugin arms**, **174 trials**, plus all **32 mandatory
+SPEC-002 VER obligations** and explicit manual/supplemental branches. The current [contract campaign](../../contract-update-evidence/20260929/REPORT.md)
+records completed, interrupted and NOT_RUN trials. The full campaign stopped at the native usage
+limit before the third PRD repetition or any Architecture automated trial. Mixed host versions also
+violate the frozen executable requirement; see the [final contract report](../../contract-update-evidence/20260929/REPORT.md).
+The candidate is not qualified. Static schema checks and discovery are separate evidence.
 
 `../../tests/make_prd_evals.py` is the generator. From the repository root:
 
@@ -27,13 +30,12 @@ prompts, fixtures and graders remain under `src/claude/DevForgeAI/evals/prd`.
   read paths against the event cwd and do not credit failed/ambiguous command reads.
 - Translate slash-command handoff assertions to `$devforgeai:...`, escaping the dollar
   only in regex bodies. Keep handoff placement, ID-only argument and no-work rules.
-- Change `claude-code` to `codex` only in the two new-record provenance graders. Never
+- Change `claude-code` to `codex` only in current-write provenance graders. Never
   rewrite historical fixture authorship. Non-empty strings are insufficient evidence
   of current identity; supplemental provenance assessment must verify actual identity.
 
 The custom `codex_skill_read` grader is an adapter contract, not a built-in Codex or
-Claude grader. No turnkey PRD native runner is shipped by this import. Reusing another
-skill's runner requires a reviewed PRD adapter; do not run Claude evaluations as Codex
+Claude grader. The current contract update supplies `tests/native_contract_eval.py` and a controlled PRD grading adapter; do not run Claude evaluations as Codex
 qualification. Regex and semantic grader meanings and the 0.8 threshold are unchanged.
 
 ## Execution and acceptance
@@ -50,6 +52,7 @@ Do not expose evaluator files or inject model/session identity that production c
 obtain. Include implicit activation and unrelated-request non-activation. No installation
 or marketplace changes are required for disposable evaluation.
 
-Resolve the SPEC-002 failure-lifecycle/attempt ambiguity before qualifying those manual
-branches. Preserve every failure, blocked case and NOT_RUN result. No case averaging or
-successful helper command establishes full PRD, combined-package or owner acceptance.
+SPEC-002 v2 settles the earlier failure-lifecycle and attempt-count ambiguity. See
+../../contract-update-evidence/20260929/REPORT.md and the new contract-update evidence for this candidate;
+the linked original import plan above remains historical evidence. Preserve every failure,
+blocked case and NOT_RUN result; no source score waives an open identity or manual obligation.

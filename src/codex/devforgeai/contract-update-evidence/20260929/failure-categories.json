@@ -1,0 +1,1194 @@
+{
+  "schema_version": 1,
+  "candidate_sha256": "3517d2ce0adfefb405faf11fb433e723e725e8fe68af92ba272dee13702b0f0f",
+  "full_requalification": false,
+  "scope": "Retained failure classes remain distinct; categories may overlap and are not summed into a new denominator. No original failure or NOT_RUN slot was erased.",
+  "behavior_failures": [
+    {
+      "id": "prd--architecture-context--baseline--1",
+      "skill": "prd",
+      "case": "architecture-context",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "handoff-says-epics-wait",
+        "links-adr-002",
+        "marker-names-booking-fr",
+        "needs-adr-marker"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--conditional-not-applicable--baseline--1",
+      "skill": "prd",
+      "case": "conditional-not-applicable",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "not-applicable-recorded"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--constraints-not-design--baseline--1",
+      "skill": "prd",
+      "case": "constraints-not-design",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "aws-constraint",
+        "has-constraint-category",
+        "microservices-is-open",
+        "stripe-constraint"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--extend-or-new--baseline--1",
+      "skill": "prd",
+      "case": "extend-or-new",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "no-prd-002",
+        "recommends-new-and-asks"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--extension-keeps-review-history--plugin--1",
+      "skill": "prd",
+      "case": "extension-keeps-review-history",
+      "arm": "plugin",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "authors-unchanged"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--extension-keeps-review-history--baseline--1",
+      "skill": "prd",
+      "case": "extension-keeps-review-history",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "authors-unchanged",
+        "new-row-unreviewed",
+        "prd-in-review",
+        "reviewed-by-unchanged"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--failed-extension-stays-in-review--baseline--1",
+      "skill": "prd",
+      "case": "failed-extension-stays-in-review",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "failure-report",
+        "prd-in-review",
+        "reply-names-fr-001"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--hands-off-to-architecture--baseline--1",
+      "skill": "prd",
+      "case": "hands-off-to-architecture",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "ends-with-next-step",
+        "handoff-quality",
+        "names-architecture-command"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--invalid-policy-stops--baseline--1",
+      "skill": "prd",
+      "case": "invalid-policy-stops",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-file",
+        "names-key",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--no-invented-decisions--baseline--1",
+      "skill": "prd",
+      "case": "no-invented-decisions",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "stage-prototype"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--no-policy-defaults--baseline--1",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "defaults-recorded"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--baseline--1",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "compliance-none-recorded",
+        "marker-names-setting",
+        "no-compliance-nfr"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-applied--baseline--1",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "constraint-cites-set-01",
+        "informed-by-set-02",
+        "marker-accessibility",
+        "marker-compliance"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-authors--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-authors",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-date--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-field",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-link--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-link",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-type--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-type",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--production-mvp--baseline--1",
+      "skill": "prd",
+      "case": "production-mvp",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "context-production",
+        "marker-accessibility",
+        "marker-compliance",
+        "marker-observability",
+        "marker-performance",
+        "marker-reliability",
+        "privacy-nfr",
+        "security-nfr",
+        "stage-mvp"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--project-override-forbidden--baseline--1",
+      "skill": "prd",
+      "case": "project-override-forbidden",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-both-settings",
+        "names-sv-04",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--project-override-permitted--baseline--1",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "project-value-wins"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--quality-answers-kept-apart--baseline--1",
+      "skill": "prd",
+      "case": "quality-answers-kept-apart",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "context-internal",
+        "metric-target-marked",
+        "privacy-marker",
+        "security-none-in-prose"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--records-provenance--plugin--1",
+      "skill": "prd",
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "changelog-names-session",
+        "changelog-session-matches",
+        "identity-not-unavailable",
+        "model-is-a-claude-model-id",
+        "session-substituted"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--records-provenance--baseline--1",
+      "skill": "prd",
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "authors-include-the-tool",
+        "changelog-names-session",
+        "changelog-session-matches",
+        "generated-by-filled",
+        "model-is-a-claude-model-id",
+        "session-substituted"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--retired-setting-ignored--baseline--1",
+      "skill": "prd",
+      "case": "retired-setting-ignored",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "no-retired-platform"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--selects-unprocessed-brn--baseline--1",
+      "skill": "prd",
+      "case": "selects-unprocessed-brn",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "no-prd-002",
+        "offers-only-unprocessed"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--stated-choice-honored--baseline--1",
+      "skill": "prd",
+      "case": "stated-choice-honored",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "names-request-as-source"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--stops-without-promoted--baseline--1",
+      "skill": "prd",
+      "case": "stops-without-promoted",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "points-to-brainstorm"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--unknown-context-failsafe--baseline--1",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "compliance-marker",
+        "context-null",
+        "failsafe-recorded"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--warns-unconverged--plugin--1",
+      "skill": "prd",
+      "case": "warns-unconverged",
+      "arm": "plugin",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "warns-and-asks"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--warns-unconverged--baseline--1",
+      "skill": "prd",
+      "case": "warns-unconverged",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "warns-and-asks"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--writes-prd-from-brn--baseline--1",
+      "skill": "prd",
+      "case": "writes-prd-from-brn",
+      "arm": "baseline",
+      "repeat": 1,
+      "corrected_failed_checks": [
+        "all-sections",
+        "cites-promoted-ideas",
+        "framing-from-answers",
+        "idea-01-frs-must-current",
+        "idea-03-frs-should-current",
+        "no-unpromoted-ideas"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--architecture-context--baseline--2",
+      "skill": "prd",
+      "case": "architecture-context",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "handoff-says-epics-wait",
+        "links-adr-002",
+        "marker-names-booking-fr",
+        "needs-adr-marker"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--conditional-not-applicable--baseline--2",
+      "skill": "prd",
+      "case": "conditional-not-applicable",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "not-applicable-recorded"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--constraints-not-design--baseline--2",
+      "skill": "prd",
+      "case": "constraints-not-design",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "aws-constraint",
+        "has-constraint-category",
+        "microservices-is-open",
+        "stripe-constraint"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--extend-or-new--baseline--2",
+      "skill": "prd",
+      "case": "extend-or-new",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "no-prd-002",
+        "recommends-new-and-asks"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--extension-keeps-review-history--plugin--2",
+      "skill": "prd",
+      "case": "extension-keeps-review-history",
+      "arm": "plugin",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "authors-unchanged"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--extension-keeps-review-history--baseline--2",
+      "skill": "prd",
+      "case": "extension-keeps-review-history",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "authors-unchanged",
+        "new-row-unreviewed",
+        "prd-in-review",
+        "reviewed-by-unchanged"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--failed-extension-stays-in-review--baseline--2",
+      "skill": "prd",
+      "case": "failed-extension-stays-in-review",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "failure-report",
+        "prd-in-review",
+        "reply-names-fr-001"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--hands-off-to-architecture--baseline--2",
+      "skill": "prd",
+      "case": "hands-off-to-architecture",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "ends-with-next-step",
+        "handoff-quality",
+        "names-architecture-command"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--invalid-policy-stops--baseline--2",
+      "skill": "prd",
+      "case": "invalid-policy-stops",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-file",
+        "names-key",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--no-invented-decisions--baseline--2",
+      "skill": "prd",
+      "case": "no-invented-decisions",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "has-null-priority",
+        "stage-prototype"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--no-policy-defaults--baseline--2",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "defaults-recorded"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--baseline--2",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "compliance-none-recorded",
+        "marker-names-setting",
+        "no-compliance-nfr"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-applied--baseline--2",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "constraint-cites-set-01",
+        "informed-by-set-02",
+        "marker-accessibility",
+        "marker-compliance"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-authors--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-authors",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-date--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-field",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-link--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-link",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--policy-bad-type--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-type",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--production-mvp--baseline--2",
+      "skill": "prd",
+      "case": "production-mvp",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "context-production",
+        "marker-accessibility",
+        "marker-compliance",
+        "marker-observability",
+        "marker-performance",
+        "marker-reliability",
+        "privacy-nfr",
+        "security-nfr",
+        "stage-mvp"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--project-override-forbidden--baseline--2",
+      "skill": "prd",
+      "case": "project-override-forbidden",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-both-settings",
+        "names-sv-04",
+        "no-prd-written"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--project-override-permitted--baseline--2",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "project-value-wins"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--quality-answers-kept-apart--baseline--2",
+      "skill": "prd",
+      "case": "quality-answers-kept-apart",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "metric-target-marked",
+        "privacy-marker",
+        "security-none-in-prose"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--records-provenance--plugin--2",
+      "skill": "prd",
+      "case": "records-provenance",
+      "arm": "plugin",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "changelog-names-session",
+        "changelog-session-matches",
+        "identity-not-unavailable",
+        "model-is-a-claude-model-id",
+        "session-substituted"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--records-provenance--baseline--2",
+      "skill": "prd",
+      "case": "records-provenance",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "authors-include-the-tool",
+        "changelog-names-session",
+        "changelog-session-matches",
+        "generated-by-filled",
+        "model-is-a-claude-model-id",
+        "session-substituted"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--selects-unprocessed-brn--baseline--2",
+      "skill": "prd",
+      "case": "selects-unprocessed-brn",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "no-prd-002",
+        "offers-only-unprocessed"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--stated-choice-honored--baseline--2",
+      "skill": "prd",
+      "case": "stated-choice-honored",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "names-request-as-source"
+      ],
+      "failed_guards": []
+    },
+    {
+      "id": "prd--stops-without-promoted--baseline--2",
+      "skill": "prd",
+      "case": "stops-without-promoted",
+      "arm": "baseline",
+      "repeat": 2,
+      "corrected_failed_checks": [
+        "explains-why",
+        "points-to-brainstorm"
+      ],
+      "failed_guards": []
+    }
+  ],
+  "behavior_failure_counts": {
+    "plugin": 5,
+    "baseline": 52
+  },
+  "manual_failures": [
+    {
+      "scenario": "stop-save-yes",
+      "status": "FAIL",
+      "obligations": [
+        "PRD-VER-11-stop-save-yes"
+      ],
+      "failed_checks": [
+        "save_choice_offered"
+      ],
+      "exact_identity_open": false,
+      "unreached_branches": [
+        "NOT_RUN: native actor stopped without offering the required save choice; no fabricated answer or automatic retry"
+      ],
+      "advertised_codex_version": "0.159.0"
+    },
+    {
+      "scenario": "stop-save-no",
+      "status": "FAIL",
+      "obligations": [
+        "PRD-VER-11-stop-save-no"
+      ],
+      "failed_checks": [
+        "save_choice_offered"
+      ],
+      "exact_identity_open": false,
+      "unreached_branches": [
+        "NOT_RUN: native actor stopped without offering the required save choice; no fabricated answer or automatic retry"
+      ],
+      "advertised_codex_version": "0.159.0"
+    },
+    {
+      "scenario": "approved-extension",
+      "status": "FAIL",
+      "obligations": [
+        "PRD-VER-12-approved-extension",
+        "PRD-VER-12-all-processed"
+      ],
+      "failed_checks": [
+        "VER32_authors_exactly_unchanged",
+        "runbook_recommends_extend"
+      ],
+      "exact_identity_open": true,
+      "unreached_branches": [],
+      "advertised_codex_version": "0.159.0"
+    }
+  ],
+  "specification_conflict": {
+    "rules": [
+      "SPEC-002 BEH-10",
+      "SPEC-002 VER-32"
+    ],
+    "issue": "Keep existing authors and add missing authoring tool versus keep author list unchanged.",
+    "observed": "The fixture authors are preserved and codex is appended; the unchanged author-list grader fails.",
+    "automated_trials": [
+      "prd--extension-keeps-review-history--plugin--1",
+      "prd--extension-keeps-review-history--plugin--2"
+    ],
+    "manual_scenario": "approved-extension",
+    "disposition": "No spec or historical author-list grader edit; a separately approved clarification is required."
+  },
+  "runtime_identity": {
+    "status": "OPEN",
+    "completed_plugin_trial_ids": [
+      "prd--architecture-context--plugin--1",
+      "prd--conditional-not-applicable--plugin--1",
+      "prd--constraints-not-design--plugin--1",
+      "prd--extension-keeps-review-history--plugin--1",
+      "prd--failed-extension-stays-in-review--plugin--1",
+      "prd--hands-off-to-architecture--plugin--1",
+      "prd--no-invented-decisions--plugin--1",
+      "prd--no-policy-defaults--plugin--1",
+      "prd--none-does-not-waive-policy--plugin--1",
+      "prd--policy-applied--plugin--1",
+      "prd--production-mvp--plugin--1",
+      "prd--project-override-permitted--plugin--1",
+      "prd--quality-answers-kept-apart--plugin--1",
+      "prd--records-provenance--plugin--1",
+      "prd--retired-setting-ignored--plugin--1",
+      "prd--stated-choice-honored--plugin--1",
+      "prd--unknown-context-failsafe--plugin--1",
+      "prd--writes-prd-from-brn--plugin--1",
+      "prd--architecture-context--plugin--2",
+      "prd--conditional-not-applicable--plugin--2",
+      "prd--constraints-not-design--plugin--2",
+      "prd--extension-keeps-review-history--plugin--2",
+      "prd--failed-extension-stays-in-review--plugin--2",
+      "prd--hands-off-to-architecture--plugin--2",
+      "prd--no-invented-decisions--plugin--2",
+      "prd--no-policy-defaults--plugin--2",
+      "prd--none-does-not-waive-policy--plugin--2",
+      "prd--policy-applied--plugin--2",
+      "prd--production-mvp--plugin--2",
+      "prd--project-override-permitted--plugin--2",
+      "prd--quality-answers-kept-apart--plugin--2",
+      "prd--records-provenance--plugin--2",
+      "prd--retired-setting-ignored--plugin--2",
+      "prd--stated-choice-honored--plugin--2"
+    ],
+    "unavailable_disclosure_is_not_qualification": true
+  },
+  "platform_interruptions": [
+    {
+      "trial": "prd--unknown-context-failsafe--plugin--2",
+      "classification": "PLATFORM_LIMIT",
+      "behavior_status": "NOT_ASSESSED_PLATFORM_LIMIT",
+      "native_error_code": "usageLimitExceeded"
+    },
+    {
+      "trial": "prd--unknown-context-failsafe--baseline--2",
+      "classification": "PLATFORM_LIMIT",
+      "behavior_status": "NOT_ASSESSED_PLATFORM_LIMIT",
+      "native_error_code": "usageLimitExceeded"
+    },
+    {
+      "trial": "prd--warns-unconverged--baseline--2",
+      "classification": "PLATFORM_LIMIT",
+      "behavior_status": "NOT_ASSESSED_PLATFORM_LIMIT",
+      "native_error_code": "usageLimitExceeded"
+    },
+    {
+      "trial": "prd--writes-prd-from-brn--plugin--2",
+      "classification": "PLATFORM_LIMIT",
+      "behavior_status": "NOT_ASSESSED_PLATFORM_LIMIT",
+      "native_error_code": "usageLimitExceeded"
+    }
+  ],
+  "host_binding_failure": {
+    "status": "FAIL_MIXED_NATIVE_HOST_VERSIONS",
+    "frozen_version": "0.159.0",
+    "advertised_version_counts": {
+      "automated": {
+        "0.159.0": 51,
+        "0.159.1": 64
+      },
+      "manual": {
+        "0.159.0": 18
+      }
+    },
+    "frozen_executable_sha256": "d2752c52353401f7f6efbfcea68796f4f7a3d3e4769f5d1da53fa49d4856b72f",
+    "later_executable_sha256": "f1cd7fa4ac866c724122f173d408a95385257cbcc9ac5ce5ddba42669c74ba97",
+    "per_process_binary_digest_captured": false,
+    "observed_model": "gpt-6-astra"
+  },
+  "isolation_limits": {
+    "status": "NOT_HERMETIC",
+    "actual_shared_directory_listing_trial": "prd--writes-prd-from-brn--baseline--1",
+    "other_campaign_directory_names_visible": 59,
+    "short_circuited_broad_search_signals": 2,
+    "shared_auxiliary_output_path": "/tmp/prd-001-validation.json",
+    "literal_cross_trial_input_references_observed": 0,
+    "limit": "No literal cross-trial input reference is not proof of read isolation."
+  },
+  "primary_preservation": {
+    "task_authority": "PASS",
+    "task_authority_files": 897,
+    "primary": "FAIL_PRIMARY_DRIFT",
+    "primary_head_before": "7e87cf4b4858d9184b763afad631a17ab34a972f",
+    "primary_head_after": "7d9b2cc2220d76c5d69f64d0b361b2df677033a1",
+    "changed_captured_primary_files": 14,
+    "new_tracked_primary_files": 6
+  },
+  "grader_and_reporting_defects": [
+    {
+      "name": "Null native command output",
+      "correction": "v2 treats null as empty without crediting missing skill reads."
+    },
+    {
+      "name": "Semantic file focus",
+      "correction": "v3 honors the source rubric focus file."
+    },
+    {
+      "name": "Current-row provider literal",
+      "correction": "v4 expects codex only for the new row; historical author checks remain unchanged."
+    },
+    {
+      "name": "Implicit positive activation in baseline",
+      "correction": "v5 scopes two positive assertions to plugin arms and preserves negative/explicit-arm/leakage guards."
+    },
+    {
+      "name": "Interrupted-turn reporting",
+      "correction": "Classifies platform-limit turns as unassessable while retaining partial-artifact diagnostics."
+    }
+  ],
+  "other_retained_controls": [
+    "Initial case-count discovery omitted an unrelated-request fixture without case.yaml; fixed through prompt.md enumeration.",
+    "A manual invocation lost its dollar prefix in shell transport; retained the no-write turn and used a file-backed corrected input once.",
+    "The first publication-scope audit confused frozen fixture workspace directories with raw attempts; retained the failed audit and eight classification controls."
+  ],
+  "missing_evidence": {
+    "not_run_trial_ids": [
+      "prd--writes-prd-from-brn--baseline--2",
+      "prd--architecture-context--plugin--3",
+      "prd--architecture-context--baseline--3",
+      "prd--conditional-not-applicable--plugin--3",
+      "prd--conditional-not-applicable--baseline--3",
+      "prd--constraints-not-design--plugin--3",
+      "prd--constraints-not-design--baseline--3",
+      "prd--extend-or-new--plugin--3",
+      "prd--extend-or-new--baseline--3",
+      "prd--extension-keeps-review-history--plugin--3",
+      "prd--extension-keeps-review-history--baseline--3",
+      "prd--failed-extension-stays-in-review--plugin--3",
+      "prd--failed-extension-stays-in-review--baseline--3",
+      "prd--hands-off-to-architecture--plugin--3",
+      "prd--hands-off-to-architecture--baseline--3",
+      "prd--ignores-unrelated-request--plugin--3",
+      "prd--ignores-unrelated-request--baseline--3",
+      "prd--invalid-policy-stops--plugin--3",
+      "prd--invalid-policy-stops--baseline--3",
+      "prd--no-invented-decisions--plugin--3",
+      "prd--no-invented-decisions--baseline--3",
+      "prd--no-policy-defaults--plugin--3",
+      "prd--no-policy-defaults--baseline--3",
+      "prd--none-does-not-waive-policy--plugin--3",
+      "prd--none-does-not-waive-policy--baseline--3",
+      "prd--policy-applied--plugin--3",
+      "prd--policy-applied--baseline--3",
+      "prd--policy-bad-authors--plugin--3",
+      "prd--policy-bad-authors--baseline--3",
+      "prd--policy-bad-date--plugin--3",
+      "prd--policy-bad-date--baseline--3",
+      "prd--policy-bad-link--plugin--3",
+      "prd--policy-bad-link--baseline--3",
+      "prd--policy-bad-type--plugin--3",
+      "prd--policy-bad-type--baseline--3",
+      "prd--production-mvp--plugin--3",
+      "prd--production-mvp--baseline--3",
+      "prd--project-override-forbidden--plugin--3",
+      "prd--project-override-forbidden--baseline--3",
+      "prd--project-override-permitted--plugin--3",
+      "prd--project-override-permitted--baseline--3",
+      "prd--quality-answers-kept-apart--plugin--3",
+      "prd--quality-answers-kept-apart--baseline--3",
+      "prd--records-provenance--plugin--3",
+      "prd--records-provenance--baseline--3",
+      "prd--retired-setting-ignored--plugin--3",
+      "prd--retired-setting-ignored--baseline--3",
+      "prd--selects-unprocessed-brn--plugin--3",
+      "prd--selects-unprocessed-brn--baseline--3",
+      "prd--stated-choice-honored--plugin--3",
+      "prd--stated-choice-honored--baseline--3",
+      "prd--stops-without-promoted--plugin--3",
+      "prd--stops-without-promoted--baseline--3",
+      "prd--unknown-context-failsafe--plugin--3",
+      "prd--unknown-context-failsafe--baseline--3",
+      "prd--warns-unconverged--plugin--3",
+      "prd--warns-unconverged--baseline--3",
+      "prd--writes-prd-from-brn--plugin--3",
+      "prd--writes-prd-from-brn--baseline--3",
+      "architecture--creates-arch--plugin--1",
+      "architecture--creates-arch--baseline--1",
+      "architecture--existing-arch-not-duplicated--plugin--1",
+      "architecture--existing-arch-not-duplicated--baseline--1",
+      "architecture--failed-amendment-stays-in-review--plugin--1",
+      "architecture--failed-amendment-stays-in-review--baseline--1",
+      "architecture--hands-off-to-epic--plugin--1",
+      "architecture--hands-off-to-epic--baseline--1",
+      "architecture--ignores-unrelated-request--plugin--1",
+      "architecture--ignores-unrelated-request--baseline--1",
+      "architecture--insufficient-evidence--plugin--1",
+      "architecture--insufficient-evidence--baseline--1",
+      "architecture--no-acceptance-without-user--plugin--1",
+      "architecture--no-acceptance-without-user--baseline--1",
+      "architecture--org-a-policy--plugin--1",
+      "architecture--org-a-policy--baseline--1",
+      "architecture--org-b-policy--plugin--1",
+      "architecture--org-b-policy--baseline--1",
+      "architecture--policy-bad-date--plugin--1",
+      "architecture--policy-bad-date--baseline--1",
+      "architecture--prd-change-handed-back--plugin--1",
+      "architecture--prd-change-handed-back--baseline--1",
+      "architecture--records-provenance--plugin--1",
+      "architecture--records-provenance--baseline--1",
+      "architecture--reuse-records-review--plugin--1",
+      "architecture--reuse-records-review--baseline--1",
+      "architecture--reuse-review-idempotent--plugin--1",
+      "architecture--reuse-review-idempotent--baseline--1",
+      "architecture--superseded-adr--plugin--1",
+      "architecture--superseded-adr--baseline--1",
+      "architecture--unrelated-adr--plugin--1",
+      "architecture--unrelated-adr--baseline--1",
+      "architecture--creates-arch--plugin--2",
+      "architecture--creates-arch--baseline--2",
+      "architecture--existing-arch-not-duplicated--plugin--2",
+      "architecture--existing-arch-not-duplicated--baseline--2",
+      "architecture--failed-amendment-stays-in-review--plugin--2",
+      "architecture--failed-amendment-stays-in-review--baseline--2",
+      "architecture--hands-off-to-epic--plugin--2",
+      "architecture--hands-off-to-epic--baseline--2",
+      "architecture--ignores-unrelated-request--plugin--2",
+      "architecture--ignores-unrelated-request--baseline--2",
+      "architecture--insufficient-evidence--plugin--2",
+      "architecture--insufficient-evidence--baseline--2",
+      "architecture--no-acceptance-without-user--plugin--2",
+      "architecture--no-acceptance-without-user--baseline--2",
+      "architecture--org-a-policy--plugin--2",
+      "architecture--org-a-policy--baseline--2",
+      "architecture--org-b-policy--plugin--2",
+      "architecture--org-b-policy--baseline--2",
+      "architecture--policy-bad-date--plugin--2",
+      "architecture--policy-bad-date--baseline--2",
+      "architecture--prd-change-handed-back--plugin--2",
+      "architecture--prd-change-handed-back--baseline--2",
+      "architecture--records-provenance--plugin--2",
+      "architecture--records-provenance--baseline--2",
+      "architecture--reuse-records-review--plugin--2",
+      "architecture--reuse-records-review--baseline--2",
+      "architecture--reuse-review-idempotent--plugin--2",
+      "architecture--reuse-review-idempotent--baseline--2",
+      "architecture--superseded-adr--plugin--2",
+      "architecture--superseded-adr--baseline--2",
+      "architecture--unrelated-adr--plugin--2",
+      "architecture--unrelated-adr--baseline--2",
+      "architecture--creates-arch--plugin--3",
+      "architecture--creates-arch--baseline--3",
+      "architecture--existing-arch-not-duplicated--plugin--3",
+      "architecture--existing-arch-not-duplicated--baseline--3",
+      "architecture--failed-amendment-stays-in-review--plugin--3",
+      "architecture--failed-amendment-stays-in-review--baseline--3",
+      "architecture--hands-off-to-epic--plugin--3",
+      "architecture--hands-off-to-epic--baseline--3",
+      "architecture--ignores-unrelated-request--plugin--3",
+      "architecture--ignores-unrelated-request--baseline--3",
+      "architecture--insufficient-evidence--plugin--3",
+      "architecture--insufficient-evidence--baseline--3",
+      "architecture--no-acceptance-without-user--plugin--3",
+      "architecture--no-acceptance-without-user--baseline--3",
+      "architecture--org-a-policy--plugin--3",
+      "architecture--org-a-policy--baseline--3",
+      "architecture--org-b-policy--plugin--3",
+      "architecture--org-b-policy--baseline--3",
+      "architecture--policy-bad-date--plugin--3",
+      "architecture--policy-bad-date--baseline--3",
+      "architecture--prd-change-handed-back--plugin--3",
+      "architecture--prd-change-handed-back--baseline--3",
+      "architecture--records-provenance--plugin--3",
+      "architecture--records-provenance--baseline--3",
+      "architecture--reuse-records-review--plugin--3",
+      "architecture--reuse-records-review--baseline--3",
+      "architecture--reuse-review-idempotent--plugin--3",
+      "architecture--reuse-review-idempotent--baseline--3",
+      "architecture--superseded-adr--plugin--3",
+      "architecture--superseded-adr--baseline--3",
+      "architecture--unrelated-adr--plugin--3",
+      "architecture--unrelated-adr--baseline--3"
+    ],
+    "inherited_manual_not_run": [
+      {
+        "id": "ARCH-VER-12-a",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-b-yes",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-b-no",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-c",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-d",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-e",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-g",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-j",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-k",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-12-l",
+        "status": "NOT_RUN",
+        "reason": "Not independently exercised in this contract-delta manual campaign; historical passes are not inherited."
+      },
+      {
+        "id": "ARCH-VER-13-deployed-demonstration",
+        "status": "NOT_RUN",
+        "reason": "Deployed-plugin custody demonstration and PR excluded from authorized scope; candidate/runtime hashes are separate evidence."
+      }
+    ],
+    "unreached_manual_branches": [
+      {
+        "scenario": "stop-save-yes",
+        "status": "FAIL",
+        "obligations": [
+          "PRD-VER-11-stop-save-yes"
+        ],
+        "failed_checks": [
+          "save_choice_offered"
+        ],
+        "exact_identity_open": false,
+        "unreached_branches": [
+          "NOT_RUN: native actor stopped without offering the required save choice; no fabricated answer or automatic retry"
+        ],
+        "advertised_codex_version": "0.159.0"
+      },
+      {
+        "scenario": "stop-save-no",
+        "status": "FAIL",
+        "obligations": [
+          "PRD-VER-11-stop-save-no"
+        ],
+        "failed_checks": [
+          "save_choice_offered"
+        ],
+        "exact_identity_open": false,
+        "unreached_branches": [
+          "NOT_RUN: native actor stopped without offering the required save choice; no fabricated answer or automatic retry"
+        ],
+        "advertised_codex_version": "0.159.0"
+      }
+    ],
+    "pending_completed_semantic_reviews": [],
+    "installation": "NOT_RUN",
+    "owner_acceptance": "PENDING"
+  },
+  "evidence_location": "Raw records and detailed receipts are retained locally and identified by relative path and SHA-256 in evidence-sha256-manifest.json."
+}

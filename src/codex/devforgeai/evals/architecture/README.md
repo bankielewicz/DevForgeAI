@@ -1,7 +1,7 @@
 # Architecture evaluations
 
-These 14 generated cases cover SPEC-003 VER-01 through VER-11 and VER-14 through
-VER-16. Regenerate them from the repository root with:
+These 16 generated cases cover SPEC-003 VER-01 through VER-11 and VER-14 through
+VER-18. Regenerate them from the repository root with:
 
 ```bash
 python3 -B src/codex/devforgeai/tests/make_architecture_evals.py
@@ -16,7 +16,7 @@ byte for byte. Only records authored during a Codex trial are expected to identi
 ## Native evaluation contract
 
 Each automated case requires three plugin runs and three no-plugin baseline runs,
-for 84 native trials. Every case must score at least 0.8 in each plugin run. Missing,
+for 96 native trials. Every case must score at least 0.8 in each plugin run. Missing,
 failed, or incomplete trials remain in the denominator. VER-12 is manual and VER-13
 is an operator custody check; neither may be inferred from the automated matrix.
 
@@ -53,3 +53,6 @@ pre-existing fixture provenance and review history continue to expect `claude-co
 The VER-10 handoff uses Codex's namespaced `$devforgeai:epic PRD-001` command.
 Prompts, scaffolds, fixtures, regexes, and semantic rubric text otherwise preserve
 the Claude suite's behavior and grading intent.
+
+SPEC-003 v4 adds manual VER-19 (failed supersession); see the current [contract update](../../contract-update-evidence/20260929/REPORT.md).
+The combined runner `tests/native_contract_eval.py` freezes the complete current package and both suites.
