@@ -1,7 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-5mx25sbt/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with three proposed components and seven open architecture decisions.
-
-- **PASS:** Structure and links to all six requirements checked using Python/PyYAML.
-- **BLOCKED:** Exact host model/session IDs are unavailable; provenance validation remains unresolved.
-- **NOT_RUN:** Epic-readiness handoff, as required by the skill when validation is unresolved.
-
-The file remains a draft. No ADRs were written, no PRD changes were made, and no restoration was needed.

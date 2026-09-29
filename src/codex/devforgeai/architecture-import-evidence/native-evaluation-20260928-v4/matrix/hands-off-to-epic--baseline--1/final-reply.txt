@@ -1,9 +1,0 @@
-Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with the hosted architecture, data boundaries, security controls, and requirement coverage.
-
-- **Ready for epic definition:** FR-002 booking and FR-003 roster.
-- **Blocked:** FR-001 sign-in, pending provider, enrollment, and recovery decisions recorded in [ADR-001](docs/specs/adr/ADR-001.md).
-- **NFR-001–003:** Defined as shared acceptance criteria.
-
-Booking and roster still depend on sign-in for delivery.
-
-Document checks **PASS**; runtime tests **NOT_RUN** because no application exists. [Verification evidence](docs/specs/architecture/VERIFY-001.md). PRD-001 remains unchanged.

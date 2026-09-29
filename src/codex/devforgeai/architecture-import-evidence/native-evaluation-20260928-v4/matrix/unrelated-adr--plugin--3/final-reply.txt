@@ -1,9 +1,0 @@
-Wrote [ARCH-001.md](/tmp/dfai-architecture-eval-aafym1mv/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and seven open architectural decisions.
-
-- **PASS:** Structure, requirement links, and decision-state checks using Python/PyYAML.
-- **FAIL:** Required host model/session provenance is unavailable.
-- **NOT_RUN:** Validated epic-readiness handoff.
-
-The document remains draft, with outcome unconfirmed and no ADRs written. No existing content required restoration.
-
-The [architecture skill](/tmp/dfai-architecture-eval-aafym1mv/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” when provenance is unavailable and “skip the readiness handoff” after validation failure.

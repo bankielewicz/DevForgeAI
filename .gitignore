@@ -37,3 +37,10 @@ src/codex/devforgeai/import-evidence/native-evaluation-*/*/
 !src/codex/devforgeai/import-evidence/native-evaluation-*/manual/
 src/codex/devforgeai/import-evidence/native-evaluation-*/manual/*/*
 !src/codex/devforgeai/import-evidence/native-evaluation-*/manual/*/grade.json
+
+# The same for each per-skill evidence folder (architecture-import-evidence/ and later ports): the raw
+# run folders hold transcripts and workspaces with local paths. Their summaries, the candidate skill
+# and the case definitions stay tracked, as do the files the import reports link to.
+src/codex/devforgeai/*-import-evidence/native-evaluation-*/matrix/
+src/codex/devforgeai/*-import-evidence/native-evaluation-*/smoke/
+src/codex/devforgeai/*-import-evidence/supplemental-*/supplemental/

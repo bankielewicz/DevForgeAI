@@ -1,5 +1,0 @@
-Recorded confirmed reuse in [ARCH-001](/tmp/dfai-architecture-eval-wx804f3w/project/docs/specs/arch/ARCH-001.md), aligning references and evidence with PRD-001 v2 while retaining architecture version 1.
-
-- **PASS:** `python3` consistency checks; PRD and ADR unchanged.
-- **NOT_RUN:** Repository tests—none provided.
-- **Unresolved:** DEC-02 remains open and blocking for session revocation; reuse does not resolve it.

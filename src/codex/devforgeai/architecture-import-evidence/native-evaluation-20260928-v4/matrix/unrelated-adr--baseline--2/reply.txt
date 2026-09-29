@@ -1,7 +1,0 @@
-Created the [architecture and epic-readiness assessment](/tmp/dfai-architecture-eval-ubj9g550/project/docs/specs/architecture/PRD-001.md), plus three proposed ADRs covering identity/session revocation, coordinator-only phone access, and hosted deployment/booking consistency.
-
-- **6/6 requirements have proposed architectural coverage.**
-- **0/6 are ready for implementation epics:** decision acceptance and named operational gaps remain.
-- Candidate epic boundaries and verification criteria are documented.
-
-Document checks passed; product tests are **NOT_RUN** because no implementation exists. The approved PRD and existing ADR remain unchanged.

@@ -1,7 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-ztkaxmxx/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1: four proposed components, one policy-resolved decision, and seven open decisions. No ADRs were written.
-
-- **PASS:** Structure, policy links, and requirement traceability.
-- **FAIL:** Exact host model/session identity unavailable. Validation command: `python3 /tmp/validate_arch_001.py`.
-- **BLOCKED:** Validated epic-readiness handoff, as required by the [skill’s validation rules](/tmp/dfai-architecture-eval-ztkaxmxx/devforgeai/skills/architecture/references/output-rules.md).
-
-The document remains a draft; no approvals required restoration. Missing compliance and accessibility requirements are recorded for Priya Nair.

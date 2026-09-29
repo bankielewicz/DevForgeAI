@@ -1,7 +1,0 @@
-Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with the hosted architecture, security controls, data contracts, and requirement readiness:
-
-- **Ready for epics:** FR-002 booking and FR-003 roster, with documented assumptions and dependencies.
-- **Blocked:** FR-001 sign-in, pending identity-provider selection in [ADR-001](docs/specs/adr/ADR-001.md).
-- **All three NFRs** mapped to mandatory acceptance criteria.
-
-Document checks **PASS**; runtime checks **NOT_RUN** because no implementation exists. [Verification record](docs/specs/architecture/ARCH-001-verification.md). Approved source documents remain unchanged.

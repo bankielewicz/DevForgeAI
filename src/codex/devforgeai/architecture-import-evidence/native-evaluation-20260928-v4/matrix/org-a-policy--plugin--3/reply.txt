@@ -1,8 +1,0 @@
-Created [ARCH-001](/tmp/dfai-architecture-eval-piowgvc0/project/docs/specs/arch/ARCH-001.md) as a draft for PRD-001 v1.
-
-- Policy settles the identity provider. Seven decisions remain open: revocation, component boundaries, booking ownership, contact ownership, authorization, roster updates and deployment.
-- Flagged missing compliance and accessibility requirements.
-- **Validation: 14 PASS, 1 FAIL.** `python3 /tmp/validate_arch_001.py` found missing exact model provenance.
-- **Readiness handoff: BLOCKED.** Draft retained; no approvals needed restoration. No ADRs were written.
-
-The [architecture skill](/tmp/dfai-architecture-eval-piowgvc0/devforgeai/skills/architecture/SKILL.md) requires missing provenance to “leave validation unresolved” and validation failure to “skip the readiness handoff,” so no requirements are certified ready.

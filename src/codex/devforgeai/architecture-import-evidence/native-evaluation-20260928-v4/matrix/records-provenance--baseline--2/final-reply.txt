@@ -1,7 +1,0 @@
-Created [ADD-001 architecture and readiness matrix](/tmp/dfai-architecture-eval-391pr43p/project/docs/specs/add/ADD-001.md).
-
-- **Ready for epic drafting:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.
-- **Blocked:** FR-001 pending the identity-provider decision documented in [ADR-001](/tmp/dfai-architecture-eval-391pr43p/project/docs/specs/adr/ADR-001.md).
-- Booking and roster delivery still depend on sign-in integration.
-
-Defined hosted components, data contracts, session revocation, phone privacy, booking concurrency, and verification criteria. Document checks passed; implementation tests remain unrun. The approved PRD is unchanged.

@@ -1,9 +1,0 @@
-[ARCH-001](docs/specs/arch/ARCH-001.md) already covers approved PRD-001 v1. I recommend **amending it**: it records identity and session-revocation questions, but lacks decisions covering deployment, data ownership, and coordinator-only access to phone numbers.
-
-- **Blocked:** FR-001 by DEC-01 and DEC-02; NFR-001 by DEC-02.
-- **Readiness not established:** FR-002, FR-003, NFR-002, NFR-003—the missing architectural questions must be recorded before these can safely be reported ready.
-- No policy mandates or ADRs were found to resolve the questions.
-
-No files changed. Plan Mode permits inspection only; your instruction to proceed without questions was respected.
-
-The [architecture skill](/tmp/dfai-architecture-eval-ea5nazgx/devforgeai/skills/architecture/SKILL.md) requires an explicit reuse/amend/create choice when an ARCH already covers the system: “Never create a second baseline automatically, and write nothing until the user answers.” That choice remains open; the recommended selection is **amend ARCH-001**.

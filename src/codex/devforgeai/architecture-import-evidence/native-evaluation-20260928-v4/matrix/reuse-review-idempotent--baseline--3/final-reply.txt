@@ -1,4 +1,0 @@
-Recorded your confirmed reuse in [ARCH-001](/tmp/dfai-architecture-eval-ks_b3bbv/project/docs/specs/arch/ARCH-001.md), with updated v2 review evidence. Architecture remains version 1.
-
-- PASS: `python3` checks verified unchanged design, decisions, PRD, and ADR.
-- BLOCKED: Existing DEC-02 session-revocation decision remains unresolved. Reuse does not close it.

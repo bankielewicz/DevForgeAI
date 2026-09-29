@@ -1,4 +1,0 @@
-Updated [ARCH-001](/tmp/dfai-architecture-eval-7lbs8h5b/project/docs/specs/arch/ARCH-001.md) to v2 with confirmed `reuse`, refreshed PRD references, and the priority-only rationale.
-
-- PASS: Python structural checks and YAML parsing.
-- DEC-02 remains open and blocking; the revised architecture is draft.

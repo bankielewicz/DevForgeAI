@@ -1,6 +1,0 @@
-Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with the hosted design, security boundaries, data model, and acceptance-test plan.
-
-- **Ready for epics:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.
-- **Blocked:** FR-001 requires identity-provider and enrollment decisions, tracked in [ADR-001](docs/specs/adr/ADR-001.md).
-
-Readiness means ready for decomposition, not release. Document checks passed; runtime tests remain NOT_RUN. The approved PRD is unchanged.

@@ -1,7 +1,0 @@
-Created [the architecture and readiness assessment](/tmp/dfai-architecture-eval-p1qt3hw9/project/docs/specs/architecture/ARCH-001.md) and [identity ADR](/tmp/dfai-architecture-eval-p1qt3hw9/project/docs/specs/adr/ADR-001.md).
-
-- Five requirements have actionable design contracts.
-- FR-001 additionally needs Org A identity integration details.
-- All epic handoffs remain blocked by missing policy-required compliance and accessibility criteria.
-
-Document checks passed; the approved PRD and policy remain unchanged. Runtime tests were not run because no implementation exists.
