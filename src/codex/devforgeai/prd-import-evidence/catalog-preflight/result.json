@@ -1,0 +1,30 @@
+{
+  "scope": "Native catalog/discovery only; no model turn, skill execution, installation or acceptance.",
+  "runtime_root": "/tmp/dfai-prd-catalog-86dqb_jj/devforgeai",
+  "project_root": "/tmp/dfai-prd-catalog-86dqb_jj/project",
+  "harness_sha256": "50ff68293759672b625a55c137a8c825f93089d51ecd1c69313e0d6b97ed0c44",
+  "executable": "/home/bryan/.local/bin/codex",
+  "resolved_executable": "/home/bryan/.codex/packages/standalone/releases/0.159.0-x86_64-unknown-linux-musl/bin/codex",
+  "version": "codex-cli 0.159.0",
+  "selected_skills": [
+    {
+      "name": "devforgeai:architecture",
+      "path": "/tmp/dfai-prd-catalog-86dqb_jj/devforgeai/skills/architecture/SKILL.md"
+    },
+    {
+      "name": "devforgeai:brainstorm",
+      "path": "/tmp/dfai-prd-catalog-86dqb_jj/devforgeai/skills/brainstorm/SKILL.md"
+    },
+    {
+      "name": "devforgeai:documents-updater",
+      "path": "/tmp/dfai-prd-catalog-86dqb_jj/devforgeai/skills/documents-updater/SKILL.md"
+    },
+    {
+      "name": "devforgeai:prd",
+      "path": "/tmp/dfai-prd-catalog-86dqb_jj/devforgeai/skills/prd/SKILL.md"
+    }
+  ],
+  "runtime_unchanged": true,
+  "status": "PASS",
+  "baseline_scope": "Extra root removed; no behavioral baseline or hermetic isolation tested."
+}

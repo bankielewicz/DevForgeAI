@@ -1,0 +1,14 @@
+{
+  "clean": {
+    "path": "/home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai/prd-import-evidence/whitespace-controls/clean.txt",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "trailing": {
+    "path": "/home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai/prd-import-evidence/whitespace-controls/trailing.txt",
+    "exit_code": 3,
+    "stdout": "/home/bryan/Projects/DevForgeAI-prd-codex-port-20260929/src/codex/devforgeai/prd-import-evidence/whitespace-controls/trailing.txt:1: trailing whitespace.\n+trailing \n",
+    "stderr": ""
+  }
+}

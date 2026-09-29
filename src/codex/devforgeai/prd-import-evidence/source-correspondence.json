@@ -1,0 +1,62 @@
+[
+  {
+    "path": "SKILL.md",
+    "source_sha256": "329b087c20d3034f0e5aefda34842eb76f2cfedd95b959f4aba272ce6538d75a",
+    "codex_sha256": "c34b673407bac40c035b5eef31aa3ef8a413541b212b8a73d7d30e9f8b8ea7f0",
+    "byte_identical": false
+  },
+  {
+    "path": "agents/openai.yaml",
+    "source_sha256": null,
+    "codex_sha256": "0917b53af8fae4a7c1f6843308449aaee18fadf337f128b7eb6d787fbf93dc32",
+    "byte_identical": false
+  },
+  {
+    "path": "assets/prd.md",
+    "source_sha256": "0a244e645dd5c046a89ac12c7e32c4c4c78b810993f2bf527c15573bdc7d3729",
+    "codex_sha256": "0a244e645dd5c046a89ac12c7e32c4c4c78b810993f2bf527c15573bdc7d3729",
+    "byte_identical": true
+  },
+  {
+    "path": "provenance.yaml",
+    "source_sha256": "f9c33742bc95e665ae6339104d475fd41c36412b4388984f7b49bdbb8408cd4a",
+    "codex_sha256": "34f45b05eebf5853f7c52e08e62cbb6e1cbd665470693b5fffefcb6e9945d4cf",
+    "byte_identical": false
+  },
+  {
+    "path": "references/brn-mapping.md",
+    "source_sha256": "9180670c9e75dfcb84f9e875ca2a9863a5cdadea742769fa743b7519c8f3d18a",
+    "codex_sha256": "9180670c9e75dfcb84f9e875ca2a9863a5cdadea742769fa743b7519c8f3d18a",
+    "byte_identical": true
+  },
+  {
+    "path": "references/codex.md",
+    "source_sha256": null,
+    "codex_sha256": "e12ddd75f409365e545f6a2048254db2faeafd5c4edf61df04d83a7049d36980",
+    "byte_identical": false
+  },
+  {
+    "path": "references/defaults.md",
+    "source_sha256": "31f279a99241e8752e3934b203f3aa70dd21b4c28c1b6e7f4462d59f23eb0b4e",
+    "codex_sha256": "58e578242a06031fef08de7b8e5c907791bbb14739717085a34ebecde68b5dab",
+    "byte_identical": false
+  },
+  {
+    "path": "references/interview.md",
+    "source_sha256": "94f1ac102e393d11b5e0491325557845a6954b68891eaa3cb65613a9ca0d85c7",
+    "codex_sha256": "4e31aba20846cffc26b5f1a8b16414bf3c26795f5e241f5cc1c8b46978c58532",
+    "byte_identical": false
+  },
+  {
+    "path": "references/output-rules.md",
+    "source_sha256": "6e69dea20321fe1292132645cf7bc076dadc8c6bd240ad55f8fa7fbd66166cbe",
+    "codex_sha256": "c34709a38d728f0b21cc074453dc4941d894a7578c429ed0dad81f56405fdef3",
+    "byte_identical": false
+  },
+  {
+    "path": "references/policy.md",
+    "source_sha256": "f0ceaf91297e92ea9307c32c37645d19b8f25226266940bcfe9a22cba341fa63",
+    "codex_sha256": "6318353443a49d5d607948833fa087a08d5b9e210a0524e70010263586b75847",
+    "byte_identical": false
+  }
+]

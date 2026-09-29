@@ -1,0 +1,27 @@
+# Codex provider revision 1, adapted from Claude SKL-002 revision 1.
+# Original provenance is preserved in the read-only Claude source and import evidence.
+id: SKL-002
+type: skill
+title: "PRD skill (Codex port)"
+status: draft
+version: 1
+created: 2026-09-29
+updated: 2026-09-29
+owner: "Bryan"
+authors: ["Bryan", "claude-code", "codex"]
+generated_by:
+  tool: "codex"
+  model: "unknown" # Exact serving model ID is not exposed to this authoring task.
+  session: "unknown" # No supported current-session identity interface is exposed here.
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:
+  - {id: SPEC-002, relation: implements, version: 1, hash: null}
+supersedes: []
+superseded_by: null
+blocked_by: []
+skill_name: prd
+packaging: plugin
+plugin: devforgeai
+eval_tag: prd

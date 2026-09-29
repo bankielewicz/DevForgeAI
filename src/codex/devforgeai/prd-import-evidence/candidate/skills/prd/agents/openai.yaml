@@ -1,0 +1,6 @@
+interface:
+  display_name: "DevForgeAI PRD"
+  short_description: "Turn brainstorm decisions into traceable requirements"
+  default_prompt: "Use $devforgeai:prd with BRN-001 to draft a PRD from its promoted ideas."
+policy:
+  allow_implicit_invocation: true

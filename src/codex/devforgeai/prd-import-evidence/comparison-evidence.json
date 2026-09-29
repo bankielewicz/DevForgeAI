@@ -1,0 +1,142 @@
+[
+  {
+    "finding": "D-02",
+    "evidence": [
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 210,
+        "text": "    rule: \"Fill the frontmatter provenance: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date.\""
+      },
+      {
+        "path": "src/codex/devforgeai/skills/prd/references/codex.md",
+        "line": 41,
+        "text": "write `\"unknown\"` for that field in a provisional new/draft PRD and explain the missing value"
+      }
+    ]
+  },
+  {
+    "finding": "D-03",
+    "evidence": [
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 195,
+        "text": "    rule: \"Decide new versus extend on scope, ownership and lifecycle, never on product identity or the number of existing PRDs. Read each existing PRD's title, goals, non-goals, owner, status and target_release. Recommend extending one only when the BRN's promoted ideas belong to that PRD's existing initiative and scope, share its owner, and fit its release lifecycle. Recommend a new PRD when they form a distinct initiative, have a different owner or approval path, or follow a different schedule, even within the same product. State the reasons and let the user decide. Ask when it is ambiguous; a single existing PRD is not evidence that it is the right destination. To extend: raise the version by one, update the date, give new items the next free number in each collection, leave every existing item unchanged, add a Change Log entry and add the new BRN links. If the PRD was approved, set status to in-review and clear approved_by and approved_on, so the scope change is reviewed explicitly. Then tell the user that epics citing this PRD are now suspect links to re-review.\""
+      },
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 257,
+        "text": "    handling: \"Stop, leave the PRD's status as it was before this write (draft for a new PRD, unchanged for an extension), and list the remaining errors\""
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/SKILL.md",
+        "line": 262,
+        "text": "remain (ERR-06), stop. Leave `status` as it was before this write (`draft` for a new PRD), and"
+      }
+    ]
+  },
+  {
+    "finding": "D-04",
+    "evidence": [
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 216,
+        "text": "    rule: \"Validate after writing against the self-check list in references/output-rules.md, reading the file back. Fix and check again, at most three attempts. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 \u00a72).\""
+      },
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 256,
+        "text": "    condition: \"Validation still fails after three fix attempts\""
+      }
+    ]
+  },
+  {
+    "finding": "D-05",
+    "evidence": [
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 177,
+        "text": "    rule: \"Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; evolution also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement.\""
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/SKILL.md",
+        "line": 212,
+        "text": "4. Each required category that no NFR covers becomes"
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/references/interview.md",
+        "line": 95,
+        "text": "Each answer becomes one NFR with that `category`, stated measurably where possible. Every required"
+      }
+    ]
+  },
+  {
+    "finding": "D-06",
+    "evidence": [
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/SKILL.md",
+        "line": 134,
+        "text": "with its reasons, and ask. Write nothing and change no PRD until the user answers. For how to"
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/SKILL.md",
+        "line": 58,
+        "text": "answered only by an explicit answer to that gate, in the request (\"extend PRD-001\", \"BRN-002 is a"
+      },
+      {
+        "path": "src/codex/devforgeai/skills/prd/SKILL.md",
+        "line": 138,
+        "text": "with its reasons, and ask only if the request has not already explicitly chosen the destination."
+      }
+    ]
+  },
+  {
+    "finding": "D-07",
+    "evidence": [
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/SKILL.md",
+        "line": 313,
+        "text": "  - every requirement cites a promoted idea;"
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/references/brn-mapping.md",
+        "line": 64,
+        "text": "An NFR the user stated has **no** upstream link. Never link an NFR to an idea just because the idea"
+      },
+      {
+        "path": "src/codex/devforgeai/skills/prd/SKILL.md",
+        "line": 321,
+        "text": "  - every FR cites a promoted idea; NFRs cite only their actual source (brn-mapping.md);"
+      }
+    ]
+  },
+  {
+    "finding": "D-08",
+    "evidence": [
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 210,
+        "text": "    rule: \"Fill the frontmatter provenance: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date.\""
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/SKILL.md",
+        "line": 248,
+        "text": "  missing. Keep `reviewed_by` as it is."
+      }
+    ]
+  },
+  {
+    "finding": "D-09",
+    "evidence": [
+      {
+        "path": "docs/specs/spec/SPEC-002.md",
+        "line": 204,
+        "text": "    rule: \"Resolve policy with the ADR-003 A4 sequence, following references/policy.md. R1: read docs/specs/policy/POL-*.md, validate approved documents against the schema and SV-01 to SV-06, and skip and report draft or in-review ones. R2: resolve the unconditional settings (interview.max_calls, architecture.mandated_platforms) across framework defaults (references/defaults.md), organization, project and local preference (BEH-18), honouring overridable_by. R3: establish the operating context from the request, the BRN or the first framing question. R4: apply each active quality.required_categories setting whose applies_when includes that context, additively to the BEH-03 floor; if the context is still unknown, evaluate as production and say so. R5: record each applied policy setting as an upstream link with the policy version, in exactly one place: a mandated platform's constrains link on the item upstream of the constraint NFR it produced (BEH-16), and every setting that governs how the document is produced (interview.max_calls, quality.required_categories) as a frontmatter informed_by link. Then write the ADR-003 A5 resolution line into the Change Log entry, including defaults, local values, settings that didn't apply, the fail-safe context and ignored documents.\""
+      },
+      {
+        "path": "src/claude/DevForgeAI/skills/prd/references/policy.md",
+        "line": 51,
+        "text": "**Document rules (schema)**"
+      }
+    ]
+  }
+]

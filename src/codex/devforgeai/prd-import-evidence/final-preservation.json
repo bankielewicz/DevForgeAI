@@ -1,0 +1,24 @@
+{
+  "primary_authority_or_source_changes": [],
+  "primary_unrelated_dirty_file_changes": [],
+  "primary_status_before": " M src/templates/README.md\n?? docs/specs/adr/ADR-004.md\n?? docs/specs/spec/SPEC-009.md\n?? prd-codex-port-handoff-prompt.md\n?? src/templates/ambiguities.md\n",
+  "primary_status_after": "?? prd-codex-port-handoff-prompt.md\n",
+  "primary_status_unchanged": false,
+  "primary_head_at_baseline": "073a2f2f498a5ebfc88dcf46d75a40bdee8e2216",
+  "primary_head_after": "1dacff87546230f400bb969e0bd5c1e2b43e7043",
+  "primary_concurrent_committed_paths": [
+    "docs/specs/adr/ADR-004.md",
+    "docs/specs/spec/SPEC-009.md",
+    "src/templates/README.md",
+    "src/templates/ambiguities.md"
+  ],
+  "primary_concurrent_paths_were_already_dirty": true,
+  "worktree_readonly_input_or_unrelated_skill_changes": [],
+  "runtime_candidate_changes_after_freeze": [],
+  "specification_sha256_primary": "90b539a7a4ebdc57da1343c3e11099946872768d97bb66a50af6ab50e5e84e6c",
+  "specification_sha256_worktree": "90b539a7a4ebdc57da1343c3e11099946872768d97bb66a50af6ab50e5e84e6c",
+  "base_commit": "073a2f2f498a5ebfc88dcf46d75a40bdee8e2216",
+  "branch": "codex/prd-codex-port-20260929",
+  "status": "PASS",
+  "scope": "Authority/input bytes, existing skill bytes, selected candidate and dirty primary file bytes preserved. Primary Git history/status changed concurrently on its previously dirty documentation files; no restore/reset attempted. Does not assert primary Git-state or global filesystem immutability."
+}

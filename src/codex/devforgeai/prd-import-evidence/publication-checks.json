@@ -1,0 +1,80 @@
+{
+  "scope": "Selected PR publication files; raw/scratch files remain local. Checks precede adding this receipt and publication-manifest.json.",
+  "original_local_commit": "6d684411a8c81de0bea415ab2defdf55e3b62bb2",
+  "local_backup_ref": "codex/prd-port-local-evidence-20260929",
+  "base_commit": "073a2f2f498a5ebfc88dcf46d75a40bdee8e2216",
+  "candidate_sha256": "c46638c6881a99b3b29ac30e523bbe5e88f176ccb227292b19e2f40fd1947aef",
+  "runtime_candidate_files_verified": 49,
+  "original_frozen_file_hashes_verified": 260,
+  "raw_files_excluded_from_index_and_preserved_locally": {
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/author_prd_port.py": "e76b1f82e9c159d906beef1029d778c1cf70d721bf9267b47db52556bcb3e65e",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/finalize_prd_port.py": "7fb760c1a4159732dbb9916386d1109181d723840e2c0cec17aecae9511801cc",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/finish_prd_delivery.py": "950979702a77afd6609f51a44939f2f2e4c8a1a3a5f8c9349c85fe35efeeaef8",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/prd_catalog_preflight.py": "7acbf6965e2d5393e2cb3f63e0553289408e4f159c6e641caeaf2899925c35a3",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/prd_port_inventory.py": "7dc41f5c67235a254399b69dde478283d92b5fb03d37a382cceaf0dba85c4719",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/prepare_prd_evaluation.py": "eeb0a3c04aa853445e80dd9e6241eeb6cd7251a5fc70344b9af9d218dfcd5a39",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/validate_prd_port.py": "3acf6910da5044d9109f31232f5db745a9773e540a2517c24c6310ddcaf40471",
+    "src/codex/devforgeai/prd-import-evidence/authoring-tools/write_prd_report.py": "fa4f4d1b375be35bf59015cdcde71e4a72d87c2a52f18424809308b4afcc3f2d",
+    "src/codex/devforgeai/prd-import-evidence/catalog-preflight/launch.json": "812ef9359fba089c45933cfe0cd0cd203b993423fa50c132164a5971087e45d6",
+    "src/codex/devforgeai/prd-import-evidence/catalog-preflight/no-extra-root-catalog.json": "1d145d7f28b52d5f23c28c9f90983470163cc15bdd25ac227c2b22b4cfa10ee4",
+    "src/codex/devforgeai/prd-import-evidence/catalog-preflight/plugin-catalog.json": "478436886da58dfaccb68e9cbb7e02a8aa1457402699c093e8c4b9b055398e7c",
+    "src/codex/devforgeai/prd-import-evidence/catalog-preflight/protocol.jsonl": "ca25b06fbc2b30679d0817aa3ece0006f676809e7d4c6961e92f35396f2cf57e",
+    "src/codex/devforgeai/prd-import-evidence/catalog-preflight/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/codex/devforgeai/prd-import-evidence/claude-to-codex.patch": "d4fbaa066054b00b0f03f85815ca1e28c8968efe3898ac7af34f05fa5a1ac0b6",
+    "src/codex/devforgeai/prd-import-evidence/pr-publication-checks.json": "6d13f623cc6e219a93df763b679a2cf1eebe6159eeb4652ec724aef2b4f8fc3b",
+    "src/codex/devforgeai/prd-import-evidence/prior-attempts/finalize-prd-port-v1.py": "c10212fca4651baab1d1b32992b15f42f1104906a1c7fd159548d84b9ec4f4fb",
+    "src/codex/devforgeai/prd-import-evidence/whitespace-controls/clean.txt": "2e22da2ab13713309ac75219e525b8e06ed02f3f1963b8feef203fa25827f93d",
+    "src/codex/devforgeai/prd-import-evidence/whitespace-controls/trailing.txt": "5cd3714271969cf95dd62e801a9dae8d030c2f2a6c4ed6d1f2eb35ab0979e223"
+  },
+  "raw_files_ignore_checks": "PASS: 18/18",
+  "selected_report_candidate_case_and_failure_summary_ignore_checks": "PASS: 9/9 remain trackable",
+  "retained_tracked_files_matched_by_new_ignore_rules": 0,
+  "preexisting_unrelated_tracked_ignored_files_preserved": 66,
+  "initial_scope_guard": "An initial guard rejected pre-existing ignored cache artifacts in the older Documents Updater evidence. The corrected check verifies their unchanged bytes and pre-existing matching rules; it does not untrack unrelated historical evidence.",
+  "publication_whitespace_check": "PASS: complete staged change against the original base, with no exclusions",
+  "report_links_to_tracked_files": [
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/candidate.json"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/source-baseline.json"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/comparison-evidence.json"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/source-correspondence.json"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/evaluation-plan.json"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/catalog-preflight/result.json"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/PRD-SPEC-002-PROPOSALS.md"
+    },
+    {
+      "page": "PRD-IMPORT-REPORT.md",
+      "target": "src/codex/devforgeai/PRD-PUBLICATION.md"
+    },
+    {
+      "page": "evals/prd/README.md",
+      "target": "src/codex/devforgeai/prd-import-evidence/evaluation-plan.json"
+    }
+  ],
+  "runtime_and_evaluation_case_bytes_unchanged": true,
+  "claude_source_and_authority_unchanged": true,
+  "evaluation_source_correspondence": {
+    "status": "PASS",
+    "summary": "157 evaluation files verified; 29 mechanical adaptations."
+  },
+  "native_behavior": "NOT_RUN; publication does not qualify the PRD port"
+}
