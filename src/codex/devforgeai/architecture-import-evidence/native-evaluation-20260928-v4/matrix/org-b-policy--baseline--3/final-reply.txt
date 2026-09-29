@@ -1,6 +1,0 @@
-Created the [architecture and readiness assessment](docs/specs/architecture/ARC-001.md).
-
-- **Ready for epics:** booking, coordinator roster, session revocation, phone privacy, and hosted operation.
-- **Blocked:** sign-in, pending the identity-provider decision documented in [ADR-001](docs/specs/adr/ADR-001.md).
-
-Defined service boundaries, data contracts, security controls, dependencies, and acceptance checks. Documentation validation passed; runtime checks remain unrun because no application exists. The approved PRD and policy are unchanged.

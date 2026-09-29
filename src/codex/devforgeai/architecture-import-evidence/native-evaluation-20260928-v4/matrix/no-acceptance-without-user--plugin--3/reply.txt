@@ -1,9 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-nukalm8c/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1 with four proposed components and seven open decisions covering identity, revocation, hosting, boundaries, data ownership, authorization, and roster updates.
-
-- **PASS:** YAML structure, requirement links, IDs, and draft approval fields checked using `python3`.
-- **BLOCKED:** Exact host model and session IDs are unavailable; provenance remains `unknown`.
-- **NOT_RUN:** Validated epic-readiness handoff.
-
-The draft is retained; no restoration was needed. Outcome remains unconfirmed, and no ADRs were written.
-
-The [architecture skill](/tmp/dfai-architecture-eval-nukalm8c/devforgeai/skills/architecture/SKILL.md) requires incomplete provenance to “leave validation unresolved” and says to “skip the readiness handoff” when validation errors remain. Consequently, this draft does not establish validated readiness for epics.

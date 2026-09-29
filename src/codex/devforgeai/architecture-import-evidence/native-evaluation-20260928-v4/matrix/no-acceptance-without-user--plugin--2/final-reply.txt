@@ -1,7 +1,0 @@
-Saved [ARCH-001](/tmp/dfai-architecture-eval-pxzn9en1/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1: four proposed components and seven open decisions covering all six requirements. No ADRs were written.
-
-- **PASS:** Structure and traceability checks using `python3 /tmp/validate-riverside-arch.py`.
-- **BLOCKED:** Exact host model and session IDs are unavailable.
-- **Retained:** Draft status, empty approvals, and open decisions. Nothing required restoration.
-
-Epic readiness remains unvalidated. The [architecture skill](/tmp/dfai-architecture-eval-pxzn9en1/devforgeai/skills/architecture/SKILL.md) requires missing provenance to “leave validation unresolved,” so the readiness handoff is withheld.

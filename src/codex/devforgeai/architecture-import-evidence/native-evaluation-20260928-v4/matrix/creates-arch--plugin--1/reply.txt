@@ -1,7 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-y6zg9iiq/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and eight open architectural decisions.
-
-- **PASS:** Structure and requirement links checked using `python3`; PRD unchanged.
-- **BLOCKED:** Exact host model/session identifiers are unavailable.
-- **NOT_RUN:** Validated epic-readiness handoff.
-
-The [architecture skill](/tmp/dfai-architecture-eval-y6zg9iiq/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” when those identifiers are unavailable. The file remains a draft, outcome is unconfirmed, and no ADRs were written. No restoration was needed.

@@ -1,7 +1,0 @@
-[ARCH-001](docs/specs/arch/ARCH-001.md) already covers approved PRD-001 v1. I recommend **amending it**: identity-provider selection and session revocation remain open, while component boundaries, data ownership, phone-number access controls, and deployment need explicit decision coverage.
-
-Epic readiness is **not yet validated**. Missing decisions could make requirements appear ready by omission.
-
-The [architecture skill](/tmp/dfai-architecture-eval-k0nj0asq/devforgeai/skills/architecture/SKILL.md) requires an explicit reuse/amend/create choice when an architecture already exists: “Never create a second baseline automatically, and write nothing until the user answers.” Your request does not select that outcome.
-
-No files were changed. I’ve honored your instruction to ask no questions. To unblock planning, state **“Amend ARCH-001; proceed without questions.”** Unresolved architectural decisions will remain open.

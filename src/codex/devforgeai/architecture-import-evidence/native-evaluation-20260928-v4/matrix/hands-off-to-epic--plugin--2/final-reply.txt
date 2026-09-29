@@ -1,9 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-v1hbdw8j/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and seven unresolved architectural decisions.
-
-- **PASS:** Structure, requirement links, evidence and decision-state checks using Python/PyYAML.
-- **BLOCKED:** Final validation requires exact host model/session IDs, which are unavailable.
-- **Retained:** Draft status, unconfirmed outcome and all decisions open. No ADRs written; no approvals required restoration.
-
-Open decisions cover identity, session revocation, component boundaries, data ownership, phone-number authorization, booking/roster consistency and hosted deployment.
-
-The [architecture skill](/tmp/dfai-architecture-eval-v1hbdw8j/devforgeai/skills/architecture/SKILL.md) requires unavailable provenance to “leave validation unresolved.” The draft records this gap; a validated epic-readiness handoff remains withheld.

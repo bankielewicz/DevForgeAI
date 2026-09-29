@@ -1,9 +1,0 @@
-Created [ARCH-001](docs/specs/arch/ARCH-001.md) as a draft for PRD-001 v1.
-
-- **PASS:** Structure and traceability checked with `python3 /tmp/validate_prd001_arch.py`.
-- **Resolved:** DEC-01—Org A’s mandated identity provider.
-- **Open:** Seven decisions covering revocation, hosting, Google federation, ownership, component boundaries, booking consistency and access control.
-- **PRD changes proposed:** Clarify Google-account compatibility; add compliance and accessibility requirements.
-- **BLOCKED:** Exact host model/session IDs are unavailable. No ADRs were written; the draft was retained without approval changes.
-
-Epic readiness remains unvalidated. The [architecture skill](/tmp/dfai-architecture-eval-9pkyrsxl/devforgeai/skills/architecture/references/output-rules.md) requires missing provenance to remain unresolved and says to “Skip the readiness handoff.”

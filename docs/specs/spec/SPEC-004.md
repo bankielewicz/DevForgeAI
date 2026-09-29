@@ -5,7 +5,7 @@ title: "Epic skill (MVP)"
 status: approved
 version: 1
 created: 2026-09-24
-updated: 2026-09-27
+updated: 2026-09-28
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -312,8 +312,8 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Structural: schemas, templates, fixtures and cross-document links | Not run in this workspace |
-| Behavioural: automated VER items, one eval case each | Not run: the skill isn't built here yet |
+| Structural: schemas, templates, fixtures and cross-document links | Fixtures: `src/tests/epic/make_evals.py` validates all 11 against `src/schemas/`, and checks the shared fixture against the table below, before it writes the cases. The skill's `SKILL.md` frontmatter and `provenance.yaml` pass `skill-frontmatter.schema.json` and `skill.schema.json`. Templates and cross-document links: not run |
+| Behavioural: automated VER items, one eval case each | Built as SKL-004 v1 and merged in PR #5; deployed. 14 eval cases (VER-01..12, 14, 15). `claude plugin eval`, 3 runs with the no-plugin baseline, 2026-09-28, plugin 0.4.0: 14 of 14 at 0.8 or above, 13 at 1.00, mean Δ +0.51. `no-arch-hands-back` (VER-05) scored 0.89; after `SKILL.md` step 3 stated ERR-02's reason and its readiness grader became an llm grader, it scored 1.00 over 3 runs. PR #5 records the results |
 | Behavioural: manual VER items (VER-13) | Not run |
 
 **Shared fixture.** One approved PRD, `PRD-001` v2 with `target_release: "Spring launch"`, and one
@@ -534,3 +534,4 @@ covers the epic document. It depends on two parts of the architecture skill (SPE
 |---|---|---|---|---|
 | 1 | 2026-09-27 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Baseline for this workspace, reset from SPEC-004 v4 on Bryan's decision, since nothing has been built from it here. Versions 1–2 are in DevForgeAI-SDF2's git history (docs/specs/spec/SPEC-004.md, main at ef78b83); v4, with its Change Log for v3–v4, is kept at docs/archive/2026-09-27-spec-reset/SPEC-004-v4.md. Removed as DevForgeAI-SDF2 history: §9's run records (now not run; the shared fixture is kept), the SKL-003 v5 and SPEC-003 v7 references in §4, §10 and §11 (the review record is part of SPEC-003 from v1), and PR #10. §10 and §11 step 6 now say the change that ships this skill updates the architecture skill's hands-off-to-epic case if needed. Links: SPEC-003 and SPEC-002 at v1. Awaiting Bryan's approval | frontmatter, §4, §9, §10, §11 |
 | 1 | 2026-09-27 | Bryan | Approved | status |
+| 1 | 2026-09-28 | claude-code (session 383de882-2b59-4b3b-808b-83bb1ab93b9b) | Status update only, at Bryan's instruction, with no version bump: §9 records that the skill is built (SKL-004 v1, PR #5) and deployed, and its fixture checks and eval results. No requirement, behavior or VER item changed | §9 |

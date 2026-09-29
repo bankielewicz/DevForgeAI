@@ -1,7 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-bfof8cjm/project/docs/specs/arch/ARCH-001.md) for PRD-001, with four proposed components, eight shared questions, and your auth reuse preference.
-
-- **PASS:** Format and requirement-link checks using `python3 /tmp/validate_arch_001.py`.
-- **BLOCKED:** Required exact host model/session identifiers are unavailable.
-- Retained as draft; no approvals required restoration and no ADRs were written.
-
-The [architecture skill](/tmp/dfai-architecture-eval-bfof8cjm/devforgeai/skills/architecture/SKILL.md) requires “leave validation unresolved” when provenance is unavailable. Its no-questions workflow also leaves decisions open, so no validated readiness handoff is provided.

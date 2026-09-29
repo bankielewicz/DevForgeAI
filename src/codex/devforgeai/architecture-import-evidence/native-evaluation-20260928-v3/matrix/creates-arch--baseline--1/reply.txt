@@ -1,6 +1,0 @@
-Created [ARCH-001](docs/specs/architecture/ARCH-001.md) with component boundaries, data flows, security controls, ADRs and requirement verification criteria.
-
-- **Ready for epic planning:** FR-002 booking, FR-003 roster, NFR-002 phone privacy, NFR-003 hosted operation.
-- **Blocked:** FR-001 sign-in and NFR-001 session revocation, pending the identity-provider decision and integration evidence in [ADR-001](docs/specs/adr/ADR-001.md).
-
-Document checks passed; PRD-001 remains unchanged. Runtime verification is **NOT_RUN** because no implementation exists. Epic readiness does not imply release readiness.

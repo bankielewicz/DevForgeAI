@@ -16,7 +16,7 @@ an approved spec in `docs/specs/`, and its eval suite, not a reading of its inst
 | `brainstorm` (SKL-001 v5) | SPEC-001 v10 | Built, with 8 eval cases |
 | `prd` (SKL-002 v1) | SPEC-002 v1 | Built and deployed, with 20 eval cases; manual VER-11, VER-12 and VER-23 not run |
 | `architecture` (SKL-003 v1) | SPEC-003 v1 | Built and deployed, with 14 eval cases (3 runs: 14 of 14 at 1.00, mean Δ +0.67); manual VER-12 and VER-13 not run |
-| `epic` (SKL-004 v1) | SPEC-004 v1 | Built, with 14 eval cases (3 runs: 14 of 14 at 1.00, `no-arch-hands-back` after a grader fix; mean Δ +0.51); not deployed yet; manual VER-13 not run |
+| `epic` (SKL-004 v1) | SPEC-004 v1 | Built, with 14 eval cases (3 runs: 14 of 14 at 1.00, `no-arch-hands-back` after a grader fix; mean Δ +0.51); deployed; manual VER-13 not run |
 | `documents-updater` (SKL-005 v1) | SPEC-006 v1 | Built and deployed, with 8 eval cases (3 runs: 8 of 8 at 1.00, mean Δ +0.15); manual VER-10..12 not run. Outside the chain: it updates a repository's README, CHANGELOG and guides from git evidence |
 | `git` (SKL-006, proposed) | SPEC-007 v1 (draft) | Draft spec only, no open questions; awaiting approval. Outside the chain: `/devforgeai:git <phase>` for worktree, commit, push, PR, merge (an independent QA session's verdict for the head commit and `merge-approved` label, plus the owner's authorization), safe sync and prune |
 | `qa` (SKL-007, reserved) | SPEC-008 v1 (stub) | Stub spec only: the contract SPEC-007 reads (verdict comment naming the reviewed SHA, `merge-approved`/`qa-failed` labels) is fixed; the review criteria are open. Meant to approve PRs from an independent session. Until built, QA follows SPEC-008 §4 by hand |
@@ -28,8 +28,9 @@ repository (remote `origin`). Everything was imported in one commit (PR #1, 2026
 doesn't show how the specs or the plugin evolved before then; each spec's Change Log does.
 Every document uses the typed folders described in `AGENTS.md` (`docs/specs/spec/SPEC-002.md`,
 `docs/specs/prd/PRD-002.md`). `docs/research/Claude/` holds saved Claude Code docs whose links point
-to code.claude.com; it and the skills-guide PDF in `docs/` are local only (`.gitignore`). `src/codex/devforgeai/` is a Codex port of the brainstorm skill, built and kept by
-Codex sessions (`IMPORT-REPORT.md` there lists its differences); don't edit it from Claude.
+to code.claude.com; it and the skills-guide PDF in `docs/` are local only (`.gitignore`). `src/codex/devforgeai/` is the Codex port of the plugin (manifest 0.3.0: brainstorm, architecture and
+documents-updater), built and kept by Codex sessions; its `*IMPORT-REPORT.md` files list the differences
+from the Claude skills. Don't edit it from Claude.
 `src/grok/` is empty.
 
 ## Commands
@@ -42,7 +43,8 @@ python3 src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py docs/spe
 # Session-archive tests: all, or one by name
 python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py'
 python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py' -k test_scope_is_opt_in
-# The Codex port's validator tests, leaving no __pycache__ in the Codex tree
+# The Codex port's tests (brainstorm validator, documents-updater and architecture eval tooling), leaving
+# no __pycache__ in the Codex tree
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'
 # documents-updater's Markdown checker: its tests (kept outside the plugin), or a run on files
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/documents-updater -p 'test_*.py'
@@ -90,6 +92,11 @@ workspace; translate the rest before using them:
   checkout and in every worktree, so deploying (ADR-001 steps 2 and 7) is the owner's step.
 - Deploy (owner, from a plain shell): `rsync -a --delete --exclude __pycache__ --exclude results src/claude/DevForgeAI/ .claude/skills/devforgeai/`.
   `--delete` also clears stray files such as Windows `*:Zone.Identifier` copies and sandbox placeholders.
+- `.codex/devforgeai/` is the deployed Codex copy. All of `.codex/` is gitignored, since it also holds local
+  preferences such as `.codex/devforgeai.local.md`. The copy is built from the files `main` tracks, never
+  the working tree, so untracked Codex work and gitignored raw eval transcripts stay out:
+  `T=$(mktemp -d) && git archive HEAD src/codex/devforgeai | tar -x -C "$T" && mkdir -p .codex/devforgeai && rsync -a --delete "$T/src/codex/devforgeai/" .codex/devforgeai/`.
+  The owner's local `tmp/deploy-main.sh` (ADR-001 step 7) pulls `main`, deploys both copies and diffs each.
 - `src/tools/session-archive/` is not part of the plugin and is never synced into `.claude/`. It
   holds user-level hooks that archive session transcripts and record which session wrote each
   `docs/specs/` document. The owner installs them into `~/.claude/` per `docs/specs/spec/SPEC-005.md`
@@ -179,6 +186,10 @@ Brainstorm frameworks are an extension point: add a file with the six sections t
 - Commands for the owner to paste into a plain shell must not start with `!`. That prefix runs a
   command only in Claude Code's prompt; in bash it negates the exit status, so `! diff … && echo ok`
   reports success when the copies differ.
+- `git push` and `gh pr` run outside the sandbox (`.claude/settings.local.json`, also in worktree sessions)
+  only when the command starts with them: run each as its own Bash call, and never pass `allowed_domains`,
+  which runs it sandboxed through a proxy that is often down. The auto-mode classifier can still block a
+  push; retry once after the owner confirms it in the conversation.
 
 ## Building the next skill
 

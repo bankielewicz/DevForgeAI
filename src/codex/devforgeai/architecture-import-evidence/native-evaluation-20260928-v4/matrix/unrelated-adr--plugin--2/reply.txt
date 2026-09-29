@@ -1,9 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-p0ib98ki/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1: four proposed components and eight open architectural decisions.
-
-- **PASS:** Structure, requirement links, evidence and decision-state checks.
-- **BLOCKED:** Exact host model/session identity is unavailable. `python3 /tmp/verify_arch_001.py` exited 1.
-- **NOT_RUN:** Validated epic-readiness handoff.
-
-The draft remains unapproved, with outcome unconfirmed. No ADRs were written; no approvals or decisions required restoration.
-
-The [architecture skill](/tmp/dfai-architecture-eval-p0ib98ki/devforgeai/skills/architecture/SKILL.md) requires missing provenance to “leave validation unresolved,” so I cannot present this as a validated readiness report.

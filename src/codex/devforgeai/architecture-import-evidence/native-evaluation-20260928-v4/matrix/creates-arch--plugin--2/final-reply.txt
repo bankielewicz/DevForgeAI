@@ -1,7 +1,0 @@
-Saved [ARCH-001.md](/tmp/dfai-architecture-eval-frz20v5d/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1: four proposed components and seven open architectural decisions. No ADRs written; outcome unconfirmed.
-
-- **PASS:** Python YAML/read-back checks passed 14 structural and traceability checks.
-- **BLOCKED:** Exact host model ID is unavailable. The [architecture skill](/tmp/dfai-architecture-eval-frz20v5d/devforgeai/skills/architecture/SKILL.md) requires missing provenance to “leave validation unresolved.”
-- **NOT_RUN:** Validated epic-readiness handoff.
-
-The draft was retained; no approvals or statuses needed restoration.

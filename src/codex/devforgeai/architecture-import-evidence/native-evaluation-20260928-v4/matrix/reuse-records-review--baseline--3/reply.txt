@@ -1,6 +1,0 @@
-Updated [ARCH-001](/tmp/dfai-architecture-eval-vs28v78_/project/docs/specs/arch/ARCH-001.md) to v2, recording your confirmed reuse for PRD-001 v2 and refreshing its references.
-
-- PASS: `python3` checks verified references, preserved design, and unchanged PRD/ADR files.
-- NOT_RUN: repository test gates; none are present.
-
-DEC-02 remains open and blocking for session revocation.

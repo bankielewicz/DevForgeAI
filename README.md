@@ -1,9 +1,9 @@
 # DevForgeAI
 
 DevForgeAI is a Claude Code plugin, `devforgeai`, of spec-driven planning skills. It takes an idea
-from a brainstorm to a product requirements document (PRD). Each step is written as a Markdown
-document with stable item IDs and traceable links, and every judgment call it records (which ideas
-to pursue, priorities, what ships now) is left to you.
+from a brainstorm through a product requirements document (PRD) and its architecture to epics. Each
+step is written as a Markdown document with stable item IDs and traceable links, and every judgment
+call it records (which ideas to pursue, priorities, what ships now) is left to you.
 
 It is for people who plan software with Claude Code. It is unreleased: load the plugin from this
 repository's source.
@@ -33,6 +33,24 @@ repository's source.
 
    The skill asks only about what the brainstorm leaves open, writes
    `docs/specs/prd/PRD-001.md` (the next free number), and names the next step.
+4. Define the architecture the PRD's epics must share:
+
+   ```text
+   /devforgeai:architecture PRD-001
+   ```
+
+   The skill settles each shared architectural question only by your decision, an accepted ADR or
+   approved policy, writes `docs/specs/arch/ARCH-001.md` plus an ADR for each decision you make, and
+   reports which requirements are ready for epics.
+5. Group the ready requirements into epics:
+
+   ```text
+   /devforgeai:epic PRD-001
+   ```
+
+   The skill proposes a grouping of the ready, current-release requirements, writes
+   `docs/specs/epic/EPIC-NNN.md` for each epic once you confirm it, and lists every requirement it left
+   out with the reason.
 
 ## Skills
 
@@ -56,10 +74,11 @@ Skills write to `docs/specs/<type>/<ID>.md` in your project, such as
 and provenance rules are in the [templates README](src/templates/README.md), and the JSON Schemas
 are in [`src/schemas/`](src/schemas/).
 
-The `prd` skill also reads optional policy: approved organization or project policy documents in
-`docs/specs/policy/` (template: [`src/templates/policy.md`](src/templates/policy.md)), and a
+The `prd` and `architecture` skills also read optional policy: approved organization or project policy
+documents in `docs/specs/policy/` (template: [`src/templates/policy.md`](src/templates/policy.md)), and a
 user-local `.claude/devforgeai.local.md` for interaction defaults such as `interview.max_calls`.
-[ADR-003](docs/specs/adr/ADR-003.md) defines the rules.
+[ADR-003](docs/specs/adr/ADR-003.md) defines the rules. The `epic` skill reads policy only to check
+that each setting the architecture relied on is still approved, active and at the version it linked.
 
 ## Evaluate the skills
 
@@ -80,4 +99,6 @@ covers the options, the manual checks and how the plugin is deployed.
 - [ADRs](docs/specs/adr/): the build and deploy process, the architecture step, and the policy contract.
 - [Brainstorm manual test runbook](docs/runbooks/brainstorm-manual-test.md): the checks evals can't automate.
 - [CLAUDE.md](CLAUDE.md) and [AGENTS.md](AGENTS.md): instructions for AI agents working in this repository.
-- [Codex port](src/codex/devforgeai/README.md): the brainstorm skill adapted for Codex.
+- [Changelog](CHANGELOG.md): notable changes, all unreleased so far.
+- [Codex port](src/codex/devforgeai/README.md): the brainstorm, architecture and documents-updater skills
+  adapted for Codex, as source only; the architecture port is a draft (see its import report).

@@ -1,9 +1,0 @@
-Created [ARCH-001.md](/tmp/dfai-architecture-eval-ued_lmka/project/docs/specs/arch/ARCH-001.md) for PRD-001 v1, with four proposed components and eight open decisions covering identity, revocation, privacy, ownership, interactions, boundaries and hosting.
-
-- **PASS:** Structure and requirement-link checks using `python3` and YAML parsing.
-- **BLOCKED:** Validation requires exact host model and session IDs; neither was exposed. Both are recorded as `unknown`.
-- **NOT_RUN:** Validated epic-readiness handoff.
-
-The ARCH remains draft with an unconfirmed outcome. No ADRs were written, and no restoration was needed.
-
-The [architecture skill](/tmp/dfai-architecture-eval-ued_lmka/devforgeai/skills/architecture/SKILL.md) requires unresolved provenance to “leave validation unresolved” and validation failure to “skip the readiness handoff.” The draft records the blockers, but cannot yet certify requirements as ready for epics.

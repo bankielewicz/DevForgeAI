@@ -1,6 +1,0 @@
-Created the proposed architecture in [ARCH-001](docs/specs/architecture/ARCH-001.md), covering components, data, security, deployment, and epic readiness.
-
-- **Ready for epic planning:** FR-002, FR-003, NFR-001, NFR-002, NFR-003.
-- **Blocked:** FR-001 needs identity-provider, enrollment, and recovery decisions. [ADR-001](docs/specs/adr/ADR-001.md) records alternatives and closure criteria.
-
-Document checks **PASS**; runtime verification is **NOT_RUN** because no implementation exists. Evidence is in [VER-001](docs/specs/verification/VER-001.md). The approved PRD and policy remain unchanged.

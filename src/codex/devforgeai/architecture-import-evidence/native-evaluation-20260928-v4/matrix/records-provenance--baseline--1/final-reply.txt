@@ -1,7 +1,0 @@
-Created the [architecture](docs/specs/architecture/ARCH-001.md) and [requirement readiness matrix](docs/specs/architecture/ARCH-001-readiness.md).
-
-- **Ready for epic drafting:** FR-002 booking, FR-003 roster, and shared security/hosting work.
-- **Blocked:** FR-001 sign-in pending the identity-provider decision documented in [ADR-001](docs/specs/adr/ADR-001.md).
-- Booking and roster delivery still depend on completed identity integration.
-
-**Verification: PASS** for requirement coverage, document links, formatting, and preservation of the approved PRD. Runtime checks are **NOT_RUN** because no implementation exists.

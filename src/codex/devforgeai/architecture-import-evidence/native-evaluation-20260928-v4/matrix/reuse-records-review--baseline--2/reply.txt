@@ -1,5 +1,0 @@
-Updated [ARCH-001](docs/specs/arch/ARCH-001.md) to v2 with `outcome: reuse`, your confirmation, and PRD-001 v2 references.
-
-Design unchanged. Revision remains draft because DEC-02 is still open and blocking.
-
-PASS: document consistency checks via `python3`. NOT_RUN: tests; no test suite exists.

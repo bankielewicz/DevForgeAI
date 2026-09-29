@@ -5,7 +5,7 @@ title: "Architecture Definition skill (MVP)"
 status: approved
 version: 1
 created: 2026-09-23
-updated: 2026-09-27
+updated: 2026-09-28
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -287,8 +287,8 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Structural: schemas, templates, fixtures and cross-document links | Not run in this workspace |
-| Behavioural: automated VER items, one eval case each | Not run: the skill isn't built here yet |
+| Structural: schemas, templates, fixtures and cross-document links | Fixtures: `src/tests/architecture/make_evals.py` validates all 15 against `src/schemas/` before it writes the cases. Schemas, templates and cross-document links: not run |
+| Behavioural: automated VER items, one eval case each | Built as SKL-003 v1 and merged in PR #4; deployed. 14 eval cases (VER-01..11, 14, 15, 16). `claude plugin eval`, 3 runs with the no-plugin baseline, 2026-09-28, plugin 0.3.0: 14 of 14 at 1.00 in every run, mean Δ +0.67. That run checked VER-10's not-built branch; PR #5 switched `hands-off-to-epic` to the shipped branch, which scored 1.00 in 1 run with the baseline |
 | Behavioural: manual VER items (VER-12, VER-13) | Not run |
 | Demonstration vs ADR-003 | ADR-003's demonstration plan (its Organization A and B pass criteria) is refined by VER-02 and VER-03, not met literally. Under Organization A the identity-provider question resolves by `POL-001#SET-01` while session revocation stays open, with no reuse outcome (`outcome: null`). Under Organization B the identity-provider question is an open DEC, not a `[NEEDS ADR]` marker. ADR-003 is unchanged |
 
@@ -494,3 +494,4 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 |---|---|---|---|---|
 | 1 | 2026-09-27 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Baseline for this workspace, reset from SPEC-003 v11 on Bryan's decision, since nothing has been built from it here. Versions 1–8 are in DevForgeAI-SDF2's git history (docs/specs/spec/SPEC-003.md, main at ef78b83); v11, with its Change Log for v9–v11, is kept at docs/archive/2026-09-27-spec-reset/SPEC-003-v11.md. Changed from v11, decided by Bryan: VER-10 checks the handoff branch that matches the plugin, with BEH-15's placement (v11 expected a shipped epic skill; added before approval, as for SPEC-002 VER-07); §5 no longer fixes the skill version (it named DevForgeAI-SDF2's SKL-003 v6), and QR-02 compares the two version values (DevForgeAI-SDF2 issue #14). Removed as DevForgeAI-SDF2 history: §9's run records (now not run; the Demonstration row is kept) and VER-12 (i)'s sentence about v9 and STORY-004. SPEC-002 link at v1. Awaiting Bryan's approval | frontmatter, §5, QR-02, §9, VER-10, VER-12 |
 | 1 | 2026-09-27 | Bryan | Approved | status |
+| 1 | 2026-09-28 | claude-code (session 383de882-2b59-4b3b-808b-83bb1ab93b9b) | Status update only, at Bryan's instruction, with no version bump: §9 records that the skill is built (SKL-003 v1, PR #4) and deployed, and its fixture checks and eval results. No requirement, behavior or VER item changed | §9 |
