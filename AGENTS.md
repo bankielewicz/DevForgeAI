@@ -2,12 +2,12 @@
 
 ## Project Structure & Module Organization
 
-DevForgeAI provides specification-driven Claude Code planning skills. Brainstorm, PRD, architecture and documents-updater are implemented; epic has a specification; the git skill has a draft specification.
+DevForgeAI provides specification-driven Claude Code planning skills. Brainstorm, PRD, architecture, epic and documents-updater are implemented; the git skill has a draft specification.
 
 - `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-006.md` the documents updater, `SPEC-007.md` (draft) the git workflow and `SPEC-008.md` (stub) the QA review. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
 - `src/templates/` holds staged document templates; `src/templates/skill/` contains skill, provenance, and evaluation examples.
 - `src/schemas/` holds document JSON Schemas.
-- `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `documents-updater`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
+- `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `epic`, `documents-updater`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
 - `src/tools/session-archive/` holds separate user-level hooks (SPEC-005, draft).
 
 Some specs describe another layout. Verify paths against disk; see `CLAUDE.md` for mappings. Edit plugin source; deployment is the owner's step.

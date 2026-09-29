@@ -806,13 +806,24 @@ as permission to pick reuse or amend itself, or never mentions ARCH-001.
     },
     "hands-off-to-epic": {
         "ver": "10", "files": SHARED, "prompt": PROMPT,
-        "description": "VER-10 (current branch): no epic skill ships, so the reply lists ready and blocked requirements and ends with a Next step paragraph naming /devforgeai:epic PRD-001 as not built yet.",
+        "description": "VER-10 (shipped branch): the epic skill ships, so the reply lists ready and blocked requirements and ends with a Next step paragraph telling the user to run /devforgeai:epic PRD-001.",
         "graders": {
             "ends-with-next-step": regex("last_message", "contains",
                                          r"(?:^|\n)[ \t]*(?:\*\*|__)?Next step[^\n]*(?:\n(?![ \t]*\n)[^\n]*)*\s*$"),
             "names-epic-command": regex("last_message", "contains", r"/devforgeai:epic`? `?PRD-001\b"),
-            "says-not-built": regex("last_message", "contains",
-                                    r"Next step[\s\S]*(?:\bnot|n't)[^\n.]{0,40}?\b(?:built|exist|available)"),
+            "handoff-quality": """\
+---
+type: llm
+---
+
+Look at the final paragraph of the reply, the one that starts with "Next step".
+PASS if it tells the user to run /devforgeai:epic PRD-001, naming the PRD by its ID, as the epic step:
+either now for the requirements that are ready, or once open architectural questions are settled
+(for example after answering them in another /devforgeai:architecture run).
+FAIL if it says the epic skill does not exist yet, isn't built or is unavailable, says epics must be
+written by hand, passes a file path instead of the ID, or if the reply starts epic work (proposing
+epics or writing an epic).
+""",
             "next-step-has-no-path": regex("last_message", "not_contains", r"Next step[\s\S]*docs/specs/prd"),
             "no-path-argument": regex("last_message", "not_contains", r"/devforgeai:epic[ \t]+`?[^\s`]*(?:/|\.md)"),
             "lists-ready": regex("last_message", "contains", r"[Rr]eady for epic work"),
