@@ -3,7 +3,7 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 3
+version: 4
 created: 2026-09-23
 updated: 2026-09-29
 owner: "Bryan"
@@ -11,7 +11,7 @@ authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
+  session: "fdbef416-eebb-4053-95ce-624a311d72d5"
 reviewed_by: []
 approved_by: "Bryan"
 approved_on: 2026-09-29
@@ -275,8 +275,8 @@ errors:
   - id: ERR-05
     status: active
     condition: "Validation still fails after the initial check and three repair cycles, or an error can't be repaired"
-    handling: "Stop. Keep the user's architectural choices and unrelated content, and never leave approved or accepted on content that failed validation. A new ARCH stays draft. An amended ARCH keeps the status BEH-09 gave it, so an approved ARCH whose content changed stays in-review with approved_by and approved_on cleared; a review record that fails validation is treated the same way. A new ADR the user accepted becomes proposed with empty approval fields and is kept, and the DEC state and resolved_by that depended on it return to open. Add one matching audit record (Change Log row, and Status history row for an ADR). End with a validation-failure report listing the checks, the repairs and the unresolved errors; skip the readiness handoff and never present readiness as validated"
-    user_result: "A validation-failure report: the file paths, the checks and repairs made, the unresolved errors and the statuses left; no readiness presented as validated"
+    handling: "Stop. Keep the user's architectural choices and unrelated content, and never leave approved or accepted on content that failed validation. A new ARCH stays draft. An amended ARCH keeps the status BEH-09 gave it, so an approved ARCH whose content changed stays in-review with approved_by and approved_on cleared; a review record that fails validation is treated the same way. A new ADR the user accepted becomes proposed with empty approval fields and is kept, and the DEC state and resolved_by that depended on it return to open. When that ADR superseded an existing ADR in the same run, the supersession is rolled back: the older ADR is restored byte-for-byte to its state before the run; the replacement ADR is kept as proposed with approved_by, approved_on and supersedes cleared, and its prose and Status history still record the intended replacement and the user's decision; each DEC that depended on the replacement returns to open with resolved_by [] and is never reconnected to the older ADR. Add one matching audit record (Change Log row, and Status history row for an ADR). End with a validation-failure report listing the checks, the repairs and the unresolved errors; skip the readiness handoff and never present readiness as validated"
+    user_result: "A validation-failure report: the file paths, the checks and repairs made, the unresolved errors and the statuses left, including any supersession rolled back; no readiness presented as validated"
   - id: ERR-06
     status: active
     condition: "The user stops mid-session"
@@ -312,6 +312,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 4 | Not run. Changed: ERR-05 (a supersession recorded in a run that then fails validation is rolled back); new: VER-19 (manual regression case). The rows below record versions 1 to 3 |
 | Version 3 | Not run. Changed: BEH-03, BEH-14, ERR-02, ERR-05, VER-12 (f) and (i); new: VER-17 and VER-18. The rows below record versions 1 and 2 |
 | Structural: schemas, templates, fixtures and cross-document links | Fixtures: `src/tests/architecture/make_evals.py` validates all 15 against `src/schemas/` before it writes the cases. Schemas, templates and cross-document links: not run |
 | Behavioural: automated VER items, one eval case each | Built as SKL-003 v1 and merged in PR #4; deployed. 14 eval cases (VER-01..11, 14, 15, 16). `claude plugin eval`, 3 runs with the no-plugin baseline, 2026-09-28, plugin 0.3.0: 14 of 14 at 1.00 in every run, mean Δ +0.67. That run checked VER-10's not-built branch; PR #5 switched `hands-off-to-epic` to the shipped branch, which scored 1.00 in 1 run with the baseline |
@@ -504,6 +505,15 @@ verifications:
       - ERR-05
     upstream:
       - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
+  - id: VER-19
+    status: active
+    obligation: "Manual regression case, failed supersession: a fresh fixture copy where the approved ARCH-001's DEC-01 is resolved_by an accepted ADR-001, and its existing CMP-01 has a value the self-check rejects, which an amendment must leave unchanged. The user chooses to amend ARCH-001, confirms that outcome, and explicitly approves replacing ADR-001 with a new decision for DEC-01; the skill records the supersession, and validation then fails. Afterwards: ADR-001 is byte-identical to its state before the run (status accepted, superseded_by null, the same Status history); the replacement ADR is kept with status proposed, approved_by empty, approved_on null and supersedes [], and its prose and Status history record the intended replacement of ADR-001 and the user's decision; DEC-01 is open with resolved_by [], not reconnected to ADR-001; ARCH-001 is in-review with approved_by and approved_on cleared, with the audit record; and the reply is a validation-failure report that names the rollback and presents no readiness as validated. A run with no user never supersedes an ADR (BEH-07, BEH-16), so this case is run by hand."
+    level: manual
+    covers:
+      - ERR-05
+      - BEH-16
+    upstream:
+      - {id: STORY-003, item: AC-03, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -524,6 +534,10 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 implement BEH-14 and ERR-05 as changed, and add the eval cases for VER-17 and VER-18. The Codex
 architecture skill follows the same contract. Evaluate each provider independently, with the existing
 thresholds.
+
+**Version 4** (after approval): the architecture skill's ERR-05 rules roll back a supersession recorded
+in a run that fails validation (SKL-003 v4), and VER-19 is run by hand. The Codex architecture skill
+follows the same contract.
 
 ## 12. Alternatives considered
 
@@ -552,3 +566,5 @@ thresholds.
 | 3 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Aligned with SPEC-002 v2 (Bryan, 2026-09-29). ERR-05 follows D-03's rule: content that failed validation is never left approved or accepted; an approved ARCH whose amendment or review record fails stays in-review with approval cleared, and a newly accepted ADR becomes proposed. BEH-14 and ERR-05 count one initial check plus at most three repair cycles (D-04). BEH-03, ERR-02, §3 and §5: policy is validated in full through the shared script (D-09), and VER-12 (f) covers its byte-identity. New VER-17 (malformed policy) and VER-18 (failed amendment). SPEC-002 link at v2. Awaiting Bryan's approval | §3, §5, BEH-03, BEH-14, ERR-02, ERR-05, VER-12, VER-17, VER-18, §9, §11, frontmatter, status |
 | 3 | 2026-09-29 | Bryan | Approved | status |
 | 3 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Record-only update, with no version bump: §9 records the 2026-09-29 architecture eval runs on SKL-003 v2 (component kinds). The re-test after PR #10 merged is bound to its commit and plugin digest (14/14 at 1.00); the earlier mixed-source run and an interrupted attempt are kept apart. No item changed | §9 |
+| 4 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Bryan's decision of 2026-09-29 on a failed supersession (ERR-05): when validation fails after an ADR accepted in the run superseded an existing ADR, the older ADR is restored byte-for-byte to its state before the run; the replacement is kept as proposed with approved_by, approved_on and supersedes cleared, its prose and Status history keeping the intended replacement and the user's decision; and the dependent DECs return to open with resolved_by [], never reconnected to the older ADR, with no readiness handoff. New VER-19, the regression case, is manual: a run with no user never supersedes an ADR (BEH-07, BEH-16). SPEC-004 and SPEC-009 relinked to version 4 (mechanical: the §4 and §5 they consume are unchanged). Awaiting Bryan's approval | ERR-05, VER-19, §9, §11, frontmatter, status |
+| 4 | 2026-09-29 | Bryan | Approved | status |

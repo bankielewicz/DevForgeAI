@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: extension-keeps-review-history
+context:
+  scaffold_script: scaffold.sh

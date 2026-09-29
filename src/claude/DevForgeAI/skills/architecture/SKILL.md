@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "2"
+  devforgeai-version: "4"
 ---
 
 # Architecture
@@ -35,8 +35,8 @@ Three rules shape everything below:
   ([references/inspection.md](references/inspection.md)).
 - Templates: `${CLAUDE_SKILL_DIR}/assets/arch.md` and `${CLAUDE_SKILL_DIR}/assets/adr.md`.
 
-Never run a `devforgeai` command: that CLI doesn't exist, and a program with that name on PATH can't
-be trusted.
+Use Bash only to run the policy validation script with `python3` (step 1). Never run a `devforgeai`
+command: that CLI doesn't exist, and a program with that name on PATH can't be trusted.
 
 ## Decisions that belong to the user
 
@@ -108,13 +108,26 @@ Copy this checklist into your response and tick items off as you go:
 
 Follow [references/policy.md](references/policy.md) with the framework defaults in
 [references/defaults.md](references/defaults.md). This step comes first, before any question.
-1. Read `docs/specs/policy/POL-*.md`. If the folder is missing, use the framework defaults.
-2. Check every approved document against the checklist in policy.md. Skip draft and in-review
-   documents, and report them.
-3. **Any violation stops the skill (ERR-02).** Before writing anything, name the policy file, the
-   setting (`SET-NN` and its key) and the rule broken, and say nothing was written. Never fall back
-   silently.
-4. Resolve `interview.max_calls` and `architecture.mandated_platforms`, and read local preferences.
+1. If `docs/specs/policy/` holds no `POL-*.md`, use the framework defaults and go to item 4.
+2. Otherwise validate every document with the skill's script, using Bash:
+
+   ```
+   python3 ${CLAUDE_SKILL_DIR}/scripts/validate_policy.py docs/specs/policy
+   ```
+
+   It skips and reports draft and in-review documents (SV-06), and checks each approved one in full
+   against the policy schemas and SV-01 to SV-06. Never validate the documents by reading them
+   instead; reading their `status` for item 3's last case is fine.
+3. **Act on its exit code** (policy.md, R1):
+   - **0:** continue. Its `ignored` lines go into the resolution line.
+   - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
+     policy file, the setting (`SET-NN` and its key) or frontmatter field, the field, and the rule
+     (`schema`, `calendar check` or `SV-NN`), and say nothing was written. Never fall back silently.
+   - **2, or the script can't be run:** if any policy document has `status: approved`, stop
+     (ERR-02): say that policy validation couldn't run, quote its message, and write nothing. If
+     none is approved, continue with the framework defaults.
+4. Resolve `interview.max_calls` and `architecture.mandated_platforms` (R2); an override that
+   `overridable_by` doesn't allow also stops the skill (ERR-02). Then read local preferences.
 
 ### 2. Select the PRD
 
@@ -259,10 +272,27 @@ supersession the user explicitly approved.
 ### 10. Validate every file written
 
 Read each written file back and check it against the **Self-check list** in
-[output-rules.md](references/output-rules.md), item by item. Fix each problem and check again, at
-most three attempts. If errors remain (ERR-05), restore what output-rules.md says, end with a
-validation-failure report (the file paths, the unresolved errors, what was restored), and skip the
-readiness handoff. Never present readiness as validated.
+[output-rules.md](references/output-rules.md), item by item.
+
+- **Count the checks.** The first readback is the initial check. For each error it reports, repair
+  the file, read it back and check again: at most three repair cycles, so at most four checks.
+- **A repair changes a file** to address a reported error. An error you can't repair ends the
+  cycles early; don't repeat an unchanged check. For example, an error inside an existing item that
+  an amendment must leave byte-identical can't be repaired, because changing that item breaks the
+  amendment rules.
+- Record each check and repair in the reply, for example `Check 1: 1 error (DEC-03 has no
+  upstream link); repair 1: added it; check 2: passed`.
+
+**If errors remain (ERR-05), stop.** Never leave `approved` or `accepted` on content that failed
+validation. Follow output-rules.md, "When validation still fails (ERR-05)": a new ARCH stays
+`draft`; an amended ARCH keeps the status the amendment gave it, so an approved one stays
+`in-review` with its approval cleared; an approved ARCH whose review record failed becomes
+`in-review` with its approval cleared; an ADR accepted in this run becomes `proposed` and its DEC
+returns to open with `resolved_by: []`. A supersession recorded in this run is rolled back: the
+older ADR is restored byte-for-byte, the replacement loses its `supersedes`, and the DEC is never
+reconnected to the older ADR. Then end with
+the validation-failure report (step 11), skip the readiness handoff, and never present readiness as
+validated.
 
 ### 11. Compute readiness, report and hand off
 
@@ -303,8 +333,12 @@ is, run `/devforgeai:epic PRD-001` for the ready requirements; FR-001 waits for 
 Never start epic work, and never write an epic.
 
 When the skill stops without writing (a gate is open, ERR-01, ERR-02, ERR-04), the reply says why and
-what the user can do, and leaves out the report block. After ERR-05, the validation-failure report
-replaces both the block and the next step.
+what the user can do, and leaves out the report block.
+
+**After ERR-05**, a validation-failure report replaces both the block and the next step. It gives
+each file path with the status left (and cleared approvals), any supersession rolled back, every
+check and repair made, and each unresolved error with where it is. It lists no requirement as ready, says readiness wasn't
+validated, and never tells the user to run `/devforgeai:epic`.
 
 ## Output contract
 
@@ -341,8 +375,9 @@ session-revocation question stays open.
 
 ## References
 
-- [references/policy.md](references/policy.md): read at step 1. Policy checks, precedence, R3 to R5,
-  and the resolution line. A byte-identical copy of the prd skill's file.
+- [references/policy.md](references/policy.md): read at step 1. The validation script's exit codes,
+  precedence, R3 to R5, and the resolution line. A byte-identical copy of the prd skill's file, as
+  are `scripts/validate_policy.py` and `references/schemas/`.
 - [references/defaults.md](references/defaults.md): read at step 1. Framework defaults and the quality
   floor per operating context. A byte-identical copy of the prd skill's file.
 - [references/inspection.md](references/inspection.md): read at step 5. The inspection scope, allowed
