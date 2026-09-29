@@ -14,6 +14,12 @@ Entries start with the epic skill. Earlier work is described in each specificati
 - Added the `epic` skill, `/devforgeai:epic PRD-NNN`: it groups a PRD's ready, current-release
   requirements into epics you confirm, writes `docs/specs/epic/EPIC-NNN.md`, and lists every
   requirement left out with its reason and next action.
+- Added the `git` skill, `/devforgeai:git [phase] [details]`. It classifies changes before staging,
+  blocks secrets and oversized files, runs the repository's checks, commits and pushes work from its
+  own branch and worktree, and opens or updates a GitHub pull request. It merges only a PR whose
+  `merge-approved` label and QA verdict name the current head commit, after you confirm; syncs the
+  default branch by fast-forward without discarding local edits; and prunes worktrees that are merged
+  and clean. Built from the draft [SPEC-007](docs/specs/spec/SPEC-007.md).
 - Added a draft architecture port to the Codex package in `src/codex/devforgeai/` (manifest 0.3.0).
   Its [import report](src/codex/devforgeai/ARCHITECTURE-IMPORT-REPORT.md) records that SPEC-003
   qualification isn't established and that manual checks VER-12 and VER-13 haven't run.
