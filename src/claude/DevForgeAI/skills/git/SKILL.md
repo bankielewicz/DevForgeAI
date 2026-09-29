@@ -154,7 +154,8 @@ empty remote is outward-facing: offer the bootstrap commit unless the request na
 
 [references/preflight-and-connect.md](references/preflight-and-connect.md): the branch name and the
 worktree under `.claude/worktrees/<name>` (unless the repository sets another place), kept out of
-git by `.git/info/exclude`.
+git by `.git/info/exclude`. Write that rule with `echo '.claude/worktrees/' >> .git/info/exclude` as
+its own Bash call; if it is refused, create the worktree anyway and hand the command to the user.
 - **No uncommitted work to carry:** create the branch and worktree together from the fetched
   `origin/<default>`.
 - **Uncommitted work to carry:** classify, stage, scan and check it (step 5), then `git switch -c

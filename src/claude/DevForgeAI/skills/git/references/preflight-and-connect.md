@@ -127,6 +127,12 @@ it's where `claude --worktree <name>` looks.
 which changes no tracked file and covers every worktree of the repository, and say that a
 `.gitignore` entry would share the rule. When the repository's rules require the `.gitignore` entry
 instead, add it there and name it in the next commit's message. Never edit `.gitignore` otherwise.
+- Write it from the main checkout's root with exactly this command, as a Bash call of its own:
+  `echo '.claude/worktrees/' >> .git/info/exclude`. Claude Code protects `.git/`: file tools can't
+  edit it, and a permission check refuses compound commands that also `mkdir` or `printf` there.
+  `git init` already created `.git/info/`.
+- If that write is still refused, don't retry it another way. Create the worktree anyway (nothing
+  in this skill stages it), and put the command in Action required for the user to run.
 
 **Base.** New work branches from `origin/<default>` as just fetched, never from a possibly stale local
 default branch:
