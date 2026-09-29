@@ -2,14 +2,14 @@
 
 ## Project Structure & Module Organization
 
-DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic and documents-updater. Codex contains brainstorm, architecture and documents-updater; PRD and epic are not yet ported. Codex architecture remains a draft with recorded evaluation failures and unrun manual checks; source presence does not establish acceptance.
+DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic, documents-updater and git (built from draft SPEC-007, not yet evaluated). Codex contains brainstorm, architecture and documents-updater; PRD and epic are not yet ported. Codex architecture remains a draft with recorded evaluation failures and unrun manual checks; source presence does not establish acceptance.
 
 - `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-006.md` the documents updater, `SPEC-007.md` (draft) the git workflow and `SPEC-008.md` (stub) the QA review. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
 - `src/templates/` holds staged document templates; `src/templates/skill/` contains skill, provenance, and evaluation examples.
 - `src/schemas/` holds document JSON Schemas.
-- `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `epic`, `documents-updater`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
+- `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `epic`, `documents-updater`, `git`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
 - `src/codex/devforgeai/` holds the Codex manifest (`.codex-plugin/plugin.json`), skills, tests, evals and import reports. Its README and per-skill reports describe provider adaptations and qualification limits.
-- `src/tests/` holds Claude documents-updater checker tests and evaluation generators/graders for documents-updater, architecture and epic. Codex tests and generators live in its package's `tests/`.
+- `src/tests/` holds Claude documents-updater checker tests, git script tests, and evaluation generators/graders for documents-updater, architecture, epic and git. Codex tests and generators live in its package's `tests/`.
 - `src/tools/session-archive/` holds separate user-level hooks (SPEC-005, draft).
 
 Some specs describe another layout. Verify paths against disk; see `CLAUDE.md` for mappings and Claude workflows, and the Codex package README for its current contents. Edit the relevant provider's source; deployment is the owner's step. Keep historical import evidence intact.
@@ -23,6 +23,7 @@ No project-wide build system, formatter, or linter is configured. Run from the r
 - `python3 -m json.tool src/codex/devforgeai/.codex-plugin/plugin.json` checks the Codex manifest JSON syntax.
 - `python3 -B -m unittest discover -s src/tools/session-archive -p 'test_*.py'` runs archive tests.
 - `python3 -B -m unittest discover -s src/tests/documents-updater -p 'test_*.py'` runs Claude Markdown checker tests.
+- `python3 -B -m unittest discover -s src/tests/git -p 'test_*.py'` runs the Claude git skill's script tests.
 - `python3 -B -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'` runs Codex package tests.
 - `git diff --check` checks patch whitespace.
 

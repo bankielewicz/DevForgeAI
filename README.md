@@ -3,15 +3,21 @@
 DevForgeAI is a Claude Code plugin, `devforgeai`, of spec-driven planning skills. It takes an idea
 from a brainstorm through a product requirements document (PRD) and its architecture to epics. Each
 step is written as a Markdown document with stable item IDs and traceable links, and every judgment
-call it records (which ideas to pursue, priorities, what ships now) is left to you.
+call it records (which ideas to pursue, priorities, what ships now) is left to you. Two skills work
+outside that chain: a documents updater for a repository's README, CHANGELOG and guides, and a git
+workflow skill that takes work through commits and pull requests to a merge.
 
 It is for people who plan software with Claude Code. It is unreleased: load the plugin from this
 repository's source.
 
 ## Prerequisites
 
-- [Claude Code](https://code.claude.com). The skills were built and evaluated with version 2.1.283.
-- Python 3, used by the brainstorm skill's validator and the documents updater's Markdown checker.
+- [Claude Code](https://code.claude.com). The skills were built and evaluated with versions 2.1.283
+  and 2.1.284.
+- Python 3, used by the brainstorm skill's validator, the documents updater's Markdown checker and
+  the git skill's scripts.
+- For the `git` skill: git, and for its `pr` and `merge` phases the GitHub CLI (`gh`), signed in.
+  GitHub is the only supported host; the other phases work with any git remote.
 
 ## Quick start
 
@@ -61,6 +67,7 @@ repository's source.
 | `documents-updater` | `/devforgeai:documents-updater [base-revision-or-range] [propose]` | Updates a repository's README, CHANGELOG and guides from its git changes, or proposes the edits | Implemented ([SPEC-006](docs/specs/spec/SPEC-006.md)) |
 | `architecture` | `/devforgeai:architecture [PRD-NNN]` | Identifies the architectural questions separate epics must share, settles each only by your decision, an accepted ADR or approved policy, and writes an ARCH document with ADRs and a report of which requirements are ready for epics | Implemented ([SPEC-003](docs/specs/spec/SPEC-003.md)) |
 | `epic` | `/devforgeai:epic [PRD-NNN]` | Groups a PRD's ready, current-release requirements into epics you confirm, and reports every requirement left out and why | Implemented ([SPEC-004](docs/specs/spec/SPEC-004.md)) |
+| `git` | `/devforgeai:git [status\|connect\|start\|commit\|push\|pr\|merge\|sync\|prune] [details]` | Commits and pushes work from its own branch and worktree, opens or updates a GitHub pull request, merges only a PR that an independent QA session approved for its head commit and you confirm, fast-forwards the default branch without discarding local edits, and prunes merged worktrees | Implemented ([SPEC-007](docs/specs/spec/SPEC-007.md), a draft spec) |
 
 The planning chain is Brainstorm → PRD → Architecture Definition → Epic → Story → Spec; the first
 four steps are implemented. Until a story skill exists, the epic skill's handoff says to write stories
