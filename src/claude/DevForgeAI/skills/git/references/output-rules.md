@@ -106,4 +106,6 @@ Before the completion response, confirm each item:
 10. No worktree, branch or file was removed without proof that its content exists elsewhere and a
     confirmation naming it. A locked worktree is reported as locked.
 11. A differing local edit is byte-identical to how it started.
-12. The reply ends with the completion response, and its Result matches the definitions above.
+12. The reply never says the session is working in a worktree unless EnterWorktree moved it there (a
+    Bash `cd` doesn't); otherwise it gives `claude --worktree <name>` to open it.
+13. The reply ends with the completion response, and its Result matches the definitions above.
