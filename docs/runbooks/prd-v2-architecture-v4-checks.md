@@ -265,10 +265,17 @@ git init -q && git add -A && git -c user.name=t -c user.email=t@t commit -qm fix
 ```
 
 > /devforgeai:architecture PRD-001 — amend ARCH-001; I confirm the amend outcome. We're dropping
-> Auth0: I approve superseding ADR-001 with a new decision for the identity provider.
+> Auth0 for sign-in.
 
-Pick one identity provider when it offers options, give your name if asked who decides, and answer
-*Decide later* to anything else.
+The request can't approve a supersession by itself (the skill takes only four kinds of decision from
+a request), so give the approval as an answer:
+- when it asks about DEC-01 or about replacing ADR-001, choose a different provider and approve
+  superseding ADR-001;
+- if it doesn't bring DEC-01 up, answer: "Reopen DEC-01: replace ADR-001 with a new decision. I
+  approve superseding ADR-001." Then pick a provider from the options it gives.
+
+Give your name if asked who decides, and answer *Decide later* to anything else. If the skill never
+records a supersession, the case didn't reach the rollback: record it as not run, with what happened.
 
 **Expect:**
 - It records the supersession (a new accepted ADR with `supersedes: [ADR-001]`, and ADR-001 marked
