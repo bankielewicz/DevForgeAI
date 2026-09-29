@@ -3,9 +3,9 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 1
+version: 2
 created: 2026-09-23
-updated: 2026-09-28
+updated: 2026-09-29
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,12 +14,12 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-09-27
+approved_on: 2026-09-29
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 9, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 9, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
@@ -116,10 +116,27 @@ byte-identical to the prd skill's, which the SPEC-003 VER-12 manual check confir
 |---|---|
 | Frontmatter `outcome` | `reuse`, `amend`, `create` or `null`. Written only when the user confirms it |
 | Frontmatter `system`, `inspection_scope` | What the description covers; the components or directories the user named |
-| `components` (`CMP-NN`) | Boundaries: responsibility, data owned, interactions, deployment unit; upstream links to the quality drivers and constraints |
+| `components` (`CMP-NN`) | Boundaries: responsibility, kinds (below), data owned, interactions, deployment unit; upstream links to the quality drivers and constraints |
 | `decisions` (`DEC-NN`) | Architectural questions: `question`, `blocking`, `state` (open or resolved), `resolved_by` (ADR or POL setting IDs); upstream links to every affected requirement at the PRD version examined |
 | `evidence` (`EVD-NN`) | Every project source consulted for architecture analysis, with its `kind` and, independently, a `classification`: observed, policy, decided or context |
 | §7 | Requirement changes proposed to the PRD owner |
+
+**Component kinds.** Each CMP records its `kinds`: one or more of the values below. A component may have
+several, such as a service that also exposes an API (`service` and `api`). The kinds select the project
+context documents (ADR-004 D2).
+
+| Kind | A component that is… |
+|---|---|
+| `user-interface` | a surface people use: web, desktop, mobile or CLI |
+| `service` | application or business logic |
+| `platform` | background jobs, workers, integrations with external systems, hosting |
+| `api` | an interface exposed to another component or to external consumers |
+| `relational-store` | a relational database |
+| `data-store` | a non-relational store: document, key-value, object, search or cache |
+| `external` | a system outside the project, such as a mandated identity platform |
+
+A component written before this version has no `kinds`. Amending an ARCH leaves existing components
+unchanged, so consumers ask about a missing kind (SPEC-009 ERR-08).
 
 **Evidence classification** (`references/inspection.md`). Framework instructions and templates are not
 project evidence. Each EVD records the document version and status examined where applicable, and its
@@ -163,10 +180,12 @@ metadata:
   - code inspection: read-only, and every path read, listed or searched is inside the inspection scope. Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope; never a whole-repository listing or search. The project documents read by contract (docs/specs/prd/, arch/, adr/, policy/ and .claude/devforgeai.local.md) are outside this rule, and validating the documents written (BEH-14) is separate from inspection;
   - Write and Edit for the ARCH and ADRs;
   - AskUserQuestion, with at most 4 questions per call.
-- **Downstream contract (consumed by the epic workflow):**
+- **Downstream contract (consumed by the epic workflow, and by the context and story steps):**
   - the ARCH path and stable CMP, DEC and EVD IDs;
   - epics may be written only for requirements that the readiness rule reports ready;
-  - epics cite components with `refines` or `informed_by` links, for example `{id: ARCH-001, item: CMP-02, relation: informed_by}`;
+  - an epic carries one versioned, document-level `informed_by` link to its ARCH (SPEC-004 §5) and
+    never cites CMP items; stories record the specific components they touch (SPEC-009);
+  - each CMP's `kinds`, which select the project context documents (ADR-004 D2);
   - the readiness report in the handoff is advisory; the rule in §4 is the contract.
 
 ## 6. Behavior
@@ -202,7 +221,7 @@ behaviors:
     rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review. A review record, written when the user confirms reuse against a newer PRD version, makes exactly three changes: the frontmatter PRD link moves to the reviewed version, outcome becomes reuse, and one Change Log row is added, 'Reviewed against PRD-NNN vN: reuse confirmed, no architectural change', ending with the policy resolution line. Everything else stays byte-identical, including version, updated, status, the approval fields and every item with its links, which still show as suspect. It is a relink, not an amendment, so an approved ARCH stays approved. With no user, nothing is confirmed and nothing is written."
   - id: BEH-10
     status: active
-    rule: "Describe the components that separate epics must share, as CMP items with a Mermaid overview. Link each to the quality drivers (NFR items) and constraints it serves, and to the POL setting when a mandated platform applies (relation constrains)."
+    rule: "Describe the components that separate epics must share, as CMP items with a Mermaid overview. Link each to the quality drivers (NFR items) and constraints it serves, and to the POL setting when a mandated platform applies (relation constrains). Give each CMP its kinds (§4): one or more of user-interface, service, platform, api, relational-store, data-store and external. When a kind is uncertain, ask. With no user present, record only the kinds the PRD or the evidence states; when none is certain, leave kinds out and add [NEEDS CLARIFICATION: kinds of CMP-NN] to the open questions. When amending, existing components stay unchanged, with or without kinds."
   - id: BEH-11
     status: active
     rule: "Compute readiness with the §4 rule for every requirement cited by any DEC. Check each ADR's current status and superseded_by at the time of writing; a question whose resolving ADR has been superseded is reported open."
@@ -268,19 +287,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the decision and readiness rules and the output contract; readiness, inspection, policy and output rules live in references/"
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged architecture and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
 ```
 
 ## 9. Verification
@@ -301,7 +320,7 @@ otherwise, the prompt says to proceed without questions, so evals exercise the n
 verifications:
   - id: VER-01
     status: active
-    obligation: "Shared fixture, no policy, no ARCH: writes docs/specs/arch/ARCH-001.md with a DEC for the identity provider and a DEC for session revocation, both open and citing PRD-001#FR-001; an EVD with kind prd and classification context records the PRD; outcome null; the handoff lists FR-001 as blocked. Eval case creates-arch: regex on the file and last_message."
+    obligation: "Shared fixture, no policy, no ARCH: writes docs/specs/arch/ARCH-001.md with a DEC for the identity provider and a DEC for session revocation, both open and citing PRD-001#FR-001; an EVD with kind prd and classification context records the PRD; outcome null; the handoff lists FR-001 as blocked; at least one CMP carries kinds from the §4 list, or its kinds are marked [NEEDS CLARIFICATION]. Eval case creates-arch: regex on the file and last_message."
     level: e2e
     covers:
       - BEH-02
@@ -404,7 +423,7 @@ verifications:
       - {id: STORY-003, item: AC-10, relation: verifies, version: 3, hash: null}
   - id: VER-12
     status: active
-    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with one decision accepted before validation: the skill stops after three failed attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. (j) In a fresh fixture copy, amending an existing ARCH whose links cite PRD v2, against PRD v3 with one new [NEEDS ADR] marker: links on existing items stay at v2, the links added in this run (and the frontmatter PRD link) use v3, and validation passes without ERR-05. (k) In a fresh fixture copy, an explicitly approved supersession of an accepted ADR passes validation: the old ADR changes only status: superseded, superseded_by and one Status history row; the new ADR is accepted with supersedes: [ADR-old]; the DEC's resolved_by changes from [ADR-old] to [ADR-new], logged in the Change Log; the old ADR is recorded as a context EVD; and readiness reports the requirement ready."
+    obligation: "Manual, interactive: (a) each decision is presented with trade-offs and becomes an accepted ADR only after an explicit answer; confirming the outcome accepts nothing else. (b) Bounded inspection of a real directory records EVD items with their kind and classification (observed, policy, decided or context) and asks before leaving the scope; every inspection command in the transcript uses only paths inside the scope or the contract document folders, and none lists or searches the whole repository. A request that needs a file outside the scope (the session lifetime in shared/config.js) is run in two fresh fixture copies: the skill asks before reading it; answered yes, it reads the file, adds it to inspection_scope and records an observed EVD; answered no, it doesn't read it and records an explicit unknown naming the path. (c) A draft PRD shows the proposal warning when the PRD is read, before any question or write, and again in the handoff. (d) Stopping mid-session offers a draft save. (e) An invalid policy stops the skill with the rule named. (f) The architecture skill's references/policy.md and defaults.md are byte-identical to the prd skill's. (g) An unknown PRD ID lists the available PRDs. (h) SKILL.md is within the NFR-001 limits. (i) ERR-05, with one decision accepted before validation: the skill stops after three failed attempts, keeps the choice as a proposed ADR, restores only statuses, approval fields, the dependent DEC state and the audit record, and ends with a validation-failure report without presenting readiness as validated. (j) In a fresh fixture copy, amending an existing ARCH whose links cite PRD v2, against PRD v3 with one new [NEEDS ADR] marker: links on existing items stay at v2, the links added in this run (and the frontmatter PRD link) use v3, and validation passes without ERR-05. (k) In a fresh fixture copy, an explicitly approved supersession of an accepted ADR passes validation: the old ADR changes only status: superseded, superseded_by and one Status history row; the new ADR is accepted with supersedes: [ADR-old]; the DEC's resolved_by changes from [ADR-old] to [ADR-new], logged in the Change Log; the old ADR is recorded as a context EVD; and readiness reports the requirement ready. (l) A component whose kind is uncertain is asked about, and the answer is recorded as its kinds."
     level: manual
     covers:
       - BEH-01
@@ -495,3 +514,5 @@ additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixe
 | 1 | 2026-09-27 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Baseline for this workspace, reset from SPEC-003 v11 on Bryan's decision, since nothing has been built from it here. Versions 1–8 are in DevForgeAI-SDF2's git history (docs/specs/spec/SPEC-003.md, main at ef78b83); v11, with its Change Log for v9–v11, is kept at docs/archive/2026-09-27-spec-reset/SPEC-003-v11.md. Changed from v11, decided by Bryan: VER-10 checks the handoff branch that matches the plugin, with BEH-15's placement (v11 expected a shipped epic skill; added before approval, as for SPEC-002 VER-07); §5 no longer fixes the skill version (it named DevForgeAI-SDF2's SKL-003 v6), and QR-02 compares the two version values (DevForgeAI-SDF2 issue #14). Removed as DevForgeAI-SDF2 history: §9's run records (now not run; the Demonstration row is kept) and VER-12 (i)'s sentence about v9 and STORY-004. SPEC-002 link at v1. Awaiting Bryan's approval | frontmatter, §5, QR-02, §9, VER-10, VER-12 |
 | 1 | 2026-09-27 | Bryan | Approved | status |
 | 1 | 2026-09-28 | claude-code (session 383de882-2b59-4b3b-808b-83bb1ab93b9b) | Status update only, at Bryan's instruction, with no version bump: §9 records that the skill is built (SKL-003 v1, PR #4) and deployed, and its fixture checks and eval results. No requirement, behavior or VER item changed | §9 |
+| 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decisions of 2026-09-29. Components carry kinds (M4): §4 lists them and their mapping to ADR-004's context documents, BEH-10 classifies them and asks when a kind is uncertain, and VER-01 and VER-12 (l) check it. §5 aligned with SPEC-004 and the shipped epic skill (M8): an epic has one document-level informed_by link to its ARCH and never cites CMP items; stories record the components they touch (SPEC-009). PRD-001 links re-reviewed at v10. Awaiting Bryan's approval | §4, §5, BEH-10, VER-01, VER-12, frontmatter, status |
+| 2 | 2026-09-29 | Bryan | Approved | status |

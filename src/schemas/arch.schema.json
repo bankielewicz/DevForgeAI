@@ -203,6 +203,15 @@
           },
           "deployment": {
             "type": "string"
+          },
+          "kinds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": ["user-interface", "service", "platform", "api", "relational-store", "data-store", "external"]
+            },
+            "description": "What kind of component this is; selects the project context documents (ADR-004 D2). Optional so that ARCH files written before SPEC-003 version 2 stay valid."
           }
         }
       }

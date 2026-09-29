@@ -29,7 +29,9 @@ work_item: ""          # the story ID, or the branch name when there is no story
      does not stop for it: it records the choice here and continues, and a human reviews
      the entries later. One log per work item (one story, or one branch), so parallel
      worktrees never append to the same file. Named by ID only, like every document:
-     docs/specs/ambiguities/AMB-NNN.md, the next free number.
+     docs/specs/ambiguities/AMB-NNN.md, the next free number. The log is reused across
+     sessions: a later session appends to the work item's existing log, and only a work
+     item without a log gets a new one.
 
      RECORD AND CONTINUE (then review later):
        - a small, reversible choice outside every spec and AC obligation, for example a

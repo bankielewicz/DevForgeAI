@@ -17,12 +17,12 @@ approved_by: "Bryan"
 approved_on: 2026-09-27
 upstream:
   - {id: STORY-005, relation: specifies, version: 2, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 9, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 9, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 9, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: epics come after the Architecture Definition step"}
-  - {id: SPEC-003, relation: informed_by, version: 1, hash: null, note: "consumes the readiness rule (§4) and the downstream contract (§5)"}
+  - {id: SPEC-003, relation: informed_by, version: 2, hash: null, note: "consumes the readiness rule (§4) and the downstream contract (§5)"}
   - {id: SPEC-002, relation: informed_by, version: 1, hash: null, note: "priority and release semantics, where null is undecided (§5)"}
 supersedes: []
 superseded_by: null
@@ -293,19 +293,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the selection and grouping rules and the output contract; the ARCH lookup, readiness and output rules live in references/"
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged epic and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 9, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
 ```
 
 ## 9. Verification
