@@ -20,6 +20,9 @@ __pycache__/
 # The deployed plugin copy; regenerate it from src/ with the rsync command in CLAUDE.md
 .claude/skills/devforgeai/
 
+# Git worktrees, one per story (ADR-001). Unignored, `git add -A` would stage one as an embedded repository
+.claude/worktrees/
+
 # Local Codex folder: the deployed Codex plugin copy (.codex/devforgeai/, regenerated from the tracked
 # files of src/codex/devforgeai/) and local preferences such as .codex/devforgeai.local.md
 .codex/
