@@ -296,16 +296,16 @@ records a supersession, the case didn't reach the rollback: record it as not run
 
 | Item | Result | Date | Notes |
 |---|---|---|---|
-| Eval: prd, 3 runs with baseline | NOT_RUN | | |
-| Eval: architecture, 3 runs with baseline | NOT_RUN | | |
-| M1 VER-11 interview and partial answer | NOT_RUN | | |
+| Eval: prd, 3 runs with baseline | pass: 29 of 29 at 1.00, mean Δ +0.53 | 2026-09-29 | `prd-v2-3run-20260929T151649`, `7e87cf4` |
+| Eval: architecture, 3 runs with baseline | pass: 16 of 16 at 1.00, mean Δ +0.63 | 2026-09-29 | `arch-v4-3run-20260929T141038`, `7e87cf4` |
+| M1 VER-11 interview and partial answer | pass | 2026-09-29 | Session `4665c43e`; 5 of 8 calls |
 | M2 VER-11 stop mid-interview | NOT_RUN | | |
 | M3 VER-12 approved extension, ERR-04 | NOT_RUN | | |
 | M4 VER-12 shared constraint | NOT_RUN | | |
 | M5 VER-12 unknown and malformed BRN, ERR-06, QR-01 | NOT_RUN | | |
 | M6 VER-23 local preferences | NOT_RUN | | |
-| M7 VER-23 SV rules, calendar check and can't run | NOT_RUN | | |
-| M8 session ID | NOT_RUN | | |
-| A1 SPEC-003 VER-12 (f) | NOT_RUN | | |
-| A2 SPEC-003 VER-12 (i) | NOT_RUN | | |
-| A3 SPEC-003 VER-19 failed supersession | NOT_RUN | | |
+| M7 VER-23 SV rules, calendar check and can't run | can't run: pass; the rest not run | 2026-09-29 | Session `21995046` |
+| M8 session ID | pass | 2026-09-29 | From M1's PRD |
+| A1 SPEC-003 VER-12 (f) | pass (`test_shared_files.py`) | 2026-09-29 | Source at `7e87cf4`; the deployed copy not compared |
+| A2 SPEC-003 VER-12 (i) | pass, within A3's run | 2026-09-29 | |
+| A3 SPEC-003 VER-19 failed supersession | pass | 2026-09-29 | Session `b17fd6d2`; see SPEC-003 §9 |
