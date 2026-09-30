@@ -22,6 +22,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [policy.md](policy.md) | Which organizational rules and preferences apply? | None; settings consumed by workflows (ADR-003) |
 | [ambiguities.md](ambiguities.md) | Which small choices were made without stopping, for later review? | None; entries (`ENT-`) the owner accepts or rejects (ADR-004 D8; draft template, no schema yet) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
+| [github/](github/) ([pr.md](github/pr.md), [incident.md](github/incident.md), [enhancement.md](github/enhancement.md)) | What do we post to GitHub, and what does a reader with no context need to act on it? | Acceptance criteria and verification commands in the post (incident, enhancement); checks run and not verified (PR). GitHub post bodies, not `docs/specs` documents: no frontmatter, IDs or schema. They move into `skills/github-post/assets/` when SKL-009 (SPEC-010, draft) is built |
 
 Arrows show the direction of refinement (upstream → downstream). `upstream`
 records point the opposite way: each child names its parent.
