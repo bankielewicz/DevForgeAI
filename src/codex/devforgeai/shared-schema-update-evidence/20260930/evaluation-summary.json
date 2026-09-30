@@ -1,0 +1,714 @@
+{
+  "source_commit": "4453a84bfba09c19b30a7f514e32bf79fa69a5d9",
+  "candidate_sha256": "5dd5dfbba3b12b6c641645ce9523ea61e0b2c72fa65552294720b4af74d7078a",
+  "planned_trials": 90,
+  "attempted_trials": 90,
+  "completed_trials": 90,
+  "plugin_source_pass": 42,
+  "baseline_source_pass": 2,
+  "plugin_identity_open": 24,
+  "plugin_cases_source_pass": 14,
+  "source_authored": "PASS",
+  "static_behavior_validation": "FAIL",
+  "static_not_run": [
+    "Plugin Creator plugin validator unavailable"
+  ],
+  "native_source_behavior": "FAIL",
+  "git_delivery": "NOT_RUN",
+  "owner_acceptance": "NOT_RUN",
+  "cases": [
+    {
+      "skill": "prd",
+      "case": "invalid-policy-stops",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-file",
+          "names-key",
+          "names-setting",
+          "no-prd-written"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "defaults-recorded"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.6666666666666666,
+          0.6666666666666666,
+          0.6666666666666666
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "compliance-none-recorded",
+          "marker-names-setting",
+          "no-compliance-nfr"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.25,
+          0.25,
+          0.5
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "policy-applied",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "constraint-cites-set-01",
+          "informed-by-set-02",
+          "marker-accessibility",
+          "marker-compliance"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "policy-bad-authors",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-field",
+          "names-file",
+          "no-prd-written"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "policy-bad-date",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-field",
+          "names-file",
+          "no-prd-written"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.0,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "policy-bad-link",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-field",
+          "names-file",
+          "no-prd-written"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "policy-bad-type",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-field",
+          "names-file",
+          "names-setting",
+          "no-prd-written"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "project-override-forbidden",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-both-settings",
+          "names-sv-04",
+          "no-prd-written"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "project-value-wins"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "retired-setting-ignored",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 2,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "no-retired-platform"
+        ],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          0.6666666666666666
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "compliance-marker",
+          "context-null",
+          "failsafe-recorded"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.25,
+          0.25,
+          0.25
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "plugin": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 3,
+        "failed_graders": [
+          "handoff-blocks-fr-001"
+        ],
+        "failed_guards": [],
+        "scores": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "arch-exists",
+          "handoff-blocks-fr-001",
+          "identity-resolved-by-policy",
+          "outcome-null",
+          "revocation-dec-open"
+        ],
+        "failed_guards": [
+          "only_contract_outputs_changed"
+        ],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 3,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "arch-exists",
+          "identity-dec-open-empty",
+          "no-policy-resolution"
+        ],
+        "failed_guards": [
+          "only_contract_outputs_changed"
+        ],
+        "scores": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    },
+    {
+      "skill": "architecture",
+      "case": "policy-bad-date",
+      "plugin": {
+        "source_pass": 3,
+        "completed": 3,
+        "status": "PASS",
+        "identity_open": 0,
+        "failed_graders": [],
+        "failed_guards": [],
+        "scores": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      },
+      "baseline": {
+        "source_pass": 0,
+        "completed": 3,
+        "status": "FAIL",
+        "identity_open": 0,
+        "failed_graders": [
+          "names-field",
+          "no-adr-written"
+        ],
+        "failed_guards": [
+          "only_contract_outputs_changed"
+        ],
+        "scores": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "native_statuses": [
+          "completed",
+          "completed",
+          "completed"
+        ]
+      }
+    }
+  ],
+  "grader_score_deltas": [
+    {
+      "trial": "architecture--policy-bad-date--baseline--1",
+      "original_score": 0.75,
+      "corrected_score": 0.5,
+      "original_binary": false,
+      "corrected_binary": false
+    },
+    {
+      "trial": "architecture--policy-bad-date--baseline--2",
+      "original_score": 0.75,
+      "corrected_score": 0.5,
+      "original_binary": false,
+      "corrected_binary": false
+    },
+    {
+      "trial": "architecture--policy-bad-date--baseline--3",
+      "original_score": 0.75,
+      "corrected_score": 0.5,
+      "original_binary": false,
+      "corrected_binary": false
+    }
+  ],
+  "qualification": "NOT_APPROVED: source policy scores do not close identity or full workflow obligations.",
+  "snapshot_scope": "Evaluation results at the source-candidate and pre-publication documentation revisions. The git_delivery field records evaluation-close status; later authorized push/PR delivery is recorded by the hosting PR.",
+  "evidence_manifest": "evidence-sha256-manifest.json",
+  "failure_categories": "failure-categories.json"
+}

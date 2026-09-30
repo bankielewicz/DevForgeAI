@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
 ROOT = Path("src/codex/devforgeai/evals/architecture")
@@ -584,7 +584,7 @@ def validate(label, text, schema):
         registry = registry.with_resource(s["$id"], Resource.from_contents(s)).with_resource(
             p.name, Resource.from_contents(s))
     errors = [f"{list(e.path)}: {e.message}" for e in Draft202012Validator(
-        json.loads((SCHEMAS / schema).read_text()), registry=registry).iter_errors(doc)]
+        json.loads((SCHEMAS / schema).read_text()), registry=registry, format_checker=FormatChecker()).iter_errors(doc)]
     assert not errors, f"{label} fails {schema}: {errors}"
     assert "\nFIXTURE\n" not in text, f"{label} contains the heredoc delimiter"
 
@@ -923,6 +923,11 @@ def add_contract_cases():
         case = dict(source["CASES"][name])
         case["graders"] = {key: body.replace("/devforgeai:", "$devforgeai:")
                            for key, body in case["graders"].items()}
+        if name == "policy-bad-date":
+            case["description"] = case["description"].replace(
+                "the policy file and the field.", "the policy file, the field and the schema rule.")
+            case["graders"]["names-field"] = case["graders"]["names-field"].replace(
+                r"\bupdated\b", r"(?s)(?=.*\bupdated\b)(?=.*\bschema\b)")
         CASES[name] = case
     manual = ROOT.parent.parent / "tests/manual/architecture"
     for name, (ver, fixture_files) in source["MANUAL_CASES"].items():

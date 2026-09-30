@@ -7,7 +7,7 @@ with a throwaway HOME, which hides user-site packages the way the eval harness d
 that switches jsonschema 4.26 for the system's 4.10, which has no `referencing` module).
 
 Run from the repository root:
-    python3 -B src/tests/prd/test_validate_policy.py
+    python3 -B src/codex/devforgeai/tests/test_validate_policy.py
 """
 import os
 import re
@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 SCRIPT = ROOT / "src/codex/devforgeai/skills/prd/scripts/validate_policy.py"
 LINE = re.compile(r"^(?P<file>\S+): (?P<part>[^:]+): (?P<field>[^:]+): (?P<message>.+) "
-                  r"\((?P<rule>schema|calendar check|SV-0[1-6])\)$")
+                  r"\((?P<rule>schema|SV-0[1-6]|SV-08)\)$")
 
 ORG = """\
 ---
@@ -144,14 +144,44 @@ SV_SETTING = """\
     key: {key}
     class: {cls}
     value: {value}
-    overridable_by: []
-"""
+    overridable_by: {overridable_by}
+{extra}"""
 
 
-def add_setting(text, sid, key, value, status="active"):
-    cls = "interaction_default" if key == "interview.max_calls" else "organizational_policy"
-    block = SV_SETTING.format(sid=sid, status=status, key=key, cls=cls, value=value)
+def add_setting(text, sid, key, value, status="active", cls=None, overridable_by="[]", extra=""):
+    """Adds a setting to ORG's block. Its class is the key's (interaction_default for interview.max_calls;
+    organizational_policy for every other key, the testing.* keys included) unless `cls` says otherwise."""
+    if cls is None:
+        cls = "interaction_default" if key == "interview.max_calls" else "organizational_policy"
+    block = SV_SETTING.format(sid=sid, status=status, key=key, cls=cls, value=value,
+                              overridable_by=overridable_by, extra=extra)
     return edit(text, "```\n\n## Change Log", block + "```\n\n## Change Log")
+
+
+def flow(*items):
+    """A YAML flow list of single-quoted strings, so backslashes and glob characters stay literal."""
+    return "[" + ", ".join(f"'{i}'" for i in items) + "]"
+
+
+# ADR-005 D2: a valid value and a value of the wrong type for each testing key.
+TESTING_VALID = {
+    "testing.method": "tdd",
+    "testing.coverage_metric": "branch",
+    "testing.coverage_threshold": "90",
+    "testing.coverage_scope": flow("src/"),
+    "testing.coverage_exclusions": flow("build/", "src/gen.py"),
+    "testing.exception_approvers": flow("Dana"),
+}
+TESTING_WRONG_TYPE = {
+    "testing.method": "7",
+    "testing.coverage_metric": flow("line"),
+    "testing.coverage_threshold": '"ninety"',
+    "testing.coverage_scope": '"src/"',
+    "testing.coverage_exclusions": '"build/"',
+    "testing.exception_approvers": '"Dana"',
+}
+SCOPE_NEGATIVES = ("src", "/src/", "C:/src/", "src\\x/", "../src/", "a/../b/", "src/*/", "src/[a]/")
+PATH_NEGATIVES = ("/abs/", "C:/x", "a\\b", "src/*.py", "src/[ab]/", "src/?.py", "../x", "a/../b")
 
 
 def platform(capability, name):
@@ -220,34 +250,52 @@ class Base:
 
     # --- Schema: the four named negative fixtures -------------------------------------------------
 
-    # Calendar dates: additional semantic validation. The unchanged schema's date pattern accepts these
-    # values, so the only error is the calendar check's, never a schema error.
+    # Calendar dates: the date pattern alone accepts these values, but the schema's date format, checked
+    # with a format checker, rejects them, so each is a schema error.
 
     def test_malformed_date_is_rejected(self):
         self.write(POL_001=edit(ORG, "updated: 2026-08-17", "updated: 2026-13-45"))
         code, lines = self.run_script()
         errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="updated",
-                                   rule="calendar check", message="2026-13-45")
+                                   rule="schema", message="2026-13-45")
         self.assertEqual(len(errs), 1, lines)
 
     def test_malformed_approved_on_is_rejected(self):
         self.write(POL_001=edit(ORG, "approved_on: 2026-08-17", "approved_on: 2026-02-30"))
         code, lines = self.run_script()
         errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="approved_on",
-                                   rule="calendar check")
+                                   rule="schema", message="2026-02-30")
         self.assertEqual(len(errs), 1, lines)
 
     def test_february_29_in_a_common_year_is_rejected(self):
         self.write(POL_001=edit(ORG, "created: 2026-05-04", "created: 2025-02-29"))
         code, lines = self.run_script()
         errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created",
-                                   rule="calendar check", message="2025-02-29")
+                                   rule="schema", message="2025-02-29")
         self.assertEqual(len(errs), 1, lines)
 
     def test_day_zero_is_rejected(self):
         self.write(POL_001=edit(ORG, "updated: 2026-08-17", "updated: 2026-08-00"))
         code, lines = self.run_script()
-        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="updated", rule="calendar check")
+        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="updated", rule="schema")
+
+    def test_impossible_dates_are_schema_errors_in_every_date_field(self):
+        fields = {"created": "created: 2026-05-04", "updated": "updated: 2026-08-17",
+                  "approved_on": "approved_on: 2026-08-17"}
+        for field, old in fields.items():
+            for date in ("2026-13-45", "2026-02-30", "2025-02-29"):
+                with self.subTest(field=field, date=date):
+                    self.write(POL_001=edit(ORG, old, f"{field}: {date}"))
+                    code, lines = self.run_script()
+                    errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field=field,
+                                               rule="schema", message=date)
+                    self.assertEqual(len(errs), 1, lines)
+
+    def test_approved_on_not_matching_pattern_is_a_schema_error(self):
+        self.write(POL_001=edit(ORG, "approved_on: 2026-08-17", "approved_on: 2026-5-4"))
+        code, lines = self.run_script()
+        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="approved_on", rule="schema")
+        self.assertTrue(all(l.endswith(" (schema)") for l in lines if ": frontmatter: approved_on: " in l), lines)
 
     def test_valid_leap_days_pass(self):
         text = edit(ORG, "created: 2026-05-04", "created: 2024-02-29")
@@ -263,16 +311,16 @@ class Base:
         code, lines = self.run_script()
         self.assertEqual((code, lines), (0, ["OK: 1 approved policy document(s) valid."]))
 
-    def test_null_created_is_a_schema_error_not_a_calendar_one(self):
+    def test_null_created_is_a_schema_error(self):
         self.write(POL_001=edit(ORG, "created: 2026-05-04", "created: null"))
         code, lines = self.run_script()
-        errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created", rule="schema")
-        self.assertNotIn("calendar check", {e["rule"] for e in errs}, lines)
+        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created", rule="schema")
 
     def test_date_not_matching_pattern_is_rejected(self):
         self.write(POL_001=edit(ORG, "created: 2026-05-04", "created: 2026-5-4"))
         code, lines = self.run_script()
         self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created", rule="schema")
+        self.assertTrue(all(l.endswith(" (schema)") for l in lines if ": frontmatter: created: " in l), lines)
 
     def test_authors_as_string_is_rejected(self):
         self.write(POL_001=edit(ORG, 'authors: ["Northwind platform council"]', 'authors: "Northwind platform council"'))
@@ -357,6 +405,67 @@ class Base:
         self.assertEqual({e["field"] for e in self.errors(lines)}, {"updated", "authors", "value"}, lines)
         self.assertEqual(lines[-1], "INVALID: 3 error(s) in 1 approved policy document(s).")
 
+    # --- Schema: the testing keys (ADR-005 D2, D3) --------------------------------------------------
+
+    def assert_testing_error(self, key, field, **setting):
+        self.write(POL_001=add_setting(ORG, "SET-04", key, setting.pop("value", TESTING_VALID[key]), **setting))
+        code, lines = self.run_script()
+        errs = self.assert_invalid(lines, code, file="POL-001.md", part=f"SET-04 ({key})", field=field, rule="schema")
+        self.assertEqual(len(errs), 1, lines)
+
+    def test_testing_keys_accept_valid_values(self):
+        for key, value in TESTING_VALID.items():
+            with self.subTest(key=key):
+                self.write(POL_001=add_setting(ORG, "SET-04", key, value))
+                code, lines = self.run_script()
+                self.assertEqual((code, lines), (0, ["OK: 1 approved policy document(s) valid."]))
+
+    def test_all_six_testing_keys_in_one_document_pass(self):
+        text = ORG
+        for n, (key, value) in enumerate(TESTING_VALID.items(), start=4):
+            text = add_setting(text, f"SET-{n:02d}", key, value, overridable_by="[project]")
+        self.write(POL_001=text)
+        code, lines = self.run_script()
+        self.assertEqual((code, lines), (0, ["OK: 1 approved policy document(s) valid."]))
+
+    def test_testing_keys_reject_a_wrong_value_type(self):
+        for key, value in TESTING_WRONG_TYPE.items():
+            with self.subTest(key=key):
+                self.assert_testing_error(key, "value", value=value)
+
+    def test_testing_keys_reject_the_interaction_default_class(self):
+        for key in TESTING_VALID:
+            with self.subTest(key=key):
+                self.assert_testing_error(key, "class", cls="interaction_default")
+
+    def test_testing_keys_reject_applies_when(self):
+        for key in TESTING_VALID:
+            with self.subTest(key=key):
+                self.assert_testing_error(key, "(whole)", extra="    applies_when:\n      operating_context: [production]\n")
+
+    def test_testing_keys_reject_a_local_override(self):
+        for key in TESTING_VALID:
+            with self.subTest(key=key):
+                self.assert_testing_error(key, "overridable_by[0]", overridable_by="[local]")
+
+    def test_coverage_threshold_out_of_range_is_rejected(self):
+        for value in ("101", "-1"):
+            with self.subTest(value=value):
+                self.assert_testing_error("testing.coverage_threshold", "value", value=value)
+
+    def test_coverage_scope_rejects_an_empty_list(self):
+        self.assert_testing_error("testing.coverage_scope", "value", value="[]")
+
+    def test_coverage_scope_rejects_paths_that_are_not_relative_folders(self):
+        for path in SCOPE_NEGATIVES:
+            with self.subTest(path=path):
+                self.assert_testing_error("testing.coverage_scope", "value[0]", value=flow(path))
+
+    def test_coverage_exclusions_rejects_paths_that_are_not_relative(self):
+        for path in PATH_NEGATIVES:
+            with self.subTest(path=path):
+                self.assert_testing_error("testing.coverage_exclusions", "value[0]", value=flow(path))
+
     # --- Semantic rules ---------------------------------------------------------------------------
 
     def test_sv01_duplicate_setting_id(self):
@@ -437,6 +546,22 @@ class Base:
         code, lines = self.run_script()
         self.assertEqual(code, 0, lines)
         self.assertIn("ignored docs/specs/policy/POL-002.md (status in-review) (SV-06)", lines)
+
+    def test_sv08_two_active_settings_for_one_testing_key(self):
+        for key, value in TESTING_VALID.items():
+            with self.subTest(key=key):
+                self.write(POL_001=add_setting(add_setting(ORG, "SET-04", key, value), "SET-05", key, value))
+                code, lines = self.run_script()
+                errs = self.assert_invalid(lines, code, file="POL-001.md", part="settings", field="key", rule="SV-08",
+                                           message=f"{re.escape(key)} setting: SET-04, SET-05$")
+                self.assertEqual(len(errs), 1, lines)
+
+    def test_sv08_counts_only_active_settings(self):
+        text = add_setting(ORG, "SET-04", "testing.method", "tdd")
+        self.write(POL_001=add_setting(text, "SET-05", "testing.method", "bdd", status="deprecated"))
+        code, lines = self.run_script()
+        self.assertEqual(code, 0, lines)
+        self.assertNotIn("SV-08", "\n".join(lines))
 
     # --- Can't run --------------------------------------------------------------------------------
 

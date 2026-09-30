@@ -79,7 +79,7 @@ def assess(a):
         checks['no_questions']=not qtools and not batches
         needles={'unknown-brn':['BRN-009','BRN-001','BRN-002'], 'malformed-brn':['BRN-002','ideas'],
                  'policy-sv01':['POL-001','SET-01','SV-01'],'policy-sv02':['POL-001','POL-002','SV-02'],
-                 'policy-calendar':['POL-001','updated','calendar check'],
+                 'policy-calendar':['POL-001','updated','schema'],
                  'policy-unavailable':['jsonschema is not installed']}[name]
         for word in needles:checks['report_'+word]=word.lower() in final.lower()
         if name=='policy-calendar':checks['calendar_not_called_schema']=not bool(re.search(r'(?is)schema.{0,70}(?:invalid|impossible).{0,30}date',final))

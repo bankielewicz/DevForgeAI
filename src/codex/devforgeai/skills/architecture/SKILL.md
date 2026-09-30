@@ -3,7 +3,7 @@ name: architecture
 description: "Performs DevForgeAI Architecture Definition for a PRD. It identifies the architectural questions separate epics must share, settles each only by an explicit decision, an accepted ADR or approved policy, and writes an architecture description (ARCH) with ADRs and a report of which requirements are ready for epic work. Use after a PRD is written, when deciding system architecture, components, data ownership or deployment, or when resolving NEEDS ADR markers. Load this skill before any repository discovery. Before loading, access only contract document paths or user-approved inspection scope; never list or search the repository root."
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "6"
+  devforgeai-version: "7"
 ---
 
 # Architecture
@@ -128,13 +128,13 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
 
    Replace `<loaded-skill-dir>` with the verified absolute directory of this loaded skill.
    It skips and reports draft and in-review documents (SV-06), and checks each approved one in full
-   against the policy schemas and SV-01 to SV-06. Never validate the documents by reading them
-   instead; reading their `status` for item 3's last case is fine.
+   against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by reading
+   them instead; reading their `status` for item 3's last case is fine.
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
      policy file, the setting (`SET-NN` and its key) or frontmatter field, the field, and the rule
-     (`schema`, `calendar check` or `SV-NN`), and say nothing was written. Never fall back silently.
+     (`schema` or `SV-NN`), and say nothing was written. Never fall back silently.
    - **2, or the script can't be run:** if any policy document has `status: approved`, stop
      (ERR-02): say that policy validation couldn't run, quote its message, and write nothing. If
      none is approved, continue with the framework defaults.
