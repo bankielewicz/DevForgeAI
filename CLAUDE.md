@@ -15,8 +15,8 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | Skill | Record | Spec | State |
 |---|---|---|---|
 | `brainstorm` | SKL-001 v5 | SPEC-001 v10 | Built; 8 eval cases |
-| `prd` | SKL-002 v3, draft | SPEC-002 v3 | Built in this PR; its policy eval cases await requalification; v2 was approved 2026-09-29 |
-| `architecture` | SKL-003 v5, draft | SPEC-003 v4 | Built in this PR; its policy eval cases await requalification; v4 was approved 2026-09-29 |
+| `prd` | SKL-002 v3, approved | SPEC-002 v3 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (plugin 0.7.0); 29 eval cases, the 12 policy cases requalified on v3 |
+| `architecture` | SKL-003 v5, approved | SPEC-003 v4 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (0.7.0); 16 eval cases, the 3 policy cases requalified on v5 |
 | `epic` | SKL-004 v1 | SPEC-004 v1 | Built and deployed; 14 eval cases |
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
 | `git` | SKL-006 v1 | SPEC-007 v1, draft awaiting approval | Built from the draft, not deployed; results below |
