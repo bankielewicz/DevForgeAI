@@ -12,6 +12,20 @@ policy keeps a byte-identical copy of this file.
 | `architecture.mandated_platforms` | organizational policy | none | — | Collected across layers; a project replaces an organization mandate for the same capability only when the organization setting allows `project` |
 | `quality.required_categories` | organizational policy | none beyond the floor below | — | Additive only: added to the floor, never removing a floor category |
 
+## Testing settings (ADR-005)
+
+Organizational policy. Only a workflow that resolves the testing keys resolves them; every other
+workflow still validates them (R1) and records no testing entry.
+
+| Key | Class | Default | `overridable_by` of the default | Merge rule |
+|---|---|---|---|---|
+| `testing.method` | organizational policy | `tdd` | — | The most specific layer the organization setting allows wins |
+| `testing.coverage_metric` | organizational policy | `line` | — | The same |
+| `testing.coverage_threshold` | organizational policy | none: coverage isn't enforced, and reports say "no coverage threshold set" | — | The same |
+| `testing.coverage_scope` | organizational policy | every `holds: code` root in the project's `source-tree.md` | — | The same |
+| `testing.coverage_exclusions` | organizational policy | none beyond the `generated`, `tests` and `fixtures` roots | — | The same |
+| `testing.exception_approvers` | organizational policy | the story's `owner` | — | The same |
+
 ## Quality floor per operating context
 
 A **framework requirement**, not a setting: policy can add categories (`quality.required_categories`)

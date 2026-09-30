@@ -90,8 +90,8 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
    ```
 
    It skips and reports draft and in-review documents (SV-06), and checks each approved one in full
-   against the policy schemas and SV-01 to SV-06. Never validate the documents by reading them
-   instead; reading their `status` for item 3's last case is fine.
+   against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by reading
+   them instead; reading their `status` for item 3's last case is fine.
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-08).** Before asking or writing anything, name each error it printed: the

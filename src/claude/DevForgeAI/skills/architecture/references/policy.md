@@ -53,7 +53,7 @@ the folder or the files are missing, there is no policy; continue with the defau
   `applies_when` and `overridable_by`;
 - checks dates against the calendar through the schema's date format, so `2026-13-45`, `2026-02-30`
   and `2025-02-29` fail in `created`, `updated` and a non-null `approved_on`, as `schema` errors;
-- then applies SV-01 to SV-06 below, including SV-02 and SV-04's cross-layer clause across documents;
+- then applies SV-01 to SV-06 and SV-08 below, including SV-02 and SV-04's cross-layer clause across documents;
 - prints one line per error, `<file>: <part>: <field>: <message> (<rule>)`, where `<part>` is
   `frontmatter`, `document` or a setting such as `SET-01 (interview.max_calls)`, and `<rule>` is
   `schema` or `SV-NN`.
@@ -79,6 +79,7 @@ Never edit a policy document, and never repair one so that it passes.
 | SV-05 | Only `status: active` settings take part. A deprecated setting stays in its document for traceability, but it never applies and is never linked | Skip it (the script notes it) |
 | SV-06 | Only approved documents take part | Skip and report |
 | SV-07 | Local preference entries follow the local format rules. The workflow checks these, not the script | Ignore and report |
+| SV-08 | At most one active setting per `testing.*` key per document | Stop |
 
 Two settings are "for the same capability" when their `capability` strings match, ignoring case
 and surrounding spaces.
@@ -102,6 +103,12 @@ Resolve these before the first question, so the interview budget is known.
    only if the organization setting's `overridable_by` includes `project`. Otherwise **stop** with
    SV-04, naming both settings.
 3. Each remaining setting applies to the document as a mandated platform (R5).
+
+**The testing settings** (`testing.*`, ADR-005). A workflow that resolves the testing keys resolves each
+one as `interview.max_calls` is resolved in steps 1 to 3, starting from its default in `defaults.md`:
+the most specific layer the organization setting allows wins. There is no local step: testing keys are
+organizational policy, so a local entry for one is ignored and reported. A workflow that doesn't
+resolve the testing keys validates them in R1 and records nothing for them.
 
 ## Local preferences
 
@@ -149,6 +156,7 @@ one place**:
 |---|---|---|
 | A mandated platform (`architecture.mandated_platforms`) | `{id: POL-NNN, item: SET-NN, relation: constrains, version: <policy version>, hash: null}` | On the item it produced, never repeated in the frontmatter. The workflow's SKILL.md names that item |
 | A setting that governs how the document is produced (`interview.max_calls`, `quality.required_categories`) | `{id: POL-NNN, item: SET-NN, relation: informed_by, version: <policy version>, hash: null}` | Document frontmatter `upstream` |
+| A testing setting (`testing.*`), in a workflow that resolves the testing keys | `relation: constrains` in a context document; `relation: informed_by` in any other document | Document frontmatter `upstream` |
 
 Defaults, local values, non-applicable settings, deprecated settings and ignored documents get
 **no link**. The resolution line records them instead.
@@ -175,6 +183,13 @@ Write the entries in this order, and never use a `|` character (the line sits in
 4. `POL-NNN#SET-NN not applicable (<context>)` for each conditional setting that didn't apply.
 5. `operating context unknown, resolved as production` when the context is unknown.
 6. `ignored <file or local entry> (<reason>)` for each skipped document or local entry.
+7. **Testing settings**, only in a workflow that resolves the testing keys: one entry per key, in the
+   order of `defaults.md`, each `<key>=<value> (POL-NNN#SET-NN)` or `<key>=<value> (default)`. A list
+   value is joined with `,` and no spaces; the threshold is a number or `none`. The defaults are written
+   `testing.method=tdd (default)`, `testing.coverage_metric=line (default)`,
+   `testing.coverage_threshold=none (default)`, `testing.coverage_scope=code roots (default)`,
+   `testing.coverage_exclusions=generated,tests,fixtures roots (default)` and
+   `testing.exception_approvers=story owner (default)`.
 
 Examples:
 
@@ -186,6 +201,8 @@ Examples:
   `Policy resolution: interview.max_calls=4 (POL-002#SET-01); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default); POL-001#SET-02 not applicable (internal)`
 - Unknown context, plus a local value and a draft document:
   `Policy resolution: interview.max_calls=5 (local); architecture.mandated_platforms=none (default); quality.required_categories=+compliance (POL-001#SET-01); operating context unknown, resolved as production; ignored docs/specs/policy/POL-003.md (status draft)`
+- A workflow that resolves the testing keys, with one testing setting:
+  `Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default); testing.method=tdd (default); testing.coverage_metric=line (default); testing.coverage_threshold=90 (POL-001#SET-03); testing.coverage_scope=code roots (default); testing.coverage_exclusions=generated,tests,fixtures roots (default); testing.exception_approvers=story owner (default)`
 
 ## Stopping on a policy error
 

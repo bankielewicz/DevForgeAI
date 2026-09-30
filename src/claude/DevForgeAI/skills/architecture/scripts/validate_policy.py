@@ -12,7 +12,8 @@ schema's date format checks created, updated and a non-null approved_on against 
 SV-01 unique setting IDs, SV-02 one approved document per scope, SV-03 one active interview.max_calls
 per document, SV-04 one active mandated platform per capability per document and no project override
 the organization setting forbids, SV-05 deprecated settings take no part (reported), SV-06
-non-approved documents take no part (reported).
+non-approved documents take no part (reported), SV-08 one active setting per testing.* key per
+document.
 
 Output: one line per error, "<file>: <part>: <field>: <message> (<rule>)", where <part> is
 "frontmatter", "document" or a setting ("SET-01 (interview.max_calls)") and <rule> is "schema" or
@@ -33,6 +34,8 @@ FRONTMATTER = re.compile(r"\A---[ \t]*\n(.*?)\n---[ \t]*(?:\n|\Z)", re.S)
 STATUS = re.compile(r"^status:[ \t]*[\"']?([A-Za-z-]+)[\"']?[ \t]*(?:#.*)?$", re.M)
 ITEM_BLOCK = re.compile(r"^```yaml items[ \t]*\n(.*?)^```[ \t]*$", re.S | re.M)
 MAX_MESSAGE = 160
+TESTING_KEYS = ("testing.method", "testing.coverage_metric", "testing.coverage_threshold", "testing.coverage_scope",
+                "testing.coverage_exclusions", "testing.exception_approvers")
 
 
 class CannotRun(Exception):
@@ -186,6 +189,11 @@ def semantic_errors(doc):
     if len(max_calls) > 1:
         errors.append(("settings", "key", "more than one active interview.max_calls setting: "
                        + ", ".join(map(str, max_calls)), "SV-03"))
+    for key in TESTING_KEYS:
+        ids = [s.get("id", f"settings[{i}]") for i, s in active_settings(doc) if s.get("key") == key]
+        if len(ids) > 1:
+            errors.append(("settings", "key", f"more than one active {key} setting: " + ", ".join(map(str, ids)),
+                           "SV-08"))
     by_capability = {}
     for i, s in active_settings(doc):
         if s.get("key") == "architecture.mandated_platforms" and capability(s):
