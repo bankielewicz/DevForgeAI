@@ -12,7 +12,7 @@ DevForgeAI provides specification-driven planning skills for Claude Code and a s
 - `src/tests/` holds Claude documents-updater checker tests, git script tests, and evaluation generators/graders for documents-updater, architecture, epic and git. Codex tests and generators live in its package's `tests/`.
 - `src/tools/session-archive/` holds separate user-level hooks (SPEC-005, draft).
 
-Some specs describe another layout. Verify paths against disk; see `CLAUDE.md` for mappings and Claude workflows, and the Codex package README for its current contents. Edit the relevant provider's source; deployment is the owner's step. Keep historical import evidence intact.
+Some specs describe another layout. Verify paths against disk; see `.claude/rules/spec-paths.md` for mappings, `CLAUDE.md` for Claude workflows, and the Codex package README for its current contents. Edit the relevant provider's source; deployment is the owner's step. Keep historical import evidence intact.
 
 ## Build, Test, and Development Commands
 
