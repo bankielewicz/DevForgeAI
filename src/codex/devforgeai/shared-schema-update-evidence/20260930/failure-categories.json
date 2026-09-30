@@ -1,0 +1,1069 @@
+{
+  "schema_version": 1,
+  "source_commit": "4453a84bfba09c19b30a7f514e32bf79fa69a5d9",
+  "candidate_sha256": "5dd5dfbba3b12b6c641645ce9523ea61e0b2c72fa65552294720b4af74d7078a",
+  "full_requalification": false,
+  "scope": "Frozen policy-check failures, inherited validation defects, identity gaps, harness failures, grader defects, process deviations and missing evidence remain separate. Categories overlap and must not be summed into a new denominator. Baseline failures are comparison evidence. Raw records remain local.",
+  "counts": {
+    "planned_native_trials": 90,
+    "completed_native_trials": 90,
+    "plugin_frozen_check_failures": 3,
+    "baseline_frozen_check_failures": 43,
+    "plugin_identity_gaps": 24
+  },
+  "native_check_failures": [
+    {
+      "id": "prd--invalid-policy-stops--baseline--1",
+      "skill": "prd",
+      "case": "invalid-policy-stops",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-file",
+        "names-key",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--no-policy-defaults--baseline--1",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "defaults-recorded"
+      ],
+      "failed_guards": [],
+      "source_score": 0.6666666666666666
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--baseline--1",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "compliance-none-recorded",
+        "marker-names-setting",
+        "no-compliance-nfr"
+      ],
+      "failed_guards": [],
+      "source_score": 0.25
+    },
+    {
+      "id": "prd--policy-applied--baseline--1",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "constraint-cites-set-01",
+        "informed-by-set-02",
+        "marker-accessibility",
+        "marker-compliance"
+      ],
+      "failed_guards": [],
+      "source_score": 0.3333333333333333
+    },
+    {
+      "id": "prd--policy-bad-authors--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-authors",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-date--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-link--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-link",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-type--baseline--1",
+      "skill": "prd",
+      "case": "policy-bad-type",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--project-override-forbidden--baseline--1",
+      "skill": "prd",
+      "case": "project-override-forbidden",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-both-settings",
+        "names-sv-04",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--project-override-permitted--baseline--1",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "project-value-wins"
+      ],
+      "failed_guards": [],
+      "source_score": 0.5
+    },
+    {
+      "id": "prd--unknown-context-failsafe--baseline--1",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "compliance-marker",
+        "context-null",
+        "failsafe-recorded"
+      ],
+      "failed_guards": [],
+      "source_score": 0.25
+    },
+    {
+      "id": "architecture--org-a-policy--plugin--1",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "handoff-blocks-fr-001"
+      ],
+      "failed_guards": [],
+      "source_score": 0.8
+    },
+    {
+      "id": "architecture--org-a-policy--baseline--1",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.0
+    },
+    {
+      "id": "architecture--org-b-policy--baseline--1",
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.0
+    },
+    {
+      "id": "architecture--policy-bad-date--baseline--1",
+      "skill": "architecture",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 1,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "no-adr-written"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.5
+    },
+    {
+      "id": "prd--invalid-policy-stops--baseline--2",
+      "skill": "prd",
+      "case": "invalid-policy-stops",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-file",
+        "names-key",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--no-policy-defaults--baseline--2",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "defaults-recorded"
+      ],
+      "failed_guards": [],
+      "source_score": 0.6666666666666666
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--baseline--2",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "compliance-none-recorded",
+        "marker-names-setting",
+        "no-compliance-nfr"
+      ],
+      "failed_guards": [],
+      "source_score": 0.25
+    },
+    {
+      "id": "prd--policy-applied--baseline--2",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "constraint-cites-set-01",
+        "informed-by-set-02",
+        "marker-accessibility",
+        "marker-compliance"
+      ],
+      "failed_guards": [],
+      "source_score": 0.3333333333333333
+    },
+    {
+      "id": "prd--policy-bad-authors--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-authors",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-date--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.3333333333333333
+    },
+    {
+      "id": "prd--policy-bad-link--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-link",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-type--baseline--2",
+      "skill": "prd",
+      "case": "policy-bad-type",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--project-override-forbidden--baseline--2",
+      "skill": "prd",
+      "case": "project-override-forbidden",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-both-settings",
+        "names-sv-04",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--project-override-permitted--baseline--2",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "project-value-wins"
+      ],
+      "failed_guards": [],
+      "source_score": 0.5
+    },
+    {
+      "id": "prd--unknown-context-failsafe--baseline--2",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "compliance-marker",
+        "context-null",
+        "failsafe-recorded"
+      ],
+      "failed_guards": [],
+      "source_score": 0.25
+    },
+    {
+      "id": "architecture--org-a-policy--plugin--2",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "handoff-blocks-fr-001"
+      ],
+      "failed_guards": [],
+      "source_score": 0.8
+    },
+    {
+      "id": "architecture--org-a-policy--baseline--2",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.0
+    },
+    {
+      "id": "architecture--org-b-policy--baseline--2",
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.0
+    },
+    {
+      "id": "architecture--policy-bad-date--baseline--2",
+      "skill": "architecture",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 2,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "no-adr-written"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.5
+    },
+    {
+      "id": "prd--invalid-policy-stops--baseline--3",
+      "skill": "prd",
+      "case": "invalid-policy-stops",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-file",
+        "names-key",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--no-policy-defaults--baseline--3",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "defaults-recorded"
+      ],
+      "failed_guards": [],
+      "source_score": 0.6666666666666666
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--baseline--3",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "compliance-none-recorded",
+        "marker-names-setting"
+      ],
+      "failed_guards": [],
+      "source_score": 0.5
+    },
+    {
+      "id": "prd--policy-applied--baseline--3",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "constraint-cites-set-01",
+        "informed-by-set-02",
+        "marker-accessibility",
+        "marker-compliance"
+      ],
+      "failed_guards": [],
+      "source_score": 0.3333333333333333
+    },
+    {
+      "id": "prd--policy-bad-authors--baseline--3",
+      "skill": "prd",
+      "case": "policy-bad-authors",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-date--baseline--3",
+      "skill": "prd",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.3333333333333333
+    },
+    {
+      "id": "prd--policy-bad-link--baseline--3",
+      "skill": "prd",
+      "case": "policy-bad-link",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--policy-bad-type--baseline--3",
+      "skill": "prd",
+      "case": "policy-bad-type",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "names-file",
+        "names-setting",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--project-override-forbidden--baseline--3",
+      "skill": "prd",
+      "case": "project-override-forbidden",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-both-settings",
+        "names-sv-04",
+        "no-prd-written"
+      ],
+      "failed_guards": [],
+      "source_score": 0.0
+    },
+    {
+      "id": "prd--project-override-permitted--baseline--3",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "project-value-wins"
+      ],
+      "failed_guards": [],
+      "source_score": 0.5
+    },
+    {
+      "id": "prd--retired-setting-ignored--baseline--3",
+      "skill": "prd",
+      "case": "retired-setting-ignored",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "GRADER_LIMITATION",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "no-retired-platform"
+      ],
+      "failed_guards": [],
+      "source_score": 0.6666666666666666
+    },
+    {
+      "id": "prd--unknown-context-failsafe--baseline--3",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "compliance-marker",
+        "context-null",
+        "failsafe-recorded"
+      ],
+      "failed_guards": [],
+      "source_score": 0.25
+    },
+    {
+      "id": "architecture--org-a-policy--plugin--3",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "handoff-blocks-fr-001"
+      ],
+      "failed_guards": [],
+      "source_score": 0.8
+    },
+    {
+      "id": "architecture--org-a-policy--baseline--3",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "arch-exists",
+        "handoff-blocks-fr-001",
+        "identity-resolved-by-policy",
+        "outcome-null",
+        "revocation-dec-open"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.0
+    },
+    {
+      "id": "architecture--org-b-policy--baseline--3",
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "arch-exists",
+        "identity-dec-open-empty",
+        "no-policy-resolution"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.0
+    },
+    {
+      "id": "architecture--policy-bad-date--baseline--3",
+      "skill": "architecture",
+      "case": "policy-bad-date",
+      "arm": "baseline",
+      "repeat": 3,
+      "category": "BEHAVIOR_FAILURE",
+      "status": "FAIL",
+      "corrected_failed_checks": [
+        "names-field",
+        "no-adr-written"
+      ],
+      "failed_guards": [
+        "only_contract_outputs_changed"
+      ],
+      "source_score": 0.5
+    }
+  ],
+  "static_behavior_failures": [
+    {
+      "id": "nonfinite-coverage-threshold",
+      "status": "FAIL",
+      "authority": "ADR-005 D2: coverage threshold is a number from 0 to 100.",
+      "providers": [
+        "claude",
+        "codex"
+      ],
+      "input": "testing.coverage_threshold: .nan",
+      "expected_exit": 1,
+      "observed_exit": 0,
+      "controls": "90 accepted; 101 and signed infinities rejected.",
+      "disposition": "Inherited shared implementation defect. Mandatory byte copies retained; requires an upstream fix and fresh authorized pins.",
+      "evidence": "nonfinite-threshold-probe/results.json"
+    }
+  ],
+  "identity_gaps": [
+    {
+      "id": "prd--no-policy-defaults--plugin--1",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--plugin--1",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--policy-applied--plugin--1",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--project-override-permitted--plugin--1",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--retired-setting-ignored--plugin--1",
+      "skill": "prd",
+      "case": "retired-setting-ignored",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--unknown-context-failsafe--plugin--1",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "architecture--org-a-policy--plugin--1",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "architecture--org-b-policy--plugin--1",
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "arm": "plugin",
+      "repeat": 1,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--no-policy-defaults--plugin--2",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--plugin--2",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--policy-applied--plugin--2",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--project-override-permitted--plugin--2",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--retired-setting-ignored--plugin--2",
+      "skill": "prd",
+      "case": "retired-setting-ignored",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--unknown-context-failsafe--plugin--2",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "architecture--org-a-policy--plugin--2",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "architecture--org-b-policy--plugin--2",
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "arm": "plugin",
+      "repeat": 2,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--no-policy-defaults--plugin--3",
+      "skill": "prd",
+      "case": "no-policy-defaults",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--none-does-not-waive-policy--plugin--3",
+      "skill": "prd",
+      "case": "none-does-not-waive-policy",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--policy-applied--plugin--3",
+      "skill": "prd",
+      "case": "policy-applied",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--project-override-permitted--plugin--3",
+      "skill": "prd",
+      "case": "project-override-permitted",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--retired-setting-ignored--plugin--3",
+      "skill": "prd",
+      "case": "retired-setting-ignored",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "prd--unknown-context-failsafe--plugin--3",
+      "skill": "prd",
+      "case": "unknown-context-failsafe",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "architecture--org-a-policy--plugin--3",
+      "skill": "architecture",
+      "case": "org-a-policy",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    },
+    {
+      "id": "architecture--org-b-policy--plugin--3",
+      "skill": "architecture",
+      "case": "org-b-policy",
+      "arm": "plugin",
+      "repeat": 3,
+      "status": "BLOCKED"
+    }
+  ],
+  "platform_limits": [],
+  "harness_failures": [
+    {
+      "id": "red-01",
+      "kind": "HARNESS_FAILURE",
+      "evidence": "red-tests.log",
+      "detail": "The new fixture-validator test imported a repo-relative generator from the tests directory. Corrected only test setup to use the established repository-root import pattern; this was not a behavioral red result."
+    },
+    {
+      "id": "native-preflight-01",
+      "kind": "HARNESS_FAILURE",
+      "evidence": "native/preflight-attempts/01",
+      "detail": "No model turn; outer sandbox denied SQLite runtime initialization. Original attempt preserved."
+    }
+  ],
+  "grader_defects": [
+    {
+      "id": "grader-wildcard",
+      "kind": "GRADER_DEFECT",
+      "evidence": "native/grader-correction.json",
+      "detail": "Original file_exists falsely accepted a created ADR for terminal recursive glob. Preserved original grader/scores; separate corrected scorer passes six independent controls. No actor retry or source/case/threshold change."
+    }
+  ],
+  "grader_score_deltas": [
+    {
+      "trial": "architecture--policy-bad-date--baseline--1",
+      "original_score": 0.75,
+      "corrected_score": 0.5,
+      "original_binary": false,
+      "corrected_binary": false
+    },
+    {
+      "trial": "architecture--policy-bad-date--baseline--2",
+      "original_score": 0.75,
+      "corrected_score": 0.5,
+      "original_binary": false,
+      "corrected_binary": false
+    },
+    {
+      "trial": "architecture--policy-bad-date--baseline--3",
+      "original_score": 0.75,
+      "corrected_score": 0.5,
+      "original_binary": false,
+      "corrected_binary": false
+    }
+  ],
+  "grader_limitations": [
+    {
+      "id": "retired-setting-oracle-limit",
+      "kind": "GRADER_LIMITATION",
+      "evidence": "retired-setting-oracle-observation.json",
+      "detail": "Third retired-setting baseline mentions Keystone only to reject it; frozen regex failure and 2/3 result retained without claiming adoption of the retired platform."
+    }
+  ],
+  "process_deviations": [
+    {
+      "id": "uncommitted-package-test",
+      "kind": "PROCESS_DEVIATION",
+      "evidence": "candidate-tests.json",
+      "detail": "Full tests ran after sandbox-denied staging/commit commands. 187 passed, but this is not the committed verification receipt. Retained unchanged; full suite rerun after successful checkpoint commit."
+    }
+  ],
+  "expected_preimplementation_failures": [
+    {
+      "id": "baseline",
+      "kind": "BASELINE_FAILURE",
+      "evidence": "baseline-tests.json",
+      "detail": "156 tests; six expected reference-byte identity subtest failures at c2e6751."
+    },
+    {
+      "id": "red-02",
+      "kind": "EXPECTED_BEHAVIOR_FAILURE",
+      "evidence": "red-tests-02.json",
+      "detail": "Testing-key acceptance, SV-08 label, schema-labelled date rejection, and fixture format checks failed before implementation; leap-day control passed."
+    },
+    {
+      "id": "red-date-grader",
+      "kind": "EXPECTED_BEHAVIOR_FAILURE",
+      "evidence": "red-date-grader-tests.log",
+      "detail": "Both bad-date graders accepted an error reply omitting the schema rule. Generators now enforce field plus rule."
+    }
+  ],
+  "missing_evidence": {
+    "not_run_native_trial_ids": [],
+    "pending_completed_semantic_reviews": [],
+    "plugin_validator": "NOT_RUN: requested validator script unavailable.",
+    "full_manual_qualification": "NOT_RUN",
+    "automated_cases_outside_selected_15": "NOT_RUN",
+    "installation_and_deployment_parity": "NOT_RUN",
+    "owner_acceptance": "NOT_RUN"
+  },
+  "source_records": {
+    "native/grades-v5.json": "188e292b298445f4e679548d25ef56edd877a7ca2e4b4ad3cf06c2260e77deb3",
+    "native/grades-policy-corrected-v1.json": "d7950840effccc46b94848fbdea99efb9c9b5853a0e6b3b52e394a80adc55872",
+    "attempt-ledger.json": "05b38ad7e6283a42f4be20f7153db04519a61db94d51f90a0850cfe19e71f43c",
+    "nonfinite-threshold-probe/results.json": "c32a8b635610738ea384bfa88af3b1b53c652c8a7ffcacac5ff473698e29e796",
+    "SEAL.json": "451776db647e3fbbd74a8ef081ed86d7944dab3ba991cffe4a03a4c8a5272ea3"
+  },
+  "evidence_location": "Raw records are retained locally; paths above are relative to the full evidence folder and can be checked against evidence-sha256-manifest.json."
+}

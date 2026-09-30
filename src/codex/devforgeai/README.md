@@ -1,13 +1,13 @@
 # DevForgeAI for Codex
 
 Source package containing Brainstorm, PRD, Architecture and Documents Updater. The plugin manifest is
-version 0.5.0; this directory is not an installation or marketplace registration.
+version 0.6.0; this directory is not an installation or marketplace registration.
 
 | Skill | Purpose | Source and evaluation report |
 |---|---|---|
 | Brainstorm (SKL-001 v7) | Explore ideas and record user-confirmed decisions in BRN documents | [Brainstorm import report](IMPORT-REPORT.md) |
-| PRD (SKL-002 v2, SPEC-002 v2) | Turn promoted BRN ideas into user-owned requirements and scope | [Current contract update](contract-update-evidence/20260929/REPORT.md); [historical import](PRD-IMPORT-REPORT.md) |
-| Architecture (SKL-003 v6, SPEC-003 v4) | Classify shared components and resolve PRD architecture questions with accepted decisions, bounded evidence and per-requirement readiness | [Current contract update](contract-update-evidence/20260929/REPORT.md); [historical import](ARCHITECTURE-IMPORT-REPORT.md) |
+| PRD (SKL-002 v3, SPEC-002 v3) | Turn promoted BRN ideas into user-owned requirements and scope | [Shared-schema update](shared-schema-update-evidence/20260930/REPORT.md); [previous contract update](contract-update-evidence/20260929/REPORT.md); [historical import](PRD-IMPORT-REPORT.md) |
+| Architecture (SKL-003 v7, SPEC-003 v4) | Classify shared components and resolve PRD architecture questions with accepted decisions, bounded evidence and per-requirement readiness | [Shared-schema update](shared-schema-update-evidence/20260930/REPORT.md); [previous contract update](contract-update-evidence/20260929/REPORT.md); [historical import](ARCHITECTURE-IMPORT-REPORT.md) |
 | Documents Updater (SKL-005 v2) | Update README files, changelogs and guides from verified repository changes, or prepare exact proposals | [Documents Updater import report](DOCUMENTS-UPDATER-IMPORT-REPORT.md) |
 
 ## Using the source
@@ -35,13 +35,17 @@ uses the standard library and cannot determine whether a documentation claim is 
 Architecture reads PRD documents under `docs/specs/prd/`, writes ARCH and ADR documents,
 and asks before inspecting code outside the approved scope. Organizational policy comes
 from `docs/specs/policy/`; local configuration uses `.codex/devforgeai.local.md`.
-PRD implements SPEC-002 v2; Architecture implements SPEC-003 v4. The current contract
-report separates source authoring, static checks, native behavior, manual obligations and
-qualification. The campaign stopped at a native usage limit: 111 automated trials completed,
-four were interrupted and 155 remain NOT_RUN. The closing audit also found mixed Codex executable
-versions and primary-checkout drift. Exact identity and recorded behavior failures remain open;
-this candidate is not qualified. The package does not yet include Epic; Architecture names it as
-the planned next step. Runtime question availability is host-dependent; unanswered decisions remain
+PRD implements SPEC-002 v3; Architecture implements SPEC-003 v4. The current
+[shared-schema report](shared-schema-update-evidence/20260930/REPORT.md) records the focused
+15-case native policy campaign, static evidence and remaining failures. The shared validator's
+NaN coverage-threshold defect, exact identity gaps and Architecture handoff failures remain open;
+both skills are drafts and are not qualified.
+
+The earlier 2026-09-29 contract campaign stopped at a usage limit: 111 automated trials completed,
+four were interrupted and 155 remain NOT_RUN. That campaign's closing audit recorded mixed Codex
+executable versions and primary-checkout drift. Its evidence and unrun obligations remain historical;
+the focused shared-schema campaign does not complete full workflow qualification. The package does
+not yet include Epic. Runtime question availability is host-dependent; unanswered decisions remain
 open.
 
 Architecture remains a draft port. Its import report records native evaluation
