@@ -907,7 +907,34 @@ as permission to pick reuse or amend itself, or never mentions ARCH-001.
 }
 
 
+def add_contract_cases():
+    """Port only SPEC-003 VER-17/18 and manual VER-19 from the reference generator.
+
+    Existing Codex case bodies and historical fixture authorship remain unchanged.
+    This imports definitions, not reference-provider execution or results.
+    """
+    import runpy
+    source = runpy.run_path(str(Path(__file__).resolve().parents[3] / "tests/architecture/make_evals.py"))
+    for label in ["PRD_Q", "POL_BAD_DATE", "ARCH_FAILING", "ARCH_SUPERSESSION"]:
+        source["validate"](label, *source["FIXTURES"][label])
+    source["check_policy_script"].__globals__["VALIDATE_POLICY"] = Path("src/codex/devforgeai/skills/architecture/scripts/validate_policy.py")
+    source["check_policy_script"]("POL_BAD_DATE", source["POL_BAD_DATE"], "frontmatter: updated")
+    for name in ["policy-bad-date", "failed-amendment-stays-in-review"]:
+        case = dict(source["CASES"][name])
+        case["graders"] = {key: body.replace("/devforgeai:", "$devforgeai:")
+                           for key, body in case["graders"].items()}
+        CASES[name] = case
+    manual = ROOT.parent.parent / "tests/manual/architecture"
+    for name, (ver, fixture_files) in source["MANUAL_CASES"].items():
+        target = manual / name / "scaffold.sh"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(scaffold(f"Seeds the fixtures for the manual SPEC-003 {ver} ({name}); see docs/runbooks.",
+                                  **files(**fixture_files)))
+        target.chmod(0o755)
+
+
 def main():
+    add_contract_cases()
     for label, (text, schema) in FIXTURES.items():
         validate(label, text, schema)
     for name, case in CASES.items():

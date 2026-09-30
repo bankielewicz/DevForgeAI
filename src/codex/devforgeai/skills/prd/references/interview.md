@@ -8,6 +8,7 @@
 - Round 2: architecture context
 - Round 3: requirements
 - Round 4: quality and constraints
+- Recording quality answers
 - Round 5: success metrics
 - Depth by stage
 - Recording answers
@@ -32,8 +33,9 @@
 ## Before the rounds: the gates
 
 These are asked when reached, even under "proceed without questions", and nothing is written
-without an answer. A gate the request answers explicitly ("extend PRD-001", "it's a draft, continue
-anyway") is not asked again; say in the reply that the request answered it.
+without an answer. A gate the request or an earlier answer settles explicitly ("write a new PRD for
+BRN-002", "extend PRD-001", "it's a draft, continue anyway") is not asked again; say in the reply
+where the answer came from. "Proceed without questions" settles no gate.
 - which BRN, when no ID was given (list unprocessed BRNs with titles and uncited promoted ideas);
 - continue from an unconverged BRN? (options: continue anyway; stop and converge the brainstorm first);
 - new PRD or extend PRD-NNN? State your recommendation first, with reasons about scope, owner and
@@ -94,19 +96,44 @@ maintainability, other)?"
 | performance | response time target; throughput target; no target yet |
 | accessibility | WCAG 2.2 AA; WCAG 2.2 A; no target yet |
 
-Each answer becomes one NFR with that `category`, stated measurably where possible. Every required
-category the user does not answer becomes, in section 12:
+Record each answer as the next section says.
 
-`[NEEDS CLARIFICATION: <category> requirements for <context>]`
+## Recording quality answers
 
-Here `<context>` is the operating context, or `production` when it is unknown. For example:
+Answers come from the interview or from the request itself ("security needs nothing beyond the
+platform"). Besides stated requirements, keep four kinds of answer apart (explicit none, no target
+yet, partial, no answer), for every required category:
+
+| Answer | Example | Write |
+|---|---|---|
+| **Requirements** | "Staff sign in with two factors" | One NFR per requirement stated, with that `category`, measurable where possible |
+| **Explicit none**: the user confirms the category needs nothing | "none"; "nothing beyond the platform" | No NFR. One sentence in section 7's prose, recording it as the user's answer: `Security: the user confirmed nothing is needed beyond the platform.` |
+| **No target yet**: the user keeps a requirement or metric but has no number | "Pages should load fast, no target yet" | The NFR or metric, with the target written `[NEEDS CLARIFICATION: target for <item>]` (in an NFR's statement, or a metric's `target`) |
+| **Partial**: some of the category is answered | Security: "sign-in required", nothing else | The NFRs it states, plus the category marker below for the rest |
+| **No answer** | The category isn't mentioned, or the budget ran out | In section 12: `[NEEDS CLARIFICATION: <category> requirements for <context>]` |
+
+`<context>` is the operating context, or `production` when it is unknown. For example:
 `[NEEDS CLARIFICATION: accessibility requirements for production]`. Never write a placeholder NFR
-for an unanswered category.
+for an unanswered category, and never turn "none" into a placeholder or into silence: the prose
+sentence is the record.
+
+**An explicit none never waives applicable policy.** A category that an applied `quality.required_categories`
+setting requires (policy.md R4) still applies after an explicit none. Record the none in section 7's
+prose, and keep a marker that names the setting:
+
+`[NEEDS CLARIFICATION: compliance requirements for internal; required by POL-001#SET-01, the user answered none]`
+
+A mandated platform (`architecture.mandated_platforms`) is likewise written as its constraint NFR
+whatever the user answered. If the user answered the constraint category with none, record the none
+and keep the marker for `constraint`, naming the platform's setting. The resolution line and links
+follow policy.md as usual.
 
 ## Round 5: success metrics
 
 For each drafted metric: baseline today, and target (with a time frame). Options may suggest values
-from the BRN's evidence. Unanswered baselines or targets stay `[NEEDS CLARIFICATION: …]`.
+from the BRN's evidence. Unanswered baselines or targets stay `[NEEDS CLARIFICATION: …]`. A metric
+the user states or keeps with "no target yet" stays in `success_metrics`, with
+`target: "[NEEDS CLARIFICATION: target for <metric>]"`.
 
 ## Depth by stage
 
@@ -120,7 +147,7 @@ from the BRN's evidence. Unanswered baselines or targets stay `[NEEDS CLARIFICAT
 ## Recording answers
 
 - Write only what the user answered or confirmed. An unanswered question leaves its field `null` or
-  its gap marked.
+  its gap marked. A partial answer settles only the part it answers.
 - An answer that settles something drafted earlier replaces the draft; an answer that contradicts
   the BRN is recorded as the user said it, with a note in the item's `notes` (FRs) or in prose.
 - If the user stops partway, ask whether to save a draft PRD with every undecided field `null`.

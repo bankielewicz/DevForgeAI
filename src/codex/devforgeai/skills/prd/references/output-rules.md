@@ -17,9 +17,9 @@
 ## When to use this
 
 Read this before writing a PRD (SKILL.md step 8), and check the written file against the self-check
-list (step 9). The architecture step and the epic workflow parse PRDs mechanically, and a future
-checker validates them against `prd.schema.json`. A PRD that reads well but breaks a rule here
-breaks everything downstream.
+list (step 9): one initial check, then at most three repair cycles. The architecture step and the
+epic workflow parse PRDs mechanically, and a future checker validates them against
+`prd.schema.json`. A PRD that reads well but breaks a rule here breaks everything downstream.
 
 ## File and IDs
 
@@ -45,15 +45,15 @@ Keep exactly these keys, in this order. Unknown or misspelled keys are errors.
 | `id` | `PRD-NNN`, equal to the file name |
 | `type` | `prd` |
 | `title` | Quoted product or release name, never empty |
-| `status` | `draft` for a new PRD. An extension keeps `draft` or `in-review`, and turns `approved` into `in-review`. Never write `approved` |
+| `status` | `draft` for a new PRD. An extension keeps `draft` or `in-review`, and turns `approved` into `in-review`. Never write `approved`, and never restore it after a failed validation |
 | `version` | Integer: `1` for a new PRD, plus one per extension |
 | `created`, `updated` | Unquoted `YYYY-MM-DD` dates |
 | `owner` | Quoted name of the accountable human |
-| `authors` | List of quoted names, e.g. `["Clinic operations lead", "codex"]` |
-| `generated_by` | Map with quoted, non-empty `tool` (`"codex"`), `model` and `session` |
-| `reviewed_by` | `[]` for a new PRD; an extension keeps it (humans only; never filled by the AI) |
-| `approved_by` | `""` |
-| `approved_on` | `null` |
+| `authors` | List of quoted names. A new PRD: the owner and `"codex"`, e.g. `["Clinic operations lead", "codex"]`. An extension keeps the existing list, adding `"codex"` only if it's missing |
+| `generated_by` | Map with quoted, non-empty `tool` (`"codex"`), `model` (the exact model exposed by a supported host interface) and `session` (`<actual host session ID or unavailable>` as SKILL.md gives it), set by this write. Never guess or copy them. A value the host can't provide is written `"unavailable"` and disclosed in this write's Change Log row and in the reply |
+| `reviewed_by` | `[]` for a new PRD; an extension keeps it unchanged, as the record of who reviewed earlier versions (humans only; never filled by the AI) |
+| `approved_by` | `""`. An extension of an approved PRD clears it to `""` |
+| `approved_on` | `null`. An extension of an approved PRD clears it to `null` |
 | `upstream` | Link records, one per line (next section) |
 | `supersedes` | `[]` |
 | `superseded_by` | `null` |
@@ -93,8 +93,12 @@ upstream:
 | `interview.max_calls` or `quality.required_categories` from policy | Frontmatter | `{id: POL-NNN, item: SET-NN, relation: informed_by, version: <policy version>, hash: null}` |
 
 Never link a proposed or superseded ADR, an open, parked or rejected idea, a default, a local value,
-or a deprecated or non-applicable setting. An NFR the user stated has no upstream link; never link an
-NFR to a BRN item that doesn't itself state that quality need (brn-mapping.md).
+or a deprecated or non-applicable setting.
+
+**Every FR derives from a promoted idea; every NFR cites its actual source.** An NFR links to a BRN
+item only when that item itself states the requirement. Otherwise it cites the policy setting, ADR
+or PRD it comes from, and an NFR the user stated has no upstream link. Never add a brainstorm link to
+a requirement the user stated or policy added (brn-mapping.md).
 
 ## Item blocks
 
@@ -159,6 +163,9 @@ Keep these headings, in this order, exactly as the template has them:
 `## 10. Assumptions and risks`, `## 11. Release and rollout`, `## 12. Open questions`,
 `## 13. Epic map`, `## Change Log`.
 
+- Section 7 may open with prose before the item block. It records each required quality category
+  the user explicitly answered with none, as the user's answer, one sentence each: `Security: the
+  user confirmed nothing is needed beyond the platform.`
 - Section 9 is prose only; each constraint itself is an NFR with `category: constraint`.
 - Section 12 is a bullet list of every open item: `[NEEDS CLARIFICATION]` markers, `[NEEDS ADR]`
   markers, and design preferences for a future ADR. Write `- None.` if there are none.
@@ -171,7 +178,9 @@ Keep these headings, in this order, exactly as the template has them:
 | Marker | Means | Blocks |
 |---|---|---|
 | `[NEEDS CLARIFICATION: <question>]` | An unknown the user must answer | Approving the PRD |
-| `[NEEDS CLARIFICATION: <category> requirements for <context>]` | A required quality category the user didn't answer (interview.md round 4) | Approving the PRD |
+| `[NEEDS CLARIFICATION: <category> requirements for <context>]` | A required quality category the user didn't answer, or the rest of a category the user answered only in part (interview.md round 4) | Approving the PRD |
+| `[NEEDS CLARIFICATION: <category> requirements for <context>; required by POL-NNN#SET-NN, the user answered none]` | A category applied policy requires (or `constraint`, under a mandated platform), which the user answered with none: the none doesn't waive the policy | Approving the PRD |
+| `[NEEDS CLARIFICATION: target for <item>]` | The user kept a requirement or metric but has no target yet; it goes in the item's `target` or statement | Approving the PRD |
 | `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]` | An open architecture decision (no accepted ADR yet) | Writing epics for the named FRs, not approving the PRD |
 | `null` in `stage`, `operating_context`, `priority`, `release` | Not decided yet | Approving the PRD |
 
@@ -189,34 +198,45 @@ ends with the policy resolution line (policy.md), with no `|` inside it:
 | 1 | 2026-09-27 | codex (session 7b7b72c0-8b14-4b7d-aba5-f21cdbadc51f) | Initial draft from BRN-001. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | all |
 ```
 
-Never edit earlier rows. An extension adds a row naming the new BRN and the items added.
+Never edit earlier rows. An extension adds a row naming the new BRN and the items added, with the
+sentence `This revision has not been reviewed.` before the resolution line, for example:
+
+```markdown
+| 2 | 2026-10-02 | codex (session 7b7b72c0-8b14-4b7d-aba5-f21cdbadc51f) | Extended from BRN-002: FR-004, FR-005 added. Status approved to in-review, approval cleared. This revision has not been reviewed. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | FR-004, FR-005 |
+```
 
 ## Self-check list
 
-Read the file back and check each item. Fix and re-check anything that fails, at most three attempts.
+Read the file back and check each item. That is the initial check. Repair and re-check anything that
+fails: at most three repair cycles, so at most four checks. An error you can't repair, such as one
+inside an existing item an extension must leave unchanged, ends the cycles early (SKILL.md step 9).
 
 1. The path is `docs/specs/prd/PRD-NNN.md` and `id` equals `PRD-NNN`.
 2. The frontmatter has exactly the keys in the Frontmatter table, in order, with valid values.
    `status` is not `approved`.
-3. `generated_by` has non-empty `tool`, `model` and `session`, set to this session; `reviewed_by`
-   is `[]` for a new PRD (unchanged for an extension). `unknown` or another disclosure string
-   does not satisfy current identity; report that validation error (codex.md). Every `hash` is `null`; `created` and
-   `updated` are dates.
+3. Following codex.md, record supported host identity or disclosed `unavailable`; never fabricate it.
+   A disclosed gap keeps BEH-10 open in qualification. `generated_by` has non-empty `tool`, `model` and `session`, set to this session; `reviewed_by`
+   is `[]` for a new PRD; for an extension, `authors` (apart from an added `"codex"`),
+   `reviewed_by` and every earlier Change Log row are unchanged; every `hash` is `null`; `created`
+   and `updated` are dates.
 4. Every `yaml items` fence holds exactly one of the four collection keys.
 5. Every item ID matches its pattern, is unique and is numbered in order. For an extension, every
    existing item is unchanged.
 6. Every item has its required fields and only allowed fields, and every enum value is in its list.
 7. Every free-text value is double-quoted.
-8. Every FR has an `upstream` link deriving from a **promoted** idea of the BRN. No open, parked or
-   rejected idea's ID appears anywhere in the file.
+8. Every FR has an `upstream` link deriving from a **promoted** idea of the BRN. No NFR has a BRN
+   link unless that BRN item itself states the requirement. No open, parked or rejected idea's ID
+   appears anywhere in the file.
 9. Every link has a valid relation, the cited document's current version and `hash: null`, and sits
    in the one place the Link records table gives. No policy link exists for a default, a local value,
    or a deprecated or non-applicable setting.
-10. Every non-null `stage`, `operating_context`, `priority` and `release` was supplied or confirmed by
-    the user.
+10. Every non-null `stage`, `operating_context`, `priority` and `release` this write set was supplied
+    or confirmed by the user. Values already in the PRD before an extension are left as they are.
 11. Every required quality category (the floor for the operating context, or production when it is
-    unknown, plus applicable policy) is covered by an NFR of that category or by a
-    `[NEEDS CLARIFICATION: <category> requirements for <context>]` marker in section 12.
+    unknown, plus applicable policy) is covered by an NFR of that category, by the user's explicit
+    none in section 7's prose, or by a `[NEEDS CLARIFICATION: <category> requirements for <context>]`
+    marker in section 12. A category that applied policy requires, or the constraint category of a
+    mandated platform, keeps its marker naming the setting even after an explicit none.
 12. No design preference appears as an FR or NFR. Each constraint NFR states a condition and where it
     applies.
 13. Every `[NEEDS ADR]` marker names FR IDs that exist in the file.
@@ -225,7 +245,7 @@ Read the file back and check each item. Fix and re-check anything that fails, at
     template example items, and no empty `title`.
 15. The last Change Log row's author is `codex (session <ID>)` with the ID in
     `generated_by.session`. Its change text ends with a `Policy resolution:` line in the policy.md
-    format.
+    format. For an extension, it says `This revision has not been reviewed.`
 
 ## Example item blocks
 

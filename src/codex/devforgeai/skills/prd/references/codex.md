@@ -1,6 +1,6 @@
 # Codex host mapping and contract limits
 
-Read this at entry. SPEC-002 v1 remains the authority; these provider mappings do not
+Read this at entry. SPEC-002 v2 remains the authority; these provider mappings do not
 establish framework acceptance. Relative assets and references resolve from the actual
 loaded PRD skill directory, and `../architecture/SKILL.md` resolves in that same package.
 Do not search other worktrees, installed caches or another provider to make a handoff work.
@@ -11,7 +11,8 @@ Select PRD in Codex, invoke `$devforgeai:prd BRN-001` (or the catalog's actual P
 or use a matching natural-language request. The argument is an ID, never a path.
 There is no Claude `$ARGUMENTS` expansion or Claude Skill tool. Use the file, patch and
 shell tools the host actually exposes. Shell reads stay in the workflow's named folders.
-Do not invoke a `devforgeai` executable. No connector or extra runtime library is needed.
+Do not invoke a `devforgeai` executable. Policy validation requires Python 3, PyYAML and jsonschema. Missing validation capability
+with approved policy is ERR-08; do not install dependencies or substitute a handwritten check.
 
 ## Questions
 
@@ -38,25 +39,18 @@ thread ID is not automatically available to the skill.
 
 Never scrape unrelated session logs, guess environment-variable names, invent IDs, copy the
 BRN's identity or consume evaluator-only identity injection. If an exact value is unavailable,
-write `"unknown"` for that field in a provisional new/draft PRD and explain the missing value
-in the current Change Log row and reply. This is an explicit disclosure, not compliant
-provenance: self-check item 3 remains unresolved under BEH-10/VER-09. Do not report validation
-success, approval readiness or successful downstream handoff. Never retry a missing capability
-as if it were a repairable formatting error. Ask for a supported integration or owner decision
-before claiming full conformance; do not modify the governing specification.
+write `"unavailable"` for that field and disclose it in this write's Change Log row and in the
+handoff. SPEC-002 v2 explicitly permits that honest disclosure, but the exact-identity obligation
+BEH-10 stays open in qualification. Do not turn an unavailable identity into fabricated evidence
+or repeatedly rewrite the file to pretend the capability was repaired.
 
-## Unresolved validation wording
+## Validation and extension lifecycle
 
-BEH-12 says "Fix and check again, at most three attempts." ERR-06 says "after three fix
-attempts". The source carries both wordings. Do not claim an exact exhaustion count is
-qualified until the owner resolves whether the initial check counts. Stop after at most
-three repair attempts, retain the initial check and every real repair/readback, and report
-the count and unresolved errors without claiming this resolves the ambiguity.
+SPEC-002 v2 settles D-03 to D-09. An approved PRD may be extended after the user's explicit choice;
+no additional failure-disposition permission is required. A changed approved PRD stays in-review
+with approval cleared, including after failed validation. Preserve earlier item bytes and review
+history, and state that the new revision has not been reviewed.
 
-BEH-09 returns an approved extension to `in-review` and clears approval. ERR-06 requires
-the previous status after failure; for an approved input that would label altered content
-approved, conflicting with BEH-06 and the output contract. Before changing an approved PRD,
-show this conflict and obtain a concrete failure disposition from the owner, unless already
-decided explicitly for this run. Keep the original file unchanged while that decision is open.
-Do not restore `approved` onto changed content by implication. Other independent PRD work
-can continue. The comparison report proposes resolutions; none is approved by this import.
+Run one initial readback check and at most three actual repair-and-readback cycles (four checks
+maximum). Record each check and repair. An unrepairable error stops early; an unchanged check
+or a no-op rewrite is not a repair. ERR-06 produces a failure report with no architecture handoff.

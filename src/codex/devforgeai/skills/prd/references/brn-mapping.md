@@ -19,7 +19,7 @@ Read this at SKILL.md step 6. The BRN is read-only; everything here writes only 
 | BRN | PRD | Link |
 |---|---|---|
 | `problems` (PRB) addressed by a promoted idea | Section 2 prose | Frontmatter `upstream`: `{id: BRN-NNN, item: PRB-NN, relation: derives, version: <BRN version>, hash: null}` |
-| promoted `ideas` (IDEA) | One or more `functional_requirements` | Item `upstream`: `{id: BRN-NNN, item: IDEA-NN, relation: derives, version: <BRN version>, hash: null}` |
+| promoted `ideas` (IDEA) | One or more `functional_requirements`; every FR derives from one | Item `upstream`: `{id: BRN-NNN, item: IDEA-NN, relation: derives, version: <BRN version>, hash: null}` |
 | `assumptions` (ASM) | `assumptions` | Item `upstream`: `{id: BRN-NNN, item: ASM-NN, relation: derives, version: <BRN version>, hash: null}` |
 | Candidate success signals (section 8 prose) | `success_metrics` | `derives` the promoted IDEA it measures; otherwise no link, and a `[NEEDS CLARIFICATION]` target |
 | Open, parked and rejected ideas | Nothing | Never cited by ID or link |
@@ -47,8 +47,8 @@ Read this at SKILL.md step 6. The BRN is read-only; everything here writes only 
   that can be prioritized separately ("book, move and cancel" gives "book" plus "move or cancel").
   For a `prototype`, keep one FR per idea (capability level).
 - Every statement starts "The system shall" and states one testable capability, *what*, not *how*.
-- Each FR carries an item `upstream` link to its idea. An FR serving two promoted ideas carries two
-  links.
+- Each FR carries an item `upstream` link to its idea, so every FR derives from a promoted idea. An
+  FR serving two promoted ideas carries two links.
 - `priority` and `release` stay `null` until the user decides (interview round 3). `notes: null`
   unless there is something to note, such as "The user chose to decide priority and release later."
 - Number FRs `FR-001`, `FR-002`, … in the order of the ideas.
@@ -56,13 +56,16 @@ Read this at SKILL.md step 6. The BRN is read-only; everything here writes only 
 ## Non-functional requirements
 
 NFRs come mostly from the user (the request or the interview), from policy and from architecture
-context, not from the BRN. Give an NFR an upstream link only to the source that actually states it:
-- a BRN problem or promoted idea that itself states the quality need (`derives`);
-- a mandated-platform policy setting (`constrains`, policy.md);
-- another PRD's NFR it cites (frontmatter `constrains` link, SKILL.md step 6).
+context, not from the BRN. **An NFR cites its actual source, and only that:**
+- a BRN problem or promoted idea that itself states the requirement (`derives`);
+- a mandated-platform policy setting (item `constrains` link, policy.md);
+- an accepted ADR or another PRD's NFR it comes from (frontmatter `constrains` link, SKILL.md steps 5
+  and 6).
 
-An NFR the user stated has **no** upstream link. Never link an NFR to an idea just because the idea
-is the capability the NFR constrains: that claims the brainstorm decided something it didn't.
+An NFR the user stated, including a constraint such as "it must run on AWS", has **no** upstream
+link. Never add a brainstorm link to a requirement the user stated or policy added, and never link
+an NFR to an idea just because the idea is the capability the NFR constrains: that claims the
+brainstorm decided something it didn't.
 
 ## Assumptions
 
@@ -80,6 +83,8 @@ is the capability the NFR constrains: that claims the brainstorm decided somethi
 - `baseline`, `target` and `measured_by` come from the BRN's evidence or the user. Otherwise they are
   `[NEEDS CLARIFICATION: …]` markers.
 - A signal that only measures a parked or rejected idea is dropped.
+- A metric the user states with "no target yet" is kept, with
+  `target: "[NEEDS CLARIFICATION: target for <metric>]"` (interview.md, "Recording quality answers").
 
 ## Everything else
 

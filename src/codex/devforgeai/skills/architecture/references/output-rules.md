@@ -22,7 +22,7 @@
 ## When to use this
 
 Read this before writing (SKILL.md step 9), and check every written file against the self-check list
-(step 10). The epic workflow parses the ARCH mechanically, and a future checker validates it against
+(step 10): one initial check and at most three repair cycles. The epic workflow parses the ARCH mechanically, and a future checker validates it against
 `arch.schema.json` and ADRs against `adr.schema.json`. An ARCH that reads well but breaks a rule here
 breaks readiness for every epic.
 
@@ -114,7 +114,7 @@ and has only the fields below, in this order.
 | `deployment` | Quoted deployment unit, or `"Open: see DEC-NN"` when a DEC about deployment is open |
 | `upstream` | Optional links to the NFRs and POL settings it serves |
 
-Component kinds (SPEC-003 v2 §4; they select the project context documents, ADR-004 D2):
+Component kinds (SPEC-003 v4 §4; they select the project context documents, ADR-004 D2):
 
 | Kind | A component that is… |
 |---|---|
@@ -267,29 +267,57 @@ Only when the user explicitly approves replacing an accepted ADR (BEH-16):
 
 Never modify an existing ADR in any other way, and never modify a PRD, BRN or policy document.
 
+Before any approved supersession write, retain the older ADR's exact bytes in session state.
+Use that before-image for rollback; never reconstruct its history or fields from memory.
+
 ## When validation still fails (ERR-05)
 
-After three failed fix attempts, stop and restore only what can't stand unvalidated:
-- every `status` and approval field (`approved_by`, `approved_on`) this write changed goes back to
-  its value before the write. A new ARCH stays `draft`. A new ADR the user accepted becomes
-  `status: proposed` with `approved_by: ""` and `approved_on: null`, and is kept;
-- each DEC resolved by a restored ADR goes back to `state: open`, `resolved_by: []`;
-- add one audit record per restored file: an ARCH Change Log row, and for an ADR a Status history row
-  (`Restored to proposed: validation failed`).
+When errors remain after the initial check and three repair cycles, or an error can't be repaired,
+stop. Never leave `approved` or `accepted` on content that failed validation. Keep the user's
+architectural choices (the ADR text) and unrelated content:
+- **The ARCH.** A new ARCH stays `draft`. An amended ARCH keeps the status the amendment gave it
+  ("Amending an ARCH"): `draft` and `in-review` stay, and an approved ARCH stays `in-review` with
+  `approved_by: ""` and `approved_on: null`. Never restore `approved`. A review record that fails
+  validation is treated the same way: an approved ARCH becomes `in-review` with `approved_by: ""`
+  and `approved_on: null`, and a draft or in-review ARCH keeps its status.
+- **ADRs accepted in this run.** Each becomes `status: proposed` with `approved_by: ""` and
+  `approved_on: null`, and is kept. Each DEC it resolved returns to `state: open`,
+  `resolved_by: []`.
+- **A supersession recorded in this run is rolled back.** When such an ADR superseded an existing
+  ADR:
+  - restore the older ADR byte-for-byte to its state before the run: its `status`,
+    `superseded_by`, Status history and every other byte, as if this run never touched it;
+  - clear the replacement's `supersedes` to `[]`, as well as its approval fields. Keep the intended
+    replacement and the user's decision in its prose: add to "Decision outcome" the sentence
+    `Intended to supersede ADR-NNN, as <name> decided in session <ID>; not in force, because
+    validation failed (ERR-05).`;
+  - leave each DEC that depended on the replacement open with `resolved_by: []`. Never reconnect it
+    to the older ADR, even though that ADR is accepted again.
+- **Audit records.** An ARCH Change Log row
+  (`Validation failed (ERR-05): <the unresolved errors, briefly>. Left <status>.`, adding
+  `Approval cleared.` when the ARCH was approved, and `Supersession of ADR-NNN rolled back.` when
+  one was), and for each ADR made proposed a Status history row: `Restored to proposed: validation
+  failed`, or, for a replacement, `Restored to proposed: validation failed; the supersession of
+  ADR-NNN that <name> approved is not in force`. The restored older ADR gets no row: it is back
+  exactly as it was.
 
-Keep the user's architectural choices (the ADR text) and unrelated content. End with a
-validation-failure report: the file paths, the unresolved errors and what was restored. Skip the
-readiness handoff, and never present readiness as validated.
+End with the validation-failure report (SKILL.md step 11): each file path with the status left, the
+checks and repairs made, the unresolved errors, and any supersession rolled back. Skip the readiness handoff, and never present
+readiness as validated.
 
 ## Self-check list
 
-Read each written file back and check every item. Fix and re-check, at most three attempts.
+Read each written file back and check every item. That is the initial check. Repair and re-check
+anything that fails: at most three repair cycles, so at most four checks. An error you can't repair,
+such as one inside an existing item an amendment must leave byte-identical, ends the cycles early
+(SKILL.md step 10).
 
 **ARCH**
 1. The path is `docs/specs/arch/ARCH-NNN.md`, `id` equals it, and no second ARCH was created for a
    system an existing ARCH covers.
 2. The frontmatter has exactly the keys in the table, in order, with valid values. `status` is not
-   `approved` unless it was approved before and this write was a review record.
+   `approved` unless it was approved before and this write was a review record that passes every
+   check; one that fails leaves it `in-review` (ERR-05).
 3. `generated_by.tool` is `"codex"`, `model` is the exact model ID exposed by the host, and `session`
    is the actual host session/thread ID (unless this write was a review record). `unknown` leaves this
    item unresolved; `reviewed_by` is `[]` for a new ARCH; every `hash` is `null`.

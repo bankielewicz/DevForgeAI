@@ -16,8 +16,9 @@
 ## When to use this
 
 Every DevForgeAI workflow that writes a planning document resolves policy this way, in this order,
-before it asks a question or writes a file (ADR-003 A3 to A5). Each Codex-provider skill that resolves policy keeps
-a byte-identical copy of this file and of `defaults.md`, so two workflows reach the same result.
+before it asks a question or writes a file (ADR-003 A3 to A5). Each skill that resolves policy keeps
+a byte-identical copy of this file, `defaults.md`, `scripts/validate_policy.py` and
+`references/schemas/`, so two workflows reach the same result.
 "The document" below means the document the workflow writes.
 
 Policy is **approved rules**. Observed practice (what the code happens to use) is not policy. When
@@ -40,37 +41,33 @@ nothing overrides them.
 
 ## R1. Load and validate
 
-Read every `docs/specs/policy/POL-*.md`: its frontmatter and its `settings` item block. If the folder
-or the files are missing, there is no policy; continue with the defaults.
+Policy documents are `docs/specs/policy/POL-*.md`: YAML frontmatter plus a `settings` item block. If
+the folder or the files are missing, there is no policy; continue with the defaults.
 
-1. **Only approved documents take part (SV-06).** For a document whose `status` is not `approved`,
-   skip it and record `ignored docs/specs/policy/POL-NNN.md (status <status>)`.
-2. **Check each approved document** against every rule below. **One violation stops the workflow
-   before anything is written** (see "Stopping on a policy error").
+**Validate with the skill's script**, `scripts/validate_policy.py`, the one maintained validation path
+(SKILL.md gives the exact command). It reads every `POL-*.md` in the folder and:
+- skips each document whose `status` is not `approved`, printing `ignored <file> (status <status>) (SV-06)`;
+- validates each approved document in full against `references/schemas/policy.schema.json` and
+  `common.schema.json`, unchanged copies of the framework schemas: every frontmatter key and its type,
+  date patterns, `authors`, link records, and each setting's fields, key, class, value type and range,
+  `applies_when` and `overridable_by`;
+- then applies one additional semantic check that the unchanged schema doesn't make: `created`,
+  `updated` and a non-null `approved_on` must be real calendar dates (the schema's date pattern accepts
+  `2026-13-45`). A failure is labelled `calendar check`, never `schema`;
+- then applies SV-01 to SV-06 below, including SV-02 and SV-04's cross-layer clause across documents;
+- prints one line per error, `<file>: <part>: <field>: <message> (<rule>)`, where `<part>` is
+  `frontmatter`, `document` or a setting such as `SET-01 (interview.max_calls)`, and `<rule>` is
+  `schema`, `calendar check` or `SV-NN`.
 
-**Document rules (schema)**
+Act on its exit code:
 
-| Rule | Requirement |
-|---|---|
-| Keys | Frontmatter has `id`, `type`, `title`, `status`, `version`, `created`, `updated`, `owner`, `authors`, `upstream`, `supersedes`, `superseded_by`, `blocked_by`, `scope`, `source`. It may also have `generated_by`, `reviewed_by`, `approved_by` and `approved_on`, and no other key |
-| Identity | `type: policy`; `id` is `POL-NNN`; `version` is an integer of at least 1 |
-| Scope | `scope` is `organization` or `project` |
-| Source | Organization: `source` is a map with exactly `repository` and `ref`, both strings. Project: `source: null` |
+| Exit | Meaning | Do |
+|---|---|---|
+| 0 | Every approved document is valid, or none exists | Continue to R2. Record each `ignored` line in the resolution line, without its `(SV-06)` suffix |
+| 1 | An approved document is invalid | **Stop** before asking anything or writing any file ("Stopping on a policy error"), naming every error the script printed |
+| 2, or the script can't be run at all (no shell, no `python3`) | Validation can't run | If any `POL-*.md` has `status: approved`, **stop**: say that validation couldn't run, quote the script's message, and write nothing. Never validate by reading the files instead, and never skip validation. If none is approved, continue with the defaults and record the ignored documents |
 
-**Setting rules (schema)**, for every item in `settings`:
-
-| Rule | Requirement |
-|---|---|
-| Fields | Has `id`, `status`, `key`, `class`, `value` and `overridable_by`. May have `superseded_by`, `upstream`, `applies_when` and `rationale`, and no other field |
-| `id` | `SET-NN` (two digits) |
-| `status` | `active` or `deprecated` |
-| `key` | Exactly one of `quality.required_categories`, `interview.max_calls`, `architecture.mandated_platforms` |
-| `class` | `interaction_default` for `interview.max_calls`; `organizational_policy` for the other two keys |
-| `value` for `interview.max_calls` | An integer from 1 to 20 |
-| `value` for `quality.required_categories` | A non-empty list of distinct NFR categories: `performance`, `security`, `privacy`, `accessibility`, `reliability`, `compliance`, `observability`, `usability`, `maintainability`, `constraint`, `other` |
-| `value` for `architecture.mandated_platforms` | A map with exactly `capability`, `platform` and `source`, all strings |
-| `applies_when` | Required on `quality.required_categories`, where it holds only `operating_context`: a non-empty list drawn from `local`, `internal`, `pilot`, `production`. Not allowed on the other two keys |
-| `overridable_by` | A list without repeats, drawn from `project` and `local`. `organizational_policy` settings may list only `project`, never `local` |
+Never edit a policy document, and never repair one so that it passes.
 
 **Semantic rules**
 
@@ -80,9 +77,9 @@ or the files are missing, there is no policy; continue with the defaults.
 | SV-02 | At most one approved document per scope | Stop |
 | SV-03 | At most one active `interview.max_calls` setting per document | Stop |
 | SV-04 | At most one active `architecture.mandated_platforms` setting per capability per document. Across layers, a project setting for the same capability overrides only if the organization setting's `overridable_by` includes `project` | Stop |
-| SV-05 | Only `status: active` settings take part. A deprecated setting stays in its document for traceability, but it never applies and is never linked | Skip it |
+| SV-05 | Only `status: active` settings take part. A deprecated setting stays in its document for traceability, but it never applies and is never linked | Skip it (the script notes it) |
 | SV-06 | Only approved documents take part | Skip and report |
-| SV-07 | Local preference entries follow the local format rules | Ignore and report |
+| SV-07 | Local preference entries follow the local format rules. The workflow checks these, not the script | Ignore and report |
 
 Two settings are "for the same capability" when their `capability` strings match, ignoring case
 and surrounding spaces.
@@ -109,9 +106,7 @@ Resolve these before the first question, so the interview budget is known.
 
 ## Local preferences
 
-Read `.codex/devforgeai.local.md` if it exists. This is a DevForgeAI project preference
-file, not Codex configuration; do not create or edit it during a PRD run, and do not merge
-Claude-provider preferences into it automatically. Its YAML frontmatter is its whole content:
+Read `.codex/devforgeai.local.md` if it exists. Its YAML frontmatter is its whole content:
 `devforgeai_local: 1`, then one entry per interaction-default key. For example:
 
 ```yaml
@@ -195,12 +190,17 @@ Examples:
 
 ## Stopping on a policy error
 
-When R1 or R2 finds a violation, stop before asking anything or writing any file. The reply names:
+When R1 or R2 finds a violation, stop before asking anything or writing any file. The reply names, for
+every error the script printed (and for a forbidden override R2 found):
 - the policy file;
-- the setting, as its `SET-NN` and its `key`, or both settings for a cross-layer conflict;
-- the rule broken: `schema` with what is wrong, `SV-NN`, or `forbidden override`.
+- the setting, as its `SET-NN` and its `key` (or both settings for a cross-layer conflict), or the
+  frontmatter field for an error outside the settings;
+- the field and the rule broken: `schema` with what is wrong, `calendar check`, `SV-NN`, or
+  `forbidden override`.
 
 It then says that nothing was written. Never guess a value and never fall back silently. Examples:
 
 - `Policy error in docs/specs/policy/POL-001.md, SET-01 (interview.max_calls): value 50 is outside 1–20 (schema). Nothing was written; fix the policy and run again.`
+- `Policy error in docs/specs/policy/POL-001.md, frontmatter field updated: 2026-13-45 is not a real calendar date (calendar check). Nothing was written.`
+- `Policy validation couldn't run (jsonschema is not installed), and docs/specs/policy/ holds approved policy, so nothing was written. Install the Python packages PyYAML and jsonschema, then run again.`
 - `Policy error: docs/specs/policy/POL-002.md SET-01 (architecture.mandated_platforms, identity and authentication) overrides docs/specs/policy/POL-001.md SET-01, whose overridable_by doesn't include project (SV-04). Nothing was written.`
