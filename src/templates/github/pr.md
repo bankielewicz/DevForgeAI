@@ -1,8 +1,9 @@
-<!-- guide: Pull request body. The title follows the repository's commit convention (for example
-     "feat: …", "docs: …"). Every statement is a fact about this branch: what changed, what was run
-     and what it printed, what wasn't verified. List only checks actually run in this session or
-     recorded elsewhere with a cited location. Nothing aspirational. Delete every guide comment
-     before posting. -->
+<!-- guide: Pull request body, bound to the PR's actual head: the remote branch's SHA, equal to the local
+     HEAD with no tracked changes, or the PR isn't posted. The title follows the repository's commit
+     convention (for example "feat: …", "docs: …"). Every statement is a fact about that head: what
+     changed, what was run at it and what it printed, what wasn't verified. List only checks run in
+     this session or recorded elsewhere with a cited location. Nothing aspirational. Delete every
+     guide comment before posting. -->
 
 ## Summary
 
@@ -12,7 +13,8 @@
 
 ## Changes
 
-<!-- guide: Group by area. Name the paths. Say what didn't change when a reader might expect it to. -->
+<!-- guide: Group by area, from the diff between the base and the head below. Name the paths. Say what
+     didn't change when a reader might expect it to. -->
 
 - **{{Area}}:** {{what changed}} (`{{path}}`)
 
@@ -26,22 +28,29 @@
 
 ## Checks run
 
-<!-- guide: Each check with its command and the result line it printed. Say where a result is recorded when
-     it wasn't run in this session. A check that failed stays listed as failed. -->
+<!-- guide: Each check with its command, the SHA it ran at, and the result line it printed. Only checks
+     run at the head SHA belong here; a check run at another SHA, or with tracked changes present, goes
+     under "Not verified". Say where a result is recorded when it wasn't run in this session. A check
+     that failed stays listed as failed. -->
 
-- `{{command}}`: {{result line}}
+- `{{command}}` at `{{head SHA}}`: {{result line}}
 
 ## Not verified and limitations
 
 <!-- guide: Everything a reviewer might assume was checked but wasn't: NOT_RUN manual items, checks skipped,
-     paid runs not made, documentation not reviewed. When this PR was created by github-post, add:
-     "Document-ID collision not checked; /devforgeai:git pr runs that check." -->
+     checks run at another SHA (name it), paid runs not made, documentation not reviewed. When this PR
+     was created by github-post, add: "Document-ID collision not checked; /devforgeai:git pr runs that
+     check." -->
 
 - {{item}}
 
 ## Revision
 
-- Base `{{base branch}}` at `{{short SHA}}`; head `{{short SHA}}`.
+<!-- guide: The base is the remote default branch's SHA (and the merge base, when it differs); the head is
+     the remote branch's SHA, which must equal the PR's head. -->
+
+- Base: `{{base branch}}` at `{{base SHA}}` (merge base `{{SHA}}`).
+- Head: `{{branch}}` at `{{head SHA}}`, the remote branch and the PR's head.
 - {{Any digest or build identifier the checks were bound to}}
 
 {{The attribution line the session's instructions require}}

@@ -41,9 +41,12 @@ user has authorized that.
 It codifies the workflow used to write issue #19 on 2026-09-29:
 - pin every reference to one commit, a file and a line, and quote the exact text;
 - rebuild run evidence (session IDs, versions, fixture, request, answers, a timeline) from its record;
-- keep facts, proposals and the owner's decisions in separate sections, with the decision's status stated;
-- give the implementer preconditions, exact old and new text, verification commands with their
-  expected output, acceptance criteria and what is out of scope;
+- keep facts, proposals and the owner's decisions in separate sections, with the decision's status
+  stated, and cite a decision already made rather than asking for it again;
+- say what the next agent must do: investigate, obtain a decision, or implement a supported solution;
+- give the implementer preconditions, exact old and new text where the evidence determines it,
+  verification commands with their expected output, acceptance criteria and what is out of scope;
+- make the post self-sufficient: a fresh agent with only the post and the repository can act on it;
 - check that each quoted anchor occurs exactly once, and scan for local paths and personal data;
 - post, write the new post's own number into its body, and view it back.
 
@@ -104,9 +107,9 @@ flowchart LR
 
 | Kind | Template | Required sections |
 |---|---|---|
-| `pr` | `assets/pr.md` | Summary; Changes; Implements and references; Checks run; Not verified and limitations; Revision; the attribution line |
-| `incident` | `assets/incident.md` | Summary; Where the gap is; Evidence; Why it matters; Decision required; Implementation; Verification; Acceptance criteria; Out of scope; References |
-| `enhancement` | `assets/enhancement.md` | Summary; Current behaviour; Motivation; Proposed behaviour; Decision required; Implementation; Verification; Acceptance criteria; Out of scope; References |
+| `pr` | `assets/pr.md` | Summary; Changes; Implements and references; Checks run (each at the head SHA); Not verified and limitations; Revision (base and head SHAs); the attribution line |
+| `incident` | `assets/incident.md` | Summary with the next action; Where the gap is; Evidence; Why it matters; Decision required (when a choice belongs to the owner); Implementation, or Investigation for next action investigate; Verification; Acceptance criteria; Out of scope; References |
+| `enhancement` | `assets/enhancement.md` | Summary with the next action; Current behaviour; Motivation; Proposed behaviour; Decision required (when a choice belongs to the owner); Implementation, or Investigation for next action investigate; Verification; Acceptance criteria; Out of scope; References |
 
 **Claims and sources.** Every factual sentence in a post has a source the reader can check:
 - a file and line at a named commit;
@@ -118,11 +121,36 @@ flowchart LR
 A statement without one is a proposal (labelled "Proposed") or an unknown ("Unknown: <what is
 missing>").
 
-**The decision block** (incident and enhancement):
-- a status, `pending` or `decided`; `decided` names who decided, when and where;
-- one row per option, each with its consequence, and at most one labelled "(proposed)";
-- the rule that implementation covers only the proposed option, and that another option means
-  stopping to ask for new steps.
+**The next action** (incident and enhancement) is exactly one of these, stated in the Summary:
+
+| Next action | When | Section 5 |
+|---|---|---|
+| `investigate` | The evidence doesn't establish the cause, or no solution is supported yet | **Investigation**: the questions to answer, where to look (paths and commands), how to reproduce, what to record, when to stop, and what to report back on the issue. No patch |
+| `decide` | A supported solution has options that belong to the owner, and no decision is recorded | **Implementation** of the proposed option, gated on the owner's decision (the decision block is pending) |
+| `implement` | The solution is decided (a cited decision) or needs no owner decision, and the evidence supports it | **Implementation**: exact old and new text, or a new file's exact content, for each change the evidence fully determines. A change that can't be fixed exactly without running code is a bounded step with the check that confirms it, never a guessed patch |
+
+**The decision block** (incident and enhancement, when a choice belongs to the owner):
+- a status: `pending`, or `decided` with who decided, when and where, quoting the decision (a
+  conversation line with its date, an issue comment's URL, or a record such as a Change Log row);
+- one row per option, each with its consequence, and at most one labelled "(proposed)" or "(decided)";
+- when pending: the gate (don't implement until the owner records the decision on the issue), and
+  the implementation of the proposed option only, with the instruction to stop and ask for new steps
+  if another option is chosen;
+- when decided: no gate; the post cites the decision, and the implementation follows it.
+
+**Citations** use a form `check_post.py` can read (BEH-09):
+- the pinned revision: `Every reference below is to <ref> at <SHA>`, with a SHA of at least 7 hex
+  digits that resolves in the repository;
+- a quoted source: `` `<path>` line N `` or `` `<path>` lines N–M ``, optionally followed by
+  `at <SHA>` when it differs from the pinned revision, then either `: "<quote>"` on the same line or
+  a `>` block quote on the next lines. An omission inside a quote is written `…`;
+- a replacement: the step names the file as `` `<path>` ``, then `replace`, the old text in a code
+  span or block, `with`, and the new text.
+
+**Accessible evidence.** Everything the next action depends on is readable by someone who has only
+the post and the repository: committed at the cited revision, quoted in the post, or at a URL they
+can open. Evidence that exists on one machine only, such as a session transcript, may be cited as
+supporting evidence and marked local, but the post quotes the parts the next action needs.
 
 **The post's own number.** Until the post exists it has no number, so the draft writes a
 reference to itself as `#{{self}}`. BEH-14 replaces it after the post is created.
@@ -139,7 +167,7 @@ description: Writes and posts a GitHub pull request description, incident or enh
 argument-hint: "[PR|Incident|Enhancement] [subject]"
 metadata:
   devforgeai-id: "SKL-009"
-  devforgeai-version: "<SKL-009's provenance.yaml version, quoted>"
+  devforgeai-version: "1"   # at the first build; always equal to provenance.yaml's version
 ```
 
 - **The name must be exactly `github-post`.** The skill is model-invocable.
@@ -177,16 +205,16 @@ behaviors:
     rule: "Write every factual sentence with a source from §4, and keep facts, proposals and decisions in separate sections. Label each proposal Proposed. Write nothing aspirational: no future benefit, saving, effort or certainty without a cited basis. State an unknown as Unknown: <what is missing> instead of guessing."
   - id: BEH-06
     status: active
-    rule: "In an incident or enhancement, put every choice that belongs to the owner in the decision block (§4): status pending unless the owner decided it in this conversation or in a cited record, in which case decided, naming who, when and where. Give each option its consequence, label at most one (proposed) and only when the evidence supports it, and make the implementation cover the proposed option only, with the instruction to stop and ask when another option is chosen."
+    rule: "In an incident or enhancement, record every choice that belongs to the owner in the decision block (§4). When the owner already decided, in this conversation or in a cited record, the status is decided: cite who, when and where, quote the decision, give no gate, and make the implementation follow the decided option. Otherwise the status is pending: give each option its consequence, label at most one (proposed) and only when the evidence supports it, include the gate, and make the implementation cover the proposed option only, with the instruction to stop and ask when another option is chosen."
   - id: BEH-07
     status: active
-    rule: "Write an incident or enhancement for a reader with none of the author's context: name the repository's instruction files to read first; list preconditions and what to do when one doesn't hold; give each edit's file, the exact text to replace and the exact new text (or a new file's exact content); say which files are not changed; give each verification command with where to run it and its expected output; leave anything that costs money or time to the owner's decision, with its cost; end with an acceptance checklist, what is out of scope and the references, including which tool and session wrote the post."
+    rule: "Write an incident or enhancement for a reader with none of the author's context. State the next action (§4) in the Summary, chosen from the evidence: investigate when the cause or a supported solution isn't established, decide when a supported solution needs the owner's choice, implement when it is decided or needs no decision. For investigate, section 5 is the investigation plan (§4). For decide and implement, section 5 names the repository's instruction files to read first, the preconditions and what to do when one doesn't hold, and each change: exact old and new text, or a new file's exact content, where the evidence fully determines it, otherwise a bounded step with the check that confirms it. Say which files are not changed; give each verification command with where to run it and its expected output; leave anything that costs money or time to the owner's decision, with its cost; end with an acceptance checklist, what is out of scope and the references, including which tool and session wrote the post."
   - id: BEH-08
     status: active
-    rule: "For a pr: the branch must exist on the remote (git ls-remote --heads origin <branch>), otherwise stop with ERR-03. Look for an open PR from it (gh pr list --head <branch> --state open). With none, create it with gh pr create --base <default branch> --head <branch> --title <title in the repository's commit convention> --body-file <draft>, as a draft PR when a required check failed or wasn't run. With one, update its title and body with gh pr edit. List only checks actually run in this session or recorded elsewhere with a cited location, each with its result. Run no document-ID collision check: when this skill creates the PR, its limitations say 'Document-ID collision not checked; /devforgeai:git pr runs that check.' Never commit, push, merge, change a PR's draft state after creation, or run documents-updater."
+    rule: "For a pr, bind the post to the remote head. Read the remote branch's SHA (git ls-remote --heads origin <branch>). Stop with ERR-03 when the branch isn't there, when its SHA differs from git rev-parse HEAD (commits not pushed or not pulled), or when git status --porcelain shows tracked changes. Take the base as the remote default branch's SHA (git ls-remote), and its merge base with HEAD when that commit is present locally. The Revision section states the base and head SHAs. Each check listed under Checks run cites the SHA it ran at, with its result, and comes from this session or a cited record; a check run at another SHA, or with tracked changes present, is listed under Not verified with that SHA. Look for an open PR from the branch (gh pr list --head <branch> --state open --json number,headRefOid). With none, create it with gh pr create --base <default branch> --head <branch> --title <title in the repository's commit convention> --body-file <draft>, as a draft PR when a required check failed or wasn't run at the head. With one, stop with ERR-03 when its headRefOid differs from the head SHA the body describes; otherwise update its title and body with gh pr edit. Run no document-ID collision check: when this skill creates the PR, its limitations say 'Document-ID collision not checked; /devforgeai:git pr runs that check.' Never commit, push, merge, change a PR's draft state after creation, or run documents-updater."
   - id: BEH-09
     status: active
-    rule: "Before posting, run python3 ${CLAUDE_SKILL_DIR}/scripts/check_post.py on the draft. It checks that each cited path and line exists at the cited commit (git show <sha>:<path>), and that each text the implementation says to replace occurs exactly once in its file at that commit, comparing with whitespace normalized and reporting an anchor wrapped across lines so the draft can say so. Fix the draft or remove the claim until the check passes; never post while it fails (ERR-04)."
+    rule: "Before posting, run python3 ${CLAUDE_SKILL_DIR}/scripts/check_post.py on the draft. Reading each cited commit with git show <sha>:<path>, it checks the citations written in the §4 form: every cited path and line range exists; every quotation attributed to a path and lines matches the text at those lines, comparing with whitespace normalized and matching the parts around each … in order; and each text the implementation says to replace occurs exactly once in its file at the pinned revision, with an anchor wrapped across lines reported so the draft can say so. Fix the draft or remove the claim until the check passes; never post while it fails (ERR-04). When a cited commit can't be read, the check for those citations is unavailable (ERR-09): it is never replaced by reading the working tree, and the report lists the citations not checked."
   - id: BEH-10
     status: active
     rule: "Scan the draft before posting, with the same script: absolute home paths (/home/<user>, /Users/<user>, C:\\Users\\<user>), email addresses, token and secret patterns, and transcript excerpts longer than a short quote. Rewrite home paths as ~ or repository-relative paths. On a public repository any remaining hit blocks posting until it is removed (ERR-05); on a private one, ask. Report each hit by its line in the draft, never by repeating the text."
@@ -207,7 +235,10 @@ behaviors:
     rule: "Write nothing into the repository: no file edits, commits, pushes or branches. The draft lives in the system temp folder."
   - id: BEH-16
     status: active
-    rule: "Report, in order: the URL, or 'not posted' with the reason and the exact gh command; the kind and title; the labels, naming any created; each check with its result (references and anchors, safety scan, duplicate search); the decision status; and anything pending, such as a failed edit (ERR-07). When nothing was posted, the reply also contains the full draft."
+    rule: "Report, in order: the URL, or 'not posted' with the reason and the exact gh command; the kind, the title and the next action; the labels, naming any created; each check with its result (citations and anchors: passed, failed or unavailable; the safety scan; the duplicate search; for a pr, the base and head SHAs); the decision status; and anything pending, such as a failed edit (ERR-07). When nothing was posted, the reply also contains the full draft."
+  - id: BEH-17
+    status: active
+    rule: "Make the post self-sufficient (§4, accessible evidence): everything the next action depends on is readable with only the post and the repository, as content committed at the cited revision, a quotation in the post, or a URL the reader can open. Evidence that exists on one machine only is cited as supporting evidence and marked local, and the post quotes the parts the next action needs."
 ```
 
 ## 7. Errors and edge cases
@@ -226,9 +257,9 @@ errors:
     user_result: "The full draft, the reason it wasn't posted and the command to post it"
   - id: ERR-03
     status: active
-    condition: "For a pr, the branch isn't on the remote"
-    handling: "Post nothing. Say that the branch must be pushed first, with /devforgeai:git push or git push, and offer the draft body"
-    user_result: "The reason, the next step and the draft"
+    condition: "For a pr, the branch isn't on the remote, its remote SHA differs from the local HEAD, tracked changes are uncommitted, or the open PR's head differs from the head the body describes"
+    handling: "Post nothing. Name the mismatch with both SHAs, say what to do first (commit and push with /devforgeai:git, or pull the remote commits), and offer the draft body"
+    user_result: "The mismatch, the next step and the draft"
   - id: ERR-04
     status: active
     condition: "The reference or anchor check still fails after the draft is fixed, for example when the cited text has changed at the cited commit"
@@ -252,8 +283,13 @@ errors:
   - id: ERR-08
     status: active
     condition: "The evidence doesn't support a required section, or the core claim has no evidence at all"
-    handling: "Write the section as Unknown: <what is missing>. When the core claim has no evidence, ask before posting; with no user, post nothing"
-    user_result: "A draft with its unknowns stated, and a question when the core claim is unsupported"
+    handling: "Write the section as Unknown: <what is missing>, and make the next action investigate rather than guess a solution. When the core claim has no evidence, ask before posting; with no user, post nothing"
+    user_result: "A draft with its unknowns stated and an investigation plan, and a question when the core claim is unsupported"
+  - id: ERR-09
+    status: active
+    condition: "A cited commit can't be read, for example in a shallow clone or a sandbox that blocks git, so the citation check is unavailable for some citations"
+    handling: "Never check against the working tree instead. Report the check as unavailable and list the citations not checked. Ask before posting; with no user, post nothing"
+    user_result: "The citations not checked, and a question"
 ```
 
 ## 8. Non-functional design
@@ -274,7 +310,7 @@ quality_responses:
       - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
   - id: QR-03
     status: active
-    response: "One eval case per automated VER item, tagged github-post and ver-NN, run against the no-plugin baseline"
+    response: "One eval case per automated VER item, tagged github-post and ver-NN, run against the no-plugin baseline; VER-12, which needs two sessions in sequence, runs as a harness script instead"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
       - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
@@ -284,16 +320,16 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Version 1 | Draft, awaiting Bryan's approval; not built. The templates are staged in `src/templates/github/` |
+| Version 1 | Draft, revised after Bryan's review of `aa3563f`; awaiting his approval; not built. The templates are staged in `src/templates/github/` |
 | Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-29) |
-| Scope of the automated suite | Eval runs have no network, so every automated case runs in draft-only mode (ERR-02). The automated suite verifies drafting, the checks and refusals. **Posting (BEH-11 to BEH-14, ERR-07) is verified only by hand** (VER-09, VER-10), the same gap SPEC-007 has for pushes and merges |
-| Risk to settle at build time | `check_post.py` reads `git show <sha>:<path>`, so VER-01's fixture must be a git repository with commits. The eval sandbox masks `.git/config.lock` in repositories a scaffold builds, where `git config`, `remote add` and `push -u` fail (CLAUDE.md, "Evaluating a skill"). Read-only `git show` and `git log` are expected to work there, but that is unverified. If they fail, the scaffold records the fixture's SHAs, and the check falls back to the working-tree file and says so |
+| Scope of the automated suite | Eval runs have no network, so every automated case runs in draft-only mode (ERR-02). The automated suite verifies drafting, the checks and refusals. **Posting (BEH-11 to BEH-14, ERR-07) is verified only by hand** (VER-09, VER-10), the same gap SPEC-007 has for pushes and merges. Whether a fresh agent can act on a post is verified by the VER-12 harness, run from a plain terminal |
+| Risk to settle at build time | `check_post.py` reads `git show <sha>:<path>`, so VER-01's and VER-11's fixtures are git repositories with commits. The eval sandbox masks `.git/config.lock` in repositories a scaffold builds, where `git config`, `remote add` and `push -u` fail (CLAUDE.md, "Evaluating a skill"); whether read-only `git show` works there is unverified. The check never falls back to the working tree: if `git show` fails, the run reports the check unavailable (ERR-09), and the cases grade the draft's quotations against the fixture text at the SHAs that `make_evals.py` records after verifying them itself when it generates the cases |
 
 ```yaml items
 verifications:
   - id: VER-01
     status: active
-    obligation: "Incident draft: a fixture git repository with commits, holding a spec whose rule leaves a case unhandled and a run log showing it; the request names the kind and the gap, and there is no network. The reply holds the full draft with every incident section from §4; each cited path and line exists at a full commit SHA the draft names; each quote matches the fixture; the decision block's status is pending; no absolute home path appears; and the reply says nothing was posted, with the gh command. Eval case incident-draft: regex and llm on last_message."
+    obligation: "Incident, decided: a fixture git repository with commits, holding a spec whose rule leaves a case unhandled and a committed run log showing it. The request names the kind and the gap and states the owner's decision with its date; there is no network. The reply holds the full draft with every incident section from §4; the Summary states next action implement; the decision block is decided, cites the request's decision and has no gate; each cited path and line exists at the pinned SHA and each quotation matches the fixture text at those lines; the implementation gives exact old and new text for the fix; no absolute home path appears; and the reply says nothing was posted, with the gh command. Eval case incident-decided: regex and llm on last_message."
     level: e2e
     covers:
       - BEH-01
@@ -305,10 +341,11 @@ verifications:
       - BEH-09
       - BEH-15
       - BEH-16
+      - BEH-17
       - ERR-02
   - id: VER-02
     status: active
-    obligation: "Enhancement draft: a fixture repository and a request for a new capability, attributed to a named requester. The draft has every enhancement section; each proposal is labelled Proposed; the motivation cites who asked; no benefit, saving or effort estimate appears without a cited basis; and the decision status is pending. Eval case enhancement-draft: llm and regex on last_message."
+    obligation: "Enhancement, pending: a fixture repository and a request for a new capability, attributed to a named requester, with two ways to provide it and no decision. The draft has every enhancement section; the Summary states next action decide; each proposal is labelled Proposed; the motivation cites who asked; no benefit, saving or effort estimate appears without a cited basis; and the decision block is pending, with the gate. Eval case enhancement-pending: llm and regex on last_message."
     level: e2e
     covers:
       - BEH-01
@@ -317,7 +354,7 @@ verifications:
       - BEH-07
   - id: VER-03
     status: active
-    obligation: "PR on an unpushed branch: a fixture repository with a local bare origin (as the git skill's evals use) and a branch with commits that isn't on the remote. The skill posts nothing, says the branch must be pushed first and names /devforgeai:git push, and runs no git push. Eval case pr-branch-not-pushed: regex on last_message; the bare remote has no such branch afterwards."
+    obligation: "PR not bound to the remote: a fixture repository with a local bare origin, as the git skill's evals use. In one case the branch isn't on the remote; in the other the remote branch is one commit behind the local HEAD. Each posts nothing, names the mismatch with both SHAs where both exist, says to push first with /devforgeai:git, and runs no git push. Eval cases pr-branch-not-pushed and pr-head-not-pushed: regex on last_message; the bare remote is unchanged afterwards."
     level: e2e
     covers:
       - BEH-08
@@ -353,15 +390,16 @@ verifications:
       - QR-03
   - id: VER-08
     status: active
-    obligation: "check_post.py unit tests: a path and line that exists at the commit passes and one that doesn't fails; an anchor found once passes, twice or never fails, and one wrapped across lines passes with the wrap reported; a home path, an email address and a token pattern are each reported by line without the text; a clean draft passes. Tests in src/tests/github-post/."
+    obligation: "check_post.py unit tests: a path and line that exists at the commit passes and one that doesn't fails; a quotation that matches its cited lines passes, one that differs fails, and one with … matching its parts in order passes; an anchor found once passes, twice or never fails, and one wrapped across lines passes with the wrap reported; a citation at a commit that can't be read is reported unavailable and the working tree is never read; a home path, an email address and a token pattern are each reported by line without the text; a clean draft passes. Tests in src/tests/github-post/."
     level: unit
     covers:
       - BEH-09
       - BEH-10
       - ERR-04
+      - ERR-09
   - id: VER-09
     status: active
-    obligation: "Manual, on a GitHub test repository: post an incident with a missing bug label (the label is created and reported); #{{self}} is replaced with the new number and the view-back shows no placeholder; create a PR from a pushed branch and then update its body; a second incident on the same subject finds the first and asks; a simulated failure after creation (for example a revoked label permission) reports the URL and the pending command and deletes nothing; the repository's visibility is read and reported."
+    obligation: "Manual, on a GitHub test repository: post an incident with a missing bug label (the label is created and reported); #{{self}} is replaced with the new number and the view-back shows no placeholder; create a PR from a pushed branch whose body states the base and head SHAs and lists each check at the head SHA, then update its body; an update is refused when someone has pushed to the PR after the body was drafted; a second incident on the same subject finds the first and asks; a simulated failure after creation (for example a revoked label permission) reports the URL and the pending command and deletes nothing; the repository's visibility is read and reported."
     level: manual
     covers:
       - BEH-02
@@ -378,6 +416,20 @@ verifications:
       - BEH-13
       - ERR-08
       - QR-01
+  - id: VER-11
+    status: active
+    obligation: "Incident, investigate: a fixture repository whose committed log shows a failure but whose sources don't establish its cause. The draft's Summary states next action investigate; section 5 is an investigation plan with the questions to answer, where to look, how to reproduce, what to record, a stop condition and what to report back; it gives no replacement text; and it writes Unknown where the cause would go. Eval case incident-investigate: regex and llm on last_message."
+    level: e2e
+    covers:
+      - BEH-07
+      - ERR-08
+  - id: VER-12
+    status: active
+    obligation: "Cold-session acceptance, run by src/tests/github-post/cold_session.py from a plain terminal. Stage A runs the skill with claude -p in a copy of a fixture repository and drafts two incidents: one implement (the request states the decision) and one investigate. Stage B gives only a draft's body to a fresh claude -p session, without the plugin and without the author's conversation, in a clean copy of the fixture repository at the pinned SHA that holds none of the author's local files. For the implement draft, stage B's changes meet every acceptance criterion and each verification command prints its expected output; for the investigate draft, stage B's report answers every listed question with cited evidence. A draft that depends on anything outside the post and the repository fails. It is a harness, not a claude plugin eval case."
+    level: e2e
+    covers:
+      - BEH-07
+      - BEH-17
 ```
 
 ## 10. Rollout, migration and rollback
@@ -399,7 +451,8 @@ After Bryan approves this spec:
    (VER-08). Settle the §9 risk first: check `git show` in a scaffold-built repository under
    `claude plugin eval`.
 6. Write `src/tests/github-post/make_evals.py`, which generates the cases for VER-01 to VER-07 and
-   checks their fixtures, and check the regex graders offline with good and bad replies.
+   VER-11, verifies their fixture commits and records the SHAs, and check the regex graders offline
+   with good and bad replies. Write `src/tests/github-post/cold_session.py` for VER-12.
 7. Bump `plugin.json` and extend its description (Bryan's choice); add the CLAUDE.md and AGENTS.md
    rows.
 8. Evaluate cheapest first (a pilot, one run, then three runs with the baseline), deploy, and run
@@ -413,6 +466,9 @@ After Bryan approves this spec:
 | Call the git skill's `repo_state.py` for the document-ID collision check before creating a PR | Couples this skill to a script of a draft spec that could change. The PR's limitations say the check didn't run and point to `/devforgeai:git pr` instead (BEH-08) |
 | GitHub issue forms only (`.github/ISSUE_TEMPLATE/`) | A web form can't pin evidence to a commit, check quotes or scan for local paths. Bryan chose the templates in `src/templates/` and this spec for now (2026-09-29) |
 | One template for every kind | The kinds need different sections: a PR reports checks run and not verified; an incident needs evidence and a timeline; an enhancement needs the requester and the proposal |
+| Always require an owner comment before implementation | Blocks work the owner has already authorized. A decided status cites the decision instead, and the gate applies only while a decision is pending (BEH-06; Bryan's review, 2026-09-29) |
+| Always give exact patches | Not every incident has an established cause or a supported solution; a guessed patch misleads the next agent. The next action says whether to investigate, decide or implement (BEH-07, ERR-08) |
+| Check citations against the working tree when the cited commit can't be read | The working tree doesn't show what existed at the cited commit. The check is reported unavailable instead (ERR-09) |
 
 ## 13. Open questions
 
@@ -429,3 +485,4 @@ After Bryan approves this spec:
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Initial draft from Bryan's decisions of 2026-09-29: the workflow used for issue #19 as a skill, with PR mode that creates or updates but never pushes, posting when the request names it, labels created when missing, and the templates staged in src/templates/github/. The label mapping (§13) awaits confirmation. Awaiting Bryan's approval | all |
+| 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Revised after Bryan's review of commit aa3563f, still version 1 and still a draft: (1) a decision already made is cited and doesn't gate the work (§4, BEH-06); (2) the next action is investigate, decide or implement, with exact patches only where the evidence determines them (§4, BEH-07, ERR-08, VER-11); (3) citations are never checked against the working tree, an unreadable commit makes the check unavailable, and every quotation is matched to its cited lines (§4 citations, BEH-09, ERR-09, §9); (4) a PR is bound to its remote head, with base and head SHAs and each check at the head (BEH-08, ERR-03, VER-03); (5) posts are self-sufficient, and a cold session acting on a post is tested (BEH-17, VER-12). The frontmatter example's version is 1. Awaiting Bryan's approval | §1, §4, §5, BEH-06..09, BEH-16, BEH-17, ERR-03, ERR-08, ERR-09, QR-03, §9, VER-01..03, VER-08..12, §11, §12 |
