@@ -232,6 +232,11 @@ Brainstorm frameworks are an extension point: add a file with the six sections t
   and any command whose paths contain `git` in a form it can't verify (such as `skills/git/`). Run test
   files directly (`python3 -B src/tests/git/test_repo_state.py`), and write scratch scripts with the
   Write tool before running them.
+- **Never investigate a failing test by changing the working tree** (ADR-005 D7; interim, until the
+  dev skill implements it). Record a baseline test run before the first change; compare old code only
+  in a disposable worktree (`git worktree add --detach <path> <commit>`) or with
+  `git show <commit>:<path>`; commit work in progress before each full test run. Never restore, check
+  out, stash, reset, clean or re-download files into the working tree to investigate.
 
 ## Building the next skill
 
