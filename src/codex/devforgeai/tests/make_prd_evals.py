@@ -24,6 +24,8 @@ def adapt(relative, data):
     if relative.name == 'prompt.md':
         # Claude tool allow-list is runner metadata, never part of the task prompt.
         text = re.sub(r'^allowed_tools:.*\n', '', text, flags=re.M)
+        if relative.parts[0] == 'policy-bad-date':
+            text = text.replace('name the file and the field.', 'name the file, the field and the schema rule.')
     elif relative.parent.name == 'graders':
         if 'type: tool_used\n' in text:
             # Codex has no Claude Skill call. Preserve min/max and arm semantics.
@@ -39,6 +41,9 @@ def adapt(relative, data):
         elif relative.as_posix() == 'extension-keeps-review-history/graders/new-row-unreviewed.md':
             # New authoring row only; historical Claude rows/authors stay unchanged.
             text = text.replace('claude-code', 'codex')
+        if relative.as_posix() == 'policy-bad-date/graders/names-field.md':
+            # SPEC-002 ERR-08 and issue 15 require the schema label, too.
+            text = text.replace(r'\bupdated\b', r'(?s)(?=.*\bupdated\b)(?=.*\bschema\b)')
     return text.encode('utf-8')
 
 def main():

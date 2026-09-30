@@ -1,12 +1,12 @@
 # DevForgeAI provenance record for one skill. Validated against src/schemas/skill.schema.json.
-# Codex provider revision 6: approved contract update; reference provider history preserved.
+# Codex provider revision 7: shared-schema policy update; reference provider history preserved.
 id: SKL-003
 type: skill
 title: "Architecture Definition skill (Codex port)"
 status: draft          # draft | in-review | approved | superseded | deprecated
-version: 6
+version: 7
 created: 2026-09-28
-updated: 2026-09-29
+updated: 2026-09-30
 owner: "Bryan"
 authors: ["Bryan", "claude-code", "codex"]
 generated_by:

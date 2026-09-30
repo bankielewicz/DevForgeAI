@@ -1,12 +1,12 @@
-# Codex provider revision 2: approved contract update; reference provider history preserved.
+# Codex provider revision 3: shared-schema policy update; reference provider history preserved.
 # Original provenance is preserved in the read-only Claude source and import evidence.
 id: SKL-002
 type: skill
 title: "PRD skill (Codex port)"
 status: draft
-version: 2
+version: 3
 created: 2026-09-29
-updated: 2026-09-29
+updated: 2026-09-30
 owner: "Bryan"
 authors: ["Bryan", "claude-code", "codex"]
 generated_by:
@@ -17,7 +17,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: SPEC-002, relation: implements, version: 2, hash: null}
+  - {id: SPEC-002, relation: implements, version: 3, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []

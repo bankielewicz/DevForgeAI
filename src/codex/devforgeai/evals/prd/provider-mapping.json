@@ -674,8 +674,8 @@
   {
     "path": "policy-bad-date/graders/names-field.md",
     "source_sha256": "ea73a39048669beb1b8154742ac302f0f25f79f321831b47971afd69a8a26716",
-    "adapted_sha256": "ea73a39048669beb1b8154742ac302f0f25f79f321831b47971afd69a8a26716",
-    "changed": false
+    "adapted_sha256": "620fa38136002555723ae854c62598f773f120260619753b55fbc3166d09220b",
+    "changed": true
   },
   {
     "path": "policy-bad-date/graders/names-file.md",
@@ -692,7 +692,7 @@
   {
     "path": "policy-bad-date/prompt.md",
     "source_sha256": "a7a5e2bcb54b50293043b2dd5d2ec62943ff36c6bb27a526ba04e7f6855ee65d",
-    "adapted_sha256": "59f9b2260e13b68d8eb11d20f41f1b9e1532c77a6dd311819f7d7e65efc4a709",
+    "adapted_sha256": "cabe73dea19e0a18755dd0d2be9c8f17cdf17103ea19679ca0adb3d7198a7b59",
     "changed": true
   },
   {

@@ -3,7 +3,7 @@ name: prd
 description: "Turns a DevForgeAI brainstorm (BRN) document into a product requirements document (PRD), interviewing only for what the brainstorm leaves open, such as delivery stage, priorities, current-release versus later scope, quality requirements and constraints. Use when the user wants to write a PRD, define requirements or scope from a brainstorm, or continue the DevForgeAI planning chain after brainstorming."
 metadata:
   devforgeai-id: "SKL-002"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # PRD
@@ -94,13 +94,13 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
 
    Replace `<loaded-skill-dir>` with the verified absolute directory of this loaded skill.
    It skips and reports draft and in-review documents (SV-06), and checks each approved one in full
-   against the policy schemas and SV-01 to SV-06. Never validate the documents by reading them
-   instead; reading their `status` for item 3's last case is fine.
+   against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by reading
+   them instead; reading their `status` for item 3's last case is fine.
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-08).** Before asking or writing anything, name each error it printed: the
      policy file, the setting (`SET-NN` and its key) or frontmatter field, the field, and the rule
-     (`schema`, `calendar check` or `SV-NN`). Write nothing. Never fall back silently.
+     (`schema` or `SV-NN`). Write nothing. Never fall back silently.
    - **2, or the script can't be run:** if any policy document has `status: approved`, stop
      (ERR-08): say that policy validation couldn't run, quote its message, and write nothing. If
      none is approved, continue with the framework defaults.
