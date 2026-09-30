@@ -24,7 +24,7 @@ SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
 TARGETS = {"prd": ("SKL-002", 2, "SPEC-002", 2), "architecture": ("SKL-003", 4, "SPEC-003", 4)}
-SPEC_STATE = {"SPEC-002": (2, "approved"), "SPEC-003": (4, "approved")}
+SPEC_STATE = {"SPEC-002": (3, "approved"), "SPEC-003": (4, "approved")}
 
 
 class _Loader(yaml.SafeLoader):

@@ -3,9 +3,9 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: approved
-version: 2
+version: 3
 created: 2026-09-23
-updated: 2026-09-29
+updated: 2026-09-30
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-09-29
+approved_on: 2026-09-30
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -23,6 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
+  - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "accepted: SV-08, and testing keys that prd validates but does not resolve"}
   - {id: SPEC-001, relation: informed_by, version: 10, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
 supersedes: []
 superseded_by: null
@@ -152,7 +153,7 @@ metadata:
 - **Policy validation (D-09):** the skill ships `scripts/validate_policy.py` and unchanged copies of
   `src/schemas/policy.schema.json` and `common.schema.json` in `references/schemas/`. The script validates
   each approved policy document in full against those schemas (field types, date patterns, authors and
-  link records) with the `jsonschema` library, then against SV-01 to SV-06, and prints every error with
+  link records) with the `jsonschema` library, then against SV-01 to SV-06 and SV-08 (ADR-005 D3), and prints every error with
   its file, field and rule. It is the one maintained validation path. The architecture skill ships
   byte-identical copies of the script and schemas, since SPEC-003 BEH-03 resolves policy exactly as this
   skill does. When `devforgeai check` ships (PRD-001 FR-018), both skills switch to it and drop the copies.
@@ -220,7 +221,7 @@ behaviors:
     rule: "Read architecture context from two sources only: ADRs in docs/specs/adr/ and documents that the BRN or the request names. Never crawl the codebase. Propose which accepted ADRs apply to this product and let the user confirm; with no user present, use only ADRs the request names. Ignore superseded ADRs. Classify what is learned: an existing commitment (an accepted ADR) becomes a frontmatter upstream link {id: ADR-NNN, relation: constrains}; a hard constraint becomes an NFR with category constraint; a preference becomes an open question; an unresolved decision (including a proposed ADR) becomes [NEEDS ADR: <decision>; affects FR-NNN, ...] in open questions, naming the requirements whose epics it blocks. Each applicable architecture.mandated_platforms setting (BEH-17) becomes a constraint NFR whose own item upstream cites its setting with {id: POL-NNN, item: SET-NN, relation: constrains, version: <policy version>, hash: null}; the link is not repeated in frontmatter. Ask about architecture context in the interview, but never decide a design question in the PRD."
   - id: BEH-17
     status: active
-    rule: "Resolve policy with the ADR-003 A4 sequence, following references/policy.md. R1: read docs/specs/policy/POL-*.md, validate approved documents in full against policy.schema.json and common.schema.json and then SV-01 to SV-06, with the skill's validation script (§5), and skip and report draft or in-review ones. When the script can't run, stop (ERR-08) rather than skip validation. R2: resolve the unconditional settings (interview.max_calls, architecture.mandated_platforms) across framework defaults (references/defaults.md), organization, project and local preference (BEH-18), honouring overridable_by. R3: establish the operating context from the request, the BRN or the first framing question. R4: apply each active quality.required_categories setting whose applies_when includes that context, additively to the BEH-03 floor; if the context is still unknown, evaluate as production and say so. R5: record each applied policy setting as an upstream link with the policy version, in exactly one place: a mandated platform's constrains link on the item upstream of the constraint NFR it produced (BEH-16), and every setting that governs how the document is produced (interview.max_calls, quality.required_categories) as a frontmatter informed_by link. Then write the ADR-003 A5 resolution line into the Change Log entry, including defaults, local values, settings that didn't apply, the fail-safe context and ignored documents."
+    rule: "Resolve policy with the ADR-003 A4 sequence, following references/policy.md. R1: read docs/specs/policy/POL-*.md, validate approved documents in full against policy.schema.json and common.schema.json and then SV-01 to SV-06 and SV-08, with the skill's validation script (§5), and skip and report draft or in-review ones. When the script can't run, stop (ERR-08) rather than skip validation. R2: resolve the unconditional settings (interview.max_calls, architecture.mandated_platforms) across framework defaults (references/defaults.md), organization, project and local preference (BEH-18), honouring overridable_by. R3: establish the operating context from the request, the BRN or the first framing question. R4: apply each active quality.required_categories setting whose applies_when includes that context, additively to the BEH-03 floor; if the context is still unknown, evaluate as production and say so. R5: record each applied policy setting as an upstream link with the policy version, in exactly one place: a mandated platform's constrains link on the item upstream of the constraint NFR it produced (BEH-16), and every setting that governs how the document is produced (interview.max_calls, quality.required_categories) as a frontmatter informed_by link. Then write the ADR-003 A5 resolution line into the Change Log entry, including defaults, local values, settings that didn't apply, the fail-safe context and ignored documents."
   - id: BEH-18
     status: active
     rule: "Read local preferences from .claude/devforgeai.local.md if it exists: YAML frontmatter with devforgeai_local: 1 and interaction-default keys only (v1: interview.max_calls). Use an entry only if the effective setting's overridable_by includes local. Ignore and report any other entry (unknown key, organizational-policy key, bad type or range, not allowed). A local file never stops the skill. Record used values as '<key>=<value> (local)' in the resolution line, never as a link."
@@ -282,7 +283,7 @@ errors:
     user_result: "Either a draft file or no file, as the user chose"
   - id: ERR-08
     status: active
-    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice) or SV-04 (a project setting overrides a mandated platform that doesn't allow it), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local; or the validation script can't run while approved policy exists"
+    condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice), SV-04 (a project setting overrides a mandated platform that doesn't allow it) or SV-08 (a testing.* key set twice), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local; or the validation script can't run while approved policy exists"
     handling: "Stop before writing anything. Name the policy file, the setting and the rule broken (schema or SV-NN). Never guess or fall back silently"
     user_result: "The policy error to fix; no PRD file"
 ```
@@ -711,3 +712,5 @@ its priority and release are decided.
 | 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decisions of 2026-09-29 on the Codex import findings. D-03: a failed extension of an approved PRD stays in-review with approval cleared (BEH-06, ERR-06). D-04: one initial check and at most three repair-and-readback cycles (BEH-12, ERR-06). D-05: explicit none, no target yet, partial answers and no answer kept apart, none never waiving policy (BEH-03). D-06: a stated new-versus-extend choice answers the gate (BEH-09). D-07: every FR derives from a promoted idea, NFRs cite their actual source (BEH-04). D-08: an extension keeps authorship and reviews and says the new revision is unreviewed (BEH-10). D-09: full schema validation through one shipped script, shared with the architecture skill (§5, BEH-17, ERR-08). Provider adaptations kept separate (§5, BEH-05, BEH-10); missing identity disclosed, never fabricated. VER-09 to VER-11 changed; VER-24 to VER-32 added. Links to PRD-001 at v10. Awaiting Bryan's approval | §5, BEH-03, BEH-04, BEH-05, BEH-06, BEH-09, BEH-10, BEH-12, BEH-17, ERR-06, ERR-08, VER-09, VER-10, VER-11, VER-24 to VER-32, §9, §11, frontmatter, status |
 | 2 | 2026-09-29 | Bryan | Approved | status |
 | 2 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Record-only update, with no version bump: §9 records SKL-002 v2's structural checks and its bound 3-run prd eval (29 of 29 at 1.00), marks the Codex-import findings resolved by version 2, records the manual runs (VER-11 pass except its ERR-07 clause; VER-23's can't-run case pass; the session-ID check pass; VER-12 not run), and updates the qualification, including Bryan's approval of SKL-002 v2 on 2026-09-29. No item changed | §9 |
+| 3 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decision of 2026-09-30 (ADR-005 D3; issue #15). The policy script also applies SV-08, at most one active setting per `testing.*` key per document, so §5, BEH-17 R1 and ERR-08 name it. The testing keys are validated in R1 and not resolved (ADR-005 D5), so R2 is unchanged. Impossible dates will be `schema` errors once the shared date definition has a format check (issue #15), so ERR-08's "(schema or SV-NN)" is unchanged. ADR-005 linked. SKL-002 implements this version in the shared-schema PR; until then its provenance stays at version 2 | frontmatter, §5, BEH-17, ERR-08 |
+| 3 | 2026-09-30 | Bryan | Approved | status |
