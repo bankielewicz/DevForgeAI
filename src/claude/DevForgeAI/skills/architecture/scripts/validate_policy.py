@@ -8,7 +8,8 @@ reported as "ignored <file> (status <status>)" and not checked (SV-06). Each app
 validated in full against references/schemas/policy.schema.json and common.schema.json (field types,
 date patterns, authors and link records) with the jsonschema library and a format checker, so the
 schema's date format checks created, updated and a non-null approved_on against the calendar
-(2026-13-45 fails as a schema error). Then the semantic rules apply:
+(2026-13-45 fails as a schema error). A YAML .nan is a schema error too: JSON has no NaN, and the
+schema's minimum and maximum can't reject it. Then the semantic rules apply:
 SV-01 unique setting IDs, SV-02 one approved document per scope, SV-03 one active interview.max_calls
 per document, SV-04 one active mandated platform per capability per document and no project override
 the organization setting forbids, SV-05 deprecated settings take no part (reported), SV-06
@@ -133,16 +134,34 @@ def shorten(text):
     return text if len(text) <= MAX_MESSAGE else text[: MAX_MESSAGE - 3] + "..."
 
 
+def locate(doc, path):
+    """Splits an error's path into the <part> and the rest, which field_path turns into <field>."""
+    if path[:1] == ["frontmatter"]:
+        return "frontmatter", path[1:]
+    if path[:1] == ["settings"] and len(path) > 1 and isinstance(path[1], int):
+        return setting_label(doc, path[1]), path[2:]
+    return "document", path
+
+
+def nan_paths(value, path=()):
+    """Yields the path of every NaN. JSON has no NaN, so a YAML .nan fits no schema type, yet a schema's
+    minimum and maximum can't reject it: every comparison with NaN is false."""
+    if isinstance(value, float) and value != value:
+        yield path
+    elif isinstance(value, dict):
+        for k, v in value.items():
+            yield from nan_paths(v, path + (k,))
+    elif isinstance(value, list):
+        for i, v in enumerate(value):
+            yield from nan_paths(v, path + (i,))
+
+
 def schema_errors(validator, doc):
     errors = []
-    for e in sorted(validator.iter_errors(doc), key=lambda e: [str(p) for p in e.absolute_path]):
+    found = sorted(validator.iter_errors(doc), key=lambda e: [str(p) for p in e.absolute_path])
+    for e in found:
         path = list(e.absolute_path)
-        if path[:1] == ["frontmatter"]:
-            part, rest = "frontmatter", path[1:]
-        elif path[:1] == ["settings"] and len(path) > 1 and isinstance(path[1], int):
-            part, rest = setting_label(doc, path[1]), path[2:]
-        else:
-            part, rest = "document", path
+        part, rest = locate(doc, path)
         message = e.message
         if e.validator == "required":
             m = re.match(r"^'(.+)' is a required property$", e.message)
@@ -158,6 +177,11 @@ def schema_errors(validator, doc):
             if formats:
                 message = formats[0].message
         errors.append((part, field_path(rest) or "(whole)", shorten(message), "schema"))
+    reported = {tuple(e.absolute_path) for e in found}
+    for path in nan_paths(doc):
+        if path not in reported:  # a type error at the same place already reports it
+            part, rest = locate(doc, list(path))
+            errors.append((part, field_path(rest) or "(whole)", "nan is not a number", "schema"))
     return errors
 
 
