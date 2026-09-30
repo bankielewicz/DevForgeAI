@@ -4,7 +4,7 @@ description: Turns a DevForgeAI brainstorm (BRN) document into a product require
 argument-hint: "[BRN-NNN]"
 metadata:
   devforgeai-id: "SKL-002"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # PRD
