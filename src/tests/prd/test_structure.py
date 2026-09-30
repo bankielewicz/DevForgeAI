@@ -78,9 +78,9 @@ class Skills(unittest.TestCase):
                 self.assertEqual((prov["id"], prov["version"], prov["skill_name"]), (skl, version, name))
                 self.assertIn({"id": spec, "relation": "implements", "version": spec_version, "hash": None},
                               prov["upstream"])
-                # Draft until Bryan approves SKL-002 v3 and SKL-003 v5 (ADR-005, Consequences).
-                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]), ("draft", "", None),
-                                 "approval stays with the owner")
+                # Approved by Bryan on 2026-09-30, after the policy cases were requalified.
+                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]),
+                                 ("approved", "Bryan", "2026-09-30"))
 
     def test_skill_md_length_and_links(self):
         for name in TARGETS:
