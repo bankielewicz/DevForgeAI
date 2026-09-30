@@ -20,7 +20,8 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [adr.md](../claude/DevForgeAI/skills/architecture/assets/adr.md) | Why did we choose this design? | None (records a decision) |
 | [arch.md](../claude/DevForgeAI/skills/architecture/assets/arch.md) | How do the pieces fit, and which shared architectural questions are settled? | None; readiness per architectural question (`DEC-`) |
 | [policy.md](policy.md) | Which organizational rules and preferences apply? | None; settings consumed by workflows (ADR-003) |
-| [ambiguities.md](ambiguities.md) | Which small choices were made without stopping, for later review? | None; entries (`ENT-`) the owner accepts or rejects (ADR-004 D8; draft template, no schema yet) |
+| [ambiguities.md](ambiguities.md) | Which small choices were made without stopping, for later review? | None; entries (`ENT-`) the owner accepts or rejects (ADR-004 D8; schema `ambiguities.schema.json`) |
+| [context/](context/) | Which stack, layout and layer conventions must stories and specs follow? | None; cited decisions, confirmed conventions and labelled observations that stories and specs obey (ADR-004: 12 documents, plus `detail.md` for detail files; schema `context.schema.json`) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
 | [github/](github/) ([pr.md](github/pr.md), [incident.md](github/incident.md), [enhancement.md](github/enhancement.md)) | What do we post to GitHub, and what does a reader with no context need to act on it? | Acceptance criteria and verification commands in the post (incident, enhancement); checks run and not verified (PR). GitHub post bodies, not `docs/specs` documents: no frontmatter, IDs or schema. They move into `skills/github-post/assets/` when SKL-009 (SPEC-010, draft) is built |
 
@@ -93,7 +94,9 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 | policy | `settings` | `SET-NN` | `key`, `class`, `value`, `applies_when`, `overridable_by`, `rationale` |
 | sprint | `scope_changes` | (none) | `date`, `change`, `story`, `reason`, `approved_by` |
 | sprint | `review` | (none) | `story`, `outcome`, `evidence` |
-| ambiguities | `entries` | `ENT-NN` | `date`, `recorded_by`, `question`, `checked`, `action`, `reverse`, `impact`, `resolve_before`, `relates_to`, `state`, `decided_by`, `decided_on`, `resolution` (draft template; `ENT` isn't in `common.schema.json` yet) |
+| ambiguities | `entries` | `ENT-NN` | `date`, `recorded_by`, `question`, `checked`, `action`, `reverse`, `impact`, `resolve_before`, `relates_to`, `state`, `decided_by`, `decided_on`, `resolution` (`ENT` has its own pattern in `ambiguities.schema.json` until `common.schema.json` adds it) |
+| context (`tech-stack.md` only) | `technologies` | `TEC-NN` | `name`, `version_range`, `used_by`, `basis`, `observed_in`, `observed_on`, `notes` |
+| context (`source-tree.md` only) | `roots` | `SRC-NN` | `path`, `holds`, `component`, `basis`, `observed_in`, `observed_on`, `notes` |
 
 Contract items live in standard formats and are identified in place:
 
@@ -101,6 +104,20 @@ Contract items live in standard formats and are identified in place:
 |---|---|---|
 | `DM-NN` data model | ```` ```sql ```` DDL (or JSON Schema for non-relational stores) | a `-- DM-NN` comment line above the table or column |
 | `IF-NN` interface | ```` ```yaml openapi ```` (OpenAPI 3.1), or AsyncAPI for events | `x-item-id: IF-NN` on the operation |
+
+### 1.3 Statements in context documents
+
+A context document (ADR-004) writes each narrative rule or fact as one bullet, labelled with its kind. The labels stay in the filled document, so people and the story and spec steps can tell the kinds apart:
+
+| Label | Meaning | Link |
+|---|---|---|
+| `**Decision** (<source>):` | Decided by an accepted ADR (`ADR-007`), an approved POL setting (`POL-001#SET-02`) or an ARCH item (`ARCH-001#CMP-03`), named in the parentheses | One `constrains` link to that same source: in frontmatter for a prose statement, on the item for `technologies` and `roots` |
+| `**Convention:**` | Confirmed by the user while the document was written; approving the document approves it | None |
+| `**Observed** (<path>, <date read>):` | Found by read-only inspection and not confirmed. Approving the document doesn't make it a convention; only the user's confirmation does | None; on an item, `observed_in` and `observed_on` |
+| `**Proposed:** … [NEEDS CLARIFICATION: …]` | Suggested and not confirmed. Blocks approval, like any marker | None |
+| `**DevForgeAI rule — <topic>:**` | A rule the DevForgeAI framework fixes, restated for the reader | None, and it names no document ID |
+
+Items record the same kinds in their `basis` field; only an active `decision` or `convention` item's `version_range` is an allowed range (ADR-004 D8). A table of rules has a Basis column holding the same kinds, and a row that restates another context document is never firmer than its source. A retired item stays, `deprecated`, with the reason in `notes`. A context document can't be approved while any marker or active Proposed statement remains anywhere in it, its detail files included. A bare ADR-, POL-, ARCH-, STORY- or SPEC- ID in a context document always means the project's own document; other context documents are named in prose and never get an `upstream` link record.
 
 ---
 
@@ -123,11 +140,14 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `ARCH-NNN` | Architecture description (components, architectural questions, evidence; SPEC-003) | `arch/ARCH-NNN.md` | templated |
 | `POL-NNN` | Policy (organizational or project settings, configuration contract v1, ADR-003) | `policy/POL-NNN.md` | templated |
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
-| `AMB-NNN` | Ambiguities log, one per work item (ADR-004 D8) | `ambiguities/AMB-NNN.md` | draft template; not in `common.schema.json` yet |
+| `AMB-NNN` | Ambiguities log, one per work item (ADR-004 D8) | `ambiguities/AMB-NNN.md` | templated; its own pattern in `ambiguities.schema.json`, not in `common.schema.json` yet |
+| `CTX-NNN` | Project context document, a fixed number per fixed name (ADR-004 D2, D3) | `context/<name>.md`; detail files in `context/<name>/<topic>.md` | templated; its own pattern in `context.schema.json`, not in `common.schema.json` yet |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
 
 Paths are relative to `docs/specs/`. Every document is named by its ID only, in a singular folder named for its type, with the topic kept in the document's `title`. The skill that writes a document allocates the next free number and never takes a file name. ID-only names turn a duplicate number from two parallel branches into a git conflict at merge, instead of two files that both merge silently.
+
+Context documents are the one exception (ADR-004 D3). Each is a singleton per project, with a fixed name and a fixed number (`tech-stack.md` is always CTX-003), found by name from `context/index.md`. A detail file has no ID of its own: it is versioned with its parent.
 
 Item IDs are listed in 1.2. They are unique within their document.
 
@@ -200,7 +220,7 @@ downstream views (a PRD's epics, a story's specs and tests, a traceability matri
 | `refines` | EPIC → PRD item, STORY → EPIC | Narrows scope into a smaller deliverable |
 | `satisfies` | AC → FR/NFR/DW, QR → NFR | Demonstrates or meets that requirement |
 | `specifies` | SPEC → STORY | Defines how the story's AC will be met |
-| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR, PRD → accepted ADR, PRD → POL setting (mandated platform) | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it |
+| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR, PRD → accepted ADR, PRD → POL setting (mandated platform), CTX → ARCH / ARCH item / accepted ADR / POL setting, STORY → CTX, SPEC → CTX | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it. A context document cites each decision it states (ADR-004 D1); stories and specs cite the context documents they obey. STORY → CTX and SPEC → CTX validate once `common.schema.json` adds `CTX` |
 | `implements` | SKL → SPEC, TASK/commit → SPEC item | Realizes this specification or design element |
 | `verifies` | VER → AC, TEST → AC/VER | Planned or actual evidence for this criterion |
 | `supersedes` | any → same type | Replaces an earlier document or item |
@@ -218,6 +238,8 @@ which stories are in a sprint, and stories carry no `sprint:` field.
 | story | `draft → ready → in-progress → in-review → done` (also `blocked`, `cancelled`) |
 | sprint | `planned → active → closed` |
 | adr | `proposed → accepted → superseded / deprecated / rejected` |
+| context | `draft → approved → superseded / deprecated`; a revision of an approved document returns it to `draft` until the owner approves again (ADR-004 D3, D5) |
+| ambiguities | `open → reviewed` (every entry accepted or rejected) |
 | *items* | `active → deprecated` |
 
 Once `approved` (or `accepted`), material changes require a `version` bump plus a
@@ -334,8 +356,9 @@ verifications:
 
 ## 4. Validation
 
-"The checker" throughout these templates is `devforgeai check`, a subcommand of the
-framework's Rust CLI, `devforgeai`.
+"The checker" throughout these templates is `devforgeai check`, a planned subcommand of the
+framework's Rust CLI, `devforgeai` (PRD-001 FR-018). It doesn't exist yet: until it does, each
+skill's own self-check applies these rules, and nothing named `devforgeai` on PATH is the checker.
 
 `src/schemas/` contains one JSON Schema (draft 2020-12) per document type plus
 `common.schema.json` (ID patterns, dates, hash, relation vocabulary, link record).

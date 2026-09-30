@@ -41,6 +41,8 @@ Use each skill's `assets/` templates and `references/output-rules.md` as its out
 
 Archive tests use standard-library `unittest` and `test_*.py` names. Evaluation templates live under `src/templates/skill/evals/`; cover triggering, unrelated requests and `VER-` obligations. Seed fixtures through `case.yaml`; compare against the no-plugin baseline. Edit generated fixtures and graders in their provider's generator, then regenerate the suite. Follow each suite's evaluation contract; the inherited threshold is 0.8 per case over three runs. No code-coverage threshold is configured. Record unrun checks as `NOT_RUN`; static checks and aggregate scores do not waive manual obligations or establish deployment parity.
 
+Never investigate a failing test by changing the working tree (ADR-005 D7; interim, until a dev skill implements it): record a baseline test run before the first change, compare old code only in a disposable worktree (`git worktree add --detach <path> <commit>`) or with `git show <commit>:<path>`, and commit work in progress before each full test run. Never restore, check out, stash, reset, clean or re-download files into the working tree to investigate.
+
 ## Commit & Pull Request Guidelines
 
 Check `git status` before editing and preserve unrelated changes. The repository was initially imported in PR #1; earlier evolution is recorded in document Change Logs. Use an isolated worktree (see ADR-001) and concise imperative subjects, such as `docs: clarify brainstorm validation`. PRs should describe scope, cite SPEC/VER or issue IDs, and report checks and limitations.
