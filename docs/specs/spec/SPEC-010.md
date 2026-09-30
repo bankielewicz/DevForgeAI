@@ -2,7 +2,7 @@
 id: SPEC-010
 type: spec
 title: "GitHub post skill"
-status: draft          # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-09-29
 updated: 2026-09-29
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "fdbef416-eebb-4053-95ce-624a311d72d5"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-09-29
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
@@ -320,7 +320,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Version 1 | Draft, revised after Bryan's review of `aa3563f`; awaiting his approval; not built. The templates are staged in `src/templates/github/` |
+| Version 1 | Approved by Bryan on 2026-09-29, after the revision that followed his review of `aa3563f`; not built. The templates are staged in `src/templates/github/` |
 | Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-29) |
 | Scope of the automated suite | Eval runs have no network, so every automated case runs in draft-only mode (ERR-02). The automated suite verifies drafting, the checks and refusals. **Posting (BEH-11 to BEH-14, ERR-07) is verified only by hand** (VER-09, VER-10), the same gap SPEC-007 has for pushes and merges. Whether a fresh agent can act on a post is verified by the VER-12 harness, run from a plain terminal |
 | Risk to settle at build time | `check_post.py` reads `git show <sha>:<path>`, so VER-01's and VER-11's fixtures are git repositories with commits. The eval sandbox masks `.git/config.lock` in repositories a scaffold builds, where `git config`, `remote add` and `push -u` fail (CLAUDE.md, "Evaluating a skill"); whether read-only `git show` works there is unverified. The check never falls back to the working tree: if `git show` fails, the run reports the check unavailable (ERR-09), and the cases grade the draft's quotations against the fixture text at the SHAs that `make_evals.py` records after verifying them itself when it generates the cases |
@@ -486,3 +486,4 @@ After Bryan approves this spec:
 |---|---|---|---|---|
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Initial draft from Bryan's decisions of 2026-09-29: the workflow used for issue #19 as a skill, with PR mode that creates or updates but never pushes, posting when the request names it, labels created when missing, and the templates staged in src/templates/github/. The label mapping (§13) awaits confirmation. Awaiting Bryan's approval | all |
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Revised after Bryan's review of commit aa3563f, still version 1 and still a draft: (1) a decision already made is cited and doesn't gate the work (§4, BEH-06); (2) the next action is investigate, decide or implement, with exact patches only where the evidence determines them (§4, BEH-07, ERR-08, VER-11); (3) citations are never checked against the working tree, an unreadable commit makes the check unavailable, and every quotation is matched to its cited lines (§4 citations, BEH-09, ERR-09, §9); (4) a PR is bound to its remote head, with base and head SHAs and each check at the head (BEH-08, ERR-03, VER-03); (5) posts are self-sufficient, and a cold session acting on a post is tested (BEH-17, VER-12). The frontmatter example's version is 1. Awaiting Bryan's approval | §1, §4, §5, BEH-06..09, BEH-16, BEH-17, ERR-03, ERR-08, ERR-09, QR-03, §9, VER-01..03, VER-08..12, §11, §12 |
+| 1 | 2026-09-29 | Bryan | Approved | status |
