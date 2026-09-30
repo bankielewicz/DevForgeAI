@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 SCRIPT = ROOT / "src/claude/DevForgeAI/skills/prd/scripts/validate_policy.py"
 LINE = re.compile(r"^(?P<file>\S+): (?P<part>[^:]+): (?P<field>[^:]+): (?P<message>.+) "
-                  r"\((?P<rule>schema|calendar check|SV-0[1-6])\)$")
+                  r"\((?P<rule>schema|SV-0[1-6])\)$")
 
 ORG = """\
 ---
@@ -220,34 +220,52 @@ class Base:
 
     # --- Schema: the four named negative fixtures -------------------------------------------------
 
-    # Calendar dates: additional semantic validation. The unchanged schema's date pattern accepts these
-    # values, so the only error is the calendar check's, never a schema error.
+    # Calendar dates: the date pattern alone accepts these values, but the schema's date format, checked
+    # with a format checker, rejects them, so each is a schema error.
 
     def test_malformed_date_is_rejected(self):
         self.write(POL_001=edit(ORG, "updated: 2026-08-17", "updated: 2026-13-45"))
         code, lines = self.run_script()
         errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="updated",
-                                   rule="calendar check", message="2026-13-45")
+                                   rule="schema", message="2026-13-45")
         self.assertEqual(len(errs), 1, lines)
 
     def test_malformed_approved_on_is_rejected(self):
         self.write(POL_001=edit(ORG, "approved_on: 2026-08-17", "approved_on: 2026-02-30"))
         code, lines = self.run_script()
         errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="approved_on",
-                                   rule="calendar check")
+                                   rule="schema", message="2026-02-30")
         self.assertEqual(len(errs), 1, lines)
 
     def test_february_29_in_a_common_year_is_rejected(self):
         self.write(POL_001=edit(ORG, "created: 2026-05-04", "created: 2025-02-29"))
         code, lines = self.run_script()
         errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created",
-                                   rule="calendar check", message="2025-02-29")
+                                   rule="schema", message="2025-02-29")
         self.assertEqual(len(errs), 1, lines)
 
     def test_day_zero_is_rejected(self):
         self.write(POL_001=edit(ORG, "updated: 2026-08-17", "updated: 2026-08-00"))
         code, lines = self.run_script()
-        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="updated", rule="calendar check")
+        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="updated", rule="schema")
+
+    def test_impossible_dates_are_schema_errors_in_every_date_field(self):
+        fields = {"created": "created: 2026-05-04", "updated": "updated: 2026-08-17",
+                  "approved_on": "approved_on: 2026-08-17"}
+        for field, old in fields.items():
+            for date in ("2026-13-45", "2026-02-30", "2025-02-29"):
+                with self.subTest(field=field, date=date):
+                    self.write(POL_001=edit(ORG, old, f"{field}: {date}"))
+                    code, lines = self.run_script()
+                    errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field=field,
+                                               rule="schema", message=date)
+                    self.assertEqual(len(errs), 1, lines)
+
+    def test_approved_on_not_matching_pattern_is_a_schema_error(self):
+        self.write(POL_001=edit(ORG, "approved_on: 2026-08-17", "approved_on: 2026-5-4"))
+        code, lines = self.run_script()
+        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="approved_on", rule="schema")
+        self.assertTrue(all(l.endswith(" (schema)") for l in lines if ": frontmatter: approved_on: " in l), lines)
 
     def test_valid_leap_days_pass(self):
         text = edit(ORG, "created: 2026-05-04", "created: 2024-02-29")
@@ -263,16 +281,16 @@ class Base:
         code, lines = self.run_script()
         self.assertEqual((code, lines), (0, ["OK: 1 approved policy document(s) valid."]))
 
-    def test_null_created_is_a_schema_error_not_a_calendar_one(self):
+    def test_null_created_is_a_schema_error(self):
         self.write(POL_001=edit(ORG, "created: 2026-05-04", "created: null"))
         code, lines = self.run_script()
-        errs = self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created", rule="schema")
-        self.assertNotIn("calendar check", {e["rule"] for e in errs}, lines)
+        self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created", rule="schema")
 
     def test_date_not_matching_pattern_is_rejected(self):
         self.write(POL_001=edit(ORG, "created: 2026-05-04", "created: 2026-5-4"))
         code, lines = self.run_script()
         self.assert_invalid(lines, code, file="POL-001.md", part="frontmatter", field="created", rule="schema")
+        self.assertTrue(all(l.endswith(" (schema)") for l in lines if ": frontmatter: created: " in l), lines)
 
     def test_authors_as_string_is_rejected(self):
         self.write(POL_001=edit(ORG, 'authors: ["Northwind platform council"]', 'authors: "Northwind platform council"'))

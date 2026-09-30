@@ -122,7 +122,7 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
      policy file, the setting (`SET-NN` and its key) or frontmatter field, the field, and the rule
-     (`schema`, `calendar check` or `SV-NN`), and say nothing was written. Never fall back silently.
+     (`schema` or `SV-NN`), and say nothing was written. Never fall back silently.
    - **2, or the script can't be run:** if any policy document has `status: approved`, stop
      (ERR-02): say that policy validation couldn't run, quote its message, and write nothing. If
      none is approved, continue with the framework defaults.

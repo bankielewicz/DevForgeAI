@@ -6,24 +6,22 @@ Usage: python3 validate_policy.py [POLICY_DIR]      (default: docs/specs/policy)
 Reads every POL-*.md in the folder. A document whose status is not approved takes no part: it is
 reported as "ignored <file> (status <status>)" and not checked (SV-06). Each approved document is
 validated in full against references/schemas/policy.schema.json and common.schema.json (field types,
-date patterns, authors and link records) with the jsonschema library. Then comes additional semantic
-validation that the unchanged schema doesn't do: created, updated and a non-null approved_on must be
-real calendar dates (the schema's date pattern accepts 2026-13-45). Then the semantic rules apply:
+date patterns, authors and link records) with the jsonschema library and a format checker, so the
+schema's date format checks created, updated and a non-null approved_on against the calendar
+(2026-13-45 fails as a schema error). Then the semantic rules apply:
 SV-01 unique setting IDs, SV-02 one approved document per scope, SV-03 one active interview.max_calls
 per document, SV-04 one active mandated platform per capability per document and no project override
 the organization setting forbids, SV-05 deprecated settings take no part (reported), SV-06
 non-approved documents take no part (reported).
 
 Output: one line per error, "<file>: <part>: <field>: <message> (<rule>)", where <part> is
-"frontmatter", "document" or a setting ("SET-01 (interview.max_calls)") and <rule> is "schema",
-"calendar check" (the additional date validation, not a schema rule) or "SV-NN"; then the notes for
-SV-05 and SV-06; then one summary line.
+"frontmatter", "document" or a setting ("SET-01 (interview.max_calls)") and <rule> is "schema" or
+"SV-NN"; then the notes for SV-05 and SV-06; then one summary line.
 
 Exit codes: 0 when every approved document is valid (or none exists), 1 when any is invalid, 2 when
 the check can't run while approved policy exists (PyYAML or jsonschema missing, a schema copy missing
 or unreadable) or POLICY_DIR is not a folder. Read-only: it never writes a file.
 """
-import datetime
 import json
 import re
 import sys
@@ -34,8 +32,6 @@ SCHEMAS = Path(__file__).resolve().parent.parent / "references" / "schemas"
 FRONTMATTER = re.compile(r"\A---[ \t]*\n(.*?)\n---[ \t]*(?:\n|\Z)", re.S)
 STATUS = re.compile(r"^status:[ \t]*[\"']?([A-Za-z-]+)[\"']?[ \t]*(?:#.*)?$", re.M)
 ITEM_BLOCK = re.compile(r"^```yaml items[ \t]*\n(.*?)^```[ \t]*$", re.S | re.M)
-DATE_FIELDS = ("created", "updated", "approved_on")
-DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 MAX_MESSAGE = 160
 
 
@@ -79,9 +75,9 @@ def make_validator(jsonschema):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore", DeprecationWarning)
             resolver = jsonschema.RefResolver.from_schema(policy, store={common["$id"]: common})
-            return cls(policy, resolver=resolver)
+            return cls(policy, resolver=resolver, format_checker=jsonschema.FormatChecker())
     registry = Registry().with_resource(common["$id"], Resource.from_contents(common))
-    return cls(policy, registry=registry)
+    return cls(policy, registry=registry, format_checker=jsonschema.FormatChecker())
 
 
 def yaml_loader(yaml):
@@ -154,23 +150,11 @@ def schema_errors(validator, doc):
             message = "unexpected field " + ", ".join(repr(x) for x in extra)
         elif e.validator == "not" and isinstance(e.validator_value, dict) and "required" in e.validator_value:
             message = "field not allowed here: " + ", ".join(e.validator_value["required"])
+        elif e.validator == "oneOf" and path == ["frontmatter", "approved_on"]:
+            formats = [c for c in e.context if c.validator == "format"]
+            if formats:
+                message = formats[0].message
         errors.append((part, field_path(rest) or "(whole)", shorten(message), "schema"))
-    return errors
-
-
-def calendar_errors(doc):
-    """Additional semantic validation: dates the schema's pattern accepts but the calendar doesn't have."""
-    fm = doc.get("frontmatter")
-    errors = []
-    if isinstance(fm, dict):
-        for name in DATE_FIELDS:
-            value = fm.get(name)
-            if isinstance(value, str) and DATE_PATTERN.match(value):
-                try:
-                    datetime.date.fromisoformat(value)
-                except ValueError:
-                    errors.append(("frontmatter", name, f"{value!r} is not a real calendar date; the schema's "
-                                   "date pattern accepts it", "calendar check"))
     return errors
 
 
@@ -278,7 +262,7 @@ def main(argv):
             errors.append((path, "document", "YAML", shorten(" ".join(str(exc).split())), "schema"))
             continue
         parsed.append((path, doc))
-        for part, field, message, rule in schema_errors(validator, doc) + calendar_errors(doc):
+        for part, field, message, rule in schema_errors(validator, doc):
             errors.append((path, part, field, message, rule))
         sv_errors, sv_notes = semantic_errors(doc)
         errors += [(path,) + e for e in sv_errors]

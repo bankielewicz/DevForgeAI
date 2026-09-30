@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
 ROOT = Path("src/claude/DevForgeAI/evals/epic")
@@ -532,6 +532,7 @@ and email goes through the regional network's relay.
 
 ARCH = arch(2)
 ARCH_STALE = arch(1)  # VER-06: not reviewed against PRD-001 version 2
+ARCH_BAD_DATE = ARCH.replace("updated: 2026-09-24", "updated: 2026-02-30")  # issue #15; no case uses it
 
 SENTINEL = "SENTINEL-7F3A: hand-written note that every run must leave in place."
 
@@ -656,7 +657,8 @@ _Loader.yaml_implicit_resolvers = {k: [r for r in v if r[0] != "tag:yaml.org,200
                                    for k, v in yaml.SafeLoader.yaml_implicit_resolvers.items()}
 
 
-def validate(label, text, schema):
+def validate(label, text, schema, expect=()):
+    """Validates a fixture; `expect` lists the schema error paths a fixture invalid on purpose must have."""
     m = re.match(r"---\n(.*?)\n---\n", text, re.S)
     doc = {"frontmatter": yaml.load(m.group(1), Loader=_Loader)}
     for block in re.findall(r"```yaml items\n(.*?)```", text, re.S):
@@ -667,9 +669,10 @@ def validate(label, text, schema):
         s = json.loads(p.read_text())
         registry = registry.with_resource(s["$id"], Resource.from_contents(s)).with_resource(
             p.name, Resource.from_contents(s))
-    errors = [f"{list(e.path)}: {e.message}" for e in Draft202012Validator(
-        json.loads((SCHEMAS / schema).read_text()), registry=registry).iter_errors(doc)]
-    assert not errors, f"{label} fails {schema}: {errors}"
+    found = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry,
+                                 format_checker=FormatChecker()).iter_errors(doc)
+    errors = {tuple(e.path): e.message for e in found}
+    assert set(errors) == set(expect), f"{label} against {schema}: expected errors at {list(expect)}, got {errors}"
     assert "\nFIXTURE\n" not in text, f"{label} contains the heredoc delimiter"
     return doc
 
@@ -696,6 +699,7 @@ FIXTURES = {
     "POL_REVOKED": (POL_REVOKED, "policy.schema.json"), "ARCH": (ARCH, "arch.schema.json"),
     "ARCH_STALE": (ARCH_STALE, "arch.schema.json"), "EPIC_COVERING": (EPIC_COVERING, "epic.schema.json"),
     "EPIC_FIRST_RUN": (EPIC_FIRST_RUN, "epic.schema.json"),
+    "ARCH_BAD_DATE": (ARCH_BAD_DATE, "arch.schema.json", [("frontmatter", "updated")]),
 }
 
 
@@ -1028,8 +1032,8 @@ that paragraph, or if the reply says it wrote or started writing a story.
 
 
 def main():
-    for label, (text, schema) in FIXTURES.items():
-        validate(label, text, schema)
+    for label, (text, schema, *expect) in FIXTURES.items():
+        validate(label, text, schema, *expect)
     check_shared_fixture()
     for name, case in CASES.items():
         d = ROOT / name

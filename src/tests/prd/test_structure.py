@@ -16,7 +16,7 @@ import unittest
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -44,7 +44,8 @@ def registry():
 
 
 def errors(schema, instance):
-    v = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry())
+    v = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry(),
+                             format_checker=FormatChecker())
     return [f"{list(e.path)}: {e.message}" for e in v.iter_errors(instance)]
 
 
