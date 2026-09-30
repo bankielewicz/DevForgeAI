@@ -453,6 +453,19 @@ class Base:
             with self.subTest(value=value):
                 self.assert_testing_error("testing.coverage_threshold", "value", value=value)
 
+    def test_coverage_threshold_nan_is_rejected(self):
+        # A schema's minimum and maximum can't reject NaN, so the script does (shared-schema report, 2026-09-30).
+        for value in (".nan", ".NaN", ".NAN"):
+            with self.subTest(value=value):
+                self.assert_testing_error("testing.coverage_threshold", "value", value=value)
+
+    def test_nan_in_an_integer_field_is_reported_once(self):
+        self.write(POL_001=edit(ORG, "    value: 6\n", "    value: .nan\n"))
+        code, lines = self.run_script()
+        errs = self.assert_invalid(lines, code, file="POL-001.md", part="SET-01 (interview.max_calls)",
+                                   field="value", rule="schema", message="integer")
+        self.assertEqual(len(errs), 1, lines)
+
     def test_coverage_scope_rejects_an_empty_list(self):
         self.assert_testing_error("testing.coverage_scope", "value", value="[]")
 
