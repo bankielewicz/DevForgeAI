@@ -94,7 +94,7 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 | policy | `settings` | `SET-NN` | `key`, `class`, `value`, `applies_when`, `overridable_by`, `rationale` |
 | sprint | `scope_changes` | (none) | `date`, `change`, `story`, `reason`, `approved_by` |
 | sprint | `review` | (none) | `story`, `outcome`, `evidence` |
-| ambiguities | `entries` | `ENT-NN` | `date`, `recorded_by`, `question`, `checked`, `action`, `reverse`, `impact`, `resolve_before`, `relates_to`, `state`, `decided_by`, `decided_on`, `resolution` (`ENT` has its own pattern in `ambiguities.schema.json` until `common.schema.json` adds it) |
+| ambiguities | `entries` | `ENT-NN` | `date`, `recorded_by`, `question`, `checked`, `action`, `reverse`, `impact`, `resolve_before`, `relates_to`, `state`, `decided_by`, `decided_on`, `resolution` |
 | context (`tech-stack.md` only) | `technologies` | `TEC-NN` | `name`, `version_range`, `used_by`, `basis`, `observed_in`, `observed_on`, `notes` |
 | context (`source-tree.md` only) | `roots` | `SRC-NN` | `path`, `holds`, `component`, `basis`, `observed_in`, `observed_on`, `notes` |
 
@@ -140,8 +140,8 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | `ARCH-NNN` | Architecture description (components, architectural questions, evidence; SPEC-003) | `arch/ARCH-NNN.md` | templated |
 | `POL-NNN` | Policy (organizational or project settings, configuration contract v1, ADR-003) | `policy/POL-NNN.md` | templated |
 | `SKL-NNN` | Skill (Agent Skills / Claude Code) | `<plugin>/skills/<skill-name>/` | templated |
-| `AMB-NNN` | Ambiguities log, one per work item (ADR-004 D8) | `ambiguities/AMB-NNN.md` | templated; its own pattern in `ambiguities.schema.json`, not in `common.schema.json` yet |
-| `CTX-NNN` | Project context document, a fixed number per fixed name (ADR-004 D2, D3) | `context/<name>.md`; detail files in `context/<name>/<topic>.md` | templated; its own pattern in `context.schema.json`, not in `common.schema.json` yet |
+| `AMB-NNN` | Ambiguities log, one per work item (ADR-004 D8) | `ambiguities/AMB-NNN.md` | templated |
+| `CTX-NNN` | Project context document, a fixed number per fixed name (ADR-004 D2, D3) | `context/<name>.md`; detail files in `context/<name>/<topic>.md` | templated |
 | `TASK-NNN` | Implementation task | reserved | not yet templated |
 | `TEST-NNN` | Test case / verification record | reserved | not yet templated |
 
@@ -220,7 +220,7 @@ downstream views (a PRD's epics, a story's specs and tests, a traceability matri
 | `refines` | EPIC → PRD item, STORY → EPIC | Narrows scope into a smaller deliverable |
 | `satisfies` | AC → FR/NFR/DW, QR → NFR | Demonstrates or meets that requirement |
 | `specifies` | SPEC → STORY | Defines how the story's AC will be met |
-| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR, PRD → accepted ADR, PRD → POL setting (mandated platform), CTX → ARCH / ARCH item / accepted ADR / POL setting, STORY → CTX, SPEC → CTX | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it. A context document cites each decision it states (ADR-004 D1); stories and specs cite the context documents they obey. STORY → CTX and SPEC → CTX validate once `common.schema.json` adds `CTX` |
+| `constrains` | SPEC → NFR, SPEC → ADR, PRD → another PRD's NFR, PRD → accepted ADR, PRD → POL setting (mandated platform), CTX → ARCH / ARCH item / accepted ADR / POL setting, STORY → CTX, SPEC → CTX | The document must obey this constraint or decision. A PRD cites a shared constraint from its authoritative PRD rather than copying it. A context document cites each decision it states (ADR-004 D1); stories and specs cite the context documents they obey. |
 | `implements` | SKL → SPEC, TASK/commit → SPEC item | Realizes this specification or design element |
 | `verifies` | VER → AC, TEST → AC/VER | Planned or actual evidence for this criterion |
 | `supersedes` | any → same type | Replaces an earlier document or item |

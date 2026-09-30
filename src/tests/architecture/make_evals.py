@@ -19,7 +19,7 @@ import tempfile
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
 ROOT = Path("src/claude/DevForgeAI/evals/architecture")
@@ -504,6 +504,7 @@ ARCH_EXISTING = arch(
     evidence=EVD_PRD,
     deployment="The web app and the shift service run on the hosting provider (NFR-003).",
     changelog=INITIAL_ROW)
+ARCH_BAD_DATE = ARCH_EXISTING.replace("updated: 2026-09-21", "updated: 2026-02-30")  # issue #15; no case uses it
 
 # VER-05: an approved ARCH-001 whose DEC-01 resolver (ADR-002) was since superseded by ADR-003.
 ARCH_SUPERSEDED = arch(
@@ -648,7 +649,8 @@ def validate(label, text, schema, expect=()):
         s = json.loads(p.read_text())
         registry = registry.with_resource(s["$id"], Resource.from_contents(s)).with_resource(
             p.name, Resource.from_contents(s))
-    found = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry).iter_errors(doc)
+    found = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry,
+                                 format_checker=FormatChecker()).iter_errors(doc)
     errors = {tuple(e.path): e.message for e in found}
     assert set(errors) == set(expect), f"{label} against {schema}: expected errors at {list(expect)}, got {errors}"
     assert "\nFIXTURE\n" not in text, f"{label} contains the heredoc delimiter"
@@ -675,9 +677,10 @@ FIXTURES = {
     "ARCH_SUPERSEDED": (ARCH_SUPERSEDED, "arch.schema.json"), "ARCH_TO_REVIEW": (ARCH_TO_REVIEW, "arch.schema.json"),
     "ARCH_REVIEWED": (ARCH_REVIEWED, "arch.schema.json"), "POL_A": (POL_A, "policy.schema.json"),
     "POL_B": (POL_B, "policy.schema.json"), "PRD_Q": (PRD_Q, "prd.schema.json"),
-    "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json"),  # the schema's date pattern accepts 2026-13-45
+    "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "ARCH_FAILING": (ARCH_FAILING, "arch.schema.json", [("components", 0, "status")]),
     "ARCH_SUPERSESSION": (ARCH_SUPERSESSION, "arch.schema.json", [("components", 0, "status")]),
+    "ARCH_BAD_DATE": (ARCH_BAD_DATE, "arch.schema.json", [("frontmatter", "updated")]),
 }
 POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated"}
 

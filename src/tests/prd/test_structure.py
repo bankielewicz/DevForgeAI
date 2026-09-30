@@ -1,10 +1,10 @@
-"""Structural checks for SKL-002 v2 and SKL-003 v4 (docs/runbooks/spec-002-v2-verification-plan.md §2).
+"""Structural checks for SKL-002 v3 and SKL-003 v5 (docs/runbooks/spec-002-v2-verification-plan.md §2).
 
 - SKILL.md frontmatter against skill-frontmatter.schema.json, and the description the spec's §5 fixes;
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 v2 and SPEC-003 v4 validate against spec.schema.json, and every BEH, ERR and QR item is covered
+- SPEC-002 v3 and SPEC-003 v4 validate against spec.schema.json, and every BEH, ERR and QR item is covered
   by a VER item.
 
 Byte-identity of the shared policy files is in test_shared_files.py. Run from the repository root:
@@ -16,14 +16,14 @@ import unittest
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 2, "SPEC-002", 2), "architecture": ("SKL-003", 4, "SPEC-003", 4)}
+TARGETS = {"prd": ("SKL-002", 3, "SPEC-002", 3), "architecture": ("SKL-003", 5, "SPEC-003", 4)}
 SPEC_STATE = {"SPEC-002": (3, "approved"), "SPEC-003": (4, "approved")}
 
 
@@ -44,7 +44,8 @@ def registry():
 
 
 def errors(schema, instance):
-    v = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry())
+    v = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry(),
+                             format_checker=FormatChecker())
     return [f"{list(e.path)}: {e.message}" for e in v.iter_errors(instance)]
 
 
@@ -77,9 +78,9 @@ class Skills(unittest.TestCase):
                 self.assertEqual((prov["id"], prov["version"], prov["skill_name"]), (skl, version, name))
                 self.assertIn({"id": spec, "relation": "implements", "version": spec_version, "hash": None},
                               prov["upstream"])
-                # Approved by Bryan on 2026-09-29, after the 3-run evals and the manual checks.
-                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]),
-                                 ("approved", "Bryan", "2026-09-29"))
+                # Draft until Bryan approves SKL-002 v3 and SKL-003 v5 (ADR-005, Consequences).
+                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]), ("draft", "", None),
+                                 "approval stays with the owner")
 
     def test_skill_md_length_and_links(self):
         for name in TARGETS:

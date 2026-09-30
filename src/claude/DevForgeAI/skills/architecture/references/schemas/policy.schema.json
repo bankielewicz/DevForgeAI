@@ -121,7 +121,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "pattern": "^(BRN|PRD|ARCH|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
+            "pattern": "^(BRN|PRD|ARCH|EPIC|SPR|STORY|SPEC|ADR|SKL|POL|TASK|TEST|CTX|AMB)-\\d{3}(#[A-Z]+-\\d{2,3})?$"
           }
         },
         "scope": {
@@ -221,7 +221,13 @@
             "enum": [
               "quality.required_categories",
               "interview.max_calls",
-              "architecture.mandated_platforms"
+              "architecture.mandated_platforms",
+              "testing.method",
+              "testing.coverage_metric",
+              "testing.coverage_threshold",
+              "testing.coverage_scope",
+              "testing.coverage_exclusions",
+              "testing.exception_approvers"
             ]
           },
           "class": {
@@ -372,6 +378,220 @@
                   }
                 },
                 "overridable_by": {
+                  "items": {
+                    "const": "project"
+                  }
+                }
+              },
+              "not": {
+                "required": [
+                  "applies_when"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "key": {
+                  "const": "testing.method"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "class": {
+                  "const": "organizational_policy"
+                },
+                "value": {
+                  "enum": [
+                    "test-after",
+                    "tdd",
+                    "atdd",
+                    "bdd",
+                    "spike-and-stabilize"
+                  ]
+                },
+                "overridable_by": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "const": "project"
+                  }
+                }
+              },
+              "not": {
+                "required": [
+                  "applies_when"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "key": {
+                  "const": "testing.coverage_metric"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "class": {
+                  "const": "organizational_policy"
+                },
+                "value": {
+                  "enum": [
+                    "line",
+                    "branch"
+                  ]
+                },
+                "overridable_by": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "const": "project"
+                  }
+                }
+              },
+              "not": {
+                "required": [
+                  "applies_when"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "key": {
+                  "const": "testing.coverage_threshold"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "class": {
+                  "const": "organizational_policy"
+                },
+                "value": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "overridable_by": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "const": "project"
+                  }
+                }
+              },
+              "not": {
+                "required": [
+                  "applies_when"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "key": {
+                  "const": "testing.coverage_scope"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "class": {
+                  "const": "organizational_policy"
+                },
+                "value": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?![^\\n]*[*?\\[\\]])(?!(?:.*/)?\\.\\.(?:/|$))[^\\n]+/$"
+                  }
+                },
+                "overridable_by": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "const": "project"
+                  }
+                }
+              },
+              "not": {
+                "required": [
+                  "applies_when"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "key": {
+                  "const": "testing.coverage_exclusions"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "class": {
+                  "const": "organizational_policy"
+                },
+                "value": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?![^\\n]*[*?\\[\\]])(?!(?:.*/)?\\.\\.(?:/|$))[^\\n]+$"
+                  }
+                },
+                "overridable_by": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "const": "project"
+                  }
+                }
+              },
+              "not": {
+                "required": [
+                  "applies_when"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "key": {
+                  "const": "testing.exception_approvers"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "class": {
+                  "const": "organizational_policy"
+                },
+                "value": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "overridable_by": {
+                  "type": "array",
+                  "uniqueItems": true,
                   "items": {
                     "const": "project"
                   }

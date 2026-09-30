@@ -22,7 +22,7 @@ import tempfile
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
 ROOT = Path("src/claude/DevForgeAI/evals/prd")
@@ -339,6 +339,7 @@ EARLIER_ROWS = (
 PRD_FOOD = food_prd()
 PRD_FOOD_BAD = food_prd("high")  # VER-27: a priority the self-check rejects, in an item an extension can't touch
 FR_001_BAD = re.search(r"  - id: FR-001\n(?:    [^\n]*\n)+?(?=  - id:)", PRD_FOOD_BAD).group(0)
+PRD_FOOD_BAD_DATE = PRD_FOOD.replace("updated: 2026-09-20", "updated: 2026-02-30")  # issue #15; no case uses it
 
 
 def policy(settings, *, updated="2026-09-01", authors='["Architecture board"]',
@@ -444,7 +445,8 @@ def validate(label, text, schema, expect=()):
         s = json.loads(p.read_text())
         registry = registry.with_resource(s["$id"], Resource.from_contents(s)).with_resource(
             p.name, Resource.from_contents(s))
-    found = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry).iter_errors(doc)
+    found = Draft202012Validator(json.loads((SCHEMAS / schema).read_text()), registry=registry,
+                                 format_checker=FormatChecker()).iter_errors(doc)
     errors = {tuple(e.path): e.message for e in found}
     assert set(errors) == set(expect), f"{label} against {schema}: expected errors at {list(expect)}, got {errors}"
     assert "\nFIXTURE\n" not in text, f"{label} contains the heredoc delimiter"
@@ -468,8 +470,9 @@ FIXTURES = {
     "BRN_LEDGERLY_2": (BRN_LEDGERLY_2, "brainstorm.schema.json"),
     "PRD_LEDGERLY": (PRD_LEDGERLY, "prd.schema.json"), "PRD_FOOD": (PRD_FOOD, "prd.schema.json"),
     "PRD_FOOD_BAD": (PRD_FOOD_BAD, "prd.schema.json", [("functional_requirements", 0, "priority")]),
+    "PRD_FOOD_BAD_DATE": (PRD_FOOD_BAD_DATE, "prd.schema.json", [("frontmatter", "updated")]),
     "POL_BASE": (POL_BASE, "policy.schema.json"), "POL_COMPLIANCE": (POL_COMPLIANCE, "policy.schema.json"),
-    "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json"),  # the schema's date pattern accepts 2026-13-45
+    "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "POL_BAD_AUTHORS": (POL_BAD_AUTHORS, "policy.schema.json", [("frontmatter", "authors")]),
     "POL_BAD_LINK": (POL_BAD_LINK, "policy.schema.json", [("frontmatter", "upstream", 0)]),
     "POL_BAD_TYPE": (POL_BAD_TYPE, "policy.schema.json", [("settings", 0, "value")]),

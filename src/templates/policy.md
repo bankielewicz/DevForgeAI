@@ -43,6 +43,13 @@ source: null           # organization scope only: {repository: "<org policy repo
        in addition to the framework floor, when applies_when matches. Additive only.
      - interview.max_calls (interaction_default): integer 1–20.
      - architecture.mandated_platforms (organizational_policy): one setting per mandated platform.
+     - testing.method: test-after, tdd, atdd, bdd or spike-and-stabilize.
+     - testing.coverage_metric: line or branch.
+     - testing.coverage_threshold: a number from 0 to 100.
+     - testing.coverage_scope: a list of repository-relative folders, each ending in /; at least one.
+     - testing.coverage_exclusions: a list of repository-relative paths (a folder ends in /); no globs.
+     - testing.exception_approvers: a list of people, written as in owner fields; at least one.
+     testing.* (organizational_policy, ADR-005): project may override only if allowed; never local.
      overridable_by lists which lower layers may override: project, local (local only for
      interaction_default). Omit a setting to inherit the framework default. -->
 
