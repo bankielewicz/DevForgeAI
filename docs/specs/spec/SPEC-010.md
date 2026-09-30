@@ -472,13 +472,13 @@ After Bryan approves this spec:
 
 ## 13. Open questions
 
-- [NEEDS CLARIFICATION: label mapping. BEH-12 labels an incident bug, the mapping in the option Bryan chose on 2026-09-29, with missing labels created. For a specification gap like issue #19, an incident label may fit better; confirm bug or name another label.]
 - Not decided, and outside this spec: whether SPEC-007's pr phase adopts `assets/pr.md` for its PR bodies (a SPEC-007 change), and a Codex port of this skill.
 - Resolved by Bryan on 2026-09-29:
   - PR mode creates from a pushed branch or updates the open PR, and never pushes (BEH-08);
   - posting follows BEH-13;
   - missing labels are created (BEH-12);
   - this change delivers the spec and the templates, and the skill is built after approval (§11).
+- Resolved by Bryan on 2026-09-29, after approval: the label mapping stays as BEH-12 has it, incident → bug ("bug is fine").
 
 ## Change Log
 
@@ -487,3 +487,4 @@ After Bryan approves this spec:
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Initial draft from Bryan's decisions of 2026-09-29: the workflow used for issue #19 as a skill, with PR mode that creates or updates but never pushes, posting when the request names it, labels created when missing, and the templates staged in src/templates/github/. The label mapping (§13) awaits confirmation. Awaiting Bryan's approval | all |
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Revised after Bryan's review of commit aa3563f, still version 1 and still a draft: (1) a decision already made is cited and doesn't gate the work (§4, BEH-06); (2) the next action is investigate, decide or implement, with exact patches only where the evidence determines them (§4, BEH-07, ERR-08, VER-11); (3) citations are never checked against the working tree, an unreadable commit makes the check unavailable, and every quotation is matched to its cited lines (§4 citations, BEH-09, ERR-09, §9); (4) a PR is bound to its remote head, with base and head SHAs and each check at the head (BEH-08, ERR-03, VER-03); (5) posts are self-sufficient, and a cold session acting on a post is tested (BEH-17, VER-12). The frontmatter example's version is 1. Awaiting Bryan's approval | §1, §4, §5, BEH-06..09, BEH-16, BEH-17, ERR-03, ERR-08, ERR-09, QR-03, §9, VER-01..03, VER-08..12, §11, §12 |
 | 1 | 2026-09-29 | Bryan | Approved | status |
+| 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Record-only update, with no version bump: §13 records Bryan's confirmation of the label mapping (incident → bug, "bug is fine") and drops its open question. BEH-12 is unchanged | §13 |
