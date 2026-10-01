@@ -15,7 +15,7 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | Skill | Record | Spec | State |
 |---|---|---|---|
 | `brainstorm` | SKL-001 v5 | SPEC-001 v10 | Built; 8 eval cases |
-| `prd` | SKL-002 v4, draft (v3 approved and deployed) | SPEC-002 v4, approved 2026-10-01 (issues #36 to #38, #40); SKL-002 v4 built as a draft, not evaluated | SKL-002 v3 approved by Bryan 2026-09-30; merged in PR #25, deployed (plugin 0.7.0); 33 eval cases: the 12 policy cases requalified on v3; VER-33 to VER-36 are new (on v3, 1 run each: VER-33 1.00, VER-34 0.78 then 0.57, VER-35 1.00, VER-36 0.50) |
+| `prd` | SKL-002 v4, draft (v3 approved and deployed) | SPEC-002 v4, approved 2026-10-01 (issues #36 to #38, #40); SKL-002 v4 built as a draft, not evaluated | SKL-002 v3 approved by Bryan 2026-09-30; merged in PR #25, deployed (plugin 0.7.0); 33 eval cases: the 12 policy cases requalified on v3; VER-33 to VER-36 are new (on v3, 1 run each: VER-33 1.00, VER-34 0.78 with 9 graders, then 0.57 with the corrected 7, VER-35 1.00, VER-36 0.50) |
 | `architecture` | SKL-003 v5, approved | SPEC-003 v4 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (0.7.0); 16 eval cases, the 3 policy cases requalified on v5 |
 | `epic` | SKL-004 v1 | SPEC-004 v1 | Built and deployed; 14 eval cases |
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
