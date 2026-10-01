@@ -49,7 +49,8 @@ has. A component can have several kinds.
   this run only, and say in the report and in the Change Log row of each layer document it adds that
   the kinds came from the user's answer and that the ARCH should record them when next amended. With no
   answer, its `architecture.md` row holds `[NEEDS CLARIFICATION: kinds of ARCH-NNN#CMP-NN]` in the
-  Kinds column, no layer document is written for it, and the report names it.
+  Kinds column and `none` in the Documents column, no layer document is written for it, and the report
+  names it.
 - **A layer document whose kind is in no current ARCH any more** (BEH-04): report it and ask whether to
   deprecate it. On yes, it is a revision: `status: deprecated`, the Change Log row
   `Deprecated: <kind> is in no current ARCH`, and index.md drops its row. With no answer, change
@@ -103,6 +104,12 @@ active item of a current ARCH that states it: a DEC item, or a component's `kind
 `responsibility` or `interacts_with`.
 - A deployment that puts two interacting components in the same package or process decides their
   transport: an in-process call.
+- Reaching a component whose engine an accepted ADR or the ARCH decides, when that engine runs inside
+  the caller's process (a SQLite file the package opens), is also an in-process call, decided by that
+  source.
+- A choice is decided at its own level. Once the language, runtime, engine, platform or transport is
+  decided, how it is used (a library, an ORM, a naming scheme, a retry policy) is a convention question
+  for the interview, never a `[NEEDS ADR]`, unless the user says it needs an architecture decision.
 - A field that calls the choice undecided, TBD or open decides nothing.
 
 **When a section would state a significant choice that nothing decides** (ERR-07): write
@@ -130,7 +137,8 @@ Deployment and Documents. Responsibility and Deployment are quoted as the ARCH w
 names the layer documents its kinds map to (`none` for `external`). Frontmatter holds one `constrains`
 link per row's CMP item, at the ARCH's version, instead of a link to the whole ARCH. Below the table,
 point to the ARCH's open DEC items by ID; never restate a DEC outcome. Sections 2 to 5 hold the
-cross-cutting rules.
+cross-cutting rules. In an existing architecture.md, add or change rows in the table's current columns:
+the six-column form is for a new document.
 
 **Layer documents.** Section 1, "Components covered", lists each active component whose kinds map to
 the document, as `- ARCH-NNN#CMP-NN <name>`. Every other section follows its template comment.

@@ -31,12 +31,14 @@ Four rules shape everything below:
   without `.md`. Never accept a file path.
 - Read by contract, by these fixed paths, never by listing the repository:
   - `docs/specs/arch/ARCH-*.md`: the current ARCHs (status neither `superseded` nor `deprecated`);
-  - `docs/specs/prd/<the PRD each ARCH links>.md`;
+  - `docs/specs/prd/<the PRD each ARCH links>.md`, and the IDs of `docs/specs/prd/PRD-*.md` for ERR-01;
   - `docs/specs/adr/ADR-*.md` (accepted, no `superseded_by`);
   - `docs/specs/policy/POL-*.md`, through the script, and `.claude/devforgeai.local.md`;
   - `docs/specs/story/STORY-*.md` and `docs/specs/spec/SPEC-*.md`: their `upstream` links to CTX
     documents, and the stories' section 3 design records;
-  - `docs/specs/ambiguities/AMB-*.md`, and everything under `docs/specs/context/`.
+  - `docs/specs/ambiguities/AMB-*.md`, and everything under `docs/specs/context/`;
+  - `${CLAUDE_SKILL_DIR}/../epic/SKILL.md`: only whether it exists (Glob or `ls`, never Read), for
+    step 10.
 - Code and configuration: only inside the paths the user names ([inspection.md](references/inspection.md)).
 - Templates: `${CLAUDE_SKILL_DIR}/assets/<name>.md`, and `${CLAUDE_SKILL_DIR}/assets/detail.md` for
   detail files.
@@ -72,10 +74,11 @@ The documents record decisions; they never make them. These are the user's:
   the ARCH leaves without them, where an ambiguity entry belongs, the freshness window, and writing
   drafts after stopping early.
 
-Write a decision only when the user made it, in an answer or in the request. Ask with AskUserQuestion
-when it is available: at most 4 questions per call, 2–4 options each, the recommended option first
-and marked "(Recommended)"; otherwise ask in plain text and end your turn. Every question counts
-toward `interview.max_calls` ([interview.md](references/interview.md)).
+Record one of these only when the user made it, in an answer or in the request. Ask with
+AskUserQuestion when it is available: at most 4 questions per call, 2–4 options each, the recommended
+option first and marked "(Recommended)"; otherwise ask in plain text and end your turn. Every
+question, the scope, freshness and approver questions included, is asked within the
+`interview.max_calls` calls ([interview.md](references/interview.md)).
 
 **"Proceed without questions."** When the request says to proceed without questions, or not to ask
 anything, ask nothing in this run: inspect only paths the request names, use 90 days for freshness,
@@ -93,8 +96,8 @@ Keep this checklist in your working notes, not in the final reply, and tick item
 - [ ] 4. Snapshot and review the existing documents
 - [ ] 5. Inspect the named paths
 - [ ] 6. Interview
-- [ ] 7. Write the documents, index.md last
-- [ ] 8. Check, repair and fold
+- [ ] 7. Write the documents and fold accepted entries, index.md last
+- [ ] 8. Check, repair and record the folds
 - [ ] 9. Approve on explicit words
 - [ ] 10. Report and hand off
 ```
@@ -120,7 +123,8 @@ listed once per ARCH.
 Before any question, follow [policy.md](references/policy.md) R1 to R5 with
 [defaults.md](references/defaults.md).
 1. When `docs/specs/policy/` holds a `POL-*.md`, run `validate_policy.py` (above) and act on its exit
-   code. Never validate policy by reading the documents instead.
+   code. Never validate policy by reading the documents instead; reading a document's `status` for
+   the exit-2 case below is fine.
    - **0:** continue; its `ignored` lines go into the resolution line.
    - **1 (ERR-02):** stop before asking or writing anything. Name each error it printed (the policy
      file, the setting or frontmatter field, the field and the rule) and say nothing was written.
@@ -148,8 +152,9 @@ Compute the set from the kinds of the active components ([documents.md](referenc
    `<start>` for the whole run; its parent is the run folder. If it exits 2, stop (ERR-13): quote its
    `Cannot run:` line and write nothing.
 2. List `docs/specs/context/`. Read each document of the set and each detail file its parent links, in
-   full. Report any other path by its path (ERR-11), unless it is a deprecated document of an earlier
-   set; never read, edit or delete it.
+   full. A file with one of the 12 names that isn't in the current set is a layer document of an
+   earlier set: read its frontmatter and Change Log; when it is deprecated, leave it; otherwise it is
+   BEH-04's (item 6). Report any other path by its path (ERR-11), and never read, edit or delete it.
 3. Run `check --snapshot <start>`. Each `unchanged, invalid` line is a document that fails before the
    run (ERR-10): report its errors, and rewrite it only when the user confirms in this run (a
    revision). Otherwise leave it unchanged and continue with the others.
@@ -175,7 +180,7 @@ Follow [interview.md](references/interview.md): the scope question when no paths
 facts to confirm, one question per undecided section, and the freshness window, within the budget.
 Answers stated in the request count. Under "Proceed without questions", ask nothing.
 
-### 7. Write the documents, index.md last (BEH-06, BEH-09 to BEH-12, ERR-07, ERR-12)
+### 7. Write the documents and fold accepted entries, index.md last (BEH-06, BEH-09 to BEH-12, BEH-16, ERR-07, ERR-12)
 
 Read [output-rules.md](references/output-rules.md) and [documents.md](references/documents.md) first.
 Write only the documents in the run's scope, and in each, only what its sources give.
@@ -195,28 +200,38 @@ Write only the documents in the run's scope, and in each, only what its sources 
 - **testing.md** cites each resolved testing value and never sets one; **ui-mockups.md**'s table comes
   only from stories' design records; **tech-stack.md** and **source-tree.md** follow documents.md's
   item rules.
+- **Accepted ambiguity entries** noted at step 4: fold each into its document now, as output-rules.md
+  "Folding accepted ambiguity entries" items 1 and 2 say. A fold that changes a document is part of
+  that document's revision. Leave each `resolution` for step 8.
+- **One revision per document per run:** the version rises once, at the document's first change, and
+  every later Edit in the run (another change, a fold, a moved link) stays in that version and its one
+  Change Log row.
 - **Size:** within the limits, with detail files from `${CLAUDE_SKILL_DIR}/assets/detail.md` when a
   document would pass 500 lines; ERR-12 when the items alone would.
 - **index.md last**, with one row per document of the set that exists after the run, at its version.
+  When no row changes and none of its links is suspect, leave it unchanged.
 
-### 8. Check, repair and fold (BEH-18, BEH-16, ERR-08)
+### 8. Check, repair and record the folds (BEH-18, BEH-16, ERR-08)
 
 1. Run `check --snapshot <start>`: that is check 1. Repair each error it reports with Edit and check
-   again, at most three repair cycles. An `unchanged, invalid` line is ERR-10's, not a repair target.
+   again, at most three repair cycles. A repair never raises a version or adds a Change Log row. An
+   `unchanged, invalid` line is ERR-10's, not a repair target.
 2. Read each written file back against the self-check list in output-rules.md, for what needs
    judgement: the resolution line's entries and order, and whether each statement says what its source
    says.
 3. Record each check and repair in the reply, quoting the script's lines.
 4. Errors left after three repair cycles, or an error you can't repair: follow output-rules.md,
    "When validation still fails (ERR-08)". `check` or `restore` exiting 2: ERR-13.
-5. Then set the `resolution` of each folded ambiguity entry (output-rules.md, "Folding accepted
-   ambiguity entries") and run `check --snapshot <start>` again.
+5. After the check passes, set the `resolution` of each entry folded at step 7 (output-rules.md,
+   "Folding accepted ambiguity entries", item 3) and run `check --snapshot <start>` again, repairing any
+   error within the same three cycles.
 
 ### 9. Approve on explicit words (BEH-17)
 
-Approve only on the user's explicit words in this run that approve a named document, or all context
-documents ("I approve tech-stack.md"). Never infer approval from silence, from an earlier run, or from a
-request to write the documents.
+After ERR-08 or ERR-13, skip this step: approve nothing. Otherwise approve only on the user's explicit
+words in this run that approve a named document, or all context documents ("I approve
+tech-stack.md"). Never infer approval from silence, from an earlier run, or from a request to write the
+documents.
 - Approve a document only when it passed the check and holds no `[NEEDS CLARIFICATION: …]` or
   `[NEEDS ADR: …]` marker and no active Proposed statement or item, its detail files included.
   Otherwise say which markers remain and leave it draft.
@@ -247,11 +262,17 @@ Ambiguity entries folded: AMB-NNN#ENT-NN → CTX-NNN, … | none
 Policy resolution: <the resolution line's entries>
 ```
 
-Then, briefly: each check and repair; the findings (stale PRD links, documents to deprecate, design
-records read in neither form, stories and specs now proposals, stale observations, entries not folded,
-components without kinds, documents failing before the run, other paths in `docs/specs/context/`,
-ERR-12); the draft-ARCH warning; and any testing value the user wants changed, which belongs in a
-policy document.
+"Markers left" counts the `[NEEDS CLARIFICATION` and `[NEEDS ADR` markers in each document and its
+detail files, item notes included. Then, briefly:
+- each check and repair, quoting the script's lines;
+- the findings: stale PRD links; documents to deprecate; design records read in neither form; stories
+  and specs now proposals; stale observations; entries not folded; components without kinds; documents
+  failing before the run; other paths in `docs/specs/context/`; ERR-12; observed practice that differs
+  from a decision; reads refused outside the scope; the budget running out;
+- for an approval request: which markers keep a document from approval, or that the approver wasn't
+  named;
+- the draft-ARCH warning, and any testing value the user wants changed, which belongs in a policy
+  document.
 
 The next step comes last, as its own paragraph outside any code block. It starts with the words
 **Next step**, names documents by name and PRDs by ID, and nothing follows it:
@@ -259,7 +280,8 @@ The next step comes last, as its own paragraph outside any code block. It starts
   `/devforgeai:architecture PRD-NNN` with the PRD ID of each current ARCH.
 - **Otherwise, if `${CLAUDE_SKILL_DIR}/../epic/SKILL.md` exists:** tell the user to run
   `/devforgeai:epic PRD-NNN` with each PRD ID.
-- **Otherwise:** say the epic workflow (planned as `/devforgeai:epic`) isn't built yet.
+- **Otherwise:** say the epic workflow (planned as `/devforgeai:epic`) isn't built yet, and that once
+  it is, `/devforgeai:epic PRD-NNN` runs for each PRD ID.
 
 Never start another workflow. A run that stops before writing (ERR-01 to ERR-04) says why and what the
 user can do, with no block. After ERR-08, or ERR-13 once files are written, a validation-failure report

@@ -20,8 +20,8 @@ what no decision covers: a convention exists only when the user confirmed it.
 ## The budget
 
 - `interview.max_calls` is resolved at step 2 (default 8; a project setting or the local preference
-  file may change it). Every question counts toward it, the scope and freshness questions included,
-  and so do the questions of ERR-04 to ERR-06, ERR-10 and BEH-17.
+  file may change it). It caps the calls. Every question is asked within it: the scope and freshness
+  questions, and those of ERR-04 to ERR-06, ERR-10, BEH-04, BEH-16 and BEH-17, included.
 - One call asks at most 4 questions, each with 2 to 4 options, the recommended option first and
   marked "(Recommended)". The user may answer in their own words. Use AskUserQuestion when it is
   available; otherwise ask in plain text and end the turn.
@@ -42,13 +42,16 @@ nothing is approved unless the request names the approver. Every other step stil
    the project does things now?" Options: the folders the ARCH's deployments suggest, and "None: don't
    read any code". The answer is paths, or none (inspection.md).
 2. **Observed facts to confirm** (below), batched with the next questions.
-3. **One question per section that has no decision and no convention**, documents in the index's order
-   (documents.md, "index.md"), each document's sections in the template's order. A convention already
-   in an existing document counts as confirmed: don't ask about it again.
+3. **One question per section that has no decision and no convention**, for the documents in the
+   run's scope only, in the index's order (documents.md, "index.md"), each document's sections in the
+   template's order. A convention already in an existing document counts as confirmed: don't ask about
+   it again.
 4. **The freshness window**, once, only when a new document is written: "How many days may an observed
    fact stay current before it is reported as stale?" Recommended: 90.
 
-Fill each batch of up to 4 questions in this order, and stop at the budget.
+Fill each batch of up to 4 questions in this order, and stop at the budget. Questions steps 3 and 4
+raise (kinds, deprecation, rewriting a failing document) go into the first call, before the scope
+question; ERR-04's question is asked alone, since the run stops after it.
 
 ## Options for a section's question
 

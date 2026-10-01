@@ -137,9 +137,14 @@ items whose source changed in this run, or that the user changed; keep every oth
   again.
 - **A relink** (BEH-14) changes only a suspect link's `version`: add the row `Re-reviewed against
   <ID> v<N>: no change`, and change neither `version` nor `status` nor `updated`.
-- **A deprecation** (BEH-04) is a revision with `status: deprecated` and the row
-  `Deprecated: <kind> is in no current ARCH`.
-- Revising a detail file revises its parent.
+- **A deprecation** (BEH-04) is a revision with `status: deprecated`, whose row's text starts
+  `Deprecated: <kind> is in no current ARCH` and, as every revision row, ends with the resolution line.
+- **At most one revision per document per run.** `version` rises by one at the document's first
+  change; every later Edit in the run (another change, a fold, a repair) stays in that version, and its
+  one Change Log row names every change. A relink row is written only for a document the run doesn't
+  otherwise revise; a revised document's suspect links move to their new versions inside the revision.
+- Revising a detail file revises its parent. A detail file the run changes gets the parent's new
+  version in its first line; a detail file the run doesn't change keeps its line.
 
 ## Change Log rows
 
@@ -148,7 +153,7 @@ Never change an earlier row. One row per document written in the run:
 | Event | Version | Author | Change |
 |---|---|---|---|
 | New document | `1` | `claude-code (session <session ID>)` | `Initial draft from ARCH-NNN vN. <resolution line>` |
-| Revision | the new version | the same | `<what changed>. <resolution line>` |
+| Revision (one per document per run) | the new version | the same | `<what changed>. <resolution line>` |
 | Relink | the current version | the same | `Re-reviewed against <ID> v<N>: no change` (no resolution line) |
 | Approval | the current version | the approver's name | `Approved` (no resolution line) |
 
@@ -239,8 +244,9 @@ SKILL.md gives the commands. The script prints one line per error,
 
 After three repair cycles with errors left, or an error that can't be repaired:
 1. For each document that existed before the run and still fails, run
-   `context_check.py restore <start> <file>`. It prints `restored <file>` or
-   `NOT RESTORED <file>: <reason>`.
+   `context_check.py restore <start> <file> [<detail file>…]`, with each of its detail files that the
+   snapshot holds. It prints `restored <file>` or `NOT RESTORED <file>: <reason>` for each. Report by
+   path any detail file this run created for a restored document: it is no longer linked.
 2. An ambiguity log goes back from the snapshot too when every entry the run folded into it targets a
    restored document; otherwise reset, with Edit, the `resolution` of each entry folded into a restored
    document to `""`, and confirm the log with `check --snapshot <start>`.

@@ -711,7 +711,7 @@ def restore(folder, files):
 
 
 USAGE = ("usage: context_check.py snapshot new|<folder> | check [--snapshot <folder>] | "
-         "restore <folder> <file>...")
+         "restore <folder> <file> [<file> ...]")
 
 
 def main(argv):
