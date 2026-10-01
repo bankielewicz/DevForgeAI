@@ -170,9 +170,9 @@ place), always under the main checkout: take `main_checkout` from the state repo
 `git worktree add` that absolute path, so a run started in a linked worktree never nests a worktree
 inside it. When `main_checkout` is `null` (a bare repository), ask where to put it; when the path is
 refused, that is ERR-16, never a path inside the current worktree. Only when the report's
-`claude_worktrees_ignored` is false, append the rule with
-`echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude` as its own Bash call; if it is
-refused, create the worktree anyway and hand that command to the user.
+`claude_worktrees_ignored` is false, append the rule as its own Bash call from the main checkout's
+root, `echo '.claude/worktrees/' >> .git/info/exclude` (from a linked worktree, `>> <main_checkout>/.git/info/exclude`);
+if it is refused, create the worktree anyway and hand that command to the user.
 - **No uncommitted work to carry:** create the branch and worktree together from the fetched
   `origin/<default>`.
 - **Uncommitted work to carry:** first, when the current branch is the default branch and the

@@ -151,13 +151,18 @@ checkout). Only when it is false: append `.claude/worktrees/` to `.git/info/excl
 no tracked file and covers every worktree of the repository, and say that a `.gitignore` entry would
 share the rule. When the repository's rules require the `.gitignore` entry instead, add it there and
 name it in the next commit's message. Never edit `.gitignore` otherwise.
-- Write it with exactly this command, as a Bash call of its own, naming the main checkout's
-  `.git/info/exclude` by its absolute path (in a linked worktree `.git` is a file):
-  `echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude`. Claude Code protects `.git/`:
-  file tools can't edit it, and a permission check refuses compound commands that also `mkdir` or
-  `printf` there. `git init` already created `.git/info/`.
+- Write it with exactly one of these commands, as a Bash call of its own:
+  - with the working directory at the main checkout's root (the usual case):
+    `echo '.claude/worktrees/' >> .git/info/exclude`. Use this relative form there: Claude Code's
+    permission check refused the absolute form of the same write in an eval run (2026-10-01);
+  - from a linked worktree, where `.git` is a file:
+    `echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude`.
+
+  Claude Code protects `.git/`: file tools can't edit it, and a permission check refuses compound
+  commands that also `mkdir` or `printf` there. `git init` already created `.git/info/`.
 - If that write is still refused, don't retry it another way. Create the worktree anyway (nothing
-  in this skill stages it), and put that same absolute command in Action required for the user.
+  in this skill stages it), and put the command in Action required for the user, in its absolute
+  form so it works from any directory.
 
 **Base.** New work branches from `origin/<default>` as just fetched, never from a possibly stale local
 default branch:

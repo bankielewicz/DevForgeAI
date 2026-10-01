@@ -123,7 +123,8 @@ and in CLAUDE.md's `git` results bullet. Record each manual item below.
 
 | Item | Result | Date | Notes |
 |---|---|---|---|
-| Pilot (9 cases, 1 run) | 8 pass, 1 at 0.89 | 2026-10-01 | `48f0c79`, $3.10; `starts-worktree-from-fresh-base` missed `excluded` (no `.git/info/exclude` rule); diagnosing with `--keep-temp` |
+| Pilot (9 cases, 1 run) | 8 pass, 1 at 0.89 | 2026-10-01 | `48f0c79`, $3.10; `starts-worktree-from-fresh-base` missed `excluded` (no `.git/info/exclude` rule) |
+| Diagnosis, `--keep-temp` | 0.89 again | 2026-10-01 | `eb74fac`, $0.30; the trace shows the absolute-path `echo >> …/.git/info/exclude` denied by Claude Code's permission check; fixed to v1's relative form from the main checkout's root |
 | Suite, 1 run | NOT_RUN | | |
 | Suite, 3 runs with baseline | NOT_RUN | | |
 | VER-18 | NOT_RUN | | |
