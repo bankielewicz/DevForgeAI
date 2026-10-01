@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: warns-on-test-credentials
+context:
+  scaffold_script: scaffold.sh

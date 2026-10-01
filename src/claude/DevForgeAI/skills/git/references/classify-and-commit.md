@@ -28,8 +28,8 @@ List every change: `git status --porcelain=v2 -z --untracked-files=all` (or the 
 - Never put a task or unrelated path in an ignore file.
 - A tracked file that should be local stays tracked unless the user confirms `git rm --cached
   <path>`; the question says this deletes the file for everyone once merged.
-- ERR-14: no task paths and no commits beyond the base means nothing to deliver. Create nothing and
-  report `no_change`.
+- ERR-14: when start, commit, push or pr is asked to deliver work and there are no task paths and
+  no commits beyond the base, there is nothing to deliver. Create nothing and report `no_change`.
 
 ## Ignore rules for local paths
 
@@ -54,21 +54,36 @@ python3 "${CLAUDE_SKILL_DIR}/scripts/scan_staged.py"
 ```
 
 It scans the added lines of `git diff --cached` (a new file's full content) and every staged file's
-size and type, and prints `{"blocked": [...], "warnings": [...]}`; exit 1 means blocked.
+size and type, and prints `{"blocked": [...], "warnings": [...]}`. Exit 0: nothing blocks. Exit 1:
+a blocked finding. **Exit 2: the scan didn't run** (not a repository, or an error it prints as
+`error`): commit nothing, report the cause, and don't call it a finding or ERR-06.
 
-**Blocked (ERR-06):** private keys, access tokens and credentials with a literal value, `.env` files
-and key stores, files over 100 MB. Commit nothing, even when the user asks. Name each file and line,
+**Blocked (ERR-06):** private keys; access tokens in a known format (AWS, GitHub, Slack, Google,
+Stripe live, Anthropic, and OpenAI `sk-`, `sk-proj-`, `sk-svcacct-` and `sk-admin-` keys); `.env`
+files and key stores; files over 100 MB; credentials in a URL to any host not listed below; and
+literal credential assignments outside test and fixture paths. Commit nothing, even when the user
+asks. Name each file and line,
 never the value, and suggest removing the file from the commit, moving the value to an environment
 variable or ignored file, and rotating a real credential. Leave the index as the user had it:
 unstage only what this run staged (`git restore --staged -- <path>` keeps the working copy). An
 untracked `.env` or key store that the request would include ("commit everything") is named as
 blocked too, though the scan never sees an unstaged file. Report `blocked`.
 
-**Warnings**, which need the user's yes before committing: absolute home paths, e-mail addresses
-other than the repository's commit authors, files over 50 MB or binaries outside the LFS rules,
-third-party documents (PDFs, saved web pages, vendored documentation without a license), CRLF line
-endings in an LF repository, whitespace errors. With no answer possible, commit nothing that carries
-a warning and report `awaiting_approval`.
+**Warnings**, which need the user's yes before committing:
+- credentials in a URL whose host is local or an example (`localhost`, a loopback address, a
+  single-label name such as a compose service `db`, `example.com`/`.org`/`.net` or a name under one,
+  or a name ending in `.example`, `.test`, `.invalid` or `.localhost`), or whose user name equals
+  its password;
+- literal credential assignments in a test or fixture path (a directory named `test`, `tests`,
+  `__tests__`, `spec`, `testdata`, `fixture`, `fixtures` or `__fixtures__`, or a file named
+  `test_*`, `conftest.py`, `*_test.*`, `*.test.*`, `*_spec.*` or `*.spec.*`). Say that a real
+  credential in such a file would be published if the user answers yes;
+- absolute home paths, e-mail addresses other than the repository's commit authors, files over
+  50 MB or binaries outside the LFS rules, third-party documents (PDFs, saved web pages, vendored
+  documentation without a license), CRLF line endings in an LF repository, whitespace errors.
+
+Present warnings as decisions the user may accept, never as blocked findings. With no answer
+possible, commit nothing in this phase and report `awaiting_approval`.
 
 When the remote is public or its visibility is unknown, say that whatever is pushed is published.
 

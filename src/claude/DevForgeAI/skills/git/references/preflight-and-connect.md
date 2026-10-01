@@ -52,18 +52,28 @@ python3 "${CLAUDE_SKILL_DIR}/scripts/repo_state.py" --default-branch <name from 
 ```
 
 Pass `--default-branch` whenever `refs/remotes/origin/HEAD` may be missing. It never fetches, so run
-it after fetching. Fields used below:
+it after fetching. `-C <checkout>` reports on another checkout (sync uses the one holding the default
+branch). For prune, pipe `gh pr list --state all --limit 200 --json
+number,state,headRefName,headRefOid` into it with `--prs -`. Exit 2 means it didn't run: report its
+`error` and decide nothing from it. Fields used below:
 
+- `main_checkout`: the main working tree's absolute path from any checkout; `null` for a bare
+  repository with linked worktrees.
 - `in_linked_worktree`, `branch`, `detached`, `unborn`, `operation_in_progress`, `identity`.
 - `remote`: name, URL and default branch, or `null` when there is no `origin`.
 - `default_branch.state`: `up_to_date`, `behind`, `ahead`, `diverged`, `unrelated`, `no_remote`,
   `empty_remote` (fetched and empty) or `unknown` (fetch first), with `ahead`, `behind` and
-  `checked_out_at` (the checkout holding it, relative to the main checkout).
+  `checked_out_at` (the absolute path of the checkout holding it, ready for `-C`).
 - `changes[]`: `path`, `status`, `staged`, `incoming` (`identical`, `differs` or `untouched`
-  compared with `origin/<default>`), and `sandbox_mask: true` for a sandbox write mask.
-- `worktrees[]`: branch, head, lock, `prunable`, `current`, `uncommitted`, `untracked`, `ignored`,
-  `unpushed`, `merged_by_ancestry`, `last_activity`, `activity`, `modified_within_hour`,
-  `size_bytes`.
+  compared with `origin/<default>`; `identical` also requires the index to hold nothing found only
+  there), and `sandbox_mask: true` for a sandbox write mask.
+- `worktrees[]`: `path` (relative to the main checkout, so `-C` takes `<main_checkout>/<path>`),
+  branch, head, lock, `prunable`, `current` (the checkout the session works in, even in a `-C`
+  report), `uncommitted` and `untracked` (sandbox write masks excluded and counted in
+  `sandbox_masks`), `ignored` (cut at 100, with `ignored_truncated` giving the full count),
+  `unpushed`, `merged_by_ancestry`, `commits_since_created` (from the branch's reflog; `null` once
+  its creation entry expired), `pr` and `nothing_unpushed` (with `--prs`), `last_activity`,
+  `activity`, `modified_within_hour`, `size_bytes`.
 - `claude_worktrees_ignored`, `sandbox.git_config_write_masked`, `id_collisions[]`.
 
 ## Claude Code's sandbox
@@ -77,12 +87,18 @@ sandbox:
 - **`.git/config` masked** (`sandbox.git_config_write_masked`): every `.git/config` write fails:
   `git remote add`, `git config`, `push -u`, and a branch created from a remote-tracking ref without
   `--no-track`. Plan around it: create branches with `--no-track`, push without `-u`.
-- **ERR-16.** When the sandbox blocks a command a phase needs (a `.git/config` write, or a push or
-  `gh` call rejected by its network proxy): don't retry around it and never change sandbox settings.
-  Finish the steps that don't need it, then name the command and the settings change that would
-  allow it (for example adding `git push *` or `gh pr *` to `sandbox.excludedCommands` in
-  `.claude/settings.local.json`), which is the user's decision, or give the command for the user to
-  run in a plain shell. Report `partial` or `blocked`.
+- **Exclusions match the start of a command.** A `sandbox.excludedCommands` entry such as
+  `git push *` applies only to a command that starts with those words, which is why `git push` and
+  `gh pr` always run as commands of their own (publish-and-merge.md).
+- **ERR-16.** When the sandbox, or a harness or permission guard (such as the worktree isolation
+  guard of an EnterWorktree session), refuses a command a phase needs (a `.git/config` write, a
+  push or `gh` call rejected by the network proxy, a worktree path outside the writable area, or any
+  command a guard refuses): don't retry around it (no other path, command form, copy of a script or
+  tool) and never change sandbox or permission settings. Finish the steps that don't need it, then
+  give the exact command for the user to run in a plain shell and, for the sandbox, the settings
+  change that would allow it (for example adding `git push *` or `gh pr *` to
+  `sandbox.excludedCommands` in `.claude/settings.local.json`), which is the user's decision.
+  Report `partial` or `blocked`.
 
 ## connect (step 3)
 
@@ -120,25 +136,39 @@ worktree for the same branch is reused.
 
 **Location.** The repository's rule, else `.claude/worktrees/<name>`, where `<name>` is the branch
 with `/` replaced by `-`. It sits inside the project, where the sandbox lets a session write, and
-it's where `claude --worktree <name>` looks.
+it's where `claude --worktree <name>` looks. Either way it is relative to the **main checkout**,
+never to the checkout the run started in: build `<main_checkout>/.claude/worktrees/<name>` from the
+state report's `main_checkout` and give `git worktree add` that absolute path. A relative path run
+from a linked worktree nests the new worktree inside it, and `git worktree remove` of the outer one
+then deletes the inner one's files without a warning.
+- `main_checkout` is `null` (a bare repository with linked worktrees, no main checkout): ask where
+  to put the worktree, and report `awaiting_approval`.
+- The sandbox or a guard refuses the path: ERR-16. Never fall back to a path inside the current
+  worktree.
 
-**Keep it out of git.** `git check-ignore -q .claude/worktrees/` (or read
-`claude_worktrees_ignored`). When not ignored: append `.claude/worktrees/` to `.git/info/exclude`,
-which changes no tracked file and covers every worktree of the repository, and say that a
-`.gitignore` entry would share the rule. When the repository's rules require the `.gitignore` entry
-instead, add it there and name it in the next commit's message. Never edit `.gitignore` otherwise.
-- Write it from the main checkout's root with exactly this command, as a Bash call of its own:
-  `echo '.claude/worktrees/' >> .git/info/exclude`. Claude Code protects `.git/`: file tools can't
-  edit it, and a permission check refuses compound commands that also `mkdir` or `printf` there.
-  `git init` already created `.git/info/`.
+**Keep it out of git.** Read the report's `claude_worktrees_ignored` (`git check-ignore` on the main
+checkout). Only when it is false: append `.claude/worktrees/` to `.git/info/exclude`, which changes
+no tracked file and covers every worktree of the repository, and say that a `.gitignore` entry would
+share the rule. When the repository's rules require the `.gitignore` entry instead, add it there and
+name it in the next commit's message. Never edit `.gitignore` otherwise.
+- Write it with exactly one of these commands, as a Bash call of its own:
+  - with the working directory at the main checkout's root (the usual case):
+    `echo '.claude/worktrees/' >> .git/info/exclude`;
+  - from a linked worktree, where `.git` is a file:
+    `echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude`.
+
+  Claude Code protects `.git/`: file tools can't edit it, a permission check refuses compound
+  commands that also `mkdir` or `printf` there, and a headless session may refuse this write in
+  either form, which is ERR-16 (below). `git init` already created `.git/info/`.
 - If that write is still refused, don't retry it another way. Create the worktree anyway (nothing
-  in this skill stages it), and put the command in Action required for the user to run.
+  in this skill stages it), and put the command in Action required for the user, in its absolute
+  form so it works from any directory.
 
 **Base.** New work branches from `origin/<default>` as just fetched, never from a possibly stale local
 default branch:
 
 ```bash
-git worktree add --no-track -b <branch> .claude/worktrees/<name> origin/<default>
+git worktree add --no-track -b <branch> <main_checkout>/.claude/worktrees/<name> origin/<default>
 ```
 
 `--no-track` keeps the command free of `.git/config` writes. Then move the session in with
@@ -147,7 +177,7 @@ session hasn't moved, even if a Bash command ran `cd` into the worktree: never s
 there. Give the user the command that opens it, `claude --worktree <name>` from the main checkout,
 in Action required. Run any setup the
 repository requires in a new worktree, or report it as the user's step when the session can't.
-`start` alone commits and pushes nothing.
+`start` without carried work commits nothing, and `start` never pushes.
 
 ## Carrying pending work onto the branch
 
@@ -155,19 +185,28 @@ When the work to deliver is uncommitted in the current checkout (usually the mai
 default branch), move it onto the new branch by a commit, never by stash, file copies or patches
 unless the user chooses one:
 
+0. **Default branch ahead of origin.** When the current branch is the default branch and the
+   report's `default_branch.ahead` is above 0, a branch made at HEAD would carry those local-only
+   commits into the push and the PR. Stop before staging anything or creating the branch: list them
+   (`git log --oneline origin/<default>..<default>`: SHA and subject) and ask whether to (a) stop,
+   recommended, because the request didn't name them, or (b) include them in this branch's PR. With
+   no answer possible, report `awaiting_approval`; with (a), report `blocked` and leave everything
+   as it was.
 1. Classify, stage, scan and check it ([classify-and-commit.md](classify-and-commit.md)).
 2. Record the pre-move content of each task path: `git hash-object <path>` (absent for a deletion).
-3. `git switch -c <branch>` at the current HEAD (with `--no-track` if HEAD is a remote-tracking
-   ref); the staged task paths and every other edit come along.
+3. `git switch -c <branch>` at the current HEAD; the staged task paths and every other edit come
+   along.
 4. Commit (classify-and-commit.md). Leave unrelated and local paths unstaged.
 5. **Verify** before switching back: for each task path, `git rev-parse <branch>:<path>` equals the
    recorded hash, and a deleted path is absent from the branch. On a mismatch, stay on the new
    branch and report it.
 6. `git switch <original branch>`: it carries the unrelated edits unchanged.
-7. `git worktree add .claude/worktrees/<name> <branch>` (location and ignore rule above).
+7. `git worktree add <main_checkout>/.claude/worktrees/<name> <branch>` (location and ignore rule
+   above).
 
 A path that mixes task and unrelated edits is `uncertain`: ask whether to carry the whole file or
-leave it. When the current checkout is already a linked worktree, or a non-default branch dedicated
-to this work, commit there: no new branch or worktree is needed. Rebasing the new branch onto
+leave it. When the current checkout is a linked worktree or a non-default branch already dedicated
+to this work (the branch the request names, or the task's own), commit there: no new branch or
+worktree is needed. Rebasing the new branch onto
 `origin/<default>` happens before the push, inside the worktree
 ([publish-and-merge.md](publish-and-merge.md)).
