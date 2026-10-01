@@ -1,0 +1,27 @@
+--- da4edf6/Claude
++++ 7e2bfb6/Codex
+@@ -201,15 +201,20 @@
+         else:
+             ln, cells = rows[-1]
+             author = cells[2] if len(cells) > 2 else ""
+-            if author.startswith("claude-code"):
+-                m = re.fullmatch(r"claude-code \(session ([A-Za-z0-9-]+)\)", author)
++            if author.startswith(("claude-code", "codex")):
++                m = re.fullmatch(r"(claude-code|codex) \(session ([A-Za-z0-9-]+)\)", author)
+                 session = (fm.get("generated_by") and next(
+                     (value_of(l.split(":", 1)[1]) for _, l in nested["generated_by"]
+                      if l.strip().startswith("session:")), None))
+                 if not m:
+-                    err(ln, "last Change Log row: author must be 'claude-code (session <ID>)'")
+-                elif session and m.group(1) != session.strip('"'):
++                    err(ln, "last Change Log row: author must be 'codex (session <ID>)' or 'claude-code (session <ID>)'")
++                elif session and m.group(2) != session.strip('"'):
+                     err(ln, "last Change Log row: session must match generated_by.session")
++                tool = next(
++                    (value_of(l.split(":", 1)[1]).strip('"') for _, l in nested.get("generated_by", [])
++                     if l.strip().startswith("tool:")), None)
++                if m and tool in {"codex", "claude-code"} and m.group(1) != tool:
++                    err(ln, "last Change Log row: agent must match generated_by.tool")
+ 
+     # --- item blocks -------------------------------------------------------------------
+     items = {c: [] for c in COLLECTIONS}  # collection -> list of (line, id, fields)
