@@ -63,10 +63,11 @@ can answer only these:
 - that a named accepted ADR answers a named question ("ADR-004 settles the identity provider").
 
 An answer to an architectural question stated in the request ("use Keycloak", "reuse our current
-auth service") is a preference: record it in a new DEC's `notes` (for an existing DEC, which an
-amendment leaves unchanged, say it in the reply and the Change Log row instead) and recommend it
-when you ask. It never becomes an ADR until the user picks it. The one exception to all of this is
-policy: an approved mandated platform that answers exactly a question resolves it without asking.
+auth service") is a preference: record it in a new DEC's `notes` (for an existing DEC, which stays
+unchanged, say it in the reply and in an amendment's Change Log row, never in a review record's)
+and recommend it when you ask. It never becomes an ADR until the user picks it. The one exception
+to all of this is policy: an approved mandated platform that answers exactly a question resolves it
+without asking.
 
 **Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options
 each, with the recommended option first and marked "(Recommended)". Otherwise ask in plain text and
@@ -206,7 +207,8 @@ Follow [readiness.md](references/readiness.md):
   one, even with no user. They show the proposed shape; where a boundary is a choice rather than a
   given, a DEC records that choice (readiness.md). Link each CMP to the NFRs and constraints it
   serves. Each mandated platform (step 1) appears as the CMP that provides that capability, carrying
-  the setting's `constrains` link: the one place R5 allows.
+  the setting's `constrains` link: the one place R5 allows. When amending after its platform changed,
+  leave that CMP as it is and add none (readiness.md, "A mandated platform that changed").
 - Give each CMP its `kinds` from output-rules.md: one or more of `user-interface`, `service`,
   `platform`, `api`, `relational-store`, `data-store` and `external`. A component can have several (a
   service that also exposes an API has `service` and `api`). Ask when a kind is uncertain. With no
@@ -247,7 +249,8 @@ With no user, only means 1 applies.
 Propose one outcome, with reasons:
 - **reuse:** step 4 can offer it (the ARCH links this PRD, and no mandated platform it relies on
   changed), it covers the PRD with no new or changed question, and no DEC changes in this run. Once
-  the user confirms reuse, new requirements no question cites don't override it: name them (below);
+  the user confirms reuse, new requirements that no existing question affects don't override it:
+  name them (below);
 - **amend:** the existing ARCH needs new or changed questions or components, or a DEC's `state` or
   `resolved_by` changes in this run (a decision recorded, or a resolver that no longer counts);
 - **create:** no ARCH covers the system.

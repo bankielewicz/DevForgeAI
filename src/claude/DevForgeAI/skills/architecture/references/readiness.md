@@ -79,9 +79,9 @@ A DEC is resolved by exactly one of these three means. Anything else leaves it `
   `resolved_by`.
 - **A preference stated in the request** ("use Auth0", "reuse our current auth service") is not
   yet a decision. Record it in a new DEC's `notes` ("The request prefers …; not yet decided"); an
-  existing DEC stays unchanged in an amendment, so for one, say it in the reply and the Change Log
-  row instead. Make it the recommended option when you ask, and keep the DEC open until the user
-  picks it.
+  existing DEC stays unchanged, so for one, say it in the reply and in an amendment's Change Log
+  row, never in a review record's. Make it the recommended option when you ask, and keep the DEC
+  open until the user picks it.
 - **With no user** ("proceed without questions"), only means 1 can apply, and never to a DEC
   reopened because its platform changed. Every other DEC stays open, no ADR is written, and existing
   resolutions in an ARCH being amended stay as they are unless the next section changes them. An
@@ -159,7 +159,9 @@ still mandates the platform, for the capability, that the ARCH recorded for it.
 - **Name what reuse leaves uncited.** Reuse adds no DEC, so every active requirement that no active
   blocking DEC cites is reported ready. When proposing reuse, and in the report after it is
   confirmed, name each such requirement, marked "(no architectural question cites it)", so the user
-  sees what reuse makes ready without an architectural question.
+  sees what reuse makes ready without an architectural question. A new requirement that an existing
+  question affects needs a DEC of its own ("State changes when amending"), so reuse can't cover it,
+  even when confirmed: say why and ask for amend.
 - **Deciding an open question later is an amendment.** Recording a decision on an existing DEC (means
   2 or 3) changes its `state` and `resolved_by`, which only an amendment may do. With a user present
   and a blocking DEC open, recommend amend at step 4. If reuse was chosen and a DEC then changes, the
