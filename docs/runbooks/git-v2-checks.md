@@ -123,7 +123,7 @@ and in CLAUDE.md's `git` results bullet. Record each manual item below.
 
 | Item | Result | Date | Notes |
 |---|---|---|---|
-| Pilot (9 cases, 1 run) | NOT_RUN | | |
+| Pilot (9 cases, 1 run) | 8 pass, 1 at 0.89 | 2026-10-01 | `48f0c79`, $3.10; `starts-worktree-from-fresh-base` missed `excluded` (no `.git/info/exclude` rule); diagnosing with `--keep-temp` |
 | Suite, 1 run | NOT_RUN | | |
 | Suite, 3 runs with baseline | NOT_RUN | | |
 | VER-18 | NOT_RUN | | |
