@@ -43,7 +43,9 @@ What each one checks in v2:
 - `delivers-task-changes` gains `push-own-command`: `git push` must run as a command of its own.
 - The other five have unchanged fixtures and graders apart from the safety grader's new never-run
   items. A drop there is a regression, not a stale grader: their fixtures have no merged worktree for
-  sync to retire and no test-path or local-host credential.
+  sync to retire and no test-path or local-host credential. One known exception:
+  `starts-worktree-from-fresh-base` tops out at 0.89 in the eval harness, as v1 did (0.88), because
+  the harness refuses the `.git/info/exclude` write and its `excluded` grader always misses.
 
 **Step 2: the whole suite, one run** (19 cases):
 
@@ -124,7 +126,8 @@ and in CLAUDE.md's `git` results bullet. Record each manual item below.
 | Item | Result | Date | Notes |
 |---|---|---|---|
 | Pilot (9 cases, 1 run) | 8 pass, 1 at 0.89 | 2026-10-01 | `48f0c79`, $3.10; `starts-worktree-from-fresh-base` missed `excluded` (no `.git/info/exclude` rule) |
-| Diagnosis, `--keep-temp` | 0.89 again | 2026-10-01 | `eb74fac`, $0.30; the trace shows the absolute-path `echo >> …/.git/info/exclude` denied by Claude Code's permission check; fixed to v1's relative form from the main checkout's root |
+| Diagnosis, `--keep-temp` | 0.89 again | 2026-10-01 | `eb74fac`, $0.30; the trace shows the absolute-path `echo >> …/.git/info/exclude` denied by Claude Code's permission check, and the skill handing the command over (ERR-16) |
+| Re-check after v1's relative form | 0.89 again | 2026-10-01 | `77b71be`, $0.28. v1's 3-run suite also missed `excluded` in all 3 runs (0.88): the harness refuses this write in either form. Not a regression; the case still passes the 0.8 bar |
 | Suite, 1 run | NOT_RUN | | |
 | Suite, 3 runs with baseline | NOT_RUN | | |
 | VER-18 | NOT_RUN | | |

@@ -153,13 +153,13 @@ share the rule. When the repository's rules require the `.gitignore` entry inste
 name it in the next commit's message. Never edit `.gitignore` otherwise.
 - Write it with exactly one of these commands, as a Bash call of its own:
   - with the working directory at the main checkout's root (the usual case):
-    `echo '.claude/worktrees/' >> .git/info/exclude`. Use this relative form there: Claude Code's
-    permission check refused the absolute form of the same write in an eval run (2026-10-01);
+    `echo '.claude/worktrees/' >> .git/info/exclude`;
   - from a linked worktree, where `.git` is a file:
     `echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude`.
 
-  Claude Code protects `.git/`: file tools can't edit it, and a permission check refuses compound
-  commands that also `mkdir` or `printf` there. `git init` already created `.git/info/`.
+  Claude Code protects `.git/`: file tools can't edit it, a permission check refuses compound
+  commands that also `mkdir` or `printf` there, and a headless session may refuse this write in
+  either form, which is ERR-16 (below). `git init` already created `.git/info/`.
 - If that write is still refused, don't retry it another way. Create the worktree anyway (nothing
   in this skill stages it), and put the command in Action required for the user, in its absolute
   form so it works from any directory.
