@@ -251,9 +251,10 @@ snapshot's.
 | Item | Result | Date | Notes |
 |---|---|---|---|
 | Eval: baseline (writes-the-set, nothing-confirmed, needs-adr-handback) | recorded: 0.15, 0.06, 0.07 without the skill | 2026-10-01 | `context-baseline-*-20261001T13*`, `95145a1`; $1.02 |
-| Eval: pilot | NOT_RUN | | |
-| Eval: triggers (haiku, sonnet, opus) | NOT_RUN | | |
-| Eval: full, 3 runs with baseline | NOT_RUN | | |
+| Eval: pilot (v1) | pass: default 1.00, opus 1.00, sonnet 0.99; haiku 0.80 (reported) | 2026-10-01 | `context-pilot-*-20261001T15*`, `8407574`; $3.55. Trace run (`context-trace-sonnet-…T152539Z`) confirmed `snapshot new` under the harness's `$TMPDIR` |
+| Eval: triggers, v1 | fail: sonnet trigger-04 2 of 3; opus 12/12; haiku 9/12 | 2026-10-01 | `context-triggers-*-20261001T16*`, `8407574`; led to SPEC-011 v3 |
+| Eval: triggers, v2 | pass: sonnet 12/12 and opus 12/12 at 3 of 3; haiku run invalid (401) | 2026-10-01 | `context-triggers-*-20261001T17*`, `1412d2b`; haiku to re-run (`triggers-haiku`) |
+| Eval: full, 3 runs with baseline (v2) | pass: 18 of 18 at ≥ 0.8; every VER item ≥ 0.8 (VER-04 0.98) | 2026-10-01 | `context-full-default-20261001T174733Z`, `1412d2b`; mean Δ +0.59; $63.25 |
 | P1–P4 plugin checklist | NOT_RUN | | |
 | M-a VER-21 (a) batches and budget | NOT_RUN | | |
 | M-b VER-21 (b) stopping | NOT_RUN | | |
