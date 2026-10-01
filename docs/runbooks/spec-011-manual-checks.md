@@ -26,8 +26,9 @@ bash tmp/run-context-evals.sh triggers
 bash tmp/run-context-evals.sh full
 ```
 
-- **pilot:** writes-the-set once on the default model, haiku and opus. It measures cost, turns and
-  duration, and confirms that `context_check.py snapshot new` can write under the harness's `$TMPDIR`.
+- **pilot:** writes-the-set once on the default model, haiku, sonnet and opus (§13: it must pass on
+  sonnet and opus). It measures cost, turns and duration, and confirms that
+  `context_check.py snapshot new` can write under the harness's `$TMPDIR`.
   (The baseline already confirmed that a whole-file regex works at an ARCH's size.)
 - **triggers:** the 12 trigger cases, 3 runs each, on haiku, sonnet and opus. QR-04 requires 3 of 3 on
   every case on sonnet and opus; haiku is reported.

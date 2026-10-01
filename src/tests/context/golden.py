@@ -410,6 +410,11 @@ BAD = {
          {"ver03-pipx-decision"}),
         ("rdbms decision cites ADR-001", [fm_swap(RDB, "**Decision** (ADR-002)", "**Decision** (ADR-001)")],
          {"ver03-rdbms-decision-statement"}),
+        ("rdbms decision cites ADR-002 with its CMP item", [
+            fm_swap(RDB, "**Decision** (ADR-002)", "**Decision** (ADR-002, ARCH-001#CMP-03)"),
+            fm_swap(RDB, "  - {id: ADR-002, relation: constrains, version: 1, hash: null}\n",
+                    "  - {id: ADR-002, relation: constrains, version: 1, hash: null}\n"
+                    "  - {id: ARCH-001, item: CMP-03, relation: constrains, version: 1, hash: null}\n")], set()),
         ("rdbms without its ADR-002 link", [fm_swap(RDB, "  - {id: ADR-002, relation: constrains, version: 1, hash: null}\n",
                                                     "")], {"ver03-rdbms-adr-002-link"}),
         ("architecture without its CMP-02 link", [fm_swap(

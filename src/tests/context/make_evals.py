@@ -634,7 +634,9 @@ def writes_the_set():
           rx("ver03-pipx-decision", "tech-stack",
              tech("pipx", "unpinned", "decision", r"[^\n]*ARCH-001#CMP-01\b", r"[^\n]*ARCH-001#CMP-02\b",
                   link("ARCH-001", item="CMP-01"), link("ARCH-001", item="CMP-02"))),
-          rx("ver03-rdbms-decision-statement", "rdbms", statement(r"Decision\*\*[ \t]*\([ \t]*ADR-002[ \t]*\):")),
+          # A Decision names each of its sources, so ADR-002 may share the parentheses with a CMP item.
+          rx("ver03-rdbms-decision-statement", "rdbms",
+             statement(r"Decision\*\*[ \t]*\([^)\n]*\bADR-002\b[^)\n]*\):")),
           rx("ver03-rdbms-adr-002-link", "rdbms", fm_has(link("ADR-002")))]
     for n in ("01", "02", "03"):
         g.append(rx(f"ver03-architecture-links-cmp-{n}", "architecture", fm_has(link("ARCH-001", item=f"CMP-{n}"))))
