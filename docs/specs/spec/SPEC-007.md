@@ -3,9 +3,9 @@ id: SPEC-007
 type: spec
 title: "Git workflow skill"
 status: draft          # draft | in-review | approved | superseded | deprecated
-version: 1
+version: 2
 created: 2026-09-28
-updated: 2026-09-28
+updated: 2026-10-01
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -53,6 +53,15 @@ he decided that the skill is model-invocable, suggests `documents-updater` befor
 supports GitHub only, and that QA is an independent Claude or Codex session that labels PRs. In a
 fourth, he decided that QA's verdict names the commit it reviewed, and asked for a stub spec of the
 QA skill (SPEC-008).
+
+Version 2 (2026-10-01) fixes what a validation of SKL-006 v1 found, reproduced independently by the
+architect session in a scratch repository: three ways to lose data (a worktree nested inside the
+linked worktree a run started in, content that existed only in the index, and sync removing
+worktrees without the ignored-files question), scripts that crashed on text that isn't UTF-8, a scan
+that missed current OpenAI key formats and permanently blocked common test fixtures, and rules that
+contradicted each other. Bryan asked for every issue to be fixed (2026-10-01). The five decisions that
+needed (D1–D5, §13) were taken as the architect session recommended; Bryan approves version 2 after
+its pull request.
 
 | # | Requested step | Phase | Items |
 |---|---|---|---|
@@ -141,30 +150,38 @@ documents-updater).
   A sandboxed `git push` also failed once through the sandbox's proxy on 2026-09-28
   (`~/code/papercuts.md`). This repository's fix is the owner's: `sandbox.excludedCommands` lists
   `git push *` and `gh pr *` in `.claude/settings.local.json`. The skill works around what it can
-  (`--no-track`) and reports the rest (ERR-16); it never changes sandbox settings itself.
+  (`--no-track`) and reports the rest (ERR-16); it never changes sandbox settings itself. An exclusion
+  applies only to a command that starts with the excluded words, so the skill runs every `git push`
+  and `gh pr` call as a command of its own (BEH-12). Claude Code can also refuse a command through a
+  harness or permission guard (for example the worktree isolation guard of an EnterWorktree session);
+  that is ERR-16 too, and the skill never works around it.
 - **No installs.** The scripts use the Python standard library only and never touch the network.
   Network access is the user's remote, through `git` and `gh`. On 2026-09-28 a sandboxed
   `git ls-remote origin` in this repository reached GitHub over HTTPS through `gh`'s credential helper.
+- **Any text.** Paths and file contents need not be UTF-8. The scripts decode git's output with
+  `surrogateescape` where it names paths (so a path round-trips to the file system) and with `replace`
+  where it is only displayed or scanned, and any unexpected error exits 2 with `{"error": ...}`. So
+  exit 1 from `scan_staged.py` always means a blocked finding, and exit 2 means the script didn't run.
 
 ## 3. Architecture and components
 
 ```
 src/claude/DevForgeAI/
 ├── skills/git/
-│   ├── SKILL.md                         # phase checklist, gates, user decisions, output contract
+│   ├── SKILL.md                         # phase checklist, gates and the one never-run list, user decisions, output contract
 │   ├── provenance.yaml                  # SKL-006, implements SPEC-007
 │   ├── references/
 │   │   ├── preflight-and-connect.md     # BEH-01, BEH-04, BEH-05, BEH-06
 │   │   ├── classify-and-commit.md       # BEH-07..10: classes, ignore rules, scan, checks, messages
 │   │   ├── publish-and-merge.md         # BEH-11..13, 19, 20: push, PR, docs, QA, merge
 │   │   ├── sync-and-prune.md            # BEH-14..16: state matrix, reconciliation, retirement, prune
-│   │   └── output-rules.md              # completion response, forbidden commands, self-check list
+│   │   └── output-rules.md              # completion response, confirmation-only commands, self-check list
 │   └── scripts/
 │       ├── repo_state.py                # read-only JSON state report (§4)
 │       ├── scan_staged.py               # pre-publish scan of staged content (BEH-08)
 │       └── qa_state.py                  # QA state from gh pr view JSON (BEH-20)
 └── evals/git/<case>/                    # one case per automated VER item (§9)
-src/tests/git/                           # unit tests for both scripts and the eval generator, not deployed
+src/tests/git/                           # unit and structure tests and the eval generator, not deployed
 ```
 
 ```mermaid
@@ -194,13 +211,15 @@ response (BEH-18). `status` runs the preflight and the report only.
 **Inputs:** the repository's git state, its remote, PR data from `gh` (including labels and the PR
 timeline), its instructions (CLAUDE.md,
 AGENTS.md, CONTRIBUTING, ADRs and runbooks about branches, commits, PRs, merges or deploys), and the
-conversation (the task, the session's own edits, authorizations already given).
+conversation (the task, the session's own edits, and authorizations given in the request that
+started this run or in answers within it, never ones from an earlier run, BEH-03).
 
 **State report** (`scripts/repo_state.py`, JSON on stdout, read-only, never uses the network):
 
 ```json
 {
-  "root": "/path/to/repo", "in_linked_worktree": false, "branch": "main", "detached": false,
+  "root": "/path/to/repo", "main_checkout": "/path/to/repo", "in_linked_worktree": false,
+  "branch": "main", "detached": false,
   "operation_in_progress": null,
   "identity": {"name_set": true, "email_set": true},
   "remote": {"name": "origin", "url": "https://github.com/o/r.git", "default_branch": "main"},
@@ -211,21 +230,44 @@ conversation (the task, the session's own edits, authorizations already given).
   ],
   "worktrees": [
     {"path": ".claude/worktrees/feat-x", "branch": "feat/x", "head": "<sha>", "locked": null,
-     "prunable": false, "current": false, "uncommitted": 0, "ignored": ["cache.pyc"],
-     "unpushed": 0, "merged_by_ancestry": true, "last_commit": "2026-09-01",
-     "last_activity": "2026-09-02T10:00:00Z", "activity": "idle", "size_bytes": 48213504}
+     "prunable": false, "current": false, "uncommitted": 0, "sandbox_masks": 0, "ignored": ["cache.pyc"],
+     "unpushed": 0, "merged_by_ancestry": true, "commits_since_created": 1,
+     "pr": {"number": 12, "state": "MERGED", "head_matches": true}, "nothing_unpushed": true,
+     "last_commit": "2026-09-01", "last_activity": "2026-09-02T10:00:00Z", "activity": "idle",
+     "size_bytes": 48213504}
   ],
   "id_collisions": []
 }
 ```
 
+- `main_checkout`: the main working tree's absolute path, whichever checkout the script runs in;
+  `null` when the repository's common directory is bare (linked worktrees with no main checkout).
 - `operation_in_progress`: `null`, `merge`, `rebase`, `cherry-pick`, `revert` or `bisect`.
 - `default_branch.state`: `up_to_date`, `behind`, `ahead`, `diverged`, `unrelated`, `no_remote`,
   `empty_remote` or `unknown` (remote-tracking ref missing: fetch first). It is computed from
-  remote-tracking refs, so the skill fetches before trusting it.
+  remote-tracking refs, so the skill fetches before trusting it. `empty_remote` means no
+  remote-tracking refs and an empty `FETCH_HEAD`; `FETCH_HEAD` is per worktree, so the checkout's own
+  copy is read before the common directory's.
 - `changes[].incoming`: for a path that differs between the working tree and `HEAD`, compares its
   content and mode with `origin/<default>`'s version: `identical`, `differs` or `untouched` (the
-  incoming commits don't change it).
+  incoming commits don't change it). `identical` needs both: the working-tree version equals the
+  incoming one, and the index entry (read with `git ls-files -s`, which doesn't refresh the index)
+  equals `HEAD`'s or the incoming one. A staged version found nowhere else makes the path `differs`,
+  and so does a file git can't hash (unreadable, or gone mid-run).
+- `default_branch.checked_out_at` is the absolute path of the checkout holding the default branch,
+  ready for `-C`, which resolves a relative path against the caller's directory. `worktrees[].path`
+  is relative to the main checkout.
+- `worktrees[].current` marks the checkout the caller works in, even in a `-C` report run from another
+  worktree of the same repository. `uncommitted` and `untracked` leave out sandbox write masks,
+  counted in `sandbox_masks`. `ignored` is cut at 100 entries, with `ignored_truncated` giving the
+  full count.
+- `worktrees[].commits_since_created`: the commits on the worktree's branch since the branch was
+  created, from the creation entry of its reflog; `null` when that entry has expired.
+- `worktrees[].pr` and `nothing_unpushed`: with `--prs -`, the script reads
+  `gh pr list --state all --json number,state,headRefName,headRefOid` on stdin and reports the
+  branch's PR (preferring the one whose head equals the tip). `nothing_unpushed` is true when every
+  commit is on a remote-tracking ref, or when the tip equals a `MERGED` PR's `headRefOid` (BEH-16).
+  Without `--prs`, `pr` is `null` and `nothing_unpushed` follows the remote refs alone.
 - `worktrees[].last_activity`: the latest of the branch's last commit date and the newest
   modification time among the worktree's tracked and untracked files (ignored files don't count);
   the skill also weighs the PR's `updatedAt` when `gh` is available. `activity` is `active`, `idle`
@@ -269,12 +311,12 @@ metadata:
 |---|---|---|---|
 | `status` | Preflight, the state report and the PR's QA state | Nothing: read-only | — |
 | `connect` | `git init`, `origin`, fetch, bootstrap an empty remote | The request; a push for the bootstrap | ERR-01, ERR-03, ERR-04, ERR-16 |
-| `start` | Branch and worktree, carrying pending changes | The request | ERR-05 |
-| `commit` | Classify, scan, checks, commit | The request; confirmation for `git rm --cached` | ERR-06, ERR-07, ERR-14 |
-| `push` | Update onto the base, push the branch; no PR | The request names the push | ERR-08, ERR-09, ERR-16 |
-| `pr` | Suggest documents-updater, `push`, then open or update the PR | The request names the PR | ERR-02, ERR-08, ERR-09, ERR-15, ERR-16 |
-| `merge` | Readiness report, merge, delete the remote branch | QA's current `merge-approved` label and a confirmation in this run, every time | ERR-10 |
-| `sync` | Fast-forward the default branch, reconcile, post-merge steps | The request | ERR-11, ERR-12 |
+| `start` | Branch and worktree under the main checkout, carrying pending changes (commits only carried work; never pushes) | The request; an answer when the default branch is ahead (BEH-06) | ERR-05, ERR-14, ERR-16 |
+| `commit` | Classify, scan, checks, commit | The request; a yes for a scan warning; confirmation for `git rm --cached` | ERR-06, ERR-07, ERR-14 |
+| `push` | Update onto the base, push the branch; no PR | The request names the push | ERR-08, ERR-09, ERR-14, ERR-16 |
+| `pr` | Suggest documents-updater, `push`, then open or update the PR | The request names the PR | ERR-02, ERR-08, ERR-09, ERR-14, ERR-15, ERR-16 |
+| `merge` | Readiness report, merge, delete the remote branch | QA's current `merge-approved` label and a confirmation in this run, every time; a confirmation naming the remote branch before deleting it | ERR-10 |
+| `sync` | Fast-forward the default branch, reconcile, post-merge steps, retire merged branches by `prune`'s removal rules | The request; a confirmation for each removal | ERR-11, ERR-12, ERR-13 |
 | `prune` | Inventory, report idle and stale worktrees, remove, retire branches | A confirmation listing the targets | ERR-13 |
 
 **Completion response** (the last thing in the reply; empty fields are omitted):
@@ -298,25 +340,25 @@ behaviors:
     rule: "Before any phase, establish context with read-only commands. Confirm the repository root and whether the session is in the main checkout or a linked worktree. Read the repository's instructions (CLAUDE.md, AGENTS.md, CONTRIBUTING, and ADRs or runbooks about branches, worktrees, commits, PRs, merges or deploys); where they set something this spec also sets (worktree location, branch names, commit format, required checks, merge method, post-merge steps), the repository's rule wins unless it conflicts with BEH-03 or BEH-17. Check that git is installed, that user.name and user.email resolve, whether HEAD is detached, and whether a merge, rebase, cherry-pick, revert or bisect is in progress. For phases that use the remote, check that it is reachable (git ls-remote). Only creating or updating a PR, reading PR state and merging need gh: before those steps, check that gh is installed and signed in (gh auth status). Fetching, rebasing and pushing need only git. Detect whether the session is sandboxed with .git/config write-masked (.git/config.lock exists as a character device); if so, plan every phase without .git/config writes where git allows it (branches with --no-track, a push without -u) and report the rest by ERR-16. Read the default branch from the remote (git ls-remote --symref origin HEAD), never assume main. Run scripts/repo_state.py after fetching, and base every later decision on its report."
   - id: BEH-02
     status: active
-    rule: "Take the phase from the first argument (status, connect, start, commit, push, pr, merge, sync, prune) or infer the phases from the request and the state report: for example, 'open a PR for my changes' with uncommitted work runs start, commit and pr. Run phases in the order connect, start, commit, push, pr, merge, sync, prune, skipping those the request doesn't need, and stop at the first gate that needs an answer. When start carries pending work (BEH-06), it makes that work's first commit; commit is for later commits in the worktree. status runs only read-only commands and changes nothing. Every phase first checks whether its result already exists (origin configured, branch or worktree present, change committed, branch pushed, PR open, PR merged, default branch up to date) and reports it rather than repeating it, so rerunning the skill never creates a second branch, worktree, commit of the same change or PR. A request for a commit message only drafts it; the skill commits only when asked."
+    rule: "Take the phase from the first argument (status, connect, start, commit, push, pr, merge, sync, prune) or infer the phases from the request and the state report: for example, 'open a PR for my changes' with uncommitted work runs start, commit and pr. Run phases in the order connect, start, commit, push, pr, merge, sync, prune, skipping those the request doesn't need, and stop at the first gate that needs an answer. When start carries pending work (BEH-06), it makes that work's first commit; commit is for later commits in the worktree. start without carried work commits nothing, and start never pushes. Nothing to deliver is ERR-14 only for start, commit, push and pr. status runs only read-only commands and changes nothing. Every phase first checks whether its result already exists (origin configured, branch or worktree present, change committed, branch pushed, PR open, PR merged, default branch up to date) and reports it rather than repeating it, so rerunning the skill never creates a second branch, worktree, commit of the same change or PR. A request for a commit message only drafts it; the skill commits only when asked."
   - id: BEH-03
     status: active
-    rule: "Gate every action by its class. Read-only (status, log, diff, fetch, ls-remote, gh pr view, gh pr checks): always allowed. Local and reversible (git init, adding a remote, creating a branch or worktree, staging, committing, editing an ignore file, a fast-forward): allowed when the request asks for the phase that does it. Outward-facing (push, creating or editing a PR, merging, deleting a remote branch): allowed only when the request names that action, for example 'commit this and open a PR' authorizes the commit, the push and the PR, or when the user confirms it in this run; authorization doesn't carry over to a later run. Merge is never authorized in advance: it needs a confirmation given after that run's readiness report (BEH-13). Destructive (removing a worktree, deleting a local branch, git rm --cached, discarding working-tree content, dropping a stash, rewriting pushed commits): needs a confirmation naming each target, every time. Ask one question per phase that lists the exact commands and targets, with AskUserQuestion when available and the recommended option first, otherwise in plain text ending the turn. When no answer can arrive, do nothing that needs it and report awaiting_approval with the question in Action required."
+    rule: "Gate every action by its class. A run is one invocation of the skill, including the user's answers to its questions, whether given through AskUserQuestion or in the reply to a question that ended the turn. Read-only (status, log, diff, fetch, ls-remote, gh pr view, gh pr checks): always allowed. Local and reversible (git init, adding a remote, creating a branch or worktree, staging, committing, editing an ignore file, a fast-forward): allowed when the request asks for the phase that does it. Outward-facing (push, creating or editing a PR, merging): allowed only when the request names that action, for example 'commit this and open a PR' authorizes the commit, the push and the PR, or when the user confirms it in this run; authorization doesn't carry over to a later run. Merge is never authorized in advance: it needs a confirmation given after that run's readiness report (BEH-13). Destructive (removing a worktree, deleting a local branch, deleting a remote branch, git rm --cached, discarding working-tree content not proven to exist elsewhere, dropping a stash, rewriting pushed commits): needs a confirmation naming each target, every time, even when the request names the action; deleting a remote branch always needs a confirmation naming the branch (BEH-13, BEH-17). Ask one question per phase that lists the exact commands and targets, with AskUserQuestion when available and the recommended option first, otherwise in plain text ending the turn. When no answer can arrive, do nothing that needs it and report awaiting_approval with the question in Action required."
   - id: BEH-04
     status: active
     rule: "connect: when the directory is not a git repository and the request asks to initialize it, run git init with the default branch named by the repository's instructions, else the remote's default when the remote has commits, else git's init.defaultBranch. When a remote URL is given: add it as origin when no origin exists; report it when origin already has the same repository (https and ssh forms of one GitHub repository count as the same); stop with ERR-03 when origin points elsewhere. Then fetch. A repository without commits and a remote with commits adopts the remote's history: check out its default branch, reconciling local files by BEH-14's per-path rule. When the remote is empty and the local repository has commits, pushing the default branch is the bootstrap (an outward-facing action). When both are empty, offer a minimal bootstrap commit on the default branch holding the ignore file and a README when one exists, so the rest of the work arrives by PR (recommended), or the whole classified change set as the first commit. When both have commits and no merge base, stop with ERR-04."
   - id: BEH-05
     status: active
-    rule: "start: create the branch and worktree for the work. Location: the repository's rule (ADR-001's .claude/worktrees/<name> in this repository), else .claude/worktrees/<name>, which is also where Claude Code puts worktrees and lies inside the directory the sandbox lets a session write. Before creating it, confirm with git check-ignore that the location is ignored. If not, add .claude/worktrees/ to .git/info/exclude, which changes no tracked file and covers every worktree of the repository, and mention that a .gitignore entry would share the rule; when the repository's rules require the .gitignore entry (ADR-001 here), add it there instead and name it in the next commit's message. Branch name: the repository's convention (for example story/STORY-NNN-<slug>), else <type>/<slug> with type one of feat, fix, docs, chore, refactor or test and the story or spec ID in the slug when the work has one; lower case, at most 64 characters. The worktree is named after the branch with / replaced by -. Never reuse a local branch, remote branch or worktree name for different work; an existing worktree for the same branch is reused (BEH-02). New work branches from origin/<default> as just fetched, never from a local default branch that may be stale. Create it with git worktree add, then move the session into it with EnterWorktree (path) when that tool is available and the user continues there; otherwise tell the user how to open it (claude --worktree <name> from the main checkout, as ADR-001 step 3 requires here). Run any setup the repository requires in a new worktree (ADR-001 step 2's deploy here), or report it as the user's step when the session can't run it."
+    rule: "start: create the branch and worktree for the work. Location: the repository's rule (ADR-001's .claude/worktrees/<name> in this repository), else .claude/worktrees/<name>, which is also where Claude Code puts worktrees and lies inside the directory the sandbox lets a session write. Either way the location is under the main checkout: build the path from the state report's main_checkout (<main_checkout>/.claude/worktrees/<name>) and pass it to git worktree add as an absolute path, so a run started in a linked worktree never nests the new worktree inside it (removing the outer worktree would delete the inner one's files). When main_checkout is null (a bare common directory), ask where to put the worktree. When the sandbox or a guard refuses that path, stop with ERR-16; never fall back to a path inside the current worktree. Before creating it, read the report's claude_worktrees_ignored (git check-ignore on the main checkout). Only when it is false, add .claude/worktrees/ to the main checkout's .git/info/exclude, which changes no tracked file and covers every worktree of the repository, and mention that a .gitignore entry would share the rule; when the repository's rules require the .gitignore entry (ADR-001 here), add it there instead and name it in the next commit's message. Branch name: the repository's convention (for example story/STORY-NNN-<slug>), else <type>/<slug> with type one of feat, fix, docs, chore, refactor or test and the story or spec ID in the slug when the work has one; lower case, at most 64 characters. The worktree is named after the branch with / replaced by -. Never reuse a local branch, remote branch or worktree name for different work; an existing worktree for the same branch is reused (BEH-02). New work branches from origin/<default> as just fetched, never from a local default branch that may be stale. Create it with git worktree add, then move the session into it with EnterWorktree (path) when that tool is available and the user continues there; otherwise tell the user how to open it (claude --worktree <name> from the main checkout, as ADR-001 step 3 requires here). Run any setup the repository requires in a new worktree (ADR-001 step 2's deploy here), or report it as the user's step when the session can't run it."
   - id: BEH-06
     status: active
-    rule: "Carry pending changes: when the work to deliver is uncommitted in the current checkout, move it onto a new branch without loss. After classifying (BEH-07), scanning (BEH-08) and checking (BEH-09): create the branch at the current HEAD (git switch -c <branch>), stage the task paths by explicit path, commit (BEH-10), and before switching back verify that each carried path's committed content equals its pre-move working copy (git hash-object against git rev-parse <branch>:<path>, and absence for deletions); on a mismatch stay on the new branch and report. Then switch back to the original branch, which carries the unrelated edits unchanged, and add the worktree on the new branch (BEH-05). A path that mixes task and unrelated edits is uncertain: ask whether to carry the whole file or leave it. When the current checkout is already a linked worktree or a non-default branch dedicated to this work, commit there; no new branch or worktree is needed. Never transfer work with stash, file copies or patches unless the user chooses it."
+    rule: "Carry pending changes: when the work to deliver is uncommitted in the current checkout, move it onto a new branch without loss. First, when the current branch is the default branch and it is ahead of origin/<default> (the report's default_branch.ahead > 0), the new branch would carry those local-only commits into the PR: stop before staging anything or creating the branch, list the local-only commits (SHA and subject), and ask whether to (a) stop, recommended, because the request didn't name those commits, or (b) include them in this branch's PR; with no answer possible, report awaiting_approval. After classifying (BEH-07), scanning (BEH-08) and checking (BEH-09): create the branch at the current HEAD (git switch -c <branch>), stage the task paths by explicit path, commit (BEH-10), and before switching back verify that each carried path's committed content equals its pre-move working copy (git hash-object against git rev-parse <branch>:<path>, and absence for deletions); on a mismatch stay on the new branch and report. Then switch back to the original branch, which carries the unrelated edits unchanged, and add the worktree on the new branch at BEH-05's location under the main checkout. A path that mixes task and unrelated edits is uncertain: ask whether to carry the whole file or leave it. When the current checkout is already a linked worktree or a non-default branch dedicated to this work, commit there; no new branch or worktree is needed. Never transfer work with stash, file copies or patches unless the user chooses it."
   - id: BEH-07
     status: active
     rule: "Classify before staging. List every change (git status --porcelain=v2 -z --untracked-files=all, with git diff and git diff --cached for content) and put each path in one class: task (the work being delivered, confirmed from the request, the session's own edits and the diff); unrelated (other work, another session's edits, edits that predate the task); local (generated or machine-specific: bytecode and caches, build output, logs, editor and OS files such as *:Zone.Identifier and .DS_Store, sandbox placeholders and write masks (empty character-device files such as .bashrc, .gitconfig or .mcp.json that a sandboxed session sees in the repository), deployed copies, .env and *.local.* files); or blocked (BEH-08). A path whose class is uncertain is not staged, and is named. Stage task paths only, by explicit path (git add -- <paths>); never git add -A, git add ., git add -u or git commit -a. Report paths the user had already staged that aren't task paths, and ask before committing or unstaging them. Never put a task or unrelated path in an ignore file, and never stage a local path. For local paths, propose ignore patterns in the reply: .gitignore for patterns every clone needs, .git/info/exclude for ones specific to this user or machine; prefer a directory or extension pattern, and check that it matches no tracked file (git ls-files -ci --exclude-standard) and nothing unintended (git check-ignore -v). Write a proposed pattern only when the request asks for it or the user confirms; a .gitignore change then goes in its own commit or is named in the commit message. A tracked file that should be local stays tracked unless the user confirms git rm --cached, and the question says this deletes it for everyone once merged."
   - id: BEH-08
     status: active
-    rule: "Scan before publishing: run scripts/scan_staged.py on the staged content, which covers git diff --cached and the full content of added files. It blocks the commit on private keys, access tokens and credentials with a literal value, .env files and key stores, and any file over 100 MB. It warns, and the skill asks before committing, on absolute home paths (/home/<user>, /Users/<user>, C:/Users/<user>), e-mail addresses other than the repository's commit authors, files over 50 MB or binaries without an LFS rule, third-party documents (PDFs, saved web pages, vendored documentation without a license), CRLF line endings in a repository that uses LF, and whitespace errors from git diff --cached --check. A blocked finding is never committed, even when the user asks. The reply names the file and line, never the secret's value, and suggests removing the file or ignoring it. When the remote repository is public or its visibility is unknown, say that whatever is pushed is published."
+    rule: "Scan before publishing: run scripts/scan_staged.py on the staged content, which covers git diff --cached and the full content of added files. It blocks the commit on private keys; access tokens in a known format (AWS access key IDs and secret keys, GitHub, Slack, Google API, Stripe live and Anthropic keys, and OpenAI keys starting sk-, sk-proj-, sk-svcacct- or sk-admin-, whose bodies may contain _ and -); .env files and key stores; any file over 100 MB; credentials embedded in a URL, except as warned below; and literal credential assignments outside test and fixture paths. It warns instead of blocking on credentials embedded in a URL whose host is local or an example (localhost, a loopback address in 127.0.0.0/8 or ::1, example.com, example.org or example.net or a name under one, a name ending in .example, .test, .invalid or .localhost, or a single-label host such as a compose service named db) or whose user name equals its password, and on literal credential assignments in a test or fixture path (a path with a directory named test, tests, __tests__, spec, testdata, fixture, fixtures or __fixtures__, or a file named test_*, conftest.py, or with a _test., .test., _spec. or .spec. part before its extension). It also warns, and the skill asks before committing, on absolute home paths (/home/<user>, /Users/<user>, C:/Users/<user>), e-mail addresses other than the repository's commit authors, files over 50 MB or binaries without an LFS rule, third-party documents (PDFs, saved web pages, vendored documentation without a license), CRLF line endings in a repository that uses LF, and whitespace errors from git diff --cached --check. A blocked finding is never committed, even when the user asks. The reply names the file and line, never the secret's value, and suggests removing the file or ignoring it. Exit 2 means the scan didn't run (not a repository, or an unexpected error such as undecodable output): commit nothing, report the cause, and don't present it as a blocked finding (ERR-06 is for findings). When the remote repository is public or its visibility is unknown, say that whatever is pushed is published."
   - id: BEH-09
     status: active
     rule: "Run the checks the repository's instructions require before committing or opening a PR (tests, validators, linters, git diff --check), from the directory they name and without installing anything. Report each check with its command as passed, failed or not run, and never report an unrun check as passing. A failed required check stops the commit (ERR-07) unless the user confirms committing anyway; the PR then opens as a draft that names the failure."
@@ -328,28 +370,28 @@ behaviors:
     rule: "Before the first push and before a merge, fetch and compare the branch with origin/<default>. When the base has moved and the branch's commits are unpushed, rebase them onto origin/<default> inside the worktree; on a conflict run git rebase --abort, leave the branch as it was and stop with ERR-08. Once commits are pushed, don't rewrite them: bring the base in with a merge commit when the repository's rules allow it, or ask. A push that must replace remote commits uses --force-with-lease=<branch>:<expected sha> after a confirmation, never --force, and never targets the default branch."
   - id: BEH-12
     status: active
-    rule: "push: after BEH-11, push the branch with git push -u origin <branch> (without -u when .git/config is write-masked, BEH-01); push opens no PR. pr: run BEH-19's documentation check, push as above, then look for an open PR from the branch (gh pr list --head <branch> --state open); when one exists, push to it and report it, and edit its body only when the user asks. Before creating a PR, check scripts/repo_state.py's id_collisions and stop with ERR-15 when the branch adds a document ID that already exists on the base. Otherwise create it with gh pr create --base <default> --head <branch>: a title in the commit convention, and a body with the scope (what changed and why, in a few lines), the story, spec or issue IDs it implements, each check with its result, limitations and what wasn't verified (documentation not reviewed, when BEH-19's suggestion was declined), and the attribution line the session's instructions require. Open it as a draft when a required check failed or wasn't run, or when the user asks. Report the PR's URL, and name the next step in Action required: an independent QA session reviews it (BEH-20)."
+    rule: "push: after BEH-11, push the branch with git push -u origin <branch> (without -u when .git/config is write-masked, BEH-01); push opens no PR. pr: run BEH-19's documentation check, push as above, then look for an open PR from the branch (gh pr list --head <branch> --state open); when one exists, push to it and report it, and edit its body only when the user asks. Before creating a PR, check scripts/repo_state.py's id_collisions and stop with ERR-15 when the branch adds a document ID that already exists on the base. Otherwise create it with gh pr create --base <default> --head <branch>: a title in the commit convention, and a body with the scope (what changed and why, in a few lines), the story, spec or issue IDs it implements, each check with its result, limitations and what wasn't verified (documentation not reviewed, when BEH-19's suggestion was declined), and the attribution line the session's instructions require. Open it as a draft when a required check failed or wasn't run, or when the user asks. Report the PR's URL, and name the next step in Action required: an independent QA session reviews it (BEH-20). Run every git push and gh pr call as a command of its own that starts with those words (git push origin <branch>, gh pr create …): never chained after another command, prefixed with cd … &&, or written as git -C, so that a sandbox exclusion the user configured for those commands applies (§2). A branch's refs are shared by every checkout of the repository, so both work from the main checkout."
   - id: BEH-13
     status: active
-    rule: "merge: the skill merges only a PR whose QA state is approved (BEH-20), and only after the user's confirmation in this run; otherwise the human merges. First give a readiness report: the PR's state and draft flag, mergeability and conflicts, required and other checks (gh pr checks), review decision and requested changes, whether the branch is behind the base, the head commit's SHA, the merge methods the repository allows (gh repo view --json mergeCommitAllowed,squashMergeAllowed,rebaseMergeAllowed), and the QA state. Offer the merge only when the QA state is approved and nothing else blocks it; otherwise report ERR-10. The user chooses the method from the allowed ones; recommend the one the repository's instructions name, else the one its recent history shows. Merge only the PR the user named or the current branch's PR, with gh pr merge <number>, the chosen method and --match-head-commit <the head SHA from the report, which the passing verdict names>, so a commit pushed after the report is never merged. Never use --admin, --auto or --delete-branch (it also deletes and switches local branches), and never bypass or disable branch protection. Afterwards confirm with gh pr view that the state is MERGED and record the merge commit. Delete the remote branch (git push origin --delete <branch>) only when the user confirmed it, and skip that when the repository deletes merged branches itself."
+    rule: "merge: the skill merges only a PR whose QA state is approved (BEH-20), and only after the user's confirmation in this run; otherwise the human merges. First give a readiness report: the PR's state and draft flag, mergeability and conflicts, required and other checks (gh pr checks), review decision and requested changes, whether the branch is behind the base, the head commit's SHA, the merge methods the repository allows (gh repo view --json mergeCommitAllowed,squashMergeAllowed,rebaseMergeAllowed), and the QA state with the verdict comment's author and URL (qa_state.py reports both), so the user sees who wrote the verdict they authorize against. Offer the merge only when the QA state is approved and nothing else blocks it; otherwise report ERR-10. The user chooses the method from the allowed ones; recommend the one the repository's instructions name, else the one its recent history shows. Merge only the PR the user named or the current branch's PR, with gh pr merge <number>, the chosen method and --match-head-commit <the head SHA from the report, which the passing verdict names>, so a commit pushed after the report is never merged. Never use --admin, --auto or --delete-branch (it also deletes and switches local branches), and never bypass or disable branch protection. Afterwards confirm with gh pr view that the state is MERGED and record the merge commit. Delete the remote branch (git push origin --delete <branch>) only after a confirmation naming it, even when the request named the deletion (BEH-03), and skip that when the repository deletes merged branches itself."
   - id: BEH-14
     status: active
-    rule: "sync: bring the local default branch up to origin/<default> without losing data. Fetch with --prune, then record a backup ref for the local default branch. Act on the state: up_to_date, do nothing; behind, fast-forward with git merge --ff-only origin/<default> in the checkout that has the branch checked out, or git fetch origin <default>:<default> when no checkout has it; ahead or diverged, stop with ERR-11 and list the local-only commits. When the checkout holding the default branch has uncommitted changes or untracked files that the fast-forward would overwrite, reconcile each path first: when its content and mode equal the incoming version (git hash-object against git rev-parse origin/<default>:<path>, or both absent), the local change is already upstream, so restoring or removing it loses nothing; otherwise keep it byte-identical, don't move the branch, and stop with ERR-12. Paths the fast-forward doesn't touch stay as they are. Never run git pull without --ff-only, git reset --hard, git clean, or git checkout -- or git restore on a path not proven identical. When the main checkout is on a feature branch whose PR has merged, switch it to the default branch only when it is clean or reconciled as above. Afterwards run the repository's post-merge steps, or report them as the user's step when the session can't run them (ADR-001 step 7's redeploy in this repository, since the sandbox denies writes to .claude/skills/)."
+    rule: "sync: bring the local default branch up to origin/<default> without losing data. Fetch with --prune, then record a backup ref for the local default branch. Act on the state: up_to_date, do nothing; behind, fast-forward with git merge --ff-only origin/<default> in the checkout that has the branch checked out, or git fetch origin <default>:<default> when no checkout has it; ahead or diverged, stop with ERR-11 and list the local-only commits. When the checkout holding the default branch has uncommitted changes or untracked files that the fast-forward would overwrite, reconcile each path first, from the state report of that checkout (repo_state.py -C <checked_out_at>), not the session's own: when its working-tree content and mode equal the incoming version (git hash-object against git rev-parse origin/<default>:<path>, or both absent) and its index entry equals HEAD's or the incoming version (git rev-parse :<path>), the local change is already upstream, so restoring or removing it loses nothing; otherwise, including a staged version found nowhere else, keep it byte-identical, don't move the branch, and stop with ERR-12. Paths the fast-forward doesn't touch stay as they are. Never run git pull without --ff-only, git reset --hard, git clean, or git checkout -- or git restore on a path not proven identical. When the main checkout is on a feature branch whose PR has merged, switch it to the default branch only when it is clean or reconciled as above. Afterwards run the repository's post-merge steps, or report them as the user's step when the session can't run them (ADR-001 step 7's redeploy in this repository, since the sandbox denies writes to .claude/skills/). Then offer to retire the branches the sync shows as merged, by BEH-15, whose worktree removal follows BEH-16's removal rules; take that inventory with --prs when gh works, and never propose the session's own worktree."
   - id: BEH-15
     status: active
-    rule: "Retire a merged local branch only when that loses nothing, after removing its worktree (git refuses to delete a branch a worktree has checked out). Use git branch -d when the branch is an ancestor of origin/<default>. When the PR was squashed or rebased (git branch -d refuses), use git branch -D only after gh pr view shows the PR MERGED with a headRefOid equal to the local branch tip, and after a confirmation. Keep and report a branch that has commits beyond the PR's head or no merged PR. Delete backup refs only when the user asks."
+    rule: "Retire a merged local branch only when that loses nothing, after removing its worktree (git refuses to delete a branch a worktree has checked out). From any phase, sync included, remove that worktree only by BEH-16's removal rules: it must be removable, its ignored files are listed with a question about any that isn't regenerable, a worktree modified within the last hour is flagged, and one confirmation names every worktree and branch to remove. Use git branch -d when the branch is an ancestor of origin/<default>. When the PR was squashed or rebased (git branch -d refuses), use git branch -D only after gh pr view shows the PR MERGED with a headRefOid equal to the local branch tip, and after a confirmation. Keep and report a branch that has commits beyond the PR's head or no merged PR. Delete backup refs only when the user asks."
   - id: BEH-16
     status: active
-    rule: "prune: inventory linked worktrees from git worktree list --porcelain and the state report: branch, last activity and disk size (§4), uncommitted or untracked files, ignored files, commits not on the remote, lock, whether it is the session's current directory, and whether its branch merged (by ancestry, or a MERGED PR whose head equals the tip) or its PR closed. A worktree is removable only when all hold: merged or closed, no uncommitted or untracked files, nothing unpushed, not locked and not current. git worktree remove deletes ignored files without warning, so list each removable worktree's ignored files and ask about any that isn't regenerable output (such as .env, local settings or data). List the removable worktrees, flagging any with files modified within the last hour (another session may be working there), and remove them after one confirmation with git worktree remove, never --force and never rm; then retire their branches by BEH-15, keeping the branch of a closed PR. Age never makes a worktree removable, and a removable one needs no minimum age. Report every worktree that isn't removable with the reason it was kept, its disk size, and its activity: idle when its last activity is at least 14 days old, stale at 30 days (the prune argument may change both). Report a locked worktree as locked, never as idle or stale: a lock is how a user keeps one on purpose. For administrative entries whose directory is gone, show git worktree prune --dry-run -v and run git worktree prune. Never touch the main checkout."
+    rule: "prune: inventory linked worktrees from git worktree list --porcelain and the state report: branch, last activity and disk size (§4), uncommitted or untracked files, ignored files, commits not on the remote, lock, whether it is the session's current directory, and whether its branch merged (by ancestry, or a MERGED PR whose head equals the tip) or its PR closed. A worktree is removable only when all hold: merged or closed, no uncommitted or untracked files, nothing unpushed, not locked and not current. Nothing unpushed holds when every commit is on a remote-tracking ref, or when the tip equals the headRefOid of a MERGED PR (a squash- or rebase-merged PR whose remote branch was deleted keeps its commits on GitHub); without gh, judge by remote refs and ancestry only and say so. A worktree whose branch has no commits since it was created (commits_since_created 0, from the branch's reflog) loses nothing either: it stays removable when otherwise clean, and the confirmation describes it as having no commits since it was created, not as merged. When the reflog's creation entry has expired, judge it like any other worktree. git worktree remove deletes ignored files without warning, so list each removable worktree's ignored files (all of them: when the report cut the list, read it in full first, or keep the worktree) and ask about any that isn't regenerable output (such as .env, local settings or data). List the removable worktrees, flagging any with files modified within the last hour (another session may be working there), and remove them after one confirmation with git worktree remove, never --force and never rm; then retire their branches by BEH-15, keeping the branch of a closed PR. Age never makes a worktree removable, and a removable one needs no minimum age. Report every worktree that isn't removable with the reason it was kept, its disk size, and its activity: idle when its last activity is at least 14 days old, stale at 30 days (the prune argument may change both). Report a locked worktree as locked, never as idle or stale: a lock is how a user keeps one on purpose. For administrative entries whose directory is gone, show git worktree prune --dry-run -v and run git worktree prune. Never touch the main checkout."
   - id: BEH-17
     status: active
-    rule: "Never run these without a confirmation naming the exact target: push --force-with-lease, reset --hard, clean, checkout -- or restore over content not proven identical, branch -D, stash drop or clear, rebase or amend of pushed commits, git rm --cached, deleting a remote branch, merging unrelated histories. Never run these at all: push --force, any forced push to the default branch, gh pr merge --admin or --auto, any command that adds, removes or creates a QA label or posts a QA verdict (BEH-20), --no-verify, history rewriting with filter-branch or filter-repo, worktree remove --force, and changes to git configuration outside the repository. Before a step that moves a branch or rewrites commits, record how to undo it (the backup ref, the previous SHA or the stash ref). When a step fails midway, stop, leave the state as it is, and report the exact commands that restore the previous state, for example git branch -f <branch> <backup ref> for the user to run."
+    rule: "Never run these without a confirmation naming the exact target: push --force-with-lease, reset --hard, clean, checkout -- or restore over content not proven identical, branch -D, stash drop or clear, rebase or amend of pushed commits, git rm --cached, deleting a remote branch, merging unrelated histories. Never run these at all: push --force or -f, a +<refspec> push, any forced push to the default branch, gh pr merge --admin, --auto or --delete-branch, any command that adds, removes or creates a QA label or posts a QA verdict (BEH-20), --no-verify, --no-gpg-sign, a -c override of hooks or signing, history rewriting with filter-branch or filter-repo, worktree remove --force, rm on a worktree, changes to git configuration outside the repository, and changes to Claude Code's sandbox or permission settings; nor stage with git add -A, git add ., git add -u or git commit -a (BEH-07), or run git pull without --ff-only (BEH-14). SKILL.md holds this never-run list once, complete, where it is read before any command runs; output-rules.md points to it rather than repeating it, and a reference may recall a single item at the step it concerns. Before a step that moves a branch or rewrites commits, record how to undo it (the backup ref, the previous SHA or the stash ref). When a step fails midway, stop, leave the state as it is, and report the exact commands that restore the previous state, for example git branch -f <branch> <backup ref> for the user to run."
   - id: BEH-18
     status: active
     rule: "End with the completion response (§5). Use done when every requested phase finished, partial when some finished and an issue remains, blocked when nothing could proceed, awaiting_approval when a gate needs an answer, and no_change when everything requested was already done. Report each check honestly (BEH-09) and put anything the user must do (approve, resolve a conflict, run a command the session can't) in Action required. Don't paste the state report or full command output into the reply."
   - id: BEH-19
     status: active
-    rule: "Before the pr phase pushes, check the branch's documentation: when its diff against origin/<default> changes files other than documentation but changes neither README.md nor CHANGELOG.md nor the repository's release-note fragments, recommend running /devforgeai:documents-updater with the merge base as its base revision, and ask whether to run it first (recommended) or open the PR now. Don't ask when the request says to skip documentation, when documents-updater already ran on this branch in the session, or when the branch already has an open PR. When the user accepts, run documents-updater (it changes documentation only and never commits), then classify and commit its edits (BEH-07, BEH-10) and continue the pr phase. When the user declines or no answer can arrive, open the PR as requested and list documentation not reviewed among its limitations. Never run documents-updater without the user's yes, and suggest it from no other phase."
+    rule: "Before the pr phase pushes, check the branch's documentation: when its diff against origin/<default> (git diff --name-only origin/<default>...<branch>, naming the branch rather than HEAD so the check holds from any checkout) changes files other than documentation but changes neither README.md nor CHANGELOG.md nor the repository's release-note fragments, recommend running /devforgeai:documents-updater with the merge base (git merge-base origin/<default> <branch>) as its base revision, and ask whether to run it first (recommended) or open the PR now. Don't ask when the request says to skip documentation, when documents-updater already ran on this branch in the session, or when the branch already has an open PR. When the user accepts, run documents-updater (it changes documentation only and never commits), then classify and commit its edits (BEH-07, BEH-10) and continue the pr phase. When the user declines or no answer can arrive, open the PR as requested and list documentation not reviewed among its limitations. Never run documents-updater without the user's yes, and suggest it from no other phase."
   - id: BEH-20
     status: active
     rule: "QA is the job of an independent Claude or Codex session, never the session that developed the change, following SPEC-008: it reviews the PR's head commit, posts a verdict comment whose first line is QA verdict: passed <sha> or QA verdict: failed <sha> (the full 40-character SHA it reviewed), then adds merge-approved or qa-failed and removes the other (the repository's instructions may rename either label). This skill reads QA labels and verdicts and never adds, removes or creates a label or posts a verdict, even when asked; the human or an independent QA session does. Derive the QA state with scripts/qa_state.py from gh pr view --json labels,comments,headRefOid, using the latest comment whose first line matches ^QA verdict: (passed|failed) [0-9a-f]{40}$: pending, with no QA label and no verdict; unverified, with a QA label but no verdict; conflicting, with both labels or a label that contradicts the latest verdict; stale, when the latest verdict names a commit other than the head, as after any push; otherwise approved (merge-approved and a passing verdict) or failed (qa-failed and a failing verdict). status, pr and merge report the QA state. Failed sends the PR back to development: report the verdict's findings as the work to do and point to the PR's worktree and the commit and push phases; once fixes are pushed the state is stale, and the reply says an independent QA session must review again. Only approved allows a merge (BEH-13)."
@@ -387,7 +429,7 @@ errors:
   - id: ERR-06
     status: active
     condition: "scan_staged.py reports a blocked finding (a secret, a key store, a .env file or a file over 100 MB)."
-    handling: "Commit nothing. Name each file and line without printing secret values, and suggest removing the file or ignoring it."
+    handling: "Commit nothing. Name each file and line without printing secret values, and suggest removing the file or ignoring it. Exit 2 from the scan isn't ERR-06: the scan didn't run, so commit nothing and report the cause (BEH-08)."
     user_result: "Result blocked, listing the findings."
   - id: ERR-07
     status: active
@@ -426,7 +468,7 @@ errors:
     user_result: "The candidate is listed with its reason."
   - id: ERR-14
     status: active
-    condition: "There is nothing to deliver: no task changes and no commits beyond the base."
+    condition: "The request asks start, commit, push or pr to deliver work and there is nothing to deliver: no task changes and no commits beyond the base. Other phases never report it, and a start for new work on a clean checkout creates its branch and worktree (BEH-05)."
     handling: "Create no branch, worktree, commit or PR."
     user_result: "Result no_change."
   - id: ERR-15
@@ -436,8 +478,8 @@ errors:
     user_result: "Result blocked, naming the colliding ID."
   - id: ERR-16
     status: active
-    condition: "Claude Code's sandbox blocks a command a phase needs: a .git/config write (git remote add, git config, recording an upstream) or a push or gh call rejected by the sandbox's network proxy."
-    handling: "Don't retry around the sandbox, and never change its settings. Finish the steps that don't need the command, then name the command and the settings change that would allow it (for example adding it to sandbox.excludedCommands in .claude/settings.local.json), which is the user's decision, or give the command for the user to run in a plain shell."
+    condition: "Claude Code's sandbox, or a harness or permission guard, refuses a command a phase needs: a .git/config write (git remote add, git config, recording an upstream), a push or gh call rejected by the sandbox's network proxy, a worktree path outside the writable area (BEH-05), or any command a guard refuses (for example the worktree isolation guard of an EnterWorktree session)."
+    handling: "Don't retry around the refusal (no other path, command form, copy of a script or tool), and never change sandbox or permission settings. Finish the steps that don't need the command, then name the exact command for the user to run in a plain shell and, for the sandbox, the settings change that would allow it (for example adding it to sandbox.excludedCommands in .claude/settings.local.json), which is the user's decision."
     user_result: "Result partial or blocked, with the command and the settings change in Action required."
 ```
 
@@ -447,8 +489,8 @@ errors:
 quality_responses:
   - id: QR-01
     status: active
-    response: "SKILL.md holds the phase checklist, the gates, the user's decisions and the output contract, under 300 lines. Per-phase detail lives in four reference files plus output-rules.md, each loaded only by the phase that needs it."
-    measured_by: "wc -l on SKILL.md; every reference linked directly from SKILL.md"
+    response: "SKILL.md holds the phase checklist, the gates with the one complete never-run list (BEH-17), the user's decisions and the output contract, under 300 lines. Per-phase detail lives in four reference files plus output-rules.md, each loaded only by the phase that needs it."
+    measured_by: "wc -l on SKILL.md; every reference linked directly from SKILL.md; src/tests/git/test_structure.py (VER-30)"
     upstream:
       - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
   - id: QR-02
@@ -471,10 +513,10 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Structural: frontmatter and provenance against the schemas | Not run: the skill isn't built |
-| Unit: `repo_state.py`, `scan_staged.py` and `qa_state.py` (VER-16, VER-17, VER-25) | Not run |
-| Behavioural: automated VER items, one eval case each | Not run |
-| Behavioural: manual VER items (VER-18 to VER-22) | Not run |
+| Structural: frontmatter, provenance, links, ERR codes, the never-run list (VER-30) | v1: no automated check. v2: `test_structure.py`, 6 tests passed (2026-10-01) |
+| Unit: `repo_state.py`, `scan_staged.py` and `qa_state.py` (VER-16, VER-17, VER-25) | v1: 57 tests passed (baseline on `24ae52e`, 2026-10-01). v2: 76 tests passed (35, 26 and 15; 2026-10-01); every v2 test failed on the script it fixes, except a guard for the `identical` case |
+| Behavioural: automated VER items, one eval case each | v1 (SKL-006 v1, recorded in CLAUDE.md): 16 cases, 3 runs, 16 of 16 at ≥ 0.8, 13 at 1.00, mean Δ +0.28, $18.22. v2: 19 cases; offline, `simulate_runs.py` passes all 19 scripted good runs and catches all 20 bad and v1 runs, and `check_patterns.mjs` passes. Pilot (2026-10-01, `48f0c79`, `--runs 1 --ablation none`, the 3 new and 6 touched cases, `tmp/eval-results/git-v2-pilot-*`): 8 at 1.00; `starts-worktree-from-fresh-base` 0.89, its `excluded` grader finding no `.claude/worktrees/` rule in `.git/info/exclude`; $3.10. A `--keep-temp` rerun (`eb74fac`, $0.30, same score) showed why: Claude Code's permission check denied `echo '.claude/worktrees/' >> <absolute path>/.git/info/exclude`, and the skill handed the command over as ERR-16 says. `77b71be` went back to v1's relative form from the main checkout's root, but its re-check (`git-v2-recheck-*`, $0.28) scored 0.89 the same way, and v1's own 3-run suite missed `excluded` in all 3 runs (0.88 each): the eval harness refuses this write in either form, so the case's ceiling there is 0.89 and it isn't a v2 regression. Suite, 1 run with the baseline (`tmp/eval-results/git-v2-1run-20261001T191918`, `a40c202`, $7.70): 17 of 19 at 1.00, mean Δ +0.33; `starts-worktree-from-fresh-base` 0.88 (that ceiling); `connects-new-repository` 0.86, because `git remote add origin` failed with `could not write config file .git/config: Device or resource busy` (the eval sandbox masked `.git/config` in the repository the run had just created) and the skill handed the command over (ERR-16), as v1 did in 1 of its 3 runs. 3-run pass not run |
+| Behavioural: manual VER items (VER-18 to VER-22, VER-24, VER-26, VER-31) | Not run |
 
 **How the eval cases observe git.** Runs are non-interactive and start in an empty workspace, and
 nothing in them can reach GitHub. Each `scaffold.sh` therefore builds the repository and a **local
@@ -492,9 +534,13 @@ files. Prompts name the branch when a grader needs it. Graders read plain-text g
   `--ff-only`), and with `min: 1` where a command must run;
 - regex on the reply for the completion response and the named findings.
 
-Merging and PR creation need GitHub, so they are manual items. Whether the eval sandbox masks
-`.git/config.lock` as a session's sandbox does (§2) is unverified: the first pilot case must check
-it before other cases rely on `git remote add` or `push -u`. Each regex is tested with `node`
+Merging and PR creation need GitHub, so they are manual items. The eval sandbox masks
+`.git/config.lock` in a repository the scaffold built, as a session's sandbox does (§2; checked in
+v1's pilot), so no case relies on `git remote add` or `push -u` there. A run can't start inside a
+linked worktree whose main checkout lies outside the workspace: a run starts in the workspace root,
+writes only inside the workspace, and its graders read only the workspace
+(code.claude.com/docs/en/plugin-evals, checked 2026-10-01). Starting from a linked worktree is
+therefore a manual item (VER-26), with `main_checkout` covered by unit tests (VER-16). Each regex is tested with `node`
 against a real run's output before it is trusted (CLAUDE.md), and the cases are generated by a
 script in `src/tests/git/`, as for documents-updater.
 
@@ -622,7 +668,7 @@ verifications:
       - BEH-03
   - id: VER-16
     status: active
-    obligation: "repo_state.py reports, for temporary repositories built by the tests: each default-branch state (up_to_date, behind, ahead, diverged, unrelated, no_remote, empty_remote); each operation in progress and a detached HEAD; incoming identical, differs and untouched for modified, untracked and deleted paths, including a mode change; worktree locks, prunable entries, uncommitted and ignored files, unpushed commits, ancestry merges, last activity from commit dates and file times with its active, idle or stale class, and disk size; and a docs/specs ID collision. Running it changes no ref, index or file (a checksum of .git and the working tree is unchanged). Unit tests in src/tests/git/."
+    obligation: "repo_state.py reports, for temporary repositories built by the tests: each default-branch state (up_to_date, behind, ahead, diverged, unrelated, no_remote, empty_remote); each operation in progress and a detached HEAD; incoming identical, differs and untouched for modified, untracked and deleted paths, including a mode change; worktree locks, prunable entries, uncommitted and ignored files, unpushed commits, ancestry merges, last activity from commit dates and file times with its active, idle or stale class, and disk size; and a docs/specs ID collision. Version 2 adds: a staged path whose index entry matches neither HEAD nor the incoming version, while its working copy equals the incoming version, is differs, not identical; empty_remote when the fetch ran in a linked worktree (its own FETCH_HEAD); main_checkout from a linked worktree, and null for a bare common directory; commits_since_created 0 for a worktree with no commits since its branch was created, and null without the reflog's creation entry; with --prs, a worktree whose tip equals a MERGED PR's head has nothing_unpushed true although its commits are on no remote ref, and a tip that differs keeps it false; a Latin-1 file name is reported without a crash; an unexpected error exits 2 with an error object; checked_out_at is absolute, and a -C report run from a linked worktree shows the main checkout's changes and marks the linked worktree current; a file git can't hash is differs, not identical; and sandbox write masks don't count as uncommitted. Running it changes no ref, index or file (a checksum of .git and the working tree is unchanged). Unit tests in src/tests/git/."
     level: unit
     covers:
       - BEH-01
@@ -632,7 +678,7 @@ verifications:
       - ERR-15
   - id: VER-17
     status: active
-    obligation: "scan_staged.py blocks a private key, an AWS-style key, a GitHub token, a literal password assignment, a .env file and a file over 100 MB; warns on a home path, an unknown e-mail address, a 60 MB file, a PDF, CRLF endings in an LF repository and trailing whitespace; reports nothing for clean staged content; and never prints a secret's value. Unit tests in src/tests/git/."
+    obligation: "scan_staged.py blocks a private key, an AWS-style key, a GitHub token, a literal password assignment, a .env file and a file over 100 MB; warns on a home path, an unknown e-mail address, a 60 MB file, a PDF, CRLF endings in an LF repository and trailing whitespace; reports nothing for clean staged content; and never prints a secret's value. Version 2 adds: it blocks sk-proj-, sk-svcacct- and sk-admin- keys whose bodies contain _ or -, credentials in a URL to a real host, and a literal assignment outside test paths; it warns, without blocking, on credentials in a URL to localhost, a loopback address, a single-label host or an example domain, or whose user equals its password, and on a literal assignment in a test or fixture path; it scans a cp1252 file with CRLF endings without crashing; an unexpected error exits 2 with an error object; it still scans with GIT_LITERAL_PATHSPECS=1 inherited from the caller; and it sees a secret on an added line that starts with ++. Unit tests in src/tests/git/."
     level: unit
     covers:
       - BEH-08
@@ -647,7 +693,7 @@ verifications:
       - ERR-15
   - id: VER-19
     status: active
-    obligation: "Manual: the merge phase gives the readiness report with the QA state. It refuses to merge a PR with no QA label, with merge-approved but no verdict comment, with qa-failed, with both labels, with a passing verdict for a commit older than the head, a draft, or one with a failing required check, even when the user authorizes the merge. With a current label it merges only after the user's confirmation, with the method the user chose among the allowed ones and --match-head-commit. It never adds or removes a QA label or posts a verdict, never uses --admin or --auto, confirms MERGED, and deletes the remote branch only when confirmed."
+    obligation: "Manual: the merge phase gives the readiness report with the QA state and the verdict comment's author and URL. It refuses to merge a PR with no QA label, with merge-approved but no verdict comment, with qa-failed, with both labels, with a passing verdict for a commit older than the head, a draft, or one with a failing required check, even when the user authorizes the merge. With a current label it merges only after the user's confirmation, with the method the user chose among the allowed ones and --match-head-commit. It never adds or removes a QA label or posts a verdict, never uses --admin or --auto, confirms MERGED, and deletes the remote branch only after a confirmation naming it, even when the request named the deletion."
     level: manual
     covers:
       - BEH-03
@@ -656,7 +702,7 @@ verifications:
       - ERR-10
   - id: VER-20
     status: active
-    obligation: "Manual: after a squash merge, the prune and sync phases remove the worktree first, then delete the branch with -D only after the PR's head SHA matches the local tip and the user confirms; a branch with an extra commit after the PR is kept; a worktree holding a .env file is not removed without a question about it."
+    obligation: "Manual: after a squash merge whose remote branch was deleted and pruned (git fetch --prune), prune lists the worktree as removable because its tip equals the MERGED PR's head, though its commits are on no remote ref; the prune and sync phases remove the worktree first, then delete the branch with -D only after the PR's head SHA matches the local tip and the user confirms; a branch with an extra commit after the PR is kept; a worktree holding a .env file is not removed, from prune or from sync, without a question about it."
     level: manual
     covers:
       - BEH-15
@@ -699,6 +745,50 @@ verifications:
     level: unit
     covers:
       - BEH-20
+  - id: VER-26
+    status: active
+    obligation: "Manual, in a session started inside a linked worktree (claude --worktree feat-a, or after EnterWorktree): 'start a worktree for fix/b' creates it at the main checkout's .claude/worktrees/fix-b, never under .claude/worktrees/feat-a/; with the main checkout's path refused by the sandbox or a guard, it reports ERR-16 with the git worktree add command and creates nothing nested. Not automatable: an eval run starts in the workspace root, writes only inside it and grades only it (§9)."
+    level: manual
+    covers:
+      - BEH-05
+      - ERR-16
+  - id: VER-27
+    status: active
+    obligation: "Given main behind origin/main and a clean linked worktree feat/export whose commits origin/main already contains, holding an ignored .env, the request 'sync main with origin' fast-forwards main to origin/main's SHA and writes a backup ref; before removing that worktree it names the ignored .env and asks, so the worktree, its .env and the feat/export branch remain; it never runs git worktree remove, rm on the worktree, or git branch -d or -D; Result awaiting_approval. Eval case sync-asks-before-retiring."
+    level: e2e
+    covers:
+      - BEH-14
+      - BEH-15
+      - BEH-16
+  - id: VER-28
+    status: active
+    obligation: "Given a main with one local-only commit (origin/main has nothing new) and an uncommitted --json change in app.py with its untracked test, the request 'commit my --json change on branch feat/json-output and push it to origin' stops before staging or creating the branch: it names the local-only commit (its subject), asks whether to stop or include it in the branch, creates no branch or worktree, stages, commits and pushes nothing, and leaves app.py modified; Result awaiting_approval. Eval case carry-asks-when-main-ahead."
+    level: e2e
+    covers:
+      - BEH-06
+      - BEH-03
+  - id: VER-29
+    status: active
+    obligation: "Given a repository in sync with origin and staged tests/test_login.py with a literal test password and docker-compose.yml with postgres://postgres:postgres@db:5432/app, the request 'commit these and push them' names both files as warnings the user may accept, not as blocked findings, asks before committing, commits and pushes nothing, and reports Result awaiting_approval. Eval case warns-on-test-credentials."
+    level: e2e
+    covers:
+      - BEH-08
+  - id: VER-30
+    status: active
+    obligation: "src/tests/git/test_structure.py checks that SKILL.md's metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version; that provenance's SPEC-007 upstream version equals this spec's version; that every relative link in SKILL.md and the references resolves; that every ERR-NN that SKILL.md or a reference names is defined in a reference; that the never-run list (BEH-17) is in SKILL.md, complete, and in no reference; that SKILL.md has at most 500 lines; that this spec validates against spec.schema.json with every BEH, ERR and QR item covered; and that every e2e VER item has an eval case tagged git and ver-NN whose graders include the safety grader."
+    level: unit
+    covers:
+      - BEH-17
+      - QR-01
+      - QR-02
+      - QR-03
+  - id: VER-31
+    status: active
+    obligation: "Manual, in this repository: after EnterWorktree into a worktree under .claude/worktrees/, run the state report from the skill's directory (python3 <CLAUDE_SKILL_DIR>/scripts/repo_state.py) and record whether the worktree isolation guard refuses it; if it does, the skill reports ERR-16 with the command for the user and doesn't work around it (another path form, a copy of the script, or another tool)."
+    level: manual
+    covers:
+      - BEH-01
+      - ERR-16
 ```
 
 ## 10. Rollout, migration and rollback
@@ -710,6 +800,11 @@ migration: the only state the skill leaves behind is git state and local backup 
 documents-updater's `ignores-unrelated-request` case (its VER-08) asks for a commit message, a request
 this model-invocable skill may now answer; rerun that case when this skill ships, since its graders
 still require that no documentation changes.
+
+Version 2 changes only this skill, its scripts, tests and eval cases: reverting its pull request rolls
+it back, and v1's state reports stay readable (v2 only adds fields). Until v2 is deployed, v1 is live:
+don't confirm a worktree removal that `sync` proposes, start branches from the main checkout, and
+don't read a scan traceback as a secret finding.
 
 ## 11. Implementation plan
 
@@ -726,6 +821,19 @@ still require that no documentation changes.
    `--runs 1 --ablation none`, the suite with `--runs 1`, then 3 runs with the baseline (16 cases,
    roughly twice documents-updater's $8.71), until every case scores at least 0.8. Then deploy and run
    VER-18 to VER-22 and VER-24 by hand.
+
+Version 2, on a fresh branch from `origin/main`:
+
+7. Record a baseline run of every `src/tests/git` test file (ADR-005 D7). Write this version, then the
+   unit tests, `test_structure.py` (VER-30) and the eval cases for VER-27 to VER-29 in
+   `make_evals.py`, and show that each new test fails on v1.
+8. Change SKL-006 to v2 through `/plugin-dev:create-plugin` (Phases 5 and 6), checked against
+   Anthropic's two skill guides, then `plugin-validator` and `skill-reviewer`.
+9. Before the paid runs, reread the fixtures and graders of the cases v2 touches
+   (`starts-worktree-from-fresh-base`, `sync-fast-forwards`, `sync-reconciles-identical-edits`,
+   `prune-classifies-worktrees`, `blocks-secrets`). Then the owner evaluates cheapest first: the new and
+   touched cases with `--runs 1 --ablation none`, the suite with `--runs 1`, then 3 runs with the
+   baseline; and runs VER-18 to VER-22, VER-24, VER-26 and VER-31 by hand.
 
 ## 12. Alternatives considered
 
@@ -746,10 +854,26 @@ still require that no documentation changes.
 | Hosting services other than GitHub | Bryan: GitHub only (2026-09-28) |
 | Judge a QA label's freshness by dates | GitHub records commit dates, not push times, so a commit made before QA's label and pushed after it would pass. A verdict naming the SHA can't go stale unnoticed (BEH-20) |
 | Auto-merge (`gh pr merge --auto`) | It merges later, without a confirmation tied to a readiness report |
+| Build the worktree path relative to the current checkout (v1) | From a linked worktree it nests the new worktree inside the current one, and removing the outer worktree then deletes the inner one's files (BEH-05) |
+| Keep blocking every URL credential and every literal credential in tests (v1; D3) | A block can't be overridden, so a test password or a compose file's `postgres://postgres:postgres@db` URL could never be committed through the skill. The cost of warning instead: a real credential in a test or fixture file, or in a URL to a single-label or example host, is committed when the user answers yes to the warning |
+| Carry only the task commit when the default branch is ahead (`git rebase --onto`) (D4) | It rewrites which commits the user's work sits on without asking; stopping and asking keeps that decision with the user |
+| Judge "nothing unpushed" by remote refs alone (v1; D2) | After a squash or rebase merge whose remote branch was deleted, the worktree's commits are on no remote ref, so it could never be pruned, though the merged PR keeps its head on GitHub |
+| Count only verdicts from repository collaborators | Who may post a verdict is SPEC-008's contract. The readiness report shows the verdict's author and URL instead (BEH-13) |
 
 ## 13. Open questions
 
-No open questions remain.
+Two questions are open for Bryan; version 2 implements D3 and D4 as decided and doesn't settle them:
+- **D4 beyond the default branch (BEH-06).** D4 stops only when the default branch is ahead of
+  origin. A session in a linked worktree whose branch has unpushed commits, asked to start a
+  separate branch for new work, creates that branch at its HEAD, so the new PR also carries the
+  other branch's commits. Should the stop apply whenever HEAD has commits on no `origin/<default>`
+  that the request didn't name (`git log origin/<default>..HEAD`), whatever the branch?
+- **Compose passwords (BEH-08).** A compose file's `POSTGRES_PASSWORD: postgres` (or
+  `MYSQL_ROOT_PASSWORD: root`) is a literal assignment outside a test path, so it still blocks, and
+  the official postgres image needs that variable. Should such keys in a compose file warn, as a
+  URL to the compose service does?
+
+Decisions already made:
 
 - Resolved (Bryan, 2026-09-28): QA's verdict names the commit it reviewed, and only a passing verdict
   for the current head approves a merge (BEH-20).
@@ -768,9 +892,25 @@ No open questions remain.
 - Resolved (Bryan, 2026-09-28): GitHub is the only hosting service.
 - Resolved (Bryan, 2026-09-28): QA is an independent Claude or Codex session that labels the PR
   `merge-approved` or `qa-failed`; a failed PR goes back to development (BEH-20).
+- Version 2's decisions, taken as the architect session recommended under Bryan's instruction of
+  2026-10-01 to fix every issue the SKL-006 v1 validation found. Bryan's approval of version 2 is
+  pending:
+  - **D1 (BEH-03):** deleting a remote branch leaves the outward-facing examples and always needs a
+    confirmation naming the branch (BEH-13, BEH-17). The destructive row reads "discarding
+    working-tree content not proven to exist elsewhere".
+  - **D2 (BEH-16):** "nothing unpushed" holds when every commit is on a remote ref, or when the tip
+    equals the `headRefOid` of a `MERGED` PR; without `gh`, by ancestry only, said so.
+  - **D3 (BEH-08):** URL credentials to a local or example host or with the user equal to the
+    password, and literal assignments in test and fixture paths, warn instead of blocking; everything
+    else that blocked still blocks (§12 records the cost).
+  - **D4 (BEH-06):** carrying work from a default branch that is ahead of origin stops before creating
+    the branch, lists the local-only commits and asks: stop (recommended) or include them.
+  - **D5:** SPEC-007 version 2 stays a draft, and SKL-006 version 2 implements it. SPEC-008 (a stub)
+    and SPEC-010 (approved) cite SPEC-007 version 1 as `informed_by` and are left for Bryan.
 
 ## Change Log
 
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-09-28 | claude-code (session 97258b2a-7720-412c-b178-c9b6a66e3011) | Initial draft from Bryan's eight-step git workflow request of 2026-09-28. Bryan's decisions are recorded in §1: a spec rather than a workflow document, any repository, classify before staging, prune merged or closed and clean worktrees only. The git behaviors that BEH-06, BEH-14, BEH-15 and BEH-16 rely on were checked in a scratch repository with git 2.43.0 (a fast-forward refused over differing and untracked files; hash comparison; branch move by commit; `worktree remove` refusing untracked files but deleting ignored ones; `branch -d` refusing a squash-merged branch and a branch checked out in a worktree; `fetch` into a checked-out branch refused; `.git/info/exclude` honored by linked worktrees). In this repository's sandbox, `.git/config.lock` and eleven root dotfiles are write masks (§2, ERR-16). Revised the same day with Bryan's answers: the name `git` with a push phase; merges need his confirmation and QA's current `merge-approved` label, with the method he chooses; prune reports idle (14 days) and stale (30 days) worktrees by last activity. A third round the same day: the skill is model-invocable, suggests documents-updater before a PR (BEH-19), supports GitHub only, and treats QA as an independent session that labels PRs merge-approved or qa-failed (BEH-20). A fourth round: QA's verdict comment names the SHA it reviewed, replacing the date check (BEH-20, qa_state.py, VER-25); SPEC-008 is the QA skill's stub spec and owns the verdict format. Awaiting Bryan's approval | all |
+| 2 | 2026-10-01 | claude-code (session edebbd45-d90c-41b7-8f22-2215254e4d37) | Fixes the SKL-006 v1 validation (2026-09-30), whose fixture findings the architect session reproduced independently, under Bryan's instruction of 2026-10-01 to fix every issue; decisions D1–D5 taken as the architect session recommended (§13), awaiting Bryan's approval. Worktrees go under the main checkout by an absolute path, never nested, with ERR-16 when the path is refused, and `.git/info/exclude` is written only when needed (BEH-05). Content that exists only in the index is never discarded: `identical` also checks the index, and sync reconciles from the report of the checkout holding the default branch (§4, BEH-14). Sync retires branches only through prune's removal rules (BEH-14, BEH-15). The scripts decode any text and exit 2 on an unexpected error, which is not a blocked finding (§2, BEH-08, ERR-06). The never-run list is complete and held once in SKILL.md (BEH-17, QR-01). `start` commits only carried work and never pushes; ERR-14 applies to start, commit, push and pr only (BEH-02, ERR-14). A run includes the answers to its questions (BEH-03). The documentation check names the branch (BEH-19). `FETCH_HEAD` is read per worktree (§4). A worktree with no commits since its creation is described so (BEH-16). ERR-16 covers harness and permission guards, and `git push` and `gh pr` run as commands of their own (§2, BEH-12, ERR-16). The scan catches `sk-proj-`, `sk-svcacct-` and `sk-admin-` keys (BEH-08). The readiness report shows the verdict's author and URL (BEH-13). D1: deleting a remote branch always needs a confirmation naming it (BEH-03, BEH-13). D2: a tip equal to a MERGED PR's head counts as pushed (§4, BEH-16). D3: local and example URL credentials, user-equals-password URLs and literals in test paths warn instead of blocking (BEH-08, §12). D4: carrying from a default branch ahead of origin stops and asks (BEH-06). New VER-26 to VER-31 (VER-30 also covers QR-03, which no item covered in version 1); VER-16, VER-17, VER-19 and VER-20 extended; §9 records v1's results. SPEC-008 and SPEC-010 still cite version 1 (D5). Revised the same day after the build's plugin-validator and skill-reviewer checks: `checked_out_at` is absolute and `current` is the caller's own checkout even in a `-C` report, so sync from a linked worktree reads and moves the main checkout and never proposes removing the session's worktree; a file git can't hash is `differs`; sandbox masks don't count as uncommitted; the ignored list's cut is handled (BEH-16); sync's retirement takes `--prs` (BEH-14); authorizations come from this run only (§4); BEH-17 lets a reference recall a single item; §13 opens two questions for Bryan (D4 beyond the default branch, compose passwords) | §1, §2, §3, §4, §5, BEH-02, BEH-03, BEH-05, BEH-06, BEH-08, BEH-12, BEH-13, BEH-14, BEH-15, BEH-16, BEH-17, BEH-19, ERR-06, ERR-14, ERR-16, QR-01, QR-03, §9, VER-16, VER-17, VER-19, VER-20, VER-26..VER-31, §10, §11, §12, §13 |

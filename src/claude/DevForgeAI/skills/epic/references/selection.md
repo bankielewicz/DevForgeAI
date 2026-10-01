@@ -14,9 +14,7 @@
 
 ## When to use this
 
-Read this at SKILL.md step 3 (find the ARCH), step 4 (compute readiness) and step 5 (select). An epic
-written for a requirement whose architectural question is still open lets two epics build conflicting
-foundations, so readiness comes from the files, never from a skill's reply or a summary.
+Read this at SKILL.md step 3 (find the ARCH), step 4 (compute readiness) and step 5 (select).
 
 ## Finding the current ARCH
 
@@ -111,18 +109,19 @@ apply defaults or local preferences, and never resolve anything else from policy
      `architecture.mandated_platforms=<platform> for <capability> (POL-NNN#SET-NN)`. Compare it with the
      line as exact text, after trimming spaces around the platform and the capability. The architecture
      step copies both verbatim, so ignore nothing else.
-     - The line contains the entry: check 3 passes. Note the newer version in the report (SKILL.md
-       step 9).
+     - The line contains the entry: check 3 passes. Note the newer version in the reply's notes
+       (SKILL.md step 9, item 2).
      - The line names `POL-NNN#SET-NN` with a different platform or capability: the setting changed.
-     - The line doesn't name `POL-NNN#SET-NN`: the ARCH no longer applies it.
+     - The line doesn't name `POL-NNN#SET-NN`, or no Change Log row has a `Policy resolution:` line at
+       all: the ARCH no longer applies it.
 4. **No contested mandate.** No other approved document in `docs/specs/policy/` has an active
    `architecture.mandated_platforms` setting for the **same capability**. Compare capabilities as the
    policy script does: trim outer spaces and ignore case, but inner spaces count; no other
    normalization. Settings for different capabilities never conflict, so an organization policy and a
    project policy can each mandate platforms. The one exception for the same capability is a permitted
-   override: the resolver is the project policy's setting, and the organization setting's
-   `overridable_by` includes `project`. An organization setting that such an override replaces fails
-   this check.
+   override: the resolver is the project policy's setting (frontmatter `scope: project`), and the
+   organization policy's setting (`scope: organization`) has `overridable_by` including `project`. An
+   organization setting that such an override replaces fails this check.
 
 If any check fails, R is **unknown**, naming the resolver and the condition that failed:
 - `POL-001#SET-01 fails the policy check: setting deprecated (check 2)`
@@ -132,12 +131,9 @@ If any check fails, R is **unknown**, naming the resolver and the condition that
 - `POL-001#SET-01 fails the policy check: POL-002#SET-01 also mandates "<capability>" (check 4)`
 
 The next action is to review the architecture with `/devforgeai:architecture PRD-NNN`, which re-resolves
-policy. A resolver that passes at a newer policy version counts; say so in the report, for example
+policy. A resolver that passes at a newer policy version counts; say so in the reply's notes (SKILL.md
+step 9, item 2), for example
 `POL-001#SET-01 still counts: POL-001 is now v2, ARCH-001 linked v1, and the setting is unchanged`.
-
-**Known limit.** Suppose the user confirms a reuse review after a mandated platform changed. The
-architecture step then records the new platform in the resolution line while the ARCH's items keep the
-old one, so check 3 passes. This skill can't detect that; the architecture step owns the fix.
 
 ## Covered requirements
 
@@ -188,7 +184,9 @@ mean several questions, and a row never asks the user anything.
 
 Compute readiness for a requirement left out for another reason too (`later`, `wont`, `undecided`), and
 list its blocking DECs: they tell the PRD owner what else waits. A deprecated requirement gets only
-`deprecated`. An NFR is never `covered`; it is `already refined` instead.
+`deprecated`. An NFR is never `covered`. Only an eligible NFR that no new epic attaches gets
+`already refined by EPIC-NNN`; an ineligible NFR gets only its own reasons, even when an existing epic
+refines it.
 
 Row format, one line each, the requirement ID first:
 
@@ -223,5 +221,5 @@ Every other requirement is `must`, `current`.
 ```
 
 FR-002 is blocked although DEC-01, which cites it, is resolved: DEC-01 asks about data ownership, not
-calendar sync. The eligible requirements are FR-006 and NFR-001; NFR-001 is never covered, although
-EPIC-004 touches it.
+calendar sync. The eligible requirements are FR-006 and NFR-001. NFRs are never covered, so even if
+EPIC-004 also refined NFR-001, your proposal would still attach it to the new epic it constrains.

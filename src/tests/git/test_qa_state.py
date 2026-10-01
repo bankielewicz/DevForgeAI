@@ -94,6 +94,11 @@ class QaStateTest(unittest.TestCase):
         r = self.sb.run_script("qa_state.py", stdin="not json")
         self.assertEqual(r.returncode, 2)
 
+    def test_unexpected_shape_exits_2(self):   # SPEC-007 v2 §2: no traceback, exit 2 with an error object
+        r = self.sb.run_script("qa_state.py", stdin=json.dumps({"labels": 5, "comments": [], "headRefOid": HEAD}))
+        self.assertEqual(r.returncode, 2, r.stderr)
+        self.assertIn("error", json.loads(r.stdout))
+
 
 if __name__ == "__main__":
     unittest.main()

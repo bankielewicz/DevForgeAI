@@ -1,5 +1,6 @@
 """Checks the git eval graders offline with scripted runs. Each case gets a good run (the commands and
-reply the skill should produce) and a bad run (what the graders must catch): the scaffold runs in a
+reply the skill should produce) and a bad run (what the graders must catch); a `:v1` run scripts what
+SKL-006 v1 did where SPEC-007 v2 changed the rule, and must fail too. The scaffold runs in a
 temporary directory, the commands run there, and grade_evals.mjs scores the regex, file_exists and
 tool_used graders (llm graders are skipped). Every good run should pass every checked grader; each bad
 run should fail at least one. Rerun after changing a fixture or grader in make_evals.py. From the
@@ -32,13 +33,19 @@ RUNS = {
         "git switch -q main",
         "printf '.claude/worktrees/\\n' >> .git/info/exclude",
         "git worktree add -q .claude/worktrees/feat-json-output feat/json-output",
-        "cd .claude/worktrees/feat-json-output && git fetch -q origin && git rebase -q origin/main && " + T
-        + " && git push -q -u origin feat/json-output",
+        "cd .claude/worktrees/feat-json-output && git fetch -q origin && git rebase -q origin/main && " + T,
+        "git push -q origin feat/json-output",
     ], "Proposed ignore patterns: add `__pycache__/` and `*:Zone.Identifier` to .gitignore.\n\n"
        "Result: done\nPhases: start, commit, push\nChecks: python3 -m unittest: passed (2 tests)\n"),
     "delivers-task-changes:bad": ([
         "git add -A", "git commit -q -m 'add json'", "git push -q origin main:feat/json-output",
     ], "Result: done\n"),
+    # v1's push: chained after the rebase inside the worktree, so a `git push *` sandbox exclusion misses it
+    "delivers-task-changes:v1": ([
+        "git add -- app.py test_json.py", "git switch -c feat/json-output", "git commit -q -m 'feat: add --json output'",
+        "git switch -q main", "git worktree add -q .claude/worktrees/feat-json-output feat/json-output",
+        "cd .claude/worktrees/feat-json-output && git rebase -q origin/main && git push -q -u origin feat/json-output",
+    ], "Result: done\nChecks: python3 -m unittest: passed\n"),
     "blocks-secrets": ([ST, SC + " || true"],
         "config.py line 3 holds an AWS access key ID and .env is an environment file: both blocked.\n\nResult: blocked\n"),
     "blocks-secrets:bad": (["git add .env", "git commit -q -m x", "git push -q origin main"],
@@ -124,6 +131,38 @@ RUNS = {
     "suggests-documents-updater:bad": ([
         "printf '\\n--json prints JSON.\\n' >> README.md", "printf '# Changelog\\n' > CHANGELOG.md",
     ], "Updated the docs.\nResult: done\n"),
+    "sync-asks-before-retiring": ([
+        "git fetch --prune origin", ST,
+        "git update-ref refs/devforgeai-backup/main/$(date -u +%Y%m%dT%H%M%SZ) refs/heads/main",
+        "git merge -q --ff-only origin/main",
+    ], "Fast-forwarded main to origin/main. feat/export is merged, but its worktree feat-export holds an ignored "
+       ".env that isn't regenerable; removing the worktree would delete it. Remove the worktree and feat/export?\n\n"
+       "Result: awaiting_approval\n"),
+    # v1: sync's branch retirement removes the worktree without the ignored-files question
+    "sync-asks-before-retiring:v1": ([
+        "git fetch --prune origin",
+        "git update-ref refs/devforgeai-backup/main/$(date -u +%Y%m%dT%H%M%SZ) refs/heads/main",
+        "git merge -q --ff-only origin/main", "git worktree remove .claude/worktrees/feat-export",
+        "git branch -d feat/export",
+    ], "Fast-forwarded main and retired the merged feat/export.\n\nResult: done\n"),
+    "carry-asks-when-main-ahead": (["git fetch origin", ST, "git log --oneline origin/main..main"],
+        "main has a local-only commit, 1a2b3c4 docs: plan the weekly summary. A branch made from main would carry "
+        "it into the push. Stop here (recommended), or include it in feat/json-output?\n\n"
+        "Result: awaiting_approval\n"),
+    # v1: carries the work from HEAD, so the local-only commit is pushed with it
+    "carry-asks-when-main-ahead:v1": ([
+        "git fetch origin", "git add -- app.py test_json.py", "git switch -c feat/json-output",
+        "git commit -q -m 'feat: add --json output'", "git switch -q main",
+        "git worktree add -q .claude/worktrees/feat-json-output feat/json-output", "git push -q origin feat/json-output",
+    ], "Result: done\n"),
+    "warns-on-test-credentials": ([ST, SC + " || true"],
+        "Two scan warnings need your yes before I commit: tests/test_login.py line 7 assigns a literal password in a "
+        "test file, and docker-compose.yml line 5 has credentials in a URL to the compose service db. Commit them "
+        "anyway?\n\nResult: awaiting_approval\n"),
+    # v1: both are blocked findings that can never be committed
+    "warns-on-test-credentials:v1": ([ST, SC + " || true"],
+        "Blocked: tests/test_login.py line 7 (password pw1234) and docker-compose.yml line 5 hold credentials; "
+        "they can never be committed.\n\nResult: blocked\n"),
 }
 
 SKILL_CALL = {"tool": "Skill", "input": {"skill": "devforgeai:git"}}
@@ -145,7 +184,7 @@ def simulate(key):
             calls.append({"tool": "Skill", "input": {"skill": "devforgeai:documents-updater"}})
         for c in cmds:
             r = subprocess.run(["bash", "-c", c], cwd=w, env=env, capture_output=True, text=True)
-            if r.returncode != 0 and not key.endswith(":bad"):
+            if r.returncode != 0 and ":" not in key:
                 print(f"  command failed ({r.returncode}): {c}\n  {r.stderr.strip()[:300]}")
             calls.append({"tool": "Bash", "input": {"command": c, "description": "Run step"}})
         (Path(tmp) / "reply.txt").write_text(reply)

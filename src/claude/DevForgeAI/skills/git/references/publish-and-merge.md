@@ -15,7 +15,8 @@
 Before the first push and before a merge:
 1. `git fetch origin`, then compare the branch with `origin/<default>`
    (`git rev-list --left-right --count <branch>...origin/<default>`) and run the state report in the
-   branch's checkout (`repo_state.py -C <checkout>`), before any rebase.
+   branch's checkout (`repo_state.py -C <main_checkout>/<worktrees[].path>`, an absolute path:
+   `-C` resolves a relative one against the current directory), before any rebase.
 2. **Unpushed?** `git rev-list --count origin/<default>..<branch>` is the branch's own commits;
    `git rev-list --count origin/<default>..<branch> --not --remotes=origin` is those on no remote
    branch. They are unpushed only when the two counts are equal.
@@ -34,7 +35,11 @@ Before the first push and before a merge:
 ## push
 
 `git push -u origin <branch>`, or `git push origin <branch>` when `.git/config` is write-masked.
-Work goes out on its own branch; push the default branch directly only when the request names that
+Run it as a command of its own that starts with `git push`: never chained after another command,
+prefixed with `cd … &&`, or written as `git -C`, so that a sandbox exclusion the user configured for
+`git push *` applies. A branch's refs are shared by every checkout, so it works from the main
+checkout too; the rebase above is what runs inside the branch's checkout. Work goes out on its own
+branch; push the default branch directly only when the request names that
 (or for the bootstrap, preflight-and-connect.md) and the repository's rules allow it, and never
 forced. `push` opens no PR.
 
@@ -44,11 +49,12 @@ base". Report `blocked`.
 
 ## Documentation before a PR
 
-Before `pr` pushes, look at the branch's diff against `origin/<default>`
-(`git diff --name-only $(git merge-base HEAD origin/<default>) HEAD`). When it changes files other than
-documentation but changes neither `README.md` nor `CHANGELOG.md` nor the repository's release-note
-fragments:
-- recommend `/devforgeai:documents-updater` with the merge base as its base revision, and ask
+Before `pr` pushes, look at the branch's diff against `origin/<default>`, naming the branch rather
+than HEAD so the check holds from any checkout (`git diff --name-only origin/<default>...<branch>`).
+When it changes files other than documentation but changes neither `README.md` nor `CHANGELOG.md`
+nor the repository's release-note fragments:
+- recommend `/devforgeai:documents-updater` with the merge base (`git merge-base origin/<default>
+  <branch>`) as its base revision, and ask
   whether to run it first (recommended) or open the PR now;
 - don't ask when the request says to skip documentation, when documents-updater already ran on this
   branch in this session, or when the branch already has an open PR (without `gh`, that can't be
@@ -64,7 +70,9 @@ Suggest it from no other phase.
 
 ## pr
 
-In this order; only steps 4 to 6 need `gh`:
+In this order; only steps 4 to 6 need `gh`, and each `gh pr` call runs as a command of its own that
+starts with `gh pr`, like the push (a pipeline that starts with `gh pr`, such as `gh pr view … |
+python3 …/qa_state.py`, counts as one):
 1. The documentation check above. It needs only git.
 2. **Document IDs (ERR-15):** after the fetch and before any rebase, when the state report run in the
    branch's checkout lists `id_collisions` (a `docs/specs/<type>/<ID>.md` the branch adds while a
@@ -122,7 +130,9 @@ Merge only the PR the user named or the current branch's PR. Gather, read-only:
 - the QA state (above), and whether the branch is behind the base.
 
 Report: state and draft flag, mergeability and conflicts, each check, the review decision and
-requested changes, behind or not, the head SHA, the allowed methods, and the QA state.
+requested changes, behind or not, the head SHA, the allowed methods, and the QA state with the
+verdict comment's author and URL (`verdict.author` and `verdict.url` from `qa_state.py`), so the
+user sees who wrote the verdict they authorize against.
 
 **ERR-10.** When the QA state isn't `approved`, or the PR is a draft, has failing or pending
 required checks, requested changes or conflicts, or isn't mergeable: don't offer the merge and
@@ -138,11 +148,12 @@ Only when the QA state is `approved` and nothing blocks:
    (merge commits, squashes or rebases on the default branch). No answer: `awaiting_approval`.
 2. `gh pr merge <n> --merge|--squash|--rebase --match-head-commit <head SHA from the report>`. The
    passing verdict names that same SHA, so a commit pushed after the report is never merged.
-3. Never `--admin`, `--auto` or `--delete-branch` (it also deletes and switches local branches), and
-   never bypass or disable branch protection.
+3. SKILL.md's never-run list excludes `--admin`, `--auto` and `--delete-branch` (which also deletes
+   and switches local branches); never bypass or disable branch protection either.
 4. Confirm with `gh pr view <n> --json state,mergeCommit` that the state is `MERGED`, and record the
    merge commit.
-5. Delete the remote branch (`git push origin --delete <branch>`) only when the user confirmed it,
-   and skip it when the repository deletes merged branches itself (`deleteBranchOnMerge`).
+5. Delete the remote branch (`git push origin --delete <branch>`) only after a confirmation naming
+   it, even when the request asked for the deletion, and skip it when the repository deletes merged
+   branches itself (`deleteBranchOnMerge`).
 6. Continue with sync and prune only when the request asks for them; otherwise name them as next
    steps.
