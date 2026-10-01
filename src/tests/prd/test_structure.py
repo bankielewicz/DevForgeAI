@@ -24,9 +24,9 @@ SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
 TARGETS = {"prd": ("SKL-002", 4, "SPEC-002", 4), "architecture": ("SKL-003", 5, "SPEC-003", 4)}
-# Each skill's (status, approved_by, approved_on): SKL-003 v5 was approved by Bryan on 2026-09-30;
-# SKL-002 v4 stays a draft until Bryan approves it.
-APPROVAL = {"prd": ("draft", "", None), "architecture": ("approved", "Bryan", "2026-09-30")}
+# Each skill's (status, approved_by, approved_on): SKL-002 v4 was approved by Bryan on 2026-10-01, after
+# its requalification; SKL-003 v5 on 2026-09-30.
+APPROVAL = {"prd": ("approved", "Bryan", "2026-10-01"), "architecture": ("approved", "Bryan", "2026-09-30")}
 SPEC_STATE = {"SPEC-002": (4, "approved"), "SPEC-003": (4, "approved")}  # SPEC-002 v4: issues #36-#38, #40
 
 
