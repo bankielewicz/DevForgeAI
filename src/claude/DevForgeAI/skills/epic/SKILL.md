@@ -4,7 +4,7 @@ description: Turns a DevForgeAI PRD into epic documents for the requirements tha
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-004"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Epic
@@ -20,7 +20,8 @@ Three rules shape everything below:
   and the ADR and policy files as they are now, never from any skill's reply or summary.
 - **Release selects, priority orders.** `release: current` decides what gets an epic. MoSCoW priority
   orders the epics (Must, then Should, then Could) and never selects on its own, except `wont`. A `null`
-  priority or release is undecided and goes back to the PRD owner.
+  release, or a `null` priority in the current release, is undecided and goes back to the PRD owner. A
+  `later` requirement's `null` priority is normal, not undecided.
 - **The skill adds, it never rewrites.** It writes new epics only. The PRD, BRNs, ARCHs, ADRs, policy
   documents and existing epics are read-only.
 
@@ -45,17 +46,18 @@ name on PATH can't be trusted.
 The skill proposes; the user decides:
 
 - **Which PRD**, when no ID was given.
-- **Which ARCH**, when several cite the PRD (ERR-04).
+- **Which ARCH**, when several active ARCHs cite the PRD (ERR-04).
 - **The grouping**: which epics, and which requirements each holds. You only propose it.
-- **Priority, release and requirement changes**: a `null` priority or release, and any change to a
+- **Priority, release and requirement changes**: an undecided priority or release, and any change to a
   requirement, belong to the PRD owner. Report them; never decide or ask about them.
 - **Approving an epic**: epics are always written as `draft`.
 
 A grouping stated in the request counts as confirmed: "one epic for everything eligible", "one epic per
-priority level", "put FR-003 and FR-004 together". Apply it to the eligible requirements only; it never
-makes a left-out requirement eligible. If it leaves an eligible FR unplaced or places one twice, it
-isn't confirmed for that FR: ask about it. When nobody can be asked, place that FR by your proposal and
-add the unconfirmed-grouping marker (step 6) to the epics that hold it.
+priority level", "put FR-003 and FR-004 together". Apply it, or a change the user makes when asked, as
+given. Only the invariants at step 6 limit it, never your own grouping preferences. It never makes a
+left-out requirement eligible. If it leaves an eligible FR unplaced or places one twice, ask about that
+FR. When nobody can be asked, place that FR by your proposal and add the unconfirmed-grouping marker
+(step 6) to every epic written in this run.
 
 **Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options each,
 with the recommended option first and marked "(Recommended)". Otherwise ask in plain text and end your
@@ -101,25 +103,31 @@ are proposals because an input may still change. Say so in every epic written (o
 
 ### 3. Find the current ARCH
 
-Follow [references/selection.md](references/selection.md), "Finding the current ARCH". Use an ARCH only
-when its frontmatter link to this PRD has the PRD's current version. Otherwise stop and write nothing:
-- no ARCH cites the PRD (ERR-02): say that readiness comes from the architecture description, so
+Follow [references/selection.md](references/selection.md), "Finding the current ARCH". Ignore any ARCH
+whose `status` is `superseded` or `deprecated`. Use an ARCH only when its frontmatter link to this PRD has
+the PRD's current version. Otherwise stop and write nothing:
+- no active ARCH cites the PRD (ERR-02): say that readiness comes from the architecture description, so
   nothing can be selected without one, and tell the user to run `/devforgeai:architecture PRD-NNN`
   first;
-- the ARCH's PRD link is older (ERR-03): name both versions, and tell the user to review the
-  architecture with `/devforgeai:architecture PRD-NNN`; confirming reuse there records the review;
-- several ARCHs cite it (ERR-04): list them and ask.
+- the ARCH's PRD link has another version, usually older (ERR-03): name both versions, and tell the
+  user to review the architecture with `/devforgeai:architecture PRD-NNN`; confirming reuse there
+  records the review;
+- several active ARCHs cite it (ERR-04): list them and ask.
 
 ### 4. Compute readiness
 
 Follow selection.md, "The readiness rule", for every active FR and NFR:
+- a DEC cites a requirement only through a link with **this PRD's ID and that item**; an ARCH can cover
+  several PRDs whose requirement numbers collide;
 - read each DEC that cites the requirement, and each resolving ADR's `status` and `superseded_by` from
   its file now;
-- apply the bounded policy check to each `POL-NNN#SET-NN` resolver, and resolve no other policy;
+- apply the bounded policy check (selection.md) to each `POL-NNN#SET-NN` resolver, and resolve no other
+  policy. Two policies that mandate platforms for different capabilities don't conflict, and a newer
+  policy version passes when the ARCH's latest resolution line still holds the setting unchanged;
 - match every `[NEEDS ADR]` marker to its own DEC; a marker with no matching question blocks every
   requirement it names, even when other DECs citing them are resolved;
 - when readiness can't be established, the requirement is **unknown**, naming the missing input or
-  failed check: never guess ready or blocked.
+  failed check: never guess ready or blocked. A resolved DEC with an empty `resolved_by` is unknown.
 
 ### 5. Read existing epics and select
 
@@ -127,38 +135,51 @@ Read every existing epic's frontmatter (selection.md, "Covered requirements"): a
 active existing epic refines is **covered**. NFRs are never covered. Note the highest `EPIC-NNN` in use.
 
 Apply the selection rule. A requirement is **eligible** when it is active, ready, `release: current`,
-`priority` must, should or could, and, for an FR, not covered. Every other requirement gets one left-out
-row with every reason that applies and one next action (selection.md, "Left-out rows").
+`priority` must, should or could, and, for an FR, not covered. Every requirement that ends up in no new
+epic gets one row with every reason that applies and one next action (selection.md, "Left-out rows").
 
-**Nothing to write (ERR-05).** If no FR is eligible and every eligible NFR is already refined by an
-active epic (for example, a rerun with unchanged inputs), write nothing: go to step 9, say that no
-requirement needs a new epic, and report every left-out requirement.
+**When there is nothing to write**, decide which case applies before you write the reply:
+1. **Everything eligible is covered (ERR-05).** No FR is eligible, and every eligible NFR is already
+   refined by an active epic. At least one requirement is active, ready, `release: current` and must,
+   should or could; for example, on a rerun with unchanged inputs. Write nothing, then go to step 9.
+   Say that no requirement needs a new epic. Give each eligible NFR its `already refined by EPIC-NNN`
+   row.
+2. **Nothing is eligible yet (ERR-08).** No requirement is active, ready, `release: current` and must,
+   should or could; for example, an open DEC blocks every current-release requirement. Write nothing,
+   then go to step 9. Say that **no requirement is eligible for an epic yet**. Never say that no
+   requirement needs a new epic, and never say that everything is covered.
 
 ### 6. Propose and confirm the grouping
 
-Group the eligible requirements into epics by the grouping rules below. Show each proposed epic's
-working title, priority and requirements (by ID, with a few words each), then:
-- **The request stated a grouping:** it is confirmed; apply it.
+Group the eligible requirements into epics by the rules below. Show each proposed epic's working title,
+priority and requirements (by ID, with a few words each), then:
+- **The request stated a grouping:** it is confirmed; apply it as given, within the invariants.
 - **Someone can answer:** ask the user to confirm or change the grouping, recommending your proposal.
-  Write nothing until they do. A changed grouping is applied as given, within the grouping rules'
-  limits; ask again only if it breaks one. If the user stops before confirming (ERR-07), write nothing
-  and say how to resume: run `/devforgeai:epic PRD-NNN` again.
-- **Nobody can confirm** (the request says to proceed without questions and gives no grouping): write
-  your proposal, and add to section 8 of every epic
+  Write nothing until they do. Apply a changed grouping as given, within the invariants; ask again only
+  if it breaks one. If the user stops before confirming (ERR-07), write nothing and say how to resume:
+  run `/devforgeai:epic PRD-NNN` again.
+- **Nobody can confirm** (the request says to proceed without questions and gives no grouping), or any
+  placement in this run is unconfirmed: write your proposal, and add this marker to section 8 of
+  **every** epic written in this run:
   `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]`.
 
-**Grouping rules.**
-- Each epic is a **deliverable capability**: something users can do when it is done. Never group by
-  layer, component or team.
+**Invariants.** No grouping, stated, changed or proposed, may break these:
+- An epic refines only eligible requirements.
 - Each eligible FR is refined by **exactly one** new epic.
-- An eligible NFR is **attached** to every new epic whose capability it constrains, with
-  `note: "partial: <which part>"` when more than one active epic, existing or new, refines it.
-  Attaching it never creates another deliverable.
+- Each eligible NFR is attached to at least one new epic, unless an active existing epic already
+  refines it. Which epics it goes in is the grouping's choice. Add `note: "partial: <which part>"`
+  when more than one active epic, existing or new, refines it.
 - A **standalone NFR epic** is written only for an eligible NFR that no active epic, existing or new in
   this run, refines.
 - An epic's **priority** is the highest among the FRs it refines (Must, then Should, then Could); a
   shared NFR never raises it, and a standalone NFR epic takes its NFRs' highest priority.
 - New epics are **numbered and listed** Must first, then Should, then Could.
+
+**How to propose** (heuristics for your own proposal; a user's grouping overrides them):
+- Each epic is a **deliverable capability**: something users can do when it is done. Never propose
+  grouping by layer, component or team.
+- Attach an eligible NFR to every new epic whose capability it constrains. Attaching it never creates
+  another deliverable.
 
 ### 7. Write the epics
 
@@ -172,8 +193,9 @@ in priority order:
 3. **Frontmatter:** `status: draft`, `version: 1`, today's dates; `owner` from the request, otherwise the
    PRD's owner; `authors` the owner and `"claude-code"`; `generated_by` with `tool: "claude-code"`,
    `model:` your own model ID and `session: "${CLAUDE_SESSION_ID}"`; `reviewed_by: []`,
-   `approved_by: ""`, `approved_on: null`; every `hash: null`; `priority` by the grouping rules;
-   `target_release` the PRD's. `upstream`: a `refines` link to every requirement it groups at the PRD
+   `approved_by: ""`, `approved_on: null`; every `hash: null`; `priority` by the invariants (step 6);
+   `target_release` the PRD's (output-rules.md says what to write when the PRD names none).
+   `upstream`: a `refines` link to every requirement it groups at the PRD
    version, then an `informed_by` link to the current ARCH at its version.
 4. **Body:** the goal, business value and scope; at least one `DW-NN` item with a criterion and an
    evidence method; the dependencies (the ARCH decisions it relies on, and other epics) and risks; the
@@ -203,13 +225,19 @@ Write the final reply in this order, as plain Markdown:
    - FR-NNN: <reason>; <reason>. <Next action>.
    ```
 
-   List every epic written with its path, title, priority and the requirements it refines; or, when
-   nothing was written (ERR-05), the line "No requirement needs a new epic." Then one left-out row for
-   every requirement that isn't in a new epic, in PRD order (selection.md, "Left-out rows"), or
-   `Left out: none`. Epics and rows together name every FR and NFR of the PRD exactly once.
-2. Then, briefly: the proposal warning when an input is a draft; the unconfirmed-grouping warning when
-   it applies; and any resolver that no longer counts, and why. Ask no questions about left-out
-   requirements.
+   List every epic written with its path, title, priority and the requirements it refines. When nothing
+   was written, use instead the line for the case at step 5: "No requirement needs a new epic." for
+   ERR-05, or "No requirement is eligible for an epic yet." for ERR-08. Then give one row for every
+   requirement that is in no new epic, in PRD order (selection.md, "Left-out rows"), or
+   `Left out: none`. Each eligible NFR that no new epic attaches gets its `already refined by EPIC-NNN`
+   row. Together, the epic lines and rows name **every FR exactly once** and **every NFR at least once**.
+   An NFR attached to several new epics appears in each of their lines.
+2. Then, briefly:
+   - the proposal warning when an input is a draft;
+   - the unconfirmed-grouping warning when it applies;
+   - any resolver that no longer counts, and why;
+   - any policy resolver that still counts at a newer policy version, naming both versions.
+   Ask no questions about left-out requirements.
 3. The next step, as its own paragraph outside any code block. It starts with the words **Next step**,
    names the epics by ID and never by path, and nothing follows it.
 
@@ -223,11 +251,18 @@ For example: "Next step: the story skill (planned as `/devforgeai:story`) isn't 
 stories for EPIC-001 by hand from the story template for now. Once it is, run
 `/devforgeai:story EPIC-001`."
 
-When nothing was written because every eligible requirement is already covered (ERR-05), name the
-story step for the epics that cover them. When the skill stops without writing (ERR-01 to ERR-04,
-ERR-07), the reply says why and what the user can do, leaves out the report, and its next step names
-the command to run (`/devforgeai:architecture PRD-NNN` for ERR-02 and ERR-03). After ERR-06, the
-validation-failure report replaces both the report and the next step.
+When nothing was written:
+- **Everything eligible is covered (ERR-05):** name the story step for the epics that cover the
+  requirements.
+- **Nothing is eligible yet (ERR-08):** name **no** story step, and don't mention `/devforgeai:story`.
+  The next step is `/devforgeai:architecture PRD-NNN`, to resolve the blocking questions, when any row
+  is blocked or unknown. Otherwise it is the PRD owner's decision on the undecided rows. Otherwise say
+  that nothing remains for the current release.
+
+When the skill stops without writing (ERR-01 to ERR-04, ERR-07), the reply says why and what the user
+can do, leaves out the report, and its next step names the command to run
+(`/devforgeai:architecture PRD-NNN` for ERR-02 and ERR-03). After ERR-06, the validation-failure report
+replaces both the report and the next step.
 
 ## Output contract
 
@@ -239,6 +274,8 @@ validation-failure report replaces both the report and the next step.
   ([output-rules.md](references/output-rules.md)).
 - **Selection:** an epic refines only eligible requirements; every eligible FR is in exactly one new
   epic; readiness comes from the ARCH, ADR and policy files, never from a reply.
+- **Report:** every FR named exactly once and every NFR at least once; no story step when nothing is
+  eligible yet (ERR-08).
 - **Decisions:** the grouping is the user's; an unconfirmed grouping carries its marker. Every epic is
   `draft`.
 - **Traceability:** `refines` links at the PRD version read, and one `informed_by` link to the ARCH at its

@@ -65,7 +65,8 @@ done_when:
 
 ## 5. Dependencies and risks
 
-<!-- Prose. Hard blockers go in frontmatter `blocked_by`. -->
+<!-- Prose: the ARCH decisions this epic relies on, the other epics it depends on, and the risks.
+     Dependencies on other epics stay prose; frontmatter `blocked_by` stays []. -->
 
 ## 6. Technical notes (optional)
 
