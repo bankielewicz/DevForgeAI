@@ -1,6 +1,6 @@
 # Runbook: SKL-010 (context skill) — evaluation and manual checks
 
-Covers what the build session can't run for the context skill (SKL-010 v1, SPEC-011 v2), built on
+Covers what the build session can't run for the context skill (SKL-010 v2, SPEC-011 v3), built on
 branch `feat/spec-011-context-skill`:
 - section 1: the paid `claude plugin eval` runs (§11 step 8);
 - section 2: setup for the manual checks;
@@ -251,9 +251,12 @@ snapshot's.
 | Item | Result | Date | Notes |
 |---|---|---|---|
 | Eval: baseline (writes-the-set, nothing-confirmed, needs-adr-handback) | recorded: 0.15, 0.06, 0.07 without the skill | 2026-10-01 | `context-baseline-*-20261001T13*`, `95145a1`; $1.02 |
-| Eval: pilot | NOT_RUN | | |
-| Eval: triggers (haiku, sonnet, opus) | NOT_RUN | | |
-| Eval: full, 3 runs with baseline | NOT_RUN | | |
+| Eval: pilot (v1) | pass: default 1.00, opus 1.00, sonnet 0.99; haiku 0.80 (reported) | 2026-10-01 | `context-pilot-*-20261001T15*`, `8407574`; $3.55. Trace run (`context-trace-sonnet-…T152539Z`) confirmed `snapshot new` under the harness's `$TMPDIR` |
+| Eval: triggers, v1 | fail: sonnet trigger-04 2 of 3; opus 12/12; haiku 9/12 | 2026-10-01 | `context-triggers-*-20261001T16*`, `8407574`; led to SPEC-011 v3 |
+| Eval: triggers, v2 | pass: sonnet 12/12 and opus 12/12 at 3 of 3; haiku run invalid (401) | 2026-10-01 | `context-triggers-*-20261001T17*`, `1412d2b`, Claude Code 2.1.286 |
+| Eval: triggers, haiku re-run (v2) | reported: 4 of 24 positive runs fired; negatives 3 of 3 | 2026-10-01 | `context-triggers-haiku-haiku-20261001T183111Z`, `7ec182d` (same plugin digest), Claude Code 2.1.287; the CLI changed too |
+| Eval: triggers, sonnet re-check (v2) | pass: 12 of 12 at 3 of 3 | 2026-10-01 | `context-triggers-sonnet-sonnet-20261001T203433Z`, `5296f3a` (same plugin digest), Claude Code 2.1.287 |
+| Eval: full, 3 runs with baseline (v2) | pass: 18 of 18 at ≥ 0.8; every VER item ≥ 0.8 (VER-04 0.98) | 2026-10-01 | `context-full-default-20261001T174733Z`, `1412d2b`; mean Δ +0.59; $63.25 |
 | P1–P4 plugin checklist | NOT_RUN | | |
 | M-a VER-21 (a) batches and budget | NOT_RUN | | |
 | M-b VER-21 (b) stopping | NOT_RUN | | |

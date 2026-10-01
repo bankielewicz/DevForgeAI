@@ -22,7 +22,7 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | `git` | SKL-006 v2 | SPEC-007 v2, draft awaiting approval | v1 deployed (identical to its source); v2 built from the v2 draft, not yet evaluated or deployed; results below |
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
 | `github-post` | SKL-009, reserved | SPEC-010 v2, approved 2026-09-30 | Not built; its §11 lists the build steps |
-| `context` | SKL-010, reserved | SPEC-011 v2, approved 2026-10-01 | Not built; its §11 lists the build steps: evaluations first, on the spec branch `feat/spec-011-context-skill` |
+| `context` | SKL-010 v2, draft | SPEC-011 v3, approved 2026-10-01 | v1 merged in PR #34 (plugin 0.8.0); v2, the evaluated version, lands with plugin 0.8.1. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run |
 
 SKL-008 is reserved for the story skill (SPEC-009).
 
