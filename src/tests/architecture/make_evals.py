@@ -778,6 +778,21 @@ Not decided yet.
 | 2026-09-21 | proposed | Deferred by Priya Nair |
 """
 
+# VER-12 (j) (manual): a draft ARCH-001 whose links cite PRD-001 v2, amended against v3, which adds a
+# NEEDS ADR marker; validation must pass.
+PRD_V3 = replace(PRD_V2, "version: 2\ncreated: 2026-09-14\nupdated: 2026-09-24",
+                 "version: 3\ncreated: 2026-09-14\nupdated: 2026-09-27")
+PRD_V3 = replace(PRD_V3, "approved_on: 2026-09-24", "approved_on: 2026-09-27")
+PRD_V3 = replace(PRD_V3, "- [NEEDS ADR: identity provider for volunteer sign-in; affects FR-001]\n",
+                 "- [NEEDS ADR: identity provider for volunteer sign-in; affects FR-001]\n" f"- {MARKER_ROSTER}\n")
+PRD_V3 += ("| 3 | 2026-09-27 | Priya Nair | Added a NEEDS ADR marker: where the roster is served from. No requirement changed | none |\n"
+           "| 3 | 2026-09-27 | Priya Nair | Approved | status |\n")
+ARCH_LINKS_V2 = ARCH_EXISTING.replace("relation: informed_by, version: 1, hash: null}",
+                                      "relation: informed_by, version: 2, hash: null}")
+ARCH_LINKS_V2 = replace(ARCH_LINKS_V2, "Defined against PRD-001 version 1 (approved)", "Defined against PRD-001 version 2 (approved)")
+ARCH_LINKS_V2 = replace(ARCH_LINKS_V2, 'finding: "Version 1, status approved:', 'finding: "Version 2, status approved:')
+ARCH_LINKS_V2 = replace(ARCH_LINKS_V2, "Initial draft for PRD-001 v1.", "Initial draft for PRD-001 v2.")
+
 # --- Fixture validation ---------------------------------------------------------------------------
 
 
@@ -836,7 +851,8 @@ FIXTURES = {
     "PRD_SWAPS": (PRD_SWAPS, "prd.schema.json"), "PRD_ROSTER_V2": (PRD_ROSTER_V2, "prd.schema.json"),
     "ARCH_BEFORE_ROSTER": (ARCH_BEFORE_ROSTER, "arch.schema.json"), "POL_A_V4": (POL_A_V4, "policy.schema.json"),
     "ARCH_PLATFORM": (ARCH_PLATFORM, "arch.schema.json"), "ARCH_DEFERRED": (ARCH_DEFERRED, "arch.schema.json"),
-    "ADR_DEFERRED": (ADR_DEFERRED, "adr.schema.json"),
+    "ADR_DEFERRED": (ADR_DEFERRED, "adr.schema.json"), "PRD_V3": (PRD_V3, "prd.schema.json"),
+    "ARCH_LINKS_V2": (ARCH_LINKS_V2, "arch.schema.json"),
 }
 POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated", "POL_A_V4": None}
 
@@ -1352,6 +1368,8 @@ MANUAL_CASES = {
     "decide-deferred-question": ("VER-20", dict(SHARED, docs__specs__arch__ARCH_001=ARCH_DEFERRED,
                                                 docs__specs__adr__ADR_001=ADR_AUTH0,
                                                 docs__specs__adr__ADR_002=ADR_DEFERRED)),
+    # VER-12 (j): links on existing items stay at v2; the links this run adds use v3.
+    "amend-links": ("VER-12 (j)", dict(docs__specs__prd__PRD_001=PRD_V3, docs__specs__arch__ARCH_001=ARCH_LINKS_V2)),
 }
 
 

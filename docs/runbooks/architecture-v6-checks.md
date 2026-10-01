@@ -1,0 +1,166 @@
+# Runbook: SKL-003 v6 — paid evaluation and manual checks
+
+Covers what the build session can't run for the architecture skill SKL-003 v6 (draft), which
+implements SPEC-003 v5, on branch `feat/spec-003-v5-architecture` (worktree
+`.claude/worktrees/spec-003-v5`):
+- section 1: the paid `claude plugin eval` runs, cheapest first, on Opus only (Bryan, 2026-10-01);
+- sections 2 and 3: the manual items Bryan chose (decision D6): VER-20, VER-12 (a), (j) and (k), and
+  VER-19 again, since SPEC-003 v5 changed it.
+
+Every item stays **NOT_RUN** until someone runs it. Record each result in section 4: **pass**,
+**fail** (with what happened), or **not run** (with why). A failure stays a failure: if a grader
+turns out to be wrong, show it with controls first, and keep the old result on record.
+
+Paste each command on its own. None starts with `!`, and none uses a `\` continuation or a heredoc.
+
+## 1. Paid evaluation (plain terminal, not inside Claude)
+
+Run from the worktree root, on a committed, clean tree:
+
+```bash
+cd ~/Projects/DevForgeAI/.claude/worktrees/spec-003-v5
+P=src/claude/DevForgeAI
+A="--allow-tools Write Edit Bash --scaffold --judge-model sonnet --threshold 0.8"
+C="reuse-needs-prd-link reuse-names-uncited no-prd-exists"
+C="$C changed-platform-blocks-reuse changed-platform-reopens"
+N="--runs 1 --ablation none"
+```
+
+Before **every** run, bind a new results folder with `record_revision.sh`, which refuses a dirty tree
+or an existing folder.
+
+**1a. The five new cases on v6, one run each, no baseline** (about $2–3). Compare with the same run
+on v5 (section 4):
+
+```bash
+R=tmp/eval-results/arch-v6-newcases-$(date +%Y%m%dT%H%M%S)
+bash src/tests/prd/record_revision.sh $R architecture
+for c in $C; do claude plugin eval $P --case $c $N $A --output-dir $R/$c; done
+```
+
+**1b. VER-20 by hand** (section 3, B1) before the full suite: it exercises the main change.
+
+**1c. The whole suite, one run with the baseline** (21 cases, about $15):
+
+```bash
+R=tmp/eval-results/arch-v6-1run-$(date +%Y%m%dT%H%M%S)
+bash src/tests/prd/record_revision.sh $R architecture
+claude plugin eval $P --tag architecture --runs 1 $A -j 4 --output-dir $R
+```
+
+**1d. Three runs with the baseline** (about $55, 30 minutes at `-j 4`): the same as 1c without
+`--runs 1`, into a new `arch-v6-3run-…` folder. Afterwards, check `cases[].arms.with[].error` in
+`$R/aggregate-result.json` and look for a `not granted` line before trusting any score.
+
+## 2. Setup for the manual checks (once per shell)
+
+```bash
+WT=~/Projects/DevForgeAI/.claude/worktrees/spec-003-v5
+T=/tmp/arch-v6-test; M="$WT/src/tests/architecture/manual"
+rm -rf "$T" && mkdir -p "$T" && cp -r "$WT/src/claude/DevForgeAI" "$T/plugin"
+ws() { rm -rf "$T/ws" && mkdir "$T/ws" && cd "$T/ws"; }
+fresh() { ws && bash "$T/plugin/evals/$1/scaffold.sh"; }
+manual() { ws && bash "$M/$1/scaffold.sh"; }
+base() { git init -q && git add -A && git -c user.name=t -c user.email=t@t commit -qm x; }
+```
+
+`fresh architecture/<case>` seeds an empty project in `$T/ws` with an eval case's fixtures; `manual
+<name>` seeds a manual-only fixture. Run `base` right after, so `git diff` shows what the run changed.
+Then start Claude from `$T/ws` with the copied plugin:
+
+```bash
+claude --plugin-dir "$T/plugin"
+```
+
+Give your name if asked who decides. Your `~/.claude/CLAUDE.md` still loads; remove any papercut
+entries the deliberate failures below cause.
+
+## 3. Manual checks
+
+### B1. Deciding an open question later (VER-20; BEH-04, BEH-07, BEH-08, BEH-09, BEH-11)
+
+`manual decide-open-question`, then `base`: the approved ARCH-001 links PRD-001 v1, the current
+version; DEC-01 (identity provider) is resolved by the accepted ADR-001 (Auth0); DEC-02 (session
+revocation) is open. Say, naming no outcome:
+
+> /devforgeai:architecture PRD-001
+
+Pick an option for DEC-02, answer *Decide later* to any other question, and confirm amend if asked.
+
+**Expect:**
+- It recommends amending ARCH-001 because DEC-02 is open, not reuse.
+- A new ADR (ADR-002) with `status: accepted` and `approved_by` you; DEC-02 has `state: resolved`
+  and `resolved_by: [ADR-002]`.
+- ARCH-001: `version: 2`, `status: in-review` with `approved_by: ""` and `approved_on: null`,
+  `outcome: amend`. `git diff docs/specs/arch/ARCH-001.md` shows no change inside an existing item
+  except DEC-02's `state` and `resolved_by`, and the new Change Log row logs that transition.
+- The report lists FR-001 and NFR-001 as ready (DEC-01 and DEC-02 are both resolved), unless a DEC
+  this run added cites them.
+
+**Second copy:** `manual decide-deferred-question`, then `base`. DEC-02's deferral is recorded as the
+proposed ADR-002. Do the same. **Expect** as above, but the new ADR is ADR-003 with
+`supersedes: [ADR-002]`, and `git diff docs/specs/adr/ADR-002.md` shows only `status: superseded`,
+`superseded_by: ADR-003` and one Status history row.
+
+### B2. Decisions accepted one by one (VER-12 (a))
+
+`fresh architecture/creates-arch`, then `base`. Say:
+
+> /devforgeai:architecture PRD-001
+
+Pick an option for the identity-provider question, answer *Decide later* for session revocation,
+and confirm `create` when asked.
+
+**Expect:** each question is presented with options and trade-offs, the recommended one first. One
+accepted ADR, for the identity provider only; the revocation DEC stays open with `resolved_by: []`
+and no ADR; `outcome: create`; FR-001 is reported blocked by the revocation DEC. Confirming `create`
+resolved nothing else.
+
+### B3. Amending keeps old links and adds new ones at the new version (VER-12 (j))
+
+`manual amend-links`, then `base`: the draft ARCH-001's links all cite PRD-001 v2; PRD-001 v3 adds a
+NEEDS ADR marker about the roster. Say:
+
+> /devforgeai:architecture PRD-001 — amend ARCH-001; I confirm the amend outcome.
+
+Answer *Decide later* to every question.
+
+**Expect:** links on existing items still cite `version: 2`; the frontmatter PRD link and every link
+this run adds (the new roster DEC citing FR-003) cite `version: 3`; validation passes with no ERR-05;
+ARCH-001 is `version: 2` and stays `draft`.
+
+### B4. A supersession that passes validation (VER-12 (k))
+
+`manual decide-open-question`, then `base`. Say:
+
+> /devforgeai:architecture PRD-001 — amend ARCH-001; I confirm the amend outcome. We're replacing
+> Auth0 for sign-in.
+
+Approve superseding ADR-001, pick a provider for DEC-01, and pick an option for DEC-02 too.
+
+**Expect:** `git diff docs/specs/adr/ADR-001.md` shows only `status: superseded`,
+`superseded_by: ADR-NNN` and one Status history row; the new ADR is accepted with
+`supersedes: [ADR-001]`; DEC-01's `resolved_by` changes from `[ADR-001]` to the new ADR, logged in the
+Change Log; ADR-001 is recorded as a new EVD with `classification: context`; validation passes; the
+report lists FR-001 as ready.
+
+### B5. Failed supersession rolls back, EVD deprecated (VER-19, changed in SPEC-003 v5)
+
+`manual failed-supersession`, then `base`, and follow section A3 of
+`docs/runbooks/prd-v2-architecture-v4-checks.md`. **Expect** everything A3 lists, plus: the EVD item
+the run added for ADR-001 is still in ARCH-001 with `status: deprecated` and its other fields as
+written, no EVD item was deleted, and the ERR-05 Change Log row says the EVD was deprecated.
+
+## 4. Results
+
+| Item | Result | Date | Notes |
+|---|---|---|---|
+| Eval: 5 new cases on v5 (`cd892e0`), 1 run, no baseline | NOT_RUN | | Expected: VER-21, 22, 24, 25 fail; VER-23 passes |
+| 1a Eval: 5 new cases on v6, 1 run, no baseline | NOT_RUN | | |
+| 1c Eval: architecture, 1 run with baseline | NOT_RUN | | |
+| 1d Eval: architecture, 3 runs with baseline | NOT_RUN | | |
+| B1 VER-20 deciding later (both copies) | NOT_RUN | | |
+| B2 VER-12 (a) | NOT_RUN | | |
+| B3 VER-12 (j) | NOT_RUN | | |
+| B4 VER-12 (k) | NOT_RUN | | |
+| B5 VER-19 with the EVD deprecated | NOT_RUN | | |
