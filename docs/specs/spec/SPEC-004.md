@@ -2,7 +2,7 @@
 id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
-status: in-review
+status: approved
 version: 3
 created: 2026-09-24
 updated: 2026-10-01
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:
   - {id: STORY-005, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -714,3 +714,4 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 | 2 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records SKL-004 v2's structural checks and plugin-dev validation, the new and changed cases run on SKL-004 v1 (four of five predicted failures reproduced), the one-run suite (18 of 18 at 1.00) and the bound 3-run (18 of 18 at 0.8 or above, mean Δ +0.52). No item changed | §9 |
 | 2 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-004 v2 (2026-10-01), its merge in PR #43 and deployment in plugin 0.8.0, and that the run folders moved from the worktree to the main checkout's `tmp/eval-results/`. No item changed | §9 |
 | 3 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Wording only, from PR #43's skill review and Bryan's decisions of 2026-10-01 (spec v3 for wording; no new NFR review signal, recorded in §13; one run, then a 3-run). §4 Grouping and BEH-07: attaching an eligible NFR to every new epic it constrains is the proposal's default; the rule is at least one new epic unless an active epic already refines it, and a stated or changed grouping is limited only by §4's rules. BEH-07 also states what happens when a stated grouping leaves an eligible FR unplaced and no one can be asked. ERR-05 and BEH-11: "already has an epic" and "already refine" replace "covered", which is kept for FRs. §4 check 3: an ARCH with no resolution line at all is treated as one that no longer applies the setting. No VER item or fixture changed. Awaiting Bryan's approval | frontmatter, §4, BEH-07, BEH-11, ERR-05, §9, §11, §13 |
+| 3 | 2026-10-01 | Bryan | Approved | status |
