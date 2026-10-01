@@ -2,19 +2,19 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: approved
-version: 4
+status: in-review
+version: 5
 created: 2026-09-23
-updated: 2026-09-29
+updated: 2026-10-01
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "fdbef416-eebb-4053-95ce-624a311d72d5"
+  session: "388b2532-f519-4deb-b4ce-3e294d7e3b10"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-09-29
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -161,10 +161,20 @@ policy is reported in the resolution line and gets no policy link.
 when, for every active `DEC` with `blocking: true` whose upstream cites R:
 - `state` is `resolved`, and
 - every `resolved_by` entry is either an ADR with `status: accepted` and no `superseded_by`, or
-  an approved policy's active setting.
+  an approved policy's active setting that still mandates the platform, for the capability, that the
+  ARCH recorded for it.
 
 Otherwise R is **blocked**, and the report names the DEC IDs. A superseded ADR returns its
-questions to open, until an accepted successor resolves them.
+questions to open, until an accepted successor resolves them. So does a mandated platform that
+changed, until the question is resolved again:
+- **The record** is the setting's entry in the last resolution line of the ARCH's Change Log,
+  `architecture.mandated_platforms=<platform> for <capability> (POL-NNN#SET-NN)`
+  (`references/policy.md`). When the policy's `version` still equals the version of the ARCH's link
+  to the setting, the setting is unchanged and there is nothing to compare.
+- **No platform recorded** (a resolution line written in an older format): the report names the gap.
+  With a user present, the skill asks whether the setting mandated the same platform when the
+  question was resolved: if yes, it still counts; if no or unknown, the question is open. With no
+  user, it still counts.
 
 ## 5. Interfaces and contracts
 
@@ -184,7 +194,7 @@ metadata:
 - **Tools:**
   - code inspection: read-only, and every path read, listed or searched is inside the inspection scope. Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope; never a whole-repository listing or search. The project documents read by contract (docs/specs/prd/, arch/, adr/, policy/ and .claude/devforgeai.local.md) are outside this rule, and validating the documents written (BEH-14) is separate from inspection;
   - Write and Edit for the ARCH and ADRs;
-  - Bash only to run `python3` with the shared policy validation script (SPEC-002 §5);
+  - Bash only to run `python3` with the shared policy validation script (SPEC-002 §5), and to run the read-only commands ls, find, grep, cat, head and test -f with explicit paths in the documents read by contract, the skill's own files or the inspection scope: no writes, no redirection, and no running, installing or building project code. Claude Code may provide no Glob or Grep tool, so listing these folders can need Bash;
   - AskUserQuestion, with at most 4 questions per call.
 - **Downstream contract (consumed by the epic workflow, and by the context and story steps):**
   - the ARCH path and stable CMP, DEC and EVD IDs;
@@ -200,7 +210,7 @@ metadata:
 behaviors:
   - id: BEH-01
     status: active
-    rule: "Take the PRD from $ARGUMENTS (PRD-NNN). With no argument, list the PRDs in docs/specs/prd/ with their titles and status, and ask. Never take a file path."
+    rule: "Take the PRD from $ARGUMENTS (PRD-NNN). With no argument, list the PRDs in docs/specs/prd/ with their titles and status, and ask. When docs/specs/prd/ holds no PRD, say that none exists yet, write nothing, and point to /devforgeai:prd. Never take a file path."
   - id: BEH-02
     status: active
     rule: "Read the PRD's requirements, constraints, stage, operating context and [NEEDS ADR] markers, and record its version in every link. If the PRD is a draft, warn that the result is a proposal. Never turn an unanswered product question (a null priority, a release or a [NEEDS CLARIFICATION] marker) into an architectural decision. Never edit the PRD."
@@ -209,7 +219,7 @@ behaviors:
     rule: "Resolve policy exactly as the prd skill does (ADR-003 A3–A5, references/policy.md): the R1–R5 sequence, the SV rules, local preferences, the resolution line, and stopping on invalid policy. Approved policy documents are validated in full through the shared validation script, as SPEC-002 §5 and BEH-17 R1 specify; when the script can't run while approved policy exists, stop (ERR-02)."
   - id: BEH-04
     status: active
-    rule: "Select the architecture description. Read docs/specs/arch/ARCH-*.md. If one covers the same system, propose reusing it (no change) or amending it (new questions or components), with reasons, and ask. Create a new ARCH, the next free ARCH-NNN.md, only when none covers the system or the user chooses to. Never create a second baseline automatically. Ask when several could apply."
+    rule: "Select the architecture description. Read docs/specs/arch/ARCH-*.md. If one covers the same system, propose reusing it or amending it (BEH-08), with reasons, and ask. Offer reuse only when that ARCH's frontmatter already links this PRD and no DEC in it is resolved by a mandated platform that changed (§4); otherwise propose amending it, or creating a new ARCH. When a user is present and a blocking DEC is open, recommend amending, since recording a decision on it is an amendment. Create a new ARCH, the next free ARCH-NNN.md, only when none covers the system or the user chooses to. Never create a second baseline automatically. Ask when several could apply."
   - id: BEH-05
     status: active
     rule: "Inspect only the components or directories the user names (inspection_scope). Code inspection is read-only, and every path it reads, lists or searches is inside inspection_scope: use Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope, with no redirection, no writes and no running or building project code; never list or search the whole repository. The project documents read by contract (docs/specs/prd/, arch/, adr/ and policy/, and .claude/devforgeai.local.md) are outside this rule, and validating the documents written (BEH-14) is separate from inspection. References such as imports and configuration may be followed only within that scope; ask before going outside it. Record every project source consulted for architecture analysis as an EVD item, with the version and status examined where applicable, classified independently of its kind as observed (code or configuration directly inspected within inspection_scope), policy (an approved, active, applicable setting), decided (an accepted, non-superseded ADR) or context (any other consulted input or historical material, including the input PRD, existing ARCHs, proposed, rejected or superseded ADRs, and documentation claims not corroborated by the implementation). Context establishes neither implemented behavior nor an accepted decision, and no classification resolves a DEC by itself. When evidence is insufficient, say so explicitly with a [NEEDS CLARIFICATION] marker, and never recommend reuse on assumption."
@@ -218,19 +228,19 @@ behaviors:
     rule: "Identify the architectural questions that separate epics must share: component boundaries and responsibilities, data ownership, major interactions and interfaces, deployment, and how quality requirements are met. Every [NEEDS ADR] marker in the PRD becomes a DEC. Each DEC cites every affected requirement in its upstream links and is blocking unless the user says otherwise. Leave feature-level detail to specs."
   - id: BEH-07
     status: active
-    rule: "Resolve each question only by one of three means. (1) An approved, active mandated-platform setting that answers exactly this question: resolved_by POL-NNN#SET-NN, applied as policy, not a user decision. (2) An existing accepted, non-superseded ADR that the user confirms answers exactly this question. (3) The user's explicit decision among the options presented with trade-offs, which is written as a new ADR with status accepted and approved_by the user. Anything else stays open. A deferred decision may be written as a proposed ADR that resolves nothing. An ADR or setting resolves only the question it answers, never every question that cites the same requirement."
+    rule: "Resolve each question only by one of three means. (1) An approved, active mandated-platform setting that answers exactly this question: resolved_by POL-NNN#SET-NN, applied as policy, not a user decision. (2) An existing accepted, non-superseded ADR that the user confirms answers exactly this question. (3) The user's explicit decision among the options presented with trade-offs, which is written as a new ADR with status accepted and approved_by the user. Anything else stays open. A deferred decision may be written as a proposed ADR that resolves nothing. When the user later decides a question that has a proposed ADR, the decision is a new accepted ADR that supersedes the proposed one; the user's decision is the approval. A DEC reopened because its mandated platform changed (§4) is resolved again by that setting only when the user confirms that the setting as it now stands answers it, as for an existing ADR in (2); with no user it stays open. An ADR or setting resolves only the question it answers, never every question that cites the same requirement."
   - id: BEH-08
     status: active
-    rule: "Propose the outcome with reasons: reuse (the existing ARCH covers the PRD unchanged), amend (the existing ARCH needs new or changed questions or components) or create (no ARCH covers the system). Reusing one platform or component is not a reuse outcome. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing."
+    rule: "Propose the outcome with reasons: reuse (the existing ARCH links this PRD and covers it unchanged, and this run changes no DEC), amend (the existing ARCH needs new or changed questions or components, or this run records a decision on an existing DEC or reopens one) or create (no ARCH covers the system). Offer reuse only as BEH-04 allows. Reusing one platform or component is not a reuse outcome. When any DEC's state or resolved_by changes in this run, the outcome is amend: if reuse was chosen earlier, say why and ask again. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When reuse is proposed, and in the handoff when it is confirmed, name every active requirement of the PRD that no active blocking DEC cites, and say that it is reported ready with no architectural question holding it back. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing."
   - id: BEH-09
     status: active
-    rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review. A review record, written when the user confirms reuse against a newer PRD version, makes exactly three changes: the frontmatter PRD link moves to the reviewed version, outcome becomes reuse, and one Change Log row is added, 'Reviewed against PRD-NNN vN: reuse confirmed, no architectural change', ending with the policy resolution line. Everything else stays byte-identical, including version, updated, status, the approval fields and every item with its links, which still show as suspect. It is a relink, not an amendment, so an approved ARCH stays approved. With no user, nothing is confirmed and nothing is written."
+    rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review. Those transitions are a decision recorded on an existing DEC (BEH-07), and reopening a DEC whose resolver no longer counts: a superseded ADR, or a mandated platform that changed (§4). A review record, written when the user confirms reuse against a newer PRD version, makes exactly three changes: the frontmatter PRD link moves to the reviewed version, outcome becomes reuse, and one Change Log row is added, 'Reviewed against PRD-NNN vN: reuse confirmed, no architectural change', ending with the policy resolution line. Everything else stays byte-identical, including version, updated, status, the approval fields and every item with its links, which still show as suspect. It is a relink, not an amendment, so an approved ARCH stays approved. With no user, nothing is confirmed and nothing is written."
   - id: BEH-10
     status: active
     rule: "Describe the components that separate epics must share, as CMP items with a Mermaid overview. Link each to the quality drivers (NFR items) and constraints it serves, and to the POL setting when a mandated platform applies (relation constrains). Give each CMP its kinds (§4): one or more of user-interface, service, platform, api, relational-store, data-store and external. When a kind is uncertain, ask. With no user present, record only the kinds the PRD or the evidence states; when none is certain, leave kinds out and add [NEEDS CLARIFICATION: kinds of CMP-NN] to the open questions. When amending, existing components stay unchanged, with or without kinds."
   - id: BEH-11
     status: active
-    rule: "Compute readiness with the §4 rule for every requirement cited by any DEC. Check each ADR's current status and superseded_by at the time of writing; a question whose resolving ADR has been superseded is reported open."
+    rule: "Compute readiness with the §4 rule for every requirement cited by any DEC. Check each ADR's current status and superseded_by, and each mandated-platform setting against the platform the ARCH recorded for it (§4), at the time of writing; a question whose resolving ADR has been superseded, or whose mandated platform changed, is reported open."
   - id: BEH-12
     status: active
     rule: "When architecture shows a requirement is infeasible, too costly or conflicting, write the proposed change in ARCH §7 and in the handoff, addressed to the PRD owner. Never edit the PRD. A manual PRD amendment, approved by its owner, is how it changes in v1."
@@ -255,8 +265,8 @@ errors:
   - id: ERR-01
     status: active
     condition: "The PRD ID given does not exist"
-    handling: "List the available PRD IDs and write nothing"
-    user_result: "The list of PRDs"
+    handling: "List the available PRD IDs and write nothing; when no PRD exists, say so and point to /devforgeai:prd"
+    user_result: "The list of PRDs, or that none exists yet"
   - id: ERR-02
     status: active
     condition: "Policy is invalid (including any schema error the shared validation script reports), contradictory or disallowed (ADR-003 A4), or the script can't run while approved policy exists"
@@ -275,7 +285,7 @@ errors:
   - id: ERR-05
     status: active
     condition: "Validation still fails after the initial check and three repair cycles, or an error can't be repaired"
-    handling: "Stop. Keep the user's architectural choices and unrelated content, and never leave approved or accepted on content that failed validation. A new ARCH stays draft. An amended ARCH keeps the status BEH-09 gave it, so an approved ARCH whose content changed stays in-review with approved_by and approved_on cleared; a review record that fails validation is treated the same way. A new ADR the user accepted becomes proposed with empty approval fields and is kept, and the DEC state and resolved_by that depended on it return to open. When that ADR superseded an existing ADR in the same run, the supersession is rolled back: the older ADR is restored byte-for-byte to its state before the run; the replacement ADR is kept as proposed with approved_by, approved_on and supersedes cleared, and its prose and Status history still record the intended replacement and the user's decision; each DEC that depended on the replacement returns to open with resolved_by [] and is never reconnected to the older ADR. Add one matching audit record (Change Log row, and Status history row for an ADR). End with a validation-failure report listing the checks, the repairs and the unresolved errors; skip the readiness handoff and never present readiness as validated"
+    handling: "Stop. Keep the user's architectural choices and unrelated content, and never leave approved or accepted on content that failed validation. A new ARCH stays draft. An amended ARCH keeps the status BEH-09 gave it, so an approved ARCH whose content changed stays in-review with approved_by and approved_on cleared; a review record that fails validation is treated the same way. A new ADR the user accepted becomes proposed with empty approval fields and is kept, and the DEC state and resolved_by that depended on it return to open. When that ADR superseded an existing ADR in the same run, the supersession is rolled back: the older ADR is restored byte-for-byte to its state before the run; the replacement ADR is kept as proposed with approved_by, approved_on and supersedes cleared, and its prose and Status history still record the intended replacement and the user's decision; each DEC that depended on the replacement returns to open with resolved_by [] and is never reconnected to the older ADR; and the EVD item that recorded the older ADR for that supersession is kept, with status deprecated and its other fields unchanged, because item IDs are never deleted. Add one matching audit record (Change Log row, and Status history row for an ADR). End with a validation-failure report listing the checks, the repairs and the unresolved errors; skip the readiness handoff and never present readiness as validated"
     user_result: "A validation-failure report: the file paths, the checks and repairs made, the unresolved errors and the statuses left, including any supersession rolled back; no readiness presented as validated"
   - id: ERR-06
     status: active
@@ -312,6 +322,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 5 | Not run. Changed: §4 (a mandated platform counts only while it is the one the ARCH recorded), §5 (Bash for scoped read-only commands), BEH-01, BEH-04, BEH-07, BEH-08, BEH-09, BEH-11, ERR-01, ERR-05 and VER-19; new: VER-20 (manual) and VER-21 to VER-25. The rows below record versions 1 to 4 |
 | Version 4 | Claude: SKL-003 v4's automated VER items ran on 2026-09-29, 16 of 16 at 1.00 (the SKL-003 v4 row below); the manual VER-12, VER-13 and VER-19 are not run. SKL-003 v5, the shared-schema change (PR #25), still implements this version; its 3 policy cases were requalified on 2026-09-30, 3 of 3 at 1.00 (the SKL-003 v5 row below). Codex: not run; the Codex port of the shared-schema change (PR #26) has its own native evaluation (`src/codex/devforgeai/shared-schema-update-evidence/20260930/REPORT.md`). Changed: ERR-05 (a supersession recorded in a run that then fails validation is rolled back); new: VER-19 (manual regression case) |
 | Version 3 | Not run. Changed: BEH-03, BEH-14, ERR-02, ERR-05, VER-12 (f) and (i); new: VER-17 and VER-18. The rows below record versions 1 and 2 |
 | Structural: schemas, templates, fixtures and cross-document links | Fixtures: `src/tests/architecture/make_evals.py` validates all 15 against `src/schemas/` before it writes the cases. Schemas, templates and cross-document links: not run |
@@ -319,8 +330,8 @@ quality_responses:
 | Behavioural: SKL-003 v4, architecture tag run, 2026-09-29 | `tmp/eval-results/arch-v4-3run-20260929T141038/` (local, untracked). Started 14:10:39 EDT (18:10:39 UTC); Claude Code 2.1.284; plugin 0.6.0; 16 cases (VER-01 to VER-11, VER-14 to VER-18); 3 runs per arm against the no-plugin baseline; threshold 0.8; judge model sonnet; concurrency 4; $41.41; 1,661 s. **All 16 cases scored 1.00 with the plugin in every run**, with no errors; mean Δ +0.63. VER-17 `policy-bad-date` Δ +0.25 (the baseline also stops in most runs, so it shows the contract more than a gain); VER-18 `failed-amendment-stays-in-review` Δ +0.56. **Bound:** `src/tests/prd/record_revision.sh` wrote the commit `7e87cf4` (PR #16's merge), the plugin digest `dc301097547da60d3a3e0a319e61de14e781d487058b3661454cc3db03d22dbe` and a copy of the case files into the folder before the run. This qualifies SKL-003 v4 against SPEC-003 v4's automated items. SKL-003 v4 was approved by Bryan on 2026-09-29, after the manual VER-19 and VER-12 (i) runs |
 | Behavioural: SKL-003 v5, policy-case requalification, 2026-09-30 | `tmp/eval-results/architecture-requal-20260930T135333-<case>/` (local, untracked), one folder per case, run by Bryan from a plain terminal with the shared-schema worktree's `tmp/requalify.sh`, after the prd cases. Started 15:00:32 EDT (19:00:32 UTC); Claude Code 2.1.286; plugin 0.7.0; the 3 policy cases (VER-02 `org-a-policy`, VER-03 `org-b-policy`, VER-17 `policy-bad-date`); 3 runs per arm against the no-plugin baseline; threshold 0.8; judge model sonnet; concurrency 1; $8.32; 1,401 s. **All 3 cases scored 1.00 with the plugin in every run**, with no errors; mean Δ +0.75 (VER-02 +1.00, VER-03 +1.00, VER-17 +0.25; VER-17's baseline again stops in most runs). **Bound:** `src/tests/prd/record_revision.sh` wrote the commit `a19949b` (PR #25's head; `src/` is identical at its merge `c2e6751`), the plugin digest `d4c23f78826894bbcdd2a29429b00689ba37601db3e8673ac78d29f2d43496b5` and a copy of the case files into each folder before its run. Every change from v4 is in policy validation and its reference text, so the other 13 cases last ran on v4 (the row above). **After the run:** the Codex port's evaluation found that `scripts/validate_policy.py` accepted `.nan` as `testing.coverage_threshold`; PR #27 (`4c01126`) made it a `schema` error, with no version bump. None of these 3 fixtures contains a NaN or a `testing.*` key, so the run wasn't repeated (Bryan, 2026-09-30). SKL-003 v5 was approved by Bryan on 2026-09-30 |
 | Behavioural: SKL-003 v3, stopped run, 2026-09-29 | `tmp/eval-results/arch-v3-3run-20260929T134349/` in the build worktree (local, untracked). Commit `9bdb87a`, plugin digest `89919cc5e1e9e30a51e168fc2afbd923dd0ce7ddef0c92e66cfc9d531b00400c`, 16 cases, 3 runs per arm, concurrency 4. Stopped by Bryan after 1,108 s ($27.17), because version 4 changed the candidate; the aggregate is marked partial (interrupted). Ten cases had finished at 1.00 in all three plugin runs, including VER-17 and VER-18; `prd-change-handed-back` had one run at 1.00 before the stop cut the other two; five cases never started. It doesn't qualify SKL-003 v4 |
-| Behavioural: SKL-003 v2 (component kinds), architecture tag run, 2026-09-29 | `src/claude/DevForgeAI/evals/results/2026-09-29T15-14-40-867Z/` (local, untracked). Started 11:14:40 EDT (15:14:40 UTC); Claude Code 2.1.284; 14 cases; 3 runs per arm against the no-plugin baseline; threshold 0.8; concurrency 1; $34.92; 5,634 s. **All 14 cases scored 1.00 with the plugin**, with no failed grader in the with-plugin arm; mean Δ +0.64. `cmp-kinds` (VER-01's kinds clause) passed in all three `creates-arch` runs. **Revision:** commit `58647d3` at the start (PR #10 merged), then `5074a5b` from 11:16:17; `src/claude` is identical in both, and the plugin digest was `ebdb88382160091db135a78d3ae976727058bdb1aaf3037b899141b7eda5c92d` at 11:19 EDT. This qualifies SKL-003 v2 against SPEC-003 v2's automated items; version 3's changes (ERR-05, BEH-14, the shared policy script, VER-17, VER-18) aren't built yet |
-| Behavioural: earlier run, mixed source, 2026-09-29 | `src/claude/DevForgeAI/evals/results/2026-09-29T13-36-54-382Z/` (local, untracked). Started 09:36:54 EDT on PR #10's branch; the checkout switched to main at 10:05:04, 28 minutes into a 97-minute run, so its later cases tested the version-1 skill. 14/14 ≥ 0.8, mean Δ +0.66, $34.88; `hands-off-to-epic` 0.92, with the llm grader `handoff-quality` failing in one run (judge votes PASS FAIL FAIL). Not a qualification of either revision; kept as recorded. An interrupted third attempt (1 run, $0.40, `tmp/eval-results/arch-kinds-20260929T113839/`) is not a result |
+| Behavioural: SKL-003 v2 (component kinds), architecture tag run, 2026-09-29 | `tmp/eval-results/2026-09-29T15-14-40-867Z/` (local, untracked; moved from `src/claude/DevForgeAI/evals/results/` with version 5). Started 11:14:40 EDT (15:14:40 UTC); Claude Code 2.1.284; 14 cases; 3 runs per arm against the no-plugin baseline; threshold 0.8; concurrency 1; $34.92; 5,634 s. **All 14 cases scored 1.00 with the plugin**, with no failed grader in the with-plugin arm; mean Δ +0.64. `cmp-kinds` (VER-01's kinds clause) passed in all three `creates-arch` runs. **Revision:** commit `58647d3` at the start (PR #10 merged), then `5074a5b` from 11:16:17; `src/claude` is identical in both, and the plugin digest was `ebdb88382160091db135a78d3ae976727058bdb1aaf3037b899141b7eda5c92d` at 11:19 EDT. This qualifies SKL-003 v2 against SPEC-003 v2's automated items; version 3's changes (ERR-05, BEH-14, the shared policy script, VER-17, VER-18) aren't built yet |
+| Behavioural: earlier run, mixed source, 2026-09-29 | `tmp/eval-results/2026-09-29T13-36-54-382Z/` (local, untracked; moved from `src/claude/DevForgeAI/evals/results/` with version 5). Started 09:36:54 EDT on PR #10's branch; the checkout switched to main at 10:05:04, 28 minutes into a 97-minute run, so its later cases tested the version-1 skill. 14/14 ≥ 0.8, mean Δ +0.66, $34.88; `hands-off-to-epic` 0.92, with the llm grader `handoff-quality` failing in one run (judge votes PASS FAIL FAIL). Not a qualification of either revision; kept as recorded. An interrupted third attempt (1 run, $0.40, `tmp/eval-results/arch-kinds-20260929T113839/`) is not a result |
 | Behavioural: manual VER items (VER-12, VER-13, VER-19) | 2026-09-29 (Claude Code 2.1.285, a copy of the plugin at `7e87cf4` loaded with `--plugin-dir`, driven through the owner's cmux tab by session fdbef416-eebb-4053-95ce-624a311d72d5). **VER-19: pass**, in session `b17fd6d2-eaa9-4eec-9a30-e887ce30e3da` with the scaffold in `src/tests/architecture/manual/failed-supersession/`. The user approved superseding ADR-001 and chose built-in sign-in for DEC-01; validation found CMP-01's `status: current` and stopped after check 1. Afterwards: ADR-001 byte-identical to the fixture; ADR-002 proposed, with approved_by, approved_on and supersedes cleared, and its prose and Status history keeping the intended replacement and Priya Nair's decision; DEC-01 open with `resolved_by: []`; ARCH-001 in-review with the approval cleared, every existing item unchanged, and the audit row naming the rollback; a validation-failure report with no readiness. Notes: the operator cancelled the question form by mistake, so the answers came in a follow-up message; the EVD-04 that recorded the supersession was kept, deprecated, which ERR-05 doesn't specify. **VER-12 (i): pass** in the same run (a decision accepted before validation, then ERR-05). **VER-12 (f)**: `src/tests/prd/test_shared_files.py` passes at `7e87cf4`. The other VER-12 items and VER-13: not run |
 | Demonstration vs ADR-003 | ADR-003's demonstration plan (its Organization A and B pass criteria) is refined by VER-02 and VER-03, not met literally. Under Organization A the identity-provider question resolves by `POL-001#SET-01` while session revocation stays open, with no reuse outcome (`outcome: null`). Under Organization B the identity-provider question is an open DEC, not a `[NEEDS ADR]` marker. ADR-003 is unchanged |
 
@@ -510,13 +521,77 @@ verifications:
       - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
   - id: VER-19
     status: active
-    obligation: "Manual regression case, failed supersession: a fresh fixture copy where the approved ARCH-001's DEC-01 is resolved_by an accepted ADR-001, and its existing CMP-01 has a value the self-check rejects, which an amendment must leave unchanged. The user chooses to amend ARCH-001, confirms that outcome, and explicitly approves replacing ADR-001 with a new decision for DEC-01; the skill records the supersession, and validation then fails. Afterwards: ADR-001 is byte-identical to its state before the run (status accepted, superseded_by null, the same Status history); the replacement ADR is kept with status proposed, approved_by empty, approved_on null and supersedes [], and its prose and Status history record the intended replacement of ADR-001 and the user's decision; DEC-01 is open with resolved_by [], not reconnected to ADR-001; ARCH-001 is in-review with approved_by and approved_on cleared, with the audit record; and the reply is a validation-failure report that names the rollback and presents no readiness as validated. A run with no user never supersedes an ADR (BEH-07, BEH-16), so this case is run by hand."
+    obligation: "Manual regression case, failed supersession: a fresh fixture copy where the approved ARCH-001's DEC-01 is resolved_by an accepted ADR-001, and its existing CMP-01 has a value the self-check rejects, which an amendment must leave unchanged. The user chooses to amend ARCH-001, confirms that outcome, and explicitly approves replacing ADR-001 with a new decision for DEC-01; the skill records the supersession, and validation then fails. Afterwards: ADR-001 is byte-identical to its state before the run (status accepted, superseded_by null, the same Status history); the replacement ADR is kept with status proposed, approved_by empty, approved_on null and supersedes [], and its prose and Status history record the intended replacement of ADR-001 and the user's decision; DEC-01 is open with resolved_by [], not reconnected to ADR-001; the EVD item the run added for ADR-001 is still present, with status deprecated and its other fields as written, and no EVD item is deleted; ARCH-001 is in-review with approved_by and approved_on cleared, with the audit record; and the reply is a validation-failure report that names the rollback and presents no readiness as validated. A run with no user never supersedes an ADR (BEH-07, BEH-16), so this case is run by hand."
     level: manual
     covers:
       - ERR-05
       - BEH-16
     upstream:
       - {id: STORY-003, item: AC-03, relation: verifies, version: 3, hash: null}
+  - id: VER-20
+    status: active
+    obligation: "Manual, deciding an open question later: a fresh fixture copy where an approved ARCH-001 already links PRD-001 at its current version, its DEC-02 is open and blocking, and PRD-001 is unchanged. The user runs the skill for PRD-001 without naming an outcome. The skill recommends amending ARCH-001 because DEC-02 is open, presents DEC-02's options with their trade-offs, and the user picks one. Afterwards: a new ADR is accepted with approved_by the user; DEC-02 is resolved_by it; ARCH-001's version is one higher, it is in-review with approved_by and approved_on cleared, outcome is amend, and every existing item is byte-identical except DEC-02's state and resolved_by, logged in the Change Log; and the handoff reports ready each requirement that only DEC-02 blocked. In a second fresh copy where DEC-02's deferral is recorded as a proposed ADR, the new accepted ADR supersedes it, and the proposed ADR changes only status: superseded, superseded_by and one Status history row."
+    level: manual
+    covers:
+      - BEH-04
+      - BEH-07
+      - BEH-08
+      - BEH-09
+      - BEH-11
+    upstream:
+      - {id: STORY-003, item: AC-03, relation: verifies, version: 3, hash: null}
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
+  - id: VER-21
+    status: active
+    obligation: "Reuse needs a link to this PRD: ARCH-001 covers the clinic system and its frontmatter links only PRD-001; PRD-002, for the same product, is linked by no ARCH. The prompt runs the skill for PRD-002, chooses to reuse ARCH-001, confirms the reuse outcome and says to proceed without questions. Nothing is written: ARCH-001 is byte-identical and no ARCH-002.md exists. The reply says that reuse needs an ARCH that links PRD-002, and offers amending ARCH-001 or creating a new ARCH. Eval case reuse-needs-prd-link: regex on the file and last_message, file_exists false for ARCH-002.md."
+    level: e2e
+    covers:
+      - BEH-04
+      - BEH-08
+    upstream:
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 2, hash: null}
+  - id: VER-22
+    status: active
+    obligation: "Reuse over a requirement no question cites: as VER-15, but PRD-001 version 2 also adds FR-003, which no DEC of ARCH-001 cites. The prompt chooses to reuse ARCH-001, confirms the reuse outcome and says to proceed without questions. The review record is written as in VER-15, and the reply names FR-003 as reported ready with no architectural question citing it. Eval case reuse-names-uncited: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-08
+      - BEH-09
+      - BEH-15
+    upstream:
+      - {id: STORY-003, item: AC-09, relation: verifies, version: 3, hash: null}
+      - {id: STORY-005, item: AC-12, relation: verifies, version: 2, hash: null}
+  - id: VER-23
+    status: active
+    obligation: "No PRD yet: docs/specs/prd/ holds no PRD, and the prompt runs the skill with no PRD ID. Nothing is written under docs/specs/, and the reply says that no PRD exists and points to /devforgeai:prd. Eval case no-prd-exists: file_exists false for docs/specs/arch/ARCH-001.md, regex on last_message."
+    level: e2e
+    covers:
+      - BEH-01
+      - ERR-01
+    upstream:
+      - {id: STORY-003, item: AC-01, relation: verifies, version: 3, hash: null}
+  - id: VER-24
+    status: active
+    obligation: "A changed mandated platform blocks reuse: an approved ARCH-001 links PRD-001 at its current version; its DEC-01 is resolved_by POL-001#SET-01, and the last resolution line in its Change Log records platform A for identity and authentication. POL-001 is now at a newer version whose SET-01 mandates platform B for the same capability. The prompt chooses to reuse ARCH-001, confirms the reuse outcome and says to proceed without questions. Nothing is written: ARCH-001 is byte-identical. The reply says that DEC-01's mandated platform changed, naming POL-001#SET-01, and offers amending ARCH-001 instead of reuse. Eval case changed-platform-blocks-reuse: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-04
+      - BEH-08
+    upstream:
+      - {id: STORY-003, item: AC-02, relation: verifies, version: 3, hash: null}
+      - {id: STORY-003, item: AC-06, relation: verifies, version: 3, hash: null}
+  - id: VER-25
+    status: active
+    obligation: "A changed mandated platform reopens its question: the fixture of VER-24, but the prompt chooses to amend ARCH-001, confirms that outcome and says to proceed without questions. In the amended ARCH-001, DEC-01 is open with resolved_by [], since no user confirmed SET-01 as it now stands; every other existing item is byte-identical; the new Change Log row logs DEC-01's transition, naming POL-001#SET-01 and both platforms. The handoff reports FR-001 blocked by DEC-01. Eval case changed-platform-reopens: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-07
+      - BEH-09
+      - BEH-11
+    upstream:
+      - {id: STORY-003, item: AC-02, relation: verifies, version: 3, hash: null}
+      - {id: STORY-003, item: AC-06, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -542,6 +617,17 @@ thresholds.
 in a run that fails validation (SKL-003 v4), and VER-19 is run by hand. The Codex architecture skill
 follows the same contract.
 
+**Version 5** (after approval): SKL-003 v6 implements the changed §4, §5, BEH and ERR items.
+1. In `src/tests/architecture/make_evals.py`, add the cases for VER-21 to VER-25 and VER-20's
+   fixtures, and move the hand-written `cmp-kinds` grader into the generator (regenerating must leave
+   the existing cases unchanged). Run the new cases on SKL-003 v5 with `--runs 1 --ablation none`; a
+   case that already passes stays as a regression guard.
+2. Build SKL-003 v6, with the skill-only fixes of the 2026-10-01 review. Among them is decision D1: a
+   request that names an accepted ADR while saying to proceed without questions leaves the DEC open,
+   with the ADR recorded in its `notes`.
+3. Evaluate the whole suite, cheapest first, then run VER-12 (a), (j) and (k), VER-19 and VER-20 by
+   hand. The Codex architecture skill follows the same contract, through a Codex session.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -555,7 +641,10 @@ follows the same contract.
 
 ## 13. Open questions
 
-- None. (PRD-001 v8 records FR-013 as must/current, decided by Bryan on 2026-09-24.)
+- Whether the description needs a "Not for…" clause (decision D4, 2026-10-01). Bryan runs a
+  near-miss trigger probe from a plain terminal. §5 changes, with a VER item, only if the skill loads
+  for general architecture advice.
+- Resolved: PRD-001 v8 records FR-013 as must/current, decided by Bryan on 2026-09-24.
 
 ## Change Log
 
@@ -573,3 +662,4 @@ follows the same contract.
 | 4 | 2026-09-29 | Bryan | Approved | status |
 | 4 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Record-only update, with no version bump: §9 records SKL-003 v4's bound 3-run architecture eval (16 of 16 at 1.00) and the stopped SKL-003 v3 run, kept apart, and the manual runs: VER-19 pass, VER-12 (i) pass in the same run, VER-12 (f) by test; the other VER-12 items and VER-13 not run; and Bryan's approval of SKL-003 v4 on 2026-09-29. No item changed | §9 |
 | 4 | 2026-09-30 | claude-code (session bd9e3bd9-6b79-4be2-b310-a8a29d143b92) | Record-only update, with no version bump: §9 records SKL-003 v5's bound requalification on its 3 policy cases (3 of 3 at 1.00), the NaN finding that PR #27 fixed after the run, and Bryan's approval of SKL-003 v5 on 2026-09-30. No item changed | §9 |
+| 5 | 2026-10-01 | claude-code (session 388b2532-f519-4deb-b4ce-3e294d7e3b10) | Bryan's decisions of 2026-10-01 on the architecture skill review, and on issue #19. Deciding an existing question is an amendment: BEH-04 recommends amend when a user is present and a blocking DEC is open, BEH-08 makes the outcome amend whenever a DEC changes, and BEH-07 lets a later decision supersede a proposed ADR (D2; manual VER-20). Reuse is offered only for an ARCH that already links this PRD, and the reply names the requirements no DEC cites, which report ready (D3; VER-21, VER-22). A mandated platform counts only while it is the platform and capability the ARCH recorded; otherwise readiness reports its DEC open, reuse isn't offered, and an amendment reopens the DEC, which stays open until a user confirms the setting as it now stands, as for a superseded ADR (§4, BEH-04, BEH-07, BEH-09, BEH-11; VER-24, VER-25). SPEC-004's readiness check must follow this §4 rule. With no PRD at all the skill says so and points to /devforgeai:prd (BEH-01, ERR-01; VER-23). Bash may run scoped read-only commands, because Claude Code may provide no Glob or Grep tool (§5). Issue #19, Option A: the EVD item of a rolled-back supersession is kept and deprecated (ERR-05, VER-19). The two §9 runs stored in the plugin's evals/results/ moved to tmp/eval-results/. Unchanged by decision: D1 (a request that names an ADR while saying to proceed without questions leaves the DEC open, a skill-only clause) and D4 (the description waits on Bryan's trigger probe, §13). SPEC-009 and SPEC-011 relinked to version 5 (mechanical); SPEC-004's link moves with SPEC-004 v2. Awaiting Bryan's approval | §4, §5, BEH-01, BEH-04, BEH-07, BEH-08, BEH-09, BEH-11, ERR-01, ERR-05, VER-19 to VER-25, §9, §11, §13, frontmatter, status |

@@ -4,7 +4,7 @@
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 v3 and SPEC-003 v4 validate against spec.schema.json, and every BEH, ERR and QR item is covered
+- SPEC-002 v3 and SPEC-003 v5 validate against spec.schema.json, and every BEH, ERR and QR item is covered
   by a VER item.
 
 Byte-identity of the shared policy files is in test_shared_files.py. Run from the repository root:
@@ -24,7 +24,7 @@ SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
 TARGETS = {"prd": ("SKL-002", 3, "SPEC-002", 3), "architecture": ("SKL-003", 5, "SPEC-003", 4)}
-SPEC_STATE = {"SPEC-002": (3, "approved"), "SPEC-003": (4, "approved")}
+SPEC_STATE = {"SPEC-002": (3, "approved"), "SPEC-003": (5, "in-review")}
 
 
 class _Loader(yaml.SafeLoader):
