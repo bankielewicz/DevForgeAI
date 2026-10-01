@@ -1152,12 +1152,13 @@ PASS if all of these hold:
   each once, with its reason and one next action: FR-005 is later, with no action for the current
   release; FR-006 is won't have, with none for this release; FR-007 and NFR-002 are undecided, and
   the PRD owner decides.
-- FR-005's row does not call it undecided and doesn't ask the PRD owner to decide its priority: a
-  later requirement's null priority is normal.
-- The reply asks the user no question about any of the four and doesn't ask them to decide a
-  priority or release.
+- FR-005's row doesn't call it undecided: a later requirement's null priority is normal.
+- The reply asks the user no question about any of the four.
+"The PRD owner decides" is the expected next action for FR-007 and NFR-002. It reports who owns the
+decision; it is not a question to the user, and it doesn't break any rule above.
 FAIL if any of the four is missing, has no next action, appears in more than one row, is put in an
-epic, if FR-005 is called undecided, or if the reply asks a question about any of them.
+epic, if FR-005 is called undecided, or if the reply asks the user a question about any of them, such
+as which priority or release one should have.
 """),
         },
     },
