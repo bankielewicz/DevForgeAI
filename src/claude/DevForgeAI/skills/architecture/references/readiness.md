@@ -159,9 +159,9 @@ still mandates the platform, for the capability, that the ARCH recorded for it.
 - **Name what reuse leaves uncited.** Reuse adds no DEC, so every active requirement that no active
   blocking DEC cites is reported ready. When proposing reuse, and in the report after it is
   confirmed, name each such requirement, marked "(no architectural question cites it)", so the user
-  sees what reuse makes ready without an architectural question. A new requirement that an existing
-  question affects needs a DEC of its own ("State changes when amending"), so reuse can't cover it,
-  even when confirmed: say why and ask for amend.
+  sees what reuse makes ready without an architectural question. Step 4 recommends amend when a new
+  requirement is one an existing question affects; a reuse the user confirms anyway stands, with
+  the marker.
 - **Deciding an open question later is an amendment.** Recording a decision on an existing DEC (means
   2 or 3) changes its `state` and `resolved_by`, which only an amendment may do. With a user present
   and a blocking DEC open, recommend amend at step 4. If reuse was chosen and a DEC then changes, the

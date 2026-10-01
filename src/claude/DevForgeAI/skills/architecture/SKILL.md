@@ -249,8 +249,8 @@ With no user, only means 1 applies.
 Propose one outcome, with reasons:
 - **reuse:** step 4 can offer it (the ARCH links this PRD, and no mandated platform it relies on
   changed), it covers the PRD with no new or changed question, and no DEC changes in this run. Once
-  the user confirms reuse, new requirements that no existing question affects don't override it:
-  name them (below);
+  the user confirms reuse, new requirements don't override it: name each one no active blocking DEC
+  cites (below);
 - **amend:** the existing ARCH needs new or changed questions or components, or a DEC's `state` or
   `resolved_by` changes in this run (a decision recorded, or a resolver that no longer counts);
 - **create:** no ARCH covers the system.
