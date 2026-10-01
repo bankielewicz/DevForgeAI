@@ -1,0 +1,18 @@
+{
+  "status": "NOT_RUN",
+  "reason": "Plugin Creator validator is absent from installed skills and plugin bundles; no equivalent callable validator was found. Manifest syntax and skill validation are separate checks.",
+  "command": [
+    "rg",
+    "--files",
+    "--hidden",
+    "/home/bryan/.codex/skills",
+    "/home/bryan/.codex/plugins/cache",
+    "-g",
+    "*validate_plugin*",
+    "-g",
+    "*plugin*validat*"
+  ],
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": ""
+}

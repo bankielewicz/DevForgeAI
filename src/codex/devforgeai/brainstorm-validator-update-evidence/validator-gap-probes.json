@@ -1,0 +1,50 @@
+[
+  {
+    "probe": "authors-not-a-list",
+    "expected_by_output_rules": "REJECT",
+    "results": {
+      "codex": {
+        "validator_errors": [
+          [
+            10,
+            "authors must be a non-empty list of quoted names, e.g. [\"Bryan\", \"codex\"]"
+          ]
+        ],
+        "accepted": false,
+        "fixture": "import-evidence/validator-probes/authors-not-a-list/claude/docs/specs/brainstorm/BRN-001.md"
+      }
+    }
+  },
+  {
+    "probe": "unknown-provenance-key",
+    "expected_by_output_rules": "REJECT",
+    "results": {
+      "codex": {
+        "validator_errors": [
+          [
+            15,
+            "generated_by.unexpected is not allowed: generated_by holds only tool, model and session"
+          ]
+        ],
+        "accepted": false,
+        "fixture": "import-evidence/validator-probes/unknown-provenance-key/claude/docs/specs/brainstorm/BRN-001.md"
+      }
+    }
+  },
+  {
+    "probe": "placeholder-in-change-log",
+    "expected_by_output_rules": "REJECT",
+    "results": {
+      "codex": {
+        "validator_errors": [
+          [
+            95,
+            "leftover template placeholder '<change>': replace it with content or [NEEDS CLARIFICATION: question]"
+          ]
+        ],
+        "accepted": false,
+        "fixture": "import-evidence/validator-probes/placeholder-in-change-log/claude/docs/specs/brainstorm/BRN-001.md"
+      }
+    }
+  }
+]

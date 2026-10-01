@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "found": {
+    "except yaml.YAMLError": false,
+    "table_row_exemption": false
+  }
+}

@@ -5,7 +5,7 @@ title: "Documents updater skill"
 status: approved       # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-09-28
-updated: 2026-09-28
+updated: 2026-10-01
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -281,9 +281,10 @@ quality_responses:
 | Kind | Status |
 |---|---|
 | Structural: frontmatter and provenance against the schemas | Pass on 2026-09-28, after `spec.schema.json` made VER `upstream` conditional (§13) |
-| Unit: `check_docs.py` (VER-09) | 23 of 23 tests pass on 2026-09-28 |
+| Unit: `check_docs.py` (VER-09) | 23 of 23 tests pass on 2026-09-28. PR #35 (2026-10-01) fixed four false errors, each with a test that failed first: a footnote definition read as a broken link, repeated sub-bullets read as duplicate `Unreleased` entries, an empty `Unreleased` section in a changelog, and a leading horizontal rule read as front matter. 27 of 27 pass, and the old and new script give identical output on all of the repository's tracked Markdown |
 | Behavioural: automated VER items, one eval case each | 1 run with the no-plugin baseline on 2026-09-28: 8 of 8 cases at 1.00 with the plugin, mean Δ +0.16, $2.95 (`tmp/eval-results/du1`). Without the plugin, VER-04, VER-05 and VER-07 also scored 1.00, so VER-04 and VER-05 were then made harder (an unmeasured "3x faster" comment; an untagged 1.1.0 manifest bump). Rerun of those two, 1 run each: VER-05 1.00 with and 0.92 without (the baseline added no version or date but left out the breaking marker); VER-04 1.00 with and without. VER-04 and VER-07 therefore show the contract is met, not a gain over plain Claude. 3 runs with the baseline on 2026-09-28 (Claude Code 2.1.283): 8 of 8 cases at 1.00 with the plugin in every run, mean Δ +0.15, $8.71, no run errors (`tmp/eval-results/du3`) |
-| Behavioural: manual VER items (VER-10, VER-11, VER-12) | Not run. The skill was deployed on 2026-09-28 and the deployed copy matches `src/` |
+| Behavioural: VER-03 requalification, 2026-10-01 | PR #35 made VER-03's case stricter. Before, a run that rewrote the README or CHANGELOG cosmetically still passed. `readme-unchanged` and `changelog-unchanged` now pin both seeded files whole, replacing `changelog-single-entry` and `changelog-no-internal-entry`. Bryan ran it from a plain terminal; Claude Code 2.1.286, plugin 0.7.0, judge model sonnet. 1 run without the baseline: 1.00, $0.27 (`tmp/eval-results/du-ver03-20261001T110215-quick`). 3 runs with the baseline: 1.00 with the plugin in every run and 0.75 without, Δ +0.25, $1.14, 118 s, no run errors (`tmp/eval-results/du-ver03-20261001T110215`). Without the plugin, both files also stayed unchanged; its only miss was the completion response. Both folders are local and untracked, in the worktree `.claude/worktrees/fix-docs-checker`. **Bound:** `record_revision.sh` wrote the commit `17696dd` (PR #35's head) and the plugin digest `29b30105f39e26d9eebb749b9b06d8f28e116923ccdce2d965f9beaa3340e791`. The skill, its eval cases and its tests are identical at the merge `6d80f9f` |
+| Behavioural: manual VER items (VER-10, VER-11, VER-12) | Not run. The skill was deployed on 2026-09-28 and the deployed copy matched `src/`. PR #35 then changed `scripts/check_docs.py`, so redeploy before running them |
 
 Each automated VER item has one eval case under `evals/documents-updater/`, tagged
 `documents-updater` and `ver-NN`. Runs are non-interactive and start in an empty workspace, so each
@@ -435,3 +436,4 @@ owner's rsync step (ADR-001).
 |---|---|---|---|---|
 | 1 | 2026-09-28 | claude-code (session 1153e47a-e403-45d8-ad65-36549adadb4d) | Initial draft from docs/specs/repository-documentation-update-workflow.md, requested by Bryan. Skill, templates, validator, unit tests and eval cases written. Checked: SKILL.md frontmatter and provenance.yaml validate against their schemas; 23 of 23 check_docs.py tests pass. Smoke test, not a `claude plugin eval`: subagents followed SKILL.md on the fixtures of VER-01 to VER-07, and every regex and file_exists grader passed on their output (the llm and tool_used graders were not run). The instructions were revised from their notes and from plugin-validator and skill-reviewer reports. Evaluated from a plain terminal (§9). §13 resolved by Bryan: the chain's last skill recommends this skill, which runs only on request; spec.schema.json requires VER upstream only when a story is specified. Awaiting Bryan's approval | all |
 | 1 | 2026-09-28 | Bryan | Approved | status |
+| 1 | 2026-10-01 | claude-code (session eb8eb981-3457-4d9f-998f-8e3f93548784) | Status update only, at Bryan's instruction, with no version bump. §9 records PR #35, which fixed four `check_docs.py` false errors (27 of 27 tests pass) and pinned VER-03's README and CHANGELOG whole. It also records VER-03's bound requalification: 1.00 with the plugin in 3 of 3 runs, Δ +0.25. No requirement, behavior or VER item changed | §9 |

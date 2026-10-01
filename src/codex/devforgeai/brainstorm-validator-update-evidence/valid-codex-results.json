@@ -1,0 +1,31 @@
+[
+  {
+    "environment": "user-site",
+    "flags": [],
+    "yaml_probe_exit": 0,
+    "yaml_stdout": "6.0.3\n/home/bryan/.local/lib/python3.12/site-packages/yaml/__init__.py\n",
+    "exit_code": 0,
+    "stdout": "OK: /tmp/devforgeai-brainstorm-validator-20261001/src/codex/devforgeai/brainstorm-validator-update-evidence/valid-codex/docs/specs/brainstorm/BRN-001.md\n",
+    "stderr": ""
+  },
+  {
+    "environment": "system-site",
+    "flags": [],
+    "yaml_probe_exit": 0,
+    "yaml_stdout": "6.0.1\n/usr/lib/python3/dist-packages/yaml/__init__.py\n",
+    "exit_code": 0,
+    "stdout": "OK: /tmp/devforgeai-brainstorm-validator-20261001/src/codex/devforgeai/brainstorm-validator-update-evidence/valid-codex/docs/specs/brainstorm/BRN-001.md\n",
+    "stderr": ""
+  },
+  {
+    "environment": "stdlib",
+    "flags": [
+      "-S"
+    ],
+    "yaml_probe_exit": 1,
+    "yaml_stdout": "",
+    "exit_code": 0,
+    "stdout": "OK: /tmp/devforgeai-brainstorm-validator-20261001/src/codex/devforgeai/brainstorm-validator-update-evidence/valid-codex/docs/specs/brainstorm/BRN-001.md\n",
+    "stderr": ""
+  }
+]

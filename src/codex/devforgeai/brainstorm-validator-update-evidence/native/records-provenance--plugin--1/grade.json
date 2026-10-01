@@ -1,0 +1,53 @@
+{
+  "case": "records-provenance",
+  "arm": "plugin",
+  "repeat": 1,
+  "status": "FAIL",
+  "checks": [
+    {
+      "name": "execution-complete",
+      "status": "PASS",
+      "evidence": "completed"
+    },
+    {
+      "name": "brn-exists",
+      "status": "PASS",
+      "evidence": "docs/specs/brainstorm/BRN-001.md: exists=True"
+    },
+    {
+      "name": "changelog-names-session",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "generated-by-filled",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "hashes-null",
+      "status": "PASS",
+      "evidence": "Pattern matched=False; expected=False"
+    },
+    {
+      "name": "reviewed-by-empty",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "session-substituted",
+      "status": "FAIL",
+      "evidence": "Pattern matched=True; expected=False"
+    },
+    {
+      "name": "independent-validator",
+      "status": "PASS",
+      "evidence": "OK: /tmp/devforgeai-brainstorm-validator-20261001/src/codex/devforgeai/brainstorm-validator-update-evidence/native/records-provenance--plugin--1/workspace/docs/specs/brainstorm/BRN-001.md"
+    },
+    {
+      "name": "host-provenance-match",
+      "status": "FAIL",
+      "evidence": "document={'tool': 'codex', 'model': 'unknown', 'session': '01a0f7ea-96ef-7680-b03d-56a1661283ea'}; host model=gpt-6-astra; host session=01a0f7ea-96ef-7680-b03d-56a1661283ea"
+    }
+  ]
+}
