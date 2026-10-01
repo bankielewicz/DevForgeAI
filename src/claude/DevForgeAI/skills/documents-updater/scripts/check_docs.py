@@ -30,8 +30,13 @@ PLACEHOLDER = re.compile(r"(?<!\$)\{\{[^{}\n]*\}\}")
 CODE_PLACEHOLDER = re.compile(r"(?<!\$)\{\{[A-Za-z][^{}\n]*\s[^{}\n]*\}\}")
 GUIDE = re.compile(r"<!--\s*guide:", re.I)
 INLINE_LINK = re.compile(r"(!?)\[((?:[^\[\]]|\[[^\]]*\])*)\]\(\s*(<[^>]*>|[^()\s]*(?:\([^()\s]*\)[^()\s]*)*)(?:\s+[\"'(][^)]*)?\s*\)")
-REF_DEF = re.compile(r"^ {0,3}\[([^\]]+)\]:\s*(<[^>]*>|\S+)")
+# A footnote definition ([^1]: text) is not a link reference definition.
+REF_DEF = re.compile(r"^ {0,3}\[(?!\^)([^\]]+)\]:\s*(<[^>]*>|\S+)")
 BULLET = re.compile(r"^\s*[-*+]\s+(.*)$")
+# A leading --- opens front matter only when a key follows; otherwise it is a horizontal rule.
+FRONT_MATTER_KEY = re.compile(r"[A-Za-z_][\w.-]*\s*:(?:\s|$)")
+UNRELEASED = re.compile(r"\[?unreleased\]?", re.I)
+CHANGELOG_NAME = re.compile(r"changelog.*\.md$", re.I)
 EXTERNAL = re.compile(r"^(?:[a-z][a-z0-9+.-]*:|//)", re.I)
 
 
@@ -50,7 +55,7 @@ class Doc:
 
     def _parse(self):
         start = 0
-        if self.lines and self.lines[0].strip() == "---":
+        if len(self.lines) > 1 and self.lines[0].strip() == "---" and FRONT_MATTER_KEY.match(self.lines[1]):
             for i in range(1, len(self.lines)):
                 if self.lines[i].strip() in ("---", "..."):
                     block = self.lines[1:i]
@@ -169,8 +174,12 @@ def check(path):
             add(line, "error", "empty heading")
 
     # Empty sections: a heading followed only by blank lines and comments, then a heading of
-    # the same or a higher level, or the end of the file.
+    # the same or a higher level, or the end of the file. A changelog's empty Unreleased section
+    # is a valid Keep a Changelog state.
+    is_changelog = CHANGELOG_NAME.match(doc.path.name)
     for idx, (line, level, text, _, after) in enumerate(doc.headings):
+        if is_changelog and level == 2 and UNRELEASED.fullmatch(text.strip()):
+            continue
         nxt = doc.headings[idx + 1] if idx + 1 < len(doc.headings) else None
         body = "\n".join(doc.lines[after:nxt[3] if nxt else len(doc.lines)])
         body = re.sub(r"<!--.*?-->", "", body, flags=re.S).strip()
@@ -216,7 +225,7 @@ def check(path):
                 if found is not None and unquote(anchor).lower() not in {a.lower() for a in found}:
                     add(i + 1, "error", f"broken anchor: {target}")
 
-    if re.match(r"changelog.*\.md$", doc.path.name, re.I):
+    if is_changelog:
         findings.extend(check_changelog(doc))
     return sorted(findings)
 
@@ -224,7 +233,7 @@ def check(path):
 def check_changelog(doc):
     findings = []
     releases = [h for h in doc.headings if h[1] == 2]
-    unreleased = [h for h in releases if re.fullmatch(r"\[?unreleased\]?", h[2].strip(), re.I)]
+    unreleased = [h for h in releases if UNRELEASED.fullmatch(h[2].strip())]
     for line, *_ in unreleased[1:]:
         findings.append((line, "error", "second Unreleased section; merge it into the first"))
     if unreleased and releases and releases[0] != unreleased[0]:
@@ -246,15 +255,23 @@ def check_changelog(doc):
             if unreleased and line == unreleased[0][0] and ctext.strip() not in KEEP_A_CHANGELOG:
                 findings.append((cline, "warning", f"category {ctext!r} is not a Keep a Changelog category"))
         if unreleased and line == unreleased[0][0]:
-            entries = {}
+            bullets = []
             for i in range(line, end - 1):
                 m = BULLET.match(doc.lines[i]) if not doc.code[i] else None
                 if m:
-                    norm = re.sub(r"\s+", " ", m.group(1)).strip().rstrip(".").lower()
-                    if norm in entries:
-                        findings.append((i + 1, "error", f"duplicate Unreleased entry (also line {entries[norm]})"))
-                    else:
-                        entries[norm] = i + 1
+                    indent = len(re.match(r"\s*", doc.lines[i].expandtabs(4)).group(0))
+                    bullets.append((indent, i, m.group(1)))
+            # Entries are the section's least-indented bullets; deeper bullets are sub-items.
+            top = min((b[0] for b in bullets), default=0)
+            entries = {}
+            for indent, i, item in bullets:
+                if indent != top:
+                    continue
+                norm = re.sub(r"\s+", " ", item).strip().rstrip(".").lower()
+                if norm in entries:
+                    findings.append((i + 1, "error", f"duplicate Unreleased entry (also line {entries[norm]})"))
+                else:
+                    entries[norm] = i + 1
     return findings
 
 
