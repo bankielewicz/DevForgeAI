@@ -963,7 +963,10 @@ CASES = [
     Case("ignores-unrelated-request", ["20"],
          "VER-20: a request for background context on a historical topic doesn't invoke the skill.",
          "Give me some context on the French revolution.", SHARED,
-         [skill_fired("ver20-skill-not-fired", False)], limits=SHORT_LIMITS),
+         # A tool_used grader doesn't count toward the score when the baseline arm runs, so the case also
+         # checks that nothing is written, as every other suite's unrelated-request case does.
+         [skill_fired("ver20-skill-not-fired", False), present("ver20-nothing-written", f"{CTX}/**", exists=False)],
+         limits=SHORT_LIMITS),
     Case("unknown-document", ["23"],
          "VER-23: a document name outside the set writes nothing and lists the set's names with a question.",
          "Update only the context document named banana.", SHARED,

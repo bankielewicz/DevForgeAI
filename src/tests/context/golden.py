@@ -356,6 +356,8 @@ def good(case):
     if n == "invalid-policy-stops":
         return {}, ("Policy error in docs/specs/policy/POL-001.md, frontmatter field updated: '2026-13-45' is not a "
                     "'date' (schema). Nothing was written.")
+    if n == "ignores-unrelated-request":
+        return {}, "The French Revolution (1789-1799) ended the absolute monarchy in France."
     if n == "unknown-document":
         return {}, ("banana isn't a context document of this project. The set is index, architecture, tech-stack, "
                     "source-tree, testing, front-end, ui-mockups, middle-tier and rdbms. Which one should I update, "
