@@ -1,4 +1,4 @@
-"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and v4 (VER-33, VER-34; issues #36
+"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and v4 (VER-33 to VER-36; issues #36
 and #38), and the grader files added to two existing cases (VER-09 records-provenance, VER-10
 constraints-not-design). The 20 cases written for v1
 are hand-written; this script never touches their prompts, scaffolds or existing graders, only adds the
@@ -378,6 +378,17 @@ for _old, _new in [
 # Every item PRD_FOOD_DRAFT holds, in file order; an extension must leave each one byte-identical.
 DRAFT_ITEMS = [re.search(rf"  - id: {i}\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
                for i in ("SM-01", "SM-02", "FR-001", "FR-002", "NFR-001", "NFR-002", "NFR-003", "ASM-01")]
+# VER-35: a second brainstorm still in progress: a draft whose ideas are all open, so nothing is promoted.
+BRN_FOOD_2_DRAFT = BRN_FOOD_2
+for _old, _new in [
+    ("status: converged\n", "status: draft\n"),
+    ('    disposition: promoted\n    reason: "Removes most cover calls"\n', "    disposition: open\n    reason: null\n"),
+    ('    disposition: parked\n    reason: "Wait until swaps are in use"\n', "    disposition: open\n    reason: null\n"),
+    ("Online swaps were promoted. Automatic cover suggestions were parked.", "Not converged yet: both ideas are open."),
+    ("| 1 | 2026-09-23 | claude-code (session fixture-session) | Converged |\n",
+     "| 1 | 2026-09-23 | claude-code (session fixture-session) | Draft |\n"),
+]:
+    BRN_FOOD_2_DRAFT = replace(BRN_FOOD_2_DRAFT, _old, _new)
 # VER-33: a workspace with no docs/specs/ at all, only a README naming the product.
 README_VOLUNTEER = ("# Riverside Food Bank volunteer app\n\n"
                     "A web app where food bank volunteers see open warehouse shifts and sign up for them.\n")
@@ -512,7 +523,8 @@ FIXTURES = {
     "PRD_LEDGERLY": (PRD_LEDGERLY, "prd.schema.json"), "PRD_FOOD": (PRD_FOOD, "prd.schema.json"),
     "PRD_FOOD_BAD": (PRD_FOOD_BAD, "prd.schema.json", [("functional_requirements", 0, "priority")]),
     "PRD_FOOD_BAD_DATE": (PRD_FOOD_BAD_DATE, "prd.schema.json", [("frontmatter", "updated")]),
-    "BRN_FOOD_V2": (BRN_FOOD_V2, "brainstorm.schema.json"), "PRD_FOOD_DRAFT": (PRD_FOOD_DRAFT, "prd.schema.json"),
+    "BRN_FOOD_V2": (BRN_FOOD_V2, "brainstorm.schema.json"),
+    "BRN_FOOD_2_DRAFT": (BRN_FOOD_2_DRAFT, "brainstorm.schema.json"), "PRD_FOOD_DRAFT": (PRD_FOOD_DRAFT, "prd.schema.json"),
     "POL_BASE": (POL_BASE, "policy.schema.json"), "POL_COMPLIANCE": (POL_COMPLIANCE, "policy.schema.json"),
     "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "POL_BAD_AUTHORS": (POL_BAD_AUTHORS, "policy.schema.json", [("frontmatter", "authors")]),
@@ -752,6 +764,53 @@ version 1 while BRN-001 is now at version 2, so they point to an older version a
 counts; the word "suspect" isn't required, and the reply needn't list every such link.
 FAIL if the reply doesn't mention them, or if it counts them as validation errors, as repairs, or as a
 reason a check failed.
+"""),
+        },
+    },
+    "no-unprocessed-brn": {
+        "ver": "35",
+        "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD, "docs/specs/prd/PRD-001.md": PRD_FOOD,
+                  "docs/specs/brainstorm/BRN-002.md": BRN_FOOD_2_DRAFT},
+        "prompt": "Let's write the next PRD from our brainstorms.\n",
+        "description": "VER-35: no BRN can be processed, for two reasons: PRD-001 cites every promoted idea of BRN-001, and BRN-002 is a draft with only open ideas. The skill lists BRN-002 with its status, points to /devforgeai:brainstorm, says BRN-001's ideas are already cited by PRD-001, and writes nothing.",
+        "graders": {
+            "skill-fired": SKILL_FIRED,
+            "lists-brn-002-with-status": regex("last_message", "contains",
+                                               r"BRN-002[^\n]{0,200}\b(?:draft|not converged|open)\b"
+                                               r"|\b(?:draft|not converged)\b[^\n]{0,200}BRN-002", "i"),
+            "points-to-brainstorm": regex("last_message", "contains", r"/devforgeai:brainstorm\b"),
+            "no-prd-002": exists("docs/specs/prd/PRD-002.md", False),
+            "prd-001-unchanged": regex(PRD, "contains", lit(PRD_FOOD)),
+            "reply-explains-both-brns": llm("""\
+Context the reply was written in: BRN-001's promoted ideas (IDEA-01 and IDEA-03) are all cited by PRD-001.
+BRN-002 is a draft brainstorm whose ideas are all open, so it has no promoted idea. The user asked to write
+the next PRD and named no brainstorm, so no BRN can be processed.
+
+Judge only the final reply. PASS if all of these hold:
+- It says that BRN-002 has no promoted idea yet (a draft, not converged) and points to /devforgeai:brainstorm
+  to converge it.
+- It says that BRN-001's promoted ideas are already cited by PRD-001.
+- It doesn't present a PRD as written.
+FAIL if any of these fails, or if it offers BRN-001 or BRN-002 as ready to turn into a PRD.
+"""),
+        },
+    },
+    "all-ideas-cited-stops": {
+        "ver": "36",
+        "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD, "docs/specs/prd/PRD-001.md": PRD_FOOD},
+        "prompt": "Write a new PRD for BRN-001. Proceed without questions.\n",
+        "description": "VER-36: PRD-001 already cites every promoted idea of BRN-001, so a stated request for a new PRD from BRN-001 stops under ERR-04: no PRD-002, PRD-001 unchanged, and the reply says PRD-001 already cites them.",
+        "graders": {
+            "no-prd-002": exists("docs/specs/prd/PRD-002.md", False),
+            "prd-001-unchanged": regex(PRD, "contains", lit(PRD_FOOD)),
+            "names-prd-001": regex("last_message", "contains", r"PRD-001\b"),
+            "reply-says-all-cited": llm("""\
+Context the reply was written in: BRN-001's promoted ideas are IDEA-01 and IDEA-03, and PRD-001 already
+cites both. The user asked for a new PRD from BRN-001 and said to proceed without questions.
+
+Judge only the final reply. PASS if it says that no new PRD was written because PRD-001 already cites every
+promoted idea of BRN-001 (any wording), and doesn't present a new PRD as written.
+FAIL if it presents a PRD-002 or any other new PRD as written, or doesn't give that reason.
 """),
         },
     },

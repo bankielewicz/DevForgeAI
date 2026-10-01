@@ -1,6 +1,6 @@
 """Checks the regex and file graders added for SPEC-002 v2 offline, before any paid run.
 
-For each new prd case (VER-24 to VER-34) and the graders added to records-provenance (VER-09) and
+For each new prd case (VER-24 to VER-36) and the graders added to records-provenance (VER-09) and
 constraints-not-design (VER-10), it runs the case's scaffold in a temporary workspace, writes a
 hand-made good result (the files and final reply a correct run would leave), and runs
 grade_evals.mjs: every regex and file grader must pass. Then it writes bad results, each breaking one
@@ -427,6 +427,30 @@ S += [
     (c, "validation failed", {PRD: revisited(DRAFT)},
      "Validation failed (ERR-06): FR-001 cites BRN-001 version 1, not the current version 2.\n" + R34_LEFT + R34_SUSPECT,
      {"validation-passed"}),
+]
+
+# VER-35 no-unprocessed-brn
+c = "no-unprocessed-brn"
+R35 = ("No brainstorm can be turned into a PRD right now. Nothing was written.\n"
+       "- BRN-002 (draft) has no promoted idea yet: converge it with /devforgeai:brainstorm.\n"
+       "- BRN-001: every promoted idea is already cited by PRD-001.\n")
+S += [
+    (c, "good", {}, R35, set()),
+    (c, "v3-like reply", {}, "Every promoted idea is already cited by a PRD, so there is nothing to process.\n",
+     {"lists-brn-002-with-status", "points-to-brainstorm"}),
+    (c, "PRD-002 written", {"docs/specs/prd/PRD-002.md": "---\nid: PRD-002\n---\n"}, R35, {"no-prd-002"}),
+    (c, "PRD-001 changed", {PRD: edit(scaffolded(c, PRD), "version: 1\n", "version: 2\n")}, R35, {"prd-001-unchanged"}),
+]
+
+# VER-36 all-ideas-cited-stops
+c = "all-ideas-cited-stops"
+R36 = ("No new PRD was written: PRD-001 already cites every promoted idea of BRN-001 (IDEA-01 in FR-001, "
+       "IDEA-03 in FR-002).\n")
+S += [
+    (c, "good", {}, R36, set()),
+    (c, "PRD-002 written (v3)", {"docs/specs/prd/PRD-002.md": "---\nid: PRD-002\n---\n"},
+     "PRD-002 written to docs/specs/prd/PRD-002.md (from BRN-001; new)\n", {"no-prd-002", "names-prd-001"}),
+    (c, "PRD-001 changed", {PRD: edit(scaffolded(c, PRD), "version: 1\n", "version: 2\n")}, R36, {"prd-001-unchanged"}),
 ]
 
 ADDED = {"records-provenance": {"model-is-a-claude-model-id", "identity-not-unavailable", "authors-include-the-tool",
