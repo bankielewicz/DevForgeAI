@@ -27,7 +27,7 @@
   nothing is written without its answer.
 - **Too many choices.** A question with more choices than the host allows (4 options in
   AskUserQuestion) is split into several questions, for example the accepted ADRs in groups of
-  four. The user can always answer in their own words.
+  four.
 - **Suggest, never assume.** An option may carry your suggestion, marked "(suggested)". A
   suggestion is written only after the user picks it.
 - **No AskUserQuestion?** Ask the same questions as a numbered plain-text list, then end your turn.

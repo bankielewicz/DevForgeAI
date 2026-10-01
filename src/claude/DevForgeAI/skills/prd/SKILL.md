@@ -113,13 +113,14 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
   it doesn't exist (ERR-01), say so, list the BRN IDs that do exist with their titles, and stop.
 - **No ID.** List the *unprocessed* BRNs. A BRN is unprocessed when it has at least one
   `disposition: promoted` idea that no PRD cites. To check, search `docs/specs/prd/PRD-*.md` for
-  upstream links with `id: BRN-NNN` and `item: IDEA-NN`. Show each unprocessed BRN's ID, title
-  and number of uncited promoted ideas, and ask which one to use. Don't list fully cited BRNs.
+  upstream links with `id: BRN-NNN` and `item: IDEA-NN`, at any version. Show each unprocessed
+  BRN's ID, title and number of uncited promoted ideas, and ask which one to use. Don't list fully
+  cited BRNs.
   Never guess, even when only one is listed. If none is unprocessed (ERR-04), say why, write
-  nothing and stop. With no BRN at all, say that no brainstorm exists yet and point to
-  `/devforgeai:brainstorm`. List each BRN with no promoted idea, with its `status`, and point to
-  `/devforgeai:brainstorm` to converge it. Say that the promoted ideas of the rest are all
-  already cited, naming the PRDs that cite them.
+  nothing and stop. If no BRN exists, say that no brainstorm exists yet and point to
+  `/devforgeai:brainstorm`. Otherwise list each BRN that has no promoted idea, with its `status`,
+  pointing to `/devforgeai:brainstorm` to converge it, and for each other BRN say that its
+  promoted ideas are all already cited, naming the PRDs that cite them.
 
 Nothing is ever written into a BRN to mark it processed.
 
@@ -138,8 +139,8 @@ Read its frontmatter `status`, `owner` and `version`, and its `problems`, `ideas
   answer, write nothing.
 
 Use **only** ideas with `disposition: promoted`. Never cite an open, parked or rejected idea
-anywhere in the PRD, by ID or by link. Leave out a promoted idea that any PRD already cites, and
-name it in the reply with the item that cites it ("IDEA-01 left out: PRD-001#FR-001 cites it").
+anywhere in the PRD, by ID or by link. Leave out a promoted idea that any PRD already cites, at any
+version, and name it in the reply with the item that cites it ("IDEA-01 left out: PRD-001#FR-001").
 
 ### 4. Choose: new PRD or extend
 
@@ -147,7 +148,8 @@ If `docs/specs/prd/` holds no PRD, the PRD is new: continue.
 
 Otherwise, read each existing PRD's `title`, goals, non-goals, `owner`, `status` and
 `target_release`, and decide on scope, ownership and lifecycle. Never decide on product identity or
-on how many PRDs exist. A superseded or deprecated PRD is never extended: recommend a new PRD.
+on how many PRDs exist. A superseded or deprecated PRD is never extended, even when the request
+names it: recommend a new PRD and ask.
 - Recommend **extending** a PRD only when the promoted ideas belong to its existing initiative and
   scope, share its owner, and fit its release lifecycle.
 - Recommend a **new PRD** when they form a distinct initiative, have a different owner or approval
@@ -185,7 +187,8 @@ the PRD.
 
 Draft the whole PRD before asking anything, following
 [references/brn-mapping.md](references/brn-mapping.md):
-- problems that a promoted idea addresses → section 2 prose, plus frontmatter `derives` links;
+- problems that an idea this PRD drafts addresses → section 2 prose, plus frontmatter `derives`
+  links (a problem the PRD already links keeps its link);
 - each promoted idea that no PRD cites yet (step 3) → one or more functional requirements starting
   "The system shall", each with an item `derives` link to its idea, so every FR derives from a
   promoted idea;
@@ -219,8 +222,8 @@ categories** below, which always runs. Otherwise, ask in batched rounds followin
 5. success metrics.
 
 Skip every question the BRN or the request already answers. Follow interview.md's rules for every
-call: at most 4 questions per call, any question with more options than the host allows split up,
-and at most `interview.max_calls` calls (step 1; default 8), gate questions included, unless the
+call: at most 4 questions per call, split any question with more options than the host allows,
+and use at most `interview.max_calls` calls (step 1; default 8), gate questions included, unless the
 user asks for more. A gate is still asked after the budget is spent. Anything else left when the
 budget runs out becomes `[NEEDS CLARIFICATION]`.
 
@@ -254,8 +257,8 @@ quality answers" even when there is no interview: it holds the exact entries and
    the category's marker kept for the rest); and no answer (the category's marker in section 12,
    never a placeholder requirement).
 5. **An explicit none never waives policy.** A category that applied policy requires, or a mandated
-   platform's constraint category, keeps a marker naming the setting after a none, and a mandated
-   platform's constraint NFR is written whatever the user answered.
+   platform's constraint category, keeps a section 12 marker naming the setting after a none, and a
+   mandated platform's constraint NFR is written whatever the user answered.
 
 ### 8. Write the PRD
 
@@ -269,7 +272,7 @@ Read [references/output-rules.md](references/output-rules.md) before writing.
    including section 13, "Epic map", with its GENERATED comment. Replace every placeholder with
    content or a `[NEEDS CLARIFICATION: …]` marker, and every example item with real items; write a
    collection with none as `success_metrics: []`, never as a placeholder item. Delete every other
-   `<!-- -->` comment and the frontmatter's trailing `#` comments, keeping `# --- prd-specific ---`.
+   `<!-- -->` comment and the frontmatter's `#` comments, keeping the `# --- prd-specific ---` line.
 3. **Frontmatter.**
    - `status: draft`, `version: 1`, and `created` and `updated` set to today's date.
    - `owner`: the name the request gives, otherwise the BRN's `owner`.

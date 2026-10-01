@@ -226,12 +226,13 @@ inside an existing item an extension must leave unchanged, ends the cycles early
    existing item is unchanged.
 6. Every item has its required fields and only allowed fields, and every enum value is in its list.
 7. Every free-text value is double-quoted.
-8. Every FR has an `upstream` link deriving from a **promoted** idea of the BRN. No NFR has a BRN
-   link unless that BRN item itself states the requirement. No open, parked or rejected idea's ID
-   appears anywhere in the file.
+8. Every FR this write adds has an `upstream` link deriving from a **promoted** idea of the BRN that
+   no PRD cited before. No NFR this write adds has a BRN link unless that BRN item itself states the
+   requirement. Nothing this write adds names an open, parked or rejected idea. An existing item
+   whose idea the BRN no longer promotes keeps its link: name it in the reply, as check 9 says.
 9. Every link has a valid relation and `hash: null`, and sits in the one place the Link records table
    gives. Every link this write adds cites the cited document's current version. An existing link to
-   an older version, in frontmatter or on an item, is a suspect link (templates README §2.6): leave it
+   an older version, in frontmatter or on an item, is a suspect link: leave it
    exactly as written and name it in the reply. It is never an error and never repaired. No policy
    link exists for a default, a local value, or a deprecated or non-applicable setting.
 10. Every non-null `stage`, `operating_context`, `priority` and `release` this write set was supplied
