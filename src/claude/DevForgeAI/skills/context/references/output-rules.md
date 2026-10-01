@@ -148,7 +148,8 @@ items whose source changed in this run, or that the user changed; keep every oth
 
 ## Change Log rows
 
-Never change an earlier row. One row per document written in the run:
+Never change a row an earlier run wrote; this run's own row may grow to name every change. One row per
+document written in the run:
 
 | Event | Version | Author | Change |
 |---|---|---|---|
@@ -231,7 +232,8 @@ SKILL.md gives the commands. The script prints one line per error,
 `<file>: <part>: <field>: <message> (<rule>)`, then `OK: <N> files checked` or
 `INVALID: <N> error(s) in <M> file(s)`; exit 0 valid, 1 invalid, 2 can't run.
 - The first `check --snapshot <start>` after writing is check 1. Repair each reported error with Edit
-  and check again: at most three repair cycles, so at most four checks. Record each check and repair
+  and check again: at most three repair cycles, so at most four checks in the repair loop (the
+  checks after recording folds and after an approval come on top). Record each check and repair
   in the reply, quoting the script's lines (`Check 1: INVALID: 1 error(s) in 1 file(s):
   docs/specs/context/testing.md: line 52: Basis: … (statement); repair 1: added the marker; check 2:
   OK: 10 files checked`).

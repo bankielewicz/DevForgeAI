@@ -154,7 +154,8 @@ Compute the set from the kinds of the active components ([documents.md](referenc
 2. List `docs/specs/context/`. Read each document of the set and each detail file its parent links, in
    full. A file with one of the 12 names that isn't in the current set is a layer document of an
    earlier set: read its frontmatter and Change Log; when it is deprecated, leave it; otherwise it is
-   BEH-04's (item 6). Report any other path by its path (ERR-11), and never read, edit or delete it.
+   BEH-04's (item 6). The detail files such a document links are its own, not stray paths. Report any
+   other path by its path (ERR-11), and never read, edit or delete it.
 3. Run `check --snapshot <start>`. Each `unchanged, invalid` line is a document that fails before the
    run (ERR-10): report its errors, and rewrite it only when the user confirms in this run (a
    revision). Otherwise leave it unchanged and continue with the others.

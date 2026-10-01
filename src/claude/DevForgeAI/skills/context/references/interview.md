@@ -49,9 +49,10 @@ nothing is approved unless the request names the approver. Every other step stil
 4. **The freshness window**, once, only when a new document is written: "How many days may an observed
    fact stay current before it is reported as stale?" Recommended: 90.
 
-Fill each batch of up to 4 questions in this order, and stop at the budget. Questions steps 3 and 4
-raise (kinds, deprecation, rewriting a failing document) go into the first call, before the scope
-question; ERR-04's question is asked alone, since the run stops after it.
+Fill each batch of up to 4 questions in this order, and stop at the budget. The questions SKILL.md
+steps 3 and 4 raise (a component's kinds, deprecating a document, rewriting a failing document, where
+an ambiguity entry belongs) go into the first call, before the scope question; ERR-04's question is
+asked alone, since the run stops after it.
 
 ## Options for a section's question
 

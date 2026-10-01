@@ -52,8 +52,9 @@ has. A component can have several kinds.
   Kinds column and `none` in the Documents column, no layer document is written for it, and the report
   names it.
 - **A layer document whose kind is in no current ARCH any more** (BEH-04): report it and ask whether to
-  deprecate it. On yes, it is a revision: `status: deprecated`, the Change Log row
-  `Deprecated: <kind> is in no current ARCH`, and index.md drops its row. With no answer, change
+  deprecate it. On yes, it is a revision: `status: deprecated`, a Change Log row starting
+  `Deprecated: <kind> is in no current ARCH` (output-rules.md), and index.md drops its row. With no
+  answer, change
   nothing. A layer document whose Change Log says its kind came from an ERR-05 answer isn't reported
   while that component still has no kinds. Never delete a file.
 - **A `[document]` argument**, or a request to update only one named document (BEH-01), limits the run
