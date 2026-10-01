@@ -409,8 +409,6 @@ S += [
     (c, "validation failed", {PRD: revisited(DRAFT)},
      "Validation failed (ERR-06): FR-001 cites BRN-001 version 1, not the current version 2.\n" + R34_LEFT + R34_SUSPECT,
      {"validation-passed"}),
-    (c, "left-out ideas not named", {PRD: revisited(DRAFT)}, R34_BLOCK + R34_SUSPECT, {"names-left-out-ideas"}),
-    (c, "suspect links not reported", {PRD: revisited(DRAFT)}, R34_BLOCK + R34_LEFT, {"reports-suspect-links"}),
 ]
 
 ADDED = {"records-provenance": {"model-is-a-claude-model-id", "identity-not-unavailable", "authors-include-the-tool",

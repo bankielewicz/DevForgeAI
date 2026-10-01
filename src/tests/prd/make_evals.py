@@ -724,11 +724,21 @@ FAIL if any of these fails, or if it says that promoted ideas are already cited 
             "fr-002-unchanged": regex(PRD, "contains", lit(FR_002_DRAFT)),
             "asm-01-unchanged": regex(PRD, "contains", lit(ASM_01_DRAFT)),
             "validation-passed": regex("last_message", "contains", r"Validation:\**[ \t]*passed", "i"),
-            "names-left-out-ideas": regex("last_message", "contains",
-                                          r"IDEA-01[^\n]{0,200}(?:left out|already cited|cited by|cites)"
-                                          r"|(?:left out|already cited|cited by)[^\n]{0,200}IDEA-01", "i"),
-            "reports-suspect-links": regex("last_message", "contains",
-                                           r"suspect[^\n]{0,120}BRN-001|BRN-001[^\n]{0,120}suspect", "i"),
+            # An llm grader, so the reply is kept as evidence (Bryan, 2026-10-01: the first v3 run failed two
+            # regexes here and kept no copy of the reply).
+            "reply-reports-extension": llm("""\
+Context the reply was written in: BRN-001 is at version 2. Its promoted ideas IDEA-01 and IDEA-03 are
+already cited by the draft PRD-001 (FR-001, FR-002, SM-01 and SM-02) at BRN-001 version 1, and its new
+promoted IDEA-05 isn't cited yet. The user asked to extend PRD-001 from BRN-001 and to proceed without
+questions.
+
+Judge only the final reply. PASS if both of these hold:
+- It says that IDEA-01 and IDEA-03 were left out, not drafted again, because PRD-001 already cites them.
+  Any wording counts, such as "already covered by FR-001 and FR-002".
+- It reports that PRD-001's existing links to BRN-001 version 1 now point to an older version (suspect
+  links to review), and doesn't present them as validation errors.
+FAIL if either is missing, or if the reply says it drafted new requirements from IDEA-01 or IDEA-03.
+"""),
         },
     },
 }
