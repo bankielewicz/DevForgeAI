@@ -135,8 +135,8 @@ Read its frontmatter `status`, `owner` and `version`, and its `problems`, `ideas
 - **Every promoted idea already cited** (ERR-04): say so, naming the PRD item that cites each one.
   Write nothing, and stop. This holds even when the request asks for a new PRD.
 - **Not converged** (ERR-02): when `status` is not `converged`, warn that some ideas may not be
-  decided yet, and ask whether to continue anyway. Continue only on an explicit yes. With no
-  answer, write nothing.
+  decided yet, even when every idea has a disposition: only the user's convergence settles them.
+  Ask whether to continue anyway. Continue only on an explicit yes; with no answer, write nothing.
 
 Use **only** ideas with `disposition: promoted`. Never cite an open, parked or rejected idea
 anywhere in the PRD, by ID or by link. Leave out a promoted idea that any PRD already cites, at any
