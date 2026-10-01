@@ -109,7 +109,7 @@ functional_requirements:
   - id: FR-005
     status: active
     statement: "The system shall let two volunteers swap booked shifts with each other."
-    priority: must
+    priority: null
     release: later
     notes: null
     upstream:
@@ -182,6 +182,14 @@ non_functional_requirements:
     statement: "Volunteer phone numbers are visible only to the coordinator."
     priority: must
     release: current
+  - id: NFR-002
+    status: active
+    category: constraint
+    statement: "Emails to volunteers are sent through the Regional network mail relay (SMTP) (applies to transactional email)."
+    priority: null
+    release: null
+    upstream:
+      - {id: POL-001, item: SET-01, relation: constrains, version: 1, hash: null}
 ```
 
 ## 8. User experience
@@ -190,7 +198,8 @@ Mobile-first web pages; no app to install.
 
 ## 9. Constraints and dependencies
 
-The food bank is a member of the regional food bank network, whose IT policy applies.
+The food bank is a member of the regional food bank network, whose IT policy applies: email goes through
+the network's mail relay (NFR-002).
 
 ## 10. Assumptions and risks
 
@@ -223,7 +232,7 @@ The spring launch covers every warehouse shift; shift swaps (FR-005) follow in a
 
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
-| 1 | 2026-09-14 | claude-code (session fixture-session) | Initial draft from BRN-001. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=POL-001#SET-01; quality.required_categories=floor only (default) | all |
+| 1 | 2026-09-14 | claude-code (session fixture-session) | Initial draft from BRN-001. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=Regional network mail relay (SMTP) for transactional email (POL-001#SET-01); quality.required_categories=floor only (default) | all |
 | 1 | 2026-09-16 | Priya Nair | Approved | status |
 | 2 | 2026-09-18 | Priya Nair | Added FR-012 (booking confirmation email) and moved FR-005 to a later release | FR-005, FR-012 |
 | 2 | 2026-09-18 | Priya Nair | Approved | status |
@@ -268,7 +277,7 @@ system. No inspection scope was named, and no code was inspected.
 ## 2. Quality drivers
 
 NFR-001 (phone numbers visible only to the coordinator) drives data ownership. The regional network's
-mandated mail relay (POL-001#SET-01) constrains email.
+mandated mail relay (POL-001#SET-01, PRD-001#NFR-002) constrains email.
 
 ## 3. Components
 
@@ -284,6 +293,8 @@ components:
   - id: CMP-01
     status: active
     name: "Volunteer web app"
+    kinds:
+      - "user-interface"
     responsibility: "Sign-in, booking, roster and payment screens; holds no data of its own"
     owns_data: []
     interacts_with:
@@ -293,6 +304,9 @@ components:
   - id: CMP-02
     status: active
     name: "Shift service"
+    kinds:
+      - "service"
+      - "relational-store"
     responsibility: "Shifts, bookings, reminders and volunteer contact details"
     owns_data:
       - "Shifts and bookings"
@@ -306,6 +320,8 @@ components:
   - id: CMP-03
     status: active
     name: "Identity provider"
+    kinds:
+      - "external"
     responsibility: "Authenticates volunteers and issues sessions"
     owns_data:
       - "Volunteer credentials"
@@ -315,12 +331,15 @@ components:
   - id: CMP-04
     status: active
     name: "Mail relay"
+    kinds:
+      - "external"
     responsibility: "Delivers the emails the shift service sends; external, provided by the regional network"
     owns_data: []
     interacts_with:
       - "CMP-02"
     deployment: "External: Regional network mail relay (SMTP)"
     upstream:
+      - {id: PRD-001, item: NFR-002, relation: informed_by, version: 2, hash: null}
       - {id: POL-001, item: SET-01, relation: constrains, version: 1, hash: null}
 ```
 
@@ -402,7 +421,7 @@ evidence:
     status: active
     source: "PRD-001"
     kind: prd
-    finding: "Version 2, status approved: twelve functional requirements and NFR-001; three NEEDS ADR markers."
+    finding: "Version 2, status approved: twelve functional requirements, NFR-001 and NFR-002; three NEEDS ADR markers."
     classification: context
   - id: EVD-02
     status: active
@@ -453,7 +472,7 @@ and email goes through the regional network's relay.
 
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
-| 1 | 2026-09-22 | claude-code (session fixture-session) | Initial draft for PRD-001 v2. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=POL-001#SET-01; quality.required_categories=floor only (default) | all |
+| 1 | 2026-09-22 | claude-code (session fixture-session) | Initial draft for PRD-001 v2. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=Regional network mail relay (SMTP) for transactional email (POL-001#SET-01); quality.required_categories=floor only (default) | all |
 | 1 | 2026-09-24 | Priya Nair | Approved | status |
 FIXTURE
 cat > docs/specs/adr/ADR-001.md <<'FIXTURE'
