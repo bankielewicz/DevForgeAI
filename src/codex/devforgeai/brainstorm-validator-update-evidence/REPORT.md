@@ -13,7 +13,8 @@ establish owner acceptance or skill qualification.
 - Worktree: `/tmp/devforgeai-brainstorm-validator-20261001`.
 - Branch: `codex/brainstorm-validator-20261001`.
 - Baseline: `7e2bfb66abb5998446aadee0f0b5b2692406fd49`, both primary HEAD and origin/main at intake.
-- Implementation checkpoint: `6f01ecf`; the exact source/test file hashes accompany each test record.
+- Implementation checkpoint: `6f01ecf`; full package-directory verification checkpoint: `affa5bf`.
+  Exact source/test hashes accompany the test records and remain unchanged at closeout.
 - Authority: SPEC-001 v10, approved, BEH-09 at line 168; SHA-256
   `be35ffe8fa1ed28dab03f9adc5bec531a8595c66b42213937b1b4f1f2ec13702`.
 - Provider contract: `skills/brainstorm/references/output-rules.md` in this Codex package.
@@ -48,7 +49,8 @@ The third test environment comes from `d7ac060`.
 The author diagnostic uses `authors must be a non-empty list of quoted names, e.g. ["Bryan", "codex"]`.
 The blank-author diagnostic names `codex (session ID)`, explicitly accepts historical
 `claude-code (session ID)` rows, and permits the name of the person who made the change.
-Tests assert this wording. The existing tool/session matching branch is retained unchanged.
+Tests assert this wording. The existing tool/session matching branch is retained unchanged;
+see [port review](port-review.json) and the retained provider comparison diffs.
 
 `test_real_brn_001_passes` was replaced by `test_historical_claude_latest_row_passes` in the
 new module: the suite depends only on this package, so it runs from the package README's
@@ -60,7 +62,8 @@ The existing `tests/test_validate_brn.py` is unchanged. No acceptance test was w
 ## Verification
 
 Commands are run from the worktree root unless a different working directory is specified.
-Each JSON record retains command, cwd, revision, source/test hashes, stdout, stderr and exit code.
+Test-command records retain command, cwd, revision, stdout, stderr and exit code. Candidate
+runs also record source/test hashes; the untouched baseline is bound to its commit and inventory.
 
 | Requirement / check | Status | Command / result and evidence |
 |---|---|---|
@@ -69,7 +72,7 @@ Each JSON record retains command, cwd, revision, source/test hashes, stdout, std
 | Meaningful failing regression test | PASS | New module against the original script: exit 1, 96 executions, 75 failures; [RED](tdd-red.json). Expected failures are retained, including false acceptances and tracebacks. |
 | Requested fixes and original Codex adaptation | PASS | `python3 -B -m unittest discover -s src/codex/devforgeai/tests -p 'test_validate_brn*.py'`: exit 0, 106 tests, no skips; [GREEN](tdd-green.json) |
 | Full package regression suite | PASS | Baseline command on checkpoint `6f01ecf`: exit 0, 287 tests, 20.749s; [record](package-tests-root.json) |
-| Full package suite from package directory | NOT_RUN | Final checkpoint run pending |
+| Full package suite from package directory | PASS | From `src/codex/devforgeai`, `python3 -B -m unittest discover -s tests -p 'test_*.py' -v`: exit 0, 287 tests, 21.170s on checkpoint `affa5bf`; [record](package-tests-package.json) |
 | D-03 frozen probes | PASS | New Codex script rejects all three, each with its specific message; [same-shape results](validator-gap-probes.json) |
 | Valid Codex-provenance BRN | PASS | `OK` in all three subprocess environments; [fixture](valid-codex/docs/specs/brainstorm/BRN-001.md), [results](valid-codex-results.json) |
 | PyYAML environment distinction | PASS | User site 6.0.3; throwaway HOME uses system 6.0.1; `python3 -S` cannot import PyYAML. All 96 cases executed without skips. |
@@ -78,7 +81,9 @@ Each JSON record retains command, cwd, revision, source/test hashes, stdout, std
 | Manifest JSON syntax | PASS | `python3 -m json.tool src/codex/devforgeai/.codex-plugin/plugin.json`: exit 0; [record](manifest-json.json) |
 | Plugin Creator package validator | NOT_RUN | Helper absent from installed skills/plugin bundles and no callable equivalent found; [discovery](plugin-validator-availability.json). Manifest/skill checks do not substitute for this gate. |
 | Primary/source custody after native execution | FAIL overall | All 3,690 read-only worktree files and 3,694 captured primary files match. Primary status/path set and the external Codex papercut log changed; [full before/after hashes](custody-after-native.json), [drift details](primary-drift-details.json). Candidate, definitions, runtime executable, trial copies and user config still match. |
-| Whole-patch whitespace | FAIL | `git diff --cached --check`: exit 2, whitespace in retained actor Markdown hard breaks and unified-diff context lines; [unmodified diagnostics](whitespace-attempt1.json). Raw evidence is retained as emitted. Source/tests/import-report whitespace is checked separately and does not waive this failure. |
+| Whole-patch whitespace | FAIL | `git diff --cached --check`, then `git diff 7e2bfb6 HEAD --check`: exit 2, whitespace in retained actor Markdown hard breaks and unified-diff context lines; [initial](whitespace-attempt1.json), [final](whitespace-final.json). Raw evidence is retained as emitted. |
+| Source/tests/import-report whitespace | PASS | `git diff 7e2bfb6 --check -- src/codex/devforgeai/skills/brainstorm/scripts/validate_brn.py src/codex/devforgeai/tests/test_validate_brn_regressions.py src/codex/devforgeai/IMPORT-REPORT.md`: exit 0; [record](source-whitespace.json). This does not waive whole-patch failure. |
+| Closing repository custody | PASS for repository inputs; FAIL for external log | [Final before/after hashes](custody-final.json): primary HEAD, origin/main, status, path set and all captured original bytes match; all protected worktree files match. The unrelated external log append remains, and the earlier transient-primary failure is retained. |
 | Write scope | PASS | No path outside the authorized script, new test module, import-report additions and new evidence folder changed in this worktree; [audit](custody-after-native.json). |
 
 ## Native evaluation
@@ -134,6 +139,11 @@ read-only Claude files, specifications, schemas, templates, contracts, eval defi
 all historical evidence. [External inputs](external-inputs-before.json) bind the skill guidance,
 quick validator and both papercut logs. The primary's two modified rule files and untracked
 handoff were preserved byte-for-byte.
+
+Closing source hashes: validator `558e27528c4cf37769823dbf69d4b5693dc7214b3c06c998d8210dd0a1a63afc`;
+new test module `f3b6a944e6bb30f188f4e579d2aaf5d31f8cd270f7cfa3fa9fe5cd16cf4fd27d`.
+The unchanged original test file retains its intake digest
+`ee09f5c486068ecd862fbcda934533011fff36d2b2e68c3a9a3ad27cb11be1a3`.
 
 The first custody audit observed 21 new untracked Claude configuration paths in the primary
 checkout. All had disappeared by the follow-up observation, without any cleanup by this task.

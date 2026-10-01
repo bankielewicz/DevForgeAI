@@ -1,0 +1,359 @@
+{
+  "status": "PASS",
+  "revision_tested": "affa5bfe23441f0ec12efa22ebbe8cfa967423b8",
+  "command": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "cwd_tested": "/tmp/devforgeai-brainstorm-validator-20261001/src/codex/devforgeai",
+  "test_count": 287,
+  "source_files_matching_final_state": {
+    "src/codex/devforgeai/skills/brainstorm/SKILL.md": true,
+    "src/codex/devforgeai/skills/brainstorm/agents/openai.yaml": true,
+    "src/codex/devforgeai/skills/brainstorm/assets/brainstorm.md": true,
+    "src/codex/devforgeai/skills/brainstorm/provenance.yaml": true,
+    "src/codex/devforgeai/skills/brainstorm/references/frameworks/INDEX.md": true,
+    "src/codex/devforgeai/skills/brainstorm/references/frameworks/diverge-converge.md": true,
+    "src/codex/devforgeai/skills/brainstorm/references/output-rules.md": true,
+    "src/codex/devforgeai/skills/brainstorm/scripts/validate_brn.py": true,
+    "src/codex/devforgeai/tests/assess_contract_manual.py": true,
+    "src/codex/devforgeai/tests/check_architecture_artifacts.py": true,
+    "src/codex/devforgeai/tests/grade_architecture_eval.py": true,
+    "src/codex/devforgeai/tests/grade_contract_eval.py": true,
+    "src/codex/devforgeai/tests/grade_contract_eval_v2.py": true,
+    "src/codex/devforgeai/tests/grade_contract_eval_v3.py": true,
+    "src/codex/devforgeai/tests/grade_contract_eval_v4.py": true,
+    "src/codex/devforgeai/tests/grade_contract_eval_v5.py": true,
+    "src/codex/devforgeai/tests/grade_documents_updater_eval.py": true,
+    "src/codex/devforgeai/tests/make_architecture_evals.py": true,
+    "src/codex/devforgeai/tests/make_documents_updater_evals.py": true,
+    "src/codex/devforgeai/tests/make_prd_evals.py": true,
+    "src/codex/devforgeai/tests/manual/architecture/failed-supersession/scaffold.sh": true,
+    "src/codex/devforgeai/tests/native_architecture_eval.py": true,
+    "src/codex/devforgeai/tests/native_contract_eval.py": true,
+    "src/codex/devforgeai/tests/native_contract_manual.py": true,
+    "src/codex/devforgeai/tests/native_documents_updater_eval.py": true,
+    "src/codex/devforgeai/tests/summarize_architecture_eval.py": true,
+    "src/codex/devforgeai/tests/summarize_contract_campaign.py": true,
+    "src/codex/devforgeai/tests/summarize_documents_updater_eval.py": true,
+    "src/codex/devforgeai/tests/supplemental_architecture_eval.py": true,
+    "src/codex/devforgeai/tests/supplemental_documents_updater_eval.py": true,
+    "src/codex/devforgeai/tests/test_architecture_eval.py": true,
+    "src/codex/devforgeai/tests/test_architecture_kinds.py": true,
+    "src/codex/devforgeai/tests/test_contract_baseline_activation.py": true,
+    "src/codex/devforgeai/tests/test_contract_platform_classification.py": true,
+    "src/codex/devforgeai/tests/test_contract_update.py": true,
+    "src/codex/devforgeai/tests/test_documents_updater.py": true,
+    "src/codex/devforgeai/tests/test_prd_provider_grader.py": true,
+    "src/codex/devforgeai/tests/test_shared_schema_dates.py": true,
+    "src/codex/devforgeai/tests/test_validate_brn.py": true,
+    "src/codex/devforgeai/tests/test_validate_brn_regressions.py": true,
+    "src/codex/devforgeai/tests/test_validate_policy.py": true
+  },
+  "links": [
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "native/binding.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "port-review.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "primary-before.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "worktree-before.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "baseline-tests.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "tdd-red.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "tdd-green.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "package-tests-root.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "package-tests-package.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "validator-gap-probes.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "valid-codex/docs/specs/brainstorm/BRN-001.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "valid-codex-results.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "required-searches.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "skill-validation.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "manifest-json.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "plugin-validator-availability.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "custody-after-native.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "primary-drift-details.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "whitespace-attempt1.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "whitespace-final.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "source-whitespace.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "custody-final.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "custody-after-native.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "native_trials.py",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "native/summary-final.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "native/writes-valid-brn--plugin--1/grade-final.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "native/records-provenance--plugin--1/grade.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "external-inputs-before.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "custody-after-native.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "primary-drift-details-attempt1.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/brainstorm-validator-update-evidence/REPORT.md",
+      "target": "primary-drift-details.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/native-evaluation-20260928/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "../../../docs/specs/spec/SPEC-001.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/candidate-manifest.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "evals/verification-plan.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/native-evaluation-20260928/results.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/validator-gap-probes.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/validator-gap-probes.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/native-evaluation-20260928/manual/confirmed-decisions/grade.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "skills/brainstorm/SKILL.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/validator-gap-probes.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/native-evaluation-20260928/REPORT.md",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/plugin-validation-r007.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/skill-validation-r007.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/schema-validation-r007.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/validator-regressions-final.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/native-evaluation-20260928/results.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/baseline-tests.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/tdd-red.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/tdd-green.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "brainstorm-validator-update-evidence/package-tests-root.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/final-import-manifest.json",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/claude-to-codex-final.patch",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/revisions/skill-v006/",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/question-tool-r007.patch",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/revisions/pre-native-evaluation-v007/",
+      "exists": true
+    },
+    {
+      "document": "src/codex/devforgeai/IMPORT-REPORT.md",
+      "target": "import-evidence/native-evaluation-20260928/",
+      "exists": true
+    }
+  ],
+  "scope": "Final source/test hashes equal the tested candidate. Later documentation and evidence commits do not change that candidate; this binding does not waive native, custody or whitespace failures."
+}
