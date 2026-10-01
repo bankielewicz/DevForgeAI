@@ -82,7 +82,7 @@ def spec_document():
 def never_run_section(text):
     """SKILL.md's paragraph that starts with **Never run these at all:**."""
     m = re.search(r"\*\*Never run these at all:\*\*(.*?)(?:\n\n|\Z)", text, re.S)
-    return m.group(1) if m else ""
+    return " ".join(m.group(1).split()) if m else ""   # one line, so wrapped phrases still match
 
 
 class Structure(unittest.TestCase):

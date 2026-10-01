@@ -10,7 +10,10 @@
 
 ## sync: states
 
-1. `git fetch --prune origin`, then the state report.
+1. `git fetch --prune origin`, then the state report of the checkout that holds the default branch:
+   `repo_state.py -C <checked_out_at>` (from a first report's `default_branch.checked_out_at`), not
+   the session's own checkout when that is another worktree. Its `changes` are the ones a
+   fast-forward could overwrite.
 2. Record a backup ref for the local default branch before moving it:
    `git update-ref refs/devforgeai-backup/<default>/<UTC yyyymmddThhmmssZ> refs/heads/<default>`
    (for example `date -u +%Y%m%dT%H%M%SZ`).
@@ -41,12 +44,14 @@ each path's `incoming` value in the report (computed against the fetched `origin
 | `incoming` | Meaning | Action |
 |---|---|---|
 | `untouched` | The incoming commits don't change the path | Leave it as it is: the fast-forward keeps it |
-| `identical` | Its content and mode equal the incoming version (or both are absent) | The local change is already upstream, so restoring or removing it loses nothing: `git checkout HEAD -- <path>` for a tracked path (it resets the index too, where `git checkout -- <path>` would restore a staged copy), `rm -- <path>` for an untracked one. The fast-forward then writes the same content |
-| `differs` | The local version differs from what the fast-forward would write | ERR-12 |
+| `identical` | Its working copy's content and mode equal the incoming version (or both are absent), and its index entry equals HEAD's or the incoming one | The local change is already upstream, so restoring or removing it loses nothing: `git checkout HEAD -- <path>` for a tracked path (it resets the index too, where `git checkout -- <path>` would restore a staged copy), `rm -- <path>` for an untracked one. The fast-forward then writes the same content |
+| `differs` | The local version, or a staged version found nowhere else, differs from what the fast-forward would write | ERR-12 |
 
-Confirm `identical` yourself before discarding anything:
-`git hash-object <path>` equals `git rev-parse origin/<default>:<path>` and the modes match
-(`git ls-tree origin/<default> -- <path>`), or both are absent.
+Confirm `identical` yourself before discarding anything: `git hash-object <path>` equals
+`git rev-parse origin/<default>:<path>` and the modes match (`git ls-tree origin/<default> --
+<path>`), or both are absent; and `git rev-parse :<path>` (the staged blob) equals
+`git rev-parse HEAD:<path>` or the incoming blob, or the path isn't in the index. A staged version
+found nowhere else is `differs`: `git checkout HEAD -- <path>` would discard it.
 
 **ERR-12.** Keep every differing path byte-identical and don't move the branch; don't reconcile the
 other paths either. List the differing paths and offer:
@@ -64,12 +69,17 @@ Run the repository's post-merge steps (for example a redeploy), or report them a
 when the session can't run them. Then report the new SHA of the default branch and the backup ref.
 
 Local branches whose work is now merged (a merged PR's branch, the feature branch the main checkout
-just left) are retired as below, which removes their worktrees first and asks before any deletion.
+just left) are retired as below. Their worktrees are removed only by prune's removal rules (step 2
+onward of "prune" below): each must be removable, its ignored files are listed with a question
+about any that isn't regenerable (such as `.env`), one modified within the last hour is flagged, and
+one confirmation names every worktree and branch. With no answer possible, sync still reports its
+own result, removes nothing, and ends `awaiting_approval` with that question.
 
 ## Retiring a merged branch
 
 Only when that loses nothing, and only after removing its worktree (git refuses to delete a branch a
-worktree has checked out). Deleting a local branch is destructive: ask once, naming each branch.
+worktree has checked out), which follows prune's removal rules from any phase. Deleting a local
+branch is destructive: ask once, naming each branch.
 - `git branch -d <branch>` when the branch is an ancestor of `origin/<default>`.
 - Squash- or rebase-merged PR (`git branch -d` refuses): `git branch -D <branch>` only after
   `gh pr view <branch> --json state,headRefOid` shows `MERGED` with a `headRefOid` equal to the local
@@ -80,13 +90,17 @@ worktree has checked out). Deleting a local branch is destructive: ask once, nam
 ## prune: inventory and removal
 
 1. Inventory the linked worktrees from `git worktree list --porcelain` and the report's
-   `worktrees[]`: branch, last activity and size, uncommitted or untracked files, ignored files,
-   unpushed commits, lock, whether it is the session's current directory, and whether its branch
-   merged (`merged_by_ancestry`, or with `gh`, a `MERGED` PR whose head equals the tip) or its PR
-   closed. Without `gh`, judge by ancestry only and say so. Never touch the main checkout.
+   `worktrees[]`, run with `--prs -` when `gh` works (preflight-and-connect.md): branch, last
+   activity and size, uncommitted or untracked files, ignored files, unpushed commits, lock, whether
+   it is the session's current directory, and whether its branch merged (`merged_by_ancestry`, or a
+   `pr` in state `MERGED` with `head_matches`) or its PR closed. Without `gh`, judge by ancestry
+   only and say so. Never touch the main checkout.
 2. **Removable** only when all hold: merged or closed; no uncommitted or untracked files
-   (`uncommitted` 0); nothing unpushed (`unpushed` 0); not locked; not current. Age never makes a
-   worktree removable, and a removable one needs no minimum age.
+   (`uncommitted` 0); nothing unpushed (`nothing_unpushed` true: every commit on a remote ref, or
+   the tip equal to a `MERGED` PR's head, as after a squash or rebase merge whose remote branch was
+   deleted); not locked; not current. Age never makes a worktree removable, and a removable one
+   needs no minimum age. A worktree with `commits_since_created` 0 holds no commits since its branch
+   was created, so it loses nothing: describe it that way in the confirmation, not as merged.
 3. **ERR-13.** Keep every other worktree and its branch, and list it with the reason it was kept
    (uncommitted or untracked files, unpushed commits, locked, current, not merged), its disk size
    (`size_bytes`, in MB) and its activity: `idle` when the last activity is at least 14 days old,

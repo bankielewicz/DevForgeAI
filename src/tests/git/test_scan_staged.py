@@ -212,6 +212,12 @@ class ScanStagedTest(unittest.TestCase):
                                    ("literal_credential", "src/testing_utils.py")])
         self.assertNotIn("pw1234", out)
 
+    def test_added_line_starting_with_plus_plus(self):   # v1 read "+++x" as a diff header and skipped it
+        self.stage("notes.txt", f"++ token {GH_TOKEN}\n")
+        report, out = self.scan()
+        self.assertIn("github_token", self.checks(report["blocked"], "notes.txt"))
+        self.assertNotIn(GH_TOKEN, out)
+
     def test_non_utf8_content_and_path(self):
         (self.repo / "notes.txt").write_bytes(b"caf\xe9 \r\n")
         name = b"r\xe9sum\xe9.txt"

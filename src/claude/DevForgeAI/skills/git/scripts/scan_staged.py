@@ -7,8 +7,11 @@ Usage:
 Scans what `git commit` would record: the added lines of `git diff --cached` (which, for an added
 file, is its full content) plus the size, type and attributes of every staged file. Prints one JSON
 object: {"blocked": [...], "warnings": [...], "files_scanned": N}. Each finding names the check,
-the path and, when it applies, the line; a secret's value is never printed. Exit status: 0 when
-nothing blocks, 1 when a finding blocks the commit, 2 on an error (not a git repository).
+the path and, when it applies, the line; a secret's value is never printed. Credentials in a URL to
+a local or example host (or whose user equals the password), and literal credential assignments in
+test and fixture paths, are warnings; other credentials block (SPEC-007 BEH-08). Paths and content
+need not be UTF-8. Exit status: 0 when nothing blocks, 1 when a finding blocks the commit, 2 when
+the scan didn't run (not a git repository, or any other error) - never a finding.
 It never writes and never uses the network.
 """
 import argparse
@@ -34,10 +37,20 @@ SECRET_PATTERNS = [
     ("google_api_key", "Google API key", re.compile(r"\bAIza[0-9A-Za-z_\-]{35}\b")),
     ("stripe_key", "Stripe live secret key", re.compile(r"\b[rs]k_live_[0-9A-Za-z]{20,}\b")),
     ("anthropic_key", "Anthropic API key", re.compile(r"\bsk-ant-[A-Za-z0-9_\-]{20,}")),
-    ("openai_key", "OpenAI API key", re.compile(r"\bsk-(?:proj-)?[A-Za-z0-9]{32,}\b")),
-    ("url_credentials", "credentials embedded in a URL",
-     re.compile(r"\b[a-z][a-z0-9+.\-]*://[^/\s:@\"']+:(?!\$|\{|<|\*{3})[^/\s:@\"']{3,}@[^\s\"']+")),
+    # Legacy sk-<48 alphanumerics>, and project, service-account and admin keys whose bodies hold _ and -.
+    ("openai_key", "OpenAI API key",
+     re.compile(r"\bsk-(?:(?:proj|svcacct|admin)-[A-Za-z0-9_\-]{20,}|[A-Za-z0-9]{32,}\b)")),
 ]
+# user:password@host in a URL. A password that names its source ($VAR, {var}, <var>, ***) isn't one.
+URL_CREDENTIALS = re.compile(
+    r"\b[a-z][a-z0-9+.\-]*://(?P<user>[^/\s:@\"']+):(?!\$|\{|<|\*{3})(?P<password>[^/\s:@\"']{3,})"
+    r"@(?P<host>\[[^\]\s]+\]|[^\s/:\"'?#@]+)")
+LOOPBACK = re.compile(r"^(?:127(?:\.\d{1,3}){3}|::1|localhost)$")
+EXAMPLE_HOST = re.compile(r"(?:^|\.)(?:example\.(?:com|org|net)|example|test|invalid|localhost)$")
+# Test and fixture paths, where a literal credential is usually test data: a directory with one of
+# these names, or a file named test_*, conftest.py, or with a _test., .test., _spec. or .spec. part.
+TEST_DIRS = {"test", "tests", "__tests__", "spec", "testdata", "fixture", "fixtures", "__fixtures__"}
+TEST_FILE = re.compile(r"^(?:test_.*|conftest\.py|.*[._](?:test|spec)\.[^/]+)$", re.I)
 ASSIGNMENT = re.compile(
     r"(?i)\b([a-z0-9_.\-]*(?:password|passwd|pwd|secret|api[_\-]?key|apikey|access[_\-]?token|auth[_\-]?token"
     r"|client[_\-]?secret|private[_\-]?key|credentials?))\b[\"']?\s*(?::|=|:=|=>)\s*([\"'])([^\"'\n]{4,})\2")
@@ -67,9 +80,28 @@ VENDOR_DIRS = {"vendor", "vendored", "third_party", "third-party", "thirdparty",
 HUNK = re.compile(r"^@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@")
 
 
-def git(args, cwd, text=True):
-    r = subprocess.run(["git", *args], cwd=cwd, env=ENV, capture_output=True, text=text)
+def git(args, cwd, raw=False):
+    """(returncode, stdout). Text is UTF-8 with surrogateescape, so a path that isn't UTF-8 round-trips
+    back to git; raw=True returns bytes, for content."""
+    if raw:
+        r = subprocess.run(["git", *args], cwd=cwd, env=ENV, capture_output=True)
+    else:
+        r = subprocess.run(["git", *args], cwd=cwd, env=ENV, capture_output=True, encoding="utf-8",
+                           errors="surrogateescape")
     return r.returncode, r.stdout
+
+
+def is_test_path(path):
+    parts = path.split("/")
+    return bool({p.lower() for p in parts[:-1]} & TEST_DIRS) or bool(TEST_FILE.match(parts[-1]))
+
+
+def local_or_example(host):
+    """localhost, a loopback address, an example or reserved test domain, or a single-label name such
+    as a compose service (db)."""
+    h = host.strip("[]").lower().rstrip(".")
+    return bool(LOOPBACK.match(h) or h.endswith(".localhost") or EXAMPLE_HOST.search(h)
+                or ("." not in h and ":" not in h))
 
 
 def staged_files(root):
@@ -96,7 +128,8 @@ def index_blobs(root, paths):
             res[path] = [mode, blob, None]
     if res:
         r = subprocess.run(["git", "cat-file", "--batch-check=%(objectname) %(objectsize)"], cwd=root, env=ENV,
-                           input="\n".join(v[1] for v in res.values()) + "\n", capture_output=True, text=True)
+                           input="\n".join(v[1] for v in res.values()) + "\n", capture_output=True,
+                           encoding="utf-8", errors="surrogateescape")
         sizes = dict(line.split() for line in r.stdout.splitlines() if len(line.split()) == 2)
         for v in res.values():
             v[2] = int(sizes.get(v[1], 0))
@@ -106,17 +139,17 @@ def index_blobs(root, paths):
 def added_lines(root, path):
     """(binary, [(line_no, text)]) for the lines the staged version of path adds."""
     rc, o = git(["diff", "--cached", "-U0", "--no-color", "--no-ext-diff", "--no-renames", "--",
-                 f":(literal){path}"], root, text=False)
+                 f":(literal){path}"], root, raw=True)
     text = o.decode("utf-8", "replace") if rc == 0 else ""
-    lines, n, binary = [], 0, False
+    lines, n, binary, in_hunk = [], 0, False, False
     for raw in text.split("\n"):
-        if raw.startswith("Binary files ") or raw.startswith("GIT binary patch"):
+        if not in_hunk and (raw.startswith("Binary files ") or raw.startswith("GIT binary patch")):
             binary = True
         m = HUNK.match(raw)
         if m:
-            n = int(m.group(1))
+            n, in_hunk = int(m.group(1)), True
             continue
-        if raw.startswith("+") and not raw.startswith("+++"):
+        if in_hunk and raw.startswith("+"):   # inside a hunk, so an added "++x" line isn't a +++ header
             lines.append((n, raw[1:]))
             n += 1
     return binary, lines
@@ -204,7 +237,7 @@ def scan(root):
         if binary:
             if uses_lfs and not lfs and size > MB:
                 add(warnings, "binary_without_lfs", path, "binary file not covered by the repository's LFS rules")
-            rc, o = git(["cat-file", "blob", blob], root, text=False) if blob and size <= WARN_SIZE else (1, b"")
+            rc, o = git(["cat-file", "blob", blob], root, raw=True) if blob and size <= WARN_SIZE else (1, b"")
             if rc == 0 and re.search(rb"-----BEGIN (?:[A-Z]+ )*PRIVATE KEY", o):
                 add(blocked, "private_key", path, "private key")
             continue
@@ -213,23 +246,37 @@ def scan(root):
             add(warnings, "third_party_document", path, "saved web page: check that it may be published")
         crlf_ok = check_attr(root, "eol", path) == "crlf"
         if not crlf_ok and status == "M":
-            rc, o = git(["cat-file", "-p", f"HEAD:{path}"], root, text=False)
+            rc, o = git(["cat-file", "-p", f"HEAD:{path}"], root, raw=True)
             crlf_ok = rc == 0 and b"\r\n" in o[:65536]
         crlf_lines = []
+        # A literal in a test or fixture file is usually test data: it warns, and the user decides.
+        literal_bucket, literal_note = (warnings, " in a test or fixture file") if is_test_path(path) else (blocked, "")
         for n, t in lines:
             for check, message, pat in SECRET_PATTERNS:
                 if pat.search(t):
                     add(blocked, check, path, message, n)
+            url_spans = []
+            for um in URL_CREDENTIALS.finditer(t):
+                url_spans.append(um.span())
+                if local_or_example(um.group("host")):
+                    add(warnings, "url_credentials", path, "credentials in a URL to a local or example host", n)
+                elif um.group("user") == um.group("password"):
+                    add(warnings, "url_credentials", path, "credentials in a URL whose user name equals its password", n)
+                else:
+                    add(blocked, "url_credentials", path, "credentials embedded in a URL", n)
             m = ASSIGNMENT.search(t)
             if m and not PLACEHOLDER.match(m.group(3).strip()):
-                add(blocked, "literal_credential", path, f"literal value assigned to {m.group(1)}", n)
+                add(literal_bucket, "literal_credential", path, f"literal value assigned to {m.group(1)}{literal_note}", n)
             elif CONFIG_FILE.search(path):
                 m = UNQUOTED_ASSIGNMENT.match(t)
                 if m and not PLACEHOLDER.match(m.group(2)):
-                    add(blocked, "literal_credential", path, f"literal value assigned to {m.group(1)}", n)
+                    add(literal_bucket, "literal_credential", path,
+                        f"literal value assigned to {m.group(1)}{literal_note}", n)
             for hm in HOME_PATH.finditer(t):
                 add(warnings, "home_path", path, "absolute home-directory path", n, match=hm.group(0))
             for em in EMAIL.finditer(t):
+                if any(s < em.end() and em.start() < e for s, e in url_spans):
+                    continue  # password@host inside a URL credential: reporting it would print the password
                 addr = em.group(0)
                 domain = addr.rsplit("@", 1)[1]
                 if addr.lower().startswith("git@"):
@@ -266,11 +313,15 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("-C", dest="cwd", default=".", help="run as if started in this directory")
     a = ap.parse_args(argv)
-    rc, root = git(["rev-parse", "--show-toplevel"], os.path.abspath(a.cwd))
-    if rc != 0:
-        print(json.dumps({"error": "not_a_git_repository"}))
+    try:
+        rc, root = git(["rev-parse", "--show-toplevel"], os.path.abspath(a.cwd))
+        if rc != 0:
+            print(json.dumps({"error": "not_a_git_repository"}))
+            return 2
+        report = scan(root.strip())
+    except Exception as e:  # the scan didn't run: exit 2, which is never a blocked finding
+        print(json.dumps({"error": f"{type(e).__name__}: {e}"}))
         return 2
-    report = scan(root.strip())
     print(json.dumps(report, indent=2))
     return 1 if report["blocked"] else 0
 

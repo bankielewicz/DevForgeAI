@@ -3,14 +3,18 @@
 
 Usage:
     python3 repo_state.py [-C PATH] [--remote NAME] [--default-branch NAME]
-                          [--idle-days 14] [--stale-days 30]
+                          [--idle-days 14] [--stale-days 30] [--prs -]
 
 Prints one JSON object on stdout. It never uses the network and never writes: every git call runs
 with GIT_OPTIONAL_LOCKS=0, and it avoids commands that refresh the index (such as a plain
 `git diff`). Remote-tracking refs are only as fresh as the last fetch, so fetch before trusting
 `default_branch`. Pass --default-branch with the name `git ls-remote --symref <remote> HEAD`
-reported when refs/remotes/<remote>/HEAD is missing. Exit status: 0 with a report, 2 with
-{"error": ...} when git is missing or the directory is not a git repository.
+reported when refs/remotes/<remote>/HEAD is missing. With `--prs -` it reads
+`gh pr list --state all --json number,state,headRefName,headRefOid` on stdin and adds each
+worktree's `pr` and `nothing_unpushed` (SPEC-007 BEH-16). Paths need not be UTF-8: git's output is
+decoded with surrogateescape, and JSON escapes what isn't. Exit status: 0 with a report; 2 with
+{"error": ...} when git is missing, the directory is not a git repository, or anything else fails
+(the report didn't run).
 """
 import argparse
 import datetime as dt
@@ -28,10 +32,11 @@ SPEC_DOC = re.compile(r"^docs/specs/[^/]+/[^/]+$")
 IGNORED_LIST_MAX = 100
 
 
-def git(args, cwd, check=False, text=True, stdin=None, env=None):
-    """Run git and return (returncode, stdout)."""
+def git(args, cwd, check=False, stdin=None, env=None):
+    """Run git and return (returncode, stdout). Output and stdin are UTF-8 with surrogateescape, so a
+    path that isn't UTF-8 round-trips to the file system and back to git."""
     r = subprocess.run(["git", *args], cwd=cwd, env=env or ENV, input=stdin, capture_output=True,
-                       text=text)
+                       encoding="utf-8", errors="surrogateescape")
     if check and r.returncode != 0:
         raise RuntimeError(f"git {' '.join(args)}: {r.stderr.strip()}")
     return r.returncode, r.stdout
@@ -78,7 +83,7 @@ def identity(cwd):
             "email_set": resolved("user.email", ("GIT_AUTHOR_EMAIL", "GIT_COMMITTER_EMAIL", "EMAIL"))}
 
 
-def remote_info(cwd, remote, default_arg, common_dir):
+def remote_info(cwd, remote, default_arg, git_dir, common_dir):
     remotes = (out(["remote"], cwd) or "").split()
     if remote not in remotes:
         return None, remotes
@@ -90,8 +95,10 @@ def remote_info(cwd, remote, default_arg, common_dir):
             default = sym[len(f"refs/remotes/{remote}/"):]
     tracking = (out(["for-each-ref", "--format=%(refname)", f"refs/remotes/{remote}/"], cwd) or "").split()
     tracking = [t for t in tracking if t != f"refs/remotes/{remote}/HEAD"]
-    fetch_head = os.path.join(common_dir, "FETCH_HEAD")
-    empty = not tracking and os.path.isfile(fetch_head) and os.path.getsize(fetch_head) == 0
+    # FETCH_HEAD is per worktree: a fetch run in a linked worktree writes that worktree's own copy.
+    fetch_head = next((p for p in (os.path.join(git_dir, "FETCH_HEAD"), os.path.join(common_dir, "FETCH_HEAD"))
+                       if os.path.isfile(p)), None)
+    empty = not tracking and fetch_head is not None and os.path.getsize(fetch_head) == 0
     return {"name": remote, "url": url, "default_branch": default, "fetched_empty": empty}, remotes
 
 
@@ -192,6 +199,21 @@ def tree_entries(cwd, treeish, paths):
     return res
 
 
+def index_entries(cwd, paths):
+    """{path: (mode, blob)} for the index's stage-0 entries (ls-files -s doesn't refresh the index); a
+    path with conflict stages maps to ("unmerged", None)."""
+    res = {}
+    for chunk in range(0, len(paths), 200):
+        rc, o = git(["ls-files", "-s", "-z", "--", *paths[chunk:chunk + 200]], cwd)
+        for rec in o.split("\0") if rc == 0 else ():
+            if not rec:
+                continue
+            meta, path = rec.split("\t", 1)
+            mode, blob, stage = meta.split()
+            res[path] = (mode, blob) if stage == "0" else ("unmerged", None)
+    return res
+
+
 def worktree_entries(root, paths):
     """{path: (mode, blob)} for the working-tree versions of paths (absent paths are missing)."""
     res, files = {}, []
@@ -226,6 +248,7 @@ def changes(root, head, incoming_ref):
         at_head = tree_entries(root, head, paths)
         at_incoming = tree_entries(root, incoming_ref, paths)
         in_tree = worktree_entries(root, paths)
+        in_index = index_entries(root, paths)
     for c in items:
         if c["status"] == "untracked":
             try:
@@ -239,7 +262,8 @@ def changes(root, head, incoming_ref):
         p = c["path"]
         if at_head.get(p) == at_incoming.get(p):
             c["incoming"] = "untouched"
-        elif in_tree.get(p) == at_incoming.get(p):
+        elif in_tree.get(p) == at_incoming.get(p) and in_index.get(p) in (at_head.get(p), at_incoming.get(p)):
+            # The working copy is upstream already, and the index holds nothing found only there.
             c["incoming"] = "identical"
         else:
             c["incoming"] = "differs"
@@ -296,6 +320,29 @@ def newest_mtime(path):
     return newest
 
 
+def commits_since_created(cwd, branch, head):
+    """Commits on branch since it was created, from its reflog's oldest entry ("branch: Created from
+    ..."); None when that entry has expired or the branch was made another way (a clone, a rename)."""
+    rc, o = git(["log", "-g", "--format=%H%x09%gs", f"refs/heads/{branch}", "--"], cwd)
+    lines = [ln for ln in o.split("\n") if ln] if rc == 0 else []
+    if not lines or not head:
+        return None
+    created, _, subject = lines[-1].partition("\t")
+    if not subject.startswith("branch: Created from"):
+        return None
+    rc, o = git(["rev-list", "--count", f"{created}..{head}"], cwd)
+    return int(o.strip()) if rc == 0 else None
+
+
+def branch_pr(prs, branch, head):
+    """The branch's PR from `gh pr list` data: the one whose head is the tip, else the newest."""
+    mine = [p for p in prs if p.get("headRefName") == branch]
+    if not mine:
+        return None
+    pr = next((p for p in mine if p.get("headRefOid") == head), None) or max(mine, key=lambda p: p.get("number") or 0)
+    return {"number": pr.get("number"), "state": pr.get("state"), "head_matches": pr.get("headRefOid") == head}
+
+
 def dir_size(path):
     total = 0
     for base, dirs, files in os.walk(path):
@@ -307,7 +354,7 @@ def dir_size(path):
     return total
 
 
-def worktree_report(w, main_root, remote, default, has_remote, now, idle_days, stale_days, current_root):
+def worktree_report(w, main_root, remote, default, has_remote, now, idle_days, stale_days, current_root, prs):
     path = w["abs"]
     rel = os.path.relpath(path, main_root)
     entry = {"path": rel if not rel.startswith("..") else path, "branch": w["branch"], "head": w["head"],
@@ -340,6 +387,14 @@ def worktree_report(w, main_root, remote, default, has_remote, now, idle_days, s
         entry["merged_by_ancestry"] = rc == 0
     else:
         entry["merged_by_ancestry"] = None
+    branch = w["branch"]
+    entry["commits_since_created"] = (commits_since_created(path, branch, head)
+                                      if branch and not w.get("main") else None)
+    entry["pr"] = branch_pr(prs, branch, head) if (prs is not None and branch) else None
+    # BEH-16: nothing unpushed when every commit is on a remote ref, or the tip is a MERGED PR's head.
+    merged_head = bool(entry["pr"] and entry["pr"]["state"] == "MERGED" and entry["pr"]["head_matches"])
+    entry["nothing_unpushed"] = (True if entry["unpushed"] == 0 or merged_head
+                                 else None if entry["unpushed"] is None else False)
     commit_ts = None
     if head:
         ts = out(["log", "-1", "--format=%ct", head], path)
@@ -390,9 +445,25 @@ def main(argv=None):
     ap.add_argument("--default-branch", default=None)
     ap.add_argument("--idle-days", type=float, default=14)
     ap.add_argument("--stale-days", type=float, default=30)
+    ap.add_argument("--prs", choices=["-"], default=None,
+                    help="read `gh pr list --state all --json number,state,headRefName,headRefOid` on stdin")
     ap.add_argument("--now", default=None, help=argparse.SUPPRESS)  # ISO time, for tests
     a = ap.parse_args(argv)
+    try:
+        return report(a)
+    except Exception as e:  # any failure is "the report didn't run", never a partial report
+        print(json.dumps({"error": f"{type(e).__name__}: {e}"}))
+        return 2
 
+
+def read_prs():
+    prs = json.load(sys.stdin)
+    if not isinstance(prs, list) or not all(isinstance(p, dict) for p in prs):
+        raise ValueError("--prs expects gh pr list --json output: a list of objects")
+    return prs
+
+
+def report(a):
     if shutil.which("git") is None:
         print(json.dumps({"error": "git_not_found"}))
         return 2
@@ -405,10 +476,11 @@ def main(argv=None):
     common_dir = os.path.realpath(os.path.join(root, out(["rev-parse", "--git-common-dir"], root)))
     now = (dt.datetime.fromisoformat(a.now.replace("Z", "+00:00")).timestamp() if a.now
            else dt.datetime.now(dt.timezone.utc).timestamp())
+    prs = read_prs() if a.prs else None
 
     branch = out(["symbolic-ref", "-q", "--short", "HEAD"], root)
     head = rev("HEAD", root)
-    info, remotes = remote_info(root, a.remote, a.default_branch, common_dir)
+    info, remotes = remote_info(root, a.remote, a.default_branch, git_dir, common_dir)
     default = info["default_branch"] if info else None
     incoming_ref = rev(f"refs/remotes/{a.remote}/{default}", root) if (info and default) else None
 
@@ -416,7 +488,9 @@ def main(argv=None):
     wts = parse_worktrees(raw) if rc == 0 else []
     if wts:
         wts[0]["main"] = True
-    main_root = wts[0]["abs"] if wts and not wts[0]["bare"] else root
+    # A bare common directory has no main checkout: report null, and keep paths relative to this one.
+    main_checkout = wts[0]["abs"] if wts and not wts[0]["bare"] else None
+    main_root = main_checkout or root
 
     lock = os.path.join(common_dir, "config.lock")
     try:
@@ -424,9 +498,9 @@ def main(argv=None):
     except OSError:
         masked = False
 
-    report = {
+    result = {
         "root": root,
-        "main_checkout": main_root,
+        "main_checkout": main_checkout,
         "in_linked_worktree": git_dir != common_dir,
         "branch": branch,
         "head": head,
@@ -440,7 +514,7 @@ def main(argv=None):
             {"branch": w["branch"], "path": os.path.relpath(w["abs"], main_root)} for w in wts]),
         "changes": changes(root, head, incoming_ref),
         "worktrees": [worktree_report(w, main_root, a.remote, default, info is not None, now,
-                                      a.idle_days, a.stale_days, root)
+                                      a.idle_days, a.stale_days, root, prs)
                       for w in wts if not w["bare"]],
         # check-ignore rejects GIT_LITERAL_PATHSPECS (exit 128), so it runs without it.
         "claude_worktrees_ignored": git(["check-ignore", "-q", "--no-index", ".claude/worktrees/"], main_root,
@@ -448,7 +522,7 @@ def main(argv=None):
         "sandbox": {"git_config_write_masked": masked},
         "id_collisions": id_collisions(root, incoming_ref) if branch != default else [],
     }
-    print(json.dumps(report, indent=2))
+    print(json.dumps(result, indent=2))
     return 0
 
 
