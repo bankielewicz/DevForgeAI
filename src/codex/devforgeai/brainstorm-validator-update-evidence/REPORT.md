@@ -3,10 +3,11 @@
 The script fix is authored. All three D-03 probes are rejected with specific messages,
 and the package suite passes 287 tests. Native `writes-valid-brn` passes; `records-provenance`
 fails the existing D-04 model-identity requirement. Both validate on their first invocation.
-Plugin Creator's package validator is unavailable (NOT_RUN). Strict whole-run custody
-FAILS because transient untracked primary paths appeared and the shared papercut log changed,
-although every captured original primary file still matches. This source update does not
-establish owner acceptance or skill qualification.
+Plugin Creator's package validator is unavailable (NOT_RUN). Primary-checkout custody
+FAILS: after an initially matching closeout snapshot, main advanced through unrelated PRs
+#34 and #35 to `6d80f9f`, changing Claude/template files. Earlier transient primary paths and
+an external papercut-log append are also retained. This isolated candidate and its protected
+inputs remain unchanged. This source update does not establish owner acceptance or qualification.
 
 ## Authority and candidate
 
@@ -83,7 +84,8 @@ runs also record source/test hashes; the untouched baseline is bound to its comm
 | Primary/source custody after native execution | FAIL overall | All 3,690 read-only worktree files and 3,694 captured primary files match. Primary status/path set and the external Codex papercut log changed; [full before/after hashes](custody-after-native.json), [drift details](primary-drift-details.json). Candidate, definitions, runtime executable, trial copies and user config still match. |
 | Whole-patch whitespace | FAIL | `git diff --cached --check`, then `git diff 7e2bfb6 HEAD --check`: exit 2, whitespace in retained actor Markdown hard breaks and unified-diff context lines; [initial](whitespace-attempt1.json), [final](whitespace-final.json). Raw evidence is retained as emitted. |
 | Source/tests/import-report whitespace | PASS | `git diff 7e2bfb6 --check -- src/codex/devforgeai/skills/brainstorm/scripts/validate_brn.py src/codex/devforgeai/tests/test_validate_brn_regressions.py src/codex/devforgeai/IMPORT-REPORT.md`: exit 0; [record](source-whitespace.json). This does not waive whole-patch failure. |
-| Closing repository custody | PASS for repository inputs; FAIL for external log | [Final before/after hashes](custody-final.json): primary HEAD, origin/main, status, path set and all captured original bytes match; all protected worktree files match. The unrelated external log append remains, and the earlier transient-primary failure is retained. |
+| Initial closeout snapshot | PASS for repository inputs at that instant; FAIL for external log | [Before/after hashes](custody-final.json): primary HEAD, origin/main, status, path set and original bytes matched then. This observation is superseded for current primary state by the later audit below. |
+| Post-checkpoint primary custody | FAIL | [Later before/after hashes](custody-post-checkpoint.json): primary HEAD/origin/main moved to `6d80f9f` and Claude/template bytes changed. All 3,690 protected files in this worktree, the candidate, case definitions and executable still match. See [revision observation](post-checkpoint-observation.json). |
 | Write scope | PASS | No path outside the authorized script, new test module, import-report additions and new evidence folder changed in this worktree; [audit](custody-after-native.json). |
 
 ## Native evaluation
@@ -140,6 +142,15 @@ all historical evidence. [External inputs](external-inputs-before.json) bind the
 quick validator and both papercut logs. The primary's two modified rule files and untracked
 handoff were preserved byte-for-byte.
 
+After evidence checkpoint `d10a384`, final readback detected that primary HEAD and origin/main
+had advanced to `6d80f9f740822cba5f56f9324732acf3972eadc8`. Git history identifies merges of
+PR #34 (Context skill) and PR #35 (Documents Updater checker). Those changes were not made by
+this task. Twenty-one captured primary files differ or have moved/disappeared; new context
+paths also appear. The frozen worktree remains based on `7e2bfb6`, and its source/test files
+still match the 287-test candidate. No rebase, restoration, cleanup or retest of a different
+candidate was performed. The original evidence manifest describes checkpoint `d10a384`;
+`evidence-manifest-final.json` includes this subsequent observation and updated report.
+
 Closing source hashes: validator `558e27528c4cf37769823dbf69d4b5693dc7214b3c06c998d8210dd0a1a63afc`;
 new test module `f3b6a944e6bb30f188f4e579d2aaf5d31f8cd270f7cfa3fa9fe5cd16cf4fd27d`.
 The unchanged original test file retains its intake digest
@@ -167,7 +178,7 @@ Creator validator are already documented in the Codex log.
 | Source authored | PASS; script and new test module authored, original tests preserved |
 | Static validation | Package/skill/manifest/probes PASS; whole-patch whitespace FAIL on raw evidence; Plugin Creator validator NOT_RUN |
 | Native behavior | FAIL overall: valid-BRN PASS; provenance FAIL on existing D-04; zero validator retries |
-| Whole-run preservation | FAIL for observed primary/external drift; scoped source and all captured original primary bytes preserved |
+| Whole-run preservation | FAIL for primary revision/file changes, transient paths and external log drift; this worktree's scoped source and protected inputs preserved |
 | Git delivery | NOT_RUN by instruction: local checkpoints only; no push, PR or merge |
 | Owner acceptance | NOT_RUN; Bryan owns this decision |
 
