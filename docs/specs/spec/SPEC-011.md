@@ -3,9 +3,9 @@ id: SPEC-011
 type: spec
 title: "Context skill (MVP)"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 1
+version: 2
 created: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-01
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-09-30
+approved_on: 2026-10-01
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
@@ -24,7 +24,7 @@ upstream:
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "policy resolution, recording and the local preference file"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "the project context documents this skill writes and maintains"}
   - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "the testing keys this skill resolves and cites in testing.md; D7 restated there"}
-  - {id: PRD-001, item: FR-019, relation: informed_by, version: 10, hash: null, note: "the requirement this skill implements; the story for its build is a prerequisite (§11)"}
+  - {id: PRD-001, item: FR-019, relation: informed_by, version: 10, hash: null, note: "the requirement this skill implements; built on a spec branch, as no story exists (§11)"}
   - {id: PRD-001, item: FR-020, relation: informed_by, version: 10, hash: null, note: "testing policy: this skill resolves the six keys (ADR-005 D5)"}
   - {id: SPEC-002, relation: informed_by, version: 3, hash: null, note: "the shared policy files and script (§5), which this skill ships byte-identical"}
   - {id: SPEC-003, relation: informed_by, version: 4, hash: null, note: "reads the ARCH: components and their kinds (§4), DEC items; reuses the inspection rule (BEH-05)"}
@@ -38,9 +38,10 @@ components: ["src/claude/DevForgeAI/skills/context", "src/tests/context"]
 
 # SPEC-011 — Context skill (MVP)
 
-> **Approved by Bryan on 2026-09-30,** from his decisions of 2026-09-29 and 2026-09-30. It implements ADR-004 (accepted) with the
-> templates and schema merged in PR #22, and cites ADR-005 (accepted). The shared-schema PR (#25) merged
-> on 2026-09-30; the build still needs a story (§11).
+> **Version 2, approved by Bryan on 2026-10-01** (version 1: 2026-09-30). Version 2 applies Anthropic's
+> skill-authoring guidance (§2, §13): a script for the deterministic checks, evals before the skill, and
+> triggering tested across models. It implements ADR-004 and cites ADR-005, both accepted. The build runs on
+> a spec branch (§11).
 
 ## 1. Overview
 
@@ -71,8 +72,12 @@ by SPEC-010.
 
 - **PRD-001 NFR-001 to NFR-003:** a `SKILL.md` of at most 500 lines, spec-only frontmatter with provenance
   in the sidecar, and an eval suite (§9).
-- **ADR-001:** built in a story's worktree from `src/`, deployed by the owner, evaluated from a plain
-  terminal.
+- **ADR-001:** built in a worktree from `src/`, on a spec branch (§11), deployed by the owner, evaluated
+  from a plain terminal.
+- **Anthropic's skill-authoring guidance** (`docs/research/Claude/`, version 2): checks a script can decide
+  are made by a script ("Code is deterministic; language interpretation isn't"); evaluations come before
+  the instructions; triggering is tested on obvious, paraphrased and unrelated requests, and on each model
+  the skill is meant for.
 - **ADR-002:** the chain is brainstorm → prd ⇄ architecture → **context** → epic → story → spec
   (ADR-004 D5).
 - **ADR-004 v2,** all of D1 to D8:
@@ -124,13 +129,16 @@ src/claude/DevForgeAI/skills/context/
 │   ├── documents.md             # the document set, sources, items, design records (§4)
 │   ├── interview.md             # questions, order, batching and budget (BEH-07)
 │   ├── inspection.md            # scope, what may be read, how observations are recorded (BEH-05)
-│   ├── output-rules.md          # frontmatter, statements, edits, sizes, restore, self-check list
+│   ├── output-rules.md          # frontmatter, statements, edits, sizes, the self-check list
 │   ├── policy.md                # shared, byte-identical with the prd and architecture skills
 │   ├── defaults.md              # shared, byte-identical
-│   └── schemas/                 # policy.schema.json and common.schema.json, unchanged copies of src/schemas/
-└── scripts/validate_policy.py   # shared, byte-identical
-src/claude/DevForgeAI/evals/context/<case>/   # one case per fixture and prompt (§9)
-src/tests/context/                            # make_evals.py, grader checks, test_structure.py; not deployed
+│   └── schemas/                 # policy, common, context and ambiguities: unchanged copies of src/schemas/
+└── scripts/
+    ├── validate_policy.py       # shared, byte-identical
+    └── context_check.py         # snapshot, check and restore (§5, BEH-17, BEH-18, ERR-08)
+src/claude/DevForgeAI/evals/context/<case>/   # one case per fixture and prompt, and the trigger cases (§9)
+src/tests/context/                            # make_evals.py, grader checks, test_structure.py and
+                                              # test_context_check.py; not deployed
 ```
 
 ```mermaid
@@ -142,7 +150,7 @@ flowchart LR
     X --> I[Inspection, named paths only BEH-05]
     I --> Q[Interview BEH-07 BEH-08]
     Q --> W[Write BEH-06 BEH-09 to BEH-13]
-    W --> V[Validate BEH-18]
+    W --> V[Check with context_check.py BEH-18]
     V --> K[Approval, explicit only BEH-17]
     K --> H[Report and hand off BEH-19]
 ```
@@ -167,14 +175,15 @@ documents this skill maintains and the `resolution` field BEH-16 sets:
 - **Ambiguity logs:** `docs/specs/ambiguities/AMB-*.md`, for accepted entries (BEH-16).
 - **Existing context documents:** first the list of every path under `docs/specs/context/`. Then each
   document with one of the 12 names, and each detail file its parent links, read in full at the start of
-  the run; that start-of-run read is what BEH-18 and ERR-08 compare against. Any other path is reported
-  (ERR-11) and never read.
+  the run; the snapshot taken then (BEH-18) is what `context_check.py` compares and restores. Any other
+  path is reported (ERR-11) and never read.
 
 **Outputs:**
 - `docs/specs/context/<name>.md` for each document in the set, from `${CLAUDE_SKILL_DIR}/assets/<name>.md`;
 - detail files `docs/specs/context/<name>/<topic>.md`, from `assets/detail.md`, only when a document
   would pass its line limit (BEH-09);
-- the `resolution` field of each ambiguity entry BEH-16 folds.
+- the `resolution` field of each ambiguity entry BEH-16 folds;
+- the run's snapshots, in the system temp folder, never in the repository (BEH-18).
 
 **The document set** (ADR-004 D2):
 - The core documents always: `index.md` (CTX-001), `architecture.md` (CTX-002), `tech-stack.md`
@@ -310,14 +319,16 @@ row (BEH-17) carry none, because nothing is resolved in them. The line holds:
 ```yaml
 # Proposed SKILL.md frontmatter (validated by src/schemas/skill-frontmatter.schema.json)
 name: context
-description: Writes and maintains a DevForgeAI project's context documents (index, architecture overview, tech stack, source tree, testing, and one document per component kind in the architecture) from accepted ADRs, approved policy, the architecture description, the user's confirmed conventions and read-only inspection of paths the user names. It cites every decision, labels observed practice, proposes nothing as settled, and hands significant choices back to Architecture Definition. Use after Architecture Definition and before epics and stories, when the story step reports missing context, or when the architecture, ADRs or policy changed.
+description: Writes and maintains a DevForgeAI project's context documents in docs/specs/context/ (index.md, architecture.md, tech-stack.md, source-tree.md, testing.md, and one document per component kind in the architecture, such as front-end.md or rdbms.md). Builds them from accepted ADRs, approved policy, the architecture description (ARCH), conventions the user confirms and read-only inspection of paths the user names; cites every decision, labels observed practice, and hands undecided significant choices back to Architecture Definition. Use when the user asks to write, set up, update, refresh or approve the project context, coding conventions, tech stack, source tree or testing conventions; after Architecture Definition and before epics and stories; when the story step reports missing context documents; or when the architecture, ADRs or policy changed. Not for general background questions, the context window, or writing ADRs, PRDs or stories.
 argument-hint: "[document]"
 metadata:
   devforgeai-id: "SKL-010"
   devforgeai-version: "<SKL-010's provenance.yaml version, quoted>"
 ```
 
-- **The name must be exactly `context`.** The story skill's ERR-04 names `/devforgeai:context`.
+- **The name must be exactly `context`.** The story skill's ERR-04 names `/devforgeai:context`. The name is
+  generic, so the description names the files and the requests that should trigger the skill, and what it
+  isn't for (QR-04).
 - **The version isn't fixed here.** `metadata.devforgeai-version` must equal `provenance.yaml`'s
   `version`.
 - **Arguments:** `$ARGUMENTS` is empty, or one document name from §4's set (`tech-stack`, `testing`,
@@ -327,16 +338,49 @@ metadata:
   - **reading:** Read, plus Glob and Grep when available. Otherwise use `ls`, `find`, `grep`, `cat` and
     `head` with explicit paths: on the inputs of §4, and on the inspection scope (BEH-05);
   - **writing:** Write only for a new document or detail file. Every change to an existing context
-    document, and to the `resolution` field of an ambiguity entry, is an Edit. The run's Edit calls, with
-    their old and new text, are what ERR-08 undoes;
-  - **Bash:** only `python3 ${CLAUDE_SKILL_DIR}/scripts/validate_policy.py docs/specs/policy` and the
-    read-only commands above;
+    document, and to the `resolution` field of an ambiguity entry, is an Edit. A restore copies files back
+    with `context_check.py` (ERR-08), never by re-emitting text;
+  - **Bash:** only `python3 ${CLAUDE_SKILL_DIR}/scripts/validate_policy.py docs/specs/policy`,
+    `python3 ${CLAUDE_SKILL_DIR}/scripts/context_check.py` with the subcommands below, and the read-only
+    commands above;
   - **AskUserQuestion:** at most 4 questions per call, 2–4 options each, with the recommended option
     first and marked "(Recommended)". When it isn't available, ask in plain text and end the turn.
 - **"Proceed without questions":** a request that says to proceed without questions, or not to ask
   anything, means no question is asked in the run.
 - **The documents:** they follow `context.schema.json`, the templates and the templates README.
-  `output-rules.md` restates the rules and ends with the self-check list (BEH-18).
+  `output-rules.md` restates the rules and ends with the self-check list. `context_check.py check` applies
+  every rule a script can decide; the list keeps only what needs judgement (BEH-18).
+- **`scripts/context_check.py`.** It needs Python 3, PyYAML and jsonschema, and handles jsonschema 4.10 and
+  4.26 as `validate_policy.py` does. It runs from the project root, prints to standard output, and writes
+  only its snapshot folders and, for `restore`, the files it restores. Every subcommand first loads PyYAML,
+  jsonschema and the four schema copies; when one is missing, or the subcommand can't otherwise run, it
+  prints `Cannot run: <reason>.` and exits 2.
+
+  | Subcommand | Arguments | What it does | Output | Exit |
+  |---|---|---|---|---|
+  | `snapshot` | `new`, or `<folder>` | `new` creates `${TMPDIR:-/tmp}/devforgeai-context-<UTC time as YYYYMMDDTHHMMSS>-<8 random hex digits>/start`; `<folder>` must not exist, and the script creates it and any missing parent. Copies every regular file under `docs/specs/context/` and every `docs/specs/ambiguities/AMB-*.md` into it, byte for byte, and writes `MANIFEST.sha256` there. Snapshots are never deleted | `snapshot: <N> files in <folder>` | 0 done; 2 can't run (a library or schema copy missing, the folder exists, or a copy failed) |
+  | `check` | `[--snapshot <folder>]` | Applies the rules below to `docs/specs/context/` and every AMB log; `--snapshot` adds the comparisons. With `--snapshot`, a file byte-identical to its snapshot copy that fails is printed as `<file>: unchanged, invalid: <first error> (ERR-10)`, and counts in neither INVALID nor the exit code | One line per error, `<file>: <part>: <field>: <message> (<rule>)`, then `OK: <N> files checked` or `INVALID: <N> error(s) in <M> file(s)` | 0 valid; 1 invalid; 2 can't run |
+  | `restore` | `<folder> <file>...` | Copies each named file back from the snapshot, then compares its SHA-256 with `MANIFEST.sha256` | One line per file: `restored <file>`, or `NOT RESTORED <file>: <reason>` | 0 all restored; 1 any not restored; 2 can't run |
+
+  The rules `check` applies, by the label it prints:
+  - `schema`: each document with one of the 12 names against `references/schemas/context.schema.json`
+    (frontmatter and every `yaml items` block), and each AMB log against `ambiguities.schema.json`, with a
+    format checker;
+  - `statement`: a Decision's source has its `constrains` link; an Observed statement has a path and a
+    date; a Proposed statement has a marker; a DevForgeAI rule names no document ID;
+  - `approval`: an approved document holds no `[NEEDS CLARIFICATION` or `[NEEDS ADR` marker and no active
+    Proposed statement or item, its detail files included;
+  - `items`: item IDs are unique in a document; with `--snapshot`, every item ID in the snapshot's copy is
+    still there (an item is deprecated, never deleted or renumbered);
+  - `size`: `index.md` at most 100 lines and every other file at most 500, with a Contents list past 100;
+  - `detail`: a detail file starts with its parent line, has no frontmatter and no items, and is linked
+    from its parent, one level deep;
+  - `ambiguities`: with `--snapshot`, every field of every AMB entry equals the snapshot's, except
+    `resolution`.
+
+  It reads only documents with one of the 12 names, the detail files they link, and AMB logs. Other paths
+  are the skill's to report (ERR-11). The resolution line's entries and order (§4), and whether each
+  statement says what its source says, need judgement: they stay in the self-check list.
 - **Downstream contract** (read by story and spec):
   - `index.md` lists every document of the set with its ID, version, kinds and purpose;
   - `tech-stack.md`'s items, where only an active `decision` or `convention` item's `version_range` is
@@ -404,16 +448,16 @@ behaviors:
     rule: "Fold accepted ambiguity entries: an entry counts when its state is accepted, its relates_to names the ID of an existing context document the run may write (BEH-14's scope), and its resolution is empty. The entry is already stated when its action stays within an active decision or convention item's version_range (in the ecosystem's own range syntax, where x stands for any number and unpinned allows every version), or repeats a statement the document already holds; then change nothing in the document for it. Otherwise fold it by what it changes: an action that names a path ending in / that no active root contains is a new folder; one that names a technology no item lists is a new technology; one that names another version of a listed technology is a version change; anything else is a narrative convention. A new folder becomes a new root item with the next free SRC ID, basis convention, and notes naming the entry. A new technology, or a version outside an item's range, can't be folded, because ADR-004 D8 sends those to the owner rather than the log: report the entry and leave it unfolded. Anything else becomes one Convention bullet, worded from the entry's question and action: in tech-stack.md, in section 2 (Upgrades); in any other document, in the section the entry's checked list names; when none is named, ask where it belongs, and with no answer leave the entry unfolded and report it. After the document passes BEH-18's check, set each folded entry's resolution to 'folded into CTX-NNN vN', or 'folded into CTX-NNN vN: already stated', with the document's version after this run. Set only the resolution field, with Edit. Never change any other field or entry, and never write a new entry."
   - id: BEH-17
     status: active
-    rule: "After BEH-18's check passes, record approval only on the user's explicit words in this run that approve a named document, or all context documents: for example 'approve tech-stack.md'. Approve a document only when it passed the check and holds no [NEEDS CLARIFICATION: …] or [NEEDS ADR: …] marker and no active Proposed statement or item, its detail files included; otherwise say which markers remain and leave it draft. approved_by is the name the user gives for the approver; when none is given, ask who is approving, offering the document's owner first; when no answer can arrive, don't approve, and say the approver wasn't named. On approval, with Edit, set status approved, approved_by, approved_on to today, and add a Change Log row 'Approved' authored by the approver. Then check each approved document once more against the self-check list. If it fails, undo the approval's Edits in reverse order and read the document back: when it matches its content before the approval, report it as not approved, with the errors; otherwise report 'approval rollback failed' with the status, approved_by and approved_on the file now holds, and replace the handoff with ERR-08's validation-failure report. Never infer approval from silence, from an earlier run, or from a request to write the documents."
+    rule: "After BEH-18's check passes, record approval only on the user's explicit words in this run that approve a named document, or all context documents: for example 'approve tech-stack.md'. Approve a document only when it passed the check and holds no [NEEDS CLARIFICATION: …] or [NEEDS ADR: …] marker and no active Proposed statement or item, its detail files included; otherwise say which markers remain and leave it draft. approved_by is the name the user gives for the approver; when none is given, ask who is approving, offering the document's owner first; when no answer can arrive, don't approve, and say the approver wasn't named. On approval, with Edit, set status approved, approved_by, approved_on to today, and add a Change Log row 'Approved' authored by the approver. Before the approval Edits, run context_check.py snapshot <run folder>/pre-approval (BEH-18); when it can't run, apply ERR-13 and approve nothing. After them, run context_check.py check --snapshot <start>; the approval's own fields (status, approved_by, approved_on, the Approved row) change no rule's outcome but approval's. If it fails, run context_check.py restore <run folder>/pre-approval with each approved document: for each line restored, report that document as not approved, with the errors; for each line NOT RESTORED, report 'approval rollback failed' with the status, approved_by and approved_on the file now holds, and replace the handoff with a report in ERR-08's format, restoring nothing else. Never infer approval from silence, from an earlier run, or from a request to write the documents."
   - id: BEH-18
     status: active
-    rule: "Read each written file back and check it by its kind, against the self-check list in references/output-rules.md. A context document: context.schema.json; the statement rules (every Decision's source has its constrains link; every Observed statement has a path and date; every Proposed statement has a marker; a DevForgeAI rule names no document ID); no item deleted or renumbered since the start-of-run read; the resolution line's entries and order (§4); the approval rules; unique item IDs; the line limits and Contents list. A detail file: the detail-file rules (the parent line, no frontmatter, no items, its line limit and Contents list). An edited ambiguity log: ambiguities.schema.json, with every field other than the folded resolutions equal to its start-of-run read. The first readback is check 1; repair each reported error and check again, at most three repair cycles. Record each check and repair in the reply. If errors remain, apply ERR-08."
+    rule: "Before the run writes anything, run python3 ${CLAUDE_SKILL_DIR}/scripts/context_check.py snapshot new, and keep the folder it prints as <start> for the whole run; its parent is the run folder. When it can't run, apply ERR-13. After the documents are written, and again after BEH-16 sets resolutions, run context_check.py check --snapshot <start>. A line 'unchanged, invalid' is ERR-10's to handle, not a repair target. Read each written file back against the self-check list in references/output-rules.md for what needs judgement: the resolution line's entries and order (§4), and whether each statement says what its source says. The first check is check 1; repair each reported error and check again, at most three repair cycles in all. Record each check and repair in the reply, quoting the script's lines. If errors remain, apply ERR-08."
   - id: BEH-19
     status: active
     rule: "When the run wrote or checked documents, open the final reply with this block, then briefly the findings (§4's stale PRD links, BEH-04, BEH-11, BEH-13, BEH-15, BEH-16, ERR-05, ERR-10, ERR-11, ERR-12), then the next step as its own paragraph outside any code block, starting with the words Next step, naming documents by name and PRDs by ID, with nothing after it. Block lines: 'Context documents: <name> (CTX-NNN v<N>, <status>; new | revised | relinked | unchanged), …'; 'Inspection: <each path read> | none (no paths named)'; 'Markers left: <name>: <count>, … | none'; 'Handed back to architecture: <each NEEDS ADR decision> | none'; 'Ambiguity entries folded: AMB-NNN#ENT-NN → CTX-NNN, … | none'; 'Policy resolution: <the resolution line's entries>'. A run that stops before writing (ERR-01 to ERR-04) has no block. Next step: when any document of the set holds a [NEEDS ADR] marker after the run, tell the user to run /devforgeai:architecture with the PRD ID of each current ARCH; otherwise, if ${CLAUDE_SKILL_DIR}/../epic/SKILL.md exists, tell the user to run /devforgeai:epic with each PRD ID; otherwise say the epic workflow isn't built yet. Never start another workflow."
   - id: BEH-20
     status: active
-    rule: "Never modify a PRD, ARCH, ADR, policy document, epic, story or spec; never write an ADR or a policy setting; never run, build or test project code or run git; never call /design; never delete a file; never write a new ambiguity entry. Write only docs/specs/context/ and BEH-16's resolution field."
+    rule: "Never modify a PRD, ARCH, ADR, policy document, epic, story or spec; never write an ADR or a policy setting; never run, build or test project code or run git; never call /design; never delete a file; never write a new ambiguity entry. Write only docs/specs/context/, BEH-16's resolution field, and the run's snapshots in the system temp folder (BEH-18)."
 ```
 
 ## 7. Errors and edge cases
@@ -458,7 +502,7 @@ errors:
   - id: ERR-08
     status: active
     condition: "Validation still fails after three repair cycles, or an error can't be repaired"
-    handling: "For each document that existed before the run and still fails, undo this run's Edits to it in reverse order, read it back and compare it with its start-of-run read: it is restored when they match, otherwise not restored, with the lines that differ; an inverse Edit whose text isn't found exactly once also leaves it not restored. Reset to empty the resolution of each entry folded into a restored document. Documents that pass keep their changes; new documents stay as draft, with their errors listed; index.md lists the documents as they are after the restore. Replace the block and next step with a validation-failure report: each file path, whether it was restored, kept or not restored, every check and repair, and each unresolved error. Never present a document as approved"
+    handling: "For each document that existed before the run and still fails, run context_check.py restore <start> with it: the document is restored when the script prints restored, otherwise not restored, with the script's reason. An ambiguity log goes back from the snapshot too when every entry the run folded into it targets a restored document; otherwise reset to empty, with Edit, the resolution of each entry folded into a restored document, and confirm the log with check --snapshot. Documents that pass keep their changes; new documents stay as draft, with their errors listed; index.md lists the documents as they are after the restore. Replace the block and next step with a validation-failure report: each file path, whether it was restored, kept or not restored, every check and repair, and each unresolved error. Never present a document as approved"
     user_result: "A validation-failure report; each failing pre-existing document restored or named as not restored"
   - id: ERR-09
     status: active
@@ -480,6 +524,11 @@ errors:
     condition: "The technologies or roots items alone would put tech-stack.md or source-tree.md over 500 lines"
     handling: "Write nothing to that document. Say how many items there are and ask the owner how to proceed; the items never move into detail files. The other documents continue"
     user_result: "A question; that document not written"
+  - id: ERR-13
+    status: active
+    condition: "context_check.py can't run (exit 2, or python3, PyYAML or jsonschema is missing)"
+    handling: "Stop before writing: say the context check couldn't run, quote its Cannot run line, and write nothing. When check or restore exits 2 after the run has written, name the files written and not checked, leave them as draft, approve nothing, and replace the handoff with a report in ERR-08's format"
+    user_result: "The reason; nothing written, or the files left unchecked as draft"
 ```
 
 ## 8. Non-functional design
@@ -500,8 +549,14 @@ quality_responses:
       - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
   - id: QR-03
     status: active
-    response: "Every automated VER item is graded in an eval case run against the no-plugin baseline. VER items that share a fixture and prompt share one case; each grader's name starts with the item it grades (ver01-, ver02-, …), and each case is tagged context and ver-NN for every item it grades"
+    response: "Every automated VER item is graded in an eval case run against the no-plugin baseline. VER items that share a fixture and prompt share one case; each grader's name starts with the item it grades (ver01-, ver02-, …), and each case is tagged context and ver-NN for every item it grades. The trigger cases of VER-26 are named trigger-NN and tagged trigger and ver-26, without context, so --tag context leaves them out; they run without a baseline arm (--ablation none), the one exception to this response"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs; and, for each VER item, the graders named for it pass at a rate of at least 0.8 over those runs, read from aggregate-result.json (cases[].arms.with[].graders[])"
+    upstream:
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+  - id: QR-04
+    status: active
+    response: "The skill fires on requests to write, update, refresh or approve the project context documents, whether they name the files or not, and on the story step's handback; it doesn't fire on unrelated requests that mention context"
+    measured_by: "VER-26, per model: every trigger case meets --threshold 0.8 over its 3 runs, so a binary case needs 3 of 3 (NFR-003). Required on sonnet and opus; haiku is measured and reported (§13)"
     upstream:
       - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
 ```
@@ -510,9 +565,9 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-30) |
+| Structural: this spec against `spec.schema.json` | Passes (checked 2026-10-01, version 2) |
 | Behavioural: automated VER items | Not run: the skill isn't built |
-| Structural test (VER-25) and manual VER items (VER-21, VER-22) | Not run |
+| Structural and unit tests (VER-25, VER-27), trigger cases (VER-26), manual VER items (VER-21, VER-22) | Not run |
 
 **Fixtures.** `make_evals.py` builds every case from the example set merged in PR #22,
 `src/staging/examples/context-cli-service-rdbms/docs/specs/`. It validates each seeded document against
@@ -548,7 +603,19 @@ quality_responses:
   by ADR-001, ADR-002 or ARCH-001: the CLI and the service share a package, so their transport is an
   in-process call. So only VER-07's fixture leads to a `[NEEDS ADR]` marker.
 - **Case limits:** the generator sets `max_turns: 100` and `timeout_seconds: 1800` for a case that writes
-  documents, and `15` and `300` for the negative case. The pilot run (§11) confirms them or raises them.
+  documents, and `15` and `300` for the negative case and the trigger cases. The pilot run (§11) confirms them
+  or raises them. It also confirms that `context_check.py snapshot new` can write under the harness's
+  `$TMPDIR`, or `/tmp` when that is unset; if it can't, every run would stop at ERR-13, so the full suite
+  waits for that answer.
+- **Trigger cases (VER-26):** they share VER-12's scaffold, the shared fixture without ARCH-001, so a run
+  that fires the skill stops at ERR-01 within a few turns. They grade only whether the skill fired; VER-12
+  alone grades the handback's text. They are named `trigger-NN` and tagged `trigger` and `ver-26`, without
+  `context`, so `--tag context` leaves them out. They run with `--case 'trigger-*' --ablation none`,
+  because a run without the plugin can't fire the skill.
+- **The script on the fixtures:** the generator runs `context_check.py check` over every seeded context
+  document set, except a document marked as expected to be invalid, as architecture's generator runs its
+  policy fixtures through `validate_policy.py`. This costs nothing and runs before any paid run, once the
+  script exists (§11 step 6).
 
 No story specifies this skill yet, so the VER items have no `upstream` link.
 
@@ -693,12 +760,13 @@ verifications:
       - ERR-12
   - id: VER-22
     status: active
-    obligation: "Manual, in fixture copies: (a) a PostToolUse hook that corrupts one frontmatter field of an existing document after every Edit makes the run end with the validation-failure report after at most four checks; that document is reported restored and equals its start-of-run content, or is named not restored with the lines that differ; documents that pass keep their changes; new documents are draft; (b) the same hook applied only after an approval Edit makes BEH-17 undo the approval and report it, or, when the undo can't apply, report 'approval rollback failed' with the fields the file holds; (c) with an approved policy document and the policy script made unrunnable, the run stops before writing."
+    obligation: "Manual, in fixture copies: (a) a PostToolUse hook that corrupts one frontmatter field of an existing document after every Edit makes the run end with the validation-failure report after at most four checks; context_check.py restore brings that document back, its SHA-256 equal to the snapshot's; documents that pass keep their changes; new documents are draft; (b) the same hook applied only after an approval Edit makes BEH-17 restore that document from the pre-approval snapshot and report it not approved; (c) with an approved policy document and the policy script made unrunnable, and separately with context_check.py made unrunnable (its context.schema.json copy renamed in a copy of the skill), the run stops before writing."
     level: manual
     covers:
       - BEH-18
       - ERR-08
       - ERR-03
+      - ERR-13
   - id: VER-23
     status: active
     obligation: "Shared fixture; the prompt: 'Update only the context document named banana.' No docs/specs/context/index.md exists afterwards; the reply names tech-stack, testing and source-tree among the documents and asks which one. Eval case unknown-document: file_exists false and regex on last_message."
@@ -721,6 +789,20 @@ verifications:
     covers:
       - QR-01
       - QR-02
+  - id: VER-26
+    status: active
+    obligation: "Trigger cases (§9): each case's only grader is tool_used Skill with input_match naming context, min 1 for a positive case and max 0 for a negative one, arm both. Positive, 8 cases: 'Write the context documents for this project.'; 'Set up our tech stack and source tree documents.'; 'Document the coding conventions for this repository.'; 'Update testing.md with how we run the tests.'; 'The story step says the context documents are missing. Create them.'; 'Refresh the project context after the architecture change.'; 'Approve tech-stack.md.'; 'Create docs/specs/context/ for this project.' Negative, 4 cases: 'Give me some background context on the Roman empire.'; 'What's in my context window right now?'; 'Explain how React's Context API works.'; 'Write an ADR that chooses PostgreSQL.' Cases trigger-01 to trigger-12, run with --case 'trigger-*' --ablation none --runs 3, once each with --model haiku, sonnet and opus."
+    level: e2e
+    covers:
+      - QR-04
+  - id: VER-27
+    status: active
+    obligation: "src/tests/context/test_context_check.py, run with jsonschema 4.26 and with the system's 4.10 (under a throwaway HOME, as src/tests/prd/test_validate_policy.py does): for each rule label of §5, one passing fixture and one failing fixture with its expected line; snapshot then restore brings a changed file back byte for byte; restore of a file whose snapshot copy was altered prints NOT RESTORED and exits 1; snapshot into an existing folder exits 2; every subcommand with PyYAML or a schema copy missing prints Cannot run and exits 2; with --snapshot, an invalid file byte-identical to its snapshot copy prints unchanged, invalid and leaves the exit code 0; check passes on the example set's documents."
+    level: unit
+    covers:
+      - BEH-18
+      - ERR-08
+      - ERR-13
 ```
 
 ## 10. Rollout, migration and rollback
@@ -750,28 +832,39 @@ The skill is new, so removing its directory rolls it back. Building it has these
   SV-08, `CTX` and the other ID prefixes in `common.schema.json`, and issue #15's date format. The shared
   policy files and schemas this skill copies include them, and the example project's STORY-001 links
   `CTX-003`.
-- **A story for the build exists,** so ADR-001's worktree and branch (`story/STORY-NNN-<slug>`) can be
-  named after it, as for the architecture skill (STORY-003) and the epic skill (STORY-005).
-- **This spec is approved.**
+- **The build branch** is `feat/spec-011-context-skill`, in an ADR-001 worktree, with commits citing
+  SPEC-011, as the git skill (SPEC-007) was built. No story exists for it: this repository has no epic
+  for PRD-001 (Bryan, 2026-09-30; issue #31).
+- **This spec is approved before the build starts.**
 
-**Build steps:**
-1. Create the story's worktree, following ADR-001.
-2. `git mv src/templates/context/*.md` into `skills/context/assets/`, and update the templates README
+**Build steps,** evaluations first (Anthropic's guidance, and ADR-005's default method, `tdd`):
+1. Create the worktree on `feat/spec-011-context-skill`, following ADR-001's steps, and deploy it.
+2. **The evals:** write `src/tests/context/make_evals.py` and the cases: the automated VER items of §9, with
+   writes-the-set for VER-01, VER-02, VER-03, VER-18 and VER-19 and one case for each other item, and the
+   trigger cases of VER-26. Check the graders offline with good and bad replies. The generator's
+   `context_check.py` pass (§9) is switched on in step 6, once the script exists.
+3. **The baseline:** before the skill exists, Bryan runs three cases (writes-the-set, nothing-confirmed and
+   needs-adr-handback), one run each with `--ablation none`. That runs the deployed plugin as it is, and
+   with no context skill in it, the run is the baseline: what Claude does without the skill.
+4. `git mv src/templates/context/*.md` into `skills/context/assets/`, and update the templates README
    row.
-3. Copy the shared `policy.md`, `defaults.md`, `scripts/validate_policy.py` and `references/schemas/`
-   byte for byte from the prd skill, and extend `test_shared_files.py` to the third skill.
-4. Write `references/documents.md`, `interview.md`, `inspection.md` and `output-rules.md` from §4, §5 and
-   BEH-04 to BEH-18. `output-rules.md`'s self-check list covers every rule BEH-18 names.
-5. Write `SKILL.md` from §5 to §7, and `provenance.yaml` as SKL-010 implementing SPEC-011. Write
-   `src/tests/context/test_structure.py` (VER-25).
-6. Write `src/tests/context/make_evals.py`. It builds each case's fixture from §9, validates the seeded
-   documents, and writes the cases for the automated VER items: writes-the-set for VER-01, VER-02, VER-03,
-   VER-18 and VER-19, and one case for each other automated item. Check the regex graders offline with
-   good and bad outputs.
-7. Evaluate from a plain terminal, cheapest first. First a pilot: writes-the-set, once, which measures
-   the cost and the turns. The full suite is 18 cases over 3 runs with the baseline. At the architecture
-   suite's cost of about $2.50 a case, with more output here, it is estimated at $60 to $100; Bryan
-   approves it after the pilot. Then deploy, and run VER-21 and VER-22 by hand.
+5. Copy the shared `policy.md`, `defaults.md`, `scripts/validate_policy.py`, `policy.schema.json` and
+   `common.schema.json` byte for byte from the prd skill. Copy `context.schema.json` and
+   `ambiguities.schema.json` unchanged from `src/schemas/` into `references/schemas/`. Extend
+   `test_shared_files.py` to the third skill, whose schema folder holds those four copies.
+6. **The script, test first:** `src/tests/context/test_context_check.py` (VER-27), then
+   `scripts/context_check.py` until it passes. Then switch on the generator's script pass.
+7. **The skill:** `references/documents.md`, `interview.md`, `inspection.md` and `output-rules.md`, then
+   `SKILL.md` from §5 to §7, each with just enough content to pass the evals; `provenance.yaml` as SKL-010
+   implementing SPEC-011; `src/tests/context/test_structure.py` (VER-25).
+8. **Evaluate,** from a plain terminal, cheapest first:
+   - a pilot: writes-the-set once on the default model, then once each with `--model haiku` and
+     `--model opus`, measuring cost and turns;
+   - the trigger cases (VER-26) on the three models;
+   - after Bryan approves the cost, the full suite (`--tag context`): 18 cases over 3 runs with the
+     baseline. At the architecture suite's cost of about $2.50 a case, with more output here, it is
+     estimated at $60 to $100, and the pilot measures it;
+   - then deploy, and run VER-21 and VER-22 by hand.
 
 ## 12. Alternatives considered
 
@@ -783,12 +876,25 @@ The skill is new, so removing its directory rolls it back. Building it has these
 | Rewrite every document on every run | Every run would clear every approval and make every story a proposal. Unchanged sources give relinks (BEH-14), and unchanged documents stay as they are |
 | Record a convention from observed practice without asking | ADR-004 D1 and ADR-003 A1: observed practice is not policy, and it becomes a convention only when the user confirms it |
 | Put the approved-design index in the stories | ADR-004 D2 puts it in `ui-mockups.md`. It's generated from the stories' records, with no links back, so no version loop forms (BEH-11) |
-| Restore a failed run by rewriting each document from the text read at the start | The skill would have to emit up to 500 lines exactly, and whitespace or a trailing newline can differ. Undoing its own Edits (ERR-08) changes only what the run changed, and the readback shows whether it worked |
+| Restore a failed run by rewriting each document from the text read at the start | The skill would have to emit up to 500 lines exactly, and whitespace or a trailing newline can differ |
+| Restore by undoing the run's Edits (version 1) | An inverse Edit fails when its text no longer occurs exactly once, so the restore was best effort (Codex review). `context_check.py restore` copies the snapshot back and verifies it by hash |
+| Self-check by reading only (version 1) | Anthropic's guidance: "Code is deterministic; language interpretation isn't." The script decides every rule it can; reading stays for what needs judgement |
 | A closed list of significant choices, anything else a convention | It narrows ADR-004 D1's test, which a spec can't do (Codex review, 2026-09-30). BEH-06 keeps the test: the list names the choices that always meet it, and the owner judges the rest through each question's ADR option |
 
 ## 13. Open questions
 
-Bryan approved each design choice below with this spec on 2026-09-30:
+**Version 2 (Bryan, 2026-10-01: fix the gaps against Anthropic's guidance).** Proposals, approved with this
+version:
+- **`context_check.py`** makes the checks a script can decide, and the snapshot and restore. Reading stays for
+  what needs judgement, and ERR-13 stops a run that can't use the script.
+- **Evaluations first,** with a three-case baseline before `SKILL.md` exists (§11).
+- **The description** (§5) names the files and the requests that should trigger the skill, and says what it
+  isn't for. The name `context` stays: SPEC-009 ERR-04 and the story skill name it.
+- **The models** (Bryan chose the recommended option on 2026-10-01): Sonnet and Opus must pass the trigger
+  cases (QR-04), and the pilot's writes-the-set must pass on both. Haiku is measured and reported, but not
+  required.
+
+Bryan approved each design choice below with version 1 on 2026-09-30:
 - **`approved_by`** (his choice of the two options): approval needs a named approver, taken from the user's
   words or from an answer to "who is approving?", with the owner offered first. With no answer, nothing is
   approved (BEH-17). This follows the architecture skill, which asks who is deciding before accepting an
@@ -799,8 +905,9 @@ Bryan approved each design choice below with this spec on 2026-09-30:
   - The owner judges every other choice through the "This needs an architecture decision (ADR)" option,
     and a confirmed convention counts as judged not significant.
   - This replaces the draft's closed list, which Codex showed narrowed the ADR.
-- **ERR-08 restores only failing documents that existed before the run,** by undoing the run's Edits and
-  comparing each with its start-of-run read. It's the least certain rule, so VER-22 measures it by hand.
+- **ERR-08 restores only failing documents that existed before the run.** Since version 2 it copies them
+  back from the run's snapshot with `context_check.py`; version 1 undid the run's Edits. VER-22 measures it
+  by hand, and VER-27 tests the script.
 - **The greenfield layout:** `src/<slug>/` and `tests/<slug>/` for each component without roots (§4).
   For the example project that gives `src/local-database/` for a SQLite component, a proposal the user is
   expected to change.
@@ -829,3 +936,5 @@ Bryan approved each design choice below with this spec on 2026-09-30:
 | 1 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Initial draft from ADR-004 (accepted), the context templates and schema (PR #22), ADR-005 (accepted), and Bryan's decisions of 2026-09-29 and 2026-09-30: context before story, every template, the `proposed` basis, the DevForgeAI rule label, full policy resolution with the shared files. Revised before review after the advisor's review and an independent review of 2026-09-30: fixtures and the shared prompt fixed, BEH-06's closed list, Edit-only changes to existing documents and an Edit-undo restore, approval after validation, policy R1 to R5, the approved-design line form, and VER-23 to VER-25. Revised again after the Codex consult of 2026-09-30 (`tmp/codex_consult-spec-011.reply.md`), findings 1 to 3, 5, 6, 8 to 14 and 19: BEH-06 keeps ADR-004 D1's test, with the owner judging choices outside the always-significant list; deployment-named technologies; structured folds; approval rollback checked; the self-check by kind; today's design-record form; the PRD version rule; whole-content unchanged checks | all |
 | 1 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Before approval, on Bryan's decision: the example set's tech-stack.md gains TEC-06, pipx, and moves to version 2 with index.md, so the fixture needs no patch. §4, §9, §10, §13, VER-09, VER-11 and VER-17 follow; §13 records his approved_by choice | §4, §9, §10, §13, VER-09, VER-11, VER-17 |
 | 1 | 2026-09-30 | Bryan | Approved | status |
+| 2 | 2026-10-01 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decision of 2026-10-01 to apply Anthropic's skill-authoring guidance (docs/research/Claude/). scripts/context_check.py (snapshot, check, restore) makes the deterministic checks and the restore, with the context and ambiguities schema copies (§3, §5, BEH-17, BEH-18, BEH-20, ERR-08, new ERR-13, VER-22, new VER-27). The description names files, requests and what the skill isn't for (§5). Triggering is tested on three models (new QR-04, VER-26). Evaluations come before the skill, with a three-case baseline (§11). The build runs on a spec branch (Bryan, 2026-09-30; issue #31) | frontmatter, blockquote, §2, §3, §4, §5, BEH-17, BEH-18, BEH-20, ERR-08, ERR-13, QR-03, QR-04, VER-22, VER-26, VER-27, §9, §11, §12, §13 |
+| 2 | 2026-10-01 | Bryan | Approved | status |
