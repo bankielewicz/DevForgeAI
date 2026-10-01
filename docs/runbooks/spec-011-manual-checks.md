@@ -1,6 +1,6 @@
 # Runbook: SKL-010 (context skill) — evaluation and manual checks
 
-Covers what the build session can't run for the context skill (SKL-010 v1, SPEC-011 v2), built on
+Covers what the build session can't run for the context skill (SKL-010 v2, SPEC-011 v3), built on
 branch `feat/spec-011-context-skill`:
 - section 1: the paid `claude plugin eval` runs (§11 step 8);
 - section 2: setup for the manual checks;

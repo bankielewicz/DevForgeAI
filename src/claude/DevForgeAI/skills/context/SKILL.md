@@ -1,10 +1,10 @@
 ---
 name: context
-description: Writes and maintains a DevForgeAI project's context documents in docs/specs/context/ (index.md, architecture.md, tech-stack.md, source-tree.md, testing.md, and one document per component kind in the architecture, such as front-end.md or rdbms.md). Builds them from accepted ADRs, approved policy, the architecture description (ARCH), conventions the user confirms and read-only inspection of paths the user names; cites every decision, labels observed practice, and hands undecided significant choices back to Architecture Definition. Use when the user asks to write, set up, update, refresh or approve the project context, coding conventions, tech stack, source tree or testing conventions; after Architecture Definition and before epics and stories; when the story step reports missing context documents; or when the architecture, ADRs or policy changed. Not for general background questions, the context window, or writing ADRs, PRDs or stories.
+description: Writes and maintains a DevForgeAI project's context documents in docs/specs/context/ (index.md, architecture.md, tech-stack.md, source-tree.md, testing.md, and one document per component kind in the architecture, such as front-end.md or rdbms.md). Builds them from accepted ADRs, approved policy, the architecture description (ARCH), conventions the user confirms and read-only inspection of paths the user names; cites every decision, labels observed practice, and hands undecided significant choices back to Architecture Definition. Use when the user asks to write, set up, update, refresh or approve the project context, coding conventions, tech stack, source tree or testing conventions, or names one of these files ("update testing.md"); after Architecture Definition and before epics and stories; when the story step reports missing context documents; or when the architecture, ADRs or policy changed. Not for general background questions, the context window, or writing ADRs, PRDs or stories.
 argument-hint: "[document]"
 metadata:
   devforgeai-id: "SKL-010"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Context

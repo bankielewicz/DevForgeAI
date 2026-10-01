@@ -3,7 +3,7 @@ id: SPEC-011
 type: spec
 title: "Context skill (MVP)"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 2
+version: 3
 created: 2026-09-30
 updated: 2026-10-01
 owner: "Bryan"
@@ -38,10 +38,11 @@ components: ["src/claude/DevForgeAI/skills/context", "src/tests/context"]
 
 # SPEC-011 — Context skill (MVP)
 
-> **Version 2, approved by Bryan on 2026-10-01** (version 1: 2026-09-30). Version 2 applies Anthropic's
-> skill-authoring guidance (§2, §13): a script for the deterministic checks, evals before the skill, and
-> triggering tested across models. It implements ADR-004 and cites ADR-005, both accepted. The build runs on
-> a spec branch (§11).
+> **Version 3, approved by Bryan on 2026-10-01** (version 2: 2026-10-01; version 1: 2026-09-30). Version 3
+> adds one trigger phrase to the description (§5), after the trigger cases on Sonnet. Version 2 applies
+> Anthropic's skill-authoring guidance (§2, §13): a script for the deterministic checks, evals before the
+> skill, and triggering tested across models. It implements ADR-004 and cites ADR-005, both accepted. The
+> build runs on a spec branch (§11).
 
 ## 1. Overview
 
@@ -319,7 +320,7 @@ row (BEH-17) carry none, because nothing is resolved in them. The line holds:
 ```yaml
 # Proposed SKILL.md frontmatter (validated by src/schemas/skill-frontmatter.schema.json)
 name: context
-description: Writes and maintains a DevForgeAI project's context documents in docs/specs/context/ (index.md, architecture.md, tech-stack.md, source-tree.md, testing.md, and one document per component kind in the architecture, such as front-end.md or rdbms.md). Builds them from accepted ADRs, approved policy, the architecture description (ARCH), conventions the user confirms and read-only inspection of paths the user names; cites every decision, labels observed practice, and hands undecided significant choices back to Architecture Definition. Use when the user asks to write, set up, update, refresh or approve the project context, coding conventions, tech stack, source tree or testing conventions; after Architecture Definition and before epics and stories; when the story step reports missing context documents; or when the architecture, ADRs or policy changed. Not for general background questions, the context window, or writing ADRs, PRDs or stories.
+description: Writes and maintains a DevForgeAI project's context documents in docs/specs/context/ (index.md, architecture.md, tech-stack.md, source-tree.md, testing.md, and one document per component kind in the architecture, such as front-end.md or rdbms.md). Builds them from accepted ADRs, approved policy, the architecture description (ARCH), conventions the user confirms and read-only inspection of paths the user names; cites every decision, labels observed practice, and hands undecided significant choices back to Architecture Definition. Use when the user asks to write, set up, update, refresh or approve the project context, coding conventions, tech stack, source tree or testing conventions, or names one of these files ("update testing.md"); after Architecture Definition and before epics and stories; when the story step reports missing context documents; or when the architecture, ADRs or policy changed. Not for general background questions, the context window, or writing ADRs, PRDs or stories.
 argument-hint: "[document]"
 metadata:
   devforgeai-id: "SKL-010"
@@ -565,7 +566,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Structural: this spec against `spec.schema.json` | Passes (checked 2026-10-01, version 2) |
+| Structural: this spec against `spec.schema.json` | Passes (checked 2026-10-01, version 3) |
 | Behavioural: automated VER items | Not run: the skill isn't built |
 | Structural and unit tests (VER-25, VER-27), trigger cases (VER-26), manual VER items (VER-21, VER-22) | Not run |
 
@@ -938,3 +939,5 @@ Bryan approved each design choice below with version 1 on 2026-09-30:
 | 1 | 2026-09-30 | Bryan | Approved | status |
 | 2 | 2026-10-01 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decision of 2026-10-01 to apply Anthropic's skill-authoring guidance (docs/research/Claude/). scripts/context_check.py (snapshot, check, restore) makes the deterministic checks and the restore, with the context and ambiguities schema copies (§3, §5, BEH-17, BEH-18, BEH-20, ERR-08, new ERR-13, VER-22, new VER-27). The description names files, requests and what the skill isn't for (§5). Triggering is tested on three models (new QR-04, VER-26). Evaluations come before the skill, with a three-case baseline (§11). The build runs on a spec branch (Bryan, 2026-09-30; issue #31) | frontmatter, blockquote, §2, §3, §4, §5, BEH-17, BEH-18, BEH-20, ERR-08, ERR-13, QR-03, QR-04, VER-22, VER-26, VER-27, §9, §11, §12, §13 |
 | 2 | 2026-10-01 | Bryan | Approved | status |
+| 3 | 2026-10-01 | claude-code (session 3553d47f-c5b8-4936-a203-336ec1805677) | Bryan's decision of 2026-10-01: the description adds "or names one of these files ("update testing.md")". The trigger cases bound to `8407574` (`tmp/eval-results/context-triggers-sonnet-20261001T162629Z`) fired trigger-04, "Update testing.md with how we run the tests.", in 2 of 3 Sonnet runs, failing QR-04. Five kept Sonnet traces (`context-trace-trigger-sonnet-20261001T164758Z`) showed the model searching for a file named testing.md before invoking the skill, and once asking the user instead. Anthropic's guidance for an under-triggering skill: trigger phrases users would say. The example phrase is also trigger-04's own wording | blockquote, §5, §9 |
+| 3 | 2026-10-01 | Bryan | Approved | status |
