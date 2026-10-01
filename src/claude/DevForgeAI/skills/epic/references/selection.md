@@ -221,5 +221,5 @@ Every other requirement is `must`, `current`.
 ```
 
 FR-002 is blocked although DEC-01, which cites it, is resolved: DEC-01 asks about data ownership, not
-calendar sync. The eligible requirements are FR-006 and NFR-001. NFRs are never covered, so NFR-001
-would still be attached to a new epic even if EPIC-004 also refined it.
+calendar sync. The eligible requirements are FR-006 and NFR-001. NFRs are never covered, so even if
+EPIC-004 also refined NFR-001, your proposal would still attach it to the new epic it constrains.

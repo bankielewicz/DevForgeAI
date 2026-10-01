@@ -160,7 +160,7 @@ priority and requirements (by ID, with a few words each), then:
 - **Nobody can confirm** (the request says to proceed without questions and gives no grouping): write
   your proposal.
 - **A stated grouping leaves an eligible FR unplaced or places one twice, and nobody can be asked:**
-  keep the stated grouping, and place only that FR by your proposal.
+  keep the rest of the stated grouping, and place only that FR by your proposal.
 
 In the last two cases an FR's placement is unconfirmed: add this marker to section 8 of **every** epic
 written in this run: `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]`.

@@ -134,7 +134,7 @@ Delete every other `<!-- -->` comment and every placeholder: no `EPIC-000`, `PRD
 | Marker | When | Where |
 |---|---|---|
 | `**Proposal:** PRD-NNN vN is a draft, so this epic is a proposal until it is approved.` (name the ARCH instead, or both, when the ARCH is the draft) | The PRD or the ARCH has a `status` other than `approved` | First line of section 5, in every epic written |
-| `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]` | An FR's placement is unconfirmed: no grouping was given and nobody could confirm one, or a stated grouping left an FR unplaced and nobody could be asked (SKILL.md step 6) | Section 8, in every epic written |
+| `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]` | An FR's placement is unconfirmed: no grouping was given and nobody could confirm one, or a stated grouping left an FR unplaced or placed it twice and nobody could be asked (SKILL.md step 6) | Section 8, in every epic written |
 | `[NEEDS CLARIFICATION: target release; the PRD sets none]` | The PRD has no `target_release`, or only the prd skill's placeholder | Section 8 |
 
 ## Change Log
