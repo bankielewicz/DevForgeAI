@@ -1,14 +1,17 @@
 """Unit tests for the brainstorm skill's BRN validator, scripts/validate_brn.py (SPEC-001 BEH-09).
 
 Each case writes its own BRN under a temporary docs/specs/brainstorm/ and runs the script as a subprocess
-twice: with this interpreter's packages, where PyYAML adds a YAML syntax check, and with `-S`, which
-hides every site-packages directory as a machine without PyYAML would. The verdict must not depend on
-which one ran, and the script must never end in a traceback.
+three times: with this interpreter's packages, where PyYAML adds a YAML syntax check; with a throwaway
+HOME, which hides user-site packages the way the eval harness does (on this machine that switches PyYAML
+6.0.3 for the system's 6.0.1); and with `-S`, which hides every site-packages directory as a machine
+without PyYAML would. The verdict must not depend on which one ran, and the script must never end in a
+traceback.
 
 Run from the repository root:
     python3 -B src/tests/brainstorm/test_validate_brn.py
 """
 import glob
+import os
 import re
 import shutil
 import subprocess
@@ -159,12 +162,25 @@ def edit(text, old, new):
     return text.replace(old, new, 1)
 
 
-def _has_yaml(flags):
-    return subprocess.run([sys.executable, *flags, "-c", "import yaml"], capture_output=True).returncode == 0
+def _has_yaml(flags, env=None):
+    return subprocess.run([sys.executable, *flags, "-c", "import yaml"], env=env,
+                          capture_output=True).returncode == 0
+
+
+def _system_home():
+    home = tempfile.mkdtemp()
+    try:
+        return _has_yaml([], env=dict(os.environ, HOME=home)), home
+    finally:
+        shutil.rmtree(home, ignore_errors=True)
+
+
+_SYSTEM_YAML, _HOME = _system_home()
 
 
 class Base:
     FLAGS = []
+    ENV = {}
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -176,7 +192,7 @@ class Base:
 
     def run_file(self, path):
         p = subprocess.run([sys.executable, "-B", *self.FLAGS, str(SCRIPT), str(path)],
-                           capture_output=True, text=True, timeout=60)
+                           env=dict(os.environ, **self.ENV), capture_output=True, text=True, timeout=60)
         self.assertEqual(p.stderr, "", p.stderr)
         return p.returncode, p.stdout.splitlines()
 
@@ -373,6 +389,21 @@ class WithPyYAML(Base, unittest.TestCase):
     """PyYAML importable: the script adds its YAML syntax check."""
 
     FLAGS = []
+
+
+@unittest.skipUnless(_SYSTEM_YAML, "no PyYAML outside the user site-packages")
+class WithoutUserSite(Base, unittest.TestCase):
+    """As the eval harness runs it: HOME points elsewhere, so only system-wide PyYAML loads."""
+
+    ENV = {"HOME": _HOME}
+
+    def setUp(self):
+        super().setUp()
+        Path(_HOME).mkdir(exist_ok=True)
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(_HOME, ignore_errors=True)
 
 
 @unittest.skipIf(_has_yaml(["-S"]), "PyYAML is importable even with -S")
