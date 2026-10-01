@@ -21,7 +21,8 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
 | `git` | SKL-006 v1 | SPEC-007 v1, draft awaiting approval | Built from the draft, not deployed; results below |
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
-| `github-post` | SKL-009, reserved | SPEC-010 v1, approved 2026-09-29 | Not built; its §11 lists the build steps |
+| `github-post` | SKL-009, reserved | SPEC-010 v2, approved 2026-09-30 | Not built; its §11 lists the build steps |
+| `context` | SKL-010, reserved | SPEC-011 v1, approved 2026-09-30 | Not built; its §11 lists the prerequisites (a story for the build) and the build steps |
 
 SKL-008 is reserved for the story skill (SPEC-009).
 

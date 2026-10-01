@@ -3,9 +3,9 @@ id: CTX-003
 type: context
 title: "shiftlog: tech stack"
 status: approved
-version: 1
+version: 2
 created: 2026-09-29
-updated: 2026-09-29
+updated: 2026-09-30
 owner: "Example Owner"
 authors: ["Example Owner", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "00000000-0000-0000-0000-000000000000"
 reviewed_by: []
 approved_by: "Example Owner"
-approved_on: 2026-09-29
+approved_on: 2026-09-30
 upstream:
   - {id: ARCH-001, relation: constrains, version: 1, hash: null}
 supersedes: []
@@ -86,6 +86,18 @@ technologies:
     observed_in: "pyproject.toml"
     observed_on: 2026-09-29
     notes: ""
+  - id: TEC-06
+    status: active
+    name: "pipx"
+    version_range: "unpinned"
+    used_by:
+      - "ARCH-001#CMP-01"
+      - "ARCH-001#CMP-02"
+    basis: decision
+    upstream:
+      - {id: ARCH-001, item: CMP-01, relation: constrains, version: 1, hash: null}
+      - {id: ARCH-001, item: CMP-02, relation: constrains, version: 1, hash: null}
+    notes: "The installer the components' deployments name"
 ```
 
 ## 2. Upgrades
@@ -105,3 +117,5 @@ technologies:
 |---|---|---|---|---|
 | 1 | 2026-09-29 | claude-code (session 00000000-0000-0000-0000-000000000000) | Initial draft from ARCH-001 v1 | all |
 | 1 | 2026-09-29 | Example Owner | Approved | — |
+| 2 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Added TEC-06, pipx: the deployments of ARCH-001#CMP-01 and CMP-02 name it, and SPEC-011 §4 records each technology in use | TEC-06 |
+| 2 | 2026-09-30 | Example Owner | Approved | — |
