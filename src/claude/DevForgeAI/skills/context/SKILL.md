@@ -144,7 +144,8 @@ Compute the set from the kinds of the active components ([documents.md](referenc
   the set limits the writes to that document and index.md; the others are read, never written. No
   argument and no such request: the whole set.
 - **A name outside the set (ERR-04):** write nothing. List the document names of the current set and
-  ask which one, or whether to run for all. Stop.
+  ask which one, or whether to run for all. Stop. A path outside `docs/specs/context/`
+  (`docs/guides/testing.md`) names no document of the set, whatever its file name: ERR-04 too.
 
 ### 4. Snapshot and review the existing documents (BEH-18, BEH-13 to BEH-16, ERR-10, ERR-11)
 
