@@ -32,7 +32,7 @@ Three rules shape everything below:
 - The repository: its git state, its remote, PR data from `gh`, and its instructions (`CLAUDE.md`,
   `AGENTS.md`, `CONTRIBUTING*`, and ADRs or runbooks about branches, worktrees, commits, PRs, merges
   or deploys).
-- The conversation: the task, the files this session edited, and authorizations already given in it.
+- The conversation: the task, this session's edited files, and authorizations from this run only.
 
 **Tools.** Bash for `git`, `gh` and the scripts; Read, Glob and Grep; Edit and Write only for ignore
 files; AskUserQuestion for gates; EnterWorktree with `path`, to move the session into a worktree
@@ -43,8 +43,8 @@ Never run a `devforgeai` command: that CLI doesn't exist.
 
 Scripts, run with `python3`, all read-only and offline:
 - `${CLAUDE_SKILL_DIR}/scripts/repo_state.py [-C CHECKOUT] [--default-branch NAME] [--prs -]`: the
-  state report (JSON). `--prs -` reads `gh pr list --state all --json
-  number,state,headRefName,headRefOid` on stdin and adds each worktree's `pr` and `nothing_unpushed`.
+  state report (JSON). `--prs -` reads `gh pr list --state all --limit 200 --json
+  number,state,headRefName,headRefOid` on stdin (a pipeline that starts with `gh pr` is fine).
 - `${CLAUDE_SKILL_DIR}/scripts/scan_staged.py`: the pre-publish scan; exit 1 is a blocked finding.
 - `${CLAUDE_SKILL_DIR}/scripts/qa_state.py`: the PR's QA state, from `gh pr view` JSON on stdin.
 
@@ -171,8 +171,8 @@ place), always under the main checkout: take `main_checkout` from the state repo
 inside it. When `main_checkout` is `null` (a bare repository), ask where to put it; when the path is
 refused, that is ERR-16, never a path inside the current worktree. Only when the report's
 `claude_worktrees_ignored` is false, append the rule with
-`echo '.claude/worktrees/' >> .git/info/exclude`, as its own Bash call from the main checkout's
-root; if it is refused, create the worktree anyway and hand the command to the user.
+`echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude` as its own Bash call; if it is
+refused, create the worktree anyway and hand that command to the user.
 - **No uncommitted work to carry:** create the branch and worktree together from the fetched
   `origin/<default>`.
 - **Uncommitted work to carry:** first, when the current branch is the default branch and the
@@ -211,8 +211,9 @@ Follow [references/publish-and-merge.md](references/publish-and-merge.md), in th
 2. Fetch, and run the state report in the branch's checkout. **`pr` only:** stop on a colliding
    document ID (ERR-15), before any rebase.
 3. When the base moved and the branch's commits are unpushed, rebase them onto `origin/<default>`;
-   on a conflict run `git rebase --abort` and stop (ERR-08). Push with `git push origin <branch>` as
-   a command of its own (never chained, after `cd … &&`, or as `git -C`), from any checkout.
+   on a conflict run `git rebase --abort` and stop (ERR-08). Push with `git push -u origin <branch>`
+   (no `-u` when `.git/config` is masked) as a command of its own (never chained, after `cd … &&`,
+   or as `git -C`), from any checkout.
 4. **`pr` only:** now check `gh` and a GitHub remote (ERR-02), then reuse the branch's open PR or
    create one, each `gh pr` call a command of its own. Name the next step: an independent QA
    session reviews the PR.
@@ -232,24 +233,24 @@ the work to do. Never add, remove or create a QA label, and never post a verdict
 Follow [references/sync-and-prune.md](references/sync-and-prune.md). `git fetch --prune`, record a
 backup ref for the local default branch, then act on its state: fast-forward only when it is
 behind; stop when it is ahead or diverged (ERR-11). Reconcile from the state report of the checkout
-that holds the default branch (`repo_state.py -C <checked_out_at>`). Before a fast-forward that
-would overwrite local edits, reconcile each path: restore or remove it only when the report calls
-it `identical` (its working copy and mode equal the incoming version, and its index holds nothing
-found only there); otherwise keep it byte-identical and stop (ERR-12). Then run or report the
-repository's post-merge steps. Retire branches the sync shows as merged only by step 9's removal
-rules: ask about each worktree's non-regenerable ignored files before removing anything.
+that holds the default branch (`repo_state.py -C <checked_out_at>`, an absolute path). Of the paths
+the fast-forward would overwrite, restore or remove one only when the report calls it `identical`
+(working copy and mode equal the incoming version, and its index holds nothing found only there);
+when one `differs`, keep it byte-identical and stop (ERR-12). Then run or report the repository's
+post-merge steps, and offer to retire the branches the sync shows as merged, by step 9's removal
+rules (with `--prs -` when `gh` works): ask about non-regenerable ignored files before removing any.
 
 ### 9. prune
 
 Follow [references/sync-and-prune.md](references/sync-and-prune.md). Inventory the linked
 worktrees from the state report, run with `--prs -` when `gh` works. A worktree is removable only
 when it is merged or closed, clean, not locked, not current, and `nothing_unpushed` (every commit on
-a remote ref, or the tip equal to a merged PR's head; without `gh`, by ancestry, said so). Age never
-makes one removable. A worktree whose `commits_since_created` is 0 has no commits since it was
+a remote ref, or the tip equal to a merged PR's head; without `gh`, remote refs only, said so). Age
+never makes one removable. A worktree whose `commits_since_created` is 0 has no commits since it was
 created: say that, not "merged". Report every other worktree with its reason (ERR-13), disk size and
 activity (idle at 14 days, stale at 30; a locked one is reported as locked). List each removable
-worktree's ignored files and ask about any that isn't regenerable. Remove removable ones only after
-one confirmation listing them, with `git worktree remove`, then retire their branches safely.
+worktree's ignored files (all of them when `ignored_truncated` is set) and ask about any that isn't
+regenerable. Remove removable ones only after one confirmation, then retire their branches safely.
 
 ### 10. Report
 
@@ -270,10 +271,9 @@ Changes: <committed, left unstaged, proposed for ignoring, blocked>
 Action required: <approval needed, conflict, recovery command, the user's own step>
 ```
 
-`done`: every requested phase finished. `partial`: some finished and an issue remains. `blocked`:
-nothing could proceed. `awaiting_approval`: a gate needs an answer. `no_change`: everything
-requested was already done, or there was nothing to deliver. Show the ticked checklist once, before
-this block.
+`done`: every requested phase finished. `partial`: some finished, an issue remains. `blocked`: nothing
+could proceed. `awaiting_approval`: a gate needs an answer. `no_change`: everything requested was
+already done, or nothing to deliver. Show the ticked checklist once, before this block.
 
 ## Examples
 

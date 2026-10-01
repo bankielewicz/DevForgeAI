@@ -63,11 +63,14 @@ number,state,headRefName,headRefOid` into it with `--prs -`. Exit 2 means it did
 - `remote`: name, URL and default branch, or `null` when there is no `origin`.
 - `default_branch.state`: `up_to_date`, `behind`, `ahead`, `diverged`, `unrelated`, `no_remote`,
   `empty_remote` (fetched and empty) or `unknown` (fetch first), with `ahead`, `behind` and
-  `checked_out_at` (the checkout holding it, relative to the main checkout).
+  `checked_out_at` (the absolute path of the checkout holding it, ready for `-C`).
 - `changes[]`: `path`, `status`, `staged`, `incoming` (`identical`, `differs` or `untouched`
   compared with `origin/<default>`; `identical` also requires the index to hold nothing found only
   there), and `sandbox_mask: true` for a sandbox write mask.
-- `worktrees[]`: branch, head, lock, `prunable`, `current`, `uncommitted`, `untracked`, `ignored`,
+- `worktrees[]`: `path` (relative to the main checkout, so `-C` takes `<main_checkout>/<path>`),
+  branch, head, lock, `prunable`, `current` (the checkout the session works in, even in a `-C`
+  report), `uncommitted` and `untracked` (sandbox write masks excluded and counted in
+  `sandbox_masks`), `ignored` (cut at 100, with `ignored_truncated` giving the full count),
   `unpushed`, `merged_by_ancestry`, `commits_since_created` (from the branch's reflog; `null` once
   its creation entry expired), `pr` and `nothing_unpushed` (with `--prs`), `last_activity`,
   `activity`, `modified_within_hour`, `size_bytes`.
@@ -148,12 +151,13 @@ checkout). Only when it is false: append `.claude/worktrees/` to `.git/info/excl
 no tracked file and covers every worktree of the repository, and say that a `.gitignore` entry would
 share the rule. When the repository's rules require the `.gitignore` entry instead, add it there and
 name it in the next commit's message. Never edit `.gitignore` otherwise.
-- Write it from the main checkout's root (in a linked worktree `.git` is a file) with exactly this
-  command, as a Bash call of its own: `echo '.claude/worktrees/' >> .git/info/exclude`. Claude Code
-  protects `.git/`: file tools can't edit it, and a permission check refuses compound commands that
-  also `mkdir` or `printf` there. `git init` already created `.git/info/`.
+- Write it with exactly this command, as a Bash call of its own, naming the main checkout's
+  `.git/info/exclude` by its absolute path (in a linked worktree `.git` is a file):
+  `echo '.claude/worktrees/' >> <main_checkout>/.git/info/exclude`. Claude Code protects `.git/`:
+  file tools can't edit it, and a permission check refuses compound commands that also `mkdir` or
+  `printf` there. `git init` already created `.git/info/`.
 - If that write is still refused, don't retry it another way. Create the worktree anyway (nothing
-  in this skill stages it), and put the command in Action required for the user to run.
+  in this skill stages it), and put that same absolute command in Action required for the user.
 
 **Base.** New work branches from `origin/<default>` as just fetched, never from a possibly stale local
 default branch:
@@ -196,7 +200,8 @@ unless the user chooses one:
    above).
 
 A path that mixes task and unrelated edits is `uncertain`: ask whether to carry the whole file or
-leave it. When the current checkout is already a linked worktree, or a non-default branch dedicated
-to this work, commit there: no new branch or worktree is needed. Rebasing the new branch onto
+leave it. When the current checkout is a linked worktree or a non-default branch already dedicated
+to this work (the branch the request names, or the task's own), commit there: no new branch or
+worktree is needed. Rebasing the new branch onto
 `origin/<default>` happens before the push, inside the worktree
 ([publish-and-merge.md](publish-and-merge.md)).

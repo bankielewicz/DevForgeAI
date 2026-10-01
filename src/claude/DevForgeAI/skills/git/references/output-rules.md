@@ -94,9 +94,11 @@ Before the completion response, confirm each item:
    confirmed it in this run; each `git push` and `gh pr` call was a command of its own.
 9. No merge happened without the `approved` QA state and a confirmation given after this run's
    readiness report, with `--match-head-commit`. No QA label was touched and no verdict posted.
-10. No worktree, branch or file was removed without proof that its content exists elsewhere and a
-    confirmation naming it, from prune or from sync, and no worktree was removed before its
-    non-regenerable ignored files were named in a question. A locked worktree is reported as locked.
+10. No worktree or branch was removed without proof that its content exists elsewhere and a
+    confirmation naming it, from prune or from sync; none was the session's own worktree; and no
+    worktree was removed before its non-regenerable ignored files were named in a question. A file
+    was restored or removed only when proven identical to the incoming version. A locked worktree
+    is reported as locked.
 11. A differing local edit, and any staged version found nowhere else, is byte-identical to how it
     started.
 12. The reply never says the session is working in a worktree unless EnterWorktree moved it there (a

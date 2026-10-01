@@ -2,11 +2,15 @@
 
     PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test_*.py'
 """
+import contextlib
+import io
 import json
 import os
+import sys
 import unittest
+from unittest import mock
 
-from gitfixture import Sandbox, tree_checksum
+from gitfixture import SCRIPTS, Sandbox, tree_checksum
 
 DAY = 86400
 
@@ -48,7 +52,7 @@ class RepoStateTest(unittest.TestCase):
         s = self.sb.state(w)
         self.assertEqual(s["remote"]["default_branch"], "main")
         self.assertEqual(s["default_branch"]["state"], "up_to_date")
-        self.assertEqual(s["default_branch"]["checked_out_at"], ".")
+        self.assertEqual(os.path.realpath(s["default_branch"]["checked_out_at"]), os.path.realpath(w))   # absolute (§4)
         self.assertFalse(s["in_linked_worktree"])
         self.assertEqual(s["branch"], "main")
         self.assertFalse(s["claude_worktrees_ignored"])
@@ -448,6 +452,50 @@ class RepoStateTest(unittest.TestCase):
         r = self.sb.run_script("repo_state.py", "-C", str(w), "--now", "not-a-time")
         self.assertEqual(r.returncode, 2, r.stderr)
         self.assertIn("error", json.loads(r.stdout))
+
+    def test_sync_from_a_linked_worktree_reads_the_main_checkout(self):
+        w = self.clone()
+        self.sb.git(w, "fetch", "-q", "origin")
+        side = self.add_worktree(w, "side")
+        self.sb.write(w, "a.txt", "edited in the main checkout\n")
+        first = json.loads(self.sb.run_script("repo_state.py", cwd=side).stdout)   # the session is in side
+        holder = first["default_branch"]["checked_out_at"]
+        self.assertEqual(os.path.realpath(holder), os.path.realpath(w))
+        r = self.sb.run_script("repo_state.py", "-C", holder, cwd=side)            # sync's -C report
+        s = json.loads(r.stdout)
+        self.assertIn("a.txt", [c["path"] for c in s["changes"]])   # the main checkout's edit, not side's
+        current = [x["branch"] for x in s["worktrees"] if x["current"]]
+        self.assertEqual(current, ["feat/side"], "current is the session's checkout, not the -C one")
+
+    def test_unhashable_file_is_not_identical(self):
+        w = self.clone()
+        self.advance_origin({"b.txt": None})   # upstream deletes b.txt
+        self.sb.git(w, "fetch", "-q", "origin")
+        p = self.sb.write(w, "b.txt", "a local edit git can't read\n")
+        os.chmod(p, 0)
+        try:
+            ch = {c["path"]: c for c in self.sb.state(w)["changes"]}
+        finally:
+            os.chmod(p, 0o644)
+        self.assertEqual(ch["b.txt"]["incoming"], "differs")
+
+    def test_sandbox_masks_dont_count_as_uncommitted(self):
+        w = self.clone()
+        self.sb.git(w, "fetch", "-q", "origin")
+        side = self.add_worktree(w, "side")
+        self.sb.write(side, ".mcp.json", "")   # stands in for a mask (a character device) the sandbox shows
+        sys.dont_write_bytecode = True
+        sys.path.insert(0, str(SCRIPTS))
+        try:
+            import repo_state
+        finally:
+            sys.path.remove(str(SCRIPTS))
+        out = io.StringIO()
+        with mock.patch.object(repo_state, "is_sandbox_mask", lambda p: os.path.basename(p) == ".mcp.json"), \
+                mock.patch.dict(os.environ, self.sb.env), contextlib.redirect_stdout(out):
+            self.assertEqual(repo_state.main(["-C", str(w)]), 0)
+        x = self.by_branch(json.loads(out.getvalue()))["feat/side"]
+        self.assertEqual((x["uncommitted"], x["untracked"], x["sandbox_masks"]), (0, 0, 1))
 
 
 if __name__ == "__main__":

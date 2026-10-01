@@ -214,8 +214,12 @@ def index_entries(cwd, paths):
     return res
 
 
+UNHASHED = ("unhashed", None)  # a file git couldn't hash: never equal to any version, so never identical
+
+
 def worktree_entries(root, paths):
-    """{path: (mode, blob)} for the working-tree versions of paths (absent paths are missing)."""
+    """{path: (mode, blob)} for the working-tree versions of paths (absent paths are missing). A file
+    git can't hash (unreadable, or gone mid-run) maps to UNHASHED rather than looking absent."""
     res, files = {}, []
     for p in paths:
         full = os.path.join(root, p)
@@ -234,10 +238,22 @@ def worktree_entries(root, paths):
     if files:
         rc, o = git(["hash-object", "--stdin-paths"], root, stdin="\n".join(p for p, _ in files) + "\n")
         blobs = o.split() if rc == 0 else []
-        if len(blobs) == len(files):
+        if len(blobs) == len(files) and not any("\n" in p for p, _ in files):
             for (p, mode), blob in zip(files, blobs):
                 res[p] = (mode, blob)
+        else:  # one file failed the batch: hash each on its own, so the rest keep their answer
+            for p, mode in files:
+                rc, o = git(["hash-object", "--", p], root)
+                res[p] = (mode, o.strip()) if rc == 0 and o.strip() else UNHASHED
     return res
+
+
+def is_sandbox_mask(full_path):
+    """Claude Code's sandbox shows write masks as character devices, in every checkout of the repo."""
+    try:
+        return stat.S_ISCHR(os.lstat(full_path).st_mode)
+    except OSError:
+        return False
 
 
 def changes(root, head, incoming_ref):
@@ -250,12 +266,8 @@ def changes(root, head, incoming_ref):
         in_tree = worktree_entries(root, paths)
         in_index = index_entries(root, paths)
     for c in items:
-        if c["status"] == "untracked":
-            try:
-                if stat.S_ISCHR(os.lstat(os.path.join(root, c["path"])).st_mode):
-                    c["sandbox_mask"] = True  # an empty character device the sandbox shows; never stage it
-            except OSError:
-                pass
+        if c["status"] == "untracked" and is_sandbox_mask(os.path.join(root, c["path"])):
+            c["sandbox_mask"] = True  # an empty character device the sandbox shows; never stage it
         if not incoming_ref:
             c["incoming"] = None
             continue
@@ -365,8 +377,11 @@ def worktree_report(w, main_root, remote, default, has_remote, now, idle_days, s
         return entry
     rc, raw = git(["status", "--porcelain=v2", "-z", "--untracked-files=all"], path)
     items = parse_status(raw) if rc == 0 else []
+    masks = [c for c in items if c["status"] == "untracked" and is_sandbox_mask(os.path.join(path, c["path"]))]
+    items = [c for c in items if c not in masks]   # masks aren't the user's files: they don't block removal
     entry["uncommitted"] = len(items)
     entry["untracked"] = sum(1 for c in items if c["status"] == "untracked")
+    entry["sandbox_masks"] = len(masks)
     if w.get("main"):
         entry["ignored"] = None  # the main checkout is never a prune candidate
     else:
@@ -491,6 +506,12 @@ def report(a):
     # A bare common directory has no main checkout: report null, and keep paths relative to this one.
     main_checkout = wts[0]["abs"] if wts and not wts[0]["bare"] else None
     main_root = main_checkout or root
+    # `current` is the checkout the caller works in, even with -C (sync reports on the checkout holding
+    # the default branch from inside another worktree); a caller outside this repository falls back to -C.
+    here = out(["rev-parse", "--show-toplevel"], os.getcwd())
+    here_common = out(["rev-parse", "--git-common-dir"], here) if here else None
+    same_repo = here_common and os.path.realpath(os.path.join(here, here_common)) == common_dir
+    current_root = here if same_repo else root
 
     lock = os.path.join(common_dir, "config.lock")
     try:
@@ -510,11 +531,12 @@ def report(a):
         "identity": identity(root),
         "remote": ({k: v for k, v in info.items() if k != "fetched_empty"} if info else None),
         "other_remotes": [r for r in remotes if r != a.remote],
+        # checked_out_at is absolute: it is passed to -C, which resolves against the caller's directory.
         "default_branch": default_branch_state(root, a.remote, info, [
-            {"branch": w["branch"], "path": os.path.relpath(w["abs"], main_root)} for w in wts]),
+            {"branch": w["branch"], "path": w["abs"]} for w in wts]),
         "changes": changes(root, head, incoming_ref),
         "worktrees": [worktree_report(w, main_root, a.remote, default, info is not None, now,
-                                      a.idle_days, a.stale_days, root, prs)
+                                      a.idle_days, a.stale_days, current_root, prs)
                       for w in wts if not w["bare"]],
         # check-ignore rejects GIT_LITERAL_PATHSPECS (exit 128), so it runs without it.
         "claude_worktrees_ignored": git(["check-ignore", "-q", "--no-index", ".claude/worktrees/"], main_root,

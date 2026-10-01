@@ -33,8 +33,8 @@ subject) and offer to move them onto a new branch for a PR (recommended), or lea
 is. Resetting the default branch afterwards needs its own confirmation and a backup ref. Report
 `awaiting_approval`.
 
-Never run `git pull` without `--ff-only`, `git reset --hard`, `git clean`, or `git checkout --` /
-`git restore` on a path not proven identical.
+Sync itself needs no `git reset --hard` or `git clean`, and no `git checkout --` or `git restore` on
+a path not proven identical; each would need SKILL.md's confirmation naming its target.
 
 ## sync: per-path reconciliation
 
@@ -44,7 +44,7 @@ each path's `incoming` value in the report (computed against the fetched `origin
 | `incoming` | Meaning | Action |
 |---|---|---|
 | `untouched` | The incoming commits don't change the path | Leave it as it is: the fast-forward keeps it |
-| `identical` | Its working copy's content and mode equal the incoming version (or both are absent), and its index entry equals HEAD's or the incoming one | The local change is already upstream, so restoring or removing it loses nothing: `git checkout HEAD -- <path>` for a tracked path (it resets the index too, where `git checkout -- <path>` would restore a staged copy), `rm -- <path>` for an untracked one. The fast-forward then writes the same content |
+| `identical` | Its working copy's content and mode equal the incoming version (or both are absent), and its index entry equals HEAD's or the incoming one | The local change is already upstream, so restoring or removing it loses nothing: `git checkout HEAD -- <path>` for a path in HEAD (it resets the index too, where `git checkout -- <path>` would restore a staged copy); `git restore --staged -- <path>` then `rm -- <path>` for a staged path not in HEAD; `rm -- <path>` for an untracked one. The fast-forward then writes the same content |
 | `differs` | The local version, or a staged version found nowhere else, differs from what the fast-forward would write | ERR-12 |
 
 Confirm `identical` yourself before discarding anything: `git hash-object <path>` equals
@@ -68,12 +68,14 @@ only when it is clean, or reconciled as above.
 Run the repository's post-merge steps (for example a redeploy), or report them as the user's step
 when the session can't run them. Then report the new SHA of the default branch and the backup ref.
 
-Local branches whose work is now merged (a merged PR's branch, the feature branch the main checkout
-just left) are retired as below. Their worktrees are removed only by prune's removal rules (step 2
-onward of "prune" below): each must be removable, its ignored files are listed with a question
-about any that isn't regenerable (such as `.env`), one modified within the last hour is flagged, and
-one confirmation names every worktree and branch. With no answer possible, sync still reports its
-own result, removes nothing, and ends `awaiting_approval` with that question.
+Then offer to retire the local branches whose work is now merged (a merged PR's branch, the feature
+branch the main checkout just left), as below. Take their inventory as prune's step 1 does, with
+`--prs -` when `gh` works so a squash-merged branch counts. Their worktrees are removed only by
+prune's removal rules (steps 2 to 6 below): each must be removable (never the session's own
+worktree: the report's `current`), its ignored files are listed with a question about any that
+isn't regenerable (such as `.env`), one modified within the last hour is flagged, and one
+confirmation names every worktree and branch. With no answer possible, sync still reports its own
+result, removes nothing, and ends `awaiting_approval` with that question.
 
 ## Retiring a merged branch
 
@@ -102,14 +104,18 @@ branch is destructive: ask once, naming each branch.
    needs no minimum age. A worktree with `commits_since_created` 0 holds no commits since its branch
    was created, so it loses nothing: describe it that way in the confirmation, not as merged.
 3. **ERR-13.** Keep every other worktree and its branch, and list it with the reason it was kept
-   (uncommitted or untracked files, unpushed commits, locked, current, not merged), its disk size
+   (uncommitted or untracked files, unpushed commits, locked, current, not merged, non-regenerable
+   ignored files the user didn't clear), its disk size
    (`size_bytes`, in MB) and its activity: `idle` when the last activity is at least 14 days old,
    `stale` at 30 days (the `prune` argument may change both; pass `--idle-days`/`--stale-days` to
    the report). **A locked worktree is reported as locked, never as idle or stale:** a lock is how a
    user keeps one on purpose.
 4. **Ignored files.** `git worktree remove` deletes ignored files without warning. List each
    removable worktree's `ignored` entries and ask about any that isn't regenerable output (such as
-   `.env`, local settings or data); keep the worktree unless the user clears them.
+   `.env`, local settings or data); keep the worktree unless the user clears them. The report cuts
+   the list at 100: when `ignored_truncated` is set, read the whole list with
+   `git -C <main_checkout>/<path> ls-files --others --ignored --exclude-standard --directory`
+   before asking, or keep the worktree.
 5. Flag removable worktrees with `modified_within_hour`: another session may be working there.
 6. **Confirm once**, listing each removable worktree and its branch. With no answer possible,
    remove nothing and report `awaiting_approval`. Otherwise remove each with

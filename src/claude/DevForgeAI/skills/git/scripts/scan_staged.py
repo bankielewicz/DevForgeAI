@@ -21,7 +21,11 @@ import re
 import subprocess
 import sys
 
-ENV = dict(os.environ, GIT_OPTIONAL_LOCKS="0", LC_ALL="C", GIT_TERMINAL_PROMPT="0")
+# Pathspec modes set by the caller would change what the :(literal) pathspecs below match (with
+# GIT_LITERAL_PATHSPECS=1 they match nothing, and the scan would pass everything), so drop them.
+PATHSPEC_MODES = ("GIT_LITERAL_PATHSPECS", "GIT_GLOB_PATHSPECS", "GIT_NOGLOB_PATHSPECS", "GIT_ICASE_PATHSPECS")
+ENV = dict({k: v for k, v in os.environ.items() if k not in PATHSPEC_MODES},
+           GIT_OPTIONAL_LOCKS="0", LC_ALL="C", GIT_TERMINAL_PROMPT="0")
 MB = 1024 * 1024
 BLOCK_SIZE = 100 * MB
 WARN_SIZE = 50 * MB

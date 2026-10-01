@@ -212,6 +212,12 @@ class ScanStagedTest(unittest.TestCase):
                                    ("literal_credential", "src/testing_utils.py")])
         self.assertNotIn("pw1234", out)
 
+    def test_inherited_literal_pathspecs_still_scan(self):   # with them, :(literal) matched nothing
+        self.sb.env["GIT_LITERAL_PATHSPECS"] = "1"
+        self.stage("config.py", f"AWS_ACCESS_KEY_ID = '{AWS_KEY}'\n")
+        report, _ = self.scan()
+        self.assertIn("aws_access_key", self.checks(report["blocked"], "config.py"))
+
     def test_added_line_starting_with_plus_plus(self):   # v1 read "+++x" as a diff header and skipped it
         self.stage("notes.txt", f"++ token {GH_TOKEN}\n")
         report, out = self.scan()

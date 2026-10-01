@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic, documents-updater and git (built from draft SPEC-007, not yet evaluated). Codex contains brainstorm, architecture and documents-updater; PRD and epic are not yet ported. Codex architecture remains a draft with recorded evaluation failures and unrun manual checks; source presence does not establish acceptance.
+DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic, documents-updater and git (SKL-006 v1 evaluated and deployed; v2 built from draft SPEC-007 v2, not yet evaluated). Codex contains brainstorm, architecture and documents-updater; PRD and epic are not yet ported. Codex architecture remains a draft with recorded evaluation failures and unrun manual checks; source presence does not establish acceptance.
 
 - `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-006.md` the documents updater, `SPEC-007.md` (draft) the git workflow, `SPEC-008.md` (stub) the QA review, `SPEC-010.md` (approved, not built) the GitHub post skill and `SPEC-011.md` (approved, not built) the context skill. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
 - `src/templates/` holds staged document templates; `src/templates/skill/` contains skill, provenance, and evaluation examples.

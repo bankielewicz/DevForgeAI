@@ -15,7 +15,8 @@
 Before the first push and before a merge:
 1. `git fetch origin`, then compare the branch with `origin/<default>`
    (`git rev-list --left-right --count <branch>...origin/<default>`) and run the state report in the
-   branch's checkout (`repo_state.py -C <checkout>`), before any rebase.
+   branch's checkout (`repo_state.py -C <main_checkout>/<worktrees[].path>`, an absolute path:
+   `-C` resolves a relative one against the current directory), before any rebase.
 2. **Unpushed?** `git rev-list --count origin/<default>..<branch>` is the branch's own commits;
    `git rev-list --count origin/<default>..<branch> --not --remotes=origin` is those on no remote
    branch. They are unpushed only when the two counts are equal.
@@ -70,7 +71,8 @@ Suggest it from no other phase.
 ## pr
 
 In this order; only steps 4 to 6 need `gh`, and each `gh pr` call runs as a command of its own that
-starts with `gh pr`, like the push:
+starts with `gh pr`, like the push (a pipeline that starts with `gh pr`, such as `gh pr view … |
+python3 …/qa_state.py`, counts as one):
 1. The documentation check above. It needs only git.
 2. **Document IDs (ERR-15):** after the fetch and before any rebase, when the state report run in the
    branch's checkout lists `id_collisions` (a `docs/specs/<type>/<ID>.md` the branch adds while a
