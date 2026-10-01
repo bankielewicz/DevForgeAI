@@ -2,7 +2,7 @@
 id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
-status: in-review
+status: approved
 version: 2
 created: 2026-09-24
 updated: 2026-10-01
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:
   - {id: STORY-005, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -682,3 +682,4 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 | 1 | 2026-09-27 | Bryan | Approved | status |
 | 1 | 2026-09-28 | claude-code (session 383de882-2b59-4b3b-808b-83bb1ab93b9b) | Status update only, at Bryan's instruction, with no version bump: §9 records that the skill is built (SKL-004 v1, PR #5) and deployed, and its fixture checks and eval results. No requirement, behavior or VER item changed | §9 |
 | 2 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Bryan's decisions of 2026-10-01 on the epic skill's validation findings (D1–D5). D2: policy check 4 fails only when another approved policy mandates the same capability, unless it is a permitted project override. D3: check 3 passes on an equal link version, and otherwise only when the ARCH's latest resolution line still holds the setting's current platform and capability; the known limit is stated. D1: a null priority or release stays undecided, and the shared fixture gains NFR-002 at null/null. D4: no selection script; deferred to FR-018. D5: one combined cycle with SKL-004 v2. Also: a DEC cites a requirement only through this PRD's ID; a matching DEC resolved by a policy setting that passes the check answers a `[NEEDS ADR]` marker (SPEC-003 BEH-07); superseded and deprecated ARCHs are ignored; a link version newer than the PRD's is ERR-03; an empty resolved_by is unknown; a later requirement's null priority isn't undecided; an eligible NFR that no new epic attaches gets an "already refined" row; the report names every FR once and every NFR at least once; ERR-05 is now "everything eligible is covered", and the new ERR-08, "nothing eligible yet", names no story step; BEH-11 checks for the story skill at `${CLAUDE_SKILL_DIR}/../story/SKILL.md`, the form verified with the shipped skill. §9: the shared fixture takes the current prd and architecture output shape; VER-01, VER-03, VER-13 and VER-14 changed; VER-16 to VER-19 added. Links: SPEC-003 v4 and SPEC-002 v3 re-read, and ADR-003 v2 added. Awaiting Bryan's approval | frontmatter, §1, §2, §4, BEH-03, BEH-04, BEH-05, BEH-11, ERR-02 to ERR-05, ERR-08, §9, VER-01, VER-03, VER-13, VER-14, VER-16 to VER-19, §10, §11, §12 |
+| 2 | 2026-10-01 | Bryan | Approved | status |
