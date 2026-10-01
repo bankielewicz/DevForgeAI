@@ -75,5 +75,5 @@ Follow the implementing spec's §11, translating paths per `.claude/rules/spec-p
   `architecture` shipped.
 - When a story skill ships, epic's `hands-off-to-story` case needs no flip: its graders accept both
   branches (SPEC-004 VER-10). The epic skill checks for it at `${CLAUDE_SKILL_DIR}/../story/SKILL.md`,
-  the form verified here, where SPEC-004 BEH-11 writes `${CLAUDE_PLUGIN_ROOT}/skills/story/SKILL.md`.
+  the form verified here, which SPEC-004 v2 BEH-11 also names.
 - The rule for handing off to documents-updater is in CLAUDE.md, "Rules a change must not break".
