@@ -100,4 +100,5 @@ Brainstorm's manual paths (user confirmation, the extend flow, VER-05, VER-09) f
 `docs/runbooks/brainstorm-manual-test.md`, which loads a *copy* of the plugin with
 `claude --plugin-dir` and never touches `src/`. prd v2's manual items (VER-11, VER-12, VER-23) and
 architecture v4's (VER-12 (f) and (i), VER-19) follow `docs/runbooks/prd-v2-architecture-v4-checks.md`;
-record results in its section 4.
+record results in its section 4. epic's VER-13 follows `docs/runbooks/epic-ver-13-checks.md`, with
+manual-only fixtures that `src/tests/epic/make_manual.py` generates into `src/tests/epic/manual/`.

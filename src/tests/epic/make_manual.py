@@ -52,7 +52,25 @@ PRD_V3 = ev.replace(PRD_V3, "| 2 | 2026-09-18 | Priya Nair | Approved | status |
                     "| 2 | 2026-09-18 | Priya Nair | Approved | status |\n"
                     "| 3 | 2026-09-26 | Priya Nair | FR-004's priority from could to should | FR-004 |\n"
                     "| 3 | 2026-09-26 | Priya Nair | Approved | status |\n")
-PRD_PRIORITY_CHANGE = dict(ev.SHARED, **{ev.P_PRD: PRD_V3})
+# The eval ARCH breaks the architecture skill's self-checks on purpose (DEC-03 resolved by the superseded ADR-002,
+# DEC-05 by the missing ADR-004, no DEC for FR-009's marker), so a reuse review would fail validation and clear
+# ARCH-001's approval. (i) needs an ARCH the architecture skill accepts: those questions open, a DEC for each
+# marker, and the evidence classified as its inspection rules say. The eligible set stays FR-002, FR-003, FR-004,
+# FR-012 and NFR-001.
+ARCH_CLEAN = ev.arch(2, extra_dec=ev.dec(
+    "08", "How is the volunteer list imported from the coordinator's spreadsheet and kept in step with it?", "open",
+    "[]", "FR-009") + ev.dec("09", "Which payment provider takes membership fees?", "open", "[]", "FR-010"))
+ARCH_CLEAN = ev.replace(ARCH_CLEAN, "state: resolved\n    resolved_by: [ADR-002]", "state: open\n    resolved_by: []")
+ARCH_CLEAN = ev.replace(ARCH_CLEAN, "state: resolved\n    resolved_by: [ADR-004]", "state: open\n    resolved_by: []")
+ARCH_CLEAN = ev.replace(
+    ARCH_CLEAN, 'finding: "Version 1, status accepted: reminders go through the on-premises SMS modem."\n'
+                "    classification: decided",
+    'finding: "Version 1, status superseded by ADR-003: reminders went through the on-premises SMS modem."\n'
+    "    classification: context")
+ARCH_CLEAN = ev.replace(ARCH_CLEAN, ev.evd(
+    "05", "ADR-004", "adr", "Version 1, status accepted: monthly hours are uploaded as a CSV file to the "
+    "regional network's portal.", "decided"), "")
+PRD_PRIORITY_CHANGE = dict(ev.SHARED, **{ev.P_PRD: PRD_V3, ev.P_ARCH: ARCH_CLEAN})
 
 MANUAL = {
     "two-archs": ("VER-13 (c): two active ARCHs cite PRD-001 v2.", TWO_ARCHS),
@@ -66,7 +84,8 @@ CHECKS = [("ARCH2", arch2(supersedes=False), "arch.schema.json"),
           ("ARCH1_SUPERSEDED", ARCH1_SUPERSEDED, "arch.schema.json"),
           ("ARCH2_SUPERSEDES", arch2(supersedes=True), "arch.schema.json"),
           ("POL_CHANGED", POL_CHANGED, "policy.schema.json"),
-          ("PRD_V3", PRD_V3, "prd.schema.json")]
+          ("PRD_V3", PRD_V3, "prd.schema.json"),
+          ("ARCH_CLEAN", ARCH_CLEAN, "arch.schema.json")]
 
 
 def premises():
@@ -85,6 +104,18 @@ def premises():
     new_frs = {r["id"]: (r["priority"], r["release"]) for r in
                ev.validate("PRD_V3", PRD_V3, "prd.schema.json")["functional_requirements"]}
     assert {k for k in old if old[k] != new_frs[k]} == {"FR-004"} and new_frs["FR-004"] == ("should", "current")
+    # ARCH_CLEAN passes the architecture skill's self-checks 9 and 10: every resolver exists and counts, and every
+    # NEEDS ADR marker (FR-001, FR-009, FR-010) has a DEC citing its requirement.
+    decs = {d["id"]: d for d in ev.validate("ARCH_CLEAN", ARCH_CLEAN, "arch.schema.json")["decisions"]}
+    assert {k: decs[k]["state"] for k in ("DEC-03", "DEC-05", "DEC-08", "DEC-09")} == dict.fromkeys(
+        ("DEC-03", "DEC-05", "DEC-08", "DEC-09"), "open")
+    resolvers = {r for d in decs.values() for r in d["resolved_by"]}
+    assert resolvers == {"ADR-001", "ADR-003", "POL-001#SET-01"}, resolvers
+    assert "ADR-004" not in ARCH_CLEAN
+    cited = {u["item"] for d in decs.values() for u in d["upstream"]}
+    assert {"FR-001", "FR-009", "FR-010"} <= cited
+    ev3 = {e["id"]: e for e in ev.validate("ARCH_CLEAN", ARCH_CLEAN, "arch.schema.json")["evidence"]}
+    assert ev3["EVD-03"]["classification"] == "context" and "EVD-05" not in ev3
 
 
 def main():

@@ -372,8 +372,8 @@ decisions:
     status: active
     question: "How are shift reminders sent to volunteers' phones?"
     blocking: true
-    state: resolved
-    resolved_by: [ADR-002]
+    state: open
+    resolved_by: []
     notes: null
     upstream:
       - {id: PRD-001, item: FR-008, relation: informed_by, version: 2, hash: null}
@@ -390,8 +390,8 @@ decisions:
     status: active
     question: "How are each month's volunteer hours sent to the regional food bank network?"
     blocking: true
-    state: resolved
-    resolved_by: [ADR-004]
+    state: open
+    resolved_by: []
     notes: null
     upstream:
       - {id: PRD-001, item: FR-011, relation: informed_by, version: 2, hash: null}
@@ -413,6 +413,24 @@ decisions:
     notes: null
     upstream:
       - {id: PRD-001, item: FR-012, relation: informed_by, version: 2, hash: null}
+  - id: DEC-08
+    status: active
+    question: "How is the volunteer list imported from the coordinator's spreadsheet and kept in step with it?"
+    blocking: true
+    state: open
+    resolved_by: []
+    notes: null
+    upstream:
+      - {id: PRD-001, item: FR-009, relation: informed_by, version: 2, hash: null}
+  - id: DEC-09
+    status: active
+    question: "Which payment provider takes membership fees?"
+    blocking: true
+    state: open
+    resolved_by: []
+    notes: null
+    upstream:
+      - {id: PRD-001, item: FR-010, relation: informed_by, version: 2, hash: null}
 ```
 
 ## 5. Evidence inspected
@@ -435,19 +453,13 @@ evidence:
     status: active
     source: "ADR-002"
     kind: adr
-    finding: "Version 1, status accepted: reminders go through the on-premises SMS modem."
-    classification: decided
+    finding: "Version 1, status superseded by ADR-003: reminders went through the on-premises SMS modem."
+    classification: context
   - id: EVD-04
     status: active
     source: "ADR-003"
     kind: adr
     finding: "Version 1, status accepted: membership-payment audit records are kept in the hosting provider's log store."
-    classification: decided
-  - id: EVD-05
-    status: active
-    source: "ADR-004"
-    kind: adr
-    finding: "Version 1, status accepted: monthly hours are uploaded as a CSV file to the regional network's portal."
     classification: decided
   - id: EVD-06
     status: active

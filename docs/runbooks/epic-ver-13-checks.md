@@ -101,7 +101,11 @@ cites PRD-001, and tells you to run `/devforgeai:architecture PRD-001` first.
 ### C-i. The review loop after a priority-only PRD change (VER-13 (i); BEH-03, ERR-03)
 
 `manual prd-priority-change` (PRD-001 v3: only FR-004's priority changed, could to should; ARCH-001 still
-cites PRD-001 v2). Record the starting state:
+cites PRD-001 v2). This ARCH-001 passes the architecture skill's own self-checks, unlike the eval cases' one:
+DEC-03 (reminders) and DEC-05 (monthly hours) are open rather than resolved by the superseded ADR-002 or the
+missing ADR-004, and open DEC-08 and DEC-09 answer the import and payment-provider markers. Otherwise the review
+record in step 2 would fail validation and clear ARCH-001's approval. The eligible set is unchanged. Record the
+starting state:
 
 ```bash
 git init -q && git add -A && git -c user.name=t -c user.email=t@t commit -qm fixtures
@@ -112,8 +116,9 @@ git init -q && git add -A && git -c user.name=t -c user.email=t@t commit -qm fix
    `/devforgeai:architecture PRD-001`.
 2. Say `/devforgeai:architecture PRD-001` and, when it asks, confirm **reuse** of ARCH-001 (no architectural
    change). **Expect:** `git diff docs/specs/arch/ARCH-001.md` shows exactly: the frontmatter PRD link's version
-   2 → 3, `outcome: reuse`, and one new Change Log row ("Reviewed against PRD-001 v3: reuse confirmed …").
-   ARCH-001's `version`, `status`, approval fields and every item are unchanged.
+   2 → 3, `outcome` from `create` to `reuse`, and one new Change Log row ("Reviewed against PRD-001 v3: reuse
+   confirmed …", ending with a `Policy resolution:` line). ARCH-001's `version`, `status: approved`, approval
+   fields and every item are unchanged.
 3. Say `/devforgeai:epic PRD-001` and "one epic for everything eligible". **Expect:** EPIC-001 refines
    FR-002, FR-003, FR-004, FR-012 and NFR-001 at PRD-001 version 3, and links ARCH-001 at version 1.
 4. Commit (`git add -A && git -c user.name=t -c user.email=t@t commit -qm epic`), then say
