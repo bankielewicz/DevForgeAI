@@ -5,8 +5,10 @@ Usage: python3 validate_brn.py docs/specs/brainstorm/BRN-NNN.md
 
 Prints one line per problem ("line N: message") and exits 1, or prints "OK: <path>" and
 exits 0. Uses only the standard library; if PyYAML is installed it also checks YAML syntax.
+Every other check, dates against the calendar included, gives the same verdict with or without it.
 It cannot check whether the user confirmed a disposition or convergence: that is the skill's job.
 """
+import datetime
 import os
 import re
 import sys
@@ -45,26 +47,67 @@ COLLECTIONS = {
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 NUMBER = re.compile(r"^-?\d+(\.\d+)?$")
 PLACEHOLDER = re.compile(r"<[a-z][^<>\n]*>")
+INLINE_HTML = re.compile(r"</?(br|b|i|em|strong|code|kbd|sub|sup|s|u|mark|small)\s*/?>")
+GENERATED_BY_KEYS = ("tool", "model", "session")
+
+
+def closing_quote(v):
+    """Index of the quote that closes a double-quoted value starting at v[0], or None."""
+    end = 1
+    while end < len(v):
+        if v[end] == "\\":
+            end += 2
+            continue
+        if v[end] == '"':
+            return end
+        end += 1
+    return None
 
 
 def value_of(raw):
-    """Strip a trailing YAML comment from a scalar value, respecting double quotes."""
+    """Strip a trailing YAML comment from a scalar value, respecting double quotes.
+
+    Text after the closing quote that isn't a comment is kept, so quoted() rejects the value.
+    """
     v = raw.strip()
     if v.startswith('"'):
-        end = 1
-        while end < len(v):
-            if v[end] == "\\":
-                end += 2
-                continue
-            if v[end] == '"':
-                return v[: end + 1]
-            end += 1
+        end = closing_quote(v)
+        rest = v[end + 1:].strip() if end is not None else None
+        if rest == "" or (rest and rest.startswith("#")):
+            return v[: end + 1]
         return v
     return v.split(" #", 1)[0].strip()
 
 
 def quoted(v):
-    return len(v) >= 2 and v.startswith('"') and v.endswith('"')
+    return len(v) >= 2 and v.startswith('"') and closing_quote(v) == len(v) - 1
+
+
+def flow_items(v):
+    """The raw items of a one-line flow list such as ["a", "b"], or None if v isn't one."""
+    if not (v.startswith("[") and v.endswith("]")):
+        return None
+    items, cur, in_quote, escaped = [], "", False, False
+    for ch in v[1:-1]:
+        if in_quote:
+            cur += ch
+            if escaped:
+                escaped = False
+            elif ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_quote = False
+        elif ch == '"':
+            in_quote = True
+            cur += ch
+        elif ch == ",":
+            items.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    if cur.strip() or items:
+        items.append(cur.strip())
+    return items
 
 
 def check(path):
@@ -80,8 +123,12 @@ def check(path):
     if not os.path.dirname(os.path.abspath(path)).replace("\\", "/").endswith("docs/specs/brainstorm"):
         err(0, "file must be in docs/specs/brainstorm/")
 
-    with open(path, encoding="utf-8") as f:
-        lines = f.read().replace("\r\n", "\n").split("\n")
+    try:
+        with open(path, encoding="utf-8") as f:
+            lines = f.read().replace("\r\n", "\n").split("\n")
+    except UnicodeDecodeError as e:
+        err(0, f"file is not UTF-8 text (byte {e.start}: {e.reason}); save it as UTF-8")
+        return errors
 
     # --- frontmatter -------------------------------------------------------------------
     if not lines or lines[0] != "---":
@@ -136,13 +183,52 @@ def check(path):
     ln, v = fv("version")
     if v is not None and not re.fullmatch(r"[1-9]\d*", v):
         err(ln, "version must be a positive integer")
+    bad_date = False
     for k in ("created", "updated"):
         ln, v = fv(k)
         if v is not None and not DATE.match(v):
             err(ln, f"{k} must be an unquoted YYYY-MM-DD date")
+        elif v is not None:
+            try:
+                datetime.date.fromisoformat(v)
+            except ValueError:
+                bad_date = True
+                err(ln, f"{k} {v} is not a real calendar date")
     ln, v = fv("owner")
-    if v is not None and not quoted(v):
-        err(ln, "owner must be a quoted string")
+    if v is not None and (not quoted(v) or v == '""'):
+        err(ln, 'owner must be a quoted name, or "[NEEDS CLARIFICATION: owner]" when it is unknown')
+
+    def list_of(k):
+        """(line, raw item) pairs for a frontmatter list in flow or block form, or None."""
+        ln, v = fm[k]
+        if v:
+            items = flow_items(v)
+            return None if items is None else [(ln, x) for x in items]
+        rows = [(l, s.strip()) for l, s in nested[k] if s.strip()]
+        if rows and all(s.startswith("- ") for _, s in rows):
+            return [(l, value_of(s[2:])) for l, s in rows]
+        return None
+
+    def strings(items):
+        return items is not None and all(quoted(x) and x != '""' for _, x in items)
+
+    authors = list_of("authors") if "authors" in fm else None
+    if "authors" in fm and not (authors and strings(authors)):
+        err(fm["authors"][0],
+            'authors must be a non-empty list of quoted names, e.g. ["Dana", "claude-code"]')
+    for k in ("participants", "sources"):
+        if k in fm and not strings(list_of(k)):
+            err(fm[k][0], f"{k} must be [] or a list of quoted strings")
+    if "upstream" in fm:
+        links = list_of("upstream")
+        if links is None or not all(x.startswith("{") and x.endswith("}") and re.search(r"[{,]\s*id:", x)
+                                    and re.search(r"[{,]\s*relation:", x) for _, x in links):
+            err(fm["upstream"][0], "upstream must be [] or a list of link records, one per line, such as "
+                "- {id: BRN-002, relation: informed_by, version: 1, hash: null}")
+    for k, want in (("supersedes", "[]"), ("superseded_by", "null"), ("blocked_by", "[]")):
+        ln, v = fv(k)
+        if v is not None and v != want:
+            err(ln, f"{k} must be {want} in a brainstorm")
     ln, v = fv("reviewed_by")
     if v is not None and v != "[]":
         err(ln, "reviewed_by must be [] (only humans who reviewed it fill this)")
@@ -155,10 +241,13 @@ def check(path):
     if "generated_by" in fm:
         sub = {}
         for ln, line in nested["generated_by"]:
-            m = re.match(r"^\s+([a-z_]+):(.*)$", line)
+            m = re.match(r"^\s+([A-Za-z_][\w-]*):(.*)$", line)
             if m:
                 sub[m.group(1)] = (ln, value_of(m.group(2)))
-        for k in ("tool", "model", "session"):
+                if m.group(1) not in GENERATED_BY_KEYS:
+                    err(ln, f"generated_by.{m.group(1)} is not allowed: generated_by holds only tool, "
+                        "model and session")
+        for k in GENERATED_BY_KEYS:
             ln, v = sub.get(k, (fm["generated_by"][0], None))
             if v is None or not quoted(v) or v == '""' or "${" in v:
                 err(ln, f"generated_by.{k} must be a non-empty quoted string")
@@ -170,11 +259,14 @@ def check(path):
                 err(i, "every hash must be null")
         if "<!--" in line:
             err(i, "leftover HTML comment")
-        if "BRN-000" in line or "YYYY-MM-DD" in line:
-            err(i, "leftover template placeholder")
-        if i > fm_end and not line.startswith("|"):
+        for token, what in (("BRN-000", "the allocated ID"), ("YYYY-MM-DD", "today's date")):
+            if token in line:
+                err(i, f"leftover template placeholder {token}: replace it with {what}")
+        if i > fm_end:
             for m in PLACEHOLDER.finditer(line):
-                err(i, f"leftover placeholder {m.group(0)!r}")
+                if not INLINE_HTML.fullmatch(m.group(0)):
+                    err(i, f"leftover template placeholder {m.group(0)!r}: replace it with content or "
+                        "[NEEDS CLARIFICATION: question]")
 
     pos = fm_end
     for heading in SECTIONS:
@@ -201,7 +293,10 @@ def check(path):
         else:
             ln, cells = rows[-1]
             author = cells[2] if len(cells) > 2 else ""
-            if author.startswith("claude-code"):
+            if not author:
+                err(ln, "last Change Log row has no author: write 'claude-code (session ID)' with the ID "
+                    "from generated_by.session, or the name of the person who made the change")
+            elif author.startswith("claude-code"):
                 m = re.fullmatch(r"claude-code \(session ([A-Za-z0-9-]+)\)", author)
                 session = (fm.get("generated_by") and next(
                     (value_of(l.split(":", 1)[1]) for _, l in nested["generated_by"]
@@ -226,25 +321,33 @@ def check(path):
             break
         block = lines[start:end]
         collection, item = None, None
+        reported = content = unindented = False
         for off, line in enumerate(block):
             ln = start + off + 1
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
             if "<!--" in line:
                 continue  # already reported
-            if not line[0].isspace():
+            content = True
+            if not line[0].isspace() and not (collection and line.startswith("- ")):
                 key = line.split(":", 1)[0]
                 if collection is None:
                     if key not in COLLECTIONS or line.rstrip() != key + ":":
                         err(ln, f"top-level key {key!r} is not problems, ideas or assumptions")
+                        reported = True
                         break
                     collection = key
                 else:
-                    err(ln, f"second top-level key {key!r} in one item block")
+                    err(ln, f"second top-level key {key!r} in one item block: put each collection in its "
+                        "own yaml items fence")
                 continue
-            m = re.match(r"^(\s*)- id:\s*(\S+)\s*$", line)
+            if not line[0].isspace() and not unindented:
+                err(ln, f"list items must be indented under '{collection}:' (write '  - id: ...', as the "
+                    "template does)")
+                unindented = True
+            m = re.match(r"^(\s*)- id:(.*)$", line)
             if m:
-                item = {"line": ln, "id": m.group(2), "indent": len(m.group(1)) + 2, "fields": {}}
+                item = {"line": ln, "id": value_of(m.group(2)), "indent": len(m.group(1)) + 2, "fields": {}}
                 items.setdefault(collection, []).append(item)
                 continue
             m = re.match(r"^(\s+)([A-Za-z_][\w-]*):(.*)$", line)
@@ -254,8 +357,9 @@ def check(path):
                 continue
             if item and item.get("last"):
                 item["fields"][item["last"]][2].append((ln, line.strip()))
-        if collection is None and not errors:
-            err(start, "empty yaml items block")
+        if collection is None and not reported:
+            err(start, "item block has no top-level key: start it with problems:, ideas: or assumptions:"
+                if content else "empty yaml items block")
         i = end + 1
 
     prb_ids = {it["id"] for it in items["problems"]}
@@ -289,7 +393,7 @@ def check(path):
                     fln, inline, sub = fields["addresses"]
                     if inline:
                         err(fln, f"{iid}: addresses must be a block list (- PRB-NN), not {inline!r}")
-                    refs = [s[1][2:].strip() for s in sub if s[1].startswith("- ")]
+                    refs = [value_of(s[1][2:]) for s in sub if s[1].startswith("- ")]
                     if not refs and not inline:
                         err(fln, f"{iid}: addresses must name at least one problem")
                     for r in refs:
@@ -324,17 +428,20 @@ def check(path):
     except ImportError:
         yaml = None
     if yaml is not None:
+        # safe_load also raises plain exceptions, such as ValueError for 2026-13-45; report them all,
+        # on one line, except a date error the calendar check above already reported.
         try:
             yaml.safe_load("\n".join(lines[1:fm_end]))
-        except yaml.YAMLError as e:
-            err(2, f"frontmatter YAML does not parse: {e}")
+        except Exception as e:
+            if not (bad_date and not isinstance(e, yaml.YAMLError)):
+                err(2, f"frontmatter YAML does not parse: {' '.join(str(e).split())}")
         for j, line in enumerate(lines):
             if line.rstrip() == "```yaml items":
                 end = next((k for k in range(j + 1, len(lines)) if lines[k].startswith("```")), len(lines))
                 try:
                     yaml.safe_load("\n".join(lines[j + 1:end]))
-                except yaml.YAMLError as e:
-                    err(j + 2, f"item block YAML does not parse: {e}")
+                except Exception as e:
+                    err(j + 2, f"item block YAML does not parse: {' '.join(str(e).split())}")
     return errors
 
 
