@@ -4,7 +4,7 @@ description: Turns a DevForgeAI PRD into epic documents for the requirements tha
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-004"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # Epic
@@ -56,8 +56,7 @@ A grouping stated in the request counts as confirmed: "one epic for everything e
 priority level", "put FR-003 and FR-004 together". Apply it, or a change the user makes when asked, as
 given. Only the invariants at step 6 limit it, never your own grouping preferences. It never makes a
 left-out requirement eligible. If it leaves an eligible FR unplaced or places one twice, ask about that
-FR. When nobody can be asked, place that FR by your proposal and add the unconfirmed-grouping marker
-(step 6) to every epic written in this run.
+FR; when nobody can be asked, follow step 6.
 
 **Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options each,
 with the recommended option first and marked "(Recommended)". Otherwise ask in plain text and end your
@@ -139,15 +138,15 @@ Apply the selection rule. A requirement is **eligible** when it is active, ready
 epic gets one row with every reason that applies and one next action (selection.md, "Left-out rows").
 
 **When there is nothing to write**, decide which case applies before you write the reply:
-1. **Everything eligible is covered (ERR-05).** No FR is eligible, and every eligible NFR is already
-   refined by an active epic. At least one requirement is active, ready, `release: current` and must,
-   should or could; for example, on a rerun with unchanged inputs. Write nothing, then go to step 9.
-   Say that no requirement needs a new epic. Give each eligible NFR its `already refined by EPIC-NNN`
-   row.
+1. **Everything eligible already has an epic (ERR-05).** No FR is eligible, and every eligible NFR is
+   already refined by an active epic. At least one requirement is active, ready, `release: current` and
+   must, should or could; for example, on a rerun with unchanged inputs. Write nothing, then go to
+   step 9. Say that no requirement needs a new epic. Give each eligible NFR its
+   `already refined by EPIC-NNN` row.
 2. **Nothing is eligible yet (ERR-08).** No requirement is active, ready, `release: current` and must,
    should or could; for example, an open DEC blocks every current-release requirement. Write nothing,
    then go to step 9. Say that **no requirement is eligible for an epic yet**. Never say that no
-   requirement needs a new epic, and never say that everything is covered.
+   requirement needs a new epic, and never say that everything already has an epic.
 
 ### 6. Propose and confirm the grouping
 
@@ -158,10 +157,13 @@ priority and requirements (by ID, with a few words each), then:
   Write nothing until they do. Apply a changed grouping as given, within the invariants; ask again only
   if it breaks one. If the user stops before confirming (ERR-07), write nothing and say how to resume:
   run `/devforgeai:epic PRD-NNN` again.
-- **Nobody can confirm** (the request says to proceed without questions and gives no grouping), or any
-  placement in this run is unconfirmed: write your proposal, and add this marker to section 8 of
-  **every** epic written in this run:
-  `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]`.
+- **Nobody can confirm** (the request says to proceed without questions and gives no grouping): write
+  your proposal.
+- **A stated grouping leaves an eligible FR unplaced or places one twice, and nobody can be asked:**
+  keep the stated grouping, and place only that FR by your proposal.
+
+In the last two cases an FR's placement is unconfirmed: add this marker to section 8 of **every** epic
+written in this run: `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]`.
 
 **Invariants.** No grouping, stated, changed or proposed, may break these:
 - An epic refines only eligible requirements.
@@ -241,7 +243,7 @@ Write the final reply in this order, as plain Markdown:
 3. The next step, as its own paragraph outside any code block. It starts with the words **Next step**,
    names the epics by ID and never by path, and nothing follows it.
 
-For the next step, check whether `${CLAUDE_SKILL_DIR}/../story/SKILL.md` exists:
+For the next step, check with Read or Glob whether `${CLAUDE_SKILL_DIR}/../story/SKILL.md` exists:
 - **It exists:** tell the user to run `/devforgeai:story EPIC-NNN` for each new epic, Must first.
 - **It does not exist:** say stories are written by hand from the DevForgeAI story template for now, and
   that once the story skill (planned as `/devforgeai:story`) is built, it runs with an epic ID, naming
@@ -252,8 +254,8 @@ stories for EPIC-001 by hand from the story template for now. Once it is, run
 `/devforgeai:story EPIC-001`."
 
 When nothing was written:
-- **Everything eligible is covered (ERR-05):** name the story step for the epics that cover the
-  requirements.
+- **Everything eligible already has an epic (ERR-05):** name the story step for the epics that already
+  refine the requirements.
 - **Nothing is eligible yet (ERR-08):** name **no** story step, and don't mention `/devforgeai:story`.
   The next step is `/devforgeai:architecture PRD-NNN`, to resolve the blocking questions, when any row
   is blocked or unknown. Otherwise it is the PRD owner's decision on the undecided rows. Otherwise say
