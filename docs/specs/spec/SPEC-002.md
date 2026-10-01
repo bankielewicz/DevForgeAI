@@ -2,7 +2,7 @@
 id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
-status: in-review
+status: approved
 version: 4
 created: 2026-09-23
 updated: 2026-10-01
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "8619f756-390e-4265-a95c-03fa25310d46"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -767,3 +767,4 @@ its priority and release are decided.
 | 3 | 2026-09-30 | Bryan | Approved | status |
 | 3 | 2026-09-30 | claude-code (session bd9e3bd9-6b79-4be2-b310-a8a29d143b92) | Record-only update, with no version bump: §9 records SKL-002 v3's structural checks, its bound requalification on the 12 policy cases (12 of 12 at 1.00), the NaN finding that PR #27 fixed after the run, and Bryan's approval of SKL-002 v3 on 2026-09-30. No item changed | §9 |
 | 4 | 2026-10-01 | claude-code (session 8619f756-390e-4265-a95c-03fa25310d46) | Bryan's decisions of 2026-10-01 on the SKL-002 v3 review. Issue #36: ERR-04 says why no BRN can be processed, and points to /devforgeai:brainstorm when there is no brainstorm or none has a promoted idea. Issue #37: a `release: later` item's priority may stay null; approval needs a priority only on `release: current` items (§4, BEH-13). Issue #38: drafting uses only promoted ideas that no PRD cites, and a named BRN whose promoted ideas are all cited stops under ERR-04 (BEH-04). From issue #40: ERR-07 validates and reports a saved draft; BEH-12 names an existing older-version link as a suspect link, not an error (proposed, so that VER-34 traces to a BEH); Appendix A asks the NFRs' priorities. Bryan's decisions of 2026-10-01, second round: BEH-05 splits questions over the option limit and asks gates past the budget; BEH-09 never extends a superseded or deprecated PRD; BEH-13 and VER-07 drop the unshipped architecture-skill branch; VER-35 and VER-36 test ERR-04's remaining cases. VER-33 to VER-36 added. SPEC-003 relinked to version 4 (mechanical). SPEC-004's and SPEC-011's links move with the SPEC-004 v2 and SPEC-003 v5 changes in progress, which edit the neighbouring lines. Awaiting Bryan's approval | §4, BEH-04, BEH-05, BEH-09, BEH-12, BEH-13, ERR-04, ERR-07, VER-07, VER-33 to VER-36, §9, §11, Appendix A, frontmatter, status |
+| 4 | 2026-10-01 | Bryan | Approved | status |
