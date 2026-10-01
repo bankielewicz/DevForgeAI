@@ -1,5 +1,6 @@
-"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and the grader files added to two
-existing cases (VER-09 records-provenance, VER-10 constraints-not-design). The 20 cases written for v1
+"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and v4 (VER-33, VER-34; issues #36
+and #38), and the grader files added to two existing cases (VER-09 records-provenance, VER-10
+constraints-not-design). The 20 cases written for v1
 are hand-written; this script never touches their prompts, scaffolds or existing graders, only adds the
 new grader files listed in EXTRA_GRADERS.
 
@@ -341,6 +342,46 @@ PRD_FOOD_BAD = food_prd("high")  # VER-27: a priority the self-check rejects, in
 FR_001_BAD = re.search(r"  - id: FR-001\n(?:    [^\n]*\n)+?(?=  - id:)", PRD_FOOD_BAD).group(0)
 PRD_FOOD_BAD_DATE = PRD_FOOD.replace("updated: 2026-09-20", "updated: 2026-02-30")  # issue #15; no case uses it
 
+# VER-34: the food bank brainstorm revisited after PRD-001 was written, with a new problem and a new promoted idea.
+BRN_FOOD_V2 = BRN_FOOD
+for _old, _new in [
+    ("version: 1\ncreated: 2026-09-10\nupdated: 2026-09-12\n", "version: 2\ncreated: 2026-09-10\nupdated: 2026-09-24\n"),
+    ("    severity: medium\n```\n\n## 3. Target users",
+     "    severity: medium\n"
+     "  - id: PRB-03\n    status: active\n"
+     '    statement: "Volunteers without forklift or food-safety training sign up for shifts that need it"\n'
+     '    who: "Shift coordinator"\n    evidence: "Coordinator notes, September 2026"\n    severity: medium\n'
+     "```\n\n## 3. Target users"),
+    ('    reason: "A mobile-friendly website covers the need"\n```',
+     '    reason: "A mobile-friendly website covers the need"\n'
+     "  - id: IDEA-05\n    status: active\n"
+     '    idea: "Each shift lists the training it needs, and only volunteers with that training can sign up for it"\n'
+     '    addresses:\n      - PRB-03\n    value: "high"\n    effort: "medium"\n    risk: "low"\n    score: null\n'
+     '    disposition: promoted\n    reason: "Stops untrained sign-ups for forklift and food-safety shifts"\n```'),
+    ("A native app was rejected.", "A native app was rejected. Revisited on 2026-09-24: shift training requirements were promoted."),
+    ("| 1 | 2026-09-12 | claude-code (session fixture-session) | Converged |\n",
+     "| 1 | 2026-09-12 | claude-code (session fixture-session) | Converged |\n"
+     "| 2 | 2026-09-24 | claude-code (session fixture-session) | Revisited: PRB-03 and IDEA-05 added, IDEA-05 promoted |\n"),
+]:
+    BRN_FOOD_V2 = replace(BRN_FOOD_V2, _old, _new)
+# VER-34: the same PRD-001 before review and approval, so that extending it raises no BEH-09 suspect-epic warning,
+# which would also match the suspect-link grader.
+PRD_FOOD_DRAFT = PRD_FOOD
+for _old, _new in [
+    ("status: approved\n", "status: draft\n"),
+    ('reviewed_by: ["Marcus Lee"]\napproved_by: "Priya Nair"\napproved_on: 2026-09-20\n',
+     'reviewed_by: []\napproved_by: ""\napproved_on: null\n'),
+    ("| 1 | 2026-09-19 | Marcus Lee | Reviewed: no changes requested | none |\n"
+     "| 1 | 2026-09-20 | Priya Nair | Approved | status |\n", ""),
+]:
+    PRD_FOOD_DRAFT = replace(PRD_FOOD_DRAFT, _old, _new)
+FR_001_DRAFT = re.search(r"  - id: FR-001\n(?:    [^\n]*\n)+?(?=  - id:)", PRD_FOOD_DRAFT).group(0)
+FR_002_DRAFT = re.search(r"  - id: FR-002\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
+ASM_01_DRAFT = re.search(r"  - id: ASM-01\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
+# VER-33: a workspace with no docs/specs/ at all, only a README naming the product.
+README_VOLUNTEER = ("# Riverside Food Bank volunteer app\n\n"
+                    "A web app where food bank volunteers see open warehouse shifts and sign up for them.\n")
+
 
 def policy(settings, *, updated="2026-09-01", authors='["Architecture board"]',
            upstream="  - {id: ADR-104, relation: constrains, version: 2, hash: null}"):
@@ -471,6 +512,7 @@ FIXTURES = {
     "PRD_LEDGERLY": (PRD_LEDGERLY, "prd.schema.json"), "PRD_FOOD": (PRD_FOOD, "prd.schema.json"),
     "PRD_FOOD_BAD": (PRD_FOOD_BAD, "prd.schema.json", [("functional_requirements", 0, "priority")]),
     "PRD_FOOD_BAD_DATE": (PRD_FOOD_BAD_DATE, "prd.schema.json", [("frontmatter", "updated")]),
+    "BRN_FOOD_V2": (BRN_FOOD_V2, "brainstorm.schema.json"), "PRD_FOOD_DRAFT": (PRD_FOOD_DRAFT, "prd.schema.json"),
     "POL_BASE": (POL_BASE, "policy.schema.json"), "POL_COMPLIANCE": (POL_COMPLIANCE, "policy.schema.json"),
     "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "POL_BAD_AUTHORS": (POL_BAD_AUTHORS, "policy.schema.json", [("frontmatter", "authors")]),
@@ -521,6 +563,7 @@ PRD_EXISTS = exists(PRD, True)
 IN_REVIEW = regex(PRD, "contains", r"^status: in-review[ \t]*$", "m")
 APPROVAL_CLEARED = regex(PRD, "contains", r'^approved_by: ""[ \t]*\n^approved_on: null[ \t]*$', "m")
 POLICY_PROMPT = "Write the PRD for BRN-001. Proceed without questions.\n"
+SKILL_FIRED = (ROOT / "selects-unprocessed-brn" / "graders" / "skill-fired.md").read_text()
 EXTEND_PROMPT = "Extend PRD-001 from BRN-002. Proceed without questions.\n"
 
 
@@ -646,6 +689,48 @@ FAIL if any of these fails, or if the reply says it changed FR-001.
                                         r"(?:(?:has not|hasn't|have not|not)(?: yet)? been reviewed|[Uu]nreviewed)"),
         },
     },
+    "no-brainstorm-yet": {
+        "ver": "33", "files": {"README.md": README_VOLUNTEER},
+        "prompt": "Let's write the PRD for our volunteer app.\n",
+        "description": "VER-33: with no brainstorm in the workspace and no BRN named, the skill says that no brainstorm exists yet, points to /devforgeai:brainstorm, never says that promoted ideas are already cited, and writes no PRD.",
+        "graders": {
+            "skill-fired": SKILL_FIRED,
+            "points-to-brainstorm": regex("last_message", "contains", r"/devforgeai:brainstorm\b"),
+            "never-says-already-cited": regex("last_message", "not_contains", r"already cited", "i"),
+            "no-prd-written": NO_PRD,
+            "says-no-brainstorm": llm("""\
+Context the reply was written in: the workspace has no docs/specs/ folder, so no brainstorm (BRN)
+document exists. The user asked to write a PRD and named no brainstorm.
+
+Judge only the final reply. PASS if all of these hold:
+- It says that no brainstorm exists yet, or that there is no BRN to turn into a PRD.
+- It tells the user to start with /devforgeai:brainstorm.
+- It doesn't present a PRD as written.
+FAIL if any of these fails, or if it says that promoted ideas are already cited by a PRD.
+"""),
+        },
+    },
+    "revisited-brainstorm-extends": {
+        "ver": "34",
+        "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD_V2, "docs/specs/prd/PRD-001.md": PRD_FOOD_DRAFT},
+        "prompt": "Extend PRD-001 from BRN-001. Proceed without questions.\n",
+        "description": "VER-34: BRN-001 version 2 adds a promoted IDEA-05; extending the draft PRD-001, which cites IDEA-01 and IDEA-03 at version 1, drafts FRs from IDEA-05 only, leaves the existing items unchanged, passes validation, and reports the version 1 links as suspect.",
+        "graders": {
+            "extended-to-version-2": regex(PRD, "contains", r"^version: 2[ \t]*$", "m"),
+            "new-fr-from-idea-05": regex(PRD, "contains", rf"- id: FR-\d{{3}}\n{ITEM}[ \t]+- \{{id: BRN-001, item: IDEA-05, "
+                                                          r"relation: derives, version: 2, hash: null\}"),
+            "no-idea-redrafted": regex(PRD, "not_contains", r"item: IDEA-0[1-4], relation: derives, version: 2\b"),
+            "fr-001-unchanged": regex(PRD, "contains", lit(FR_001_DRAFT)),
+            "fr-002-unchanged": regex(PRD, "contains", lit(FR_002_DRAFT)),
+            "asm-01-unchanged": regex(PRD, "contains", lit(ASM_01_DRAFT)),
+            "validation-passed": regex("last_message", "contains", r"Validation:\**[ \t]*passed", "i"),
+            "names-left-out-ideas": regex("last_message", "contains",
+                                          r"IDEA-01[^\n]{0,200}(?:left out|already cited|cited by|cites)"
+                                          r"|(?:left out|already cited|cited by)[^\n]{0,200}IDEA-01", "i"),
+            "reports-suspect-links": regex("last_message", "contains",
+                                           r"suspect[^\n]{0,120}BRN-001|BRN-001[^\n]{0,120}suspect", "i"),
+        },
+    },
 }
 
 # New graders for two v1 cases; their existing graders stay as they are.
@@ -667,7 +752,9 @@ EXTRA_GRADERS = {
 
 def scaffold(comment, files):
     out = f"#!/usr/bin/env bash\n# {comment}\nset -euo pipefail\n"
-    out += "mkdir -p " + " ".join(sorted({os.path.dirname(p) for p in files})) + "\n"
+    dirs = sorted({os.path.dirname(p) for p in files} - {""})
+    if dirs:
+        out += "mkdir -p " + " ".join(dirs) + "\n"
     for p, text in files.items():
         out += f"cat > {p} <<'FIXTURE'\n{text}FIXTURE\n"
     return out

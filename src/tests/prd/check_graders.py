@@ -1,6 +1,6 @@
 """Checks the regex and file graders added for SPEC-002 v2 offline, before any paid run.
 
-For each new prd case (VER-24 to VER-32) and the graders added to records-provenance (VER-09) and
+For each new prd case (VER-24 to VER-34) and the graders added to records-provenance (VER-09) and
 constraints-not-design (VER-10), it runs the case's scaffold in a temporary workspace, writes a
 hand-made good result (the files and final reply a correct run would leave), and runs
 grade_evals.mjs: every regex and file grader must pass. Then it writes bad results, each breaking one
@@ -352,6 +352,65 @@ S += [
                                                                        "(applies to the whole product).\"\n    priority: null\n    release: null\n" + BRN_LINK))}, R24, {"aws-no-brn-link"}),
     (c, "Stripe linked to the BRN", {PRD: new_prd(nfrs=CONSTRAINTS.replace("(applies to checkout).\"\n    priority: null\n    release: null\n",
                                                                           "(applies to checkout).\"\n    priority: null\n    release: null\n" + BRN_LINK))}, R24, {"stripe-no-brn-link"}),
+]
+
+# VER-33 no-brainstorm-yet
+c = "no-brainstorm-yet"
+R33 = "No brainstorm exists yet in this project, so there is no BRN to turn into a PRD. Run /devforgeai:brainstorm first.\n"
+S += [
+    (c, "good", {}, R33, set()),
+    (c, "says ideas already cited", {}, "Every promoted idea is already cited by a PRD, so there is nothing to process.\n",
+     {"points-to-brainstorm", "never-says-already-cited"}),
+    (c, "no pointer", {}, "No brainstorm exists yet.\n", {"points-to-brainstorm"}),
+    (c, "PRD written anyway", {PRD: new_prd()}, R33, {"no-prd-written"}),
+]
+
+
+# VER-34 revisited-brainstorm-extends
+def revisited(text, *, idea_version=2, extra_fr="", fr1_edit=None):
+    """The draft food bank PRD-001 after a valid extension from BRN-001 version 2 (FR-003 from IDEA-05)."""
+    t = edit(text, "version: 1\ncreated: 2026-09-14\nupdated: 2026-09-20", "version: 2\ncreated: 2026-09-14\nupdated: 2026-09-29")
+    t = edit(t, 'session: "fixture-session"', f'session: "{SESSION}"')
+    t = edit(t, "  - {id: BRN-001, item: PRB-02, relation: derives, version: 1, hash: null}\n",
+             "  - {id: BRN-001, item: PRB-02, relation: derives, version: 1, hash: null}\n"
+             "  - {id: BRN-001, item: PRB-03, relation: derives, version: 2, hash: null}\n")
+    fr2_end = "    notes: null\n    upstream:\n      - {id: BRN-001, item: IDEA-03, relation: derives, version: 1, hash: null}\n```"
+    t = edit(t, fr2_end, fr2_end[:-3] +
+             "  - id: FR-003\n    status: active\n"
+             '    statement: "The system shall let a volunteer sign up only for shifts whose required training they have."\n'
+             "    priority: null\n    release: null\n    notes: null\n    upstream:\n"
+             f"      - {{id: BRN-001, item: IDEA-05, relation: derives, version: {idea_version}, hash: null}}\n{extra_fr}```")
+    if fr1_edit:
+        t = edit(t, *fr1_edit)
+    return t + (f"| 2 | 2026-09-29 | claude-code (session {SESSION}) | Extended from BRN-001 version 2: FR-003 added; IDEA-01 and IDEA-03 left out (already cited)."
+                f"This revision has not been reviewed. {RESOLUTION} | FR-003 |\n")
+
+
+c = "revisited-brainstorm-extends"
+DRAFT = scaffolded(c, PRD)
+R34_BLOCK = ("PRD-001 written to docs/specs/prd/PRD-001.md (from BRN-001; extended to version 2)\n"
+             "Validation: passed at check 1 of at most 4 (no repairs)\n\n")
+R34_LEFT = "IDEA-01 and IDEA-03 left out: PRD-001#FR-001 and PRD-001#FR-002 already cite them.\n"
+R34_SUSPECT = "Suspect links: FR-001, FR-002, SM-01, SM-02 and ASM-01 cite BRN-001 version 1; BRN-001 is now at version 2.\n"
+IDEA_01_AGAIN = ("  - id: FR-004\n    status: active\n    statement: \"The system shall show open shifts.\"\n"
+                 "    priority: null\n    release: null\n    notes: null\n    upstream:\n"
+                 "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 2, hash: null}\n")
+S += [
+    (c, "good", {PRD: revisited(DRAFT)}, R34_BLOCK + R34_LEFT + R34_SUSPECT, set()),
+    (c, "not extended", {}, R34_BLOCK + R34_LEFT + R34_SUSPECT, {"extended-to-version-2", "new-fr-from-idea-05"}),
+    (c, "IDEA-05 linked at version 1", {PRD: revisited(DRAFT, idea_version=1)}, R34_BLOCK + R34_LEFT + R34_SUSPECT,
+     {"new-fr-from-idea-05"}),
+    (c, "IDEA-01 drafted again", {PRD: revisited(DRAFT, extra_fr=IDEA_01_AGAIN)}, R34_BLOCK + R34_LEFT + R34_SUSPECT,
+     {"no-idea-redrafted"}),
+    (c, "FR-001 link moved to version 2", {PRD: revisited(DRAFT, fr1_edit=(
+        "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 1, hash: null}\n  - id: FR-002",
+        "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 2, hash: null}\n  - id: FR-002"))},
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"fr-001-unchanged", "no-idea-redrafted"}),
+    (c, "validation failed", {PRD: revisited(DRAFT)},
+     "Validation failed (ERR-06): FR-001 cites BRN-001 version 1, not the current version 2.\n" + R34_LEFT + R34_SUSPECT,
+     {"validation-passed"}),
+    (c, "left-out ideas not named", {PRD: revisited(DRAFT)}, R34_BLOCK + R34_SUSPECT, {"names-left-out-ideas"}),
+    (c, "suspect links not reported", {PRD: revisited(DRAFT)}, R34_BLOCK + R34_LEFT, {"reports-suspect-links"}),
 ]
 
 ADDED = {"records-provenance": {"model-is-a-claude-model-id", "identity-not-unavailable", "authors-include-the-tool",

@@ -2,19 +2,19 @@
 id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
-status: approved
-version: 3
+status: in-review
+version: 4
 created: 2026-09-23
-updated: 2026-09-30
+updated: 2026-10-01
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
+  session: "8619f756-390e-4265-a95c-03fa25310d46"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-09-30
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -116,8 +116,10 @@ policy documents in `docs/specs/policy/` (BEH-17), and accepted ADRs (BEH-16).
 
 The two frontmatter fields are independent: "an MVP serving real users" is `stage: mvp` with
 `operating_context: production`. The NFR `category` list gains `constraint`. A PRD can't move to
-`approved` while any `stage`, `operating_context`, `priority` or `release` is `null`, the same rule
-as for `[NEEDS CLARIFICATION]` markers. `[NEEDS ADR]` markers don't block approval (templates README §2.7).
+`approved` while `stage`, `operating_context` or any `release` is `null`, or while any
+`release: current` item has a `null` `priority`, the same rule as for `[NEEDS CLARIFICATION]`
+markers. A `release: later` item's `priority` may stay `null` until a release takes the item in.
+`[NEEDS ADR]` markers don't block approval (templates README §2.7).
 
 **Mapping from BRN to PRD** (the detail goes in `references/brn-mapping.md`):
 
@@ -197,7 +199,7 @@ behaviors:
     rule: "Choose quality questions by operating context and interview depth by stage. Operating context decides which NFR categories must be asked: local, only constraint; internal, constraint, security and privacy; pilot, those plus reliability, observability and compliance; production, all of those plus performance and accessibility. Stage decides depth: prototype needs requirements only at capability level and a minimal rollout; mvp confirms each current-release requirement; evolution also asks about effects on existing behaviour and systems. These sets are the framework floor. Approved policy may add categories through quality.required_categories when its applies_when matches (BEH-17), but can never remove floor categories. Always offer one open question for any other quality need. When operating context is unknown, ask it in the first round; if it can't be asked, use the production set for deciding which gaps to mark, and leave it null. Record each required category the user did not answer as [NEEDS CLARIFICATION: <category> requirements for <context>] in open questions, never as a placeholder requirement. Keep four kinds of answer apart. An explicit none (the user confirms the category needs nothing) is recorded in section 7's prose as the user's answer, and no NFR is written. No target yet keeps the requirement or metric, with its target marked [NEEDS CLARIFICATION: target for <item>]. A partial answer becomes the NFRs it states, and the rest of the category stays marked. No answer is marked as above. None of these answers waives applicable policy: a category that approved policy requires, or a mandated platform, still applies, and an explicit none for it is recorded together with a [NEEDS CLARIFICATION] marker naming the policy setting."
   - id: BEH-04
     status: active
-    rule: "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea into one or more functional requirements that start 'The system shall', each with an upstream derives link to its idea, so every FR derives from a promoted idea; assumptions carried over with derives links; success signals into metrics. NFRs cite their actual source: a BRN item only when one states the requirement; otherwise the policy setting, ADR or PRD it comes from, or no link when the user stated it. Never add a brainstorm link to a requirement the user stated or policy added."
+    rule: "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea that no PRD cites yet (§4) into one or more functional requirements that start 'The system shall', each with an upstream derives link to its idea, so every FR derives from a promoted idea; assumptions carried over with derives links; success signals into metrics. NFRs cite their actual source: a BRN item only when one states the requirement; otherwise the policy setting, ADR or PRD it comes from, or no link when the user stated it. Never add a brainstorm link to a requirement the user stated or policy added. Leave out a promoted idea that an item of any PRD already cites, and name it in the reply with the item that cites it."
   - id: BEH-05
     status: active
     rule: "Interview only for gaps, in batched rounds using references/interview.md: framing (stage, operating context, target_release name, primary users, non-goals), architecture context (BEH-16), requirements, quality and constraints (BEH-03), and success metrics (baseline and target). Each requirement gets one question that shows its drafted statement and offers must now, should now, later, or won't: must now and should now write that priority with release current; later writes release later and leaves priority null; won't writes priority wont with release current (an explicit exclusion from this release; a requirement that should never be built is edited or dropped instead). The user can edit the statement or answer 'decide later', which leaves priority and release null. Ask at most the host's per-call question limit (§5: four in Claude Code) and at most interview.max_calls calls (framework default 8, resolved by BEH-17) unless the user asks for more. Record anything left over when the budget runs out as [NEEDS CLARIFICATION]. Skip any question the BRN or the request already answers. When the request says to proceed without questions, ask none."
@@ -233,10 +235,10 @@ behaviors:
     rule: "Build the document from ${CLAUDE_SKILL_DIR}/assets/prd.md. Keep every section heading, including the GENERATED epic map. Replace each placeholder or mark it [NEEDS CLARIFICATION]. Delete author comments."
   - id: BEH-12
     status: active
-    rule: "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair changes the file to address a reported error; when an error can't be repaired (for example an external limitation), stop early and report it instead of repeating an unchanged check. Record each check and repair in the reply. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2)."
+    rule: "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair changes the file to address a reported error; when an error can't be repaired (for example an external limitation), stop early and report it instead of repeating an unchanged check. Record each check and repair in the reply. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). A link this write adds cites the cited document's current version; an existing link to an older version is a suspect link (templates README §2.6), named in the reply and never an error."
   - id: BEH-13
     status: active
-    rule: "Hand off with counts of requirements, constraints and metrics, the number of null decisions, the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step, which is the architecture step (ADR-002): if ${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md exists, tell the user to run /devforgeai:architecture with the PRD ID. Otherwise say the architecture skill (planned as /devforgeai:architecture) does not exist yet, that for now the step is done by hand by writing ADRs with the ADR template, and that this PRD and its [NEEDS ADR] markers are its input; once the skill is built, /devforgeai:architecture with this PRD's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
+    rule: "Hand off with counts of requirements, constraints and metrics, the number of open decisions (a null stage, operating context or release, or a null priority on a release current item), the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step, which is the architecture step (ADR-002): if ${CLAUDE_PLUGIN_ROOT}/skills/architecture/SKILL.md exists, tell the user to run /devforgeai:architecture with the PRD ID. Otherwise say the architecture skill (planned as /devforgeai:architecture) does not exist yet, that for now the step is done by hand by writing ADRs with the ADR template, and that this PRD and its [NEEDS ADR] markers are its input; once the skill is built, /devforgeai:architecture with this PRD's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
   - id: BEH-14
     status: active
     rule: "Never modify a BRN document."
@@ -263,9 +265,9 @@ errors:
     user_result: "An explanation and the next step (/devforgeai:brainstorm)"
   - id: ERR-04
     status: active
-    condition: "No argument was given and no unprocessed BRN exists"
-    handling: "Say that every promoted idea is already cited by a PRD, and write nothing"
-    user_result: "A statement that there is nothing to process"
+    condition: "No BRN can be processed: no argument was given and no unprocessed BRN exists, or the BRN named has promoted ideas and a PRD already cites every one"
+    handling: "Say why, and write nothing. With no BRN at all, say that no brainstorm exists yet and point to /devforgeai:brainstorm. List each BRN that has no promoted idea, with its status, and point to /devforgeai:brainstorm to converge it. Say that every promoted idea of each remaining BRN is already cited by a PRD, naming the PRDs that cite them"
+    user_result: "Why no BRN can be processed, and the next step"
   - id: ERR-05
     status: active
     condition: "The BRN's item blocks can't be read (malformed YAML or missing collections)"
@@ -279,7 +281,7 @@ errors:
   - id: ERR-07
     status: active
     condition: "The user stops mid-interview"
-    handling: "Ask whether to save a draft PRD. If yes, write it with every undecided field null"
+    handling: "Ask whether to save a draft PRD. If yes, write it with every undecided field null, then validate it (BEH-12) and report it (BEH-13) as any other write"
     user_result: "Either a draft file or no file, as the user chose"
   - id: ERR-08
     status: active
@@ -318,6 +320,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 4 | Not run. Changed, on Bryan's decisions of 2026-10-01 on the SKL-002 v3 review (issues #36, #37 and #38), with the spec parts of issue #40: ERR-04 says why no BRN can be processed; BEH-04 drafts only promoted ideas that no PRD cites; §4 and BEH-13 let a `release: later` item's priority stay null; BEH-12 treats an existing older-version link as a suspect link, not an error; ERR-07 validates and reports a saved draft; Appendix A asks the NFRs' priorities. VER-33 and VER-34 are new, and their cases are expected to fail on SKL-002 v3. The rows below record versions 1 to 3 |
 | Version 3 | Claude: SKL-002 v3 (the shared-schema change, PR #25) was requalified on its 12 policy eval cases on 2026-09-30, 12 of 12 at 1.00 (row (f)). Every change from v2 is in policy validation and its reference text, so its other 17 cases last ran on v2 (row (e)); the manual VER-11, VER-12 and VER-23 were not rerun. Codex: ported in PR #26, with its own native evaluation (`src/codex/devforgeai/shared-schema-update-evidence/20260930/REPORT.md`). Changed: §5, BEH-17 R1 and ERR-08 name SV-08 |
 | Version 2 | Claude: SKL-002 v2's automated VER items ran on 2026-09-29, 29 of 29 at 1.00 (row (e)); the manual VER-11, VER-12 and VER-23 are not run. Codex: not run. The changed items were BEH-03 to BEH-06, BEH-09, BEH-10, BEH-12, BEH-17, ERR-06, ERR-08 and VER-09 to VER-11, with VER-24 to VER-32 new. Rows (a) to (d) record version 1's evidence |
 | Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-29) |
@@ -624,6 +627,24 @@ verifications:
       - BEH-09
     upstream:
       - {id: STORY-002, item: AC-09, relation: verifies, version: 7, hash: null}
+  - id: VER-33
+    status: active
+    obligation: "No brainstorm yet: in a workspace with no docs/specs/brainstorm/ folder, a request to write a PRD that names no BRN says that no brainstorm exists yet, points to /devforgeai:brainstorm, never says that promoted ideas are already cited, and writes no PRD. Eval case no-brainstorm-yet: regex on last_message, file_exists false for docs/specs/prd/PRD-001.md."
+    level: e2e
+    covers:
+      - ERR-04
+    upstream:
+      - {id: STORY-002, item: AC-01, relation: verifies, version: 7, hash: null}
+  - id: VER-34
+    status: active
+    obligation: "Revisited brainstorm: BRN-001 is at version 2 and promotes IDEA-01, IDEA-03 and a new IDEA-05, which addresses a new PRB-03; a draft PRD-001 (version 1) cites IDEA-01 and IDEA-03 at BRN-001 version 1. The prompt asks to extend PRD-001 from BRN-001 and proceed without questions. PRD-001 reaches version 2 with new FRs that derive from IDEA-05 at version 2 and no new item that cites IDEA-01 or IDEA-03; every existing item is unchanged; validation passes; and the reply names IDEA-01 and IDEA-03 as left out and reports the existing links to BRN-001 version 1 as suspect links. Eval case revisited-brainstorm-extends: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-04
+      - BEH-09
+      - BEH-12
+    upstream:
+      - {id: STORY-002, item: AC-06, relation: verifies, version: 7, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -647,6 +668,13 @@ The skill is new; removing its directory rolls it back. The schema change is add
 policy validation script and schema copies to both the prd and the architecture skills (§5). Evaluate
 each provider independently, with the existing thresholds and manual obligations (the verification plan
 records the case list).
+
+**Version 4** (after approval): the eval cases for VER-33 and VER-34 are written first, with
+`src/tests/prd/make_evals.py`, and run once on SKL-002 v3, where they are expected to fail. Then
+SKL-002 v4 implements issues #36 to #38 and #40; VER-11 is run again by hand with five accepted ADRs,
+including its stop-mid-interview clause (ERR-07); and the new cases and every case whose graded
+behaviour changes are requalified in a run bound with `src/tests/prd/record_revision.sh`. The Codex
+prd skill follows the same contract in its own port.
 
 ## 12. Alternatives considered
 
@@ -691,11 +719,12 @@ process decision) proposed as not applicable.
 | 4. Quality, part 1 | Security? Privacy? Compliance for health data? Reliability? (only security and privacy answered) | Constraint already known |
 | 5. Quality, part 2 | Observability? Performance? Accessibility? Anything else? (none answered) | — |
 | 6. Metrics | Baseline and target for online-booking share? For missed appointments? (only the first answered) | — |
+| 7. Quality priorities | NFR-001 (ClinicCore), NFR-002 (security), NFR-003 (privacy): must now, should now, later, or won't? (all must now) | — |
 
-Six calls, within the default budget of eight (`interview.max_calls`). **Result (PRD-001.md):**
+Seven calls, within the default budget of eight (`interview.max_calls`). **Result (PRD-001.md):**
 - `stage: mvp` and `operating_context: production`;
 - FR-001 `must`/`current` and FR-002 `should`/`current`, both confirmed; FR-003 `null`/`null`;
-- NFR constraint (ClinicCore), security and privacy, as answered;
+- NFR constraint (ClinicCore), security and privacy, as answered, each must/current;
 - in open questions:
   - `[NEEDS CLARIFICATION]` markers for compliance, reliability, observability, performance and accessibility;
   - `[NEEDS ADR: … affects FR-001, FR-002]` for the booking-write decision;
@@ -717,3 +746,4 @@ its priority and release are decided.
 | 3 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decision of 2026-09-30 (ADR-005 D3; issue #15). The policy script also applies SV-08, at most one active setting per `testing.*` key per document, so §5, BEH-17 R1 and ERR-08 name it. The testing keys are validated in R1 and not resolved (ADR-005 D5), so R2 is unchanged. Impossible dates will be `schema` errors once the shared date definition has a format check (issue #15), so ERR-08's "(schema or SV-NN)" is unchanged. ADR-005 linked. SKL-002 implements this version in the shared-schema PR; until then its provenance stays at version 2 | frontmatter, §5, BEH-17, ERR-08 |
 | 3 | 2026-09-30 | Bryan | Approved | status |
 | 3 | 2026-09-30 | claude-code (session bd9e3bd9-6b79-4be2-b310-a8a29d143b92) | Record-only update, with no version bump: §9 records SKL-002 v3's structural checks, its bound requalification on the 12 policy cases (12 of 12 at 1.00), the NaN finding that PR #27 fixed after the run, and Bryan's approval of SKL-002 v3 on 2026-09-30. No item changed | §9 |
+| 4 | 2026-10-01 | claude-code (session 8619f756-390e-4265-a95c-03fa25310d46) | Bryan's decisions of 2026-10-01 on the SKL-002 v3 review. Issue #36: ERR-04 says why no BRN can be processed, and points to /devforgeai:brainstorm when there is no brainstorm or none has a promoted idea. Issue #37: a `release: later` item's priority may stay null; approval needs a priority only on `release: current` items (§4, BEH-13). Issue #38: drafting uses only promoted ideas that no PRD cites, and a named BRN whose promoted ideas are all cited stops under ERR-04 (BEH-04). From issue #40: ERR-07 validates and reports a saved draft; BEH-12 names an existing older-version link as a suspect link, not an error (proposed, so that VER-34 traces to a BEH); Appendix A asks the NFRs' priorities. VER-33 and VER-34 added. SPEC-003, SPEC-004 and SPEC-011 relinked to version 4 (mechanical). Awaiting Bryan's approval | §4, BEH-04, BEH-12, BEH-13, ERR-04, ERR-07, VER-33, VER-34, §9, §11, Appendix A, frontmatter, status |
