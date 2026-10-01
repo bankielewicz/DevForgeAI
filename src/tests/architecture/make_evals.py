@@ -1,10 +1,10 @@
-"""Generates evals/architecture/<case>/ (SPEC-003 VER-01..11, 14..18): prompts, graders, case.yaml
+"""Generates evals/architecture/<case>/ (SPEC-003 VER-01..11, 14..18, 21..25): prompts, graders, case.yaml
 and the inline scaffold fixtures. Every fixture is defined once here and validated against src/schemas/
 before anything is written; the two policies are read from src/staging/examples/policy-two-orgs/.
 A fixture that is invalid on purpose (VER-17's policy, VER-18's and VER-19's ARCH) must fail in exactly
 the expected place, and every policy fixture is also run through the skill's own scripts/validate_policy.py.
-It also writes the scaffold for the manual regression case VER-19 under src/tests/architecture/manual/,
-outside the plugin, so it is no eval case.
+It also writes the scaffolds for the manual cases VER-19 and VER-20 under src/tests/architecture/manual/,
+outside the plugin, so they are no eval cases.
 Edit fixtures and graders here, then regenerate; it overwrites the case files and never deletes a
 grader, so remove renamed ones by hand. Run from the repository root:
 
@@ -372,8 +372,8 @@ ADR_AUTH0 = adr(
 
 
 def arch(*, status, created, updated, approved, prd_version, outcome, context, drivers, mermaid, components,
-         decisions, evidence, deployment, changelog, session="fixture-session"):
-    """An ARCH fixture in the assets/arch.md shape."""
+         decisions, evidence, deployment, changelog, session="fixture-session", upstream_extra=""):
+    """An ARCH fixture in the assets/arch.md shape; `upstream_extra` adds frontmatter link lines."""
     approved_by, approved_on, reviewed = (f'"Priya Nair"', updated, '["Priya Nair"]') if approved else ('""', "null", "[]")
     return f"""\
 ---
@@ -395,7 +395,7 @@ approved_by: {approved_by}
 approved_on: {approved_on}
 upstream:
   - {{id: PRD-001, relation: informed_by, version: {prd_version}, hash: null}}
-supersedes: []
+{upstream_extra}supersedes: []
 superseded_by: null
 blocked_by: []
 # --- arch-specific ---
@@ -626,6 +626,158 @@ ARCH_FAILING = arch(
     deployment="The web app and the shift service run on the hosting provider (NFR-003).",
     changelog=INITIAL_ROW + "| 1 | 2026-09-22 | Priya Nair | Approved | status |\n")
 
+# --- SPEC-003 v5 fixtures (VER-20 to VER-25) ------------------------------------------------------
+
+# VER-21: PRD-002, for the same product, which no ARCH links; ARCH-001 covers the product by its name only.
+PRD_SWAPS = replace(PRD_V1, "id: PRD-001\n", "id: PRD-002\n")
+PRD_SWAPS = replace(PRD_SWAPS, 'title: "Volunteer shift sign-up for the Riverside Food Bank"',
+                    'title: "Shift swaps for the Riverside Food Bank volunteer shift sign-up"')
+PRD_SWAPS = replace(PRD_SWAPS, "# PRD-001 — Volunteer shift sign-up for the Riverside Food Bank",
+                    "# PRD-002 — Shift swaps for the Riverside Food Bank volunteer shift sign-up")
+PRD_SWAPS = replace(PRD_SWAPS, "version: 1\ncreated: 2026-09-14\nupdated: 2026-09-20",
+                    "version: 1\ncreated: 2026-09-27\nupdated: 2026-09-28")
+PRD_SWAPS = replace(PRD_SWAPS, "approved_on: 2026-09-20", "approved_on: 2026-09-28")
+PRD_SWAPS = replace(PRD_SWAPS, "Let the food bank's volunteers book warehouse shifts themselves instead of by phone, and give the\n"
+                    "coordinator a live roster.", "Let a volunteer who can't make a booked shift hand it to another volunteer "
+                    "without calling the\ncoordinator.")
+PRD_SWAPS = replace(PRD_SWAPS, "- Volunteers book their own shifts.", "- Volunteers swap booked shifts among themselves.")
+PRD_SWAPS = replace(PRD_SWAPS, "book an open warehouse shift.", "offer one of their booked shifts for a swap.")
+PRD_SWAPS = replace(PRD_SWAPS, "show the coordinator each day's roster of booked volunteers.",
+                    "let another signed-in volunteer take an offered shift.")
+PRD_SWAPS = replace(PRD_SWAPS, "| 1 | 2026-09-14 | claude-code", "| 1 | 2026-09-27 | claude-code")
+PRD_SWAPS = replace(PRD_SWAPS, "| 1 | 2026-09-20 | Priya Nair | Approved", "| 1 | 2026-09-28 | Priya Nair | Approved")
+
+# VER-22: ARCH-001 was defined against a PRD-001 version 1 without the roster; version 2 adds FR-003,
+# which neither of ARCH-001's questions cites.
+PRD_ROSTER_V2 = replace(PRD_V1, "version: 1\ncreated: 2026-09-14\nupdated: 2026-09-20",
+                        "version: 2\ncreated: 2026-09-14\nupdated: 2026-09-24")
+PRD_ROSTER_V2 = replace(PRD_ROSTER_V2, "approved_on: 2026-09-20", "approved_on: 2026-09-24")
+PRD_ROSTER_V2 += ("| 2 | 2026-09-24 | Priya Nair | Added FR-003: the coordinator's daily roster | FR-003 |\n"
+                  "| 2 | 2026-09-24 | Priya Nair | Approved | status |\n")
+ARCH_BEFORE_ROSTER = replace(ARCH_TO_REVIEW, "sign in, book warehouse shifts, and the coordinator sees the roster.",
+                             "sign in and book warehouse shifts.")
+
+# VER-24/25: ARCH-001's DEC-01 was resolved by POL-001#SET-01 at version 3, and its resolution line recorded
+# the platform; Organization A's policy is now at version 4 and mandates another platform for the same
+# capability.
+PLATFORM_A, PLATFORM_B = "Org A Identity Platform (OIDC)", "Org A Identity Cloud (SAML)"
+POL_A_V4 = replace(POL_A, "version: 3\n", "version: 4\n")
+POL_A_V4 = replace(POL_A_V4, "updated: 2026-09-01", "updated: 2026-09-25")
+POL_A_V4 = replace(POL_A_V4, "approved_on: 2026-09-01", "approved_on: 2026-09-25")
+POL_A_V4 = replace(POL_A_V4, 'ref: "v3.0.0"', 'ref: "v4.0.0"')
+POL_A_V4 = replace(POL_A_V4, f'platform: "{PLATFORM_A}"', f'platform: "{PLATFORM_B}"')
+POL_A_V4 += f"| 4 | 2026-09-25 | Architecture board | Identity platform replaced by {PLATFORM_B} | SET-01 |\n"
+RESOLUTION_A = (f"Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms={PLATFORM_A} for "
+                "identity and authentication (POL-001#SET-01); quality.required_categories=+compliance,+accessibility "
+                "(POL-001#SET-02)")
+CMP_IDP_MANDATED = item(["id: CMP-03", "status: active", 'name: "Identity platform"',
+                         'responsibility: "Authenticates volunteers and issues sessions; provided by the organization"',
+                         "owns_data:", '  - "Volunteer credentials"', "interacts_with:", '  - "CMP-01"',
+                         f'deployment: "External: {PLATFORM_A}"', "upstream:",
+                         "  - {id: POL-001, item: SET-01, relation: constrains, version: 3, hash: null}"])
+DEC_REVOKE_OPEN = item(["id: DEC-02", "status: active", Q_REVOKE, "blocking: true", "state: open", "resolved_by: []",
+                        "notes: null"] + ups("FR-001", "NFR-001"))
+ARCH_PLATFORM = arch(
+    status="approved", created="2026-09-21", updated="2026-09-22", approved=True, prd_version=1, outcome="create",
+    context="Defined against PRD-001 version 1 (approved): volunteers sign in, book warehouse shifts, and the "
+            "coordinator sees the roster. No inspection scope was named, and no code was inspected.",
+    drivers="NFR-001 (session revocation) and NFR-002 (private phone numbers) drive the design; NFR-003 rules "
+            "out an on-site server. POL-001#SET-02 adds the compliance and accessibility categories, which no NFR "
+            "covers yet.",
+    mermaid=MERMAID.replace("Identity provider", "Identity platform"),
+    components=CMP_WEB + CMP_SHIFTS + CMP_IDP_MANDATED,
+    decisions=item(["id: DEC-01", "status: active", Q_IDP, "blocking: true", "state: resolved",
+                    "resolved_by: [POL-001#SET-01]", 'notes: "Mandated by organization policy."'] + ups("FR-001"))
+              + DEC_REVOKE_OPEN,
+    evidence=EVD_PRD + item(["id: EVD-02", "status: active", 'source: "POL-001#SET-01"', "kind: policy",
+                             f'finding: "Version 3, status approved: mandates {PLATFORM_A} for identity and authentication."',
+                             "classification: policy"])
+             + item(["id: EVD-03", "status: active", 'source: "POL-001#SET-02"', "kind: policy",
+                     'finding: "Version 3, status approved: adds compliance and accessibility to the quality floor for internal products."',
+                     "classification: policy"]),
+    deployment=f"The web app and the shift service run on the hosting provider (NFR-003); {PLATFORM_A} is external.",
+    changelog=(f"| 1 | 2026-09-21 | claude-code (session fixture-session) | Initial draft for PRD-001 v1. {RESOLUTION_A} | all |\n"
+               "| 1 | 2026-09-22 | Priya Nair | Approved | status |\n"),
+    upstream_extra="  - {id: POL-001, item: SET-02, relation: informed_by, version: 3, hash: null}\n")
+
+# VER-20 (manual), second copy: DEC-02's deferral was recorded as the proposed ADR-002 in the run that
+# created ARCH-001.
+ARCH_DEFERRED = replace(ARCH_TO_REVIEW, f"    {Q_REVOKE}\n    blocking: true\n    state: open\n    resolved_by: []\n    notes: null\n",
+                        f"    {Q_REVOKE}\n    blocking: true\n    state: open\n    resolved_by: []\n"
+                        '    notes: "Deferred: ADR-002 (proposed)."\n')
+ADR_DEFERRED = """\
+---
+id: ADR-002
+type: adr
+title: "Choose how a volunteer's sessions are revoked within 5 minutes"
+status: proposed
+version: 1
+created: 2026-09-21
+updated: 2026-09-21
+owner: "Priya Nair"
+authors: ["Priya Nair", "claude-code"]
+generated_by:
+  tool: "claude-code"
+  model: "claude-opus-5-5"
+  session: "fixture-session"
+reviewed_by: []
+approved_by: ""
+approved_on: null
+upstream:
+""" + link("FR-001") + link("NFR-001") + """\
+supersedes: []
+superseded_by: null
+blocked_by: []
+# --- adr-specific ---
+consulted: []
+informed: []
+---
+
+# ADR-002 — Choose how a volunteer's sessions are revoked within 5 minutes
+
+## Context and problem statement
+
+ARCH-001#DEC-02: an administrator must be able to revoke a volunteer's sessions, and a revoked session
+must stop working within 5 minutes (PRD-001#NFR-001). Priya Nair deferred the decision.
+
+## Decision drivers
+
+- PRD-001#NFR-001: a revoked session stops working within 5 minutes.
+
+## Considered options
+
+1. Five-minute access tokens, with refresh tokens revoked centrally
+2. Server-side sessions checked on every request
+
+## Decision outcome
+
+Not decided yet.
+
+### Consequences
+
+Not decided yet.
+
+### Confirmation
+
+Not decided yet.
+
+## Pros and cons of the options
+
+### Five-minute access tokens, with refresh tokens revoked centrally
+- Good, because the shift service needn't look a session up on every request.
+- Bad, because a revoked volunteer keeps access until the access token expires.
+
+### Server-side sessions checked on every request
+- Good, because a revocation takes effect at once.
+- Bad, because every request needs a session lookup.
+
+## Status history
+
+| Date | Status | Note |
+|---|---|---|
+| 2026-09-21 | proposed | Deferred by Priya Nair |
+"""
+
 # --- Fixture validation ---------------------------------------------------------------------------
 
 
@@ -681,8 +833,12 @@ FIXTURES = {
     "ARCH_FAILING": (ARCH_FAILING, "arch.schema.json", [("components", 0, "status")]),
     "ARCH_SUPERSESSION": (ARCH_SUPERSESSION, "arch.schema.json", [("components", 0, "status")]),
     "ARCH_BAD_DATE": (ARCH_BAD_DATE, "arch.schema.json", [("frontmatter", "updated")]),
+    "PRD_SWAPS": (PRD_SWAPS, "prd.schema.json"), "PRD_ROSTER_V2": (PRD_ROSTER_V2, "prd.schema.json"),
+    "ARCH_BEFORE_ROSTER": (ARCH_BEFORE_ROSTER, "arch.schema.json"), "POL_A_V4": (POL_A_V4, "policy.schema.json"),
+    "ARCH_PLATFORM": (ARCH_PLATFORM, "arch.schema.json"), "ARCH_DEFERRED": (ARCH_DEFERRED, "arch.schema.json"),
+    "ADR_DEFERRED": (ADR_DEFERRED, "adr.schema.json"),
 }
-POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated"}
+POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated", "POL_A_V4": None}
 
 
 def scaffold(comment, **files):
@@ -760,6 +916,9 @@ CASES = {
                                           rf"- id: EVD-\d{{2}}\n{ITEM}[ \t]+kind: prd\n{ITEM}[ \t]+classification: context\n"),
             "outcome-null": OUTCOME_NULL,
             "has-components": regex(ARCH, "contains", r"```mermaid\n[\s\S]*?```\n[\s\S]*^  - id: CMP-01\n", "m"),
+            "cmp-kinds": regex(ARCH, "contains", r'(^    kinds:\n      - "(user-interface|service|platform|api|'
+                                                 r'relational-store|data-store|external)"\n|\[NEEDS CLARIFICATION: '
+                                                 r'kinds of CMP-\d{2}\])', "m"),
             "all-sections": regex(ARCH, "contains", ALL_SECTIONS),
             "no-leftovers": regex(ARCH, "not_contains", r"<!--|ARCH-000|PRD-000|YYYY-MM-DD|<component>|<the architectural question>"),
             "handoff-blocks-fr-001": BLOCKS_FR_001,
@@ -1034,6 +1193,152 @@ FAIL if any of these fails, or if the reply says it changed CMP-01.
 """,
         },
     },
+    "reuse-needs-prd-link": {
+        "ver": "21",
+        "files": dict(SHARED, docs__specs__prd__PRD_002=PRD_SWAPS, docs__specs__arch__ARCH_001=ARCH_TO_REVIEW,
+                      docs__specs__adr__ADR_001=ADR_AUTH0),
+        "prompt": "Define the architecture for PRD-002. Reuse ARCH-001 for it; I confirm the reuse outcome.\n"
+                  "Proceed without questions.\n",
+        "description": "VER-21: ARCH-001 links only PRD-001, so reuse isn't available for PRD-002: nothing is written, and the reply offers amending ARCH-001 or creating a new ARCH.",
+        "graders": {
+            "skill-fired": FIRED,
+            "arch-001-unchanged": regex(ARCH, "contains", "^" + lit(ARCH_TO_REVIEW) + "$"),
+            "no-arch-002": exists("docs/specs/arch/ARCH-002.md", False),
+            "offers-amend": regex("last_message", "contains", r"\b[Aa]mend"),
+            "reuse-refused": """\
+---
+type: llm
+---
+
+Context the reply was written in: the workspace held PRD-001 and PRD-002, two PRDs for the same
+product (the Riverside Food Bank volunteer shift sign-up), and ARCH-001, an approved architecture
+description for that system whose frontmatter links PRD-001 only. No ARCH links PRD-002. The user
+asked to define the architecture for PRD-002, asked to reuse ARCH-001 for it, confirmed the reuse
+outcome, and asked to proceed without questions.
+
+Judge only the final reply. PASS if all of these hold:
+- It says reuse isn't available (or can't be recorded) for PRD-002, because ARCH-001 doesn't link
+  PRD-002 or was defined against PRD-001.
+- It offers amending ARCH-001 or creating a new ARCH instead, and asks the user to choose, or says
+  the user has to choose before anything is written.
+- It doesn't claim to have written or changed any file.
+FAIL if it says it recorded reuse, relinked ARCH-001 to PRD-002 or created an ARCH, or if it treats
+"proceed without questions" as permission to pick amend or create itself.
+""",
+        },
+    },
+    "reuse-names-uncited": {
+        "ver": "22",
+        "files": dict(docs__specs__prd__PRD_001=PRD_ROSTER_V2, docs__specs__arch__ARCH_001=ARCH_BEFORE_ROSTER,
+                      docs__specs__adr__ADR_001=ADR_AUTH0),
+        "prompt": "PRD-001 is now at version 2: it adds FR-003, the coordinator's daily roster. Reuse ARCH-001 for\n"
+                  "it; I confirm the reuse outcome. Proceed without questions.\n",
+        "description": "VER-22: reuse confirmed over PRD-001 v2, which adds FR-003 that no DEC of ARCH-001 cites: the review record is written as in VER-15, and the reply names FR-003 as reported ready with no architectural question citing it.",
+        "graders": {
+            "prd-link-v2": regex(ARCH, "contains",
+                                 r"^upstream:\n  - \{id: PRD-001, relation: informed_by, version: 2, hash: null\}\n", "m"),
+            "outcome-reuse": regex(ARCH, "contains", r"^outcome: reuse[ \t]*$", "m"),
+            "version-status-unchanged": regex(ARCH, "contains",
+                                              r"^status: approved\n^version: 1\n^created: 2026-09-21\n^updated: 2026-09-22\n", "m"),
+            "review-row": regex(ARCH, "contains",
+                                r"\| Reviewed against PRD-001 v2: reuse confirmed, no architectural change[^\n|]*Policy resolution:"),
+            "reply-names-fr-003": regex("last_message", "contains", r"\bFR-003\b"),
+            "fr-003-uncited": """\
+---
+type: llm
+---
+
+Context the reply was written in: ARCH-001 was defined against PRD-001 version 1, which had no FR-003.
+Its two architectural questions are DEC-01 (the identity provider, citing FR-001 only) and DEC-02
+(session revocation, citing FR-001 and NFR-001). PRD-001 version 2 adds FR-003, the coordinator's
+daily roster. The user confirmed reusing ARCH-001 for version 2 and asked to proceed without questions.
+
+Judge only the final reply. PASS if it names FR-003 as a requirement that no architectural question
+(no DEC) cites, and says that FR-003 is therefore reported ready, or ready for epic work, with no
+architectural question holding it back. It may name other requirements no question cites as well.
+FAIL if FR-003 is missing from the reply, if FR-003 is reported blocked by DEC-01 or DEC-02, or if
+FR-003 is reported ready without saying that no architectural question cites it.
+""",
+        },
+    },
+    "no-prd-exists": {
+        "ver": "23", "files": {"docs__specs__prd__.gitkeep": ""},
+        "prompt": "Define the architecture for this project, so we know which requirements are ready for epics.\n"
+                  "Proceed without questions.\n",
+        "description": "VER-23: docs/specs/prd/ holds no PRD, so nothing is written, and the reply says no PRD exists and points to /devforgeai:prd.",
+        "graders": {
+            "skill-fired": FIRED,
+            "no-arch-written": exists("docs/specs/arch/**", False),
+            "no-adr-written": exists("docs/specs/adr/**", False),
+            "points-to-prd": regex("last_message", "contains", r"/devforgeai:prd\b"),
+            "says-no-prd": """\
+---
+type: llm
+---
+
+Context the reply was written in: the project's docs/specs/prd/ folder exists but holds no PRD, and
+no other planning documents exist. The user asked to define the architecture for "this project",
+named no PRD, and asked to proceed without questions.
+
+Judge only the final reply. PASS if it says that no PRD exists yet (so there is nothing to define the
+architecture for), says that nothing was written, and points the user to /devforgeai:prd as the next
+step. Mentioning /devforgeai:brainstorm as an earlier step as well is fine.
+FAIL if it invents a PRD, writes or proposes architecture content as if a PRD existed, or doesn't
+point to /devforgeai:prd.
+""",
+        },
+    },
+    "changed-platform-blocks-reuse": {
+        "ver": "24",
+        "files": dict(SHARED, docs__specs__arch__ARCH_001=ARCH_PLATFORM, docs__specs__policy__POL_001=POL_A_V4),
+        "prompt": "Run the architecture step for PRD-001. Reuse ARCH-001 for it; I confirm the reuse outcome.\n"
+                  "Proceed without questions.\n",
+        "description": "VER-24: POL-001#SET-01, which resolved ARCH-001's DEC-01, now mandates another identity platform, so reuse isn't available: ARCH-001 is unchanged, and the reply names the changed setting and offers amending ARCH-001.",
+        "graders": {
+            "skill-fired": FIRED,
+            "arch-001-unchanged": regex(ARCH, "contains", "^" + lit(ARCH_PLATFORM) + "$"),
+            "names-setting": regex("last_message", "contains", r"POL-001#SET-01"),
+            "offers-amend": regex("last_message", "contains", r"\b[Aa]mend"),
+            "platform-change-reported": f"""\
+---
+type: llm
+---
+
+Context the reply was written in: ARCH-001, an approved architecture description, links PRD-001 at its
+current version. Its DEC-01 (which identity provider handles sign-in) was resolved by the policy
+setting POL-001#SET-01 when that setting mandated {PLATFORM_A}, and ARCH-001's Change Log
+records that platform. POL-001 is now at version 4, and SET-01 mandates {PLATFORM_B} for the
+same capability. The user asked to reuse ARCH-001, confirmed the reuse outcome, and asked to proceed
+without questions.
+
+Judge only the final reply. PASS if all of these hold:
+- It reports that DEC-01's mandated platform changed: it names POL-001#SET-01, or both platforms.
+- It says reuse isn't available, or that DEC-01 no longer counts as resolved, because of that change.
+- It recommends or offers amending ARCH-001, and doesn't claim to have written or changed any file.
+FAIL if it records or confirms reuse as done, reports DEC-01 as still resolved, or never mentions the
+platform change.
+""",
+        },
+    },
+    "changed-platform-reopens": {
+        "ver": "25",
+        "files": dict(SHARED, docs__specs__arch__ARCH_001=ARCH_PLATFORM, docs__specs__policy__POL_001=POL_A_V4),
+        "prompt": "Run the architecture step for PRD-001: amend ARCH-001. I confirm the amend outcome.\n"
+                  "Proceed without asking me anything else.\n",
+        "description": "VER-25: amending ARCH-001 after POL-001#SET-01 changed its platform reopens DEC-01 with an empty resolved_by, logs the transition with both platforms, keeps the other items unchanged, and reports FR-001 blocked by DEC-01.",
+        "graders": {
+            "dec-01-open": regex(ARCH, "contains", rf"- id: DEC-01\n{ITEM}[ \t]+state: open\n[ \t]+resolved_by: \[\][ \t]*\n"),
+            "reopen-row": regex(ARCH, "contains",
+                                rf"^\|(?=[^\n]*DEC-01)(?=[^\n]*POL-001#SET-01)(?=[^\n]*{lit(PLATFORM_A)})"
+                                rf"(?=[^\n]*{lit(PLATFORM_B)})[^\n]*\|[ \t]*$", "m"),
+            "cmp-03-unchanged": regex(ARCH, "contains", lit(CMP_IDP_MANDATED)),
+            "dec-02-unchanged": regex(ARCH, "contains", lit(DEC_REVOKE_OPEN)),
+            "version-2-in-review": regex(ARCH, "contains", r"^status: in-review\n^version: 2\n", "m"),
+            "outcome-amend": regex(ARCH, "contains", r"^outcome: amend[ \t]*$", "m"),
+            "handoff-blocks-fr-001-by-dec-01": regex("last_message", "contains",
+                                                     r"[Bb]locked[\s\S]{0,200}?\bFR-001\b[^\n]{0,60}\bDEC-01\b"),
+        },
+    },
 }
 
 
@@ -1041,6 +1346,12 @@ MANUAL = Path("src/tests/architecture/manual")
 MANUAL_CASES = {
     "failed-supersession": ("VER-19", dict(docs__specs__prd__PRD_001=PRD_Q, docs__specs__arch__ARCH_001=ARCH_SUPERSESSION,
                                            docs__specs__adr__ADR_001=ADR_AUTH0)),
+    # VER-20: the approved ARCH-001 already links PRD-001 v1, the current version, and DEC-02 is open.
+    "decide-open-question": ("VER-20", dict(SHARED, docs__specs__arch__ARCH_001=ARCH_TO_REVIEW,
+                                            docs__specs__adr__ADR_001=ADR_AUTH0)),
+    "decide-deferred-question": ("VER-20", dict(SHARED, docs__specs__arch__ARCH_001=ARCH_DEFERRED,
+                                                docs__specs__adr__ADR_001=ADR_AUTH0,
+                                                docs__specs__adr__ADR_002=ADR_DEFERRED)),
 }
 
 
@@ -1069,7 +1380,7 @@ def main():
             scaffold(f"Seeds the fixtures for the manual SPEC-003 {ver} ({name}); see docs/runbooks.",
                      **files(**fixture_files)))
         os.chmod(MANUAL / name / "scaffold.sh", 0o755)
-    print("validated", len(FIXTURES), "fixtures; wrote", len(CASES), "cases and", len(MANUAL_CASES), "manual scaffold")
+    print("validated", len(FIXTURES), "fixtures; wrote", len(CASES), "cases and", len(MANUAL_CASES), "manual scaffolds")
 
 
 if __name__ == "__main__":
