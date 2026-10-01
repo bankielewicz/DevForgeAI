@@ -55,7 +55,7 @@ Keep exactly these keys, in this order. Unknown or misspelled keys are errors.
 | `superseded_by` | `null` |
 | `blocked_by` | `[]`. Every requirement an epic refines is ready, so nothing blocks it |
 | `priority` | `must`, `should` or `could`: the highest priority among the FRs it refines. A shared NFR never raises it; an epic that refines only NFRs takes their highest priority |
-| `target_release` | Quoted: the PRD's `target_release`, copied exactly. If the PRD has none, `""` and a section 8 marker |
+| `target_release` | Quoted: the PRD's `target_release`, copied exactly. If the PRD has none, write `""` and add a section 8 marker. "None" includes `""` and the prd skill's placeholder `"[NEEDS CLARIFICATION: name of the current release]"`; never copy that placeholder |
 
 Keep the `# --- epic-specific ---` comment line before `priority`. Delete the template's trailing
 comments on frontmatter lines (`# draft | in-review | …`, `# every PRD requirement in scope…`,
@@ -136,7 +136,7 @@ Delete every other `<!-- -->` comment and every placeholder: no `EPIC-000`, `PRD
 |---|---|---|
 | `**Proposal:** PRD-NNN vN is a draft, so this epic is a proposal until it is approved.` (name the ARCH instead, or both, when the ARCH is the draft) | The PRD or the ARCH has a `status` other than `approved` | First line of section 5, in every epic written |
 | `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]` | The grouping was written without the user's confirmation (SKILL.md step 6) | Section 8, in every epic written |
-| `[NEEDS CLARIFICATION: target release; the PRD sets none]` | The PRD has no `target_release` | Section 8 |
+| `[NEEDS CLARIFICATION: target release; the PRD sets none]` | The PRD has no `target_release`, or only the prd skill's placeholder | Section 8 |
 
 ## Change Log
 
@@ -164,22 +164,26 @@ epics written in this run.
    `status: draft`, `version: 1`, `created` and `updated` today, `blocked_by: []`.
 3. `generated_by` has non-empty `tool`, `model` and `session` (this session); `reviewed_by: []`;
    `approved_by: ""`; `approved_on: null`; every `hash` is `null`.
-4. `priority` follows the rule in the table, and `target_release` equals the PRD's.
+4. `priority` follows the rule in the table, and `target_release` equals the PRD's, or is `""` when the
+   PRD has none or only prd's placeholder.
 5. `upstream` has a `refines` link, at the PRD version read, for every requirement the epic groups, and
    each of them is eligible (selection.md); partial notes where an NFR is shared; optional SM links;
    exactly one `informed_by` link to the current ARCH at its version, last. No other link.
-6. Across the run: every eligible FR is refined by exactly one new epic, and no covered or left-out
-   requirement is refined by any; every eligible NFR is attached to each new epic it constrains, and a
-   standalone NFR epic exists only for an eligible NFR no active epic refines. A grouping the user
-   stated overrides the attachment choices, never eligibility.
+6. Across the run, the invariants (SKILL.md step 6) hold:
+   - every eligible FR is refined by exactly one new epic, and no covered or left-out requirement is
+     refined by any;
+   - every eligible NFR is attached to at least one new epic, unless an active existing epic already
+     refines it;
+   - a standalone NFR epic exists only for an eligible NFR that no active epic refines.
+   Which epics an NFR goes in is the grouping's choice; a grouping the user stated or changed decides it.
 7. Section 4 has one `yaml items` fence holding only `done_when`, with at least one item; IDs are
    `DW-01` onward in order; each item has `id`, `status`, `criterion` and `evidence_method`, and text is
    double-quoted.
 8. All nine headings are present in order; sections 3 and 8 hold bullets; section 7 holds exactly the
    GENERATED comment; no other `<!--`, no `<…>` placeholder, no `EPIC-000`, `PRD-000` or `YYYY-MM-DD`,
    and no template example link is left.
-9. When an input is a draft, section 5 opens with the proposal sentence. When the grouping is
-   unconfirmed, section 8 has its marker.
+9. When an input is a draft, section 5 opens with the proposal sentence. When any placement in the run
+   is unconfirmed, section 8 of every epic written has the unconfirmed-grouping marker.
 10. The Change Log has one row, whose author is `claude-code (session <ID>)` with this session's ID.
 11. No other file changed: the PRD, ARCH, ADRs, policy documents and existing epics are as they were.
 

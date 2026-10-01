@@ -5,6 +5,7 @@ files and never deletes a grader, so remove renamed ones by hand. Run from the r
     python3 src/tests/documents-updater/make_evals.py
 """
 import os
+import re
 import textwrap
 from pathlib import Path
 
@@ -693,6 +694,18 @@ def exists(path, value):
     return f"---\ntype: file_exists\npath: {path}\nexists: {str(value).lower()}\n---\n"
 
 
+def seeded(heredoc):
+    """The file content a fixture's `cat > path <<'FIXTURE'` block writes."""
+    lines = heredoc.split("\n")
+    assert lines[0].endswith("<<'FIXTURE'") and lines[-2:] == ["FIXTURE", ""], lines[0]
+    return "\n".join(lines[1:-2]) + "\n"
+
+
+def whole(text):
+    """A pattern matching exactly text: escapes only JS RegExp syntax characters, newlines as \\n."""
+    return "^" + re.sub(r"[\\^$.*+?()[\]{}|]", r"\\\g<0>", text).replace("\n", r"\n") + "$"
+
+
 FIRED = "---\ntype: tool_used\ntool: Skill\ninput_match: '\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?documents-updater\"'\n---\n"
 NOT_FIRED = ("---\ntype: tool_used\ntool: Skill\ninput_match: '\"skill\"\\s*:\\s*\"(?:[\\w-]+:)?documents-updater\"'\n"
              "min: 0\nmax: 0\narm: both\n---\n")
@@ -736,8 +749,8 @@ CASES = {
         "prompt": "Refresh the docs for my latest changes.\n",
         "graders": {
             "skill-fired": FIRED,
-            "changelog-no-internal-entry": regex("CHANGELOG.md", "not_contains", r"count_words|count_lines|[Rr]efactor|\b[Tt]ests?\b|[Hh]elper"),
-            "changelog-single-entry": regex("CHANGELOG.md", "contains", r"### Added\n\n- Added `--json` to print the word and line counts as a JSON object, for use in scripts\.\n?$"),
+            "readme-unchanged": regex("README.md", "contains", whole(seeded(README_JSON))),
+            "changelog-unchanged": regex("CHANGELOG.md", "contains", whole(seeded(CHANGELOG_JSON))),
             "readme-no-internal-names": regex("README.md", "not_contains", r"count_words|count_lines"),
             "result-no-change": regex("last_message", "contains", r"Result:[ \t*]*no_change\b"),
         },

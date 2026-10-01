@@ -1,0 +1,41 @@
+--- 7e2bfb6/Claude
++++ candidate/Codex
+@@ -215,7 +215,7 @@
+     authors = list_of("authors") if "authors" in fm else None
+     if "authors" in fm and not (authors and strings(authors)):
+         err(fm["authors"][0],
+-            'authors must be a non-empty list of quoted names, e.g. ["Dana", "claude-code"]')
++            'authors must be a non-empty list of quoted names, e.g. ["Bryan", "codex"]')
+     for k in ("participants", "sources"):
+         if k in fm and not strings(list_of(k)):
+             err(fm[k][0], f"{k} must be [] or a list of quoted strings")
+@@ -294,17 +294,23 @@
+             ln, cells = rows[-1]
+             author = cells[2] if len(cells) > 2 else ""
+             if not author:
+-                err(ln, "last Change Log row has no author: write 'claude-code (session ID)' with the ID "
+-                    "from generated_by.session, or the name of the person who made the change")
+-            elif author.startswith("claude-code"):
+-                m = re.fullmatch(r"claude-code \(session ([A-Za-z0-9-]+)\)", author)
++                err(ln, "last Change Log row has no author: write 'codex (session ID)' with the ID "
++                    "from generated_by.session (historical claude-code (session ID) rows are accepted), "
++                    "or the name of the person who made the change")
++            elif author.startswith(("claude-code", "codex")):
++                m = re.fullmatch(r"(claude-code|codex) \(session ([A-Za-z0-9-]+)\)", author)
+                 session = (fm.get("generated_by") and next(
+                     (value_of(l.split(":", 1)[1]) for _, l in nested["generated_by"]
+                      if l.strip().startswith("session:")), None))
+                 if not m:
+-                    err(ln, "last Change Log row: author must be 'claude-code (session <ID>)'")
+-                elif session and m.group(1) != session.strip('"'):
++                    err(ln, "last Change Log row: author must be 'codex (session <ID>)' or 'claude-code (session <ID>)'")
++                elif session and m.group(2) != session.strip('"'):
+                     err(ln, "last Change Log row: session must match generated_by.session")
++                tool = next(
++                    (value_of(l.split(":", 1)[1]).strip('"') for _, l in nested.get("generated_by", [])
++                     if l.strip().startswith("tool:")), None)
++                if m and tool in {"codex", "claude-code"} and m.group(1) != tool:
++                    err(ln, "last Change Log row: agent must match generated_by.tool")
+ 
+     # --- item blocks -------------------------------------------------------------------
+     items = {c: [] for c in COLLECTIONS}  # collection -> list of (line, id, fields)

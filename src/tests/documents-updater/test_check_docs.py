@@ -131,6 +131,12 @@ class CheckDocsTest(unittest.TestCase):
     def test_front_matter_title_replaces_h1(self):
         self.assertEqual(self.errors("page.md", "---\ntitle: Page\n---\n\n## Section\n\nText.\n"), [])
 
+    def test_leading_rule_is_not_front_matter(self):
+        # A document may open with a horizontal rule; only a `key:` line after `---` starts front
+        # matter, so the H1 between two rules is still seen.
+        text = "---\n\n# Title\n\nText.\n\n---\n\n## Section\n\nBody.\n"
+        self.assertEqual(self.errors("a.md", text), [])
+
     def test_setext_and_html_headings_count(self):
         self.assertEqual(self.errors("a.md", "Title\n=====\n\nText.\n\nPart\n----\n\nMore.\n"), [])
         self.assertEqual(self.errors("b.md", '<h1 align="center">Tool</h1>\n\n## Use\n\nText.\n'), [])
@@ -188,6 +194,10 @@ class CheckDocsTest(unittest.TestCase):
         self.assertError("c.md", "# T\n\nSee [x](#missing).\n", "broken anchor: #missing")
         self.assertError("d.md", "# T\n\n[ref]: missing/file.md\n", "broken link")
 
+    def test_footnote_definitions_are_not_links(self):
+        text = "# T\n\nSee the note.[^1]\n\n[^1]: This is a footnote.\n[^long-note]: Another one.\n"
+        self.assertEqual(self.errors("a.md", text), [])
+
     def test_image_without_alt_text_is_a_warning(self):
         text = "# T\n\n![](docs/shot.png)\n"
         self.assertEqual(self.errors("a.md", text), [])
@@ -212,6 +222,26 @@ class CheckDocsTest(unittest.TestCase):
         self.assertError("CHANGELOG.md", dup_cat, "duplicate category")
         dup_entry = "# C\n\n## Unreleased\n\n### Added\n\n- Added `--json`.\n- Added  `--json`\n"
         self.assertError("CHANGELOG.md", dup_entry, "duplicate Unreleased entry")
+
+    def test_changelog_nested_bullets_are_not_entries(self):
+        # Only the section's least-indented bullets are entries; a repeated sub-bullet is not a
+        # duplicate entry, while repeated entries indented under a category still are.
+        nested = ("# C\n\n## Unreleased\n\n### Added\n\n- Added X.\n  - Requires Y.\n"
+                  "- Added Z.\n  - Requires Y.\n")
+        self.assertEqual(self.errors("CHANGELOG.md", nested), [])
+        indented = "# C\n\n## Unreleased\n\n### Added\n\n  - Added X.\n    - Note.\n  - Added X.\n"
+        self.assertError("CHANGELOG.md", indented, "duplicate Unreleased entry")
+
+    def test_changelog_empty_unreleased_is_allowed(self):
+        # Keep a Changelog keeps an empty Unreleased section after a release; an empty category
+        # under it is still an error, and so is an empty Unreleased outside a changelog.
+        text = ("# Changelog\n\n## [Unreleased]\n\n## [1.0.0] - 2026-01-10\n\n### Added\n\n- First.\n\n"
+                "[Unreleased]: https://example.com/compare/v1.0.0...HEAD\n")
+        self.assertEqual(self.errors("CHANGELOG.md", text), [])
+        self.assertError("CHANGELOG.md", "# C\n\n## Unreleased\n\n### Added\n\n## [1.0.0]\n\n- a\n",
+                         "empty section: 'Added'")
+        self.assertError("notes.md", "# C\n\n## Unreleased\n\n## Later\n\nText.\n",
+                         "empty section: 'Unreleased'")
 
     def test_changelog_warnings(self):
         text = "# C\n\n## [Unreleased]\n\n### Improvements\n\n- a\n"
