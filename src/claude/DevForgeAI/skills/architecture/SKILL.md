@@ -63,9 +63,10 @@ can answer only these:
 - that a named accepted ADR answers a named question ("ADR-004 settles the identity provider").
 
 An answer to an architectural question stated in the request ("use Keycloak", "reuse our current
-auth service") is a preference: record it in the DEC's `notes` and recommend it when you ask. It
-never becomes an ADR until the user picks it. The one exception to all of this is policy: an
-approved mandated platform that answers exactly a question resolves it without asking.
+auth service") is a preference: record it in a new DEC's `notes` (for an existing DEC, which an
+amendment leaves unchanged, say it in the reply and the Change Log row instead) and recommend it
+when you ask. It never becomes an ADR until the user picks it. The one exception to all of this is
+policy: an approved mandated platform that answers exactly a question resolves it without asking.
 
 **Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options
 each, with the recommended option first and marked "(Recommended)". Otherwise ask in plain text and
@@ -75,11 +76,11 @@ affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask
 me anything", "decide nothing"), ask no decision questions:
-- no question is newly resolved except by a mandated platform, and never one reopened because its
-  platform changed. Resolutions already in an ARCH being amended follow
+- no question is newly resolved except by a mandated platform, and never a DEC reopened because its
+  mandated platform changed. Resolutions already in an ARCH being amended follow
   [readiness.md](references/readiness.md), "State changes when amending";
-- an accepted ADR the request names as answering a question goes into that DEC's `notes`, and the
-  DEC stays open;
+- an accepted ADR the request names as answering a question doesn't resolve it: record it as for a
+  preference (above), and the DEC stays open;
 - `outcome` stays `null` unless the request names it for this ARCH (above);
 - write no ADR at all;
 - read nothing outside the inspection scope, and record the gap as an unknown.
@@ -119,9 +120,9 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
    python3 ${CLAUDE_SKILL_DIR}/scripts/validate_policy.py docs/specs/policy
    ```
 
-   It skips and reports every document that isn't approved (SV-06), and checks each approved one in full
-   against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by reading
-   them instead; reading their `status` for item 3's last case is fine.
+   It skips and reports every document that isn't approved (SV-06), and checks each approved one in
+   full against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by
+   reading them instead; reading their `status` for item 3's last case is fine.
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
@@ -135,11 +136,12 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
 
 ### 2. Select the PRD
 
+- **No PRD exists at all** (with or without an ID): say that no PRD exists yet and that nothing was
+  written, and point to `/devforgeai:prd` as the next step. Write nothing.
 - **An ID was given.** Read `docs/specs/prd/<ID>.md`. If it doesn't exist (ERR-01), list the PRD IDs
   that do exist with their titles and status, write nothing, and stop.
 - **No ID.** List every PRD with its ID, title and status, and ask which one to use. Never guess,
   even when only one exists. With no answer, write nothing.
-- **No PRD exists at all:** say so, write nothing, and point to `/devforgeai:prd` as the next step.
 
 ### 3. Read the PRD; apply R3 and R4
 
@@ -165,15 +167,18 @@ names the product this PRD's title names.
 - **One covers it:** compare what it was defined against with the PRD now: the PRD version it cites,
   new or changed requirements and `[NEEDS ADR]` markers, resolvers that were superseded, and
   mandated platforms that changed (readiness.md). Offer **reuse** only when its frontmatter already
-  links this PRD and no mandated platform it relies on changed (readiness.md, "Reuse"). Recommend
-  **amend** when it needs new or changed questions or components, or when a user is present and a
-  blocking DEC is open: deciding it is an amendment. Give the reasons and ask. Offer a separate new
-  ARCH only as a non-recommended option. Never create a second baseline automatically, and write
-  nothing until the user answers.
+  links this PRD and no mandated platform it relies on changed (readiness.md, "Reuse, and deciding
+  a question later"). Recommend **amend** when it needs new or changed questions or components, or
+  when a user is present and a blocking DEC is open: deciding it is an amendment. Give the reasons
+  and ask. Offer a separate new ARCH only as a non-recommended option. Never create a second
+  baseline automatically, and write nothing until the user answers.
 - **Several could apply** (ERR-04): list them with their systems and ask. Never pick one silently.
 
-A choice of reuse or amend, in the request or an answer, also confirms that outcome for step 8,
-unless step 8 finds another outcome is needed: then say why and ask again.
+A choice of reuse or amend, in the request or an answer, also confirms that outcome for step 8. A
+reuse that step 4 can't offer answers nothing: say why (naming the DEC, the setting and both
+platforms when a mandated platform changed), offer amend or create, and write nothing until the
+user answers. Otherwise the choice stands unless step 8 finds another outcome is needed, such as a
+DEC changing in a reuse run: then say why and ask again.
 
 ### 5. Inspect within the scope
 
@@ -226,7 +231,8 @@ Use only the three means in [readiness.md](references/readiness.md), in this ord
 
 `approved_by` on an accepted ADR is the deciding user's name. If the conversation hasn't named them,
 ask who is deciding, offering the PRD owner as the first option. A preference stated in the request
-is recorded in the DEC's `notes` and made the recommended option; it is not a decision until picked.
+is recorded as "Decisions that belong to the user" says and made the recommended option; it is not a
+decision until picked.
 With no user, only means 1 applies.
 
 - **PRD conflicts (BEH-12):** when architecture shows a requirement is infeasible, too costly or in
@@ -239,7 +245,9 @@ With no user, only means 1 applies.
 ### 8. Propose and confirm the outcome
 
 Propose one outcome, with reasons:
-- **reuse:** the existing ARCH links this PRD and covers it unchanged, and no DEC changes in this run;
+- **reuse:** step 4 can offer it (the ARCH links this PRD, and no mandated platform it relies on
+  changed), it covers the PRD with no new or changed question, and no DEC changes in this run. Once
+  the user confirms reuse, new requirements no question cites don't override it: name them (below);
 - **amend:** the existing ARCH needs new or changed questions or components, or a DEC's `state` or
   `resolved_by` changes in this run (a decision recorded, or a resolver that no longer counts);
 - **create:** no ARCH covers the system.
@@ -248,7 +256,8 @@ Using a mandated or existing platform or component is not a reuse outcome. Ask t
 unless the request or step 4 already did. Write `outcome` only when it is confirmed; otherwise it
 stays `null`. Confirming the outcome accepts no decision. When proposing reuse, and in the report
 when it is confirmed, name each active requirement no active blocking DEC cites: it is reported
-ready with no architectural question holding it back (readiness.md, "Reuse").
+ready with no architectural question holding it back (readiness.md, "Reuse, and deciding a question
+later").
 - **Reuse confirmed and the ARCH's PRD link is older than the PRD's version:** write the review record
   (output-rules.md), and nothing else.
 - **Reuse confirmed and the link already equals the PRD's version:** write nothing; go to step 11.
@@ -323,7 +332,7 @@ Write the final reply in this order:
    ```
 
    Ready and Blocked together list every active FR and NFR of the PRD exactly once. After a reuse,
-   mark each ready requirement no DEC cites `(no architectural question cites it)`.
+   mark each ready requirement no active blocking DEC cites `(no architectural question cites it)`.
 
 2. Then, briefly: the checks and repairs from step 10; the draft-PRD warning if it applies; each open
    question with its DEC ID; any resolver that no longer counts and why; each proposed PRD change,

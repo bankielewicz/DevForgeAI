@@ -191,9 +191,13 @@ policy resolution line (policy.md), with no `|` inside it:
 | 1 | 2026-09-28 | claude-code (session 7b7b72c0-8b14-4b7d-aba5-f21cdbadc51f) | Initial draft for PRD-001 v1. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | all |
 ```
 
-Log each DEC transition in the row as readiness.md words it: `DEC-01 resolved → open: ADR-002
-superseded by ADR-003`, or, for a mandated platform that changed,
-`DEC-01 resolved → open: POL-001#SET-01 now mandates <platform now> (was <platform recorded>)`.
+Log each DEC transition in the row, in one of these forms:
+- `DEC-01 resolved → open: ADR-002 superseded by ADR-003`;
+- for a mandated platform that changed (readiness.md), quoting both platforms exactly:
+  `DEC-01 resolved → open: POL-001#SET-01 now mandates <platform now> (was <platform recorded>)`;
+- `DEC-02 open → resolved: ADR-007 accepted (decided by <name>)`, or
+  `DEC-01 open → resolved: POL-001#SET-01 as it now stands (confirmed by <name>)`;
+- `DEC-01 resolved_by ADR-001 → ADR-008 (supersession approved by <name>)`.
 
 Never edit earlier rows.
 
@@ -295,7 +299,7 @@ architectural choices (the ADR text) and unrelated content:
     `Intended to supersede ADR-NNN, as <name> decided in session <ID>; not in force, because
     validation failed (ERR-05).`;
   - leave each DEC that depended on the replacement open with `resolved_by: []`. Never reconnect it
-    to the older ADR, even though that ADR is accepted again;
+    to the older ADR, even though that ADR is restored;
   - set the EVD item this run added for the older ADR ("Recording a supersession") to
     `status: deprecated`, and leave its other fields as written. Never delete it: IDs are never
     deleted ("File and IDs").
@@ -304,8 +308,8 @@ architectural choices (the ADR text) and unrelated content:
   `Approval cleared.` when the ARCH was approved, and `Supersession of ADR-NNN rolled back. EVD-NN
   deprecated: it recorded a supersession no longer in force.` when one was), and for each ADR made
   proposed a Status history row: `Restored to proposed: validation failed`, or, for a replacement,
-  `Restored to proposed: validation failed; the supersession of ADR-NNN that <name> approved is not
-  in force`. The restored older ADR gets no row: it is back exactly as it was.
+  `Restored to proposed: validation failed; the supersession of ADR-NNN that <name> approved (or
+  decided) is not in force`. The restored older ADR gets no row: it is back exactly as it was.
 
 End with the validation-failure report (SKILL.md step 11): each file path with the status left, the
 checks and repairs made, the unresolved errors, and any supersession rolled back. Skip the readiness
@@ -332,7 +336,7 @@ such as one inside an existing item an amendment must leave byte-identical, ends
    least one component and at least one evidence item.
 7. Every item ID matches its pattern, is unique and numbered in order; for an amendment, every
    existing item is byte-identical except DEC `state` and `resolved_by` transitions, each logged in
-   the Change Log in the form "Change Log" gives.
+   the Change Log (a DEC reopened for a changed mandated platform in the form "Change Log" gives).
 8. Every item has its required fields in order and only allowed fields; every enum value is valid;
    every free-text value is double-quoted. Every new CMP has `kinds` from the kinds table, or a
    `[NEEDS CLARIFICATION: kinds of CMP-NN]` marker in section 8.
