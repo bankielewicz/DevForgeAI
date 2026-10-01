@@ -1,0 +1,75 @@
+[
+  {
+    "case": "writes-valid-brn",
+    "arm": "plugin",
+    "repeat": 1,
+    "native_status": "completed",
+    "assessment": {
+      "trial": "writes-valid-brn--plugin--1",
+      "status": "NOT_RUN",
+      "failed": [],
+      "pending": [
+        "hands-off"
+      ]
+    },
+    "score": null,
+    "scoring": "Frozen historical binary all-applicable-checks rule",
+    "validator_invocations": 1,
+    "failed_validator_invocations": 0,
+    "observed_repair_retries": 0,
+    "validator_executions": [
+      {
+        "id": "exec-ebdd8fa6-3227-4846-bdf5-16ca31f815f1",
+        "command": "/bin/bash -lc 'python3 /tmp/devforgeai-brn-trial-6dybx00e/candidate/skills/brainstorm/scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md'",
+        "cwd": "/tmp/devforgeai-brn-trial-6dybx00e/project",
+        "exitCode": 0,
+        "aggregatedOutput": "OK: docs/specs/brainstorm/BRN-001.md\n"
+      }
+    ],
+    "model": "gpt-6-astra",
+    "threadId": "01a0f7e9-8107-7232-8fcb-dbf4f88f4b71",
+    "harness_failure": false,
+    "platform_limit": "Model identifier not exposed to the actor in its checked context/environment; emitted unknown, reproducing existing D-04.",
+    "grader_defect": null,
+    "missing_evidence": [
+      "hands-off"
+    ],
+    "completion_or_validation_failure": false
+  },
+  {
+    "case": "records-provenance",
+    "arm": "plugin",
+    "repeat": 1,
+    "native_status": "completed",
+    "assessment": {
+      "trial": "records-provenance--plugin--1",
+      "status": "FAIL",
+      "failed": [
+        "session-substituted",
+        "host-provenance-match"
+      ],
+      "pending": []
+    },
+    "score": 0.0,
+    "scoring": "Frozen historical binary all-applicable-checks rule",
+    "validator_invocations": 1,
+    "failed_validator_invocations": 0,
+    "observed_repair_retries": 0,
+    "validator_executions": [
+      {
+        "id": "exec-13823b6c-492a-465a-b900-947f99b82107",
+        "command": "/bin/bash -lc 'python3 /tmp/devforgeai-brn-trial-x556xowb/candidate/skills/brainstorm/scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md'",
+        "cwd": "/tmp/devforgeai-brn-trial-x556xowb/project",
+        "exitCode": 0,
+        "aggregatedOutput": "OK: docs/specs/brainstorm/BRN-001.md\n"
+      }
+    ],
+    "model": "gpt-6-astra",
+    "threadId": "01a0f7ea-96ef-7680-b03d-56a1661283ea",
+    "harness_failure": false,
+    "platform_limit": "Model identifier not exposed to the actor in its checked context/environment; emitted unknown, reproducing existing D-04.",
+    "grader_defect": null,
+    "missing_evidence": [],
+    "completion_or_validation_failure": false
+  }
+]

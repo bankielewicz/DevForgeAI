@@ -1,0 +1,99 @@
+{
+  "status": "FAIL",
+  "criterion": "Primary checkout and external inputs wholly unchanged throughout the task",
+  "original_primary_file_count": 3694,
+  "original_primary_file_bytes_unchanged": true,
+  "head_unchanged": true,
+  "paths_seen_at_first_audit": [
+    {
+      "path": ".claude/.claude/agents",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/commands",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/hooks",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/launch.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/loop.md",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/output-styles",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/routines",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/scheduled_tasks.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/settings.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/skills",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.claude/workflows",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/.mcp.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/hooks",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/launch.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/loop.md",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/output-styles",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/routines",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/scheduled_tasks.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/settings.json",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".claude/workflows",
+      "state_at_followup": "absent"
+    },
+    {
+      "path": ".mcp.json",
+      "state_at_followup": "absent"
+    }
+  ],
+  "external_changed_paths": [
+    "/mnt/c/Users/bryan/.codex/code/papercuts.md"
+  ],
+  "observed_log_append": "2026-10-01 LLM Foundations S0 worktree note; unrelated to this task",
+  "attribution": "Cause of primary path additions/removals not established. This task issued no primary configuration writes. Do not remove, restore or absorb these paths.",
+  "proposal": "Review ownership of the transient Claude configuration paths separately; preserve the failed whole-checkout custody observation while reviewing the scoped Codex fix."
+}
