@@ -19,7 +19,9 @@ paths:
   patterns and allowed fields, and ends with the self-check list used in place of `devforgeai check`.
 - `skills/<name>/scripts/`: executed, not loaded. Keep `__pycache__/` out of the deployed copy.
   - Brainstorm's `validate_brn.py` applies the output rules at step 7. It can't check what the user
-    confirmed, so step 7 also reads the file back.
+    confirmed, so step 7 also reads the file back. It stays standard-library only (BEH-09), with
+    PyYAML as an optional syntax check, and must give the same verdict without PyYAML: its tests in
+    `src/tests/brainstorm/` run every case both ways. The Codex port keeps a fork of it (D-03).
   - prd and architecture share `validate_policy.py` (SPEC-002 §5, D-09), byte-identical with
     `references/policy.md`, `defaults.md` and `references/schemas/` (unchanged copies of
     `src/schemas/`); change them in both skills together, and `src/tests/prd/test_shared_files.py`

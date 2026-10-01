@@ -89,6 +89,8 @@ python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py' -k test
 # documents-updater's Markdown checker tests (kept outside the plugin), and the git skill's script tests
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/documents-updater -p 'test_*.py'
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test_*.py'
+# brainstorm's validator tests: each case runs the script with PyYAML and without it (python3 -S)
+python3 -B src/tests/brainstorm/test_validate_brn.py
 # prd and the shared policy script: its tests, the shared files' byte-identity, structure
 python3 -B src/tests/prd/test_validate_policy.py
 python3 -B src/tests/prd/test_shared_files.py
