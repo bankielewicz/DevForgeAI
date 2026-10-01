@@ -11,8 +11,9 @@ Graders are JavaScript regular expressions (the harness's engine). SPEC-011 §9 
 as \\A…\\Z; JavaScript has neither, so they are written ^…$ with no m flag, which anchors at the start and
 end of the input (Bryan, 2026-10-01). Each grader's name starts with the VER item it grades.
 
-The context_check.py pass over the seeded context documents (§9, "The script on the fixtures") is off
-until §11 step 6 builds the script: RUN_CONTEXT_CHECK.
+Every scaffold that seeds context documents also goes through the skill's context_check.py (§9, "The
+script on the fixtures"), switched on in §11 step 6 (RUN_CONTEXT_CHECK): it must pass, except a document
+the case marks as expected to be invalid, which must be the only one it reports.
 
 Run from the repository root, under the normal HOME (it imports referencing, from the user site):
     PYTHONDONTWRITEBYTECODE=1 python3 src/tests/context/make_evals.py
@@ -34,7 +35,7 @@ ROOT = Path("src/claude/DevForgeAI/evals/context")
 SCHEMAS = Path("src/schemas")
 EXAMPLE = Path("src/staging/examples/context-cli-service-rdbms/docs/specs")
 CONTEXT_CHECK = Path("src/claude/DevForgeAI/skills/context/scripts/context_check.py")
-RUN_CONTEXT_CHECK = False  # SPEC-011 §11 step 6 switches this on, once context_check.py exists
+RUN_CONTEXT_CHECK = True  # switched on in SPEC-011 §11 step 6, once context_check.py exists
 POLICY_SCRIPT = Path("src/claude/DevForgeAI/skills/prd/scripts/validate_policy.py")
 TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
 WRITING_LIMITS = (100, 1800)  # §9: a case that writes documents; also the stop-early cases (Bryan, 2026-10-01)

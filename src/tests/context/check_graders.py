@@ -1,7 +1,7 @@
 """Checks the context eval graders offline, with good and bad simulated runs (SPEC-011 §11 step 2).
 
 For each case with regex or file_exists graders, after running its scaffold:
-- a correct run (golden.good) passes every grader;
+- a correct run (golden.good) passes every grader, and the skill's context_check.py check --snapshot;
 - each targeted wrong run (golden.bad) fails exactly the graders it names;
 - every grader fails in at least one wrong run: a run that writes nothing and says nothing, an automatic
   mutation (a changed byte for a whole-content grader, the file a file_exists-false grader forbids, the
@@ -43,6 +43,25 @@ def grade(case, files, reply):
         out = subprocess.run(["node", str(GRADE), str(case_dir), str(ws), str(Path(tmp) / "reply.txt"),
                               str(Path(tmp) / "seeded.json")], capture_output=True, text=True, check=True)
     return {k: v for k, v in json.loads(out.stdout).items() if v is not None}
+
+
+def script_check(case, files):
+    """The correct run also passes the skill's context_check.py, checked against a snapshot of the scaffold
+    (so a seeded document the case marks invalid, and leaves alone, is 'unchanged, invalid')."""
+    with tempfile.TemporaryDirectory() as tmp:
+        ws = Path(tmp) / "ws"
+        ws.mkdir()
+        M.run_scaffold((M.ROOT / case.name).resolve(), ws)
+        script = str(M.CONTEXT_CHECK.resolve())
+        start = Path(tmp) / "start"
+        subprocess.run([sys.executable, "-B", script, "snapshot", str(start)], cwd=ws, check=True, capture_output=True)
+        for path, text in files.items():
+            p = ws / path
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(text)
+        out = subprocess.run([sys.executable, "-B", script, "check", "--snapshot", str(start)], cwd=ws,
+                             capture_output=True, text=True)
+    return out.returncode, out.stdout
 
 
 def failing(results):
@@ -94,6 +113,9 @@ def main():
         caught = set()
         if failing(good):
             problems.append(f"{case.name}: the correct run fails {sorted(failing(good))}")
+        code, out = script_check(case, files)
+        if code != 0:
+            problems.append(f"{case.name}: the correct run fails context_check.py:\n{out}")
         empty = failing(grade(case, {}, ""))
         runs += 1
         caught |= empty
