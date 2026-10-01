@@ -3,23 +3,24 @@ id: SPEC-010
 type: spec
 title: "GitHub post skill"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 1
+version: 2
 created: 2026-09-29
-updated: 2026-09-29
+updated: 2026-09-30
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "fdbef416-eebb-4053-95ce-624a311d72d5"
+  session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-09-29
+approved_on: 2026-09-30
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
+  - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "the project context documents, read only when they exist (BEH-18, BEH-19)"}
   - {id: SPEC-007, relation: informed_by, version: 1, hash: null, note: "the git skill: PR creation and the outward-action rule"}
 supersedes: []
 superseded_by: null
@@ -48,7 +49,9 @@ It codifies the workflow used to write issue #19 on 2026-09-29:
   verification commands with their expected output, acceptance criteria and what is out of scope;
 - make the post self-sufficient: a fresh agent with only the post and the repository can act on it;
 - check that each quoted anchor occurs exactly once, and scan for local paths and personal data;
-- post, write the new post's own number into its body, and view it back.
+- post, write the new post's own number into its body, and view it back;
+- when the project has context documents (ADR-004), take its test commands, pass rule, test naming and
+  source roots from them, and plan an investigation by its failing-test rule (BEH-18, BEH-19).
 
 The skill is recorded as `SKL-009` in its `provenance.yaml`. SKL-008 is reserved by SPEC-009.
 
@@ -63,6 +66,9 @@ The skill is recorded as `SKL-009` in its `provenance.yaml`. SKL-008 is reserved
   only from a branch already on the remote, as SPEC-007's pr phase also does; §12 records that
   overlap. Its outward-action rule (BEH-13) follows SPEC-007 BEH-04: an action is authorized when
   the request names it or the user confirms it in the run.
+- **ADR-004 v2 (project context documents):** read-only, at the pinned revision, through
+  `docs/specs/context/index.md`, and optional here. A project without them gets exactly the behaviour
+  of version 1 (BEH-18, BEH-19).
 - **GitHub:** posting uses the `gh` CLI. Whatever is posted to a public repository is published,
   and may be cached or indexed even if deleted later.
 
@@ -79,7 +85,7 @@ src/claude/DevForgeAI/
 │   │   └── enhancement.md
 │   ├── references/
 │   │   ├── fidelity.md              # claims, sources, facts vs proposals vs decisions, cold-reader rules (BEH-03, BEH-05..07)
-│   │   ├── evidence.md              # pinning revisions, quoting, run evidence and timelines (BEH-03, BEH-04)
+│   │   ├── evidence.md              # pinning, quoting, run evidence, project context (BEH-03, BEH-04, BEH-18, BEH-19)
 │   │   └── posting.md               # PR mode, duplicates, labels, authorization, posting, reporting (BEH-08, BEH-11..14, BEH-16)
 │   └── scripts/check_post.py        # read-only: references, anchors and the safety scan (BEH-09, BEH-10)
 └── evals/github-post/<case>/        # one case per automated VER item (§9)
@@ -89,7 +95,7 @@ src/tests/github-post/               # unit tests for check_post.py (VER-08) and
 ```mermaid
 flowchart LR
     K[Kind and subject BEH-01] --> R[Repository and access BEH-02]
-    R --> E[Evidence, pinned BEH-03 BEH-04]
+    R --> E[Evidence, pinned BEH-03 BEH-04, context BEH-18 BEH-19]
     E --> D[Draft from the template BEH-05..08]
     D --> C[Check references and anchors BEH-09]
     C --> S[Safety scan BEH-10]
@@ -158,6 +164,24 @@ reference to itself as `#{{self}}`. BEH-14 replaces it after the post is created
 **The draft** lives in the system temp folder, as the file passed to `--body-file`. It is never
 written into the repository.
 
+**Project context (optional; BEH-18, BEH-19).** When the project has `docs/specs/context/index.md` at the
+pinned revision, the skill reads it, then two core documents (ADR-004 D2):
+- `testing.md` (CTX-005): its sections The pass rule, Investigating a failing test, Naming, and Running
+  the tests (one command per component);
+- `source-tree.md` (CTX-004): its roots, each with what it holds and its component.
+
+| Section of the post | Kind | What it takes |
+|---|---|---|
+| Where the gap is | incident | the roots of the components the post is about |
+| Current behaviour | enhancement | the roots of the components the post is about |
+| Implementation | incident, enhancement | those roots; the Naming convention for each new test |
+| Investigation | incident, enhancement (next action investigate) | those roots; the steps of Investigating a failing test |
+| Verification | incident, enhancement | the Running the tests command of each component the post is about |
+| Acceptance criteria | incident, enhancement | The pass rule, quoted; the Naming convention for each new test |
+| Checks run, or Not verified | pr | the Running the tests command of each changed component: under Checks run only with a result at the head SHA (BEH-08) |
+
+No other context document is opened by default, and no detail file.
+
 ## 5. Interfaces and contracts
 
 ```yaml
@@ -177,10 +201,13 @@ metadata:
   in free text.
 - **Tools:**
   - Read, Glob and Grep;
+  - Write and Edit only for the draft in the system temp folder (the `--body-file`, BEH-14), never
+    for a repository file;
   - Bash for read-only `git` (`rev-parse`, `show`, `log`, `ls-remote`, `status --porcelain`,
-    `diff --cached`), for `gh` (`repo view`, `auth status`, `issue list`, `issue create`,
-    `issue edit`, `issue view`, `pr list`, `pr create`, `pr edit`, `pr view`, `label list`,
-    `label create`), and for `python3` with `scripts/check_post.py`;
+    `diff --cached`, `diff --name-only`), for `gh` (`repo view`, `auth status`, `issue list`,
+    `issue create`, `issue edit`, `issue view`, `pr list`, `pr create`, `pr edit`, `pr view`,
+    `label list`, `label create`), for `python3` with `scripts/check_post.py`, and for `sha256sum` over
+    `git show <sha>:<path>` output under `set -o pipefail` (a document's SHA-256, BEH-03, BEH-18);
   - AskUserQuestion for the user's decisions, or plain text ending the turn when it isn't available.
 - **Output:** the posted URL, or the full draft with the exact `gh` command that would post it.
 
@@ -235,10 +262,16 @@ behaviors:
     rule: "Write nothing into the repository: no file edits, commits, pushes or branches. The draft lives in the system temp folder."
   - id: BEH-16
     status: active
-    rule: "Report, in order: the URL, or 'not posted' with the reason and the exact gh command; the kind, the title and the next action; the labels, naming any created; each check with its result (citations and anchors: passed, failed or unavailable; the safety scan; the duplicate search; for a pr, the base and head SHAs); the decision status; and anything pending, such as a failed edit (ERR-07). When nothing was posted, the reply also contains the full draft."
+    rule: "Report, in order: the URL, or 'not posted' with the reason and the exact gh command; the kind, the title and the next action; the labels, naming any created; each check with its result (citations and anchors: passed, failed or unavailable; the safety scan; the duplicate search; for a pr, the base and head SHAs); the decision status; the context documents read (BEH-18), each with its path, ID, version and status, when any were read; and anything pending, such as a failed edit (ERR-07). When nothing was posted, the reply also contains the full draft."
   - id: BEH-17
     status: active
     rule: "Make the post self-sufficient (§4, accessible evidence): everything the next action depends on is readable with only the post and the repository, as content committed at the cited revision, a quotation in the post, or a URL the reader can open. Evidence that exists on one machine only is cited as supporting evidence and marked local, and the post quotes the parts the next action needs."
+  - id: BEH-18
+    status: active
+    rule: "When docs/specs/context/index.md exists at the pinned revision (BEH-03), read the project context documents with git show <pinned SHA>:<path>, never from the working tree: index.md first, then testing.md and source-tree.md, each only when index.md lists it. A context document that exists only in the working tree is absent. Open no detail file and no other context document, unless the post's subject is that document, when it is ordinary evidence (BEH-04). For each document, first run git rev-parse --verify --quiet <pinned SHA>:<path>: no output means it is absent at the pinned revision. Then hash what git show returns with set -o pipefail; git show <pinned SHA>:<path> | sha256sum. A nonzero exit means the read failed: that is ERR-09 (unavailable), never absent, and gives no hash. Cite each document used on one line in exactly this form: <path> (<ID> v<N>, <status>, sha256 <64 hex digits>), for example docs/specs/context/testing.md (CTX-005 v1, approved, sha256 <64 hex digits>). A draft document is used, and cited as draft. When index.md doesn't list a document, the document is missing at the pinned revision, or a section BEH-19 names isn't in it, that part is absent: write Unknown: <what is missing> where its value would go. This is not an error, stops nothing, and never changes a next action the evidence otherwise supports: ERR-08 changes the next action only when evidence about the claim, the cause or the solution is missing. Never edit a context document. When index.md doesn't exist at the pinned revision, behave exactly as without this rule and BEH-19."
+  - id: BEH-19
+    status: active
+    rule: "Use what BEH-18 read where §4's Project context table says. Present a statement as the project's rule or convention only when it is labelled DevForgeAI rule, Decision or Convention, or is an active item or table row whose basis is decision or convention, whatever the document's status; state any other statement with its basis, for example Observed (tests/service/, 2026-09-29), or leave it out. The components the post is about are those whose active source-tree.md roots with holds code or tests contain a path the post cites or, for a pr, a file that git diff --name-only <merge base> <head> lists (BEH-08 gives both SHAs; a change reverted within the pr is not listed); a root contains a path that starts with the root's path. Take only those components' Running the tests rows, one command each. Quote The pass rule in Acceptance criteria, with its citation. Name each new test by the Naming convention. For next action investigate, the Investigation follows Investigating a failing test, citing it: compare the failure with a recorded baseline first when one exists, run or read old code only in a disposable worktree (git worktree add --detach) or with git show, and never tell the reader to restore, check out, stash, reset or clean files, or download files into the working tree. When no root contains the post's paths, or a component has no Running the tests row, write Unknown: <what is missing> in place of the command and never guess one. For a pr, a testing.md command is listed under Checks run only with a result from this session or a cited record at the head SHA (BEH-08); otherwise it is listed under Not verified."
 ```
 
 ## 7. Errors and edge cases
@@ -321,15 +354,16 @@ quality_responses:
 | Kind | Status |
 |---|---|
 | Version 1 | Approved by Bryan on 2026-09-29, after the revision that followed his review of `aa3563f`; not built. The templates are staged in `src/templates/github/` |
-| Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-29) |
+| Version 2 | Approved by Bryan on 2026-09-30: optional reading of the project context documents (BEH-18, BEH-19, VER-13, VER-14; BEH-16 and VER-01 extended), from Bryan's yes of 2026-09-30. He approved an earlier text that day, and this text, revised after the Codex consult, the same day. Not built |
+| Structural: this spec against `spec.schema.json` | Passes (checked 2026-09-30, version 2) |
 | Scope of the automated suite | Eval runs have no network, so every automated case runs in draft-only mode (ERR-02). The automated suite verifies drafting, the checks and refusals. **Posting (BEH-11 to BEH-14, ERR-07) is verified only by hand** (VER-09, VER-10), the same gap SPEC-007 has for pushes and merges. Whether a fresh agent can act on a post is verified by the VER-12 harness, run from a plain terminal |
-| Risk to settle at build time | `check_post.py` reads `git show <sha>:<path>`, so VER-01's and VER-11's fixtures are git repositories with commits. The eval sandbox masks `.git/config.lock` in repositories a scaffold builds, where `git config`, `remote add` and `push -u` fail (CLAUDE.md, "Evaluating a skill"); whether read-only `git show` works there is unverified. The check never falls back to the working tree: if `git show` fails, the run reports the check unavailable (ERR-09), and the cases grade the draft's quotations against the fixture text at the SHAs that `make_evals.py` records after verifying them itself when it generates the cases |
+| Risk to settle at build time | `check_post.py` reads `git show <sha>:<path>`, so VER-01's, VER-11's, VER-13's and VER-14's fixtures are git repositories with commits. The eval sandbox masks `.git/config.lock` in repositories a scaffold builds, where `git config`, `remote add` and `push -u` fail (CLAUDE.md, "Evaluating a skill"); whether read-only `git show` works there is unverified. The check never falls back to the working tree: if `git show` fails, the run reports the check unavailable (ERR-09), and the cases grade the draft's quotations against the fixture text at the SHAs that `make_evals.py` records after verifying them itself when it generates the cases |
 
 ```yaml items
 verifications:
   - id: VER-01
     status: active
-    obligation: "Incident, decided: a fixture git repository with commits, holding a spec whose rule leaves a case unhandled and a committed run log showing it. The request names the kind and the gap and states the owner's decision with its date; there is no network. The reply holds the full draft with every incident section from §4; the Summary states next action implement; the decision block is decided, cites the request's decision and has no gate; each cited path and line exists at the pinned SHA and each quotation matches the fixture text at those lines; the implementation gives exact old and new text for the fix; no absolute home path appears; and the reply says nothing was posted, with the gh command. Eval case incident-decided: regex and llm on last_message."
+    obligation: "Incident, decided: a fixture git repository with commits, holding a spec whose rule leaves a case unhandled and a committed run log showing it. The request names the kind and the gap and states the owner's decision with its date; there is no network. The reply holds the full draft with every incident section from §4; the Summary states next action implement; the decision block is decided, cites the request's decision and has no gate; each cited path and line exists at the pinned SHA and each quotation matches the fixture text at those lines; the implementation gives exact old and new text for the fix; no absolute home path appears; the reply says nothing was posted, with the gh command; and, as the fixture has no docs/specs/context/, no CTX- identifier appears (BEH-18). Eval case incident-decided: regex and llm on last_message; the last check is regex not_contains CTX-."
     level: e2e
     covers:
       - BEH-01
@@ -342,6 +376,7 @@ verifications:
       - BEH-15
       - BEH-16
       - BEH-17
+      - BEH-18
       - ERR-02
   - id: VER-02
     status: active
@@ -430,6 +465,21 @@ verifications:
     covers:
       - BEH-07
       - BEH-17
+  - id: VER-13
+    status: active
+    obligation: "Incident, implement, with project context: a fixture git repository with commits holding src/shiftlog/cli/list.py, whose list command ignores its --since option and prints every shift; tests/cli/test_list.py, with no test of --since; and docs/specs/context/ copied unchanged from src/staging/examples/context-cli-service-rdbms/docs/specs/context/, where testing.md is CTX-005 v1, approved, and source-tree.md is CTX-004 v1, draft, with config/ proposed. After the commit, the working tree's testing.md is changed, uncommitted, so that its CLI row gives pytest tests/cli -x (an incident doesn't stop on tracked changes; only a pr does, BEH-08). The request names the defect, states the owner's decision with its date (list only the shifts that start on or after --since), and says the regression test verifies STORY-004 AC-02; there is no network. Regex graders on last_message: pytest tests/cli, and never pytest tests/cli -x; the citations docs/specs/context/testing.md (CTX-005 v1, approved, sha256 <H1>) and docs/specs/context/source-tree.md (CTX-004 v1, draft, sha256 <H2>), where H1 and H2 are the SHA-256 of the committed files, which make_evals.py records; 100% of the required tests; test_STORY_004_AC_02_ followed by a name; src/shiftlog/cli/; CTX-001, from BEH-16's list of documents read; and neither pytest tests/service nor pytest tests/db. Eval case incident-uses-context. Manual, from the kept trace (--keep-temp): no Read, git show, cat or Grep of a context document other than index.md, testing.md and source-tree.md, and config/ is not presented as a convention."
+    level: e2e
+    covers:
+      - BEH-16
+      - BEH-18
+      - BEH-19
+  - id: VER-14
+    status: active
+    obligation: "Incident, investigate, with project context: VER-13's fixture repository plus tests/cli/test_list.py::test_list_empty and a committed log, logs/pytest-2026-09-29.txt, in which that test fails, where the sources don't establish the cause. The request names the failure and says its cause is unknown; there is no network. Graders on last_message: regex, the Summary states next action investigate; and, within the Investigation section (from its heading to the next heading), regex, the word baseline; regex, git worktree add --detach, or git show followed by a revision and a colon; and regex, testing.md cited in BEH-18's form; then llm, the Investigation never tells the reader, as a step, to restore, check out, stash, reset or clean files, or to download files into the working tree (quoting the rule that forbids it passes). Eval case incident-investigate-context."
+    level: e2e
+    covers:
+      - BEH-18
+      - BEH-19
 ```
 
 ## 10. Rollout, migration and rollback
@@ -446,13 +496,17 @@ After Bryan approves this spec:
    `provenance.yaml` as SKL-009 implementing SPEC-010.
 3. `git mv src/templates/github/{pr,incident,enhancement}.md skills/github-post/assets/`, and update
    the templates README row.
-4. Write `references/fidelity.md`, `references/evidence.md` and `references/posting.md`.
+4. Write `references/fidelity.md`, `references/evidence.md` (which also holds BEH-18 and BEH-19) and
+   `references/posting.md`.
 5. Write `scripts/check_post.py` (BEH-09, BEH-10) and its unit tests in `src/tests/github-post/`
    (VER-08). Settle the §9 risk first: check `git show` in a scaffold-built repository under
    `claude plugin eval`.
-6. Write `src/tests/github-post/make_evals.py`, which generates the cases for VER-01 to VER-07 and
-   VER-11, verifies their fixture commits and records the SHAs, and check the regex graders offline
-   with good and bad replies. Write `src/tests/github-post/cold_session.py` for VER-12.
+6. Write `src/tests/github-post/make_evals.py`, which generates the cases for VER-01 to VER-07, VER-11,
+   VER-13 and VER-14, verifies their fixture commits and records the SHAs, and check the regex graders
+   offline with good and bad replies. For VER-13 and VER-14 it copies
+   `src/staging/examples/context-cli-service-rdbms/docs/specs/context/` unchanged, pins each copied
+   file's SHA-256 in `make_evals.py`, and stops when a file no longer matches, because those graders
+   name the documents' versions and statuses. Write `src/tests/github-post/cold_session.py` for VER-12.
 7. Bump `plugin.json` and extend its description (Bryan's choice); add the CLAUDE.md and AGENTS.md
    rows.
 8. Evaluate cheapest first (a pilot, one run, then three runs with the baseline), deploy, and run
@@ -479,6 +533,20 @@ After Bryan approves this spec:
   - missing labels are created (BEH-12);
   - this change delivers the spec and the templates, and the skill is built after approval (§11).
 - Resolved by Bryan on 2026-09-29, after approval: the label mapping stays as BEH-12 has it, incident → bug ("bug is fine").
+- Resolved by Bryan on 2026-09-30: read the project context documents when they exist, as long as it adds
+  value without technical debt. So the reading is optional, limited to `index.md`, `testing.md` and
+  `source-tree.md`, read-only at the pinned revision, and cited by version and SHA-256 (BEH-18, BEH-19).
+  `tech-stack.md` and the layer documents are left out, because versions and layer conventions rarely
+  belong in a post and each extra document adds coupling. The value is in the post's Verification,
+  Acceptance criteria and Investigation: the project's own test commands, pass rule and naming, and
+  the rule never to investigate a failing test by changing the working tree.
+- Found in the review of version 2 (2026-09-30), and fixed here: version 1's BEH-03 requires a
+  document's SHA-256, but no tool it allowed could compute one. §5 now allows `sha256sum` over
+  `git show` output.
+- Found in the Codex consult of 2026-09-30 (`tmp/codex_consult-spec-011.reply.md`), and fixed here before
+  merge. A pr's changed files come from `git diff --name-only`, not `git log`, which lists reverted
+  changes too. A failed read never yields a hash. The draft file itself needed Write and Edit, which
+  version 1 didn't allow. Missing optional context never changes a supported next action.
 
 ## Change Log
 
@@ -488,3 +556,7 @@ After Bryan approves this spec:
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Revised after Bryan's review of commit aa3563f, still version 1 and still a draft: (1) a decision already made is cited and doesn't gate the work (§4, BEH-06); (2) the next action is investigate, decide or implement, with exact patches only where the evidence determines them (§4, BEH-07, ERR-08, VER-11); (3) citations are never checked against the working tree, an unreadable commit makes the check unavailable, and every quotation is matched to its cited lines (§4 citations, BEH-09, ERR-09, §9); (4) a PR is bound to its remote head, with base and head SHAs and each check at the head (BEH-08, ERR-03, VER-03); (5) posts are self-sufficient, and a cold session acting on a post is tested (BEH-17, VER-12). The frontmatter example's version is 1. Awaiting Bryan's approval | §1, §4, §5, BEH-06..09, BEH-16, BEH-17, ERR-03, ERR-08, ERR-09, QR-03, §9, VER-01..03, VER-08..12, §11, §12 |
 | 1 | 2026-09-29 | Bryan | Approved | status |
 | 1 | 2026-09-29 | claude-code (session fdbef416-eebb-4053-95ce-624a311d72d5) | Record-only update, with no version bump: §13 records Bryan's confirmation of the label mapping (incident → bug, "bug is fine") and drops its open question. BEH-12 is unchanged | §13 |
+| 2 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Bryan's decision of 2026-09-30: when a project has context documents (ADR-004), read index.md, testing.md and source-tree.md at the pinned revision, cited by version and SHA-256 and never edited (BEH-18), and use their rules and conventions in Verification, Acceptance criteria, Implementation and Investigation, mapped to components through source-tree.md, with the failing-test rule for investigations (BEH-19). BEH-16 lists the context documents read. §5 adds sha256sum, which BEH-03 already needed. Without context documents, version 1's behaviour is unchanged, which VER-01 now checks. New BEH-18, BEH-19, VER-13 and VER-14; ADR-004 linked | frontmatter, §1, §2, §3, §4, §5, BEH-16, BEH-18, BEH-19, VER-01, VER-13, VER-14, §9, §11, §13 |
+| 2 | 2026-09-30 | Bryan | Approved | status |
+| 2 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Revised before merge after the Codex consult (`tmp/codex_consult-spec-011.reply.md`, findings 4, 7 and 15 to 18). BEH-19 takes a pr's files from git diff --name-only. BEH-18 checks the read before hashing, fixes the citation form, and says missing context never changes a supported next action. §5 allows Write and Edit for the temp draft only, and git diff --name-only. VER-13 and VER-14 are tightened. Bryan's approval of the earlier text is cleared; awaiting his re-approval | frontmatter, §5, BEH-18, BEH-19, VER-13, VER-14, §9, §13 |
+| 2 | 2026-09-30 | Bryan | Approved | status |

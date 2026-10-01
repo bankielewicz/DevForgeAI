@@ -3,9 +3,9 @@ id: CTX-001
 type: context
 title: "shiftlog: project context index"
 status: approved
-version: 1
+version: 2
 created: 2026-09-29
-updated: 2026-09-29
+updated: 2026-09-30
 owner: "Example Owner"
 authors: ["Example Owner", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "00000000-0000-0000-0000-000000000000"
 reviewed_by: []
 approved_by: "Example Owner"
-approved_on: 2026-09-29
+approved_on: 2026-09-30
 upstream:
   - {id: ARCH-001, relation: constrains, version: 1, hash: null}
 supersedes: []
@@ -31,7 +31,7 @@ document: index
 | File | ID | Version | Kinds | Purpose |
 |---|---|---|---|---|
 | [architecture.md](architecture.md) | CTX-002 | 1 | all | Components and the conventions that cut across layers |
-| [tech-stack.md](tech-stack.md) | CTX-003 | 1 | all | Technologies, their allowed versions, and where each was chosen |
+| [tech-stack.md](tech-stack.md) | CTX-003 | 2 | all | Technologies, their allowed versions, and where each was chosen |
 | [source-tree.md](source-tree.md) | CTX-004 | 1 | all | Where code, tests, configuration and documentation live |
 | [testing.md](testing.md) | CTX-005 | 1 | all | How testing is done, and the testing policy in force |
 | [front-end.md](front-end.md) | CTX-011 | 1 | user-interface | Command structure, flags, output and exit codes of the CLI |
@@ -51,3 +51,5 @@ document: index
 |---|---|---|---|---|
 | 1 | 2026-09-29 | claude-code (session 00000000-0000-0000-0000-000000000000) | Initial draft from ARCH-001 v1 | all |
 | 1 | 2026-09-29 | Example Owner | Approved | — |
+| 2 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | tech-stack.md is version 2 | Documents |
+| 2 | 2026-09-30 | Example Owner | Approved | — |
