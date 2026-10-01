@@ -647,7 +647,8 @@ follows the same contract.
   near-miss trigger probe from a plain terminal (Claude Code 2.1.286, the plugin loaded with
   `--plugin-dir`, an empty folder). The skill didn't load for "monolith or microservices for my Flask
   app?", "how should I structure the backend of my side project?" or "draw the architecture of a
-  typical e-commerce site", one run each. §5 and the VER items are unchanged.
+  typical e-commerce site", one run each. In the same session, the control prompt "define the
+  architecture for PRD-001" did load it, so the plugin was loaded. §5 and the VER items are unchanged.
 - Resolved: PRD-001 v8 records FR-013 as must/current, decided by Bryan on 2026-09-24.
 
 ## Change Log
