@@ -235,6 +235,7 @@ R24 = "PRD-001 written to docs/specs/prd/PRD-001.md (from BRN-001; new)\n"
 c = "quality-answers-kept-apart"
 S += [
     (c, "good", {PRD: new_prd(**Q24)}, R24, set()),
+    (c, "good: no rules are needed", {PRD: new_prd(**dict(Q24, prose="Security: no sign-in rules are needed beyond what the user named.\n\n"))}, R24, set()),
     (c, "good, none as a bullet", {PRD: new_prd(**dict(Q24, prose="- **Security:** none beyond the platform, as the user answered.\n\n"))}, R24, set()),
     (c, "security NFR written", {PRD: new_prd(**dict(Q24, nfrs="non_functional_requirements:\n" + nfr(1, "security", "Sign-in is required.")))}, R24, {"no-security-nfr"}),
     (c, "none only inside a YAML statement", {PRD: new_prd(**dict(Q24, prose="", nfrs="non_functional_requirements:\n" + nfr(1, "other", "Security needs nothing beyond the platform.")))}, R24, {"security-none-in-prose"}),
@@ -260,6 +261,10 @@ S += [
     (c, "good", {PRD: new_prd(**Q25)}, R24, set()),
     (c, "compliance NFR invented", {PRD: new_prd(**dict(Q25, nfrs="non_functional_requirements:\n" + nfr(1, "compliance", "Follow SOC 2.")))}, R24, {"no-compliance-nfr"}),
     (c, "none not recorded", {PRD: new_prd(**dict(Q25, prose=""))}, R24, {"compliance-none-recorded"}),
+    # Section 7 sentences two VER-25 runs wrote in SKL-002 v4's pass C (kept traces): both record the none.
+    (c, "good: no regulation applies", {PRD: new_prd(**dict(Q25, prose="Compliance: the user confirmed that no regulation applies.\n\n"))}, R24, set()),
+    (c, "good: no requirement is needed", {PRD: new_prd(**dict(Q25, prose="Compliance: the user stated that no regulation applies, so no compliance requirement is needed.\n\n"))}, R24, set()),
+    (c, "compliance named, no none", {PRD: new_prd(**dict(Q25, prose="Compliance: see the open questions.\n\n"))}, R24, {"compliance-none-recorded"}),
     (c, "marker without the setting", {PRD: new_prd(**dict(Q25, open_questions=Q_OPEN + "- [NEEDS CLARIFICATION: compliance requirements for internal]\n"))}, R24, {"marker-names-setting"}),
     (c, "none treated as waiving policy", {PRD: new_prd(**dict(Q25, open_questions=Q_OPEN))}, R24, {"marker-names-setting"}),
 ]

@@ -540,8 +540,11 @@ POLICY_SCRIPT = {
 # --- Graders --------------------------------------------------------------------------------------
 
 ITEM = r"(?:(?![ \t]*- id:)[ \t]+[^\n]*\n)*?"  # the rest of one item's lines, never the next item
+# "no regulation applies" and "no compliance requirement is needed" record a none too (SKL-002 v4's pass C:
+# 2 of 3 VER-25 runs wrote them and failed the narrower pattern).
 NONE_WORDS = (r"(?:\b[Nn]one\b|\b[Nn]othing\b|\b[Nn]o (?:additional|further|extra|separate|specific|dedicated)\b"
-              r"|\b[Nn]ot needed\b|\bbeyond (?:the|what)\b)")
+              r"|\b[Nn]ot needed\b|\bbeyond (?:the|what)\b"
+              r"|\b[Nn]o [a-z-]+(?: [a-z-]+){0,3} (?:applies|apply|is needed|are needed|is required|are required)\b)")
 
 
 def prose_none(category):
