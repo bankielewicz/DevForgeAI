@@ -17,10 +17,8 @@
 ## When to use this
 
 Read this before writing (SKILL.md step 7), and check every epic written against the self-check list
-(step 8). The story step parses epics mechanically: stories cite an epic's `DW-NN` items and follow its
-`refines` links to the requirements they must satisfy, and a future checker validates each epic
-against `epic.schema.json`. An epic that reads well but breaks a rule here breaks traceability for
-every story below it.
+(step 8). Stories parse epics mechanically, through their `DW-NN` items and `refines` links, so an epic
+that breaks a rule here breaks traceability for every story below it.
 
 ## File and IDs
 
@@ -110,7 +108,8 @@ heading is `# EPIC-NNN — <title>`.
 - **2.** Prose: why it matters, citing the PRD's success metrics by qualified ID where they apply.
 - **3.** `**In scope**`: one bullet per requirement the epic refines, naming it by qualified ID (for a
   shared NFR, the part in scope). `**Out of scope**`: related requirements handled elsewhere, each with
-  where (`covered by EPIC-002`, `in EPIC-003`, `left out: later`, `not planned`), or `- None.`
+  where (`covered by EPIC-002` for an FR, `refined by EPIC-002` for an NFR, `in EPIC-003`,
+  `left out: later`, `not planned`), or `- None.`
 - **4.** The `done_when` block.
 - **5.** Prose: the ARCH decisions this epic relies on, by qualified DEC ID with their resolvers
   (`ARCH-002#DEC-01, resolved by ADR-005`); dependencies on other epics; and risks. When an input is a
@@ -135,7 +134,7 @@ Delete every other `<!-- -->` comment and every placeholder: no `EPIC-000`, `PRD
 | Marker | When | Where |
 |---|---|---|
 | `**Proposal:** PRD-NNN vN is a draft, so this epic is a proposal until it is approved.` (name the ARCH instead, or both, when the ARCH is the draft) | The PRD or the ARCH has a `status` other than `approved` | First line of section 5, in every epic written |
-| `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]` | The grouping was written without the user's confirmation (SKILL.md step 6) | Section 8, in every epic written |
+| `[NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]` | An FR's placement is unconfirmed: no grouping was given and nobody could confirm one, or a stated grouping left an FR unplaced or placed it twice and nobody could be asked (SKILL.md step 6) | Section 8, in every epic written |
 | `[NEEDS CLARIFICATION: target release; the PRD sets none]` | The PRD has no `target_release`, or only the prd skill's placeholder | Section 8 |
 
 ## Change Log
@@ -182,8 +181,9 @@ epics written in this run.
 8. All nine headings are present in order; sections 3 and 8 hold bullets; section 7 holds exactly the
    GENERATED comment; no other `<!--`, no `<…>` placeholder, no `EPIC-000`, `PRD-000` or `YYYY-MM-DD`,
    and no template example link is left.
-9. When an input is a draft, section 5 opens with the proposal sentence. When any placement in the run
-   is unconfirmed, section 8 of every epic written has the unconfirmed-grouping marker.
+9. When an input is a draft, section 5 opens with the proposal sentence. When an FR's placement in the
+   run is unconfirmed (SKILL.md step 6), section 8 of every epic written has the unconfirmed-grouping
+   marker.
 10. The Change Log has one row, whose author is `claude-code (session <ID>)` with this session's ID.
 11. No other file changed: the PRD, ARCH, ADRs, policy documents and existing epics are as they were.
 

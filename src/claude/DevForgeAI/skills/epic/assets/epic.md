@@ -47,7 +47,7 @@ target_release: ""
 - <item>
 
 **Out of scope**
-- <item> (covered by <other epic> or "not planned")
+- <item> (covered by <other epic> for an FR, refined by <other epic> for an NFR, or "not planned")
 
 ## 4. Done when
 
