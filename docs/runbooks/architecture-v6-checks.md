@@ -155,8 +155,8 @@ written, no EVD item was deleted, and the ERR-05 Change Log row says the EVD was
 
 | Item | Result | Date | Notes |
 |---|---|---|---|
-| Eval: 5 new cases on v5 (`cd892e0`), 1 run, no baseline | NOT_RUN | | Expected: VER-21, 22, 24, 25 fail; VER-23 passes |
-| 1a Eval: 5 new cases on v6, 1 run, no baseline | NOT_RUN | | |
+| Eval: 5 new cases on v5 (`cd892e0`), 1 run, no baseline | 2 of 5 at 1.00: VER-21 1.00, VER-22 0.33, VER-23 1.00, VER-24 0.80, VER-25 0.57; $2.40 | 2026-10-01 | `tmp/eval-results/arch-v5-newcases-20261001T133751/` in the `arch-v5-check` worktree. VER-21 and VER-23 already pass on v5 (regression guards). VER-22: v5 refused the confirmed reuse (FR-003 "adds questions"). VER-24: v5 refused reuse but reported DEC-01 still resolved and proposed a new identity CMP (judge FAIL 3 of 3). VER-25: DEC-01 not reopened |
+| 1a Eval: 5 new cases on v6, 1 run, no baseline | pass: 5 of 5 at 1.00; $2.21 | 2026-10-01 | `tmp/eval-results/arch-v6-newcases-20261001T134913/`, `dcbb024`. VER-22 recorded the reuse and marked FR-003 "(no architectural question cites it)", saying DEC-01, DEC-02 and NFR-002 probably apply and to amend if they should be checked |
 | 1c Eval: architecture, 1 run with baseline | NOT_RUN | | |
 | 1d Eval: architecture, 3 runs with baseline | NOT_RUN | | |
 | B1 VER-20 deciding later (both copies) | NOT_RUN | | |
