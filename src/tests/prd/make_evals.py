@@ -375,9 +375,9 @@ for _old, _new in [
      "| 1 | 2026-09-20 | Priya Nair | Approved | status |\n", ""),
 ]:
     PRD_FOOD_DRAFT = replace(PRD_FOOD_DRAFT, _old, _new)
-FR_001_DRAFT = re.search(r"  - id: FR-001\n(?:    [^\n]*\n)+?(?=  - id:)", PRD_FOOD_DRAFT).group(0)
-FR_002_DRAFT = re.search(r"  - id: FR-002\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
-ASM_01_DRAFT = re.search(r"  - id: ASM-01\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
+# Every item PRD_FOOD_DRAFT holds, in file order; an extension must leave each one byte-identical.
+DRAFT_ITEMS = [re.search(rf"  - id: {i}\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
+               for i in ("SM-01", "SM-02", "FR-001", "FR-002", "NFR-001", "NFR-002", "NFR-003", "ASM-01")]
 # VER-33: a workspace with no docs/specs/ at all, only a README naming the product.
 README_VOLUNTEER = ("# Riverside Food Bank volunteer app\n\n"
                     "A web app where food bank volunteers see open warehouse shifts and sign up for them.\n")
@@ -564,6 +564,15 @@ IN_REVIEW = regex(PRD, "contains", r"^status: in-review[ \t]*$", "m")
 APPROVAL_CLEARED = regex(PRD, "contains", r'^approved_by: ""[ \t]*\n^approved_on: null[ \t]*$', "m")
 POLICY_PROMPT = "Write the PRD for BRN-001. Proceed without questions.\n"
 SKILL_FIRED = (ROOT / "selects-unprocessed-brn" / "graders" / "skill-fired.md").read_text()
+# Each block, then the next item or the end of its fence, so a line added inside an item also fails.
+ITEMS_UNCHANGED = r"[\s\S]*".join(lit(b) + r"(?=  - id:|```)" for b in DRAFT_ITEMS)
+REVISITED_CONTEXT = """\
+Context the reply was written in: BRN-001 is at version 2. Its promoted ideas IDEA-01 and IDEA-03 are
+already cited by the draft PRD-001 (IDEA-01 by FR-001 and SM-01, IDEA-03 by FR-002 and SM-02) at BRN-001
+version 1, and its new promoted IDEA-05 isn't cited yet. The user asked to extend PRD-001 from BRN-001 and
+to proceed without questions. A correct run adds requirements for IDEA-05 only and passes validation.
+
+"""
 EXTEND_PROMPT = "Extend PRD-001 from BRN-002. Proceed without questions.\n"
 
 
@@ -698,6 +707,8 @@ FAIL if any of these fails, or if the reply says it changed FR-001.
             "points-to-brainstorm": regex("last_message", "contains", r"/devforgeai:brainstorm\b"),
             "never-says-already-cited": regex("last_message", "not_contains", r"already cited", "i"),
             "no-prd-written": NO_PRD,
+            "no-docs-written": exists("docs/**", False),
+            "no-root-prd": exists("PRD.md", False),
             "says-no-brainstorm": llm("""\
 Context the reply was written in: the workspace has no docs/specs/ folder, so no brainstorm (BRN)
 document exists. The user asked to write a PRD and named no brainstorm.
@@ -719,25 +730,28 @@ FAIL if any of these fails, or if it says that promoted ideas are already cited 
             "extended-to-version-2": regex(PRD, "contains", r"^version: 2[ \t]*$", "m"),
             "new-fr-from-idea-05": regex(PRD, "contains", rf"- id: FR-\d{{3}}\n{ITEM}[ \t]+- \{{id: BRN-001, item: IDEA-05, "
                                                           r"relation: derives, version: 2, hash: null\}"),
-            "no-idea-redrafted": regex(PRD, "not_contains", r"item: IDEA-0[1-4], relation: derives, version: 2\b"),
-            "fr-001-unchanged": regex(PRD, "contains", lit(FR_001_DRAFT)),
-            "fr-002-unchanged": regex(PRD, "contains", lit(FR_002_DRAFT)),
-            "asm-01-unchanged": regex(PRD, "contains", lit(ASM_01_DRAFT)),
+            # The draft cites IDEA-01 and IDEA-03 twice each (an FR and an SM); a third citation, at any version,
+            # is a re-drafted item. The parked IDEA-02 and rejected IDEA-04 never appear.
+            "no-idea-redrafted": regex(PRD, "not_contains", r"(?:item: IDEA-01,[\s\S]*){3}|(?:item: IDEA-03,[\s\S]*){3}"
+                                                            r"|IDEA-0[24]\b"),
+            "existing-items-unchanged": regex(PRD, "contains", ITEMS_UNCHANGED),
             "validation-passed": regex("last_message", "contains", r"Validation:\**[ \t]*passed", "i"),
-            # An llm grader, so the reply is kept as evidence (Bryan, 2026-10-01: the first v3 run failed two
-            # regexes here and kept no copy of the reply).
-            "reply-reports-extension": llm("""\
-Context the reply was written in: BRN-001 is at version 2. Its promoted ideas IDEA-01 and IDEA-03 are
-already cited by the draft PRD-001 (FR-001, FR-002, SM-01 and SM-02) at BRN-001 version 1, and its new
-promoted IDEA-05 isn't cited yet. The user asked to extend PRD-001 from BRN-001 and to proceed without
-questions.
-
-Judge only the final reply. PASS if both of these hold:
-- It says that IDEA-01 and IDEA-03 were left out, not drafted again, because PRD-001 already cites them.
-  Any wording counts, such as "already covered by FR-001 and FR-002".
-- It reports that PRD-001's existing links to BRN-001 version 1 now point to an older version (suspect
-  links to review), and doesn't present them as validation errors.
-FAIL if either is missing, or if the reply says it drafted new requirements from IDEA-01 or IDEA-03.
+            # llm graders keep the reply as evidence (Bryan, 2026-10-01: the first v3 run failed two regexes here
+            # and kept no copy of the reply). One duty each, so a reply that misses both scores 5 of 7, below 0.8.
+            "reply-names-left-out-ideas": llm(REVISITED_CONTEXT + """\
+Judge only the final reply. PASS if it names both IDEA-01 and IDEA-03, by ID, as left out (not drafted
+again) because PRD-001 already cites them, and names for each a PRD-001 item that cites it (FR-001 or SM-01
+for IDEA-01; FR-002 or SM-02 for IDEA-03). Any wording counts, such as "IDEA-01 left out: PRD-001#FR-001
+cites it" or "IDEA-01 and IDEA-03 are already covered by FR-001 and FR-002".
+FAIL if either ID or its citing item is missing, or if the reply says it drafted new requirements from
+IDEA-01 or IDEA-03.
+"""),
+            "reply-reports-suspect-links": llm(REVISITED_CONTEXT + """\
+Judge only the final reply. PASS if it tells the user that PRD-001's existing links to BRN-001 cite
+version 1 while BRN-001 is now at version 2, so they point to an older version and need review. Any wording
+counts; the word "suspect" isn't required, and the reply needn't list every such link.
+FAIL if the reply doesn't mention them, or if it counts them as validation errors, as repairs, or as a
+reason a check failed.
 """),
         },
     },

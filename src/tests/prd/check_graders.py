@@ -362,7 +362,10 @@ S += [
     (c, "says ideas already cited", {}, "Every promoted idea is already cited by a PRD, so there is nothing to process.\n",
      {"points-to-brainstorm", "never-says-already-cited"}),
     (c, "no pointer", {}, "No brainstorm exists yet.\n", {"points-to-brainstorm"}),
-    (c, "PRD written anyway", {PRD: new_prd()}, R33, {"no-prd-written"}),
+    (c, "PRD written anyway", {PRD: new_prd()}, R33, {"no-prd-written", "no-docs-written"}),
+    (c, "PRD drafted from the README", {"PRD.md": "# PRD\n"}, R33, {"no-root-prd"}),
+    (c, "brainstorm started on its own", {"docs/specs/brainstorm/BRN-001.md": "---\nid: BRN-001\n---\n"}, R33,
+     {"no-docs-written"}),
 ]
 
 
@@ -382,7 +385,7 @@ def revisited(text, *, idea_version=2, extra_fr="", fr1_edit=None):
              f"      - {{id: BRN-001, item: IDEA-05, relation: derives, version: {idea_version}, hash: null}}\n{extra_fr}```")
     if fr1_edit:
         t = edit(t, *fr1_edit)
-    return t + (f"| 2 | 2026-09-29 | claude-code (session {SESSION}) | Extended from BRN-001 version 2: FR-003 added; IDEA-01 and IDEA-03 left out (already cited)."
+    return t + (f"| 2 | 2026-09-29 | claude-code (session {SESSION}) | Extended from BRN-001 version 2: FR-003 added; IDEA-01 and IDEA-03 left out (already cited). "
                 f"This revision has not been reviewed. {RESOLUTION} | FR-003 |\n")
 
 
@@ -405,7 +408,22 @@ S += [
     (c, "FR-001 link moved to version 2", {PRD: revisited(DRAFT, fr1_edit=(
         "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 1, hash: null}\n  - id: FR-002",
         "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 2, hash: null}\n  - id: FR-002"))},
-     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"fr-001-unchanged", "no-idea-redrafted"}),
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"existing-items-unchanged"}),
+    (c, "IDEA-01 drafted again at version 1", {PRD: revisited(DRAFT, extra_fr=IDEA_01_AGAIN.replace("version: 2", "version: 1"))},
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"no-idea-redrafted"}),
+    (c, "parked IDEA-02 cited", {PRD: revisited(DRAFT, extra_fr=IDEA_01_AGAIN.replace("IDEA-01", "IDEA-02"))},
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"no-idea-redrafted"}),
+    (c, "SM-01 target rewritten", {PRD: revisited(DRAFT, fr1_edit=('target: "95% by the end of the pilot"', 'target: "90%"'))},
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"existing-items-unchanged"}),
+    (c, "NFR-003 deleted", {PRD: revisited(DRAFT, fr1_edit=(
+        '  - id: NFR-003\n    status: active\n    category: privacy\n'
+        '    statement: "Volunteer phone numbers are visible only to the coordinator."\n'
+        '    priority: must\n    release: current\n', ""))},
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"existing-items-unchanged"}),
+    (c, "line added inside FR-001", {PRD: revisited(DRAFT, fr1_edit=(
+        "relation: derives, version: 1, hash: null}\n  - id: FR-002",
+        "relation: derives, version: 1, hash: null}\n      - {id: BRN-001, item: PRB-01, relation: derives, version: 1, hash: null}\n  - id: FR-002"))},
+     R34_BLOCK + R34_LEFT + R34_SUSPECT, {"existing-items-unchanged"}),
     (c, "validation failed", {PRD: revisited(DRAFT)},
      "Validation failed (ERR-06): FR-001 cites BRN-001 version 1, not the current version 2.\n" + R34_LEFT + R34_SUSPECT,
      {"validation-passed"}),
