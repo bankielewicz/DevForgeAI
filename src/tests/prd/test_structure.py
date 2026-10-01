@@ -1,4 +1,4 @@
-"""Structural checks for SKL-002 v3 and SKL-003 v5 (docs/runbooks/spec-002-v2-verification-plan.md §2).
+"""Structural checks for SKL-002 v3 and SKL-003 v6 (docs/runbooks/spec-002-v2-verification-plan.md §2).
 
 - SKILL.md frontmatter against skill-frontmatter.schema.json, and the description the spec's §5 fixes;
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
@@ -23,7 +23,10 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 3, "SPEC-002", 3), "architecture": ("SKL-003", 5, "SPEC-003", 4)}
+TARGETS = {"prd": ("SKL-002", 3, "SPEC-002", 3), "architecture": ("SKL-003", 6, "SPEC-003", 5)}
+# Each skill's (status, approved_by, approved_on): SKL-002 v3 was approved by Bryan on 2026-09-30;
+# SKL-003 v6 stays a draft until Bryan approves it.
+APPROVAL = {"prd": ("approved", "Bryan", "2026-09-30"), "architecture": ("draft", "", None)}
 SPEC_STATE = {"SPEC-002": (3, "approved"), "SPEC-003": (5, "approved")}
 
 
@@ -78,9 +81,7 @@ class Skills(unittest.TestCase):
                 self.assertEqual((prov["id"], prov["version"], prov["skill_name"]), (skl, version, name))
                 self.assertIn({"id": spec, "relation": "implements", "version": spec_version, "hash": None},
                               prov["upstream"])
-                # Approved by Bryan on 2026-09-30, after the policy cases were requalified.
-                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]),
-                                 ("approved", "Bryan", "2026-09-30"))
+                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]), APPROVAL[name])
 
     def test_skill_md_length_and_links(self):
         for name in TARGETS:

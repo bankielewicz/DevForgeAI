@@ -8,14 +8,16 @@
 - Resolving a question
 - What never resolves a question
 - State changes when amending
+- A mandated platform that changed
+- Reuse, and deciding a question later
 - The readiness rule
 - Reporting readiness
 - Worked example
 
 ## When to use this
 
-Read this at SKILL.md step 6 (identify the questions), step 7 (resolve them) and step 11 (compute
-readiness). The epic workflow writes epics only for requirements this rule reports ready, so a
+Read this at SKILL.md step 4 (reuse or amend), step 6 (identify the questions), step 7 (resolve
+them) and step 11 (compute readiness). The epic workflow writes epics only for requirements this rule reports ready, so a
 question marked resolved by mistake lets two epics build conflicting foundations.
 
 ## Which questions to record
@@ -77,9 +79,11 @@ A DEC is resolved by exactly one of these three means. Anything else leaves it `
 - **A preference stated in the request** ("use Auth0", "reuse our current auth service") is not
   yet a decision. Record it in the DEC's `notes` ("The request prefers …; not yet decided"), make it
   the recommended option when you ask, and keep the DEC open until the user picks it.
-- **With no user** ("proceed without questions"), only means 1 can apply. Every other DEC stays
-  open, no ADR is written, and existing resolutions in an ARCH being amended stay as they are unless
-  the next section changes them.
+- **With no user** ("proceed without questions"), only means 1 can apply, and never to a DEC
+  reopened because its platform changed. Every other DEC stays open, no ADR is written, and existing
+  resolutions in an ARCH being amended stay as they are unless the next section changes them. An
+  accepted ADR the request names as answering a question doesn't resolve it here: record it in the
+  DEC's `notes` ("The request names ADR-004 as the answer; not confirmed, no user present").
 
 ## What never resolves a question
 
@@ -87,6 +91,8 @@ A DEC is resolved by exactly one of these three means. Anything else leaves it `
   logging that cites the sign-in FR resolves nothing about the identity provider.
 - A mandated platform for a different capability, or for part of the question only. An identity
   platform mandate answers "which identity provider"; it doesn't answer "how are sessions revoked".
+- A mandated platform that changed since the ARCH recorded it, until the user confirms the setting as
+  it now stands ("A mandated platform that changed").
 - Evidence of any classification (`observed`, `policy`, `decided`, `context`) on its own. Code that
   uses a library shows observed practice, not a decision.
 - A proposed, rejected, deprecated or superseded ADR.
@@ -98,8 +104,9 @@ A DEC is resolved by exactly one of these three means. Anything else leaves it `
 When amending an ARCH:
 
 1. **Check the resolver of every resolved DEC.**
-   - An ADR now superseded, deprecated or rejected, or a policy setting no longer active or no
-     longer applied: set `state: open` and `resolved_by: []`, and record the change in the Change
+   - An ADR now superseded, deprecated or rejected, or a policy setting no longer active, no longer
+     applied, or whose platform changed (next section): set `state: open` and `resolved_by: []`, and
+     record the change in the Change
      Log ("DEC-01 resolved → open: ADR-002 superseded by ADR-003"). Record the old ADR as an EVD with
      `classification: context`.
    - An accepted successor that `supersedes` the old ADR resolves the DEC only if the user confirms
@@ -114,20 +121,61 @@ When amending an ARCH:
 A DEC's `state` and `resolved_by` are the only fields of an existing item an amendment may change
 (output-rules.md, "Amending an ARCH").
 
+## A mandated platform that changed
+
+A DEC resolved by a mandated platform (`resolved_by: [POL-NNN#SET-NN]`) counts only while the setting
+still mandates the platform, for the capability, that the ARCH recorded for it.
+- **The record** is the setting's entry in the last `Policy resolution:` line of the ARCH's Change
+  Log: `architecture.mandated_platforms=<platform> for <capability> (POL-NNN#SET-NN)`.
+- **Same policy version:** when the policy's `version` equals the version of the ARCH's link to the
+  setting (on the CMP that provides the capability), the setting is unchanged; compare nothing.
+- **Changed:** the setting's platform or capability now differs from the record. The DEC no longer
+  counts: readiness reports it open, reuse isn't offered (next section), and an amendment reopens it
+  (`state: open`, `resolved_by: []`), logged in the Change Log as
+  `DEC-01 resolved → open: POL-001#SET-01 now mandates <platform now> (was <platform recorded>)`.
+  Record the setting as it now stands as a new `policy` EVD.
+- **Awaiting confirmation:** a DEC reopened this way is resolved again by that setting only when the
+  user confirms that the setting as it now stands answers it, as in means 2. While that reopening is
+  the DEC's latest transition in the Change Log, no run resolves it by that setting without the
+  user's confirmation, and a run with no user leaves it open.
+- **No platform recorded:** the entry names the setting but no platform
+  (`architecture.mandated_platforms=POL-NNN#SET-NN`). Name the gap in the reply. With a user present,
+  ask whether the setting mandated the same platform when the DEC was resolved: if yes, it still
+  counts; if no or unknown, treat it as changed. With no user, it still counts.
+
+## Reuse, and deciding a question later
+
+- **Reuse needs a link to this PRD.** Offer reuse only for an ARCH whose frontmatter already links
+  this PRD and none of whose resolved DECs relies on a mandated platform that changed. An ARCH that
+  covers the system only by its name, or relies on a changed platform, is amended (an amendment adds
+  the PRD link, output-rules.md) or replaced by a new ARCH.
+- **Name what reuse leaves uncited.** Reuse adds no DEC, so every active requirement that no active
+  blocking DEC cites is reported ready. When proposing reuse, and in the report after it is
+  confirmed, name each such requirement, marked "(no architectural question cites it)", so the user
+  sees what reuse makes ready without an architectural question.
+- **Deciding an open question later is an amendment.** Recording a decision on an existing DEC (means
+  2 or 3) changes its `state` and `resolved_by`, which only an amendment may do. With a user present
+  and a blocking DEC open, recommend amend at step 4. If reuse was chosen and a DEC then changes, the
+  outcome is amend: say why and ask again.
+- **A deferred question with a proposed ADR:** the decision is a new accepted ADR that supersedes the
+  proposed one (output-rules.md, "Recording a supersession").
+
 ## The readiness rule
 
 A requirement R is **ready** for epic work when, for every DEC with `status: active` and
 `blocking: true` whose `upstream` cites R:
 - `state` is `resolved`, and
 - every `resolved_by` entry is **either** an ADR whose file currently has `status: accepted` and
-  `superseded_by: null`, **or** an active setting of an approved policy that step 1 applied.
+  `superseded_by: null`, **or** an active setting of an approved policy that step 1 applied and that
+  still mandates the platform the ARCH recorded ("A mandated platform that changed").
 
 Otherwise R is **blocked** by each DEC that fails. A requirement that no active blocking DEC cites
 is ready: no shared question holds it back.
 
 Check ADR files **at the time of writing** (step 11): read each ADR named in `resolved_by` and use
 its current `status` and `superseded_by`, not what the ARCH or its evidence says. A DEC whose
-resolving ADR has been superseded is reported open, until an accepted successor resolves it.
+resolving ADR has been superseded is reported open, until an accepted successor resolves it. Check
+each mandated platform in `resolved_by` the same way, against the setting as it stands now.
 
 ## Reporting readiness
 
@@ -135,7 +183,8 @@ In the report block and the handoff:
 - List **every active requirement** of the PRD (FR and NFR) exactly once, as ready or blocked.
 - For each blocked requirement, name every DEC that blocks it, and only DECs that cite it:
   `FR-001 (DEC-01, DEC-02)`.
-- A ready requirement that no DEC cites may be marked "(no architectural question cites it)".
+- A ready requirement that no DEC cites is marked "(no architectural question cites it)" after a
+  reuse, and may be marked so otherwise.
 - Name any resolver that no longer counts, and why: "DEC-01 is open again: ADR-002 was superseded
   by ADR-003".
 - Never contradict the lists anywhere else in the reply, and never present readiness as validated

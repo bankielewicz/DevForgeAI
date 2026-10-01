@@ -49,7 +49,7 @@ Keep exactly these keys, in this order. Unknown or misspelled keys are errors.
 | `id` | `ARCH-NNN`, equal to the file name |
 | `type` | `arch` |
 | `title` | Quoted: `"<system> architecture"` |
-| `status` | `draft` for a new ARCH; see "Amending an ARCH". Never write `approved` |
+| `status` | `draft` for a new ARCH; see "Amending an ARCH". Never set `approved` (a review record leaves an approved ARCH approved) |
 | `version` | Integer: `1` for a new ARCH, plus one per amendment |
 | `created`, `updated` | Unquoted `YYYY-MM-DD` dates |
 | `owner` | Quoted: the name the request gives, otherwise the PRD's `owner` |
@@ -95,7 +95,8 @@ default, a local value, a deprecated or non-applicable setting, or an ignored po
 - Each fence holds **exactly one top-level key**: `components`, `decisions` or `evidence`.
 - Inside a fence use `#` comments only, and delete the template's comments.
 - **Quote every free-text value** with double quotes. IDs, enum values, booleans, `null` and
-  numbers are not quoted, except in `source` and in the `interacts_with` list, which are always quoted.
+  numbers are not quoted, except in `source` and in the `kinds` and `interacts_with` lists, which are
+  always quoted.
 - Link records and `resolved_by` use flow form; every other list is a block list, or `[]` when empty.
 
 ## Collections and fields
@@ -190,6 +191,10 @@ policy resolution line (policy.md), with no `|` inside it:
 | 1 | 2026-09-28 | claude-code (session 7b7b72c0-8b14-4b7d-aba5-f21cdbadc51f) | Initial draft for PRD-001 v1. Policy resolution: interview.max_calls=8 (default); architecture.mandated_platforms=none (default); quality.required_categories=floor only (default) | all |
 ```
 
+Log each DEC transition in the row as readiness.md words it: `DEC-01 resolved → open: ADR-002
+superseded by ADR-003`, or, for a mandated platform that changed,
+`DEC-01 resolved → open: POL-001#SET-01 now mandates <platform now> (was <platform recorded>)`.
+
 Never edit earlier rows.
 
 ## Amending an ARCH
@@ -257,11 +262,13 @@ supersedes the proposed one (next section); the user's decision is the approval.
 
 ## Recording a supersession
 
-Only when the user explicitly approves replacing an accepted ADR (BEH-16):
+Only when the user explicitly approves replacing an accepted ADR (BEH-16), or decides a question
+whose deferral a proposed ADR records (the user's decision is the approval):
 - the **old** ADR changes only `status: superseded`, `superseded_by: ADR-new`, and one Status history
   row (`superseded by ADR-new`). Nothing else changes, including its version;
 - the **new** ADR is accepted with `supersedes: [ADR-old]`;
-- the DEC's `resolved_by` changes from `[ADR-old]` to `[ADR-new]`, logged in the ARCH Change Log;
+- the DEC's `resolved_by` becomes `[ADR-new]` (from `[ADR-old]`, or from `[]` when the old ADR was
+  proposed), logged in the ARCH Change Log;
 - the old ADR is recorded as a new EVD with `classification: context`.
 
 Never modify an existing ADR in any other way, and never modify a PRD, BRN or policy document.
@@ -288,18 +295,21 @@ architectural choices (the ADR text) and unrelated content:
     `Intended to supersede ADR-NNN, as <name> decided in session <ID>; not in force, because
     validation failed (ERR-05).`;
   - leave each DEC that depended on the replacement open with `resolved_by: []`. Never reconnect it
-    to the older ADR, even though that ADR is accepted again.
+    to the older ADR, even though that ADR is accepted again;
+  - set the EVD item this run added for the older ADR ("Recording a supersession") to
+    `status: deprecated`, and leave its other fields as written. Never delete it: IDs are never
+    deleted ("File and IDs").
 - **Audit records.** An ARCH Change Log row
   (`Validation failed (ERR-05): <the unresolved errors, briefly>. Left <status>.`, adding
-  `Approval cleared.` when the ARCH was approved, and `Supersession of ADR-NNN rolled back.` when
-  one was), and for each ADR made proposed a Status history row: `Restored to proposed: validation
-  failed`, or, for a replacement, `Restored to proposed: validation failed; the supersession of
-  ADR-NNN that <name> approved is not in force`. The restored older ADR gets no row: it is back
-  exactly as it was.
+  `Approval cleared.` when the ARCH was approved, and `Supersession of ADR-NNN rolled back. EVD-NN
+  deprecated: it recorded a supersession no longer in force.` when one was), and for each ADR made
+  proposed a Status history row: `Restored to proposed: validation failed`, or, for a replacement,
+  `Restored to proposed: validation failed; the supersession of ADR-NNN that <name> approved is not
+  in force`. The restored older ADR gets no row: it is back exactly as it was.
 
 End with the validation-failure report (SKILL.md step 11): each file path with the status left, the
-checks and repairs made, the unresolved errors, and any supersession rolled back. Skip the readiness handoff, and never present
-readiness as validated.
+checks and repairs made, the unresolved errors, and any supersession rolled back. Skip the readiness
+handoff, and never present readiness as validated.
 
 ## Self-check list
 
@@ -321,18 +331,21 @@ such as one inside an existing item an amendment must leave byte-identical, ends
 6. Every `yaml items` fence holds exactly one of `components`, `decisions`, `evidence`; there is at
    least one component and at least one evidence item.
 7. Every item ID matches its pattern, is unique and numbered in order; for an amendment, every
-   existing item is byte-identical except DEC `state` and `resolved_by` transitions logged in the
-   Change Log.
+   existing item is byte-identical except DEC `state` and `resolved_by` transitions, each logged in
+   the Change Log in the form "Change Log" gives.
 8. Every item has its required fields in order and only allowed fields; every enum value is valid;
    every free-text value is double-quoted. Every new CMP has `kinds` from the kinds table, or a
    `[NEEDS CLARIFICATION: kinds of CMP-NN]` marker in section 8.
 9. Every DEC has at least one upstream link to a requirement that exists in the PRD. `state: open`
    has `resolved_by: []`; `state: resolved` has a non-empty `resolved_by`, and every entry is an
-   accepted, non-superseded ADR that exists or a policy setting that step 1 applied.
+   accepted, non-superseded ADR that exists or a policy setting that step 1 applied and that still
+   mandates the platform the ARCH recorded (readiness.md, "A mandated platform that changed").
 10. Every `[NEEDS ADR]` marker in the PRD has a DEC citing at least the requirements it names.
 11. No DEC is resolved by an ADR written in this run unless the user explicitly chose that option.
     With no user, no ADR was written and no DEC was newly resolved except by a mandated platform;
-    resolutions already in an amended ARCH changed only as readiness.md allows.
+    resolutions already in an amended ARCH changed only as readiness.md allows. No DEC reopened
+    because its mandated platform changed was resolved again by that setting without the user's
+    confirmation.
 12. The PRD has an EVD with `kind: prd` and `classification: context`. Every EVD's classification
     follows inspection.md, and every code EVD's path is inside `inspection_scope`.
 13. Every link sits in the one place the Link records table gives, and no policy link exists for a
@@ -347,8 +360,8 @@ such as one inside an existing item an amendment must leave byte-identical, ends
     keys in order, with `type: adr`, and the status and approval fields in the ADRs table.
 17. `status: accepted` only for a decision the user explicitly made; every `hash` is `null`; no
     `<!--` or `<…>` placeholder is left; the Status history has the row described above.
-18. An existing ADR changed only as "Recording a supersession" allows, or, after ERR-05, is
-    byte-identical to its state before the run.
+18. An existing ADR, accepted or proposed, changed only as "Recording a supersession" allows, or,
+    after ERR-05, is byte-identical to its state before the run.
 
 ## Example item blocks
 
