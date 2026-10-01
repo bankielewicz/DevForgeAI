@@ -2,8 +2,8 @@
 id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
-status: approved
-version: 2
+status: in-review
+version: 3
 created: 2026-09-24
 updated: 2026-10-01
 owner: "Bryan"
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-01
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-005, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -166,6 +166,8 @@ all four hold:
    - The line contains the entry: the setting counts, and the report notes the newer policy version.
    - The line names `POL-NNN#SET-NN` with a different entry: the setting changed since the ARCH applied it.
    - The line doesn't name `POL-NNN#SET-NN`: the ARCH's latest resolution no longer applies it.
+   - No Change Log row carries a `Policy resolution:` line at all (a hand-made ARCH): treat it as a line
+     that doesn't name the setting.
 4. **No contested mandate.** No other approved document in `docs/specs/policy/` has an active
    `architecture.mandated_platforms` setting for the same capability. Capabilities are compared as the
    policy script compares them: outer whitespace trimmed and case ignored, while inner spaces count; no
@@ -195,7 +197,7 @@ passes and the skill can't detect the change. The fix belongs to the architectur
 4. `priority` is `must`, `should` or `could`;
 5. for an FR only: no active existing epic (not `superseded` or `deprecated`) has a `refines` link to this
    PRD's R (the PRD ID and the item both match), at any version. NFRs are never "covered": an eligible NFR
-   is attached to every new epic it constrains, even when an existing epic already refines it (Grouping).
+   is attached to new epics by the grouping, even when an existing epic already refines it (Grouping).
 
 Every other requirement is **left out**. The report gives each one **one compact row with every reason that
 applies**, in the order below, and **one next action: the first listed reason's**. Several reasons never mean
@@ -224,10 +226,13 @@ and `NFR-001: already refined by EPIC-001. No action.`
 **every FR exactly once** (in one epic line or one row) and **every NFR at least once**: an NFR attached to
 several new epics appears in each of their lines.
 
-**Grouping.** Each eligible FR is refined by exactly one new epic. An eligible NFR is **attached** to every
-new epic whose capability it constrains, with `note: "partial: <which part>"` when shared; attaching it never
-creates a second deliverable. A **standalone NFR epic** is written only for an eligible NFR that no active
-epic, existing or new in this run, refines. So rerunning with unchanged inputs writes nothing (ERR-05).
+**Grouping.** Each eligible FR is refined by exactly one new epic. Each eligible NFR is **attached** to at
+least one new epic, unless an active existing epic already refines it, with `note: "partial: <which part>"`
+when more than one active epic refines it; attaching it never creates a second deliverable. Which new epics
+it is attached to is the grouping's choice. The skill's own proposal attaches it to every new epic whose
+capability it constrains, while a grouping the user states or changes decides otherwise (VER-04). A
+**standalone NFR epic** is written only for an eligible NFR that no active epic, existing or new in this
+run, refines. So rerunning with unchanged inputs writes nothing (ERR-05).
 An epic's `priority` is the highest priority among the FRs it refines; a shared NFR never raises it, and a
 standalone NFR epic takes its NFR's priority. New epics are numbered, and listed, Must first, then Should,
 then Could.
@@ -282,7 +287,7 @@ behaviors:
     rule: "Read every existing epic in docs/specs/epic/. An FR of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered; if it is also blocked now, say so. NFRs are never covered. Never modify, renumber or duplicate an existing epic."
   - id: BEH-07
     status: active
-    rule: "Propose how to group the eligible requirements into epics: each a deliverable capability, each eligible FR in exactly one epic, an eligible NFR attached to every new epic it constrains, and a standalone NFR epic only for an eligible NFR that no active epic, existing or new, refines (§4). Show each proposed epic's title, requirements and priority, and ask the user to confirm or change the grouping; write nothing until they do. A grouping stated in the request counts as confirmed. If no one can confirm (the request says to proceed without questions and gives no grouping), write the proposal and add to §8 of each epic: [NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]."
+    rule: "Propose how to group the eligible requirements into epics: each a deliverable capability, each eligible FR in exactly one epic, each eligible NFR attached to every new epic it constrains, and a standalone NFR epic only for an eligible NFR that no active epic, existing or new, refines (§4). Show each proposed epic's title, requirements and priority, and ask the user to confirm or change the grouping; write nothing until they do. A grouping stated in the request counts as confirmed. A stated or changed grouping is applied as given, limited only by §4's rules: only eligible requirements, each eligible FR in exactly one new epic, each eligible NFR in at least one new epic unless an active existing epic already refines it, and the standalone-NFR, priority and numbering rules. If no one can confirm (the request says to proceed without questions and gives no grouping), write the proposal and add to §8 of each epic: [NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]. If a stated grouping leaves an eligible FR unplaced or places one twice and no one can be asked, place that FR by the proposal, keep the rest of the stated grouping, and add the same marker to every epic written."
   - id: BEH-08
     status: active
     rule: "Write each confirmed epic to the next free docs/specs/epic/EPIC-NNN.md from ${CLAUDE_SKILL_DIR}/assets/epic.md, numbered Must first, then Should, then Could. Frontmatter: status draft; priority the highest among the FRs it refines (a shared NFR never raises it; an NFR-only epic takes its NFRs' highest priority); target_release the PRD's target_release; upstream a refines link to every requirement it groups at the PRD version (partial note for a shared NFR) and an informed_by link to the ARCH at its version. Fill the goal, value and scope, at least one DW item with a criterion and an evidence method, and the dependencies. Keep the story map as a GENERATED placeholder."
@@ -294,7 +299,7 @@ behaviors:
     rule: "Validate every epic written against the self-check list in references/output-rules.md, reading each file back. Fix and check again, at most three attempts. Don't call any devforgeai command."
   - id: BEH-11
     status: active
-    rule: "Hand off with each epic written (path, title, priority and the requirements it refines), then the left-out rows (§4: every reason that applies and one next action per requirement, with no extra questions), and the proposal warning if an input is a draft. Epic lines and rows together name every FR exactly once and every NFR at least once (§4, the report). Then name the next step, the story step, with the new epic IDs as its input: if ${CLAUDE_SKILL_DIR}/../story/SKILL.md exists, tell the user to run /devforgeai:story with an epic ID; otherwise say stories are written by hand from the story template for now and that, once the story skill (planned as /devforgeai:story) is built, it runs with an epic ID. After ERR-05 the story step names the epics that cover the requirements; after ERR-08 there is no story step (ERR-08 names the next step). The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never write a story."
+    rule: "Hand off with each epic written (path, title, priority and the requirements it refines), then the left-out rows (§4: every reason that applies and one next action per requirement, with no extra questions), and the proposal warning if an input is a draft. Epic lines and rows together name every FR exactly once and every NFR at least once (§4, the report). Then name the next step, the story step, with the new epic IDs as its input: if ${CLAUDE_SKILL_DIR}/../story/SKILL.md exists, tell the user to run /devforgeai:story with an epic ID; otherwise say stories are written by hand from the story template for now and that, once the story skill (planned as /devforgeai:story) is built, it runs with an epic ID. After ERR-05 the story step names the epics that already refine the requirements; after ERR-08 there is no story step (ERR-08 names the next step). The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never write a story."
   - id: BEH-12
     status: active
     rule: "Never modify a PRD, BRN, ARCH, ADR, policy document or existing epic."
@@ -326,8 +331,8 @@ errors:
     user_result: "A choice of ARCH"
   - id: ERR-05
     status: active
-    condition: "Nothing new to write, because everything eligible is covered: no FR is eligible, every eligible NFR is already refined by an active epic, and at least one requirement is active, ready, release current and must, should or could (for example, a rerun with unchanged inputs)"
-    handling: "Write nothing, say that no requirement needs a new epic, report every row (§4, including 'already refined' for each eligible NFR), and name the story step for the epics that cover the requirements"
+    condition: "Nothing new to write, because everything eligible already has an epic: no FR is eligible, every eligible NFR is already refined by an active epic, and at least one requirement is active, ready, release current and must, should or could (for example, a rerun with unchanged inputs)"
+    handling: "Write nothing, say that no requirement needs a new epic, report every row (§4, including 'already refined' for each eligible NFR), and name the story step for the epics that already refine the requirements"
     user_result: "The report; no epic written"
   - id: ERR-06
     status: active
@@ -379,7 +384,8 @@ quality_responses:
 | Behavioural (v2-a): the new and changed cases on SKL-004 v1, 2026-10-01 | `tmp/eval-results/epic-v2-on-v1-20261001T122340-<case>/` (local, untracked), one folder per case, run by Bryan from a plain terminal. Bound to `96f94b3` (the v2 cases, SKL-004 v1 unchanged); Claude Code 2.1.286; plugin 0.7.0; `--runs 1 --ablation none`; judge model sonnet; $3.24. **Four of the five predicted failures reproduced, with v1's own wording:** VER-16 0.67 (FR-001 and FR-012 unknown: "same key … (check 4)"); VER-17 0.67 (FR-012 unknown: "POL-001 is now v2 but ARCH-001 links it at v1 (check 3)"); VER-19 0.71 ("No requirement needs a new epic." with every requirement blocked); VER-03 0.80 (FR-005 "later; undecided (priority null)"). VER-14 and VER-18 passed on v1: the model improvised the right row and read "cites" correctly, so their graders stay as guards. VER-01 passed (control) |
 | Behavioural (v2-b): SKL-004 v2, epic tag, one run, 2026-10-01 | `tmp/eval-results/epic-v2-runs1-20261001T124457/` (local, untracked). Bound to `6da48fe` (SKL-004 v2), plugin digest `f849c869a7dce1e5bd6a85d14caeb1b10e76c181b6190e8b195460ebaf682e1c`; Claude Code 2.1.286; plugin 0.7.0; 18 cases; `--runs 1 --ablation none`; judge model sonnet; concurrency 4; $8.33; 257 s. **18 of 18 at 1.00**, with no errors |
 | Behavioural (v2-c): SKL-004 v2, epic tag, 3 runs with the baseline, 2026-10-01 | `tmp/eval-results/epic-v2-3run-20261001T132651/` (local, untracked), run by Bryan from a plain terminal. Bound to `6da48fe`, the same plugin digest as (v2-b); Claude Code 2.1.286; plugin 0.7.0; 18 cases; 3 runs per arm against the no-plugin baseline; threshold 0.8; judge model sonnet; concurrency 4; $43.21; 1,541 s. **All 18 cases at 0.8 or above, 16 at 1.00; mean Δ +0.52**, with no errors. VER-15 (`policy-resolver-revoked`) 0.89: in one run, EPIC-001 was right (no FR-012 link), but the reply's FR-012 row didn't match the regex, and a failed regex grader keeps no reply. VER-03 (`reports-left-out`) 0.93: in one run, the llm grader voted FAIL FAIL PASS on a reply whose four rows and notes meet every clause (judge disagreement). Δ: VER-01 +0.69, VER-02 +0.63, VER-03 +0.73, VER-04 +0.30, VER-05 +1.00, VER-06 +1.00, VER-07 +0.33, VER-08 +0.67, VER-09 +0.33, VER-10 +0.67, VER-11 0.00 (the negative trigger), VER-12 +0.40, VER-14 +0.60, VER-15 +0.22, VER-16 +0.40, VER-17 +0.53, VER-18 +0.17, VER-19 +0.61 |
-| Behavioural: manual VER items (VER-13) | Not run, for version 1 or version 2 |
+| Behavioural (v3): SKL-004 v3, epic tag | Not run. Version 3 changes no VER item and no fixture, so the 18 cases are unchanged; SKL-004 v3 is requalified on them, one run and then 3 runs with the baseline |
+| Behavioural: manual VER items (VER-13) | Not run, for version 1, 2 or 3 |
 | Qualification | SKL-004 v2 approved by Bryan on 2026-10-01, after its automated items passed in a bound 3-run (v2-c). Merged in PR #43 (`eeedd5c`) and deployed in plugin 0.8.0. Open: VER-13 |
 
 **Shared fixture (version 2).** One approved PRD, `PRD-001` v2 with `target_release: "Spring launch"`, and
@@ -658,6 +664,21 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
    - remove `.claude/rules/skills.md`'s note that SPEC-004 BEH-11 names a different story-skill path,
      since BEH-11 now names the verified form.
 
+**Version 3** (wording only), on `feat/epic-skl-004-v3`:
+1. Bryan approves this version.
+2. Write SKL-004 v3 through `/plugin-dev:create-plugin`, matching §4, BEH-07, BEH-11 and ERR-05, plus the
+   skill-text polish from PR #43's skill review:
+   - "covered" kept for FRs only;
+   - one rule for an unconfirmed placement;
+   - "the report" kept for SKILL.md step 9's report;
+   - check 4 names the policy `scope` field;
+   - the story-skill check uses Read or Glob;
+   - text with no behavioral effect trimmed.
+   Bump `provenance.yaml` and `metadata.devforgeai-version` together; `status` returns to `draft`.
+3. Validate (`plugin-validator`, `skill-reviewer`), then run the 18 unchanged cases: the whole suite once,
+   then 3 runs with the baseline, each bound by `record_revision.sh`. Record the results in §9, then open
+   the PR.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -676,7 +697,10 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 
 ## 13. Open questions
 
-- None.
+- Should an NFR that an active existing epic refines, and that is now blocked or unknown, get the same
+  review signal as a covered FR in that state ("Review EPIC-NNN's work before continuing")? Today it gets
+  only its own reasons. Deferred by Bryan on 2026-10-01: it is new behavior, needing a rule in §4 and an
+  eval case.
 
 ## Change Log
 
@@ -689,3 +713,4 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 | 2 | 2026-10-01 | Bryan | Approved | status |
 | 2 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records SKL-004 v2's structural checks and plugin-dev validation, the new and changed cases run on SKL-004 v1 (four of five predicted failures reproduced), the one-run suite (18 of 18 at 1.00) and the bound 3-run (18 of 18 at 0.8 or above, mean Δ +0.52). No item changed | §9 |
 | 2 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-004 v2 (2026-10-01), its merge in PR #43 and deployment in plugin 0.8.0, and that the run folders moved from the worktree to the main checkout's `tmp/eval-results/`. No item changed | §9 |
+| 3 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Wording only, from PR #43's skill review and Bryan's decisions of 2026-10-01 (spec v3 for wording; no new NFR review signal, recorded in §13; one run, then a 3-run). §4 Grouping and BEH-07: attaching an eligible NFR to every new epic it constrains is the proposal's default; the rule is at least one new epic unless an active epic already refines it, and a stated or changed grouping is limited only by §4's rules. BEH-07 also states what happens when a stated grouping leaves an eligible FR unplaced and no one can be asked. ERR-05 and BEH-11: "already has an epic" and "already refine" replace "covered", which is kept for FRs. §4 check 3: an ARCH with no resolution line at all is treated as one that no longer applies the setting. No VER item or fixture changed. Awaiting Bryan's approval | frontmatter, §4, BEH-07, BEH-11, ERR-05, §9, §11, §13 |
