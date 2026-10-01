@@ -128,7 +128,7 @@ and in CLAUDE.md's `git` results bullet. Record each manual item below.
 | Pilot (9 cases, 1 run) | 8 pass, 1 at 0.89 | 2026-10-01 | `48f0c79`, $3.10; `starts-worktree-from-fresh-base` missed `excluded` (no `.git/info/exclude` rule) |
 | Diagnosis, `--keep-temp` | 0.89 again | 2026-10-01 | `eb74fac`, $0.30; the trace shows the absolute-path `echo >> …/.git/info/exclude` denied by Claude Code's permission check, and the skill handing the command over (ERR-16) |
 | Re-check after v1's relative form | 0.89 again | 2026-10-01 | `77b71be`, $0.28. v1's 3-run suite also missed `excluded` in all 3 runs (0.88): the harness refuses this write in either form. Not a regression; the case still passes the 0.8 bar |
-| Suite, 1 run | NOT_RUN | | |
+| Suite, 1 run | 17 of 19 at 1.00; 2 at ≥ 0.8 | 2026-10-01 | `a40c202`, `git-v2-1run-20261001T191918`, mean Δ +0.33, $7.70. `starts-worktree-from-fresh-base` 0.88 (its ceiling); `connects-new-repository` 0.86 (sandbox masked `.git/config` in the run's new repository; ERR-16 handed the command over, as v1 did in 1 of 3) |
 | Suite, 3 runs with baseline | NOT_RUN | | |
 | VER-18 | NOT_RUN | | |
 | VER-19 | NOT_RUN | | |
