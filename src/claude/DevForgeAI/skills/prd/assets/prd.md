@@ -77,7 +77,8 @@ success_metrics:
      (an upstream derives link to it).
      priority: must | should | could | wont (MoSCoW importance within its release).
      release: current (this PRD's target_release) | later (backlog).
-     Both stay null until the user decides; a PRD can't be approved while any is null. -->
+     Both stay null until the user decides. A PRD can't be approved while any release, or the
+     priority of any current-release item, is null. -->
 
 ```yaml items
 functional_requirements:
@@ -107,8 +108,6 @@ non_functional_requirements:
     statement: "<p95 latency < N ms at M requests/s>"
     priority: null
     release: null
-    upstream:
-      - {id: BRN-000, item: PRB-01, relation: derives, version: 1, hash: null}
 ```
 
 ## 8. User experience

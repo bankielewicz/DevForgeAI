@@ -1,10 +1,10 @@
-"""Structural checks for SKL-002 v3 and SKL-003 v5 (docs/runbooks/spec-002-v2-verification-plan.md §2).
+"""Structural checks for SKL-002 v4 and SKL-003 v5 (docs/runbooks/spec-002-v2-verification-plan.md §2).
 
 - SKILL.md frontmatter against skill-frontmatter.schema.json, and the description the spec's §5 fixes;
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 v4 (approved 2026-10-01; SKL-002 v3 still implements v3) and SPEC-003 v4 validate against
+- SPEC-002 v4 (approved 2026-10-01; SKL-002 v4 implements it) and SPEC-003 v4 validate against
   spec.schema.json, and every BEH, ERR and QR item is covered by a VER item.
 
 Byte-identity of the shared policy files is in test_shared_files.py. Run from the repository root:
@@ -23,7 +23,10 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 3, "SPEC-002", 3), "architecture": ("SKL-003", 5, "SPEC-003", 4)}
+TARGETS = {"prd": ("SKL-002", 4, "SPEC-002", 4), "architecture": ("SKL-003", 5, "SPEC-003", 4)}
+# Each skill's (status, approved_by, approved_on): SKL-003 v5 was approved by Bryan on 2026-09-30;
+# SKL-002 v4 stays a draft until Bryan approves it.
+APPROVAL = {"prd": ("draft", "", None), "architecture": ("approved", "Bryan", "2026-09-30")}
 SPEC_STATE = {"SPEC-002": (4, "approved"), "SPEC-003": (4, "approved")}  # SPEC-002 v4: issues #36-#38, #40
 
 
@@ -78,9 +81,7 @@ class Skills(unittest.TestCase):
                 self.assertEqual((prov["id"], prov["version"], prov["skill_name"]), (skl, version, name))
                 self.assertIn({"id": spec, "relation": "implements", "version": spec_version, "hash": None},
                               prov["upstream"])
-                # Approved by Bryan on 2026-09-30, after the policy cases were requalified.
-                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]),
-                                 ("approved", "Bryan", "2026-09-30"))
+                self.assertEqual((prov["status"], prov["approved_by"], prov["approved_on"]), APPROVAL[name])
 
     def test_skill_md_length_and_links(self):
         for name in TARGETS:

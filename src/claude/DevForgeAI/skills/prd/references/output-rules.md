@@ -75,18 +75,20 @@ upstream:
 ```
 
 - Fields: `id` (a document ID), `item` (optional item ID), `relation`, `version` (the cited document's
-  current `version`), `hash`, and an optional quoted `note`. No other field.
+  `version` when the link was written: its current one for a link this write adds), `hash`, and an
+  optional quoted `note`. No other field.
 - `hash` is always `null`. Only the checker writes hashes, so a typed hash is wrong by definition.
-- A link lives in **exactly one place**: on the item that owns it, or in frontmatter when the whole
-  document owns it. It is never written as a second link record; prose mentions an item only by its
-  qualified reference as plain text (`BRN-001#PRB-01`).
+- Each link lives in **exactly one place**: on the item that owns it, or in frontmatter when the whole
+  document owns it. Never write the same link twice; prose mentions an item only by its qualified
+  reference as plain text (`BRN-001#PRB-01`). A BRN problem the PRD addresses is linked in
+  frontmatter; if that problem also states a quality need, the NFR carries its own link to it.
 
 | Link | Where | Form |
 |---|---|---|
 | BRN problem | Frontmatter | `{id: BRN-NNN, item: PRB-NN, relation: derives, …}` |
 | BRN idea | The FR (or SM) derived from it | `{id: BRN-NNN, item: IDEA-NN, relation: derives, …}` |
 | BRN assumption | The PRD assumption | `{id: BRN-NNN, item: ASM-NN, relation: derives, …}` |
-| BRN problem or promoted idea that itself states a quality need | The NFR | `{id: BRN-NNN, item: PRB-NN, relation: derives, …}` |
+| BRN problem or promoted idea that itself states a quality need | The NFR | `{id: BRN-NNN, item: PRB-NN, relation: derives, …}`, or `item: IDEA-NN` for an idea |
 | Accepted ADR that applies | Frontmatter | `{id: ADR-NNN, relation: constrains, …}` |
 | Another PRD's shared constraint or NFR | Frontmatter | `{id: PRD-NNN, item: NFR-NNN, relation: constrains, …}` |
 | Mandated platform setting | The constraint NFR it produced, never frontmatter | `{id: POL-NNN, item: SET-NN, relation: constrains, version: <policy version>, hash: null}` |
@@ -182,7 +184,8 @@ Keep these headings, in this order, exactly as the template has them:
 | `[NEEDS CLARIFICATION: <category> requirements for <context>; required by POL-NNN#SET-NN, the user answered none]` | A category applied policy requires (or `constraint`, under a mandated platform), which the user answered with none: the none doesn't waive the policy | Approving the PRD |
 | `[NEEDS CLARIFICATION: target for <item>]` | The user kept a requirement or metric but has no target yet; it goes in the item's `target` or statement | Approving the PRD |
 | `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]` | An open architecture decision (no accepted ADR yet) | Writing epics for the named FRs, not approving the PRD |
-| `null` in `stage`, `operating_context`, `priority`, `release` | Not decided yet | Approving the PRD |
+| `null` in `stage`, `operating_context` or `release`, or in the `priority` of a `release: current` item | Not decided yet | Approving the PRD |
+| `null` `priority` on a `release: later` item | Not prioritized until a release takes the item in | Nothing |
 
 A design preference that is not a hard constraint is written in section 12 as a plain bullet, for
 example `- Design preference for a future ADR (not a requirement): microservices, which the user is
@@ -226,21 +229,25 @@ inside an existing item an extension must leave unchanged, ends the cycles early
 8. Every FR has an `upstream` link deriving from a **promoted** idea of the BRN. No NFR has a BRN
    link unless that BRN item itself states the requirement. No open, parked or rejected idea's ID
    appears anywhere in the file.
-9. Every link has a valid relation, the cited document's current version and `hash: null`, and sits
-   in the one place the Link records table gives. No policy link exists for a default, a local value,
-   or a deprecated or non-applicable setting.
+9. Every link has a valid relation and `hash: null`, and sits in the one place the Link records table
+   gives. Every link this write adds cites the cited document's current version. An existing link to
+   an older version, in frontmatter or on an item, is a suspect link (templates README §2.6): leave it
+   exactly as written and name it in the reply. It is never an error and never repaired. No policy
+   link exists for a default, a local value, or a deprecated or non-applicable setting.
 10. Every non-null `stage`, `operating_context`, `priority` and `release` this write set was supplied
     or confirmed by the user. Values already in the PRD before an extension are left as they are.
 11. Every required quality category (the floor for the operating context, or production when it is
     unknown, plus applicable policy) is covered by an NFR of that category, by the user's explicit
     none in section 7's prose, or by a `[NEEDS CLARIFICATION: <category> requirements for <context>]`
     marker in section 12. A category that applied policy requires, or the constraint category of a
-    mandated platform, keeps its marker naming the setting even after an explicit none.
+    mandated platform, keeps its marker naming the setting even after an explicit none. A category
+    the user answered only in part keeps its marker for the unanswered rest.
 12. No design preference appears as an FR or NFR. Each constraint NFR states a condition and where it
     applies.
 13. Every `[NEEDS ADR]` marker names FR IDs that exist in the file.
 14. All fourteen headings are present. No leftovers remain: no `<!--` other than the section 13
-    GENERATED comment, no `<…>` template placeholders, no `PRD-000`, `BRN-000` or `YYYY-MM-DD`, no
+    GENERATED comment, in a new PRD no frontmatter `#` comment but `# --- prd-specific ---`, no `<…>`
+    template placeholders, no `PRD-000`, `BRN-000` or `YYYY-MM-DD`, no
     template example items, and no empty `title`.
 15. The last Change Log row's author is `claude-code (session <ID>)` with the ID in
     `generated_by.session`. Its change text ends with a `Policy resolution:` line in the policy.md

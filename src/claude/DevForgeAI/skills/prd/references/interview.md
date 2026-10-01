@@ -23,7 +23,11 @@
   questions from the next round rather than send a half-empty call.
 - **Budget.** At most `interview.max_calls` calls in total (policy step; default 8), counting gate
   questions. Stop asking when the budget is spent unless the user asks for more, and record every
-  remaining gap as `[NEEDS CLARIFICATION: …]`.
+  remaining gap as `[NEEDS CLARIFICATION: …]`. A gate is still asked after the budget is spent:
+  nothing is written without its answer.
+- **Too many choices.** A question with more choices than the host allows (4 options in
+  AskUserQuestion) is split into several questions, for example the accepted ADRs in groups of
+  four. The user can always answer in their own words.
 - **Suggest, never assume.** An option may carry your suggestion, marked "(suggested)". A
   suggestion is written only after the user picks it.
 - **No AskUserQuestion?** Ask the same questions as a numbered plain-text list, then end your turn.
@@ -63,7 +67,7 @@ where the answer came from. "Proceed without questions" settles no gate.
 
 ## Round 3: requirements
 
-One question per drafted requirement, showing its statement:
+One question per drafted requirement, FR or NFR, showing its statement:
 
 | Option | Writes |
 |---|---|
@@ -95,7 +99,8 @@ maintainability, other)?"
 | performance | response time target; throughput target; no target yet |
 | accessibility | WCAG 2.2 AA; WCAG 2.2 A; no target yet |
 
-Record each answer as the next section says.
+Record each answer as the next section says. Each NFR this round writes then gets round 3's
+question in a following call.
 
 ## Recording quality answers
 
@@ -108,7 +113,7 @@ yet, partial, no answer), for every required category:
 | **Requirements** | "Staff sign in with two factors" | One NFR per requirement stated, with that `category`, measurable where possible |
 | **Explicit none**: the user confirms the category needs nothing | "none"; "nothing beyond the platform" | No NFR. One sentence in section 7's prose, recording it as the user's answer: `Security: the user confirmed nothing is needed beyond the platform.` |
 | **No target yet**: the user keeps a requirement or metric but has no number | "Pages should load fast, no target yet" | The NFR or metric, with the target written `[NEEDS CLARIFICATION: target for <item>]` (in an NFR's statement, or a metric's `target`) |
-| **Partial**: some of the category is answered | Security: "sign-in required", nothing else | The NFRs it states, plus the category marker below for the rest |
+| **Partial**: some of the category is answered | Security: "sign-in required" | The NFRs it states, plus the category marker below for the rest, unless the user said the rest needs nothing (then the rest is an explicit none) |
 | **No answer** | The category isn't mentioned, or the budget ran out | In section 12: `[NEEDS CLARIFICATION: <category> requirements for <context>]` |
 
 `<context>` is the operating context, or `production` when it is unknown. For example:
@@ -149,4 +154,5 @@ the user states or keeps with "no target yet" stays in `success_metrics`, with
   its gap marked. A partial answer settles only the part it answers.
 - An answer that settles something drafted earlier replaces the draft; an answer that contradicts
   the BRN is recorded as the user said it, with a note in the item's `notes` (FRs) or in prose.
-- If the user stops partway, ask whether to save a draft PRD with every undecided field `null`.
+- If the user stops partway, ask whether to save a draft PRD with every undecided field `null`. A
+  saved draft is validated and reported like any other write (SKILL.md steps 8 to 10).
