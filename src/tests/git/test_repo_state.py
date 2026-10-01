@@ -2,6 +2,7 @@
 
     PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test_*.py'
 """
+import json
 import os
 import unittest
 
@@ -354,6 +355,99 @@ class RepoStateTest(unittest.TestCase):
         self.sb.state(w)
         self.sb.state(wt)
         self.assertEqual(before, tree_checksum(w))
+
+    # --- version 2 (SPEC-007 v2, VER-16) ------------------------------------------------------
+
+    def by_branch(self, report):
+        return {x["branch"]: x for x in report["worktrees"]}
+
+    def test_staged_version_found_nowhere_else_differs(self):
+        w = self.clone()
+        self.advance_origin({"a.txt": "upstream\n"})
+        self.sb.git(w, "fetch", "-q", "origin")
+        self.sb.write(w, "a.txt", "staged only\n")
+        self.sb.git(w, "add", "a.txt")
+        self.sb.write(w, "a.txt", "upstream\n")   # the working copy now equals the incoming version
+        ch = {c["path"]: c for c in self.sb.state(w)["changes"]}
+        self.assertEqual(ch["a.txt"]["incoming"], "differs")
+
+    def test_staged_incoming_version_is_identical(self):
+        w = self.clone()
+        self.advance_origin({"a.txt": "upstream\n"})
+        self.sb.git(w, "fetch", "-q", "origin")
+        self.sb.write(w, "a.txt", "upstream\n")
+        self.sb.git(w, "add", "a.txt")
+        ch = {c["path"]: c for c in self.sb.state(w)["changes"]}
+        self.assertEqual(ch["a.txt"]["incoming"], "identical")
+
+    def test_empty_remote_fetched_in_linked_worktree(self):
+        empty = self.sb.bare("empty.git")
+        w = self.sb.repo("fresh", origin=empty)
+        self.sb.write(w, "a.txt", "x\n")
+        self.sb.commit(w, "First")
+        side = self.sb.dir / "side"
+        self.sb.git(w, "worktree", "add", "-q", "-b", "side", str(side))
+        self.sb.git(side, "fetch", "-q", "origin")   # FETCH_HEAD is per worktree
+        self.assertEqual(self.sb.state(side, "--default-branch", "main")["default_branch"]["state"], "empty_remote")
+
+    def test_main_checkout_from_linked_worktree_and_bare(self):
+        w = self.clone()
+        self.sb.git(w, "fetch", "-q", "origin")
+        inside = self.add_worktree(w, "inside")
+        self.assertEqual(os.path.realpath(self.sb.state(inside)["main_checkout"]), os.path.realpath(w))
+        bare_wt = self.sb.dir / "bare-wt"
+        self.sb.git(self.origin, "worktree", "add", "-q", str(bare_wt), "main")
+        self.assertIsNone(self.sb.state(bare_wt)["main_checkout"])
+
+    def test_commits_since_created(self):
+        w = self.clone()
+        self.sb.git(w, "fetch", "-q", "origin")
+        self.add_worktree(w, "fresh")
+        used = self.add_worktree(w, "used")
+        self.sb.write(used, "x.txt", "x\n")
+        self.sb.commit(used, "Work")
+        wt = self.by_branch(self.sb.state(w))
+        self.assertEqual((wt["feat/fresh"]["commits_since_created"], wt["feat/used"]["commits_since_created"]), (0, 1))
+        self.sb.git(w, "reflog", "expire", "--expire=all", "--all")
+        self.assertIsNone(self.by_branch(self.sb.state(w))["feat/fresh"]["commits_since_created"])
+
+    def test_merged_pr_head_counts_as_pushed(self):
+        w = self.clone()
+        self.sb.git(w, "fetch", "-q", "origin")
+        wt = self.add_worktree(w, "squashed")
+        self.sb.write(wt, "s.txt", "s\n")
+        tip = self.sb.commit(wt, "Squash me")
+        self.sb.git(wt, "push", "-q", "origin", "feat/squashed")
+        self.advance_origin({"s.txt": "s\n"}, "Squash me (#7)")   # GitHub squash-merges the PR ...
+        self.sb.git(self.seed, "push", "-q", "origin", "--delete", "feat/squashed")   # ... and deletes the branch
+        self.sb.git(w, "fetch", "-q", "--prune", "origin")
+        plain = self.by_branch(self.sb.state(w))["feat/squashed"]
+        self.assertEqual((plain["unpushed"], plain["merged_by_ancestry"], plain["pr"], plain["nothing_unpushed"]),
+                         (1, False, None, False))
+        prs = [{"number": 3, "state": "CLOSED", "headRefName": "feat/other", "headRefOid": "c" * 40},
+               {"number": 7, "state": "MERGED", "headRefName": "feat/squashed", "headRefOid": tip}]
+        r = self.sb.run_script("repo_state.py", "-C", str(w), "--prs", "-", stdin=json.dumps(prs))
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        x = self.by_branch(json.loads(r.stdout))["feat/squashed"]
+        self.assertEqual((x["pr"], x["nothing_unpushed"]), ({"number": 7, "state": "MERGED", "head_matches": True}, True))
+        prs[1]["headRefOid"] = "d" * 40   # a commit after the PR's head: not proven pushed
+        r = self.sb.run_script("repo_state.py", "-C", str(w), "--prs", "-", stdin=json.dumps(prs))
+        x = self.by_branch(json.loads(r.stdout))["feat/squashed"]
+        self.assertEqual((x["pr"]["head_matches"], x["nothing_unpushed"]), (False, False))
+
+    def test_non_utf8_file_name(self):
+        w = self.clone()
+        name = b"r\xe9sum\xe9.txt"   # Latin-1, not valid UTF-8
+        with open(os.path.join(os.fsencode(w), name), "wb") as f:
+            f.write(b"x\n")
+        s = self.sb.state(w)
+        self.assertEqual([c["path"] for c in s["changes"]], [os.fsdecode(name)])
+
+    def test_unexpected_error_exits_2(self):
+        w = self.clone()
+        r = self.sb.run_script("repo_state.py", "-C", str(w), "--now", "not-a-time")
+        self.assertEqual(r.returncode, 2, r.stderr)
+        self.assertIn("error", json.loads(r.stdout))
 
 
 if __name__ == "__main__":
