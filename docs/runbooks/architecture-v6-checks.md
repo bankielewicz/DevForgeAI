@@ -159,7 +159,7 @@ written, no EVD item was deleted, and the ERR-05 Change Log row says the EVD was
 | 1a Eval: 5 new cases on v6, 1 run, no baseline | pass: 5 of 5 at 1.00; $2.21 | 2026-10-01 | `tmp/eval-results/arch-v6-newcases-20261001T134913/`, `dcbb024`. VER-22 recorded the reuse and marked FR-003 "(no architectural question cites it)", saying DEC-01, DEC-02 and NFR-002 probably apply and to amend if they should be checked |
 | 1c Eval: architecture, 1 run with baseline | NOT_RUN | | |
 | 1d Eval: architecture, 3 runs with baseline | NOT_RUN | | |
-| B1 VER-20 deciding later (both copies) | NOT_RUN | | |
+| B1 VER-20 deciding later (both copies) | pass, with a spec-wording note | 2026-10-01 | Copy 1, session `797948c0`: recommended amend; ADR-002 accepted by Bryan; only DEC-02's `state`/`resolved_by` changed; row `DEC-02 open → resolved: ADR-002 accepted (decided by Bryan)`; v2, in-review, approval cleared. Copy 2, session `1228a170`: ADR-003 `supersedes: [ADR-002]`; ADR-002's diff only status, superseded_by and one history row; EVD-03 records ADR-002 as context. Note: each run added and deferred a new shared question (DEC-04 hosting; DEC-03 roles) that also cites FR-001 or NFR-001, so not every requirement "only DEC-02 blocked" reports ready. VER-20 lacks VER-05's "unless the amendment adds a DEC that cites them" clause: backlog for SPEC-003's next version |
 | B2 VER-12 (a) | NOT_RUN | | |
 | B3 VER-12 (j) | NOT_RUN | | |
 | B4 VER-12 (k) | NOT_RUN | | |
