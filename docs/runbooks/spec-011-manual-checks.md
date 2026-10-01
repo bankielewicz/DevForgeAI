@@ -255,6 +255,7 @@ snapshot's.
 | Eval: triggers, v1 | fail: sonnet trigger-04 2 of 3; opus 12/12; haiku 9/12 | 2026-10-01 | `context-triggers-*-20261001T16*`, `8407574`; led to SPEC-011 v3 |
 | Eval: triggers, v2 | pass: sonnet 12/12 and opus 12/12 at 3 of 3; haiku run invalid (401) | 2026-10-01 | `context-triggers-*-20261001T17*`, `1412d2b`, Claude Code 2.1.286 |
 | Eval: triggers, haiku re-run (v2) | reported: 4 of 24 positive runs fired; negatives 3 of 3 | 2026-10-01 | `context-triggers-haiku-haiku-20261001T183111Z`, `7ec182d` (same plugin digest), Claude Code 2.1.287; the CLI changed too |
+| Eval: triggers, sonnet re-check (v2) | pass: 12 of 12 at 3 of 3 | 2026-10-01 | `context-triggers-sonnet-sonnet-20261001T203433Z`, `5296f3a` (same plugin digest), Claude Code 2.1.287 |
 | Eval: full, 3 runs with baseline (v2) | pass: 18 of 18 at ≥ 0.8; every VER item ≥ 0.8 (VER-04 0.98) | 2026-10-01 | `context-full-default-20261001T174733Z`, `1412d2b`; mean Δ +0.59; $63.25 |
 | P1–P4 plugin checklist | NOT_RUN | | |
 | M-a VER-21 (a) batches and budget | NOT_RUN | | |
