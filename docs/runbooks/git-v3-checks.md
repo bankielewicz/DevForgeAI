@@ -58,7 +58,7 @@ The main checkout's deployed plugin matched its v2 source during intake (`diff -
 `__pycache__` and `results`, exit 0). This does not establish candidate deployment parity. PR #51
 was merged; PR #52 was open and conflicting at intake. Its active worktree is outside this change.
 
-## Candidate verification
+## Initial candidate verification
 
 The tested implementation is `ea149e047a4135727b612f3937308850c427c8fa`, tree
 `08092cf12d0fc269145df344092e3d1aab588047`, clean before and after every recorded command. It includes
@@ -101,6 +101,38 @@ claim that every repository gate is unconditionally green. It is outside this ch
 | Manual VER-18..22, VER-24, VER-26, VER-31 | NOT_RUN | NOT_RUN: requirements and setup below |
 
 Native evaluation, independent review, owner approval, merge and deployment of **v3** are pending.
+
+## Publication candidate verification
+
+Main advanced to `d0ac040f8c99c7705b4fd9c63927bfb656b3db8c` before publication. Merge commit
+`1b0c993f46f7c57d00e93935c2b2acb93c24f075`, tree `7139ce6e8fc4673cfd9dd0fd8e336c96201dae1b`,
+preserves its architecture changes. The only merge conflict was the plugin version: the candidate
+now uses 0.10.1 after main's 0.10.0, with matching documentation. Git skill source, git tests and
+eval fixtures, and SPEC-007/008/010 are byte-identical to `bbc20ff895398cb4ea74ed77d2fe9944bd090b93`.
+
+All checks below ran against clean `1b0c993`; every receipt records the same clean commit and tree
+before and after execution. Logs and hash receipts use `publish1-*` in the existing evidence
+directory. The earlier results, including the archive failure, remain intact.
+
+| Command | Status | Observed result |
+|---|---|---|
+| `python3 -B -m pytest -q -p no:cacheprovider src/tests` | PASS | 477 tests and 371 subtests, exit 0 |
+| `python3 -B -m unittest discover -s src/tests/git -p 'test_*.py'` | PASS | 88 tests, exit 0 |
+| `python3 -B -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'` | PASS | 287 tests, exit 0 |
+| `python3 -B -m unittest discover -s src/tests/documents-updater -p 'test_*.py'` | PASS | 27 tests, exit 0 |
+| `python3 -B -m unittest discover -s src/tools/session-archive -p 'test_*.py'` | PASS | 8 tests, exit 0; the earlier intermittent failure remains unresolved |
+| `python3 -B /tmp/devforgeai-git-v3-controls.py` | PASS | 23 good runs and 25 negative controls, no unexpected outcomes; LLM graders skipped |
+| `node src/tests/git/check_patterns.mjs` | PASS | Regex table controls, exit 0 |
+| `python3 -B /tmp/devforgeai-git-v3-static.py` | PASS | Spec schemas and pins, unapproved metadata, retained Change Logs, both manifest JSONs, whitespace and clean state, exit 0 |
+| `claude plugin validate src/claude/DevForgeAI --strict` | PASS | Exit 0; manifest SHA-256 `36b6be13eb667b2c2c58eb7856f0ebfefa3552aebdbce647996e8803d079e345` |
+
+The acceptance mapping above is unchanged: native Claude behavior and all eight attended manual
+checks remain **NOT_RUN**. The archive failure has not been repaired or waived. This refresh does
+not establish independent QA, owner approval, merge readiness or deployment parity.
+
+This report is committed separately from the tested implementation. Before publication, verify
+the final report with the Markdown checker and confirm source identity using
+`git diff --exit-code 1b0c993f46f7c57d00e93935c2b2acb93c24f075 HEAD -- . ':(exclude)docs/runbooks/git-v3-checks.md'`.
 
 ## Native evaluation
 
