@@ -61,7 +61,7 @@ Non-goals:
 | Journey and Workflow pane | docked beside the transcript, or inline | the phases as a vertical path; finished phases collapsed; the current phase expanded into its step list, mascot scene and current step | opened by the band's button or `/progress`; opens by itself only when the terminal is in fullscreen and at least 144 columns wide |
 | Wide layout | the same pane, 120 columns or more | the phases in a horizontal row with large emblems, and the Workflow in two columns below | when the pane is that wide |
 | Skill health | a pane | for one skill, a grid of its steps across its recent runs, coloured by state | opened by a button (Part A, for dogfooding) |
-| Toasts | bottom of the screen | step milestones, and each flag as it's raised | events only |
+| Toasts | top right, for 4 seconds | step milestones, and each flag as it's raised | events only |
 
 A pane that opens without being asked docks only in the fullscreen layout from 144 columns. So the status line and the band are the views that are always available, and the pane opens on request.
 
@@ -355,7 +355,8 @@ Claude Code's mod API reaches the CLI, the desktop app and VS Code with one modu
 
 **Hosts:**
 - **Claude Code CLI:** the mod, drawing `Raster` cells, or `Image` in kitty and Ghostty. Dogfooding happens here first.
-- **Claude desktop app and VS Code:** the same mod, drawing `Svg`. How a `Pane` appears in VS Code (docked, inline or a separate panel) is unverified (section 10).
+- **Claude desktop app:** the same mod, drawing `Svg`, in the Code tab. A desktop session in WSL loads no plugins at all.
+- **VS Code:** the extension's chat panel runs a mod's hooks but draws nothing (the mods docs, "Where mods run"), so the tracker records and enforces there and writes its notices to the transcript; `progress.html` is how to watch progress beside it (SPEC-013 v2; Bryan chose tracking only for now, 2026-10-02). `claude` in VS Code's integrated terminal is the terminal surface.
 - **Codex and other tools:** an adapter of their own that writes `devforgeai-events/1`, built by those tools' sessions (`src/codex/` is Codex sessions' work). Until an adapter exists, any tool can run the evaluator and open `progress.html`.
 - **`progress.html`:** a static page the evaluator writes beside the state file. It draws `devforgeai-progress/1` with the same SVG assets and needs no mod API, so it works with any tool and any browser. The prototype page is already a renderer of this kind.
 
@@ -378,12 +379,12 @@ DevForgeAI's own repository is just a project with a richer project layer.
 
 | Surface | Element | How it's drawn |
 | --- | --- | --- |
-| desktop app, VS Code, mobile | `Svg` | the SVG with SMIL animation, which needs `isInteractive: true`; the source may be at most 131,072 characters |
-| kitty, Ghostty | `Image` | PNG frames rasterized from the SVG, swapped with `$.ui.blit` |
-| other terminals, including Windows Terminal | `Raster` | cells fitted to the rasterized art (below) |
+| desktop app (Code tab) | `Svg`, the desktop surface only | the SVG with SMIL animation, which needs `isInteractive: true`; the source may be at most 131,072 characters |
+| kitty, Ghostty | `Image`, the terminal surface only | PNG frames rasterized from the SVG (PNG or RGBA up to 2 MiB, or a file path), swapped with `$.ui.blit` |
+| other terminals, including Windows Terminal | `Raster`, the terminal surface only | cells fitted to the rasterized art (below); a `Raster` rounds each colour to a smaller palette, so soft gradients band |
 | any browser | `progress.html` | the SVG directly |
 
-The mod chooses by surface. `e.surface` separates the desktop app, VS Code and mobile from the terminal. In a terminal the mod tries `Image` first, and switches to `Raster` when `$.ui.blit` refuses because the terminal can show only the image's alt text.
+The mod chooses by surface. `e.surface` is `terminal` or `desktop`: nothing draws in VS Code's chat panel or a `-p` run, and Remote Control draws in the terminal on your machine. In a terminal the mod tries `Image` first, and switches to `Raster` when `$.ui.blit` refuses because the terminal can show only the image's alt text.
 
 **Smooth cells.** The mod can't rasterize SVG while it runs, because it has no DOM and no Node. So a build script renders each layer (backdrop, character frame, prop) from the SVG to RGBA at the scene's cell grid. It supersamples and averages, so edges blend instead of stair-stepping, and ships the results as assets. While running, the mod composites the current frame's layers and fits each cell:
 
@@ -457,6 +458,8 @@ The colours are saturated mid-tones, so they read on dark and light themes alike
 - **Graphics:** `Raster` (`columns`, `rows`, `cells` as `[codePoint, fg, bg]` triplets, `0x01000000` for the default colour, 1,024 colour pairs); `$.ui.blit` for a `Raster` (`requestId`, `key`, `cells`, `columns`, `rows`; up to 120 a second); `Image` limited to kitty and Ghostty; `$.ui.blit` refusing when an `Image` draws its alt text; `Svg` in the desktop app, VS Code and mobile element tables, with SMIL animation when `isInteractive` and a 131,072-character source limit; `Raster` accepting one Basic Multilingual Plane character per cell.
 - **Layout:** `Box` flex layout, borders and background colours; the pane's 144-column rule for opening by itself.
 - **State and calls:** `$.state`, `$.store`, `$.session.root()`, `$.clock.every`.
+
+**Answered since** (2026-10-02, SPEC-013 §9 and the mods docs): `skill.prompt`'s text holds the checklist as written (its hash matches), and plugin skills arrive as `devforgeai:brainstorm`; ticks are readable per response block through `session.append`, but not from `turn.complete`, which holds only the turn's last text; an AskUserQuestion answer and a dismissal differ (`answers` against an error result); one `$.process.run` of the evaluator took 38 ms; and the VS Code chat panel draws no `Pane` at all. `$.store` is one store per plugin, shared by every session on the machine, 4 MiB in all, so run history belongs in the runs/ files.
 
 **Unverified.** Each has a check:
 
