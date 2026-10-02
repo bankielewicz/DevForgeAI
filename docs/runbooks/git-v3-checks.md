@@ -35,7 +35,24 @@ Baseline: `b9b1ccca485899e71ac61648f0fdac8373c30ddb`, clean isolated worktree, b
 | `python3 -B -m pytest --collect-only -q -p no:cacheprovider src/tests` | FAIL | Exit 2, 468 tests collected; git and prd `test_structure.py` import-name collision |
 | New Compose tests against unchanged v2 scanner: `python3 -B src/tests/git/test_scan_staged.py -k compose` | FAIL | 5 tests, 3 failures: marked passwords blocked, password-only exception absent, unquoted/whole-quoted list passwords missed |
 | Same focused command after the scanner change | PASS | Exit 0, 5 tests |
+| Quoted YAML mapping-key regression, `python3 -B src/tests/git/test_scan_staged.py -k quoted_mapping` | FAIL then PASS | The new test first found no finding in an unmarked production file. After unwrapping quoted Compose keys, the six Compose tests pass, with marked files warning and the production file blocking |
 | Native failing test for ERR-04 and D4 instruction changes | NOT_RUN | The v2 historical ERR-04 failures are retained in SPEC-007 §9, but are not a current native red run. New eval cases and scripted negative controls do not establish native behavior |
+
+First candidate `c7f6550ecaa392c7ab322318565f2b59ee32cdae`:
+
+- **FAIL:** git's 87-test suite had two schema failures; combined source pytest had 2 failures,
+  474 passes and 371 passing subtests. `approved_by: null` was invalid for this schema; the fix
+  uses its existing unapproved value, `""`, in the spec and provenance. No schema or test was relaxed.
+- **FAIL:** all 23 scripted good runs passed their checked graders, but the stricter wrapper caught
+  two failed commands in `delivers-task-changes`: unset `TMPDIR` sent a temporary hash record to
+  `/h`. The simulator now assigns its own `DEVFORGEAI_SIM_TMP` per case. All 25 negative controls
+  were rejected by the checked graders; no native LLM grader ran.
+- **PASS:** Codex package 287 tests, archive 8 tests, regex tables and strict plugin manifest
+  validation. The sandboxed validator attempt encountered a blocked Anthropic startup request;
+  the approved outer retry exited 0. This is manifest validation, not native skill qualification.
+
+The original candidate logs and command/commit/hash receipts are retained separately in
+`/tmp/devforgeai-git-open-items-evidence-20261001/candidate1-*`.
 
 The main checkout's deployed plugin matched its v2 source during intake (`diff -rq`, excluding
 `__pycache__` and `results`, exit 0). This does not establish candidate deployment parity. PR #51
@@ -77,7 +94,24 @@ runs with the no-plugin baseline. A passing aggregate does not erase a failed gr
 
 ## Attended manual checks
 
-Use [git-v2-checks.md](git-v2-checks.md) §2 against a fresh **v3 candidate copy**, not the deployed v2.
+Export a fresh **v3 candidate copy** from the committed candidate, then use only the checklists in
+[git-v2-checks.md](git-v2-checks.md) §2, replacing its old v2 setup with this one:
+
+```bash
+cd /tmp/devforgeai-git-open-items-20261001
+git rev-parse HEAD
+GIT_V3_COPY=$(mktemp -d /tmp/devforgeai-git-v3-manual.XXXXXX)
+set -o pipefail
+git archive HEAD src/claude/DevForgeAI | tar -x -C "$GIT_V3_COPY"
+GIT_V3_PLUGIN="$GIT_V3_COPY/src/claude/DevForgeAI"
+claude plugin validate "$GIT_V3_PLUGIN" --strict
+```
+
+After the owner selects and enters a scratch repository outside DevForgeAI, start
+`claude --plugin-dir "$GIT_V3_PLUGIN"`. Record the printed candidate SHA and the actual loaded
+plugin path. Do not use this setup for VER-31, which specifically needs this repository's real
+EnterWorktree guard and an owner-deployed candidate in a dedicated worktree.
+
 Keep the original v2 table intact and record v3 evidence separately with the candidate SHA, plugin
 digest, session, exact fixture, commands and observed state. No item below has run in this session.
 

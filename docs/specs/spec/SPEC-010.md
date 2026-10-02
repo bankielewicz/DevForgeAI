@@ -13,7 +13,7 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: null
+approved_by: ""
 approved_on: null
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}

@@ -115,7 +115,7 @@ def literal_warning(path, key):
 
 
 def assignment_line(path, text):
-    """Unwrap Compose environment list entries, including a quoted KEY=value scalar.
+    """Unwrap Compose list entries, quoted KEY=value scalars and quoted mapping keys.
 
     This only changes assignment detection, never the text scanned for tokens and private keys.
     Both marked and unmarked Compose files use it, so the latter still block literal passwords.
@@ -127,6 +127,7 @@ def assignment_line(path, text):
             quoted = re.fullmatch(r"([\"'])(.*?)\1(?:\s+#.*)?", text)
             if quoted:
                 text = quoted.group(2)
+        text = re.sub(r"^(\s*)([\"'])([a-zA-Z0-9_.-]+)\2(\s*:)", r"\1\3\4", text)
     return text
 
 

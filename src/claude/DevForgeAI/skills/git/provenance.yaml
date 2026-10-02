@@ -16,7 +16,7 @@ generated_by:
   model: "claude-opus-5-5"
   session: "38bb5141-ff7c-4651-aaf8-850401f6f0dd"
 reviewed_by: []
-approved_by: null
+approved_by: ""
 approved_on: null
 upstream:              # the specification this skill implements
   - {id: SPEC-007, relation: implements, version: 3, hash: null}

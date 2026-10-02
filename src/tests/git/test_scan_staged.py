@@ -281,6 +281,17 @@ class ScanStagedTest(unittest.TestCase):
         report, _ = self.scan()
         self.assertEqual((report["blocked"], report["warnings"]), ([], []))
 
+    def test_compose_quoted_mapping_keys_are_scanned(self):
+        content = "services:\n  db:\n    environment:\n" + f'      "POSTGRES_PASSWORD": {CRED}\n'
+        self.stage("compose.example.yaml", content)
+        self.stage("compose.production.yaml", content)
+        report, out = self.scan()
+        self.assertEqual([(f["path"], f["line"]) for f in report["blocked"]
+                          if f["check"] == "literal_credential"], [("compose.production.yaml", 4)])
+        self.assertEqual([(f["path"], f["line"]) for f in report["warnings"]
+                          if f["check"] == "literal_credential"], [("compose.example.yaml", 4)])
+        self.assertNotIn(CRED, out)
+
     def test_inherited_literal_pathspecs_still_scan(self):   # with them, :(literal) matched nothing
         self.sb.env["GIT_LITERAL_PATHSPECS"] = "1"
         self.stage("config.py", f"AWS_ACCESS_KEY_ID = '{AWS_KEY}'\n")

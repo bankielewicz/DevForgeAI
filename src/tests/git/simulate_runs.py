@@ -26,10 +26,10 @@ RUNS = {
     "delivers-task-changes": ([
         "git fetch origin", "git ls-remote --symref origin HEAD", ST,
         "git add -- app.py test_json.py", SC, T,
-        "h1=$(git hash-object app.py); h2=$(git hash-object test_json.py); echo $h1 $h2 > $TMPDIR/h",
+        "h1=$(git hash-object app.py); h2=$(git hash-object test_json.py); echo $h1 $h2 > \"$DEVFORGEAI_SIM_TMP/h\"",
         "git switch -c feat/json-output",
         "git commit -q -m 'feat: add --json output'",
-        "read h1 h2 < $TMPDIR/h; [ \"$(git rev-parse feat/json-output:app.py)\" = \"$h1\" ]",
+        "read h1 h2 < \"$DEVFORGEAI_SIM_TMP/h\"; [ \"$(git rev-parse feat/json-output:app.py)\" = \"$h1\" ]",
         "git switch -q main",
         "printf '.claude/worktrees/\\n' >> .git/info/exclude",
         "git worktree add -q .claude/worktrees/feat-json-output feat/json-output",
@@ -210,6 +210,7 @@ def simulate(key):
         w = Path(tmp) / "ws"
         w.mkdir()
         env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+        env["DEVFORGEAI_SIM_TMP"] = tmp
         subprocess.run(["bash", str(case / "scaffold.sh")], cwd=w, env=env, check=True, capture_output=True)
         before = Path(tmp) / "before.txt"
         before.write_text(subprocess.run(["find", ".", "-type", "f"], cwd=w, capture_output=True, text=True).stdout)
