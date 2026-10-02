@@ -133,6 +133,8 @@ S += [
      {"nfr-001-not-covered"}, ""),
     (c, "good: says NFR-001 isn't covered", {E2: epic(2, *NEW_EPIC)},
      R25 + "NFR-001 is refined by EPIC-001, not covered: it stays out of EPIC-002.\n", set(), ""),
+    (c, "good: the spec's wording", {E2: epic(2, *NEW_EPIC)},
+     R25 + "NFR-001 is refined by EPIC-001 (never called `covered`).\n", set(), ""),
     (c, "EPIC-001 gains a link, same version", lambda c=c: {
         E2: epic(2, *NEW_EPIC),
         E1: scaffolded(c, E1).replace("relation: refines, version: 2, hash: null}\n  - {id: ARCH-001",

@@ -1677,9 +1677,9 @@ current release (such as reviewing EPIC-001's work), or if the reply says EPIC-0
             "epic-002-no-nfr": lacks_refines(E2, "FR-003", "NFR-001", *INELIGIBLE),
             "nfr-001-refined-unknown": row("NFR-001", r"refined by EPIC-001", r"\bunknown\b", r"ADR-005"),
             "nfr-001-review-epic-001": row("NFR-001", r"review EPIC-001"),
-            # A negation ("not covered", "isn't covered") is allowed.
+            # A negation ("not covered", "isn't covered", "never called `covered`") is allowed.
             "nfr-001-not-covered": regex("last_message", "not_contains",
-                                         r"\bNFR-001\b[^\n.;]{0,40}(?<!\bnot |\bnever |n't )\bcovered\b", "i"),
+                                         r'''\bNFR-001\b[^\n.;]{0,40}(?<!(?:\bnot|\bnever|n't)(?: called)?[ "'`*]{1,3})\bcovered\b''', "i"),
         },
     },
     "epic-unrelated-policy-marker": {
