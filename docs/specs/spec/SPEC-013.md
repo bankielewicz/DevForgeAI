@@ -79,7 +79,12 @@ the same evaluator.
 - **Evals stay the proof** (the mods proposal's rule 1). A headless session, which includes every child run of
   `claude plugin eval`, is left untouched (BEH-01).
 - **The mod API is early access.** Every API claim here was read in Claude Code 2.1.287's declarations and the
-  `plugin-authoring` skill's `reference.md`. What they can't settle, the build checks first (VER-01), and the
+  `plugin-authoring` skill's `reference.md`, among them: `$.plugin.root` (the plugin's folder, absolute),
+  `$.session.root()` and `$.session.version()`; `$.process.run(argv, { timeoutMs })` (30 seconds by default; it
+  rejects when the command is still running then); `$.fs` (read, write, list, exists, stat; no append); a `.catch`
+  handler receives a replay-safe `next`; `tool.call` and `turn.complete` carry `agentId` only for a subagent;
+  `turn.complete`'s `answer`; `session.end`'s reasons, `clear` with no `session.start` after it; `prompt.compose`'s
+  trait `print`; and `crypto.getRandomValues`. What they can't settle, the build checks first (VER-01), and the
   build rechecks the declarations on the build it runs on.
 - **Bryan's decisions** (2026-10-02):
   - the adapter lives in the plugin, `src/claude/DevForgeAI/hooks/` (ADR-006's "one mod", and source in each
@@ -230,7 +235,7 @@ behaviors:
     rule: "A skill is tracked when it is one of the plugin's own skills (a folder under <plugin root>/skills/) or a <name>.json exists in <root>/devforgeai/manifests/ or <root>/devforgeai/manifests/organization/ (a project's own skill, ADR-006 D4). Its name is skill.prompt's skill without a '<plugin>:' prefix. Loading any other skill neither starts nor ends a run."
   - id: BEH-03
     status: active
-    rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4); the folder devforgeai/progress/runs/<run>/; and a skill-loaded event as the run's first (DM-01)."
+    rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4), and a skill-loaded event as the run's first (DM-01). The run's folder, devforgeai/progress/runs/<run>/, is created when its events are first written (BEH-15). Every skill of the plugin opens a run, git and documents-updater included: having no manifest, they are tracked by ticks only (SPEC-012 BEH-04's none), and the status line says so (BEH-10)."
   - id: BEH-04
     status: active
     rule: "While a run is open, the adapter turns each main-loop host event of DM-01 into its event, with the next seq, the UTC time and the run's ID, adds it to the run's lines in $.state and rewrites events.jsonl from them. Events while no run is open, and events that carry an agentId, are not recorded."
@@ -239,7 +244,7 @@ behaviors:
     rule: "A run ends with run-end another-skill when a tracked skill loads; clear on session.end with reason clear; and session-end on session.end with any other reason (exit, resume, logout, the end of a -p run, a signal). Nothing else ends a run; there is no idle limit (Bryan, 2026-10-02). At session.end the run-end line is written first, and the final evaluation runs only while the hook's budget lasts: the log alone reproduces the state."
   - id: BEH-06
     status: active
-    rule: "After a tool, answer, prompt, reply or run-end event, the run is marked. A timer started at session.start runs IF-03 every half second when the run is marked and no evaluation is running; it clears the mark as it starts. So at most one evaluator process runs at a time, and a burst of events gives at most two evaluations. After exit 0 the adapter copies state.json to current.json and updates the summary in $.state, which redraws the status line and the band. In observe mode no tool call waits for an evaluation."
+    rule: "After a tool, answer, prompt, reply or run-end event, the run is marked. A timer runs IF-03 every half second when the run is marked and no timer-driven evaluation is running; it clears the mark as it starts. The timer starts at session.start, or at a skill.prompt when none is running, since no session.start follows a /clear. So at most one timer-driven evaluation runs at a time (an enforce check, BEH-08, runs apart from it on its own files), and a burst of events gives at most two evaluations. After exit 0 the adapter copies state.json to current.json and updates the summary in $.state, which redraws the status line and the band. In observe mode no tool call waits for an evaluation."
   - id: BEH-07
     status: active
     rule: "In observe mode the adapter never refuses a call and never adds text the model reads. Flags reach the user only: the status line, the band and toasts (BEH-10 to BEH-12)."
@@ -248,7 +253,7 @@ behaviors:
     rule: "In enforce mode, for each main-loop Write or Edit while a run is open, the adapter checks before calling next(e). It writes the run's lines plus the pending tool event, with its content, to runs/<run>/pending/events.jsonl and runs IF-03 on it with --out runs/<run>/pending/state.json. When that state's gate has kind write, seq equal to the pending event's seq and refuse true, the adapter answers { deny } without calling next(e). The text says that DevForgeAI's progress tracker refused the write at the write gate, lists the messages of the flags raised at that seq, and says that the user decides these. The call is recorded as a tool event with error true, which is never evidence (SPEC-012 BEH-06), so the write gate is checked again when the write is retried. Otherwise the adapter calls next(e) and records the event as in observe mode. The pending folder is removed after each check."
   - id: BEH-09
     status: active
-    rule: "In enforce mode, when an evaluation's gate has kind report and refuse true, the adapter adds the messages of the flags raised at that gate, once per gate seq, to the context of the user's next prompt.submit, so the model reads them with that prompt. A run-end gate's flags reach the user only, since the conversation that would read them has ended. Neither gate has a tool call to refuse."
+    rule: "In enforce mode, when an evaluation's gate has kind report and refuse true, the adapter adds the messages of the flags raised at that gate, once per gate seq, to the context of the user's next prompt.submit, so the model reads them with that prompt. It doesn't add them to a prompt that starts with '/', which usually loads the next skill, and drops them once the run has ended: the user has moved on. A run-end gate's flags reach the user only, since the conversation that would read them has ended. Neither gate has a tool call to refuse."
   - id: BEH-10
     status: active
     rule: "While a run is open, and after it ends until another run opens, the status line shows the summary: '<skill> <current>/<steps>' while a step is current; '<skill> done' when every step is reached; '<skill> ended' after run-end. Then, in this order and only when they apply: ' · your turn' when the current step shows your-turn; ' · <n> flag' or ' · <n> flags'; ' · ticks only' when the manifest is stale or none; ' · idle' when 30 minutes have passed with no event and no turn running; ' · enforce' in enforce mode. While tracking is off for the session (BEH-14, ERR-03), it shows 'progress: off (<reason>)' instead."
@@ -263,13 +268,13 @@ behaviors:
     rule: "Pressing the band's button runs IF-02 with the other mode. On exit 0 the mode changes for the session at once, its source becomes local, a toast confirms it, and adapter.log records the switch with the run's ID and last seq, because DM-02 has no event for it. On exit 1 or 2 the mode stays as it was and a toast gives IF-02's reason. The button never sends a prompt."
   - id: BEH-14
     status: active
-    rule: "The adapter fails open (ADR-006 D1). Each of its hooks is registered with a .catch that writes the error to adapter.log, shows a toast once per distinct error, and passes the event on unchanged. When the evaluator can't run (ERR-01, ERR-02, ERR-07), the tool call proceeds, the status line shows 'progress: off (<reason>)' until an evaluation succeeds, and events are still recorded, so the state can be computed later. The adapter registers no guard: a guard's fail-closed .catch (D1) belongs to the guard's own spec."
+    rule: "The adapter fails open (ADR-006 D1). Each of its hooks is registered with a .catch whose handler writes the error to adapter.log, shows a toast once per distinct error, and returns next(e), which the engine makes replay-safe in a .catch: the event goes on unchanged, or keeps the result the hook had already received. When the evaluator can't run (ERR-01, ERR-02, ERR-07), the tool call proceeds, the status line shows 'progress: off (<reason>)' until an evaluation succeeds, and events are still recorded, so the state can be computed later. The adapter registers no guard: a guard's fail-closed .catch (D1) belongs to the guard's own spec."
   - id: BEH-15
     status: active
-    rule: "The adapter writes only under <root>/devforgeai/progress/ (DM-02), and .claude/devforgeai.local.md only through IF-02 when the user presses the button. It creates devforgeai/progress/ with its .gitignore holding '*' the first time a run opens, and never edits the project's own .gitignore. It reads the plugin's files, the manifest folders, the local preference file through IF-01, and a file an Edit names (DM-01). It opens no network connection."
+    rule: "The adapter writes only under <root>/devforgeai/progress/ (DM-02), and .claude/devforgeai.local.md only through IF-02 when the user presses the button. It creates devforgeai/progress/ with its .gitignore holding '*' the first time it writes a run's events, which is only after BEH-01 has found the session interactive, and never edits the project's own .gitignore. It reads the plugin's files, the manifest folders, the local preference file through IF-01, and a file an Edit names (DM-01). It opens no network connection."
   - id: BEH-16
     status: active
-    rule: "At session.start the adapter runs IF-01 and keeps the mode and its source in $.state; it writes each entry IF-01 reports as ignored to adapter.log and shows them in one toast. Every skill-loaded event carries the mode and source in force when the run opened (ADR-006 D3). Until the shared-schema change brings progress.mode into policy, only the framework default and the local entry apply, and the button is always available."
+    rule: "At session.start, and at a skill.prompt when $.state holds no mode (no session.start follows a /clear), the adapter runs IF-01 and keeps the mode and its source in $.state; it writes each entry IF-01 reports as ignored to adapter.log and shows them in one toast. Every skill-loaded event carries the mode and source in force when the run opened (ADR-006 D3). Until the shared-schema change brings progress.mode into policy, only the framework default and the local entry apply, and the button is always available."
   - id: BEH-17
     status: active
     rule: "A reload of the module (a hot reload, or a change to the tracking setting) keeps an open run: its ID, seq, lines, the mode and the summary are in $.state. The evaluation timer starts again at the reloaded module's session.start, and the adapter marks the run so the state is computed again."
@@ -289,7 +294,7 @@ errors:
     user_result: "The status line shows 'progress: off (python not found)', and one toast says so."
   - id: ERR-02
     status: active
-    condition: "IF-03 exits 2, or runs longer than 5 seconds and is stopped."
+    condition: "IF-03 exits 2, or is still running after 5 seconds: $.process.run is given timeoutMs 5000 and rejects then."
     handling: "Leave the earlier state and current.json as they were; let the call proceed when this was an enforce check; write the evaluator's stderr line, or 'timed out', to adapter.log."
     user_result: "The status line shows 'progress: off (<reason>)' until an evaluation succeeds, and a toast shows each distinct reason once per session."
   - id: ERR-03
@@ -358,7 +363,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
-| Structural: this spec against `src/schemas/spec.schema.json` | Not run yet |
+| Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFRs; every BEH, ERR and QR item is covered by a VER item |
 | Probe (VER-01) | Not run; the build's first step |
 | Build | Not built |
 
@@ -378,12 +383,14 @@ before step 2 of §11.
 | P8 | Does the first `prompt.compose` come before the first `skill.prompt` of a session started with `/devforgeai:brainstorm`, and does `claude -p` show the trait `print`? | the order is logged, and `print` appears only under `-p` |
 | P9 | Does a mod in the plugin run in `claude plugin eval`'s child runs? | logged either way; BEH-01 keeps them untouched in both cases |
 | P10 | Does the engine write `.claude-plugin/types/` into the deployed copy when it loads the module? | logged either way; §10 adjusts the deploy check |
+| P11 | What happens to `$.state` and running timers after `/clear`, which fires `session.end` with no `session.start` after it? | logged either way; BEH-06 and BEH-16 restart the timer and resolve the mode at the next `skill.prompt` in both cases |
+| P12 | Can a `claude plugin test` file read a file outside the plugin through `$.fs` (VER-04's expected lines)? | the test reads `src/tests/progress/adapter/events.jsonl`; if not, the build keeps the lines in the test and the Python test reads them from there |
 
 ```yaml items
 verifications:
   - id: VER-01
     status: active
-    obligation: "The probe answers P1 to P10 as the table above says, and the answers are recorded in §9 with the Claude Code version. Any answer that contradicts DM-01, BEH-01, BEH-02 or BEH-03 revises this spec before the adapter is built."
+    obligation: "The probe answers P1 to P12 as the table above says, and the answers are recorded in §9 with the Claude Code version. Any answer that contradicts DM-01, BEH-01, BEH-02 or BEH-03 revises this spec before the adapter is built."
     level: manual
     covers:
       - BEH-01
@@ -408,18 +415,19 @@ verifications:
       - QR-04
   - id: VER-04
     status: active
-    obligation: "A claude plugin test script plays a session: /devforgeai:brainstorm loads, then a Read, a Bash run of validate_brn.py, an answered and a dismissed AskUserQuestion, a reply with ticks, a Write, a prompt, and a subagent's Write and reply. The events.jsonl written equals the expected lines in the test byte for byte, with each DM-01 field (path forms, exit, error, content) and no subagent event; the same lines saved as a fixture under src/tests/progress/ validate against events.schema.json (test_adapter_structure.py)."
+    obligation: "A claude plugin test script plays a session: /devforgeai:brainstorm loads, then a Read, a Bash run of validate_brn.py, an answered and a dismissed AskUserQuestion, a reply with ticks, a Write, a prompt, and a subagent's Write and reply. The events.jsonl written equals, byte for byte, the expected lines kept outside the plugin in src/tests/progress/adapter/events.jsonl (P12), with each DM-01 field (path forms, exit, error, content) and no subagent event; test_adapter_structure.py validates the same file against events.schema.json."
     level: integration
     covers:
       - BEH-04
   - id: VER-05
     status: active
-    obligation: "Scripted sessions show: a second tracked skill ends the first run with run-end another-skill and opens a new one; the same skill loading again does the same; an untracked skill and a skill with only a project manifest are told apart (BEH-02); session.end with reason clear writes run-end clear and any other reason run-end session-end; with the clock advanced 24 hours and no events, no run-end is written and the status line ends in ' · idle'; run IDs match SPEC-012's pattern."
+    obligation: "Scripted sessions show: a second tracked skill ends the first run with run-end another-skill and opens a new one; the same skill loading again does the same; an untracked skill and a skill with only a project manifest are told apart (BEH-02); session.end with reason clear writes run-end clear and any other reason run-end session-end; after a /clear with no session.start, the next tracked skill resolves the mode and starts the timer (BEH-06, BEH-16); with the clock advanced 24 hours and no events, no run-end is written and the status line ends in ' · idle'; run IDs match SPEC-012's pattern."
     level: integration
     covers:
       - BEH-02
       - BEH-03
       - BEH-05
+      - BEH-16
   - id: VER-06
     status: active
     obligation: "With $.process.run mocked, the evaluator runs with IF-03's argv, including each layer folder only when it exists; a burst of five events gives at most two runs; after exit 0, current.json equals state.json and the status line and band redraw; in observe mode no tool.call hook awaits $.process.run."
@@ -436,7 +444,7 @@ verifications:
       - BEH-08
   - id: VER-08
     status: active
-    obligation: "In enforce mode, a state whose gate is report with refuse true puts the flag messages in the context of the next prompt.submit once, and not in a later one; a run-end gate adds no context; observe mode adds none."
+    obligation: "In enforce mode, a state whose gate is report with refuse true puts the flag messages in the context of the next prompt.submit once, and not in a later one; a next prompt that starts with '/' gets none, and none is added after the run ends; a run-end gate adds no context; observe mode adds none."
     level: integration
     covers:
       - BEH-09
@@ -515,8 +523,13 @@ verifications:
 - **Branch.** The build runs on its own branch and worktree (ADR-001).
 - **Plugin version.** The plugin's folder changes, so `plugin.json` takes the next free minor version at merge.
 - **Repository records** (`CLAUDE.md`):
-  - the deploy command excludes the module's tests:
-    `rsync -a --delete --exclude={__pycache__,results,'*.test.ts','*.test.tsx'} src/claude/DevForgeAI/ .claude/skills/devforgeai/`;
+  - the deploy command excludes the module's tests, with the list in a variable so each line pastes under 100
+    characters (`CLAUDE.md`, Traps):
+
+    ```bash
+    X=(--exclude=__pycache__ --exclude=results --exclude='*.test.ts' --exclude='*.test.tsx')
+    rsync -a --delete "${X[@]}" src/claude/DevForgeAI/ .claude/skills/devforgeai/
+    ```
   - the source-and-deploy `diff -rq` check excludes the same, and `.claude-plugin/types` when P10 shows the
     engine writes it into the deployed copy;
   - Commands gains `claude plugin test src/claude/DevForgeAI`, `claude plugin validate src/claude/DevForgeAI` and
@@ -535,7 +548,7 @@ verifications:
 
 ## 11. Implementation plan
 
-1. Run the probe and record P1 to P10 (VER-01); revise this spec if any answer contradicts it.
+1. Run the probe and record P1 to P12 (VER-01); revise this spec if any answer contradicts it.
 2. Write `settings.py`'s tests, then `settings.py` (IF-01, IF-02, BEH-18; VER-02, VER-03).
 3. Add `hooks/hooks.json`, `types/index.d.ts` and the `plugin.json` keys; check them with `claude plugin validate`.
 4. Write the tests, then the recording: activation, runs, events and files (BEH-01 to BEH-05, BEH-15, BEH-17;
@@ -582,6 +595,12 @@ Notes:
 - Locking the mode at project level arrives with the shared-schema change (ADR-006 D3). Until then the button is
   always available.
 - The probe may change DM-01 and BEH-01 to BEH-03; any change is a revision of this draft, before the build.
+- The button saves `.claude/devforgeai.local.md` in the project. This repository's `.gitignore` already ignores it
+  (ADR-003); in a project whose `.gitignore` doesn't, git shows it as untracked, and the user adds the entry. The
+  adapter never edits a `.gitignore` of the project's.
+- `git` and `documents-updater` have no manifest, so their runs are tracked by ticks only, and loading either one
+  ends the run before it (BEH-03). A `/devforgeai:git commit` after a brainstorm therefore shows
+  `git <n>/<m> · ticks only`, and the brainstorm's run ends with `another-skill`.
 - Toasts for flags appear in both modes. If they distract during dogfooding, a later display setting can quiet
   them; they never reach the model in observe mode.
 
