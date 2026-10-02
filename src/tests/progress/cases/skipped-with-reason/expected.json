@@ -1,0 +1,101 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 5,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "unknownClaims": 0
+  },
+  "current": null,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": "report",
+    "reason": null,
+    "refuse": false,
+    "seq": 5
+  },
+  "manifest": {
+    "checklistHash": "sha256:32254403c9f07c0d16e548520e07b4d42ac394db130de39b99ce68024f2b08da",
+    "layers": [
+      "src/tests/progress/cases/skipped-with-reason/manifests/shipit.json"
+    ],
+    "manifestHash": "sha256:32254403c9f07c0d16e548520e07b4d42ac394db130de39b99ce68024f2b08da",
+    "state": "matched"
+  },
+  "next": null,
+  "run": "20261002T120000Z-shipit-0000abcd",
+  "skill": "shipit",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 1,
+      "need": "text-only",
+      "note": "seen late (after step 2)",
+      "state": "done",
+      "title": "Gather the changes",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Read docs/RELEASE.md",
+          "seq": 2,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 2,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Read the release notes",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": "no remote",
+        "seq": 4,
+        "state": "skipped"
+      },
+      "evidence": [],
+      "kind": "forge",
+      "n": 3,
+      "need": "required",
+      "note": "",
+      "state": "skipped-with-reason",
+      "title": "Push",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 5,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "report",
+      "n": 4,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Report",
+      "userOwned": false
+    }
+  ],
+  "through": 5
+}
