@@ -17,7 +17,11 @@ type Over = {
   surfaces?: string[]
   python3?: boolean
   mode?: string
+  modeStderr?: string
   setMode?: Any
+  failSessionId?: boolean
+  failExists?: (path: string) => boolean
+  failStatus?: boolean
   evaluate?: (argv: readonly string[]) => Any
   tool?: (e: Any) => Any
   failWrite?: (path: string) => boolean
@@ -31,6 +35,8 @@ type World = {
   logs: string[]
   statuses: Array<string | undefined>
   runs: string[][]
+  contexts: string[][]
+  tools: string[]
   clock: Any
 }
 
@@ -67,7 +73,7 @@ function processRun(w: World, over: Over, argv: readonly string[]): Any {
   }
   const script = argv[1] ?? ''
   if (script.endsWith('/progress/settings.py') && argv[2] === 'mode') {
-    return { value: { exitCode: 0, stdout: `${over.mode ?? 'observe framework-default'}\n`, stderr: '' } }
+    return { value: { exitCode: 0, stdout: `${over.mode ?? 'observe framework-default'}\n`, stderr: over.modeStderr ?? '' } }
   }
   if (script.endsWith('/progress/settings.py') && argv[2] === 'set-mode') {
     const value = argv[argv.indexOf('--value') + 1]
@@ -78,6 +84,7 @@ function processRun(w: World, over: Over, argv: readonly string[]): Any {
     const answer = over.evaluate?.(argv) ?? { state: STATE }
     if (answer.deny !== undefined) return { deny: answer.deny }
     if (answer.state !== undefined) w.files.set(out, JSON.stringify(answer.state))
+    if (answer.raw !== undefined) w.files.set(out, answer.raw)
     return { value: { exitCode: answer.exitCode ?? 0, stdout: 'progress brainstorm: step 2 of 2, 0 flags\n', stderr: answer.stderr ?? '' } }
   }
   return { deny: `unexpected process: ${argv.join(' ')}` }
@@ -87,25 +94,33 @@ function processRun(w: World, over: Over, argv: readonly string[]): Any {
 function world(on: Any, over: Over = {}): World {
   const w: World = {
     files: new Map(Object.entries(over.files ?? {})), writes: [], toasts: [], logs: [], statuses: [], runs: [],
+    contexts: [], tools: [],
     clock: mock.clock(on, { now: T0 }),
   }
   on('session.root', () => ({ value: ROOT }))
-  on('session.id', () => ({ value: 's1' }))
+  on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: 's1' }))
   on('session.version', () => ({ value: { version: '2.1.287' } }))
   on('session.surfaces', () => ({ value: over.surfaces ?? ['terminal'] }))
   on('session.start', (_$: Any, e: Any) => ({ cwd: e.cwd }))
   on('classic.SessionStart', () => ({}))
   on('skill.prompt', (_$: Any, e: Any) => ({ text: e.text }))
   on('prompt.compose', () => ({ sections: [] }))
-  on('prompt.submit', (_$: Any, e: Any) => ({ text: e.text }))
+  on('prompt.submit', (_$: Any, e: Any) => {
+    w.contexts.push([...(e.context ?? [])])
+    return { text: e.text }
+  })
   on('turn.start', (_$: Any, e: Any) => ({ turnId: e.turnId }))
   on('turn.complete', () => ({ text: '' }))
   on('session.end', (_$: Any, e: Any) => ({ sessionId: e.sessionId }))
   on('ui.render', () => ({ type: 'Text', props: {}, children: ['drawn by the mods after it'] }))
   on('ui.toast', (_$: Any, e: Any) => { w.toasts.push(e.text); return { value: undefined } })
   on('ui.log', (_$: Any, e: Any) => { w.logs.push(e.text); return { value: undefined } })
-  on('ui.status', (_$: Any, e: Any) => { w.statuses.push(e.text); return { value: undefined } })
-  on('fs.exists', (_$: Any, e: Any) => ({
+  on('ui.status', (_$: Any, e: Any) => {
+    if (over.failStatus) return { deny: 'status line unavailable' }
+    w.statuses.push(e.text)
+    return { value: undefined }
+  })
+  on('fs.exists', (_$: Any, e: Any) => over.failExists?.(e.path) ? { deny: `EIO: ${e.path}` } : ({
     value: w.files.has(e.path) || [...w.files.keys()].some(k => k.startsWith(e.path.replace(/\/+$/, '') + '/')),
   }))
   on('fs.read', (_$: Any, e: Any) => (w.files.has(e.path) ? { value: w.files.get(e.path) } : { deny: `ENOENT: ${e.path}` }))
@@ -120,7 +135,10 @@ function world(on: Any, over: Over = {}): World {
     w.runs.push([...e.argv])
     return processRun(w, over, e.argv)
   })
-  on('tool.call', (_$: Any, e: Any) => over.tool?.(e) ?? { result: 'ok' })
+  on('tool.call', (_$: Any, e: Any) => {
+    w.tools.push(e.tool)
+    return over.tool?.(e) ?? { result: 'ok' }
+  })
   return w
 }
 
@@ -397,4 +415,243 @@ test('VER-14: an Edit records the file it will leave, or no content when it can\
   await $.tool.call({ tool: 'Edit', file_path: `${ROOT}/big.md`, old_string: 'q', new_string: 'r', replace_all: true } as Any)
   const contents = eventsOf(w).slice(1).map(l => JSON.parse(l).content)
   expect(contents).toEqual(['one TWO one', '1 two 1', undefined, undefined, undefined])
+})
+
+// ---- Phase 5: evaluation and display ----
+
+function manifestsOf(argv: string[]): string[] {
+  return argv.flatMap((a, i) => (a === '--manifests' ? [argv[i + 1]] : []))
+}
+
+test('VER-06: the evaluator runs with IF-03 argv and the layer folders that exist, once for a burst', async ($, on) => {
+  const w = world(on, { files: {
+    [`${ROOT}/devforgeai/manifests/organization/x.json`]: '{}', [`${ROOT}/devforgeai/manifests/release.json`]: '{}',
+  } })
+  await start($)
+  await load($)
+  for (let i = 0; i < 5; i++) await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a${i}.md` } as Any)
+  expect(w.runs.filter(a => a[2] === 'evaluate').length).toBe(0)
+  await w.clock.advance(600)
+  const evals = w.runs.filter(a => a[2] === 'evaluate')
+  expect(evals.length).toBe(1)
+  const argv = evals[0]
+  expect(argv[0]).toBe('python3')
+  expect(argv[1].endsWith('/progress/evaluate.py')).toBe(true)
+  const layers = manifestsOf(argv)
+  expect(layers[0].endsWith('/progress/manifests')).toBe(true)
+  expect(layers.slice(1)).toEqual([`${ROOT}/devforgeai/manifests/organization`, `${ROOT}/devforgeai/manifests`])
+  expect(argv.slice(argv.indexOf('--root'))).toEqual(['--root', ROOT])
+  expect(argv[argv.indexOf('--events') + 1].endsWith('/events.jsonl')).toBe(true)
+  expect(w.files.get(`${PROGRESS}/current.json`)).toBe(JSON.stringify(STATE))
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/b.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.runs.filter(a => a[2] === 'evaluate').length).toBe(2)
+})
+
+test('VER-06: without project layers only the plugin\'s manifests are passed', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  expect(manifestsOf(w.runs.filter(a => a[2] === 'evaluate')[0]).length).toBe(1)
+})
+
+const BAND = {
+  plugin: 'devforgeai', component: 'AbovePrompt', requestId: 'band', viewport: { columns: 120, rows: 40 },
+  props: { hasSurvey: false, isWorking: false, maxRows: 2, bodyColumns: 80, scroll: { offset: 0, bodyRows: 2 }, view: {} },
+}
+
+for (const surface of ['terminal', 'desktop'] as const) {
+  test(`VER-12: the band on ${surface} shows the run and the mode button, and keeps what later mods draw`, async ($, on) => {
+    const w = world(on)
+    await start($)
+    await load($)
+    await w.clock.advance(600)
+    const ui = await ($ as Any).ui.mount({ ...BAND, surface })
+    expect(await ui.find({ text: /step 2 of 2: Pick/ })).toBeDefined()
+    expect(await ui.find({ text: /drawn by the mods after it/ })).toBeDefined()
+    const button = await ui.find({ key: 'progress-mode' })
+    expect(button).toBeDefined()
+    expect(button.props.hotkey).toBeUndefined()
+    await ui.press({ key: 'progress-mode' })
+    expect(w.runs.some(a => a[2] === 'set-mode' && a[a.length - 1] === 'enforce')).toBe(true)
+    expect(w.statuses[w.statuses.length - 1]).toBe('brainstorm 2/2 · enforce')
+    expect(w.toasts.some(t => t.includes('enforce mode, saved to .claude/devforgeai.local.md'))).toBe(true)
+    await ui.unmount()
+  })
+}
+
+test('VER-12: the band draws only row 1 in one row, nothing of its own during a survey or with no run, and fits the width', async ($, on) => {
+  const w = world(on)
+  await start($)
+  const none = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await none.find({ text: /brainstorm/ })).toBeUndefined()
+  await none.unmount()
+  await load($)
+  await w.clock.advance(600)
+  const one = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows: 1, bodyColumns: 20 } })
+  const row = await one.find({ type: 'Text', text: /brainstorm/ })
+  expect(row).toBeDefined()
+  expect(Array.from(String(row.children.join(''))).length <= 20).toBe(true)
+  expect(await one.find({ key: 'progress-mode' })).toBeUndefined()
+  await one.unmount()
+  const survey = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, hasSurvey: true } })
+  expect(await survey.find({ text: /step 2 of 2/ })).toBeUndefined()
+  expect(await survey.find({ text: /drawn by the mods after it/ })).toBeDefined()
+  await survey.unmount()
+})
+
+test('VER-12: the status text is sent once while it stays the same, and a failed save keeps the mode', async ($, on) => {
+  const w = world(on, { setMode: { value: { exitCode: 1, stdout: '', stderr: "settings: .claude/devforgeai.local.md isn't frontmatter-only; not changed\n" } } })
+  await start($)
+  await load($)
+  for (let i = 0; i < 4; i++) await w.clock.advance(600)
+  expect(w.statuses.filter(s => s === 'brainstorm 2/2').length).toBe(1)
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal' })
+  await ui.press({ key: 'progress-mode' })
+  expect(w.toasts.some(t => t.includes("couldn't save progress.mode") && t.includes('frontmatter-only'))).toBe(true)
+  expect(w.statuses.some(s => (s ?? '').includes('enforce'))).toBe(false)
+  await ui.unmount()
+})
+
+test('VER-12: each flag is toasted once, and ignored local entries give one toast at session start', async ($, on) => {
+  const flagged = { ...STATE, flags: [{ gate: 'write', seq: 2, step: 1, type: 'skipped', message: 'step 1 had no answer' }] }
+  const w = world(on, { evaluate: () => ({ state: flagged }), modeStderr: 'ignored .claude/devforgeai.local.md progress.mode (\'strict\' is not observe or enforce)\n' })
+  await start($)
+  expect(w.toasts.filter(t => t.startsWith('ignored .claude/devforgeai.local.md progress.mode')).length).toBe(1)
+  await load($)
+  await w.clock.advance(600)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t.startsWith('✗ Step 1 skipped')).length).toBe(1)
+  expect(w.statuses[w.statuses.length - 1]).toBe('brainstorm 2/2 · 1 flag')
+})
+
+// ---- Phase 6: enforce mode and failing open ----
+
+const WRITE = { tool: 'Write', file_path: `${ROOT}/docs/specs/brainstorm/BRN-001.md`, content: 'disposition: promoted' }
+
+function refusingAt(seq: number) {
+  return (argv: readonly string[]) => (argv.some(a => a.endsWith('/pending.jsonl'))
+    ? { state: { ...STATE, gate: { kind: 'write', seq, refuse: true, reason: 'x' },
+      flags: [{ gate: 'write', seq, step: 1, type: 'skipped', message: 'step 1 had no answer from you' }] } }
+    : { state: STATE })
+}
+
+test('VER-07: in enforce mode the write gate\'s Write is refused before it runs, and recorded as an error', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(2) })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(WRITE as Any)) as Any
+  expect(typeof r.deny).toBe('string')
+  expect(r.deny).toContain('step 1 had no answer from you')
+  expect(w.tools.includes('Write')).toBe(false)
+  expect(JSON.parse(eventsOf(w).slice(-1)[0])).toMatchObject({ kind: 'tool', tool: 'Write', exit: null, error: true })
+  expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(1)
+  expect(runFiles(w, 'pending.json').length).toBe(1)
+})
+
+test('VER-07: with refuse false or a gate at another seq the Write goes on; observe mode checks nothing', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(7) })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(WRITE as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(w.tools.includes('Write')).toBe(true)
+  expect(JSON.parse(eventsOf(w).slice(-1)[0])).toMatchObject({ kind: 'tool', tool: 'Write', exit: 0, error: false })
+})
+
+test('VER-07: observe mode refuses nothing and writes no pending check', async ($, on) => {
+  const w = world(on, { evaluate: refusingAt(2) })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(WRITE as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(w.writes.some(p => p.endsWith('/pending.jsonl'))).toBe(false)
+})
+
+test('VER-07: where nothing draws, the refusal also goes to the transcript', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(2), surfaces: [] })
+  await start($)
+  await load($)
+  await $.tool.call(WRITE as Any)
+  expect(w.logs.some(l => l.includes('refused this write at the write gate'))).toBe(true)
+})
+
+function reporting(kind: string) {
+  return () => ({ state: { ...STATE, current: null, gate: { kind, seq: 3, refuse: true, reason: 'x' },
+    flags: [{ gate: kind, seq: 3, step: 1, type: 'skipped', message: 'step 1 was skipped' }] } })
+}
+
+test('VER-08: in enforce mode the report gate\'s flags reach the model once, with a prompt that isn\'t a command', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: reporting('report') })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  await ($ as Any).prompt.submit({ text: '/devforgeai:prd', wait: false, origin: { kind: 'composer' } })
+  await ($ as Any).prompt.submit({ text: 'please fix it', wait: false, origin: { kind: 'composer' } })
+  await ($ as Any).prompt.submit({ text: 'and again', wait: false, origin: { kind: 'composer' } })
+  expect(w.contexts.map(c => c.length)).toEqual([0, 1, 0])
+  expect(w.contexts[1][0]).toContain('step 1 was skipped')
+})
+
+test('VER-08: observe mode and a run-end gate add no context', async ($, on) => {
+  const w = world(on, { evaluate: reporting('report') })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  await ($ as Any).prompt.submit({ text: 'please fix it', wait: false, origin: { kind: 'composer' } })
+  expect(w.contexts.map(c => c.length)).toEqual([0])
+})
+
+test('VER-08: a run-end gate adds no context in enforce mode', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: reporting('end') })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  await ($ as Any).prompt.submit({ text: 'please fix it', wait: false, origin: { kind: 'composer' } })
+  expect(w.contexts.map(c => c.length)).toEqual([0])
+})
+
+const FAILURES: Array<[string, Over, string]> = [
+  ['python missing', { python3: false }, 'progress: off (python not found)'],
+  ['evaluator exit 2', { evaluate: () => ({ exitCode: 2, stderr: 'evaluate: bad manifest\n' }) }, 'progress: off (evaluator: evaluate: bad manifest)'],
+  ['evaluator timeout', { evaluate: () => ({ deny: 'timed out after 5000 ms' }) }, 'progress: off (evaluator timed out)'],
+  ['--out not JSON', { evaluate: () => ({ exitCode: 0, raw: 'not json' }) }, 'progress: off (evaluator: its state is not readable)'],
+]
+
+for (const [name, over, status] of FAILURES) {
+  test(`VER-09: ${name}: every call goes on, events are recorded, and the user is told once`, async ($, on) => {
+    const w = world(on, { ...over, mode: 'enforce local' })
+    await start($)
+    await load($)
+    const r1 = (await $.tool.call(WRITE as Any)) as Any
+    await w.clock.advance(600)
+    const r2 = (await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)) as Any
+    await w.clock.advance(600)
+    expect(r1).toEqual({ result: 'ok' })
+    expect(r2).toEqual({ result: 'ok' })
+    expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool', 'tool'])
+    expect(w.statuses.includes(status)).toBe(true)
+    const reason = status.slice('progress: off ('.length, -1)
+    expect(w.toasts.filter(t => t.includes(reason)).length).toBe(1)
+    expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(`fail-open: ${reason}`)).toBe(true)
+  })
+}
+
+test('VER-09 / ERR-10: a timer callback that throws is caught, logged and treated as the evaluator failing', async ($, on) => {
+  // The evaluation's own fs.exists fails, so the timer's code throws (a failed $.ui.status is only dropped).
+  const w = world(on, { failExists: p => p.endsWith('/devforgeai/manifests/organization') })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('fail-open: timer:')).toBe(true)
+  expect(w.statuses.some(s => (s ?? '').startsWith('progress: off (timer:'))).toBe(true)
+})
+
+test('VER-09: a hook that throws before next passes its event on unchanged', async ($, on) => {
+  const w = world(on, { failSessionId: true })
+  const r = (await ($ as Any).session.start({ surface: 'terminal', isInteractive: true, cwd: ROOT })) as Any
+  expect(r).toEqual({ cwd: ROOT })
+  expect(w.toasts.some(t => t.startsWith('DevForgeAI progress: session.start:'))).toBe(true)
 })
