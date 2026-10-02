@@ -19,6 +19,9 @@ __pycache__/
 
 # The deployed plugin copy; regenerate it from src/ with the rsync command in CLAUDE.md
 .claude/skills/devforgeai/
+# Written by Claude Code when it loads the plugin's mod from source (--plugin-dir); never committed
+src/claude/DevForgeAI/.claude-plugin/types/
+src/claude/DevForgeAI/tsconfig.json
 
 # Git worktrees, one per story (ADR-001). Unignored, `git add -A` would stage one as an embedded repository
 .claude/worktrees/
