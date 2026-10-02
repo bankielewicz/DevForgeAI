@@ -19,7 +19,7 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | `architecture` | SKL-003 v5, approved | SPEC-003 v4 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (0.7.0); 16 eval cases, the 3 policy cases requalified on v5 |
 | `epic` | SKL-004 v3 | SPEC-004 v3 | v2 approved by Bryan 2026-10-01 (PR #43, deployed in 0.8.0). v3 (wording only): 18 eval cases, 3-run 18 of 18 at 1.00 (mean Δ +0.51); not yet approved; deploy after merge; VER-13 not run |
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
-| `git` | SKL-006 v2 | SPEC-007 v2, draft awaiting approval | v1 deployed (identical to its source); v2 built from the v2 draft, not yet evaluated or deployed; results below |
+| `git` | SKL-006 v2 | SPEC-007 v2, draft awaiting approval | v2 merged in PR #44 and deployed (the deployed copy matched main's source, 2026-10-01); 3-run 19 of 19 at ≥ 0.8; results below |
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
 | `github-post` | SKL-009, reserved | SPEC-010 v2, approved 2026-09-30 | Not built; its §11 lists the build steps |
 | `context` | SKL-010 v2, draft | SPEC-011 v3, approved 2026-10-01 | v1 merged in PR #34 (plugin 0.8.0); v2, the evaluated version, lands with plugin 0.8.1. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run |
@@ -35,9 +35,12 @@ SKL-008 is reserved for the story skill (SPEC-009).
   in `src/templates/github/`.
 - `git` v1's results (also in SPEC-007 §9): 3 scripts (57 unit tests) and 16 eval cases; 3 runs: 16 of
   16 at ≥ 0.8, 13 at 1.00, mean Δ +0.28, $18.22 (the misses are the eval's own `.git` write
-  refusals, which the skill reports). v2 has 76 unit tests, `src/tests/git/test_structure.py` and 19
-  eval cases, not yet evaluated (runbook: `docs/runbooks/git-v2-checks.md`). Manual VER-18..22,
-  VER-24, VER-26 and VER-31 not run.
+  refusals, which the skill reports). v2 (SPEC-007 §9): 76 unit tests, `src/tests/git/test_structure.py`
+  and 19 eval cases; 3 runs: 19 of 19 at ≥ 0.8, 16 at 1.00, mean Δ +0.32, $22.96. Its misses: the
+  same two harness refusals (`starts-worktree-from-fresh-base` can't exceed 0.88), and
+  `stops-on-unrelated-histories` recommending a merge of the histories instead of ERR-04's new branch
+  in 2 of 3 runs. Manual VER-18..22, VER-24, VER-26 and VER-31 not run
+  (`docs/runbooks/git-v2-checks.md`).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels. The review criteria are open.
 
