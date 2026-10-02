@@ -1,6 +1,6 @@
 """Checks the regex and file graders added for SPEC-002 v2 offline, before any paid run.
 
-For each new prd case (VER-24 to VER-36, VER-38) and the graders added to records-provenance (VER-09) and
+For each new prd case (VER-24 to VER-38) and the graders added to records-provenance (VER-09) and
 constraints-not-design (VER-10), it runs the case's scaffold in a temporary workspace, writes a
 hand-made good result (the files and final reply a correct run would leave), and runs
 grade_evals.mjs: every regex and file grader must pass. Then it writes bad results, each breaking one
@@ -458,6 +458,16 @@ S += [
     (c, "PRD-001 changed", {PRD: edit(scaffolded(c, PRD), "version: 1\n", "version: 2\n")}, R36, {"prd-001-unchanged"}),
 ]
 
+# VER-37 needs-adr-handoff: its two regex graders (copies of VER-14's); its llm grader is skipped here
+c = "needs-adr-handoff"
+R37 = "PRD-001 written to docs/specs/prd/PRD-001.md (from BRN-001; new)\n"
+MARKER = "## 12. Open questions\n\n- [NEEDS ADR: synchronous booking writes vs scheduled import; affects FR-001, FR-002]\n"
+S += [
+    (c, "good", {PRD: MARKER}, R37, set()),
+    (c, "marker names other FRs", {PRD: MARKER.replace("FR-001, FR-002", "FR-003")}, R37, {"marker-names-booking-fr"}),
+    (c, "no marker", {PRD: "## 12. Open questions\n\n- None.\n"}, R37, {"needs-adr-marker", "marker-names-booking-fr"}),
+]
+
 # VER-38 unlinked-signal-keeps-target (issue #39)
 c = "unlinked-signal-keeps-target"
 SM_LINKED = new_prd().split("success_metrics:\n")[1].split("```")[0]  # the default SM-01, linked to IDEA-01
@@ -472,7 +482,7 @@ def sat_prd(sat=SM_SAT, after=""):
 
 
 R38 = "PRD-001 written to docs/specs/prd/PRD-001.md (from BRN-001; new)\n"
-V38 = {"satisfaction-metric", "baseline-kept", "target-kept", "measured-by-survey"}
+V38 = {"baseline-kept", "target-kept", "measured-by-survey"}
 S += [
     (c, "good", sat_prd(), R38, set()),
     (c, "good, fields reordered", sat_prd(edit(SM_SAT, '    target: "4.0 out of 5 by the end of the pilot"\n    measured_by: "Quarterly volunteer survey"\n',
@@ -490,7 +500,7 @@ S += [
      R38, {"no-upstream"}),
     (c, "no satisfaction metric", sat_prd(""), R38, V38),
     # With no file, grade_evals.mjs fails every file grader, not_contains ones included.
-    (c, "no PRD", {}, "Nothing written.", V38 | {"prd-exists", "no-upstream"}),
+    (c, "no PRD", {}, "Nothing written.", V38 | {"no-upstream"}),
 ]
 
 ADDED = {"records-provenance": {"model-is-a-claude-model-id", "identity-not-unavailable", "authors-include-the-tool",

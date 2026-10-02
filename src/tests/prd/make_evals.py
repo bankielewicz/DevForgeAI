@@ -1,12 +1,13 @@
 """Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32), v4 (VER-33 to VER-36; issues #36
-and #38) and v5 (VER-38; issue #39), and the grader files added to three existing cases (VER-09
-records-provenance, VER-10 constraints-not-design, VER-37 architecture-context). The 20 cases written for v1
+and #38) and v5 (VER-37, the [NEEDS ADR] hand-off; VER-38, issue #39), and the grader files added to two
+existing cases (VER-09 records-provenance, VER-10 constraints-not-design). The 20 cases written for v1
 are hand-written; this script never touches their prompts, scaffolds or existing graders, only adds the
 new grader files listed in EXTRA_GRADERS.
 
-Fixtures are defined once here, except two that are parsed from existing v1 scaffolds so there is one
-copy: the Riverside Food Bank BRN-001 (from invalid-policy-stops, shared by 13 v1 cases) and VER-06's
-Ledgerly PRD-001 and BRN-002 (from extend-or-new). Every fixture is validated against src/schemas/
+Fixtures are defined once here, except three sets that are parsed from existing v1 scaffolds so there is
+one copy: the Riverside Food Bank BRN-001 (from invalid-policy-stops, shared by 13 v1 cases), VER-06's
+Ledgerly PRD-001 and BRN-002 (from extend-or-new), and VER-14's clinic workspace and prompt (from
+architecture-context, reused by VER-37). Every fixture is validated against src/schemas/
 before anything is written. A fixture that is invalid on purpose must fail in exactly the expected
 place (VER-27's FR-001 priority), and every policy fixture also goes through the skill's own
 scripts/validate_policy.py (VER-28 to VER-31 must fail on the named field). Run from the repository
@@ -51,6 +52,9 @@ _LEDGERLY = scaffold_fixtures("extend-or-new")
 BRN_LEDGERLY_1 = _LEDGERLY["docs/specs/brainstorm/BRN-001.md"]
 PRD_LEDGERLY = _LEDGERLY["docs/specs/prd/PRD-001.md"]
 BRN_LEDGERLY_2 = _LEDGERLY["docs/specs/brainstorm/BRN-002.md"]
+# VER-37 reuses VER-14's clinic workspace (BRN-001, ADR-001 to ADR-003) and prompt as they are.
+CLINIC = scaffold_fixtures("architecture-context")
+CLINIC_PROMPT = (ROOT / "architecture-context" / "prompt.md").read_text().split("---\n", 2)[2]
 
 # A second brainstorm for the same initiative and owner as the food bank's PRD-001 (VER-27, VER-32).
 BRN_FOOD_2 = """\
@@ -531,6 +535,7 @@ FIXTURES = {
     "BRN_FOOD_V2": (BRN_FOOD_V2, "brainstorm.schema.json"),
     "BRN_FOOD_2_DRAFT": (BRN_FOOD_2_DRAFT, "brainstorm.schema.json"), "PRD_FOOD_DRAFT": (PRD_FOOD_DRAFT, "prd.schema.json"),
     "BRN_FOOD_SIGNAL": (BRN_FOOD_SIGNAL, "brainstorm.schema.json"),
+    "BRN_CLINIC": (CLINIC["docs/specs/brainstorm/BRN-001.md"], "brainstorm.schema.json"),
     "POL_BASE": (POL_BASE, "policy.schema.json"), "POL_COMPLIANCE": (POL_COMPLIANCE, "policy.schema.json"),
     "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "POL_BAD_AUTHORS": (POL_BAD_AUTHORS, "policy.schema.json", [("frontmatter", "authors")]),
@@ -825,38 +830,14 @@ FAIL if it presents a PRD-002 or any other new PRD as written, or doesn't give t
 """),
         },
     },
-    "unlinked-signal-keeps-target": {
-        "ver": "38", "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD_SIGNAL},
-        "prompt": POLICY_PROMPT,
-        "description": "VER-38 (issue #39): a candidate success signal that measures no promoted idea gives its own baseline, target and source; its metric keeps them, with no NEEDS CLARIFICATION target and no upstream link.",
+    "needs-adr-handoff": {
+        "ver": "37", "files": CLINIC, "prompt": CLINIC_PROMPT,
+        "description": "VER-37: VER-14's clinic workspace and prompt; the handoff says epics for the booking requirements wait until the architecture step resolves that exact decision, by an accepted ADR or an approved mandated platform, not by an ADR alone.",
+        # Three graders, so a reply that names only an ADR scores 0.67, under the 0.8 bar.
         "graders": {
-            "prd-exists": PRD_EXISTS,
-            "satisfaction-metric": regex(PRD, "contains", SATISFACTION_SM),
-            "baseline-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+baseline: "[^"\n]*\b3\.4\b'),
-            "target-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+target: "(?![^"\n]*NEEDS CLARIFICATION)'
-                                                   rf'[^"\n]*\b4\.0\b'),
-            "measured-by-survey": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+measured_by: "[^"\n]*[Ss]urvey'),
-            "no-upstream": regex(PRD, "not_contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+upstream:[ \t]*(?:\n[ \t]+- |\[[ \t]*\{{)'),
-        },
-    },
-}
-
-# New graders for three v1 cases; their existing graders stay as they are.
-AWS_OR_STRIPE_ITEM = r'statement: "[^"\n]*\b{0}\b[^"\n]*"\n{1}[ \t]+- \{{id: BRN-'
-EXTRA_GRADERS = {
-    "records-provenance": {
-        "model-is-a-claude-model-id": regex(PRD, "contains", r'^  model: "claude-[a-z0-9][a-z0-9.-]*"', "m"),
-        "identity-not-unavailable": regex(PRD, "not_contains", r'^  (?:tool|model|session): "?unavailable\b', "m"),
-        "authors-include-the-tool": regex(PRD, "contains", r'^authors: \[[^\]\n]*"claude-code"[^\]\n]*\]', "m"),
-        "changelog-session-matches": regex(PRD, "contains",
-                                           r'^  session: "([0-9a-f-]{36})"[\s\S]*\| claude-code \(session \1\) \|', "m"),
-    },
-    "constraints-not-design": {
-        "aws-no-brn-link": regex(PRD, "not_contains", AWS_OR_STRIPE_ITEM.format("AWS", ITEM)),
-        "stripe-no-brn-link": regex(PRD, "not_contains", AWS_OR_STRIPE_ITEM.format("Stripe", ITEM)),
-    },
-    "architecture-context": {  # VER-37
-        "handoff-names-both-ways": llm("""\
+            "needs-adr-marker": (ROOT / "architecture-context" / "graders" / "needs-adr-marker.md").read_text(),
+            "marker-names-booking-fr": (ROOT / "architecture-context" / "graders" / "marker-names-booking-fr.md").read_text(),
+            "handoff-names-both-ways": llm("""\
 Context the reply was written in: the user asked for a PRD from BRN-001 and named ADR-002 (accepted:
 ClinicCore is the calendar of record) and ADR-003 (proposed: synchronous booking writes vs a scheduled
 import). A proposed ADR resolves nothing, so a correct PRD records the booking decision as a [NEEDS ADR]
@@ -871,6 +852,37 @@ Judge only the final reply. PASS if all of these hold:
 FAIL if any of these fails, or if it says or implies that only an accepted ADR can resolve the decision,
 such as "epics must wait until an accepted ADR resolves it" with no other way named.
 """),
+        },
+    },
+    "unlinked-signal-keeps-target": {
+        "ver": "38", "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD_SIGNAL},
+        "prompt": POLICY_PROMPT,
+        "description": "VER-38 (issue #39): a candidate success signal that measures no promoted idea gives its own baseline, target and source; its metric keeps them, with no NEEDS CLARIFICATION target and no upstream link.",
+        # Four graders, so a PRD that marks only the target scores 0.75, under the 0.8 bar. A missing PRD or
+        # metric already fails the three regexes that need it.
+        "graders": {
+            "baseline-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+baseline: "[^"\n]*\b3\.4\b'),
+            "target-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+target: "(?![^"\n]*NEEDS CLARIFICATION)'
+                                                   rf'[^"\n]*\b4\.0\b'),
+            "measured-by-survey": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+measured_by: "[^"\n]*[Ss]urvey'),
+            "no-upstream": regex(PRD, "not_contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+upstream:[ \t]*(?:\n[ \t]+- |\[[ \t]*\{{)'),
+        },
+    },
+}
+
+# New graders for two v1 cases; their existing graders stay as they are.
+AWS_OR_STRIPE_ITEM = r'statement: "[^"\n]*\b{0}\b[^"\n]*"\n{1}[ \t]+- \{{id: BRN-'
+EXTRA_GRADERS = {
+    "records-provenance": {
+        "model-is-a-claude-model-id": regex(PRD, "contains", r'^  model: "claude-[a-z0-9][a-z0-9.-]*"', "m"),
+        "identity-not-unavailable": regex(PRD, "not_contains", r'^  (?:tool|model|session): "?unavailable\b', "m"),
+        "authors-include-the-tool": regex(PRD, "contains", r'^authors: \[[^\]\n]*"claude-code"[^\]\n]*\]', "m"),
+        "changelog-session-matches": regex(PRD, "contains",
+                                           r'^  session: "([0-9a-f-]{36})"[\s\S]*\| claude-code \(session \1\) \|', "m"),
+    },
+    "constraints-not-design": {
+        "aws-no-brn-link": regex(PRD, "not_contains", AWS_OR_STRIPE_ITEM.format("AWS", ITEM)),
+        "stripe-no-brn-link": regex(PRD, "not_contains", AWS_OR_STRIPE_ITEM.format("Stripe", ITEM)),
     },
 }
 
