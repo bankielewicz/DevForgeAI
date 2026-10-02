@@ -1,0 +1,71 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 3,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "unknownClaims": 0
+  },
+  "current": null,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": "report",
+    "reason": null,
+    "refuse": false,
+    "seq": 3
+  },
+  "manifest": {
+    "checklistHash": "sha256:fdc0f1e78c53cf96b76fb9363404c30338809c1266aaca6408e34b0b8318fe31",
+    "layers": [
+      "src/tests/progress/cases/layer-own-skill/project/team-review.json"
+    ],
+    "manifestHash": "sha256:fdc0f1e78c53cf96b76fb9363404c30338809c1266aaca6408e34b0b8318fe31",
+    "state": "matched"
+  },
+  "next": null,
+  "run": "20261002T120000Z-team-review-0000abcd",
+  "skill": "team-review",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Read reviews/2026-10-02.md",
+          "seq": 2,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 1,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Gather the reviews",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "report",
+      "n": 2,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Report",
+      "userOwned": false
+    }
+  ],
+  "through": 3
+}

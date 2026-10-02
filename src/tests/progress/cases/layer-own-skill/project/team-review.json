@@ -1,0 +1,24 @@
+{
+  "format": "devforgeai-manifest/1",
+  "skill": "team-review",
+  "checklistHash": "sha256:fdc0f1e78c53cf96b76fb9363404c30338809c1266aaca6408e34b0b8318fe31",
+  "steps": {
+    "1": {
+      "title": "Gather the reviews",
+      "kind": "read",
+      "need": "required",
+      "evidence": [
+        {
+          "type": "read",
+          "pattern": "reviews/"
+        }
+      ]
+    },
+    "2": {
+      "title": "Report",
+      "kind": "report",
+      "need": "required",
+      "gate": "report"
+    }
+  }
+}

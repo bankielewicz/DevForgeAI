@@ -1,0 +1,40 @@
+{
+  "format": "devforgeai-manifest/1",
+  "skill": "shipit",
+  "checklistHash": "sha256:32254403c9f07c0d16e548520e07b4d42ac394db130de39b99ce68024f2b08da",
+  "steps": {
+    "1": {
+      "title": "Gather the changes",
+      "kind": "think",
+      "need": "text-only"
+    },
+    "2": {
+      "title": "Read the release notes",
+      "kind": "read",
+      "need": "required",
+      "evidence": [
+        {
+          "type": "read",
+          "pattern": "docs/"
+        }
+      ]
+    },
+    "3": {
+      "title": "Push",
+      "kind": "forge",
+      "need": "required",
+      "evidence": [
+        {
+          "type": "script",
+          "pattern": "push.sh"
+        }
+      ]
+    },
+    "4": {
+      "title": "Report",
+      "kind": "report",
+      "need": "required",
+      "gate": "report"
+    }
+  }
+}

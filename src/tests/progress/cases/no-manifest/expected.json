@@ -1,0 +1,150 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 2,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "unknownClaims": 0
+  },
+  "current": 3,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": null,
+    "reason": null,
+    "refuse": false,
+    "seq": null
+  },
+  "manifest": {
+    "checklistHash": "sha256:1f42c513b37651f05c5152293c41e795ed0667684aa814b64b980d8c6f8e4008",
+    "layers": [],
+    "manifestHash": null,
+    "state": "none"
+  },
+  "next": null,
+  "run": "20261002T120000Z-prd-0000abcd",
+  "skill": "prd",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 2,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": null,
+      "n": 1,
+      "need": "text-only",
+      "note": "no manifest for this skill; tracking ticks only",
+      "state": "done",
+      "title": "Resolve policy (R1, R2)",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 2,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": null,
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Select the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 3,
+      "need": "text-only",
+      "note": "",
+      "state": "current",
+      "title": "Read the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 4,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Choose: new PRD or extend",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 5,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Read architecture context",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 6,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Draft from the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 7,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Interview only the gaps; settle quality categories",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 8,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Write the PRD",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 9,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Validate the PRD",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 10,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 2
+}

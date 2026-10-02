@@ -1,0 +1,7 @@
+{
+  "manifests": [
+    "@plugin"
+  ],
+  "phases": null,
+  "root": "root"
+}

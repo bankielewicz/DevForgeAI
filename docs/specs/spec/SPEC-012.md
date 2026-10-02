@@ -467,9 +467,52 @@ quality_responses:
 | Kind | Status |
 | --- | --- |
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12 |
-| Build | Not built |
+| Build | Built on branch `feat/spec-012-progress-core` (worktree), not merged. Commits: schemas `5eb2034`; manifests, generated cases and tests `ea3ccdb`; `evaluate.py` in stages `6507c9a`, `b095c13`, `bb47cd5` and `9eb1895`; expected states `fcf1d0d`; records in the next commit. Results at `fcf1d0d` plus the added VER-09 assertion: `src/tests/progress` 51 passed, 173 subtests (SpecRules 25; SpecRulesUnderS 25, every rule with the evaluator under `python3 -S`; Goldens 1, over 29 cases); full `src/tests` 528 passed, 544 subtests, against the baseline at `4100614` of 477 and 371, so nothing earlier broke. VER-19 (QR-03): a 500-event log evaluates in 36 ms (`-B`) and 31 ms (`-S -B`) on the owner's machine, against 200 ms. QR-04 by review: `evaluate.py` opens only `--events`, the manifest files, `--phases`, `--checklist`, and with `--root` the written files under its realpath; it writes only a temporary file beside `--out`, renamed over it; it opens no network connection and starts no process. plugin-validator (2026-10-02): PASS, 0 critical, 0 warnings, 6 informational notes; the one real note, a temporary file left beside `--out` when the rename fails, fixed in `f4260a3`. Two notes pass to the adapter's spec: run the evaluator as `python3 ${CLAUDE_PLUGIN_ROOT}/progress/evaluate.py` (the file isn't executable). Plugin version: 0.12.0, the next free minor at merge (§10) |
 
 Each case is a folder in `src/tests/progress/cases/` with `events.jsonl` and `expected.json`; a test runs IF-01 on it and compares the output with `expected.json` byte for byte. "The prototype's moment N" means the five moments of the design proposal's prototype.
+
+**Build decisions and departures (2026-10-02), for Bryan to approve or reverse.** Each names its case; a SPEC-012 v2
+could adopt the wording.
+
+- **Departure, BEH-09: a step's own tick hands answers on instead of losing them.** As written, BEH-09 closes a
+  user-owned step's window at the step's own claim. Claude often ticks brainstorm's step 5 in the same reply that
+  proposes the dispositions and asks; the user's answer then falls outside every window, and the BRN the user
+  approved is flagged rule-broken. Built in two passes: BEH-09 as written, then any answer still unassigned goes to
+  the earliest user-owned step whose window would hold it without its own claim (its gate and a later step's
+  evidence still close it). Case `brn-ticked-then-answered`. v2 wording: "A step's own claim closes its window only
+  for handing later answers to the next user-owned step; an answer no other window holds still counts for it until
+  its gate."
+- **Clarification, BEH-09: "over the whole log" stops at the window's close.** Read literally, a later re-read of an
+  earlier step's folder moves the opening past the close and empties the window: architecture step 10 reading
+  ARCH-001 also matches step 4's `docs/specs/arch/` rule, and step 7's answers were lost. Built as: the opening is the
+  latest tool evidence or claim of an earlier step before the window's gate or a later step's evidence. VER-10 still
+  holds. Case `evidence-only`.
+- **Reading, BEH-17: a later layer restates the earlier one.** VER-21 makes removing a content rule or dropping a gate
+  an error, which only a full restatement can express, and BEH-17 says a later file "may not remove or change anything
+  the earlier layers set". So a later file holds every earlier step (same title and kind; need equal or required;
+  user-owned stays; a gate stays; `when` unchanged while conditional), every earlier evidence and content rule, and no
+  new step; the last valid layer is the effective manifest. Cases `layer-adds-rule` and VER-21's variants.
+- **Departure, BEH-08: one flag per step and type across gates.** A later gate that finds the same skipped or claimed
+  step adds no second flag (rule-broken flags stay one per write and rule). BEH-08's "flags record what each gate
+  found" would otherwise repeat each flag at the report gate and the run's end. Case `brn-unconfirmed` (two flags
+  over both gates; VER-09's added assertion).
+- **Gap, §4: architecture step 5 is tracked by ticks only.** §4's evidence "read outside `docs/specs/`" can't be
+  written in DM-01, whose patterns have no negation, so the manifest gives step 5 no evidence rule; an unseen
+  conditional step is not-applicable at a gate (VER-14). v2 options: a negated pattern (`!docs/specs/`) or an
+  `exclude` field on read rules.
+- **Reading, BEH-11 and VER-06: ADRs are written before the ARCH.** The gate holds the most recent check, so VER-06's
+  `refuse: true` holds only when the ARCH write comes last, which is also the skill's own order (SKL-003 step 9).
+  Cases `arch-outcome-unconfirmed` and `arch-outcome-confirmed`.
+- **Reading, ERR-05 at the report gate and run end.** A user-owned step whose content couldn't be checked keeps its
+  state and the ERR-05 note; it isn't turned into "no answer; left open", because its content wasn't seen. Case
+  `messy-log`.
+- **Test order.** Property tests per VER came first and failed before the evaluator existed; each case's
+  `expected.json` was then written by `make_cases.py --write-expected`, reviewed against its VER item, and locked by a
+  separate byte-for-byte test (`Goldens`), so a failure says whether a rule broke or the output changed.
+- **Smaller choices:** `next` for a built skill is `{"skill": …, "available": true, "note": ""}`; `counts.events` counts
+  the run's valid, unique events, including those after run-end; a Glob or Grep pattern is matched as text against a
+  rule's pattern, so a Glob of `docs/specs/prd/PRD-*.md` also counts for architecture step 3; `manifest.layers` lists
+  a manifest file even when it is stale; evidence `detail` and flag messages are worded by the evaluator.
 
 ```yaml items
 verifications:
@@ -690,3 +733,6 @@ Still open, or notes:
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before review, on Bryan's direction of 2026-10-02 (the adaptive model: core, then project, then personal): manifests come in layers that only add rules, following ADR-003 and ADR-006 (proposed); new BEH-17, ERR-09, VER-20 and VER-21; `manifest.layers` in the state; IF-01's `--manifests` repeats in layer order; upstream gains ADR-003, ADR-006 and FR-011, and the spec is blocked on ADR-006. Also, after the advisor's review: answer windows close at the step's own tick or a later step's evidence (BEH-09), and `current` counts any reached step and is null at the end (BEH-07, BEH-14) | frontmatter, §1, §2, §3, DM-03, IF-01, BEH-07, BEH-09, BEH-14, BEH-17, ERR-09, VER-06, VER-17, VER-20, VER-21, §10, §11, §13 |
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's answers of 2026-10-02: QR-01 to QR-04 satisfy PRD-001 v11's new NFR-004 to NFR-007, and FR-021 is linked, so the spec passes its schema in full; manifests in `devforgeai/manifests/` with an `organization/` folder and DM-01's optional `source`; `devforgeai/progress/` gitignored by default; the Codex port keeps its own fork; the plugin version is set at merge. PRD-001 links moved to v11 | frontmatter, §3, DM-01, §4, QR-01 to QR-04, §9, §10, §13 |
 | 1 | 2026-10-02 | Bryan | Approved, with ADR-006 accepted the same day | status |
+| 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build on `feat/spec-012-progress-core`, its results, and the build decisions and departures for Bryan's review | §9 |
+| 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9's build row adds the plugin-validator result and the fix in `f4260a3` | §9 |
+| 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records plugin 0.12.0, set for the merge on Bryan's instruction | §9 |

@@ -1,0 +1,143 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 3,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "unknownClaims": 0
+  },
+  "current": null,
+  "ended": "another-skill",
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": null,
+    "reason": null,
+    "refuse": false,
+    "seq": null
+  },
+  "manifest": {
+    "checklistHash": "sha256:5c6cc7c1f45e296ece37d757d1d039210e46d37256eca4910346b5ca188cb001",
+    "layers": [],
+    "manifestHash": null,
+    "state": "none"
+  },
+  "next": {
+    "available": false,
+    "note": "the story skill isn't built yet (SPEC-009)",
+    "skill": "story"
+  },
+  "run": "20261002T120000Z-epic-0000abcd",
+  "skill": "epic",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 2,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": null,
+      "n": 1,
+      "need": "text-only",
+      "note": "no manifest for this skill; tracking ticks only",
+      "state": "done",
+      "title": "Select the PRD",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 2,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": null,
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Read the PRD",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 3,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Find the current ARCH",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 4,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Compute readiness",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 5,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Read existing epics and select",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 6,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Propose and confirm the grouping",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 7,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Write the epics",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 8,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Validate every epic written",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 9,
+      "need": "text-only",
+      "note": "not reached",
+      "state": "pending",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 3
+}

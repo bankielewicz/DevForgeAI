@@ -1,0 +1,176 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 7,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "unknownClaims": 0
+  },
+  "current": null,
+  "ended": null,
+  "flags": [
+    {
+      "gate": "report",
+      "message": "step 7 (Validate the BRN) is ticked, but a successful run of validate_brn.py on a written file wasn't seen",
+      "seq": 7,
+      "step": 7,
+      "type": "claimed-not-evidenced"
+    }
+  ],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": "report",
+    "reason": "step 7 (Validate the BRN) is ticked, but a successful run of validate_brn.py on a written file wasn't seen",
+    "refuse": true,
+    "seq": 7
+  },
+  "manifest": {
+    "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "layers": [
+      "src/claude/DevForgeAI/progress/manifests/brainstorm.json"
+    ],
+    "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "state": "matched"
+  },
+  "next": {
+    "available": true,
+    "note": "",
+    "skill": "prd"
+  },
+  "run": "20261002T120000Z-brainstorm-0000abcd",
+  "skill": "brainstorm",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Glob docs/specs/brainstorm/BRN-*.md",
+          "seq": 2,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 1,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Intake: topic, existing BRNs, clarifying questions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Select a framework",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 3,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Diverge: problems, ideas, assumptions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 3,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 4,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Evaluate with the framework",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "ask",
+      "n": 5,
+      "need": "required",
+      "note": "no answer; left open",
+      "state": "not-applicable",
+      "title": "Propose dispositions and ask the user to confirm",
+      "userOwned": true
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 6,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Write docs/specs/brainstorm/BRN-002.md",
+          "seq": 4,
+          "strength": "medium",
+          "type": "write"
+        }
+      ],
+      "kind": "forge",
+      "n": 6,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Write the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 6,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "inspect",
+      "n": 7,
+      "need": "required",
+      "note": "",
+      "state": "claimed",
+      "title": "Validate the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 7,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "report",
+      "n": 8,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 7
+}
