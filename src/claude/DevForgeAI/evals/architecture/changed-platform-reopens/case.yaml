@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: changed-platform-reopens
+context:
+  scaffold_script: scaffold.sh

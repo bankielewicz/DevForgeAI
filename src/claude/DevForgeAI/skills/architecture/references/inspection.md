@@ -41,11 +41,13 @@ evidence.
 
 Inspection is **read-only**, and every path it reads, lists or searches is inside
 `inspection_scope`.
-- Use Read, Glob and Grep when they are available, always with a path inside the scope
+- Prefer Read, Glob and Grep where they are available, always with a path inside the scope
   (`Grep pattern="session" path="services/auth"`).
-- Otherwise use only `ls`, `find`, `grep`, `cat` and `head`, with explicit paths inside the scope:
-  no redirection (`>`, `>>`, `tee`), no writes, and no running, installing or building project
-  code. A pipe may only feed another of these commands (`grep -rn session services/auth | head`).
+- Bash may also run `ls`, `find`, `grep`, `cat`, `head` and `test -f`, and nothing else, with
+  explicit paths inside the scope, in the documents read by contract, or in the skill's own files
+  (some Claude Code builds have no Glob or Grep tool): no redirection (`>`, `>>`, `tee`), no writes,
+  and no running, installing or building project code. A pipe may only feed another of these
+  commands (`grep -rn session services/auth | head`).
 - Never list or search the whole repository: no `find .`, no `grep -r` on `.`, and no Glob
   pattern such as `**/*` without a scoped path.
 
@@ -64,10 +66,11 @@ inspection scope and was not read; it may set the session lifetime]`.
 ## Recording evidence
 
 Record **every project source consulted for architecture analysis** as one EVD item:
-the PRD, each other existing ARCH, each ADR that bears on this PRD's questions (it cites one of the
-PRD's requirements, or resolves or may answer a DEC), each applied policy setting, and each code or
-configuration file (or directory, when you read several files in it for one finding). The ARCH you
-are amending or reviewing is not evidence of itself. When amending against a newer PRD version, add
+the PRD, each other ARCH that bears on this system, each ADR that bears on this PRD's questions (it
+cites one of the PRD's requirements, or resolves or may answer a DEC), each applied policy setting,
+and each code or configuration file (or directory, when you read several files in it for one
+finding). An ARCH read only to check coverage (SKILL.md step 4) is not evidence, and neither is the
+ARCH you are amending or reviewing; a review record adds no EVD at all. When amending against a newer PRD version, add
 a new PRD EVD for that version; the existing one stays unchanged.
 - `source`: the document ID (`PRD-001`, `ARCH-001`, `ADR-002`), the setting (`POL-001#SET-01`), or
   the repository-relative path (`services/auth/session.ts`).
