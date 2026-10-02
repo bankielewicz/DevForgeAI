@@ -137,19 +137,12 @@ version: 1, hash: null}`; the report's first line names ARCH-002.
 
 ### C-k. A changed mandated platform (VER-13 (k); BEH-04, check 3)
 
-`manual platform-changed` (POL-001 v2: SET-01 now mandates "Network-hosted mail service (HTTPS API)" for
-transactional email; ARCH-001 still links SET-01 at version 1, and its resolution line records the regional
-network mail relay). Say:
-
-> /devforgeai:epic PRD-001 — one epic for everything eligible. Proceed without questions.
-
-**Expect:** EPIC-001 has no `refines` link to FR-012. The reply's FR-012 row is **unknown**, naming
-POL-001#SET-01 and the change, for example: `FR-012: unknown: POL-001#SET-01 fails the policy check: changed
-since ARCH-001 applied it; now "Network-hosted mail service (HTTPS API) for transactional email" (check 3).`
-Its next action is to review the architecture with `/devforgeai:architecture PRD-001`.
-
-SPEC-004 v4 will change this to **blocked** once SPEC-003 v5 is on main (Bryan, 2026-10-01); until then,
-unknown is the expected result.
+Automated since SPEC-004 version 4 by VER-20 (eval case `epic-mandate-changed-blocked`): a changed platform
+now makes FR-012 **blocked** by DEC-07, not unknown, so this check is not run by hand. The `manual
+platform-changed` fixture stays for anyone who wants to see it interactively; expect the FR-012 row
+`blocked by DEC-07 (POL-001#SET-01 now mandates "Network-hosted mail service (HTTPS API) for transactional
+email"; ARCH-001 recorded "Regional network mail relay (SMTP) for transactional email")`, with the next action
+`/devforgeai:architecture PRD-001`.
 
 ## 3. Reading checks (no Claude session)
 
@@ -193,4 +186,4 @@ is a reading check, not an exercise (SPEC-004 VER-13 (h)).
 | C-h VER-13 (h) three attempts, ERR-06 (reading) | NOT_RUN | | |
 | C-i VER-13 (i) review loop | NOT_RUN | | |
 | C-j VER-13 (j) superseded ARCH | NOT_RUN | | |
-| C-k VER-13 (k) changed mandated platform | NOT_RUN | | |
+| C-k VER-13 (k) changed mandated platform | AUTOMATED (VER-20, SPEC-004 v4) | | |
