@@ -1,5 +1,6 @@
-"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and the grader files added to two
-existing cases (VER-09 records-provenance, VER-10 constraints-not-design). The 20 cases written for v1
+"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and v4 (VER-33 to VER-36; issues #36
+and #38), and the grader files added to two existing cases (VER-09 records-provenance, VER-10
+constraints-not-design). The 20 cases written for v1
 are hand-written; this script never touches their prompts, scaffolds or existing graders, only adds the
 new grader files listed in EXTRA_GRADERS.
 
@@ -341,6 +342,57 @@ PRD_FOOD_BAD = food_prd("high")  # VER-27: a priority the self-check rejects, in
 FR_001_BAD = re.search(r"  - id: FR-001\n(?:    [^\n]*\n)+?(?=  - id:)", PRD_FOOD_BAD).group(0)
 PRD_FOOD_BAD_DATE = PRD_FOOD.replace("updated: 2026-09-20", "updated: 2026-02-30")  # issue #15; no case uses it
 
+# VER-34: the food bank brainstorm revisited after PRD-001 was written, with a new problem and a new promoted idea.
+BRN_FOOD_V2 = BRN_FOOD
+for _old, _new in [
+    ("version: 1\ncreated: 2026-09-10\nupdated: 2026-09-12\n", "version: 2\ncreated: 2026-09-10\nupdated: 2026-09-24\n"),
+    ("    severity: medium\n```\n\n## 3. Target users",
+     "    severity: medium\n"
+     "  - id: PRB-03\n    status: active\n"
+     '    statement: "Volunteers without forklift or food-safety training sign up for shifts that need it"\n'
+     '    who: "Shift coordinator"\n    evidence: "Coordinator notes, September 2026"\n    severity: medium\n'
+     "```\n\n## 3. Target users"),
+    ('    reason: "A mobile-friendly website covers the need"\n```',
+     '    reason: "A mobile-friendly website covers the need"\n'
+     "  - id: IDEA-05\n    status: active\n"
+     '    idea: "Each shift lists the training it needs, and only volunteers with that training can sign up for it"\n'
+     '    addresses:\n      - PRB-03\n    value: "high"\n    effort: "medium"\n    risk: "low"\n    score: null\n'
+     '    disposition: promoted\n    reason: "Stops untrained sign-ups for forklift and food-safety shifts"\n```'),
+    ("A native app was rejected.", "A native app was rejected. Revisited on 2026-09-24: shift training requirements were promoted."),
+    ("| 1 | 2026-09-12 | claude-code (session fixture-session) | Converged |\n",
+     "| 1 | 2026-09-12 | claude-code (session fixture-session) | Converged |\n"
+     "| 2 | 2026-09-24 | claude-code (session fixture-session) | Revisited: PRB-03 and IDEA-05 added, IDEA-05 promoted |\n"),
+]:
+    BRN_FOOD_V2 = replace(BRN_FOOD_V2, _old, _new)
+# VER-34: the same PRD-001 before review and approval, so that extending it raises no BEH-09 suspect-epic warning,
+# which would also match the suspect-link grader.
+PRD_FOOD_DRAFT = PRD_FOOD
+for _old, _new in [
+    ("status: approved\n", "status: draft\n"),
+    ('reviewed_by: ["Marcus Lee"]\napproved_by: "Priya Nair"\napproved_on: 2026-09-20\n',
+     'reviewed_by: []\napproved_by: ""\napproved_on: null\n'),
+    ("| 1 | 2026-09-19 | Marcus Lee | Reviewed: no changes requested | none |\n"
+     "| 1 | 2026-09-20 | Priya Nair | Approved | status |\n", ""),
+]:
+    PRD_FOOD_DRAFT = replace(PRD_FOOD_DRAFT, _old, _new)
+# Every item PRD_FOOD_DRAFT holds, in file order; an extension must leave each one byte-identical.
+DRAFT_ITEMS = [re.search(rf"  - id: {i}\n(?:    [^\n]*\n)+", PRD_FOOD_DRAFT).group(0)
+               for i in ("SM-01", "SM-02", "FR-001", "FR-002", "NFR-001", "NFR-002", "NFR-003", "ASM-01")]
+# VER-35: a second brainstorm still in progress: a draft whose ideas are all open, so nothing is promoted.
+BRN_FOOD_2_DRAFT = BRN_FOOD_2
+for _old, _new in [
+    ("status: converged\n", "status: draft\n"),
+    ('    disposition: promoted\n    reason: "Removes most cover calls"\n', "    disposition: open\n    reason: null\n"),
+    ('    disposition: parked\n    reason: "Wait until swaps are in use"\n', "    disposition: open\n    reason: null\n"),
+    ("Online swaps were promoted. Automatic cover suggestions were parked.", "Not converged yet: both ideas are open."),
+    ("| 1 | 2026-09-23 | claude-code (session fixture-session) | Converged |\n",
+     "| 1 | 2026-09-23 | claude-code (session fixture-session) | Draft |\n"),
+]:
+    BRN_FOOD_2_DRAFT = replace(BRN_FOOD_2_DRAFT, _old, _new)
+# VER-33: a workspace with no docs/specs/ at all, only a README naming the product.
+README_VOLUNTEER = ("# Riverside Food Bank volunteer app\n\n"
+                    "A web app where food bank volunteers see open warehouse shifts and sign up for them.\n")
+
 
 def policy(settings, *, updated="2026-09-01", authors='["Architecture board"]',
            upstream="  - {id: ADR-104, relation: constrains, version: 2, hash: null}"):
@@ -471,6 +523,8 @@ FIXTURES = {
     "PRD_LEDGERLY": (PRD_LEDGERLY, "prd.schema.json"), "PRD_FOOD": (PRD_FOOD, "prd.schema.json"),
     "PRD_FOOD_BAD": (PRD_FOOD_BAD, "prd.schema.json", [("functional_requirements", 0, "priority")]),
     "PRD_FOOD_BAD_DATE": (PRD_FOOD_BAD_DATE, "prd.schema.json", [("frontmatter", "updated")]),
+    "BRN_FOOD_V2": (BRN_FOOD_V2, "brainstorm.schema.json"),
+    "BRN_FOOD_2_DRAFT": (BRN_FOOD_2_DRAFT, "brainstorm.schema.json"), "PRD_FOOD_DRAFT": (PRD_FOOD_DRAFT, "prd.schema.json"),
     "POL_BASE": (POL_BASE, "policy.schema.json"), "POL_COMPLIANCE": (POL_COMPLIANCE, "policy.schema.json"),
     "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "POL_BAD_AUTHORS": (POL_BAD_AUTHORS, "policy.schema.json", [("frontmatter", "authors")]),
@@ -486,8 +540,11 @@ POLICY_SCRIPT = {
 # --- Graders --------------------------------------------------------------------------------------
 
 ITEM = r"(?:(?![ \t]*- id:)[ \t]+[^\n]*\n)*?"  # the rest of one item's lines, never the next item
+# "no regulation applies" and "no compliance requirement is needed" record a none too (SKL-002 v4's pass C:
+# 2 of 3 VER-25 runs wrote them and failed the narrower pattern).
 NONE_WORDS = (r"(?:\b[Nn]one\b|\b[Nn]othing\b|\b[Nn]o (?:additional|further|extra|separate|specific|dedicated)\b"
-              r"|\b[Nn]ot needed\b|\bbeyond (?:the|what)\b)")
+              r"|\b[Nn]ot needed\b|\bbeyond (?:the|what)\b"
+              r"|\b[Nn]o [a-z-]+(?: [a-z-]+){0,3} (?:applies|apply|is needed|are needed|is required|are required)\b)")
 
 
 def prose_none(category):
@@ -521,6 +578,16 @@ PRD_EXISTS = exists(PRD, True)
 IN_REVIEW = regex(PRD, "contains", r"^status: in-review[ \t]*$", "m")
 APPROVAL_CLEARED = regex(PRD, "contains", r'^approved_by: ""[ \t]*\n^approved_on: null[ \t]*$', "m")
 POLICY_PROMPT = "Write the PRD for BRN-001. Proceed without questions.\n"
+SKILL_FIRED = (ROOT / "selects-unprocessed-brn" / "graders" / "skill-fired.md").read_text()
+# Each block, then the next item or the end of its fence, so a line added inside an item also fails.
+ITEMS_UNCHANGED = r"[\s\S]*".join(lit(b) + r"(?=  - id:|```)" for b in DRAFT_ITEMS)
+REVISITED_CONTEXT = """\
+Context the reply was written in: BRN-001 is at version 2. Its promoted ideas IDEA-01 and IDEA-03 are
+already cited by the draft PRD-001 (IDEA-01 by FR-001 and SM-01, IDEA-03 by FR-002 and SM-02) at BRN-001
+version 1, and its new promoted IDEA-05 isn't cited yet. The user asked to extend PRD-001 from BRN-001 and
+to proceed without questions. A correct run adds requirements for IDEA-05 only and passes validation.
+
+"""
 EXTEND_PROMPT = "Extend PRD-001 from BRN-002. Proceed without questions.\n"
 
 
@@ -646,6 +713,110 @@ FAIL if any of these fails, or if the reply says it changed FR-001.
                                         r"(?:(?:has not|hasn't|have not|not)(?: yet)? been reviewed|[Uu]nreviewed)"),
         },
     },
+    "no-brainstorm-yet": {
+        "ver": "33", "files": {"README.md": README_VOLUNTEER},
+        "prompt": "Let's write the PRD for our volunteer app.\n",
+        "description": "VER-33: with no brainstorm in the workspace and no BRN named, the skill says that no brainstorm exists yet, points to /devforgeai:brainstorm, never says that promoted ideas are already cited, and writes no PRD.",
+        "graders": {
+            "skill-fired": SKILL_FIRED,
+            "points-to-brainstorm": regex("last_message", "contains", r"/devforgeai:brainstorm\b"),
+            "never-says-already-cited": regex("last_message", "not_contains", r"already cited", "i"),
+            "no-prd-written": NO_PRD,
+            "no-docs-written": exists("docs/**", False),
+            "no-root-prd": exists("PRD.md", False),
+            "says-no-brainstorm": llm("""\
+Context the reply was written in: the workspace has no docs/specs/ folder, so no brainstorm (BRN)
+document exists. The user asked to write a PRD and named no brainstorm.
+
+Judge only the final reply. PASS if all of these hold:
+- It says that no brainstorm exists yet, or that there is no BRN to turn into a PRD.
+- It tells the user to start with /devforgeai:brainstorm.
+- It doesn't present a PRD as written.
+FAIL if any of these fails, or if it says that promoted ideas are already cited by a PRD.
+"""),
+        },
+    },
+    "revisited-brainstorm-extends": {
+        "ver": "34",
+        "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD_V2, "docs/specs/prd/PRD-001.md": PRD_FOOD_DRAFT},
+        "prompt": "Extend PRD-001 from BRN-001. Proceed without questions.\n",
+        "description": "VER-34: BRN-001 version 2 adds a promoted IDEA-05; extending the draft PRD-001, which cites IDEA-01 and IDEA-03 at version 1, drafts FRs from IDEA-05 only, leaves the existing items unchanged, passes validation, and reports the version 1 links as suspect.",
+        "graders": {
+            "extended-to-version-2": regex(PRD, "contains", r"^version: 2[ \t]*$", "m"),
+            "new-fr-from-idea-05": regex(PRD, "contains", rf"- id: FR-\d{{3}}\n{ITEM}[ \t]+- \{{id: BRN-001, item: IDEA-05, "
+                                                          r"relation: derives, version: 2, hash: null\}"),
+            # The draft cites IDEA-01 and IDEA-03 twice each (an FR and an SM); a third citation, at any version,
+            # is a re-drafted item. The parked IDEA-02 and rejected IDEA-04 never appear.
+            "no-idea-redrafted": regex(PRD, "not_contains", r"(?:item: IDEA-01,[\s\S]*){3}|(?:item: IDEA-03,[\s\S]*){3}"
+                                                            r"|IDEA-0[24]\b"),
+            "existing-items-unchanged": regex(PRD, "contains", ITEMS_UNCHANGED),
+            "validation-passed": regex("last_message", "contains", r"Validation:\**[ \t]*passed", "i"),
+            # llm graders keep the reply as evidence (Bryan, 2026-10-01: the first v3 run failed two regexes here
+            # and kept no copy of the reply). One duty each, so a reply that misses both scores 5 of 7, below 0.8.
+            "reply-names-left-out-ideas": llm(REVISITED_CONTEXT + """\
+Judge only the final reply. PASS if it names both IDEA-01 and IDEA-03, by ID, as left out (not drafted
+again) because PRD-001 already cites them, and names for each a PRD-001 item that cites it (FR-001 or SM-01
+for IDEA-01; FR-002 or SM-02 for IDEA-03). Any wording counts, such as "IDEA-01 left out: PRD-001#FR-001
+cites it" or "IDEA-01 and IDEA-03 are already covered by FR-001 and FR-002".
+FAIL if either ID or its citing item is missing, or if the reply says it drafted new requirements from
+IDEA-01 or IDEA-03.
+"""),
+            "reply-reports-suspect-links": llm(REVISITED_CONTEXT + """\
+Judge only the final reply. PASS if it tells the user that PRD-001's existing links to BRN-001 cite
+version 1 while BRN-001 is now at version 2, so they point to an older version and need review. Any wording
+counts; the word "suspect" isn't required, and the reply needn't list every such link.
+FAIL if the reply doesn't mention them, or if it counts them as validation errors, as repairs, or as a
+reason a check failed.
+"""),
+        },
+    },
+    "no-unprocessed-brn": {
+        "ver": "35",
+        "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD, "docs/specs/prd/PRD-001.md": PRD_FOOD,
+                  "docs/specs/brainstorm/BRN-002.md": BRN_FOOD_2_DRAFT},
+        "prompt": "Let's write the next PRD from our brainstorms.\n",
+        "description": "VER-35: no BRN can be processed, for two reasons: PRD-001 cites every promoted idea of BRN-001, and BRN-002 is a draft with only open ideas. The skill lists BRN-002 with its status, points to /devforgeai:brainstorm, says BRN-001's ideas are already cited by PRD-001, and writes nothing.",
+        "graders": {
+            "skill-fired": SKILL_FIRED,
+            "lists-brn-002-with-status": regex("last_message", "contains",
+                                               r"BRN-002[^\n]{0,200}\b(?:draft|not converged|open)\b"
+                                               r"|\b(?:draft|not converged)\b[^\n]{0,200}BRN-002", "i"),
+            "points-to-brainstorm": regex("last_message", "contains", r"/devforgeai:brainstorm\b"),
+            "no-prd-002": exists("docs/specs/prd/PRD-002.md", False),
+            "prd-001-unchanged": regex(PRD, "contains", lit(PRD_FOOD)),
+            "reply-explains-both-brns": llm("""\
+Context the reply was written in: BRN-001's promoted ideas (IDEA-01 and IDEA-03) are all cited by PRD-001.
+BRN-002 is a draft brainstorm whose ideas are all open, so it has no promoted idea. The user asked to write
+the next PRD and named no brainstorm, so no BRN can be processed.
+
+Judge only the final reply. PASS if all of these hold:
+- It says that BRN-002 has no promoted idea yet (a draft, not converged) and points to /devforgeai:brainstorm
+  to converge it.
+- It says that BRN-001's promoted ideas are already cited by PRD-001.
+- It doesn't present a PRD as written.
+FAIL if any of these fails, or if it offers BRN-001 or BRN-002 as ready to turn into a PRD.
+"""),
+        },
+    },
+    "all-ideas-cited-stops": {
+        "ver": "36",
+        "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD, "docs/specs/prd/PRD-001.md": PRD_FOOD},
+        "prompt": "Write a new PRD for BRN-001. Proceed without questions.\n",
+        "description": "VER-36: PRD-001 already cites every promoted idea of BRN-001, so a stated request for a new PRD from BRN-001 stops under ERR-04: no PRD-002, PRD-001 unchanged, and the reply says PRD-001 already cites them.",
+        "graders": {
+            "no-prd-002": exists("docs/specs/prd/PRD-002.md", False),
+            "prd-001-unchanged": regex(PRD, "contains", lit(PRD_FOOD)),
+            "names-prd-001": regex("last_message", "contains", r"PRD-001\b"),
+            "reply-says-all-cited": llm("""\
+Context the reply was written in: BRN-001's promoted ideas are IDEA-01 and IDEA-03, and PRD-001 already
+cites both. The user asked for a new PRD from BRN-001 and said to proceed without questions.
+
+Judge only the final reply. PASS if it says that no new PRD was written because PRD-001 already cites every
+promoted idea of BRN-001 (any wording), and doesn't present a new PRD as written.
+FAIL if it presents a PRD-002 or any other new PRD as written, or doesn't give that reason.
+"""),
+        },
+    },
 }
 
 # New graders for two v1 cases; their existing graders stay as they are.
@@ -667,7 +838,9 @@ EXTRA_GRADERS = {
 
 def scaffold(comment, files):
     out = f"#!/usr/bin/env bash\n# {comment}\nset -euo pipefail\n"
-    out += "mkdir -p " + " ".join(sorted({os.path.dirname(p) for p in files})) + "\n"
+    dirs = sorted({os.path.dirname(p) for p in files} - {""})
+    if dirs:
+        out += "mkdir -p " + " ".join(dirs) + "\n"
     for p, text in files.items():
         out += f"cat > {p} <<'FIXTURE'\n{text}FIXTURE\n"
     return out

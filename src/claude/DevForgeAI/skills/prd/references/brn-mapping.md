@@ -18,8 +18,8 @@ Read this at SKILL.md step 6. The BRN is read-only; everything here writes only 
 
 | BRN | PRD | Link |
 |---|---|---|
-| `problems` (PRB) addressed by a promoted idea | Section 2 prose | Frontmatter `upstream`: `{id: BRN-NNN, item: PRB-NN, relation: derives, version: <BRN version>, hash: null}` |
-| promoted `ideas` (IDEA) | One or more `functional_requirements`; every FR derives from one | Item `upstream`: `{id: BRN-NNN, item: IDEA-NN, relation: derives, version: <BRN version>, hash: null}` |
+| `problems` (PRB) addressed by a promoted idea this PRD drafts | Section 2 prose | Frontmatter `upstream`: `{id: BRN-NNN, item: PRB-NN, relation: derives, version: <BRN version>, hash: null}` |
+| promoted `ideas` (IDEA) that no PRD cites yet | One or more `functional_requirements`; every FR derives from one | Item `upstream`: `{id: BRN-NNN, item: IDEA-NN, relation: derives, version: <BRN version>, hash: null}` |
 | `assumptions` (ASM) | `assumptions` | Item `upstream`: `{id: BRN-NNN, item: ASM-NN, relation: derives, version: <BRN version>, hash: null}` |
 | Candidate success signals (section 8 prose) | `success_metrics` | `derives` the promoted IDEA it measures; otherwise no link, and a `[NEEDS CLARIFICATION]` target |
 | Open, parked and rejected ideas | Nothing | Never cited by ID or link |
@@ -36,16 +36,19 @@ Read this at SKILL.md step 6. The BRN is read-only; everything here writes only 
 
 ## Problems
 
-- Describe each problem that a promoted idea `addresses` in section 2 prose, from the affected
+- Describe each problem that a promoted idea this PRD drafts `addresses` in section 2 prose, from the affected
   user's side. Mention it by its qualified reference in plain text, for example `(BRN-001#PRB-01)`.
 - Link each of those problems once in frontmatter `upstream` with `relation: derives`.
 - A problem that no promoted idea addresses isn't linked. The PRD doesn't set out to solve it.
 
 ## Promoted ideas into requirements
 
+- Draft only promoted ideas that no PRD cites yet. Leave out one that a PRD already cites, and name it
+  in the reply with the item that cites it (SKILL.md step 3).
 - Each promoted idea becomes **one or more** FRs. Split an idea when it holds separate capabilities
   that can be prioritized separately ("book, move and cancel" gives "book" plus "move or cancel").
-  For a `prototype`, keep one FR per idea (capability level).
+  For a `prototype`, keep one FR per idea (capability level); when round 1 sets `prototype` after
+  drafting, merge the draft back to one FR per idea before round 3.
 - Every statement starts "The system shall" and states one testable capability, *what*, not *how*.
 - Each FR carries an item `upstream` link to its idea, so every FR derives from a promoted idea. An
   FR serving two promoted ideas carries two links.
@@ -78,11 +81,12 @@ brainstorm decided something it didn't.
 
 - Each signal becomes one `SM-NN` with `metric` stated as something measurable ("Share of
   appointments booked online").
-- If the signal measures a promoted idea's effect, link it: `derives` that IDEA. Otherwise leave out
+- If the signal measures a drafted idea's effect, link it: `derives` that IDEA. Otherwise leave out
   `upstream` and write `target: "[NEEDS CLARIFICATION: target for <metric>]"`.
 - `baseline`, `target` and `measured_by` come from the BRN's evidence or the user. Otherwise they are
   `[NEEDS CLARIFICATION: …]` markers.
-- A signal that only measures a parked or rejected idea is dropped.
+- A signal that only measures a parked or rejected idea, or a promoted idea left out because a PRD
+  already cites it, is dropped.
 - A metric the user states with "no target yet" is kept, with
   `target: "[NEEDS CLARIFICATION: target for <metric>]"` (interview.md, "Recording quality answers").
 
