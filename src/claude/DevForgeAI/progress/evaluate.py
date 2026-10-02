@@ -243,6 +243,218 @@ def skill_name(event):
     return event["skill"].split(":")[-1]
 
 
+INFINITY = float("inf")
+
+
+def path_matches(path, pattern):
+    """A path against a rule's pattern; a pattern ending in / means anything inside that folder."""
+    if pattern.endswith("/"):
+        return path.startswith(pattern) or path == pattern[:-1]
+    return fnmatchcase(path, pattern)
+
+
+def names_a(candidate, written):
+    """Whether a path or command token names one of the written files."""
+    return any(candidate == w or candidate.endswith("/" + w) for w in written)
+
+
+class Step:
+    def __init__(self, n, title, kind=None, need="text-only", user_owned=False, gate=None, rules=(), when=None):
+        self.n, self.title, self.kind, self.need = n, title, kind, need
+        self.user_owned, self.gate, self.rules, self.when = user_owned, gate, list(rules), when
+        self.strong = any(r["type"] in ("script", "answer") for r in self.rules)
+        self.evidence = []      # dicts: seq, type, strength, detail
+        self.claims = []        # dicts: seq, state, reason, in seq order
+        self.gate_state = None  # set by a gate: skipped, not-applicable, unconfirmed
+        self.sticky = None      # a gate result later evidence can't undo: skipped, rule-broken
+        self.note = ""
+        self.unverifiable = False
+
+    def claim_before(self, upto):
+        claims = [c for c in self.claims if c["seq"] < upto]
+        return claims[-1] if claims else None
+
+    def first_signal(self):
+        seqs = [x["seq"] for x in self.evidence] + [c["seq"] for c in self.claims]
+        return min(seqs) if seqs else None
+
+    def reached(self, upto=INFINITY):
+        return any(x["seq"] < upto for x in self.evidence) or any(c["seq"] < upto for c in self.claims)
+
+    def answered(self, upto=INFINITY):
+        return any(x["type"] == "answer" and x["seq"] < upto for x in self.evidence)
+
+    def base_state(self, upto=INFINITY):
+        """BEH-07's state from the evidence and claims before `upto`."""
+        if any(x["seq"] < upto for x in self.evidence):
+            return "done"
+        claim = self.claim_before(upto)
+        if claim is None:
+            return "pending"
+        if claim["state"] == "skipped":
+            return "skipped-with-reason"
+        return "claimed" if self.strong else "done"
+
+
+class Run:
+    """One run's steps, judged from its events (BEH-04 to BEH-13)."""
+
+    def __init__(self, events, manifest, manifest_state, root):
+        self.events, self.root = events, root
+        self.tracked = manifest_state in ("matched", "unverified")
+        loaded = events[0]
+        if self.tracked:
+            self.steps = [Step(int(n), m["title"], m["kind"], m["need"], bool(m.get("userOwned")),
+                               m.get("gate"), m.get("evidence", []), m.get("when"))
+                          for n, m in sorted(manifest["steps"].items(), key=lambda kv: int(kv[0]))]
+            self.content_rules = manifest.get("contentRules", [])
+        else:
+            self.steps = [Step(n, title) for n, title in checklist_steps(loaded["checklist"])]
+            self.content_rules = []
+        self.by_n = {s.n: s for s in self.steps}
+        self.write_gate = next((s for s in self.steps if s.gate == "write"), None)
+        self.report_gate = next((s for s in self.steps if s.gate == "report"), None)
+        self.written = []           # (seq, path): files the write-gate step wrote
+        self.unknown_claims = 0
+        self.flags = []
+        self.gate = {"kind": None, "seq": None, "refuse": False, "reason": None}
+        notes = {"stale": "manifest out of date; tracking ticks only",
+                 "none": "no manifest for this skill; tracking ticks only",
+                 "unverified": "the checklist wasn't seen in the skill-loaded event; using the manifest as is"}
+        self.manifest_note = notes.get(manifest_state)
+
+    # -- evidence and claims (BEH-05, BEH-06) --
+
+    def written_before(self, seq):
+        return [p for s, p in self.written if s < seq]
+
+    def rule_matches(self, rule, e):
+        tool, kind = e.get("tool"), rule["type"]
+        if e.get("error") is True:
+            return None
+        if kind == "script":
+            command = e.get("command")
+            if tool != "Bash" or not isinstance(command, str):
+                return None
+            tokens = command.split()
+            hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
+            if hit is None or e.get("exit") != rule.get("exit", 0):
+                return None
+            if rule.get("target") == "written" and not any(names_a(t, self.written_before(e["seq"])) for t in tokens):
+                return None
+            return "%s exit %d" % (PurePosixPath(hit).name, e["exit"])
+        path = e.get("path")
+        if not isinstance(path, str):
+            return None
+        if kind == "write" and tool in ("Write", "Edit") and path_matches(path, rule["pattern"]):
+            return "%s %s" % (tool, path)
+        if kind == "read" and tool in ("Read", "Glob", "Grep") and path_matches(path, rule["pattern"]):
+            if rule.get("target") == "written" and not names_a(path, self.written_before(e["seq"])):
+                return None
+            return "%s %s" % (tool, path)
+        return None
+
+    def take_tool(self, e):
+        if self.write_gate is not None:
+            for rule in self.write_gate.rules:
+                if rule["type"] == "write" and e.get("error") is not True and e.get("tool") in ("Write", "Edit") \
+                        and isinstance(e.get("path"), str) and path_matches(e["path"], rule["pattern"]):
+                    self.written.append((e["seq"], e["path"]))
+                    break
+        for step in self.steps:
+            for rule in step.rules:
+                if rule["type"] == "answer":
+                    continue
+                detail = self.rule_matches(rule, e)
+                if detail:
+                    strength = "strong" if rule["type"] == "script" else "medium"
+                    step.evidence.append({"seq": e["seq"], "type": rule["type"], "strength": strength,
+                                          "detail": detail})
+                    break
+
+    def take_reply(self, e):
+        for line in e["text"].splitlines():
+            m = SKIP_TICK.match(line)
+            if m:
+                n, claim = int(m.group(1)), {"seq": e["seq"], "state": "skipped", "reason": m.group(2)}
+            else:
+                m = DONE_TICK.match(line)
+                if not m:
+                    continue
+                n, claim = int(m.group(1)), {"seq": e["seq"], "state": "done", "reason": None}
+            if n not in self.by_n:
+                self.unknown_claims += 1
+            else:
+                self.by_n[n].claims.append(claim)
+
+    def collect(self):
+        for e in self.events:
+            if e["kind"] == "tool":
+                self.take_tool(e)
+            elif e["kind"] == "reply":
+                self.take_reply(e)
+
+    # -- positions --
+
+    def highest_reached(self, upto=INFINITY):
+        reached = [s.n for s in self.steps if s.reached(upto)]
+        return max(reached) if reached else None
+
+    def current(self):
+        if self.events[-1]["kind"] == "run-end" or not self.steps:
+            return None
+        highest = self.highest_reached()
+        if highest is None:
+            return self.steps[0].n
+        later = [s.n for s in self.steps if s.n > highest]
+        return later[0] if later else None
+
+    # -- assembling the state --
+
+    def final_state(self, step):
+        if step.sticky:
+            return step.sticky
+        base = step.base_state()
+        if base in ("done", "claimed", "skipped-with-reason"):
+            return base
+        return step.gate_state or "pending"
+
+    def step_notes(self, current):
+        ended = self.events[-1]["kind"] == "run-end"
+        highest = self.highest_reached()
+        for step in self.steps:
+            first = step.first_signal()
+            if first is not None:
+                earlier = [s.n for s in self.steps if s.n > step.n and s.first_signal() is not None
+                           and s.first_signal() < first]
+                if earlier and not step.note:
+                    step.note = "seen late (after step %d)" % max(earlier)
+            if self.final_state(step) == "pending" and not step.note:
+                if ended or (current is None and highest is not None and step.n > highest):
+                    if highest is None or step.n > highest:
+                        step.note = "not reached"
+                elif current is not None and step.n < current:
+                    step.note = "not seen yet"
+        if self.manifest_note and self.steps:
+            first = self.steps[0]
+            first.note = self.manifest_note + ("; " + first.note if first.note else "")
+
+    def step_records(self, current):
+        last = self.events[-1]
+        waiting = last["kind"] == "turn" and last.get("phase") == "end"
+        records = []
+        for step in self.steps:
+            state = self.final_state(step)
+            if step.n == current and state == "pending":
+                state = "your-turn" if step.user_owned and not step.answered() and waiting else "current"
+            claim = step.claims[-1] if step.claims else None
+            records.append({"n": step.n, "title": step.title, "kind": step.kind, "need": step.need,
+                            "userOwned": step.user_owned, "state": state,
+                            "evidence": sorted(step.evidence, key=lambda x: x["seq"]),
+                            "claim": dict(claim) if claim else None, "note": step.note})
+        return records
+
+
 def build_state(events, counts, manifest, layers, root=None):
     loaded = events[0]
     skill = skill_name(loaded)
@@ -255,18 +467,11 @@ def build_state(events, counts, manifest, layers, root=None):
         manifest_state = "matched"
     else:
         manifest_state = "stale"
-    ended = events[-1]["reason"] if events[-1]["kind"] == "run-end" else None
-    steps = []
-    if manifest_state in ("matched", "unverified"):
-        for n in sorted(manifest["steps"], key=int):
-            m = manifest["steps"][n]
-            steps.append({"n": int(n), "title": m["title"], "kind": m["kind"], "need": m["need"],
-                          "userOwned": bool(m.get("userOwned")), "state": "pending", "evidence": [],
-                          "claim": None, "note": ""})
-    else:
-        for n, title in checklist_steps(loaded["checklist"]):
-            steps.append({"n": n, "title": title, "kind": None, "need": "text-only", "userOwned": False,
-                          "state": "pending", "evidence": [], "claim": None, "note": ""})
+    run = Run(events, manifest, manifest_state, root)
+    run.collect()
+    counts = dict(counts, unknownClaims=run.unknown_claims)
+    current = run.current()
+    run.step_notes(current)
     state = {
         "format": "devforgeai-progress/1",
         "run": loaded["run"],
@@ -275,11 +480,11 @@ def build_state(events, counts, manifest, layers, root=None):
                      "manifestHash": manifest["checklistHash"] if manifest else None,
                      "checklistHash": event_hash, "layers": layers},
         "through": events[-1]["seq"],
-        "ended": ended,
-        "current": None,
-        "steps": steps,
-        "flags": [],
-        "gate": {"kind": None, "seq": None, "refuse": False, "reason": None},
+        "ended": events[-1]["reason"] if events[-1]["kind"] == "run-end" else None,
+        "current": current,
+        "steps": run.step_records(current),
+        "flags": run.flags,
+        "gate": run.gate,
         "next": None,
         "counts": counts,
     }
