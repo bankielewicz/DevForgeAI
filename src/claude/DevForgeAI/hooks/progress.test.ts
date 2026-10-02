@@ -747,11 +747,12 @@ test('VER-18: current.json and adapter.log are the session\'s, and a new session
   expect(w.files.has(`${SESSION}/current.json`)).toBe(true)
   expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
   await clearTo($, w, 's2')
+  expect([...w.files.keys()].some(k => k.startsWith(`${PROGRESS}/sessions/s2/`))).toBe(false)
   await load($)
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/b.md` } as Any)
   await w.clock.advance(600)
   expect(w.files.has(`${PROGRESS}/sessions/s2/current.json`)).toBe(true)
-  expect(w.files.has(`${PROGRESS}/sessions/s2/adapter.log`)).toBe(true)
+  expect((w.files.get(`${PROGRESS}/sessions/s2/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
   expect(w.files.has(`${PROGRESS}/current.json`) || w.files.has(`${PROGRESS}/adapter.log`)).toBe(false)
 })
 
@@ -839,4 +840,31 @@ test('VER-18: a run opens under the root it reads, and the mode and pruning foll
   expect(JSON.parse(eventsOf(w).slice(-1)[0])).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
   expect(w.runs.filter(a => a[2] === 'mode').map(a => argOf(a, '--root'))).toEqual([ROOT, tree])
   expect(prunes(w).map(a => argOf(a, '--root'))).toEqual([ROOT, tree])
+  expect((w.files.get(`${treeProgress}/sessions/s1/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+})
+
+// ---- After the plugin-validator's review of version 3 ----
+
+// A stored retentionDays under DM-06's floor never reaches the module: Claude Code refuses to load it ("options do
+// not fit plugin.json userConfig: Keep progress files (days) must be at least 7"), so core.test.ts tests the clamp.
+
+test('BEH-15: a session ID of another shape never makes a path; the run is still recorded', async ($, on) => {
+  const w = world(on)
+  w.sessionId = '../../outside'
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.writes.every(p => !p.includes('..') && p.startsWith(`${PROGRESS}/`))).toBe(true)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
+})
+
+test('BEH-15: a .gitignore deleted during a run is written again before the next evaluation', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  w.files.delete(`${PROGRESS}/.gitignore`)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.files.get(`${PROGRESS}/.gitignore`)).toBe('*\n')
 })

@@ -280,3 +280,11 @@ export function finalTimeout(remainingMs: number): number | null {
   const timeout = Math.floor(remainingMs) - 300
   return timeout >= 200 ? timeout : null
 }
+
+/** The retention period in days from the retentionDays setting (DM-06): 7 to 3650, else 30. Claude Code already
+ *  refuses to load the module when a stored value is out of range; this is the second guard, since the floor is
+ *  what protects another, idle session's open run (BEH-19). */
+export function retentionOf(value: unknown): number {
+  const days = Number(value)
+  return Number.isInteger(days) && days >= 7 && days <= 3650 ? days : 30
+}

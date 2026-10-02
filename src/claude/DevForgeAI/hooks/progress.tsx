@@ -13,7 +13,7 @@ import type { EngineInterface, Register } from 'claude-code'
 import type { ProgressMode, ProgressModeSource, ProgressRun, ProgressSummary } from '../types'
 import {
   bandRows, byteSize, editResult, eventLine, exitOf, finalTimeout, fit, isAnswered, isEngine, isFailed,
-  isPersonPrompt, isTracked, keptContent, newFlagToasts, refusalText, replyText, reportContext, runId,
+  isPersonPrompt, isTracked, keptContent, newFlagToasts, refusalText, replyText, reportContext, retentionOf, runId,
   skillName, statusText, summaryOf, toolPath, FORMAT, IDLE_MS, LOG_LIMIT,
 } from './progress-core'
 import type { Fields, ProgressState, ToolOutcome } from './progress-core'
@@ -80,9 +80,14 @@ function progressDir(r: string): string {
   return `${r}/devforgeai/progress`
 }
 
-/** The session's own folder (DM-02): its ID changes at /clear, /resume and /branch, which start a new one. */
+const SESSION_ID = /^[A-Za-z0-9_-]+$/
+
+/** The session's own folder (DM-02): its ID changes at /clear, /resume and /branch, which start a new one. A session
+ *  ID is a UUID; one of another shape (empty, or holding '/' or '..') never makes a path (BEH-15). */
 async function sessionDir($: E, r: string): Promise<string> {
-  return `${progressDir(r)}/sessions/${await $.session.id()}`
+  const id = await $.session.id()
+  if (typeof id !== 'string' || !SESSION_ID.test(id)) throw new Error('unusable session ID')
+  return `${progressDir(r)}/sessions/${id}`
 }
 
 /** The root a run opened in; a run kept in $.state from before version 3 has none, so it comes from the folder. */
@@ -187,11 +192,16 @@ async function useLogRoot($: E, r: string): Promise<void> {
   }
 }
 
+/** The .gitignore that keeps devforgeai/progress/ out of git, written again if it was deleted (BEH-15). */
+async function ensureIgnore($: E, r: string): Promise<void> {
+  const file = `${progressDir(r)}/.gitignore`
+  if (!(await $.fs.exists(file))) await $.fs.write(file, '*\n')
+}
+
 /** devforgeai/progress/ and its .gitignore in a run's root, before anything else is written there (BEH-15). */
 async function ensureDir($: E, r: string): Promise<boolean> {
-  const dir = progressDir(r)
   try {
-    if (!(await $.fs.exists(`${dir}/.gitignore`))) await $.fs.write(`${dir}/.gitignore`, '*\n')
+    await ensureIgnore($, r)
     await useLogRoot($, r)
     return true
   } catch {
@@ -397,6 +407,8 @@ async function tick($: E): Promise<void> {
     evaluating = true
     try {
       await update($, MARKED, () => false)
+      // The folder's .gitignore may have gone with a `git clean` while the run went on (BEH-15).
+      await ensureIgnore($, rootOf(run)).catch(() => undefined)
       const got = await evaluate($, rootOf(run), `${run.dir}/events.jsonl`, `${run.dir}/state.json`, EVALUATOR_TIMEOUT)
       const open = await read($, RUN)
       // A run that opened while the evaluator ran keeps its own summary and flags.
@@ -434,6 +446,9 @@ async function setup($: E): Promise<void> {
 
 /** Open a run for a tracked skill in the root read as it loaded (BEH-03). */
 async function openRun($: E, r: string, skill: string, checklist: string): Promise<void> {
+  if (!(await ensureDir($, r))) return
+  // The mode is resolved here, after the folder exists, so a new root's mode line lands in that root's log (BEH-16).
+  if (modeSession !== (await $.session.id()) || modeRoot !== r) await resolveMode($, r)
   const now = await $.clock.now()
   const id = runId(now, skill, crypto.getRandomValues(new Uint8Array(4)))
   const dir = `${progressDir(r)}/runs/${id}`
@@ -443,7 +458,7 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
     mode: await read($, MODE), modeSource: await read($, SOURCE),
   })
   const run: ProgressRun = { id, skill, seq: 1, dir, root: r }
-  if (!(await ensureDir($, r)) || !(await writeLog($, run, [line]))) return
+  if (!(await writeLog($, run, [line]))) return
   await update($, RUN, () => run)
   await update($, LAST, () => now)
   await update($, MARKED, () => true)
@@ -541,8 +556,7 @@ async function recording($: E, agentId: unknown): Promise<boolean> {
 export const register: Register = (on, options) => {
   // With tracking off, the adapter does nothing at all (BEH-01, DM-05).
   if ((options as Fields | undefined)?.tracking === 'off') return
-  const days = Number((options as Fields | undefined)?.retentionDays)
-  retentionDays = Number.isInteger(days) && days >= 1 ? days : 30
+  retentionDays = retentionOf((options as Fields | undefined)?.retentionDays)
 
   on('session.start', async ($, e, next) => {
     interactive = e.isInteractive
@@ -582,7 +596,6 @@ export const register: Register = (on, options) => {
       // One read of the root serves every decision as the run opens (BEH-03): tracked, the folder, the mode.
       const r = await $.session.root()
       if (!(await tracked($, r, name))) return out
-      if (modeSession !== (await $.session.id()) || modeRoot !== r) await resolveMode($, r)
       ensureTimer($)
       if ((await read($, RUN)) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
       await openRun($, r, name, out.text)
@@ -708,6 +721,8 @@ export const register: Register = (on, options) => {
     pendingReport = null
     lastStatus = undefined
     turnOpen = false
+    // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
+    logRoot = null
     return next(e)
   }).catch(async ($, e, next) => {
     return next(e)

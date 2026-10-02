@@ -1,7 +1,7 @@
 import { expect, test } from 'claude-code/testing'
 import {
   bandRows, editResult, eventLine, finalTimeout, exitOf, fit, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked,
-  keptContent, newFlagToasts, refusalText, relPath, replyText, reportContext, runId, skillName, statusText,
+  keptContent, newFlagToasts, refusalText, relPath, replyText, reportContext, retentionOf, runId, skillName, statusText,
   summaryOf, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -163,6 +163,11 @@ test('the final evaluation at session end uses what the budget leaves, or none',
   expect(finalTimeout(600)).toBe(300)
   expect(finalTimeout(450)).toBe(null)
   expect(finalTimeout(0)).toBe(null)
+})
+
+test('the retention period is 7 to 3650 days, and 30 otherwise (DM-06)', () => {
+  expect([7, 30, 3650].map(retentionOf)).toEqual([7, 30, 3650])
+  expect([2, 0, -7, 3651, 7.5, undefined, null, 'soon'].map(retentionOf)).toEqual([30, 30, 30, 30, 30, 30, 30, 30])
 })
 
 test('the refusal names what clears each flag, and the decision line only for decision flags', () => {
