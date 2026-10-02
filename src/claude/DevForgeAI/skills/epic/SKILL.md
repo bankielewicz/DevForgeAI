@@ -4,7 +4,7 @@ description: Turns a DevForgeAI PRD into epic documents for the requirements tha
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-004"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # Epic
@@ -47,6 +47,12 @@ The skill proposes; the user decides:
 
 - **Which PRD**, when no ID was given.
 - **Which ARCH**, when several active ARCHs cite the PRD (ERR-04).
+- **The platform behind an older-form policy record**: when the ARCH recorded a policy resolver only as
+  `architecture.mandated_platforms=POL-NNN#SET-NN`, with no platform (selection.md, check 3), ask at step
+  4, before step 6, one question per resolver, naming the setting's current value:
+  `Did POL-NNN#SET-NN already mandate "<platform> for <capability>" when DEC-NN was resolved?`
+  Offer Yes, No and Don't know, with none recommended: only the user knows. Yes: it counts. No or don't
+  know: treat it as a changed mandate (blocked).
 - **The grouping**: which epics, and which requirements each holds. You only propose it.
 - **Priority, release and requirement changes**: an undecided priority or release, and any change to a
   requirement, belong to the PRD owner. Report them; never decide or ask about them.
@@ -58,14 +64,18 @@ given. Only the invariants at step 6 limit it, never your own grouping preferenc
 left-out requirement eligible. If it leaves an eligible FR unplaced or places one twice, ask about that
 FR; when nobody can be asked, follow step 6.
 
-**Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options each,
-with the recommended option first and marked "(Recommended)". Otherwise ask in plain text and end your
-turn. Write nothing that a pending answer affects until the answer arrives.
+**Asking.** Decide from the request alone whether a user is present: one is, unless the request says to
+proceed without questions. Use AskUserQuestion when it is available: at most 4 questions per call, 2–4
+options each, with the recommended option first and marked "(Recommended)" (except the older-form
+question above, which recommends nothing). When it isn't available or
+fails, put the question at the end of the final reply and end your turn. Write nothing that a pending
+answer affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask me
 anything") and gives no grouping, nobody can confirm one: write the proposed grouping with the
-unconfirmed-grouping marker (step 6). This never answers **which PRD** or **which ARCH**: if either is
-open, ask it and write nothing.
+unconfirmed-grouping marker (step 6). Whenever the request says to proceed without questions, an
+older-form policy record counts, and the reply's notes name the gap. This never answers **which PRD** or
+**which ARCH**: if either is open, ask it and write nothing.
 
 ## Workflow
 
@@ -118,11 +128,15 @@ the PRD's current version. Otherwise stop and write nothing:
 Follow selection.md, "The readiness rule", for every active FR and NFR:
 - a DEC cites a requirement only through a link with **this PRD's ID and that item**; an ARCH can cover
   several PRDs whose requirement numbers collide;
-- read each DEC that cites the requirement, and each resolving ADR's `status` and `superseded_by` from
-  its file now;
+- read each DEC that cites the requirement, its `state` before its resolvers (an open DEC blocks), and
+  each resolving ADR's `status` and `superseded_by` from its file now;
 - apply the bounded policy check (selection.md) to each `POL-NNN#SET-NN` resolver, and resolve no other
   policy. Two policies that mandate platforms for different capabilities don't conflict, and a newer
-  policy version passes when the ARCH's latest resolution line still holds the setting unchanged;
+  policy version passes when the ARCH's latest resolution line still holds the setting unchanged. A
+  changed platform or capability **blocks** the requirement by its DEC. A line that names the setting
+  only in the older form is an evidence gap: with a user present, ask the question in "Decisions that
+  belong to the user" now, then stop, writing nothing and giving no report until the answer arrives; with
+  no user, it counts. A missing record is unknown;
 - match every `[NEEDS ADR]` marker to its own DEC; a marker with no matching question blocks every
   requirement it names, even when other DECs citing them are resolved;
 - when readiness can't be established, the requirement is **unknown**, naming the missing input or
@@ -135,7 +149,8 @@ active existing epic refines is **covered**. NFRs are never covered. Note the hi
 
 Apply the selection rule. A requirement is **eligible** when it is active, ready, `release: current`,
 `priority` must, should or could, and, for an FR, not covered. Every requirement that ends up in no new
-epic gets one row with every reason that applies and one next action (selection.md, "Left-out rows").
+epic gets one row with every reason that applies and one next action (selection.md, "Left-out rows"). A
+blocked or unknown NFR that an active existing epic refines lists `refined by EPIC-NNN` in its row.
 
 **When there is nothing to write**, decide which case applies before you write the reply:
 1. **Everything eligible already has an epic (ERR-05).** No FR is eligible, and every eligible NFR is
@@ -238,7 +253,9 @@ Write the final reply in this order, as plain Markdown:
    - the proposal warning when an input is a draft;
    - the unconfirmed-grouping warning when it applies;
    - any resolver that no longer counts, and why;
-   - any policy resolver that still counts at a newer policy version, naming both versions.
+   - any policy resolver that still counts at a newer policy version, naming both versions;
+   - any policy resolver whose ARCH record has no platform (the older form), naming the gap and whether
+     the user confirmed it or nobody could be asked (selection.md, "The bounded policy check").
    Ask no questions about left-out requirements.
 3. The next step, as its own paragraph outside any code block. It starts with the words **Next step**,
    names the epics by ID and never by path, and nothing follows it.
@@ -261,10 +278,11 @@ When nothing was written:
   is blocked or unknown. Otherwise it is the PRD owner's decision on the undecided rows. Otherwise say
   that nothing remains for the current release.
 
-When the skill stops without writing (ERR-01 to ERR-04, ERR-07), the reply says why and what the user
-can do, leaves out the report, and its next step names the command to run
-(`/devforgeai:architecture PRD-NNN` for ERR-02 and ERR-03). After ERR-06, the validation-failure report
-replaces both the report and the next step.
+When the skill stops without writing (ERR-01 to ERR-03, ERR-07), the reply says why and what the user can
+do, leaves out the report, and its next step names the command to run (`/devforgeai:architecture PRD-NNN`
+for ERR-02 and ERR-03). When it stops to ask (which PRD, which ARCH for ERR-04, or the older-form question
+at step 4) without AskUserQuestion, the reply says why, leaves out the report and the next step, and ends
+with the question. After ERR-06, the validation-failure report replaces both the report and the next step.
 
 ## Output contract
 
