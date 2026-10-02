@@ -108,7 +108,8 @@ async function adapterLog($: E, kind: string, text: string): Promise<void> {
     const now = new Date(await $.clock.now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
     const line = `${now} ${run?.id ?? '-'} ${kind}: ${text}\n`
     if (!dirReady) {
-      early = [...early, line].slice(-50)
+      // The first lines are kept (the early notices are the ones that matter); past 200, newer ones are dropped.
+      if (early.length < 200) early = [...early, line]
       return
     }
     await appendLog($, line)

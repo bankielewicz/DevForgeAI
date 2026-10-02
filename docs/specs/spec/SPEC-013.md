@@ -451,7 +451,10 @@ v3 could adopt the wording.
   module's own writes (`.gitignore`, `events.jsonl`, `current.json`, `adapter.log`) and the evaluator's `--out`.
 - **Reading, DM-02:** `adapter.log` gets a `mode` line each time the mode is resolved, with its source (ADR-006 D3).
   Lines are held in memory until a run has created `devforgeai/progress/` with its `.gitignore` (BEH-15), so a
-  session that runs no tracked skill writes nothing in the project; the log keeps its last half past 512 KiB.
+  session that runs no tracked skill writes nothing in the project (the first 200 held lines are kept); the log
+  keeps its last half past 512 KiB.
+- **Reading, ERR-11:** a run stopped at 4 MiB has no `run-end` line, since nothing more is written to its log, so
+  the evaluator sees it as open; the next tracked skill opens a new run as usual.
 - **Reading, DM-01:** `exit` is recorded for every tool event, 0 for any call that succeeded, as the table lists it.
 - **Build note, `session.append`:** the test kit answers nothing beneath it, so the adapter records the reply before
   calling `next(e)`, as BEH-04 allows, and the kit tests catch the call's rejection.
