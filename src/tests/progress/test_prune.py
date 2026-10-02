@@ -168,5 +168,144 @@ class PruneRulesUnderS(PruneRules):
     INTERPRETER = (sys.executable, "-S", "-B")
 
 
+def load_prune():
+    """prune.py as a module, so a test can change the tree between its check and its deletion."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("prune_under_test", PRUNE)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+class PruneRaces(Base):
+    """VER-17, after the plugin-validator's review: prune runs outside the sandbox, so a folder swapped for a link
+    between its check and its deletion must not take prune outside devforgeai/progress/, and a folder that changes
+    or vanishes meanwhile is skipped, never a crash."""
+
+    def setUp(self):
+        super().setUp()
+        self.module = load_prune()
+        self.victim = self.folder(Path(self._tmp.name) / "victim", 400, files=("precious.txt",))
+        (self.victim / "deep").mkdir()
+        (self.victim / "deep" / "keep.txt").write_text("x\n")
+        self.age(self.victim, 400)
+
+    def patched_newest(self, before):
+        """newest() that runs `before(name)` first, as a racing writer would, then answers as prune's own does."""
+        real = self.module.newest
+
+        def newest(name, dir_fd):
+            before(name)
+            return real(name, dir_fd)
+        self.module.newest = newest
+
+    def assert_victim_intact(self):
+        self.assertTrue((self.victim / "precious.txt").exists())
+        self.assertTrue((self.victim / "deep" / "keep.txt").exists())
+
+    def test_a_candidate_swapped_for_a_link_after_its_check_is_not_followed(self):
+        run = self.run_dir(OLD_RUN, 40)
+        real = self.module.newest
+
+        def newest(name, dir_fd):
+            latest = real(name, dir_fd)
+            os.rename(run, run.with_name("moved"))
+            os.symlink(self.victim, run)
+            return latest
+        self.module.newest = newest
+        runs, sessions, failure = self.module.prune(str(self.root), 30, None, None, self.now)
+        self.assert_victim_intact()
+        # Opening the swapped name finds a link, not a folder: the candidate is skipped as changed, never entered.
+        self.assertEqual((runs, failure), (0, None))
+        self.assertTrue((run.with_name("moved") / "events.jsonl").exists())
+
+    def test_a_subfolder_swapped_for_a_link_during_removal_is_not_followed(self):
+        run = self.run_dir(OLD_RUN, 40)
+        (run / "sub").mkdir()
+        (run / "sub" / "a.txt").write_text("x\n")
+        self.age(run, 40)
+        real = self.module.newest
+
+        def newest(name, dir_fd):
+            latest = real(name, dir_fd)
+            os.rename(run / "sub", self.root / "sub-moved")
+            os.symlink(self.victim, run / "sub")
+            return latest
+        self.module.newest = newest
+        self.module.prune(str(self.root), 30, None, None, self.now)
+        self.assert_victim_intact()
+        self.assertTrue(self.victim.is_dir())
+
+    def test_a_parent_folder_swapped_for_a_link_is_not_followed(self):
+        session = self.session_dir(OLD_SESSION, 40)
+        outside = self.folder(Path(self._tmp.name) / "elsewhere" / OLD_SESSION, 400, files=("precious.txt",))
+        sessions = session.parent
+
+        def before(name):
+            if sessions.is_symlink():
+                return
+            os.rename(sessions, sessions.with_name("sessions-moved"))
+            os.symlink(outside.parent, sessions)
+        self.patched_newest(before)
+        self.module.prune(str(self.root), 30, None, None, self.now)
+        self.assertTrue((outside / "precious.txt").exists())
+
+    def test_a_folder_that_vanishes_before_its_check_is_skipped(self):
+        run = self.run_dir(OLD_RUN, 40)
+        other = self.run_dir("20260901T120000Z-architecture-0a1b2c3e", 40)
+
+        def before(name):
+            if name == OLD_RUN and run.exists():
+                for child in run.iterdir():
+                    child.unlink()
+                run.rmdir()
+        self.patched_newest(before)
+        runs, sessions, failure = self.module.prune(str(self.root), 30, None, None, self.now)
+        self.assertIsNone(failure)
+        self.assertEqual(runs, 1)
+        self.assertFalse(other.exists())
+
+    def test_a_platform_without_descriptor_support_is_refused(self):
+        self.module.supported = lambda: False
+        self.run_dir(OLD_RUN, 40)
+        with self.assertRaises(self.module.Fail):
+            self.module.prune(str(self.root), 30, None, None, self.now)
+        self.assertTrue((self.progress / "runs" / OLD_RUN).exists())
+
+
+class PruneFailures(Base):
+    """VER-17 and ERR-12: a failure gives exit 2 and one stderr line, after both passes have run; two prunes at
+    once, as two sessions starting their first runs together would start, both finish cleanly."""
+
+    def test_a_folder_that_cant_be_removed_gives_one_line_and_the_other_pass_still_runs(self):
+        run = self.run_dir(OLD_RUN, 40)
+        locked = run / "locked"
+        locked.mkdir()
+        (locked / "a.txt").write_text("x\n")
+        self.age(run, 40)
+        locked.chmod(0o555)
+        session = self.session_dir(OLD_SESSION, 40)
+        try:
+            proc = self.prune("--root", self.root, "--days", 30)
+        finally:
+            locked.chmod(0o755)
+        self.assertEqual(proc.returncode, 2)
+        self.assertEqual(len(proc.stderr.splitlines()), 1, proc.stderr)
+        self.assertNotIn("Traceback", proc.stderr)
+        self.assertFalse(session.exists())
+
+    def test_two_prunes_at_once_both_finish_cleanly(self):
+        for i in range(300):
+            self.run_dir("20260901T120000Z-brainstorm-%08x" % i, 40)
+        cmd = [sys.executable, "-B", str(PRUNE), "prune", "--root", str(self.root), "--days", "30"]
+        procs = [subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                 for _ in range(2)]
+        results = [proc.communicate(timeout=120) + (proc.returncode,) for proc in procs]
+        for out, err, code in results:
+            self.assertEqual((code, err), (0, ""))
+        self.assertEqual(sum(int(out.split()[1]) for out, _, _ in results), 300)
+        self.assertEqual(list((self.progress / "runs").iterdir()), [])
+
+
 if __name__ == "__main__":
     unittest.main()
