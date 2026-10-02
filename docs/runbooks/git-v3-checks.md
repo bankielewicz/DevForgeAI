@@ -2,7 +2,7 @@
 
 This prepares SPEC-007 v3 and SKL-006 v3 from approved v2. Both new revisions remain `in-review`.
 Bryan chose the three policies in the 2026-10-01 Codex session; those choices do not approve the
-completed implementation or waive native and manual checks. The source plugin candidate is 0.9.1.
+completed implementation or waive native and manual checks. The source plugin candidate is 0.10.1.
 
 ## Scope and plan
 

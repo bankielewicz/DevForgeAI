@@ -26,7 +26,7 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Changed
 
-- Prepared git SKL-006 v3 (plugin 0.9.1 candidate): push and PR requests check the requested
+- Prepared git SKL-006 v3 (plugin 0.10.1 candidate): push and PR requests check the requested
   branch for unrelated history before rebasing; carrying work from any branch asks before including
   commits outside the default branch, while reusing explicit inclusion; password assignments in
   explicitly named local/example Compose files warn and require confirmation. Other Compose
