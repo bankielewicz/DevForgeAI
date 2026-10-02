@@ -2,7 +2,7 @@
 id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
-status: in-review
+status: approved
 version: 4
 created: 2026-09-24
 updated: 2026-10-01
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:
   - {id: STORY-005, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -841,3 +841,4 @@ carries that case. (Reopening a DEC whose mandated platform changed is part of S
 | 3 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records SKL-004 v3's one run (17 of 18 at 1.00; VER-03 0.80 from a grader conflict written for version 2), the grader fix and its one-case check (1.00), and the bound 3-run (18 of 18 at 1.00, mean Δ +0.51). No item changed | §9 |
 | 3 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-004 v3 (2026-10-01), its merge in PR #47 and deployment in plugin 0.8.1, and the 3-run attempt that the account's session limit stopped. No item changed | §9 |
 | 4 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Bryan's decisions of 2026-10-01, following SPEC-003 v5 §4. Check 3: a policy version bump alone never blocks; a changed platform or capability makes the requirement blocked by its DEC and hands back to the architecture step; a record in the older form `architecture.mandated_platforms=POL-NNN#SET-NN` is an evidence gap (ask a user if present, one question per resolver; no user: it counts), limited to that exact form; a missing record stays unknown; checks 1, 2 and 4 and the ARCH link are kept. A DEC's state is read before its resolver. A policy setting resolving a different question never clears a marker. The NFR review signal: a blocked or unknown NFR that an active existing epic refines lists `refined by EPIC-NNN` and, as the first reason with an action, asks to review that epic's work; precedence follows the existing reason order. VER-13 (k) automated by VER-20; VER-20 to VER-26 added; the known limit and the reopen backlog item removed (SPEC-003 v5). SPEC-003 link moved to v5, gated on its merge. Awaiting Bryan's approval | frontmatter, §2, §4, BEH-04, BEH-05, BEH-06, §9, VER-13, VER-20 to VER-26, §10, §11, §12, §13 |
+| 4 | 2026-10-01 | Bryan | Approved | status |
