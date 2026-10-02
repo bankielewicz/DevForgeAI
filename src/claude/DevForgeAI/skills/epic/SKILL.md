@@ -49,9 +49,10 @@ The skill proposes; the user decides:
 - **Which ARCH**, when several active ARCHs cite the PRD (ERR-04).
 - **The platform behind an older-form policy record**: when the ARCH recorded a policy resolver only as
   `architecture.mandated_platforms=POL-NNN#SET-NN`, with no platform (selection.md, check 3), ask at step
-  4, before step 6, whether that setting mandated the platform it now names, for its capability, when the
-  question was resolved: one question per resolver. Yes: it counts. No or don't know: treat it as a
-  changed mandate (blocked).
+  4, before step 6, one question per resolver, naming the setting's current value: "Did POL-NNN#SET-NN
+  already mandate "<platform> for <capability>" when DEC-NN was resolved?" Offer Yes, No and Don't know,
+  with none recommended: only the user knows. Yes: it counts. No or don't know: treat it as a changed
+  mandate (blocked).
 - **The grouping**: which epics, and which requirements each holds. You only propose it.
 - **Priority, release and requirement changes**: an undecided priority or release, and any change to a
   requirement, belong to the PRD owner. Report them; never decide or ask about them.
@@ -65,14 +66,16 @@ FR; when nobody can be asked, follow step 6.
 
 **Asking.** Decide from the request alone whether a user is present: one is, unless the request says to
 proceed without questions. Use AskUserQuestion when it is available: at most 4 questions per call, 2–4
-options each, with the recommended option first and marked "(Recommended)". When it isn't available or
+options each, with the recommended option first and marked "(Recommended)" (except the older-form
+question above, which recommends nothing). When it isn't available or
 fails, put the question at the end of the final reply and end your turn. Write nothing that a pending
 answer affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask me
 anything") and gives no grouping, nobody can confirm one: write the proposed grouping with the
-unconfirmed-grouping marker (step 6). An older-form policy record then counts, and the reply's notes name
-the gap. This never answers **which PRD** or **which ARCH**: if either is open, ask it and write nothing.
+unconfirmed-grouping marker (step 6). Whenever the request says to proceed without questions, an
+older-form policy record counts, and the reply's notes name the gap. This never answers **which PRD** or
+**which ARCH**: if either is open, ask it and write nothing.
 
 ## Workflow
 
@@ -251,8 +254,8 @@ Write the final reply in this order, as plain Markdown:
    - the unconfirmed-grouping warning when it applies;
    - any resolver that no longer counts, and why;
    - any policy resolver that still counts at a newer policy version, naming both versions;
-   - any policy resolver counted with no platform recorded (the older form) because nobody could be
-     asked, naming the gap (selection.md, "The bounded policy check").
+   - any policy resolver whose ARCH record has no platform (the older form), naming the gap and whether
+     the user confirmed it or nobody could be asked (selection.md, "The bounded policy check").
    Ask no questions about left-out requirements.
 3. The next step, as its own paragraph outside any code block. It starts with the words **Next step**,
    names the epics by ID and never by path, and nothing follows it.
@@ -275,10 +278,11 @@ When nothing was written:
   is blocked or unknown. Otherwise it is the PRD owner's decision on the undecided rows. Otherwise say
   that nothing remains for the current release.
 
-When the skill stops without writing (ERR-01 to ERR-04, ERR-07, or the older-form question at step 4),
-the reply says why and what the user can do, leaves out the report, and its next step names the command to run
-(`/devforgeai:architecture PRD-NNN` for ERR-02 and ERR-03). After ERR-06, the validation-failure report
-replaces both the report and the next step.
+When the skill stops without writing (ERR-01 to ERR-03, ERR-07), the reply says why and what the user can
+do, leaves out the report, and its next step names the command to run (`/devforgeai:architecture PRD-NNN`
+for ERR-02 and ERR-03). When it stops to ask (which PRD, which ARCH for ERR-04, or the older-form question
+at step 4) without AskUserQuestion, the reply says why, leaves out the report and the next step, and ends
+with the question. After ERR-06, the validation-failure report replaces both the report and the next step.
 
 ## Output contract
 

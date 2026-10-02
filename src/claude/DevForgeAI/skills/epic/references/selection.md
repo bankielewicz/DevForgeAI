@@ -137,7 +137,9 @@ apply defaults or local preferences, and never resolve anything else from policy
    organization setting that such an override replaces fails this check.
 
 A changed mandate (check 3) makes R **blocked** by its DEC, for example
-`blocked by DEC-07 (POL-001#SET-01 now mandates "<platform> for <capability>"; ARCH-001 recorded "<platform> for <capability>")`.
+`blocked by DEC-07 (POL-001#SET-01 now mandates "<platform> for <capability>"; ARCH-001 recorded "<platform> for <capability>")`,
+or, for an older-form record the user didn't confirm (no or don't know),
+`blocked by DEC-07 (POL-001#SET-01 now mandates "<platform> for <capability>"; ARCH-001 recorded no platform, and the user didn't confirm it)`.
 Any other failed check makes R **unknown**, naming the resolver and the condition that failed:
 - `POL-001#SET-01 fails the policy check: setting deprecated (check 2)`
 - `POL-001#SET-01 fails the policy check: ARCH-001 has no link to it (check 3)`
@@ -163,9 +165,10 @@ ID, at any `version`.
   attached to the new epics it constrains (SKILL.md step 6). If no new epic attaches it, its row reads
   `already refined by EPIC-NNN` (Left-out rows).
 - **The NFR review signal.** An NFR that is blocked or unknown, and that an active existing epic refines
-  (this PRD's ID and the item), lists `refined by EPIC-NNN` for every such epic. When that is the first
-  reason with an action, the action is `Review EPIC-NNN's work before continuing.`: the epic's work rests
-  on a question that is no longer settled. It is still not covered.
+  (this PRD's ID and the item), lists `refined by EPIC-NNN` for every such epic. When it is the first
+  listed reason (no `wont`, `later` or `undecided` applies), the next action is
+  `Review EPIC-NNN's work before continuing.`: the epic's work rests on a question that is no longer
+  settled. It is still not covered.
 - A covered FR that is also blocked or unknown now gets both reasons: the existing epic's work rests on
   a question that is no longer settled.
 - Existing epics are read-only: never modify, renumber, supersede or duplicate one.
