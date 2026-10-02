@@ -22,7 +22,7 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | `git` | SKL-006 v3, in-review | SPEC-007 v3, in-review | v3 prepared with ERR-04 routing, all-branch carry checks and marked Compose password warnings; native/manual qualification pending (`docs/runbooks/git-v3-checks.md`). v2 remains approved and deployed; its 3-run 19 of 19 at ≥ 0.8 qualifies v2 only |
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review (v2 approved 2026-09-30) | v3 refreshes the SPEC-007 citation only; approval pending. Not built; its §11 lists the build steps |
-| `context` | SKL-010 v2, draft | SPEC-011 v3, approved 2026-10-01 | v1 merged in PR #34 (plugin 0.8.0); v2, the evaluated version, lands with plugin 0.8.1. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run |
+| `context` | SKL-010 v2, approved | SPEC-011 v3, approved 2026-10-01 | Approved by Bryan 2026-10-01; merged in PR #45 (plugin 0.8.1), deployed (0.9.0); v1 merged in PR #34. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run (`docs/runbooks/spec-011-manual-checks.md`) |
 
 SKL-008 is reserved for the story skill (SPEC-009).
 
