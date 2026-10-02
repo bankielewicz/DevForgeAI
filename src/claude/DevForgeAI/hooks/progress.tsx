@@ -45,7 +45,7 @@ let disabled = false
 let modeSession: string | null = null
 let root: string | null = null
 let pluginSkills: string[] | null = null
-let lastStatus: string | undefined | null = null
+let lastStatus: string | undefined
 let pendingReport: { seq: number; text: string } | null = null
 // The open run's event lines: in the module and events.jsonl, since a $.state value holds at most 4,194,304
 // characters (see types/index.d.ts); read back from the file after a reload.
@@ -494,12 +494,17 @@ export const register: Register = (on, options) => {
   on('skill.prompt', async ($, e, next) => {
     const out = await next(e)
     if (interactive !== true || disabled) return out
-    const name = skillName(e.skill)
-    if (!(await tracked($, name))) return out
-    if (modeSession !== (await $.session.id())) await resolveMode($)
-    ensureTimer($)
-    if ((await read($, RUN)) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
-    await openRun($, name, out.text)
+    try {
+      const name = skillName(e.skill)
+      if (!(await tracked($, name))) return out
+      if (modeSession !== (await $.session.id())) await resolveMode($)
+      ensureTimer($)
+      if ((await read($, RUN)) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
+      await openRun($, name, out.text)
+    } catch (err) {
+      // After next, a failure is the adapter's own: tell the user, keep the skill's text (BEH-14).
+      await recover($, 'skill.prompt', err)
+    }
     return out
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'skill.prompt', next.error)
@@ -512,8 +517,12 @@ export const register: Register = (on, options) => {
     const tool = String(input.tool)
     if (tool === 'AskUserQuestion') {
       const result = await next(e)
-      // A mod's $.ui.ask arrives here too; only Claude Code's own question is the user's answer (BEH-04).
-      if (isEngine(next.origin)) await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome) })
+      try {
+        // A mod's $.ui.ask arrives here too; only Claude Code's own question is the user's answer (BEH-04).
+        if (isEngine(next.origin)) await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome) })
+      } catch (err) {
+        await recover($, 'tool.call', err)
+      }
       return result
     }
     const r = await projectRoot($)
@@ -533,10 +542,14 @@ export const register: Register = (on, options) => {
       }
     }
     const result = await next(e)
-    const outcome = result as unknown as ToolOutcome
-    await record($, 'tool', {
-      ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)),
-    })
+    try {
+      const outcome = result as unknown as ToolOutcome
+      await record($, 'tool', {
+        ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)),
+      })
+    } catch (err) {
+      await recover($, 'tool.call', err)
+    }
     return result
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'tool.call', next.error)
@@ -605,7 +618,7 @@ export const register: Register = (on, options) => {
       await endRun($, e.reason === 'clear' ? 'clear' : 'session-end', finalTimeout(next.budget.remainingMs))
     }
     pendingReport = null
-    lastStatus = null
+    lastStatus = undefined
     turnOpen = false
     return next(e)
   }).catch(async ($, e, next) => {

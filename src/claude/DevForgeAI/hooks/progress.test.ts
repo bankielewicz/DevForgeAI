@@ -20,6 +20,7 @@ type Over = {
   modeStderr?: string
   setMode?: Any
   failSessionId?: boolean
+  failVersion?: boolean
   failExists?: (path: string) => boolean
   failStatus?: boolean
   evaluate?: (argv: readonly string[]) => Any
@@ -99,7 +100,7 @@ function world(on: Any, over: Over = {}): World {
   }
   on('session.root', () => ({ value: ROOT }))
   on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: 's1' }))
-  on('session.version', () => ({ value: { version: '2.1.287' } }))
+  on('session.version', () => (over.failVersion ? { deny: 'no version' } : { value: { version: '2.1.287' } }))
   on('session.surfaces', () => ({ value: over.surfaces ?? ['terminal'] }))
   on('session.start', (_$: Any, e: Any) => ({ cwd: e.cwd }))
   on('classic.SessionStart', () => ({}))
@@ -654,4 +655,13 @@ test('VER-09: a hook that throws before next passes its event on unchanged', asy
   const r = (await ($ as Any).session.start({ surface: 'terminal', isInteractive: true, cwd: ROOT })) as Any
   expect(r).toEqual({ cwd: ROOT })
   expect(w.toasts.some(t => t.startsWith('DevForgeAI progress: session.start:'))).toBe(true)
+})
+
+test('VER-09: a hook that fails after next keeps the result, and the user is told', async ($, on) => {
+  const w = world(on, { failVersion: true })
+  await start($)
+  const out = (await ($ as Any).skill.prompt({ skill: 'devforgeai:brainstorm', text: CHECKLIST })) as Any
+  expect(out).toEqual({ text: CHECKLIST })
+  expect(runFiles(w, 'events.jsonl')).toEqual([])
+  expect(w.toasts.some(t => t.startsWith('DevForgeAI progress: skill.prompt:'))).toBe(true)
 })
