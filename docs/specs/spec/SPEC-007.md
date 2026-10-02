@@ -2,7 +2,7 @@
 id: SPEC-007
 type: spec
 title: "Git workflow skill"
-status: draft          # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-09-28
 updated: 2026-10-01
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "97258b2a-7720-412c-b178-c9b6a66e3011"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
@@ -60,8 +60,8 @@ linked worktree a run started in, content that existed only in the index, and sy
 worktrees without the ignored-files question), scripts that crashed on text that isn't UTF-8, a scan
 that missed current OpenAI key formats and permanently blocked common test fixtures, and rules that
 contradicted each other. Bryan asked for every issue to be fixed (2026-10-01). The five decisions that
-needed (D1–D5, §13) were taken as the architect session recommended; Bryan approves version 2 after
-its pull request.
+needed (D1–D5, §13) were taken as the architect session recommended; Bryan approved version 2 on
+2026-10-01, after its pull request (#44) merged and its evaluation was recorded (#50).
 
 | # | Requested step | Phase | Items |
 |---|---|---|---|
@@ -893,8 +893,8 @@ Decisions already made:
 - Resolved (Bryan, 2026-09-28): QA is an independent Claude or Codex session that labels the PR
   `merge-approved` or `qa-failed`; a failed PR goes back to development (BEH-20).
 - Version 2's decisions, taken as the architect session recommended under Bryan's instruction of
-  2026-10-01 to fix every issue the SKL-006 v1 validation found. Bryan's approval of version 2 is
-  pending:
+  2026-10-01 to fix every issue the SKL-006 v1 validation found. Bryan approved version 2 on
+  2026-10-01; the two questions above stay open:
   - **D1 (BEH-03):** deleting a remote branch leaves the outward-facing examples and always needs a
     confirmation naming the branch (BEH-13, BEH-17). The destructive row reads "discarding
     working-tree content not proven to exist elsewhere".
@@ -914,3 +914,4 @@ Decisions already made:
 |---|---|---|---|---|
 | 1 | 2026-09-28 | claude-code (session 97258b2a-7720-412c-b178-c9b6a66e3011) | Initial draft from Bryan's eight-step git workflow request of 2026-09-28. Bryan's decisions are recorded in §1: a spec rather than a workflow document, any repository, classify before staging, prune merged or closed and clean worktrees only. The git behaviors that BEH-06, BEH-14, BEH-15 and BEH-16 rely on were checked in a scratch repository with git 2.43.0 (a fast-forward refused over differing and untracked files; hash comparison; branch move by commit; `worktree remove` refusing untracked files but deleting ignored ones; `branch -d` refusing a squash-merged branch and a branch checked out in a worktree; `fetch` into a checked-out branch refused; `.git/info/exclude` honored by linked worktrees). In this repository's sandbox, `.git/config.lock` and eleven root dotfiles are write masks (§2, ERR-16). Revised the same day with Bryan's answers: the name `git` with a push phase; merges need his confirmation and QA's current `merge-approved` label, with the method he chooses; prune reports idle (14 days) and stale (30 days) worktrees by last activity. A third round the same day: the skill is model-invocable, suggests documents-updater before a PR (BEH-19), supports GitHub only, and treats QA as an independent session that labels PRs merge-approved or qa-failed (BEH-20). A fourth round: QA's verdict comment names the SHA it reviewed, replacing the date check (BEH-20, qa_state.py, VER-25); SPEC-008 is the QA skill's stub spec and owns the verdict format. Awaiting Bryan's approval | all |
 | 2 | 2026-10-01 | claude-code (session edebbd45-d90c-41b7-8f22-2215254e4d37) | Fixes the SKL-006 v1 validation (2026-09-30), whose fixture findings the architect session reproduced independently, under Bryan's instruction of 2026-10-01 to fix every issue; decisions D1–D5 taken as the architect session recommended (§13), awaiting Bryan's approval. Worktrees go under the main checkout by an absolute path, never nested, with ERR-16 when the path is refused, and `.git/info/exclude` is written only when needed (BEH-05). Content that exists only in the index is never discarded: `identical` also checks the index, and sync reconciles from the report of the checkout holding the default branch (§4, BEH-14). Sync retires branches only through prune's removal rules (BEH-14, BEH-15). The scripts decode any text and exit 2 on an unexpected error, which is not a blocked finding (§2, BEH-08, ERR-06). The never-run list is complete and held once in SKILL.md (BEH-17, QR-01). `start` commits only carried work and never pushes; ERR-14 applies to start, commit, push and pr only (BEH-02, ERR-14). A run includes the answers to its questions (BEH-03). The documentation check names the branch (BEH-19). `FETCH_HEAD` is read per worktree (§4). A worktree with no commits since its creation is described so (BEH-16). ERR-16 covers harness and permission guards, and `git push` and `gh pr` run as commands of their own (§2, BEH-12, ERR-16). The scan catches `sk-proj-`, `sk-svcacct-` and `sk-admin-` keys (BEH-08). The readiness report shows the verdict's author and URL (BEH-13). D1: deleting a remote branch always needs a confirmation naming it (BEH-03, BEH-13). D2: a tip equal to a MERGED PR's head counts as pushed (§4, BEH-16). D3: local and example URL credentials, user-equals-password URLs and literals in test paths warn instead of blocking (BEH-08, §12). D4: carrying from a default branch ahead of origin stops and asks (BEH-06). New VER-26 to VER-31 (VER-30 also covers QR-03, which no item covered in version 1); VER-16, VER-17, VER-19 and VER-20 extended; §9 records v1's results. SPEC-008 and SPEC-010 still cite version 1 (D5). Revised the same day after the build's plugin-validator and skill-reviewer checks: `checked_out_at` is absolute and `current` is the caller's own checkout even in a `-C` report, so sync from a linked worktree reads and moves the main checkout and never proposes removing the session's worktree; a file git can't hash is `differs`; sandbox masks don't count as uncommitted; the ignored list's cut is handled (BEH-16); sync's retirement takes `--prs` (BEH-14); authorizations come from this run only (§4); BEH-17 lets a reference recall a single item; §13 opens two questions for Bryan (D4 beyond the default branch, compose passwords) | §1, §2, §3, §4, §5, BEH-02, BEH-03, BEH-05, BEH-06, BEH-08, BEH-12, BEH-13, BEH-14, BEH-15, BEH-16, BEH-17, BEH-19, ERR-06, ERR-14, ERR-16, QR-01, QR-03, §9, VER-16, VER-17, VER-19, VER-20, VER-26..VER-31, §10, §11, §12, §13 |
+| 2 | 2026-10-01 | Bryan | Approved | status |

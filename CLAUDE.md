@@ -19,7 +19,7 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | `architecture` | SKL-003 v5, approved | SPEC-003 v4 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (0.7.0); 16 eval cases, the 3 policy cases requalified on v5 |
 | `epic` | SKL-004 v3, approved | SPEC-004 v3 | Approved by Bryan 2026-10-01; merged in PR #47, deployed (0.8.1); 18 eval cases, 3-run 18 of 18 at 1.00 (mean Δ +0.51); VER-13 not run (runbook `docs/runbooks/epic-ver-13-checks.md`) |
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
-| `git` | SKL-006 v2 | SPEC-007 v2, draft awaiting approval | v2 merged in PR #44 and deployed (the deployed copy matched main's source, 2026-10-01); 3-run 19 of 19 at ≥ 0.8; results below |
+| `git` | SKL-006 v2, approved | SPEC-007 v2, approved 2026-10-01 | v2 merged in PR #44 and deployed (the deployed copy matched main's source, 2026-10-01); 3-run 19 of 19 at ≥ 0.8; results below |
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
 | `github-post` | SKL-009, reserved | SPEC-010 v2, approved 2026-09-30 | Not built; its §11 lists the build steps |
 | `context` | SKL-010 v2, approved | SPEC-011 v3, approved 2026-10-01 | Approved by Bryan 2026-10-01; merged in PR #45 (plugin 0.8.1), deployed (0.9.0); v1 merged in PR #34. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run (`docs/runbooks/spec-011-manual-checks.md`) |
