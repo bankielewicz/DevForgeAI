@@ -2,8 +2,8 @@
 id: SPEC-004
 type: spec
 title: "Epic skill (MVP)"
-status: approved
-version: 3
+status: in-review
+version: 4
 created: 2026-09-24
 updated: 2026-10-01
 owner: "Bryan"
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-01
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-005, relation: specifies, version: 2, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: epics come after the Architecture Definition step"}
   - {id: ADR-003, relation: informed_by, version: 2, hash: null, note: "A5: policy links carry the policy version, and the resolution line records each applied mandated platform (§4, bounded check)"}
-  - {id: SPEC-003, relation: informed_by, version: 4, hash: null, note: "consumes the readiness rule (§4), which the bounded policy check tightens, and the downstream contract (§5); re-read for version 2"}
+  - {id: SPEC-003, relation: informed_by, version: 5, hash: null, note: "consumes the readiness rule (§4: a changed mandated platform reopens its question; the older-format record), which the bounded policy check tightens, and the downstream contract (§5). SPEC-003 v5 is approved but not yet on main: SKL-004 v4 is implemented only after it merges"}
   - {id: SPEC-002, relation: informed_by, version: 4, hash: null, note: "priority and release semantics, where null is undecided, and a later requirement's null priority (§5, BEH-05); re-read for version 2"}
 supersedes: []
 superseded_by: null
@@ -60,17 +60,22 @@ The skill is recorded as `SKL-004` in its `provenance.yaml`.
 - **NFR-001 to NFR-003:** as for the other skills.
 - **ADR-001 v4:** built in a worktree and deployed with the hardened snippet; evals run from a plain terminal.
 - **ADR-002:** the epic step follows the Architecture Definition step.
-- **SPEC-003 §4 and §5 (consumed):** the ARCH path, stable DEC IDs, the decision-specific readiness rule,
-  and "epics may be written only for requirements that the readiness rule reports ready". SPEC-003 §4
-  counts any approved policy's active setting as a resolver; the bounded check in §4 is stricter, because
-  an epic must not rest on a mandate that has changed or that another policy contests.
+- **SPEC-003 v5 §4 and §5 (consumed):** the ARCH path, stable DEC IDs, the decision-specific readiness
+  rule, and "epics may be written only for requirements that the readiness rule reports ready". SPEC-003 v5
+  §4 counts an approved policy's active setting only while it still mandates the platform, for the
+  capability, that the ARCH recorded for it: a changed mandate returns its question to open, and a record
+  in the older format (no platform) is resolved by asking a user if one is present, and otherwise still
+  counts. The bounded check in §4 follows that rule and keeps its own conditions (approved document,
+  active mandate, an ARCH link, no contested mandate), because an epic must not rest on a mandate that
+  another policy contests or that the ARCH never recorded.
 - **SPEC-002 §5 (consumed):** PRD paths and stable IDs; `priority` (MoSCoW) and `release` (current or
   later) are independent, and `null` is undecided; `[NEEDS ADR]` markers; the PRD's `target_release`. A
   `later` requirement has `priority: null` by design (SPEC-002 BEH-05), so that null isn't undecided (§4).
 - **ADR-003 A5 (consumed):** an ARCH records each applied policy setting as a link carrying the policy
   version, and each Change Log row's resolution line records every applied mandated platform as
-  `architecture.mandated_platforms=<platform> for <capability> (POL-NNN#SET-NN)`. A policy version newer
-  than the link marks the link suspect; no skill relinks it today (§10).
+  `architecture.mandated_platforms=<platform> for <capability> (POL-NNN#SET-NN)`; older ARCHs wrote
+  `architecture.mandated_platforms=POL-NNN#SET-NN`, with no platform. A policy version newer than the link
+  marks the link suspect; no skill relinks it.
 - **Out of scope:**
   - writing stories, sprint planning, and modifying existing epics;
   - organizational policy resolution: PRD-001 FR-006 to FR-008 cover only prd and Architecture Definition,
@@ -78,8 +83,8 @@ The skill is recorded as `SKL-004` in its `provenance.yaml`.
     no resolution line) and copies neither `policy.md` nor `defaults.md`. It reads `docs/specs/policy/`
     only for the bounded resolver check in §4, and an ARCH's resolution line only for that check's
     check 3;
-  - relinking policy links or reopening a DEC when a policy changes: that is the architecture step's
-    (§10);
+  - relinking policy links, or reopening a DEC when its mandated platform changes: that is the
+    architecture step's (SPEC-003 v5). This skill only reports such a requirement blocked;
   - the `devforgeai check` CLI branch. The CLI doesn't exist, and anything named `devforgeai` on PATH
     can't be trusted by name. The skill validates with its own self-check list.
 
@@ -138,14 +143,21 @@ check below for policy resolvers. A requirement R is **ready** when, for every a
 - every `resolved_by` entry is an ADR whose file now has `status: accepted` and no `superseded_by`, or a
   policy setting that passes the bounded resolver check below.
 
+The DEC's `state` is read first: an open DEC blocks R whatever its policy record says. This matters after
+the architecture step reopens a DEC whose mandated platform changed: the ARCH's last resolution line then
+records the new platform while the component's policy link keeps the old version, so check 3 alone would
+pass (SPEC-003 v5).
+
 A DEC **cites** R when its `upstream` has a link whose `id` is this PRD's ID and whose `item` is R. A link
 to another PRD's item with the same number doesn't count: an amended ARCH can cover several PRDs. A DEC
 blocks only the requirements its own `upstream` cites. Every PRD `[NEEDS ADR]` marker needs **its own
 matching DEC**: one whose question answers the marker's decision and whose `upstream` cites every
 requirement the marker names. A matching DEC answers the marker once it is resolved by an ADR that counts
 or by a policy setting that passes the bounded check below. A mandated platform settles a decision as
-much as an ADR does (SPEC-003 BEH-07), although SPEC-002 §5 names only an ADR. When no DEC clearly
-answers a marker, every requirement it names is blocked
+much as an ADR does (SPEC-003 BEH-07), although SPEC-002 §5 names only an ADR. Only a DEC whose question
+answers the marker's decision counts: neither a policy setting that resolves a different question nor the
+resolution of another question clears the marker, even when that DEC cites the same requirement. When no
+DEC clearly answers a marker, every requirement it names is blocked
 ("marker without a matching question"), even if other DECs citing them are resolved. When readiness can't
 be established, R is `unknown`: never asserted ready or blocked. For example: a resolving ADR's file is
 missing, a resolved DEC has an empty `resolved_by`, or a policy resolver fails the bounded check.
@@ -155,19 +167,28 @@ all four hold:
 1. **Approved:** `docs/specs/policy/POL-NNN.md` exists and has `status: approved`.
 2. **Active mandate:** setting `SET-NN` in it has `status: active` and `key: architecture.mandated_platforms`,
    the only kind of setting that resolves a DEC (SPEC-003 BEH-07).
-3. **Unchanged since the ARCH applied it.** The ARCH has a link to the setting (`id: POL-NNN`,
-   `item: SET-NN`; ADR-003 A5). If the link's `version` equals the policy document's `version`, check 3
-   passes with nothing more read. Otherwise read the ARCH's **current resolution line**: the one in its
+3. **Still the mandate the ARCH recorded.** The ARCH has a link to the setting (`id: POL-NNN`,
+   `item: SET-NN`; ADR-003 A5); with no link, R is `unknown`. If the link's `version` equals the policy
+   document's `version`, the setting is unchanged and check 3 passes with nothing more read: a policy
+   version bump alone never blocks R. Otherwise read the ARCH's **current resolution line**: the one in its
    last Change Log row that carries a `Policy resolution:` line (create, amend and the reuse review write
    one; approval rows don't). Never fall back to an older row. Build the entry from the setting's current
    value, `architecture.mandated_platforms=<platform> for <capability> (POL-NNN#SET-NN)`, and compare it as
    exact text, after trimming outer whitespace from the platform and the capability (the architecture step
-   copies both verbatim).
-   - The line contains the entry: the setting counts, and the report notes the newer policy version.
-   - The line names `POL-NNN#SET-NN` with a different entry: the setting changed since the ARCH applied it.
-   - The line doesn't name `POL-NNN#SET-NN`: the ARCH's latest resolution no longer applies it.
-   - No Change Log row carries a `Policy resolution:` line at all (a hand-made ARCH): treat it as a line
-     that doesn't name the setting.
+   copies both verbatim). Exactly one outcome applies:
+   - **Unchanged:** the line contains the entry. The setting counts, and the report notes the newer policy
+     version.
+   - **Changed:** the line names `POL-NNN#SET-NN` in that form with a different platform or capability. The
+     mandate changed since the ARCH applied it, so its question is open again (SPEC-003 v5 §4): R is
+     **blocked** by that DEC, naming the change, and the next action hands back to the architecture step.
+   - **No platform recorded:** the line names the setting only in the older form
+     `architecture.mandated_platforms=POL-NNN#SET-NN`, with no platform and capability. Only that exact form
+     qualifies. The report names the evidence gap. With a user present, ask whether the setting mandated
+     the platform it now names, for its capability, when the question was resolved: yes, the setting
+     counts; no or don't know, treat it as changed (blocked). With no user, including a request to proceed
+     without questions, the setting still counts (SPEC-003 v5 §4).
+   - **No record:** the line doesn't name `POL-NNN#SET-NN` at all, or no Change Log row carries a
+     `Policy resolution:` line. A missing record is never treated as the older form: R is `unknown`.
 4. **No contested mandate.** No other approved document in `docs/specs/policy/` has an active
    `architecture.mandated_platforms` setting for the same capability. Capabilities are compared as the
    policy script compares them: outer whitespace trimmed and case ignored, while inner spaces count; no
@@ -177,18 +198,19 @@ all four hold:
    different capabilities never conflict, so an organization and a project policy can each mandate
    platforms.
 
-Otherwise R is `unknown`, naming the resolver and the failed condition, for example:
+A changed mandate makes R **blocked**, for example
+`blocked by DEC-07 (POL-001#SET-01 now mandates "<platform> for <capability>"; ARCH-001 recorded "<platform> for <capability>")`.
+Every other failed check makes R `unknown`, naming the resolver and the failed condition, for example:
 - `POL-001#SET-01 fails the policy check: setting deprecated (check 2)`;
 - `POL-001#SET-01 fails the policy check: ARCH-001 has no link to it (check 3)`;
-- `POL-001#SET-01 changed since ARCH-001 applied it: now "<platform> for <capability>" (check 3)`;
-- `POL-001#SET-01 fails the policy check: ARCH-001's latest resolution no longer applies it (check 3)`;
+- `POL-001#SET-01 fails the policy check: ARCH-001's latest resolution doesn't record it (check 3)`;
 - `POL-001#SET-01 fails the policy check: POL-002#SET-01 also mandates "<capability>" (check 4)`.
 
-The next action is to review the architecture with `/devforgeai:architecture`, which re-resolves policy.
-Check 4 compares capabilities the way SPEC-002's policy script does; check 3 compares entries as exact
-text, because they are copies. **Known limit:** a reuse review confirmed after a mandated platform changed
-records the new platform in its resolution line while the ARCH's items keep the old one, so check 3
-passes and the skill can't detect the change. The fix belongs to the architecture step (§10).
+Both hand back to the architecture step, `/devforgeai:architecture PRD-NNN`, which re-resolves policy and,
+for a changed mandate, reopens the question. Check 4 compares capabilities the way SPEC-002's policy script
+does; check 3 compares entries as exact text, because they are copies. SPEC-003 v5 closes the earlier known
+limit: the architecture step offers no reuse while a resolved DEC relies on a changed platform, so a reuse
+review can no longer record a new platform over an unchanged question.
 
 **The selection rule.** A requirement R of the PRD (an FR or an NFR) is **eligible** when all hold:
 1. R is `status: active`;
@@ -209,18 +231,33 @@ several questions.
 | `wont` | `priority: wont` | none for this release |
 | `later` | `release: later` | none for the current release |
 | `undecided` | `release` is `null`, or `priority` is `null` with `release: current`. A `later` requirement's null priority is SPEC-002's normal form, not undecided | the PRD owner decides |
-| `covered` | an active existing epic refines this PRD's FR; names the epic | none, unless it is also blocked: then review that epic's work before continuing |
-| `blocked` | R is not ready; names the blocking DEC IDs, any superseded resolver, or the marker without a matching question | resolve it with `/devforgeai:architecture` |
+| `covered` (an FR) or `refined` (an NFR) | an FR: an active existing epic refines this PRD's FR. An NFR: R is blocked or unknown, and an active existing epic refines this PRD's NFR. Names every such epic | an FR that isn't blocked or unknown: none. Otherwise review those epics' work before continuing |
+| `blocked` | R is not ready; names the blocking DEC IDs, any superseded resolver, a mandated platform that changed, or the marker without a matching question | resolve it with `/devforgeai:architecture` |
 | `unknown` | readiness can't be established: a missing or unreadable input, or a policy resolver that fails the bounded check; names it | fix that input, or review the architecture, then run again |
+
+**The NFR review signal.** When an NFR is blocked or unknown, every active existing epic whose
+`upstream` has a `refines` link to this PRD's NFR (the PRD ID and the item both match, at any version)
+rests on a question that is no longer settled, just as a covered FR's epic does. The row then lists the
+reason **refined by EPIC-NNN** (every such epic), and when that reason comes first among those that give a
+next action, the next action is **Review EPIC-NNN's work before continuing.** This is still not `covered`:
+a covered FR gets no new epic, while an NFR that becomes eligible again can be attached to new epics as
+usual. The existing epics are read-only either way.
+
+**Precedence.** The order of reasons and the one-next-action rule don't change: the next action is the
+first listed reason's. So when `wont`, `later` or `undecided` also applies, that reason comes first and
+its action wins, but the row still lists `covered by …` or `refined by …`, so the reader sees which epics
+rest on the unsettled question. A deprecated requirement gets only `deprecated`.
+
+For example:
+- `FR-005: later (release later); blocked by DEC-06 (open). No action for the current release.`
+- `FR-008: covered by EPIC-002; blocked by DEC-03 (ADR-002 superseded by ADR-003). Review EPIC-002's work before continuing.`
+- `NFR-001: refined by EPIC-001; blocked by DEC-08 (open). Review EPIC-001's work before continuing.`
+- `NFR-003: later (release later); refined by EPIC-001; blocked by DEC-08 (open). No action for the current release.`
 
 An eligible NFR that no new epic attaches also gets a row, because it is in no new epic. It is always
 refined by an active existing epic, since otherwise a standalone NFR epic is written (Grouping). Its row
-reads **already refined by EPIC-NNN**, with no action. It is never called `covered`, since NFRs are never
-covered.
-
-For example: `FR-005: later (release later); blocked by DEC-06 (open). No action for the current release.`,
-`FR-008: covered by EPIC-002; blocked by DEC-03 (ADR-002 superseded by ADR-003). Review EPIC-002's work before continuing.`
-and `NFR-001: already refined by EPIC-001. No action.`
+reads **already refined by EPIC-NNN**, with no action, for example `NFR-001: already refined by EPIC-001.
+No action.` It is never called `covered`, since NFRs are never covered.
 
 **The report** lists each new epic with the requirements it refines, then the rows. Together they name
 **every FR exactly once** (in one epic line or one row) and **every NFR at least once**: an NFR attached to
@@ -278,13 +315,13 @@ behaviors:
     rule: "Find the ARCH whose frontmatter upstream links cite this PRD, ignoring a superseded or deprecated ARCH, and check that its PRD link version equals the PRD's version (§4), which the architecture skill records on create, amend or a confirmed reuse review. Use it only then; otherwise stop as ERR-02, ERR-03 (the link version differs, older or newer) or ERR-04."
   - id: BEH-04
     status: active
-    rule: "Compute readiness for every active FR and NFR of the PRD from the ARCH file and the ADR files, as SPEC-003 §4 with the bounded policy check in §4, reading each resolving ADR's current status and superseded_by now. A DEC cites a requirement only through a link with this PRD's ID and that item, and blocks only the requirements its own upstream cites. A policy resolver counts only if it passes the bounded check in §4: an approved document; an active architecture.mandated_platforms setting; unchanged since the ARCH applied it (the ARCH's link version equals the policy's, or else the ARCH's latest resolution line still holds the setting's current platform and capability); and no other approved document mandating the same capability, unless it is a permitted project override. Resolve no policy beyond that. When a resolver counts at a newer policy version, say so in the report. Match every PRD [NEEDS ADR] marker to its own DEC (one whose question answers the marker's decision); when none clearly does, every requirement the marker names is blocked, even if other DECs citing it are resolved. When readiness can't be established, report the requirement as unknown, naming the missing input or failed check; a resolved DEC with an empty resolved_by is unknown. Never use a skill's reply as the source."
+    rule: "Compute readiness for every active FR and NFR of the PRD from the ARCH file and the ADR files, as SPEC-003 §4 with the bounded policy check in §4, reading each resolving ADR's current status and superseded_by now. A DEC cites a requirement only through a link with this PRD's ID and that item, and blocks only the requirements its own upstream cites. Read a DEC's state first: an open DEC blocks whatever its policy record says. A policy resolver counts only if it passes the bounded check in §4: an approved document; an active architecture.mandated_platforms setting; an ARCH link to it; still the mandate the ARCH recorded (the link's version equals the policy's, or else the ARCH's latest resolution line holds the setting's current platform and capability); and no other approved document mandating the same capability, unless it is a permitted project override. A policy version bump alone never blocks. A changed platform or capability makes the requirement blocked by that DEC, naming the change, and hands back to the architecture step. A record in the older form architecture.mandated_platforms=POL-NNN#SET-NN (no platform) is an evidence gap the report names: with a user present, ask, one question per such resolver showing the setting's current platform and capability, whether the setting mandated that platform when the question was resolved (yes: it counts; no or don't know: blocked, as changed); with no user, it counts. A missing record (no link, or no resolution line naming the setting) is unknown, never the older form. Resolve no policy beyond that. When a resolver counts at a newer policy version, say so in the report. Match every PRD [NEEDS ADR] marker to its own DEC (one whose question answers the marker's decision; a policy setting resolving a different question, or the resolution of another question, never clears it); when none clearly does, every requirement the marker names is blocked, even if other DECs citing it are resolved. When readiness can't be established, report the requirement as unknown, naming the missing input or failed check; a resolved DEC with an empty resolved_by is unknown. Never use a skill's reply as the source."
   - id: BEH-05
     status: active
-    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and, for an FR, not already refined by an active existing epic. NFRs are never covered. Give every other requirement one compact row with every reason that applies (deprecated, wont, later, undecided, covered with the epic ID, blocked with the DEC IDs or unmatched marker, unknown), in the §4 order, and one next action, the first listed reason's. Undecided means release null, or priority null with release current; a later requirement's null priority isn't undecided. An eligible NFR that no new epic attaches gets the row 'already refined by EPIC-NNN' with no action."
+    rule: "Apply the selection rule (§4): a requirement is eligible only when it is active, ready, release current, priority must, should or could, and, for an FR, not already refined by an active existing epic. NFRs are never covered. Give every other requirement one compact row with every reason that applies (deprecated, wont, later, undecided, covered (an FR) or refined (a blocked or unknown NFR) with every such epic's ID, blocked with the DEC IDs, a changed mandate or the unmatched marker, unknown), in the §4 order, and one next action, the first listed reason's: a covered FR or a refined NFR that is blocked or unknown gets 'Review EPIC-NNN's work before continuing' unless an earlier reason (wont, later, undecided) already gives the next action, and the row still names the epics. Undecided means release null, or priority null with release current; a later requirement's null priority isn't undecided. An eligible NFR that no new epic attaches gets the row 'already refined by EPIC-NNN' with no action."
   - id: BEH-06
     status: active
-    rule: "Read every existing epic in docs/specs/epic/. An FR of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered; if it is also blocked now, say so. NFRs are never covered. Never modify, renumber or duplicate an existing epic."
+    rule: "Read every existing epic in docs/specs/epic/. An FR of this PRD that an active existing epic (not superseded or deprecated) refines, at any version and matching both the PRD ID and the item, is covered; if it is also blocked or unknown now, say so. NFRs are never covered: an NFR of this PRD that an active existing epic refines (both the PRD ID and the item match) and that is blocked or unknown now gets the NFR review signal (§4), naming every such epic; an eligible one is still attached to new epics as usual. Never modify, renumber or duplicate an existing epic."
   - id: BEH-07
     status: active
     rule: "Propose how to group the eligible requirements into epics: each a deliverable capability, each eligible FR in exactly one epic, each eligible NFR attached to every new epic it constrains, and a standalone NFR epic only for an eligible NFR that no active epic, existing or new, refines (§4). Show each proposed epic's title, requirements and priority, and ask the user to confirm or change the grouping; write nothing until they do. A grouping stated in the request counts as confirmed. A stated or changed grouping is applied as given, limited only by §4's rules: only eligible requirements, each eligible FR in exactly one new epic, each eligible NFR in at least one new epic unless an active existing epic already refines it, and the standalone-NFR, priority and numbering rules. If no one can confirm (the request says to proceed without questions and gives no grouping), write the proposal and add to §8 of each epic: [NEEDS CLARIFICATION: grouping proposed by the skill; not confirmed by the user]. If a stated grouping leaves an eligible FR unplaced or places one twice and no one can be asked, place that FR by the proposal, keep the rest of the stated grouping, and add the same marker to every epic written."
@@ -387,7 +424,8 @@ quality_responses:
 | Behavioural (v3-a): SKL-004 v3, epic tag, one run, 2026-10-01 | `tmp/eval-results/epic-v3-runs1-20261001T144103/` (local, untracked), run by Bryan from a plain terminal. Bound to `823b06e` (SKL-004 v3 after its skill-review polish); Claude Code 2.1.287; plugin 0.8.0; 18 cases, unchanged from version 2; `--runs 1 --ablation none`; judge model sonnet; concurrency 4; $8.42; 258 s. 17 of 18 at 1.00, with no errors. VER-03 (`reports-left-out`) 0.80: all three judges failed its llm grader on a reply correct on every clause. The grader written for version 2 forbade asking "the PRD owner to decide" FR-005's priority while requiring "the PRD owner decides" for FR-007 and NFR-002 |
 | Behavioural (v3-b): VER-03's grader fix, one case, 2026-10-01 | The grader now says "The PRD owner decides" is the expected next action, not a question (`329ff27`; VER-03's obligation unchanged; only that grader file regenerated). `tmp/eval-results/epic-v3-ver03-20261001T144953/` (local, untracked), bound to `329ff27`; Claude Code 2.1.287; `--runs 1 --ablation none`; $0.53. **1.00**, judge votes PASS PASS PASS. Then `dbeef9f` named the "No action …" rows as next actions and said a row may list several reasons, from the grader's review |
 | Behavioural (v3-c): SKL-004 v3, epic tag, 3 runs with the baseline, 2026-10-01 | `tmp/eval-results/epic-v3-3run-20261001T163508/` (local, untracked), run by Bryan from a plain terminal. Bound to `dbeef9f`, plugin digest `554e69443eee04f69a8f67e25379b970bab71634e76d6e38c095a8b4648316fa`; Claude Code 2.1.287; plugin 0.8.0; 18 cases; 3 runs per arm against the no-plugin baseline; threshold 0.8; judge model sonnet; concurrency 4; $43.02; 1,526 s. **All 18 cases at 1.00 in every run; mean Δ +0.51**, with no errors; VER-03's llm grader passed 9 of 9 votes. An earlier attempt on `dbeef9f`, `tmp/eval-results/epic-v3-3run-20261001T145309/` (started 18:53 UTC), is not a result: all 108 runs failed with the account's session limit ("You've hit your session limit"; score 0.19, $1.29), and the run above followed the reset. Δ: VER-01 +0.69, VER-02 +0.62, VER-03 +0.80, VER-04 +0.30, VER-05 +1.00, VER-06 +1.00, VER-07 +0.33, VER-08 +0.67, VER-09 +0.33, VER-10 +0.67, VER-11 0.00 (the negative trigger), VER-12 +0.40, VER-14 +0.53, VER-15 +0.33, VER-16 +0.40, VER-17 +0.47, VER-18 +0.17, VER-19 +0.50 |
-| Behavioural: manual VER items (VER-13) | Not run, for version 1, 2 or 3 |
+| Behavioural (v4): SKL-004 v4, epic tag | Not run. Version 4 is implemented only after SPEC-003 v5 is on main. It adds VER-20 to VER-26 (25 cases) and keeps VER-17, the unchanged mandate, as a regression case |
+| Behavioural: manual VER items (VER-13) | Not run, for version 1, 2 or 3; deferred by Bryan (2026-10-01) |
 | Qualification | SKL-004 v2 approved by Bryan on 2026-10-01, after its automated items passed in a bound 3-run (v2-c). Merged in PR #43 (`eeedd5c`) and deployed in plugin 0.8.0. SKL-004 v3 approved by Bryan on 2026-10-01, after its automated items passed in a bound 3-run (v3-c); merged in PR #47 (`3cf7033`) and deployed in plugin 0.8.1, which the context skill's PR #45 set; the v3 runs above used 0.8.0. Open: VER-13 |
 
 **Shared fixture (version 2).** One approved PRD, `PRD-001` v2 with `target_release: "Spring launch"`, and
@@ -539,7 +577,7 @@ verifications:
       - {id: STORY-005, item: AC-11, relation: verifies, version: 2, hash: null}
   - id: VER-13
     status: active
-    obligation: "Manual, interactive, one fixture copy per check: (a) the skill proposes a grouping, the user changes it, and the epics written follow the changed grouping; (b) an unknown PRD ID lists the available PRDs and writes nothing; (c) two active ARCHs citing the PRD are listed and the skill asks; (d) automated since version 2 by VER-19 (ERR-08) and VER-14 (ERR-05), so not run by hand; (e) stopping before confirming writes nothing; (f) SKILL.md is within the NFR-001 limits, and metadata.devforgeai-version equals provenance.yaml's version; (g) run on this repository's own PRD-001, which has no ARCH, it writes nothing and hands back to the architecture step; (h) by reading only: SKILL.md states the three-attempt limit and the ERR-06 failure report; (i) the review loop: PRD-001 gets a priority-only change to version 3, the skill stops (ERR-03), /devforgeai:architecture PRD-001 with reuse confirmed moves the ARCH's frontmatter PRD link to version 3, sets outcome reuse and adds one Change Log row, with the ARCH's version, status, approval fields and items unchanged, and the skill then writes epics; confirming reuse again at version 3 changes nothing in the ARCH; (j) a superseded ARCH-001 and an approved ARCH-002 both cite the PRD at its version: the skill uses ARCH-002 without asking; (k) POL-001 at version 2 with SET-01's platform changed, and ARCH-001 still linking it at version 1: FR-012 is reported unknown, naming the change (check 3). ERR-06 can't be forced without a CLI, so (h) is a reading check, not an exercise."
+    obligation: "Manual, interactive, one fixture copy per check: (a) the skill proposes a grouping, the user changes it, and the epics written follow the changed grouping; (b) an unknown PRD ID lists the available PRDs and writes nothing; (c) two active ARCHs citing the PRD are listed and the skill asks; (d) automated since version 2 by VER-19 (ERR-08) and VER-14 (ERR-05), so not run by hand; (e) stopping before confirming writes nothing; (f) SKILL.md is within the NFR-001 limits, and metadata.devforgeai-version equals provenance.yaml's version; (g) run on this repository's own PRD-001, which has no ARCH, it writes nothing and hands back to the architecture step; (h) by reading only: SKILL.md states the three-attempt limit and the ERR-06 failure report; (i) the review loop: PRD-001 gets a priority-only change to version 3, the skill stops (ERR-03), /devforgeai:architecture PRD-001 with reuse confirmed moves the ARCH's frontmatter PRD link to version 3, sets outcome reuse and adds one Change Log row, with the ARCH's version, status, approval fields and items unchanged, and the skill then writes epics; confirming reuse again at version 3 changes nothing in the ARCH; (j) a superseded ARCH-001 and an approved ARCH-002 both cite the PRD at its version: the skill uses ARCH-002 without asking; (k) automated since version 4 by VER-20 (a changed platform now makes FR-012 blocked, not unknown), so not run by hand. ERR-06 can't be forced without a CLI, so (h) is a reading check, not an exercise."
     level: manual
     covers:
       - BEH-01
@@ -608,6 +646,66 @@ verifications:
     upstream:
       - {id: STORY-005, item: AC-03, relation: verifies, version: 2, hash: null}
       - {id: STORY-005, item: AC-09, relation: verifies, version: 2, hash: null}
+  - id: VER-20
+    status: active
+    obligation: "A changed mandate is blocked: the shared fixture with POL-001 at version 2, whose SET-01 now mandates 'Network-hosted mail service (HTTPS API)' for 'transactional email', while ARCH-001 still links SET-01 at version 1 and its resolution line records the regional network mail relay. The prompt asks for one epic covering everything eligible and says to proceed without questions. EPIC-001.md contains no refines link to FR-012. The reply reports FR-012 as blocked by DEC-07, naming the new platform, and not as unknown or ready; its next action is /devforgeai:architecture PRD-001. Eval case epic-mandate-changed-blocked: regex on the file and last_message, plus an llm grader for the blocked row."
+    level: e2e
+    covers:
+      - BEH-04
+      - BEH-05
+    upstream:
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
+  - id: VER-21
+    status: active
+    obligation: "No platform recorded, no user: the shared fixture with POL-001 at version 2 (SET-02 added, SET-01 unchanged) and an ARCH-001 whose resolution line records the setting only as architecture.mandated_platforms=POL-001#SET-01. The prompt asks for one epic covering everything eligible and says to proceed without questions. EPIC-001.md refines FR-012, and the reply names the gap: ARCH-001 recorded no platform for POL-001#SET-01. Eval case epic-legacy-record-no-user: regex on the file, plus an llm grader on last_message for the gap."
+    level: e2e
+    covers:
+      - BEH-04
+    upstream:
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
+  - id: VER-22
+    status: active
+    obligation: "No platform recorded, a user present: VER-21's fixture, but the prompt states the grouping (one epic for everything eligible) and doesn't say to proceed without questions. No file is written under docs/specs/epic/ before the answer, and the reply asks whether POL-001#SET-01 mandated the regional network mail relay for transactional email when DEC-07 was resolved. Eval case epic-legacy-record-asks: file_exists false, plus an llm grader on last_message for the question."
+    level: e2e
+    covers:
+      - BEH-04
+    upstream:
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
+  - id: VER-23
+    status: active
+    obligation: "A missing record is not the older form: the shared fixture with POL-001 at version 2 (SET-01 unchanged) and an ARCH-001 whose Change Log has no Policy resolution: line in any row. The prompt asks for one epic covering everything eligible and says to proceed without questions. EPIC-001.md contains no refines link to FR-012, and the reply reports FR-012 as unknown, naming POL-001#SET-01 and the missing record. Eval case epic-missing-record-unknown: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-04
+    upstream:
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
+  - id: VER-24
+    status: active
+    obligation: "Blocked NFRs with an existing epic: the shared fixture plus NFR-003 (release later, priority null) in PRD-001, an open DEC-08 in ARCH-001 citing NFR-001 and NFR-003, and an existing active EPIC-001 (a unique sentinel line) that refines FR-003, NFR-001 and NFR-003. The prompt asks for one epic covering everything eligible and says to proceed without questions. EPIC-001.md is unchanged; no new epic refines NFR-001 or NFR-003. The reply gives NFR-001 the row 'refined by EPIC-001; blocked by DEC-08 (open)' with the next action to review EPIC-001's work, never calls NFR-001 covered, and gives NFR-003 'later … refined by EPIC-001 … blocked by DEC-08' with no action for the current release (precedence). Eval case epic-nfr-blocked-review: regex on the files and last_message, plus an llm grader for the two rows."
+    level: e2e
+    covers:
+      - BEH-05
+      - BEH-06
+      - BEH-12
+    upstream:
+      - {id: STORY-005, item: AC-07, relation: verifies, version: 2, hash: null}
+  - id: VER-25
+    status: active
+    obligation: "An unknown NFR with an existing epic: the shared fixture plus an existing active EPIC-001 (a unique sentinel line) that refines FR-003 and NFR-001, and a resolved DEC-08 in ARCH-001 citing NFR-001 whose resolver ADR-005 doesn't exist. The prompt asks for one epic covering everything eligible and says to proceed without questions. EPIC-001.md is unchanged and no new epic refines NFR-001. The reply gives NFR-001 the row 'refined by EPIC-001; unknown: ADR-005 not found' with the next action to review EPIC-001's work, and doesn't call it covered. Eval case epic-nfr-unknown-review: regex on the files and last_message."
+    level: e2e
+    covers:
+      - BEH-05
+      - BEH-06
+    upstream:
+      - {id: STORY-005, item: AC-07, relation: verifies, version: 2, hash: null}
+  - id: VER-26
+    status: active
+    obligation: "Exact-question marker matching: the shared fixture with ARCH-001 adding DEC-08 ('Which email service sends membership payment receipts?'), resolved by POL-001#SET-01, which passes the bounded check and cites FR-010. FR-010's payment-provider marker still has no matching question. The prompt asks for one epic covering everything eligible and says to proceed without questions. EPIC-001.md contains no refines link to FR-010, and the reply reports FR-010 blocked by the payment-provider marker without a matching question. Eval case epic-unrelated-policy-marker: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-04
+    upstream:
+      - {id: STORY-005, item: AC-02, relation: verifies, version: 2, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -625,11 +723,14 @@ and splits ERR-05 from the new ERR-08. Roll it out by regenerating every case fr
 generator asserts the shared fixture against the table. Then requalify the whole suite, because the shared
 fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 cases together.
 
-**Backlog for the architecture step (SPEC-003), not part of this change:**
-- Relink a policy link when the policy's `version` changes and the setting doesn't. Until then, check 3's
-  resolution-line fallback carries that case.
-- Reopen a DEC whose mandated platform changed, so that the known limit in §4 can't hide a change behind a
-  reuse review.
+**Version 4 depends on SPEC-003 v5.** SPEC-003 v5 (approved 2026-10-01, on
+`feat/spec-003-v5-architecture`) reopens a DEC whose mandated platform changed and defines the
+older-format record; this version follows it. SKL-004 v4 is implemented, evaluated and merged only after
+SPEC-003 v5 is on main. Rolling back restores SKL-004 v3 and the v3 cases together.
+
+**Backlog for the architecture step (SPEC-003), not part of this change:** relink a policy link when the
+policy's `version` changes and the setting doesn't. Until then, check 3's resolution-line comparison
+carries that case. (Reopening a DEC whose mandated platform changed is part of SPEC-003 v5.)
 
 ## 11. Implementation plan
 
@@ -681,6 +782,26 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
    then 3 runs with the baseline, each bound by `record_revision.sh`. Record the results in §9, then open
    the PR.
 
+**Version 4** (gated on SPEC-003 v5 merging), on a new branch from main:
+1. Bryan approves this version; SPEC-003 v5 is on main.
+2. In `src/tests/epic/make_evals.py`, add the variants for VER-20 to VER-26:
+   - a POL-001 v2 whose SET-01 platform changed (VER-20);
+   - an ARCH-001 whose resolution line uses the older form, with a POL-001 v2 whose SET-01 is unchanged
+     (VER-21, VER-22): pass the raw entry `architecture.mandated_platforms=POL-001#SET-01` to `resolution()`;
+   - an ARCH-001 with no `Policy resolution:` line in any row (VER-23);
+   - NFR-003 in PRD-001, DEC-08 citing NFR-001 and NFR-003, and an existing EPIC-001 refining FR-003,
+     NFR-001 and NFR-003 (VER-24); DEC-08 resolved by a missing ADR-005 (VER-25);
+   - DEC-08 about payment receipts, resolved by POL-001#SET-01 and citing FR-010 (VER-26).
+   Check each variant's premise, regenerate, and check the graders offline with scripted good and bad results.
+   New case names start with `epic-`.
+3. Run the new cases on SKL-004 v3 (`--runs 1 --ablation none`) and confirm the new behavior fails.
+4. Write SKL-004 v4 through `/plugin-dev:create-plugin`: `references/selection.md` (check 3, the NFR review
+   signal, precedence), `SKILL.md` (step 4, the legacy question in "Decisions that belong to the user", step 9).
+   Bump `provenance.yaml` and `metadata.devforgeai-version` together. Update VER-13 (k) in
+   `docs/runbooks/epic-ver-13-checks.md` to "automated by VER-20".
+5. Validate (`plugin-validator`, `skill-reviewer`), then the whole suite once and 3 runs with the baseline,
+   each bound by `record_revision.sh`. Record the results in §9, then open the PR.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -691,6 +812,9 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 | Drop policy check 4, matching SPEC-003 §4 exactly (version 2) | Loses detection of two approved policies mandating platforms for the same capability. Narrowing it to the same capability, as SV-04 does, keeps that detection and allows normal layering (Bryan, 2026-10-01) |
 | Drop policy check 3 and only warn on a version mismatch (version 2) | Loses detection of a changed mandated platform. The resolution-line fallback keeps it, and costs nothing when the versions match (Bryan, 2026-10-01) |
 | Attach NFRs whose priority or release is null anyway (version 2) | Decides what belongs to the PRD owner. prd writes quality-round and policy NFRs as null, so that is upstream's to change, and the epic skill reports them as undecided (Bryan, 2026-10-01) |
+| A changed mandate reported as unknown, as in version 3 (version 4) | SPEC-003 v5 reopens the question, so the requirement is blocked like any open question. Unknown is kept for inputs the skill can't establish (Bryan, 2026-10-01) |
+| A record in the older form treated as unknown, or as changed (version 4) | SPEC-003 v5 asks a user if one is present and otherwise counts it; the epic skill follows, so the two skills agree on readiness. The exception is limited to that exact form; a missing record stays unknown (Bryan, 2026-10-01) |
+| The NFR review signal ahead of `later`, `wont` or `undecided` (version 4) | Breaks the one-next-action rule. The row still lists the epics, so the reader sees them (Bryan, 2026-10-01) |
 | A read-only selection script now (version 2) | It would make readiness and the rows deterministic and unit-testable. But it changes §5's no-shell rule and overlaps PRD-001 FR-018 (`devforgeai check`), so it is deferred to FR-018 (Bryan, 2026-10-01) |
 | Select by priority (Musts only) | MoSCoW keeps Shoulds and Coulds in the release as contingency; priority orders, release selects |
 | Extend or rewrite existing epics | Needs a change-control design; v1 reports covered requirements and adds new epics only |
@@ -699,10 +823,7 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 
 ## 13. Open questions
 
-- Should an NFR that an active existing epic refines, and that is now blocked or unknown, get the same
-  review signal as a covered FR in that state ("Review EPIC-NNN's work before continuing")? Today it gets
-  only its own reasons. Deferred by Bryan on 2026-10-01: it is new behavior, needing a rule in §4 and an
-  eval case.
+- None. The NFR review signal deferred in version 3 is part of version 4 (§4).
 
 ## Change Log
 
@@ -719,3 +840,4 @@ fixture changed under every case. Rolling back restores SKL-004 v1 and the v1 ca
 | 3 | 2026-10-01 | Bryan | Approved | status |
 | 3 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records SKL-004 v3's one run (17 of 18 at 1.00; VER-03 0.80 from a grader conflict written for version 2), the grader fix and its one-case check (1.00), and the bound 3-run (18 of 18 at 1.00, mean Δ +0.51). No item changed | §9 |
 | 3 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-004 v3 (2026-10-01), its merge in PR #47 and deployment in plugin 0.8.1, and the 3-run attempt that the account's session limit stopped. No item changed | §9 |
+| 4 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Bryan's decisions of 2026-10-01, following SPEC-003 v5 §4. Check 3: a policy version bump alone never blocks; a changed platform or capability makes the requirement blocked by its DEC and hands back to the architecture step; a record in the older form `architecture.mandated_platforms=POL-NNN#SET-NN` is an evidence gap (ask a user if present, one question per resolver; no user: it counts), limited to that exact form; a missing record stays unknown; checks 1, 2 and 4 and the ARCH link are kept. A DEC's state is read before its resolver. A policy setting resolving a different question never clears a marker. The NFR review signal: a blocked or unknown NFR that an active existing epic refines lists `refined by EPIC-NNN` and, as the first reason with an action, asks to review that epic's work; precedence follows the existing reason order. VER-13 (k) automated by VER-20; VER-20 to VER-26 added; the known limit and the reopen backlog item removed (SPEC-003 v5). SPEC-003 link moved to v5, gated on its merge. Awaiting Bryan's approval | frontmatter, §2, §4, BEH-04, BEH-05, BEH-06, §9, VER-13, VER-20 to VER-26, §10, §11, §12, §13 |
