@@ -477,7 +477,7 @@ The colours are saturated mid-tones, so they read on dark and light themes alike
 
 1. **A logging probe with no UI**: settle the unverified items above. SPEC-013 runs it as its VER-01, before the adapter is built.
 2. **Contracts and evaluator** (SPEC-012, approved): `devforgeai-events/1`, `devforgeai-progress/1`, `devforgeai-manifest/1`, the brainstorm and architecture manifests, and the Python evaluator, with tests that feed recorded event logs in and check the progress states that come out.
-3. **Claude Code adapter** (SPEC-013, draft): events from the hooks, evaluator calls at gates, observe mode, the status line and a text-only band.
+3. **Claude Code adapter** (SPEC-013, approved): events from the hooks, evaluator calls at gates, observe mode, the status line and a text-only band.
 4. **The pane as text**: Journey path and step list, with glyphs only.
 5. **Graphics**: SVG assets and timelines; the `Svg` renderer for the desktop app and VS Code; the build script for cell assets and the `Raster` renderer; `Image` for kitty and Ghostty; the `animation` and `character` settings.
 6. **`progress.html`**, the renderer for any tool.

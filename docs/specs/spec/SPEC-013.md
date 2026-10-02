@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: draft       # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-10-02
 updated: 2026-10-02
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-02
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
@@ -594,7 +594,7 @@ Notes:
 - A mode switch during a run is in `adapter.log`, not in the event log, because DM-02 has no kind for it.
 - Locking the mode at project level arrives with the shared-schema change (ADR-006 D3). Until then the button is
   always available.
-- The probe may change DM-01 and BEH-01 to BEH-03; any change is a revision of this draft, before the build.
+- The probe may change DM-01 and BEH-01 to BEH-03; any change is a new version of this spec, with Bryan's approval, before the build.
 - The button saves `.claude/devforgeai.local.md` in the project. This repository's `.gitignore` already ignores it
   (ADR-003); in a project whose `.gitignore` doesn't, git shows it as untracked, and the user adds the entry. The
   adapter never edits a `.gitignore` of the project's.
@@ -609,3 +609,5 @@ Notes:
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | First draft, on Bryan's direction of 2026-10-02 and his four decisions: the adapter in the plugin, enforce mode specified here, no idle limit, headless sessions left untouched | all |
+| 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, after the advisor's review: no file before the session is known to be interactive (BEH-03, BEH-15); after a /clear the mode and timer start at the next tracked skill (BEH-06, BEH-16); a .catch returns its replay-safe next(e) (BEH-14); one timer-driven evaluation at a time (BEH-06); ERR-02's limit is $.process.run's timeoutMs; report-gate flags skip prompts starting with '/' and ended runs (BEH-09); every plugin skill opens a run (BEH-03); probe items P11 and P12; the deploy command as an array; §2's checked API list | BEH-03, BEH-06, BEH-09, BEH-14, BEH-15, BEH-16, ERR-02, VER-01, VER-04, VER-05, VER-08, §2, §9, §10, §13 |
+| 1 | 2026-10-02 | Bryan | Approved | status |
