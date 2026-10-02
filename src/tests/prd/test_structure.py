@@ -26,8 +26,8 @@ SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
 TARGETS = {"prd": ("SKL-002", 4, "SPEC-002", 4), "architecture": ("SKL-003", 6, "SPEC-003", 5)}
 # Each skill's (status, approved_by, approved_on): SKL-002 v4 was approved by Bryan on 2026-10-01, after
-# its requalification; SKL-003 v6 stays a draft until Bryan approves it.
-APPROVAL = {"prd": ("approved", "Bryan", "2026-10-01"), "architecture": ("draft", "", None)}
+# its requalification; SKL-003 v6 on 2026-10-01, after its 3-run qualification and manual checks.
+APPROVAL = {"prd": ("approved", "Bryan", "2026-10-01"), "architecture": ("approved", "Bryan", "2026-10-01")}
 SPEC_STATE = {"SPEC-002": (4, "approved"), "SPEC-003": (5, "approved")}  # SPEC-002 v4: issues #36-#38, #40
 
 

@@ -1,6 +1,6 @@
 # Runbook: SKL-003 v6 — paid evaluation and manual checks
 
-Covers what the build session can't run for the architecture skill SKL-003 v6 (draft), which
+Covers what the build session can't run for the architecture skill SKL-003 v6 (approved by Bryan on 2026-10-01), which
 implements SPEC-003 v5, on branch `feat/spec-003-v5-architecture` (worktree
 `.claude/worktrees/spec-003-v5`):
 - section 1: the paid `claude plugin eval` runs, cheapest first, on Opus only (Bryan, 2026-10-01);
