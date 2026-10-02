@@ -8,6 +8,7 @@ import type { Plugin } from 'claude-code/testing'
 const ROOT = '/work'
 const T0 = Date.UTC(2026, 9, 2, 12, 0, 0)
 const PROGRESS = `${ROOT}/devforgeai/progress`
+const SESSION = `${PROGRESS}/sessions/s1`
 const SKILLS = ['architecture', 'brainstorm', 'context', 'documents-updater', 'epic', 'git', 'prd']
 const CHECKLIST = 'Base directory for this skill: /x\n\n- [ ] 1. Intake\n- [ ] 2. Pick'
 
@@ -27,6 +28,7 @@ type Over = {
   tool?: (e: Any) => Any
   failWrite?: (path: string) => boolean
   files?: Record<string, string>
+  prune?: (argv: readonly string[]) => Any
 }
 
 type World = {
@@ -39,6 +41,10 @@ type World = {
   contexts: string[][]
   tools: string[]
   clock: Any
+  root: string
+  sessionId: string
+  inits: Any[]
+  pruneSawRun: boolean[]
 }
 
 const STATE = {
@@ -88,6 +94,11 @@ function processRun(w: World, over: Over, argv: readonly string[]): Any {
     if (answer.raw !== undefined) w.files.set(out, answer.raw)
     return { value: { exitCode: answer.exitCode ?? 0, stdout: 'progress brainstorm: step 2 of 2, 0 flags\n', stderr: answer.stderr ?? '' } }
   }
+  if (script.endsWith('/progress/prune.py') && argv[2] === 'prune') {
+    const runs = `${argv[argv.indexOf('--root') + 1]}/devforgeai/progress/runs/`
+    w.pruneSawRun.push([...w.files.keys()].some(k => k.startsWith(runs) && k.endsWith('/events.jsonl')))
+    return over.prune?.(argv) ?? { value: { exitCode: 0, stdout: 'pruned 0 runs, 0 sessions\n', stderr: '' } }
+  }
   return { deny: `unexpected process: ${argv.join(' ')}` }
 }
 
@@ -97,9 +108,10 @@ function world(on: Any, over: Over = {}): World {
     files: new Map(Object.entries(over.files ?? {})), writes: [], toasts: [], logs: [], statuses: [], runs: [],
     contexts: [], tools: [],
     clock: mock.clock(on, { now: T0 }),
+    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [],
   }
-  on('session.root', () => ({ value: ROOT }))
-  on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: 's1' }))
+  on('session.root', () => ({ value: w.root }))
+  on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: w.sessionId }))
   on('session.version', () => (over.failVersion ? { deny: 'no version' } : { value: { version: '2.1.287' } }))
   on('session.surfaces', () => ({ value: over.surfaces ?? ['terminal'] }))
   on('session.start', (_$: Any, e: Any) => ({ cwd: e.cwd }))
@@ -134,6 +146,7 @@ function world(on: Any, over: Over = {}): World {
   on('fs.list', (_$: Any, e: Any) => ({ value: listOf(w.files, e.path) }))
   on('process.run', (_$: Any, e: Any) => {
     w.runs.push([...e.argv])
+    w.inits.push(e.init ?? {})
     return processRun(w, over, e.argv)
   })
   on('tool.call', (_$: Any, e: Any) => {
@@ -342,7 +355,7 @@ test('VER-10: where nothing draws, the adapter records as usual and notices also
   expect(w.logs.some(l => l.includes('python not found'))).toBe(true)
 })
 
-test('VER-11: the files written are the progress folder\'s .gitignore, the run\'s log, current.json and adapter.log', async ($, on) => {
+test('VER-11: the files written are the progress folder\'s .gitignore, the run\'s log, and the session\'s current.json and adapter.log', async ($, on) => {
   const w = world(on, { files: { [`${ROOT}/.gitignore`]: 'node_modules\n' } })
   await start($)
   await load($)
@@ -350,7 +363,7 @@ test('VER-11: the files written are the progress folder\'s .gitignore, the run\'
   await w.clock.advance(600)
   const written = new Set(w.writes.map(p => p.replace(/runs\/[^/]+\//, 'runs/RUN/')))
   expect([...written].sort()).toEqual([
-    `${PROGRESS}/.gitignore`, `${PROGRESS}/adapter.log`, `${PROGRESS}/current.json`, `${PROGRESS}/runs/RUN/events.jsonl`,
+    `${PROGRESS}/.gitignore`, `${PROGRESS}/runs/RUN/events.jsonl`, `${SESSION}/adapter.log`, `${SESSION}/current.json`,
   ])
   expect(w.files.get(`${PROGRESS}/.gitignore`)).toBe('*\n')
   expect(w.files.get(`${ROOT}/.gitignore`)).toBe('node_modules\n')
@@ -443,7 +456,7 @@ test('VER-06: the evaluator runs with IF-03 argv and the layer folders that exis
   expect(layers.slice(1)).toEqual([`${ROOT}/devforgeai/manifests/organization`, `${ROOT}/devforgeai/manifests`])
   expect(argv.slice(argv.indexOf('--root'))).toEqual(['--root', ROOT])
   expect(argv[argv.indexOf('--events') + 1].endsWith('/events.jsonl')).toBe(true)
-  expect(w.files.get(`${PROGRESS}/current.json`)).toBe(JSON.stringify(STATE))
+  expect(w.files.get(`${SESSION}/current.json`)).toBe(JSON.stringify(STATE))
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/b.md` } as Any)
   await w.clock.advance(600)
   expect(w.runs.filter(a => a[2] === 'evaluate').length).toBe(2)
@@ -636,7 +649,7 @@ for (const [name, over, status] of FAILURES) {
     expect(w.statuses.includes(status)).toBe(true)
     const reason = status.slice('progress: off ('.length, -1)
     expect(w.toasts.filter(t => t.includes(reason)).length).toBe(1)
-    expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(`fail-open: ${reason}`)).toBe(true)
+    expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(`fail-open: ${reason}`)).toBe(true)
   })
 }
 
@@ -646,7 +659,7 @@ test('VER-09 / ERR-10: a timer callback that throws is caught, logged and treate
   await start($)
   await load($)
   await w.clock.advance(600)
-  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('fail-open: timer:')).toBe(true)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('fail-open: timer:')).toBe(true)
   expect(w.statuses.some(s => (s ?? '').startsWith('progress: off (timer:'))).toBe(true)
 })
 
@@ -682,7 +695,7 @@ test('BEH-15: the .gitignore is the first file written under devforgeai/progress
   await load($)
   const ours = w.writes.filter(p => p.startsWith(PROGRESS))
   expect(ours[0]).toBe(`${PROGRESS}/.gitignore`)
-  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
 })
 
 test('BEH-04: two overlapping tool calls are both recorded, each with its own seq', async ($, on) => {
@@ -699,7 +712,7 @@ test('BEH-04: two overlapping tool calls are both recorded, each with its own se
   expect(lines.slice(1).map(l => JSON.parse(l).tool).sort()).toEqual(['Glob', 'Grep', 'Read'])
 })
 
-test('VER-15 finding: the prompt that loads a skill arrives after the run opens, and is no answer', async ($, on) => {
+test('VER-18 / VER-15 finding: the prompt that loads a skill arrives after the run opens, and is no answer', async ($, on) => {
   const w = world(on)
   await start($)
   // In a live session the slash command expands first: skill.prompt, then prompt.submit with the typed text.
@@ -707,4 +720,123 @@ test('VER-15 finding: the prompt that loads a skill arrives after the run opens,
   await ($ as Any).prompt.submit({ text: '/devforgeai:brainstorm a sticker. No questions asked', wait: false, origin: { kind: 'composer' } })
   await ($ as Any).prompt.submit({ text: 'yes, promote IDEA-03', wait: false, origin: { kind: 'composer' } })
   expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'prompt'])
+})
+
+// ---- SPEC-013 v3: the session's own files, a run's own root, pruning (VER-18) ----
+
+function prunes(w: World): string[][] {
+  return w.runs.filter(a => (a[1] ?? '').endsWith('/progress/prune.py'))
+}
+
+function argOf(argv: string[], flag: string): string {
+  return argv[argv.indexOf(flag) + 1]
+}
+
+async function clearTo($: Any, w: World, id: string) {
+  await $.session.end({ reason: 'clear', sessionId: w.sessionId, resume: { id: w.sessionId } })
+  w.sessionId = id
+  await $.classic.SessionStart({ source: 'clear' })
+}
+
+test('VER-18: current.json and adapter.log are the session\'s, and a new session ID starts a new folder', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.files.has(`${SESSION}/current.json`)).toBe(true)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+  await clearTo($, w, 's2')
+  await load($)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/b.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.files.has(`${PROGRESS}/sessions/s2/current.json`)).toBe(true)
+  expect(w.files.has(`${PROGRESS}/sessions/s2/adapter.log`)).toBe(true)
+  expect(w.files.has(`${PROGRESS}/current.json`) || w.files.has(`${PROGRESS}/adapter.log`)).toBe(false)
+})
+
+test('VER-18: pruning starts once per session ID, after the first run\'s folder exists, with 30 days by default', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await load($, 'devforgeai:architecture')
+  await w.clock.advance(0)
+  expect(prunes(w).length).toBe(1)
+  const argv = prunes(w)[0]
+  expect(argv.slice(2)).toEqual(['prune', '--root', ROOT, '--days', '30', '--keep-session', 's1', '--keep-run', argOf(argv, '--keep-run')])
+  expect(argOf(argv, '--keep-run')).toMatch(/^20261002T120000Z-brainstorm-[0-9a-f]{8}$/)
+  expect(w.pruneSawRun).toEqual([true])
+  expect(w.inits[w.runs.indexOf(argv)].timeoutMs).toBe(10000)
+  await clearTo($, w, 's2')
+  await load($)
+  await w.clock.advance(0)
+  expect(prunes(w).map(a => argOf(a, '--keep-session'))).toEqual(['s1', 's2'])
+})
+
+test('VER-18: the retentionDays setting gives --days', { options: { retentionDays: 7 } } as Any, async ($: Any, on: Any) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await w.clock.advance(0)
+  expect(argOf(prunes(w)[0], '--days')).toBe('7')
+})
+
+test('VER-18 / ERR-12: a prune that exits 2 leaves one adapter.log line, and tracking goes on', async ($, on) => {
+  const w = world(on, { prune: () => ({ value: { exitCode: 2, stdout: '', stderr: 'prune: /work: not a folder\n' } }) })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await w.clock.advance(600)
+  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
+  expect(lines.length).toBe(1)
+  expect(lines[0].endsWith('prune: prune: /work: not a folder')).toBe(true)
+  expect(w.toasts.some(t => t.includes('prune'))).toBe(false)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
+})
+
+test('VER-18 / ERR-12: a prune that can\'t start leaves one adapter.log line and no notice', async ($, on) => {
+  const w = world(on, { prune: () => ({ deny: 'failed to start: ENOENT' }) })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
+  expect(lines.length).toBe(1)
+  expect(lines[0].includes('failed to start')).toBe(true)
+  expect(w.toasts.some(t => t.includes('prune') || t.includes('failed to start'))).toBe(false)
+})
+
+test('VER-18: no hook or tool call waits for pruning', async ($, on) => {
+  let release: () => void = () => {}
+  const w = world(on, {
+    prune: () => new Promise(resolve => {
+      release = () => resolve({ value: { exitCode: 0, stdout: 'pruned 1 runs, 0 sessions\n', stderr: '' } })
+    }),
+  })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
+  release()
+  await w.clock.advance(600)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('prune: pruned 1 runs, 0 sessions')).toBe(true)
+})
+
+test('VER-18: a run opens under the root it reads, and the mode and pruning follow a new root', async ($, on) => {
+  const w = world(on)
+  const tree = `${ROOT}/.claude/worktrees/x`
+  const treeProgress = `${tree}/devforgeai/progress`
+  await start($)
+  await load($)
+  w.root = tree
+  await load($, 'devforgeai:architecture')
+  await $.tool.call({ tool: 'Write', file_path: `${tree}/docs/specs/arch/ARCH-001.md`, content: 'x' } as Any)
+  await w.clock.advance(0)
+  expect(w.files.get(`${treeProgress}/.gitignore`)).toBe('*\n')
+  const log = [...w.files.keys()].find(k => k.startsWith(`${treeProgress}/runs/`) && k.endsWith('/events.jsonl')) ?? ''
+  const events = (w.files.get(log) ?? '').split('\n').filter(Boolean).map(l => JSON.parse(l))
+  expect(events.map(e => e.kind)).toEqual(['skill-loaded', 'tool'])
+  expect(events[1].path).toBe('docs/specs/arch/ARCH-001.md')
+  expect(JSON.parse(eventsOf(w).slice(-1)[0])).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(w.runs.filter(a => a[2] === 'mode').map(a => argOf(a, '--root'))).toEqual([ROOT, tree])
+  expect(prunes(w).map(a => argOf(a, '--root'))).toEqual([ROOT, tree])
 })
