@@ -1,7 +1,8 @@
 """Structure checks for SPEC-013's Claude Code adapter (src/claude/DevForgeAI/hooks/), VER-16.
 
 - hooks/hooks.json names one module, and it exists;
-- .claude-plugin/plugin.json names the $.state contract (types) and the tracking setting (DM-05);
+- .claude-plugin/plugin.json names the $.state contract (types), the tracking setting (DM-05) and the
+  retentionDays setting (DM-06);
 - CLAUDE.md's deploy command and its source-and-deploy check leave the module's tests and the engine's generated
   files out of the deployed copy;
 - VER-04's expected event lines, kept in hooks/progress.test.ts between marker comments, validate against
@@ -53,6 +54,14 @@ class AdapterStructure(unittest.TestCase):
         self.assertEqual(tracking["type"], "string")
         self.assertEqual(tracking["options"], ["on", "off"])
         self.assertEqual(tracking["default"], "on")
+
+    def test_plugin_json_has_the_retention_setting(self):
+        manifest = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
+        retention = manifest["userConfig"]["retentionDays"]
+        self.assertEqual(retention["type"], "number")
+        self.assertEqual((retention["default"], retention["min"], retention["max"]), (30, 7, 3650))
+        self.assertEqual(retention["title"], "Keep progress files (days)")
+        self.assertTrue((PLUGIN / "progress/prune.py").is_file())
 
     def test_the_deploy_command_leaves_tests_and_generated_files_out(self):
         text = CLAUDE_MD.read_text(encoding="utf-8")

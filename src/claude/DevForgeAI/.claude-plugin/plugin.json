@@ -16,6 +16,14 @@
         "off"
       ],
       "description": "Record each DevForgeAI skill run in devforgeai/progress/ and show its steps in the status line and a band above the prompt. off turns the progress tracker off for you in every project; the skills work the same either way."
+    },
+    "retentionDays": {
+      "type": "number",
+      "title": "Keep progress files (days)",
+      "default": 30,
+      "min": 7,
+      "max": 3650,
+      "description": "How many days the progress tracker keeps a skill run's log and a session's files in devforgeai/progress/ after they were last written. Older ones are removed when a later session starts its first tracked skill. 30 matches Claude Code's own transcript retention."
     }
   }
 }
