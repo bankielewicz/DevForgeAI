@@ -47,6 +47,9 @@ let root: string | null = null
 let pluginSkills: string[] | null = null
 let lastStatus: string | undefined | null = null
 let pendingReport: { seq: number; text: string } | null = null
+// The open run's event lines: in the module and events.jsonl, since a $.state value holds at most 4,194,304
+// characters (see types/index.d.ts); read back from the file after a reload.
+let held: { id: string; lines: string[] } | null = null
 let allReachedFor: string | null = null
 let bandChain: Promise<unknown> = Promise.resolve()
 let logChain: Promise<unknown> = Promise.resolve()
@@ -152,9 +155,22 @@ async function ensureDir($: E): Promise<boolean> {
   }
 }
 
+/** The open run's lines, read back from events.jsonl when the module was reloaded (BEH-17). */
+async function linesOf($: E, run: ProgressRun): Promise<string[]> {
+  if (held !== null && held.id === run.id) return held.lines
+  let lines: string[] = []
+  try {
+    lines = (await $.fs.read(`${run.dir}/events.jsonl`)).split('\n').filter(Boolean)
+  } catch {
+    // a log that can't be read back starts again from here
+  }
+  held = { id: run.id, lines }
+  return lines
+}
+
 /** Write the run's whole log (no append in $.fs); false when it can't be written or would pass 4 MiB. */
-async function writeLog($: E, run: ProgressRun): Promise<boolean> {
-  const text = run.lines.join('\n') + '\n'
+async function writeLog($: E, run: ProgressRun, lines: string[]): Promise<boolean> {
+  const text = lines.join('\n') + '\n'
   if (byteSize(text) > LOG_LIMIT) {
     await update($, RUN, () => null)
     await update($, OFF, () => LOG_FULL)
@@ -164,6 +180,7 @@ async function writeLog($: E, run: ProgressRun): Promise<boolean> {
   }
   try {
     await $.fs.write(`${run.dir}/events.jsonl`, text)
+    held = { id: run.id, lines }
     return true
   } catch {
     await stopTracking($, NO_WRITE)
@@ -176,8 +193,9 @@ async function record($: E, kind: string, fields: Fields, mark = true): Promise<
   const run = await read($, RUN)
   if (run === null || disabled) return
   const now = await $.clock.now()
-  const next: ProgressRun = { ...run, seq: run.seq + 1, lines: [...run.lines, eventLine(run.id, run.seq + 1, now, kind, fields)] }
-  if (!(await writeLog($, next))) return
+  const lines = [...(await linesOf($, run)), eventLine(run.id, run.seq + 1, now, kind, fields)]
+  const next: ProgressRun = { ...run, seq: run.seq + 1 }
+  if (!(await writeLog($, next, lines))) return
   await update($, RUN, () => next)
   await update($, LAST, () => now)
   if (mark) await update($, MARKED, () => true)
@@ -185,7 +203,7 @@ async function record($: E, kind: string, fields: Fields, mark = true): Promise<
 
 async function logBytes($: E): Promise<number> {
   const run = await read($, RUN)
-  return run === null ? 0 : byteSize(run.lines.join('\n'))
+  return run === null ? 0 : byteSize((await linesOf($, run)).join('\n'))
 }
 
 /** A Write's content, or the file an Edit will leave (DM-01, ERR-06). */
@@ -365,8 +383,8 @@ async function openRun($: E, skill: string, checklist: string): Promise<void> {
     format: FORMAT, skill, checklist, host: `claude-code ${version.version}`,
     mode: await read($, MODE), modeSource: await read($, SOURCE),
   })
-  const run: ProgressRun = { id, skill, seq: 1, lines: [line], dir }
-  if (!(await ensureDir($)) || !(await writeLog($, run))) return
+  const run: ProgressRun = { id, skill, seq: 1, dir }
+  if (!(await ensureDir($)) || !(await writeLog($, run, [line]))) return
   await update($, RUN, () => run)
   await update($, LAST, () => now)
   await update($, MARKED, () => true)
@@ -397,7 +415,7 @@ async function enforceCheck($: E, fields: Fields, content: string | null): Promi
     ...fields, exit: 0, error: false, content: keptContent(content, await logBytes($)),
   })
   try {
-    await $.fs.write(`${run.dir}/pending.jsonl`, [...run.lines, line].join('\n') + '\n')
+    await $.fs.write(`${run.dir}/pending.jsonl`, [...(await linesOf($, run)), line].join('\n') + '\n')
   } catch {
     return null
   }

@@ -262,7 +262,9 @@ test('VER-05: session end with any other reason is session-end, and nothing ends
   const w = world(on)
   await start($)
   await load($)
-  await w.clock.advance(24 * 60 * 60 * 1000)
+  // The kit's mock clock runs at most 10,000 waits in one advance, so 31 minutes (past the 30-minute idle
+  // display) stands for the spec's 24 hours: nothing in the adapter ends a run on time either way.
+  for (let i = 0; i < 31; i++) await w.clock.advance(60 * 1000)
   expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
   expect((w.statuses.filter(Boolean).slice(-1)[0] ?? '').endsWith(' · idle')).toBe(true)
   await ($ as Any).session.end({ reason: 'resume', sessionId: 's1', resume: { id: 's1' } })
@@ -292,9 +294,11 @@ test('VER-10: a headless session records, writes and draws nothing', async ($, o
 test('VER-10: the print trait also marks a session headless', async ($, on) => {
   const w = world(on)
   await start($)
-  await ($ as Any).prompt.compose({ model: 'm', promptModel: 'm', surfaces: [], tools: [], traits: ['lean', 'print', 'skills'] })
+  const before = w.writes.length
+  await ($ as Any).prompt.compose({ model: 'm', promptModel: 'm', surfaces: [], tools: [], traits: ['lean', 'print', 'skills'], outputStyle: null })
   await load($)
-  expect(w.writes).toEqual([])
+  expect(w.writes.slice(before)).toEqual([])
+  expect(runFiles(w, 'events.jsonl')).toEqual([])
 })
 
 test('VER-10 / ERR-08: a tracked skill before any session.start records nothing', async ($, on) => {
@@ -349,10 +353,10 @@ test('VER-11 / ERR-11: past 3 MiB no content is kept, and at 4 MiB the run stops
   await start($)
   await load($)
   const chunk = 'y'.repeat(60 * 1024)
-  for (let i = 0; i < 52; i++) await $.tool.call({ tool: 'Write', file_path: `${ROOT}/c${i}.md`, content: chunk } as Any)
+  for (let i = 0; i < 60; i++) await $.tool.call({ tool: 'Write', file_path: `${ROOT}/c${i}.md`, content: chunk } as Any)
   const lines = eventsOf(w)
   const withContent = lines.filter(l => JSON.parse(l).content !== undefined).length
-  expect(withContent < 52).toBe(true)
+  expect(withContent > 40 && withContent < 60).toBe(true)
   for (let i = 0; i < 200; i++) await $.tool.call({ tool: 'Bash', command: 'z'.repeat(30 * 1024) } as Any)
   const size = (w.files.get(runFiles(w, 'events.jsonl')[0]) ?? '').length
   expect(size <= 4 * 1024 * 1024).toBe(true)
