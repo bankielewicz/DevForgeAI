@@ -155,9 +155,10 @@ export function isEngine(origin: unknown): boolean {
 }
 
 // The parts of SPEC-012's progress state (DM-03) the adapter reads.
-export type StateStep = { n: number; title: string; state: string }
+export type StateStep = { n: number; title: string; state: string; userOwned?: boolean }
 export type StateFlag = { gate: string; seq: number; step: number; type: string; message: string }
 export type ProgressState = {
+  run?: string
   skill: string
   current: number | null
   ended: string | null
@@ -238,16 +239,28 @@ export function newFlagToasts(state: ProgressState, shown: readonly string[]): {
   return { keys: fresh.map(flagKey), toasts: fresh.map(f => `✗ Step ${f.step} ${f.type}: ${f.message}`) }
 }
 
-/** The refusal text at the write gate (BEH-08), or null when the provisional state doesn't refuse at seq. */
+/** The refusal text at the write gate (BEH-08), or null when the provisional state doesn't refuse at seq. It names
+ *  what clears each flag: a step's own evidence or a tick in reply text, or for a decision the user's answer (the
+ *  VER-15 dogfood run showed a refusal that only said "the user decides" sent Claude into the tracker's code). */
 export function refusalText(state: ProgressState, seq: number): string | null {
   const g = state.gate
   if (g.kind !== 'write' || g.seq !== seq || !g.refuse) return null
-  const flags = state.flags.filter(f => f.seq === seq).map(f => `- ${f.message}`)
-  return [
-    "DevForgeAI's progress tracker refused this write at the write gate (enforce mode):",
-    ...flags,
-    'These decisions are the user\'s: ask the user, or leave the fields open, then write again.',
-  ].join('\n')
+  const flags = state.flags.filter(f => f.seq === seq)
+  const owned = new Set(state.steps.filter(s => s.userOwned).map(s => s.n))
+  const decisions = flags.filter(f => f.type === 'rule-broken' || owned.has(f.step))
+  const steps = flags.filter(f => f.type !== 'rule-broken' && !owned.has(f.step)).map(f => f.step)
+  const lines = ["DevForgeAI's progress tracker refused this write at the write gate (enforce mode):", ...flags.map(f => `- ${f.message}`)]
+  if (steps.length) {
+    const list = [...new Set(steps)].join(', ')
+    lines.push(`To clear step ${list}: do the step with a tool call the run log can see (Read the files it names), `
+      + `or, if you did it, tick it as \`- [x] N.\` in your reply text. A tick only in your thinking doesn't count.`)
+  }
+  if (decisions.length) {
+    lines.push('The decisions at step ' + [...new Set(decisions.map(f => f.step))].join(', ')
+      + " are the user's: ask the user, or leave those fields open.")
+  }
+  lines.push('Then write again.' + (state.run ? ` The run's log and state are in devforgeai/progress/runs/${state.run}/.` : ''))
+  return lines.join('\n')
 }
 
 /** The report gate's flags for the model (BEH-09), or null when there are none to give. */

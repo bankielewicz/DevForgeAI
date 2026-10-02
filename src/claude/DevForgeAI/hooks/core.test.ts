@@ -164,3 +164,20 @@ test('the final evaluation at session end uses what the budget leaves, or none',
   expect(finalTimeout(450)).toBe(null)
   expect(finalTimeout(0)).toBe(null)
 })
+
+test('the refusal names what clears each flag, and the decision line only for decision flags', () => {
+  const stepOnly = refusalText({ ...STATE, run: 'r1', gate: { kind: 'write', seq: 4, refuse: true, reason: 'x' },
+    flags: [{ gate: 'write', seq: 4, step: 1, type: 'skipped', message: 'step 1 has no evidence or tick' }] }, 4) ?? ''
+  expect(stepOnly).toContain('To clear step 1:')
+  expect(stepOnly).toContain("A tick only in your thinking doesn't count.")
+  expect(stepOnly.includes("are the user's")).toBe(false)
+  expect(stepOnly).toContain('devforgeai/progress/runs/r1/')
+  const owned = { ...STATE, steps: STATE.steps.map(s => (s.n === 5 ? { ...s, userOwned: true } : s)) }
+  const decision = refusalText({ ...owned, gate: { kind: 'write', seq: 4, refuse: true, reason: 'x' },
+    flags: [
+      { gate: 'write', seq: 4, step: 5, type: 'skipped', message: 'step 5 had no answer from you' },
+      { gate: 'write', seq: 4, step: 6, type: 'rule-broken', message: 'BRN-002.md sets disposition: promoted' },
+    ] }, 4) ?? ''
+  expect(decision).toContain("The decisions at step 5, 6 are the user's: ask the user, or leave those fields open.")
+  expect(decision.includes('To clear step')).toBe(false)
+})

@@ -472,6 +472,12 @@ v3 could adopt the wording.
   typed `/devforgeai:brainstorm …` arrived as a `prompt` event after the run opened, and the evaluator counted it as
   step 5's answer: a user-owned step showed `done` though the user had confirmed nothing. A prompt that runs a
   command or loads a skill is no answer. Kit test added.
+- **Departure, BEH-08's refusal text, found by VER-15's second dogfood run:** the refusal said only that "the user
+  decides these", which fits a decision written without the user's answer, not a missing step. Refused for step 1,
+  Claude read the tracker's code to learn why. The text now names what clears each flag: for a step, a tool call
+  the run log can see or a tick in reply text (a tick only in thinking doesn't count, which is where that run's
+  tick had stayed); for a decision (a rule-broken flag, or a user-owned step's), the user's answer or the fields
+  left open; and it points to the run's folder. Core test added.
 - **Finding for SPEC-012, from the same run:** the brainstorm listed `docs/specs/brainstorm/` with Bash `ls`, which
   SPEC-012's read rules (Read, Glob, Grep only) don't count, and ticked none of steps 1 to 5, so step 1 was flagged
   `skipped` at the write gate. The flag follows SPEC-012 as written; a v2 could count a Bash command that names the
