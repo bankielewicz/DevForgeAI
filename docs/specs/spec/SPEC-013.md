@@ -2,8 +2,8 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved    # draft | in-review | approved | superseded | deprecated
-version: 1
+status: in-review   # draft | in-review | approved | superseded | deprecated
+version: 2
 created: 2026-10-02
 updated: 2026-10-02
 owner: "Bryan"
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-02
+approved_by: ""
+approved_on: null
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
@@ -82,10 +82,16 @@ the same evaluator.
   `plugin-authoring` skill's `reference.md`, among them: `$.plugin.root` (the plugin's folder, absolute),
   `$.session.root()` and `$.session.version()`; `$.process.run(argv, { timeoutMs })` (30 seconds by default; it
   rejects when the command is still running then); `$.fs` (read, write, list, exists, stat; no append); a `.catch`
-  handler receives a replay-safe `next`; `tool.call` and `turn.complete` carry `agentId` only for a subagent;
-  `turn.complete`'s `answer`; `session.end`'s reasons, `clear` with no `session.start` after it; `prompt.compose`'s
-  trait `print`; and `crypto.getRandomValues`. What they can't settle, the build checks first (VER-01), and the
-  build rechecks the declarations on the build it runs on.
+  handler receives a replay-safe `next`; `tool.call`, `session.append` and `turn.complete` carry `agentId` only for
+  a subagent; `session.append`'s door `response`, one row per kept block of Claude's; `session.end`'s reasons, `clear` with no `session.start` after it; `prompt.compose`'s
+  trait `print`; and `crypto.getRandomValues`. The probe (VER-01, run on 2026-10-02) checked what the declarations
+  couldn't settle; §9 records its answers, and this version applies them. The build rechecks the declarations
+  on the build it runs on.
+- **Installed plugins' mods load only while Anthropic serves them.** Claude Code loads an installed plugin's
+  hooks module only while the rollout flag `tengu_plugin_hooks_modules` is on; built-in mods load regardless. A
+  process reads the flag from the cache the previous session left in `~/.claude.json`, so a newly served value
+  takes effect in the next process (the probe's first session, §9). With the flag off, the module doesn't load,
+  the skills work as before, and `claude plugin test` refuses to run its tests.
 - **Bryan's decisions** (2026-10-02):
   - the adapter lives in the plugin, `src/claude/DevForgeAI/hooks/` (ADR-006's "one mod", and source in each
     plugin), not in `src/tools/mods/`;
@@ -120,7 +126,7 @@ flowchart LR
 | `src/claude/DevForgeAI/types/index.d.ts` | the `$.state` contract (DM-03), named by `plugin.json`'s `types` | yes |
 | `src/claude/DevForgeAI/progress/settings.py` | IF-01 and IF-02 | yes |
 | `src/claude/DevForgeAI/.claude-plugin/plugin.json` | gains `types` and the `tracking` setting (DM-05) | yes |
-| `src/tests/progress/test_settings.py`, `test_adapter_structure.py` | settings.py's tests (VER-02, VER-03) and the structure checks (VER-16) | no |
+| `src/tests/progress/test_settings.py`, `test_adapter_structure.py` | settings.py's tests (VER-02, VER-03) and the structure checks, which read VER-04's expected lines from `hooks/progress.test.ts` (VER-16) | no |
 
 `evaluate.py`, its schemas and its manifests don't change.
 
@@ -131,25 +137,27 @@ flowchart LR
 | `skill.prompt` | starts and ends runs (BEH-02, BEH-03, BEH-05) |
 | `tool.call` | records tool calls and answers (BEH-04); in enforce mode, checks the write gate before the call (BEH-08) |
 | `prompt.submit` | records the user's prompts; in enforce mode, gives the model the report gate's flags (BEH-09) |
-| `turn.start`, `turn.complete` | records turns and Claude's replies (BEH-04) |
+| `session.append` with door `response` | records Claude's text as it is kept, ticks included (BEH-04) |
+| `turn.start`, `turn.complete` | records turns (BEH-04) |
 | `session.end` | ends the run (BEH-05) |
 | `ui.render` on `AbovePrompt` | draws the band (BEH-11) |
 
 ## 4. Data model
 
 **DM-01. The events the adapter writes.** Every event carries SPEC-012 DM-02's `run`, `seq` (1, 2, 3 … within
-the run, with no gaps), `time` (UTC, ISO 8601) and `kind`. Only the main loop is recorded: a `tool.call` or
-`turn.complete` whose input carries an `agentId` is a subagent's, and is skipped (no DevForgeAI skill uses
-subagents today).
+the run, with no gaps), `time` (UTC, ISO 8601) and `kind`. Only the main loop is recorded: a `tool.call`,
+`session.append` or `turn.complete` whose input carries an `agentId` is a subagent's, and is skipped (no
+DevForgeAI skill uses subagents today).
 
 | Claude Code | When | Event |
 | --- | --- | --- |
 | `skill.prompt` for a tracked skill (BEH-02) | as it loads | `skill-loaded`: `format` `devforgeai-events/1`; `skill`, the name without a `<plugin>:` prefix; `checklist`, the text that `next(e)` resolves to, which is what the model reads; `host`, `claude-code <version>` from `$.session.version()`; and two fields DM-02 allows but the evaluator doesn't read: `mode` and `modeSource` (ADR-006 D3) |
 | `tool.call`, any tool but AskUserQuestion | after `next(e)` resolves | `tool`: `tool`; `path` (below); `command` for Bash; `exit`; `error`; `content` for Write and Edit (below) |
-| `tool.call` of AskUserQuestion | after `next(e)` resolves | `answer`: `answered` true when the result holds at least one answer, false when the dialog was dismissed |
+| `tool.call` of AskUserQuestion | after `next(e)` resolves | `answer`: `answered` true when the call didn't fail and the result's `answers` holds at least one entry, an option picked or an answer typed; false when it failed, as a dismissal does (§9, P5) |
 | `prompt.submit`, the user's own (no plugin's) | as it is submitted | `prompt` |
 | `turn.start` | | `turn` with `phase` `start` |
-| `turn.complete` | | `reply` with `text`, the turn's `answer`, when it isn't empty; then `turn` with `phase` `end` |
+| `session.append` with door `response` | as each row is kept | `reply` with `text`, the row's text blocks joined by newlines, when it has any; a row that holds only a tool call gives none. Each row arrives as it is kept, so ticks written between tool calls are recorded; `turn.complete`'s `answer` holds only the turn's last text, and a whole skill run can be one turn (§9, P7) |
+| `turn.complete` | | `turn` with `phase` `end` |
 | `session.end` | | `run-end`, `reason` `clear` when the session ends by `/clear`, otherwise `session-end` |
 | a tracked skill loading while a run is open | before the new run's `skill-loaded` | `run-end` with `reason` `another-skill`, in the old run |
 
@@ -157,8 +165,8 @@ The fields of a `tool` event:
 - **`path`**, relative to the project root with `/` separators: Read, Write and Edit's `file_path`; Glob's
   `pattern`, joined to its `path` when one is given; Grep's `path`, or `.` when none is given. A path outside the
   project root is kept absolute.
-- **`exit`**: the exit code when the result carries one (VER-01 checks Bash's result), otherwise 0 when the call
-  succeeded and null when it failed.
+- **`exit`**: Bash's result has no exit-code field (§9, P6). A failed call's text reads `Exit code <n>`, so `exit`
+  is that number when the call failed and the text has it, 0 when the call succeeded, and null otherwise.
 - **`error`**: true when the result has `isError`, or when the adapter refused the call (BEH-08).
 - **`content`**: a Write's `content`, or for an Edit the whole file the Edit will leave: the current file with
   `old_string` replaced by `new_string` once, or everywhere with `replace_all`. Left out when it can't be computed
@@ -176,7 +184,10 @@ The fields of a `tool` event:
 | `adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused`, `context`, `fail-open`, `error` |
 
 **DM-03. The adapter's session state,** in `$.state`, declared in `types/index.d.ts` under the plugin's name.
-`$.state` survives a reload of the module; module variables don't (BEH-17).
+`$.state` survives a reload of the module; module variables don't (BEH-17). A `/clear` empties it (§9, P11).
+`claude plugin validate` reads the contract strictly: it exports types and nothing else (no `export {}`), and the
+state's keys are written inline under `interface PluginState`, since a type alias there hides them (found with
+the probe).
 
 ```ts
 interface ProgressState {
@@ -277,7 +288,7 @@ behaviors:
     rule: "At session.start, and at a skill.prompt when $.state holds no mode (no session.start follows a /clear), the adapter runs IF-01 and keeps the mode and its source in $.state; it writes each entry IF-01 reports as ignored to adapter.log and shows them in one toast. Every skill-loaded event carries the mode and source in force when the run opened (ADR-006 D3). Until the shared-schema change brings progress.mode into policy, only the framework default and the local entry apply, and the button is always available."
   - id: BEH-17
     status: active
-    rule: "A reload of the module (a hot reload, or a change to the tracking setting) keeps an open run: its ID, seq, lines, the mode and the summary are in $.state. The evaluation timer starts again at the reloaded module's session.start, and the adapter marks the run so the state is computed again."
+    rule: "A reload of the module (a hot reload, or a change to the tracking setting) keeps an open run: its ID, seq, lines, the mode and the summary are in $.state. The evaluation timer starts again at the reloaded module's session.start, and the adapter marks the run so the state is computed again. $.state belongs to the session: a /clear empties it and changes the session ID while the module and its timer go on (§9, P11), after the run has already ended with run-end clear (BEH-05)."
   - id: BEH-18
     status: active
     rule: "settings.py reads .claude/devforgeai.local.md only as frontmatter: the file must start with a line '---' and end with the next '---' line, with nothing after it but blank lines. IF-01 uses the progress.mode entry when the file is frontmatter-only, devforgeai_local is 1, and the value is observe or enforce, quoted or not; otherwise the mode is observe from the framework default, and each reason is reported (ERR-04). IF-02 creates .claude/ and the file when they are missing, with devforgeai_local: 1 and the entry; in an existing frontmatter-only file it replaces the progress.mode line, or adds it before the closing '---', and keeps every other line as it was. It writes a temporary file beside the target and renames it over the target. It reads no other entry: the skills apply the rest (ADR-003 A3)."
@@ -289,7 +300,7 @@ behaviors:
 errors:
   - id: ERR-01
     status: active
-    condition: "Neither python3 nor python runs: '<name> --version' fails for both at session.start."
+    condition: "Neither python3 nor python runs: at session.start, $.process.run of '<name> --version' rejects for both (a missing program rejects with 'Executable not found', §9, P2) or exits non-zero."
     handling: "Keep recording events; skip every evaluation and every enforce check, so every call proceeds (BEH-14); write adapter.log once."
     user_result: "The status line shows 'progress: off (python not found)', and one toast says so."
   - id: ERR-02
@@ -364,7 +375,7 @@ quality_responses:
 | Kind | Status |
 | --- | --- |
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFRs; every BEH, ERR and QR item is covered by a VER item |
-| Probe (VER-01) | Not run; the build's first step |
+| Probe (VER-01) | Run on 2026-10-02 with Claude Code 2.1.287, by Bryan in his shell and in a cmux tab, in a throwaway workspace (`/tmp/devforgeai-probe-ws`) with the plugin's source and the probe as skills-dir plugins: P1 to P8 and P10 to P13 answered (below); P9 not run. P7 contradicted DM-01, so version 2 reads replies from `session.append` |
 | Build | Not built |
 
 **The probe (VER-01).** A throwaway mod, outside the plugin, logs what the declarations can't settle. It needs
@@ -385,12 +396,35 @@ before step 2 of §11.
 | P10 | Does the engine write `.claude-plugin/types/` into the deployed copy when it loads the module? | logged either way; §10 adjusts the deploy check |
 | P11 | What happens to `$.state` and running timers after `/clear`, which fires `session.end` with no `session.start` after it? | logged either way; BEH-06 and BEH-16 restart the timer and resolve the mode at the next `skill.prompt` in both cases |
 | P12 | Can a `claude plugin test` file read a file outside the plugin through `$.fs` (VER-04's expected lines)? | the test reads `src/tests/progress/adapter/events.jsonl`; if not, the build keeps the lines in the test and the Python test reads them from there |
+| P13 | Does a `tool.call` hook's `{ deny }` reach the model as the call's error result (BEH-08's mechanism)? Added during the probe | the model reports the refusal's text |
+
+**The probe's answers** (2026-10-02, Claude Code 2.1.287; logs and debug logs named in the build's checkpoint,
+`tmp/spec-013-adapter/CHECKPOINT.md`, which is local):
+
+| # | Answer | What version 2 does with it |
+| --- | --- | --- |
+| P1 | Yes. The debug log reads "hooks module progress-probe@skills-dir loaded (worker, environment 1, tier user)" | Nothing: the module ships in the plugin's skills-dir copy |
+| P2 | The probe's `$.fs.write` and a `$.process.run` of `sh -c touch` both wrote under `.claude/skills/devforgeai/`, which Claude's Bash sandbox denies in this repository's configuration; whether that session's own Bash would have been refused there wasn't tried. `python3 --version` ran in 3 ms; `python` isn't installed, and `$.process.run` rejected with "Executable not found in $PATH"; `evaluate.py check` through `$.process.run` took 38 ms | ERR-01 names the rejection |
+| P3 | `e.skill` is `devforgeai:brainstorm`; `skill.prompt` fired once, for the user's load only. No preload or subagent load occurred | Nothing: BEH-02 strips the prefix |
+| P4 | Yes. The text, both as given and as the model reads it (they were identical), begins with "Base directory for this skill: …" and has no frontmatter, and `check` reports `matched sha256:e3ba73ab…` for brainstorm. Architecture wasn't loaded | Nothing |
+| P5 | Dismissed with Esc: `isError` true and an error text ("The user doesn't want to proceed with this tool use…"), no `answers`. Answered by picking an option or typing one: `isError` false and `answers` maps each question to its answer | DM-01's `answered` rule |
+| P6 | No exit-code field: `exit 3` gives `isError` true, result "Error: Exit code 3" and text "Exit code 3" | DM-01's `exit` rule |
+| P7 | No. The whole brainstorm (skill load, two AskUserQuestion rounds, the Write, validation) was one turn, and `turn.complete`'s `answer` held only its last text, with no ticks. In a second session, `session.append` with door `response` gave one row per text block as it was kept: `- [x] 1. probe tick` before a Bash call, the call's own row with no text, then `- [x] 2. second tick` | DM-01 takes `reply` events from `session.append` |
+| P8 | Interactive: `prompt.submit`, `turn.start`, then the first `prompt.compose` (traits `lean`, `skills`), then `skill.prompt`. Under `claude -p` the module loaded too, and the first `prompt.compose` (traits `lean`, `print`, `skills`) came before `prompt.submit`. One earlier `claude -p` run without `--debug` logged nothing, unexplained | Nothing: BEH-01's check comes before any run opens |
+| P9 | Not run (one paid eval case). Mods do load under `-p` (P8), so they may load in eval child runs; BEH-01 leaves those untouched either way | Nothing |
+| P10 | No `.claude-plugin/types/` was written into either skills-dir copy | §10 drops the deploy-check exclusion it anticipated |
+| P11 | After `/clear`: the same module load and its timer went on, no `session.start` fired, the session ID changed, and `$.state` was empty | BEH-17 says so; BEH-06 and BEH-16 already restart at the next `skill.prompt` |
+| P12 | No. A test's `$` holds event calls only, and even an inline plugin's `$.fs.read` is an event nothing answers ("no implementation for fs.read"). A test answers `fs.read` with `{ value }` and captures `fs.write` itself, so tests run in memory | VER-04, VER-11 and VER-16: expected lines live in the test file |
+| P13 | Yes. The model said the write "was refused by a hook" and quoted the refusal | Nothing |
+
+Before the probe's sessions could load the module, Claude Code served the hooks-modules rollout flag off from an
+earlier cache; the same session refreshed it to on, and every later process loaded the probe (§2).
 
 ```yaml items
 verifications:
   - id: VER-01
     status: active
-    obligation: "The probe answers P1 to P12 as the table above says, and the answers are recorded in §9 with the Claude Code version. Any answer that contradicts DM-01, BEH-01, BEH-02 or BEH-03 revises this spec before the adapter is built."
+    obligation: "The probe answers P1 to P13 as the table above says (P9 optional), and the answers are recorded in §9 with the Claude Code version. Any answer that contradicts DM-01, BEH-01, BEH-02 or BEH-03 revises this spec before the adapter is built."
     level: manual
     covers:
       - BEH-01
@@ -415,7 +449,7 @@ verifications:
       - QR-04
   - id: VER-04
     status: active
-    obligation: "A claude plugin test script plays a session: /devforgeai:brainstorm loads, then a Read, a Bash run of validate_brn.py, an answered and a dismissed AskUserQuestion, a reply with ticks, a Write, a prompt, and a subagent's Write and reply. The events.jsonl written equals, byte for byte, the expected lines kept outside the plugin in src/tests/progress/adapter/events.jsonl (P12), with each DM-01 field (path forms, exit, error, content) and no subagent event; test_adapter_structure.py validates the same file against events.schema.json."
+    obligation: "A claude plugin test script plays a session: /devforgeai:brainstorm loads, then a Read, a Bash run of validate_brn.py, an answered, a typed and a dismissed AskUserQuestion, a failed Bash whose text reads 'Exit code 3', one turn whose response rows tick a step before and after a tool call, a Write, a prompt, and a subagent's Write and response. A test touches no disk (§9, P12): it answers the plugin's fs.read and fs.exists calls and captures each fs.write. The last events.jsonl written equals, byte for byte, the expected lines kept in the test file between marker comments, with each DM-01 field (path forms, exit, error, content), one reply per response row with text, and no subagent event; test_adapter_structure.py reads those lines from hooks/progress.test.ts and validates each against events.schema.json."
     level: integration
     covers:
       - BEH-04
@@ -466,7 +500,7 @@ verifications:
       - BEH-01
   - id: VER-11
     status: active
-    obligation: "After a scripted run, the files written are exactly devforgeai/progress/.gitignore (holding '*'), the run's events.jsonl and state.json, current.json and adapter.log; the project's .gitignore is byte for byte unchanged; with devforgeai/progress/ unwritable, tracking stops for the session with ERR-03's status line and no further writes."
+    obligation: "After a scripted run, the fs.write calls the test captures name exactly devforgeai/progress/.gitignore (holding '*'), the run's events.jsonl and state.json, current.json and adapter.log; none names the project's .gitignore; with fs.write refused under devforgeai/progress/, tracking stops for the session with ERR-03's status line and no further writes."
     level: integration
     covers:
       - BEH-15
@@ -509,7 +543,7 @@ verifications:
       - QR-02
   - id: VER-16
     status: active
-    obligation: "test_adapter_structure.py checks that hooks/hooks.json names one module that exists, plugin.json names types and the tracking setting (DM-05), CLAUDE.md's deploy command excludes *.test.ts and *.test.tsx, and the VER-04 fixture validates against events.schema.json; claude plugin validate src/claude/DevForgeAI reports nothing refused (recorded in §9)."
+    obligation: "test_adapter_structure.py checks that hooks/hooks.json names one module that exists, plugin.json names types and the tracking setting (DM-05), CLAUDE.md's deploy command excludes *.test.ts and *.test.tsx, and VER-04's expected lines, read from hooks/progress.test.ts, validate against events.schema.json; claude plugin validate src/claude/DevForgeAI reports nothing refused (recorded in §9)."
     level: unit
     covers:
       - BEH-04
@@ -518,8 +552,8 @@ verifications:
 
 ## 10. Rollout, migration and rollback
 
-- **Order.** The probe (VER-01) runs first, as a throwaway mod outside the plugin. If an answer contradicts this
-  spec, the spec is revised and reviewed again before the build goes on.
+- **Order.** The probe (VER-01) ran first, on 2026-10-02, as a throwaway mod outside the plugin (§9). Version 2
+  applies its answers; the build follows once Bryan approves it.
 - **Branch.** The build runs on its own branch and worktree (ADR-001).
 - **Plugin version.** The plugin's folder changes, so `plugin.json` takes the next free minor version at merge.
 - **Repository records** (`CLAUDE.md`):
@@ -530,14 +564,16 @@ verifications:
     X=(--exclude=__pycache__ --exclude=results --exclude='*.test.ts' --exclude='*.test.tsx')
     rsync -a --delete "${X[@]}" src/claude/DevForgeAI/ .claude/skills/devforgeai/
     ```
-  - the source-and-deploy `diff -rq` check excludes the same, and `.claude-plugin/types` when P10 shows the
-    engine writes it into the deployed copy;
+  - the source-and-deploy `diff -rq` check excludes the same; the engine wrote no `.claude-plugin/types/` into a
+    skills-dir copy (§9, P10), so nothing else;
   - Commands gains `claude plugin test src/claude/DevForgeAI`, `claude plugin validate src/claude/DevForgeAI` and
     `PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress`;
   - `.gitignore` gains `src/claude/DevForgeAI/.claude-plugin/types/`, where the engine writes generated types when
-    the plugin is loaded from source.
-- **Who gets it.** Everyone who installs `devforgeai` gets the adapter in observe mode, which never blocks. The
-  `tracking` setting turns it off; enforce mode is the user's choice, through the band's button.
+    the plugin is loaded from source with `--plugin-dir` (the plugin-authoring reference; P10 checked only the
+    skills-dir copies).
+- **Who gets it.** Everyone who installs `devforgeai` gets the adapter in observe mode, which never blocks, once
+  their Claude Code serves the hooks-modules rollout flag (§2); until then it doesn't load and nothing changes.
+  The `tracking` setting turns it off; enforce mode is the user's choice, through the band's button.
 - **Codex parity.** The Codex port can't run mods; the adapter is a Claude-only difference for Codex sessions to
   record in their import reports (the mods proposal's rule 8). The formats and `settings.py`'s rules are the
   shared contract.
@@ -548,7 +584,7 @@ verifications:
 
 ## 11. Implementation plan
 
-1. Run the probe and record P1 to P12 (VER-01); revise this spec if any answer contradicts it.
+1. Run the probe and record P1 to P13 (VER-01): done on 2026-10-02 (§9), and version 2 applies the answers.
 2. Write `settings.py`'s tests, then `settings.py` (IF-01, IF-02, BEH-18; VER-02, VER-03).
 3. Add `hooks/hooks.json`, `types/index.d.ts` and the `plugin.json` keys; check them with `claude plugin validate`.
 4. Write the tests, then the recording: activation, runs, events and files (BEH-01 to BEH-05, BEH-15, BEH-17;
@@ -594,7 +630,8 @@ Notes:
 - A mode switch during a run is in `adapter.log`, not in the event log, because DM-02 has no kind for it.
 - Locking the mode at project level arrives with the shared-schema change (ADR-006 D3). Until then the button is
   always available.
-- The probe may change DM-01 and BEH-01 to BEH-03; any change is a new version of this spec, with Bryan's approval, before the build.
+- The probe ran on 2026-10-02 (§9). P9 wasn't run: whether mods run in `claude plugin eval`'s child runs is
+  untested, and BEH-01 leaves headless sessions untouched either way.
 - The button saves `.claude/devforgeai.local.md` in the project. This repository's `.gitignore` already ignores it
   (ADR-003); in a project whose `.gitignore` doesn't, git shows it as untracked, and the user adds the entry. The
   adapter never edits a `.gitignore` of the project's.
@@ -611,3 +648,4 @@ Notes:
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | First draft, on Bryan's direction of 2026-10-02 and his four decisions: the adapter in the plugin, enforce mode specified here, no idle limit, headless sessions left untouched | all |
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, after the advisor's review: no file before the session is known to be interactive (BEH-03, BEH-15); after a /clear the mode and timer start at the next tracked skill (BEH-06, BEH-16); a .catch returns its replay-safe next(e) (BEH-14); one timer-driven evaluation at a time (BEH-06); ERR-02's limit is $.process.run's timeoutMs; report-gate flags skip prompts starting with '/' and ended runs (BEH-09); every plugin skill opens a run (BEH-03); probe items P11 and P12; the deploy command as an array; §2's checked API list | BEH-03, BEH-06, BEH-09, BEH-14, BEH-15, BEH-16, ERR-02, VER-01, VER-04, VER-05, VER-08, §2, §9, §10, §13 |
 | 1 | 2026-10-02 | Bryan | Approved | status |
+| 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The probe (VER-01) ran on 2026-10-02, and §9 records its answers. P7 contradicted DM-01: a whole skill run can be one turn, and turn.complete's answer holds only its last text, so reply events now come from session.append rows with door response (DM-01, §3). Also from the probe: AskUserQuestion's answered rule (P5) and Bash's exit from 'Exit code N' (P6) in DM-01; ERR-01 names a missing program's rejection (P2); BEH-17 says a /clear empties $.state (P11); tests run in memory, with VER-04's expected lines in the test file (P12); the hooks-modules rollout flag (§2, §10); DM-03's contract rules from claude plugin validate; P13 added | §2, §3, DM-01, DM-03, BEH-17, ERR-01, VER-01, VER-04, VER-11, VER-16, §9, §10, §11, §13 |
