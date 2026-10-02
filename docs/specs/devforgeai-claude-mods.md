@@ -548,6 +548,16 @@ Gaps are marked. A `Select` filters the list: all, gaps only, or the current rel
 
 ## 7. Verified and unverified
 
+**Corrections from the mods docs** (read on 2026-10-02 against SPEC-013 v2; the saved copy is in `docs/research/Claude/mods/`):
+- `Button` has no `variant` prop, and an element given a prop it doesn't take makes Claude Code draw its own site instead, so the `[ Label ]*` convention in the mockups can't be drawn as written.
+- A tool call's result has no documented `context` list. A mod reaches the model through a refusal's text, a prompt's `context` (`prompt.submit`), a command's output, or a skill's or the system prompt's text.
+- `$.ui.notice` is listed but not described, and a mod can't change what the permission prompt shows.
+- Commands are bare names: `/changes`, not `/devforgeai:changes`.
+- `$.store` is one store per plugin, shared by every session on the machine, 4 MiB in all; `$.state` empties on `/clear`, `/resume` and `/branch`.
+- A `userConfig` picker in `/config` isn't documented; an option that fails validation stops the module loading.
+- Mods draw only on the terminal and desktop surfaces; VS Code's chat panel runs hooks and draws nothing.
+- Mods run outside Claude's sandbox: the probe's mod wrote under `.claude/skills/`, and the docs say a mod's processes run outside it (SPEC-013 §9, P2).
+
 **Verified.** These were read in the 2.1.287 declarations or `reference.md`:
 - **Events:** `tool.call` (refusing, rewriting, a result's `context`), `prompt.submit`, `prompt.compose`, `skill.prompt`, `session.append` (with its `compaction` door), `session.start`, the `classic.*` events, and `ui.render` on `AbovePrompt`, `Pane`, `CommandOutput` and `AskUserQuestion`.
 - **UI:** `$.ui.status`, `toast`, `open`, `notice` and `copy`; `$.prompt.fill` and `suggest`.
