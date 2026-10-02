@@ -1,6 +1,6 @@
 """Checks the regex and file graders added for SPEC-002 v2 offline, before any paid run.
 
-For each new prd case (VER-24 to VER-36) and the graders added to records-provenance (VER-09) and
+For each new prd case (VER-24 to VER-38) and the graders added to records-provenance (VER-09) and
 constraints-not-design (VER-10), it runs the case's scaffold in a temporary workspace, writes a
 hand-made good result (the files and final reply a correct run would leave), and runs
 grade_evals.mjs: every regex and file grader must pass. Then it writes bad results, each breaking one
@@ -456,6 +456,59 @@ S += [
     (c, "PRD-002 written (v3)", {"docs/specs/prd/PRD-002.md": "---\nid: PRD-002\n---\n"},
      "PRD-002 written to docs/specs/prd/PRD-002.md (from BRN-001; new)\n", {"no-prd-002", "names-prd-001"}),
     (c, "PRD-001 changed", {PRD: edit(scaffolded(c, PRD), "version: 1\n", "version: 2\n")}, R36, {"prd-001-unchanged"}),
+]
+
+# VER-37 needs-adr-handoff: its two regex graders (copies of VER-14's); its llm grader is skipped here
+c = "needs-adr-handoff"
+R37 = "PRD-001 written to docs/specs/prd/PRD-001.md (from BRN-001; new)\n"
+MARKER = "## 12. Open questions\n\n- [NEEDS ADR: synchronous booking writes vs scheduled import; affects FR-001, FR-002]\n"
+S += [
+    (c, "good", {PRD: MARKER}, R37, set()),
+    (c, "marker names other FRs", {PRD: MARKER.replace("FR-001, FR-002", "FR-003")}, R37, {"marker-names-booking-fr"}),
+    (c, "no marker", {PRD: "## 12. Open questions\n\n- None.\n"}, R37, {"needs-adr-marker", "marker-names-booking-fr"}),
+]
+
+# VER-38 unlinked-signal-keeps-target (issue #39)
+c = "unlinked-signal-keeps-target"
+SM_LINKED = new_prd().split("success_metrics:\n")[1].split("```")[0]  # the default SM-01, linked to IDEA-01
+SM_SAT = ('  - id: SM-02\n    status: active\n    metric: "Average volunteer satisfaction in the quarterly survey"\n'
+          '    baseline: "3.4 out of 5"\n    target: "4.0 out of 5 by the end of the pilot"\n'
+          '    measured_by: "Quarterly volunteer survey"\n')
+V4_SM = ('  - id: SM-03\n    status: active\n    metric: "Average score in the quarterly volunteer survey"\n'
+         '    baseline: "3.4 out of 5"\n'
+         '    target: "[NEEDS CLARIFICATION: target for average score in the quarterly volunteer survey]"\n'
+         '    measured_by: "Quarterly volunteer survey"\n')
+IDEA_LINK = "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 1, hash: null}\n"
+
+
+def sat_prd(sat=SM_SAT, after=""):
+    return {PRD: new_prd(sms="success_metrics:\n" + SM_LINKED + sat + after)}
+
+
+R38 = "PRD-001 written to docs/specs/prd/PRD-001.md (from BRN-001; new)\n"
+V38 = {"baseline-kept", "target-kept", "measured-by-survey"}
+S += [
+    (c, "good", sat_prd(), R38, set()),
+    (c, "good, fields reordered", sat_prd(edit(SM_SAT, '    target: "4.0 out of 5 by the end of the pilot"\n    measured_by: "Quarterly volunteer survey"\n',
+                                                '    measured_by: "Quarterly volunteer survey"\n    target: "4.0 out of 5 by the end of the pilot"\n')), R38, set()),
+    (c, "good, an unanswered linked metric follows",
+     sat_prd(after=SM_LINKED.replace("SM-01", "SM-03")), R38, set()),
+    (c, "v4: target marked", sat_prd(edit(SM_SAT, '"4.0 out of 5 by the end of the pilot"',
+                                          '"[NEEDS CLARIFICATION: target for average volunteer satisfaction]"')), R38, {"target-kept"}),
+    (c, "target marked though 4.0 is quoted", sat_prd(edit(SM_SAT, '"4.0 out of 5 by the end of the pilot"',
+                                                           '"[NEEDS CLARIFICATION: confirm 4.0 by the end of the pilot]"')), R38, {"target-kept"}),
+    (c, "baseline marked", sat_prd(edit(SM_SAT, '"3.4 out of 5"', '"[NEEDS CLARIFICATION: baseline]"')), R38, {"baseline-kept"}),
+    (c, "source marked", sat_prd(edit(SM_SAT, '"Quarterly volunteer survey"', '"[NEEDS CLARIFICATION: source]"')), R38, {"measured-by-survey"}),
+    (c, "linked to IDEA-01", sat_prd(SM_SAT + "    upstream:\n" + IDEA_LINK), R38, {"no-upstream"}),
+    (c, "linked, flow form", sat_prd(SM_SAT + "    upstream: [{id: BRN-001, item: IDEA-01, relation: derives, version: 1, hash: null}]\n"),
+     R38, {"no-upstream"}),
+    (c, "good, metric named after the survey", sat_prd(edit(SM_SAT, "Average volunteer satisfaction in the quarterly survey",
+                                                              "Average score in the quarterly volunteer survey")), R38, set()),
+    # SKL-002 v4's red run, 2026-10-01: SM-03 as written; only the target was marked.
+    (c, "v4 red run", sat_prd(V4_SM), R38, {"target-kept"}),
+    (c, "no satisfaction metric", sat_prd(""), R38, V38),
+    # With no file, grade_evals.mjs fails every file grader, not_contains ones included.
+    (c, "no PRD", {}, "Nothing written.", V38 | {"no-upstream"}),
 ]
 
 ADDED = {"records-provenance": {"model-is-a-claude-model-id", "identity-not-unavailable", "authors-include-the-tool",

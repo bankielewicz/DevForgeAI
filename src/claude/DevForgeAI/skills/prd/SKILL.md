@@ -4,7 +4,7 @@ description: Turns a DevForgeAI brainstorm (BRN) document into a product require
 argument-hint: "[BRN-NNN]"
 metadata:
   devforgeai-id: "SKL-002"
-  devforgeai-version: "4"
+  devforgeai-version: "5"
 ---
 
 # PRD
@@ -343,13 +343,23 @@ Write the final reply in this order:
    Policy resolution: [the resolution line's entries]
    ```
 
-2. Every `[NEEDS ADR]` marker, each with the sentence: epics for FR-NNN, … must wait until an
-   accepted ADR resolves it. Then any other discussion, such as where a gate's answer came from,
-   ADRs you proposed but didn't link, the promoted ideas left out because a PRD already cites them
-   (step 3), and, after an extension, suspect epics, every existing link that cites an older version
-   of its document (a suspect link to review, never an error; output-rules.md check 9), and that
-   the new revision hasn't been reviewed.
-3. The next step, as its own paragraph outside any code block. It starts with the words
+2. Every `[NEEDS ADR]` marker, each as this pair: the marker as written in section 12, then the
+   sentence with that marker's FR IDs in place of `FR-NNN, …` and nothing else changed.
+
+   ```
+   [NEEDS ADR: <decision>; affects FR-NNN, …]
+   Epics for FR-NNN, … must wait until the architecture step resolves that exact decision, by an accepted ADR or an approved mandated platform answering it.
+   ```
+
+   Name both ways even when the resolution line reads
+   `architecture.mandated_platforms=none (default)`: a policy approved later can answer it, and
+   that is the architecture step's call.
+3. Any other discussion, such as where a gate's answer came from, ADRs you proposed but didn't
+   link, the promoted ideas left out because a PRD already cites them (step 3), and, after an
+   extension, suspect epics, every existing link that cites an older version of its document (a
+   suspect link to review, never an error; output-rules.md check 9), and that the new revision
+   hasn't been reviewed.
+4. The next step, as its own paragraph outside any code block. It starts with the words
    **Next step**, names the PRD by its ID and never by its path, and nothing follows it.
 
 The next step tells the user to run `/devforgeai:architecture PRD-NNN`, for example: "Next step:

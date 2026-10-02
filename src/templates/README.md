@@ -279,8 +279,10 @@ quoted item value. The marker itself is the record: resolving it means replacing
 A document may not move to `approved` or `ready` while any marker remains.
 
 A second marker, `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]`, records an architecture decision that
-is still open (no accepted ADR). It does **not** block approving the PRD, because design may be deferred,
-but it **does** block writing epics for the requirements it names until an accepted ADR resolves it.
+is still open. It does **not** block approving the PRD, because design may be deferred, but it **does**
+block writing epics for the requirements it names until the architecture step resolves that exact
+decision, by an accepted, non-superseded ADR or an approved, active mandated-platform setting answering
+it; a decision on another question doesn't clear it.
 
 `<!-- ... -->` comments are instructions for the author. Delete them when you fill in the template.
 
