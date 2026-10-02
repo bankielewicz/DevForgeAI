@@ -203,6 +203,12 @@ class SpecRules(Base):
         for word in ("BRN-002", "disposition", "promoted"):
             self.assertIn(word, broken[0]["message"])
         self.assertEqual(len(self.flags(state, 5, "skipped")), 1)
+        # The full log reaches the report gate too, which finds the same steps and adds no flag:
+        # one flag per step and type across gates (a build decision recorded in SPEC-012 section 9).
+        full, _, _, _ = self.run_case("brn-unconfirmed")
+        self.assertEqual(len(full["flags"]), 2)
+        self.assertEqual(full["gate"]["kind"], "report")
+        self.assertFalse(full["gate"]["refuse"])
         status, _, _, _ = self.run_case("brn-unconfirmed-status")
         broken = self.flags(status, 6, "rule-broken")
         self.assertEqual(len(broken), 1)
