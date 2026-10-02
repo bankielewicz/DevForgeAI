@@ -9,7 +9,8 @@ file, is its full content) plus the size, type and attributes of every staged fi
 object: {"blocked": [...], "warnings": [...], "files_scanned": N}. Each finding names the check,
 the path and, when it applies, the line; a secret's value is never printed. Credentials in a URL to
 a local or example host (or whose user equals the password), and literal credential assignments in
-test and fixture paths, are warnings; other credentials block (SPEC-007 BEH-08). Paths and content
+test and fixture paths, are warnings. Password assignments in explicitly named local/example
+Compose files also warn; other credentials block (SPEC-007 BEH-08). Paths and content
 need not be UTF-8. Exit status: 0 when nothing blocks, 1 when a finding blocks the commit, 2 when
 the scan didn't run (not a git repository, or any other error) - never a finding.
 It never writes and never uses the network.
@@ -55,6 +56,10 @@ EXAMPLE_HOST = re.compile(r"(?:^|\.)(?:example\.(?:com|org|net)|example|test|inv
 # these names, or a file named test_*, conftest.py, or with a _test., .test., _spec. or .spec. part.
 TEST_DIRS = {"test", "tests", "__tests__", "spec", "testdata", "fixture", "fixtures", "__fixtures__"}
 TEST_FILE = re.compile(r"^(?:test_.*|conftest\.py|.*[._](?:test|spec)\.[^/]+)$", re.I)
+# A filename marker is explicit; directories, comments and service names do not opt a file in.
+COMPOSE_FILE = re.compile(r"^(?:docker-)?compose(?:\.[a-z0-9_-]+)*\.ya?ml$", re.I)
+EXAMPLE_COMPOSE_FILE = re.compile(r"^(?:docker-)?compose\.(?:local|example)\.ya?ml$", re.I)
+PASSWORD_KEY = re.compile(r"(?:password|passwd|pwd)$", re.I)
 ASSIGNMENT = re.compile(
     r"(?i)\b([a-z0-9_.\-]*(?:password|passwd|pwd|secret|api[_\-]?key|apikey|access[_\-]?token|auth[_\-]?token"
     r"|client[_\-]?secret|private[_\-]?key|credentials?))\b[\"']?\s*(?::|=|:=|=>)\s*([\"'])([^\"'\n]{4,})\2")
@@ -98,6 +103,32 @@ def git(args, cwd, raw=False):
 def is_test_path(path):
     parts = path.split("/")
     return bool({p.lower() for p in parts[:-1]} & TEST_DIRS) or bool(TEST_FILE.match(parts[-1]))
+
+
+def literal_warning(path, key):
+    """Return why a literal may be accepted by the user, or None when it must block."""
+    if is_test_path(path):
+        return " in a test or fixture file"
+    if EXAMPLE_COMPOSE_FILE.fullmatch(path.rsplit("/", 1)[-1]) and PASSWORD_KEY.search(key):
+        return " in an explicitly named local/example Compose file"
+    return None
+
+
+def assignment_line(path, text):
+    """Unwrap Compose list entries, quoted KEY=value scalars and quoted mapping keys.
+
+    This only changes assignment detection, never the text scanned for tokens and private keys.
+    Both marked and unmarked Compose files use it, so the latter still block literal passwords.
+    """
+    if COMPOSE_FILE.fullmatch(path.rsplit("/", 1)[-1]):
+        item = re.match(r"^\s*-\s+(.+?)\s*$", text)
+        if item:
+            text = item.group(1)
+            quoted = re.fullmatch(r"([\"'])(.*?)\1(?:\s+#.*)?", text)
+            if quoted:
+                text = quoted.group(2)
+        text = re.sub(r"^(\s*)([\"'])([a-zA-Z0-9_.-]+)\2(\s*:)", r"\1\3\4", text)
+    return text
 
 
 def local_or_example(host):
@@ -253,8 +284,6 @@ def scan(root):
             rc, o = git(["cat-file", "-p", f"HEAD:{path}"], root, raw=True)
             crlf_ok = rc == 0 and b"\r\n" in o[:65536]
         crlf_lines = []
-        # A literal in a test or fixture file is usually test data: it warns, and the user decides.
-        literal_bucket, literal_note = (warnings, " in a test or fixture file") if is_test_path(path) else (blocked, "")
         for n, t in lines:
             for check, message, pat in SECRET_PATTERNS:
                 if pat.search(t):
@@ -268,14 +297,18 @@ def scan(root):
                     add(warnings, "url_credentials", path, "credentials in a URL whose user name equals its password", n)
                 else:
                     add(blocked, "url_credentials", path, "credentials embedded in a URL", n)
-            m = ASSIGNMENT.search(t)
+            assignment = assignment_line(path, t)
+            m = ASSIGNMENT.search(assignment)
             if m and not PLACEHOLDER.match(m.group(3).strip()):
-                add(literal_bucket, "literal_credential", path, f"literal value assigned to {m.group(1)}{literal_note}", n)
+                note = literal_warning(path, m.group(1))
+                add(warnings if note else blocked, "literal_credential", path,
+                    f"literal value assigned to {m.group(1)}{note or ''}", n)
             elif CONFIG_FILE.search(path):
-                m = UNQUOTED_ASSIGNMENT.match(t)
+                m = UNQUOTED_ASSIGNMENT.match(assignment)
                 if m and not PLACEHOLDER.match(m.group(2)):
-                    add(literal_bucket, "literal_credential", path,
-                        f"literal value assigned to {m.group(1)}{literal_note}", n)
+                    note = literal_warning(path, m.group(1))
+                    add(warnings if note else blocked, "literal_credential", path,
+                        f"literal value assigned to {m.group(1)}{note or ''}", n)
             for hm in HOME_PATH.finditer(t):
                 add(warnings, "home_path", path, "absolute home-directory path", n, match=hm.group(0))
             for em in EMAIL.finditer(t):

@@ -25,6 +25,9 @@ List every change: `git status --porcelain=v2 -z --untracked-files=all` (or the 
   `git add -u`, `git add <directory>` holding non-task files, or `git commit -a`.
 - **Already staged by the user** but not task: report those paths and ask before committing or
   unstaging them.
+- An explicitly requested Compose file whose basename has the `local` or `example` marker below
+  is a task candidate, not automatically `local` merely because it matches `*.local.*`. Do not
+  infer intent to publish it from the filename alone. The scan warning still requires a yes.
 - Never put a task or unrelated path in an ignore file.
 - A tracked file that should be local stays tracked unless the user confirms `git rm --cached
   <path>`; the question says this deletes the file for everyone once merged.
@@ -61,7 +64,7 @@ a blocked finding. **Exit 2: the scan didn't run** (not a repository, or an erro
 **Blocked (ERR-06):** private keys; access tokens in a known format (AWS, GitHub, Slack, Google,
 Stripe live, Anthropic, and OpenAI `sk-`, `sk-proj-`, `sk-svcacct-` and `sk-admin-` keys); `.env`
 files and key stores; files over 100 MB; credentials in a URL to any host not listed below; and
-literal credential assignments outside test and fixture paths. Commit nothing, even when the user
+literal credential assignments outside the warning exceptions below. Commit nothing, even when the user
 asks. Name each file and line,
 never the value, and suggest removing the file from the commit, moving the value to an environment
 variable or ignored file, and rotating a real credential. Leave the index as the user had it:
@@ -78,6 +81,14 @@ blocked too, though the scan never sees an unstaged file. Report `blocked`.
   `__tests__`, `spec`, `testdata`, `fixture`, `fixtures` or `__fixtures__`, or a file named
   `test_*`, `conftest.py`, `*_test.*`, `*.test.*`, `*_spec.*` or `*.spec.*`). Say that a real
   credential in such a file would be published if the user answers yes;
+- password assignments (keys ending in `password`, `passwd` or `pwd`, case-insensitive) in a file
+  named `compose.local.yml`, `compose.example.yml`, their `.yaml` forms, or the equivalent
+  `docker-compose.*` names. Matching is case-insensitive and uses the basename only. Mapping and
+  list environment forms are scanned. A directory, comment or service name is not a marker;
+  ordinary, override and production Compose filenames still block literal assignments outside
+  the existing test/fixture exception. Other credential keys still block in a marked file, as do
+  known token formats and private keys anywhere. A filename does not prove a password is safe:
+  accepting the warning publishes it;
 - absolute home paths, e-mail addresses other than the repository's commit authors, files over
   50 MB or binaries outside the LFS rules, third-party documents (PDFs, saved web pages, vendored
   documentation without a license), CRLF line endings in an LF repository, whitespace errors.
