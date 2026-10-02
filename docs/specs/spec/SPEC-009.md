@@ -16,13 +16,13 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "stories follow epics; detailed feature design stays in specs"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "accepted: the project context documents this skill reads"}
-  - {id: PRD-001, item: FR-016, relation: informed_by, version: 10, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
+  - {id: PRD-001, item: FR-016, relation: informed_by, version: 11, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: SPEC-004, relation: informed_by, version: 1, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
   - {id: SPEC-003, relation: informed_by, version: 5, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
 supersedes: []
@@ -337,19 +337,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the slicing, coverage and design rules and the output contract; slicing patterns, context selection and output rules live in references/"
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged story and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
 ```
 
 ## 9. Verification

@@ -16,16 +16,16 @@ reviewed_by: []
 approved_by: "Bryan"
 approved_on: 2026-10-01
 upstream:
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain; ADR-004 D5 places the context step after Architecture Definition, before epic and story"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "policy resolution, recording and the local preference file"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "the project context documents this skill writes and maintains"}
   - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "the testing keys this skill resolves and cites in testing.md; D7 restated there"}
-  - {id: PRD-001, item: FR-019, relation: informed_by, version: 10, hash: null, note: "the requirement this skill implements; built on a spec branch, as no story exists (§11)"}
-  - {id: PRD-001, item: FR-020, relation: informed_by, version: 10, hash: null, note: "testing policy: this skill resolves the six keys (ADR-005 D5)"}
+  - {id: PRD-001, item: FR-019, relation: informed_by, version: 11, hash: null, note: "the requirement this skill implements; built on a spec branch, as no story exists (§11)"}
+  - {id: PRD-001, item: FR-020, relation: informed_by, version: 11, hash: null, note: "testing policy: this skill resolves the six keys (ADR-005 D5)"}
   - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "the shared policy files and script (§5), which this skill ships byte-identical"}
   - {id: SPEC-003, relation: informed_by, version: 5, hash: null, note: "reads the ARCH: components and their kinds (§4), DEC items; reuses the inspection rule (BEH-05)"}
   - {id: SPEC-009, relation: informed_by, version: 2, hash: null, note: "the story skill reads these documents (BEH-04, BEH-06, BEH-11, BEH-12, BEH-13, ERR-04)"}
@@ -541,25 +541,25 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the user's decisions and the output contract; the document rules, interview, inspection and output rules live in references/, the templates in assets/"
     measured_by: "src/tests/context/test_structure.py: SKILL.md line count (at most 500) and description length (at most 1024 characters)"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "src/tests/context/test_structure.py, against skill-frontmatter.schema.json and skill.schema.json, comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
   - id: QR-03
     status: active
     response: "Every automated VER item is graded in an eval case run against the no-plugin baseline. VER items that share a fixture and prompt share one case; each grader's name starts with the item it grades (ver01-, ver02-, …), and each case is tagged context and ver-NN for every item it grades. The trigger cases of VER-26 are named trigger-NN and tagged trigger and ver-26, without context, so --tag context leaves them out; they run without a baseline arm (--ablation none), the one exception to this response"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs; and, for each VER item, the graders named for it pass at a rate of at least 0.8 over those runs, read from aggregate-result.json (cases[].arms.with[].graders[])"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
   - id: QR-04
     status: active
     response: "The skill fires on requests to write, update, refresh or approve the project context documents, whether they name the files or not, and on the story step's handback; it doesn't fire on unrelated requests that mention context"
     measured_by: "VER-26, per model: every trigger case meets --threshold 0.8 over its 3 runs, so a binary case needs 3 of 3 (NFR-003). Required on sonnet and opus; haiku is measured and reported (§13)"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
 ```
 
 ## 9. Verification

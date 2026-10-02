@@ -16,9 +16,9 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: SPEC-007, item: BEH-20, relation: informed_by, version: 3, hash: null, note: "the git skill reads the verdict and labels this skill writes"}
 supersedes: []
@@ -213,19 +213,19 @@ quality_responses:
     response: "SKILL.md holds the review checklist, the verdict rules and the output contract, under 300 lines; the review criteria live in references/."
     measured_by: "wc -l on SKILL.md; every reference linked directly from SKILL.md"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
   - id: QR-02
     status: active
     response: "SKILL.md frontmatter carries only name, description, argument-hint and metadata; provenance.yaml carries SKL-007 with an implements link to SPEC-008, and the two version values match."
     measured_by: "jsonschema validation against skill-frontmatter.schema.json and skill.schema.json"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
   - id: QR-03
     status: active
     response: "An eval suite under evals/qa/, written with the review criteria; each case forbids merging, pushing and editing the PR's branch."
     measured_by: "claude plugin eval with the no-plugin baseline, 3 runs, threshold 0.8"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
 ```
 
 ## 9. Verification

@@ -16,9 +16,9 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "the project context documents, read only when they exist (BEH-18, BEH-19)"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill: PR creation and the outward-action rule"}
@@ -334,19 +334,19 @@ quality_responses:
     response: "SKILL.md holds only the checklist, the user's decisions and the output contract; the fidelity, evidence and posting rules live in references/, and the templates in assets/"
     measured_by: "SKILL.md line count (at most 500) and description length (at most 1024 characters)"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged github-post and ver-NN, run against the no-plugin baseline; VER-12, which needs two sessions in sequence, runs as a harness script instead"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
 ```
 
 ## 9. Verification

@@ -16,9 +16,9 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: SPEC-008, relation: constrains, version: 1, hash: null, note: "QA verdict comment and labels, SPEC-008 §4"}
 supersedes: []
@@ -499,19 +499,19 @@ quality_responses:
     response: "SKILL.md holds the phase checklist, the gates with the one complete never-run list (BEH-17), the user's decisions and the output contract, under 300 lines. Per-phase detail lives in four reference files plus output-rules.md, each loaded only by the phase that needs it."
     measured_by: "wc -l on SKILL.md; every reference linked directly from SKILL.md; src/tests/git/test_structure.py (VER-30)"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
   - id: QR-02
     status: active
     response: "SKILL.md frontmatter carries only name, description, argument-hint and metadata (the skill is model-invocable); provenance.yaml carries SKL-006 with an implements link to SPEC-007, and the two version values match."
     measured_by: "jsonschema validation against skill-frontmatter.schema.json and skill.schema.json"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item under evals/git/, tagged git and ver-NN, each scaffolding its own repository and local bare origin. Every case also carries a tool_used grader that forbids BEH-17's never-run commands, so safety is scored on every run."
     measured_by: "claude plugin eval with the no-plugin baseline, 3 runs, threshold 0.8"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 10, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
 ```
 
 ## 9. Verification
