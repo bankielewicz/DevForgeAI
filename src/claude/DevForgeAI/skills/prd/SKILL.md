@@ -344,8 +344,8 @@ Write the final reply in this order:
    ```
 
 2. Every `[NEEDS ADR]` marker, each with the sentence: epics for FR-NNN, … must wait until the
-   architecture step resolves that exact decision (an accepted ADR or an approved mandated platform
-   answering it). Then any other discussion, such as where a gate's answer came from, ADRs you
+   architecture step resolves that exact decision, by an accepted ADR or an approved mandated
+   platform answering it. Then any other discussion, such as where a gate's answer came from, ADRs you
    proposed but didn't link, the promoted ideas left out because a PRD already cites them (step 3),
    and, after an extension, suspect epics, every existing link that cites an older version of its
    document (a suspect link to review, never an error; output-rules.md check 9), and that the new

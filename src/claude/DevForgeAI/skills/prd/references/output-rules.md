@@ -183,7 +183,7 @@ Keep these headings, in this order, exactly as the template has them:
 | `[NEEDS CLARIFICATION: <category> requirements for <context>]` | A required quality category the user didn't answer, or the rest of a category the user answered only in part (interview.md round 4) | Approving the PRD |
 | `[NEEDS CLARIFICATION: <category> requirements for <context>; required by POL-NNN#SET-NN, the user answered none]` | A category applied policy requires (or `constraint`, under a mandated platform), which the user answered with none: the none doesn't waive the policy | Approving the PRD |
 | `[NEEDS CLARIFICATION: target for <item>]` | The user kept a requirement or metric but has no target yet; it goes in the item's `target` or statement | Approving the PRD |
-| `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]` | An open architecture decision: no accepted ADR or approved mandated platform answers that exact question yet | Writing epics for the named FRs, not approving the PRD |
+| `[NEEDS ADR: <decision>; affects FR-NNN, FR-NNN]` | An open architecture decision: no accepted ADR or approved mandated platform resolves that exact decision yet | Writing epics for the named FRs, not approving the PRD |
 | `null` in `stage`, `operating_context` or `release`, or in the `priority` of a `release: current` item | Not decided yet | Approving the PRD |
 | `null` `priority` on a `release: later` item | Not prioritized until a release takes the item in | Nothing |
 
