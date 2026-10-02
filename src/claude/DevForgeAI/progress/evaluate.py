@@ -729,12 +729,18 @@ def write_state(state, out):
     if not os.path.isdir(folder):
         raise Fail("%s: the folder %s doesn't exist" % (out, os.path.dirname(out) or "."))
     text = json.dumps(state, sort_keys=True, indent=2, ensure_ascii=False) + "\n"
+    tmp = None
     try:
         fd, tmp = tempfile.mkstemp(dir=folder, prefix=".state-", suffix=".tmp")
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             f.write(text)
         os.replace(tmp, out)
     except OSError as e:
+        if tmp is not None and os.path.exists(tmp):  # leave nothing but --out behind (QR-04)
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
         raise Fail("%s: %s" % (out, e.strerror or e))
 
 
