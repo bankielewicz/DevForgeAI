@@ -99,6 +99,9 @@ class Skill(unittest.TestCase):
         self.assertEqual((self.prov["id"], self.prov["skill_name"], self.prov["eval_tag"]), (SKL, "context", "context"))
         self.assertIn({"id": "SPEC-011", "relation": "implements", "version": SPEC_VERSION, "hash": None},
                       self.prov["upstream"])
+        # Approved by Bryan on 2026-10-01, after the full suite and the trigger cases on v2.
+        self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]),
+                         ("approved", "Bryan", "2026-10-01"))
 
     def test_relative_links_resolve(self):
         for target in re.findall(r"\]\(([^)#\s]+)\)", self.text):
