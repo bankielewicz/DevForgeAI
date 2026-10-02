@@ -258,6 +258,12 @@ def _():
     return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
 
 
+@case("brn-ticked-then-answered")  # BEH-09 departure: step 5 ticked as Claude asks; the answer still counts
+def _():
+    log = Log("brainstorm").glob("docs/specs/brainstorm/BRN-*.md").tick(1, 2, 3, 4, 5).answer()
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
 @case("brn-validation-claimed")  # VER-11
 def _():
     log = brn_start(Log("brainstorm")).write(BRN_PATH, brn(["open"] * 15))

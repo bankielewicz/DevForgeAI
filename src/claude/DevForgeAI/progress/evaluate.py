@@ -266,13 +266,18 @@ class Step:
         self.evidence = []      # dicts: seq, type, strength, detail
         self.claims = []        # dicts: seq, state, reason, in seq order
         self.gate_state = None  # set by a gate: skipped, not-applicable, unconfirmed
+        self.gate_note = ""     # the note that goes with not-applicable
         self.sticky = None      # a gate result later evidence can't undo: skipped, rule-broken
-        self.note = ""
         self.unverifiable = False
+        self.note = ""
 
     def claim_before(self, upto):
         claims = [c for c in self.claims if c["seq"] < upto]
         return claims[-1] if claims else None
+
+    def signals(self):
+        """Seqs of this step's tool evidence and claims (answers excluded: they don't move windows)."""
+        return [x["seq"] for x in self.evidence if x["type"] != "answer"] + [c["seq"] for c in self.claims]
 
     def first_signal(self):
         seqs = [x["seq"] for x in self.evidence] + [c["seq"] for c in self.claims]
@@ -294,6 +299,31 @@ class Step:
         if claim["state"] == "skipped":
             return "skipped-with-reason"
         return "claimed" if self.strong else "done"
+
+    def expected_evidence(self):
+        what = []
+        for rule in self.rules:
+            if rule["type"] == "script":
+                what.append("a successful run of %s%s" % (rule["pattern"],
+                                                          " on a written file" if rule.get("target") else ""))
+            elif rule["type"] == "answer":
+                what.append("an answer from you")
+            else:
+                what.append("a %s of %s" % (rule["type"], rule["pattern"]))
+        return " or ".join(what) or "evidence"
+
+
+def field_values(text, field, scope):
+    """The values of a field in a document, line by line (SPEC-012 §4); no YAML parsing."""
+    lines = text.splitlines()
+    if scope == "frontmatter":
+        marks = [i for i, line in enumerate(lines) if line.strip() == "---"][:2]
+        lines = lines[marks[0] + 1:marks[1]] if len(marks) == 2 else []
+    pattern = re.compile(r"^\s*(?:-\s+)?" + re.escape(field) + r":\s*[\"']?([^\s\"'#,}]+)")
+    return [m.group(1) for m in (pattern.match(line) for line in lines) if m]
+
+
+GATE_WORDS = {"write": "the write gate", "report": "the report", "end": "the run ended"}
 
 
 class Run:
@@ -317,6 +347,7 @@ class Run:
         self.written = []           # (seq, path): files the write-gate step wrote
         self.unknown_claims = 0
         self.flags = []
+        self.flagged = set()        # (step, type) already flagged
         self.gate = {"kind": None, "seq": None, "refuse": False, "reason": None}
         notes = {"stale": "manifest out of date; tracking ticks only",
                  "none": "no manifest for this skill; tracking ticks only",
@@ -394,6 +425,169 @@ class Run:
             elif e["kind"] == "reply":
                 self.take_reply(e)
 
+    # -- gates' positions --
+
+    def write_gate_seq(self):
+        if self.write_gate is None:
+            return None
+        seqs = [x["seq"] for x in self.write_gate.evidence if x["type"] == "write"]
+        return min(seqs) if seqs else None
+
+    def report_gate_seq(self):
+        if self.report_gate is None:
+            return None
+        seqs = [c["seq"] for c in self.report_gate.claims if c["state"] == "done"]
+        return min(seqs) if seqs else None
+
+    def end_seq(self):
+        return self.events[-1]["seq"] if self.events[-1]["kind"] == "run-end" else None
+
+    def gate_seq_for(self, step):
+        """The seq of the first gate that checks a step, or INFINITY."""
+        seqs = []
+        w, r, end = self.write_gate_seq(), self.report_gate_seq(), self.end_seq()
+        if w is not None and step.n < self.write_gate.n:
+            seqs.append(w)
+        if r is not None and step.n < self.report_gate.n:
+            seqs.append(r)
+        if end is not None:
+            seqs.append(end)
+        return min(seqs) if seqs else INFINITY
+
+    # -- answers (BEH-09, with the departure recorded in SPEC-012 §9) --
+
+    def window(self, step):
+        """(opens, closes, closes without the step's own claim) for a user-owned step."""
+        after = [seq for s in self.steps if s.n > step.n for seq in s.signals()]
+        hard = min([self.gate_seq_for(step)] + after)
+        # "Over the whole log" is bounded by the window's own close: evidence of an earlier step that
+        # comes after the gate (a re-read, say) mustn't move the opening past the close.
+        before = [seq for s in self.steps if s.n < step.n for seq in s.signals() if seq < hard]
+        opens = max(before) if before else self.events[0]["seq"]
+        return opens, min([hard] + [c["seq"] for c in step.claims]), hard
+
+    def assign_answers(self):
+        owned = [s for s in self.steps if s.user_owned]
+        if not owned:
+            return
+        windows = {s.n: self.window(s) for s in owned}
+        answers = [e for e in self.events if (e["kind"] == "answer" and e["answered"]) or e["kind"] == "prompt"]
+        unplaced = []
+        for e in answers:
+            step = next((s for s in owned if windows[s.n][0] < e["seq"] < windows[s.n][1]), None)
+            if step is None:
+                unplaced.append(e)
+            else:
+                step.evidence.append(self.answer_evidence(e))
+        # A step's own claim hands later answers on to the next user-owned step; it doesn't lose them.
+        for e in unplaced:
+            step = next((s for s in owned if windows[s.n][0] < e["seq"] < windows[s.n][2]), None)
+            if step is not None:
+                step.evidence.append(self.answer_evidence(e))
+
+    @staticmethod
+    def answer_evidence(e):
+        return {"seq": e["seq"], "type": "answer", "strength": "strong",
+                "detail": "answer" if e["kind"] == "answer" else "prompt"}
+
+    # -- gates (BEH-08, BEH-10, BEH-11, BEH-12) --
+
+    def flag(self, new, gate, seq, step, kind, message, once=True):
+        if once:
+            if (step.n, kind) in self.flagged:
+                return
+            self.flagged.add((step.n, kind))
+        f = {"gate": gate, "seq": seq, "step": step.n, "type": kind, "message": message}
+        self.flags.append(f)
+        new.append(f)
+
+    def check_steps(self, new, gate, seq, steps):
+        for step in steps:
+            if step.sticky:
+                continue
+            if step.user_owned:
+                if gate in ("report", "end") and not step.answered(seq) and not step.unverifiable:
+                    step.gate_state, step.gate_note = "not-applicable", "no answer; left open"
+                continue
+            state = step.base_state(seq)
+            if state == "pending":
+                if step.need == "required":
+                    step.gate_state = "skipped"
+                    self.flag(new, gate, seq, step, "skipped", "step %d (%s) has no evidence or tick before %s"
+                              % (step.n, step.title, GATE_WORDS[gate]))
+                elif step.need == "conditional":
+                    step.gate_state, step.gate_note = "not-applicable", step.when or ""
+                else:
+                    step.gate_state = "unconfirmed"
+            elif state == "claimed":
+                self.flag(new, gate, seq, step, "claimed-not-evidenced", "step %d (%s) is ticked, but %s wasn't seen"
+                          % (step.n, step.title, step.expected_evidence()))
+
+    def content_of(self, e):
+        if isinstance(e.get("content"), str):
+            return e["content"]
+        if not self.root:
+            return None
+        root = os.path.realpath(self.root)
+        target = os.path.realpath(os.path.join(root, e["path"]))
+        if target != root and not target.startswith(root + os.sep):
+            return None
+        try:
+            with open(target, encoding="utf-8") as f:
+                return f.read()
+        except (OSError, UnicodeDecodeError):
+            return None
+
+    def check_content(self, new, e):
+        for rule in self.content_rules:
+            if not path_matches(e["path"], rule["path"]):
+                continue
+            step = self.by_n[int(rule["step"])]
+            if step.answered(e["seq"]):
+                continue
+            text = self.content_of(e)
+            if text is None:
+                step.unverifiable = True
+                continue
+            bad = [v for v in field_values(text, rule["field"], rule["scope"]) if v not in rule["allowed"]]
+            if bad:
+                step.sticky = "skipped"
+                self.flag(new, "write", e["seq"], step, "skipped", "step %d (%s) had no answer from you before %s was written"
+                          % (step.n, step.title, e["path"]))
+                self.write_gate.sticky = "rule-broken"
+                self.flag(new, "write", e["seq"], self.write_gate, "rule-broken",
+                          "%s sets %s: %s, which needs your answer at step %d" % (e["path"], rule["field"], bad[0], step.n),
+                          once=False)
+            elif step.sticky is None:
+                step.gate_state, step.gate_note = "not-applicable", "no answer; left open"
+
+    def check_gates(self):
+        if not self.tracked:
+            return
+        w, r, end = self.write_gate_seq(), self.report_gate_seq(), self.end_seq()
+        content = {}
+        if w is not None:
+            for e in self.events:
+                if e["kind"] == "tool" and e["seq"] >= w and e.get("tool") in ("Write", "Edit") \
+                        and e.get("error") is not True and isinstance(e.get("path"), str) \
+                        and any(path_matches(e["path"], rule["path"]) for rule in self.content_rules):
+                    content[e["seq"]] = e
+        points = sorted({p for p in (w, r, end) if p is not None} | set(content))
+        for seq in points:
+            new = []
+            if seq == w:
+                self.check_steps(new, "write", seq, [s for s in self.steps if s.n < self.write_gate.n])
+            if seq in content:
+                self.check_content(new, content[seq])
+            if seq == r:
+                self.check_steps(new, "report", seq, [s for s in self.steps if s.n < self.report_gate.n])
+            if seq == end:
+                highest = self.highest_reached()
+                if highest is not None:
+                    self.check_steps(new, "end", seq, [s for s in self.steps if s.n <= highest])
+            kind = "end" if seq == end else "report" if seq == r else "write"
+            self.gate = {"kind": kind, "seq": seq, "refuse": bool(new), "reason": new[0]["message"] if new else None}
+
     # -- positions --
 
     def highest_reached(self, upto=INFINITY):
@@ -401,7 +595,7 @@ class Run:
         return max(reached) if reached else None
 
     def current(self):
-        if self.events[-1]["kind"] == "run-end" or not self.steps:
+        if self.end_seq() is not None or not self.steps:
             return None
         highest = self.highest_reached()
         if highest is None:
@@ -415,26 +609,36 @@ class Run:
         if step.sticky:
             return step.sticky
         base = step.base_state()
+        if base == "claimed" and step.gate_state == "not-applicable":
+            return "not-applicable"
         if base in ("done", "claimed", "skipped-with-reason"):
             return base
         return step.gate_state or "pending"
 
     def step_notes(self, current):
-        ended = self.events[-1]["kind"] == "run-end"
+        ended = self.end_seq() is not None
         highest = self.highest_reached()
         for step in self.steps:
-            first = step.first_signal()
-            if first is not None:
-                earlier = [s.n for s in self.steps if s.n > step.n and s.first_signal() is not None
-                           and s.first_signal() < first]
-                if earlier and not step.note:
-                    step.note = "seen late (after step %d)" % max(earlier)
-            if self.final_state(step) == "pending" and not step.note:
-                if ended or (current is None and highest is not None and step.n > highest):
-                    if highest is None or step.n > highest:
-                        step.note = "not reached"
-                elif current is not None and step.n < current:
-                    step.note = "not seen yet"
+            state, note = self.final_state(step), ""
+            if step.unverifiable and not step.sticky and state != "not-applicable":
+                note = "content not available; rule not checked"
+            elif state == "not-applicable":
+                note = step.gate_note
+            else:
+                first = step.first_signal()
+                if first is not None:
+                    earlier = [s.n for s in self.steps if s.n > step.n and s.first_signal() is not None
+                               and s.first_signal() < first]
+                    if earlier:
+                        note = "seen late (after step %d)" % max(earlier)
+                if not note and state == "pending":
+                    if highest is not None and step.n > highest and (ended or current is None):
+                        note = "not reached"
+                    elif ended and highest is None:
+                        note = "not reached"
+                    elif current is not None and step.n < current:
+                        note = "not seen yet"
+            step.note = note
         if self.manifest_note and self.steps:
             first = self.steps[0]
             first.note = self.manifest_note + ("; " + first.note if first.note else "")
@@ -469,6 +673,8 @@ def build_state(events, counts, manifest, layers, root=None):
         manifest_state = "stale"
     run = Run(events, manifest, manifest_state, root)
     run.collect()
+    run.assign_answers()
+    run.check_gates()
     counts = dict(counts, unknownClaims=run.unknown_claims)
     current = run.current()
     run.step_notes(current)

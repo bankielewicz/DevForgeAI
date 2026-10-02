@@ -219,6 +219,14 @@ class SpecRules(Base):
         self.assertEqual(self.step(after, 5)["state"], "done")
         self.assertEqual(after["flags"], [])
 
+    # BEH-09 as built (a recorded departure): ticking a step as Claude asks doesn't lose the answer.
+    def test_beh09_tick_then_answer(self):
+        state, _, _, _ = self.run_case("brn-ticked-then-answered")
+        s5 = self.step(state, 5)
+        self.assertEqual(s5["state"], "done")
+        self.assertIn(("answer", "strong"), [(e["type"], e["strength"]) for e in s5["evidence"]])
+        self.assertEqual(state["flags"], [])
+
     # VER-11: validation claimed but not run, failed, or run on another file.
     def test_ver11_validation_claimed(self):
         for name in ("brn-validation-claimed", "brn-validation-failed", "brn-validation-other-file"):
