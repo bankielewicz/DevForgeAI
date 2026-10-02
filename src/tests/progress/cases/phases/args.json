@@ -1,0 +1,7 @@
+{
+  "manifests": [
+    "@plugin"
+  ],
+  "phases": "phases.json",
+  "root": null
+}
