@@ -1,4 +1,4 @@
-"""Generates evals/epic/<case>/ (SPEC-004 v2 VER-01..12, 14 to 19): prompts, graders, case.yaml and the inline
+"""Generates evals/epic/<case>/ (SPEC-004 v4 VER-01..12, 14 to 26): prompts, graders, case.yaml and the inline
 scaffold fixtures. Every fixture is defined once here, from SPEC-004 §9's shared fixture, and validated
 against src/schemas/ before anything is written. Edit fixtures and graders here, then regenerate; it
 overwrites the case files and never deletes a grader, so remove renamed ones by hand. Run from the
@@ -248,6 +248,12 @@ PRD_DRAFT = replace(PRD_DRAFT, 'reviewed_by: ["Priya Nair"]\napproved_by: "Priya
                     'reviewed_by: []\napproved_by: ""\napproved_on: null')
 PRD_DRAFT = replace(PRD_DRAFT, "| 1 | 2026-09-16 | Priya Nair | Approved | status |\n", "")
 PRD_DRAFT = replace(PRD_DRAFT, "| 2 | 2026-09-18 | Priya Nair | Approved | status |\n", "")
+# VER-24: PRD-001 also holds a later privacy NFR whose priority is still open (prd writes a later item so).
+PRD_NFR3 = replace(PRD, "      - {id: POL-001, item: SET-01, relation: constrains, version: 1, hash: null}\n```",
+                   "      - {id: POL-001, item: SET-01, relation: constrains, version: 1, hash: null}\n"
+                   "  - id: NFR-003\n    status: active\n    category: privacy\n"
+                   '    statement: "A volunteer can have their account and contact details deleted on request."\n'
+                   "    priority: null\n    release: later\n```")
 
 
 def fr2(num, statement):
@@ -476,9 +482,13 @@ ADR_AUDIT = adr(
     "| 2026-09-24 | accepted | Decided by Priya Nair |\n", prd_link("FR-010"), supersedes="[ADR-002]")
 
 
-def policy(set_status, version=1):
+CHANGED_MAIL_PLATFORM = "Network-hosted mail service (HTTPS API)"  # VER-20
+
+
+def policy(set_status, version=1, platform=MAIL_PLATFORM):
     """POL-001: the regional network's mandated email platform (SPEC-004 §9). Version 2 (VER-17) adds a testing
-    setting, SET-02, and leaves SET-01 exactly as it was."""
+    setting, SET-02, and leaves SET-01 exactly as it was; with another platform (VER-20), version 2 also changes
+    SET-01's platform for the same capability."""
     updated, ref = ("2026-09-26", "v1.1.0") if version == 2 else ("2026-08-15", "v1.0.0")
     set_02 = """\
   - id: SET-02
@@ -490,6 +500,10 @@ def policy(set_status, version=1):
     rationale: "Member food banks' systems keep at least 80% line coverage"
 """ if version == 2 else ""
     row_2 = "| 2 | 2026-09-26 | Network IT group | Added SET-02 (testing.coverage_threshold) | SET-02 |\n" if version == 2 else ""
+    via = "relay" if platform == MAIL_PLATFORM else "mail service"
+    if platform != MAIL_PLATFORM:
+        row_2 = (f"| 2 | 2026-09-26 | Network IT group | SET-01 now mandates the {platform} for "
+                 f"{MAIL_CAPABILITY}; added SET-02 (testing.coverage_threshold) | SET-01, SET-02 |\n")
     return f"""\
 ---
 id: POL-001
@@ -530,10 +544,10 @@ settings:
     class: organizational_policy
     value:
       capability: "{MAIL_CAPABILITY}"
-      platform: "{MAIL_PLATFORM}"
+      platform: "{platform}"
       source: "Network IT standard 4 (email)"
     overridable_by: []
-    rationale: "Member food banks send email only through the network relay, so every message passes its privacy checks"
+    rationale: "Member food banks send email only through the network {via}, so every message passes its privacy checks"
 {set_02}```
 
 ## Change Log
@@ -546,7 +560,8 @@ settings:
 
 POL = policy("active")
 POL_REVOKED = policy("deprecated")  # VER-15: the setting that resolves DEC-07 is no longer active
-POL_V2 = policy("active", version=2)  # VER-17: POL-001 bumped, SET-01 unchanged
+POL_V2 = policy("active", version=2)  # VER-17, VER-21 to VER-23: POL-001 bumped, SET-01 unchanged
+POL_V2_CHANGED = policy("active", version=2, platform=CHANGED_MAIL_PLATFORM)  # VER-20: SET-01's platform changed
 
 # VER-16: the food bank's own project policy, approved after PRD-001 v2 and before ARCH-001.
 POL_PROJECT = f"""\
@@ -625,13 +640,17 @@ def kinds(*ks):
     return ["kinds:"] + [f'  - "{k}"' for k in ks]
 
 
-def arch(prd_version, *, signin=False, prd2=False, extra_dec=""):
+def arch(prd_version, *, signin=False, prd2=False, extra_dec="", entries=None, no_resolution=False):
     """ARCH-001, approved, citing PRD-001 at prd_version (SPEC-004 §9; VER-06 uses version 1).
 
     signin: DEC-01 is resolved by the project policy's mandated sign-in platform, POL-002#SET-01 (VER-16).
     prd2: amended to version 2 and approved again, also covering PRD-002 v1 (VER-18).
-    extra_dec: a DEC-08 item block (VER-18, VER-19)."""
+    extra_dec: a DEC-08 item block (VER-18, VER-19, VER-24 to VER-26).
+    entries: the initial row's resolution entries as written, replacing the mandates (VER-21, VER-22).
+    no_resolution: no Change Log row carries a Policy resolution: line (VER-23)."""
     mandates = (MAIL_ENTRY, SIGNIN_ENTRY) if signin else (MAIL_ENTRY,)
+    draft = f"Initial draft for PRD-001 v{prd_version}." + ("" if no_resolution else
+                                                             " " + resolution(*(entries or mandates)))
     version, updated, outcome = (2, "2026-09-28", "amend") if prd2 else (1, "2026-09-24", "create")
     prd2_link = "  - {id: PRD-002, relation: informed_by, version: 1, hash: null}\n" if prd2 else ""
     amended = (f"| 2 | 2026-09-27 | claude-code (session fixture-session) | Amended to cover PRD-002 v1: DEC-08 added. "
@@ -768,7 +787,7 @@ and email goes through the regional network's relay.
 
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
-| 1 | 2026-09-22 | claude-code (session fixture-session) | Initial draft for PRD-001 v{prd_version}. {resolution(*mandates)} | all |
+| 1 | 2026-09-22 | claude-code (session fixture-session) | {draft} | all |
 | 1 | 2026-09-24 | Priya Nair | Approved | status |
 {amended}"""
 
@@ -786,6 +805,22 @@ ARCH_HOSTING_OPEN = arch(2, extra_dec=dec(
     "08", "Which hosting provider runs the web app and the shift service?", "open", "[]",
     "FR-002", "FR-003", "FR-004", "FR-012", "NFR-001"))
 ARCH_BAD_DATE = ARCH.replace("updated: 2026-09-24", "updated: 2026-02-30")  # issue #15; no case uses it
+# VER-21, VER-22: the resolution line records SET-01 only in the older form, with no platform or capability.
+LEGACY_ENTRY = "architecture.mandated_platforms=POL-001#SET-01"
+ARCH_LEGACY = arch(2, entries=(LEGACY_ENTRY,))
+# VER-23: no Change Log row carries a Policy resolution: line.
+ARCH_NO_RECORD = arch(2, no_resolution=True)
+# VER-24: an open question about contact data blocks NFR-001 and the later NFR-003.
+ARCH_NFR_OPEN = arch(2, extra_dec=dec(
+    "08", "How are volunteer contact details access-controlled and deleted on request?", "open", "[]",
+    "NFR-001", "NFR-003"))
+# VER-25: DEC-08 is resolved by ADR-005, whose file doesn't exist.
+ARCH_NFR_UNKNOWN = arch(2, extra_dec=dec(
+    "08", "How long are volunteer contact details kept?", "resolved", "[ADR-005]", "NFR-001"))
+# VER-26: the mandated mail platform answers DEC-08, a question about payment receipts, not the payment-provider
+# question that FR-010's marker asks.
+ARCH_RECEIPTS = arch(2, extra_dec=dec(
+    "08", "Which email service sends membership payment receipts?", "resolved", "[POL-001#SET-01]", "FR-010"))
 
 SENTINEL = "SENTINEL-7F3A: hand-written note that every run must leave in place."
 
@@ -899,6 +934,25 @@ EPIC_FIRST_RUN = epic(
              'evidence_method: "End-to-end test with a test mailbox"']),
     changelog="| 1 | 2026-09-25 | claude-code (session prior-epic-session) | Initial draft from PRD-001 v2 and ARCH-001 v1 |\n")
 
+# VER-24, VER-25: an approved EPIC-001 that refines FR-003 and NFR-001 (VER-24: also the later NFR-003).
+ROSTER_DW = item(["id: DW-01", "status: active",
+                  'criterion: "The coordinator sees the day\'s roster, and no one else sees a volunteer\'s phone number"',
+                  'evidence_method: "End-to-end test as the coordinator and as a volunteer"'])
+EPIC_NFR_BOTH = epic(
+    title="Coordinator roster and contact privacy", status="approved", session="fixture-session",
+    links=refines("FR-003") + refines("NFR-001") + refines("NFR-003"),
+    goal="The coordinator sees each day's roster, while volunteers' contact details stay private and can be "
+         "deleted on request.",
+    scope_in="- The coordinator's daily roster (PRD-001#FR-003)\n"
+             "- Private contact details (PRD-001#NFR-001, PRD-001#NFR-003)\n",
+    dw=ROSTER_DW, changelog="| 1 | 2026-09-25 | Priya Nair | Written by hand; approved |\n")
+EPIC_NFR_ONE = epic(
+    title="Coordinator roster and contact privacy", status="approved", session="fixture-session",
+    links=refines("FR-003") + refines("NFR-001"),
+    goal="The coordinator sees each day's roster, while volunteers' phone numbers stay private.",
+    scope_in="- The coordinator's daily roster (PRD-001#FR-003)\n- Private phone numbers (PRD-001#NFR-001)\n",
+    dw=ROSTER_DW, changelog="| 1 | 2026-09-25 | Priya Nair | Written by hand; approved |\n")
+
 # --- Fixture validation ---------------------------------------------------------------------------
 
 
@@ -985,6 +1039,42 @@ def check_shared_fixture():
                if d["id"] == "DEC-08"]
     assert [(d["state"], [u["item"] for u in d["upstream"]]) for d in hosting] == [
         ("open", ["FR-002", "FR-003", "FR-004", "FR-012", "NFR-001"])]
+    # VER-20: POL-001 v2 changed SET-01's platform for the same capability; ARCH-001 links SET-01 at version 1
+    # and its line still records the old platform, so check 3 finds the change.
+    changed = entry(POL_V2_CHANGED, "POL-001", "SET-01")
+    assert validate("POL_V2_CHANGED", POL_V2_CHANGED, "policy.schema.json")["frontmatter"]["version"] == 2
+    assert setting(POL_V2_CHANGED, "SET-01")["value"]["capability"] == MAIL_CAPABILITY
+    assert changed != MAIL_ENTRY and changed not in last_resolution(ARCH) and MAIL_ENTRY in last_resolution(ARCH)
+    assert "{id: POL-001, item: SET-01, relation: constrains, version: 1, hash: null}" in ARCH
+    # VER-21, VER-22: the line names SET-01 only in the exact older form; SET-01 itself is unchanged.
+    legacy = last_resolution(ARCH_LEGACY)
+    assert f"; {LEGACY_ENTRY};" in legacy and MAIL_ENTRY not in legacy, legacy
+    assert setting(POL_V2, "SET-01") == setting(POL, "SET-01")
+    # VER-23: no row records a policy resolution (a missing record, not the older form).
+    assert not any("Policy resolution:" in l for l in ARCH_NO_RECORD.splitlines())
+
+    def dec_08(arch_text):
+        return [(d["state"], d["resolved_by"], [u["item"] for u in d["upstream"]])
+                for d in validate("DEC-08", arch_text, "arch.schema.json")["decisions"] if d["id"] == "DEC-08"]
+
+    # VER-24: NFR-003 is later with a null priority; an open DEC-08 cites NFR-001 and NFR-003; EPIC-001 refines
+    # FR-003, NFR-001 and NFR-003.
+    prd3 = {r["id"]: (r["priority"], r["release"])
+            for r in validate("PRD_NFR3", PRD_NFR3, "prd.schema.json")["non_functional_requirements"]}
+    assert prd3 == {"NFR-001": ("must", "current"), "NFR-002": (None, None), "NFR-003": (None, "later")}, prd3
+    assert dec_08(ARCH_NFR_OPEN) == [("open", [], ["NFR-001", "NFR-003"])]
+
+    def refined(epic_text):
+        return [u["item"] for u in validate("EPIC", epic_text, "epic.schema.json")["frontmatter"]["upstream"]
+                if u.get("relation") == "refines"]
+
+    assert refined(EPIC_NFR_BOTH) == ["FR-003", "NFR-001", "NFR-003"] and SENTINEL in EPIC_NFR_BOTH
+    # VER-25: DEC-08 is resolved by ADR-005, which no file holds; EPIC-001 refines FR-003 and NFR-001.
+    assert dec_08(ARCH_NFR_UNKNOWN) == [("resolved", ["ADR-005"], ["NFR-001"])]
+    assert not any("ADR-005" in p for p in ADRS) and refined(EPIC_NFR_ONE) == ["FR-003", "NFR-001"]
+    # VER-26: DEC-08 is resolved by the mail mandate (which passes the bounded check) and cites FR-010, whose
+    # payment-provider marker still has no matching question.
+    assert dec_08(ARCH_RECEIPTS) == [("resolved", ["POL-001#SET-01"], ["FR-010"])] and MARKER_PAYMENT in PRD
 
 
 FIXTURES = {
@@ -998,6 +1088,11 @@ FIXTURES = {
     "POL_V2": (POL_V2, "policy.schema.json"), "POL_PROJECT": (POL_PROJECT, "policy.schema.json"),
     "PRD2": (PRD2, "prd.schema.json"), "ARCH_TWO_LAYERS": (ARCH_TWO_LAYERS, "arch.schema.json"),
     "ARCH_TWO_PRDS": (ARCH_TWO_PRDS, "arch.schema.json"), "ARCH_HOSTING_OPEN": (ARCH_HOSTING_OPEN, "arch.schema.json"),
+    "POL_V2_CHANGED": (POL_V2_CHANGED, "policy.schema.json"), "ARCH_LEGACY": (ARCH_LEGACY, "arch.schema.json"),
+    "ARCH_NO_RECORD": (ARCH_NO_RECORD, "arch.schema.json"), "PRD_NFR3": (PRD_NFR3, "prd.schema.json"),
+    "ARCH_NFR_OPEN": (ARCH_NFR_OPEN, "arch.schema.json"), "ARCH_NFR_UNKNOWN": (ARCH_NFR_UNKNOWN, "arch.schema.json"),
+    "ARCH_RECEIPTS": (ARCH_RECEIPTS, "arch.schema.json"), "EPIC_NFR_BOTH": (EPIC_NFR_BOTH, "epic.schema.json"),
+    "EPIC_NFR_ONE": (EPIC_NFR_ONE, "epic.schema.json"),
 }
 
 
@@ -1446,6 +1541,139 @@ PASS if all of these hold:
 FAIL if any of these is missing, if it writes or proposes an epic, or if it tells the user to write
 stories or run /devforgeai:story.
 """),
+        },
+    },
+    # SPEC-004 v4. No tool_used graders: they stop counting when the baseline arm runs, which would change
+    # the denominator between the red run on SKL-004 v3 and the qualification.
+    "epic-mandate-changed-blocked": {
+        "ver": "20", "files": shared(pol=POL_V2_CHANGED), "prompt": PROMPT_ONE,
+        "description": "VER-20: POL-001 v2 changed SET-01's platform for transactional email, while ARCH-001's resolution line still records the regional mail relay; FR-012 is blocked by DEC-07 (not unknown), EPIC-001 doesn't refine it, and the next action is /devforgeai:architecture PRD-001.",
+        "graders": {
+            "no-fr-012": lacks_refines(E1, "FR-012"),
+            "refines-the-rest": has_refines(E1, "FR-002", "FR-003", "FR-004", "NFR-001"),
+            "fr-012-blocked-by-dec-07": row("FR-012", r"\bblocked\b", r"\bDEC-07\b"),
+            "fr-012-changed-mandate": llm("""\
+The workspace held POL-001 at version 2, whose SET-01 now mandates the "Network-hosted mail service
+(HTTPS API)" for transactional email. ARCH-001 links POL-001#SET-01 at version 1, and its latest policy
+resolution line still records the "Regional network mail relay (SMTP)" for transactional email. DEC-07
+(which email service sends booking confirmations) is resolved by POL-001#SET-01 and cites FR-012. The
+mandate changed after the architecture applied it, so DEC-07's question is open again, and FR-012 is
+blocked by DEC-07 until the architecture step resolves it again.
+
+Judge only the final reply.
+PASS if all of these hold:
+- FR-012 is reported as left out and blocked by DEC-07, not as unknown, ready or included.
+- The reply names the change: the new platform (the network-hosted mail service), or that POL-001#SET-01
+  now mandates a different platform from the one ARCH-001 recorded.
+- FR-012's next action is to resolve it with /devforgeai:architecture PRD-001.
+FAIL if FR-012 is called unknown, ready or included in the epic, or if the change isn't named.
+"""),
+        },
+    },
+    "epic-legacy-record-no-user": {
+        "ver": "21", "files": shared(pol=POL_V2, arch=ARCH_LEGACY), "prompt": PROMPT_ONE,
+        "description": "VER-21: ARCH-001's resolution line records POL-001#SET-01 only in the older form, with no platform, and POL-001 is at version 2 with SET-01 unchanged; the request says to proceed without questions, so the setting still counts: EPIC-001 refines FR-012, and the reply names the evidence gap.",
+        "graders": {
+            "refines-fr-012": has_refines(E1, "FR-012"),
+            "refines-the-rest": has_refines(E1, "FR-002", "FR-003", "FR-004", "NFR-001"),
+            "refines-nothing-else": lacks_refines(E1, *INELIGIBLE),
+            "names-gap": llm("""\
+The workspace held POL-001 at version 2: it added a testing setting, and SET-01, the mandated mail relay
+for transactional email, is unchanged. ARCH-001 links POL-001#SET-01 at version 1, and its policy
+resolution line records the setting only in an older form, `architecture.mandated_platforms=POL-001#SET-01`,
+with no platform or capability. So the record can't show which platform was mandated when DEC-07 was
+resolved: an evidence gap. With no user to ask (the request said to proceed without questions), the
+setting still counts, and FR-012 is eligible.
+
+Judge only the final reply.
+PASS if both hold:
+- FR-012 is presented as included in the epic, not as unknown, blocked or left out.
+- The reply names the gap, in any wording: ARCH-001 recorded POL-001#SET-01 without a platform (or in an
+  older form), so the platform couldn't be confirmed, and the setting was counted anyway.
+FAIL if FR-012 is left out or called unknown or blocked, or if the reply never mentions that ARCH-001's
+record of POL-001#SET-01 has no platform.
+"""),
+        },
+    },
+    "epic-legacy-record-asks": {
+        "ver": "22", "files": shared(pol=POL_V2, arch=ARCH_LEGACY),
+        "prompt": "Write the epics for PRD-001: put every eligible requirement into one epic.\n",
+        "description": "VER-22: VER-21's fixture with a user present (the request doesn't say to proceed without questions): before writing any epic, the skill asks whether POL-001#SET-01 mandated the regional network mail relay for transactional email when DEC-07 was resolved.",
+        "graders": {
+            "no-epic-written": NO_WRITE,
+            "asks-about-setting": llm("""\
+The workspace held POL-001 at version 2 with SET-01 (the mandated mail relay for transactional email)
+unchanged, and an ARCH-001 whose policy resolution line records POL-001#SET-01 only in an older form,
+with no platform or capability. DEC-07 (which email service sends booking confirmations) is resolved by
+POL-001#SET-01 and cites FR-012. The user asked for one epic covering everything eligible and did not
+say to proceed without questions, so a user is present to answer, and the skill must ask before writing
+anything: did POL-001#SET-01 mandate the "Regional network mail relay (SMTP)" for transactional email
+when DEC-07 was resolved?
+
+Judge only the final reply.
+PASS if the reply asks the user that question, in any wording (whether the setting already mandated the
+regional network mail relay, or that platform, when DEC-07 was resolved), and doesn't present an epic as
+written.
+FAIL if it presents an epic as written, decides the answer itself, or never asks about POL-001#SET-01's
+platform.
+"""),
+        },
+    },
+    "epic-missing-record-unknown": {
+        "ver": "23", "files": shared(pol=POL_V2, arch=ARCH_NO_RECORD), "prompt": PROMPT_ONE,
+        "description": "VER-23: POL-001 is at version 2 (SET-01 unchanged), and no ARCH-001 Change Log row carries a Policy resolution: line; a missing record is not the older form, so FR-012 is unknown: EPIC-001 doesn't refine it, and the reply names POL-001#SET-01 and the missing record.",
+        "graders": {
+            "no-fr-012": lacks_refines(E1, "FR-012"),
+            "refines-the-rest": has_refines(E1, "FR-002", "FR-003", "FR-004", "NFR-001"),
+            "fr-012-unknown": row("FR-012", r"\bunknown\b", r"POL-001#SET-01", r"(?:record|resolution)"),
+        },
+    },
+    "epic-nfr-blocked-review": {
+        "ver": "24", "files": shared(prd=PRD_NFR3, arch=ARCH_NFR_OPEN, epic=EPIC_NFR_BOTH), "prompt": PROMPT_ONE,
+        "description": "VER-24: an open DEC-08 blocks NFR-001 and the later NFR-003, which an existing approved EPIC-001 refines (with FR-003); EPIC-001 stays unchanged, EPIC-002 refines FR-002, FR-004 and FR-012 only, NFR-001's row reads refined by EPIC-001 and blocked by DEC-08 with the action to review EPIC-001's work, and NFR-003's row puts later first.",
+        "graders": {
+            "epic-001-unchanged": UNCHANGED_E1,
+            "epic-002-refines": has_refines(E2, "FR-002", "FR-004", "FR-012"),
+            "epic-002-no-nfr": lacks_refines(E2, "FR-003", "NFR-001", "NFR-003", *INELIGIBLE),
+            "nfr-001-refined-and-blocked": row("NFR-001", r"refined by EPIC-001", r"\bDEC-08\b"),
+            "nfr-rows": llm("""\
+The workspace held PRD-001 with NFR-001 (must, current release) and NFR-003 (release later, no priority
+yet), an ARCH-001 whose open question DEC-08 cites both, and an existing approved EPIC-001 that refines
+FR-003, NFR-001 and NFR-003. A blocked NFR that an existing epic refines is reported as "refined by"
+that epic, with the next action to review that epic's work before continuing; it is never "covered". A
+later NFR's first reason is "later", so its action is the later one (nothing for the current release),
+but its row still names the epic and the block.
+
+Judge only the final reply.
+PASS if all of these hold:
+- NFR-001 is reported as left out, refined by EPIC-001 and blocked by DEC-08, with a next action to
+  review EPIC-001's work (any wording).
+- NFR-001 is not called covered.
+- NFR-003 is reported as left out because it is for a later release, also naming EPIC-001 and DEC-08,
+  with no action asked for the current release.
+FAIL if NFR-001 or NFR-003 is called covered, if NFR-001's row doesn't ask to review EPIC-001's work, or
+if the reply says EPIC-001 was changed.
+"""),
+        },
+    },
+    "epic-nfr-unknown-review": {
+        "ver": "25", "files": shared(arch=ARCH_NFR_UNKNOWN, epic=EPIC_NFR_ONE), "prompt": PROMPT_ONE,
+        "description": "VER-25: DEC-08 cites NFR-001 and is resolved by ADR-005, whose file is missing, and an existing approved EPIC-001 refines FR-003 and NFR-001; EPIC-001 stays unchanged, EPIC-002 doesn't refine NFR-001, and NFR-001's row reads refined by EPIC-001 and unknown (ADR-005 not found) with the action to review EPIC-001's work.",
+        "graders": {
+            "epic-001-unchanged": UNCHANGED_E1,
+            "epic-002-refines": has_refines(E2, "FR-002", "FR-004", "FR-012"),
+            "epic-002-no-nfr": lacks_refines(E2, "FR-003", "NFR-001", *INELIGIBLE),
+            "nfr-001-refined-unknown": row("NFR-001", r"refined by EPIC-001", r"\bunknown\b", r"ADR-005"),
+            "nfr-001-review-epic-001": row("NFR-001", r"review EPIC-001"),
+        },
+    },
+    "epic-unrelated-policy-marker": {
+        "ver": "26", "files": shared(arch=ARCH_RECEIPTS), "prompt": PROMPT_ONE,
+        "description": "VER-26: DEC-08 (which email service sends membership payment receipts) is resolved by POL-001#SET-01 and cites FR-010, but FR-010's payment-provider marker asks another question; FR-010 stays blocked by the marker without a matching question, and EPIC-001 doesn't refine it.",
+        "graders": {
+            "no-fr-010": lacks_refines(E1, "FR-010"),
+            "refines-eligible": has_refines(E1, *ELIGIBLE),
+            "fr-010-blocked-by-marker": row("FR-010", r"\bblocked\b", r"(?:marker|NEEDS ADR|payment provider)"),
         },
     },
 }
