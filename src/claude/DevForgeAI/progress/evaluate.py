@@ -603,6 +603,19 @@ class Run:
         later = [s.n for s in self.steps if s.n > highest]
         return later[0] if later else None
 
+    # -- the next step (BEH-13) --
+
+    def next_step(self, skill):
+        report_done = self.report_gate is not None and self.final_state(self.report_gate) == "done"
+        if not (report_done or self.end_seq() is not None):
+            return None
+        if skill not in CHAIN or skill == CHAIN[-1]:
+            return None
+        following = CHAIN[CHAIN.index(skill) + 1]
+        if following in NOT_BUILT:
+            return {"skill": following, "available": False, "note": NOT_BUILT[following]}
+        return {"skill": following, "available": True, "note": ""}
+
     # -- assembling the state --
 
     def final_state(self, step):
@@ -691,7 +704,7 @@ def build_state(events, counts, manifest, layers, root=None):
         "steps": run.step_records(current),
         "flags": run.flags,
         "gate": run.gate,
-        "next": None,
+        "next": run.next_step(skill),
         "counts": counts,
     }
     return state
