@@ -48,13 +48,17 @@ SKL-008 is reserved for the story skill (SPEC-009).
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 §9 lists the build's departures for Bryan.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v2, a mod): it records each tracked
-  skill run in the project's `devforgeai/progress/`, evaluates it, and shows it in the status line and a band
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod): it records each tracked
+  skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
+  `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
   `progress.mode` in `.claude/devforgeai.local.md`). Every use of `$` stays in that file's top-level functions;
   `hooks/progress-core.ts` is pure. Its kit tests are `hooks/*.test.ts` (not deployed); SPEC-013 §9 lists the
   build's departures for Bryan. An installed plugin's mod loads only while Claude Code serves the hooks-modules
-  rollout flag, and reports load failures only in the debug log (`claude --debug`).
+  rollout flag, and reports load failures only in the debug log (`claude --debug`). When `claude plugin test` says
+  the switch was saved off, check `tengu_plugin_hooks_modules` in `~/.claude.json` and start one `claude -p` from a
+  plain shell: the sandbox can't refresh that file. `progress/prune.py` removes run and session folders older
+  than the `retentionDays` setting (30 days by default), started once per session at its first run.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels. The review criteria are open.
 
@@ -114,7 +118,7 @@ python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py' -k test
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/documents-updater -p 'test_*.py'
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test_*.py'
 # The progress tracker's Python tests: the evaluator (SPEC-012: every rule, the same under python3 -S,
-# the goldens), settings.py and the adapter's structure (SPEC-013)
+# the goldens), settings.py, prune.py and the adapter's structure (SPEC-013)
 PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
 # The progress adapter (SPEC-013): its kit tests, and what Claude Code reads from the module
 claude plugin test src/claude/DevForgeAI
