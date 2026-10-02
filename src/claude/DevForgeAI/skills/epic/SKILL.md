@@ -49,10 +49,10 @@ The skill proposes; the user decides:
 - **Which ARCH**, when several active ARCHs cite the PRD (ERR-04).
 - **The platform behind an older-form policy record**: when the ARCH recorded a policy resolver only as
   `architecture.mandated_platforms=POL-NNN#SET-NN`, with no platform (selection.md, check 3), ask at step
-  4, before step 6, one question per resolver, naming the setting's current value: "Did POL-NNN#SET-NN
-  already mandate "<platform> for <capability>" when DEC-NN was resolved?" Offer Yes, No and Don't know,
-  with none recommended: only the user knows. Yes: it counts. No or don't know: treat it as a changed
-  mandate (blocked).
+  4, before step 6, one question per resolver, naming the setting's current value:
+  `Did POL-NNN#SET-NN already mandate "<platform> for <capability>" when DEC-NN was resolved?`
+  Offer Yes, No and Don't know, with none recommended: only the user knows. Yes: it counts. No or don't
+  know: treat it as a changed mandate (blocked).
 - **The grouping**: which epics, and which requirements each holds. You only propose it.
 - **Priority, release and requirement changes**: an undecided priority or release, and any change to a
   requirement, belong to the PRD owner. Report them; never decide or ask about them.
