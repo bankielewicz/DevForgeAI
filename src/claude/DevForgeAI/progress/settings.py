@@ -20,6 +20,7 @@ Standard library only; runs under python3 -S (QR-04).
 import argparse
 import os
 import re
+import stat
 import sys
 import tempfile
 
@@ -75,9 +76,12 @@ def read_local(root):
         return None
     try:
         with open(path, "rb") as f:
-            return f.read().decode("utf-8")
+            text = f.read().decode("utf-8")
     except (OSError, UnicodeDecodeError) as err:
         raise Fail("%s: %s" % (SHOWN, err))
+    text = text[1:] if text.startswith("\ufeff") else text
+    # An empty file holds no entry: the same as no file.
+    return text if text.strip() else None
 
 
 def check_root(root):
@@ -149,12 +153,17 @@ def updated(text, value):
 
 
 def write_replacing(path, text):
-    """Write text to a temporary file beside path, then rename it over path."""
+    """Write text to a temporary file beside path, then rename it over path, keeping the file's permissions
+    (0644 for a new one; mkstemp's own 0600 would make it owner-only)."""
     folder = os.path.dirname(path)
+    mode = stat.S_IMODE(os.stat(path).st_mode) if os.path.exists(path) else 0o644
     fd, tmp = tempfile.mkstemp(prefix=".devforgeai.local.", suffix=".tmp", dir=folder)
     try:
         with os.fdopen(fd, "wb") as f:
             f.write(text.encode("utf-8"))
+            f.flush()
+            os.fsync(f.fileno())
+        os.chmod(tmp, mode)
         os.replace(tmp, path)
     except BaseException:
         if os.path.exists(tmp):

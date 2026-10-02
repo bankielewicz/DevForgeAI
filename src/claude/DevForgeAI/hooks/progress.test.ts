@@ -665,3 +665,36 @@ test('VER-09: a hook that fails after next keeps the result, and the user is tol
   expect(runFiles(w, 'events.jsonl')).toEqual([])
   expect(w.toasts.some(t => t.startsWith('DevForgeAI progress: skill.prompt:'))).toBe(true)
 })
+
+// ---- After the plugin-validator's review ----
+
+test('BEH-15: an interactive session that loads no tracked skill writes nothing in the project', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($, 'plugin-dev:create-plugin')
+  await w.clock.advance(600)
+  expect(w.writes).toEqual([])
+})
+
+test('BEH-15: the .gitignore is the first file written under devforgeai/progress/, and held log lines follow', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  const ours = w.writes.filter(p => p.startsWith(PROGRESS))
+  expect(ours[0]).toBe(`${PROGRESS}/.gitignore`)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+})
+
+test('BEH-04: two overlapping tool calls are both recorded, each with its own seq', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await Promise.all([
+    $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any),
+    $.tool.call({ tool: 'Grep', pattern: 'x', path: `${ROOT}/docs` } as Any),
+    $.tool.call({ tool: 'Glob', pattern: '*.md' } as Any),
+  ])
+  const lines = eventsOf(w)
+  expect(lines.map(l => JSON.parse(l).seq)).toEqual([1, 2, 3, 4])
+  expect(lines.slice(1).map(l => JSON.parse(l).tool).sort()).toEqual(['Glob', 'Grep', 'Read'])
+})

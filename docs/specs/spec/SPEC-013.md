@@ -414,7 +414,7 @@ quality_responses:
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFRs; every BEH, ERR and QR item is covered by a VER item |
 | Probe (VER-01) | Run on 2026-10-02 with Claude Code 2.1.287, by Bryan in his shell and in a cmux tab, in a throwaway workspace (`/tmp/devforgeai-probe-ws`) with the plugin's source and the probe as skills-dir plugins: P1 to P8 and P10 to P13 answered (below); P9 not run. P7 contradicted DM-01, so version 2 reads replies from `session.append` |
 | Docs check | 2026-10-02: the mods docs, saved in `docs/research/Claude/mods/` (local, as `CLAUDE.md` says of `docs/research/Claude/`), were read against this version; the second version-2 Change Log row lists what changed. They confirm P1, P5 to P8 and P10 to P13 |
-| Build | Built on branch `feat/spec-013-progress-adapter` (worktree), not merged, by session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9 through `/plugin-dev:create-plugin`. Files: `progress/settings.py`, `hooks/hooks.json`, `hooks/progress.tsx`, `hooks/progress-core.ts`, `hooks/core.test.ts`, `hooks/progress.test.ts`, `types/index.d.ts`, the `plugin.json` keys, `src/tests/progress/test_settings.py` and `test_adapter_structure.py`. Results at the build's head: `claude plugin test src/claude/DevForgeAI` 50 pass, 0 fail (13 core tests of the pure helpers, 37 kit tests: VER-04 to VER-14); `src/tests/progress` 99 passed, 173 subtests (the evaluator's 51, `settings.py`'s 44 under normal and `python3 -S`, the 4 structure checks of VER-16); `claude plugin validate`: passed, 11 hooks, the nine state keys, no `$.http`, `$.mcp` or `$.env.set` call (QR-03). VER-01 ran before the build. Not run: VER-15 (the CLI dogfood, Bryan's session, through `--plugin-dir` before merge) and the eval check that the plugin with a hooks module still loads in `claude plugin eval` (one case, Bryan's terminal). Plugin version: set at merge (main is 0.12.1) |
+| Build | Built on branch `feat/spec-013-progress-adapter` (worktree), not merged, by session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9 through `/plugin-dev:create-plugin`. Files: `progress/settings.py`, `hooks/hooks.json`, `hooks/progress.tsx`, `hooks/progress-core.ts`, `hooks/core.test.ts`, `hooks/progress.test.ts`, `types/index.d.ts`, the `plugin.json` keys, `src/tests/progress/test_settings.py` and `test_adapter_structure.py`. Results at the build's head: `claude plugin test src/claude/DevForgeAI` 53 pass, 0 fail (13 core tests of the pure helpers, 40 kit tests: VER-04 to VER-14 and three for the fixes after plugin-validator's review); `src/tests/progress` 107 passed, 173 subtests (the evaluator's 51, `settings.py`'s 52 under normal and `python3 -S`, the 4 structure checks of VER-16); full `src/tests` in the build's last run below; `claude plugin validate`: passed, 11 hooks, the nine state keys, no `$.http`, `$.mcp` or `$.env.set` call (QR-03). VER-01 ran before the build. Not run: VER-15 (the CLI dogfood, Bryan's session, through `--plugin-dir` before merge) and the eval check that the plugin with a hooks module still loads in `claude plugin eval` (one case, Bryan's terminal). Plugin version: set at merge (main is 0.12.1) |
 
 **The probe (VER-01).** A throwaway mod, outside the plugin, logs what the declarations can't settle. It needs
 an interactive session, so the owner runs it. Each line is a pass criterion; when one fails, this spec is revised
@@ -450,6 +450,8 @@ v3 could adopt the wording.
 - **Reading, VER-11:** `state.json` is written by the evaluator's process, not by `$.fs.write`, so the test checks the
   module's own writes (`.gitignore`, `events.jsonl`, `current.json`, `adapter.log`) and the evaluator's `--out`.
 - **Reading, DM-02:** `adapter.log` gets a `mode` line each time the mode is resolved, with its source (ADR-006 D3).
+  Lines are held in memory until a run has created `devforgeai/progress/` with its `.gitignore` (BEH-15), so a
+  session that runs no tracked skill writes nothing in the project; the log keeps its last half past 512 KiB.
 - **Reading, DM-01:** `exit` is recorded for every tool event, 0 for any call that succeeded, as the table lists it.
 - **Build note, `session.append`:** the test kit answers nothing beneath it, so the adapter records the reply before
   calling `next(e)`, as BEH-04 allows, and the kit tests catch the call's rejection.
@@ -459,6 +461,17 @@ v3 could adopt the wording.
 - **Build note, BEH-14:** in a live session `next(e)` doesn't reject, so a failure after it is the adapter's own:
   `tool.call` and `skill.prompt` wrap that work and report it, keeping the result; the `.catch` handlers report only
   failures before `next`, which keeps the kit's `session.append` rejection quiet.
+- **Build note, overlapping hooks:** events are recorded one at a time, and each event's seq comes from the run's
+  own lines, since a `$.state` read inside one dispatch sees that dispatch's moment: three overlapping tool calls
+  read the same seq from it in the kit test that found this.
+- **Plugin-validator's review** (agent, read-only): manifest, structure and security pass. Fixed after it: the
+  `adapter.log` write before the `.gitignore` (above), the overlapping-hooks seq, `prompt.compose`'s missing
+  `.catch`, the unbounded `adapter.log`, and in `settings.py` a saved file's permissions (kept, 0644 when new,
+  not `mkstemp`'s 0600), an empty file, a byte-order mark, and an `fsync` before the rename. Left as they are:
+  Python started without `-I` (the scripts use the standard library only); sessions sharing one checkout share
+  `current.json` and `adapter.log`, whichever wrote last; and once the button saves `progress.mode`, the prd,
+  architecture and context skills report that entry as ignored in their resolution line, as their policy
+  reference does for any key they don't own, until the shared-schema change brings `progress.mode` in (ADR-006 D3).
 - **The kit's limits:** its mock clock runs at most 10,000 waits in one advance, so VER-05's idle test advances 31
   minutes, not 24 hours; it doesn't simulate `session.end`'s shared 1.5 seconds, so `finalTimeout` is unit-tested; it
   can't reload a module, so VER-13 fires `session.start` again with the module's variables kept; a failed

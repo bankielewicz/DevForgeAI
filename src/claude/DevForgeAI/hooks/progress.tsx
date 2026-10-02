@@ -53,6 +53,12 @@ let held: { id: string; lines: string[] } | null = null
 let allReachedFor: string | null = null
 let bandChain: Promise<unknown> = Promise.resolve()
 let logChain: Promise<unknown> = Promise.resolve()
+let recordChain: Promise<unknown> = Promise.resolve()
+// adapter.log lines wait here until a run has created devforgeai/progress/ with its .gitignore (BEH-15), so a
+// session that runs no tracked skill writes nothing in the project.
+let dirReady = false
+let early: string[] = []
+const ADAPTER_LOG_LIMIT = 512 * 1024
 const noticed = new Set<string>()
 
 function message(err: unknown): string {
@@ -94,18 +100,28 @@ async function notify($: E, text: string, key?: string): Promise<void> {
   }
 }
 
-/** One line in devforgeai/progress/adapter.log (DM-02); a failed write is ignored. */
+/** One line in devforgeai/progress/adapter.log (DM-02); held in memory until a run has created the folder, kept
+ *  to its last half when it passes 512 KiB, and a failed write is ignored. */
 async function adapterLog($: E, kind: string, text: string): Promise<void> {
   const step = logChain.then(async () => {
-    const r = await projectRoot($)
-    const path = `${progressDir(r)}/adapter.log`
     const run = await read($, RUN)
     const now = new Date(await $.clock.now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
-    const before = (await $.fs.exists(path)) ? await $.fs.read(path) : ''
-    await $.fs.write(path, `${before}${now} ${run?.id ?? '-'} ${kind}: ${text}\n`)
+    const line = `${now} ${run?.id ?? '-'} ${kind}: ${text}\n`
+    if (!dirReady) {
+      early = [...early, line].slice(-50)
+      return
+    }
+    await appendLog($, line)
   }).catch(() => undefined)
   logChain = step
   await step
+}
+
+async function appendLog($: E, lines: string): Promise<void> {
+  const path = `${progressDir(await projectRoot($))}/adapter.log`
+  let before = (await $.fs.exists(path)) ? await $.fs.read(path) : ''
+  if (byteSize(before) > ADAPTER_LOG_LIMIT) before = before.slice(Math.floor(before.length / 2)).replace(/^[^\n]*\n/, '')
+  await $.fs.write(path, before + lines)
 }
 
 /** The status line, sent only when its text changes (BEH-10). */
@@ -148,6 +164,16 @@ async function ensureDir($: E): Promise<boolean> {
   const dir = progressDir(await projectRoot($))
   try {
     if (!(await $.fs.exists(`${dir}/.gitignore`))) await $.fs.write(`${dir}/.gitignore`, '*\n')
+    if (!dirReady) {
+      dirReady = true
+      const held = early.join('')
+      early = []
+      if (held) {
+        const step = logChain.then(() => appendLog($, held)).catch(() => undefined)
+        logChain = step
+        await step
+      }
+    }
     return true
   } catch {
     await stopTracking($, NO_WRITE)
@@ -184,13 +210,24 @@ async function writeLog($: E, run: ProgressRun, lines: string[]): Promise<boolea
   }
 }
 
-/** Append one event to the open run (BEH-04); `mark` asks the timer to evaluate (BEH-06). */
+/** Append one event to the open run (BEH-04); `mark` asks the timer to evaluate (BEH-06). Events are recorded one
+ *  at a time, so two hooks that overlap can't take the same seq or lose each other's line. */
 async function record($: E, kind: string, fields: Fields, mark = true): Promise<void> {
+  const step = recordChain.then(() => recordNow($, kind, fields, mark))
+  recordChain = step.catch(() => undefined)
+  await step
+}
+
+async function recordNow($: E, kind: string, fields: Fields, mark: boolean): Promise<void> {
   const run = await read($, RUN)
   if (run === null || disabled) return
   const now = await $.clock.now()
-  const lines = [...(await linesOf($, run)), eventLine(run.id, run.seq + 1, now, kind, fields)]
-  const next: ProgressRun = { ...run, seq: run.seq + 1 }
+  // The seq comes from the run's own lines: a $.state read inside one dispatch sees that dispatch's moment, so
+  // overlapping hooks would read the same seq from it.
+  const held = await linesOf($, run)
+  const seq = held.length + 1
+  const lines = [...held, eventLine(run.id, seq, now, kind, fields)]
+  const next: ProgressRun = { ...run, seq }
   if (!(await writeLog($, next, lines))) return
   await update($, RUN, () => next)
   await update($, LAST, () => now)
@@ -409,7 +446,7 @@ async function endRun($: E, reason: string, timeoutMs: number | null): Promise<v
 async function enforceCheck($: E, fields: Fields, content: string | null): Promise<string | null> {
   const run = await read($, RUN)
   if (run === null) return null
-  const seq = run.seq + 1
+  const seq = (await linesOf($, run)).length + 1
   const line = eventLine(run.id, seq, await $.clock.now(), 'tool', {
     ...fields, exit: 0, error: false, content: keptContent(content, await logBytes($)),
   })
@@ -487,7 +524,10 @@ export const register: Register = (on, options) => {
 
   // A second headless signal (BEH-01; §9, P8).
   on('prompt.compose', async ($, e, next) => {
-    if (e.traits.includes('print')) interactive = false
+    if ((e.traits ?? []).includes('print')) interactive = false
+    return next(e)
+  }).catch(async ($, e, next) => {
+    if (!next.called) await recover($, 'prompt.compose', next.error)
     return next(e)
   })
 

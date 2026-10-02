@@ -187,6 +187,30 @@ class SetModeRules(Base):
         self.assert_saved(self.set_mode("enforce"), "enforce")
         self.assertEqual(self.files(), [".claude", ".claude/devforgeai.local.md"])
 
+    def test_keeps_the_file_permissions(self):
+        path = self.write_local("---\ndevforgeai_local: 1\n---\n")
+        path.chmod(0o644)
+        self.assert_saved(self.set_mode("enforce"), "enforce")
+        self.assertEqual(path.stat().st_mode & 0o777, 0o644)
+        path.chmod(0o640)
+        self.assert_saved(self.set_mode("observe"), "observe")
+        self.assertEqual(path.stat().st_mode & 0o777, 0o640)
+
+    def test_a_new_file_is_readable_by_others_as_usual(self):
+        self.assert_saved(self.set_mode("enforce"), "enforce")
+        self.assertEqual((self.root / LOCAL).stat().st_mode & 0o777, 0o644)
+
+    def test_an_empty_file_is_set_up(self):
+        self.write_local("")
+        self.assert_saved(self.set_mode("enforce"), "enforce")
+        self.assertEqual(self.local_text(), "---\ndevforgeai_local: 1\nprogress.mode: enforce\n---\n")
+
+    def test_a_byte_order_mark_is_read_past(self):
+        self.write_local("\ufeff---\ndevforgeai_local: 1\nprogress.mode: observe\n---\n")
+        self.assertEqual(self.mode().stdout, "observe local\n")
+        self.assert_saved(self.set_mode("enforce"), "enforce")
+        self.assertEqual(self.local_text(), "---\ndevforgeai_local: 1\nprogress.mode: enforce\n---\n")
+
     def test_a_root_that_is_not_a_folder_exits_2(self):
         proc = self.set_mode_in(self.root / "missing", "enforce")
         self.assertEqual(proc.returncode, 2)
