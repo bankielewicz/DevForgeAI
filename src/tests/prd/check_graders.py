@@ -474,6 +474,10 @@ SM_LINKED = new_prd().split("success_metrics:\n")[1].split("```")[0]  # the defa
 SM_SAT = ('  - id: SM-02\n    status: active\n    metric: "Average volunteer satisfaction in the quarterly survey"\n'
           '    baseline: "3.4 out of 5"\n    target: "4.0 out of 5 by the end of the pilot"\n'
           '    measured_by: "Quarterly volunteer survey"\n')
+V4_SM = ('  - id: SM-03\n    status: active\n    metric: "Average score in the quarterly volunteer survey"\n'
+         '    baseline: "3.4 out of 5"\n'
+         '    target: "[NEEDS CLARIFICATION: target for average score in the quarterly volunteer survey]"\n'
+         '    measured_by: "Quarterly volunteer survey"\n')
 IDEA_LINK = "      - {id: BRN-001, item: IDEA-01, relation: derives, version: 1, hash: null}\n"
 
 
@@ -498,6 +502,10 @@ S += [
     (c, "linked to IDEA-01", sat_prd(SM_SAT + "    upstream:\n" + IDEA_LINK), R38, {"no-upstream"}),
     (c, "linked, flow form", sat_prd(SM_SAT + "    upstream: [{id: BRN-001, item: IDEA-01, relation: derives, version: 1, hash: null}]\n"),
      R38, {"no-upstream"}),
+    (c, "good, metric named after the survey", sat_prd(edit(SM_SAT, "Average volunteer satisfaction in the quarterly survey",
+                                                              "Average score in the quarterly volunteer survey")), R38, set()),
+    # SKL-002 v4's red run, 2026-10-01: SM-03 as written; only the target was marked.
+    (c, "v4 red run", sat_prd(V4_SM), R38, {"target-kept"}),
     (c, "no satisfaction metric", sat_prd(""), R38, V38),
     # With no file, grade_evals.mjs fails every file grader, not_contains ones included.
     (c, "no PRD", {}, "Nothing written.", V38 | {"no-upstream"}),

@@ -600,8 +600,10 @@ to proceed without questions. A correct run adds requirements for IDEA-05 only a
 
 """
 EXTEND_PROMPT = "Extend PRD-001 from BRN-002. Proceed without questions.\n"
-# VER-38: the start of the success metric whose metric names volunteer satisfaction, in any field order.
-SATISFACTION_SM = rf'- id: SM-\d{{2}}\n(?={ITEM}[ \t]+metric: "[^"\n]*[Ss]atisfaction)'
+# VER-38: the start of the success metric for the satisfaction signal, in any field order. Its metric names
+# satisfaction or the survey: SKL-002 v4's red run (2026-10-01) wrote "Average score in the quarterly volunteer
+# survey".
+SIGNAL_SM = rf'- id: SM-\d{{2}}\n(?={ITEM}[ \t]+metric: "[^"\n]*(?:[Ss]atisf|[Ss]urvey))'
 
 
 def policy_case(ver, fixture, what, field_graders):
@@ -861,11 +863,11 @@ such as "epics must wait until an accepted ADR resolves it" with no other way na
         # Four graders, so a PRD that marks only the target scores 0.75, under the 0.8 bar. A missing PRD or
         # metric already fails the three regexes that need it.
         "graders": {
-            "baseline-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+baseline: "[^"\n]*\b3\.4\b'),
-            "target-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+target: "(?![^"\n]*NEEDS CLARIFICATION)'
+            "baseline-kept": regex(PRD, "contains", rf'{SIGNAL_SM}{ITEM}[ \t]+baseline: "[^"\n]*\b3\.4\b'),
+            "target-kept": regex(PRD, "contains", rf'{SIGNAL_SM}{ITEM}[ \t]+target: "(?![^"\n]*NEEDS CLARIFICATION)'
                                                    rf'[^"\n]*\b4\.0\b'),
-            "measured-by-survey": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+measured_by: "[^"\n]*[Ss]urvey'),
-            "no-upstream": regex(PRD, "not_contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+upstream:[ \t]*(?:\n[ \t]+- |\[[ \t]*\{{)'),
+            "measured-by-survey": regex(PRD, "contains", rf'{SIGNAL_SM}{ITEM}[ \t]+measured_by: "[^"\n]*[Ss]urvey'),
+            "no-upstream": regex(PRD, "not_contains", rf'{SIGNAL_SM}{ITEM}[ \t]+upstream:[ \t]*(?:\n[ \t]+- |\[[ \t]*\{{)'),
         },
     },
 }
