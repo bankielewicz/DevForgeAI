@@ -43,7 +43,7 @@ This document proposes mods for two audiences:
 | A (section 5) | the owner, and Claude sessions developing DevForgeAI in this repository | `src/tools/mods/<name>/`, outside the plugin, like `src/tools/session-archive/` | the owner's go-ahead |
 | B (section 6) | anyone building a project with the `devforgeai` plugin | `src/claude/DevForgeAI/hooks/`, inside the plugin | a spec change, the create-plugin workflow, evals and the owner's approval |
 
-**Superseded split.** The Part A / Part B split below (development mods outside the plugin, framework mods inside it) is superseded by the layered view of ADR-006 (proposed). There is one mod, and its rules come from the framework, then organization and project, then personal settings. DevForgeAI's own repository is a project whose project layer holds its own rules, such as the traps in A1. The individual mods below still describe what each feature does.
+**Superseded split.** The Part A / Part B split below (development mods outside the plugin, framework mods inside it) is superseded by the layered view of ADR-006 (accepted). There is one mod, and its rules come from the framework, then organization and project, then personal settings. DevForgeAI's own repository is a project whose project layer holds its own rules, such as the traps in A1. The individual mods below still describe what each feature does.
 
 Mods don't replace the eval suites. A skill's evals stay the proof that it works (`CLAUDE.md`, "What this workspace is").
 

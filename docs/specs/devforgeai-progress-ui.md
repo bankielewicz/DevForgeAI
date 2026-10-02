@@ -359,7 +359,7 @@ Claude Code's mod API reaches the CLI, the desktop app and VS Code with one modu
 - **Codex and other tools:** an adapter of their own that writes `devforgeai-events/1`, built by those tools' sessions (`src/codex/` is Codex sessions' work). Until an adapter exists, any tool can run the evaluator and open `progress.html`.
 - **`progress.html`:** a static page the evaluator writes beside the state file. It draws `devforgeai-progress/1` with the same SVG assets and needs no mod API, so it works with any tool and any browser. The prototype page is already a renderer of this kind.
 
-**Rules come in layers** (ADR-006, proposed, extending ADR-003). This is DevForgeAI's adaptive model: a core set of skills and rules, then the project's own, then personal settings.
+**Rules come in layers** (ADR-006, accepted, extending ADR-003). This is DevForgeAI's adaptive model: a core set of skills and rules, then the project's own, then personal settings.
 - **Framework:** the manifests the plugin ships; their content rules for decisions that belong to the user can't be weakened by any layer.
 - **Organization and project:** they may add rules to a framework manifest and supply manifests for their own skills, never remove or relax a rule (SPEC-012 BEH-17).
 - **Personal:** `progress.mode` (observe or enforce) in the local preference file, when the project allows it; display settings (character, animation) in each host's own settings.
@@ -476,7 +476,7 @@ The colours are saturated mid-tones, so they read on dark and light themes alike
 ## 11. Build order
 
 1. **A logging probe with no UI**: settle the unverified items above.
-2. **Contracts and evaluator** (SPEC-012, draft): `devforgeai-events/1`, `devforgeai-progress/1`, `devforgeai-manifest/1`, the brainstorm and architecture manifests, and the Python evaluator, with tests that feed recorded event logs in and check the progress states that come out.
+2. **Contracts and evaluator** (SPEC-012, approved): `devforgeai-events/1`, `devforgeai-progress/1`, `devforgeai-manifest/1`, the brainstorm and architecture manifests, and the Python evaluator, with tests that feed recorded event logs in and check the progress states that come out.
 3. **Claude Code adapter**: events from the hooks, evaluator calls at gates, observe mode, the status line and a text-only band.
 4. **The pane as text**: Journey path and step list, with glyphs only.
 5. **Graphics**: SVG assets and timelines; the `Svg` renderer for the desktop app and VS Code; the build script for cell assets and the `Raster` renderer; `Image` for kitty and Ghostty; the `animation` and `character` settings.
