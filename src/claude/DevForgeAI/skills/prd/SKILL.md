@@ -343,13 +343,15 @@ Write the final reply in this order:
    Policy resolution: [the resolution line's entries]
    ```
 
-2. Every `[NEEDS ADR]` marker, each with the sentence: epics for FR-NNN, … must wait until the
-   architecture step resolves that exact decision, by an accepted ADR or an approved mandated
-   platform answering it. Then any other discussion, such as where a gate's answer came from, ADRs you
-   proposed but didn't link, the promoted ideas left out because a PRD already cites them (step 3),
-   and, after an extension, suspect epics, every existing link that cites an older version of its
-   document (a suspect link to review, never an error; output-rules.md check 9), and that the new
-   revision hasn't been reviewed.
+2. Every `[NEEDS ADR]` marker, each followed by this sentence with the FR IDs filled in and nothing
+   else changed: "Epics for FR-NNN, … must wait until the architecture step resolves that exact
+   decision, by an accepted ADR or an approved mandated platform answering it." Name both ways even
+   when the resolution line reads `mandated_platforms=none`: a policy approved later can answer it,
+   and that is the architecture step's call. Then any other discussion, such as where a gate's
+   answer came from, ADRs you proposed but didn't link, the promoted ideas left out because a PRD
+   already cites them (step 3), and, after an extension, suspect epics, every existing link that
+   cites an older version of its document (a suspect link to review, never an error; output-rules.md
+   check 9), and that the new revision hasn't been reviewed.
 3. The next step, as its own paragraph outside any code block. It starts with the words
    **Next step**, names the PRD by its ID and never by its path, and nothing follows it.
 
