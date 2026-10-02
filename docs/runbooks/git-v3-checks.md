@@ -60,8 +60,47 @@ was merged; PR #52 was open and conflicting at intake. Its active worktree is ou
 
 ## Candidate verification
 
-Final candidate revision and local results will be recorded after the committed checks run.
-Native evaluations, manual checks, approval, merge and deployment are pending.
+The tested implementation is `ea149e047a4135727b612f3937308850c427c8fa`, tree
+`08092cf12d0fc269145df344092e3d1aab588047`, clean before and after every recorded command. It includes
+current main `229d124595273828bc3c2b375194a723a8929118`: PR #52 merged during this work, and its context
+approval is preserved in AGENTS.md and CLAUDE.md. Main's intervening SPEC-004 update is also preserved
+unchanged; neither change is authored by this git follow-up. The main checkout's existing edits
+were not changed. A later reporting-only commit updates this runbook; its source/spec identity is
+checked against the tested implementation.
+
+Receipts and full logs are in `/tmp/devforgeai-git-open-items-evidence-20261001/`. Each JSON receipt
+contains the actual command, working directory, before/after commit and tree, exit code and log
+SHA-256. `candidate3-*` is the post-merge run; `candidate1-*` and `candidate2-*` remain intact.
+
+| Check | Status | Observed result |
+|---|---|---|
+| `python3 -B -m unittest discover -s src/tests/git -p 'test_*.py'` | PASS | 88 tests, exit 0 |
+| `python3 -B -m pytest -q -p no:cacheprovider src/tests` | PASS | 477 tests and 371 subtests, exit 0; collection collision resolved |
+| `python3 -B -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'` | PASS | 287 tests, exit 0 |
+| `python3 -B /tmp/devforgeai-git-v3-controls.py` | PASS | Executes `simulate_runs.py`'s 23 good runs and 25 negative controls, verifies expected exit codes and targeted rejecting graders, and rejects any command failure in a good run. No unexpected outcomes; LLM graders skipped |
+| `node src/tests/git/check_patterns.mjs` | PASS | Regex table controls, exit 0 at `d2f07f8`; script and generated git eval bytes unchanged in the merge |
+| `python3 -B src/tests/git/make_evals.py` | PASS | 23 cases regenerated at `d2f07f8`, leaving the worktree clean; generator and eval bytes unchanged in the merge |
+| `python3 -B /tmp/devforgeai-git-v3-static.py` | PASS | Three spec schemas, unapproved candidate metadata, v3 upstream pins, original Change Logs preserved, both manifest JSONs, whitespace and clean state |
+| `python3 -B src/claude/DevForgeAI/skills/documents-updater/scripts/check_docs.py README.md CHANGELOG.md docs/runbooks/git-v3-checks.md` | PASS | Three files, no errors; rerun after this reporting-only edit |
+| `claude plugin validate src/claude/DevForgeAI --strict` | PASS | Exit 0 at `c7f6550`; same manifest SHA-256 `c2248233a4e34a283a770f79c09e51ab2a813fb2bb28d6e8a7dcfbb6f6ebee9f` in the tested implementation. Manifest validation only |
+| `python3 -B -m unittest discover -s src/tools/session-archive -p 'test_*.py'` | FAIL | Post-merge concurrent run: `test_concurrent_archives` counted 9 sessions instead of 10; 1 failure in 8 tests |
+| Same archive command, one isolated diagnostic rerun | PASS | All 8 tests passed on the same `ea149e0`; this does not waive the preceding failure |
+
+**Unresolved finding:** archive concurrency is intermittent in these observations. Its source and
+tests are byte-identical to the intake baseline (`git diff b9b1ccc ea149e0 -- src/tools/session-archive`
+is empty). The underlying cause has not been established or repaired, and no named exception has
+been accepted. The archive failure therefore remains part of the verification record; there is no
+claim that every repository gate is unconditionally green. It is outside this change's write scope.
+
+| Acceptance evidence | Local evidence | Native/attended evidence |
+|---|---|---|
+| ERR-04 routing, VER-06 and VER-35 | PASS: source routes and controlled grader outcomes | NOT_RUN: Claude must execute the revised instructions |
+| All-branch carry and explicit inclusion, VER-28/32/33 | PASS: fixtures and controlled grader outcomes | NOT_RUN: Claude behavior; linked-worktree VER-26 remains manual |
+| Compose password policy, VER-17/34 | PASS: six new unit tests, existing blocking controls and offline eval controls | NOT_RUN: Claude warning/confirmation behavior |
+| SPEC-008 and SPEC-010 citation updates | PASS: schema-valid v3 pins; original authorship and Change Logs retained | SPEC-010 v3 owner approval pending |
+| Manual VER-18..22, VER-24, VER-26, VER-31 | NOT_RUN | NOT_RUN: requirements and setup below |
+
+Native evaluation, independent review, owner approval, merge and deployment of **v3** are pending.
 
 ## Native evaluation
 
