@@ -2,26 +2,26 @@
 id: SPEC-010
 type: spec
 title: "GitHub post skill"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 2
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 3
 created: 2026-09-29
-updated: 2026-09-30
+updated: 2026-10-01
 owner: "Bryan"
-authors: ["Bryan", "claude-code"]
+authors: ["Bryan", "claude-code", "codex"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-09-30
+approved_by: ""
+approved_on: null
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "the project context documents, read only when they exist (BEH-18, BEH-19)"}
-  - {id: SPEC-007, relation: informed_by, version: 1, hash: null, note: "the git skill: PR creation and the outward-action rule"}
+  - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill: PR creation and the outward-action rule"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -560,3 +560,4 @@ After Bryan approves this spec:
 | 2 | 2026-09-30 | Bryan | Approved | status |
 | 2 | 2026-09-30 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Revised before merge after the Codex consult (`tmp/codex_consult-spec-011.reply.md`, findings 4, 7 and 15 to 18). BEH-19 takes a pr's files from git diff --name-only. BEH-18 checks the read before hashing, fixes the citation form, and says missing context never changes a supported next action. §5 allows Write and Edit for the temp draft only, and git diff --name-only. VER-13 and VER-14 are tightened. Bryan's approval of the earlier text is cleared; awaiting his re-approval | frontmatter, §5, BEH-18, BEH-19, VER-13, VER-14, §9, §13 |
 | 2 | 2026-09-30 | Bryan | Approved | status |
+| 3 | 2026-10-01 | codex (session 01a0fa0f-f2c2-70e2-a49e-237cdf3dbf3d) | Refresh the SPEC-007 informed_by pin from v1 to the v3 candidate; the referenced contract and this document's behavior are unchanged. Version 2's approval is historical; version 3 awaits owner review and approval | upstream, status |

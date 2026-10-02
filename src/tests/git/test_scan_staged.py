@@ -8,7 +8,10 @@ import sys
 import unittest
 from unittest import mock
 
-from gitfixture import SCRIPTS, Sandbox
+if __package__:
+    from .gitfixture import SCRIPTS, Sandbox
+else:
+    from gitfixture import SCRIPTS, Sandbox
 
 # Fake secrets, assembled at run time so this file itself passes the scan (and GitHub's push protection).
 AWS_KEY = "AKIA" + "Q3VZ7K2M9TXW4B8N"
@@ -211,6 +214,83 @@ class ScanStagedTest(unittest.TestCase):
         self.assertEqual(blocked, [("github_token", "tests/test_api.py"), ("literal_credential", "src/contest.py"),
                                    ("literal_credential", "src/testing_utils.py")])
         self.assertNotIn("pw1234", out)
+
+    # --- version 3 (SPEC-007 v3, VER-17) ------------------------------------------------------
+
+    def test_marked_compose_passwords_warn_in_mapping_and_list_forms(self):
+        names = [f"{prefix}.{marker}.{extension}"
+                 for prefix in ("compose", "docker-compose")
+                 for marker in ("local", "example") for extension in ("yml", "yaml")]
+        prefix = "services:\n  db:\n    image: postgres:16\n    environment:\n"
+        forms = {
+            "mapping": '      POSTGRES_PASSWORD: postgres\n      MYSQL_ROOT_PASSWORD: "root"\n',
+            "list": '      - POSTGRES_PASSWORD=postgres\n      - MYSQL_ROOT_PASSWORD="root"\n',
+            "quoted-list": '      - "POSTGRES_PASSWORD=postgres"\n      - \'MYSQL_ROOT_PASSWORD=root\'\n',
+        }
+        expected = []
+        for form, content in forms.items():
+            for name in names:
+                path = f"configs/{form}/{name}"
+                self.stage(path, prefix + content)
+                expected.extend((path, n) for n in (5, 6))
+        report, out = self.scan()
+        self.assertEqual(report["blocked"], [])
+        warned = sorted((f["path"], f["line"]) for f in report["warnings"]
+                        if f["check"] == "literal_credential")
+        self.assertEqual(warned, sorted(expected))
+        self.assertNotIn('"root"', out)
+
+    def test_unmarked_compose_passwords_still_block_including_list_forms(self):
+        paths = ["compose.yml", "compose.prod.yaml", "docker-compose.yaml", "docker-compose.production.yml",
+                 "local/compose.yml", "examples/docker-compose.yml", "compose.local.prod.yml",
+                 "compose.example-backup.yml", "app.local.yml"]
+        prefix = "# Local example database, not a filename marker.\nservices:\n  db:\n    environment:\n"
+        for path in paths:
+            self.stage(path, prefix + f"      POSTGRES_PASSWORD: {CRED}\n")
+        self.stage("deploy/docker-compose.override.yml", prefix + f"      - MYSQL_ROOT_PASSWORD={CRED}\n")
+        self.stage("deploy/compose.yml", prefix + f'      - "POSTGRES_PASSWORD={CRED}"\n')
+        report, out = self.scan()
+        blocked = sorted((f["path"], f["line"]) for f in report["blocked"]
+                         if f["check"] == "literal_credential")
+        self.assertEqual(blocked, sorted((p, 5) for p in paths +
+                                        ["deploy/docker-compose.override.yml", "deploy/compose.yml"]))
+        self.assertNotIn(CRED, out)
+
+    def test_marked_compose_exemption_is_only_for_password_assignments(self):
+        self.stage("compose.local.yaml", f"services:\n  db:\n    environment:\n"
+                   f"      POSTGRES_PASSWORD: {CRED}\n      API_KEY: {CRED}\n      CLIENT_SECRET: {CRED}\n")
+        report, out = self.scan()
+        self.assertEqual([f["line"] for f in report["blocked"]
+                          if f["check"] == "literal_credential"], [5, 6])
+        self.assertEqual([f["line"] for f in report["warnings"]
+                          if f["check"] == "literal_credential"], [4])
+        self.assertNotIn(CRED, out)
+
+    def test_marked_compose_never_exempts_tokens_private_keys_or_remote_urls(self):
+        self.stage("compose.example.yml", f"POSTGRES_PASSWORD: {GH_TOKEN}\n" + KEY_PEM +
+                   f"DATABASE_URL: postgres://deploy:{CRED}@db.acme-corp.io/app\n")
+        report, out = self.scan()
+        self.assertTrue({"github_token", "private_key", "url_credentials"} <= self.checks(report["blocked"]))
+        self.assertNotIn(GH_TOKEN, out)
+        self.assertNotIn(CRED, out)
+
+    def test_compose_password_references_stay_clear(self):
+        self.stage("compose.local.yml", "services:\n  db:\n    environment:\n"
+                   "      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}\n      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD\n")
+        self.stage("compose.yml", 'POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"\n')
+        report, _ = self.scan()
+        self.assertEqual((report["blocked"], report["warnings"]), ([], []))
+
+    def test_compose_quoted_mapping_keys_are_scanned(self):
+        content = "services:\n  db:\n    environment:\n" + f'      "POSTGRES_PASSWORD": {CRED}\n'
+        self.stage("compose.example.yaml", content)
+        self.stage("compose.production.yaml", content)
+        report, out = self.scan()
+        self.assertEqual([(f["path"], f["line"]) for f in report["blocked"]
+                          if f["check"] == "literal_credential"], [("compose.production.yaml", 4)])
+        self.assertEqual([(f["path"], f["line"]) for f in report["warnings"]
+                          if f["check"] == "literal_credential"], [("compose.example.yaml", 4)])
+        self.assertNotIn(CRED, out)
 
     def test_inherited_literal_pathspecs_still_scan(self):   # with them, :(literal) matched nothing
         self.sb.env["GIT_LITERAL_PATHSPECS"] = "1"

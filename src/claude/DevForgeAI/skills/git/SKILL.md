@@ -4,7 +4,7 @@ description: Takes work in a git repository from changed files to merged, synced
 argument-hint: "[status|connect|start|commit|push|pr|merge|sync|prune] [details]"
 metadata:
   devforgeai-id: "SKL-006"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # Git
@@ -102,7 +102,8 @@ commands that restore the previous state.
   it: an uncertain path is never staged, only named.
 - Whether to commit despite a failed check or a scan warning. A blocked scan finding is never
   committed, even when the user asks.
-- Whether to carry local-only commits of the default branch into a new branch's PR (step 4).
+- Whether to carry commits absent from `origin/<default>` into a new branch's PR, from any
+  branch; reuse an explicit decision to include those commits (step 4).
 - Changing `origin`, merging unrelated histories, renumbering a colliding document ID, removing
   ignored files that aren't regenerable, and deleting backup refs.
 - Whether to run documents-updater before a PR.
@@ -175,10 +176,13 @@ root, `echo '.claude/worktrees/' >> .git/info/exclude` (from a linked worktree, 
 if it is refused, create the worktree anyway and hand that command to the user.
 - **No uncommitted work to carry:** create the branch and worktree together from the fetched
   `origin/<default>`.
-- **Uncommitted work to carry:** first, when the current branch is the default branch and the
-  report's `default_branch.ahead` is above 0, stop before staging anything: list the local-only
-  commits (SHA and subject) and ask whether to stop (recommended: the request didn't name them) or
-  include them in this branch's PR. Then classify, stage, scan and check the work (step 5),
+- **Uncommitted work to carry:** on every branch, including a linked worktree, first list
+  `git log --format='%H %s' origin/<default>..HEAD`. These commits would enter the new PR even if
+  already pushed on another branch. If the request has not explicitly included all of them, stop
+  before staging or creating the branch: show their SHAs and subjects and ask whether to stop
+  (recommended) or include them. Reuse an explicit choice; do not ask it again. A missing or
+  unreadable base is not an empty list: report it and stop (an empty remote follows `connect`).
+  Then classify, stage, scan and check the work (step 5),
   `git switch -c <branch>` at the current HEAD, commit, verify each carried path by hash, switch
   back, and only then add the worktree on that branch. Never move work with stash, copies or
   patches. The rebase onto `origin/<default>` comes before the push (step 6).
@@ -204,17 +208,22 @@ Follow [references/classify-and-commit.md](references/classify-and-commit.md):
 ### 6. push / pr
 
 Follow [references/publish-and-merge.md](references/publish-and-merge.md), in this order:
-1. **`pr` only:** when the branch's diff against `origin/<default>` (naming `<branch>`, not HEAD)
+1. Fetch and check the **requested branch's** merge base with `origin/<default>`, before any
+   rebase, documentation diff or push. No common commit is **ERR-04**, even when `connect` was
+   skipped or the local default branch is in sync: name both tips and offer a new branch based on
+   the remote for the local work, or stop. Change no history, push nothing and report
+   `awaiting_approval`. A command error or missing ref is not proof of unrelated histories.
+2. **`pr` only:** when the branch's diff against `origin/<default>` (naming `<branch>`, not HEAD)
    changes files other than documentation but neither README nor CHANGELOG, recommend
    `/devforgeai:documents-updater` and ask whether to run it first. Run it only on the user's yes;
    with a no, or no answer possible, continue and list "documentation not reviewed".
-2. Fetch, and run the state report in the branch's checkout. **`pr` only:** stop on a colliding
+3. Run the state report in the branch's checkout. **`pr` only:** stop on a colliding
    document ID (ERR-15), before any rebase.
-3. When the base moved and the branch's commits are unpushed, rebase them onto `origin/<default>`;
+4. When the base moved and the branch's commits are unpushed, rebase them onto `origin/<default>`;
    on a conflict run `git rebase --abort` and stop (ERR-08). Push with `git push -u origin <branch>`
    (no `-u` when `.git/config` is masked) as a command of its own (never chained, after `cd … &&`,
    or as `git -C`), from any checkout.
-4. **`pr` only:** now check `gh` and a GitHub remote (ERR-02), then reuse the branch's open PR or
+5. **`pr` only:** now check `gh` and a GitHub remote (ERR-02), then reuse the branch's open PR or
    create one, each `gh pr` call a command of its own. Name the next step: an independent QA
    session reviews the PR.
 

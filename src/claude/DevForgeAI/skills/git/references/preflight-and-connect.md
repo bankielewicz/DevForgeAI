@@ -185,13 +185,17 @@ When the work to deliver is uncommitted in the current checkout (usually the mai
 default branch), move it onto the new branch by a commit, never by stash, file copies or patches
 unless the user chooses one:
 
-0. **Default branch ahead of origin.** When the current branch is the default branch and the
-   report's `default_branch.ahead` is above 0, a branch made at HEAD would carry those local-only
-   commits into the push and the PR. Stop before staging anything or creating the branch: list them
-   (`git log --oneline origin/<default>..<default>`: SHA and subject) and ask whether to (a) stop,
-   recommended, because the request didn't name them, or (b) include them in this branch's PR. With
-   no answer possible, report `awaiting_approval`; with (a), report `blocked` and leave everything
-   as it was.
+0. **Commits outside the default branch, from any checkout.** Read
+   `git log --format='%H %s' origin/<default>..HEAD` after fetching. Every listed commit would enter
+   a branch made at HEAD, including commits already pushed on another feature branch. Apply this
+   check on the default branch, any other branch and a linked worktree when carrying work to a
+   separate branch. If the request explicitly includes every listed commit, reuse that choice and
+   continue; an empty list also needs no question. Otherwise stop before staging or creating a
+   branch, list the SHAs and subjects, and ask whether to (a) stop (recommended), or (b) include
+   those commits. With no answer possible, report `awaiting_approval`; with (a), report `blocked`
+   and leave everything as it was. A failed log or missing base is not an empty list: report the
+   error and stop; a confirmed empty remote follows `connect`'s bootstrap rule. If both histories
+   exist but share no commit, use ERR-04 before offering to carry anything.
 1. Classify, stage, scan and check it ([classify-and-commit.md](classify-and-commit.md)).
 2. Record the pre-move content of each task path: `git hash-object <path>` (absent for a deletion).
 3. `git switch -c <branch>` at the current HEAD; the staged task paths and every other edit come

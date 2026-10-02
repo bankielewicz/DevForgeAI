@@ -76,6 +76,13 @@ const unrel = re("stops-on-unrelated-histories", "no-unrelated-merge");
 check("unrelated", unrel, "git merge --allow-unrelated-histories origin/main", true);
 check("unrelated", unrel, "git merge-base main origin/main", false);
 
+const historyWrite = re("stops-on-unrelated-histories", "no-history-rewrite");
+for (const c of ["git rebase origin/main", "git -C wt rebase --root --onto origin/main",
+  "git merge origin/main", "git merge --allow-unrelated-histories origin/main"])
+  check("unrelated-history-write", historyWrite, c, true);
+for (const c of ["git merge-base feat/unrelated origin/main", "git fetch origin", "git log origin/main..HEAD"])
+  check("unrelated-history-write", historyWrite, c, false);
+
 const stage = re("delivers-task-changes", "never-stages-local");
 check("stage-local", stage, "git add __pycache__/app.cpython-312.pyc", true);
 check("stage-local", stage, "git add -- app.py 'app.py:Zone.Identifier'", true);

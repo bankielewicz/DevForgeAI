@@ -5,9 +5,9 @@ title: "QA review skill (stub)"
 status: draft          # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-09-28
-updated: 2026-09-28
+updated: 2026-10-01
 owner: "Bryan"
-authors: ["Bryan", "claude-code"]
+authors: ["Bryan", "claude-code", "codex"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
@@ -20,7 +20,7 @@ upstream:
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 10, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 10, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
-  - {id: SPEC-007, item: BEH-20, relation: informed_by, version: 1, hash: null, note: "the git skill reads the verdict and labels this skill writes"}
+  - {id: SPEC-007, item: BEH-20, relation: informed_by, version: 3, hash: null, note: "the git skill reads the verdict and labels this skill writes"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -342,3 +342,4 @@ creates the two labels once per repository; Bryan created both in `bankielewicz/
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-09-28 | claude-code (session 97258b2a-7720-412c-b178-c9b6a66e3011) | Stub requested by Bryan: reserves SKL-007 and fixes the contract SPEC-007 BEH-20 reads (an independent session; a verdict comment naming the reviewed SHA; the merge-approved and qa-failed labels; a GitHub review when the accounts differ). The review criteria are open (§13). Awaiting Bryan's approval | all |
+| 1 | 2026-10-01 | codex (session 01a0fa0f-f2c2-70e2-a49e-237cdf3dbf3d) | Refresh the SPEC-007 informed_by pin from v1 to the v3 candidate; the referenced contract and this document's behavior are unchanged. This remains an unapproved stub | upstream, status |

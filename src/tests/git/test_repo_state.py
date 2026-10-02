@@ -10,7 +10,10 @@ import sys
 import unittest
 from unittest import mock
 
-from gitfixture import SCRIPTS, Sandbox, tree_checksum
+if __package__:
+    from .gitfixture import SCRIPTS, Sandbox, tree_checksum
+else:
+    from gitfixture import SCRIPTS, Sandbox, tree_checksum
 
 DAY = 86400
 
