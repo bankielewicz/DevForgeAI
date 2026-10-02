@@ -6,7 +6,7 @@ title: "PRD skill"
 status: draft          # draft | in-review | approved | superseded | deprecated
 version: 5             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-27
-updated: 2026-10-01
+updated: 2026-10-02
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
