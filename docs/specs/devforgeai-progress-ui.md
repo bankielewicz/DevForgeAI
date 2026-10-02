@@ -475,14 +475,14 @@ The colours are saturated mid-tones, so they read on dark and light themes alike
 
 ## 11. Build order
 
-1. **A logging probe with no UI**: settle the unverified items above.
+1. **A logging probe with no UI**: settle the unverified items above. SPEC-013 runs it as its VER-01, before the adapter is built.
 2. **Contracts and evaluator** (SPEC-012, approved): `devforgeai-events/1`, `devforgeai-progress/1`, `devforgeai-manifest/1`, the brainstorm and architecture manifests, and the Python evaluator, with tests that feed recorded event logs in and check the progress states that come out.
-3. **Claude Code adapter**: events from the hooks, evaluator calls at gates, observe mode, the status line and a text-only band.
+3. **Claude Code adapter** (SPEC-013, draft): events from the hooks, evaluator calls at gates, observe mode, the status line and a text-only band.
 4. **The pane as text**: Journey path and step list, with glyphs only.
 5. **Graphics**: SVG assets and timelines; the `Svg` renderer for the desktop app and VS Code; the build script for cell assets and the `Raster` renderer; `Image` for kitty and Ghostty; the `animation` and `character` settings.
 6. **`progress.html`**, the renderer for any tool.
 7. **Skill health** for dogfooding.
-8. **Enforce mode** at gates, once observe mode has run long enough to trust its flags.
+8. **Enforce mode** at gates, once observe mode has run long enough to trust its flags. Its mechanics are specified and tested with the adapter (SPEC-013, as ADR-006's follow-up asks; Bryan, 2026-10-02), off by default; this step is when to recommend switching it on.
 9. **Part B**: a spec that moves the manifests into the skills and ships the mod (`devforgeai-claude-mods.md`, Part B).
 
 ## 12. Open questions for the owner
@@ -492,5 +492,5 @@ The colours are saturated mid-tones, so they read on dark and light themes alike
 3. Should `devforgeai/progress/` be gitignored by default in users' projects? (The location is settled: operational files live in the project root's `devforgeai/` folder. SPEC-012 §13 asks the same question.)
 4. Should skills print a marker when they start a step (`▶ Step 7`), so the current step is known rather than inferred? It would be a small change to each skill's Workflow text, and so a spec change.
 5. Where should Part B's manifests live: in the progress component, as SPEC-012 puts them, or in each skill's `references/`?
-6. How long may a run sit idle before the tracker evaluates it as ended?
+6. How long may a run sit idle before the tracker evaluates it as ended? Decided by Bryan on 2026-10-02: no idle limit; a run ends when another tracked skill loads, on `/clear`, or at the session's end (SPEC-013 BEH-05).
 7. Source lives in each plugin (settled 2026-10-02). Should the Codex port carry a byte-identical copy of `progress/`, kept equal by a test? (SPEC-012 §13 asks the same question.)
