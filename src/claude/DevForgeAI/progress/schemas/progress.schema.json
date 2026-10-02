@@ -1,0 +1,360 @@
+{
+  "x-item-id": "DM-03",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Progress state (devforgeai-progress/1), state.json",
+  "type": "object",
+  "required": [
+    "format",
+    "run",
+    "skill",
+    "manifest",
+    "through",
+    "ended",
+    "current",
+    "steps",
+    "flags",
+    "gate",
+    "next",
+    "counts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "devforgeai-progress/1"
+    },
+    "run": {
+      "type": "string"
+    },
+    "skill": {
+      "type": "string"
+    },
+    "manifest": {
+      "type": "object",
+      "required": [
+        "state",
+        "manifestHash",
+        "checklistHash",
+        "layers"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "enum": [
+            "matched",
+            "stale",
+            "none",
+            "unverified"
+          ]
+        },
+        "manifestHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checklistHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "the manifest files applied, in layer order, as their paths were given (ADR-006 D5)"
+        }
+      }
+    },
+    "through": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "the seq of the last event evaluated"
+    },
+    "ended": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "the run-end reason, or null while the run is open"
+    },
+    "current": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "flags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/flag"
+      }
+    },
+    "gate": {
+      "$ref": "#/$defs/gate"
+    },
+    "next": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "skill",
+        "available",
+        "note"
+      ],
+      "properties": {
+        "skill": {
+          "type": "string"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "phases": {
+      "description": "copied from --phases unchanged; a later spec defines it"
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events",
+        "malformed",
+        "outOfOrder",
+        "duplicates",
+        "unknownClaims",
+        "afterEnd"
+      ],
+      "properties": {
+        "events": {
+          "type": "integer"
+        },
+        "malformed": {
+          "type": "integer"
+        },
+        "outOfOrder": {
+          "type": "integer"
+        },
+        "duplicates": {
+          "type": "integer"
+        },
+        "unknownClaims": {
+          "type": "integer"
+        },
+        "afterEnd": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "title",
+        "kind",
+        "need",
+        "userOwned",
+        "state",
+        "evidence",
+        "claim",
+        "note"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "read",
+            "think",
+            "ask",
+            "forge",
+            "inspect",
+            "report",
+            null
+          ]
+        },
+        "need": {
+          "enum": [
+            "required",
+            "conditional",
+            "text-only"
+          ]
+        },
+        "userOwned": {
+          "type": "boolean"
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "current",
+            "your-turn",
+            "done",
+            "claimed",
+            "unconfirmed",
+            "skipped-with-reason",
+            "not-applicable",
+            "skipped",
+            "rule-broken"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "seq",
+              "type",
+              "strength",
+              "detail"
+            ],
+            "properties": {
+              "seq": {
+                "type": "integer"
+              },
+              "type": {
+                "enum": [
+                  "script",
+                  "answer",
+                  "write",
+                  "read"
+                ]
+              },
+              "strength": {
+                "enum": [
+                  "strong",
+                  "medium"
+                ]
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "claim": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "seq",
+            "state",
+            "reason"
+          ],
+          "properties": {
+            "seq": {
+              "type": "integer"
+            },
+            "state": {
+              "enum": [
+                "done",
+                "skipped"
+              ]
+            },
+            "reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "flag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gate",
+        "seq",
+        "step",
+        "type",
+        "message"
+      ],
+      "properties": {
+        "gate": {
+          "enum": [
+            "write",
+            "report",
+            "end"
+          ]
+        },
+        "seq": {
+          "type": "integer"
+        },
+        "step": {
+          "type": "integer"
+        },
+        "type": {
+          "enum": [
+            "skipped",
+            "claimed-not-evidenced",
+            "rule-broken"
+          ]
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "seq",
+        "refuse",
+        "reason"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "write",
+            "report",
+            "end",
+            null
+          ]
+        },
+        "seq": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "refuse": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "x-item-id": "DM-02",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Event (devforgeai-events/1): one JSON object per line of events.jsonl",
+  "type": "object",
+  "required": [
+    "run",
+    "seq",
+    "time",
+    "kind"
+  ],
+  "properties": {
+    "run": {
+      "type": "string",
+      "pattern": "^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "kind": {
+      "enum": [
+        "skill-loaded",
+        "tool",
+        "answer",
+        "prompt",
+        "reply",
+        "turn",
+        "run-end"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "skill-loaded"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "format",
+          "skill",
+          "checklist"
+        ],
+        "properties": {
+          "format": {
+            "const": "devforgeai-events/1"
+          },
+          "skill": {
+            "type": "string"
+          },
+          "checklist": {
+            "type": "string",
+            "description": "the skill's prompt as loaded, or at least its checklist block"
+          },
+          "host": {
+            "type": "string",
+            "description": "for example claude-code 2.1.287"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "tool"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "tool"
+        ],
+        "properties": {
+          "tool": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "description": "relative to the project root, with / separators; for Glob and Grep, the pattern or search path"
+          },
+          "command": {
+            "type": "string"
+          },
+          "exit": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "error": {
+            "type": "boolean"
+          },
+          "content": {
+            "type": "string",
+            "description": "a Write's content, or the file an Edit will leave; optional"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "answer"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "answered"
+        ],
+        "properties": {
+          "answered": {
+            "type": "boolean",
+            "description": "false when the question was dismissed"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "reply"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "text"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "turn"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "phase"
+        ],
+        "properties": {
+          "phase": {
+            "enum": [
+              "start",
+              "end"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "run-end"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reason"
+        ],
+        "properties": {
+          "reason": {
+            "enum": [
+              "another-skill",
+              "session-end",
+              "clear",
+              "idle"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
