@@ -16,5 +16,5 @@ PASS if all of these hold:
 - NFR-001 is not called covered.
 - NFR-003 is reported as left out because it is for a later release, also naming EPIC-001 and DEC-08,
   with no action asked for the current release.
-FAIL if NFR-001 or NFR-003 is called covered, if NFR-001's row doesn't ask to review EPIC-001's work, or
-if the reply says EPIC-001 was changed.
+FAIL if any of these doesn't hold, if NFR-003 is called covered or its row asks for an action for the
+current release (such as reviewing EPIC-001's work), or if the reply says EPIC-001 was changed.

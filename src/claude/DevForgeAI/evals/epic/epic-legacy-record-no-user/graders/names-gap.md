@@ -12,7 +12,7 @@ setting still counts, and FR-012 is eligible.
 Judge only the final reply.
 PASS if both hold:
 - FR-012 is presented as included in the epic, not as unknown, blocked or left out.
-- The reply names the gap, in any wording: ARCH-001 recorded POL-001#SET-01 without a platform (or in an
-  older form), so the platform couldn't be confirmed, and the setting was counted anyway.
+- The reply names the gap, in any wording: ARCH-001 recorded POL-001#SET-01 without a platform or
+  capability (in an older form).
 FAIL if FR-012 is left out or called unknown or blocked, or if the reply never mentions that ARCH-001's
 record of POL-001#SET-01 has no platform.

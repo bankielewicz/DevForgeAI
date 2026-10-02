@@ -12,7 +12,7 @@ blocked by DEC-07 until the architecture step resolves it again.
 Judge only the final reply.
 PASS if all of these hold:
 - FR-012 is reported as left out and blocked by DEC-07, not as unknown, ready or included.
-- The reply names the change: the new platform (the network-hosted mail service), or that POL-001#SET-01
-  now mandates a different platform from the one ARCH-001 recorded.
+- The reply names the new platform, the Network-hosted mail service (HTTPS API), in any wording.
 - FR-012's next action is to resolve it with /devforgeai:architecture PRD-001.
-FAIL if FR-012 is called unknown, ready or included in the epic, or if the change isn't named.
+FAIL if any of these doesn't hold: FR-012 is called unknown, ready or included in the epic, the new
+platform isn't named, or FR-012's next action isn't /devforgeai:architecture PRD-001.

@@ -1129,6 +1129,11 @@ def shared(**changes):
 E1, E2, E3 = (f"docs/specs/epic/EPIC-00{n}.md" for n in (1, 2, 3))
 
 
+def lit(text):
+    """A one-line regex that matches `text` literally, with newlines written as \\n."""
+    return re.sub(r"([\\^$.|?*+()\[\]{}])", r"\\\1", text).replace("\n", r"\n")
+
+
 def regex(target, match, pattern, flags=None):
     t = target if target == "last_message" else "{source: file, path: %s}" % target
     fl = f"flags: {flags}\n" if flags else ""
@@ -1176,6 +1181,13 @@ LEFTOVERS = (r"<!--(?! GENERATED from stories)|EPIC-000|PRD-000|YYYY-MM-DD|<capa
              r"<integrated outcome>|<end-to-end test|<question>|<which part>|<how this epic")
 ENDS_WITH_NEXT_STEP = r"(?:^|\n)[ \t]*(?:\*\*|__)?Next step[^\n]*(?:\n(?![ \t]*\n)[^\n]*)*\s*$"
 UNCHANGED_E1 = regex(E1, "contains", rf"^version: 1\n^created: 2026-09-25\n^updated: 2026-09-25\n[\s\S]*{SENTINEL}", "m")
+
+
+def same_e1(text):
+    """EPIC-001 byte-identical to its fixture: the whole file, anchored (no m flag)."""
+    return regex(E1, "contains", "^" + lit(text) + "$")
+
+
 NO_WRITE = exists("docs/specs/epic/**", False)
 
 PROMPT_ONE = "Write the epics for PRD-001: put every eligible requirement into one epic.\nProceed without questions.\n"
@@ -1563,10 +1575,10 @@ blocked by DEC-07 until the architecture step resolves it again.
 Judge only the final reply.
 PASS if all of these hold:
 - FR-012 is reported as left out and blocked by DEC-07, not as unknown, ready or included.
-- The reply names the change: the new platform (the network-hosted mail service), or that POL-001#SET-01
-  now mandates a different platform from the one ARCH-001 recorded.
+- The reply names the new platform, the Network-hosted mail service (HTTPS API), in any wording.
 - FR-012's next action is to resolve it with /devforgeai:architecture PRD-001.
-FAIL if FR-012 is called unknown, ready or included in the epic, or if the change isn't named.
+FAIL if any of these doesn't hold: FR-012 is called unknown, ready or included in the epic, the new
+platform isn't named, or FR-012's next action isn't /devforgeai:architecture PRD-001.
 """),
         },
     },
@@ -1588,8 +1600,8 @@ setting still counts, and FR-012 is eligible.
 Judge only the final reply.
 PASS if both hold:
 - FR-012 is presented as included in the epic, not as unknown, blocked or left out.
-- The reply names the gap, in any wording: ARCH-001 recorded POL-001#SET-01 without a platform (or in an
-  older form), so the platform couldn't be confirmed, and the setting was counted anyway.
+- The reply names the gap, in any wording: ARCH-001 recorded POL-001#SET-01 without a platform or
+  capability (in an older form).
 FAIL if FR-012 is left out or called unknown or blocked, or if the reply never mentions that ARCH-001's
 record of POL-001#SET-01 has no platform.
 """),
@@ -1632,10 +1644,10 @@ platform.
         "ver": "24", "files": shared(prd=PRD_NFR3, arch=ARCH_NFR_OPEN, epic=EPIC_NFR_BOTH), "prompt": PROMPT_ONE,
         "description": "VER-24: an open DEC-08 blocks NFR-001 and the later NFR-003, which an existing approved EPIC-001 refines (with FR-003); EPIC-001 stays unchanged, EPIC-002 refines FR-002, FR-004 and FR-012 only, NFR-001's row reads refined by EPIC-001 and blocked by DEC-08 with the action to review EPIC-001's work, and NFR-003's row puts later first.",
         "graders": {
-            "epic-001-unchanged": UNCHANGED_E1,
+            "epic-001-unchanged": same_e1(EPIC_NFR_BOTH),
             "epic-002-refines": has_refines(E2, "FR-002", "FR-004", "FR-012"),
             "epic-002-no-nfr": lacks_refines(E2, "FR-003", "NFR-001", "NFR-003", *INELIGIBLE),
-            "nfr-001-refined-and-blocked": row("NFR-001", r"refined by EPIC-001", r"\bDEC-08\b"),
+            "nfr-001-refined-and-blocked": row("NFR-001", r"refined by EPIC-001", r"\bDEC-08\b", r"review EPIC-001"),
             "nfr-rows": llm("""\
 The workspace held PRD-001 with NFR-001 (must, current release) and NFR-003 (release later, no priority
 yet), an ARCH-001 whose open question DEC-08 cites both, and an existing approved EPIC-001 that refines
@@ -1651,8 +1663,8 @@ PASS if all of these hold:
 - NFR-001 is not called covered.
 - NFR-003 is reported as left out because it is for a later release, also naming EPIC-001 and DEC-08,
   with no action asked for the current release.
-FAIL if NFR-001 or NFR-003 is called covered, if NFR-001's row doesn't ask to review EPIC-001's work, or
-if the reply says EPIC-001 was changed.
+FAIL if any of these doesn't hold, if NFR-003 is called covered or its row asks for an action for the
+current release (such as reviewing EPIC-001's work), or if the reply says EPIC-001 was changed.
 """),
         },
     },
@@ -1660,11 +1672,14 @@ if the reply says EPIC-001 was changed.
         "ver": "25", "files": shared(arch=ARCH_NFR_UNKNOWN, epic=EPIC_NFR_ONE), "prompt": PROMPT_ONE,
         "description": "VER-25: DEC-08 cites NFR-001 and is resolved by ADR-005, whose file is missing, and an existing approved EPIC-001 refines FR-003 and NFR-001; EPIC-001 stays unchanged, EPIC-002 doesn't refine NFR-001, and NFR-001's row reads refined by EPIC-001 and unknown (ADR-005 not found) with the action to review EPIC-001's work.",
         "graders": {
-            "epic-001-unchanged": UNCHANGED_E1,
+            "epic-001-unchanged": same_e1(EPIC_NFR_ONE),
             "epic-002-refines": has_refines(E2, "FR-002", "FR-004", "FR-012"),
             "epic-002-no-nfr": lacks_refines(E2, "FR-003", "NFR-001", *INELIGIBLE),
             "nfr-001-refined-unknown": row("NFR-001", r"refined by EPIC-001", r"\bunknown\b", r"ADR-005"),
             "nfr-001-review-epic-001": row("NFR-001", r"review EPIC-001"),
+            # A negation ("not covered", "isn't covered") is allowed.
+            "nfr-001-not-covered": regex("last_message", "not_contains",
+                                         r"\bNFR-001\b[^\n.;]{0,40}(?<!\bnot |\bnever |n't )\bcovered\b", "i"),
         },
     },
     "epic-unrelated-policy-marker": {

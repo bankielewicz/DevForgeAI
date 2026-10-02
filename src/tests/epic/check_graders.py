@@ -129,6 +129,17 @@ S += [
      "- FR-003: covered by EPIC-001.\n- NFR-001: unknown: DEC-08's resolver ADR-005 not found. Fix that input, or "
      "review the architecture, then run again.\n", {"nfr-001-refined-unknown", "nfr-001-review-epic-001"}, "v3"),
     (c, "NFR-001 attached to the new epic", {E2: epic(2, *NEW_EPIC, "NFR-001")}, R25, {"epic-002-no-nfr"}, ""),
+    (c, "NFR-001 called covered", {E2: epic(2, *NEW_EPIC)}, R25 + "- NFR-001: covered by EPIC-001.\n",
+     {"nfr-001-not-covered"}, ""),
+    (c, "good: says NFR-001 isn't covered", {E2: epic(2, *NEW_EPIC)},
+     R25 + "NFR-001 is refined by EPIC-001, not covered: it stays out of EPIC-002.\n", set(), ""),
+    (c, "EPIC-001 gains a link, same version", lambda c=c: {
+        E2: epic(2, *NEW_EPIC),
+        E1: scaffolded(c, E1).replace("relation: refines, version: 2, hash: null}\n  - {id: ARCH-001",
+                                      "relation: refines, version: 2, hash: null}\n"
+                                      "  - {id: PRD-001, item: FR-002, relation: refines, version: 2, hash: null}\n"
+                                      "  - {id: ARCH-001", 1)},
+     R25, {"epic-001-unchanged"}, ""),
 ]
 
 c = "epic-unrelated-policy-marker"
