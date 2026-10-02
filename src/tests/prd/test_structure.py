@@ -1,12 +1,12 @@
-"""Structural checks for SKL-002 v4 and SKL-003 v6 (docs/runbooks/spec-002-v2-verification-plan.md §2).
+"""Structural checks for SKL-002 v5 and SKL-003 v6 (docs/runbooks/spec-002-v2-verification-plan.md §2).
 
 - SKILL.md frontmatter against skill-frontmatter.schema.json, and the description the spec's §5 fixes;
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 v5 (approved 2026-10-01; SKL-002 v4 implements v4 until SKL-002 v5 is built) and SPEC-003 v5 (approved
-  2026-10-01; SKL-003 v6 implements it) validate against spec.schema.json, and every BEH, ERR and QR
-  item is covered by a VER item.
+- SPEC-002 v5 (approved 2026-10-01; SKL-002 v5 implements it) and SPEC-003 v5 (approved 2026-10-01;
+  SKL-003 v6 implements it) validate against spec.schema.json, and every BEH, ERR and QR item is
+  covered by a VER item.
 
 Byte-identity of the shared policy files is in test_shared_files.py. Run from the repository root:
     python3 -B src/tests/prd/test_structure.py
@@ -24,10 +24,10 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 4, "SPEC-002", 4), "architecture": ("SKL-003", 6, "SPEC-003", 5)}
-# Each skill's (status, approved_by, approved_on): SKL-002 v4 was approved by Bryan on 2026-10-01, after
-# its requalification; SKL-003 v6 on 2026-10-01, after its 3-run qualification and manual checks.
-APPROVAL = {"prd": ("approved", "Bryan", "2026-10-01"), "architecture": ("approved", "Bryan", "2026-10-01")}
+TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 6, "SPEC-003", 5)}
+# Each skill's (status, approved_by, approved_on): SKL-002 v5 is a draft until Bryan approves it after its
+# requalification; SKL-003 v6 was approved on 2026-10-01, after its 3-run qualification and manual checks.
+APPROVAL = {"prd": ("draft", "", None), "architecture": ("approved", "Bryan", "2026-10-01")}
 SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (5, "approved")}  # SPEC-002 v5: issue #39, NEEDS ADR
 
 

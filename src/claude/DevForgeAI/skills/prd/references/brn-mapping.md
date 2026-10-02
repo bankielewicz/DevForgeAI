@@ -21,7 +21,7 @@ Read this at SKILL.md step 6. The BRN is read-only; everything here writes only 
 | `problems` (PRB) addressed by a promoted idea this PRD drafts | Section 2 prose | Frontmatter `upstream`: `{id: BRN-NNN, item: PRB-NN, relation: derives, version: <BRN version>, hash: null}` |
 | promoted `ideas` (IDEA) that no PRD cites yet | One or more `functional_requirements`; every FR derives from one | Item `upstream`: `{id: BRN-NNN, item: IDEA-NN, relation: derives, version: <BRN version>, hash: null}` |
 | `assumptions` (ASM) | `assumptions` | Item `upstream`: `{id: BRN-NNN, item: ASM-NN, relation: derives, version: <BRN version>, hash: null}` |
-| Candidate success signals (section 8 prose) | `success_metrics` | `derives` the promoted IDEA it measures; otherwise no link, and a `[NEEDS CLARIFICATION]` target |
+| Candidate success signals (section 8 prose) | `success_metrics` | `derives` the promoted IDEA it measures; otherwise no link |
 | Open, parked and rejected ideas | Nothing | Never cited by ID or link |
 
 `version` in every BRN link is the BRN's frontmatter `version`.
@@ -82,9 +82,9 @@ brainstorm decided something it didn't.
 - Each signal becomes one `SM-NN` with `metric` stated as something measurable ("Share of
   appointments booked online").
 - If the signal measures a drafted idea's effect, link it: `derives` that IDEA. Otherwise leave out
-  `upstream` and write `target: "[NEEDS CLARIFICATION: target for <metric>]"`.
-- `baseline`, `target` and `measured_by` come from the BRN's evidence or the user. Otherwise they are
-  `[NEEDS CLARIFICATION: …]` markers.
+  `upstream`.
+- Linked or not, `baseline`, `target` and `measured_by` come from the BRN's evidence or the user.
+  Otherwise they are `[NEEDS CLARIFICATION: …]` markers.
 - A signal that only measures a parked or rejected idea, or a promoted idea left out because a PRD
   already cites it, is dropped.
 - A metric the user states with "no target yet" is kept, with

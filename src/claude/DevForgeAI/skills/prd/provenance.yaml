@@ -3,8 +3,8 @@
 id: SKL-002
 type: skill
 title: "PRD skill"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 4             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+status: draft          # draft | in-review | approved | superseded | deprecated
+version: 5             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-27
 updated: 2026-10-01
 owner: "Bryan"
@@ -12,12 +12,12 @@ authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "8619f756-390e-4265-a95c-03fa25310d46"
+  session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-01
+approved_by: ""
+approved_on: null
 upstream:              # the specification this skill implements
-  - {id: SPEC-002, relation: implements, version: 4, hash: null}
+  - {id: SPEC-002, relation: implements, version: 5, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []
