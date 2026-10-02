@@ -2,6 +2,7 @@
 
 ## Contents
 
+- Check the requested branch's history
 - Update onto the base
 - push
 - Documentation before a PR
@@ -10,13 +11,35 @@
 - merge: readiness report
 - merge: the merge itself
 
+## Check the requested branch's history
+
+For both `push` and `pr`, after fetching and before a rebase, documentation diff or push, resolve
+the requested `<branch>` and `origin/<default>` to commits and run
+`git merge-base <branch> origin/<default>`. Check that branch, even if the session is on another
+branch; `default_branch.state` alone cannot establish its ancestry.
+
+- Exit 0: the histories share a commit; continue.
+- Exit 1 with both refs resolved: **ERR-04**. Follow
+  [preflight-and-connect.md](preflight-and-connect.md): name both tips (SHA and subject), explain
+  that the histories share no commit, offer moving the local work onto a new branch based on
+  `origin/<default>` for a PR (recommended), or stop. Await the choice, change no history, push
+  nothing and open no PR. Report `awaiting_approval`; do not automatically rebase the unrelated
+  root or recommend joining the histories instead of the new-branch option.
+- A missing ref or any other command failure: report the error and stop; never treat it as proof
+  of unrelated histories or as a successful check. A confirmed empty remote follows `connect`'s
+  bootstrap rule instead.
+
+This check applies even when `connect` was skipped, and again after a later fetch before updating
+onto the base. It does not authorize any history change.
+
 ## Update onto the base
 
 Before the first push and before a merge:
 1. `git fetch origin`, then compare the branch with `origin/<default>`
    (`git rev-list --left-right --count <branch>...origin/<default>`) and run the state report in the
    branch's checkout (`repo_state.py -C <main_checkout>/<worktrees[].path>`, an absolute path:
-   `-C` resolves a relative one against the current directory), before any rebase.
+   `-C` resolves a relative one against the current directory), before any rebase. Apply the
+   requested-branch history check above to the fetched refs first.
 2. **Unpushed?** `git rev-list --count origin/<default>..<branch>` is the branch's own commits;
    `git rev-list --count origin/<default>..<branch> --not --remotes=origin` is those on no remote
    branch. They are unpushed only when the two counts are equal.
@@ -73,7 +96,8 @@ Suggest it from no other phase.
 In this order; only steps 4 to 6 need `gh`, and each `gh pr` call runs as a command of its own that
 starts with `gh pr`, like the push (a pipeline that starts with `gh pr`, such as `gh pr view … |
 python3 …/qa_state.py`, counts as one):
-1. The documentation check above. It needs only git.
+1. Fetch, apply the requested-branch history check, then the documentation check above. These
+   need only git; ERR-04 stops here before a diff that requires a merge base.
 2. **Document IDs (ERR-15):** after the fetch and before any rebase, when the state report run in the
    branch's checkout lists `id_collisions` (a `docs/specs/<type>/<ID>.md` the branch adds while a
    different file with that path exists on the base), push nothing and open no PR. Name both files;

@@ -2,7 +2,10 @@
 import json
 import unittest
 
-from gitfixture import Sandbox
+if __package__:
+    from .gitfixture import Sandbox
+else:
+    from gitfixture import Sandbox
 
 HEAD = "a" * 40
 OLD = "b" * 40

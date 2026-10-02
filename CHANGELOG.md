@@ -26,6 +26,14 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Changed
 
+- Prepared git SKL-006 v3 (plugin 0.9.1 candidate): push and PR requests check the requested
+  branch for unrelated history before rebasing; carrying work from any branch asks before including
+  commits outside the default branch, while reusing explicit inclusion; password assignments in
+  explicitly named local/example Compose files warn and require confirmation. Other Compose
+  literals, known tokens and private keys remain blocked. Native and manual qualification, approval
+  and deployment are pending; see [the verification record](docs/runbooks/git-v3-checks.md).
+- Refreshed SPEC-008 and SPEC-010's SPEC-007 citations for the v3 candidate. SPEC-010 v3 awaits
+  approval; its posting contract is unchanged. Git tests now collect alongside other skills' tests.
 - The `architecture` skill's final next step now tells you to run `/devforgeai:epic PRD-NNN`, instead
   of saying the epic workflow isn't built.
 - Moved the epic document template from `src/templates/epic.md` to

@@ -75,6 +75,9 @@ RUNS = {
     "stops-on-unrelated-histories:bad": ([
         "git fetch -q origin", "git merge -q --allow-unrelated-histories -m m origin/main", "git push -q origin main",
     ], "Result: done\n"),
+    "stops-on-unrelated-histories:rebase": (["git fetch -q origin", "git rebase origin/main"],
+        "The histories are unrelated. I can move the local work onto a new branch based on origin/main.\n"
+        "Result: awaiting_approval\n"),
     "aborts-conflicting-rebase": ([
         "git fetch -q origin", ST, "git rebase origin/main || git rebase --abort",
     ], "The rebase conflicted in app.py, so I aborted it.\n\nResult: blocked\n"),
@@ -163,6 +166,37 @@ RUNS = {
     "warns-on-test-credentials:v1": ([ST, SC + " || true"],
         "Blocked: tests/test_login.py line 7 (password pw1234) and docker-compose.yml line 5 hold credentials; "
         "they can never be committed.\n\nResult: blocked\n"),
+    "carry-asks-on-feature-branch": (["git fetch origin", ST, "git log --oneline origin/main..HEAD"],
+        "feat/weekly's weekly summary commit is already pushed on origin/feat/weekly, but absent from "
+        "origin/main. Stop here, or include it in feat/json-output?\nResult: awaiting_approval\n"),
+    "carry-asks-on-feature-branch:v2": ([
+        "git add -- app.py test_json.py", "git switch -c feat/json-output",
+        "git commit -q -m 'feat: add --json output'", "git switch -q feat/weekly",
+        "git worktree add -q .claude/worktrees/feat-json-output feat/json-output", "git push -q origin feat/json-output",
+    ], "The weekly summary commit needs your choice.\nResult: awaiting_approval\n"),
+    "carry-includes-named-commit": ([
+        "git fetch origin", ST, "git log --oneline origin/main..HEAD",
+        "git add -- app.py test_json.py", SC, T, "git switch -c feat/json-output",
+        "git commit -q -m 'feat: add --json output'", "git switch -q feat/weekly",
+        "git worktree add -q .claude/worktrees/feat-json-output feat/json-output", "git push -q origin feat/json-output",
+    ], "Included the named weekly summary commit and the --json change on feat/json-output.\nResult: done\n"),
+    "carry-includes-named-commit:bad": ([
+        "git switch -c feat/json-output origin/main", "git add -- app.py test_json.py",
+        "git commit -q -m 'feat: add --json output'", "git switch -q feat/weekly",
+        "git worktree add -q .claude/worktrees/feat-json-output feat/json-output", "git push -q origin feat/json-output",
+    ], "Included the named weekly summary commit and the --json change on feat/json-output.\nResult: done\n"),
+    "warns-on-marked-compose-passwords": ([ST, SC],
+        "compose.local.yml line 5 and docker-compose.example.yaml line 5 have literal passwords in marked "
+        "local/example files. These are warnings; a filename does not prove a password is safe. Commit them "
+        "anyway?\nResult: awaiting_approval\n"),
+    "warns-on-marked-compose-passwords:bad": (["git commit -q -m 'docs: add local Compose examples'"],
+        "compose.local.yml and docker-compose.example.yaml need your yes.\nResult: awaiting_approval\n"),
+    "stops-on-unrelated-feature": (["git fetch origin", ST, "git merge-base feat/unrelated origin/main || true"],
+        "feat/unrelated and origin/main share no commit. Move the local work onto a new branch based on "
+        "origin/main for a PR, or stop?\nResult: awaiting_approval\n"),
+    "stops-on-unrelated-feature:bad": (["git push -q origin feat/unrelated"],
+        "feat/unrelated and origin/main share no commit. Move the work to a new branch or stop?\n"
+        "Result: awaiting_approval\n"),
 }
 
 SKILL_CALL = {"tool": "Skill", "input": {"skill": "devforgeai:git"}}
