@@ -155,15 +155,11 @@ async function ensureDir($: E): Promise<boolean> {
   }
 }
 
-/** The open run's lines, read back from events.jsonl when the module was reloaded (BEH-17). */
+/** The open run's lines, read back from events.jsonl when the module was reloaded (BEH-17). A failed read
+ *  throws, and nothing is cached: writing a fresh log over the real one would lose the run's events. */
 async function linesOf($: E, run: ProgressRun): Promise<string[]> {
   if (held !== null && held.id === run.id) return held.lines
-  let lines: string[] = []
-  try {
-    lines = (await $.fs.read(`${run.dir}/events.jsonl`)).split('\n').filter(Boolean)
-  } catch {
-    // a log that can't be read back starts again from here
-  }
+  const lines = (await $.fs.read(`${run.dir}/events.jsonl`)).split('\n').filter(Boolean)
   held = { id: run.id, lines }
   return lines
 }
@@ -347,6 +343,9 @@ async function tick($: E): Promise<void> {
     try {
       await update($, MARKED, () => false)
       const got = await evaluate($, `${run.dir}/events.jsonl`, `${run.dir}/state.json`, EVALUATOR_TIMEOUT)
+      const open = await read($, RUN)
+      // A run that opened while the evaluator ran keeps its own summary and flags.
+      if (open === null || open.id !== run.id) return
       if (typeof got === 'string') await failOpen($, got)
       else await absorb($, run, got)
     } finally {
@@ -607,6 +606,7 @@ export const register: Register = (on, options) => {
     }
     pendingReport = null
     lastStatus = null
+    turnOpen = false
     return next(e)
   }).catch(async ($, e, next) => {
     return next(e)
