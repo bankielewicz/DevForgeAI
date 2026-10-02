@@ -467,6 +467,15 @@ v3 could adopt the wording.
 - **Build note, overlapping hooks:** events are recorded one at a time, and each event's seq comes from the run's
   own lines, since a `$.state` read inside one dispatch sees that dispatch's moment: three overlapping tool calls
   read the same seq from it in the kit test that found this.
+- **Departure, DM-01 and BEH-04, found by VER-15's first dogfood run:** a prompt that starts with `/` isn't recorded.
+  A slash command loads its skill first (`skill.prompt` settled before `prompt.submit` in the debug log), so the
+  typed `/devforgeai:brainstorm …` arrived as a `prompt` event after the run opened, and the evaluator counted it as
+  step 5's answer: a user-owned step showed `done` though the user had confirmed nothing. A prompt that runs a
+  command or loads a skill is no answer. Kit test added.
+- **Finding for SPEC-012, from the same run:** the brainstorm listed `docs/specs/brainstorm/` with Bash `ls`, which
+  SPEC-012's read rules (Read, Glob, Grep only) don't count, and ticked none of steps 1 to 5, so step 1 was flagged
+  `skipped` at the write gate. The flag follows SPEC-012 as written; a v2 could count a Bash command that names the
+  folder. Not changed here.
 - **Plugin-validator's review** (agent, read-only): manifest, structure and security pass. Fixed after it: the
   `adapter.log` write before the `.gitignore` (above), the overlapping-hooks seq, `prompt.compose`'s missing
   `.catch`, the unbounded `adapter.log`, and in `settings.py` a saved file's permissions (kept, 0644 when new,

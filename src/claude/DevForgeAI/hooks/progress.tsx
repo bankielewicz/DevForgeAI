@@ -599,7 +599,9 @@ export const register: Register = (on, options) => {
 
   on('prompt.submit', async ($, e, next) => {
     if (!(await recording($, undefined))) return next(e)
-    if (isPersonPrompt(e.origin) && isEngine(next.origin)) await record($, 'prompt', {})
+    // A prompt that starts with '/' runs a command or loads a skill; it is no answer. The one that loads a skill
+    // arrives here after skill.prompt has opened the run (VER-15's dogfood run found it counted for step 5).
+    if (isPersonPrompt(e.origin) && isEngine(next.origin) && !e.text.trimStart().startsWith('/')) await record($, 'prompt', {})
     const report = pendingReport
     if (report !== null && (await read($, MODE)) === 'enforce' && !e.text.trimStart().startsWith('/')) {
       pendingReport = null

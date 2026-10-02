@@ -698,3 +698,13 @@ test('BEH-04: two overlapping tool calls are both recorded, each with its own se
   expect(lines.map(l => JSON.parse(l).seq)).toEqual([1, 2, 3, 4])
   expect(lines.slice(1).map(l => JSON.parse(l).tool).sort()).toEqual(['Glob', 'Grep', 'Read'])
 })
+
+test('VER-15 finding: the prompt that loads a skill arrives after the run opens, and is no answer', async ($, on) => {
+  const w = world(on)
+  await start($)
+  // In a live session the slash command expands first: skill.prompt, then prompt.submit with the typed text.
+  await load($)
+  await ($ as Any).prompt.submit({ text: '/devforgeai:brainstorm a sticker. No questions asked', wait: false, origin: { kind: 'composer' } })
+  await ($ as Any).prompt.submit({ text: 'yes, promote IDEA-03', wait: false, origin: { kind: 'composer' } })
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'prompt'])
+})
