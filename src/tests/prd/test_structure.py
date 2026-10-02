@@ -4,7 +4,7 @@
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 v5 (in review; SKL-002 v4 implements v4 until SKL-002 v5 is built) and SPEC-003 v5 (approved
+- SPEC-002 v5 (approved 2026-10-01; SKL-002 v4 implements v4 until SKL-002 v5 is built) and SPEC-003 v5 (approved
   2026-10-01; SKL-003 v6 implements it) validate against spec.schema.json, and every BEH, ERR and QR
   item is covered by a VER item.
 
@@ -28,7 +28,7 @@ TARGETS = {"prd": ("SKL-002", 4, "SPEC-002", 4), "architecture": ("SKL-003", 6, 
 # Each skill's (status, approved_by, approved_on): SKL-002 v4 was approved by Bryan on 2026-10-01, after
 # its requalification; SKL-003 v6 on 2026-10-01, after its 3-run qualification and manual checks.
 APPROVAL = {"prd": ("approved", "Bryan", "2026-10-01"), "architecture": ("approved", "Bryan", "2026-10-01")}
-SPEC_STATE = {"SPEC-002": (5, "in-review"), "SPEC-003": (5, "approved")}  # SPEC-002 v5: issue #39, NEEDS ADR
+SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (5, "approved")}  # SPEC-002 v5: issue #39, NEEDS ADR
 
 
 class _Loader(yaml.SafeLoader):

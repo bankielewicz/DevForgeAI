@@ -2,7 +2,7 @@
 id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
-status: in-review
+status: approved
 version: 5
 created: 2026-09-23
 updated: 2026-10-01
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -807,3 +807,4 @@ its priority and release are decided.
 | 4 | 2026-10-01 | Bryan | Approved | status |
 | 4 | 2026-10-01 | claude-code (session 8619f756-390e-4265-a95c-03fa25310d46) | Record-only update, with no version bump: §9 records SKL-002 v4's build, passes A and B, the requalification (33 of 33 at ≥ 0.8 over 3 runs), the widened "none" grader pattern and Bryan's approval of SKL-002 v4 on 2026-10-01. No item changed | §9 |
 | 5 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Bryan's decisions of 2026-10-01. Issue #39, Option B: a candidate success signal that measures no promoted idea gets no upstream link, but keeps the baseline, target and measured_by that the BRN's evidence or the user gives; only a missing value is `[NEEDS CLARIFICATION]` (§4; the "no target yet" answer is unchanged). The `[NEEDS ADR]` marker follows SPEC-003 BEH-07, as approved in the SPEC-004 v4 proposal: epics wait until the architecture step resolves that exact decision, by an accepted, non-superseded ADR or an approved, active mandated-platform setting answering it, and a decision on another question doesn't clear the marker (§5, BEH-13; Appendix A's example hand-off says the same). VER-37 and VER-38 added; §9, §11, §12 and §13 updated. SPEC-003, SPEC-004 and SPEC-011 relinked to version 5 (mechanical). Awaiting Bryan's approval | §4, §5, BEH-13, VER-37, VER-38, §9, §11, §12, §13, Appendix A, frontmatter, status |
+| 5 | 2026-10-01 | Bryan | Approved | status |
