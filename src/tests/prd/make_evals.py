@@ -1,6 +1,6 @@
-"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32) and v4 (VER-33 to VER-36; issues #36
-and #38), and the grader files added to two existing cases (VER-09 records-provenance, VER-10
-constraints-not-design). The 20 cases written for v1
+"""Generates the prd eval cases added for SPEC-002 v2 (VER-24 to VER-32), v4 (VER-33 to VER-36; issues #36
+and #38) and v5 (VER-38; issue #39), and the grader files added to three existing cases (VER-09
+records-provenance, VER-10 constraints-not-design, VER-37 architecture-context). The 20 cases written for v1
 are hand-written; this script never touches their prompts, scaffolds or existing graders, only adds the
 new grader files listed in EXTRA_GRADERS.
 
@@ -389,6 +389,11 @@ for _old, _new in [
      "| 1 | 2026-09-23 | claude-code (session fixture-session) | Draft |\n"),
 ]:
     BRN_FOOD_2_DRAFT = replace(BRN_FOOD_2_DRAFT, _old, _new)
+# VER-38 (issue #39): one more candidate success signal, which measures no promoted idea and gives its own numbers.
+BRN_FOOD_SIGNAL = replace(BRN_FOOD, "- Fewer volunteer no-shows.\n",
+                          "- Fewer volunteer no-shows.\n- Volunteer satisfaction overall, not tied to any one idea: the "
+                          "quarterly volunteer survey averages 3.4 out of 5 today, and the board's target is 4.0 by the "
+                          "end of the pilot.\n")
 # VER-33: a workspace with no docs/specs/ at all, only a README naming the product.
 README_VOLUNTEER = ("# Riverside Food Bank volunteer app\n\n"
                     "A web app where food bank volunteers see open warehouse shifts and sign up for them.\n")
@@ -525,6 +530,7 @@ FIXTURES = {
     "PRD_FOOD_BAD_DATE": (PRD_FOOD_BAD_DATE, "prd.schema.json", [("frontmatter", "updated")]),
     "BRN_FOOD_V2": (BRN_FOOD_V2, "brainstorm.schema.json"),
     "BRN_FOOD_2_DRAFT": (BRN_FOOD_2_DRAFT, "brainstorm.schema.json"), "PRD_FOOD_DRAFT": (PRD_FOOD_DRAFT, "prd.schema.json"),
+    "BRN_FOOD_SIGNAL": (BRN_FOOD_SIGNAL, "brainstorm.schema.json"),
     "POL_BASE": (POL_BASE, "policy.schema.json"), "POL_COMPLIANCE": (POL_COMPLIANCE, "policy.schema.json"),
     "POL_BAD_DATE": (POL_BAD_DATE, "policy.schema.json", [("frontmatter", "updated")]),
     "POL_BAD_AUTHORS": (POL_BAD_AUTHORS, "policy.schema.json", [("frontmatter", "authors")]),
@@ -589,6 +595,8 @@ to proceed without questions. A correct run adds requirements for IDEA-05 only a
 
 """
 EXTEND_PROMPT = "Extend PRD-001 from BRN-002. Proceed without questions.\n"
+# VER-38: the start of the success metric whose metric names volunteer satisfaction, in any field order.
+SATISFACTION_SM = rf'- id: SM-\d{{2}}\n(?={ITEM}[ \t]+metric: "[^"\n]*[Ss]atisfaction)'
 
 
 def policy_case(ver, fixture, what, field_graders):
@@ -817,9 +825,23 @@ FAIL if it presents a PRD-002 or any other new PRD as written, or doesn't give t
 """),
         },
     },
+    "unlinked-signal-keeps-target": {
+        "ver": "38", "files": {"docs/specs/brainstorm/BRN-001.md": BRN_FOOD_SIGNAL},
+        "prompt": POLICY_PROMPT,
+        "description": "VER-38 (issue #39): a candidate success signal that measures no promoted idea gives its own baseline, target and source; its metric keeps them, with no NEEDS CLARIFICATION target and no upstream link.",
+        "graders": {
+            "prd-exists": PRD_EXISTS,
+            "satisfaction-metric": regex(PRD, "contains", SATISFACTION_SM),
+            "baseline-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+baseline: "[^"\n]*\b3\.4\b'),
+            "target-kept": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+target: "(?![^"\n]*NEEDS CLARIFICATION)'
+                                                   rf'[^"\n]*\b4\.0\b'),
+            "measured-by-survey": regex(PRD, "contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+measured_by: "[^"\n]*[Ss]urvey'),
+            "no-upstream": regex(PRD, "not_contains", rf'{SATISFACTION_SM}{ITEM}[ \t]+upstream:[ \t]*(?:\n[ \t]+- |\[[ \t]*\{{)'),
+        },
+    },
 }
 
-# New graders for two v1 cases; their existing graders stay as they are.
+# New graders for three v1 cases; their existing graders stay as they are.
 AWS_OR_STRIPE_ITEM = r'statement: "[^"\n]*\b{0}\b[^"\n]*"\n{1}[ \t]+- \{{id: BRN-'
 EXTRA_GRADERS = {
     "records-provenance": {
@@ -832,6 +854,23 @@ EXTRA_GRADERS = {
     "constraints-not-design": {
         "aws-no-brn-link": regex(PRD, "not_contains", AWS_OR_STRIPE_ITEM.format("AWS", ITEM)),
         "stripe-no-brn-link": regex(PRD, "not_contains", AWS_OR_STRIPE_ITEM.format("Stripe", ITEM)),
+    },
+    "architecture-context": {  # VER-37
+        "handoff-names-both-ways": llm("""\
+Context the reply was written in: the user asked for a PRD from BRN-001 and named ADR-002 (accepted:
+ClinicCore is the calendar of record) and ADR-003 (proposed: synchronous booking writes vs a scheduled
+import). A proposed ADR resolves nothing, so a correct PRD records the booking decision as a [NEEDS ADR]
+marker naming the booking requirements. An open decision is resolved in the architecture step, by an
+accepted ADR or by an approved mandated platform (a policy setting) that answers exactly that question.
+
+Judge only the final reply. PASS if all of these hold:
+- It lists the open booking decision (the [NEEDS ADR] marker) with the requirements it names.
+- It says that epics for those requirements must wait until the architecture step resolves that decision.
+- It names both ways the decision can be resolved: an accepted ADR, or an approved mandated platform (or
+  policy setting) that answers it. Any wording counts.
+FAIL if any of these fails, or if it says or implies that only an accepted ADR can resolve the decision,
+such as "epics must wait until an accepted ADR resolves it" with no other way named.
+"""),
     },
 }
 

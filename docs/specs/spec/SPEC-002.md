@@ -2,8 +2,8 @@
 id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
-status: approved
-version: 4
+status: in-review
+version: 5
 created: 2026-09-23
 updated: 2026-10-01
 owner: "Bryan"
@@ -11,10 +11,10 @@ authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "8619f756-390e-4265-a95c-03fa25310d46"
+  session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-01
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 10, hash: null}
@@ -128,7 +128,7 @@ markers. A `release: later` item's `priority` may stay `null` until a release ta
 | `problems` (PRB) | §2 problem prose | frontmatter `upstream`: `{id: BRN-NNN, item: PRB-NN, relation: derives}` |
 | promoted `ideas` (IDEA) | one or more `functional_requirements` | item `upstream`: `{id: BRN-NNN, item: IDEA-NN, relation: derives}` |
 | `assumptions` (ASM) | `assumptions` | item `upstream`: `derives` the BRN ASM |
-| candidate success signals (prose) | `success_metrics` | `derives` the promoted IDEA it measures; otherwise none, with `[NEEDS CLARIFICATION]` target |
+| candidate success signals (prose) | `success_metrics` | `derives` the promoted IDEA it measures; otherwise none. Its baseline, target and measured_by come from the BRN's evidence or the user, otherwise `[NEEDS CLARIFICATION]` |
 | open, parked, rejected ideas | nothing | never cited |
 
 **"Unprocessed" BRN** (used by BEH-01): a BRN with at least one promoted idea that no item in any
@@ -182,7 +182,10 @@ metadata:
   - `status` stays `draft` until the user approves it. An approved PRD is a scope baseline; widening it goes through an extension that returns it to `in-review` (BEH-09).
   - Epics cite PRD items with `refines` links such as `{id: PRD-001, item: FR-004, relation: refines}`.
   - A `[NEEDS ADR: <decision>; affects FR-…]` marker in §12 means no epic may be written for the named
-    requirements until an accepted ADR resolves the decision.
+    requirements until the architecture step resolves that exact decision: a DEC asking it, resolved by an
+    accepted, non-superseded ADR or by an approved, active mandated-platform setting that answers that
+    question and passes the applicable checks (SPEC-003 §4, BEH-07). A policy setting answering a different
+    question, or the resolution of another question, doesn't clear the marker.
 
 ## 6. Behavior
 
@@ -238,7 +241,7 @@ behaviors:
     rule: "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair changes the file to address a reported error; when an error can't be repaired (for example an external limitation), stop early and report it instead of repeating an unchanged check. Record each check and repair in the reply. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). A link this write adds cites the cited document's current version; an existing link to an older version is a suspect link (templates README §2.6), named in the reply and never an error."
   - id: BEH-13
     status: active
-    rule: "Hand off with counts of requirements, constraints and metrics, the number of open decisions (a null stage, operating context or release, or a null priority on a release current item), the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until an accepted ADR resolves it. Then name the next step, which is the architecture step (ADR-002): tell the user to run /devforgeai:architecture with the PRD ID. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
+    rule: "Hand off with counts of requirements, constraints and metrics, the number of open decisions (a null stage, operating context or release, or a null priority on a release current item), the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until the architecture step resolves that exact decision, by an accepted ADR or an approved mandated platform answering it. Then name the next step, which is the architecture step (ADR-002): tell the user to run /devforgeai:architecture with the PRD ID. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
   - id: BEH-14
     status: active
     rule: "Never modify a BRN document."
@@ -320,6 +323,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 5 | Not run. VER-37 (an llm grader added to the v1 case `architecture-context`) and VER-38 (the new case `unlinked-signal-keeps-target`) are new; both are expected to fail on SKL-002 v4 (§11). The changed items are §4's success-signal row, §5's `[NEEDS ADR]` contract and BEH-13 |
 | SKL-002 v4 | Built on 2026-10-01 in Claude Code session 8619f756-390e-4265-a95c-03fa25310d46 through `/plugin-dev:create-plugin`, after an advisor check of the plan against this version and Anthropic's two skill guides: `c8f04df`, then `77b7b5d` with the plugin-validator's and skill-reviewer's findings. Structural: passes (`test_structure.py` 3, `test_shared_files.py` 5, `test_validate_policy.py` 116, `check_graders.py` 83 of 83; no regeneration drift); SKILL.md is 420 lines. Behavioural, run by Bryan on 2026-10-01 from the worktree, once per case without the baseline, bound to `51ae072` (plugin 0.9.0, digest `603628f1…`): pass A, the four new cases, 4 of 4 at 1.00, $1.35 (`tmp/eval-results/prd-v4-a-20261001T135909-no-brainstorm-yet/` and the three folders after it); pass B, the whole prd tag, 32 of 33 at 1.00, $15.41 (`tmp/eval-results/prd-v4-b-20261001T141649/`). `warns-unconverged` (VER-04) scored 0.50: the reply warned and asked, but called the draft BRN "finished in practice" instead of warning that ideas may not be decided, so ERR-02's wording was sharpened in `87ad053`. `main` (SKL-004 v2) was then merged in, and SPEC-004 relinked to this version. A preflight run of `warns-unconverged` on `6bc8860` scored 1.00 ($0.28). Requalification (pass C), run by Bryan on 2026-10-01, bound to `6bc8860` (plugin 0.9.0, digest `486d1914…`): the whole prd tag, 33 cases, 3 runs against the baseline, judge model sonnet. Bryan's session limit stopped the first invocation after 14 complete cases (`tmp/eval-results/prd-v4-c-20261001T143501/`); `tmp/prd-v4-requal.sh` reran the other 19 one case at a time, each in its own folder bound to the same commit (`tmp/eval-results/prd-v4-c2-*`). **All 33 cases met the 0.8 bar:** 32 at 1.00 in every plugin run, and `none-does-not-waive-policy` (VER-25) at 0.83, where 2 of 3 plugin runs failed `compliance-none-recorded`. The kept traces show both runs recorded the user's none in section 7 ("Compliance: the user confirmed that no regulation applies.") in words the grader's pattern doesn't list: a grader limit, not a skill failure. Mean Δ +0.53; $75.35 including the interrupted run. The Sonnet subset (VER-01, VER-07, VER-13, VER-27, VER-33 and VER-34, once each) is not run yet. After the requalification, the shared "none" pattern of VER-24's and VER-25's graders was widened to accept "no regulation applies" (`0a8b442`, Bryan's choice); the skill didn't change. **SKL-002 v4 approved by Bryan on 2026-10-01** |
 | Version 4 | Behavioural: the two new cases ran once each on SKL-002 v3 on 2026-10-01, without the baseline, run by Bryan from the `docs/spec-002-v4` worktree and bound to `a6c1cc4` with `record_revision.sh` (folders `tmp/eval-results/prd-v4-red-20261001T123717-no-brainstorm-yet/` and `tmp/eval-results/prd-v4-red-20261001T123740-revisited-brainstorm-extends/`, local, untracked). `no-brainstorm-yet` (VER-33) scored 1.00, $0.21: the judge passed 3 of 3, and the reply said that no brainstorm exists and pointed to `/devforgeai:brainstorm`. `revisited-brainstorm-extends` (VER-34) scored 0.78 (7 of 9), $0.61: every file grader passed, and `names-left-out-ideas` and `reports-suspect-links` failed, both obligations that version 4 adds. So the defects that issues #36 and #38 and issue #40's #4 describe, found by reading, did not appear in these runs. A second round on SKL-002 v3, bound to `ff3e8b7` (folders `tmp/eval-results/prd-v4-red-20261001T131938-no-unprocessed-brn/`, `…T132003-all-ideas-cited-stops/` and `…T132114-revisited-brainstorm-extends/`): `no-unprocessed-brn` (VER-35) scored 1.00, $0.22; `all-ideas-cited-stops` (VER-36) scored 0.50, $0.61, because v3 wrote PRD-002 and said "PRD-002 repeats" PRD-001 (issue #38's defect); `revisited-brainstorm-extends` (VER-34) scored 0.57 (4 of 7), $0.67, because v3 reported the seven links to BRN-001 version 1 as errors, moved the two frontmatter links to version 2, and stopped under ERR-06 with five errors in existing items it couldn't change (issue #40's self-check 9), though the first run had passed validation. So issue #38 and issue #40's #4 reproduced; issue #36 did not, in VER-33 or VER-35. Before that second round, Bryan had those two regex graders replaced by llm graders, which keep the reply as evidence: one per duty, `reply-names-left-out-ideas` and `reply-reports-suspect-links`, so that a reply that misses both still fails (5 of 7). The same change counts any third citation of IDEA-01 or IDEA-03, at any version, and checks every existing item with one end-anchored grader, after the plugin-validator and skill-reviewer found false passes. Structural: passes, checked with `src/tests/prd/test_structure.py` on 2026-10-01 (validates against `spec.schema.json`; every BEH, ERR and QR item is covered by a VER item). Changed, on Bryan's decisions of 2026-10-01 on the SKL-002 v3 review (issues #36, #37 and #38), with the spec parts of issue #40: ERR-04 says why no BRN can be processed; BEH-04 drafts only promoted ideas that no PRD cites; §4 and BEH-13 let a `release: later` item's priority stay null; BEH-12 treats an existing older-version link as a suspect link, not an error; ERR-07 validates and reports a saved draft; Appendix A asks the NFRs' priorities; BEH-05 splits questions over the option limit and asks gates past the budget, and BEH-09 never extends a superseded or deprecated PRD (issue #40, Bryan's decision of 2026-10-01); BEH-13 and VER-07 keep only the shipped architecture-skill branch. VER-33 to VER-36 are new; VER-35 and VER-36 test ERR-04's cases that VER-33 can't separate from v3. The rows below record versions 1 to 3 |
 | Version 3 | Claude: SKL-002 v3 (the shared-schema change, PR #25) was requalified on its 12 policy eval cases on 2026-09-30, 12 of 12 at 1.00 (row (f)). Every change from v2 is in policy validation and its reference text, so its other 17 cases last ran on v2 (row (e)); the manual VER-11, VER-12 and VER-23 were not rerun. Codex: ported in PR #26, with its own native evaluation (`src/codex/devforgeai/shared-schema-update-evidence/20260930/REPORT.md`). Changed: §5, BEH-17 R1 and ERR-08 name SV-08 |
@@ -664,6 +668,22 @@ verifications:
       - BEH-04
     upstream:
       - {id: STORY-002, item: AC-01, relation: verifies, version: 7, hash: null}
+  - id: VER-37
+    status: active
+    obligation: "Marker hand-off: in VER-14's architecture-context case, the final reply lists the [NEEDS ADR] marker for the booking decision and says that epics for the requirements it names must wait until the architecture step resolves that exact decision, by an accepted ADR or an approved mandated platform answering it. It doesn't say or imply that only an accepted ADR can resolve it. Eval case architecture-context: llm on last_message, a grader added to the v1 case."
+    level: e2e
+    covers:
+      - BEH-13
+    upstream:
+      - {id: STORY-002, item: AC-07, relation: verifies, version: 7, hash: null}
+  - id: VER-38
+    status: active
+    obligation: "Unlinked signal with a given target: the food bank BRN-001's candidate success signals add one that measures no promoted idea and states its own numbers ('Volunteer satisfaction overall, not tied to any one idea: the quarterly volunteer survey averages 3.4 out of 5 today, and the board's target is 4.0 by the end of the pilot.'). With 'Write the PRD for BRN-001. Proceed without questions.', PRD-001 gets a volunteer-satisfaction success metric with no upstream link, whose baseline keeps 3.4, whose target keeps 4.0 and is no [NEEDS CLARIFICATION] marker, and whose measured_by names the survey. Eval case unlinked-signal-keeps-target: regex on the file."
+    level: e2e
+    covers:
+      - BEH-04
+    upstream:
+      - {id: STORY-002, item: AC-02, relation: verifies, version: 7, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -697,6 +717,15 @@ behaviour changes are requalified in a run bound with `src/tests/prd/record_revi
 VER-13, VER-27, VER-33 and VER-34 also run once each on Sonnet (`--model sonnet`), recorded in §9 but not a
 qualification bar (Bryan, 2026-10-01). The Codex prd skill follows the same contract in its own port.
 
+**Version 5** (after approval): VER-37's grader and VER-38's case are written first, with
+`src/tests/prd/make_evals.py`, and run once on SKL-002 v4, where both should fail. Then SKL-002 v5 changes
+`references/brn-mapping.md` (issue #39, Option B: an unlinked metric keeps a given baseline, target and
+measured_by), and `SKILL.md`'s hand-off and the marker row in `references/output-rules.md` (the exact
+decision, by an accepted ADR or an approved mandated platform); `src/templates/README.md` §2.7 says the same.
+The shared policy files don't change. The new and changed cases, and every case whose graded behaviour
+changes, are requalified in a run bound with `src/tests/prd/record_revision.sh`. The Codex prd skill follows
+in its own port.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -709,12 +738,15 @@ qualification bar (Bryan, 2026-10-01). The Codex prd skill follows the same cont
 | One living PRD per product, extended by every brainstorm | Product identity and change scope differ. Initiatives in one product can have different owners, outcomes, schedules and approvals. An ever-growing PRD also flags every child as suspect on any change, until item-level hashes exist. New versus extend is decided per BEH-09; shared constraints are cited, not copied (BEH-15) |
 | One `stage` field with prototype, mvp and production | Mixes scope maturity with operating context: an MVP serving real users couldn't be expressed, and quality questions keyed to "mvp" would skip production obligations. Two independent fields instead (§4) |
 | Name the item field `scope: mvp` | "mvp" would mean two things: a stage and a release. `release: current \| later` is relative to `target_release` |
+| Mark every unlinked metric's target `[NEEDS CLARIFICATION]` (issue #39, Option A) | Discards a target the BRN's evidence or the user already gave. A metric that measures no promoted idea is no less measurable, so only a missing value is marked (Bryan, 2026-10-01) |
+| Say a `[NEEDS ADR]` marker waits for an accepted ADR | SPEC-003 BEH-07 also resolves a question by an approved, active mandated platform that answers exactly that question. Naming only ADRs would contradict the architecture step, and an ADR or setting on another question must not read as clearing the marker |
 
 ## 13. Open questions
 
 - Resolved by ADR-002 (proposed): a system-architecture step sits between the PRD and epics and resolves [NEEDS ADR] markers; the prd skill hands off to it. Its skill is specified separately.
 - Resolved: the third stage value is `evolution` (Bryan, 2026-09-23).
 - Resolved: PRD-001 v6 has `stage: mvp` and `operating_context: internal` (Bryan, 2026-09-23). Its per-requirement release values remain `null` for Bryan.
+- Resolved: a candidate success signal that measures no promoted idea keeps a baseline, target and measured_by that the BRN's evidence or the user gives (issue #39, Option B; Bryan, 2026-10-01).
 
 ## Appendix A — Illustrative interview (design example, not an executed run)
 
@@ -751,7 +783,8 @@ Seven calls, within the default budget of eight (`interview.max_calls`). **Resul
   - `[NEEDS ADR: … affects FR-001, FR-002]` for the booking-write decision;
 - no citation of IDEA-03 or IDEA-04, and `status: draft`.
 
-The handoff would say that epics for FR-001 and FR-002 wait for that ADR, while FR-003 can proceed once
+The handoff would say that epics for FR-001 and FR-002 wait until the architecture step resolves that
+decision, while FR-003 can proceed once
 its priority and release are decided.
 
 ## Change Log
@@ -770,3 +803,4 @@ its priority and release are decided.
 | 4 | 2026-10-01 | claude-code (session 8619f756-390e-4265-a95c-03fa25310d46) | Bryan's decisions of 2026-10-01 on the SKL-002 v3 review. Issue #36: ERR-04 says why no BRN can be processed, and points to /devforgeai:brainstorm when there is no brainstorm or none has a promoted idea. Issue #37: a `release: later` item's priority may stay null; approval needs a priority only on `release: current` items (§4, BEH-13). Issue #38: drafting uses only promoted ideas that no PRD cites, and a named BRN whose promoted ideas are all cited stops under ERR-04 (BEH-04). From issue #40: ERR-07 validates and reports a saved draft; BEH-12 names an existing older-version link as a suspect link, not an error (proposed, so that VER-34 traces to a BEH); Appendix A asks the NFRs' priorities. Bryan's decisions of 2026-10-01, second round: BEH-05 splits questions over the option limit and asks gates past the budget; BEH-09 never extends a superseded or deprecated PRD; BEH-13 and VER-07 drop the unshipped architecture-skill branch; VER-35 and VER-36 test ERR-04's remaining cases. VER-33 to VER-36 added. SPEC-003 relinked to version 4 (mechanical). SPEC-004's and SPEC-011's links move with the SPEC-004 v2 and SPEC-003 v5 changes in progress, which edit the neighbouring lines. Awaiting Bryan's approval | §4, BEH-04, BEH-05, BEH-09, BEH-12, BEH-13, ERR-04, ERR-07, VER-07, VER-33 to VER-36, §9, §11, Appendix A, frontmatter, status |
 | 4 | 2026-10-01 | Bryan | Approved | status |
 | 4 | 2026-10-01 | claude-code (session 8619f756-390e-4265-a95c-03fa25310d46) | Record-only update, with no version bump: §9 records SKL-002 v4's build, passes A and B, the requalification (33 of 33 at ≥ 0.8 over 3 runs), the widened "none" grader pattern and Bryan's approval of SKL-002 v4 on 2026-10-01. No item changed | §9 |
+| 5 | 2026-10-01 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Bryan's decisions of 2026-10-01. Issue #39, Option B: a candidate success signal that measures no promoted idea gets no upstream link, but keeps the baseline, target and measured_by that the BRN's evidence or the user gives; only a missing value is `[NEEDS CLARIFICATION]` (§4; the "no target yet" answer is unchanged). The `[NEEDS ADR]` marker follows SPEC-003 BEH-07, as approved in the SPEC-004 v4 proposal: epics wait until the architecture step resolves that exact decision, by an accepted, non-superseded ADR or an approved, active mandated-platform setting answering it, and a decision on another question doesn't clear the marker (§5, BEH-13; Appendix A's example hand-off says the same). VER-37 and VER-38 added; §9, §11, §12 and §13 updated. SPEC-003, SPEC-004 and SPEC-011 relinked to version 5 (mechanical). Awaiting Bryan's approval | §4, §5, BEH-13, VER-37, VER-38, §9, §11, §12, §13, Appendix A, frontmatter, status |
