@@ -476,8 +476,8 @@ before step 2 of §11.
 | P13 | Does a `tool.call` hook's `{ deny }` reach the model as the call's error result (BEH-08's mechanism)? Added during the probe | the model reports the refusal's text |
 
 **Build decisions and departures (2026-10-02), for Bryan to approve or reverse.** Each names where it shows; a SPEC-013
-v3 could adopt the wording. Version 3 states the three departures and five readings as rules, for Bryan to approve
-with it: DM-01, DM-02, DM-03, IF-01, IF-02, BEH-04, BEH-08, BEH-17, BEH-18 and ERR-11; the per-session files settle
+v3 could adopt the wording. Version 3 states the three departures and five readings as rules, which Bryan approved
+with it (`886d298`): DM-01, DM-02, DM-03, IF-01, IF-02, BEH-04, BEH-08, BEH-17, BEH-18 and ERR-11; the per-session files settle
 the shared `current.json` and `adapter.log` that the plugin-validator note below left as they were.
 
 - **Departure, DM-03 and BEH-17: a run's event lines aren't in `$.state`.** One `$.state` value holds at most 4,194,304
@@ -540,7 +540,10 @@ the shared `current.json` and `adapter.log` that the plugin-validator note below
   refused with exit 2 rather than walked by path. A folder that changes or vanishes meanwhile, as a second session's
   prune or an active run makes it, is skipped; any other error gives exit 2 after both kinds were tried, with one
   stderr line `prune: pruned <r> runs, <s> sessions; <first failure>`. Race tests swap a candidate, a subfolder and
-  the parent `sessions/` folder; two prunes at once both exit 0.
+  the parent `sessions/` folder; two prunes at once both exit 0. The real-path check IF-04 names is superseded:
+  pinned descriptors never leave the progress folder, so the build has none, and IF-04's wording follows in the next
+  version. A folder whose removal fails midway (a file it may not delete) stays partly deleted until a later prune,
+  and that prune reports exit 2 too.
 - **Reading, BEH-16:** the mode is resolved inside the run's opening, after its folder exists, still within
   `skill.prompt`, so a new root's `mode` line lands in that root's `adapter.log` (VER-19 first showed it in the old
   root's).

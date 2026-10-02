@@ -447,8 +447,9 @@ async function setup($: E): Promise<void> {
 /** Open a run for a tracked skill in the root read as it loaded (BEH-03). */
 async function openRun($: E, r: string, skill: string, checklist: string): Promise<void> {
   if (!(await ensureDir($, r))) return
+  const session = await $.session.id()
   // The mode is resolved here, after the folder exists, so a new root's mode line lands in that root's log (BEH-16).
-  if (modeSession !== (await $.session.id()) || modeRoot !== r) await resolveMode($, r)
+  if (modeSession !== session || modeRoot !== r) await resolveMode($, r)
   const now = await $.clock.now()
   const id = runId(now, skill, crypto.getRandomValues(new Uint8Array(4)))
   const dir = `${progressDir(r)}/runs/${id}`
@@ -467,23 +468,27 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   await update($, SENT, () => [])
   if ((await read($, OFF)) === LOG_FULL) await update($, OFF, () => null)
   pendingReport = null
-  await startPrune($, r, id)
+  await startPrune($, r, session, id)
 }
 
 /** Prune old run and session folders once per session ID and root, after the run's folder exists; nothing waits
  *  for it, and its result or failure goes to adapter.log only (BEH-19, ERR-12). */
-async function startPrune($: E, r: string, keepRun: string): Promise<void> {
+async function startPrune($: E, r: string, session: string, keepRun: string): Promise<void> {
   if (!python) return
-  const session = await $.session.id()
   const key = `${session}\n${r}`
   if (pruned.has(key)) return
   pruned.add(key)
   const argv = [python, `${$.plugin.root}/progress/prune.py`, 'prune', '--root', r, '--days', String(retentionDays),
     '--keep-session', session, '--keep-run', keepRun]
-  void $.process.run(argv, { cwd: r, timeoutMs: PRUNE_TIMEOUT }).then(
-    res => adapterLog($, 'prune', res.exitCode === 0 ? firstLine(res.stdout) : firstLine(res.stderr) || `exit ${res.exitCode}`),
-    err => adapterLog($, 'prune', firstLine(message(err))),
-  ).catch(() => undefined)
+  try {
+    void $.process.run(argv, { cwd: r, timeoutMs: PRUNE_TIMEOUT }).then(
+      res => adapterLog($, 'prune', res.exitCode === 0 ? firstLine(res.stdout) : firstLine(res.stderr) || `exit ${res.exitCode}`),
+      err => adapterLog($, 'prune', firstLine(message(err))),
+    ).catch(() => undefined)
+  } catch (err) {
+    // Pruning never tells the user anything: its failure is a log line (ERR-12).
+    await adapterLog($, 'prune', firstLine(message(err)))
+  }
 }
 
 /** End the open run, and evaluate it once more when there is time (BEH-05). */
