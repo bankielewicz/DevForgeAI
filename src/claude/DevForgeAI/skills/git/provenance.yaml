@@ -3,7 +3,7 @@
 id: SKL-006
 type: skill
 title: "Git workflow skill"
-status: draft          # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 2             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-28
 updated: 2026-10-01
@@ -14,8 +14,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "38bb5141-ff7c-4651-aaf8-850401f6f0dd"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-01
 upstream:              # the specification this skill implements
   - {id: SPEC-007, relation: implements, version: 2, hash: null}
 supersedes: []
