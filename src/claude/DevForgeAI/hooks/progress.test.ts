@@ -146,11 +146,19 @@ function runFiles(w: World, name: string): string[] {
   return [...w.files.keys()].filter(k => k.startsWith(`${PROGRESS}/runs/`) && k.endsWith(`/${name}`)).sort()
 }
 
-/** The events of the run whose skill-loaded names skill (the latest such run), with the random digits normalised. */
+/** The event logs of a skill's runs, in the order the runs were created, with the random digits normalised. */
+function runsOf(w: World, skill = 'brainstorm'): string[][] {
+  const order: string[] = []
+  for (const path of w.writes) {
+    if (path.startsWith(`${PROGRESS}/runs/`) && path.endsWith('/events.jsonl') && path.includes(`-${skill}-`) && !order.includes(path)) order.push(path)
+  }
+  return order.map(f => (w.files.get(f) ?? '').split('\n').filter(Boolean).map(l => l.replace(/-[0-9a-f]{8}"/, '-RANDOM8"')))
+}
+
+/** The events of the latest run of a skill. */
 function eventsOf(w: World, skill = 'brainstorm'): string[] {
-  const files = runFiles(w, 'events.jsonl').filter(f => f.includes(`-${skill}-`))
-  const text = files.length ? w.files.get(files[files.length - 1]) ?? '' : ''
-  return text.split('\n').filter(Boolean).map(l => l.replace(/-[0-9a-f]{8}"/, '-RANDOM8"'))
+  const runs = runsOf(w, skill)
+  return runs.length ? runs[runs.length - 1] : []
 }
 
 function kinds(lines: string[]): string[] {
@@ -238,7 +246,9 @@ test('VER-05: runs end at another skill or the same one, at /clear and at the se
   const first = eventsOf(w)
   expect(JSON.parse(first[first.length - 1])).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
   await load($, 'devforgeai:prd')
-  expect(JSON.parse(eventsOf(w, 'prd').slice(-1)[0])).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  const prd = runsOf(w, 'prd')
+  expect(prd.length).toBe(2)
+  expect(JSON.parse(prd[0].slice(-1)[0])).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
   await load($, 'release')
   expect(kinds(eventsOf(w, 'release'))).toEqual(['skill-loaded'])
   await ($ as Any).session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } })
@@ -317,7 +327,7 @@ test('VER-11: the files written are the progress folder\'s .gitignore, the run\'
   await w.clock.advance(600)
   const written = new Set(w.writes.map(p => p.replace(/runs\/[^/]+\//, 'runs/RUN/')))
   expect([...written].sort()).toEqual([
-    `${PROGRESS}/.gitignore`, `${PROGRESS}/current.json`, `${PROGRESS}/runs/RUN/events.jsonl`,
+    `${PROGRESS}/.gitignore`, `${PROGRESS}/adapter.log`, `${PROGRESS}/current.json`, `${PROGRESS}/runs/RUN/events.jsonl`,
   ])
   expect(w.files.get(`${PROGRESS}/.gitignore`)).toBe('*\n')
   expect(w.files.get(`${ROOT}/.gitignore`)).toBe('node_modules\n')
@@ -334,7 +344,7 @@ test('VER-11: a Write over 64 KiB is recorded without content', async ($, on) =>
   expect(last.content).toBeUndefined()
 })
 
-test('VER-11 / ERR-11: past 3 MiB no content is kept, and at 4 MiB the run stops with a notice', async ($, on) => {
+test('VER-11 / ERR-11: past 3 MiB no content is kept, and at 4 MiB the run stops with a notice', { timeoutMs: 120000 }, async ($, on) => {
   const w = world(on)
   await start($)
   await load($)

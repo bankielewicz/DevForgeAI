@@ -260,3 +260,10 @@ export function reportContext(state: ProgressState): { seq: number; text: string
     text: [`DevForgeAI's progress tracker (enforce mode) found these at the ${state.skill} run's report:`, ...flags].join('\n'),
   }
 }
+
+/** The final evaluation's timeout at session end, from what the shared 1.5-second budget leaves, or null when
+ *  there is no room for it (BEH-05): the run-end line is written first, and the log alone reproduces the state. */
+export function finalTimeout(remainingMs: number): number | null {
+  const timeout = Math.floor(remainingMs) - 300
+  return timeout >= 200 ? timeout : null
+}

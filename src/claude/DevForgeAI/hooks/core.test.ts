@@ -1,6 +1,6 @@
 import { expect, test } from 'claude-code/testing'
 import {
-  bandRows, editResult, eventLine, exitOf, fit, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked,
+  bandRows, editResult, eventLine, finalTimeout, exitOf, fit, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked,
   keptContent, newFlagToasts, refusalText, relPath, replyText, reportContext, runId, skillName, statusText,
   summaryOf, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT,
 } from './progress-core'
@@ -156,4 +156,11 @@ test('flags are toasted once, refused at the write gate, and given to the model 
   expect(reportContext(STATE)).toBe(null)
   const report = reportContext({ ...STATE, gate: { kind: 'report', seq: 4, refuse: true, reason: 'x' } })
   expect(report === null ? -1 : report.seq).toBe(4)
+})
+
+test('the final evaluation at session end uses what the budget leaves, or none', () => {
+  expect(finalTimeout(1500)).toBe(1200)
+  expect(finalTimeout(600)).toBe(300)
+  expect(finalTimeout(450)).toBe(null)
+  expect(finalTimeout(0)).toBe(null)
 })
