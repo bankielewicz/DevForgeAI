@@ -1,0 +1,28 @@
+{
+  "id": "01a0f7e9-8166-77d0-828a-369ebc8e9ccf",
+  "items": [
+    {
+      "type": "agentMessage",
+      "id": "msg_084bd67c7d578406016abe7306fd1c87d19eb6db50dbb4eba3",
+      "text": "BRN-001 written to [docs/specs/brainstorm/BRN-001.md](/tmp/devforgeai-brn-trial-6dybx00e/project/docs/specs/brainstorm/BRN-001.md) (framework: diverge-converge)  \nProblems: 4 \u00b7 Ideas: 12 \u00b7 Assumptions: 8  \nPromoted: none confirmed yet; proposed priorities are in section 6.  \nOpen questions recorded: owner, current booking/reminder setup, appointment volumes, baseline accuracy, staffing/budget, patient barriers, local requirements, standby demand, and financial returns.\n\n**My recommendation: start with three practical changes.**\n\n1. **Make reminders actionable.** Trial reminders around three days and one day before appointments, with an easy confirmation or change route. Retain a phone option.\n2. **Use selective personal follow-up.** Prioritize failed reminders and unresolved long appointments. Keep unconfirmed bookings in place while staff follow up.\n3. **Create an opt-in short-notice list.** Match available patients to the correct clinician and appointment length, then confirm replacements when cancellations occur.\n\nReminders, easier appointment changes, and short-notice lists are supported by [NHS outpatient guidance](https://www.england.nhs.uk/long-read/reducing-did-not-attends-dnas-in-outpatient-services/); their effect in your clinic needs testing.\n\nThe write-up includes nine other options, tradeoffs, a sample reminder, and a **six-week pilot**. It recommends deferring deposits and software purchases and avoiding routine double-booking.\n\nMeasure both no-shows and unused chair time. An illustrative reduction from **12.5% to 8%** would mean **nine fewer no-shows per 200 appointments**; the financial gain depends on additional completed visits and program costs.\n\n**Verification:** PASS for document validation, scoring, and decision labels. Model provenance verification: NOT_RUN because the host did not expose the model identifier.\n\n**Next step:** use the six-week pilot as the starting plan. For formal requirements later, select the DevForgeAI PRD skill with `BRN-001`; its input is `docs/specs/brainstorm/BRN-001.md`.",
+      "phase": "final_answer",
+      "memoryCitation": null,
+      "delivery": null,
+      "questions": null
+    }
+  ],
+  "itemsView": "summary",
+  "status": "completed",
+  "error": null,
+  "startedAt": 1790865670,
+  "completedAt": 1790866198,
+  "durationMs": 559614,
+  "threadId": "01a0f7e9-8107-7232-8fcb-dbf4f88f4b71",
+  "model": "gpt-6-astra",
+  "case": "writes-valid-brn",
+  "arm": "plugin",
+  "repeat": 1,
+  "elapsed_seconds": 559.99,
+  "workspace": "/tmp/devforgeai-brn-trial-6dybx00e/project",
+  "candidate": "/tmp/devforgeai-brn-trial-6dybx00e/candidate"
+}

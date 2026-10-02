@@ -1,0 +1,6 @@
+{
+  "status": "FAIL",
+  "operation": "Read lstat for the added paths recorded in custody-after-native.json",
+  "error": "FileNotFoundError: /home/bryan/Projects/DevForgeAI/.claude/.claude/agents",
+  "effect": "No primary files changed; no details report was written by this failed observation. An observed added path disappeared before follow-up."
+}

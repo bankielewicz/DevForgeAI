@@ -15,14 +15,14 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | Skill | Record | Spec | State |
 |---|---|---|---|
 | `brainstorm` | SKL-001 v5 | SPEC-001 v10 | Built; 8 eval cases |
-| `prd` | SKL-002 v3, approved | SPEC-002 v3 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (plugin 0.7.0); 29 eval cases, the 12 policy cases requalified on v3 |
+| `prd` | SKL-002 v4, approved | SPEC-002 v4, approved 2026-10-01 (issues #36 to #38, #40) | SKL-002 v4 requalified (33 of 33 at ≥ 0.8 over 3 runs, 32 at 1.00) and approved by Bryan 2026-10-01, plugin 0.9.0, not merged or deployed yet (v3 is deployed); 33 eval cases: the 12 policy cases requalified on v3; VER-33 to VER-36 are new (on v3, 1 run each: VER-33 1.00, VER-34 0.78 with 9 graders, then 0.57 with the corrected 7, VER-35 1.00, VER-36 0.50) |
 | `architecture` | SKL-003 v5, approved | SPEC-003 v4 | Approved by Bryan 2026-09-30; merged in PR #25, deployed (0.7.0); 16 eval cases, the 3 policy cases requalified on v5 |
-| `epic` | SKL-004 v1 | SPEC-004 v1 | Built and deployed; 14 eval cases |
+| `epic` | SKL-004 v3, approved | SPEC-004 v3 | Approved by Bryan 2026-10-01; merged in PR #47, deployed (0.8.1); 18 eval cases, 3-run 18 of 18 at 1.00 (mean Δ +0.51); VER-13 not run (runbook `docs/runbooks/epic-ver-13-checks.md`) |
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
-| `git` | SKL-006 v1 | SPEC-007 v1, draft awaiting approval | Built from the draft, not deployed; results below |
+| `git` | SKL-006 v2 | SPEC-007 v2, draft awaiting approval | v2 merged in PR #44 and deployed (the deployed copy matched main's source, 2026-10-01); 3-run 19 of 19 at ≥ 0.8; results below |
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
 | `github-post` | SKL-009, reserved | SPEC-010 v2, approved 2026-09-30 | Not built; its §11 lists the build steps |
-| `context` | SKL-010, reserved | SPEC-011 v2, approved 2026-10-01 | Not built; its §11 lists the build steps: evaluations first, on the spec branch `feat/spec-011-context-skill` |
+| `context` | SKL-010 v2, draft | SPEC-011 v3, approved 2026-10-01 | v1 merged in PR #34 (plugin 0.8.0); v2, the evaluated version, lands with plugin 0.8.1. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run |
 
 SKL-008 is reserved for the story skill (SPEC-009).
 
@@ -33,9 +33,14 @@ SKL-008 is reserved for the story skill (SPEC-009).
   will write a GitHub post that a reader with no context can act on, check its references and quotes,
   and post it with `gh` when authorized; it never commits, pushes or merges. Its templates are staged
   in `src/templates/github/`.
-- `git`'s results are recorded only here: 3 scripts (57 unit tests) and 16 eval cases; 3 runs: 16 of
+- `git` v1's results (also in SPEC-007 §9): 3 scripts (57 unit tests) and 16 eval cases; 3 runs: 16 of
   16 at ≥ 0.8, 13 at 1.00, mean Δ +0.28, $18.22 (the misses are the eval's own `.git` write
-  refusals, which the skill reports). Manual VER-18..22 and VER-24 not run.
+  refusals, which the skill reports). v2 (SPEC-007 §9): 76 unit tests, `src/tests/git/test_structure.py`
+  and 19 eval cases; 3 runs: 19 of 19 at ≥ 0.8, 16 at 1.00, mean Δ +0.32, $22.96. Its misses: the
+  same two harness refusals (`starts-worktree-from-fresh-base` can't exceed 0.88), and
+  `stops-on-unrelated-histories` recommending a merge of the histories instead of ERR-04's new branch
+  in 2 of 3 runs. Manual VER-18..22, VER-24, VER-26 and VER-31 not run
+  (`docs/runbooks/git-v2-checks.md`).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels. The review criteria are open.
 

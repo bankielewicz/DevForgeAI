@@ -7,8 +7,9 @@ Usage:
 
 Reads the gh JSON on stdin and prints one JSON object with "state": pending, unverified,
 conflicting, stale, approved or failed, and "merge_allowed" (true only for approved). The verdict is
-the latest comment whose first line matches ^QA verdict: (passed|failed) [0-9a-f]{40}$. Never uses
-the network. Exit status: 0 with a report, 2 when the input isn't gh JSON.
+the latest comment whose first line matches ^QA verdict: (passed|failed) [0-9a-f]{40}$, with its
+author and URL for the readiness report. Never uses the network. Exit status: 0 with a report, 2 when
+the input isn't gh JSON of the expected shape (no state was derived).
 """
 import argparse
 import json
@@ -74,7 +75,12 @@ def main(argv=None):
     except ValueError as e:
         print(json.dumps({"error": f"invalid gh pr view JSON: {e}"}))
         return 2
-    print(json.dumps(qa_state(pr, a.approved_label, a.failed_label), indent=2))
+    try:
+        state = qa_state(pr, a.approved_label, a.failed_label)
+    except Exception as e:  # input of an unexpected shape: no state, never a guess
+        print(json.dumps({"error": f"unexpected gh pr view JSON: {type(e).__name__}: {e}"}))
+        return 2
+    print(json.dumps(state, indent=2))
     return 0
 
 

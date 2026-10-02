@@ -1,0 +1,9 @@
+{
+  "case": "records-provenance",
+  "arm": "plugin",
+  "repeat": 1,
+  "workspace": "/tmp/devforgeai-brn-trial-x556xowb/project",
+  "candidate": "/tmp/devforgeai-brn-trial-x556xowb/candidate",
+  "runtime_sha256": "8bf204b36a2f6dd0dab73aa2f639892e67ef9ac8befccb4a05b1496ebf25c479",
+  "started": "2026-10-01T14:42:21.335966+00:00"
+}

@@ -1,0 +1,300 @@
+{
+  "frontmatter": {
+    "id": "BRN-001",
+    "type": "brainstorm",
+    "title": "Reducing no-shows at a small dental clinic",
+    "status": "draft",
+    "version": 1,
+    "created": "2026-10-01",
+    "updated": "2026-10-01",
+    "owner": "[NEEDS CLARIFICATION: owner]",
+    "authors": [
+      "[NEEDS CLARIFICATION: owner]",
+      "codex"
+    ],
+    "generated_by": {
+      "tool": "codex",
+      "model": "unknown",
+      "session": "01a0f7e9-8107-7232-8fcb-dbf4f88f4b71"
+    },
+    "reviewed_by": [],
+    "approved_by": "",
+    "approved_on": null,
+    "upstream": [],
+    "supersedes": [],
+    "superseded_by": null,
+    "blocked_by": []
+  },
+  "collections": {
+    "problems": [
+      {
+        "id": "PRB-01",
+        "status": "active",
+        "statement": "I lose clinical capacity and income when booked patients do not attend.",
+        "who": "Clinic owner, two dentists, and hygienist",
+        "evidence": "Owner reports approximately one no-show in every eight booked appointments and material financial loss; conversation dated 2026-10-01.",
+        "severity": "high"
+      },
+      {
+        "id": "PRB-02",
+        "status": "active",
+        "statement": "I may miss a visit when appointment details do not reach me or changing the booking is difficult.",
+        "who": "Patient or person arranging a patient's appointment",
+        "evidence": "Hypothesis informed by the reminder research and outpatient guidance linked in section 1; not established in this clinic.",
+        "severity": "medium"
+      },
+      {
+        "id": "PRB-03",
+        "status": "active",
+        "statement": "I may struggle to attend when cost uncertainty, anxiety, transport, caring duties, or work commitments remain unresolved.",
+        "who": "Patient with practical or emotional barriers to attendance",
+        "evidence": "Candidate barriers for local investigation; the owner has not supplied patients' reasons for missing appointments.",
+        "severity": "medium"
+      },
+      {
+        "id": "PRB-04",
+        "status": "active",
+        "statement": "I may be unable to refill a released appointment when notice is short or no suitable replacement patient is ready.",
+        "who": "Person responsible for the clinic's bookings",
+        "evidence": "Operational hypothesis arising from the reported empty appointments; current cancellation handling and refill performance are unknown.",
+        "severity": "medium"
+      }
+    ],
+    "ideas": [
+      {
+        "id": "IDEA-01",
+        "status": "active",
+        "idea": "Offer reminders through the patient's preferred available channel, with a simple confirmation or change route; trial reminders roughly 72 and 24 hours before the visit, adjusted to the existing cancellation window and staffed response times.",
+        "addresses": [
+          "PRB-01",
+          "PRB-02"
+        ],
+        "value": "high",
+        "effort": "low",
+        "risk": "medium",
+        "score": 3,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-02",
+        "status": "active",
+        "idea": "Make a small, prioritized callback list for failed reminders, patients requesting phone contact, and unresolved confirmations, giving attention to long appointments; resolve attendance barriers without treating silence as cancellation.",
+        "addresses": [
+          "PRB-01",
+          "PRB-02",
+          "PRB-03"
+        ],
+        "value": "high",
+        "effort": "medium",
+        "risk": "low",
+        "score": 3,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-03",
+        "status": "active",
+        "idea": "Maintain an opt-in short-notice list with availability and appointment requirements, then offer released slots to compatible patients and explicitly confirm each replacement booking.",
+        "addresses": [
+          "PRB-01",
+          "PRB-04"
+        ],
+        "value": "high",
+        "effort": "low",
+        "risk": "low",
+        "score": 4,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-04",
+        "status": "active",
+        "idea": "At booking, let the patient choose a workable time, verify contact details and preferences, and give a calendar entry or paper appointment card including the expected visit duration and location.",
+        "addresses": [
+          "PRB-02",
+          "PRB-03"
+        ],
+        "value": "medium",
+        "effort": "low",
+        "risk": "low",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-05",
+        "status": "active",
+        "idea": "After a missed appointment, offer a supportive rebooking contact and optionally record a simple reason category so repeated barriers can be addressed; leave the reason unknown when the patient does not explain.",
+        "addresses": [
+          "PRB-01",
+          "PRB-03"
+        ],
+        "value": "medium",
+        "effort": "low",
+        "risk": "low",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-06",
+        "status": "active",
+        "idea": "For appointments where cost may be unclear, provide the available estimate and explain what could change it before the visit, with a route to discuss the clinic's existing payment options.",
+        "addresses": [
+          "PRB-03"
+        ],
+        "value": "medium",
+        "effort": "medium",
+        "risk": "low",
+        "score": 1,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-07",
+        "status": "active",
+        "idea": "Offer a brief preparation contact when patients identify anxiety or access needs, covering what to expect, practical arrival information, and suitable support agreed with the clinical team.",
+        "addresses": [
+          "PRB-03"
+        ],
+        "value": "medium",
+        "effort": "medium",
+        "risk": "low",
+        "score": 1,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-08",
+        "status": "active",
+        "idea": "Test offering suitable patients earlier released appointments and a small amount of near-term booking capacity if long booking lead times are associated with missed visits.",
+        "addresses": [
+          "PRB-01",
+          "PRB-03"
+        ],
+        "value": "medium",
+        "effort": "medium",
+        "risk": "medium",
+        "score": 0,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-09",
+        "status": "active",
+        "idea": "If work or caring conflicts dominate, trial one adjusted clinic session with adequate staffing and patient demand before considering a permanent change to opening hours.",
+        "addresses": [
+          "PRB-03"
+        ],
+        "value": "medium",
+        "effort": "high",
+        "risk": "medium",
+        "score": -1,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-10",
+        "status": "active",
+        "idea": "Consider a deposit credited toward selected long elective visits, with clear cancellation terms and appropriate exceptions, only after assessing access effects and the applicable local and payer requirements.",
+        "addresses": [
+          "PRB-01"
+        ],
+        "value": "medium",
+        "effort": "medium",
+        "risk": "high",
+        "score": -1,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-11",
+        "status": "active",
+        "idea": "Consider buying a predictive no-show or advanced scheduling system if simple reminder and callback processes leave a material, demonstrable gap that justifies integration and ongoing costs.",
+        "addresses": [
+          "PRB-01",
+          "PRB-04"
+        ],
+        "value": "medium",
+        "effort": "high",
+        "risk": "high",
+        "score": -2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-12",
+        "status": "active",
+        "idea": "Routinely double-book selected slots to compensate for expected no-shows.",
+        "addresses": [
+          "PRB-01"
+        ],
+        "value": "low",
+        "effort": "medium",
+        "risk": "high",
+        "score": -3,
+        "disposition": "open",
+        "reason": null
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "ASM-01",
+        "status": "active",
+        "statement": "We believe that avoidable communication or appointment-change friction explains a meaningful share of this clinic's missed visits.",
+        "validation": "Audit existing reminder and outcome records, then compare failure categories and attendance during the pilot; record patient explanations only when volunteered or obtained through appropriate routine follow-up.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-02",
+        "status": "active",
+        "statement": "We believe that the current scheduling and communication tools can support reliable reminders and a monitored change route at modest cost.",
+        "validation": "Inspect available settings and costs, test staff appointments end to end, and verify delivery reporting, reply ownership, and cancellation acknowledgment before live use.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-03",
+        "status": "active",
+        "statement": "We believe that the person handling bookings can sustain selective callbacks and opening management within an acceptable time budget.",
+        "validation": "Record daily minutes during the trial and compare them with the clinic's actual staffing capacity and recovered contribution.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-04",
+        "status": "active",
+        "statement": "We believe that enough patients want earlier clinically suitable appointments to make a short-notice list useful.",
+        "validation": "Track opt-ins, compatible offers, acceptances, actual attendance, and what happens to any later slots released by those patients.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-05",
+        "status": "active",
+        "statement": "We believe that identifying cost, anxiety, or practical access barriers will reveal useful additions beyond reminders.",
+        "validation": "Review optional reason categories and patient feedback over the pilot, keeping unexplained absences unknown and avoiding conclusions from small groups.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-06",
+        "status": "active",
+        "statement": "We believe that the reported 12.5 percent rate can be reproduced from appointment records and provides a useful starting baseline.",
+        "validation": "Recalculate four to eight weeks of counts with a documented denominator, separate cancellations from no-shows, and inspect weekly and appointment-type variation.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-07",
+        "status": "active",
+        "statement": "We believe that most patients can be reached through at least one available communication channel that fits their preferences and access needs.",
+        "validation": "Check contact accuracy, delivery failures, preferred channels, and feedback; compare reach and attendance for text and non-text routes without withdrawing existing support.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-08",
+        "status": "active",
+        "statement": "We believe that some additional attended appointments will produce net financial benefit after extra costs and any displacement of later visits.",
+        "validation": "Reconcile attended appointment and slot records with collections, variable treatment costs, staff time, and tool costs; distinguish visits moved earlier from net additional completed care.",
+        "state": "open"
+      }
+    ]
+  }
+}

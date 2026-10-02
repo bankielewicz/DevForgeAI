@@ -98,6 +98,13 @@ table rows are skipped by its generic placeholder scan. The port documents this 
 These inherited defects remain open. A script exit-zero cannot establish full BEH-09 or
 §4 conformance, and neither script can determine whether a user confirmed a decision.
 
+**2026-10-01 resolution:** D-03's three demonstrated false negatives are resolved in the
+Codex validator source. The unchanged historical Claude-provenance fixtures are each
+rejected with their own message; see the [new probe results](brainstorm-validator-update-evidence/validator-gap-probes.json)
+and [scoped update report](brainstorm-validator-update-evidence/REPORT.md). The earlier
+results above remain the record of the imported candidate. This resolution does not
+establish full schema conformance or verification of user confirmation.
+
 ### D-04 — Missing host identity is reported, not fabricated
 
 BEH-07/VER-03 require the actual model and session identity. Codex does not always expose
@@ -149,6 +156,12 @@ References are to [the imported SKILL.md](skills/brainstorm/SKILL.md) and its li
 | QR-02 | Sidecar; two quoted metadata values; matching IDs/versions; supported Codex frontmatter | Repository schemas and Codex validators pass. |
 | QR-03 | Eight tagged definitions, three runs and baseline in plan | Executed; provenance case fails and full acceptance remains unmet. |
 
+**2026-10-01 update:** The historical BEH-04 and BEH-09 rows above refer to D-03's
+then-open validator gaps. Those three gaps are now resolved by the source fix and
+[probe rerun](brainstorm-validator-update-evidence/validator-gap-probes.json); see the
+[update report](brainstorm-validator-update-evidence/REPORT.md) for the scoped checks
+and separate native results. Other behavior and acceptance limitations remain as recorded.
+
 ## Complete native verification denominator
 
 | Obligation | Case / required exercise | Status |
@@ -183,6 +196,14 @@ separates these checks and records the baseline scoring caveat.
 | Independent validation | NOT_PERFORMED; this report and checks were authored by the importing agent |
 | Native behavior / framework acceptance | EXECUTED / NOT_QUALIFIED; [results](import-evidence/native-evaluation-20260928/results.json) |
 | Marketplace / installation / deployment | NOT_PERFORMED |
+
+**2026-10-01 test update:** The original 10 tests and their file are unchanged and pass.
+The new regression module adds 32 cases in three environments (96 executions), giving
+106 brainstorm tests and **287 passing package tests**, compared with the independently
+recorded 191-test baseline. See [baseline](brainstorm-validator-update-evidence/baseline-tests.json),
+[failing regression run](brainstorm-validator-update-evidence/tdd-red.json),
+[passing brainstorm tests](brainstorm-validator-update-evidence/tdd-green.json), and
+[full package run](brainstorm-validator-update-evidence/package-tests-root.json).
 
 Reproduce the focused tests from the repository root:
 

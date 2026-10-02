@@ -1,0 +1,7 @@
+{
+  "document-quality": {
+    "status": "PASS",
+    "evidence": "Primary-agent review of the saved full BRN against the frozen two-claim rubric: 4 defined problems; all 12 ideas address only PRB-01..04. Concrete clinic actions include timed appointment reminders (IDEA-01), callbacks for long/unconfirmed visits (02), clinician/duration-compatible short-notice lists (03), cost preparation for visits (06), and scheduling alternatives (08..12) with clinic-specific tradeoffs. No undefined address. Document SHA-256 99eb947fd8c5f44da1633b323670528ca08655f1ced3bc1bdcb5115b89a299b5",
+    "reviewer": "Primary porting agent; separate from the native actor, not independent cold QA"
+  }
+}

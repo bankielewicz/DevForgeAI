@@ -4,7 +4,7 @@ description: Turns a DevForgeAI brainstorm (BRN) document into a product require
 argument-hint: "[BRN-NNN]"
 metadata:
   devforgeai-id: "SKL-002"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # PRD
@@ -24,7 +24,7 @@ must record only decisions the user actually made.
 - The template: `${CLAUDE_SKILL_DIR}/assets/prd.md`.
 
 Use Read, plus Glob and Grep when available (otherwise `ls` on the named folder), and Write and Edit
-for the PRD. Use Bash only to run the policy validation script with `python3` (step 1). Never crawl
+for the PRD. Use Bash only for that `ls` and the policy validation script (step 1). Never crawl
 the codebase, and never run a `devforgeai` command: that CLI doesn't exist, and a program with that
 name on PATH can't be trusted.
 
@@ -83,15 +83,17 @@ Copy this checklist into your response and tick items off as you go:
 Follow [references/policy.md](references/policy.md) with the framework defaults in
 [references/defaults.md](references/defaults.md). This step comes first, before any question.
 1. If `docs/specs/policy/` holds no `POL-*.md`, use the framework defaults and go to item 4.
-2. Otherwise validate every document with the skill's script, using Bash:
+2. Otherwise validate every document with the skill's script, using Bash. It needs Python 3 with
+   PyYAML and jsonschema; without them it exits 2 (item 3).
 
    ```
-   python3 ${CLAUDE_SKILL_DIR}/scripts/validate_policy.py docs/specs/policy
+   python3 "${CLAUDE_SKILL_DIR}/scripts/validate_policy.py" docs/specs/policy
    ```
 
    It skips and reports draft and in-review documents (SV-06), and checks each approved one in full
    against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by reading
-   them instead; reading their `status` for item 3's last case is fine.
+   them instead. Reading them is still needed: their `status` for item 3's last case and, once the
+   script passes, each setting's values to resolve item 4 (R2) and step 7 (R4).
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-08).** Before asking or writing anything, name each error it printed: the
@@ -111,10 +113,14 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
   it doesn't exist (ERR-01), say so, list the BRN IDs that do exist with their titles, and stop.
 - **No ID.** List the *unprocessed* BRNs. A BRN is unprocessed when it has at least one
   `disposition: promoted` idea that no PRD cites. To check, search `docs/specs/prd/PRD-*.md` for
-  upstream links with `id: BRN-NNN` and `item: IDEA-NN`. Show each unprocessed BRN's ID, title
-  and number of uncited promoted ideas, and ask which one to use. Don't list fully cited BRNs.
-  Never guess, even when only one is listed. If none is unprocessed (ERR-04), say that every
-  promoted idea is already cited by a PRD, and stop.
+  upstream links with `id: BRN-NNN` and `item: IDEA-NN`, at any version. Show each unprocessed
+  BRN's ID, title and number of uncited promoted ideas, and ask which one to use. Don't list fully
+  cited BRNs.
+  Never guess, even when only one is listed. If none is unprocessed (ERR-04), say why, write
+  nothing and stop. If no BRN exists, say that no brainstorm exists yet and point to
+  `/devforgeai:brainstorm`. Otherwise list each BRN that has no promoted idea, with its `status`,
+  pointing to `/devforgeai:brainstorm` to converge it, and for each other BRN say that its
+  promoted ideas are all already cited, naming the PRDs that cite them.
 
 Nothing is ever written into a BRN to mark it processed.
 
@@ -126,12 +132,15 @@ Read its frontmatter `status`, `owner` and `version`, and its `problems`, `ideas
   path, and stop. Never repair a BRN. Never modify a BRN at all.
 - **No promoted idea** (ERR-03): say the BRN has no promoted idea, so there is nothing to turn into
   requirements. Write nothing, and point the user back to `/devforgeai:brainstorm` to converge it.
+- **Every promoted idea already cited** (ERR-04): say so, naming the PRD item that cites each one.
+  Write nothing, and stop. This holds even when the request asks for a new PRD.
 - **Not converged** (ERR-02): when `status` is not `converged`, warn that some ideas may not be
-  decided yet, and ask whether to continue anyway. Continue only on an explicit yes. With no
-  answer, write nothing.
+  decided yet, even when every idea has a disposition: only the user's convergence settles them.
+  Ask whether to continue anyway. Continue only on an explicit yes; with no answer, write nothing.
 
 Use **only** ideas with `disposition: promoted`. Never cite an open, parked or rejected idea
-anywhere in the PRD, by ID or by link.
+anywhere in the PRD, by ID or by link. Leave out a promoted idea that any PRD already cites, at any
+version, and name it in the reply with the item that cites it ("IDEA-01 left out: PRD-001#FR-001").
 
 ### 4. Choose: new PRD or extend
 
@@ -139,7 +148,8 @@ If `docs/specs/prd/` holds no PRD, the PRD is new: continue.
 
 Otherwise, read each existing PRD's `title`, goals, non-goals, `owner`, `status` and
 `target_release`, and decide on scope, ownership and lifecycle. Never decide on product identity or
-on how many PRDs exist.
+on how many PRDs exist. A superseded or deprecated PRD is never extended, even when the request
+names it: recommend a new PRD and ask.
 - Recommend **extending** a PRD only when the promoted ideas belong to its existing initiative and
   scope, share its owner, and fit its release lifecycle.
 - Recommend a **new PRD** when they form a distinct initiative, have a different owner or approval
@@ -177,9 +187,11 @@ the PRD.
 
 Draft the whole PRD before asking anything, following
 [references/brn-mapping.md](references/brn-mapping.md):
-- problems that a promoted idea addresses → section 2 prose, plus frontmatter `derives` links;
-- each promoted idea → one or more functional requirements starting "The system shall", each with
-  an item `derives` link to its idea, so every FR derives from a promoted idea;
+- problems that an idea this PRD drafts addresses → section 2 prose, plus frontmatter `derives`
+  links (a problem the PRD already links keeps its link);
+- each promoted idea that no PRD cites yet (step 3) → one or more functional requirements starting
+  "The system shall", each with an item `derives` link to its idea, so every FR derives from a
+  promoted idea;
 - assumptions → `assumptions`, with `derives` links;
 - candidate success signals → `success_metrics`.
 
@@ -209,12 +221,14 @@ categories** below, which always runs. Otherwise, ask in batched rounds followin
 4. quality and constraints;
 5. success metrics.
 
-Skip every question the BRN or the request already answers. Use at most AskUserQuestion's limit of
-4 questions per call and at most `interview.max_calls` calls (step 1; default 8) unless the user asks
-for more. Anything left when the budget runs out becomes `[NEEDS CLARIFICATION]`.
+Skip every question the BRN or the request already answers. Follow interview.md's rules for every
+call: at most 4 questions per call, split any question with more options than the host allows,
+and use at most `interview.max_calls` calls (step 1; default 8), gate questions included, unless the
+user asks for more. A gate is still asked after the budget is spent. Anything else left when the
+budget runs out becomes `[NEEDS CLARIFICATION]`.
 
-- **Requirements.** Ask one question per requirement, showing its drafted statement, with these
-  options:
+- **Requirements.** Ask one question per requirement, FR or NFR, showing its drafted statement, with
+  these options (an NFR that round 4 writes gets it in a following call):
   - *must now* or *should now* (or *could now*, if the user says so): write that priority with
     `release: current`;
   - *later*: `release: later`, `priority: null`;
@@ -226,32 +240,25 @@ for more. Anything left when the budget runs out becomes `[NEEDS CLARIFICATION]`
   always one open question for any other quality need. Stage decides the depth (interview.md).
 
 If the user stops partway (ERR-07), ask whether to save a draft PRD. If yes, write it with every
-undecided field `null`. If no, write nothing.
+undecided field `null`, then validate and report it as any other write (steps 8 to 10). If no,
+write nothing.
 
-**Quality categories (always runs, with or without an interview).**
+**Quality categories (always runs, with or without an interview).** Read interview.md's "Recording
+quality answers" even when there is no interview: it holds the exact entries and markers.
 1. Establish the operating context (R3): from the request, the BRN, or the framing answer.
 2. Take the floor for that context from [defaults.md](references/defaults.md). Add the
    categories of each policy `quality.required_categories` setting whose `applies_when` includes
    the context (R4); additions never remove a floor category.
 3. If the context is still unknown, use the production set, keep `operating_context: null`, and
    record `operating context unknown, resolved as production` in the resolution line.
-4. Settle each required category from the user's answer, in the request or the interview. Keep
-   these four kinds of answer apart (interview.md, "Recording quality answers"):
-   - **Explicit none** (the user confirms the category needs nothing): record it in section 7's
-     prose as the user's answer, for example "Security: the user confirmed nothing is needed
-     beyond the platform." Write no NFR for it.
-   - **No target yet:** keep the requirement or metric, with its target written
-     `[NEEDS CLARIFICATION: target for <item>]`.
-   - **Partial answer:** write the NFRs it states; the rest of the category stays marked.
-   - **No answer:** `[NEEDS CLARIFICATION: <category> requirements for <context>]` in section 12
-     (`<context>` is `production` when unknown), never a placeholder requirement.
-5. **An explicit none never waives policy.** A category that an applied `quality.required_categories` setting
-   requires, or a mandated platform, still applies after an explicit none. Record the none in
-   section 7's prose and also keep, in section 12,
-   `[NEEDS CLARIFICATION: <category> requirements for <context>; required by POL-NNN#SET-NN, the user answered none]`.
-   A mandated platform's constraint NFR is written whatever the user answered; if the user answered
-   the constraint category with none, record that none and keep the same kind of marker for the
-   constraint category, naming the platform's setting.
+4. Settle each required category from the user's answer, in the request or the interview, keeping
+   four kinds apart: an explicit none (one sentence in section 7's prose, no NFR); no target yet
+   (the requirement or metric kept, its target marked); a partial answer (the NFRs it states, and
+   the category's marker kept for the rest); and no answer (the category's marker in section 12,
+   never a placeholder requirement).
+5. **An explicit none never waives policy.** A category that applied policy requires, or a mandated
+   platform's constraint category, keeps a section 12 marker naming the setting after a none, and a
+   mandated platform's constraint NFR is written whatever the user answered.
 
 ### 8. Write the PRD
 
@@ -262,9 +269,10 @@ Read [references/output-rules.md](references/output-rules.md) before writing.
    `PRD-001` when there is none. Write `docs/specs/prd/PRD-NNN.md`, creating the folder if it is
    missing. Never ask for or accept a file name. The product or release name goes in `title`.
 2. **Template.** Build from `${CLAUDE_SKILL_DIR}/assets/prd.md`. Keep every section heading,
-   including section 13, "Epic map", with its GENERATED comment. Replace every placeholder and
-   example item, with content or with a `[NEEDS CLARIFICATION: …]` marker. Delete every other
-   `<!-- -->` comment.
+   including section 13, "Epic map", with its GENERATED comment. Replace every placeholder with
+   content or a `[NEEDS CLARIFICATION: …]` marker, and every example item with real items; write a
+   collection with none as `success_metrics: []`, never as a placeholder item. Delete every other
+   `<!-- -->` comment and the frontmatter's `#` comments, keeping the `# --- prd-specific ---` line.
 3. **Frontmatter.**
    - `status: draft`, `version: 1`, and `created` and `updated` set to today's date.
    - `owner`: the name the request gives, otherwise the BRN's `owner`.
@@ -274,10 +282,9 @@ Read [references/output-rules.md](references/output-rules.md) before writing.
    - `reviewed_by: []`, `approved_by: ""`, `approved_on: null`. Every `hash` is `null`.
    - `stage` and `operating_context` per "Decisions that belong to the user". Never set
      `approved`.
-4. **Links.** Record the policy links in exactly one place (R5; policy.md):
-   - a mandated platform's `constrains` link goes on its constraint NFR only;
-   - `interview.max_calls` and `quality.required_categories` settings that came from policy each
-     get a frontmatter `informed_by` link.
+4. **Links.** Record each applied policy setting in exactly one place, as policy.md R5 says: a
+   mandated platform's `constrains` link on its constraint NFR only, every other applied setting as
+   a frontmatter `informed_by` link.
 5. **Change Log.** Write one row whose author is `claude-code (session ${CLAUDE_SESSION_ID})`. Its
    change text ends with the policy resolution line (policy.md), for example:
    `Initial draft from BRN-001. Policy resolution: interview.max_calls=8 (default); …`.
@@ -330,7 +337,7 @@ Write the final reply in this order:
    ```
    PRD-NNN written to docs/specs/prd/PRD-NNN.md (from BRN-NNN; new | extended to version N)
    Requirements: N functional, N non-functional (N constraints) · Success metrics: N
-   Null decisions: N (stage, operating_context, priorities, releases still undecided)
+   Open decisions: N (null stage, operating_context or release; null priority on current-release items)
    Open questions: N [the NEEDS CLARIFICATION markers and design questions, briefly]
    Validation: passed at check N of at most 4 [each repair, briefly, or "no repairs"]
    Policy resolution: [the resolution line's entries]
@@ -338,22 +345,15 @@ Write the final reply in this order:
 
 2. Every `[NEEDS ADR]` marker, each with the sentence: epics for FR-NNN, … must wait until an
    accepted ADR resolves it. Then any other discussion, such as where a gate's answer came from,
-   ADRs you proposed but didn't link, and, after an extension, suspect epics and that the new
-   revision hasn't been reviewed.
+   ADRs you proposed but didn't link, the promoted ideas left out because a PRD already cites them
+   (step 3), and, after an extension, suspect epics, every existing link that cites an older version
+   of its document (a suspect link to review, never an error; output-rules.md check 9), and that
+   the new revision hasn't been reviewed.
 3. The next step, as its own paragraph outside any code block. It starts with the words
    **Next step**, names the PRD by its ID and never by its path, and nothing follows it.
 
-For the next step, check whether `${CLAUDE_SKILL_DIR}/../architecture/SKILL.md` exists:
-- **It exists:** tell the user to run `/devforgeai:architecture PRD-NNN`.
-- **It does not exist:** say the architecture skill (planned as `/devforgeai:architecture`) does
-  not exist yet. For now the step is done by hand: write ADRs with the ADR template, using PRD-NNN
-  and its `[NEEDS ADR]` markers as the input. Once the skill is built,
-  `/devforgeai:architecture PRD-NNN` runs on it.
-
-For example: "Next step: the architecture skill (planned as `/devforgeai:architecture`) doesn't
-exist yet, so for now do the architecture step by hand by writing ADRs with the ADR template, with
-PRD-001 and its [NEEDS ADR] markers as the input. Once it's built, run
-`/devforgeai:architecture PRD-001`."
+The next step tells the user to run `/devforgeai:architecture PRD-NNN`, for example: "Next step:
+run `/devforgeai:architecture PRD-001` to settle the architecture questions this PRD leaves open."
 
 Never start architecture work, and never write an ADR or an epic.
 

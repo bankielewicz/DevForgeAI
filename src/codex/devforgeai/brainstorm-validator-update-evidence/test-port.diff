@@ -1,0 +1,176 @@
+--- 7e2bfb6/Claude-tests
++++ candidate/Codex-tests
+@@ -7,8 +7,8 @@
+ without PyYAML would. The verdict must not depend on which one ran, and the script must never end in a
+ traceback.
+ 
+-Run from the repository root:
+-    python3 -B src/tests/brainstorm/test_validate_brn.py
++Run from the Codex package directory:
++    python3 -B -m unittest discover -s tests -p 'test_validate_brn*.py'
+ """
+ import glob
+ import os
+@@ -20,10 +20,10 @@
+ import unittest
+ from pathlib import Path
+ 
+-ROOT = Path(__file__).resolve().parents[3]
+-SKILL = ROOT / "src/claude/DevForgeAI/skills/brainstorm"
++PLUGIN = Path(__file__).resolve().parents[1]
++SKILL = PLUGIN / "skills/brainstorm"
+ SCRIPT = SKILL / "scripts/validate_brn.py"
+-PROBES = ROOT / "src/codex/devforgeai/import-evidence/validator-probes"
++PROBES = PLUGIN / "import-evidence/validator-probes"
+ LINE = re.compile(r"^line \d+: \S.*$")
+ 
+ VALID = """\
+@@ -35,11 +35,11 @@
+ version: 1
+ created: 2026-09-01
+ updated: 2026-09-01
+-owner: "Dana"
+-authors: ["Dana", "claude-code"]
++owner: "Bryan"
++authors: ["Bryan", "codex"]
+ generated_by:
+-  tool: "claude-code"
+-  model: "claude-opus-5-5"
++  tool: "codex"
++  model: "gpt-6-astra"
+   session: "0b6c1d2e-3f40-4a5b-8c7d-9e0f1a2b3c4d"
+ reviewed_by: []
+ approved_by: ""
+@@ -49,7 +49,7 @@
+ superseded_by: null
+ blocked_by: []
+ # --- brainstorm-specific ---
+-participants: ["Dana"]
++participants: ["Bryan"]
+ sources: []
+ ---
+ 
+@@ -129,7 +129,7 @@
+ 
+ ## 6. Convergence
+ 
+-Dana confirmed IDEA-01 as promoted.
++Bryan confirmed IDEA-01 as promoted.
+ 
+ ## 7. Assumptions and open questions
+ 
+@@ -152,7 +152,7 @@
+ 
+ | Version | Date | Author | Change |
+ |---|---|---|---|
+-| 1 | 2026-09-01 | claude-code (session 0b6c1d2e-3f40-4a5b-8c7d-9e0f1a2b3c4d) | Initial draft |
++| 1 | 2026-09-01 | codex (session 0b6c1d2e-3f40-4a5b-8c7d-9e0f1a2b3c4d) | Initial draft |
+ """
+ 
+ 
+@@ -229,8 +229,12 @@
+     def test_valid_brn_passes(self):
+         self.assert_valid(VALID)
+ 
+-    def test_real_brn_001_passes(self):
+-        self.assert_valid((ROOT / "docs/specs/brainstorm/BRN-001.md").read_text(encoding="utf-8"))
++    def test_historical_claude_latest_row_passes(self):
++        # Keep the package self-contained and accept unchanged historical provenance.
++        text = edit(VALID, 'tool: "codex"', 'tool: "claude-code"')
++        text = edit(text, 'authors: ["Bryan", "codex"]', 'authors: ["Bryan", "claude-code"]')
++        text = edit(text, '| codex (session ', '| claude-code (session ')
++        self.assert_valid(text)
+ 
+     def test_valid_leap_day_passes(self):
+         text = edit(VALID, "created: 2026-09-01", "created: 2028-02-29")
+@@ -239,13 +243,13 @@
+     def test_block_lists_and_link_records_pass(self):
+         text = edit(VALID, "sources: []", 'sources:\n  - "Front-desk notes, 2026-09-01"  # raw input\n'
+                     '  - "https://example.com/no-show-report"')
+-        text = edit(text, 'authors: ["Dana", "claude-code"]', 'authors:\n  - "Dana"\n  - "claude-code"')
++        text = edit(text, 'authors: ["Bryan", "codex"]', 'authors:\n  - "Bryan"\n  - "codex"')
+         text = edit(text, "upstream: []",
+                     'upstream:\n  - {id: BRN-002, relation: informed_by, version: 1, hash: null, note: "x"}')
+         self.assert_valid(text)
+ 
+     def test_a_comment_on_an_id_line_passes(self):
+-        self.assert_valid(edit(VALID, "  - id: IDEA-03", "  - id: IDEA-03   # from Dana"))
++        self.assert_valid(edit(VALID, "  - id: IDEA-03", "  - id: IDEA-03   # from Bryan"))
+ 
+     def test_a_comment_on_an_addresses_entry_passes(self):
+         self.assert_valid(edit(VALID, "      - PRB-02\n    value", "      - PRB-02  # main\n    value"))
+@@ -254,10 +258,10 @@
+         self.assert_valid(edit(VALID, "| Forgets the date |", "| Forgets the date<br>Lives far away |"))
+ 
+     def test_a_last_row_written_by_a_person_passes(self):
+-        self.assert_valid(VALID + "| 2 | 2026-09-02 | Dana | Fixed a typo in PRB-02 |\n")
++        self.assert_valid(VALID + "| 2 | 2026-09-02 | Bryan | Fixed a typo in PRB-02 |\n")
+ 
+     def test_a_placeholder_owner_passes(self):
+-        self.assert_valid(edit(VALID, 'owner: "Dana"', 'owner: "[NEEDS CLARIFICATION: owner]"'))
++        self.assert_valid(edit(VALID, 'owner: "Bryan"', 'owner: "[NEEDS CLARIFICATION: owner]"'))
+ 
+     # --- Dates (finding 3, M5): rejected with and without PyYAML, never a traceback --------------
+ 
+@@ -278,16 +282,17 @@
+     # --- Empty template defaults (finding 5) ---------------------------------------------------
+ 
+     def test_empty_owner_is_rejected(self):
+-        self.assert_rejects(edit(VALID, 'owner: "Dana"', 'owner: ""'),
++        self.assert_rejects(edit(VALID, 'owner: "Bryan"', 'owner: ""'),
+                             r"^line 9: owner must be a quoted name")
+ 
+     def test_empty_authors_is_rejected(self):
+-        self.assert_rejects(edit(VALID, 'authors: ["Dana", "claude-code"]', "authors: []"),
+-                            r"^line 10: authors must be a non-empty list of quoted names")
++        self.assert_rejects(edit(VALID, 'authors: ["Bryan", "codex"]', "authors: []"),
++                            r'^line 10: authors must be a non-empty list of quoted names, e.g. \["Bryan", "codex"\]')
+ 
+     def test_blank_change_log_author_is_rejected(self):
+-        text = edit(VALID, "| claude-code (session 0b6c1d2e-3f40-4a5b-8c7d-9e0f1a2b3c4d) |", "| |")
+-        self.assert_rejects(text, r"last Change Log row has no author")
++        text = edit(VALID, "| codex (session 0b6c1d2e-3f40-4a5b-8c7d-9e0f1a2b3c4d) |", "| |")
++        self.assert_rejects(text, r"last Change Log row has no author.*codex \(session ID\).*historical "
++                            r"claude-code \(session ID\).*person")
+ 
+     def test_unfilled_template_is_rejected(self):
+         code, lines = self.run_text((SKILL / "assets/brainstorm.md").read_text(encoding="utf-8"))
+@@ -299,8 +304,8 @@
+     # --- Codex import probes (M7, src/codex/devforgeai/IMPORT-REPORT.md D-03) -------------------
+ 
+     def test_authors_that_is_not_a_list_is_rejected(self):
+-        self.assert_rejects(edit(VALID, 'authors: ["Dana", "claude-code"]', "authors: 123"),
+-                            r"^line 10: authors must be a non-empty list of quoted names")
++        self.assert_rejects(edit(VALID, 'authors: ["Bryan", "codex"]', "authors: 123"),
++                            r'^line 10: authors must be a non-empty list of quoted names, e.g. \["Bryan", "codex"\]')
+ 
+     def test_unknown_generated_by_key_is_rejected(self):
+         text = edit(VALID, '  session: "0b6c', '  unexpected: "not allowed"\n  session: "0b6c')
+@@ -315,8 +320,7 @@
+                     "unknown-provenance-key": r"generated_by.unexpected is not allowed",
+                     "placeholder-in-change-log": r"placeholder '<change>'"}
+         files = sorted(glob.glob(str(PROBES / "*/claude/docs/specs/brainstorm/BRN-001.md")))
+-        if not files:
+-            self.skipTest("no Codex probe files in this checkout")
++        self.assertEqual(len(files), 3, "all three frozen D-03 probes must be present")
+         for f in files:
+             probe = Path(f).parts[-6]
+             with self.subTest(probe=probe):
+@@ -327,7 +331,7 @@
+ 
+     def test_a_comment_on_an_id_line_keeps_items_apart(self):
+         # Before the fix, IDEA-03's fields replaced IDEA-02's and the bad disposition went unseen.
+-        text = edit(VALID, "  - id: IDEA-03", "  - id: IDEA-03  # from Dana")
++        text = edit(VALID, "  - id: IDEA-03", "  - id: IDEA-03  # from Bryan")
+         text = edit(text, "score: -1\n    disposition: open", "score: -1\n    disposition: maybe")
+         self.assert_rejects(text, r"IDEA-02: disposition must be one of")
+ 
+@@ -372,7 +376,7 @@
+         self.assert_rejects(edit(VALID, "blocked_by: []", "blocked_by: whatever"), r"blocked_by must be \[\]")
+ 
+     def test_unquoted_participant_is_rejected(self):
+-        self.assert_rejects(edit(VALID, 'participants: ["Dana"]', "participants: [Dana]"),
++        self.assert_rejects(edit(VALID, 'participants: ["Bryan"]', "participants: [Bryan]"),
+                             r"participants must be \[\] or a list of quoted strings")
+ 
+     def test_sources_that_is_not_a_list_is_rejected(self):

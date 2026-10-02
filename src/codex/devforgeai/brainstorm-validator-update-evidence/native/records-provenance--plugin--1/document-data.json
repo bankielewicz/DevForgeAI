@@ -1,0 +1,266 @@
+{
+  "frontmatter": {
+    "id": "BRN-001",
+    "type": "brainstorm",
+    "title": "Better asynchronous stand-ups in Slack",
+    "status": "draft",
+    "version": 1,
+    "created": "2026-10-01",
+    "updated": "2026-10-01",
+    "owner": "[NEEDS CLARIFICATION: owner]",
+    "authors": [
+      "[NEEDS CLARIFICATION: owner]",
+      "codex"
+    ],
+    "generated_by": {
+      "tool": "codex",
+      "model": "unknown",
+      "session": "01a0f7ea-96ef-7680-b03d-56a1661283ea"
+    },
+    "reviewed_by": [],
+    "approved_by": "",
+    "approved_on": null,
+    "upstream": [],
+    "supersedes": [],
+    "superseded_by": null,
+    "blocked_by": []
+  },
+  "collections": {
+    "problems": [
+      {
+        "id": "PRB-01",
+        "status": "active",
+        "statement": "A stand-up schedule centered on another time zone interrupts my time off or makes my update seem late.",
+        "who": "Remote contributor working different hours from teammates",
+        "evidence": "[NEEDS CLARIFICATION: team size, time zones, working patterns, and reminder friction]",
+        "severity": "high"
+      },
+      {
+        "id": "PRB-02",
+        "status": "active",
+        "statement": "I spend time reconstructing yesterday's work and repeating plans that have not changed.",
+        "who": "Contributor writing regular stand-up updates",
+        "evidence": "[NEEDS CLARIFICATION: current stand-up workflow, trigger for improvement, and baseline writing and reading effort]",
+        "severity": "medium"
+      },
+      {
+        "id": "PRB-03",
+        "status": "active",
+        "statement": "After I ask for help, I cannot tell who will respond or when to follow up.",
+        "who": "Contributor waiting on a dependency or decision",
+        "evidence": "[NEEDS CLARIFICATION: frequency of missed help requests and current follow-up ownership]",
+        "severity": "high"
+      },
+      {
+        "id": "PRB-04",
+        "status": "active",
+        "statement": "I have to read a long stream of updates to find changes that affect my work.",
+        "who": "Teammate or facilitator catching up asynchronously",
+        "evidence": "[NEEDS CLARIFICATION: current stand-up workflow, trigger for improvement, and baseline writing and reading effort]",
+        "severity": "high"
+      },
+      {
+        "id": "PRB-05",
+        "status": "active",
+        "statement": "I cannot tell whether a missing update means a colleague is away, has no change to report, or needs a reminder.",
+        "who": "Teammate coordinating shared work",
+        "evidence": "[NEEDS CLARIFICATION: existing expectations for no-change days, absence, and missing updates]",
+        "severity": "medium"
+      }
+    ],
+    "ideas": [
+      {
+        "id": "IDEA-01",
+        "status": "active",
+        "idea": "Personal check-in windows: let each teammate choose workdays, local reminder time, and a response window; offer snooze and away controls, cap reminders, and show when a person's next update is expected.",
+        "addresses": [
+          "PRB-01",
+          "PRB-05"
+        ],
+        "value": "high",
+        "effort": "medium",
+        "risk": "low",
+        "score": 3,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-02",
+        "status": "active",
+        "idea": "What changed check-in: show the contributor their last stated focus and ask for the change, next focus, and help needed; offer an explicit same-focus response and a preview before publishing.",
+        "addresses": [
+          "PRB-02",
+          "PRB-04"
+        ],
+        "value": "high",
+        "effort": "low",
+        "risk": "low",
+        "score": 4,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-03",
+        "status": "active",
+        "idea": "Help-request handoff: turn a submitted blocker into a card with the specific request, optional suggested helper, and needed-by time; let a helper acknowledge it, agree a next action, and mark it resolved with the requester.",
+        "addresses": [
+          "PRB-03"
+        ],
+        "value": "high",
+        "effort": "medium",
+        "risk": "medium",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-04",
+        "status": "active",
+        "idea": "Rolling team digest: group submitted changes, next actions, and unresolved help requests into a compact view with source links and timestamps; distinguish pending updates, explicit no-change responses, and absence.",
+        "addresses": [
+          "PRB-04",
+          "PRB-05"
+        ],
+        "value": "high",
+        "effort": "medium",
+        "risk": "medium",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-05",
+        "status": "active",
+        "idea": "Small prompt library: let a team choose concise prompts for delivery work, research, or support, such as what we learned and what decision is needed, while keeping the check-in to at most three prompts.",
+        "addresses": [
+          "PRB-02",
+          "PRB-04"
+        ],
+        "value": "medium",
+        "effort": "low",
+        "risk": "low",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-06",
+        "status": "active",
+        "idea": "Lighter cadence experiment: let a team try fewer scheduled check-ins or updates only when something changes, with explicit no-change and away responses and an always-available way to request help.",
+        "addresses": [
+          "PRB-02",
+          "PRB-05"
+        ],
+        "value": "medium",
+        "effort": "low",
+        "risk": "medium",
+        "score": 1,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-07",
+        "status": "active",
+        "idea": "Suggested update draft: optionally assemble a draft from work items or links the contributor selects, show the sources, and require the contributor to edit or approve the text before it becomes a stand-up update.",
+        "addresses": [
+          "PRB-02"
+        ],
+        "value": "high",
+        "effort": "high",
+        "risk": "high",
+        "score": 0,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-08",
+        "status": "active",
+        "idea": "Assisted catch-up: optionally generate a short narrative from submitted stand-up updates, link each claim to its source, preserve explicit uncertainty, and let a facilitator review and correct the summary before sharing it.",
+        "addresses": [
+          "PRB-04"
+        ],
+        "value": "medium",
+        "effort": "high",
+        "risk": "high",
+        "score": -2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-09",
+        "status": "active",
+        "idea": "Cross-time-zone handover: let a contributor package the current state, next action, relevant links, and an open question for a teammate to pick up at their next working window, with explicit acceptance of the handoff.",
+        "addresses": [
+          "PRB-01",
+          "PRB-03"
+        ],
+        "value": "high",
+        "effort": "medium",
+        "risk": "medium",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      },
+      {
+        "id": "IDEA-10",
+        "status": "active",
+        "idea": "Weekly stand-up tune-up: rotate a facilitator who asks which update helped and which prompt could be removed, then proposes one change to the team's cadence or template for the following week.",
+        "addresses": [
+          "PRB-02",
+          "PRB-04",
+          "PRB-05"
+        ],
+        "value": "medium",
+        "effort": "low",
+        "risk": "low",
+        "score": 2,
+        "disposition": "open",
+        "reason": null
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "ASM-01",
+        "status": "active",
+        "statement": "We believe that personal working windows make check-ins less disruptive and easier to complete.",
+        "validation": "For BRN-001#IDEA-01, compare a volunteer team's existing reminder schedule with self-selected windows; record interruptions, reminders per participant, and responses within each person's agreed window.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-02",
+        "status": "active",
+        "statement": "We believe that a change-focused prompt reduces writing effort without losing context teammates need.",
+        "validation": "For BRN-001#IDEA-02, compare sample updates from the current format and the proposed prompts; measure writing time and ask readers to identify the next action and help needed.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-03",
+        "status": "active",
+        "statement": "We believe that explicit acknowledgment and a next action make help requests more likely to receive useful follow-through.",
+        "validation": "For BRN-001#IDEA-03 and BRN-001#IDEA-09, manually track requests, accepted helpers, first useful responses, and requester-confirmed resolution; compare with baseline and record requests that remained unclaimed.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-04",
+        "status": "active",
+        "statement": "We believe that a compact digest can reduce catch-up effort while preserving important changes and unresolved requests.",
+        "validation": "For BRN-001#IDEA-04 and BRN-001#IDEA-08, give volunteers raw updates, a structured digest, and a reviewed generated summary; compare reading time, missed dependencies, factual corrections, and review effort.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-05",
+        "status": "active",
+        "statement": "We believe that a pilot workspace can permit the proposed Slack interactions and that participants understand and accept the sharing model.",
+        "validation": "Before an app pilot, review necessary access with a workspace administrator, demonstrate publication and correction flows to participants, and test schedule changes, duplicate submissions, accessibility, and access boundaries in a sandbox; review optional external sources separately.",
+        "state": "open"
+      },
+      {
+        "id": "ASM-06",
+        "status": "active",
+        "statement": "We believe that teams can reduce repetitive prompts or check-in frequency while still discovering dependencies soon enough.",
+        "validation": "For BRN-001#IDEA-05, BRN-001#IDEA-06, and BRN-001#IDEA-10, try one agreed prompt or cadence change at a time; collect usefulness feedback and count dependencies discovered later than the team needed.",
+        "state": "open"
+      }
+    ]
+  }
+}

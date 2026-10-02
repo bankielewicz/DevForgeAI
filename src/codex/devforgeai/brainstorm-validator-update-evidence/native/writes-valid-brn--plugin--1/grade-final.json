@@ -1,0 +1,75 @@
+{
+  "case": "writes-valid-brn",
+  "arm": "plugin",
+  "repeat": 1,
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "execution-complete",
+      "status": "PASS",
+      "evidence": "completed"
+    },
+    {
+      "name": "all-sections",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "brn-exists",
+      "status": "PASS",
+      "evidence": "docs/specs/brainstorm/BRN-001.md: exists=True"
+    },
+    {
+      "name": "document-quality",
+      "status": "PASS",
+      "evidence": "Primary-agent review of the saved full BRN against the frozen two-claim rubric: 4 defined problems; all 12 ideas address only PRB-01..04. Concrete clinic actions include timed appointment reminders (IDEA-01), callbacks for long/unconfirmed visits (02), clinician/duration-compatible short-notice lists (03), cost preparation for visits (06), and scheduling alternatives (08..12) with clinic-specific tradeoffs. No undefined address. Document SHA-256 99eb947fd8c5f44da1633b323670528ca08655f1ced3bc1bdcb5115b89a299b5",
+      "reviewer": "Primary porting agent; separate from the native actor, not independent cold QA"
+    },
+    {
+      "name": "hands-off",
+      "status": "PASS",
+      "evidence": "Read the saved final reply against the frozen hands-off rubric: its opening links docs/specs/brainstorm/BRN-001.md and reports 4 problems, 12 ideas and 8 assumptions. Its final Next step paragraph directs the user toward the DevForgeAI PRD skill with BRN-001. Reply SHA-256 2183d3c1b84d94cad04e0ab2d3e0969693e7c7338edb37f1d16f95fcf0c02195",
+      "reviewer": "Primary porting agent, separate from native actor; not independent cold QA"
+    },
+    {
+      "name": "has-ideas-block",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "has-problems-block",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "no-leftovers",
+      "status": "PASS",
+      "evidence": "Pattern matched=False; expected=False"
+    },
+    {
+      "name": "ran-validator",
+      "status": "PASS",
+      "evidence": "Pattern matched=True; expected=True"
+    },
+    {
+      "name": "skill-fired",
+      "status": "PASS",
+      "evidence": "Completed read of exact candidate SKILL.md"
+    },
+    {
+      "name": "independent-validator",
+      "status": "PASS",
+      "evidence": "OK: /tmp/devforgeai-brainstorm-validator-20261001/src/codex/devforgeai/brainstorm-validator-update-evidence/native/writes-valid-brn--plugin--1/workspace/docs/specs/brainstorm/BRN-001.md"
+    },
+    {
+      "name": "actual-validator-execution",
+      "status": "PASS",
+      "evidence": "Successful native validator process with OK output"
+    }
+  ],
+  "derived_from": {
+    "path": "grade.json",
+    "sha256": "7af7435efb21ac618f8a665410a92cef418edba6098f2bdb563c4a888c278c37",
+    "reason": "Complete the pending handoff semantic review; all automatic results and document-quality review preserved."
+  }
+}

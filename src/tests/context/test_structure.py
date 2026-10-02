@@ -5,7 +5,7 @@
   devforgeai-version), metadata values quoted, and validates against skill-frontmatter.schema.json;
 - the description is the one SPEC-011 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02), and provenance.yaml validates
-  against skill.schema.json and records SKL-010 implementing SPEC-011 v2;
+  against skill.schema.json and records SKL-010 implementing SPEC-011 v3;
 - SPEC-011 validates against spec.schema.json, and every BEH, ERR and QR item is covered by a VER item;
 - the skill's folder holds what SPEC-011 §3 lists.
 
@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/context"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-011.md"
-SKL, SPEC_VERSION = "SKL-010", 2
+SKL, SPEC_VERSION = "SKL-010", 3
 
 
 class _Loader(yaml.SafeLoader):
