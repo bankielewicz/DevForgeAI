@@ -3,7 +3,7 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: approved
-version: 11
+version: 12
 created: 2026-09-22
 updated: 2026-10-03
 owner: "Bryan"
@@ -21,7 +21,7 @@ upstream:
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
-  - {id: SPEC-012, relation: constrains, version: 5, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
+  - {id: SPEC-012, relation: constrains, version: 7, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -48,6 +48,10 @@ This skill implements the spec and is recorded as `SKL-001` in its `provenance.y
 **Version 11** (2026-10-03) has the skill keep its workflow checklist in Claude Code's task list when the session
 has one, as the progress tracker's task-list convention asks (SPEC-012 §4), so that each answer is credited to
 the step that asked for it (BEH-12).
+
+**Version 12** (2026-10-03) runs the validator as a command of its own, so its exit status is the validator's: a
+run joined to another command, such as `; echo "exit=$?"`, proves nothing, and the progress tracker rightly
+credits none (BEH-09; SPEC-012 BEH-06).
 
 ## 2. Constraints
 
@@ -171,7 +175,7 @@ behaviors:
     rule: "Build the document from ${CLAUDE_SKILL_DIR}/assets/brainstorm.md. Keep every section heading. Replace each placeholder or mark it [NEEDS CLARIFICATION]. Delete author comments."
   - id: BEH-09
     status: active
-    rule: "Validate after writing. Run scripts/validate_brn.py on the file (standard library only; it applies references/output-rules.md mechanically: frontmatter keys, ID patterns, quoted free text, one top-level key per item block, no leftover placeholders) and fix what it reports. Only without a shell or Python, check against references/output-rules.md by hand. Then read the file back and confirm that every disposition other than open, and status converged, was confirmed by the user, because the script cannot check this. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). Repeat until clean, at most three attempts."
+    rule: "Validate after writing. Run scripts/validate_brn.py on the file (standard library only; it applies references/output-rules.md mechanically: frontmatter keys, ID patterns, quoted free text, one top-level key per item block, no leftover placeholders) and fix what it reports. Run it as a command of its own, not joined to another with ;, a pipe or a background &, so its exit status is the validator's (&& and 2>&1 are fine): the progress tracker credits no run whose status another command hides (SPEC-012 BEH-06; version 12). Only without a shell or Python, check against references/output-rules.md by hand. Then read the file back and confirm that every disposition other than open, and status converged, was confirmed by the user, because the script cannot check this. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). Repeat until clean, at most three attempts."
   - id: BEH-10
     status: active
     rule: "Hand off with counts of problems, ideas and assumptions, the ideas promoted, the open questions and the BRN file path. Then name the next workflow step: if ${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md exists, tell the user to run /devforgeai:prd with the BRN ID (for example /devforgeai:prd BRN-001; the prd skill takes an ID, never a path, per SPEC-002 §5) and give the BRN path as its input; otherwise say the PRD workflow (planned as /devforgeai:prd) is not built yet and that, once it is, /devforgeai:prd with this BRN's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start writing a PRD."
@@ -248,7 +252,7 @@ VER-02 can check that nothing gets promoted.
 verifications:
   - id: VER-01
     status: active
-    obligation: "Asked to brainstorm a named topic in an empty workspace, the skill fires, creates docs/specs/brainstorm/BRN-001.md containing problems and ideas item blocks, and hands off. Eval case writes-valid-brn: tool_used Skill, file_exists, regex on the file, regex on the trace for validate_brn.py, llm rubric."
+    obligation: "Asked to brainstorm a named topic in an empty workspace, the skill fires, creates docs/specs/brainstorm/BRN-001.md containing problems and ideas item blocks, and hands off. Eval case writes-valid-brn: tool_used Skill, file_exists, regex on the file, regex on the trace for validate_brn.py, a tool_used grader that a Bash command runs validate_brn.py with no ; or | in it (version 12), llm rubric."
     level: e2e
     covers:
       - BEH-01
@@ -361,7 +365,7 @@ verifications:
 The skill is new, so there is nothing to migrate. Removing the plugin, or the skill directory within
 it, rolls it back. BRN documents it wrote stay valid because they depend only on the template and schema.
 
-Version 11 (SKL-001 v6) ships in a plugin version no earlier than the one that builds SPEC-012 version 5 and
+Versions 11 and 12 (SKL-001 v6) ship in a plugin version no earlier than the one that builds SPEC-012 version 5 and
 SPEC-013 version 5, so a session without the task tools is never held to a task list. The checklist's lines
 don't change, so the tracker's brainstorm manifest stays matched. Rolling back is returning to SKL-001 v5; the
 tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
@@ -379,7 +383,8 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 **Version 11** (after approval), through `/plugin-dev:create-plugin` and Anthropic's two skill guides:
 1. Write the eval case `keeps-task-list` (hand-written, like the other brainstorm cases) and run it on SKL-001 v5
    with `--runs 1 --ablation none`; it fails, since v5's text names no `devforgeai_step`.
-2. Build SKL-001 v6: the Workflow section takes BEH-12's wording, `provenance.yaml` and
+2. Build SKL-001 v6, which implements versions 11 and 12: the Workflow section takes BEH-12's wording and step 7
+   BEH-09's (the validator as a command of its own), writes-valid-brn gains VER-01's new grader, `provenance.yaml` and
    `metadata.devforgeai-version` go to 6, skill-reviewer reviews it, and `evaluate.py check` (SPEC-012 IF-02)
    reports the brainstorm manifest matched.
 3. Evaluate cheapest first: `keeps-task-list` with `--runs 1 --ablation none`, then the suite with `--runs 1`,
@@ -428,3 +433,5 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 | 10 | 2026-09-27 | Bryan | Approved | status |
 | 11 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 5's task-list convention (Bryan, 2026-10-03): BEH-12 keeps the workflow checklist in the session's task list, when it has one, with each question asked under its step; new VER-11 (eval case keeps-task-list) and VER-12 (live); §5 lists the task tools and shows SKL-001 v6; SPEC-012 link | frontmatter, §1, §5, BEH-12, VER-11, VER-12, §10, §11, §12, §13 |
 | 11 | 2026-10-03 | Bryan | Approved | status |
+| 12 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03 on the validator run joined with '; echo': BEH-09 runs the validator as a command of its own, so its exit status is the validator's and the progress tracker can credit it (SPEC-012 version 7, BEH-06); VER-01 gains a grader for it; SPEC-012 link moved to version 7 | frontmatter, §1, BEH-09, VER-01, §10, §11 |
+| 12 | 2026-10-03 | Bryan | Approved | status |

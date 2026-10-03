@@ -28,9 +28,9 @@ TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 6, 
 # Each skill's (status, approved_by, approved_on): SKL-002 v5 was approved by Bryan on 2026-10-02, after its
 # requalification; SKL-003 v6 on 2026-10-01, after its 3-run qualification and manual checks.
 APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approved", "Bryan", "2026-10-01")}
-# SPEC-002 v5: issue #39, NEEDS ADR. SPEC-003 v6 (2026-10-03): the task list and step 8's confirmation; SKL-003 v6
-# still implements v5 (TARGETS) until SKL-003 v7 is built.
-SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (6, "approved")}
+# SPEC-002 v5: issue #39, NEEDS ADR. SPEC-003 v6 and v7 (2026-10-03): the task list and step 8's confirmation;
+# SKL-003 v6 still implements v5 (TARGETS) until SKL-003 v7 is built.
+SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (7, "approved")}
 
 
 class _Loader(yaml.SafeLoader):

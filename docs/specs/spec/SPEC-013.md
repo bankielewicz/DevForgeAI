@@ -3,7 +3,7 @@ id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
 status: approved    # draft | in-review | approved | superseded | deprecated
-version: 5
+version: 6
 created: 2026-10-02
 updated: 2026-10-03
 owner: "Bryan"
@@ -18,7 +18,7 @@ approved_on: 2026-10-03
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
-  - {id: SPEC-012, relation: constrains, version: 6, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
+  - {id: SPEC-012, relation: constrains, version: 7, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "progress tracking by evidence; this spec brings the core of SPEC-012 into Claude Code sessions"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions are the user's: enforce mode refuses a write that records a user-owned decision without the user's answer, and no button sends a prompt"}
 supersedes: []
@@ -67,6 +67,11 @@ while no step is in progress, at SPEC-012's new question gate.
 Haiku 4.5); on newer ones, Opus 5.5 among them, a session has them only when the user opts in. Version 4 wrote
 `taskList` true for every session, which would hold a session with no task tools to a list it can't keep, with
 every question refused in enforce mode. `taskList` now says whether the session has the tools.
+
+**Version 6** (2026-10-03) makes the build's review findings rules: the question refusal says that an earlier run's
+tasks don't count, a TodoWrite is compared with the list it replaced, a question check waits for task-tool calls
+still under way, the adherence notice stays once per run across a reload, and adapter.log lists every kind it
+writes.
 
 **Out of scope,** each for a later spec:
 - the Journey and Workflow pane, and its graphics (`Svg`, `Image`, `Raster`), characters and animation settings;
@@ -226,7 +231,7 @@ for `current.json`, §2). `<session>` is `$.session.id()` when the file is writt
 | `runs/<run>/state.json` | by the evaluator | SPEC-012 DM-03, through IF-01's `--out` |
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
 | `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
-| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused`, `context`, `fail-open`, `error`, `prune`. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
 
 `prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
 retention period (BEH-19), and nothing else.
@@ -258,6 +263,7 @@ interface ProgressState {
   tasks: Record<string, number> // the open run's task IDs and their step numbers (BEH-20)
   todos: Record<string, string> // TodoWrite: each step's last status, by step number (BEH-20)
   hinted: boolean               // the task-tools hint was shown this session (BEH-23)
+  adhered: string | null        // the run given the adherence notice (BEH-22), so a reload doesn't repeat it
 }
 ```
 
@@ -361,13 +367,13 @@ behaviors:
     rule: "Once per session ID, when its first run opens, and again when a run opens under another root, the adapter starts IF-04 after the run's folder exists, with --root the run's root, --days the retentionDays setting (DM-06), --keep-session the session's ID and --keep-run the new run's ID, and timeoutMs 10000. Nothing waits for it, no hook and no tool call, and its output line goes to adapter.log as kind prune; its failure is ERR-12. What protects a run still open in another, idle session is DM-06's floor of 7 days, not --keep-run, which only spares the caller's new folder in case its files' times are old. Nothing is deleted at session.end: $.fs can't delete, all session.end hooks share 1.5 seconds, which the final evaluation needs (BEH-05), and a session closed with its terminal or killed may not fire session.end at all, so the next session's pruning covers every way a session ends. A project where no tracked skill runs gets no pruning and no files (BEH-15)."
   - id: BEH-20
     status: active
-    rule: "While a run is open, the adapter reads Claude Code's task list as SPEC-012's task-list convention (§4) has a skill keep it. After a TaskCreate that didn't fail, it maps the task's ID, taken from the result text 'Task #<id> created successfully', to a step number: the input's metadata devforgeai_step when it is a whole number, else the number that starts its subject ('<N>. <title>'); it keeps the map in $.state for the run. After a TaskUpdate that didn't fail, for a mapped task, status in_progress gives a step event with state started and completed one with state done, recorded after the call's tool event; other statuses, and unmapped tasks, give none. After a TodoWrite that didn't fail, each todo whose content starts with '<N>.' is compared with that step's last status: becoming in_progress gives started, becoming completed gives done (a todo that goes straight from pending to completed gives done only), and the new statuses are kept. A new run starts with an empty map: a task list left over from an earlier run gives no step events until its tasks are created again or updated in a TodoWrite."
+    rule: "While a run is open, the adapter reads Claude Code's task list as SPEC-012's task-list convention (§4) has a skill keep it. After a TaskCreate that didn't fail, it maps the task's ID, taken from the result text 'Task #<id> created successfully', to a step number: the input's metadata devforgeai_step when it is a whole number, else the number that starts its subject ('<N>. <title>'); it keeps the map in $.state for the run. After a TaskUpdate that didn't fail, for a mapped task, status in_progress gives a step event with state started and completed one with state done, recorded after the call's tool event; other statuses, and unmapped tasks, give none. Overlapping task-tool calls, as a batch of TaskCreate calls gives, each see the others' mappings. After a TodoWrite that didn't fail, each todo whose content starts with '<N>.' is compared with its status in the list the call replaced, as the call's result gives it (oldTodos), or with that step's last status when the result has none, so an earlier run's completed todos left in the list claim nothing in a new run (version 6): becoming in_progress gives started, becoming completed gives done (a todo that goes straight from pending to completed gives done only), and the new statuses are kept. A new run starts with an empty map: a task list left over from an earlier run gives no step events until its tasks are created again or updated in a TodoWrite."
   - id: BEH-21
     status: active
-    rule: "In enforce mode, for each AskUserQuestion that Claude Code fires while a run is open, the adapter checks before calling next(e), leaving to the evaluator whether the run follows the task list (SPEC-012 BEH-18), as BEH-08 does for a write: it writes the run's lines plus a pending answer event (answered true) to runs/<run>/pending.jsonl and runs IF-03 on it. When that state's gate has kind question, seq equal to the pending event's seq and refuse true, it answers { deny } without calling next(e), with the text: 'DevForgeAI's progress tracker refused this question (enforce mode): no step is marked in progress in your task list. If you haven't, first turn the skill's checklist into your task list as the skill says (one task per step, subject <N>. <title>, metadata devforgeai_step: N); then mark the step this question belongs to in_progress (TaskUpdate, or TodoWrite), and ask again.' Where nothing draws, the same text goes to $.ui.log. The refused question is recorded as nothing, since the user never saw it; a toast shows the refusal's first line (BEH-12), and adapter.log gets a line of kind refused. Otherwise the call proceeds and its answer is recorded as DM-01 says. In observe mode nothing is checked; the evaluator flags the question afterwards."
+    rule: "In enforce mode, for each AskUserQuestion that Claude Code fires while a run is open, the adapter checks before calling next(e), after waiting up to 2 seconds for task-tool calls still under way and for events still being written, so a question sent in the same batch as the TaskUpdate that marks its step sees that step event (version 6), leaving to the evaluator whether the run follows the task list (SPEC-012 BEH-18), as BEH-08 does for a write: it writes the run's lines plus a pending answer event (answered true) to runs/<run>/pending.jsonl and runs IF-03 on it. When that state's gate has kind question, seq equal to the pending event's seq and refuse true, it answers { deny } without calling next(e), with the text: 'DevForgeAI's progress tracker refused this question (enforce mode): no step of this run is marked in progress in your task list. Tasks from an earlier run don't count: if this run's checklist isn't in your task list yet, turn it into tasks first as the skill says (one task per step, subject <N>. <title>, metadata devforgeai_step: N). Then mark the step this question belongs to in_progress (TaskUpdate, or TodoWrite), and ask again.' Where nothing draws, the same text goes to $.ui.log. The refused question is recorded as nothing, since the user never saw it; a toast shows the refusal's first line (BEH-12), and adapter.log gets a line of kind refused. Otherwise the call proceeds and its answer is recorded as DM-01 says. In observe mode nothing is checked; the evaluator flags the question afterwards."
   - id: BEH-22
     status: active
-    rule: "When a run that follows the task list (SPEC-012 BEH-18) ends, or reaches its report gate, and its state counts no step event or at least one unmarked question, the adapter shows one toast in either mode, '<skill> didn't keep its task list: <n> step events, <m> questions asked with no step in progress. Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)', and writes the same to adapter.log as kind adherence, once per run. It is SPEC-012 §4's second level; the third, fixing the skill, is the maintainers' (each skill's spec names its eval case)."
+    rule: "When a run that follows the task list (SPEC-012 BEH-18) ends, or reaches its report gate, and its state counts no step event or at least one unmarked question, the adapter shows one toast in either mode, '<skill> didn't keep its task list: <n> step events, <m> questions asked with no step in progress. Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)', and writes the same to adapter.log as kind adherence, once per run: $.state's adhered holds the run, so a reload of the module doesn't repeat it (version 6). It counts a run as having reached its report gate when the state's gate is the report's or its report step is done, since a later event can move the gate on before the next evaluation. It is SPEC-012 §4's second level; the third, fixing the skill, is the maintainers' (each skill's spec names its eval case)."
   - id: BEH-23
     status: active
     rule: "Once per session, when a tracked skill whose text names devforgeai_step loads and the session's tool list names no task-list tool (skill-loaded taskList false), the adapter shows one toast, in either mode: '<skill>: this session has no task list, so DevForgeAI places your answers by guessing. For exact step tracking, start Claude Code with CLAUDE_CODE_ENABLE_TODO_TOOLS=1 (DevForgeAI SPEC-012 §4)'. Where nothing draws, the same text goes to $.ui.log. adapter.log gets a line of kind tools-hint, and $.state's hinted becomes true, so later runs in the session show nothing (Bryan, 2026-10-03)."
@@ -840,6 +846,14 @@ verifications:
     level: integration
     covers:
       - BEH-23
+  - id: VER-26
+    status: active
+    obligation: "Kit tests: a refused question gets the version 6 text, naming this run; a TodoWrite whose result's oldTodos already hold '2. Pick' completed gives no done event for step 2 in a new run, while one that completes it gives done; a run given the adherence notice has $.state's adhered set to its ID, and the adapter decides by that value alone, not a module variable, so a reload, which the kit can't play (a second session.start keeps the module's variables), doesn't repeat it; adapter.log lines of kinds task, tools, adherence and tools-hint are one line each."
+    level: integration
+    covers:
+      - BEH-20
+      - BEH-21
+      - BEH-22
 ```
 
 ## 10. Rollout, migration and rollback
@@ -883,6 +897,8 @@ verifications:
 - **Version 4.** Built after approval with SPEC-012 version 5, in one plugin version, so the deployed adapter and
   evaluator agree on step events. Until a skill's text names `devforgeai_step`, its runs don't follow the task list,
   so the question gate never checks them and nothing new is refused; the skills' wording ships in their own builds.
+- **Version 6.** Built with SPEC-012 version 7, in one plugin version, after approval. Nothing new is refused: the
+  question check refuses only where version 5's did, with clearer recovery text.
 - **Version 5.** Built with version 4, in its place: version 4 is never built alone. A session without the task
   tools writes `taskList` false, so a skill whose text names `devforgeai_step` isn't held to the task list there,
   and its answers are placed by SPEC-012 BEH-09's windows as before. This adapter is deployed no later than the
@@ -926,6 +942,10 @@ Version 4's build, with SPEC-012 version 5:
 Version 5 adds to that build, before its step 3: the kit test of VER-24 and its generated evaluator case, seen
 failing, and the kit test of VER-25; then `taskList` from `$.tool.list()` (DM-01, ERR-14) and the task-tools
 hint (BEH-23, DM-03).
+
+Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failing; then the refusal text and the wait
+(BEH-21), TodoWrite against oldTodos (BEH-20), adhered (BEH-22, DM-03); then plugin-validator and every test, and
+§9.
 
 ## 12. Alternatives considered
 
@@ -982,6 +1002,8 @@ Decided by Bryan on 2026-10-02:
 - VS Code: tracking only for now, with notices in the transcript (BEH-01); `progress.html` is a later spec.
   BEH-01 assumes VS Code's chat panel starts with `isInteractive` true and no surface; that is untested until
   someone runs the adapter there.
+
+Decided by Bryan on 2026-10-03, for version 6: the build's review findings become rules (§1).
 
 Decided by Bryan on 2026-10-03, for version 5: a session without the task tools is told once how to get
 exact step tracking (BEH-23), although the docs present the default as deliberate, since on newer models
@@ -1051,3 +1073,5 @@ Notes:
 | 5 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build of versions 4 and 5 with SPEC-012 versions 5 and 6, and the plugin-validator review | §9 |
 | 5 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the eval load check of the step-events build | §9 |
 | 5 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the merge of versions 4 and 5 in PR #68 (plugin 0.15.0) | §9 |
+| 6 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After the build's plugin-validator review and Bryan's decisions of 2026-10-03: the question refusal says an earlier run's tasks don't count (BEH-21); a question check waits up to 2 seconds for task-tool calls and events under way (BEH-21); a TodoWrite is compared with the list it replaced (BEH-20); adhered keeps the adherence notice once per run across a reload, and a done report step counts as the report reached (BEH-22, DM-03); DM-02 lists adapter.log's kinds; new VER-26; SPEC-012 link moved to version 7 | frontmatter, §1, DM-02, DM-03, BEH-20, BEH-21, BEH-22, VER-26, §10, §11, §13 |
+| 6 | 2026-10-03 | Bryan | Approved | status |
