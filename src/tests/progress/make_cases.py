@@ -495,6 +495,26 @@ def _():
     return log, plugin_only(), {}
 
 
+# ---- version 4 -----------------------------------------------------------------------------------
+
+@case("intake-then-tick")  # VER-28: step 1 ticked only after the answer: the answer was intake's, not step 5's
+def _():
+    log = Log("brainstorm").glob("docs/specs/brainstorm/BRN-*.md").answer().reply("- [x] 1. done")
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("arch-retick-after-answer")  # VER-28: pins the limit §13 names; its expected state is versions 3 and 4's verdict
+def _():
+    log = arch_start(Log("architecture")).glob("docs/specs/arch/ARCH-*.md").tick(1, 2, 3, 4, 6)
+    log.reply("- [x] 7. Which queue: SQS (Recommended) or Kafka?").answer().reply("- [x] 7. done")
+    return log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create")), plugin_only(), {}
+
+
+@case("write-dot-path")  # VER-29: a Write's ./ path reaches the write gate
+def _():
+    return brn_start(Log("brainstorm")).write("./" + BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():

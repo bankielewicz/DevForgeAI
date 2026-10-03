@@ -526,6 +526,26 @@ class SpecRules(Base):
         self.assertEqual(self.step(state, 5)["evidence"], [])
 
 
+    # ---- version 4 ----
+
+    # VER-28: an earlier step ticked only after the answer still moves the window; the re-tick limit is pinned.
+    def test_ver28_a_step_finished_after_the_answer_moves_the_window(self):
+        state, _, _, _ = self.run_case("intake-then-tick")
+        self.assertEqual(sorted((f["step"], f["type"]) for f in state["flags"]), [(5, "skipped"), (6, "rule-broken")])
+        self.assertTrue(state["gate"]["refuse"])
+        limit, _, _, _ = self.run_case("arch-retick-after-answer")
+        # The limit §13 names: step 7's answer goes to step 8. Pinned so a later BEH-09 change shows here.
+        self.assertEqual(sorted((f["step"], f["type"]) for f in limit["flags"]), [(7, "skipped"), (9, "rule-broken")])
+        self.assertEqual(self.step(limit, 8)["state"], "done")
+
+    # VER-29: a Write's ./ path reaches the write gate.
+    def test_ver29_a_dot_write_reaches_the_gate(self):
+        state, _, _, _ = self.run_case("write-dot-path")
+        cut, _, _, _ = self.run_case("brn-unconfirmed-cut")
+        self.assertEqual([(f["step"], f["type"]) for f in state["flags"]], [(f["step"], f["type"]) for f in cut["flags"]])
+        self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", True))
+
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")
