@@ -26,7 +26,7 @@ ROOT = Path("src/claude/DevForgeAI/evals/architecture")
 SCHEMAS = Path("src/schemas")
 POLICIES = Path("src/staging/examples/policy-two-orgs")
 TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
-TASK_TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash, TaskCreate, TaskUpdate, TaskList, TaskGet, ToolSearch]"
+TASK_TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash, TaskCreate, TaskUpdate, TaskList, TaskGet]"
 VALIDATE_POLICY = Path("src/claude/DevForgeAI/skills/architecture/scripts/validate_policy.py")
 
 # --- Fixtures -------------------------------------------------------------------------------------
@@ -1384,8 +1384,9 @@ platform change.
         "files": dict(docs__specs__prd__PRD_001=PRD_ROSTER_Q, docs__specs__arch__ARCH_001=ARCH_BEFORE_ROSTER,
                       docs__specs__adr__ADR_001=ADR_AUTH0),
         "prompt": "PRD-001 is now at version 2: it adds FR-003, the coordinator's daily roster. Let's amend ARCH-001 for\n"
-                  "it. Leave every new architectural question open for now; I'll decide them later.\n",
-        "description": "VER-28: choosing to amend ARCH-001 without confirming the outcome, with every new question deferred: nothing is written to ARCH-001 before the outcome is confirmed, and the final reply asks to confirm amend, naming the new DEC, the new version and the return to in-review.",
+                  "it. Leave every architectural question open for now, the existing DEC-02 included; I'll decide them\n"
+                  "later.\n",
+        "description": "VER-28: choosing to amend ARCH-001 without confirming the outcome, with every question deferred (the new one and the open DEC-02): nothing is written to ARCH-001 before the outcome is confirmed, and the final reply asks to confirm amend, naming the new DEC, the new version and the return to in-review.",
         "graders": {
             "skill-fired": FIRED,
             "arch-001-unchanged": regex(ARCH, "contains", "^" + lit(ARCH_BEFORE_ROSTER) + "$"),
@@ -1398,7 +1399,7 @@ type: llm
 Context the reply was written in: the workspace held PRD-001 version 2 (approved), which adds FR-003, the
 coordinator's daily roster, with a NEEDS ADR marker asking where the roster is served from, and ARCH-001, an
 approved architecture defined against PRD-001 version 1 with no question about the roster. The user asked to amend ARCH-001 for version 2 and to leave
-every new architectural question open for later. The user didn't confirm the amend outcome.
+every architectural question open for later, the existing DEC-02 (session revocation) included. The user didn't confirm the amend outcome.
 
 Judge only the final reply. PASS if it asks the user to confirm amending ARCH-001 before anything is written
 to it, and names what amending will change: at least (1) a new architectural question (a DEC) about the
@@ -1413,8 +1414,8 @@ confirmation, or if any of the three is missing.
         "files": dict(docs__specs__prd__PRD_001=PRD_ROSTER_Q, docs__specs__arch__ARCH_001=ARCH_BEFORE_ROSTER,
                       docs__specs__adr__ADR_001=ADR_AUTH0),
         "prompt": "PRD-001 is now at version 2: it adds FR-003, the coordinator's daily roster. Amend ARCH-001 for it;\n"
-                  "I confirm the amend outcome. Leave every new architectural question open for now; I'll decide them\n"
-                  "later.\n",
+                  "I confirm the amend outcome. Leave every architectural question open for now, the existing DEC-02\n"
+                  "included; I'll decide them later.\n",
         "description": "VER-29: a confirmation in the request still asks at step 8 with a user present: ARCH-001 is unchanged, and the final reply asks to confirm amend, naming what amending changes.",
         "graders": {
             "skill-fired": FIRED,
@@ -1428,8 +1429,8 @@ type: llm
 Context the reply was written in: the workspace held PRD-001 version 2 (approved), which adds FR-003, the
 coordinator's daily roster, with a NEEDS ADR marker asking where the roster is served from, and ARCH-001, an
 approved architecture defined against PRD-001 version 1 with no question about the roster. The user asked to amend ARCH-001 for version 2, wrote "I
-confirm the amend outcome", left every new architectural question open for later, and didn't ask to proceed
-without questions.
+confirm the amend outcome", left every architectural question open for later, the existing DEC-02 (session revocation)
+included, and didn't ask to proceed without questions.
 
 Judge only the final reply. PASS if it asks the user to confirm amending ARCH-001 now that the change is known,
 before anything is written to it, and names what amending will change: at least (1) a new architectural

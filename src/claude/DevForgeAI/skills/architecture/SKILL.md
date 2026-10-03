@@ -59,8 +59,8 @@ can answer only these:
 - which ARCH, and the outcome, but only by naming the outcome for that ARCH ("amend ARCH-001",
   "reuse ARCH-001; I confirm reuse", "create a new ARCH"). Asking to define or update the
   architecture, or to reuse a component or service, confirms no outcome. When the run will write to an
-  existing ARCH, the request's outcome only picks the direction: step 8 still asks once the change is
-  known, unless the request says to proceed without questions;
+  existing ARCH, the outcome the request named only picks the direction: step 8 still asks once the
+  change is known, unless the request says to proceed without questions;
 - the inspection scope, and that a question is non-blocking;
 - that a named accepted ADR answers a named question ("ADR-004 settles the identity provider").
 
@@ -73,21 +73,25 @@ without asking.
 
 **Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options
 each, with the recommended option first and marked "(Recommended)", each form tagged with its step
-(Workflow). Otherwise ask in plain text and
-end your turn. Use at most `interview.max_calls` calls (step 1; default 8) unless the user asks for
-more; questions left when the budget runs out stay open. Write nothing that a pending answer
-affects until the answer arrives.
+(Workflow, item 4). Otherwise ask in plain text and end your turn. Use at most `interview.max_calls`
+calls (step 1; default 8) unless the user asks for more; questions left when the budget runs out
+stay open. When the run will write to an existing ARCH, keep one call for step 8's question. Write
+nothing that a pending answer affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask
-me anything", "decide nothing"), ask no decision questions:
+me anything", "proceed without asking me anything else", "decide nothing"), ask nothing but an open
+gate (below):
 - no question is newly resolved except by a mandated platform, and never a DEC reopened because its
   mandated platform changed. Resolutions already in an ARCH being amended follow
   [readiness.md](references/readiness.md), "State changes when amending";
 - an accepted ADR the request names as answering a question doesn't resolve it: record it as for a
   preference (above), and the DEC stays open;
-- `outcome` stays `null` unless the request names it for this ARCH (above);
+- `outcome` stays `null` unless the request names it for this ARCH (above), and step 8 asks nothing;
 - write no ADR at all;
 - read nothing outside the inspection scope, and record the gap as an unknown.
+
+A request that only defers decisions ("leave the questions open", "I'll decide them later") is not
+this rule: those questions are *Decide later* at step 7, and step 8 still asks.
 
 Every other step still runs, and a new ARCH is still written when none covers the system. This
 never answers the two gates: **which PRD**, and **reuse, amend or create when an existing ARCH covers
@@ -113,23 +117,28 @@ Work through this checklist:
 - [ ] 11. Compute readiness, report and hand off
 ```
 
-**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and TaskUpdate, or
-TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress tracker credits each answer
-to the step the list marks and the question's tag names, so keep both exact:
+**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and
+TaskUpdate, or TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress
+tracker credits an answer to a step only when the list marks that step in progress and, for a
+question form, its tag names that step:
 
-1. Before anything else, create one task per step: subject `<N>. <title>` (the step's line without the box),
-   metadata `devforgeai_step: N`; with TodoWrite, content `<N>. <title>`.
-2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a time; a
-   step with nothing to do is completed too (step 5 with no scope, step 7 with no open question).
-3. Before asking any question, mark the step it belongs to in_progress: which PRD → step 2; reuse, amend or
-   create → step 4; reading outside the inspection scope → step 5; every decision question → step 7; the
-   outcome → step 8. Complete step 7 and mark step 8 in_progress before the outcome question, and ask it
-   alone, in its own form. Never put two steps' questions in one question form.
-4. Tag each question form with its step: AskUserQuestion's `metadata: {"source": "devforgeai_step:N"}`, which
-   the user doesn't see, and `header: "Step N"` on each of its questions, which the user does.
+1. Before anything else, create one task per step: subject `<N>. <title>` (the step's line without
+   the box), metadata `devforgeai_step: N`; with TodoWrite, content `<N>. <title>`. Create them even
+   when an earlier run's tasks are still in the list: those don't count for this run.
+2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
+   time; a step with nothing to do is completed too (step 5 with no scope, step 7 with no open
+   question). Mark step 11 completed just before writing the final reply.
+3. Before asking any question, mark the step it belongs to in_progress: which PRD → step 2; reuse,
+   amend or create → step 4; reading outside the inspection scope → step 5; every decision question
+   → step 7; the outcome → step 8; any other question → the step whose work asks it (a component's
+   kind → step 6). Complete step 7 and mark step 8 in_progress before the outcome question, and ask
+   it alone, in its own form. Never put two steps' questions in one question form.
+4. Tag each question form with its step: AskUserQuestion's
+   `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
+   on each of its questions, which the user does.
 
-Without task-list tools, copy the checklist into your response and tick items off (`- [x] N.`) in your reply
-text as you go.
+Without task-list tools, copy the checklist into your response and tick items off (`- [x] N.`) in
+your reply text as you go.
 
 ### 1. Resolve policy (R1, R2)
 
@@ -198,7 +207,8 @@ names the product this PRD's title names.
 
 A choice of reuse or amend, in the request or an answer, picks the direction. It confirms the outcome
 only when the run will write nothing to the existing ARCH (a reuse whose PRD link already equals the
-PRD's version); otherwise step 8 asks for confirmation once the change is known. A reuse that step 4
+PRD's version); otherwise step 8 asks for confirmation once the change is known, unless the request
+says to proceed without questions (step 8). A reuse that step 4
 can't offer answers nothing: say why (naming the DEC, the setting and both
 platforms when a mandated platform changed), offer amend or create, and write nothing until the
 user answers. Otherwise the choice stands unless step 8 finds another outcome is needed, such as a
@@ -278,18 +288,19 @@ Propose one outcome, with reasons:
   `resolved_by` changes in this run (a decision recorded, or a resolver that no longer counts);
 - **create:** no ARCH covers the system.
 
-Using a mandated or existing platform or component is not a reuse outcome. Ask the user to confirm
-the outcome, alone in its own question form:
+Using a mandated or existing platform or component is not a reuse outcome. When the request says to
+proceed without questions, ask nothing: write the outcome the request named for this ARCH, otherwise
+`null`. Otherwise ask the user to confirm the outcome, alone in its own question form:
 - **The run will write to the existing ARCH** (an amendment, or reuse's review record): ask now that
   the change is known, and name what will change: the DEC, CMP and EVD items added, the DECs whose
   state or resolver changes, the ADRs accepted or superseded, the new version, and an approved ARCH's
   return to in-review. Ask even when step 4 or the request already chose or confirmed the outcome: a
-  confirmation given before the change is known only picks the direction. Only a request to proceed
-  without questions keeps the request's confirmation; then ask nothing.
+  confirmation given before the change is known only picks the direction.
 - **Otherwise** (create, or a reuse that writes nothing): ask unless the request or step 4 already
   confirmed it.
 
-Write `outcome` only when it is confirmed; otherwise it stays `null`. Confirming the outcome accepts no decision. When proposing reuse, and in the report
+Write `outcome` only when it is confirmed; otherwise it stays `null`. Confirming the outcome accepts
+no decision. When proposing reuse, and in the report
 when it is confirmed, name each active requirement no active blocking DEC cites: it is reported
 ready with no architectural question holding it back (readiness.md, "Reuse, and deciding a question
 later").
@@ -385,8 +396,9 @@ is, run `/devforgeai:epic PRD-001` for the ready requirements; FR-001 waits for 
 
 Never start epic work, and never write an epic.
 
-When the skill stops without writing (a gate is open, no PRD exists, ERR-01, ERR-02, ERR-04), the
-reply says why and what the user can do, and leaves out the report block.
+When the skill stops without writing (a gate is open, the outcome question is pending at step 8, no
+PRD exists, ERR-01, ERR-02, ERR-04), the reply says why and what the user can do, and leaves out the
+report block.
 
 **After ERR-05**, a validation-failure report replaces both the block and the next step. It gives
 each file path with the status left (and cleared approvals), any supersession rolled back, every
@@ -421,6 +433,8 @@ its DEC, then the next step.
 **An ARCH already covers the system.** "Run architecture for PRD-002." ARCH-001 covers the same
 clinic system and cites PRD-002 version 2; version 3 adds a `[NEEDS ADR]` marker. The skill
 recommends amending ARCH-001, with that reason, asks, and writes nothing until the user answers.
+Once the user picks amend and step 7 is done, it asks again at step 8, naming the new DEC, the new
+version and ARCH-001's return to in-review.
 
 **A decision made interactively.** For "Which identity provider handles sign-in?" the skill offers
 three providers with trade-offs against the security NFRs, recommending one. The user picks it, so

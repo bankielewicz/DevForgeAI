@@ -1,7 +1,7 @@
 ---
 description: "VER-01: a named topic in an empty workspace produces BRN-001 with problems and ideas, then a handoff."
 tags: [brainstorm, ver-01]
-max_turns: 40
+max_turns: 60
 timeout_seconds: 900
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

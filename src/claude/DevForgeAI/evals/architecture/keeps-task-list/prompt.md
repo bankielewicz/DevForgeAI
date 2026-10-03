@@ -3,7 +3,7 @@ description: "VER-26: with the task-list tools allowed, VER-01's fixture and pro
 tags: [architecture, ver-26]
 max_turns: 60
 timeout_seconds: 1200
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, TaskCreate, TaskUpdate, TaskList, TaskGet, ToolSearch]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, TaskCreate, TaskUpdate, TaskList, TaskGet]
 ---
 Define the architecture for PRD-001, so we know which requirements are ready for epics.
 Proceed without questions.

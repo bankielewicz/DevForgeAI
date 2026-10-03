@@ -49,23 +49,28 @@ Work through this checklist:
 - [ ] 8. Report and hand off
 ```
 
-**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and TaskUpdate, or
-TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress tracker credits each answer
-to the step the list marks and the question's tag names, so keep both exact:
+**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and
+TaskUpdate, or TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress
+tracker credits an answer to a step only when the list marks that step in progress and, for a
+question form, its tag names that step:
 
-1. Before anything else, the question asking for a topic included, create one task per step: subject
-   `<N>. <title>` (the step's line without the box), metadata `devforgeai_step: N`; with TodoWrite, content
-   `<N>. <title>`. The task list is not a file, so it comes before the topic.
-2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a time; a
-   step with nothing to do is completed too.
+1. Before anything else, even before asking for a topic, create one task per step: subject
+   `<N>. <title>` (the step's line without the box), metadata `devforgeai_step: N`; with TodoWrite,
+   content `<N>. <title>`. Create them even when an earlier run's tasks are still in the list: those
+   don't count for this run.
+2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
+   time; a step with nothing to do is completed too. Mark step 8 completed just before writing the
+   final reply, so nothing follows the hand-off.
 3. Before asking any question, mark the step it belongs to in_progress: the topic, clarifying and
-   extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step 5. Never
-   put two steps' questions in one question form.
-4. Tag each question form with its step: AskUserQuestion's `metadata: {"source": "devforgeai_step:N"}`, which
-   the user doesn't see, and `header: "Step N"` on each of its questions, which the user does.
+   extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
+   5; any other question (the framework's own, saving a draft) belongs to the step in progress.
+   Never put two steps' questions in one question form.
+4. Tag each question form with its step: AskUserQuestion's
+   `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
+   on each of its questions, which the user does.
 
-Without task-list tools, copy the checklist into your response once you have a topic, and tick items off
-(`- [x] N.`) in your reply text as you go.
+Without task-list tools, copy the checklist into your response once you have a topic, and tick items
+off (`- [x] N.`) in your reply text as you go.
 
 ### 1. Intake
 
@@ -81,8 +86,8 @@ Without task-list tools, copy the checklist into your response once you have a t
    the request says to proceed without questions. Record anything still unknown as
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
 
-Use AskUserQuestion for questions and confirmations when it is available, tagged with its step (Workflow);
-otherwise ask in plain text and end your turn.
+Use AskUserQuestion for questions and confirmations when it is available, tagged with its step
+(Workflow); otherwise ask in plain text and end your turn.
 
 ### 2. Select a framework
 
@@ -166,11 +171,12 @@ keys, ID patterns, item-block rules and allowed fields.
    python3 ${CLAUDE_SKILL_DIR}/scripts/validate_brn.py docs/specs/brainstorm/BRN-NNN.md
    ```
 
-   Run it exactly so, as a command of its own: never joined to another with `;`, a pipe or a
-   background `&` (`&&` and `2>&1` are fine), so its exit status is the validator's; the progress
-   tracker credits no run whose status another command hides. It prints one line per problem
-   (`line N: message`) and exits 1, or prints `OK: path` and exits 0. Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or
-   Python, check the file by hand against the *Validation checklist* in
+   Run it alone, on one line: never joined to another command with `;`, `|` (or `||`) or a
+   background `&`, and with no second command line (`&&` and `2>&1` are fine). Then its exit status
+   is the validator's: the progress tracker credits no run whose status another command hides. It
+   prints one line per problem (`line N: message`) and exits 1, or prints `OK: path` and exits 0.
+   Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or Python, check
+   the file by hand against the *Validation checklist* in
    [output-rules.md](references/output-rules.md).
 2. The validator can't know what the user confirmed. After it passes, read the file back and
    check that every disposition other than `open`, and `status: converged`, is one the user
