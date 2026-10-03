@@ -31,7 +31,8 @@
       "title": "Inspect within the scope",
       "kind": "read",
       "need": "conditional",
-      "when": "the user named paths to inspect"
+      "when": "the user named paths to inspect",
+      "evidence": [{"type": "read", "pattern": "*", "exclude": ["docs/specs/", ".claude/", "devforgeai/"]}]
     },
     "6": {"title": "Identify the architectural questions and components", "kind": "think", "need": "text-only"},
     "7": {

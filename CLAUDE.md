@@ -44,11 +44,13 @@ SKL-008 is reserved for the story skill (SPEC-009).
 - `git` v3's local checks, new VER-32..35 cases and remaining qualification are recorded separately
   in `docs/runbooks/git-v3-checks.md`. The candidate plugin is 0.10.1; native evaluation, manual
   checks, owner approval and deployment are pending. Retain v2's failures and results above.
-- `progress/` (plugin 0.12.0; SPEC-012 approved, ADR-006 accepted) is the progress tracker's core, not a skill:
+- `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; ADR-006
+  accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
-  SPEC-012 §9 lists the build's departures for Bryan.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod, plugin 0.13.0): it records each tracked
+  SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
+  windows open after two plugin-validator reviews; §13 names what windows still guess.
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0): it records each tracked
   skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
   `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves

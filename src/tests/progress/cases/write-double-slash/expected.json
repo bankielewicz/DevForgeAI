@@ -2,20 +2,35 @@
   "counts": {
     "afterEnd": 0,
     "duplicates": 0,
-    "events": 7,
+    "events": 4,
     "malformed": 0,
     "outOfOrder": 0,
     "unknownClaims": 0
   },
-  "current": null,
+  "current": 7,
   "ended": null,
-  "flags": [],
+  "flags": [
+    {
+      "gate": "write",
+      "message": "step 5 (Propose dispositions and ask the user to confirm) had no answer from you before docs/specs/brainstorm/BRN-002.md was written",
+      "seq": 4,
+      "step": 5,
+      "type": "skipped"
+    },
+    {
+      "gate": "write",
+      "message": "docs/specs/brainstorm/BRN-002.md sets disposition: promoted, which needs your answer at step 5",
+      "seq": 4,
+      "step": 6,
+      "type": "rule-broken"
+    }
+  ],
   "format": "devforgeai-progress/1",
   "gate": {
-    "kind": "report",
-    "reason": null,
-    "refuse": false,
-    "seq": 7
+    "kind": "write",
+    "reason": "step 5 (Propose dispositions and ask the user to confirm) had no answer from you before docs/specs/brainstorm/BRN-002.md was written",
+    "refuse": true,
+    "seq": 4
   },
   "manifest": {
     "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
@@ -25,11 +40,7 @@
     "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
     "state": "matched"
   },
-  "next": {
-    "available": true,
-    "note": "",
-    "skill": "prd"
-  },
+  "next": null,
   "run": "20261002T120000Z-brainstorm-0000abcd",
   "skill": "brainstorm",
   "steps": [
@@ -43,12 +54,6 @@
         {
           "detail": "Glob docs/specs/brainstorm/BRN-*.md",
           "seq": 2,
-          "strength": "medium",
-          "type": "read"
-        },
-        {
-          "detail": "Bash docs/specs/brainstorm/BRN-002.md",
-          "seq": 5,
           "strength": "medium",
           "type": "read"
         }
@@ -112,17 +117,13 @@
       "kind": "ask",
       "n": 5,
       "need": "required",
-      "note": "no answer; left open",
-      "state": "not-applicable",
+      "note": "",
+      "state": "skipped",
       "title": "Propose dispositions and ask the user to confirm",
       "userOwned": true
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 6,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [
         {
           "detail": "Write docs/specs/brainstorm/BRN-002.md",
@@ -135,47 +136,32 @@
       "n": 6,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "rule-broken",
       "title": "Write the BRN",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 6,
-        "state": "done"
-      },
-      "evidence": [
-        {
-          "detail": "validate_brn.py exit 0",
-          "seq": 5,
-          "strength": "strong",
-          "type": "script"
-        }
-      ],
+      "claim": null,
+      "evidence": [],
       "kind": "inspect",
       "n": 7,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "current",
       "title": "Validate the BRN",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 7,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [],
       "kind": "report",
       "n": 8,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Report and hand off",
       "userOwned": false
     }
   ],
-  "through": 7
+  "through": 4
 }

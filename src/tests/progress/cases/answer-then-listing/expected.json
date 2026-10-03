@@ -7,12 +7,12 @@
     "outOfOrder": 0,
     "unknownClaims": 0
   },
-  "current": null,
+  "current": 7,
   "ended": null,
   "flags": [],
   "format": "devforgeai-progress/1",
   "gate": {
-    "kind": "report",
+    "kind": "write",
     "reason": null,
     "refuse": false,
     "seq": 7
@@ -25,11 +25,7 @@
     "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
     "state": "matched"
   },
-  "next": {
-    "available": true,
-    "note": "",
-    "skill": "prd"
-  },
+  "next": null,
   "run": "20261002T120000Z-brainstorm-0000abcd",
   "skill": "brainstorm",
   "steps": [
@@ -47,8 +43,8 @@
           "type": "read"
         },
         {
-          "detail": "Bash docs/specs/brainstorm/BRN-002.md",
-          "seq": 5,
+          "detail": "Bash docs/specs/brainstorm/",
+          "seq": 6,
           "strength": "medium",
           "type": "read"
         }
@@ -108,25 +104,28 @@
     },
     {
       "claim": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "detail": "answer",
+          "seq": 5,
+          "strength": "strong",
+          "type": "answer"
+        }
+      ],
       "kind": "ask",
       "n": 5,
       "need": "required",
-      "note": "no answer; left open",
-      "state": "not-applicable",
+      "note": "",
+      "state": "done",
       "title": "Propose dispositions and ask the user to confirm",
       "userOwned": true
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 6,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [
         {
           "detail": "Write docs/specs/brainstorm/BRN-002.md",
-          "seq": 4,
+          "seq": 7,
           "strength": "medium",
           "type": "write"
         }
@@ -140,39 +139,24 @@
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 6,
-        "state": "done"
-      },
-      "evidence": [
-        {
-          "detail": "validate_brn.py exit 0",
-          "seq": 5,
-          "strength": "strong",
-          "type": "script"
-        }
-      ],
+      "claim": null,
+      "evidence": [],
       "kind": "inspect",
       "n": 7,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "current",
       "title": "Validate the BRN",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 7,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [],
       "kind": "report",
       "n": 8,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Report and hand off",
       "userOwned": false
     }

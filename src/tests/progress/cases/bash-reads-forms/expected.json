@@ -2,20 +2,20 @@
   "counts": {
     "afterEnd": 0,
     "duplicates": 0,
-    "events": 7,
+    "events": 4,
     "malformed": 0,
     "outOfOrder": 0,
     "unknownClaims": 0
   },
-  "current": null,
+  "current": 2,
   "ended": null,
   "flags": [],
   "format": "devforgeai-progress/1",
   "gate": {
-    "kind": "report",
+    "kind": null,
     "reason": null,
     "refuse": false,
-    "seq": 7
+    "seq": null
   },
   "manifest": {
     "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
@@ -25,30 +25,28 @@
     "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
     "state": "matched"
   },
-  "next": {
-    "available": true,
-    "note": "",
-    "skill": "prd"
-  },
+  "next": null,
   "run": "20261002T120000Z-brainstorm-0000abcd",
   "skill": "brainstorm",
   "steps": [
     {
-      "claim": {
-        "reason": null,
-        "seq": 3,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [
         {
-          "detail": "Glob docs/specs/brainstorm/BRN-*.md",
+          "detail": "Bash docs/specs/brainstorm/",
           "seq": 2,
           "strength": "medium",
           "type": "read"
         },
         {
-          "detail": "Bash docs/specs/brainstorm/BRN-002.md",
-          "seq": 5,
+          "detail": "Bash docs/specs/brainstorm/",
+          "seq": 3,
+          "strength": "medium",
+          "type": "read"
+        },
+        {
+          "detail": "Bash docs/specs/brainstorm",
+          "seq": 4,
           "strength": "medium",
           "type": "read"
         }
@@ -62,47 +60,35 @@
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 3,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [],
       "kind": "think",
       "n": 2,
       "need": "text-only",
       "note": "",
-      "state": "done",
+      "state": "current",
       "title": "Select a framework",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 3,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [],
       "kind": "think",
       "n": 3,
       "need": "text-only",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Diverge: problems, ideas, assumptions",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 3,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [],
       "kind": "think",
       "n": 4,
       "need": "text-only",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Evaluate with the framework",
       "userOwned": false
     },
@@ -112,70 +98,44 @@
       "kind": "ask",
       "n": 5,
       "need": "required",
-      "note": "no answer; left open",
-      "state": "not-applicable",
+      "note": "",
+      "state": "pending",
       "title": "Propose dispositions and ask the user to confirm",
       "userOwned": true
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 6,
-        "state": "done"
-      },
-      "evidence": [
-        {
-          "detail": "Write docs/specs/brainstorm/BRN-002.md",
-          "seq": 4,
-          "strength": "medium",
-          "type": "write"
-        }
-      ],
+      "claim": null,
+      "evidence": [],
       "kind": "forge",
       "n": 6,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Write the BRN",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 6,
-        "state": "done"
-      },
-      "evidence": [
-        {
-          "detail": "validate_brn.py exit 0",
-          "seq": 5,
-          "strength": "strong",
-          "type": "script"
-        }
-      ],
+      "claim": null,
+      "evidence": [],
       "kind": "inspect",
       "n": 7,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Validate the BRN",
       "userOwned": false
     },
     {
-      "claim": {
-        "reason": null,
-        "seq": 7,
-        "state": "done"
-      },
+      "claim": null,
       "evidence": [],
       "kind": "report",
       "n": 8,
       "need": "required",
       "note": "",
-      "state": "done",
+      "state": "pending",
       "title": "Report and hand off",
       "userOwned": false
     }
   ],
-  "through": 7
+  "through": 4
 }

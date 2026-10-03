@@ -1,0 +1,3 @@
+{"checklist": "- [ ] 1. Gather\n- [ ] 2. Decide\n- [ ] 3. Inspect\n- [ ] 4. Check\n- [ ] 5. Write\n- [ ] 6. Report", "format": "devforgeai-events/1", "host": "claude-code 2.1.287", "kind": "skill-loaded", "run": "20261002T120000Z-decide-0000abcd", "seq": 1, "skill": "decide", "time": "2026-10-02T12:00:01Z"}
+{"kind": "tool", "path": "notes/a.md", "run": "20261002T120000Z-decide-0000abcd", "seq": 2, "time": "2026-10-02T12:00:02Z", "tool": "Read"}
+{"kind": "tool", "path": "out/x.md", "run": "20261002T120000Z-decide-0000abcd", "seq": 3, "time": "2026-10-02T12:00:03Z", "tool": "Write"}

@@ -386,6 +386,140 @@ def _():
     return out, plugin_only(), {}
 
 
+# ---- version 2 -----------------------------------------------------------------------------------
+
+LIST_BRNS = "for f in docs/specs/brainstorm/*.md; do head -3 $f; done"
+
+
+@case("bash-reads")  # VER-22: a Bash listing of the folder is step 1's read evidence
+def _():
+    log = Log("brainstorm").bash(LIST_BRNS).tick(2, 3, 4).write(BRN_PATH, brn(["open"] * 15))
+    return log, plugin_only(), {}
+
+
+@case("bash-reads-failed")  # VER-22 and VER-24: the listing exits 2, so the write gate flags step 1
+def _():
+    log = Log("brainstorm").bash(LIST_BRNS, exit_code=2).tick(2, 3, 4).write(BRN_PATH, brn(["open"] * 15))
+    return log, plugin_only(), {}
+
+
+@case("bash-reads-error")  # VER-22: a call with error true is never evidence
+def _():
+    log = Log("brainstorm").tool("Bash", command=LIST_BRNS, exit_code=0, error=True).tick(2, 3, 4)
+    return log.write(BRN_PATH, brn(["open"] * 15)), plugin_only(), {}
+
+
+@case("bash-reads-forms")  # VER-22: a leading ./ and quotes are read past
+def _():
+    log = Log("brainstorm").bash("ls ./docs/specs/brainstorm/").bash('ls "docs/specs/brainstorm/"')
+    return log.bash("ls 'docs/specs/brainstorm'"), plugin_only(), {}
+
+
+@case("arch-bash-reads")  # VER-22: cat of the PRD meets steps 2 and 3; grep of the written ARCH meets step 10
+def _():
+    log = Log("architecture").bash(POLICY).bash("cat docs/specs/prd/PRD-001.md").tick(1, 2, 3, 4, 6)
+    log.answer().answer().tick(7).answer().write(ARCH_PATH, arch("create"))
+    log.bash("grep -n outcome docs/specs/arch/ARCH-002.md").bash("grep -n outcome docs/specs/arch/ARCH-001.md")
+    return log, plugin_only(), {}
+
+
+@case("arch-inspect")  # VER-23: only a read outside docs/specs/, .claude/ and devforgeai/ is step 5's evidence
+def _():
+    log = arch_start(Log("architecture")).read(".claude/devforgeai.local.md").read("devforgeai/progress/current.json")
+    log.read("/home/u/.claude/plugins/devforgeai/skills/architecture/references/output-rules.md")
+    log.bash("cat src/booking/service.py").tool("Grep", path=".").read("src/booking/service.py")
+    return log, plugin_only(), {}
+
+
+DECIDE = ("- [ ] 1. Gather\n- [ ] 2. Decide\n- [ ] 3. Inspect\n- [ ] 4. Check\n- [ ] 5. Write\n"
+          "- [ ] 6. Report")
+
+
+@case("no-rule-step")  # VER-24: the skipped flag's message for a step with no rule, a read with exclude, a script
+def _():
+    manifest = {
+        "format": "devforgeai-manifest/1", "skill": "decide", "checklistHash": checklist_hash(DECIDE),
+        "steps": {
+            "1": {"title": "Gather", "kind": "read", "need": "required",
+                  "evidence": [{"type": "read", "pattern": "notes/"}]},
+            "2": {"title": "Decide", "kind": "think", "need": "required"},
+            "3": {"title": "Inspect", "kind": "read", "need": "required",
+                  "evidence": [{"type": "read", "pattern": "*", "exclude": ["notes/", "out/"]}]},
+            "4": {"title": "Check", "kind": "inspect", "need": "required",
+                  "evidence": [{"type": "script", "pattern": "check.sh"}]},
+            "5": {"title": "Write", "kind": "forge", "need": "required", "gate": "write",
+                  "evidence": [{"type": "write", "pattern": "out/*.md"}]},
+            "6": {"title": "Report", "kind": "report", "need": "required", "gate": "report"}}}
+    log = Log("decide", checklist=DECIDE).read("notes/a.md").write("out/x.md")
+    return log, {"manifests": ["manifests"], "root": None, "phases": None}, {
+        "manifests/decide.json": json.dumps(manifest, indent=2) + "\n"}
+
+
+# ---- version 3 -----------------------------------------------------------------------------------
+
+def brn_answered():
+    return Log("brainstorm").glob("docs/specs/brainstorm/BRN-*.md").tick(1, 2, 3, 4).reply("Confirm these?").answer()
+
+
+def arch_answered():
+    return arch_to_six(Log("architecture")).answer().answer().tick(7).answer()
+
+
+@case("answer-then-listing")  # VER-26: a listing to pick the ID, after step 5's answer, doesn't lose it
+def _():
+    log = brn_answered().bash("ls docs/specs/brainstorm/").write(BRN_PATH, brn(PROMOTED))
+    return log, plugin_only(), {}
+
+
+@case("answer-then-reticks")  # VER-26: a checklist ticked again after the answer doesn't lose it
+def _():
+    log = brn_answered().tick(1, 2, 3, 4, 5).write(BRN_PATH, brn(PROMOTED))
+    return log, plugin_only(), {}
+
+
+@case("arch-answer-then-listing")  # VER-26: architecture's listing to pick the ID, after step 8's answer
+def _():
+    log = arch_answered().bash("ls docs/specs/arch/ docs/specs/adr/").write(ARCH_PATH, arch("create"))
+    return log, plugin_only(), {}
+
+
+@case("arch-answer-then-inspection")  # VER-26: step 5's inspection after step 8's answer
+def _():
+    log = arch_answered().read("README.md").tool("Grep", path=".").write(ARCH_PATH, arch("create"))
+    return log, plugin_only(), {}
+
+
+@case("arch-dot-paths")  # VER-27: ./ tool paths read like the rest
+def _():
+    log = Log("architecture").bash(POLICY).glob("./docs/specs/prd/PRD-*.md").read("./docs/specs/prd/PRD-001.md")
+    return log, plugin_only(), {}
+
+
+# ---- version 4 -----------------------------------------------------------------------------------
+
+@case("intake-then-tick")  # VER-28: step 1 ticked only after the answer: the answer was intake's, not step 5's
+def _():
+    log = Log("brainstorm").glob("docs/specs/brainstorm/BRN-*.md").answer().reply("- [x] 1. done")
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("arch-retick-after-answer")  # VER-28: pins the limit §13 names; its expected state is versions 3 and 4's verdict
+def _():
+    log = arch_start(Log("architecture")).glob("docs/specs/arch/ARCH-*.md").tick(1, 2, 3, 4, 6)
+    log.reply("- [x] 7. Which queue: SQS (Recommended) or Kafka?").answer().reply("- [x] 7. done")
+    return log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create")), plugin_only(), {}
+
+
+@case("write-dot-path")  # VER-29: a Write's ./ path reaches the write gate
+def _():
+    return brn_start(Log("brainstorm")).write("./" + BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("write-double-slash")  # VER-29, a build departure: repeated slashes collapse, so this Write reaches the gate too
+def _():
+    return brn_start(Log("brainstorm")).write(".//docs/specs//brainstorm/BRN-002.md", brn(PROMOTED)), plugin_only(), {}
+
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():

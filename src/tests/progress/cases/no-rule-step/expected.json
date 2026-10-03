@@ -1,0 +1,136 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 3,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "unknownClaims": 0
+  },
+  "current": 6,
+  "ended": null,
+  "flags": [
+    {
+      "gate": "write",
+      "message": "step 2 (Decide) has no evidence or tick before the write gate: expected a tick in the reply text",
+      "seq": 3,
+      "step": 2,
+      "type": "skipped"
+    },
+    {
+      "gate": "write",
+      "message": "step 3 (Inspect) has no evidence or tick before the write gate: expected a read of * except notes/, out/, or a tick in the reply text",
+      "seq": 3,
+      "step": 3,
+      "type": "skipped"
+    },
+    {
+      "gate": "write",
+      "message": "step 4 (Check) has no evidence or tick before the write gate: expected a successful run of check.sh",
+      "seq": 3,
+      "step": 4,
+      "type": "skipped"
+    }
+  ],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": "write",
+    "reason": "step 2 (Decide) has no evidence or tick before the write gate: expected a tick in the reply text",
+    "refuse": true,
+    "seq": 3
+  },
+  "manifest": {
+    "checklistHash": "sha256:107054479ad340d29804a85a92ad73d023e693d672aa129e744bd62093466b6f",
+    "layers": [
+      "src/tests/progress/cases/no-rule-step/manifests/decide.json"
+    ],
+    "manifestHash": "sha256:107054479ad340d29804a85a92ad73d023e693d672aa129e744bd62093466b6f",
+    "state": "matched"
+  },
+  "next": null,
+  "run": "20261002T120000Z-decide-0000abcd",
+  "skill": "decide",
+  "steps": [
+    {
+      "claim": null,
+      "evidence": [
+        {
+          "detail": "Read notes/a.md",
+          "seq": 2,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 1,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Gather",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "think",
+      "n": 2,
+      "need": "required",
+      "note": "",
+      "state": "skipped",
+      "title": "Decide",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "read",
+      "n": 3,
+      "need": "required",
+      "note": "",
+      "state": "skipped",
+      "title": "Inspect",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "inspect",
+      "n": 4,
+      "need": "required",
+      "note": "",
+      "state": "skipped",
+      "title": "Check",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [
+        {
+          "detail": "Write out/x.md",
+          "seq": 3,
+          "strength": "medium",
+          "type": "write"
+        }
+      ],
+      "kind": "forge",
+      "n": 5,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Write",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "report",
+      "n": 6,
+      "need": "required",
+      "note": "",
+      "state": "current",
+      "title": "Report",
+      "userOwned": false
+    }
+  ],
+  "through": 3
+}

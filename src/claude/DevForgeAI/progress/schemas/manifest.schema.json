@@ -130,6 +130,14 @@
           "type": "string",
           "description": "script: a file-name pattern; write and read: a path pattern relative to the project root, and a pattern ending in / means anything inside that folder"
         },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "read rules only: path patterns, written as pattern is; a path or token that matches any of them is no evidence for the rule"
+        },
         "exit": {
           "type": "integer",
           "default": 0
@@ -156,6 +164,26 @@
             "required": [
               "pattern"
             ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "script",
+                  "answer",
+                  "write"
+                ]
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "exclude"
+              ]
+            }
           }
         }
       ]
