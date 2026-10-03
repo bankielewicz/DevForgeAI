@@ -330,7 +330,8 @@ such as one inside an existing item an amendment must leave byte-identical, ends
    check (one that fails leaves it `in-review`, ERR-05).
 3. `generated_by` has non-empty `tool`, `model` and `session` (this session, unless this write was a
    review record); `reviewed_by` is `[]` for a new ARCH; every `hash` is `null`.
-4. `outcome` is non-null only if the user confirmed it in this conversation or the request.
+4. `outcome` is non-null only if the user confirmed it at step 8, or the request named it and said to
+   proceed without questions.
 5. Exactly one frontmatter link cites this run's PRD, at the version examined.
 6. Every `yaml items` fence holds exactly one of `components`, `decisions`, `evidence`; there is at
    least one component and at least one evidence item.

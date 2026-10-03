@@ -31,8 +31,11 @@ Propose both, then ask. Anything the user has not explicitly confirmed stays `di
 `reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
 confirmed* and continue with those values. This happens when the user said to proceed without
 questions or no user is there to answer. Record your proposals in section 6 prose so nothing is
-lost. An unconfirmed disposition looks valid to every structural check, and a PRD would build on
-a choice nobody made. That is why this rule matters more than any other in this skill.
+lost. When the user confirms them later, after the BRN is written, don't edit from that message
+alone: mark step 5 in_progress (with a task list), ask the step-5 question, tagged, then edit the
+BRN and validate it again (step 7). An unconfirmed disposition looks valid to every structural
+check, and a PRD would build on a choice nobody made. That is why this rule matters more than any
+other in this skill.
 
 ## Workflow
 
@@ -240,7 +243,8 @@ Do not start writing a PRD.
 
 **User says to proceed without questions.** The skill asks nothing and records unknowns as
 `[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and
-puts its proposals in section 6. It asks the user to confirm them in the final reply.
+puts its proposals in section 6. Its final reply says the user can confirm them later; when the user
+replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN.
 
 **A BRN on the topic already exists.** The skill shows it and asks: extend it or create a new
 one. It writes nothing until the user answers.

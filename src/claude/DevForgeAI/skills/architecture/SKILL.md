@@ -58,9 +58,9 @@ can answer only these:
 - which PRD;
 - which ARCH, and the outcome, but only by naming the outcome for that ARCH ("amend ARCH-001",
   "reuse ARCH-001; I confirm reuse", "create a new ARCH"). Asking to define or update the
-  architecture, or to reuse a component or service, confirms no outcome. When the run will write to an
-  existing ARCH, the outcome the request named only picks the direction: step 8 still asks once the
-  change is known, unless the request says to proceed without questions;
+  architecture, or to reuse a component or service, confirms no outcome. The outcome the request named
+  only picks the direction: step 8 still asks once the change is known (a reuse that writes nothing
+  excepted), unless the request says to proceed without questions;
 - the inspection scope, and that a question is non-blocking;
 - that a named accepted ADR answers a named question ("ADR-004 settles the identity provider").
 
@@ -75,7 +75,7 @@ without asking.
 each, with the recommended option first and marked "(Recommended)", each form tagged with its step
 (Workflow, item 4). Otherwise ask in plain text and end your turn. Use at most `interview.max_calls`
 calls (step 1; default 8) unless the user asks for more; questions left when the budget runs out
-stay open. When the run will write to an existing ARCH, keep one call for step 8's question. Write
+stay open. Keep one call for step 8's question. Write
 nothing that a pending answer affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask
@@ -290,14 +290,15 @@ Propose one outcome, with reasons:
 
 Using a mandated or existing platform or component is not a reuse outcome. When the request says to
 proceed without questions, ask nothing: write the outcome the request named for this ARCH, otherwise
-`null`. Otherwise ask the user to confirm the outcome, alone in its own question form:
-- **The run will write to the existing ARCH** (an amendment, or reuse's review record): ask now that
-  the change is known, and name what will change: the DEC, CMP and EVD items added, the DECs whose
-  state or resolver changes, the ADRs accepted or superseded, the new version, and an approved ARCH's
-  return to in-review. Ask even when step 4 or the request already chose or confirmed the outcome: a
-  confirmation given before the change is known only picks the direction.
-- **Otherwise** (create, or a reuse that writes nothing): ask unless the request or step 4 already
-  confirmed it.
+`null`. Otherwise ask the user to confirm the outcome now that the change is known, alone in its own
+question form, even when step 4 or the request already chose or confirmed it: a confirmation given
+before the change is known only picks the direction.
+- **The run will write to the existing ARCH** (an amendment, or reuse's review record): name what will
+  change: the DEC, CMP and EVD items added, the DECs whose state or resolver changes, the ADRs accepted
+  or superseded, the new version, and an approved ARCH's return to in-review.
+- **Create:** name the new ARCH's ID and what it records.
+- **A reuse that writes nothing** (its PRD link already equals the PRD's version) needs no question:
+  step 4's choice confirms it.
 
 Write `outcome` only when it is confirmed; otherwise it stays `null`. Confirming the outcome accepts
 no decision. When proposing reuse, and in the report
@@ -412,7 +413,8 @@ says readiness wasn't validated, and never tells the user to run `/devforgeai:ep
 - **Shape:** the two templates, with every heading kept and no author comments.
 - **Data:** the ARCH holds only the `components`, `decisions` and `evidence` collections, with their
   defined fields ([output-rules.md](references/output-rules.md)).
-- **Decisions:** `outcome` is non-null only when the user confirmed it. A DEC is resolved only by an
+- **Decisions:** `outcome` is non-null only when the user confirmed it at step 8, or the request named
+  it and said to proceed without questions. A DEC is resolved only by an
   applied mandated platform, an accepted ADR the user confirmed, or a new ADR the user accepted. The
   skill never sets an ARCH's status to `approved` (a review record leaves an approved ARCH approved),
   and no ADR is accepted without the user.
