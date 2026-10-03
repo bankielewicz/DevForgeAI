@@ -618,23 +618,6 @@ def _():
 
 # ---- version 7 -----------------------------------------------------------------------------------
 
-@case("steps-stale")  # VER-36: step 2's mark is contradicted by later ticks, so the answer has no step in progress
-def _():
-    log = following("architecture").started(1).bash(POLICY).done(1).started(2).tick(3, 4, 5, 6, 7, 8).answer()
-    return log, plugin_only(), {}
-
-
-@case("steps-stale-inspection")  # VER-36: step 5's inspection (not the user's, conditional) leaves step 2's mark alone
-def _():
-    log = following("architecture").started(1).bash(POLICY).done(1).started(2).read("README.md").answer()
-    return log, plugin_only(), {}
-
-
-@case("steps-shared-evidence")  # VER-36: a Glob that is evidence for steps 2 and 3 leaves step 2's mark alone
-def _():
-    log = following("architecture").started(1).bash(POLICY).done(1).started(2).glob("docs/specs/prd/PRD-*.md").answer()
-    return log, plugin_only(), {}
-
 
 def brn_validated(command):
     """A brainstorm whose validator ran as `command`, then steps 6 and 8 ticked (VER-37)."""

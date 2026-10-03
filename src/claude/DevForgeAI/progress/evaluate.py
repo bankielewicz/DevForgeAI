@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v7).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v8).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -560,31 +560,16 @@ class Run:
                 self.take_step(e)
 
     def in_progress(self, upto=INFINITY):
-        """The step in progress before `upto`: the step whose latest step event is started and isn't stale, the latest
-        started when several are (BEH-07, BEH-18); None when no step is."""
+        """The step in progress before `upto`: the step whose latest step event is started, the latest started when
+        several are (BEH-07, BEH-18); None when no step is. A mark stands until a step event ends it (version 8)."""
         latest = {}
         for seq, n, state in self.step_events:
             if seq >= upto:
                 break
             latest[n] = (state, seq)
-        started = [(seq, n) for n, (state, seq) in latest.items() if state == "started" and not self.stale(n, seq, upto)]
+        started = [(seq, n) for n, (state, seq) in latest.items() if state == "started"]
         return max(started)[1] if started else None
 
-    def stale(self, n, start, upto):
-        """Whether later work contradicts step n's mark started at `start` (BEH-18, version 7): a later step's claim,
-        started step event, or tool evidence from an event that isn't also step n's own evidence, before `upto`. A
-        conditional step that isn't user-owned is left out: its work, an inspection, can come at any time."""
-        own = {x["seq"] for x in self.by_n[n].evidence}
-        for s in self.steps:
-            if s.n <= n or (s.need == "conditional" and not s.user_owned):
-                continue
-            if any(start < c["seq"] < upto for c in s.claims):
-                return True
-            if any(start < seq < upto and m == s.n and state == "started" for seq, m, state in self.step_events):
-                return True
-            if any(start < x["seq"] < upto and x["type"] != "answer" and x["seq"] not in own for x in s.evidence):
-                return True
-        return False
 
     # -- gates' positions --
 
