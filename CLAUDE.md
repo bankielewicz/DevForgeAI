@@ -44,8 +44,8 @@ SKL-008 is reserved for the story skill (SPEC-009).
 - `git` v3's local checks, new VER-32..35 cases and remaining qualification are recorded separately
   in `docs/runbooks/git-v3-checks.md`. The candidate plugin is 0.10.1; native evaluation, manual
   checks, owner approval and deployment are pending. Retain v2's failures and results above.
-- `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together; ADR-006 accepted) is the
-  progress tracker's core, not a skill:
+- `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; ADR-006
+  accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
