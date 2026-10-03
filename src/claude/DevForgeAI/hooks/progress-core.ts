@@ -335,42 +335,39 @@ export function stepStateOf(status: unknown): 'started' | 'done' | null {
   return status === 'in_progress' ? 'started' : status === 'completed' ? 'done' : null
 }
 
-/** The step statuses of a todo list: '<N>.' todos only, by step number. */
-function todoStatuses(todos: unknown): Record<string, string> | null {
-  if (!Array.isArray(todos)) return null
-  const out: Record<string, string> = {}
-  for (const todo of todos) {
-    if (!todo || typeof todo !== 'object') continue
-    const { content, status } = todo as Fields
-    const m = typeof content === 'string' ? content.match(/^\s*(\d+)\./) : null
-    if (m && typeof status === 'string' && Number(m[1]) >= 1) out[String(Number(m[1]))] = status
-  }
-  return out
-}
-
-/** A TodoWrite's step events and the statuses to keep (BEH-20): each '<N>.' todo is compared with its status in the
- *  list the call replaced (the result's oldTodos), or with the kept statuses when the result has none, so an earlier
- *  run's completed todos left in the list claim nothing. Becoming in_progress starts a step, becoming completed ends
- *  it; straight from pending to completed gives done only. */
+/** A TodoWrite's step events and the statuses to keep (BEH-20): each '<N>.' todo is compared with its own entry in
+ *  the list the call replaced (the result's oldTodos: the same content at the same place, else the first unused entry
+ *  with that content), or with the kept statuses when the result has none, so an earlier run's completed todos left in
+ *  the list, even beside the new run's of the same numbers, claim nothing. Becoming in_progress starts a step,
+ *  becoming completed ends it; straight from pending to completed gives done only. */
 export function todoSteps(todos: unknown, last: Readonly<Record<string, string>>, oldTodos?: unknown): {
   events: Array<{ step: number; state: 'started' | 'done' }>
   statuses: Record<string, string>
 } {
-  const replaced = todoStatuses(oldTodos)
+  const old = Array.isArray(oldTodos) ? (oldTodos as unknown[]) : null
+  const used = new Set<number>()
+  const contentOf = (x: unknown) => (x && typeof x === 'object' ? (x as Fields).content : undefined)
   const statuses: Record<string, string> = { ...last }
   const events: Array<{ step: number; state: 'started' | 'done' }> = []
   if (!Array.isArray(todos)) return { events, statuses }
-  for (const todo of todos) {
-    if (!todo || typeof todo !== 'object') continue
+  todos.forEach((todo, i) => {
+    if (!todo || typeof todo !== 'object') return
     const { content, status } = todo as Fields
     const m = typeof content === 'string' ? content.match(/^\s*(\d+)\./) : null
-    if (!m || typeof status !== 'string' || Number(m[1]) < 1) continue
+    if (!m || typeof status !== 'string' || Number(m[1]) < 1) return
     const step = Number(m[1])
-    const before = replaced !== null ? replaced[String(step)] : statuses[String(step)]
+    let before: unknown
+    if (old !== null) {
+      const j = !used.has(i) && contentOf(old[i]) === content ? i : old.findIndex((o, k) => !used.has(k) && contentOf(o) === content)
+      if (j >= 0) used.add(j)
+      before = j >= 0 ? (old[j] as Fields).status : undefined
+    } else {
+      before = statuses[String(step)]
+    }
     if (status === 'in_progress' && before !== 'in_progress') events.push({ step, state: 'started' })
     if (status === 'completed' && before !== 'completed') events.push({ step, state: 'done' })
     statuses[String(step)] = status
-  }
+  })
   return { events, statuses }
 }
 

@@ -50,6 +50,12 @@ TASK_TAG = "devforgeai_step"  # a skill whose text names it follows the task-lis
 # A command whose exit status isn't its script's: ;, |, a line break, or a & that sends a command to the background
 # (&& and redirections such as 2>&1, &> and >& are fine) (BEH-06, version 7).
 JOINED = re.compile(r"[;|\n]|(?<![&<>])&(?![&>])")
+
+
+def joined(command):
+    """Whether a command joins its parts so its exit status may be another command's (BEH-06); a backslash line
+    continuation splits one command over two lines and joins nothing."""
+    return bool(JOINED.search(command.replace("\\\n", " ")))
 UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
             "mark the step it belongs to in progress, then ask")
 CHAIN = ("brainstorm", "prd", "architecture", "context", "epic", "story")
@@ -449,7 +455,7 @@ class Run:
                 return None
             tokens = command.split()
             hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
-            if hit is None or JOINED.search(command) or e.get("exit") != rule.get("exit", 0):
+            if hit is None or joined(command) or e.get("exit") != rule.get("exit", 0):
                 return None
             if rule.get("target") == "written" and not any(names_a(t, self.written_before(e["seq"])) for t in tokens):
                 return None
@@ -480,16 +486,23 @@ class Run:
             return "%s %s" % (tool, path)
         return None
 
-    @staticmethod
-    def joined_run(rule, e):
+    def joined_run(self, rule, e):
         """The script's file name when a Bash command names a script rule's script but joins it to another command,
-        which hides its exit status (BEH-06, version 7); else None."""
+        which hides its exit status (BEH-06, version 7); else None. With target written, a token must also name a
+        written file, as for evidence, so a read of the script (cat … | head) isn't reported as a run."""
         command = e.get("command")
         if rule["type"] != "script" or e.get("tool") != "Bash" or not isinstance(command, str) \
-                or e.get("error") is True or not JOINED.search(command):
+                or e.get("error") is True or not joined(command):
             return None
-        hit = next((t for t in command.split() if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
-        return PurePosixPath(hit).name if hit else None
+        tokens = command.split()
+        hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
+        if hit is None:
+            return None
+        if rule.get("target") == "written":
+            written = self.written_before(e["seq"])
+            if not any(names_a(t.strip("'\";()|&"), written) for t in tokens):
+                return None
+        return PurePosixPath(hit).name
 
     def take_tool(self, e):
         if self.write_gate is not None:

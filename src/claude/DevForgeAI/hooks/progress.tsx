@@ -63,6 +63,7 @@ let allReachedFor: string | null = null
 let bandChain: Promise<unknown> = Promise.resolve()
 let logChain: Promise<unknown> = Promise.resolve()
 let recordChain: Promise<unknown> = Promise.resolve()
+let absorbChain: Promise<unknown> = Promise.resolve()
 // adapter.log lines wait here until a run has created devforgeai/progress/ with its .gitignore (BEH-15), so a
 // session that runs no tracked skill writes nothing in the project. Then they go to the session's folder in the
 // root of the latest run (DM-02).
@@ -456,6 +457,14 @@ async function taskSteps($: E, tool: string, input: Fields, outcome: ToolOutcome
 /** Take an evaluation in: the session's current.json, the summary, toasts, the report gate's context (BEH-06, BEH-09,
  *  BEH-12). */
 async function absorb($: E, run: ProgressRun, got: { state: ProgressState; text: string }): Promise<void> {
+  // One at a time: the run-end evaluation and a timer's can finish together, and each reads the shown flags and
+  // adhered before it writes them, so a notice could otherwise show twice.
+  const step = absorbChain.then(() => absorbNow($, run, got))
+  absorbChain = step.catch(() => undefined)
+  await step
+}
+
+async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; text: string }): Promise<void> {
   try {
     await $.fs.write(`${await sessionDir($, rootOf(run))}/current.json`, got.text)
   } catch {
