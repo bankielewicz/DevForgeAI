@@ -667,6 +667,16 @@ def _():
     return brn_validated(VALIDATE + " 2>&1"), plugin_only(), {}
 
 
+@case("brn-validate-read")  # VER-37 (review): a pipe that only reads the script ran nothing: the usual message
+def _():
+    return brn_validated("cat .claude/skills/devforgeai/skills/brainstorm/scripts/validate_brn.py | head -40"), plugin_only(), {}
+
+
+@case("brn-validate-continued")  # VER-37 (review): a line continuation joins nothing: evidence
+def _():
+    return brn_validated(VALIDATE.replace(" docs/specs/", " \\\n  docs/specs/", 1)), plugin_only(), {}
+
+
 @case("steps-report-event")  # VER-37: the report gate fires on a done step event for the report step
 def _():
     log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)

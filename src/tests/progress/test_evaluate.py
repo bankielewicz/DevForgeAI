@@ -671,7 +671,11 @@ class SpecRules(Base):
                 self.assertEqual(self.step(state, 7)["evidence"], [])
                 self.assertEqual([(f["gate"], f["type"], f["message"]) for f in self.flags(state, 7)],
                                  [("report", "skipped", self.JOINED)])
-        for name in ("brn-validate-and", "brn-validate-redirect"):
+        read, _, _, _ = self.run_case("brn-validate-read")
+        self.assertEqual([f["message"] for f in self.flags(read, 7)],
+                         ["step 7 (Validate the BRN) has no evidence or tick before the report: expected a successful run "
+                          "of validate_brn.py on a written file"])
+        for name in ("brn-validate-and", "brn-validate-redirect", "brn-validate-continued"):
             with self.subTest(name):
                 state, _, _, _ = self.run_case(name)
                 self.assertEqual([e["type"] for e in self.step(state, 7)["evidence"]], ["script"])
