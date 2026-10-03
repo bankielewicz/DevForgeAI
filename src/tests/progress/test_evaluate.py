@@ -643,8 +643,6 @@ class SpecRules(Base):
 
     # ---- version 7 ----
 
-    UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
-                "mark the step it belongs to in progress, then ask")
     JOINED = ("step 7 (Validate the BRN): validate_brn.py ran, but the command joined it to another, which hides its "
               "exit status: run it as a command of its own")
 
