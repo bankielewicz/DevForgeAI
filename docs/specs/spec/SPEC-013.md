@@ -3,7 +3,7 @@ id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
 status: approved    # draft | in-review | approved | superseded | deprecated
-version: 6
+version: 7
 created: 2026-10-02
 updated: 2026-10-03
 owner: "Bryan"
@@ -67,6 +67,14 @@ while no step is in progress, at SPEC-012's new question gate.
 Haiku 4.5); on newer ones, Opus 5.5 among them, a session has them only when the user opts in. Version 4 wrote
 `taskList` true for every session, which would hold a session with no task tools to a list it can't keep, with
 every question refused in enforce mode. `taskList` now says whether the session has the tools.
+
+**Version 7** (2026-10-03) answers the problem SPEC-012 version 8 reopened: a step mark Claude forgets to end takes
+every later answer, and in enforce mode the run's writes can then be refused again and again. Two parts, neither a
+guess about where answers belong. When the conversation is compacted, the likeliest moment for a mark to be
+forgotten, the adapter keeps the task list's state in the summary and adds a note telling Claude to bring the list
+in step with the work (BEH-24). And when enforce mode refuses a write over a decision while the task list marks
+an earlier step, the refusal names that mark and how to fix it, so the first refusal ends the loop (BEH-08); in
+observe mode the decision's flag toast says the same (BEH-12).
 
 **Version 6** (2026-10-03) makes the build's review findings rules: the question refusal says that an earlier run's
 tasks don't count, a TodoWrite is compared with the list it replaced, a question check waits for task-tool calls
@@ -231,7 +239,7 @@ for `current.json`, §2). `<session>` is `$.session.id()` when the file is writt
 | `runs/<run>/state.json` | by the evaluator | SPEC-012 DM-03, through IF-01's `--out` |
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
 | `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
-| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
 
 `prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
 retention period (BEH-19), and nothing else.
@@ -331,7 +339,7 @@ behaviors:
     rule: "In observe mode the adapter never refuses a call and never adds text the model reads. Flags reach the user only: the status line, the band and toasts (BEH-10 to BEH-12)."
   - id: BEH-08
     status: active
-    rule: "In enforce mode, for each main-loop Write or Edit while a run is open, the adapter checks before calling next(e). It writes the run's lines plus the pending tool event, with its content, to runs/<run>/pending.jsonl and runs IF-03 on it with --out runs/<run>/pending.json. When that state's gate has kind write, seq equal to the pending event's seq and refuse true, the adapter answers { deny } without calling next(e). The text says that DevForgeAI's progress tracker refused the write at the write gate (enforce mode) and lists the messages of the flags raised at that seq. It then says what clears them: for a step's flag, doing the step with a tool call the run's log can see, or ticking it as '- [x] N.' in reply text (a tick only in thinking doesn't count); for a decision (a rule-broken flag, or a user-owned step's), asking the user or leaving those fields open. It names the run's folder. Where nothing draws, the same text also goes to $.ui.log. The call is recorded as a tool event with error true, which is never evidence (SPEC-012 BEH-06), so the write gate is checked again when the write is retried. Otherwise the adapter calls next(e) and records the event as in observe mode. $.fs can't delete a file, so the two pending files are overwritten at the next check."
+    rule: "In enforce mode, for each main-loop Write or Edit while a run is open, the adapter checks before calling next(e). It writes the run's lines plus the pending tool event, with its content, to runs/<run>/pending.jsonl and runs IF-03 on it with --out runs/<run>/pending.json. When that state's gate has kind write, seq equal to the pending event's seq and refuse true, the adapter answers { deny } without calling next(e). The text says that DevForgeAI's progress tracker refused the write at the write gate (enforce mode) and lists the messages of the flags raised at that seq. It then says what clears them: for a step's flag, doing the step with a tool call the run's log can see, or ticking it as '- [x] N.' in reply text (a tick only in thinking doesn't count); for a decision (a rule-broken flag, or a user-owned step's), asking the user or leaving those fields open. It names the run's folder. In a run that follows the task list (SPEC-012 BEH-18), when the flags at that seq include a skipped flag for a user-owned step M (the decision's step, read from the flags' step and the state's userOwned, never from message text) and the task list marks an earlier step N in progress (N < M, read as BEH-24 does), the text also says: 'Your task list marks step N (<title>) in progress, so your answers since then counted for step N. If you've moved on, mark step N done and mark step M (<title>) in progress, then ask the user again.' With no such flag, or no earlier marked step, the line is left out (version 7). Where nothing draws, the same text also goes to $.ui.log. The call is recorded as a tool event with error true, which is never evidence (SPEC-012 BEH-06), so the write gate is checked again when the write is retried. Otherwise the adapter calls next(e) and records the event as in observe mode. $.fs can't delete a file, so the two pending files are overwritten at the next check."
   - id: BEH-09
     status: active
     rule: "In enforce mode, when an evaluation's gate has kind report and refuse true, the adapter adds the messages of the flags raised at that gate, once per gate seq, to the context of the user's next prompt.submit, so the model reads them with that prompt. It doesn't add them to a prompt that starts with '/', which usually loads the next skill, and drops them once the run has ended: the user has moved on. A run-end gate's flags reach the user only, since the conversation that would read them has ended. Neither gate has a tool call to refuse."
@@ -343,7 +351,7 @@ behaviors:
     rule: "While a run is open, a ui.render hook on AbovePrompt draws two rows of text. Row 1: the skill, one glyph per step in order (done ●, current ◆, your-turn ?, pending ○, claimed ◐, unconfirmed ·, skipped-with-reason ⊘, not-applicable –, skipped ✗, rule-broken ✗) and 'step <current> of <steps>: <title>'. Row 2: 'observe mode' or 'enforce mode', a button 'Switch to enforce' or 'Switch to observe' (BEH-13), and the newest flag's message, or 'no flags'. The hook draws a Box holding its rows and then what await next(e) resolves to, so the mods after it still draw; it draws at most e.props.maxRows of its own rows (row 2 goes first) and cuts each to e.props.bodyColumns. It returns next(e), drawing nothing of its own, while e.props.hasSurvey is true, and when no run is open. Each draw waits for the one before it to finish, since after a reload the band can be asked for twice at once. The button has the key 'progress-mode' and no hotkey: a digit hotkey on a band button also fires when the user types that digit alone into an empty prompt."
   - id: BEH-12
     status: active
-    rule: "Each flag shows one toast, '✗ Step <step> <type>: <message>', the first time an evaluation reports it. When the run's last step is reached without run-end, one toast says '✓ <skill>: all steps reached'. Toasts are the same in both modes; where nothing draws, each also goes to $.ui.log (BEH-01)."
+    rule: "Each flag shows one toast, '✗ Step <step> <type>: <message>', the first time an evaluation reports it. When the run's last step is reached without run-end, one toast says '✓ <skill>: all steps reached'. Toasts are the same in both modes; where nothing draws, each also goes to $.ui.log (BEH-01). In a run that follows the task list, a skipped flag for a user-owned step M, toasted while the task list marks an earlier step N in progress, gets BEH-08's sentence after it, so observe mode, where nothing is refused, explains a forgotten mark too (version 7)."
   - id: BEH-13
     status: active
     rule: "Pressing the band's button runs IF-02 with the other mode. On exit 0 the mode changes for the session at once, its source becomes local, a toast confirms it, and adapter.log records the switch with the run's ID and last seq, because DM-02 has no event for it. On exit 1 or 2 the mode stays as it was and a toast gives IF-02's reason. The button never sends a prompt."
@@ -377,6 +385,9 @@ behaviors:
   - id: BEH-23
     status: active
     rule: "Once per session, when a tracked skill whose text names devforgeai_step loads and the session's tool list names no task-list tool (skill-loaded taskList false), the adapter shows one toast, in either mode: '<skill>: this session has no task list, so DevForgeAI places your answers by guessing. For exact step tracking, start Claude Code with CLAUDE_CODE_ENABLE_TODO_TOOLS=1 (DevForgeAI SPEC-012 §4)'. Where nothing draws, the same text goes to $.ui.log. adapter.log gets a line of kind tools-hint, and $.state's hinted becomes true, so later runs in the session show nothing (Bryan, 2026-10-03)."
+  - id: BEH-24
+    status: active
+    rule: "When Claude Code compacts the main conversation (session.compact with no agentId) while a run that follows the task list (SPEC-012 BEH-18) is open, the adapter carries the task list's state through it. The marked step is the step whose latest step event in the run's own lines is started (the latest started when several are, SPEC-012 BEH-18); its title comes from the run's state.json, the last evaluation's steps. Before calling next(e), it adds to the summarizer's instructions: 'Keep, for DevForgeAI's progress tracker: in the <skill> run, the task list marks step N (<title>) in progress.' (or 'marks no step in progress'). After next(e) resolves with the compacted messages, it adds one user message at their end: 'DevForgeAI's progress tracker: when this conversation was compacted, your task list marked step N (<title>) in progress. Before you ask anything or go on, check your task list and bring it in step with the work: mark each finished step done and the step you're on in_progress.' (with 'no step' when none was). The note holds even when the summary was made ahead of time, since it asks Claude to check the list. A run that doesn't follow the task list, a subagent's compaction and a skipped compaction get nothing; the adapter never answers { skip }. adapter.log gets one line of kind compact. A failure leaves the compaction as the engine made it (BEH-14) (version 7)."
 ```
 
 ## 7. Errors and edge cases
@@ -855,6 +866,25 @@ verifications:
       - BEH-20
       - BEH-21
       - BEH-22
+  - id: VER-27
+    status: active
+    obligation: "Kit tests: in enforce mode, a run that follows the task list with step 2 marked started (a TaskUpdate after its TaskCreate) and a provisional state that refuses a Write with a skipped flag for user-owned step 8 and a rule-broken flag for step 9 gets the refusal with the line naming step 2 and step 8; with no step marked, with step 8 itself or a later step (9) marked, with no user-owned skipped flag, or in a run that doesn't follow the task list, the line is absent. In observe mode, the same state's step 8 flag toast carries the sentence."
+    level: integration
+    covers:
+      - BEH-08
+      - BEH-12
+  - id: VER-28
+    status: active
+    obligation: "Kit test, if the kit fires session.compact (the probe of §11 says; if it doesn't, §9 records why and VER-29 alone covers BEH-24): a run that follows the task list with step 2 marked, then a compaction: the summarizer's instructions carry the step 2 sentence, the messages handed up end with the note, and adapter.log has a compact line; a run that doesn't follow the task list, and a compaction with an agentId, are passed on unchanged."
+    level: integration
+    covers:
+      - BEH-24
+  - id: VER-29
+    status: active
+    obligation: "Live, in the cmux tab with the build's plugin (--plugin-dir), in a run that follows the task list (the convention's wording in the prompt, as SPEC-012 §9's runs did): with step 2 marked, /compact; the compacted conversation ends with the note, and Claude checks and updates its task list before its next question. The probe of §11 is recorded with it: which triggers reach the hook (/compact, the threshold, ahead of time), and whether the added message is kept. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-24
 ```
 
 ## 10. Rollout, migration and rollback
@@ -898,7 +928,9 @@ verifications:
 - **Version 4.** Built after approval with SPEC-012 version 5, in one plugin version, so the deployed adapter and
   evaluator agree on step events. Until a skill's text names `devforgeai_step`, its runs don't follow the task list,
   so the question gate never checks them and nothing new is refused; the skills' wording ships in their own builds.
-- **Version 6.** Built with SPEC-012 version 7, in one plugin version, after approval. Nothing new is refused: the
+- **Version 7.** Built after approval, before the skills' wording (SKL-001 v6, SKL-003 v7) ships, so a run that
+  follows the task list never meets the loop without the refusal's recovery line. Nothing new is refused.
+- **Version 6.** Built with SPEC-012 versions 7 and 8 (version 8 withdrew version 7's stale step before the merge), in one plugin version, after approval. Nothing new is refused: the
   question check refuses only where version 5's did, with clearer recovery text.
 - **Version 5.** Built with version 4, in its place: version 4 is never built alone. A session without the task
   tools writes `taskList` false, so a skill whose text names `devforgeai_step` isn't held to the task list there,
@@ -943,6 +975,11 @@ Version 4's build, with SPEC-012 version 5:
 Version 5 adds to that build, before its step 3: the kit test of VER-24 and its generated evaluator case, seen
 failing, and the kit test of VER-25; then `taskList` from `$.tool.list()` (DM-01, ERR-14) and the task-tools
 hint (BEH-23, DM-03).
+
+Version 7's build: (1) a probe, a throwaway mod or the build's adapter with logging, in the cmux tab: does the kit
+fire session.compact, which triggers reach the hook, and is a message added on the way up kept; (2) the kit tests of
+VER-27 and VER-28, seen failing; (3) the refusal line (BEH-08) and the compaction hook (BEH-24); (4) plugin-validator
+and every test; (5) VER-29 live, and §9.
 
 Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failing; then the refusal text and the wait
 (BEH-21), TodoWrite against oldTodos (BEH-20), adhered (BEH-22, DM-03); then plugin-validator and every test, and
@@ -990,6 +1027,10 @@ Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failin
 - **Reading the opt-in setting** (`CLAUDE_CODE_ENABLE_TODO_TOOLS`) instead of the tool list (version 5). It misses
   the models that have the tools by default, `--allowedTools`, `--tools`, and background and cloud sessions;
   `$.tool.list()` answers the question itself.
+- **A stale mark from later work** (SPEC-012 version 7, withdrawn in version 8). It moved answers by a guess about
+  where work had got to, and a look-ahead read refused a valid question.
+- **The note in the next prompt's context instead of the compacted messages** (version 7). An automatic compaction
+  happens mid-turn, so the next prompt can come long after Claude has gone on.
 - **A DM-02 event for a mode switch.** It would let the log carry mid-run switches, but DM-02 is approved and has
   no such kind; `adapter.log` records them until a SPEC-012 v2 adds one.
 
@@ -1003,6 +1044,10 @@ Decided by Bryan on 2026-10-02:
 - VS Code: tracking only for now, with notices in the transcript (BEH-01); `progress.html` is a later spec.
   BEH-01 assumes VS Code's chat panel starts with `isInteractive` true and no surface; that is untested until
   someone runs the adapter there.
+
+Decided by Bryan on 2026-10-03, for version 7: the forgotten mark (SPEC-012 §13, reopened by its version 8) is met
+by a compaction hook that keeps the task list's state and asks Claude to bring the list in step (his suggestion),
+and by a write refusal that names the mark, instead of any rule that moves answers.
 
 Decided by Bryan on 2026-10-03, for version 6: the build's review findings become rules (§1).
 
@@ -1077,3 +1122,5 @@ Notes:
 | 6 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After the build's plugin-validator review and Bryan's decisions of 2026-10-03: the question refusal says an earlier run's tasks don't count (BEH-21); a question check waits up to 2 seconds for task-tool calls and events under way (BEH-21); a TodoWrite is compared with the list it replaced (BEH-20); adhered keeps the adherence notice once per run across a reload, and a done report step counts as the report reached (BEH-22, DM-03); DM-02 lists adapter.log's kinds; new VER-26; SPEC-012 link moved to version 7 | frontmatter, §1, DM-02, DM-03, BEH-20, BEH-21, BEH-22, VER-26, §10, §11, §13 |
 | 6 | 2026-10-03 | Bryan | Approved | status |
 | 6 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build of version 6 with SPEC-012 version 7 | §9 |
+| 7 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03 on the forgotten mark that SPEC-012 version 8 reopened: a compaction hook keeps the task list's state in the summary and adds a note asking Claude to bring the list in step (BEH-24, DM-02 kind compact); a write refused over a decision while an earlier step is marked names the mark and how to fix it (BEH-08), and in observe mode the decision's flag toast says the same (BEH-12, an addition beyond Bryan's two choices, since observe is the default and refuses nothing); new VER-27 to VER-29; §10 corrects version 6's SPEC-012 versions | frontmatter, §1, DM-02, BEH-08, BEH-12, BEH-24, VER-27, VER-28, VER-29, §10, §11, §12, §13 |
+| 7 | 2026-10-03 | Bryan | Approved, with the observe-mode toast sentence (BEH-12) | status |

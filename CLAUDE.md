@@ -52,7 +52,7 @@ SKL-008 is reserved for the story skill (SPEC-009).
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
   windows open after two plugin-validator reviews; §13 names what windows still guess.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03 and built on `feat/step-events-v7-build` (0.16.0), not merged): it records each tracked
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03 and built on `feat/step-events-v7-build` (0.16.0), not merged; v7, a compaction hook and a refusal that names a forgotten mark, approved 2026-10-03, not built): it records each tracked
   skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
   `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
