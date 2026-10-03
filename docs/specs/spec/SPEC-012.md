@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 3
+version: 4
 created: 2026-10-02
 updated: 2026-10-02
 owner: "Bryan"
@@ -65,6 +65,13 @@ counted as an earlier step's evidence and moved the window past the answer, so t
 was refused; a re-ticked checklist, and architecture's new step 5 rule, did the same. A window now opens at each
 earlier step's first signal, and a conditional step that isn't the user's doesn't move it. A Read, Glob or Grep
 path written `./docs/…` is read like `docs/…` (BEH-06).
+
+**Version 4** (2026-10-02) narrows that change after a second review found its cost: counting only an earlier step's
+first signal also credited answers the user never gave, as when Claude asked an intake question, ticked step 1
+only after the answer, and wrote the BRN with promoted ideas. An earlier step now counts from the later of its first
+tool evidence and its first tick, so a step Claude finishes after the answer still moves the window, while a
+re-read, re-listing or re-tick of a finished step doesn't. Every tool's `./` path is read like the rest, Write and
+Edit included (BEH-06).
 
 ## 2. Constraints
 
@@ -356,7 +363,7 @@ behaviors:
     rule: "Claims come from reply events. A line matching ^\\s*[-*]\\s*\\[[xX]\\]\\s*(\\d+)\\. claims step N done. A line matching ^\\s*[-*]\\s*\\[[ xX]\\]\\s*(\\d+)\\..*\\(skipped:\\s*(.+?)\\)\\s*$ claims step N skipped, with that reason. A line that matches both patterns is a skipped claim. A later claim for a step replaces an earlier one. An unticked box claims nothing."
   - id: BEH-06
     status: active
-    rule: "A tool event is evidence for a step's rule when: script: the tool is Bash, a token of the command (a word split at whitespace) has a file name matching the pattern, and exit equals the rule's exit (0 by default); write: the tool is Write or Edit and path matches the pattern; read: the tool is Read, Glob or Grep and path matches the pattern, or the tool is Bash, exit equals the rule's exit (0 by default) and a read token of the command matches the pattern; and, with target written, the path, the matching read token or, for a script, any token names a file written at the run's write gate. A path or token matches a pattern when it matches it as text, so a Glob of docs/specs/prd/PRD-*.md matches that same pattern, or lies inside it when the pattern ends in /, and matches none of the rule's exclude patterns. A Read, Glob or Grep path is read with a leading ./ removed, as a token is, since an adapter can record a Glob at the project root as ./<pattern>. Patterns are relative to the project root, so a path or token that, after --root's prefix is removed from a token, still starts with / or ../ matches none: an adapter records a file outside the root, such as the plugin's own references, with its absolute path. A command's read tokens are its words split at whitespace, with every quote character removed, the characters ; ( ) stripped from both ends, a leading ./ removed and, with --root, the root's path and the / after it removed from the start. Only a rule whose pattern has no wildcard (*, ? or [) in its first path segment takes Bash read evidence, since a token such as cat matches a pattern of *. Any command that names the path counts, rm and a > redirect too: the tracker judges whether a step's files were looked at, not what the command did. A tool event with error true is never evidence. An answer event with answered true, or a prompt event, inside the step's answer window (BEH-09) is answer evidence. Script and answer evidence are strong; write and read are medium. One event can be evidence for several steps."
+    rule: "A tool event is evidence for a step's rule when: script: the tool is Bash, a token of the command (a word split at whitespace) has a file name matching the pattern, and exit equals the rule's exit (0 by default); write: the tool is Write or Edit and path matches the pattern; read: the tool is Read, Glob or Grep and path matches the pattern, or the tool is Bash, exit equals the rule's exit (0 by default) and a read token of the command matches the pattern; and, with target written, the path, the matching read token or, for a script, any token names a file written at the run's write gate. A path or token matches a pattern when it matches it as text, so a Glob of docs/specs/prd/PRD-*.md matches that same pattern, or lies inside it when the pattern ends in /, and matches none of the rule's exclude patterns. Every tool event's path is read with a leading ./ removed, as a token is, since an adapter can record a Glob at the project root as ./<pattern> and a host may pass a Write's relative path as written; a Write or Edit so read reaches the write gate and the content rules. Patterns are relative to the project root, so a path or token that, after --root's prefix is removed from a token, still starts with / or ../ matches none: an adapter records a file outside the root, such as the plugin's own references, with its absolute path. A command's read tokens are its words split at whitespace, with every quote character removed, the characters ; ( ) stripped from both ends, a leading ./ removed and, with --root, the root's path and the / after it removed from the start. Only a rule whose pattern has no wildcard (*, ? or [) in its first path segment takes Bash read evidence, since a token such as cat matches a pattern of *. Any command that names the path counts, rm and a > redirect too: the tracker judges whether a step's files were looked at, not what the command did. A tool event with error true is never evidence. An answer event with answered true, or a prompt event, inside the step's answer window (BEH-09) is answer evidence. Script and answer evidence are strong; write and read are medium. One event can be evidence for several steps."
   - id: BEH-07
     status: active
     rule: "While the run is open, a step is done when it has evidence, or when it is claimed done and has no strong rule; claimed when it is claimed done, has a strong rule and has no evidence yet; skipped-with-reason when it is claimed skipped; otherwise pending. A step is reached when it has evidence or a claim, whatever its state. current is the step after the highest-numbered reached step (step 1 when none is reached), or null once the last step is reached or the run has ended; it shows as current, or as your-turn when it is user-owned, has no answer in its window, and the last event is a turn end. A step before current that is still pending keeps the note 'not seen yet' and raises no flag."
@@ -365,7 +372,7 @@ behaviors:
     rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'."
   - id: BEH-09
     status: active
-    rule: "A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest first signal (a step's first tool evidence or first claim) of any step before it that comes before that close, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none). So a re-read, a re-listing or a re-tick of an earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move it; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it either; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
+    rule: "A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest start of any step before it, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none), where a step's start is the later of its first tool evidence and its first claim, counting only those before that close (whichever it has, when it has one). So a re-read, a re-listing or a re-tick of a finished earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move the opening, while an earlier step Claude ticks only after the answer does, since the answer came while that step was under way; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
   - id: BEH-10
     status: active
     rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer in its window, the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open', unless its content couldn't be checked: then it keeps its state and ERR-05's note."
@@ -479,7 +486,8 @@ quality_responses:
 | --- | --- |
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12. v2 re-checked on 2026-10-02 with the same helpers: passes, 25 VER items cover every BEH, ERR and QR item, and the changed DM-01 is valid JSON Schema 2020-12; the architecture manifest with step 5's `exclude` rule validates against it, and a write rule carrying `exclude` fails |
 | Build (v2) | Built on branch `feat/spec-012-v2-build` (worktree), not merged, through `/plugin-dev:create-plugin`, tests first: records `f4a7fd4`, the failing cases and tests `cac7331`, the evaluator, schema and manifest `69570f5`. Baseline at `f4a7fd4`: `src/tests/progress` 137 passed, 181 subtests. Results at `69570f5`: `src/tests/progress` 147 passed, 226 subtests (the new VER-22 to VER-24 tests, and a test that the three schemas equal DM-01 to DM-03); full `src/tests` 624 passed, 597 subtests; `make_cases.py --check` clean; `claude plugin validate` passed. Expected states moved only in the five brainstorm cases §10 names (step 1 gains the validator run); none of architecture's, since `manifestHash` is the manifest's `checklistHash` (§10 corrected). VER-19: 500 events in 60 ms (`-B`) and 61 ms (`-S -B`), against v1's 36 and 31 and the 200 ms target. Readings: VER-22's absolute root is a test of its own, since a generated case can't hold a machine's absolute path; `arch-inspect` fixes a Grep with path `.` as step 5's evidence, which no `exclude` pattern covers. plugin-validator (agent, read-only): the code matches the spec, but the spec's BEH-09 then refuses writes the user approved (reproduced: v1 accepts, v2 refuses), which version 3 changes; warnings: `./` tool paths (version 3), layers and `exclude`, Bash glob tokens (§13) |
-| Build (v3) | Not built; §11 lists the steps |
+| Build (v3) | Built on the same branch: the failing cases and tests `f0509e3`, the evaluator `f23f50e` (the window's opening, `./` read paths, read tokens cached per event). Results at `f23f50e`: `src/tests/progress` 151 passed, 259 subtests; full `src/tests` 628 passed, 630 subtests; `make_cases.py --check` clean; `claude plugin validate` passed; no existing expected state moved, five cases added. VER-19: 36 ms (`-B`), 32 ms (`-S -B`); a harsher log of 500 Bash commands with 80 paths each takes 231 and 226 ms, under VER-19's 1 second. QR-02: 41 cases under three hash seeds, normal and `-S`, byte-identical (the review's check). plugin-validator's second review (agent, read-only, 6,000 generated logs): no defect in the code, but version 3 credits answers the user never gave (the intake-then-tick shape, and an answer followed by a re-tick of the step that asked), which version 4 narrows; a Write's `./` path never reached the write gate in any version (version 4) |
+| Build (v4) | Not built; §11 lists the steps |
 | Build | Built on branch `feat/spec-012-progress-core` (worktree), not merged. Commits: schemas `5eb2034`; manifests, generated cases and tests `ea3ccdb`; `evaluate.py` in stages `6507c9a`, `b095c13`, `bb47cd5` and `9eb1895`; expected states `fcf1d0d`; records in the next commit. Results at `fcf1d0d` plus the added VER-09 assertion: `src/tests/progress` 51 passed, 173 subtests (SpecRules 25; SpecRulesUnderS 25, every rule with the evaluator under `python3 -S`; Goldens 1, over 29 cases); full `src/tests` 528 passed, 544 subtests, against the baseline at `4100614` of 477 and 371, so nothing earlier broke. VER-19 (QR-03): a 500-event log evaluates in 36 ms (`-B`) and 31 ms (`-S -B`) on the owner's machine, against 200 ms. QR-04 by review: `evaluate.py` opens only `--events`, the manifest files, `--phases`, `--checklist`, and with `--root` the written files under its realpath; it writes only a temporary file beside `--out`, renamed over it; it opens no network connection and starts no process. plugin-validator (2026-10-02): PASS, 0 critical, 0 warnings, 6 informational notes; the one real note, a temporary file left beside `--out` when the rename fails, fixed in `f4260a3`. Two notes pass to the adapter's spec: run the evaluator as `python3 ${CLAUDE_PLUGIN_ROOT}/progress/evaluate.py` (the file isn't executable). Plugin version: 0.12.0, the next free minor at merge (§10) |
 
 Each case is a folder in `src/tests/progress/cases/` with `events.jsonl` and `expected.json`; a test runs IF-01 on it and compares the output with `expected.json` byte for byte. "The prototype's moment N" means the five moments of the design proposal's prototype.
@@ -726,6 +734,19 @@ verifications:
     level: unit
     covers:
       - BEH-06
+  - id: VER-28
+    status: active
+    obligation: "Case intake-then-tick (brainstorm): after the Glob of docs/specs/brainstorm/, an answer, then a reply ticking step 1 only, then a Write of BRN-002 with promoted dispositions. Step 1's start is its tick, after the answer, so the answer was given while step 1 was under way and isn't step 5's: step 5 is skipped and step 6 rule-broken, as in versions 1 and 2. Case arch-retick-after-answer records the limit §13 names: a reply that ticks step 7 and asks, the answer, a reply ticking step 7 again, then Writes of ADR-004 accepted and ARCH-001 with outcome: create; its expected state is the verdict versions 3 and 4 give, so a later change to BEH-09 shows as a change to it."
+    level: unit
+    covers:
+      - BEH-09
+  - id: VER-29
+    status: active
+    obligation: "Case write-dot-path: as brn-unconfirmed-cut, but the BRN is written as ./docs/specs/brainstorm/BRN-002.md. The Write is the write gate, and the same flags are raised as in brn-unconfirmed-cut."
+    level: unit
+    covers:
+      - BEH-06
+      - BEH-08
   - id: VER-19
     status: active
     obligation: "A generated 500-event architecture log evaluates in under 1 second; the test prints the time, and §9 records it on the owner's machine against QR-03's 200 ms target."
@@ -746,6 +767,10 @@ verifications:
 - **Version 3.** Built with version 2 on the same branch after approval; the two ship together, and version 2 is
   never merged alone. No existing expected state moves: all 36 cases gave byte-identical states under version 3's
   BEH-09, checked on a copy of the evaluator. SPEC-013's upstream link moves to version 3 when it is approved.
+- **Version 4.** Built with versions 2 and 3 on the same branch after approval; the three ship together. No existing
+  expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
+  6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
+  doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
 
 ## 11. Implementation plan
 
@@ -767,6 +792,13 @@ Version 3's build, on the same branch:
 
 1. Write the cases of VER-26 and VER-27 and their tests, and see them fail.
 2. Change `evaluate.py`: the window's opening (BEH-09) and the `./` reading of tool paths (BEH-06).
+3. Regenerate the expected states, check that only the new cases are new, run the tests normally and under
+   `python3 -S`, and record the results in §9.
+
+Version 4's build, on the same branch:
+
+1. Write the cases of VER-28 and VER-29 and their tests, and see `intake-then-tick` and `write-dot-path` fail.
+2. Change `evaluate.py`: a step's start for the opening (BEH-09), and `./` read for every tool's path (BEH-06).
 3. Regenerate the expected states, check that only the new cases are new, run the tests normally and under
    `python3 -S`, and record the results in §9.
 
@@ -797,10 +829,16 @@ Decided by Bryan on 2026-10-02, for version 2: every build decision recorded in 
 Decided by Bryan on 2026-10-02, for version 3: a window opens at each earlier step's first signal, leaving out a
 conditional step that isn't the user's; `./` tool paths are read like the rest. Version 2 ships only with version 3.
 
+Decided by Bryan on 2026-10-02, for version 4: an earlier step counts from the later of its first tool evidence and
+its first tick; every tool's `./` path is read like the rest. Versions 2, 3 and 4 ship together.
+
 Still open, or notes:
-- **An answer is still lost when Claude reaches the earlier steps only after it,** as in SPEC-013 VER-15's
-  architecture run, which ticked nothing before the user's answer: then the earlier steps' first signals come after
-  it. Markers that skills print at each step would remove the guess.
+- **Answer windows still guess, in both directions** (the reviews of versions 2 and 3). An answer is lost when Claude
+  reaches the earlier steps only after it, as in SPEC-013 VER-15's architecture run, which ticked nothing before the
+  user's answer. An answer goes to the next user-owned step when Claude ticks the step that asked, the user answers,
+  and Claude ticks that step again (`arch-retick-after-answer`): the ADR the user decided is flagged and the ARCH's
+  unconfirmed outcome isn't; a few similar shapes behave the same. No rule built on ticks and tool evidence can tell
+  those from the re-ticks VER-26 must accept; markers that skills print at each step would remove the guess.
 - **Layers and `exclude`** (the version 2 build's review): BEH-17 compares rules as written, so a later layer that
   reorders or widens an `exclude` is refused as removing a rule, while one that adds a second, broader read rule is
   accepted and can relax the step. A comparison by what a rule accepts belongs to a later version.
@@ -830,3 +868,5 @@ Still open, or notes:
 | 2 | 2026-10-02 | Bryan | Approved | status |
 | 3 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After the review of the version 2 build and Bryan's decision of 2026-10-02: BEH-09's window opens at each earlier step's first signal and leaves out a conditional step that isn't the user's, so a listing, re-tick or inspection after the user's answer no longer loses it; BEH-06 reads `./` tool paths like the rest; new VER-26 and VER-27; §10 corrects version 2's note on architecture's `manifestHash`; §9 records the version 2 build; §13 records the review's other notes; version 2 ships only with version 3 | frontmatter, §1, BEH-06, BEH-09, VER-26, VER-27, §9, §10, §11, §13 |
 | 3 | 2026-10-02 | Bryan | Approved | status |
+| 4 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After the second review and Bryan's decision of 2026-10-02: an earlier step counts for a window's opening from the later of its first tool evidence and its first claim (BEH-09), so an answer given while that step was under way isn't credited to the next user-owned step; every tool's `./` path is read like the rest, Write and Edit included (BEH-06); new VER-28 and VER-29; §9 records the version 3 build and its review; §13 states the limit both ways; versions 2, 3 and 4 ship together | frontmatter, §1, BEH-06, BEH-09, VER-28, VER-29, §9, §10, §11, §13 |
+| 4 | 2026-10-02 | Bryan | Approved | status |
