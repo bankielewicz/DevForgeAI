@@ -1566,3 +1566,68 @@ test('VER-33: once every step is reached the instruction is kept but no note is 
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary'])
   expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
 })
+
+// ---- version 8 review (2026-10-03): fixes and coverage the plugin-validator review asked for ----
+
+test('VER-33 (review W1): the marked step is the evaluator\'s: a later unknown step\'s mark doesn\'t hide step 2', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await $.tool.call({ tool: 'TaskCreate', subject: '40. Ghost', description: 'd', metadata: { devforgeai_step: 40 } } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '2', status: 'completed' } as Any)  // fails in taskTools only for in_progress
+  await $.tool.call({ tool: 'TodoWrite', todos: [{ content: '40. Ghost', status: 'in_progress', activeForm: 'x' }] } as Any)
+  expect(stepsOf(eventsOf(w, 'architecture')).slice(-1)).toEqual([[40, 'started']])
+  await w.clock.advance(600)
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 2 (Pick)')])
+})
+
+test('VER-30 (review N3): a tag naming a step the checklist lacks still gets the tag sentence', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: bottomTool, evaluate: questionGate(() => files, 'unmarked-question', 2) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(asked('devforgeai_step:40') as Any)) as Any
+  expect(r.deny).toBe(QUESTION_REFUSAL + QUESTION_TAG)
+})
+
+for (const type of ['unmarked-question', 'mismatched-question']) {
+  test(`VER-31 (review): a ${type} flag's toast also says its answer counted for no step`, async ($, on) => {
+    const state = { ...STATE, flags: [{ gate: 'question', seq: 3, step: 2, type, message: MESSAGES[type] }] }
+    const w = world(on, { tool: bottomTool, evaluate: () => ({ state }) })
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await w.clock.advance(600)
+    expect(w.toasts.filter(t => t === `✗ Step 2 ${type}: ${MESSAGES[type]} Its answer, if any, counts for no step.`).length).toBe(1)
+  })
+}
+
+test('VER-31 (review): the user\'s sentence is judged at the flag\'s seq: a prompt at or after it doesn\'t count', async ($, on) => {
+  // markStep gives seqs 2 (TaskCreate), 3 (TaskUpdate) and 4 (step 2 started); the prompt is seq 5, the flag's seq.
+  const state = { ...OBSERVED, gate: { kind: 'write', seq: 5, refuse: true, reason: 'x' },
+    flags: [{ gate: 'write', seq: 5, step: 8, type: 'skipped', message: 'step 8 had no answer from you' }] }
+  const w = world(on, { tool: taskTools(), evaluate: () => ({ state }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await typed($)
+  expect(JSON.parse(eventsOf(w, 'architecture').slice(-1)[0])).toMatchObject({ seq: 5, kind: 'prompt' })
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === '✗ Step 8 skipped: step 8 had no answer from you').length).toBe(1)
+})
+
+test('VER-32 (review): the same flag type at another step is another cause', async ($, on) => {
+  let files = new Map<string, string>()
+  let step = 2
+  const w = world(on, { mode: 'enforce local', tool: bottomTool, evaluate: argv => questionGate(() => files, 'unmarked-question', step)(argv) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(QUESTION as Any)
+  step = 3
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.some(t => t.includes('refused Claude twice'))).toBe(false)
+  expect(stuckLines(w).length).toBe(0)
+})

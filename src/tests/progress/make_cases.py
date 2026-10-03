@@ -667,11 +667,16 @@ def _():
     return brn_validated(VALIDATE.replace(" docs/specs/", " \\\n  docs/specs/", 1)), plugin_only(), {}
 
 
+def brn_reported(log):
+    """A brainstorm that keeps its list through step 8, the report (steps-report-event's log)."""
+    log = log.started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
+    log.started(5).answer(step=5).done(5).started(6).write(BRN_PATH, brn(PROMOTED)).done(6)
+    return log.started(7).bash(VALIDATE).done(7).started(8).done(8)
+
+
 @case("steps-report-event")  # VER-37: the report gate fires on a done step event for the report step
 def _():
-    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
-    log.started(5).answer(step=5).done(5).started(6).write(BRN_PATH, brn(PROMOTED)).done(6)
-    return log.started(7).bash(VALIDATE).done(7).started(8).done(8), plugin_only(), {}
+    return brn_reported(following("brainstorm")), plugin_only(), {}
 
 
 # ---- version 9 -----------------------------------------------------------------------------------
@@ -721,6 +726,11 @@ def _():
 @case("steps-tagged-prompt")  # VER-38: a typed prompt can't carry the tag: placed by the mark
 def _():
     return brn_promote(brn_to_four(following("brainstorm")).started(5).prompt().done(5))
+
+
+@case("steps-after-done")  # VER-38 (version 10): every step reached, then an untagged question: no question gate
+def _():
+    return brn_reported(following("brainstorm")).answer(), plugin_only(), {}
 
 
 @case("rollout-tagged")  # VER-38: steps-tag-mismatch's log with taskList false: the tag is ignored, no question gate

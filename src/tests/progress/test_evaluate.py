@@ -649,6 +649,14 @@ class SpecRules(Base):
         self.assertEqual((state["counts"]["unmarkedQuestions"], state["counts"]["unknownClaims"]), (0, 0))
         self.assertNotIn(answer, [e["seq"] for s in state["steps"] for e in s["evidence"]])
         self.assertEqual(sorted((f["step"], f["type"]) for f in state["flags"]), flagged_write)
+        # Version 10: once every step is reached, a question that fails the cross-check is no question gate, and its
+        # answer still counts for no step.
+        state, _, _, _ = self.run_case("steps-after-done")
+        late = self.events_of("steps-after-done", "answer")[-1]["seq"]
+        self.assertEqual(state["flags"], [])
+        self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
+        self.assertNotEqual(state["gate"]["kind"], "question")
+        self.assertNotIn(late, [e["seq"] for s in state["steps"] for e in s["evidence"]])
 
     # VER-33: current follows step events; a conditional step done with no evidence doesn't apply; step 40 is unknown.
     def test_ver33_current_and_step_events(self):
