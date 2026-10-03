@@ -48,13 +48,13 @@ SKL-008 is reserved for the story skill (SPEC-009).
   events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 and v8
   approved 2026-10-03 (v8 withdrew v7's stale step), merged in PR #70 and deployed as plugin 0.16.0; v9, questions
   that name their step as a check on the task list's mark, and v10, no question gate once every step is reached,
-  approved 2026-10-03, not built; ADR-006
+  approved 2026-10-03, built on `docs/spec-013-v7`, not merged; ADR-006
   accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
   windows open after two plugin-validator reviews; §13 names what windows still guess.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03, merged in PR #70 and deployed as plugin 0.16.0; v7, a compaction hook and a refusal that names a forgotten mark, approved 2026-10-03 and built on `docs/spec-013-v7`, not merged; v8, which records each question's step tag and refuses a missing or mismatched one, approved 2026-10-03, not built): it records each tracked
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03, merged in PR #70 and deployed as plugin 0.16.0; v7, a compaction hook, and v8, which records each question's step tag and refuses a missing or mismatched one, approved 2026-10-03 and built on `docs/spec-013-v7`, not merged; VER-29 passed live): it records each tracked
   skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
   `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
