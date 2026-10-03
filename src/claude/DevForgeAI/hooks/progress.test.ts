@@ -1352,7 +1352,9 @@ function questionGate(files: () => Map<string, string>, type: string, step: numb
     if (!events.endsWith('/pending.jsonl')) return { state: STATE }
     const lines = (files().get(events) ?? '').trim().split('\n')
     const seq = JSON.parse(lines[lines.length - 1]).seq
-    return { state: { ...STATE, gate: { kind: 'question', seq, refuse: true, reason: MESSAGES[type] },
+    // The checklist has step 5, the step the tagged questions name; step 40 stays unknown (review N3).
+    return { state: { ...STATE, steps: [...STATE.steps, { n: 5, title: 'Confirm', state: 'pending' }],
+      gate: { kind: 'question', seq, refuse: true, reason: MESSAGES[type] },
       flags: [{ gate: 'question', seq, step, type, message: MESSAGES[type] }] } }
   }
 }

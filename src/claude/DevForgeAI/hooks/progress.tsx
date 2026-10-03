@@ -640,14 +640,15 @@ async function endRun($: E, reason: string, timeoutMs: number | null): Promise<v
 
 /** The state the run would have with one more event (BEH-08, BEH-21): the run's lines and the pending event in
  *  pending.jsonl, evaluated; null when it can't be had, which lets the call go on (fail open). */
-async function pendingState($: E, kind: string, fields: Fields): Promise<{ state: ProgressState; seq: number } | null> {
+async function pendingState($: E, kind: string, fields: Fields): Promise<{ state: ProgressState; seq: number; lines: readonly string[] } | null> {
   await recordChain  // events still being written are part of the run the check judges
   const run = await read($, RUN)
   if (run === null) return null
-  const seq = (await linesOf($, run)).length + 1
+  const lines = [...(await linesOf($, run))]
+  const seq = lines.length + 1
   const line = eventLine(run.id, seq, await $.clock.now(), kind, fields)
   try {
-    await $.fs.write(`${run.dir}/pending.jsonl`, [...(await linesOf($, run)), line].join('\n') + '\n')
+    await $.fs.write(`${run.dir}/pending.jsonl`, [...lines, line].join('\n') + '\n')
   } catch {
     return null
   }
@@ -656,21 +657,29 @@ async function pendingState($: E, kind: string, fields: Fields): Promise<{ state
     await failOpen($, got)
     return null
   }
-  return { state: got.state, seq }
+  return { state: got.state, seq, lines }
 }
 
 /** The same refusal twice in a run tells the user once (BEH-25): counted by the gate's kind and the first flag raised
  *  at the refused seq, in $.state's refusals, which a new run empties. */
 async function noteRefusal($: E, state: ProgressState, seq: number): Promise<void> {
-  const cause = refusalCause(state, seq)
-  const run = await read($, RUN)
-  if (cause === null || run === null) return
-  const count = ((await read($, REFUSALS))[cause.key] ?? 0) + 1
-  await update($, REFUSALS, r => ({ ...r, [cause.key]: count }))
-  if (count !== 2) return
-  const text = stuckText(run.skill, cause.step, cause.message)
-  await notify($, text)
-  await adapterLog($, 'stuck', text)
+  try {
+    const cause = refusalCause(state, seq)
+    const run = await read($, RUN)
+    if (cause === null || run === null) return
+    let count = 0
+    await update($, REFUSALS, r => {
+      count = (r[cause.key] ?? 0) + 1
+      return { ...r, [cause.key]: count }
+    })
+    if (count !== 2) return
+    const text = stuckText(run.skill, cause.step, cause.message)
+    await notify($, text)
+    await adapterLog($, 'stuck', text)
+  } catch (err) {
+    // The notice is the user's; failing to give it never lets a refused call through (review N1).
+    await recover($, 'tool.call', err)
+  }
 }
 
 /** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. */
@@ -678,7 +687,7 @@ async function enforceCheck($: E, fields: Fields, content: string | null): Promi
   const got = await pendingState($, 'tool', { ...fields, exit: 0, error: false, content: keptContent(content, await logBytes($)) })
   const run = await read($, RUN)
   if (got === null) return null
-  const refusal = refusalText(got.state, got.seq, run === null ? null : await followingLines($, run))
+  const refusal = refusalText(got.state, got.seq, run !== null && (await follows($, run)) ? got.lines : null)
   if (refusal !== null) await noteRefusal($, got.state, got.seq)
   return refusal
 }
@@ -700,10 +709,12 @@ async function questionCheck($: E, input: Fields): Promise<string | null> {
   if (taskWork.size > 0) await Promise.race([Promise.allSettled([...taskWork]), $.clock.sleep(TASK_WAIT_MS)])
   const tag = questionTag(input)
   const got = await pendingState($, 'answer', { answered: true, ...tag })
-  const run = await read($, RUN)
-  if (got === null || run === null) return null
-  const marked = markedStep(await linesOf($, run), Infinity, got.state.steps)
-  const refusal = questionRefusal(got.state, got.seq, marked, tag.step !== undefined)
+  if (got === null) return null
+  // The mark and the tag as the check judged them: the lines written to pending.jsonl (review N2), and a tag naming a
+  // step the checklist has (review N3; SPEC-012 ERR-06).
+  const marked = markedStep(got.lines, Infinity, got.state.steps)
+  const tagged = tag.step !== undefined && got.state.steps.some(s => s.n === tag.step)
+  const refusal = questionRefusal(got.state, got.seq, marked, tagged)
   if (refusal !== null) await noteRefusal($, got.state, got.seq)
   return refusal
 }

@@ -469,18 +469,21 @@ function parsed(lines: readonly string[]): Fields[] {
 }
 
 /** The step the task list marks in progress, from a run's event lines before seq `upto`: the step whose latest step
- *  event is started, the latest started when several are (SPEC-012 BEH-18); null when none is. With `steps`, a step
- *  the state doesn't have counts as none (BEH-24, version 8). */
+ *  event is started, the latest started when several are (SPEC-012 BEH-18); null when none is. With `steps`, the step
+ *  events naming a step the state doesn't have are left out first, as the evaluator leaves them out (SPEC-012 ERR-06),
+ *  so the two agree on the mark (BEH-24, version 8). */
 export function markedStep(lines: readonly string[], upto = Infinity, steps: readonly StateStep[] | null = null): number | null {
+  const known = steps === null ? null : new Set(steps.map(s => s.n))
   const latest = new Map<number, { state: unknown; seq: number }>()
   for (const e of parsed(lines)) {
     if (typeof e.seq !== 'number' || e.seq >= upto) continue
-    if (e.kind === 'step' && typeof e.step === 'number') latest.set(e.step, { state: e.state, seq: e.seq })
+    if (e.kind === 'step' && typeof e.step === 'number' && (known === null || known.has(e.step))) {
+      latest.set(e.step, { state: e.state, seq: e.seq })
+    }
   }
   let best: { n: number; seq: number } | null = null
   for (const [n, v] of latest) if (v.state === 'started' && (best === null || v.seq > best.seq)) best = { n, seq: v.seq }
-  if (best === null || (steps !== null && !steps.some(s => s.n === best!.n))) return null
-  return best.n
+  return best === null ? null : best.n
 }
 
 /** Whether the user typed a prompt after step n's latest started event and before seq `upto` (BEH-08, BEH-12). */

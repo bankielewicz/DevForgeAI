@@ -668,7 +668,8 @@ class Run:
         the mark, so the tag is a check on the mark, never a placement of its own: the answer counts for the step in
         progress `n` only when its tag names that step. Otherwise it is a question gate whose answer counts for no step,
         checked in this order: no step in progress, no tag, another step's tag. An answer whose question says it is
-        outside the checklist is neither: it counts for no step and raises nothing."""
+        outside the checklist, or one asked once every step is reached, is neither: it counts for no step and raises
+        nothing (version 10)."""
         tag = e.get("step")
         if isinstance(tag, bool) or not isinstance(tag, int) or tag < 1:
             tag = None  # a tag of another type counts as no tag
@@ -683,6 +684,8 @@ class Run:
             return
         if not self.tracked:
             return  # every gate needs a matched or unverified manifest
+        if all(s.reached(e["seq"]) for s in self.steps):
+            return  # the checklist is finished: a later question isn't its own, and counts for no step (version 10)
         if n is None:
             kind, named = "unmarked-question", tag
         elif tag is None:
