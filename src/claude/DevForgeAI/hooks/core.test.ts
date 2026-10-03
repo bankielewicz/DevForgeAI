@@ -3,7 +3,7 @@ import {
   adherenceText, bandRows, editResult, eventLine, finalTimeout, exitOf, fit, followsTaskList, hasTaskList, isAnswered,
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, summaryOf, taskIdOf,
-  todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL,
+  todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
 
@@ -229,13 +229,14 @@ test('the task list: which sessions have one, which runs follow it, and how task
 
 test('the question gate refuses at its own seq; the adherence notice needs a report or an end, and the counts', () => {
   const question = { ...STATE, gate: { kind: 'question', seq: 9, refuse: true, reason: 'x' } }
-  expect(questionRefusal(question, 9)).toBe(QUESTION_REFUSAL)
+  expect(questionRefusal(question, 9)).toBe(QUESTION_REFUSAL + QUESTION_TAG)
+  expect(questionRefusal(question, 9, null, true)).toBe(QUESTION_REFUSAL)  // a tagged question isn't told to tag it
   expect(questionRefusal(question, 8)).toBe(null)
   expect(questionRefusal({ ...question, gate: { ...question.gate, refuse: false } }, 9)).toBe(null)
   expect(questionRefusal(STATE, 4)).toBe(null)
   const report = { ...STATE, gate: { kind: 'report', seq: 9, refuse: false, reason: null } }
   expect(adherenceText({ ...report, counts: { stepEvents: 5, unmarkedQuestions: 1 } }))
-    .toBe("brainstorm didn't keep its task list: 5 step events, 1 questions asked with no step in progress. "
+    .toBe("brainstorm didn't keep its task list: 5 step events, 1 questions asked without their step marked and tagged. "
       + 'Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)')
   expect(adherenceText({ ...report, counts: { stepEvents: 5, unmarkedQuestions: 0 } })).toBe(null)
   expect(adherenceText({ ...STATE, counts: { stepEvents: 0, unmarkedQuestions: 0 } })).toBe(null)

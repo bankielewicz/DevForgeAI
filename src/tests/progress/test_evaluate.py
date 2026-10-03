@@ -606,6 +606,58 @@ class SpecRules(Base):
         self.assertNotIn(self.events_of("steps-unmarked-prompt", "prompt")[0]["seq"],
                          [e["seq"] for s in prompt["steps"] for e in s["evidence"]])
 
+    # VER-38 (version 9): a question's tag is a check on the mark, never a placement of its own: an answer counts for
+    # the step in progress only when its tag names that step; a question gate's answer counts for no step; an answer
+    # whose question says it is outside the checklist raises nothing and counts for nothing; a prompt keeps the mark.
+    def test_ver38_tagged_questions(self):
+        mismatched = ("a question for step 5 was asked while step 6 was marked in progress: "
+                      "mark step 5 in progress, then ask")
+        untagged = ("a question was asked without naming a step of the checklist: tag it with devforgeai_step:N "
+                    "for the step it belongs to, mark that step in progress, then ask")
+        unmarked = ("a question was asked while no step was marked in progress in the task list: "
+                    "mark the step it belongs to in progress, then ask")
+        flagged_write = [(5, "skipped"), (6, "rule-broken")]  # the promoted Write with no answer for step 5 (BEH-10)
+        cases = {  # case: (its question gate's flag type and message, or None; counts.unknownClaims)
+            "steps-tagged": (None, 0),
+            "steps-tag-mismatch": (("mismatched-question", mismatched), 0),
+            "steps-untagged": (("untagged-question", untagged), 0),
+            "steps-tag-unknown": (("untagged-question", untagged), 1),
+            "steps-tag-unmarked": (("unmarked-question", unmarked), 0),
+            "steps-tag-outside": (None, 0),
+            "steps-tagged-prompt": (None, 0),
+        }
+        for name, (gate, unknown) in cases.items():
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                said = [e["seq"] for e in self.events_of(name) if e["kind"] in ("answer", "prompt")]
+                counted = name in ("steps-tagged", "steps-tagged-prompt")
+                self.assertEqual(self.answer_seqs(self.step(state, 5)), said if counted else [])
+                if not counted:
+                    self.assertNotIn(said[0], [e["seq"] for s in state["steps"] for e in s["evidence"]])
+                question = [f for f in state["flags"] if f["gate"] == "question"]
+                self.assertEqual(question, [] if gate is None else [
+                    {"gate": "question", "seq": said[0], "step": 5, "type": gate[0], "message": gate[1]}])
+                self.assertEqual(sorted((f["step"], f["type"]) for f in state["flags"] if f["gate"] != "question"),
+                                 [] if counted else flagged_write)
+                self.assertEqual(state["counts"]["unmarkedQuestions"], 0 if gate is None else 1)
+                self.assertEqual(state["counts"]["unknownClaims"], unknown)
+        # Without a task list the run doesn't follow it: the tag is ignored and nothing is a question gate; the answer
+        # goes to step 6, marked in progress, as its own exchange (version 8's placement), so the Write is flagged.
+        state, _, _, _ = self.run_case("rollout-tagged")
+        answer = self.events_of("rollout-tagged", "answer")[0]["seq"]
+        self.assertEqual([f for f in state["flags"] if f["gate"] == "question"], [])
+        self.assertEqual((state["counts"]["unmarkedQuestions"], state["counts"]["unknownClaims"]), (0, 0))
+        self.assertNotIn(answer, [e["seq"] for s in state["steps"] for e in s["evidence"]])
+        self.assertEqual(sorted((f["step"], f["type"]) for f in state["flags"]), flagged_write)
+        # Version 10: once every step is reached, a question that fails the cross-check is no question gate, and its
+        # answer still counts for no step.
+        state, _, _, _ = self.run_case("steps-after-done")
+        late = self.events_of("steps-after-done", "answer")[-1]["seq"]
+        self.assertEqual(state["flags"], [])
+        self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
+        self.assertNotEqual(state["gate"]["kind"], "question")
+        self.assertNotIn(late, [e["seq"] for s in state["steps"] for e in s["evidence"]])
+
     # VER-33: current follows step events; a conditional step done with no evidence doesn't apply; step 40 is unknown.
     def test_ver33_current_and_step_events(self):
         state, _, _, _ = self.run_case("steps-current")

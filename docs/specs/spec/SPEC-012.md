@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 8
+version: 10
 created: 2026-10-02
 updated: 2026-10-03
 owner: "Bryan"
@@ -24,8 +24,8 @@ upstream:
   - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
   - {id: PRD-001, item: FR-011, relation: informed_by, version: 11, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
-  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 12, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
-  - {id: SPEC-003, relation: informed_by, version: 7, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
+  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 13, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
+  - {id: SPEC-003, relation: informed_by, version: 8, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill's checklist form for a legitimate skip, (skipped: <reason>); version 3 is in review"}
 supersedes: []
 superseded_by: null
@@ -96,6 +96,22 @@ of a later step's files made a correct mark stale: a Glob of the ARCH folder whi
 marked would have a valid "which PRD?" question refused in enforce mode. A step marked started is in progress
 again until a step event ends it, as in versions 5 and 6 (BEH-18). The problem version 7 meant to solve, a
 forgotten mark taking every later answer, is open again (§13). Version 7's other changes stand.
+
+**Version 9** (2026-10-03) lets each question say which step it belongs to, instead of the tracker inferring it
+from the task list's mark. A skill that follows the convention tags each question form with its step, in a field
+the user never sees (AskUserQuestion's `metadata.source`, `devforgeai_step:N`), and shows the step in the question's
+header, which the user does see. The adapter records the tag on the answer event (DM-02), and an answer counts for
+the step in progress only when its tag names that step. A question with no tag, or tagged for a step other than
+the one in progress, is a question gate (BEH-18), as a question asked while no step is in progress already was, and
+its answer counts for no step. The tag is a check on the mark, never a placement of its own: Claude writes both, so
+their agreement catches Claude contradicting itself, not a step wrong in both (§13). A question answered by a typed
+message can't carry the tag, so its answer is still placed by the mark. With SPEC-013 versions 7 and 8 (a compaction hook, refusals that name a
+forgotten mark), this answers §13's forgotten-mark item.
+
+**Version 10** (2026-10-03) stops the question gate once every step of a run is reached. A run stays open until
+another tracked skill loads or the session ends, so every later question, Claude's own follow-up or another
+skill's, was refused as asked with no step marked. Such a question's answer still counts for no step, so a
+decision written after it still needs an answer that counts (BEH-18).
 
 ## 2. Constraints
 
@@ -234,7 +250,7 @@ flowchart LR
                              "command": {"type": "string"}, "exit": {"type": ["integer", "null"]}, "error": {"type": "boolean"},
                              "content": {"type": "string", "description": "a Write's content, or the file an Edit will leave; optional"}}}},
     {"if": {"properties": {"kind": {"const": "answer"}}},
-     "then": {"required": ["answered"], "properties": {"answered": {"type": "boolean", "description": "false when the question was dismissed"}}}},
+     "then": {"required": ["answered"], "properties": {"answered": {"type": "boolean", "description": "false when the question was dismissed"}, "step": {"type": "integer", "minimum": 1, "description": "the step the question named in its tag, devforgeai_step:N (version 9)"}, "outside": {"type": "boolean", "description": "true when the question's source names something other than the convention's tag: it isn't the checklist's (version 9)"}}}},
     {"if": {"properties": {"kind": {"const": "reply"}}},
      "then": {"required": ["text"], "properties": {"text": {"type": "string"}}}},
     {"if": {"properties": {"kind": {"const": "step"}}},
@@ -285,7 +301,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
       "properties": {"events": {"type": "integer"}, "malformed": {"type": "integer"}, "outOfOrder": {"type": "integer"}, "duplicates": {"type": "integer"},
                      "unknownClaims": {"type": "integer"}, "afterEnd": {"type": "integer"},
                      "stepEvents": {"type": "integer", "description": "the run's step events naming a step the checklist has (version 5; version 7 says which)"},
-                     "unmarkedQuestions": {"type": "integer", "description": "answer events at a question gate (version 5)"}}
+                     "unmarkedQuestions": {"type": "integer", "description": "answer events at a question gate (version 5); since version 9 the unmarked, untagged and mismatched ones alike"}}
     }
   },
   "$defs": {
@@ -310,7 +326,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     "flag": {
       "type": "object", "additionalProperties": false, "required": ["gate", "seq", "step", "type", "message"],
       "properties": {"gate": {"enum": ["write", "report", "end", "question"]}, "seq": {"type": "integer"}, "step": {"type": "integer"},
-                     "type": {"enum": ["skipped", "claimed-not-evidenced", "rule-broken", "unmarked-question"]}, "message": {"type": "string"}}
+                     "type": {"enum": ["skipped", "claimed-not-evidenced", "rule-broken", "unmarked-question", "mismatched-question", "untagged-question"]}, "message": {"type": "string"}}
     },
     "gate": {
       "type": "object", "additionalProperties": false, "required": ["kind", "seq", "refuse", "reason"],
@@ -359,6 +375,14 @@ list when the host has one:
 - one task per checklist step, titled `<N>. <title>` and, where the host allows, tagged `devforgeai_step: N`;
 - before it asks the user any question, it marks the step the question belongs to as in progress;
 - it never puts two steps' questions in one question form;
+- it tags each question form with the step it belongs to, where the host allows: in Claude Code, AskUserQuestion's
+  `metadata.source` is `devforgeai_step:N`, which the user never sees (version 9); a question asked in plain text
+  and answered by a typed message can't carry the tag;
+- a question that isn't part of the checklist, such as one another command asks, carries a source of its own (in
+  Claude Code, any `metadata.source` that doesn't start with `devforgeai_step`); it counts for no step (version 9);
+- it shows the step on each question where the host gives a question a visible header: in Claude Code, each
+  AskUserQuestion question's `header` is `Step N`, so the user sees which step the answer is for (version 9; the
+  tracker doesn't read it);
 - it marks each step done as soon as the step is done, one at a time.
 
 Without a task list it ticks steps in its reply text as before (BEH-05). An adapter turns the list's changes into
@@ -368,11 +392,14 @@ spec cites this paragraph; skills without a manifest needn't follow it.
 
 **When a run doesn't keep its list** (version 5; Bryan, 2026-10-03: don't let Claude go on; flag it and fix the
 skill). The tracker answers at three levels:
-1. *In the run.* Each question asked while no step is in progress is a question gate (BEH-18): flagged, and in
-   enforce mode refused, with a refusal that says how to recover: turn the skill's checklist into the task list if
-   there is none, mark the question's step in progress, and ask again (SPEC-013 for Claude Code).
-2. *At the run's end.* The state counts the run's step events and unmarked questions (DM-03 `counts`), so a run
-   that followed the convention but kept no list, or asked unmarked questions, is visible however the run ended; an
+1. *In the run.* Each question asked while no step is in progress, tagged for a step other than the one in
+   progress, or not tagged with a step of the checklist (unless its source says it isn't the checklist's), is a
+   question gate (BEH-18): flagged, and in enforce mode refused, with a
+   refusal that says how to recover: turn the skill's checklist into the task list if there is none, mark the
+   question's step in progress, tag the question with it, and ask again (SPEC-013 for Claude Code).
+2. *At the run's end.* The state counts the run's step events and its questions at a question gate (DM-03 `counts`;
+   `unmarkedQuestions`, named in version 5, counts all three kinds of question gate since version 9), so a run that
+   followed the convention but kept no list, or asked questions outside its marked steps, is visible however the run ended; an
    adapter tells the user so once, in either mode, and recommends that the user fix the skill (Bryan, 2026-10-03).
 3. *Across runs.* A tracked skill whose runs break the convention has a defect in its own text, not in the run: the
    user fixes the skill so it keeps the task list. A project's own skill is the user's to edit; one of DevForgeAI's
@@ -426,7 +453,7 @@ behaviors:
     rule: "While the run is open, a step is done when it has evidence, or when it is claimed done and has no strong rule; claimed when it is claimed done, has a strong rule and has no evidence yet; skipped-with-reason when it is claimed skipped; otherwise pending. A step is reached when it has evidence or a claim, whatever its state. current is the step after the highest-numbered reached step (step 1 when none is reached), or null once the last step is reached or the run has ended; it shows as current, or as your-turn when it is user-owned, has no answer counted for it (BEH-09 or BEH-18), and the last event is a turn end. A step before current that is still pending keeps the note 'not seen yet' and raises no flag. In a run with step events, current is the step in progress (BEH-18); when none is, the rule above applies. A conditional step marked done by a step event with no evidence is not-applicable, with its when text as the note, since the skill found it didn't apply; a later done tick, as a checklist restated after a compaction gives, leaves it so, and a skipped tick makes it skipped-with-reason (version 7)."
   - id: BEH-08
     status: active
-    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first claim of the step with gate report done, a reply's tick or a done step event (BEH-05); the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'. When a Bash command named a step's script but joined it to another so (BEH-06), the step's skipped or claimed-not-evidenced flag reads instead 'step N (<title>): <script> ran, but the command joined it to another, which hides its exit status: run it as a command of its own', <script> being the file name the command named (version 7). In a run that follows the task list (BEH-18), each answer event at which no step is in progress is also a gate, the question gate: it checks no step and raises only its own unmarked-question flag reading 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask', one per such answer. Its gate is question, and its step is the step after the highest reached at that seq, or the last step when every step is reached (version 6)."
+    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first claim of the step with gate report done, a reply's tick or a done step event (BEH-05); the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'. When a Bash command named a step's script but joined it to another so (BEH-06), the step's skipped or claimed-not-evidenced flag reads instead 'step N (<title>): <script> ran, but the command joined it to another, which hides its exit status: run it as a command of its own', <script> being the file name the command named (version 7). In a run that follows the task list (BEH-18), each answer event that BEH-18 makes a question gate is also a gate: it checks no step and raises one flag of its own, of gate question. An unmarked-question flag (no step in progress) reads 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask'; a mismatched-question flag (tagged for step N while step K is in progress) reads 'a question for step N was asked while step K was marked in progress: mark step N in progress, then ask'; an untagged-question flag (a step in progress, and no tag naming a step of the checklist) reads 'a question was asked without naming a step of the checklist: tag it with devforgeai_step:N for the step it belongs to, mark that step in progress, then ask' (version 9). The flag names the question's tagged step when it has one; an untagged question's flag names the step in progress, or, when none is, the step after the highest reached at that seq, or the last step when every step is reached (versions 6 and 9)."
   - id: BEH-09
     status: active
     rule: "Answers that BEH-18 doesn't place are placed as follows. A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest start of any step before it, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none), where a step's start is the later of its first tool evidence and its first claim, counting only those before that close (whichever it has, when it has one). So a re-read, a re-listing or a re-tick of a finished earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move the opening, while an earlier step Claude ticks only after the answer does, since the answer came while that step was under way; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
@@ -456,7 +483,7 @@ behaviors:
     rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09)."
   - id: BEH-18
     status: active
-    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event at which no step is in progress, answered or not, since the question was asked, counts for no step and is a question gate (BEH-08, BEH-11), and a prompt there counts for no step and raises nothing, since a typed message isn't known to be an answer. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
+    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event counts for the step in progress only when it names that step (DM-02's step, from the question's tag): the tag is a check on the mark, never a placement of its own, since Claude writes both (version 9). A tag naming a step the checklist doesn't have is ERR-06's and counts as no tag. An answer event marked outside (DM-02: its question's source names something other than the convention's tag, as another command's question does) is no question gate and counts for no step, so it can't stand for a decision (version 9). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event, answered or not, since the question was asked, is a question gate (BEH-08, BEH-11), with exactly one of three flags, checked in this order: when no step is in progress (unmarked-question); when it is untagged (untagged-question); when it names a step other than the step in progress (mismatched-question) (version 9). An answer at a question gate counts for no step, so a decision it was meant for still needs an answer that counts (BEH-10). Once every step of the run is reached before the answer's seq (BEH-07's reached: evidence or a claim), an answer that fails the cross-check is no question gate and counts for no step: the checklist is finished, so a later question isn't the checklist's (version 10). A prompt at which no step is in progress counts for no step and raises nothing, since a typed message isn't known to be an answer. A tag in a run that doesn't follow the task list is ignored. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
 ```
 
 ## 7. Errors and edge cases
@@ -490,8 +517,8 @@ errors:
     user_result: "The step shows the note instead of a flag."
   - id: ERR-06
     status: active
-    condition: "A reply claims, or a step event names, a step number the checklist doesn't have."
-    handling: "Ignore the claim and count it in counts.unknownClaims."
+    condition: "A reply claims, a step event names, or an answer event's step names a step number the checklist doesn't have."
+    handling: "Ignore the claim and count it in counts.unknownClaims; such an answer is untagged (BEH-18, version 9)."
     user_result: "The state is written; the count shows the claims ignored."
   - id: ERR-07
     status: active
@@ -551,7 +578,8 @@ quality_responses:
 | Task-list evidence (v5) | Three live runs in a cmux tab, Claude Code 2.1.288, plugin 0.14.0, with the convention's wording added to the prompt (2026-10-03). A brainstorm, wording that asked only to keep the list current: 8 tasks created with the tag, each marked in progress before its step's work and its questions, step 5 in progress before the confirmation question, and the typed answer to an intake question given while step 1 was in progress. An architecture run with the same wording: every decision question asked while step 6 was in progress, and steps 6 to 8 completed in a burst after the answers, which You Should Know also flagged. An architecture run with the explicit wording (before any question, mark its step in progress; never two steps in one form; done one at a time): step 7 in progress for both question forms, step 8 in progress for the outcome question asked alone, and after a `/compact` with step 8 in progress, Claude reloaded the task tools itself, took the typed confirmation, and carried on in order. One run stands behind the explicit wording; VER-35 checks both skills again once built. All three sessions had the task tools only through the opt-in in the owner's user settings (`CLAUDE_CODE_ENABLE_TODO_TOOLS=1`): on Opus 5.5 Claude Code offers them only on an opt-in, so a session can have no task list (SPEC-013 version 5, §9) |
 | Build (v5, v6) | Merged in PR #68 (`ad1ad3d`, 2026-10-03) as plugin 0.15.0 and deployed the same day. Built together with SPEC-013 versions 4 and 5 on branch `feat/step-events-build` (worktree, from `1febe1a`, whose tree is main's `1f6e86d`), through `/plugin-dev:create-plugin`, tests first, 2026-10-03: the failing cases and tests with the schemas from DM-02 and DM-03 `659e352`, the evaluator `820cfe8`, then the review's fixes `1c232eb`. Version 6 was found and approved during this build (`46adba1`). Results at the head: `src/tests/progress` 165 passed, under `python3 -S` too; full `src/tests` 642 passed, 708 subtests (632 passed and 5 failed before: the schemas behind the spec's blocks, and the prd structure test still pinning SPEC-003 version 5, fixed in `0e56757`); `make_cases.py --check` clean; no `__pycache__`. Expected states: the ten new cases (`steps-*`, `rollout-*`, `tasklist-false-tagged`) are new, and every earlier state gained only `counts.stepEvents` 0 and `counts.unmarkedQuestions` 0. VER-35 waits for the skills' wording. Readings, for the owner: (a) the question gate needs a tracked run (manifest matched or unverified) as well as one that follows the task list, as every gate does; (b) an answer event with answered false at no step in progress is also a question gate, since the question was asked; (c) `counts.stepEvents` counts the step events naming a step the checklist has, so an unknown step's event counts only in `unknownClaims`; (d) a conditional step a step event marked done with no evidence stays not-applicable after a later done tick, such as a checklist restated after a compaction (case `steps-retick`), and a skipped tick undoes it; (e) the report gate also fires on a done step event for the report step, since BEH-05 makes it a claim, though BEH-08 says 'the first reply claiming'. Open, from the plugin-validator review (2026-10-03, no critical finding): a step left started takes every later answer (BEH-18 as written), so a run whose list stops being kept, as after a compaction whose summary drops that a step is still started, has its decisions counted for that step and, in enforce mode, its writes refused again and again; this blocks the skills' wording (SKL-001 v6, SKL-003 v7), not this build's merge, since no skill names the tag yet; the refusal doesn't ask Claude to create the tasks again for a new run of the skill; an earlier run's completed todos in a TodoWrite list claim the new run's steps of the same numbers. Each needs a spec change |
 | Build (v7) | Built with SPEC-013 version 6 on branch `feat/step-events-v7-build` (worktree, from `bd73170`, whose tree is main's `778cbe9`), through `/plugin-dev:create-plugin`, tests first, 2026-10-03; plan `tmp/plans/2026-10-03-step-events-v7-build.md` (local): the failing cases and tests `a66125f`, the evaluator `ff8ab1b`, the review's tests `678e0d9` and fixes `9f614e0`. Results at the head: `src/tests/progress` 169 passed, under `python3 -S` too; full `src/tests` 646 passed, 779 subtests (642 and 708 before); `make_cases.py --check` clean. Expected states: eleven new cases (`steps-stale`, `steps-stale-inspection`, `steps-shared-evidence`, `steps-report-event`, `brn-validate-joined`, `-piped`, `-background`, `-and`, `-redirect`, `-read`, `-continued`); no earlier state moved. Readings, for the owner: (a) for a script rule with target written (brainstorm's step 7), the joined-run message appears only when the command also names the written file, so a read of the script (`cat validate_brn.py | head`) keeps the usual message; a rule without a target (architecture's step 1) gives the joined message for any joined command naming its script; (b) a backslash line continuation isn't a line break; (c) other forms count as joined although the exit status survives (`$(… | …)` as an argument, a quoted `;` or `|`, `>|`, a heredoc inside `$()`): such a run is no evidence, which is stricter, never looser, and the skills run their validators bare. The plugin-validator review (read-only, no critical finding, three warnings): fixed an earlier run's todos beside the new run's of the same numbers giving false done events, the read-of-the-script message, and a possible second notice when two evaluations finish together. The rule working (warning 2): a read that is a later step's work, such as a Glob of the ARCH folder while step 2 is marked, is that step begun without a mark, so step 2's mark goes stale as BEH-18 says and a question then is refused once in enforce mode, with recovery text; marking the step again clears it. SKL-003 v7's wording should have Claude mark each step before its first read, and SPEC-013 §10's 'nothing new is refused' holds only until a skill names the tag. A worst-case 500-event run with 240 step events and 250 answers evaluated in 116 ms (the review's measure; VER-19's log has no step events). VER-35 waits for the skills' wording |
-| Build (v8) | Built on the same branch before its merge, through `/plugin-dev:create-plugin`, 2026-10-03: version 7's stale started step removed from `evaluate.py` with VER-36's three cases and its test (`12ef6f8`), so it was never deployed; version 7's other changes stand. Results: `src/tests/progress` 167 passed, under `python3 -S` too; full `src/tests` 644 passed, 760 subtests; `claude plugin test` 95 passed; `make_cases.py --check` clean; no other expected state moved. The Build (v7) row above keeps the history, its stale-mark items now void |
+| Build (v8) | Merged with version 7's build in PR #70 (`f2217dc`, 2026-10-03) as plugin 0.16.0 and deployed the same day. Built on the same branch before its merge, through `/plugin-dev:create-plugin`, 2026-10-03: version 7's stale started step removed from `evaluate.py` with VER-36's three cases and its test (`12ef6f8`), so it was never deployed; version 7's other changes stand. Results: `src/tests/progress` 167 passed, under `python3 -S` too; full `src/tests` 644 passed, 760 subtests; `claude plugin test` 95 passed; `make_cases.py --check` clean; no other expected state moved. The Build (v7) row above keeps the history, its stale-mark items now void |
+| Build (v9, v10) | Plugin 0.17.0, set for the merge on Bryan's word (2026-10-03). Built with SPEC-013 versions 7 and 8 on branch `docs/spec-013-v7` (worktree, based on `8b73da1`, whose tree is main's `f2217dc`), through `/plugin-dev:create-plugin`, tests first, 2026-10-03; plan `tmp/plans/2026-10-03-spec-013-v7-build.md` §0.6 (local): the failing cases and test `8575726`, the evaluator `825320d`; after the plugin-validator review, version 10 (approved `0a015fe`), its failing case `f35ae3f` and its rule `4e7ca92`. Results at the head: `src/tests/progress` 169 passed, 448 subtests, under `python3 -S` too; full `src/tests` 646 passed, 819 subtests; `make_cases.py --check` clean. Expected states: nine new cases (VER-38's eight and `steps-after-done`); the answers of `steps-brainstorm`, `steps-arch`, `steps-report-event` and `steps-current` gained their marked step's tag, and their goldens didn't move; no earlier state moved. Readings, for the owner: (a) an answer's `step` of another type, or below 1, counts as no tag and the answer is kept, not dropped as malformed, so a run that doesn't follow the task list loses no evidence; (b) an answer with both a valid tag and `outside` true is judged by its tag. The review (read-only, no critical finding) found four ways a rule could hit valid work, each taken to Bryan: questions after every step is reached (version 10); a skill written to versions 5 to 8 that names the tag but doesn't tag its questions (accepted, §10); mid-run questions with no metadata, such as another skill's (his earlier decision stands: refused, with the route to a source of its own); and a question sent in the same batch as the TaskUpdate that marks its step (none seen in SPEC-013's VER-29). SPEC-013's VER-29 (its §9) ran version 9's tags and version 10's late question live. VER-35 waits for the skills' wording |
 | Build | Built on branch `feat/spec-012-progress-core` (worktree), not merged. Commits: schemas `5eb2034`; manifests, generated cases and tests `ea3ccdb`; `evaluate.py` in stages `6507c9a`, `b095c13`, `bb47cd5` and `9eb1895`; expected states `fcf1d0d`; records in the next commit. Results at `fcf1d0d` plus the added VER-09 assertion: `src/tests/progress` 51 passed, 173 subtests (SpecRules 25; SpecRulesUnderS 25, every rule with the evaluator under `python3 -S`; Goldens 1, over 29 cases); full `src/tests` 528 passed, 544 subtests, against the baseline at `4100614` of 477 and 371, so nothing earlier broke. VER-19 (QR-03): a 500-event log evaluates in 36 ms (`-B`) and 31 ms (`-S -B`) on the owner's machine, against 200 ms. QR-04 by review: `evaluate.py` opens only `--events`, the manifest files, `--phases`, `--checklist`, and with `--root` the written files under its realpath; it writes only a temporary file beside `--out`, renamed over it; it opens no network connection and starts no process. plugin-validator (2026-10-02): PASS, 0 critical, 0 warnings, 6 informational notes; the one real note, a temporary file left beside `--out` when the rename fails, fixed in `f4260a3`. Two notes pass to the adapter's spec: run the evaluator as `python3 ${CLAUDE_PLUGIN_ROOT}/progress/evaluate.py` (the file isn't executable). Plugin version: 0.12.0, the next free minor at merge (§10) |
 
 Each case is a folder in `src/tests/progress/cases/` with `events.jsonl` and `expected.json`; a test runs IF-01 on it and compares the output with `expected.json` byte for byte. "The prototype's moment N" means the five moments of the design proposal's prototype.
@@ -817,14 +845,14 @@ verifications:
       - BEH-08
   - id: VER-30
     status: active
-    obligation: "Case steps-brainstorm: skill-loaded with taskList true and a checklist naming devforgeai_step; step events start step 1, an answer (an intake question), step 1 done, steps 2 to 4 started and done, step 5 started, an answer, step 5 done, then a Write of BRN-002 with promoted dispositions. The intake answer counts for no user-owned step, step 5 is done with the second answer as strong evidence, and nothing is flagged."
+    obligation: "Case steps-brainstorm: skill-loaded with taskList true and a checklist naming devforgeai_step; step events start step 1, an answer (an intake question) tagged 1, step 1 done, steps 2 to 4 started and done, step 5 started, an answer tagged 5, step 5 done, then a Write of BRN-002 with promoted dispositions. The intake answer counts for no user-owned step, step 5 is done with the second answer as strong evidence, and nothing is flagged."
     level: unit
     covers:
       - BEH-18
       - BEH-05
   - id: VER-31
     status: active
-    obligation: "Case steps-arch: an architecture run with step events: step 7 started with two answers, step 7 done, step 8 started, a typed prompt, then a reply ticking steps 1 to 8 as after a compaction, step 8 done, then Writes of ADR-004 accepted and ARCH-001 with outcome: create. Step 7 is done with its two answers, step 8 with the prompt, and nothing is flagged, where version 4 flags step 8 skipped and step 9 rule-broken on the same log (checked on the deployed evaluator, 2026-10-03)."
+    obligation: "Case steps-arch: an architecture run with step events: step 7 started with two answers tagged 7, step 7 done, step 8 started, a typed prompt, then a reply ticking steps 1 to 8 as after a compaction, step 8 done, then Writes of ADR-004 accepted and ARCH-001 with outcome: create. Step 7 is done with its two answers, step 8 with the prompt, and nothing is flagged, where version 4 flags step 8 skipped and step 9 rule-broken on the same log (checked on the deployed evaluator, 2026-10-03)."
     level: unit
     covers:
       - BEH-18
@@ -839,7 +867,7 @@ verifications:
       - BEH-18
   - id: VER-33
     status: active
-    obligation: "Case steps-current: with steps 7 and 8 both started and neither done, current is 8 and an answer counts for step 8; the conditional step 5 started and done with no evidence is not-applicable with its when text; a step event naming step 40 is counted in counts.unknownClaims."
+    obligation: "Case steps-current: with steps 7 and 8 both started and neither done, current is 8 and an answer tagged 8 counts for step 8, since step 8, the latest started, is the step in progress its tag must match (version 9); the conditional step 5 started and done with no evidence is not-applicable with its when text; a step event naming step 40 is counted in counts.unknownClaims."
     level: unit
     covers:
       - BEH-07
@@ -873,6 +901,14 @@ verifications:
     covers:
       - BEH-06
       - BEH-08
+  - id: VER-38
+    status: active
+    obligation: "Brainstorm cases in a run that follows the task list, each ending with a Write of promoted dispositions: steps-tagged (step 5 marked, an answer tagged 5: it counts for step 5, no gate, and the Write raises nothing); steps-tag-mismatch (step 6 marked, an answer tagged 5: a mismatched-question flag naming step 5, gate question; the answer counts for no step, so the Write flags step 5 skipped and step 6 rule-broken, as with no answer, BEH-10); steps-untagged (step 5 marked, an answer with no tag: an untagged-question flag naming step 5; the answer counts for no step, and the Write is flagged the same way); steps-tag-unknown (step 5 marked, an answer tagged 40: counted in counts.unknownClaims, then as steps-untagged); steps-tag-unmarked (no step marked, an answer tagged 5: an unmarked-question flag naming step 5; the answer counts for no step); steps-tag-outside (step 5 marked, an answer marked outside: no gate, the answer counts for no step, and the Write is flagged as with no answer); steps-tagged-prompt (step 5 marked, a typed prompt: placed by the mark, so it counts for step 5 and nothing is raised); rollout-tagged (the steps-tag-mismatch log with taskList false: the tag is ignored, the answer placed as version 8 places it, no question gate); steps-after-done (steps-report-event's log, every step reached, then an answer with no tag and no step marked: no question gate, no flag, counts.unmarkedQuestions 0, and the answer counts for no step; version 10). counts.unmarkedQuestions counts each question gate. Cases steps-unmarked-question and steps-unmarked-question-cut (VER-32) keep their states: an untagged answer at which no step is in progress is still an unmarked-question."
+    level: unit
+    covers:
+      - BEH-18
+      - BEH-08
+      - ERR-06
   - id: VER-19
     status: active
     obligation: "A generated 500-event architecture log evaluates in under 1 second; the test prints the time, and §9 records it on the owner's machine against QR-03's 200 ms target."
@@ -897,6 +933,21 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 10.** Approved during version 9's build, after its review, and built with it in the same plugin version,
+  so version 9 alone is never deployed. No earlier expected state moves: no case has an answer after every step is
+  reached.
+- **Skills written to versions 5 to 8** (Bryan, 2026-10-03: accepted and recorded). A skill whose text names
+  `devforgeai_step` and keeps the task list but doesn't tag its questions follows the task list, so from version 9
+  each of its questions is a question gate: refused in enforce mode with the text that says how to tag it, and in
+  observe mode its decisions' answers count for no step, so their writes are flagged. No shipped skill names the
+  tag; DevForgeAI's skills tag their questions from their next builds (SKL-001 v6 for SPEC-001 version 13, SKL-003
+  v7 for SPEC-003 version 8), and a project's own skill that adopts the tag adopts the tags with it.
+- **Version 9.** Built after approval with SPEC-013 version 8, in one plugin version, before the skills' wording
+  (SPEC-001 version 13, SPEC-003 version 8) ships; until a skill names the tag, no run follows the task list and
+  nothing new is refused. Earlier cases: the answers of steps-brainstorm, steps-arch, steps-report-event and
+  steps-current gain their marked step's tag, as a skill following version 9 asks them, so their states don't move;
+  steps-unmarked-question and steps-unmarked-question-cut keep their untagged answers and don't move. No other
+  expected state may move.
 - **Version 8.** Built on version 7's branch before its merge, so version 7's stale mark is never deployed: the
   cases and test of VER-36 go, and no other expected state moves.
 - **Version 7.** Built on its own branch after approval, with SPEC-013 version 6, in one plugin version. Expected
@@ -963,6 +1014,12 @@ Version 7's build, after approval, with SPEC-013 version 6:
 Version 8's build, on the same branch: remove the stale step from `evaluate.py` and VER-36's cases and test, check
 that no other expected state moves, run every test, and record it in §9.
 
+Version 10's build, on version 9's branch before its merge: the case steps-after-done, seen failing; the rule in
+`evaluate.py`; no earlier expected state may move; §9.
+
+Version 9's build, with SPEC-013 version 8: VER-38's cases and test, seen failing; the schemas from DM-02 and DM-03;
+`evaluate.py` (BEH-18's tag placement and gates, BEH-08's flags); no earlier expected state may move; §9.
+
 The specs that follow, in the design proposal's order: the Claude Code adapter (events, status line, band, observe and enforce modes), the pane and its graphics, `progress.html`, `chain_state.py` and the phases, manifests for the other skills, and the Codex port's copy.
 
 ## 12. Alternatives considered
@@ -1000,9 +1057,33 @@ conditional step that isn't the user's; `./` tool paths are read like the rest. 
 Decided by Bryan on 2026-10-02, for version 4: an earlier step counts from the later of its first tool evidence and
 its first tick; every tool's `./` path is read like the rest. Versions 2, 3 and 4 ship together.
 
+Decided by Bryan on 2026-10-03, for version 10, after the version 9 build's plugin-validator review showed every
+question after a finished run refused: no question gate once every step is reached. And, on a skill written to
+the earlier convention that doesn't tag its questions: accepted and recorded (§10); each skill takes the tags in
+its own next build, once this tracker ships.
+
+Decided by Bryan on 2026-10-03, for version 9: questions name their step in AskUserQuestion's metadata, checked
+when they are asked (his suggestion of using the question's own hook). After a side review noted that the tag and
+the mark are both Claude's statements, he chose the tag as a cross-check only: an answer counts for a step only
+when its tag and the mark agree, never by the tag alone, which would let a contradicted claim become evidence; and
+the step shown in each question's header, so the user sees it. After the advisor's review of the drafts found the
+untagged rule refusing other commands' questions (Claude Code's /remember sets its own source), he chose that a
+question whose source names something else is outside the checklist: never a question gate, never counted.
+
 Decided by Bryan on 2026-10-03, for version 8: version 7's stale started step is withdrawn. The build's review
 showed a look-ahead read making a correct mark stale and a valid question refused, and that was recorded instead of
 being brought to Bryan, so he rescinded his approval of the rule.
+
+Addressed (version 9; Bryan, 2026-10-03), the item below: a question whose tag doesn't match the mark is caught
+when it is asked, refused in enforce mode before an answer is spent and flagged in observe mode, and its answer
+counts for no step, so a forgotten mark no longer takes the answers to tagged questions. A typed answer is still
+placed by the mark; for it SPEC-013 versions 7 and 8 keep the mark through a compaction and have a refused write
+say how to recover.
+
+Limit (version 9), in plain words: the tag and the mark are both Claude's statements. Their agreement catches Claude
+contradicting itself, as when it forgets to move the mark; it can't catch a question whose step is wrong in both
+places. The write gate's rules for the steps before it remain the backstop, and the step in each question's header
+lets the user see it. Judging a question by its wording would be a guess, which this spec doesn't make.
 
 Open (version 8): a forgotten mark takes every later answer, as when a compaction drops that a step is still
 started and Claude goes on with ticks or tool work; the answers count for the wrong step, and in enforce mode the
@@ -1081,3 +1162,9 @@ Still open, or notes:
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan rescinded his approval of version 7's stale started step after the build's review found it refused a valid question when Claude reads ahead: BEH-18's mark stands again until a step event ends it, BEH-07 follows, VER-36 is deprecated; §13 reopens the forgotten-mark problem; the joined-run rule and the rest of version 7 stand | frontmatter, §1, BEH-07, BEH-18, VER-36, §10, §11, §13 |
 | 8 | 2026-10-03 | Bryan | Approved; an alternative for the forgotten mark is to come from a proposal (§13) | status |
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build of version 8 | §9 |
+| 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #70's merge (plugin 0.16.0) | §9 |
+| 9 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03, after the SPEC-013 version 7 build's review: questions name their step. The answer event gains step, from AskUserQuestion's metadata tag devforgeai_step:N (DM-02); in a run that follows the task list an answer counts for the step in progress only when its tag names that step, the tag being a cross-check on the mark, never a placement of its own (Bryan's choice after a side review noted both are Claude's statements), and a question asked while no step is marked, an untagged one, or one tagged for a step other than the step in progress is a question gate with one flag of its own, checked in that order, its answer counting for no step (BEH-18, BEH-08, DM-03 flag types mismatched-question and untagged-question); a tag naming an unknown step is ERR-06's; §4's convention adds the tag and the step in each question's visible header, and its level 2 says counts.unmarkedQuestions counts every question gate (DM-03's description too); VER-30, VER-31 and VER-33 say which answers are tagged; §13 states the limit; an answer whose question's source names something else is outside the checklist (DM-02 outside), no gate and no step; new VER-38; §13 marks the forgotten-mark item addressed; links to SPEC-001 version 13 and SPEC-003 version 8 | frontmatter, §1, §4, DM-02, DM-03, BEH-08, BEH-18, ERR-06, VER-30, VER-31, VER-33, VER-38, §10, §11, §13 |
+| 9 | 2026-10-03 | Bryan | Approved, with the tag as a cross-check on the mark only, the step shown in each question's header, and a question whose source names something else outside the checklist | status |
+| 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-03 after the version 9 build's plugin-validator review: once every step of the run is reached, an answer that fails the cross-check is no question gate and counts for no step (BEH-18); VER-38 gains the case steps-after-done; §10 records that a skill written to versions 5 to 8 that names the tag but doesn't tag its questions has them refused or uncounted from version 9 (accepted) | frontmatter, §1, BEH-18, VER-38, §10, §11, §13 |
+| 10 | 2026-10-03 | Bryan | Approved | status |
+| 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build of versions 9 and 10 | §9 |

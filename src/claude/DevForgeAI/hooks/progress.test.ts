@@ -30,6 +30,7 @@ type Over = {
   files?: Record<string, string>
   prune?: (argv: readonly string[]) => Any
   toolList?: string[] | 'reject'
+  compact?: (e: Any) => Any
 }
 
 type World = {
@@ -46,6 +47,7 @@ type World = {
   sessionId: string
   inits: Any[]
   pruneSawRun: boolean[]
+  compactIn: Any[]
 }
 
 const STATE = {
@@ -109,7 +111,7 @@ function world(on: Any, over: Over = {}): World {
     files: new Map(Object.entries(over.files ?? {})), writes: [], toasts: [], logs: [], statuses: [], runs: [],
     contexts: [], tools: [],
     clock: mock.clock(on, { now: T0 }),
-    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [],
+    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [],
   }
   on('session.root', () => ({ value: w.root }))
   on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: w.sessionId }))
@@ -130,6 +132,11 @@ function world(on: Any, over: Over = {}): World {
   on('turn.start', (_$: Any, e: Any) => ({ turnId: e.turnId }))
   on('turn.complete', () => ({ text: '' }))
   on('session.end', (_$: Any, e: Any) => ({ sessionId: e.sessionId }))
+  // The engine's compaction, beneath the adapter: it records what it was handed and returns a summary (SPEC-013 v7).
+  on('session.compact', (_$: Any, e: Any) => {
+    w.compactIn.push(e)
+    return over.compact?.(e) ?? { messages: [{ role: 'user', text: 'the summary', toolUses: [] }] }
+  })
   on('ui.render', () => ({ type: 'Text', props: {}, children: ['drawn by the mods after it'] }))
   on('ui.toast', (_$: Any, e: Any) => { w.toasts.push(e.text); return { value: undefined } })
   on('ui.log', (_$: Any, e: Any) => { w.logs.push(e.text); return { value: undefined } })
@@ -884,6 +891,10 @@ const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (e
   + 'yet, turn it into tasks first as the skill says (one task per step, subject <N>. <title>, metadata '
   + 'devforgeai_step: N). Then mark the step this question belongs to in_progress (TaskUpdate, or TodoWrite), and ask '
   + 'again.'
+// SPEC-013 v8 (BEH-21): an unmarked question with no step tag is also told to add the tag.
+const QUESTION_TAG = ' Tag the question too: add metadata: {"source": "devforgeai_step:N"} to the AskUserQuestion call, N '
+  + "being its step. If the question isn't part of this skill's checklist, give it a source of its own instead; it then "
+  + 'needs no step and counts for none.'
 
 /** Claude Code's task tools: TaskCreate numbers tasks in order; a few calls fail or answer without an ID. */
 function taskTools() {
@@ -962,14 +973,14 @@ test('VER-21: in enforce mode a question at the question gate is refused before 
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   const r = (await $.tool.call(QUESTION as Any)) as Any
-  expect(r.deny).toBe(QUESTION_REFUSAL)
+  expect(r.deny).toBe(QUESTION_REFUSAL + QUESTION_TAG)
   expect(w.tools.includes('AskUserQuestion')).toBe(false)
   expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
   expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(1)
   expect(JSON.parse((w.files.get(w.writes.filter(p => p.endsWith('/pending.jsonl'))[0]) ?? '').trim().split('\n').slice(-1)[0]))
     .toMatchObject({ seq: 2, kind: 'answer', answered: true })
   expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' refused: ')).toBe(true)
-  expect(w.toasts.filter(t => t === QUESTION_REFUSAL).length).toBe(1)
+  expect(w.toasts.filter(t => t === QUESTION_REFUSAL + QUESTION_TAG).length).toBe(1)
 })
 
 test('VER-21: with refuse false or a gate at another seq the question goes on and its answer is recorded', async ($, on) => {
@@ -1014,8 +1025,8 @@ test('VER-21: a mod\'s own question is never checked', { plugins: [asker] }, asy
   expect(w.writes.some(p => p.endsWith('/pending.jsonl'))).toBe(false)
 })
 
-const ADHERENCE = (n: number, m: number) => `brainstorm didn't keep its task list: ${n} step events, ${m} questions asked with `
-  + 'no step in progress. Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)'
+const ADHERENCE = (n: number, m: number) => `brainstorm didn't keep its task list: ${n} step events, ${m} questions asked without `
+  + 'their step marked and tagged. Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)'
 
 function stateWith(gate: string | null, ended: string | null, stepEvents: number, unmarkedQuestions: number) {
   return () => ({ state: { ...STATE, ended, current: ended === null ? STATE.current : null,
@@ -1226,4 +1237,399 @@ test('VER-26: the tools-hint line is one line', async ($, on) => {
   await load($, 'devforgeai:brainstorm', TAGGED)
   expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' tools-hint: ')).toBe(true)
   expect(oneLineEntries(w)).toBe(true)
+})
+
+// ---- version 7 (VER-28): the compaction hook; version 7's VER-27 was replaced by version 8's VER-31 ----
+
+const DECISION_STEPS = [
+  { n: 1, title: 'Intake', state: 'done' },
+  { n: 2, title: 'Pick', state: 'done' },
+  { n: 8, title: 'Propose and confirm the outcome', state: 'skipped', userOwned: true },
+  { n: 9, title: 'Write the ARCH and ADRs', state: 'rule-broken' },
+]
+
+/** A provisional state refusing the pending Write over step 8's decision (a user-owned skipped flag and step 9's
+ *  rule-broken one), at the pending event's own seq; `owned` false leaves the user-owned flag out. */
+function refusingDecision(files: () => Map<string, string>, owned = true) {
+  return (argv: readonly string[]) => {
+    const events = argv[argv.indexOf('--events') + 1]
+    if (!events.endsWith('/pending.jsonl')) return { state: STATE }
+    const lines = (files().get(events) ?? '').trim().split('\n')
+    const seq = JSON.parse(lines[lines.length - 1]).seq
+    const flags = [
+      ...(owned ? [{ gate: 'write', seq, step: 8, type: 'skipped', message: 'step 8 (Propose and confirm the outcome) had no answer from you before docs/specs/arch/ARCH-001.md was written' }] : []),
+      { gate: 'write', seq, step: 9, type: 'rule-broken', message: 'docs/specs/arch/ARCH-001.md sets outcome: create, which needs your answer at step 8' },
+    ]
+    return { state: { ...STATE, steps: DECISION_STEPS, gate: { kind: 'write', seq, refuse: true, reason: 'x' }, flags } }
+  }
+}
+
+const ARCH_WRITE = { tool: 'Write', file_path: `${ROOT}/docs/specs/arch/ARCH-001.md`, content: 'outcome: create' }
+
+async function markStep($: Any, n: number, title: string) {
+  await $.tool.call({ tool: 'TaskCreate', subject: `${n}. ${title}`, description: 'd', metadata: { devforgeai_step: n } } as Any)
+  // taskTools() numbers tasks in creation order; each test creates only the one task it marks.
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '1', status: 'in_progress' } as Any)
+}
+
+// A compaction always holds at least one message: the engine refuses a hook's rewrite with none.
+const TALK = [{ role: 'user', text: 'earlier talk', toolUses: [] }]
+
+const NOTE = (step: string) => `DevForgeAI's progress tracker: when this conversation was compacted, your task list marked ${step} in `
+  + "progress. Before you ask anything or go on, check your task list and bring it in step with the work: mark each "
+  + "finished step done and the step you're on in_progress."
+
+test('VER-28: a compaction keeps the marked step in the summary and ends with the note', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await w.clock.advance(600)
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep the plan', messages: TALK })) as Any
+  expect(w.compactIn[0].instructions).toBe("keep the plan\n\nKeep, for DevForgeAI's progress tracker: in the architecture run, the task list marks step 2 (Pick) in progress.")
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 2 (Pick)')])
+  expect(out.messages[1].role).toBe('user')
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
+})
+
+test('VER-28: with no step marked the note says so', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  const out = (await ($ as Any).session.compact({ trigger: 'auto', messages: TALK })) as Any
+  expect(w.compactIn[0].instructions).toBe("Keep, for DevForgeAI's progress tracker: in the architecture run, the task list marks no step in progress.")
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('no step')])
+})
+
+test('VER-28: a run that does not follow the task list, a subagent\'s compaction and a skipped one pass unchanged', async ($, on) => {
+  let skip = false
+  const w = world(on, { tool: taskTools(), compact: () => (skip ? { skip: 'off' } : undefined) })
+  await start($)
+  await load($, 'devforgeai:architecture', CHECKLIST)
+  const plain = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep', messages: TALK })) as Any
+  expect(w.compactIn[0].instructions).toBe('keep')
+  expect(plain.messages.map((m: Any) => m.text)).toEqual(['the summary'])
+  await load($, 'devforgeai:architecture', TAGGED)
+  const sub = (await ($ as Any).session.compact({ trigger: 'manual', agentId: 'a1', messages: TALK })) as Any
+  expect(w.compactIn[1].instructions).toBeUndefined()
+  expect(sub.messages.map((m: Any) => m.text)).toEqual(['the summary'])
+  skip = true
+  const skipped = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
+  expect(skipped).toEqual({ skip: 'off' })
+})
+
+// ---- version 8 (VER-30 to VER-33): questions name their step ----
+
+const MESSAGES: Record<string, string> = {
+  'unmarked-question': 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask',
+  'untagged-question': 'a question was asked without naming a step of the checklist: tag it with devforgeai_step:N for the step it belongs to, mark that step in progress, then ask',
+  'mismatched-question': 'a question for step 5 was asked while step 2 was marked in progress: mark step 5 in progress, then ask',
+}
+const MISMATCHED = "DevForgeAI's progress tracker refused this question (enforce mode): it is tagged for step 5, but your task "
+  + 'list marks step 2 in progress. If the question belongs to step 5, mark step 5 in_progress (TaskUpdate, or TodoWrite) '
+  + 'and ask again; if it belongs to step 2, tag it devforgeai_step:2 and ask again.'
+const UNTAGGED = "DevForgeAI's progress tracker refused this question (enforce mode): it doesn't name a step of this skill's "
+  + 'checklist. Add metadata: {"source": "devforgeai_step:N"} to the AskUserQuestion call, N being the step it belongs '
+  + 'to; your task list marks step 2 in progress, so if the question belongs to another step, mark that step '
+  + "in_progress first. If the question isn't part of this skill's checklist, give it a source of its own instead; it "
+  + 'then counts for no step. Then ask again.'
+
+function asked(source?: unknown) {
+  return { ...QUESTION, ...(source === undefined ? {} : { metadata: { source } }) }
+}
+
+/** The pending file's last event: the event an enforce check judged. */
+function pendingEvent(w: World): Any {
+  const path = w.writes.filter(p => p.endsWith('/pending.jsonl')).slice(-1)[0]
+  const lines = (w.files.get(path) ?? '').trim().split('\n')
+  return JSON.parse(lines[lines.length - 1])
+}
+
+/** A provisional state whose question gate raises a flag of `type` for `step` at the pending event's own seq. */
+function questionGate(files: () => Map<string, string>, type: string, step: number) {
+  return (argv: readonly string[]) => {
+    const events = argv[argv.indexOf('--events') + 1]
+    if (!events.endsWith('/pending.jsonl')) return { state: STATE }
+    const lines = (files().get(events) ?? '').trim().split('\n')
+    const seq = JSON.parse(lines[lines.length - 1]).seq
+    // The checklist has step 5, the step the tagged questions name; step 40 stays unknown (review N3).
+    return { state: { ...STATE, steps: [...STATE.steps, { n: 5, title: 'Confirm', state: 'pending' }],
+      gate: { kind: 'question', seq, refuse: true, reason: MESSAGES[type] },
+      flags: [{ gate: 'question', seq, step, type, message: MESSAGES[type] }] } }
+  }
+}
+
+test('VER-30: an answer event carries the step its question\'s metadata names, or outside for another source', async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  for (const source of ['devforgeai_step:5', 'devforgeai_step:0', 'devforgeai_step:05', 'devforgeai_step: 5', 'remember', 7]) {
+    await $.tool.call(asked(source) as Any)
+  }
+  await $.tool.call(asked() as Any)
+  const answers = eventsOf(w).map(l => JSON.parse(l)).filter(e => e.kind === 'answer')
+  expect(answers.map(e => [e.step ?? null, e.outside ?? null])).toEqual([
+    [5, null], [null, null], [null, null], [null, null], [null, true], [null, null], [null, null],
+  ])
+})
+
+for (const [name, type, step, source, mark, expected] of [
+  ['an unmarked question with no tag', 'unmarked-question', 2, undefined, false, QUESTION_REFUSAL + QUESTION_TAG],
+  ['an unmarked question with a tag', 'unmarked-question', 5, 'devforgeai_step:5', false, QUESTION_REFUSAL],
+  ['a question tagged for another step', 'mismatched-question', 5, 'devforgeai_step:5', true, MISMATCHED],
+  ['a question with no tag while a step is marked', 'untagged-question', 2, undefined, true, UNTAGGED],
+] as Array<[string, string, number, string | undefined, boolean, string]>) {
+  test(`VER-30: the refusal of ${name} says which fix applies`, async ($, on) => {
+    let files = new Map<string, string>()
+    const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: questionGate(() => files, type, step) })
+    files = w.files
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    if (mark) await markStep($, 2, 'Pick')
+    const r = (await $.tool.call(asked(source) as Any)) as Any
+    expect(r.deny).toBe(expected)
+    expect(pendingEvent(w)).toMatchObject({ kind: 'answer', answered: true })
+    expect(pendingEvent(w).step).toBe(source === undefined ? undefined : 5)
+  })
+}
+
+test('VER-30: the pending event of a question with another source carries outside', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', tool: bottomTool })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(asked('remember') as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(pendingEvent(w)).toMatchObject({ kind: 'answer', answered: true, outside: true })
+})
+
+// VER-31: the write refusal's line for a decision, whichever step is marked, and the toasts written for the user.
+const LINE8 = "Step 8 (Propose and confirm the outcome) is the user's decision: an answer counts for it only while step 8 is "
+  + 'marked in progress, and an answer to a question only when the question is also tagged devforgeai_step:8. Mark step 8 '
+  + 'in_progress, ask the user with the question tagged devforgeai_step:8, and mark step 8 completed.'
+const TYPED2 = 'Your task list marks step 2 (Pick) in progress, so what the user typed since then counted for step 2.'
+
+async function typed($: Any, text = 'go on') {
+  await $.prompt.submit({ text, wait: false, origin: { kind: 'composer' } })
+}
+
+for (const [name, setup, opts, lines] of [
+  ['a later step (9) is marked', async ($: Any) => markStep($, 9, 'Write the ARCH and ADRs'), {}, [LINE8]],
+  ['no step is marked', async () => {}, {}, [LINE8]],
+  ['step 2 is marked and the user typed since', async ($: Any) => { await markStep($, 2, 'Pick'); await typed($) }, {}, [TYPED2, LINE8]],
+  ['step 2 is marked and only a question was answered since', async ($: Any) => { await markStep($, 2, 'Pick'); await $.tool.call(QUESTION) }, {}, [LINE8]],
+  ['step 8 itself is marked', async ($: Any) => markStep($, 8, 'Propose and confirm the outcome'), {}, []],
+  ['no user-owned step was skipped', async ($: Any) => markStep($, 2, 'Pick'), { owned: false }, []],
+  ['the run does not follow the task list', async ($: Any) => { await markStep($, 2, 'Pick'); await typed($) }, { untagged: true }, []],
+] as Array<[string, ($: Any) => Promise<void>, Any, string[]]>) {
+  test(`VER-31: the write refusal when ${name}`, async ($, on) => {
+    let files = new Map<string, string>()
+    const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: refusingDecision(() => files, opts.owned !== false) })
+    files = w.files
+    await start($)
+    await load($, 'devforgeai:architecture', opts.untagged ? CHECKLIST : TAGGED)
+    await setup($)
+    const r = (await $.tool.call(ARCH_WRITE as Any)) as Any
+    expect(typeof r.deny).toBe('string')
+    const said = (r.deny as string).split('\n')
+    expect(said.filter(l => l === LINE8 || l === TYPED2)).toEqual(lines)
+    expect(said.some(l => l.startsWith('Your task list marks') && l !== TYPED2)).toBe(false)
+  })
+}
+
+/** A state with step 8's decision skipped at seq 99, after everything the test records, and a question gate's flag. */
+const OBSERVED = { ...STATE, skill: 'architecture', steps: DECISION_STEPS, gate: { kind: 'write', seq: 99, refuse: true, reason: 'x' },
+  flags: [
+    { gate: 'write', seq: 99, step: 8, type: 'skipped', message: 'step 8 had no answer from you' },
+    { gate: 'question', seq: 98, step: 2, type: 'untagged-question', message: MESSAGES['untagged-question'] },
+  ] }
+const USER_SENTENCE = 'What you typed since step 2 (Pick) was marked in progress counted for step 2: the architecture skill '
+  + "didn't keep its task list in step with its work (DevForgeAI SPEC-012 §4)."
+
+test('VER-31: in observe mode the decision\'s toast tells the user where typed answers went', async ($, on) => {
+  const w = world(on, { tool: taskTools(), evaluate: () => ({ state: OBSERVED }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await typed($)
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === `✗ Step 8 skipped: step 8 had no answer from you ${USER_SENTENCE}`).length).toBe(1)
+  expect(w.toasts.filter(t => t === `✗ Step 2 untagged-question: ${MESSAGES['untagged-question']} Its answer, if any, counts for no step.`).length).toBe(1)
+})
+
+test('VER-31: with no typed answer since the mark, the decision\'s toast has no sentence', async ($, on) => {
+  const w = world(on, { tool: taskTools(), evaluate: () => ({ state: OBSERVED }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await $.tool.call(QUESTION as Any)
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === '✗ Step 8 skipped: step 8 had no answer from you').length).toBe(1)
+})
+
+// VER-32: the same refusal twice in a run tells the user once.
+const STUCK = (skill: string, step: number, message: string) => `${skill}: the progress tracker refused Claude twice at step `
+  + `${step} for the same reason: ${message}. Help Claude bring its task list in step, or switch to observe mode with the band's button.`
+
+function stuckLines(w: World): string[] {
+  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' stuck: '))
+}
+
+test('VER-32: two question refusals for the same cause tell the user once; a third tells nothing more', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: bottomTool, evaluate: questionGate(() => files, 'unmarked-question', 2) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const notice = STUCK('brainstorm', 2, MESSAGES['unmarked-question'])
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.filter(t => t === notice).length).toBe(0)
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.filter(t => t === notice).length).toBe(1)
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.filter(t => t === notice).length).toBe(1)
+  expect(stuckLines(w).length).toBe(1)
+  expect(oneLineEntries(w)).toBe(true)
+})
+
+test('VER-32: refusals for different causes, or one in each of two runs, tell nothing', async ($, on) => {
+  let files = new Map<string, string>()
+  let type = 'unmarked-question'
+  const w = world(on, { mode: 'enforce local', tool: taskTools(),
+    evaluate: argv => questionGate(() => files, type, type === 'unmarked-question' ? 2 : 5)(argv) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(QUESTION as Any)
+  type = 'mismatched-question'
+  await $.tool.call(asked('devforgeai_step:5') as Any)
+  type = 'unmarked-question'
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.some(t => t.includes('refused Claude twice'))).toBe(false)
+  expect(stuckLines(w).length).toBe(0)
+})
+
+test('VER-32: two write refusals for the same cause tell the user too; observe mode tells nothing', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: refusingDecision(() => files) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(ARCH_WRITE as Any)
+  await $.tool.call(ARCH_WRITE as Any)
+  const notice = STUCK('architecture', 8, 'step 8 (Propose and confirm the outcome) had no answer from you before docs/specs/arch/ARCH-001.md was written')
+  expect(w.toasts.filter(t => t === notice).length).toBe(1)
+  expect(stuckLines(w).length).toBe(1)
+})
+
+test('VER-32: observe mode refuses nothing, so it tells nothing', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { tool: bottomTool, evaluate: questionGate(() => files, 'unmarked-question', 2) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(QUESTION as Any)
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.some(t => t.includes('refused Claude twice'))).toBe(false)
+  expect(stuckLines(w).length).toBe(0)
+})
+
+// VER-33: the compaction note is never doubled, names only a known step, and is left out once every step is reached.
+test('VER-33: a compaction whose messages already hold an earlier note ends with exactly one note, the new one', async ($, on) => {
+  const old = { role: 'user', text: NOTE('step 1 (Intake)'), toolUses: [] }
+  const w = world(on, { tool: taskTools(), compact: () => ({ messages: [{ role: 'user', text: 'the summary', toolUses: [] }, old] }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await w.clock.advance(600)
+  const out = (await ($ as Any).session.compact({ trigger: 'auto', messages: [...TALK, old] })) as Any
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 2 (Pick)')])
+})
+
+test('VER-33: a marked step the last evaluation doesn\'t have counts as no step', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 40, 'Ghost')
+  await w.clock.advance(600)
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
+  expect(w.compactIn[0].instructions).toBe("Keep, for DevForgeAI's progress tracker: in the architecture run, the task list marks no step in progress.")
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('no step')])
+})
+
+test('VER-33: once every step is reached the instruction is kept but no note is added', async ($, on) => {
+  const w = world(on, { tool: taskTools(), evaluate: () => ({ state: { ...STATE, current: null } }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await w.clock.advance(600)
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
+  expect(w.compactIn[0].instructions).toBe("Keep, for DevForgeAI's progress tracker: in the architecture run, the task list marks step 2 (Pick) in progress.")
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary'])
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
+})
+
+// ---- version 8 review (2026-10-03): fixes and coverage the plugin-validator review asked for ----
+
+test('VER-33 (review W1): the marked step is the evaluator\'s: a later unknown step\'s mark doesn\'t hide step 2', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await $.tool.call({ tool: 'TaskCreate', subject: '40. Ghost', description: 'd', metadata: { devforgeai_step: 40 } } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '2', status: 'completed' } as Any)  // fails in taskTools only for in_progress
+  await $.tool.call({ tool: 'TodoWrite', todos: [{ content: '40. Ghost', status: 'in_progress', activeForm: 'x' }] } as Any)
+  expect(stepsOf(eventsOf(w, 'architecture')).slice(-1)).toEqual([[40, 'started']])
+  await w.clock.advance(600)
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 2 (Pick)')])
+})
+
+test('VER-30 (review N3): a tag naming a step the checklist lacks still gets the tag sentence', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: bottomTool, evaluate: questionGate(() => files, 'unmarked-question', 2) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(asked('devforgeai_step:40') as Any)) as Any
+  expect(r.deny).toBe(QUESTION_REFUSAL + QUESTION_TAG)
+})
+
+for (const type of ['unmarked-question', 'mismatched-question']) {
+  test(`VER-31 (review): a ${type} flag's toast also says its answer counted for no step`, async ($, on) => {
+    const state = { ...STATE, flags: [{ gate: 'question', seq: 3, step: 2, type, message: MESSAGES[type] }] }
+    const w = world(on, { tool: bottomTool, evaluate: () => ({ state }) })
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await w.clock.advance(600)
+    expect(w.toasts.filter(t => t === `✗ Step 2 ${type}: ${MESSAGES[type]} Its answer, if any, counts for no step.`).length).toBe(1)
+  })
+}
+
+test('VER-31 (review): the user\'s sentence is judged at the flag\'s seq: a prompt at or after it doesn\'t count', async ($, on) => {
+  // markStep gives seqs 2 (TaskCreate), 3 (TaskUpdate) and 4 (step 2 started); the prompt is seq 5, the flag's seq.
+  const state = { ...OBSERVED, gate: { kind: 'write', seq: 5, refuse: true, reason: 'x' },
+    flags: [{ gate: 'write', seq: 5, step: 8, type: 'skipped', message: 'step 8 had no answer from you' }] }
+  const w = world(on, { tool: taskTools(), evaluate: () => ({ state }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await markStep($, 2, 'Pick')
+  await typed($)
+  expect(JSON.parse(eventsOf(w, 'architecture').slice(-1)[0])).toMatchObject({ seq: 5, kind: 'prompt' })
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === '✗ Step 8 skipped: step 8 had no answer from you').length).toBe(1)
+})
+
+test('VER-32 (review): the same flag type at another step is another cause', async ($, on) => {
+  let files = new Map<string, string>()
+  let step = 2
+  const w = world(on, { mode: 'enforce local', tool: bottomTool, evaluate: argv => questionGate(() => files, 'unmarked-question', step)(argv) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(QUESTION as Any)
+  step = 3
+  await $.tool.call(QUESTION as Any)
+  expect(w.toasts.some(t => t.includes('refused Claude twice'))).toBe(false)
+  expect(stuckLines(w).length).toBe(0)
 })

@@ -52,6 +52,8 @@ declare module 'claude-code' {
       hinted: boolean
       /** The run given the adherence notice (BEH-22), so a reload doesn't repeat it. */
       adhered: string | null
+      /** The open run's enforce refusals by cause, '<gate kind>:<flag type>:<step>' (BEH-25); a new run starts empty. */
+      refusals: Record<string, number>
     }
   }
 }

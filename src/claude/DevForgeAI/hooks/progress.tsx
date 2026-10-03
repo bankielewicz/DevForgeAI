@@ -1,9 +1,9 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v6).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v8).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
-// gate's Write or Edit when that gate raised flags, refuses a question asked while no step of the task list is in
-// progress, and gives the model the report gate's flags. It records Claude Code's task list as step events. It fails open:
+// gate's Write or Edit when that gate raised flags, refuses a question at SPEC-012's question gate (no step marked,
+// no step tag, or another step's tag), and gives the model the report gate's flags. It records Claude Code's task list as step events. It fails open:
 // when it can't run, the work goes on and the user is told (ADR-006 D1). Old run and session folders are pruned
 // by progress/prune.py, which the adapter starts once per session and root (BEH-19).
 //
@@ -13,10 +13,10 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 import type { ProgressMode, ProgressModeSource, ProgressRun, ProgressSummary } from '../types'
 import {
-  adherenceText, bandRows, byteSize, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
-  hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal,
-  refusalText, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf,
-  summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, TASK_TAG,
+  adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
+  hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, keptContent, markedStep, newFlagToasts, questionRefusal,
+  questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, runId, skillName, statusText, stepLabel,
+  stepOfTask, stepStateOf, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
 import type { Fields, ProgressState, ToolOutcome } from './progress-core'
 
@@ -35,6 +35,7 @@ const TASKS = atom({ plugin: 'devforgeai', key: 'tasks' } as const, {} as Record
 const TODOS = atom({ plugin: 'devforgeai', key: 'todos' } as const, {} as Record<string, string>)
 const HINTED = atom({ plugin: 'devforgeai', key: 'hinted' } as const, false)
 const ADHERED = atom({ plugin: 'devforgeai', key: 'adhered' } as const, null as string | null)
+const REFUSALS = atom({ plugin: 'devforgeai', key: 'refusals' } as const, {} as Record<string, number>)
 
 const EVALUATOR_TIMEOUT = 5000
 const START_TIMEOUT = 3000
@@ -407,6 +408,30 @@ async function follows($: E, run: ProgressRun): Promise<boolean> {
   return followsFor.value
 }
 
+/** The run's lines when it follows the task list, else null: the write line and the user's toast sentence read the
+ *  task list's mark from them (BEH-08, BEH-12). */
+async function followingLines($: E, run: ProgressRun): Promise<readonly string[] | null> {
+  return (await follows($, run)) ? linesOf($, run) : null
+}
+
+/** What a compaction of a run that follows the task list keeps, and its closing note (BEH-24). The marked step counts
+ *  only when the last evaluation's steps have it, with its title from there; with no evaluation yet, its number alone.
+ *  `reached` is true when that evaluation shows every step reached, which leaves the note out (version 8). */
+async function compactNotes($: E, run: ProgressRun): Promise<{ marked: number | null; reached: boolean; instruction: string; note: string }> {
+  const lines = await linesOf($, run)
+  let state: ProgressState | null = null
+  try {
+    state = JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState
+  } catch {
+    // no evaluation yet
+  }
+  const steps = state !== null && Array.isArray(state.steps) ? state.steps : null
+  const marked = markedStep(lines, Infinity, steps)
+  const label = marked === null ? null : steps !== null ? stepLabel(steps, marked) : `step ${marked}`
+  const reached = state !== null && state.current === null && state.ended === null
+  return { marked, reached, ...compactTexts(run.skill, label) }
+}
+
 /** Whether the session has a task list, from the tools it offers now, deferred ones included (DM-01); when the list
  *  can't be read, none, and `read` is false, so no hint blames the session's tools (ERR-14). */
 async function taskListOf($: E): Promise<{ taskList: boolean; read: boolean }> {
@@ -474,7 +499,7 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   if (off !== null && off !== LOG_FULL && off !== NO_PYTHON && off !== NO_WRITE) await update($, OFF, () => null)
   await update($, SUMMARY, () => summaryOf(got.state))
   const shown = await read($, SHOWN)
-  const fresh = newFlagToasts(got.state, shown)
+  const fresh = newFlagToasts(got.state, shown, await followingLines($, run))
   if (fresh.keys.length) await update($, SHOWN, () => [...shown, ...fresh.keys])
   for (const toast of fresh.toasts) await notify($, toast)
   if (got.state.current === null && got.state.ended === null && allReachedFor !== run.id) {
@@ -569,6 +594,7 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   taskMaps = { run: id, tasks: {}, todos: {} }
   await update($, TASKS, () => ({}))
   await update($, TODOS, () => ({}))
+  await update($, REFUSALS, () => ({}))  // the stuck notice counts per run (BEH-25)
   if ((await read($, OFF)) === LOG_FULL) await update($, OFF, () => null)
   pendingReport = null
   // A skill that follows the convention, in a session with no task tools, is placed by guessing: say so once (BEH-23).
@@ -614,14 +640,15 @@ async function endRun($: E, reason: string, timeoutMs: number | null): Promise<v
 
 /** The state the run would have with one more event (BEH-08, BEH-21): the run's lines and the pending event in
  *  pending.jsonl, evaluated; null when it can't be had, which lets the call go on (fail open). */
-async function pendingState($: E, kind: string, fields: Fields): Promise<{ state: ProgressState; seq: number } | null> {
+async function pendingState($: E, kind: string, fields: Fields): Promise<{ state: ProgressState; seq: number; lines: readonly string[] } | null> {
   await recordChain  // events still being written are part of the run the check judges
   const run = await read($, RUN)
   if (run === null) return null
-  const seq = (await linesOf($, run)).length + 1
+  const lines = [...(await linesOf($, run))]
+  const seq = lines.length + 1
   const line = eventLine(run.id, seq, await $.clock.now(), kind, fields)
   try {
-    await $.fs.write(`${run.dir}/pending.jsonl`, [...(await linesOf($, run)), line].join('\n') + '\n')
+    await $.fs.write(`${run.dir}/pending.jsonl`, [...lines, line].join('\n') + '\n')
   } catch {
     return null
   }
@@ -630,13 +657,39 @@ async function pendingState($: E, kind: string, fields: Fields): Promise<{ state
     await failOpen($, got)
     return null
   }
-  return { state: got.state, seq }
+  return { state: got.state, seq, lines }
+}
+
+/** The same refusal twice in a run tells the user once (BEH-25): counted by the gate's kind and the first flag raised
+ *  at the refused seq, in $.state's refusals, which a new run empties. */
+async function noteRefusal($: E, state: ProgressState, seq: number): Promise<void> {
+  try {
+    const cause = refusalCause(state, seq)
+    const run = await read($, RUN)
+    if (cause === null || run === null) return
+    let count = 0
+    await update($, REFUSALS, r => {
+      count = (r[cause.key] ?? 0) + 1
+      return { ...r, [cause.key]: count }
+    })
+    if (count !== 2) return
+    const text = stuckText(run.skill, cause.step, cause.message)
+    await notify($, text)
+    await adapterLog($, 'stuck', text)
+  } catch (err) {
+    // The notice is the user's; failing to give it never lets a refused call through (review N1).
+    await recover($, 'tool.call', err)
+  }
 }
 
 /** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. */
 async function enforceCheck($: E, fields: Fields, content: string | null): Promise<string | null> {
   const got = await pendingState($, 'tool', { ...fields, exit: 0, error: false, content: keptContent(content, await logBytes($)) })
-  return got === null ? null : refusalText(got.state, got.seq)
+  const run = await read($, RUN)
+  if (got === null) return null
+  const refusal = refusalText(got.state, got.seq, run !== null && (await follows($, run)) ? got.lines : null)
+  if (refusal !== null) await noteRefusal($, got.state, got.seq)
+  return refusal
 }
 
 /** A refused question's first line as a toast (BEH-12), and where nothing draws its whole text in the transcript
@@ -650,11 +703,20 @@ async function refusedToast($: E, refusal: string): Promise<void> {
   }
 }
 
-/** Enforce mode's question check (BEH-21): the evaluator decides whether the run follows the task list. */
-async function questionCheck($: E): Promise<string | null> {
+/** Enforce mode's question check (BEH-21): the evaluator decides whether the run follows the task list. The pending
+ *  answer carries the question's step tag, and the refusal's text follows the question gate's flag (version 8). */
+async function questionCheck($: E, input: Fields): Promise<string | null> {
   if (taskWork.size > 0) await Promise.race([Promise.allSettled([...taskWork]), $.clock.sleep(TASK_WAIT_MS)])
-  const got = await pendingState($, 'answer', { answered: true })
-  return got === null ? null : questionRefusal(got.state, got.seq)
+  const tag = questionTag(input)
+  const got = await pendingState($, 'answer', { answered: true, ...tag })
+  if (got === null) return null
+  // The mark and the tag as the check judged them: the lines written to pending.jsonl (review N2), and a tag naming a
+  // step the checklist has (review N3; SPEC-012 ERR-06).
+  const marked = markedStep(got.lines, Infinity, got.state.steps)
+  const tagged = tag.step !== undefined && got.state.steps.some(s => s.n === tag.step)
+  const refusal = questionRefusal(got.state, got.seq, marked, tagged)
+  if (refusal !== null) await noteRefusal($, got.state, got.seq)
+  return refusal
 }
 
 /** The band's button: save the other mode with settings.py (IF-02, BEH-13). */
@@ -760,7 +822,7 @@ export const register: Register = (on, options) => {
         if (isEngine(next.origin) && (await read($, MODE)) === 'enforce' && python) {
           let refusal: string | null = null
           try {
-            refusal = await questionCheck($)
+            refusal = await questionCheck($, input)
           } catch (err) {
             // A check that fails lets the question go on, and its answer is still recorded (fail open).
             await recover($, 'tool.call', err)
@@ -775,7 +837,9 @@ export const register: Register = (on, options) => {
         const result = await next(e)
         try {
           // A mod's $.ui.ask arrives here too; only Claude Code's own question is the user's answer (BEH-04).
-          if (isEngine(next.origin)) await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome) })
+          if (isEngine(next.origin)) {
+            await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome), ...questionTag(input) })
+          }
         } catch (err) {
           await recover($, 'tool.call', err)
         }
@@ -872,6 +936,30 @@ export const register: Register = (on, options) => {
     return next(e)
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'turn.complete', next.error)
+    return next(e)
+  })
+
+  // A compaction of a run that follows the task list keeps its marked step in the summary and ends with a note asking
+  // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
+  on('session.compact', async ($, e, next) => {
+    const run = await read($, RUN)
+    if (interactive !== true || disabled || run === null || e.agentId !== undefined || !(await follows($, run))) return next(e)
+    const keep = await compactNotes($, run)
+    const out = await next({ ...e, instructions: e.instructions ? `${e.instructions}\n\n${keep.instruction}` : keep.instruction })
+    try {
+      if (!('messages' in out) || !Array.isArray(out.messages)) return out
+      await adapterLog($, 'compact', (keep.marked === null ? 'no step marked' : `step ${keep.marked} marked`)
+        + (keep.reached ? ', every step reached: no note' : ''))
+      // An earlier note, as a summary made ahead of time or a second compaction carries, goes: never two (version 8).
+      const kept = out.messages.filter(m => !(typeof m.text === 'string' && m.text.startsWith(NOTE_START)))
+      if (keep.reached) return kept.length ? { ...out, messages: kept } : out
+      return { ...out, messages: [...kept, { role: 'user' as const, text: keep.note, toolUses: [] }] }
+    } catch (err) {
+      await recover($, 'session.compact', err)
+      return out
+    }
+  }).catch(async ($, e, next) => {
+    if (!next.called) await recover($, 'session.compact', next.error)
     return next(e)
   })
 

@@ -3,7 +3,7 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 7
+version: 8
 created: 2026-09-23
 updated: 2026-10-03
 owner: "Bryan"
@@ -24,7 +24,7 @@ upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
-  - {id: SPEC-012, relation: constrains, version: 8, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
+  - {id: SPEC-012, relation: constrains, version: 10, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -61,6 +61,10 @@ and step 8 approves the result (BEH-08).
 
 **Version 7** (2026-10-03) applies the same to a confirmation typed into the request: it too comes before the change
 is known, so with a user present step 8 still asks; only a request to proceed without questions keeps it (BEH-08).
+
+**Version 8** (2026-10-03) tags each question with its step, as SPEC-012 version 9's convention asks: hidden in
+AskUserQuestion's metadata, where the progress tracker checks it against the step marked in progress, and shown
+in each question's header, where you see it (BEH-17).
 
 ## 2. Constraints
 
@@ -270,7 +274,7 @@ behaviors:
     rule: "Never modify a PRD, BRN or policy document, and never modify an existing ADR other than to record a supersession the user explicitly approved."
   - id: BEH-17
     status: active
-    rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: which PRD to step 2, reuse, amend or create to step 4, going outside the inspection scope to step 5, every decision question to step 7, and the outcome to step 8. So step 7 is completed and step 8 in progress before the outcome question is asked, alone in its own form. Never put two steps' questions in one question form. Mark each step completed as soon as it is done, one at a time, a step with nothing to do included (step 5 with no scope, step 7 with no open question). Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
+    rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: which PRD to step 2, reuse, amend or create to step 4, going outside the inspection scope to step 5, every decision question to step 7, and the outcome to step 8. So step 7 is completed and step 8 in progress before the outcome question is asked, alone in its own form. Never put two steps' questions in one question form. Tag each question form with its step: the AskUserQuestion call's metadata source 'devforgeai_step:N', which the user doesn't see and the progress tracker checks against the step marked in progress, and each of its questions' header 'Step N', which the user sees (SPEC-012 §4, version 9). Mark each step completed as soon as it is done, one at a time, a step with nothing to do included (step 5 with no scope, step 7 with no open question). Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
 ```
 
 ## 7. Errors and edge cases
@@ -620,7 +624,7 @@ verifications:
       - {id: STORY-003, item: AC-01, relation: verifies, version: 3, hash: null}
   - id: VER-27
     status: active
-    obligation: "Live, in a session with the task tools, with SPEC-013's VER-22: an architecture run in which the user answers keeps its list, with step 7 in progress for every decision form, step 7 completed and step 8 in progress before the outcome question, asked alone, and each step completed in order; the tracker records step events for all 11 steps and flags no question gate (counts.unmarkedQuestions 0). Recorded in §9."
+    obligation: "Live, in a session with the task tools, with SPEC-013's VER-22: an architecture run in which the user answers keeps its list, with step 7 in progress for every decision form, step 7 completed and step 8 in progress before the outcome question, asked alone, every question form tagged devforgeai_step:N for its step with each question's header 'Step N' (version 8), and each step completed in order; the tracker records step events for all 11 steps and flags no question gate (counts.unmarkedQuestions 0). Recorded in §9."
     level: manual
     covers:
       - BEH-17
@@ -649,8 +653,9 @@ verifications:
 The skill and the ARCH type are new; removing the skill directory rolls it back. The schema change is
 additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixes.
 
-Versions 6 and 7 (SKL-003 v7) ship in a plugin version no earlier than the one that builds SPEC-012 version 5 and
-SPEC-013 version 5, so a session without the task tools is never held to a task list. The checklist's lines
+Versions 6 to 8 (SKL-003 v7) ship in a plugin version no earlier than the one that builds SPEC-012 version 9 and
+SPEC-013 version 8, so a session without the task tools is never held to a task list, and the tags it writes are
+recorded and checked. The checklist's lines
 don't change, so the tracker's architecture manifest stays matched. Rolling back is returning to SKL-003 v6; the
 tracker then places the run's answers by its windows again (SPEC-012 BEH-09). The Codex architecture skill
 isn't changed: the tracker's adapter is Claude Code's (SPEC-013).
@@ -698,7 +703,7 @@ follows the same contract.
 3. Evaluate cheapest first: `keeps-task-list` with `--runs 1 --ablation none`, then the suite with `--runs 1`,
    then 3 runs with the baseline. A trace with no TaskCreate call means the case's `allowed_tools` didn't give
    the eval's model the task tools: record it in §9 and bring it to the owner before the full suite.
-4. Once the plugin version that builds SPEC-012 version 5 and SPEC-013 version 5 is deployed, run VER-27 live.
+4. Once the plugin version that builds SPEC-012 version 9 and SPEC-013 version 8 is deployed, run VER-27 live.
 
 ## 12. Alternatives considered
 
@@ -714,6 +719,9 @@ follows the same contract.
 
 ## 13. Open questions
 
+- Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
+  metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
+  question's header, which the user sees; an answer counts for a step only when the two agree.
 - Resolved (Bryan, 2026-10-03): step 4's reuse-or-amend answer used to confirm the outcome for step 8 as well,
   but SPEC-012's architecture manifest lets `outcome` take a value only with an answer counted for step 8, so
   the tracker flagged such a run's ARCH write (refused in enforce mode). Step 8 now confirms the outcome once the
@@ -758,3 +766,5 @@ follows the same contract.
 | 6 | 2026-10-03 | Bryan | Approved, with step 8 confirming the outcome once the change is known (BEH-08) | status, BEH-08, §13 |
 | 7 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03 on a confirmation typed into the request: with a user present, step 8 asks even then, since it too comes before the change is known; a request to proceed without questions keeps it (BEH-08); new VER-29 (eval case request-confirm-still-asks); SPEC-012 link moved to version 7 | frontmatter, §1, BEH-08, VER-29, §10, §11, §13 |
 | 7 | 2026-10-03 | Bryan | Approved | status |
+| 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 9 (Bryan, 2026-10-03): BEH-17 tags each question form with its step, AskUserQuestion's metadata source devforgeai_step:N, which the tracker checks against the step marked in progress, and each question's header 'Step N', which the user sees; VER-27 checks both live; SKL-003 v7 implements versions 6 to 8 and ships with SPEC-012 version 9 and SPEC-013 version 8; SPEC-012 link moved to version 9 | frontmatter, §1, BEH-17, VER-27, §10, §11, §13 |
+| 8 | 2026-10-03 | Bryan | Approved, with the step shown in each question's header | status |

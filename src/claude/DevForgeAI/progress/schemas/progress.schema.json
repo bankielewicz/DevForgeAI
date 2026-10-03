@@ -164,7 +164,7 @@
         },
         "unmarkedQuestions": {
           "type": "integer",
-          "description": "answer events at a question gate (version 5)"
+          "description": "answer events at a question gate (version 5); since version 9 the unmarked, untagged and mismatched ones alike"
         }
       }
     }
@@ -325,7 +325,9 @@
             "skipped",
             "claimed-not-evidenced",
             "rule-broken",
-            "unmarked-question"
+            "unmarked-question",
+            "mismatched-question",
+            "untagged-question"
           ]
         },
         "message": {

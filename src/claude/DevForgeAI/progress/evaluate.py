@@ -58,6 +58,10 @@ def joined(command):
     return bool(JOINED.search(command.replace("\\\n", " ")))
 UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
             "mark the step it belongs to in progress, then ask")
+MISMATCHED = ("a question for step {n} was asked while step {k} was marked in progress: "
+              "mark step {n} in progress, then ask")  # version 9
+UNTAGGED = ("a question was asked without naming a step of the checklist: tag it with devforgeai_step:N "
+            "for the step it belongs to, mark that step in progress, then ask")  # version 9
 CHAIN = ("brainstorm", "prd", "architecture", "context", "epic", "story")
 NOT_BUILT = {"story": "the story skill isn't built yet (SPEC-009)"}
 
@@ -434,6 +438,7 @@ class Run:
         self.follows = loaded.get("taskList") is True and TASK_TAG in loaded["checklist"]
         self.step_events = []       # (seq, step, state) of the step events naming a known step, in seq order
         self.unmarked = []          # seqs of the answer events at a question gate (BEH-08)
+        self.questions = {}         # seq: (flag type, the step its flag names or None, the step in progress)
         self.gate = {"kind": None, "seq": None, "refuse": False, "reason": None}
         notes = {"stale": "manifest out of date; tracking ticks only",
                  "none": "no manifest for this skill; tracking ticks only",
@@ -633,14 +638,13 @@ class Run:
             # BEH-18: step events place answers: the step in progress takes each one; a step that isn't the user's
             # keeps it as its own exchange, such as an intake question, so it counts for no user-owned step.
             n = self.in_progress(e["seq"]) if self.step_events else None
-            if n is not None:
+            if self.follows and e["kind"] == "answer":
+                self.take_tagged(e, n, counts)
+            elif n is not None:
                 if counts and self.by_n[n].user_owned:
                     self.by_n[n].evidence.append(self.answer_evidence(e))
             elif self.follows and self.tracked:
-                # No step in progress in a run that follows the task list: a question there is a question gate
-                # (BEH-08); a typed prompt counts for no step and raises nothing.
-                if e["kind"] == "answer":
-                    self.unmarked.append(e["seq"])
+                pass  # a typed prompt with no step in progress counts for no step and raises nothing (BEH-18)
             elif counts:
                 answers.append(e)  # BEH-09's windows place the rest
         if not owned:
@@ -658,6 +662,38 @@ class Run:
             step = next((s for s in owned if windows[s.n][0] < e["seq"] < windows[s.n][2]), None)
             if step is not None:
                 step.evidence.append(self.answer_evidence(e))
+
+    def take_tagged(self, e, n, counts):
+        """An answer in a run that follows the task list (BEH-18, version 9). Claude writes both the question's tag and
+        the mark, so the tag is a check on the mark, never a placement of its own: the answer counts for the step in
+        progress `n` only when its tag names that step. Otherwise it is a question gate whose answer counts for no step,
+        checked in this order: no step in progress, no tag, another step's tag. An answer whose question says it is
+        outside the checklist, or one asked once every step is reached, is neither: it counts for no step and raises
+        nothing (version 10)."""
+        tag = e.get("step")
+        if isinstance(tag, bool) or not isinstance(tag, int) or tag < 1:
+            tag = None  # a tag of another type counts as no tag
+        elif tag not in self.by_n:  # ERR-06: a step the checklist doesn't have counts as no tag
+            self.unknown_claims += 1
+            tag = None
+        if tag is None and e.get("outside") is True:
+            return
+        if n is not None and tag == n:
+            if counts and self.by_n[n].user_owned:
+                self.by_n[n].evidence.append(self.answer_evidence(e))
+            return
+        if not self.tracked:
+            return  # every gate needs a matched or unverified manifest
+        if all(s.reached(e["seq"]) for s in self.steps):
+            return  # the checklist is finished: a later question isn't its own, and counts for no step (version 10)
+        if n is None:
+            kind, named = "unmarked-question", tag
+        elif tag is None:
+            kind, named = "untagged-question", n
+        else:
+            kind, named = "mismatched-question", tag
+        self.unmarked.append(e["seq"])
+        self.questions[e["seq"]] = (kind, named, n)
 
     @staticmethod
     def answer_evidence(e):
@@ -750,14 +786,18 @@ class Run:
                         and e.get("error") is not True and isinstance(e.get("path"), str) \
                         and any(path_matches(e["path"], rule["path"]) for rule in self.content_rules):
                     content[e["seq"]] = e
-        unmarked = set(self.unmarked)
-        points = sorted({p for p in (w, r, end) if p is not None} | set(content) | unmarked)
+        questions = self.questions
+        points = sorted({p for p in (w, r, end) if p is not None} | set(content) | set(questions))
         for seq in points:
             new = []
-            if seq in unmarked:
-                # The question gate checks no step: its flag names the step the run would reach next (version 6).
-                self.flag(new, "question", seq, self.by_n[self.next_to_reach(seq)], "unmarked-question", UNMARKED,
-                          once=False)
+            if seq in questions:
+                # The question gate checks no step. Its flag names the question's tagged step, or an untagged one's
+                # step in progress, or, with neither, the step the run would reach next (versions 6 and 9).
+                kind, named, marked = questions[seq]
+                message = {"unmarked-question": UNMARKED, "untagged-question": UNTAGGED,
+                           "mismatched-question": MISMATCHED.format(n=named, k=marked)}[kind]
+                step = self.by_n[named if named is not None else self.next_to_reach(seq)]
+                self.flag(new, "question", seq, step, kind, message, once=False)
             if seq == w:
                 self.check_steps(new, "write", seq, [s for s in self.steps if s.n < self.write_gate.n])
             if seq in content:
@@ -768,7 +808,7 @@ class Run:
                 highest = self.highest_reached()
                 if highest is not None:
                     self.check_steps(new, "end", seq, [s for s in self.steps if s.n <= highest])
-            kind = "end" if seq == end else "report" if seq == r else "question" if seq in unmarked else "write"
+            kind = "end" if seq == end else "report" if seq == r else "question" if seq in questions else "write"
             self.gate = {"kind": kind, "seq": seq, "refuse": bool(new), "reason": new[0]["message"] if new else None}
 
     # -- positions --

@@ -1,0 +1,194 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 22,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "stepEvents": 16,
+    "unknownClaims": 0,
+    "unmarkedQuestions": 0
+  },
+  "current": null,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": "report",
+    "reason": null,
+    "refuse": false,
+    "seq": 21
+  },
+  "manifest": {
+    "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "layers": [
+      "src/claude/DevForgeAI/progress/manifests/brainstorm.json"
+    ],
+    "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "state": "matched"
+  },
+  "next": {
+    "available": true,
+    "note": "",
+    "skill": "prd"
+  },
+  "run": "20261002T120000Z-brainstorm-0000abcd",
+  "skill": "brainstorm",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 4,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Glob docs/specs/brainstorm/BRN-*.md",
+          "seq": 3,
+          "strength": "medium",
+          "type": "read"
+        },
+        {
+          "detail": "Bash docs/specs/brainstorm/BRN-002.md",
+          "seq": 18,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 1,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Intake: topic, existing BRNs, clarifying questions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 6,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Select a framework",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 8,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 3,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Diverge: problems, ideas, assumptions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 10,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 4,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Evaluate with the framework",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 13,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "answer",
+          "seq": 12,
+          "strength": "strong",
+          "type": "answer"
+        }
+      ],
+      "kind": "ask",
+      "n": 5,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Propose dispositions and ask the user to confirm",
+      "userOwned": true
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 16,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Write docs/specs/brainstorm/BRN-002.md",
+          "seq": 15,
+          "strength": "medium",
+          "type": "write"
+        }
+      ],
+      "kind": "forge",
+      "n": 6,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Write the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 19,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "validate_brn.py exit 0",
+          "seq": 18,
+          "strength": "strong",
+          "type": "script"
+        }
+      ],
+      "kind": "inspect",
+      "n": 7,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Validate the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 21,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "report",
+      "n": 8,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 22
+}

@@ -17,5 +17,5 @@
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 17, "state": "done", "step": 6, "time": "2026-10-02T12:00:17Z"}
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 18, "state": "started", "step": 7, "time": "2026-10-02T12:00:18Z"}
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 19, "state": "started", "step": 8, "time": "2026-10-02T12:00:19Z"}
-{"answered": true, "kind": "answer", "run": "20261002T120000Z-architecture-0000abcd", "seq": 20, "time": "2026-10-02T12:00:20Z"}
+{"answered": true, "kind": "answer", "run": "20261002T120000Z-architecture-0000abcd", "seq": 20, "step": 8, "time": "2026-10-02T12:00:20Z"}
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 21, "state": "started", "step": 40, "time": "2026-10-02T12:00:21Z"}

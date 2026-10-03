@@ -127,6 +127,15 @@
           "answered": {
             "type": "boolean",
             "description": "false when the question was dismissed"
+          },
+          "step": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "the step the question named in its tag, devforgeai_step:N (version 9)"
+          },
+          "outside": {
+            "type": "boolean",
+            "description": "true when the question's source names something other than the convention's tag: it isn't the checklist's (version 9)"
           }
         }
       }

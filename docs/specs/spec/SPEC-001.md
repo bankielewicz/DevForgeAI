@@ -3,7 +3,7 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: approved
-version: 12
+version: 13
 created: 2026-09-22
 updated: 2026-10-03
 owner: "Bryan"
@@ -21,7 +21,7 @@ upstream:
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
-  - {id: SPEC-012, relation: constrains, version: 8, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
+  - {id: SPEC-012, relation: constrains, version: 10, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -52,6 +52,10 @@ the step that asked for it (BEH-12).
 **Version 12** (2026-10-03) runs the validator as a command of its own, so its exit status is the validator's: a
 run joined to another command, such as `; echo "exit=$?"`, proves nothing, and the progress tracker rightly
 credits none (BEH-09; SPEC-012 BEH-06).
+
+**Version 13** (2026-10-03) tags each question with its step, as SPEC-012 version 9's convention asks: hidden in
+AskUserQuestion's metadata, where the progress tracker checks it against the step marked in progress, and shown
+in each question's header, where you see it (BEH-12).
 
 ## 2. Constraints
 
@@ -184,7 +188,7 @@ behaviors:
     rule: "When extending an existing BRN, keep every existing item ID and its meaning. Give new items the next free number in their collection. Retire an item by setting status deprecated, never by deleting or renumbering it, because PRD requirements cite these IDs. Set generated_by.session to the extending session and add a Change Log row naming it; never edit earlier Change Log rows, which keep the sessions that wrote earlier versions."
   - id: BEH-12
     status: active
-    rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, the question asking for a topic included, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: the topic, clarifying and extend-or-new questions belong to step 1, the confirmation of dispositions and convergence to step 5. Never put two steps' questions in one question form. Mark each step completed as soon as it is done, one at a time, a step with nothing to do included. Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
+    rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, the question asking for a topic included, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: the topic, clarifying and extend-or-new questions belong to step 1, the confirmation of dispositions and convergence to step 5. Never put two steps' questions in one question form. Tag each question form with its step: the AskUserQuestion call's metadata source 'devforgeai_step:N', which the user doesn't see and the progress tracker checks against the step marked in progress, and each of its questions' header 'Step N', which the user sees (SPEC-012 §4, version 9). Mark each step completed as soon as it is done, one at a time, a step with nothing to do included. Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
 ```
 
 ## 7. Errors and edge cases
@@ -352,7 +356,7 @@ verifications:
       - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
   - id: VER-12
     status: active
-    obligation: "Live, in a session with the task tools, with SPEC-013's VER-22: a brainstorm run in which the user answers keeps its list, with step 1 in progress for the intake questions, step 5 in progress for the disposition question asked alone, and each step completed in order; the tracker records step events for all 8 steps and flags no question gate (counts.unmarkedQuestions 0). Recorded in §9."
+    obligation: "Live, in a session with the task tools, with SPEC-013's VER-22: a brainstorm run in which the user answers keeps its list, with step 1 in progress for the intake questions, step 5 in progress for the disposition question asked alone, every question form tagged devforgeai_step:N for its step with each question's header 'Step N' (version 13), and each step completed in order; the tracker records step events for all 8 steps and flags no question gate (counts.unmarkedQuestions 0). Recorded in §9."
     level: manual
     covers:
       - BEH-12
@@ -365,8 +369,9 @@ verifications:
 The skill is new, so there is nothing to migrate. Removing the plugin, or the skill directory within
 it, rolls it back. BRN documents it wrote stay valid because they depend only on the template and schema.
 
-Versions 11 and 12 (SKL-001 v6) ship in a plugin version no earlier than the one that builds SPEC-012 version 5 and
-SPEC-013 version 5, so a session without the task tools is never held to a task list. The checklist's lines
+Versions 11 to 13 (SKL-001 v6) ship in a plugin version no earlier than the one that builds SPEC-012 version 9 and
+SPEC-013 version 8, so a session without the task tools is never held to a task list, and the tags it writes are
+recorded and checked. The checklist's lines
 don't change, so the tracker's brainstorm manifest stays matched. Rolling back is returning to SKL-001 v5; the
 tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 
@@ -383,14 +388,14 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 **Version 11** (after approval), through `/plugin-dev:create-plugin` and Anthropic's two skill guides:
 1. Write the eval case `keeps-task-list` (hand-written, like the other brainstorm cases) and run it on SKL-001 v5
    with `--runs 1 --ablation none`; it fails, since v5's text names no `devforgeai_step`.
-2. Build SKL-001 v6, which implements versions 11 and 12: the Workflow section takes BEH-12's wording and step 7
+2. Build SKL-001 v6, which implements versions 11 to 13: the Workflow section takes BEH-12's wording and step 7
    BEH-09's (the validator as a command of its own), writes-valid-brn gains VER-01's new grader, `provenance.yaml` and
    `metadata.devforgeai-version` go to 6, skill-reviewer reviews it, and `evaluate.py check` (SPEC-012 IF-02)
    reports the brainstorm manifest matched.
 3. Evaluate cheapest first: `keeps-task-list` with `--runs 1 --ablation none`, then the suite with `--runs 1`,
    then 3 runs with the baseline. A trace with no TaskCreate call means the case's `allowed_tools` didn't give
    the eval's model the task tools: record it in §9 and bring it to the owner before the full suite.
-4. Once the plugin version that builds SPEC-012 version 5 and SPEC-013 version 5 is deployed, run VER-12 live.
+4. Once the plugin version that builds SPEC-012 version 9 and SPEC-013 version 8 is deployed, run VER-12 live.
 
 ## 12. Alternatives considered
 
@@ -407,6 +412,9 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 
 ## 13. Open questions
 
+- Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
+  metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
+  question's header, which the user sees; an answer counts for a step only when the two agree.
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 5): tracked skills keep their checklist in the task list,
   and a question asked with no step in progress is refused in enforce mode; a skill whose runs don't keep the
   list is fixed through its spec (SPEC-012 §4).
@@ -435,3 +443,5 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 | 11 | 2026-10-03 | Bryan | Approved | status |
 | 12 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03 on the validator run joined with '; echo': BEH-09 runs the validator as a command of its own, so its exit status is the validator's and the progress tracker can credit it (SPEC-012 version 7, BEH-06); VER-01 gains a grader for it; SPEC-012 link moved to version 7 | frontmatter, §1, BEH-09, VER-01, §10, §11 |
 | 12 | 2026-10-03 | Bryan | Approved | status |
+| 13 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 9 (Bryan, 2026-10-03): BEH-12 tags each question form with its step, AskUserQuestion's metadata source devforgeai_step:N, which the tracker checks against the step marked in progress, and each question's header 'Step N', which the user sees; VER-12 checks both live; SKL-001 v6 implements versions 11 to 13 and ships with SPEC-012 version 9 and SPEC-013 version 8; SPEC-012 link moved to version 9 | frontmatter, §1, BEH-12, VER-12, §10, §11, §13 |
+| 13 | 2026-10-03 | Bryan | Approved, with the step shown in each question's header | status |

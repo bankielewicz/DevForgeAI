@@ -87,8 +87,14 @@ class Log:
     def write(self, path, content=None):
         return self.tool("Write", path=path, content=content)
 
-    def answer(self, answered=True):
-        return self.add("answer", answered=answered)
+    def answer(self, answered=True, step=None, outside=False):
+        """An answer event; step is its question's tag (devforgeai_step:N), outside a source naming something else."""
+        fields = {"answered": answered}
+        if step is not None:
+            fields["step"] = step
+        if outside:
+            fields["outside"] = True
+        return self.add("answer", **fields)
 
     def prompt(self):
         return self.add("prompt")
@@ -554,17 +560,17 @@ def arch_steps_to_six(log):
     return log.worked(5, 6)
 
 
-@case("steps-brainstorm")  # VER-30: the intake answer is step 1's, the confirmation step 5's
+@case("steps-brainstorm")  # VER-30: the intake answer is step 1's, the confirmation step 5's, each tagged (version 9)
 def _():
-    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").answer().done(1).worked(2, 3, 4)
-    log.started(5).answer().done(5).started(6)
+    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").answer(step=1).done(1)
+    log.worked(2, 3, 4).started(5).answer(step=5).done(5).started(6)
     return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
 
 
 @case("steps-arch")  # VER-31: the shape version 4 flags (checked 2026-10-03), with step events
 def _():
     log = arch_start(following("architecture")).glob("docs/specs/arch/ARCH-*.md")
-    log.started(7).answer().answer().done(7).started(8).prompt().tick(1, 2, 3, 4, 5, 6, 7, 8).done(8)
+    log.started(7).answer(step=7).answer(step=7).done(7).started(8).prompt().tick(1, 2, 3, 4, 5, 6, 7, 8).done(8)
     return log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create")), plugin_only(), {}
 
 
@@ -584,9 +590,10 @@ def _():
     return arch_steps_to_six(following("architecture")).prompt(), plugin_only(), {}
 
 
-@case("steps-current")  # VER-33: the latest started step is current; step 5 doesn't apply; step 40 is unknown
-def _():
-    return arch_steps_to_six(following("architecture")).started(7).started(8).answer().started(40), plugin_only(), {}
+@case("steps-current")  # VER-33: the latest started step is current, the step a tag must match; step 5 doesn't apply;
+def _():  # step 40 is unknown
+    log = arch_steps_to_six(following("architecture")).started(7).started(8).answer(step=8).started(40)
+    return log, plugin_only(), {}
 
 
 @case("steps-retick")  # VER-33: a conditional step a step event marked done stays not-applicable after a re-tick
@@ -660,11 +667,76 @@ def _():
     return brn_validated(VALIDATE.replace(" docs/specs/", " \\\n  docs/specs/", 1)), plugin_only(), {}
 
 
+def brn_reported(log):
+    """A brainstorm that keeps its list through step 8, the report (steps-report-event's log)."""
+    log = log.started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
+    log.started(5).answer(step=5).done(5).started(6).write(BRN_PATH, brn(PROMOTED)).done(6)
+    return log.started(7).bash(VALIDATE).done(7).started(8).done(8)
+
+
 @case("steps-report-event")  # VER-37: the report gate fires on a done step event for the report step
 def _():
-    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
-    log.started(5).answer().done(5).started(6).write(BRN_PATH, brn(PROMOTED)).done(6)
-    return log.started(7).bash(VALIDATE).done(7).started(8).done(8), plugin_only(), {}
+    return brn_reported(following("brainstorm")), plugin_only(), {}
+
+
+# ---- version 9 -----------------------------------------------------------------------------------
+
+
+def brn_to_four(log):
+    """Steps 1 to 4 marked in the task list, step 1 with its read evidence: steps-brainstorm's run before step 5."""
+    return log.started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
+
+
+def brn_promote(log):
+    """Step 6 marked, then the Write of promoted dispositions that needs step 5's answer (VER-38)."""
+    return log.started(6).write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("steps-tagged")  # VER-38: tag and mark agree: the answer counts for step 5
+def _():
+    return brn_promote(brn_to_four(following("brainstorm")).started(5).answer(step=5).done(5))
+
+
+@case("steps-tag-mismatch")  # VER-38: tagged 5 while step 6 is marked: a question gate; the answer counts for none
+def _():
+    log = brn_to_four(following("brainstorm")).worked(5).started(6).answer(step=5)
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("steps-untagged")  # VER-38: no tag while step 5 is marked: a question gate; the mark alone counts for nothing
+def _():
+    return brn_promote(brn_to_four(following("brainstorm")).started(5).answer().done(5))
+
+
+@case("steps-tag-unknown")  # VER-38: a tag naming step 40 is ERR-06's, then as steps-untagged
+def _():
+    return brn_promote(brn_to_four(following("brainstorm")).started(5).answer(step=40).done(5))
+
+
+@case("steps-tag-unmarked")  # VER-38: tagged 5 with no step marked: an unmarked-question naming step 5
+def _():
+    return brn_promote(brn_to_four(following("brainstorm")).answer(step=5).worked(5))
+
+
+@case("steps-tag-outside")  # VER-38: a question that says it is outside the checklist: no gate, no step
+def _():
+    return brn_promote(brn_to_four(following("brainstorm")).started(5).answer(outside=True).done(5))
+
+
+@case("steps-tagged-prompt")  # VER-38: a typed prompt can't carry the tag: placed by the mark
+def _():
+    return brn_promote(brn_to_four(following("brainstorm")).started(5).prompt().done(5))
+
+
+@case("steps-after-done")  # VER-38 (version 10): every step reached, then an untagged question: no question gate
+def _():
+    return brn_reported(following("brainstorm")).answer(), plugin_only(), {}
+
+
+@case("rollout-tagged")  # VER-38: steps-tag-mismatch's log with taskList false: the tag is ignored, no question gate
+def _():
+    log = brn_to_four(Log("brainstorm", checklist=tasked("brainstorm"), task_list=False)).worked(5).started(6)
+    return log.answer(step=5).write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
 
 # ---- writing ------------------------------------------------------------------------------------
 
