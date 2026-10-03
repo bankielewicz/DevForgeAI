@@ -641,6 +641,47 @@ class SpecRules(Base):
         self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
 
 
+    # ---- version 7 ----
+
+    UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
+                "mark the step it belongs to in progress, then ask")
+    JOINED = ("step 7 (Validate the BRN): validate_brn.py ran, but the command joined it to another, which hides its "
+              "exit status: run it as a command of its own")
+
+    # VER-36: a started step that later work contradicts is no longer in progress; inspection and shared evidence aren't.
+    def test_ver36_a_stale_started_step(self):
+        stale, _, _, _ = self.run_case("steps-stale")
+        seq = self.events_of("steps-stale", "answer")[0]["seq"]
+        self.assertEqual(stale["flags"], [{"gate": "question", "seq": seq, "step": 9, "type": "unmarked-question",
+                                           "message": self.UNMARKED}])
+        self.assertNotIn(seq, [e["seq"] for s in stale["steps"] for e in s["evidence"]])
+        for name in ("steps-stale-inspection", "steps-shared-evidence"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(state["flags"], [])
+                self.assertEqual(state["gate"]["kind"], None)
+                self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
+                self.assertEqual(state["current"], 2)
+
+    # VER-37: a validator run joined to another command is no evidence, and the flag names the cause; && and 2>&1 count.
+    def test_ver37_joined_script_runs(self):
+        for name in ("brn-validate-joined", "brn-validate-piped", "brn-validate-background"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(self.step(state, 7)["evidence"], [])
+                self.assertEqual([(f["gate"], f["type"], f["message"]) for f in self.flags(state, 7)],
+                                 [("report", "skipped", self.JOINED)])
+        for name in ("brn-validate-and", "brn-validate-redirect"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual([e["type"] for e in self.step(state, 7)["evidence"]], ["script"])
+                self.assertEqual(self.flags(state, 7), [])
+        report, _, _, _ = self.run_case("steps-report-event")
+        done8 = [e["seq"] for e in self.events_of("steps-report-event", "step") if e["step"] == 8 and e["state"] == "done"]
+        self.assertEqual((report["gate"]["kind"], report["gate"]["seq"]), ("report", done8[0]))
+        self.assertEqual(report["flags"], [])
+
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

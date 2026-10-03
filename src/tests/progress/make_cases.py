@@ -615,6 +615,64 @@ def _():
     return log, plugin_only(), {}
 
 
+
+# ---- version 7 -----------------------------------------------------------------------------------
+
+@case("steps-stale")  # VER-36: step 2's mark is contradicted by later ticks, so the answer has no step in progress
+def _():
+    log = following("architecture").started(1).bash(POLICY).done(1).started(2).tick(3, 4, 5, 6, 7, 8).answer()
+    return log, plugin_only(), {}
+
+
+@case("steps-stale-inspection")  # VER-36: step 5's inspection (not the user's, conditional) leaves step 2's mark alone
+def _():
+    log = following("architecture").started(1).bash(POLICY).done(1).started(2).read("README.md").answer()
+    return log, plugin_only(), {}
+
+
+@case("steps-shared-evidence")  # VER-36: a Glob that is evidence for steps 2 and 3 leaves step 2's mark alone
+def _():
+    log = following("architecture").started(1).bash(POLICY).done(1).started(2).glob("docs/specs/prd/PRD-*.md").answer()
+    return log, plugin_only(), {}
+
+
+def brn_validated(command):
+    """A brainstorm whose validator ran as `command`, then steps 6 and 8 ticked (VER-37)."""
+    log = brn_start(Log("brainstorm")).write(BRN_PATH, brn(["open"] * 15)).bash(command)
+    return log.tick(6).tick(8)
+
+
+@case("brn-validate-joined")  # VER-37: '; echo' hides the validator's exit status
+def _():
+    return brn_validated(VALIDATE + '; echo "exit=$?"'), plugin_only(), {}
+
+
+@case("brn-validate-piped")  # VER-37: so does a pipe
+def _():
+    return brn_validated(VALIDATE + " | tail -3"), plugin_only(), {}
+
+
+@case("brn-validate-background")  # VER-37: and a background &
+def _():
+    return brn_validated(VALIDATE + " &"), plugin_only(), {}
+
+
+@case("brn-validate-and")  # VER-37: && keeps the validator's status: evidence
+def _():
+    return brn_validated(VALIDATE + " && echo ok"), plugin_only(), {}
+
+
+@case("brn-validate-redirect")  # VER-37: so does a redirection such as 2>&1
+def _():
+    return brn_validated(VALIDATE + " 2>&1"), plugin_only(), {}
+
+
+@case("steps-report-event")  # VER-37: the report gate fires on a done step event for the report step
+def _():
+    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
+    log.started(5).answer().done(5).started(6).write(BRN_PATH, brn(PROMOTED)).done(6)
+    return log.started(7).bash(VALIDATE).done(7).started(8).done(8), plugin_only(), {}
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():
