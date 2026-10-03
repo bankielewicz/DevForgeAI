@@ -47,7 +47,18 @@ SKL-008 is reserved for the story skill (SPEC-009).
 - `progress/` (plugin 0.12.0; SPEC-012 approved, ADR-006 accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
-  SPEC-012 §9 lists the build's departures for Bryan. No Claude Code adapter calls it yet.
+  SPEC-012 §9 lists the build's departures for Bryan.
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod, plugin 0.13.0): it records each tracked
+  skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
+  `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
+  above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
+  `progress.mode` in `.claude/devforgeai.local.md`). Every use of `$` stays in that file's top-level functions;
+  `hooks/progress-core.ts` is pure. Its kit tests are `hooks/*.test.ts` (not deployed); SPEC-013 §9 lists the
+  build's departures for Bryan. An installed plugin's mod loads only while Claude Code serves the hooks-modules
+  rollout flag, and reports load failures only in the debug log (`claude --debug`). When `claude plugin test` says
+  the switch was saved off, check `tengu_plugin_hooks_modules` in `~/.claude.json` and start one `claude -p` from a
+  plain shell: the sandbox can't refresh that file. `progress/prune.py` removes run and session folders older
+  than the `retentionDays` setting (30 days by default), started once per session at its first run.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels. The review criteria are open.
 
@@ -76,13 +87,17 @@ differences from the Claude skills. Don't edit it from Claude. `src/grok/` is em
   The owner's local `tmp/deploy-main.sh` (ADR-001 step 7) pulls `main`, deploys both copies and diffs each.
 
 ```bash
-# Deploy the Claude plugin
-rsync -a --delete --exclude={__pycache__,results} src/claude/DevForgeAI/ .claude/skills/devforgeai/
+# Deploy the Claude plugin; the adapter's tests and the engine's generated files stay out
+X=(--exclude=__pycache__ --exclude=results --exclude='*.test.ts' --exclude='*.test.tsx')
+X+=(--exclude=/tsconfig.json --exclude=/.claude-plugin/types/)
+rsync -a --delete "${X[@]}" src/claude/DevForgeAI/ .claude/skills/devforgeai/
 # Deploy the Codex plugin from HEAD
 T=$(mktemp -d) && git archive HEAD src/codex/devforgeai | tar -x -C "$T"
 mkdir -p .codex/devforgeai && rsync -a --delete "$T/src/codex/devforgeai/" .codex/devforgeai/
 ```
 
+- After a redeploy, an open session loads the new adapter with `/reload-plugins`. Whether mods can load at all:
+  `claude plugin test` in a folder with no mod prints "no hooks module to load" when they can.
 - `src/tools/session-archive/` is not part of the plugin and is never synced into `.claude/`. It holds
   user-level hooks that archive session transcripts and record which session wrote each `docs/specs/`
   document. The owner installs them into `~/.claude/` per `docs/specs/spec/SPEC-005.md` (draft).
@@ -93,16 +108,21 @@ Run from the repository root (see "Traps"). Per-skill eval generators and offlin
 `.claude/rules/evals.md`.
 
 ```bash
-# The deployed copy matches the source
-diff -rq src/claude/DevForgeAI .claude/skills/devforgeai
+# The deployed copy matches the source, apart from what the deploy command leaves out
+D=(-x '*.test.ts' -x '*.test.tsx' -x tsconfig.json -x __pycache__ -x results)
+diff -rq "${D[@]}" src/claude/DevForgeAI .claude/skills/devforgeai
 # Session-archive tests: all, or one by name
 python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py'
 python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py' -k test_scope_is_opt_in
 # documents-updater's Markdown checker tests (kept outside the plugin), and the git skill's script tests
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/documents-updater -p 'test_*.py'
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test_*.py'
-# The progress evaluator's tests (SPEC-012): every rule, the same under python3 -S, and the goldens
+# The progress tracker's Python tests: the evaluator (SPEC-012: every rule, the same under python3 -S,
+# the goldens), settings.py, prune.py and the adapter's structure (SPEC-013)
 PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
+# The progress adapter (SPEC-013): its kit tests, and what Claude Code reads from the module
+claude plugin test src/claude/DevForgeAI
+claude plugin validate src/claude/DevForgeAI
 # brainstorm's validator tests: each case runs the script with PyYAML and without it (python3 -S)
 python3 -B src/tests/brainstorm/test_validate_brn.py
 # prd and the shared policy script: its tests, the shared files' byte-identity, structure

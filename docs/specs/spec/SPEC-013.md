@@ -3,7 +3,7 @@ id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
 status: approved    # draft | in-review | approved | superseded | deprecated
-version: 2
+version: 3
 created: 2026-10-02
 updated: 2026-10-02
 owner: "Bryan"
@@ -25,7 +25,7 @@ supersedes: []
 superseded_by: null
 blocked_by: []
 # --- spec-specific ---
-components: ["src/claude/DevForgeAI/hooks", "src/claude/DevForgeAI/types", "src/claude/DevForgeAI/progress/settings.py", "src/claude/DevForgeAI/.claude-plugin/plugin.json", "src/tests/progress"]
+components: ["src/claude/DevForgeAI/hooks", "src/claude/DevForgeAI/types", "src/claude/DevForgeAI/progress/settings.py", "src/claude/DevForgeAI/progress/prune.py", "src/claude/DevForgeAI/.claude-plugin/plugin.json", "src/tests/progress"]
 ---
 
 # SPEC-013 — Progress tracker adapter for Claude Code: events, gates, modes and the status line
@@ -43,13 +43,20 @@ build order (`docs/specs/devforgeai-progress-ui.md` §11): a hooks module (a mod
   report gate's flags with the user's next prompt;
 - fails open: when it can't run, the work goes on and the user is told.
 
-It also adds `progress/settings.py`, which resolves `progress.mode` and saves the user's choice.
+It also adds `progress/settings.py`, which resolves `progress.mode` and saves the user's choice, and
+`progress/prune.py`, which removes old run and session folders.
 
 **The approach.** The event log is the truth. The adapter writes down what happened, as it happens, and
 interprets nothing: it parses no tick and applies no rule. The evaluator, a pure function, computes the state
 from the whole log each time (SPEC-012 BEH-01). So the adapter carries no copy of any rule (the mods proposal's
 rule 2), a state that is lost or stale can be computed again from the log, and another tool's adapter shares
 the same evaluator.
+
+**Version 3** (2026-10-02) follows the build, its live check (VER-15) and Bryan's decisions of 2026-10-02. The
+build's departures and readings, recorded in §9, become rules. `current.json` and `adapter.log` move into a
+folder per session, since several sessions can share one checkout and a shared copy shows whichever wrote last.
+A run takes the session's root when it opens, which a worktree move or `/cd` can change mid-session. And
+`prune.py` removes run and session folders older than a retention period the user sets, 30 days by default.
 
 **Out of scope,** each for a later spec:
 - the Journey and Workflow pane, and its graphics (`Svg`, `Image`, `Raster`), characters and animation settings;
@@ -71,16 +78,19 @@ the same evaluator.
     the framework default and honours an entry in the local preference file; the band's button writes that entry.
   - D6: the user's entry lives in `.claude/devforgeai.local.md` (ADR-003 A3's format); display settings stay in
     Claude Code's own plugin settings.
-- **SPEC-012's contracts** (approved, v1): the adapter writes DM-02 events and nothing the format doesn't allow,
+- **SPEC-012's contracts** (approved, v2): the adapter writes DM-02 events and nothing the format doesn't allow,
   reads the DM-03 state, runs IF-01, follows the run ID format and the operational files of §4, and writes the
-  rule that keeps `devforgeai/progress/` out of git (SPEC-012 §4 gives that to this spec).
+  rule that keeps `devforgeai/progress/` out of git (SPEC-012 §4 gives that to this spec). One departure, from
+  version 3: `current.json` moves from `devforgeai/progress/` into a session's folder (DM-02), because sessions
+  sharing one checkout would overwrite one copy. SPEC-012 §4's file list follows in its next version; nothing
+  reads `current.json` yet.
 - **Decisions are the user's** (PRD-001 FR-003; the mods proposal's rule 5). The adapter writes no document and
   changes no skill text. No button sends a prompt. The mode changes only when the user presses its button.
 - **Evals stay the proof** (the mods proposal's rule 1). A headless session, which includes every child run of
   `claude plugin eval`, is left untouched (BEH-01).
 - **The mod API is early access.** Every API claim here was read in Claude Code 2.1.287's declarations and the
   `plugin-authoring` skill's `reference.md`, among them: `$.plugin.root` (the plugin's folder, absolute),
-  `$.session.root()` and `$.session.version()`; `$.process.run(argv, { timeoutMs })` (30 seconds by default; it
+  `$.session.root()`, which follows `/cd` and a worktree move, `$.session.id()` and `$.session.version()`; `$.process.run(argv, { timeoutMs })` (30 seconds by default; it
   rejects when the command is still running then); `$.fs` (read, write, list, exists, stat; no append); a `.catch`
   handler receives a replay-safe `next`; `tool.call`, `session.append` and `turn.complete` carry `agentId` only for
   a subagent; `session.append`'s door `response`, one row per kept block of Claude's; `session.end`'s reasons,
@@ -130,6 +140,7 @@ flowchart LR
     A -->|draws| UI["status line, band, toasts"]
     A -->|enforce: deny or context| M["the model"]
     A <-->|IF-01, IF-02| S["progress/settings.py"]
+    A -->|IF-04| P["progress/prune.py"]
     S <--> L[".claude/devforgeai.local.md"]
 ```
 
@@ -140,8 +151,9 @@ flowchart LR
 | `src/claude/DevForgeAI/hooks/*.test.ts` | its tests, run by `claude plugin test src/claude/DevForgeAI` | no: the deploy command excludes them (§10) |
 | `src/claude/DevForgeAI/types/index.d.ts` | the `$.state` contract (DM-03), named by `plugin.json`'s `types` | yes |
 | `src/claude/DevForgeAI/progress/settings.py` | IF-01 and IF-02 | yes |
-| `src/claude/DevForgeAI/.claude-plugin/plugin.json` | gains `types` and the `tracking` setting (DM-05) | yes |
-| `src/tests/progress/test_settings.py`, `test_adapter_structure.py` | settings.py's tests (VER-02, VER-03) and the structure checks, which read VER-04's expected lines from `hooks/progress.test.ts` (VER-16) | no |
+| `src/claude/DevForgeAI/progress/prune.py` | IF-04 | yes |
+| `src/claude/DevForgeAI/.claude-plugin/plugin.json` | gains `types`, the `tracking` setting (DM-05) and the `retentionDays` setting (DM-06) | yes |
+| `src/tests/progress/test_settings.py`, `test_prune.py`, `test_adapter_structure.py` | settings.py's tests (VER-02, VER-03), prune.py's (VER-17) and the structure checks, which read VER-04's expected lines from `hooks/progress.test.ts` (VER-16) | no |
 
 `evaluate.py`, its schemas and its manifests don't change. Every use of `$` stays in top-level functions of
 `hooks/progress.tsx` (§2); a helper file next to it may hold pure functions (formatting the status text, the band's
@@ -152,7 +164,7 @@ rows, an Edit's resulting file), which its tests can call directly.
 | `session.start` | tells a headless session apart by `isInteractive` (BEH-01), resolves the mode (BEH-16), starts the evaluation timer (BEH-06), and keeps an open run across a reload (BEH-17) |
 | `classic.SessionStart` with `source` `clear`, `resume` or `fork` | resolves the mode and restarts the timer after `/clear`, `/resume` or `/branch`, which fire no `session.start` (BEH-06, BEH-16) |
 | `prompt.compose` | a second headless signal, the trait `print` (BEH-01) |
-| `skill.prompt` | starts and ends runs (BEH-02, BEH-03, BEH-05) |
+| `skill.prompt` | starts and ends runs (BEH-02, BEH-03, BEH-05), and starts pruning once per session and root (BEH-19) |
 | `tool.call` | records tool calls and answers (BEH-04); in enforce mode, checks the write gate before the call (BEH-08) |
 | `prompt.submit` | records the user's prompts; in enforce mode, gives the model the report gate's flags (BEH-09) |
 | `session.append` with door `response` | records Claude's text as it is kept, ticks included (BEH-04) |
@@ -172,7 +184,7 @@ DevForgeAI skill uses subagents today).
 | `skill.prompt` for a tracked skill (BEH-02) | as it loads | `skill-loaded`: `format` `devforgeai-events/1`; `skill`, the name without a `<plugin>:` prefix; `checklist`, the text that `next(e)` resolves to, which is what the model reads; `host`, `claude-code <version>` from `$.session.version()`; and two fields DM-02 allows but the evaluator doesn't read: `mode` and `modeSource` (ADR-006 D3) |
 | `tool.call`, any tool but AskUserQuestion | after `next(e)` resolves | `tool`: `tool`; `path` (below); `command` for Bash; `exit`; `error`; `content` for Write and Edit (below) |
 | `tool.call` of AskUserQuestion that Claude Code fired (`next.origin.plugin` is `engine`; a mod's `$.ui.ask` arrives the same way and isn't recorded) | after `next(e)` resolves | `answer`: `answered` true when the call didn't fail and the result's `answers` holds at least one entry, an option picked or an answer typed; false when it failed, as a dismissal does (§9, P5) |
-| `prompt.submit` that the person sent (`e.origin.kind` `composer` or `bridge`; a task notification, a scheduled prompt, a peer's message, an SDK turn or a plugin's prompt isn't recorded) | as it is submitted | `prompt` |
+| `prompt.submit` that the person sent (`e.origin.kind` `composer` or `bridge`; a task notification, a scheduled prompt, a peer's message, an SDK turn or a plugin's prompt isn't recorded), and that doesn't start with `/` (BEH-04) | as it is submitted | `prompt` |
 | `turn.start` | | `turn` with `phase` `start` |
 | `session.append` with door `response` | as each row is kept | `reply` with `text`, the row's text blocks joined by newlines, when it has any; a row that holds only a tool call gives none. Each row arrives as it is kept, so ticks written between tool calls are recorded; `turn.complete`'s `answer` holds only the turn's last text, and a whole skill run can be one turn (§9, P7) |
 | `turn.complete` | | `turn` with `phase` `end` |
@@ -180,10 +192,10 @@ DevForgeAI skill uses subagents today).
 | a tracked skill loading while a run is open | before the new run's `skill-loaded` | `run-end` with `reason` `another-skill`, in the old run |
 
 The fields of a `tool` event:
-- **`path`**, relative to the project root with `/` separators: Read, Write and Edit's `file_path`; Glob's
+- **`path`**, relative to the run's root (BEH-03) with `/` separators: Read, Write and Edit's `file_path`; Glob's
   `pattern`, joined to its `path` when one is given; Grep's `path`, or `.` when none is given. A path outside the
-  project root is kept absolute.
-- **`exit`**: Bash's result has no exit-code field (§9, P6). A failed call's text reads `Exit code <n>`, so `exit`
+  run's root is kept absolute.
+- **`exit`**, for every tool: Bash's result has no exit-code field (§9, P6). A failed call's text reads `Exit code <n>`, so `exit`
   is that number when the call failed and the text has it, 0 when the call succeeded, and null otherwise.
 - **`error`**: true when the result has `isError` or is a `{ deny }`: a call refused by the permission dialog, a
   settings hook, a mod after this one, or the adapter itself (BEH-08) never ran, so it is never evidence. A mod before
@@ -192,21 +204,28 @@ The fields of a `tool` event:
   `old_string` replaced by `new_string` once, or everywhere with `replace_all`. Left out when it can't be computed
   (ERR-06) or is over 64 KiB, and left out of every event once events.jsonl passes 3 MiB (ERR-11).
 
-**DM-02. The files the adapter writes,** all under the project root's `devforgeai/progress/` (SPEC-012 §4):
+**DM-02. The files the adapter writes,** all under `devforgeai/progress/` in the run's root (SPEC-012 §4, but
+for `current.json`, §2). `<session>` is `$.session.id()` when the file is written, so `/clear`, `/resume` and
+`/branch`, which change it, start a new folder:
 
 | File | Written | Holds |
 | --- | --- | --- |
-| `.gitignore` | once, when the adapter creates the folder | the line `*`, which keeps the folder and everything in it out of git; the project's own `.gitignore` is never edited |
-| `runs/<run>/events.jsonl` | after each event | the run's events (DM-01), one JSON object per line, rewritten whole from the run's lines in `$.state` (`$.fs` has no append) |
+| `.gitignore` | when the adapter creates the folder, in each root a run opens in | the line `*`, which keeps the folder and everything in it out of git; the project's own `.gitignore` is never edited |
+| `runs/<run>/events.jsonl` | after each event | the run's events (DM-01), one JSON object per line, rewritten whole from the run's lines, which the module keeps (DM-03; `$.fs` has no append) |
 | `runs/<run>/state.json` | by the evaluator | SPEC-012 DM-03, through IF-01's `--out` |
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
-| `current.json` | after each evaluation | a copy of the open run's `state.json`, for renderers; the last run's stays after it ends |
-| `adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused`, `context`, `fail-open`, `error` |
+| `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused`, `context`, `fail-open`, `error`, `prune`. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+
+`prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
+retention period (BEH-19), and nothing else.
 
 **DM-03. The adapter's session state,** in `$.state`, declared in `types/index.d.ts` under the plugin's name.
 `$.state` survives a reload of the module; module variables don't (BEH-17). `/clear`, `/resume` and `/branch` empty
-it (§9, P11). Two values are module variables instead, since they belong to the process: whether the session is
-interactive (BEH-01) and the evaluation timer (BEH-06). The status line isn't drawn from `$.state`: BEH-10 calls
+it (§9, P11). Three values are module variables instead: whether the session is interactive (BEH-01) and the
+evaluation timer (BEH-06), which belong to the process, and the open run's lines. One `$.state` value holds at most
+4,194,304 characters, which the docs don't say (§9), and a run's escaped lines pass that before `events.jsonl`
+reaches 4 MiB; after a reload the lines are read back from `events.jsonl` (BEH-17). The status line isn't drawn from `$.state`: BEH-10 calls
 `$.ui.status`.
 `claude plugin validate` reads the contract strictly: it exports types and nothing else (no `export {}`), and the
 state's keys are written inline under `interface PluginState`, since a type alias there hides them (found with
@@ -214,7 +233,7 @@ the probe).
 
 ```ts
 interface ProgressState {
-  run: { id: string; skill: string; seq: number; lines: string[]; dir: string } | null
+  run: { id: string; skill: string; seq: number; dir: string; root: string } | null
   mode: 'observe' | 'enforce'
   modeSource: 'framework-default' | 'local'
   summary: { skill: string; current: number | null; steps: number; flags: number; yourTurn: boolean;
@@ -243,17 +262,26 @@ default `on`, shown in `/config`. It is a display-level switch for the person, n
 turns the whole adapter off for that user, in every project. The build checks the field's exact shape with
 `claude plugin validate`.
 
+**DM-06. The `retentionDays` setting,** a `userConfig` number field in `plugin.json`: title "Keep progress files
+(days)", default 30, `min` 7, `max` 3650, shown in `/config` (a number field with `default`, `min` and `max` passes
+`claude plugin validate` on 2.1.288). Like `tracking`, it is the person's setting, not policy. It sets how old a
+run's or a session's files must be before IF-04 removes them (BEH-19). The default matches Claude Code's own
+transcript retention (`cleanupPeriodDays`, 30 by default), so a run's log lasts as long as the transcript it came
+from. The floor of 7 days keeps a session left open over a weekend from losing its open run's folder to another
+session's pruning, which judges by the files' times.
+
 ## 5. Interfaces and contracts
 
-`settings.py` is run as `python3 <plugin root>/progress/settings.py <command> …`:
+`settings.py` and `prune.py` are run as `python3 <plugin root>/progress/<script> <command> …`:
 
 | Item | Command | Behaviour |
 | --- | --- | --- |
-| IF-01 | `mode --root DIR` | Resolves `progress.mode` for the project at `DIR` (BEH-18): prints `observe framework-default`, `observe local` or `enforce local`. Each entry it can't use goes to stderr as `ignored .claude/devforgeai.local.md progress.mode (<reason>)`, the wording the skills use for ignored entries. Exit 0; exit 2 when `DIR` isn't a folder |
-| IF-02 | `set-mode --root DIR --value observe\|enforce` | Saves the entry in `DIR/.claude/devforgeai.local.md` (BEH-18) and prints `saved progress.mode=<value> to .claude/devforgeai.local.md`. Exit 0 when saved; 1 when it refuses to change a file that isn't frontmatter-only; 2 when it can't write |
+| IF-01 | `mode --root DIR` | Resolves `progress.mode` for the project at `DIR` (BEH-18): prints `observe framework-default`, `observe local` or `enforce local`. When the file has a `progress.mode` line it can't use, the reason goes to stderr as `ignored .claude/devforgeai.local.md progress.mode (<reason>)`, the wording the skills use for ignored entries. Exit 0; exit 2 when `DIR` isn't a folder |
+| IF-02 | `set-mode --root DIR --value observe\|enforce` | Saves the entry in `DIR/.claude/devforgeai.local.md` (BEH-18), adding `devforgeai_local: 1` when the file has none, since IF-01 would otherwise ignore the saved entry, and prints `saved progress.mode=<value> to .claude/devforgeai.local.md`. Exit 0 when saved; 1 when it refuses to change a file that isn't frontmatter-only or declares another format version; 2 when it can't write |
 | IF-03 | the evaluator call | `<python> <plugin root>/progress/evaluate.py evaluate --manifests <plugin root>/progress/manifests [--manifests <root>/devforgeai/manifests/organization] [--manifests <root>/devforgeai/manifests] --events <events file> --out <state file> --root <root>`, SPEC-012 IF-01. A layer folder that doesn't exist is left out, since a `--manifests` that isn't a folder stops the evaluator (SPEC-012 ERR-04). `<python>` is the first of `python3` and `python` that runs (ERR-01) |
+| IF-04 | `prune --root DIR --days N [--keep-session ID] [--keep-run ID]` (`prune.py`) | Removes old working files under `DIR/devforgeai/progress/` (BEH-19): each folder `runs/<name>` whose name matches SPEC-012's run-ID pattern, and each `sessions/<name>` whose name is a UUID, when the newest file in it was last modified more than `N` days ago and it isn't the kept session's or run's folder. A session ID of another shape is left alone. It never follows a symbolic link: it skips one, leaves any folder that holds one, and refuses a folder whose real path isn't inside `DIR/devforgeai/progress/`. It deletes nothing else. Prints `pruned <r> runs, <s> sessions`; exit 0, also when there is no `devforgeai/progress/`; exit 2 with one line on stderr when `DIR` isn't a folder, `N` isn't a whole number of at least 1, or a deletion fails |
 
-`<plugin root>` is `$.plugin.root`; `<root>` is `$.session.root()`. Both scripts are run through `$.process.run`
+`<plugin root>` is `$.plugin.root`; `<root>` is the run's root, `$.session.root()` when the run opened (BEH-03). Both scripts are run through `$.process.run`
 with an argv, never a shell string. `evaluate.py` isn't executable, so the interpreter is always named.
 
 ## 6. Behavior
@@ -268,22 +296,22 @@ behaviors:
     rule: "A skill is tracked when it is one of the plugin's own skills (a folder under <plugin root>/skills/) or a <name>.json exists in <root>/devforgeai/manifests/ or <root>/devforgeai/manifests/organization/ (a project's own skill, ADR-006 D4). Its name is skill.prompt's skill without a '<plugin>:' prefix. Loading any other skill neither starts nor ends a run."
   - id: BEH-03
     status: active
-    rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time from $.clock.now() as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4), and a skill-loaded event as the run's first (DM-01). The run's folder, devforgeai/progress/runs/<run>/, is created when its events are first written (BEH-15). Every skill of the plugin opens a run, git and documents-updater included: having no manifest, they are tracked by ticks only (SPEC-012 BEH-04's none), and the status line says so (BEH-10)."
+    rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time from $.clock.now() as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4), and a skill-loaded event as the run's first (DM-01). The run takes the session's root, $.session.root(), as it opens and keeps it; that one read serves every decision made as the run opens (BEH-02's tracked check, BEH-15's folder and .gitignore, BEH-16's mode), and no root is kept for the session: its folder, the paths in its events, its manifests and IF-03's --root all use that root, so a worktree move or /cd during the run shows in its paths, and the next run opens under the new root. The run's folder, devforgeai/progress/runs/<run>/, is created when its events are first written (BEH-15). Every skill of the plugin opens a run, git and documents-updater included: having no manifest, they are tracked by ticks only (SPEC-012 BEH-04's none), and the status line says so (BEH-10)."
   - id: BEH-04
     status: active
-    rule: "While a run is open, the adapter turns each main-loop host event of DM-01 into its event, with the next seq, the UTC time from $.clock.now() and the run's ID, adds it to the run's lines in $.state and rewrites events.jsonl from them. Events while no run is open, and events that carry an agentId, are not recorded. An answer counts only when Claude Code fired the AskUserQuestion call (next.origin.plugin is 'engine'), and a prompt only when the person sent it (e.origin.kind composer or bridge), since a mod can ask through $.ui.ask, submit a prompt as the user's, and a background task's notification arrives as a prompt (§9, P11). Every event goes on unchanged: auto mode denies a tool call whose input a hook changed."
+    rule: "While a run is open, the adapter turns each main-loop host event of DM-01 into its event, with the next seq, the UTC time from $.clock.now() and the run's ID, adds it to the run's lines (DM-03) and rewrites events.jsonl from them. Events while no run is open, and events that carry an agentId, are not recorded. An answer counts only when Claude Code fired the AskUserQuestion call (next.origin.plugin is 'engine'), and a prompt only when the person sent it (e.origin.kind composer or bridge), since a mod can ask through $.ui.ask, submit a prompt as the user's, and a background task's notification arrives as a prompt (§9, P11). A prompt that starts with '/' runs a command or loads a skill and is no answer, so it isn't recorded: a slash command's skill.prompt settles before its prompt.submit, so its text would land in the run it opened (§9, VER-15). Every event goes on unchanged: auto mode denies a tool call whose input a hook changed."
   - id: BEH-05
     status: active
-    rule: "A run ends with run-end another-skill when a tracked skill loads; clear on session.end with reason clear; and session-end on session.end with any other reason (exit, /resume and /branch, which report resume, logout, the end of a -p run, a signal). Nothing else ends a run; there is no idle limit (Bryan, 2026-10-02). All session.end hooks share 1.5 seconds, so the run-end line is written first, and the final evaluation runs only when next.budget.remainingMs leaves room for it, with its timeoutMs taken from what is left: the log alone reproduces the state."
+    rule: "A run ends with run-end another-skill when a tracked skill loads; clear on session.end with reason clear; and session-end on session.end with any other reason (exit, /resume and /branch, which report resume, logout, the end of a -p run, a signal). Nothing else ends a run; there is no idle limit (Bryan, 2026-10-02). All session.end hooks share 1.5 seconds, so the run-end line is written first, and the final evaluation runs only when next.budget.remainingMs leaves room for it, with its timeoutMs taken from what is left: the log alone reproduces the state. So a session's current.json shows its run ended only when that evaluation ran (DM-02)."
   - id: BEH-06
     status: active
-    rule: "After a tool, answer, prompt, reply or run-end event, the run is marked. A timer runs IF-03 every half second when the run is marked and no timer-driven evaluation is running; it clears the mark as it starts. The timer starts at session.start, at classic.SessionStart with source clear, resume or fork (no session.start follows /clear, /resume or /branch), and at a skill.prompt when none is running. So at most one timer-driven evaluation runs at a time (an enforce check, BEH-08, runs apart from it on its own files), and a burst of events gives at most two evaluations. The timer's callback catches its own errors (ERR-10). After exit 0 the adapter copies state.json to current.json, updates the summary in $.state, which redraws the band, and calls $.ui.status when the status text has changed (BEH-10). In observe mode no tool call waits for an evaluation."
+    rule: "After a tool, answer, prompt, reply or run-end event, the run is marked. A timer runs IF-03 every half second when the run is marked and no timer-driven evaluation is running; it clears the mark as it starts. The timer starts at session.start, at classic.SessionStart with source clear, resume or fork (no session.start follows /clear, /resume or /branch), and at a skill.prompt when none is running. So at most one timer-driven evaluation runs at a time (an enforce check, BEH-08, runs apart from it on its own files), and a burst of events gives at most two evaluations. The timer's callback catches its own errors (ERR-10). After exit 0 the adapter copies state.json to the session's current.json (DM-02), updates the summary in $.state, which redraws the band, and calls $.ui.status when the status text has changed (BEH-10). In observe mode no tool call waits for an evaluation."
   - id: BEH-07
     status: active
     rule: "In observe mode the adapter never refuses a call and never adds text the model reads. Flags reach the user only: the status line, the band and toasts (BEH-10 to BEH-12)."
   - id: BEH-08
     status: active
-    rule: "In enforce mode, for each main-loop Write or Edit while a run is open, the adapter checks before calling next(e). It writes the run's lines plus the pending tool event, with its content, to runs/<run>/pending.jsonl and runs IF-03 on it with --out runs/<run>/pending.json. When that state's gate has kind write, seq equal to the pending event's seq and refuse true, the adapter answers { deny } without calling next(e). The text says that DevForgeAI's progress tracker refused the write at the write gate, lists the messages of the flags raised at that seq, and says that the user decides these; where nothing draws, the same text also goes to $.ui.log. The call is recorded as a tool event with error true, which is never evidence (SPEC-012 BEH-06), so the write gate is checked again when the write is retried. Otherwise the adapter calls next(e) and records the event as in observe mode. $.fs can't delete a file, so the two pending files are overwritten at the next check."
+    rule: "In enforce mode, for each main-loop Write or Edit while a run is open, the adapter checks before calling next(e). It writes the run's lines plus the pending tool event, with its content, to runs/<run>/pending.jsonl and runs IF-03 on it with --out runs/<run>/pending.json. When that state's gate has kind write, seq equal to the pending event's seq and refuse true, the adapter answers { deny } without calling next(e). The text says that DevForgeAI's progress tracker refused the write at the write gate (enforce mode) and lists the messages of the flags raised at that seq. It then says what clears them: for a step's flag, doing the step with a tool call the run's log can see, or ticking it as '- [x] N.' in reply text (a tick only in thinking doesn't count); for a decision (a rule-broken flag, or a user-owned step's), asking the user or leaving those fields open. It names the run's folder. Where nothing draws, the same text also goes to $.ui.log. The call is recorded as a tool event with error true, which is never evidence (SPEC-012 BEH-06), so the write gate is checked again when the write is retried. Otherwise the adapter calls next(e) and records the event as in observe mode. $.fs can't delete a file, so the two pending files are overwritten at the next check."
   - id: BEH-09
     status: active
     rule: "In enforce mode, when an evaluation's gate has kind report and refuse true, the adapter adds the messages of the flags raised at that gate, once per gate seq, to the context of the user's next prompt.submit, so the model reads them with that prompt. It doesn't add them to a prompt that starts with '/', which usually loads the next skill, and drops them once the run has ended: the user has moved on. A run-end gate's flags reach the user only, since the conversation that would read them has ended. Neither gate has a tool call to refuse."
@@ -304,16 +332,19 @@ behaviors:
     rule: "The adapter fails open (ADR-006 D1). A hook that fails before calling next is skipped and the event goes on, and one that fails after next leaves that result standing. Each hook is also registered with a .catch whose handler, within its 1-second limit, writes the error to adapter.log, shows a toast once per distinct error, and returns next(e): in a .catch, next is replay-safe, so when the hook had already called it (next.called), the result it got stands. When the evaluator can't run (ERR-01, ERR-02, ERR-07), the tool call proceeds, the status line shows 'progress: off (<reason>)' until an evaluation succeeds, and events are still recorded, so the state can be computed later. Claude Code reports an installed plugin's load failures and skipped hooks only in its debug log (claude --debug), so a missing band is the visible sign during dogfooding. The adapter registers no guard: a guard's fail-closed .catch (D1) belongs to the guard's own spec."
   - id: BEH-15
     status: active
-    rule: "The adapter writes only under <root>/devforgeai/progress/ (DM-02), and .claude/devforgeai.local.md only through IF-02 when the user presses the button. It creates devforgeai/progress/ with its .gitignore holding '*' the first time it writes a run's events, which is only after BEH-01 has found the session interactive, and never edits the project's own .gitignore. $.fs.write isn't atomic and holds at most 4 MiB a file: the adapter is the only writer of its files, starts an evaluation only after the write it depends on has finished, keeps each Write or Edit's content to 64 KiB, and stops adding content once events.jsonl passes 3 MiB (ERR-11). It reads the plugin's files, the manifest folders, the local preference file through IF-01, and a file an Edit names (DM-01). It opens no network connection."
+    rule: "The adapter writes only under devforgeai/progress/ in a run's root (DM-02), deletes only through IF-04 (BEH-19), and .claude/devforgeai.local.md only through IF-02 when the user presses the button. It creates devforgeai/progress/ with its .gitignore holding '*' the first time it writes a run's events under a root, which is only after BEH-01 has found the session interactive, and never edits the project's own .gitignore. $.fs.write isn't atomic and holds at most 4 MiB a file: the adapter is the only writer of its files, starts an evaluation only after the write it depends on has finished, keeps each Write or Edit's content to 64 KiB, and stops adding content once events.jsonl passes 3 MiB (ERR-11). It reads the plugin's files, the manifest folders, the local preference file through IF-01, and a file an Edit names (DM-01). It opens no network connection."
   - id: BEH-16
     status: active
-    rule: "At session.start, at classic.SessionStart with source clear, resume or fork, and at a skill.prompt when $.state holds no mode, the adapter runs IF-01 with timeoutMs 3000, since Claude Code holds the first prompt until session.start's hooks finish, and keeps the mode and its source in $.state; it writes each entry IF-01 reports as ignored to adapter.log and shows them in one toast. Every skill-loaded event carries the mode and source in force when the run opened (ADR-006 D3). Until the shared-schema change brings progress.mode into policy, only the framework default and the local entry apply, and the button is always available."
+    rule: "At session.start, at classic.SessionStart with source clear, resume or fork, and at a skill.prompt when $.state holds no mode or the session's root differs from the one the mode was resolved for (the local preference file is per checkout and gitignored, so a new worktree has none), the adapter runs IF-01 with timeoutMs 3000, since Claude Code holds the first prompt until session.start's hooks finish, and keeps the mode and its source in $.state; it writes each entry IF-01 reports as ignored to adapter.log and shows them in one toast. Every skill-loaded event carries the mode and source in force when the run opened (ADR-006 D3). Until the shared-schema change brings progress.mode into policy, only the framework default and the local entry apply, and the button is always available."
   - id: BEH-17
     status: active
-    rule: "A reload of the module (a hot reload, /reload-plugins, or a change to the tracking setting) keeps an open run: its ID, seq, lines, the mode and the summary are in $.state, and session.start fires again. The evaluation timer starts again there, and the adapter marks the run so the state is computed again. $.state belongs to the session: /clear, /resume and /branch empty it and change the session ID while the module and its timer go on (§9, P11), after the run has already ended with run-end clear or session-end (BEH-05)."
+    rule: "A reload of the module (a hot reload, /reload-plugins, or a change to the tracking setting) keeps an open run: its ID, seq, folder and root, the mode and the summary are in $.state, its lines are read back from events.jsonl, and session.start fires again. A read that fails is never kept, so a later write can't replace the real log with a short one. The evaluation timer starts again there, and the adapter marks the run so the state is computed again. $.state belongs to the session: /clear, /resume and /branch empty it and change the session ID while the module and its timer go on (§9, P11), after the run has already ended with run-end clear or session-end (BEH-05)."
   - id: BEH-18
     status: active
-    rule: "settings.py reads .claude/devforgeai.local.md only as frontmatter: the file must start with a line '---' and end with the next '---' line, with nothing after it but blank lines. IF-01 uses the progress.mode entry when the file is frontmatter-only, devforgeai_local is 1, and the value is observe or enforce, quoted or not; otherwise the mode is observe from the framework default, and each reason is reported (ERR-04). IF-02 creates .claude/ and the file when they are missing, with devforgeai_local: 1 and the entry; in an existing frontmatter-only file it replaces the progress.mode line, or adds it before the closing '---', and keeps every other line as it was. It writes a temporary file beside the target and renames it over the target. It reads no other entry: the skills apply the rest (ADR-003 A3)."
+    rule: "settings.py reads .claude/devforgeai.local.md only as frontmatter: the file must start with a line '---' and end with the next '---' line, with nothing after it but blank lines. IF-01 uses the progress.mode entry when the file is frontmatter-only, devforgeai_local is 1, and the value is observe or enforce, quoted or not; otherwise the mode is observe from the framework default, and each reason is reported (ERR-04). IF-02 creates .claude/ and the file when they are missing, with devforgeai_local: 1 and the entry; in an existing frontmatter-only file it replaces the progress.mode line, or adds it before the closing '---', and keeps every other line as it was. It adds devforgeai_local: 1 to a file that has no such line, and refuses (exit 1) one that declares another value. It writes a temporary file beside the target and renames it over the target. It reads no other entry: the skills apply the rest (ADR-003 A3)."
+  - id: BEH-19
+    status: active
+    rule: "Once per session ID, when its first run opens, and again when a run opens under another root, the adapter starts IF-04 after the run's folder exists, with --root the run's root, --days the retentionDays setting (DM-06), --keep-session the session's ID and --keep-run the new run's ID, and timeoutMs 10000. Nothing waits for it, no hook and no tool call, and its output line goes to adapter.log as kind prune; its failure is ERR-12. What protects a run still open in another, idle session is DM-06's floor of 7 days, not --keep-run, which only spares the caller's new folder in case its files' times are old. Nothing is deleted at session.end: $.fs can't delete, all session.end hooks share 1.5 seconds, which the final evaluation needs (BEH-05), and a session closed with its terminal or killed may not fire session.end at all, so the next session's pruning covers every way a session ends. A project where no tracked skill runs gets no pruning and no files (BEH-15)."
 ```
 
 ## 7. Errors and edge cases
@@ -373,8 +404,13 @@ errors:
   - id: ERR-11
     status: active
     condition: "events.jsonl passes 3 MiB, or a write would take it past $.fs.write's 4 MiB."
-    handling: "From 3 MiB, new tool events carry no content: the evaluator reads written files under --root, and an enforce check before a write sees no content, so its content rules raise no flag (SPEC-012 ERR-05). At 4 MiB the adapter stops recording that run: it writes nothing more to its files, and the next tracked skill opens a new run as usual. The log so far still gives the run's state."
+    handling: "From 3 MiB, new tool events carry no content: the evaluator reads written files under --root, and an enforce check before a write sees no content, so its content rules raise no flag (SPEC-012 ERR-05). At 4 MiB the adapter stops recording that run: it writes nothing more to its files, and the next tracked skill opens a new run as usual. The log so far still gives the run's state; it has no run-end line, so the evaluator sees the run as open."
     user_result: "From 4 MiB until another run opens, the status line shows 'progress: off (event log full)', and one toast says so."
+  - id: ERR-12
+    status: active
+    condition: "IF-04 can't start, exits 2, or is still running after 10 seconds, when $.process.run rejects."
+    handling: "Write its stderr line, or the rejection's reason, to adapter.log as kind prune; tracking goes on. Folders it didn't remove wait for the next session's pruning."
+    user_result: "Nothing shown; adapter.log has the line."
 ```
 
 ## 8. Non-functional design
@@ -395,14 +431,14 @@ quality_responses:
       - {id: PRD-001, item: NFR-006, relation: informed_by, version: 11, hash: null}
   - id: QR-03
     status: active
-    response: "The adapter writes only under devforgeai/progress/ and, on the user's press, .claude/devforgeai.local.md; it reads only the files BEH-15 lists, and opens no network connection."
+    response: "The adapter writes and deletes only under devforgeai/progress/, deleting only through IF-04's confined folders, and on the user's press writes .claude/devforgeai.local.md; it reads only the files BEH-15 lists, and opens no network connection."
     measured_by: "VER-11 checks the files written in a scripted session; VER-16 checks that claude plugin validate lists no network call; code review at build time, recorded in §9."
     upstream:
       - {id: PRD-001, item: NFR-007, relation: informed_by, version: 11, hash: null}
   - id: QR-04
     status: active
-    response: "settings.py imports only the Python standard library and runs under python3 -S."
-    measured_by: "VER-02 and VER-03 run every case normally and under python3 -S."
+    response: "settings.py and prune.py import only the Python standard library and run under python3 -S."
+    measured_by: "VER-02, VER-03 and VER-17 run every case normally and under python3 -S."
     upstream:
       - {id: PRD-001, item: NFR-004, relation: informed_by, version: 11, hash: null}
 ```
@@ -414,7 +450,11 @@ quality_responses:
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFRs; every BEH, ERR and QR item is covered by a VER item |
 | Probe (VER-01) | Run on 2026-10-02 with Claude Code 2.1.287, by Bryan in his shell and in a cmux tab, in a throwaway workspace (`/tmp/devforgeai-probe-ws`) with the plugin's source and the probe as skills-dir plugins: P1 to P8 and P10 to P13 answered (below); P9 not run. P7 contradicted DM-01, so version 2 reads replies from `session.append` |
 | Docs check | 2026-10-02: the mods docs, saved in `docs/research/Claude/mods/` (local, as `CLAUDE.md` says of `docs/research/Claude/`), were read against this version; the second version-2 Change Log row lists what changed. They confirm P1, P5 to P8 and P10 to P13 |
-| Build | Not built |
+| Build | Built on branch `feat/spec-013-progress-adapter` (worktree), not merged, by session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9 through `/plugin-dev:create-plugin`. Files: `progress/settings.py`, `hooks/hooks.json`, `hooks/progress.tsx`, `hooks/progress-core.ts`, `hooks/core.test.ts`, `hooks/progress.test.ts`, `types/index.d.ts`, the `plugin.json` keys, `src/tests/progress/test_settings.py` and `test_adapter_structure.py`. Results at the build's head: `claude plugin test src/claude/DevForgeAI` 53 pass, 0 fail (13 core tests of the pure helpers, 40 kit tests: VER-04 to VER-14 and three for the fixes after plugin-validator's review); `src/tests/progress` 107 passed, 173 subtests (the evaluator's 51, `settings.py`'s 52 under normal and `python3 -S`, the 4 structure checks of VER-16); full `src/tests` 584 passed, 544 subtests at `161b9e2`, against the baseline at `dd0d441` of 528 and 544, so nothing earlier broke; `claude plugin validate`: passed, 11 hooks, the nine state keys, no `$.http`, `$.mcp` or `$.env.set` call (QR-03). VER-01 ran before the build. Not run: VER-15 (the CLI dogfood, Bryan's session, through `--plugin-dir` before merge) and the eval check that the plugin with a hooks module still loads in `claude plugin eval` (one case, Bryan's terminal). Plugin version: set at merge (main is 0.12.1) |
+| Dogfood (VER-15) | Partly met, 2026-10-02, in cmux, each run in a scratch project with `claude --plugin-dir` on this branch's plugin (it loads as `devforgeai@inline`) and `--debug`. Brainstorm, Claude Code 2.1.287, `/tmp/devforgeai-adapter-ws`: run 1 (observe) showed the status line and the band, raised one flag at the write gate (step 1, listed with Bash only) and refused nothing, but counted the typed `/devforgeai:brainstorm` as step 5's answer (fixed in `6e8c4a0`, below); the band's button switched to enforce and saved the local file (0644); in run 2 (enforce) the BRN Write was refused for step 1 and went through after one Read. Not yet seen live: a step 5 flag, and a refused non-open disposition whose retry passes after the user's answer (the kit tests cover both, which Bryan accepted on 2026-10-02 as VER-15's coverage of them, since provoking them live needs a skill that misbehaves). Architecture, 2.1.288, `/tmp/devforgeai-arch-ws` with the example BRN-001 and PRD-001, observe: one `/compact` at the turn boundary before step 8's answer appended no event (the log was byte-identical before and after), restoring the skill opened no run, and over the whole run every assistant text block in the transcript is one reply event (10 and 10, none twice). All three runs' `events.jsonl` validate against `events.schema.json` (17, 39 and 45 events), and each manifest state is matched. Times on the owner's machine, from the debug log's `tool.call settled` lines (a hook's whole time, `next()` included): a recorded Write 101 to 113 ms in observe mode, the late events among them (ARCH-001 is event 35 of 45); an enforce check that refused a Write 70 ms, and one that passed 162 ms with its Write, against QR-02's 500 ms. Findings follow the departures |
+| Build (v3) | Built on the same branch through `/plugin-dev:create-plugin`, tests first: `prune.py` and `test_prune.py` (`84705e1`), `retentionDays` (`47a3e18`), the failing kit tests (`695a2b9`), the adapter (`69423b7`), then the fixes after plugin-validator's review (`34b2c48`, `3b39c1c`). Baseline before v3: `src/tests/progress` 107, kit 55. Results at `3b39c1c`: `claude plugin test src/claude/DevForgeAI` 65 pass, 0 fail; `src/tests/progress` 137 passed, 181 subtests (prune.py's 29: 22 rules, normal and `-S`, 5 races, 2 failures); full `src/tests` 614 passed, 552 subtests; `claude plugin validate` passed, its calls line naming `$.process.run` through `startPrune` and no `$.http`, `$.mcp` or `$.env.set`. plugin-validator (agent, read-only): one critical finding, C1, `prune.py` re-resolving path strings after its link checks, so a folder swapped for a link meanwhile could take it, outside the sandbox, into the user's other files (demonstrated in `$TMPDIR`), and warnings W1 (a traceback and exit 1 when two prunes race), W2 (`retentionDays` accepted from 1) and W3 (a `.gitignore` deleted mid-run not written again); all fixed, below. Plugin version: 0.13.0, the next free minor after main's 0.12.1, set for the merge on Bryan's instruction (2026-10-02) |
+| Live check (VER-19) | Passed, 2026-10-02, Claude Code 2.1.288, in cmux with `--plugin-dir` on this branch and `--debug`, You Should Know loaded (`cc-plugin-you-should-know@builtin`) beside `devforgeai@inline`, in a scratch repository `/tmp/devforgeai-v3-ws`: a `/devforgeai:git status` run wrote `runs/<run>/`, `sessions/<session ID>/` (a UUID) with `current.json` and `adapter.log`, and the `.gitignore`, and `adapter.log` read `prune: pruned 0 runs, 0 sessions`; after EnterWorktree, a brainstorm's files were all under the worktree's `devforgeai/progress/`, its BRN Write was recorded as `docs/specs/brainstorm/BRN-001.md`, so the write gate fired (one flag, step 1, the Bash-listing limit SPEC-012 v2 removes), the first run ended `another-skill` in the main checkout, and a second prune ran for the worktree. Both mods drew; neither had a refused or failed hook; the 9 text blocks of the transcript are the 9 reply events, none twice; `git status` showed only the BRN. Run before the fixes after the review, whose own behaviour the kit covers |
+| Eval load check | Passed, 2026-10-02, run by Bryan from his terminal on the build's head: `writes-valid-brn`, one run with no ablation, score 1.00 (9 of 9 graders), $0.55, 98 s; results `tmp/eval-results/20261002T215641-adapter-load`, bound by `record_revision.sh` to `63fdd58`, plugin digest `babe5c46438d1ca3`. The plugin with the adapter still writes and validates a BRN under `claude plugin eval`. P9 itself, whether the module loads in an eval's child run, isn't shown, since the run's files weren't kept (`--keep-temp`); BEH-01 leaves such a run untouched either way |
 
 **The probe (VER-01).** A throwaway mod, outside the plugin, logs what the declarations can't settle. It needs
 an interactive session, so the owner runs it. Each line is a pass criterion; when one fails, this spec is revised
@@ -435,6 +475,109 @@ before step 2 of §11.
 | P11 | What happens to `$.state` and running timers after `/clear`, which fires `session.end` with no `session.start` after it? | logged either way; BEH-06 and BEH-16 restart the timer and resolve the mode at the next `skill.prompt` in both cases |
 | P12 | Can a `claude plugin test` file read a file outside the plugin through `$.fs` (VER-04's expected lines)? | the test reads `src/tests/progress/adapter/events.jsonl`; if not, the build keeps the lines in the test and the Python test reads them from there |
 | P13 | Does a `tool.call` hook's `{ deny }` reach the model as the call's error result (BEH-08's mechanism)? Added during the probe | the model reports the refusal's text |
+
+**Build decisions and departures (2026-10-02), for Bryan to approve or reverse.** Each names where it shows; a SPEC-013
+v3 could adopt the wording. Version 3 states the three departures and five readings as rules, which Bryan approved
+with it (`886d298`): DM-01, DM-02, DM-03, IF-01, IF-02, BEH-04, BEH-08, BEH-17, BEH-18 and ERR-11; the per-session files settle
+the shared `current.json` and `adapter.log` that the plugin-validator note below left as they were.
+
+- **Departure, DM-03 and BEH-17: a run's event lines aren't in `$.state`.** One `$.state` value holds at most 4,194,304
+  characters, which the docs don't say; the kit's ERR-11 test found it ("`$.state.set`: the value is 4195926
+  characters, over the 4194304 limit"), since a run's escaped lines pass it before `events.jsonl` reaches `$.fs`'s
+  4 MiB. `$.state` keeps the run's ID, skill, seq and folder; the lines are a module variable, read back from
+  `events.jsonl` after a reload, and a failed read is never cached, so a fresh log can't overwrite the real one.
+- **Reading, IF-02:** `set-mode` adds `devforgeai_local: 1` when the file has none, since IF-01 would otherwise ignore
+  the saved entry; it refuses (exit 1) a file declaring another format version, as it refuses one that isn't
+  frontmatter-only. IF-01 reports an ignored entry only when the file has a `progress.mode` line.
+- **Reading, VER-11:** `state.json` is written by the evaluator's process, not by `$.fs.write`, so the test checks the
+  module's own writes (`.gitignore`, `events.jsonl`, `current.json`, `adapter.log`) and the evaluator's `--out`.
+- **Reading, DM-02:** `adapter.log` gets a `mode` line each time the mode is resolved, with its source (ADR-006 D3).
+  Lines are held in memory until a run has created `devforgeai/progress/` with its `.gitignore` (BEH-15), so a
+  session that runs no tracked skill writes nothing in the project (the first 200 held lines are kept); the log
+  keeps its last half past 512 KiB.
+- **Reading, ERR-11:** a run stopped at 4 MiB has no `run-end` line, since nothing more is written to its log, so
+  the evaluator sees it as open; the next tracked skill opens a new run as usual.
+- **Reading, DM-01:** `exit` is recorded for every tool event, 0 for any call that succeeded, as the table lists it.
+- **Build note, `session.append`:** the test kit answers nothing beneath it, so the adapter records the reply before
+  calling `next(e)`, as BEH-04 allows, and the kit tests catch the call's rejection.
+- **Build note, enforce:** the pending event's seq is the run's next seq, which is the provisional state's `gate.seq`
+  when the Write is the write gate; the refused call is recorded with `error` true, never evidence and closing no
+  answer window, so the retry after the user's answer goes through (VER-07).
+- **Build note, BEH-14:** in a live session `next(e)` doesn't reject, so a failure after it is the adapter's own:
+  `tool.call` and `skill.prompt` wrap that work and report it, keeping the result; the `.catch` handlers report only
+  failures before `next`, which keeps the kit's `session.append` rejection quiet.
+- **Build note, overlapping hooks:** events are recorded one at a time, and each event's seq comes from the run's
+  own lines, since a `$.state` read inside one dispatch sees that dispatch's moment: three overlapping tool calls
+  read the same seq from it in the kit test that found this.
+- **Departure, DM-01 and BEH-04, found by VER-15's first dogfood run:** a prompt that starts with `/` isn't recorded.
+  A slash command loads its skill first (`skill.prompt` settled before `prompt.submit` in the debug log), so the
+  typed `/devforgeai:brainstorm …` arrived as a `prompt` event after the run opened, and the evaluator counted it as
+  step 5's answer: a user-owned step showed `done` though the user had confirmed nothing. A prompt that runs a
+  command or loads a skill is no answer. Kit test added.
+- **Departure, BEH-08's refusal text, found by VER-15's second dogfood run:** the refusal said only that "the user
+  decides these", which fits a decision written without the user's answer, not a missing step. Refused for step 1,
+  Claude read the tracker's code to learn why. The text now names what clears each flag: for a step, a tool call
+  the run log can see or a tick in reply text (a tick only in thinking doesn't count, which is where that run's
+  tick had stayed); for a decision (a rule-broken flag, or a user-owned step's), the user's answer or the fields
+  left open; and it points to the run's folder. Core test added.
+- **Finding, VER-15's architecture run, for Bryan: a confirmed outcome flagged as unconfirmed.** The session ticked
+  nothing until its first reply after `/compact`, which restated the whole checklist, and it read everything with
+  Bash, which SPEC-012 v1 doesn't count. So no signal closed step 7's answer window before step 8's question, and
+  step 7 took every answer, including the user's "Confirm create" (SPEC-012 §13's known limit of answer windows).
+  The ARCH-001 Write then flagged step 8 skipped and step 9 rule-broken with `refuse` true: in enforce mode the
+  user's confirmed ARCH would have been refused. The one other flag was true: step 1 ticked without a run of
+  `validate_policy.py` (the session listed `docs/specs/policy/` instead). SPEC-012 v2's Bash read evidence would
+  have given steps 2 to 4 and step 10 their evidence, but not closed step 7's window, which needs a tick or a later
+  step's tool evidence before step 8's question. Bryan, 2026-10-02: a known limit for now (SPEC-012 v2 §13); the
+  architecture skill stays in observe mode until skills print step markers.
+- **Observations, VER-15:** a rule-broken flag is raised again by each later Write or Edit of the same file (three
+  for ARCH-001), so the status line counted 5 flags for two problems; they are needed, since each refused write
+  needs a flag at its own seq (SPEC-012 BEH-11). Choosing "Chat about this" on an AskUserQuestion is recorded as a
+  dismissal (`answered` false), and the user's typed reply after it as a `prompt` event.
+- **Departure, IF-04, after plugin-validator's review of version 3 (C1, W1):** `prune.py` opens every folder by a
+  descriptor without following a link (`O_NOFOLLOW`, `O_DIRECTORY`) and walks and deletes through descriptors
+  (`os.fwalk`), so a folder or a parent swapped for a link between the check and the deletion is never entered; a
+  link that appears inside a folder is removed as a link. A platform without descriptor support (Windows) is
+  refused with exit 2 rather than walked by path. A folder that changes or vanishes meanwhile, as a second session's
+  prune or an active run makes it, is skipped; any other error gives exit 2 after both kinds were tried, with one
+  stderr line `prune: pruned <r> runs, <s> sessions; <first failure>`. Race tests swap a candidate, a subfolder and
+  the parent `sessions/` folder; two prunes at once both exit 0. The real-path check IF-04 names is superseded:
+  pinned descriptors never leave the progress folder, so the build has none, and IF-04's wording follows in the next
+  version. A folder whose removal fails midway (a file it may not delete) stays partly deleted until a later prune,
+  and that prune reports exit 2 too.
+- **Reading, BEH-16:** the mode is resolved inside the run's opening, after its folder exists, still within
+  `skill.prompt`, so a new root's `mode` line lands in that root's `adapter.log` (VER-19 first showed it in the old
+  root's).
+- **Build notes, BEH-15 and DM-02:** a `.gitignore` deleted while a run goes on (`git clean`) is written again before
+  the next evaluation; a session ID that isn't a plain name (empty, or holding `/` or `..`) makes no path, so the
+  session's files are skipped; the hold on log lines starts again at `session.end`, so a new session's lines wait for
+  its first run, as DM-02 says.
+- **Finding, DM-06, Claude Code's own:** a stored `retentionDays` outside `min`..`max` keeps the whole module from
+  loading ("hooks module did not load: options do not fit plugin.json userConfig: Keep progress files (days) must be
+  at least 7"), seen in a kit test; in a session it shows only in the debug log. So the floor is enforced before the
+  module runs, and `retentionOf` (7 to 3650, else 30) is a second guard, unit-tested.
+- **Observation, the rollout flag during the build:** `claude plugin test` refused twice in one evening because a
+  networked Claude Code process had cached `tengu_plugin_hooks_modules` false in `~/.claude.json`; one `claude -p`
+  from a plain shell cached it true again. The Bash sandbox can't write that file (CLAUDE.md, papercuts).
+- **Finding for SPEC-012, from the same run:** the brainstorm listed `docs/specs/brainstorm/` with Bash `ls`, which
+  SPEC-012's read rules (Read, Glob, Grep only) don't count, and ticked none of steps 1 to 5, so step 1 was flagged
+  `skipped` at the write gate. The flag follows SPEC-012 as written; a v2 could count a Bash command that names the
+  folder. Not changed here.
+- **Plugin-validator's review** (agent, read-only): manifest, structure and security pass. Fixed after it: the
+  `adapter.log` write before the `.gitignore` (above), the overlapping-hooks seq, `prompt.compose`'s missing
+  `.catch`, the unbounded `adapter.log`, and in `settings.py` a saved file's permissions (kept, 0644 when new,
+  not `mkstemp`'s 0600), an empty file, a byte-order mark, and an `fsync` before the rename. Left as they are:
+  Python started without `-I` (the scripts use the standard library only); sessions sharing one checkout share
+  `current.json` and `adapter.log`, whichever wrote last; and once the button saves `progress.mode`, the prd,
+  architecture and context skills report that entry as ignored in their resolution line, as their policy
+  reference does for any key they don't own, until the shared-schema change brings `progress.mode` in (ADR-006 D3).
+- **The kit's limits:** its mock clock runs at most 10,000 waits in one advance, so VER-05's idle test advances 31
+  minutes, not 24 hours; it doesn't simulate `session.end`'s shared 1.5 seconds, so `finalTimeout` is unit-tested; it
+  can't reload a module, so VER-13 fires `session.start` again with the module's variables kept; a failed
+  `$.ui.status` is dropped, not thrown, so ERR-10's test fails an `fs.exists` inside the evaluation.
+- **Test order:** `settings.py`'s tests and the Phase 4 kit tests (VER-04, 05, 10, 11, 13, 14) came before their code
+  and failed first; the pure helpers' tests and the Phase 5 and 6 kit tests (VER-06, 07, 08, 09, 12) came after the
+  module, which was written in one piece.
 
 **The probe's answers** (2026-10-02, Claude Code 2.1.287). `docs/runbooks/spec-013-probe.md` records how the probe
 ran and the raw shapes behind each answer; the probe's own logs weren't kept:
@@ -509,7 +652,7 @@ verifications:
       - QR-01
   - id: VER-07
     status: active
-    obligation: "In enforce mode with a mocked provisional state whose gate is write at the pending seq with refuse true, the Write is refused with a text naming the flags, next(e) isn't called, the event is recorded with error true, and pending.jsonl and pending.json are the only files the check wrote; with refuse false, or a gate at another seq, the call proceeds. With $.session.surfaces() empty, the refusal's text also goes to $.ui.log. In observe mode the same state refuses nothing and adds no context."
+    obligation: "In enforce mode with a mocked provisional state whose gate is write at the pending seq with refuse true, the Write is refused with a text naming the flags and what clears each, a step's and a decision's (BEH-08), next(e) isn't called, the event is recorded with error true, and pending.jsonl and pending.json are the only files the check wrote; with refuse false, or a gate at another seq, the call proceeds. With $.session.surfaces() empty, the refusal's text also goes to $.ui.log. In observe mode the same state refuses nothing and adds no context."
     level: integration
     covers:
       - BEH-07
@@ -541,7 +684,7 @@ verifications:
       - ERR-08
   - id: VER-11
     status: active
-    obligation: "After a scripted run, the fs.write calls the test captures name exactly devforgeai/progress/.gitignore (holding '*'), the run's events.jsonl and state.json, current.json and adapter.log, and none names the project's .gitignore; a Write over 64 KiB is recorded without content; once the captured events.jsonl passes 3 MiB, new events carry no content, and at 4 MiB writing stops with 'progress: off (event log full)'; with fs.write refused under devforgeai/progress/, tracking stops for the session with ERR-03's status text and no further writes."
+    obligation: "After a scripted run, the fs.write calls the test captures name exactly devforgeai/progress/.gitignore (holding '*'), the run's events.jsonl, and the session's sessions/<session id>/current.json and adapter.log; the evaluator's --out names the run's state.json, which the evaluator's process writes; and none names the project's .gitignore; a Write over 64 KiB is recorded without content; once the captured events.jsonl passes 3 MiB, new events carry no content, and at 4 MiB writing stops with 'progress: off (event log full)'; with fs.write refused under devforgeai/progress/, tracking stops for the session with ERR-03's status text and no further writes."
     level: integration
     covers:
       - BEH-15
@@ -585,11 +728,37 @@ verifications:
       - QR-02
   - id: VER-16
     status: active
-    obligation: "test_adapter_structure.py checks that hooks/hooks.json names one module that exists, plugin.json names types and the tracking setting (DM-05), CLAUDE.md's deploy command excludes *.test.ts, *.test.tsx, tsconfig.json and .claude-plugin/types, and VER-04's expected lines, read from hooks/progress.test.ts, validate against events.schema.json. claude plugin validate src/claude/DevForgeAI reports nothing refused, and its calls line names no $.http, $.mcp or $.env.set call (no network, QR-03); the result is recorded in §9."
+    obligation: "test_adapter_structure.py checks that hooks/hooks.json names one module that exists, plugin.json names types, the tracking setting (DM-05) and the retentionDays setting (DM-06: a number, default 30, min 7, max 3650), CLAUDE.md's deploy command excludes *.test.ts, *.test.tsx, tsconfig.json and .claude-plugin/types, and VER-04's expected lines, read from hooks/progress.test.ts, validate against events.schema.json. claude plugin validate src/claude/DevForgeAI reports nothing refused, and its calls line names no $.http, $.mcp or $.env.set call (no network, QR-03); the result is recorded in §9."
     level: unit
     covers:
       - BEH-04
       - BEH-15
+  - id: VER-17
+    status: active
+    obligation: "test_prune.py runs IF-04 in a temporary project: run and session folders whose newest file is older than N days are removed, while newer ones, the kept session's and run's, names that match neither pattern, files beside the folders and everything outside devforgeai/progress/ stay; a symbolic link inside a run folder that points at an old folder outside it leaves both the run folder and the target; a folder that is itself a symbolic link is skipped; the output line counts what was removed; a project without devforgeai/progress/ exits 0; a root that isn't a folder and --days 0 each exit 2 with one stderr line. Every case passes normally and under python3 -S."
+    level: unit
+    covers:
+      - BEH-19
+      - QR-03
+      - QR-04
+  - id: VER-18
+    status: active
+    obligation: "Scripted sessions show: the session's current.json and adapter.log are written under sessions/<session id>/, and after classic.SessionStart with source clear and a new session ID, under the new ID's folder; IF-04 starts once per session ID, after the first run's folder exists, with --days 30 by default and 7 when the test gives retentionDays 7 as options, with --keep-session, --keep-run and timeoutMs 10000, and no tool call waits for it; an IF-04 that rejects or exits 2 writes one adapter.log line and nothing else (ERR-12); when $.session.root() changes between two runs, the second run's folder, .gitignore and event paths use the new root, and IF-01 and IF-04 run again for it; a typed prompt that starts with '/' isn't recorded."
+    level: integration
+    covers:
+      - BEH-03
+      - BEH-04
+      - BEH-15
+      - BEH-16
+      - BEH-19
+      - ERR-12
+  - id: VER-19
+    status: active
+    obligation: "In a CLI session started with --plugin-dir on the branch's plugin, with You Should Know enabled first (/plugin enable cc-plugin-you-should-know@builtin, Bryan 2026-10-02): a brainstorm run, then a move into a git worktree (EnterWorktree) and a second tracked skill. The second run's files are under the worktree's devforgeai/progress/ and its Write paths match the manifest, so its write gate fires; the session's adapter.log has a prune line, and the live session ID, the name of its sessions/ folder, is a UUID, the shape IF-04 prunes; both mods draw and the event log is as it would be alone. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-03
+      - BEH-19
 ```
 
 ## 10. Rollout, migration and rollback
@@ -626,7 +795,11 @@ verifications:
 - **Codex parity.** The Codex port can't run mods; the adapter is a Claude-only difference for Codex sessions to
   record in their import reports (the mods proposal's rule 8). The formats and `settings.py`'s rules are the
   shared contract.
-- **Rollback.** Remove `hooks/`, `types/` and the two `plugin.json` keys; `settings.py` then has no caller.
+- **Version 3.** Built on this branch after approval, before the merge. Projects that ran the build before it
+  (only the dogfood folders in `/tmp`) keep a `current.json` and an `adapter.log` at the top of
+  `devforgeai/progress/`; `prune.py` touches only `runs/` and `sessions/`, so those are removed by hand. SPEC-012's
+  next version moves `current.json` in its §4 list (§2).
+- **Rollback.** Remove `hooks/`, `types/`, `prune.py` and the three `plugin.json` keys; `settings.py` then has no caller.
   `devforgeai/progress/` in any project holds only ignored working data and can be deleted.
 - **Pointers.** The design proposal's build order step 3 points here; when this is built, PRD-001 §11's FR-021
   row records it.
@@ -646,6 +819,14 @@ verifications:
 6. Write the tests, then enforce mode and failing open (BEH-07 to BEH-09, BEH-14; VER-07 to VER-09).
 7. Add `test_adapter_structure.py` (VER-16), run plugin-validator, dogfood in the CLI (VER-15), and record the
    results and the `CLAUDE.md` changes (§9, §10).
+
+Version 3's build, on the same branch:
+
+1. Write `test_prune.py`, then `prune.py` (IF-04; VER-17).
+2. Add `retentionDays` to `plugin.json` and check it with `claude plugin validate` (DM-06; VER-16).
+3. Write the kit tests, then the changes to the adapter: per-session files, the run's root, the mode per root, and
+   pruning (DM-02, DM-03, BEH-03, BEH-15, BEH-16, BEH-19, ERR-12; VER-11, VER-18).
+4. Run plugin-validator and every test, then VER-19 in the cmux tab, and record the results in §9.
 
 ## 12. Alternatives considered
 
@@ -667,6 +848,18 @@ verifications:
   evals must measure the skill alone.
 - **Evaluating on every tool call before it proceeds.** It would slow every call in observe mode for nothing;
   only enforce mode's write gate needs an answer before the call.
+- **Deleting old files at `session.end`** (version 3). `$.fs` can't delete, so it would need a process inside the
+  1.5 seconds all `session.end` hooks share, which the final evaluation needs; and a session closed with its
+  terminal or killed may not fire `session.end`. Pruning when the next run opens covers every way a session ends.
+- **One shared `current.json` with a session field** (version 3). A renderer would still see only the last
+  writer's run. A file per session shows each.
+- **Files named by session at the folder's top level,** such as `current-<id>.json` (version 3). The same effect,
+  but a folder per session lets IF-04 remove a session in one step and keeps the top level to `.gitignore`, `runs/`
+  and `sessions/`.
+- **A retention floor under 7 days** (version 3). IF-04 judges by the files' times, so a session left open over a
+  weekend could lose its open run's folder to another session's pruning.
+- **The root kept for the whole session,** as the build first did (version 3). After a worktree move, later runs'
+  paths were relative to the old root, so no manifest pattern matched and no write gate would fire.
 - **A DM-02 event for a mode switch.** It would let the log carry mid-run switches, but DM-02 is approved and has
   no such kind; `adapter.log` records them until a SPEC-012 v2 adds one.
 
@@ -681,7 +874,19 @@ Decided by Bryan on 2026-10-02:
   BEH-01 assumes VS Code's chat panel starts with `isInteractive` true and no surface; that is untested until
   someone runs the adapter there.
 
+Decided by Bryan on 2026-10-02, for version 3: `current.json` and `adapter.log` per session; old run and session
+folders pruned after `retentionDays`, 30 by default and configurable; the build's departures and readings (§9)
+as rules, with this version's approval.
+
 Notes:
+- **Decided with version 3's approval (Bryan, 2026-10-02): BEH-04 skips every typed prompt that starts with `/`,**
+  as built. The narrower rule considered would skip only the one that loaded the skill, the `prompt.submit` that follows `skill.prompt`, so an answer that
+  starts with `/`, such as a path, would still count. Built-in commands such as `/compact` never reach
+  `prompt.submit` (VER-15's debug log), so neither rule touches them.
+- **Other skills report `progress.mode` as ignored.** Once the band's button saves the mode, the prd,
+  architecture and context skills, whose policy reference uses only interaction-default keys from the local
+  preference file, print `ignored .claude/devforgeai.local.md progress.mode (<reason>)` in their resolution line,
+  though the tracker applies it. That lasts until the shared-schema change brings the key in (ADR-006 D3).
 - A mode switch during a run is in `adapter.log`, not in the event log, because DM-02 has no kind for it.
 - Locking the mode at project level arrives with the shared-schema change (ADR-006 D3). Until then the button is
   always available.
@@ -696,8 +901,8 @@ Notes:
 - **your-turn is rarer than the design's mockups suggest.** SPEC-012 shows your-turn only when the last event is a
   turn's end. An AskUserQuestion wait happens inside a turn (§9, P7), so the status line says '· your turn' only
   when Claude ends its turn asking in prose; while the dialog is open, the dialog itself is the sign.
-- **Compaction is untested.** Whether `/compact` re-delivers earlier response rows to `session.append`, which would
-  record replies twice, wasn't tried; the mods docs don't say. The build checks it with one compaction during VER-15.
+- **Compaction was checked in VER-15** (2.1.288): `/compact` appended no event and re-delivered no response row, so
+  no reply was recorded twice, and the skill it restored opened no run (§9).
 - **The event log grows with every event,** and BEH-04 rewrites it whole each time, since `$.fs` can't append. BEH-15
   bounds it (64 KiB of content an event, none after 3 MiB, nothing after 4 MiB); VER-15 times an event late in a long
   architecture run, not only a single Write.
@@ -714,3 +919,11 @@ Notes:
 | 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The probe (VER-01) ran on 2026-10-02, and §9 records its answers. P7 contradicted DM-01: a whole skill run can be one turn, and turn.complete's answer holds only its last text, so reply events now come from session.append rows with door response (DM-01, §3). Also from the probe: AskUserQuestion's answered rule (P5) and Bash's exit from 'Exit code N' (P6) in DM-01; ERR-01 names a missing program's rejection (P2); BEH-17 says a /clear empties $.state (P11); tests run in memory, with VER-04's expected lines in the test file (P12); the hooks-modules rollout flag (§2, §10); DM-03's contract rules from claude plugin validate; P13 added | §2, §3, DM-01, DM-03, BEH-17, ERR-01, VER-01, VER-04, VER-11, VER-16, §9, §10, §11, §13 |
 | 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, after the mods docs (saved in docs/research/Claude/mods/) were read against this version, the advisor's review, and Bryan's choices of 2026-10-02 (tracking only in VS Code; the recommendations): a refused call ({ deny }) is error true, never evidence (DM-01); answers and prompts count only from Claude Code and the person (next.origin, e.origin.kind) (DM-01, BEH-04); headless by session.start's isInteractive, notices to the transcript where nothing draws (BEH-01); the status line through $.ui.status, drawn as '⚠ devforgeai: …' (BEH-10); the band keeps later mods' drawing, fits maxRows and bodyColumns, gives way to a survey, serialises its draws, and its button has a key and no hotkey (BEH-11); /resume and /branch handled like /clear, with classic.SessionStart (BEH-05, BEH-06, BEH-16, BEH-17); timeouts sized to the documented limits, including session.end's shared 1.5 seconds (BEH-05, BEH-16, ERR-01, ERR-02); pending files overwritten, content capped, the log bounded under 4 MiB (BEH-08, BEH-15, ERR-06, new ERR-11); a worker crash and a throwing timer (new ERR-09, ERR-10); ERR-08 rewritten for a skill before session.start; $ only in top-level functions of progress.tsx (§2, §3); tests and records (VER-04, VER-05, VER-07, VER-09 to VER-12, VER-16, QR-03); the probe's raw shapes in docs/runbooks/spec-013-probe.md (§9); deploy exclusions, /reload-plugins and a can-mods-load check (§10); a test-kit check (§11); notes on your-turn, compaction and log growth (§13); after the advisor's last review, the run ID's time from $.clock.now() (BEH-03), ERR-11 scoped to the run, VER-15 covering /compact and a late event | DM-01, DM-02, DM-03, BEH-01, BEH-03 to BEH-06, BEH-08, BEH-10 to BEH-12, BEH-14 to BEH-17, ERR-01, ERR-02, ERR-06, ERR-08 to ERR-11, VER-04, VER-05, VER-07, VER-09 to VER-12, VER-15, VER-16, QR-03, §2, §3, §9, §10, §11, §13 |
 | 2 | 2026-10-02 | Bryan | Approved | status |
+| 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build on `feat/spec-013-progress-adapter`, its results, and the build decisions and departures for Bryan's review | §9 |
+| 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records VER-15's dogfood runs (brainstorm in observe and enforce, architecture with one `/compact`), their times, a finding for Bryan (a confirmed architecture outcome flagged as unconfirmed, from SPEC-012's answer windows) and two observations | §9 |
+| 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records Bryan's decisions on VER-15 (the kit tests cover its two clauses not seen live; the architecture finding is a known limit, with architecture kept in observe mode) | §9 |
+| 3 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After the build, VER-15 and Bryan's decisions of 2026-10-02: the build's three departures and five readings become rules (the run's lines out of `$.state`, typed '/' prompts not recorded, the refusal names what clears each flag; IF-02's format line, adapter.log held until a run and capped, a run stopped at 4 MiB stays open, exit for every tool, the files VER-11 checks); `current.json` and `adapter.log` move into `sessions/<session>/`, a departure from SPEC-012 §4 until its next version (§2); a run keeps the root it opened in, and the mode follows the root; new `prune.py` (IF-04, BEH-19, ERR-12) with the `retentionDays` setting (DM-06, default 30, min 7); new VER-17 to VER-19; SPEC-012 link moved to v2 | frontmatter, §1, §2, §3, DM-01, DM-02, DM-03, DM-06, IF-01, IF-02, IF-04, BEH-03, BEH-04, BEH-05, BEH-06, BEH-08, BEH-15 to BEH-19, ERR-11, ERR-12, QR-03, QR-04, VER-07, VER-11, VER-16 to VER-19, §9, §10, §11, §12, §13 |
+| 3 | 2026-10-02 | Bryan | Approved, with BEH-04 skipping every typed prompt that starts with '/' | status, §13 |
+| 3 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 3's build, its results, plugin-validator's findings and their fixes (IF-04's descriptor-based pruning, a departure), the live check VER-19, and Claude Code refusing to load a module whose stored setting is out of range | §9 |
+| 3 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the eval load check Bryan ran (writes-valid-brn 1.00, bound to `63fdd58`) | §9 |
+| 3 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records plugin 0.13.0, set for the merge on Bryan's instruction | §9 |

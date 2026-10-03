@@ -1,8 +1,29 @@
 {
   "name": "devforgeai",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "description": "DevForgeAI spec-driven planning skills for Claude Code: brainstorm ideas, turn the promoted ones into a PRD with traceable IDs, define the architecture (components, decisions and ADRs) and report which requirements are ready for epics, write the project's context documents (tech stack, source tree, testing and each layer's conventions) from those decisions and the conventions the user confirms, then group the ready, current-release requirements into epics, plus a documents updater that refreshes a repository's README, CHANGELOG and guides from its git changes, and a git workflow skill that commits and pushes work from a worktree, opens pull requests, merges them only with QA's approval and the user's go-ahead, syncs the default branch without losing data and prunes merged worktrees.",
   "author": {
     "name": "Bryan"
+  },
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "tracking": {
+      "type": "string",
+      "title": "Progress tracking",
+      "default": "on",
+      "options": [
+        "on",
+        "off"
+      ],
+      "description": "Record each DevForgeAI skill run in devforgeai/progress/ and show its steps in the status line and a band above the prompt. off turns the progress tracker off for you in every project; the skills work the same either way."
+    },
+    "retentionDays": {
+      "type": "number",
+      "title": "Keep progress files (days)",
+      "default": 30,
+      "min": 7,
+      "max": 3650,
+      "description": "How many days the progress tracker keeps a skill run's log and a session's files in devforgeai/progress/ after they were last written. Older ones are removed when a later session starts its first tracked skill. 30 matches Claude Code's own transcript retention."
+    }
   }
 }
