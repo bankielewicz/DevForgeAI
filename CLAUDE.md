@@ -48,7 +48,7 @@ SKL-008 is reserved for the story skill (SPEC-009).
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 §9 lists the build's departures for Bryan.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod): it records each tracked
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod, plugin 0.13.0): it records each tracked
   skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
   `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
