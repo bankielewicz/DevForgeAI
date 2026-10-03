@@ -160,7 +160,7 @@
         },
         "stepEvents": {
           "type": "integer",
-          "description": "the run's valid step events (version 5)"
+          "description": "the run's step events naming a step the checklist has (version 5; version 7 says which)"
         },
         "unmarkedQuestions": {
           "type": "integer",
