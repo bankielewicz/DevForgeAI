@@ -589,6 +589,11 @@ def _():
     return arch_steps_to_six(following("architecture")).started(7).started(8).answer().started(40), plugin_only(), {}
 
 
+@case("steps-retick")  # VER-33: a conditional step a step event marked done stays not-applicable after a re-tick
+def _():
+    return arch_steps_to_six(following("architecture")).tick(1, 2, 3, 4, 5, 6), plugin_only(), {}
+
+
 @case("rollout-untagged")  # VER-34: taskList true, but a checklist without the tag and no step event
 def _():
     log = arch_to_six(Log("architecture", task_list=True)).answer().answer().answer().tick(7).answer()

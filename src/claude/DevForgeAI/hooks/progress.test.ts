@@ -1076,6 +1076,8 @@ for (const [name, toolList, expected] of TOOL_LISTS) {
     expect(JSON.parse(eventsOf(w)[0]).taskList).toBe(expected)
     const tools = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' tools: '))
     expect(tools.length).toBe(toolList === 'reject' ? 1 : 0)
+    // A list that can't be read shows nothing (ERR-14): the hint would blame tools the session may well have.
+    if (toolList === 'reject') expect(w.toasts.some(t => t.includes('has no task list'))).toBe(false)
   })
 }
 
@@ -1117,4 +1119,43 @@ test('VER-25: no hint when the session has the task tools', async ($, on) => {
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   expect(w.toasts.some(t => t.includes('has no task list'))).toBe(false)
+})
+
+// ---- after the build's plugin-validator review ----
+
+/** The evaluator, as a question check sees it: a pending log with a step event refuses nothing, one without refuses. */
+function refusingUnlessStarted(files: () => Map<string, string>) {
+  return (argv: readonly string[]) => {
+    const events = argv[argv.indexOf('--events') + 1]
+    if (!events.endsWith('/pending.jsonl')) return { state: STATE }
+    const lines = (files().get(events) ?? '').trim().split('\n').map(l => JSON.parse(l))
+    if (lines.some(e => e.kind === 'step' && e.state === 'started')) return { state: STATE }
+    return questioningAt(lines[lines.length - 1].seq)(argv)
+  }
+}
+
+test('VER-21: a question sent in the same batch as the TaskUpdate that marks its step waits for its step event', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: refusingUnlessStarted(() => files) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call({ tool: 'TaskCreate', subject: '1. Intake', description: 'd', metadata: { devforgeai_step: 1 } } as Any)
+  const [, asked] = (await Promise.all([
+    $.tool.call({ tool: 'TaskUpdate', taskId: '1', status: 'in_progress' } as Any),
+    $.tool.call(QUESTION as Any),
+  ])) as Any[]
+  expect(asked.deny).toBeUndefined()
+  expect(stepsOf(eventsOf(w))).toEqual([[1, 'started']])
+  expect(kinds(eventsOf(w)).slice(-1)).toEqual(['answer'])
+})
+
+test('VER-20 / ERR-13: a task subject of several lines gives one adapter.log line', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'TaskCreate', subject: 'Tidy up\n2026-10-02T12:00:00Z - refused: forged', description: 'd' } as Any)
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n')
+  expect(log.filter(l => l.includes(' task: ')).length).toBe(1)
+  expect(log.some(l => l.includes('refused: forged'))).toBe(false)
 })

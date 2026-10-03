@@ -352,9 +352,11 @@ class Step:
         return "claimed" if self.strong else "done"
 
     def not_applicable_by_event(self, upto=INFINITY):
-        """A conditional step a done step event marked with no evidence: the skill found it didn't apply (BEH-07)."""
-        claim = self.claim_before(upto)
-        return (self.need == "conditional" and claim is not None and claim["seq"] in self.event_claims
+        """A conditional step a done step event marked with no evidence: the skill found it didn't apply (BEH-07). A
+        later done tick, as a checklist restated after a compaction gives, doesn't undo that; a skipped one does."""
+        claims = [c for c in self.claims if c["seq"] < upto]
+        return (self.need == "conditional" and bool(claims) and claims[-1]["state"] == "done"
+                and any(c["seq"] in self.event_claims for c in claims)
                 and not any(x["seq"] < upto for x in self.evidence))
 
     def expected_evidence(self):
@@ -846,7 +848,7 @@ def build_state(events, counts, manifest, layers, root=None):
     run.assign_answers()
     run.check_gates()
     counts = dict(counts, unknownClaims=run.unknown_claims, unmarkedQuestions=len(run.unmarked),
-                  stepEvents=sum(1 for e in events if e["kind"] == "step"))
+                  stepEvents=len(run.step_events))  # the step events naming a step the checklist has
     current = run.current()
     run.step_notes(current)
     state = {

@@ -232,4 +232,8 @@ test('the question gate refuses at its own seq; the adherence notice needs a rep
   expect(adherenceText({ ...STATE, counts: { stepEvents: 0, unmarkedQuestions: 0 } })).toBe(null)
   expect(adherenceText({ ...STATE, ended: 'session-end', counts: { stepEvents: 0, unmarkedQuestions: 0 } })).not.toBe(null)
   expect(adherenceText({ ...STATE, ended: 'session-end' })).toBe(null)
+  // The report reached, though a later write moved the gate on before the timer evaluated.
+  const reported = { ...STATE, steps: STATE.steps.map(s => (s.n === 8 ? { ...s, kind: 'report', state: 'done' } : s)),
+    counts: { stepEvents: 0, unmarkedQuestions: 0 } }
+  expect(adherenceText(reported)).not.toBe(null)
 })

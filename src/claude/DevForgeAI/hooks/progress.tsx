@@ -75,6 +75,25 @@ let retentionDays = 30
 // The runs already given the adherence notice (BEH-22), and whether the open run follows the task list.
 const adhered = new Set<string>()
 let followsFor: { id: string; value: boolean } | null = null
+// The open run's task map and TodoWrite statuses (BEH-20): kept here so task-tool hooks that overlap, as a batch of
+// TaskCreate calls does, see each other's changes; $.state keeps a copy for a reload (DM-03).
+let taskMaps: { run: string; tasks: Record<string, number>; todos: Record<string, string> } | null = null
+// Task-tool calls whose step events aren't recorded yet: a question check waits for them (BEH-21), so a question
+// sent in the same batch as the TaskUpdate that marks its step isn't refused. The wait is bounded.
+const taskWork = new Set<Promise<void>>()
+const TASK_WAIT_MS = 2000
+const TASK_TOOLS = ['TaskCreate', 'TaskUpdate', 'TodoWrite']
+
+/** Register a task-tool call as under way; the function returned ends it. */
+function startTaskWork(): () => void {
+  let finish = () => {}
+  const work = new Promise<void>(resolve => {
+    finish = resolve
+  })
+  taskWork.add(work)
+  void work.then(() => taskWork.delete(work))
+  return finish
+}
 
 function message(err: unknown): string {
   return err instanceof Error ? err.message : String(err)
@@ -387,34 +406,47 @@ async function follows($: E, run: ProgressRun): Promise<boolean> {
 }
 
 /** Whether the session has a task list, from the tools it offers now, deferred ones included (DM-01); when the list
- *  can't be read, none (ERR-14). */
-async function taskListOf($: E): Promise<boolean> {
+ *  can't be read, none, and `read` is false, so no hint blames the session's tools (ERR-14). */
+async function taskListOf($: E): Promise<{ taskList: boolean; read: boolean }> {
   try {
-    return hasTaskList((await $.tool.list()).map(t => t.name))
+    return { taskList: hasTaskList((await $.tool.list()).map(t => t.name)), read: true }
   } catch (err) {
     await adapterLog($, 'tools', firstLine(message(err)))
-    return false
+    return { taskList: false, read: false }
   }
+}
+
+/** The open run's task maps, from the module, or from $.state after a reload. */
+async function mapsOf($: E, run: string): Promise<{ run: string; tasks: Record<string, number>; todos: Record<string, string> }> {
+  if (taskMaps === null || taskMaps.run !== run) {
+    taskMaps = { run, tasks: { ...(await read($, TASKS)) }, todos: { ...(await read($, TODOS)) } }
+  }
+  return taskMaps
 }
 
 /** Step events from a task tool's call that didn't fail, recorded after its tool event (BEH-20, ERR-13). */
 async function taskSteps($: E, tool: string, input: Fields, outcome: ToolOutcome): Promise<void> {
-  if (isFailed(outcome)) return
+  const run = await read($, RUN)
+  if (run === null || isFailed(outcome)) return
+  const maps = await mapsOf($, run.id)
   if (tool === 'TaskCreate') {
     const id = taskIdOf(outcome.text)
     const step = stepOfTask(input)
     if (id === null || step === null) {
-      await adapterLog($, 'task', `no step for task: ${String(input.subject ?? '')}`)
+      // The subject is the model's text: one line of it, so it can't add lines of its own to adapter.log.
+      await adapterLog($, 'task', `no step for task: ${firstLine(String(input.subject ?? ''))}`)
       return
     }
-    await update($, TASKS, tasks => ({ ...tasks, [id]: step }))
+    maps.tasks[id] = step
+    await update($, TASKS, () => ({ ...maps.tasks }))
   } else if (tool === 'TaskUpdate') {
-    const step = (await read($, TASKS))[String(input.taskId)]
+    const step = maps.tasks[String(input.taskId)]
     const state = stepStateOf(input.status)
     if (step !== undefined && state !== null) await record($, 'step', { step, state })
   } else if (tool === 'TodoWrite') {
-    const got = todoSteps(input.todos, await read($, TODOS))
-    await update($, TODOS, () => got.statuses)
+    const got = todoSteps(input.todos, maps.todos)
+    maps.todos = got.statuses
+    await update($, TODOS, () => ({ ...got.statuses }))
     for (const e of got.events) await record($, 'step', e)
   }
 }
@@ -508,7 +540,7 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   const id = runId(now, skill, crypto.getRandomValues(new Uint8Array(4)))
   const dir = `${progressDir(r)}/runs/${id}`
   const version = await $.session.version()
-  const taskList = await taskListOf($)
+  const { taskList, read: listed } = await taskListOf($)
   const line = eventLine(id, 1, now, 'skill-loaded', {
     format: FORMAT, skill, checklist, host: `claude-code ${version.version}`, taskList,
     mode: await read($, MODE), modeSource: await read($, SOURCE),
@@ -522,12 +554,13 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   await update($, SHOWN, () => [])
   await update($, SENT, () => [])
   // A new run starts with an empty task map: a list left from an earlier run gives no step events (BEH-20).
+  taskMaps = { run: id, tasks: {}, todos: {} }
   await update($, TASKS, () => ({}))
   await update($, TODOS, () => ({}))
   if ((await read($, OFF)) === LOG_FULL) await update($, OFF, () => null)
   pendingReport = null
   // A skill that follows the convention, in a session with no task tools, is placed by guessing: say so once (BEH-23).
-  if (!taskList && checklist.includes(TASK_TAG) && !(await read($, HINTED))) {
+  if (listed && !taskList && checklist.includes(TASK_TAG) && !(await read($, HINTED))) {
     const hint = hintText(skill)
     await update($, HINTED, () => true)
     await notify($, hint)
@@ -570,6 +603,7 @@ async function endRun($: E, reason: string, timeoutMs: number | null): Promise<v
 /** The state the run would have with one more event (BEH-08, BEH-21): the run's lines and the pending event in
  *  pending.jsonl, evaluated; null when it can't be had, which lets the call go on (fail open). */
 async function pendingState($: E, kind: string, fields: Fields): Promise<{ state: ProgressState; seq: number } | null> {
+  await recordChain  // events still being written are part of the run the check judges
   const run = await read($, RUN)
   if (run === null) return null
   const seq = (await linesOf($, run)).length + 1
@@ -606,6 +640,7 @@ async function refusedToast($: E, refusal: string): Promise<void> {
 
 /** Enforce mode's question check (BEH-21): the evaluator decides whether the run follows the task list. */
 async function questionCheck($: E): Promise<string | null> {
+  if (taskWork.size > 0) await Promise.race([Promise.allSettled([...taskWork]), $.clock.sleep(TASK_WAIT_MS)])
   const got = await pendingState($, 'answer', { answered: true })
   return got === null ? null : questionRefusal(got.state, got.seq)
 }
@@ -703,56 +738,68 @@ export const register: Register = (on, options) => {
 
   on('tool.call', async ($, e, next) => {
     const input = e as unknown as Fields
-    if (!(await recording($, input.agentId))) return next(e)
     const tool = String(input.tool)
-    if (tool === 'AskUserQuestion') {
-      // Claude Code's own question only: a mod's $.ui.ask arrives here too (BEH-04, BEH-21).
-      if (isEngine(next.origin) && (await read($, MODE)) === 'enforce' && python) {
-        const refusal = await questionCheck($)
+    // Registered before any await, so a question in the same batch finds it (BEH-21).
+    const finish = TASK_TOOLS.includes(tool) ? startTaskWork() : null
+    try {
+      if (!(await recording($, input.agentId))) return next(e)
+      if (tool === 'AskUserQuestion') {
+        // Claude Code's own question only: a mod's $.ui.ask arrives here too (BEH-04, BEH-21).
+        if (isEngine(next.origin) && (await read($, MODE)) === 'enforce' && python) {
+          let refusal: string | null = null
+          try {
+            refusal = await questionCheck($)
+          } catch (err) {
+            // A check that fails lets the question go on, and its answer is still recorded (fail open).
+            await recover($, 'tool.call', err)
+          }
+          if (refusal !== null) {
+            // The user never saw the question, so nothing is recorded for it.
+            await adapterLog($, 'refused', firstLine(refusal))
+            await refusedToast($, refusal)
+            return { deny: refusal }
+          }
+        }
+        const result = await next(e)
+        try {
+          // A mod's $.ui.ask arrives here too; only Claude Code's own question is the user's answer (BEH-04).
+          if (isEngine(next.origin)) await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome) })
+        } catch (err) {
+          await recover($, 'tool.call', err)
+        }
+        return result
+      }
+      const open = await read($, RUN)
+      const r = open !== null ? rootOf(open) : await $.session.root()
+      const content = await contentOf($, r, tool, input)
+      const fields: Fields = {
+        tool,
+        path: toolPath(r, tool, input),
+        command: tool === 'Bash' && typeof input.command === 'string' ? input.command : undefined,
+      }
+      if ((tool === 'Write' || tool === 'Edit') && (await read($, MODE)) === 'enforce' && python) {
+        const refusal = await enforceCheck($, fields, content)
         if (refusal !== null) {
-          // The user never saw the question, so nothing is recorded for it.
-          await adapterLog($, 'refused', firstLine(refusal))
-          await refusedToast($, refusal)
+          await record($, 'tool', { ...fields, exit: null, error: true, content: keptContent(content, await logBytes($)) })
+          await adapterLog($, 'refused', firstLine(refusal.split('\n')[1] ?? refusal))
+          if (!(await hasSurface($))) await $.ui.log(refusal)
           return { deny: refusal }
         }
       }
       const result = await next(e)
       try {
-        // A mod's $.ui.ask arrives here too; only Claude Code's own question is the user's answer (BEH-04).
-        if (isEngine(next.origin)) await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome) })
+        const outcome = result as unknown as ToolOutcome
+        await record($, 'tool', {
+          ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)),
+        })
+        if (TASK_TOOLS.includes(tool)) await taskSteps($, tool, input, outcome)
       } catch (err) {
         await recover($, 'tool.call', err)
       }
       return result
+    } finally {
+      finish?.()
     }
-    const open = await read($, RUN)
-    const r = open !== null ? rootOf(open) : await $.session.root()
-    const content = await contentOf($, r, tool, input)
-    const fields: Fields = {
-      tool,
-      path: toolPath(r, tool, input),
-      command: tool === 'Bash' && typeof input.command === 'string' ? input.command : undefined,
-    }
-    if ((tool === 'Write' || tool === 'Edit') && (await read($, MODE)) === 'enforce' && python) {
-      const refusal = await enforceCheck($, fields, content)
-      if (refusal !== null) {
-        await record($, 'tool', { ...fields, exit: null, error: true, content: keptContent(content, await logBytes($)) })
-        await adapterLog($, 'refused', firstLine(refusal.split('\n')[1] ?? refusal))
-        if (!(await hasSurface($))) await $.ui.log(refusal)
-        return { deny: refusal }
-      }
-    }
-    const result = await next(e)
-    try {
-      const outcome = result as unknown as ToolOutcome
-      await record($, 'tool', {
-        ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)),
-      })
-      if (tool === 'TaskCreate' || tool === 'TaskUpdate' || tool === 'TodoWrite') await taskSteps($, tool, input, outcome)
-    } catch (err) {
-      await recover($, 'tool.call', err)
-    }
-    return result
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'tool.call', next.error)
     return next(e)

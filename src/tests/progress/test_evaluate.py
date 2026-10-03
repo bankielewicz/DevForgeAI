@@ -617,7 +617,12 @@ class SpecRules(Base):
         s5 = self.step(state, 5)
         self.assertEqual((s5["state"], s5["note"]), ("not-applicable", manifest["steps"]["5"]["when"]))
         self.assertEqual(state["counts"]["unknownClaims"], 1)
+        # counts.stepEvents counts the step events naming a step the checklist has: step 40's is unknownClaims'.
+        self.assertEqual(state["counts"]["stepEvents"], len(self.events_of("steps-current", "step")) - 1)
         self.assertEqual(state["flags"], [])
+        retick, _, _, _ = self.run_case("steps-retick")
+        self.assertEqual((self.step(retick, 5)["state"], self.step(retick, 5)["note"]),
+                         ("not-applicable", manifest["steps"]["5"]["when"]))
 
     # VER-34 and SPEC-013 VER-24: without the tag, or without a task list, nothing changes and nothing is refused;
     # step events Claude kept unasked still place answers, and an answer with no step in progress goes to the windows.

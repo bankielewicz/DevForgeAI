@@ -156,7 +156,7 @@ export function isEngine(origin: unknown): boolean {
 }
 
 // The parts of SPEC-012's progress state (DM-03) the adapter reads.
-export type StateStep = { n: number; title: string; state: string; userOwned?: boolean }
+export type StateStep = { n: number; title: string; state: string; userOwned?: boolean; kind?: string | null }
 export type StateFlag = { gate: string; seq: number; step: number; type: string; message: string }
 export type ProgressState = {
   run?: string
@@ -371,9 +371,12 @@ export function questionRefusal(state: ProgressState, seq: number): string | nul
 }
 
 /** The adherence notice for a run that follows the task list, once it ends or reaches its report gate with no step
- *  event or an unmarked question (BEH-22), else null; a state without the counts says nothing. */
+ *  event or an unmarked question (BEH-22), else null; a state without the counts says nothing. The report step's own
+ *  state shows the report was reached even after a later event moved the gate on. */
 export function adherenceText(state: ProgressState): string | null {
-  if (state.ended === null && state.gate.kind !== 'report') return null
+  const reported = state.gate.kind === 'report'
+    || state.steps.some(s => s.kind === 'report' && (s.state === 'done' || s.state === 'claimed'))
+  if (state.ended === null && !reported) return null
   const n = state.counts?.stepEvents
   const m = state.counts?.unmarkedQuestions
   if (typeof n !== 'number' || typeof m !== 'number' || (n > 0 && m === 0)) return null
