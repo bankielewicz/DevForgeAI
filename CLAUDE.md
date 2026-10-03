@@ -47,7 +47,8 @@ SKL-008 is reserved for the story skill (SPEC-009).
 - `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; v5 and v6, step
   events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 and v8
   approved 2026-10-03 (v8 withdrew v7's stale step), merged in PR #70 and deployed as plugin 0.16.0; v9, questions
-  that name their step as a check on the task list's mark, approved 2026-10-03, not built; ADR-006
+  that name their step as a check on the task list's mark, and v10, no question gate once every step is reached,
+  approved 2026-10-03, not built; ADR-006
   accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;

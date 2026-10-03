@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 9
+version: 10
 created: 2026-10-02
 updated: 2026-10-03
 owner: "Bryan"
@@ -107,6 +107,11 @@ its answer counts for no step. The tag is a check on the mark, never a placement
 their agreement catches Claude contradicting itself, not a step wrong in both (§13). A question answered by a typed
 message can't carry the tag, so its answer is still placed by the mark. With SPEC-013 versions 7 and 8 (a compaction hook, refusals that name a
 forgotten mark), this answers §13's forgotten-mark item.
+
+**Version 10** (2026-10-03) stops the question gate once every step of a run is reached. A run stays open until
+another tracked skill loads or the session ends, so every later question, Claude's own follow-up or another
+skill's, was refused as asked with no step marked. Such a question's answer still counts for no step, so a
+decision written after it still needs an answer that counts (BEH-18).
 
 ## 2. Constraints
 
@@ -478,7 +483,7 @@ behaviors:
     rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09)."
   - id: BEH-18
     status: active
-    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event counts for the step in progress only when it names that step (DM-02's step, from the question's tag): the tag is a check on the mark, never a placement of its own, since Claude writes both (version 9). A tag naming a step the checklist doesn't have is ERR-06's and counts as no tag. An answer event marked outside (DM-02: its question's source names something other than the convention's tag, as another command's question does) is no question gate and counts for no step, so it can't stand for a decision (version 9). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event, answered or not, since the question was asked, is a question gate (BEH-08, BEH-11), with exactly one of three flags, checked in this order: when no step is in progress (unmarked-question); when it is untagged (untagged-question); when it names a step other than the step in progress (mismatched-question) (version 9). An answer at a question gate counts for no step, so a decision it was meant for still needs an answer that counts (BEH-10). A prompt at which no step is in progress counts for no step and raises nothing, since a typed message isn't known to be an answer. A tag in a run that doesn't follow the task list is ignored. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
+    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event counts for the step in progress only when it names that step (DM-02's step, from the question's tag): the tag is a check on the mark, never a placement of its own, since Claude writes both (version 9). A tag naming a step the checklist doesn't have is ERR-06's and counts as no tag. An answer event marked outside (DM-02: its question's source names something other than the convention's tag, as another command's question does) is no question gate and counts for no step, so it can't stand for a decision (version 9). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event, answered or not, since the question was asked, is a question gate (BEH-08, BEH-11), with exactly one of three flags, checked in this order: when no step is in progress (unmarked-question); when it is untagged (untagged-question); when it names a step other than the step in progress (mismatched-question) (version 9). An answer at a question gate counts for no step, so a decision it was meant for still needs an answer that counts (BEH-10). Once every step of the run is reached before the answer's seq (BEH-07's reached: evidence or a claim), an answer that fails the cross-check is no question gate and counts for no step: the checklist is finished, so a later question isn't the checklist's (version 10). A prompt at which no step is in progress counts for no step and raises nothing, since a typed message isn't known to be an answer. A tag in a run that doesn't follow the task list is ignored. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
 ```
 
 ## 7. Errors and edge cases
@@ -897,7 +902,7 @@ verifications:
       - BEH-08
   - id: VER-38
     status: active
-    obligation: "Brainstorm cases in a run that follows the task list, each ending with a Write of promoted dispositions: steps-tagged (step 5 marked, an answer tagged 5: it counts for step 5, no gate, and the Write raises nothing); steps-tag-mismatch (step 6 marked, an answer tagged 5: a mismatched-question flag naming step 5, gate question; the answer counts for no step, so the Write flags step 5 skipped and step 6 rule-broken, as with no answer, BEH-10); steps-untagged (step 5 marked, an answer with no tag: an untagged-question flag naming step 5; the answer counts for no step, and the Write is flagged the same way); steps-tag-unknown (step 5 marked, an answer tagged 40: counted in counts.unknownClaims, then as steps-untagged); steps-tag-unmarked (no step marked, an answer tagged 5: an unmarked-question flag naming step 5; the answer counts for no step); steps-tag-outside (step 5 marked, an answer marked outside: no gate, the answer counts for no step, and the Write is flagged as with no answer); steps-tagged-prompt (step 5 marked, a typed prompt: placed by the mark, so it counts for step 5 and nothing is raised); rollout-tagged (the steps-tag-mismatch log with taskList false: the tag is ignored, the answer placed as version 8 places it, no question gate). counts.unmarkedQuestions counts each question gate. Cases steps-unmarked-question and steps-unmarked-question-cut (VER-32) keep their states: an untagged answer at which no step is in progress is still an unmarked-question."
+    obligation: "Brainstorm cases in a run that follows the task list, each ending with a Write of promoted dispositions: steps-tagged (step 5 marked, an answer tagged 5: it counts for step 5, no gate, and the Write raises nothing); steps-tag-mismatch (step 6 marked, an answer tagged 5: a mismatched-question flag naming step 5, gate question; the answer counts for no step, so the Write flags step 5 skipped and step 6 rule-broken, as with no answer, BEH-10); steps-untagged (step 5 marked, an answer with no tag: an untagged-question flag naming step 5; the answer counts for no step, and the Write is flagged the same way); steps-tag-unknown (step 5 marked, an answer tagged 40: counted in counts.unknownClaims, then as steps-untagged); steps-tag-unmarked (no step marked, an answer tagged 5: an unmarked-question flag naming step 5; the answer counts for no step); steps-tag-outside (step 5 marked, an answer marked outside: no gate, the answer counts for no step, and the Write is flagged as with no answer); steps-tagged-prompt (step 5 marked, a typed prompt: placed by the mark, so it counts for step 5 and nothing is raised); rollout-tagged (the steps-tag-mismatch log with taskList false: the tag is ignored, the answer placed as version 8 places it, no question gate); steps-after-done (steps-report-event's log, every step reached, then an answer with no tag and no step marked: no question gate, no flag, counts.unmarkedQuestions 0, and the answer counts for no step; version 10). counts.unmarkedQuestions counts each question gate. Cases steps-unmarked-question and steps-unmarked-question-cut (VER-32) keep their states: an untagged answer at which no step is in progress is still an unmarked-question."
     level: unit
     covers:
       - BEH-18
@@ -927,6 +932,15 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 10.** Approved during version 9's build, after its review, and built with it in the same plugin version,
+  so version 9 alone is never deployed. No earlier expected state moves: no case has an answer after every step is
+  reached.
+- **Skills written to versions 5 to 8** (Bryan, 2026-10-03: accepted and recorded). A skill whose text names
+  `devforgeai_step` and keeps the task list but doesn't tag its questions follows the task list, so from version 9
+  each of its questions is a question gate: refused in enforce mode with the text that says how to tag it, and in
+  observe mode its decisions' answers count for no step, so their writes are flagged. No shipped skill names the
+  tag; DevForgeAI's skills tag their questions from their next builds (SKL-001 v6 for SPEC-001 version 13, SKL-003
+  v7 for SPEC-003 version 8), and a project's own skill that adopts the tag adopts the tags with it.
 - **Version 9.** Built after approval with SPEC-013 version 8, in one plugin version, before the skills' wording
   (SPEC-001 version 13, SPEC-003 version 8) ships; until a skill names the tag, no run follows the task list and
   nothing new is refused. Earlier cases: the answers of steps-brainstorm, steps-arch, steps-report-event and
@@ -999,6 +1013,9 @@ Version 7's build, after approval, with SPEC-013 version 6:
 Version 8's build, on the same branch: remove the stale step from `evaluate.py` and VER-36's cases and test, check
 that no other expected state moves, run every test, and record it in §9.
 
+Version 10's build, on version 9's branch before its merge: the case steps-after-done, seen failing; the rule in
+`evaluate.py`; no earlier expected state may move; §9.
+
 Version 9's build, with SPEC-013 version 8: VER-38's cases and test, seen failing; the schemas from DM-02 and DM-03;
 `evaluate.py` (BEH-18's tag placement and gates, BEH-08's flags); no earlier expected state may move; §9.
 
@@ -1038,6 +1055,11 @@ conditional step that isn't the user's; `./` tool paths are read like the rest. 
 
 Decided by Bryan on 2026-10-02, for version 4: an earlier step counts from the later of its first tool evidence and
 its first tick; every tool's `./` path is read like the rest. Versions 2, 3 and 4 ship together.
+
+Decided by Bryan on 2026-10-03, for version 10, after the version 9 build's plugin-validator review showed every
+question after a finished run refused: no question gate once every step is reached. And, on a skill written to
+the earlier convention that doesn't tag its questions: accepted and recorded (§10); each skill takes the tags in
+its own next build, once this tracker ships.
 
 Decided by Bryan on 2026-10-03, for version 9: questions name their step in AskUserQuestion's metadata, checked
 when they are asked (his suggestion of using the question's own hook). After a side review noted that the tag and
@@ -1142,3 +1164,5 @@ Still open, or notes:
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #70's merge (plugin 0.16.0) | §9 |
 | 9 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03, after the SPEC-013 version 7 build's review: questions name their step. The answer event gains step, from AskUserQuestion's metadata tag devforgeai_step:N (DM-02); in a run that follows the task list an answer counts for the step in progress only when its tag names that step, the tag being a cross-check on the mark, never a placement of its own (Bryan's choice after a side review noted both are Claude's statements), and a question asked while no step is marked, an untagged one, or one tagged for a step other than the step in progress is a question gate with one flag of its own, checked in that order, its answer counting for no step (BEH-18, BEH-08, DM-03 flag types mismatched-question and untagged-question); a tag naming an unknown step is ERR-06's; §4's convention adds the tag and the step in each question's visible header, and its level 2 says counts.unmarkedQuestions counts every question gate (DM-03's description too); VER-30, VER-31 and VER-33 say which answers are tagged; §13 states the limit; an answer whose question's source names something else is outside the checklist (DM-02 outside), no gate and no step; new VER-38; §13 marks the forgotten-mark item addressed; links to SPEC-001 version 13 and SPEC-003 version 8 | frontmatter, §1, §4, DM-02, DM-03, BEH-08, BEH-18, ERR-06, VER-30, VER-31, VER-33, VER-38, §10, §11, §13 |
 | 9 | 2026-10-03 | Bryan | Approved, with the tag as a cross-check on the mark only, the step shown in each question's header, and a question whose source names something else outside the checklist | status |
+| 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-03 after the version 9 build's plugin-validator review: once every step of the run is reached, an answer that fails the cross-check is no question gate and counts for no step (BEH-18); VER-38 gains the case steps-after-done; §10 records that a skill written to versions 5 to 8 that names the tag but doesn't tag its questions has them refused or uncounted from version 9 (accepted) | frontmatter, §1, BEH-18, VER-38, §10, §11, §13 |
+| 10 | 2026-10-03 | Bryan | Approved | status |
