@@ -1,4 +1,4 @@
-// Pure helpers of the progress tracker adapter (SPEC-013 v2). No `$` here: claude plugin validate lets `$` reach
+// Pure helpers of the progress tracker adapter (SPEC-013 v5). No `$` here: claude plugin validate lets `$` reach
 // only top-level functions of hooks/progress.tsx, so this file turns plain data into plain data, and its tests
 // (core.test.ts) call it directly.
 import type { ProgressMode, ProgressSummary } from '../types'
@@ -15,13 +15,14 @@ export const FORMAT = 'devforgeai-events/1'
 // Each kind's fields in SPEC-012 DM-02's order, after run, seq, time and kind. The order is fixed here so an
 // event line is the same bytes whichever code built it (VER-04 compares lines byte for byte).
 const ORDER: Record<string, readonly string[]> = {
-  'skill-loaded': ['format', 'skill', 'checklist', 'host', 'mode', 'modeSource'],
+  'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource'],
   tool: ['tool', 'path', 'command', 'exit', 'error', 'content'],
   answer: ['answered'],
   prompt: [],
   reply: ['text'],
   turn: ['phase'],
   'run-end': ['reason'],
+  step: ['step', 'state'],
 }
 
 /** UTC time as ISO 8601 to the second. */
@@ -166,6 +167,7 @@ export type ProgressState = {
   flags: StateFlag[]
   gate: { kind: string | null; seq: number | null; refuse: boolean; reason: string | null }
   manifest: { state: ProgressSummary['manifest'] }
+  counts?: { stepEvents?: number; unmarkedQuestions?: number }
 }
 
 /** The summary the status line and the band draw (DM-03). */
@@ -287,4 +289,100 @@ export function finalTimeout(remainingMs: number): number | null {
 export function retentionOf(value: unknown): number {
   const days = Number(value)
   return Number.isInteger(days) && days >= 7 && days <= 3650 ? days : 30
+}
+
+// ---- the task list (SPEC-013 v4 and v5; SPEC-012 §4) ----
+
+/** The convention's tag: a skill whose text names it keeps its checklist in the task list (SPEC-012 §4). */
+export const TASK_TAG = 'devforgeai_step'
+
+/** Whether the session has a task list: TaskCreate and TaskUpdate, or TodoWrite (DM-01). TaskStop stops background
+ *  tasks and isn't one; a model that doesn't get the task tools by default has none without the user's opt-in. */
+export function hasTaskList(names: readonly string[]): boolean {
+  return (names.includes('TaskCreate') && names.includes('TaskUpdate')) || names.includes('TodoWrite')
+}
+
+/** Whether a run follows the task list, from its skill-loaded line: taskList true and the tag in the skill's text
+ *  (SPEC-012 BEH-18). */
+export function followsTaskList(line: string | undefined): boolean {
+  if (!line) return false
+  try {
+    const e = JSON.parse(line) as Fields
+    return e.taskList === true && typeof e.checklist === 'string' && e.checklist.includes(TASK_TAG)
+  } catch {
+    return false
+  }
+}
+
+/** A TaskCreate's task ID, from its result text 'Task #<id> created successfully' (BEH-20, ERR-13). */
+export function taskIdOf(text: unknown): string | null {
+  if (typeof text !== 'string') return null
+  const m = text.match(/Task #([^\s:]+) created successfully/)
+  return m ? m[1] : null
+}
+
+/** A task's step: its metadata devforgeai_step when that is a whole number, else the number its subject starts
+ *  with ('<N>. <title>'), else null (BEH-20, ERR-13). */
+export function stepOfTask(input: Fields): number | null {
+  const meta = input.metadata && typeof input.metadata === 'object' ? (input.metadata as Fields)[TASK_TAG] : undefined
+  if (typeof meta === 'number' && Number.isInteger(meta) && meta >= 1) return meta
+  const m = typeof input.subject === 'string' ? input.subject.match(/^\s*(\d+)\./) : null
+  return m && Number(m[1]) >= 1 ? Number(m[1]) : null
+}
+
+/** A TaskUpdate's status as a step event's state: in_progress starts the step, completed ends it (BEH-20). */
+export function stepStateOf(status: unknown): 'started' | 'done' | null {
+  return status === 'in_progress' ? 'started' : status === 'completed' ? 'done' : null
+}
+
+/** A TodoWrite's step events, against each step's last status, and the statuses to keep (BEH-20): becoming
+ *  in_progress starts a step, becoming completed ends it; straight from pending to completed gives done only. */
+export function todoSteps(todos: unknown, last: Readonly<Record<string, string>>): {
+  events: Array<{ step: number; state: 'started' | 'done' }>
+  statuses: Record<string, string>
+} {
+  const statuses: Record<string, string> = { ...last }
+  const events: Array<{ step: number; state: 'started' | 'done' }> = []
+  if (!Array.isArray(todos)) return { events, statuses }
+  for (const todo of todos) {
+    if (!todo || typeof todo !== 'object') continue
+    const { content, status } = todo as Fields
+    const m = typeof content === 'string' ? content.match(/^\s*(\d+)\./) : null
+    if (!m || typeof status !== 'string' || Number(m[1]) < 1) continue
+    const step = Number(m[1])
+    const before = statuses[String(step)]
+    if (status === 'in_progress' && before !== 'in_progress') events.push({ step, state: 'started' })
+    if (status === 'completed' && before !== 'completed') events.push({ step, state: 'done' })
+    statuses[String(step)] = status
+  }
+  return { events, statuses }
+}
+
+/** The refusal of a question asked with no step in progress (BEH-21), with how to recover. */
+export const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (enforce mode): no step is marked in "
+  + "progress in your task list. If you haven't, first turn the skill's checklist into your task list as the skill says "
+  + '(one task per step, subject <N>. <title>, metadata devforgeai_step: N); then mark the step this question belongs '
+  + 'to in_progress (TaskUpdate, or TodoWrite), and ask again.'
+
+/** The question refusal when the provisional state's question gate refuses at seq, else null (BEH-21). */
+export function questionRefusal(state: ProgressState, seq: number): string | null {
+  const g = state.gate
+  return g.kind === 'question' && g.seq === seq && g.refuse ? QUESTION_REFUSAL : null
+}
+
+/** The adherence notice for a run that follows the task list, once it ends or reaches its report gate with no step
+ *  event or an unmarked question (BEH-22), else null; a state without the counts says nothing. */
+export function adherenceText(state: ProgressState): string | null {
+  if (state.ended === null && state.gate.kind !== 'report') return null
+  const n = state.counts?.stepEvents
+  const m = state.counts?.unmarkedQuestions
+  if (typeof n !== 'number' || typeof m !== 'number' || (n > 0 && m === 0)) return null
+  return `${state.skill} didn't keep its task list: ${n} step events, ${m} questions asked with no step in progress. `
+    + 'Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)'
+}
+
+/** The once-per-session hint for a session with no task tools (BEH-23). */
+export function hintText(skill: string): string {
+  return `${skill}: this session has no task list, so DevForgeAI places your answers by guessing. For exact step `
+    + 'tracking, start Claude Code with CLAUDE_CODE_ENABLE_TODO_TOOLS=1 (DevForgeAI SPEC-012 §4)'
 }
