@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "6"
+  devforgeai-version: "7"
 ---
 
 # Architecture
@@ -58,7 +58,9 @@ can answer only these:
 - which PRD;
 - which ARCH, and the outcome, but only by naming the outcome for that ARCH ("amend ARCH-001",
   "reuse ARCH-001; I confirm reuse", "create a new ARCH"). Asking to define or update the
-  architecture, or to reuse a component or service, confirms no outcome;
+  architecture, or to reuse a component or service, confirms no outcome. When the run will write to an
+  existing ARCH, the request's outcome only picks the direction: step 8 still asks once the change is
+  known, unless the request says to proceed without questions;
 - the inspection scope, and that a question is non-blocking;
 - that a named accepted ADR answers a named question ("ADR-004 settles the identity provider").
 
@@ -70,7 +72,8 @@ to all of this is policy: an approved mandated platform that answers exactly a q
 without asking.
 
 **Asking.** Use AskUserQuestion when it is available: at most 4 questions per call, 2–4 options
-each, with the recommended option first and marked "(Recommended)". Otherwise ask in plain text and
+each, with the recommended option first and marked "(Recommended)", each form tagged with its step
+(Workflow). Otherwise ask in plain text and
 end your turn. Use at most `interview.max_calls` calls (step 1; default 8) unless the user asks for
 more; questions left when the budget runs out stay open. Write nothing that a pending answer
 affects until the answer arrives.
@@ -94,7 +97,7 @@ and write nothing.
 
 ## Workflow
 
-Copy this checklist into your response and tick items off as you go:
+Work through this checklist:
 
 ```
 - [ ] 1. Resolve policy (R1, R2)
@@ -109,6 +112,24 @@ Copy this checklist into your response and tick items off as you go:
 - [ ] 10. Validate every file written
 - [ ] 11. Compute readiness, report and hand off
 ```
+
+**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and TaskUpdate, or
+TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress tracker credits each answer
+to the step the list marks and the question's tag names, so keep both exact:
+
+1. Before anything else, create one task per step: subject `<N>. <title>` (the step's line without the box),
+   metadata `devforgeai_step: N`; with TodoWrite, content `<N>. <title>`.
+2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a time; a
+   step with nothing to do is completed too (step 5 with no scope, step 7 with no open question).
+3. Before asking any question, mark the step it belongs to in_progress: which PRD → step 2; reuse, amend or
+   create → step 4; reading outside the inspection scope → step 5; every decision question → step 7; the
+   outcome → step 8. Complete step 7 and mark step 8 in_progress before the outcome question, and ask it
+   alone, in its own form. Never put two steps' questions in one question form.
+4. Tag each question form with its step: AskUserQuestion's `metadata: {"source": "devforgeai_step:N"}`, which
+   the user doesn't see, and `header: "Step N"` on each of its questions, which the user does.
+
+Without task-list tools, copy the checklist into your response and tick items off (`- [x] N.`) in your reply
+text as you go.
 
 ### 1. Resolve policy (R1, R2)
 
@@ -175,8 +196,10 @@ names the product this PRD's title names.
   baseline automatically, and write nothing until the user answers.
 - **Several could apply** (ERR-04): list them with their systems and ask. Never pick one silently.
 
-A choice of reuse or amend, in the request or an answer, also confirms that outcome for step 8. A
-reuse that step 4 can't offer answers nothing: say why (naming the DEC, the setting and both
+A choice of reuse or amend, in the request or an answer, picks the direction. It confirms the outcome
+only when the run will write nothing to the existing ARCH (a reuse whose PRD link already equals the
+PRD's version); otherwise step 8 asks for confirmation once the change is known. A reuse that step 4
+can't offer answers nothing: say why (naming the DEC, the setting and both
 platforms when a mandated platform changed), offer amend or create, and write nothing until the
 user answers. Otherwise the choice stands unless step 8 finds another outcome is needed, such as a
 DEC changing in a reuse run: then say why and ask again.
@@ -255,9 +278,18 @@ Propose one outcome, with reasons:
   `resolved_by` changes in this run (a decision recorded, or a resolver that no longer counts);
 - **create:** no ARCH covers the system.
 
-Using a mandated or existing platform or component is not a reuse outcome. Ask the user to confirm,
-unless the request or step 4 already did. Write `outcome` only when it is confirmed; otherwise it
-stays `null`. Confirming the outcome accepts no decision. When proposing reuse, and in the report
+Using a mandated or existing platform or component is not a reuse outcome. Ask the user to confirm
+the outcome, alone in its own question form:
+- **The run will write to the existing ARCH** (an amendment, or reuse's review record): ask now that
+  the change is known, and name what will change: the DEC, CMP and EVD items added, the DECs whose
+  state or resolver changes, the ADRs accepted or superseded, the new version, and an approved ARCH's
+  return to in-review. Ask even when step 4 or the request already chose or confirmed the outcome: a
+  confirmation given before the change is known only picks the direction. Only a request to proceed
+  without questions keeps the request's confirmation; then ask nothing.
+- **Otherwise** (create, or a reuse that writes nothing): ask unless the request or step 4 already
+  confirmed it.
+
+Write `outcome` only when it is confirmed; otherwise it stays `null`. Confirming the outcome accepts no decision. When proposing reuse, and in the report
 when it is confirmed, name each active requirement no active blocking DEC cites: it is reported
 ready with no architectural question holding it back (readiness.md, "Reuse, and deciding a question
 later").

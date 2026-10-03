@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "5"
+  devforgeai-version: "6"
 ---
 
 # Brainstorm
@@ -36,7 +36,7 @@ a choice nobody made. That is why this rule matters more than any other in this 
 
 ## Workflow
 
-Once you have a topic, copy this checklist into your response and tick items off as you go:
+Work through this checklist:
 
 ```
 - [ ] 1. Intake: topic, existing BRNs, clarifying questions
@@ -49,11 +49,29 @@ Once you have a topic, copy this checklist into your response and tick items off
 - [ ] 8. Report and hand off
 ```
 
+**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and TaskUpdate, or
+TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress tracker credits each answer
+to the step the list marks and the question's tag names, so keep both exact:
+
+1. Before anything else, the question asking for a topic included, create one task per step: subject
+   `<N>. <title>` (the step's line without the box), metadata `devforgeai_step: N`; with TodoWrite, content
+   `<N>. <title>`. The task list is not a file, so it comes before the topic.
+2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a time; a
+   step with nothing to do is completed too.
+3. Before asking any question, mark the step it belongs to in_progress: the topic, clarifying and
+   extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step 5. Never
+   put two steps' questions in one question form.
+4. Tag each question form with its step: AskUserQuestion's `metadata: {"source": "devforgeai_step:N"}`, which
+   the user doesn't see, and `header: "Step N"` on each of its questions, which the user does.
+
+Without task-list tools, copy the checklist into your response once you have a topic, and tick items off
+(`- [x] N.`) in your reply text as you go.
+
 ### 1. Intake
 
 1. **Topic.** Use `$ARGUMENTS`, or the topic stated in the conversation. If there is none, ask
    "What topic should we brainstorm?" and stop. Create no file and no directory until the user
-   gives a topic.
+   gives a topic (the task list is not a file).
 2. **Existing BRNs.** Glob `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one
    covers the same or a closely similar topic, show its ID, title and path and ask:
    *extend it* (version + 1, with a Change Log entry) or *create a new BRN*. Wait for the answer
@@ -63,8 +81,8 @@ Once you have a topic, copy this checklist into your response and tick items off
    the request says to proceed without questions. Record anything still unknown as
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
 
-Use AskUserQuestion for questions and confirmations when it is available; otherwise ask in plain
-text and end your turn.
+Use AskUserQuestion for questions and confirmations when it is available, tagged with its step (Workflow);
+otherwise ask in plain text and end your turn.
 
 ### 2. Select a framework
 
@@ -148,8 +166,10 @@ keys, ID patterns, item-block rules and allowed fields.
    python3 ${CLAUDE_SKILL_DIR}/scripts/validate_brn.py docs/specs/brainstorm/BRN-NNN.md
    ```
 
-   It prints one line per problem (`line N: message`) and exits 1, or prints `OK: path` and
-   exits 0. Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or
+   Run it exactly so, as a command of its own: never joined to another with `;`, a pipe or a
+   background `&` (`&&` and `2>&1` are fine), so its exit status is the validator's; the progress
+   tracker credits no run whose status another command hides. It prints one line per problem
+   (`line N: message`) and exits 1, or prints `OK: path` and exits 0. Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or
    Python, check the file by hand against the *Validation checklist* in
    [output-rules.md](references/output-rules.md).
 2. The validator can't know what the user confirmed. After it passes, read the file back and
