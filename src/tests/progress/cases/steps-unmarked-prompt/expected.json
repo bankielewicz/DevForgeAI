@@ -2,10 +2,10 @@
   "counts": {
     "afterEnd": 0,
     "duplicates": 0,
-    "events": 7,
+    "events": 18,
     "malformed": 0,
     "outOfOrder": 0,
-    "stepEvents": 0,
+    "stepEvents": 12,
     "unknownClaims": 0,
     "unmarkedQuestions": 0
   },
@@ -34,13 +34,13 @@
     {
       "claim": {
         "reason": null,
-        "seq": 5,
+        "seq": 4,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "validate_policy.py exit 0",
-          "seq": 2,
+          "seq": 3,
           "strength": "strong",
           "type": "script"
         }
@@ -56,19 +56,19 @@
     {
       "claim": {
         "reason": null,
-        "seq": 5,
+        "seq": 7,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "Glob docs/specs/prd/PRD-*.md",
-          "seq": 3,
+          "seq": 6,
           "strength": "medium",
           "type": "read"
         },
         {
           "detail": "Read docs/specs/prd/PRD-001.md",
-          "seq": 4,
+          "seq": 9,
           "strength": "medium",
           "type": "read"
         }
@@ -84,19 +84,19 @@
     {
       "claim": {
         "reason": null,
-        "seq": 5,
+        "seq": 10,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "Glob docs/specs/prd/PRD-*.md",
-          "seq": 3,
+          "seq": 6,
           "strength": "medium",
           "type": "read"
         },
         {
           "detail": "Read docs/specs/prd/PRD-001.md",
-          "seq": 4,
+          "seq": 9,
           "strength": "medium",
           "type": "read"
         }
@@ -110,11 +110,15 @@
       "userOwned": false
     },
     {
-      "claim": null,
+      "claim": {
+        "reason": null,
+        "seq": 13,
+        "state": "done"
+      },
       "evidence": [
         {
           "detail": "Glob docs/specs/arch/ARCH-*.md",
-          "seq": 7,
+          "seq": 12,
           "strength": "medium",
           "type": "read"
         }
@@ -122,26 +126,30 @@
       "kind": "read",
       "n": 4,
       "need": "required",
-      "note": "seen late (after step 6)",
+      "note": "",
       "state": "done",
       "title": "Select or create the ARCH",
       "userOwned": false
     },
     {
-      "claim": null,
+      "claim": {
+        "reason": null,
+        "seq": 15,
+        "state": "done"
+      },
       "evidence": [],
       "kind": "read",
       "n": 5,
       "need": "conditional",
-      "note": "not seen yet",
-      "state": "pending",
+      "note": "the user named paths to inspect",
+      "state": "not-applicable",
       "title": "Inspect within the scope",
       "userOwned": false
     },
     {
       "claim": {
         "reason": null,
-        "seq": 6,
+        "seq": 17,
         "state": "done"
       },
       "evidence": [],
@@ -209,5 +217,5 @@
       "userOwned": false
     }
   ],
-  "through": 7
+  "through": 18
 }

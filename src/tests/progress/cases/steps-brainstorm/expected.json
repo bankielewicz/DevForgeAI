@@ -2,14 +2,14 @@
   "counts": {
     "afterEnd": 0,
     "duplicates": 0,
-    "events": 5,
+    "events": 16,
     "malformed": 0,
     "outOfOrder": 0,
-    "stepEvents": 0,
+    "stepEvents": 11,
     "unknownClaims": 0,
     "unmarkedQuestions": 0
   },
-  "current": 7,
+  "current": 6,
   "ended": null,
   "flags": [],
   "format": "devforgeai-progress/1",
@@ -17,7 +17,7 @@
     "kind": "write",
     "reason": null,
     "refuse": false,
-    "seq": 5
+    "seq": 16
   },
   "manifest": {
     "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
@@ -34,13 +34,13 @@
     {
       "claim": {
         "reason": null,
-        "seq": 3,
+        "seq": 5,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "Glob docs/specs/brainstorm/BRN-*.md",
-          "seq": 2,
+          "seq": 3,
           "strength": "medium",
           "type": "read"
         }
@@ -56,7 +56,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 3,
+        "seq": 7,
         "state": "done"
       },
       "evidence": [],
@@ -71,7 +71,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 3,
+        "seq": 9,
         "state": "done"
       },
       "evidence": [],
@@ -86,7 +86,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 3,
+        "seq": 11,
         "state": "done"
       },
       "evidence": [],
@@ -101,13 +101,13 @@
     {
       "claim": {
         "reason": null,
-        "seq": 3,
+        "seq": 14,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "answer",
-          "seq": 4,
+          "seq": 13,
           "strength": "strong",
           "type": "answer"
         }
@@ -125,7 +125,7 @@
       "evidence": [
         {
           "detail": "Write docs/specs/brainstorm/BRN-002.md",
-          "seq": 5,
+          "seq": 16,
           "strength": "medium",
           "type": "write"
         }
@@ -145,7 +145,7 @@
       "n": 7,
       "need": "required",
       "note": "",
-      "state": "current",
+      "state": "pending",
       "title": "Validate the BRN",
       "userOwned": false
     },
@@ -161,5 +161,5 @@
       "userOwned": false
     }
   ],
-  "through": 5
+  "through": 16
 }

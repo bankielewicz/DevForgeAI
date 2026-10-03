@@ -2,22 +2,22 @@
   "counts": {
     "afterEnd": 0,
     "duplicates": 0,
-    "events": 7,
+    "events": 12,
     "malformed": 0,
     "outOfOrder": 0,
-    "stepEvents": 0,
+    "stepEvents": 2,
     "unknownClaims": 0,
     "unmarkedQuestions": 0
   },
-  "current": 7,
+  "current": 10,
   "ended": null,
   "flags": [],
   "format": "devforgeai-progress/1",
   "gate": {
-    "kind": null,
+    "kind": "write",
     "reason": null,
     "refuse": false,
-    "seq": null
+    "seq": 12
   },
   "manifest": {
     "checklistHash": "sha256:886414fe995ef8948b7c9f2a3a2b5036d669d0e77c3d39fe872c1fac789759c0",
@@ -34,7 +34,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 5,
+        "seq": 6,
         "state": "done"
       },
       "evidence": [
@@ -56,7 +56,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 5,
+        "seq": 6,
         "state": "done"
       },
       "evidence": [
@@ -84,7 +84,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 5,
+        "seq": 6,
         "state": "done"
       },
       "evidence": [
@@ -110,11 +110,15 @@
       "userOwned": false
     },
     {
-      "claim": null,
+      "claim": {
+        "reason": null,
+        "seq": 6,
+        "state": "done"
+      },
       "evidence": [
         {
           "detail": "Glob docs/specs/arch/ARCH-*.md",
-          "seq": 7,
+          "seq": 5,
           "strength": "medium",
           "type": "read"
         }
@@ -122,7 +126,7 @@
       "kind": "read",
       "n": 4,
       "need": "required",
-      "note": "seen late (after step 6)",
+      "note": "",
       "state": "done",
       "title": "Select or create the ARCH",
       "userOwned": false
@@ -133,8 +137,8 @@
       "kind": "read",
       "n": 5,
       "need": "conditional",
-      "note": "not seen yet",
-      "state": "pending",
+      "note": "the user named paths to inspect",
+      "state": "not-applicable",
       "title": "Inspect within the scope",
       "userOwned": false
     },
@@ -155,34 +159,65 @@
     },
     {
       "claim": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "detail": "answer",
+          "seq": 7,
+          "strength": "strong",
+          "type": "answer"
+        }
+      ],
       "kind": "ask",
       "n": 7,
       "need": "conditional",
       "note": "",
-      "state": "current",
+      "state": "done",
       "title": "Resolve each question explicitly",
       "userOwned": true
     },
     {
-      "claim": null,
-      "evidence": [],
+      "claim": {
+        "reason": null,
+        "seq": 10,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "answer",
+          "seq": 9,
+          "strength": "strong",
+          "type": "answer"
+        }
+      ],
       "kind": "ask",
       "n": 8,
       "need": "required",
       "note": "",
-      "state": "pending",
+      "state": "done",
       "title": "Propose and confirm the outcome",
       "userOwned": true
     },
     {
       "claim": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "detail": "Write docs/specs/adr/ADR-004.md",
+          "seq": 11,
+          "strength": "medium",
+          "type": "write"
+        },
+        {
+          "detail": "Write docs/specs/arch/ARCH-001.md",
+          "seq": 12,
+          "strength": "medium",
+          "type": "write"
+        }
+      ],
       "kind": "forge",
       "n": 9,
       "need": "required",
       "note": "",
-      "state": "pending",
+      "state": "done",
       "title": "Write the ARCH and ADRs",
       "userOwned": false
     },
@@ -193,7 +228,7 @@
       "n": 10,
       "need": "required",
       "note": "",
-      "state": "pending",
+      "state": "current",
       "title": "Validate every file written",
       "userOwned": false
     },
@@ -209,5 +244,5 @@
       "userOwned": false
     }
   ],
-  "through": 7
+  "through": 12
 }

@@ -5,7 +5,9 @@
     "events": 6,
     "malformed": 0,
     "outOfOrder": 0,
-    "unknownClaims": 0
+    "stepEvents": 0,
+    "unknownClaims": 0,
+    "unmarkedQuestions": 0
   },
   "current": null,
   "ended": null,
