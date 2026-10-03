@@ -641,6 +641,34 @@ class SpecRules(Base):
         self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
 
 
+    # ---- version 7 ----
+
+    JOINED = ("step 7 (Validate the BRN): validate_brn.py ran, but the command joined it to another, which hides its "
+              "exit status: run it as a command of its own")
+
+    # VER-37: a validator run joined to another command is no evidence, and the flag names the cause; && and 2>&1 count.
+    def test_ver37_joined_script_runs(self):
+        for name in ("brn-validate-joined", "brn-validate-piped", "brn-validate-background"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(self.step(state, 7)["evidence"], [])
+                self.assertEqual([(f["gate"], f["type"], f["message"]) for f in self.flags(state, 7)],
+                                 [("report", "skipped", self.JOINED)])
+        read, _, _, _ = self.run_case("brn-validate-read")
+        self.assertEqual([f["message"] for f in self.flags(read, 7)],
+                         ["step 7 (Validate the BRN) has no evidence or tick before the report: expected a successful run "
+                          "of validate_brn.py on a written file"])
+        for name in ("brn-validate-and", "brn-validate-redirect", "brn-validate-continued"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual([e["type"] for e in self.step(state, 7)["evidence"]], ["script"])
+                self.assertEqual(self.flags(state, 7), [])
+        report, _, _, _ = self.run_case("steps-report-event")
+        done8 = [e["seq"] for e in self.events_of("steps-report-event", "step") if e["step"] == 8 and e["state"] == "done"]
+        self.assertEqual((report["gate"]["kind"], report["gate"]["seq"]), ("report", done8[0]))
+        self.assertEqual(report["flags"], [])
+
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

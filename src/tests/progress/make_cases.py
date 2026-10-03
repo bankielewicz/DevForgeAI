@@ -615,6 +615,57 @@ def _():
     return log, plugin_only(), {}
 
 
+
+# ---- version 7 -----------------------------------------------------------------------------------
+
+
+def brn_validated(command):
+    """A brainstorm whose validator ran as `command`, then steps 6 and 8 ticked (VER-37)."""
+    log = brn_start(Log("brainstorm")).write(BRN_PATH, brn(["open"] * 15)).bash(command)
+    return log.tick(6).tick(8)
+
+
+@case("brn-validate-joined")  # VER-37: '; echo' hides the validator's exit status
+def _():
+    return brn_validated(VALIDATE + '; echo "exit=$?"'), plugin_only(), {}
+
+
+@case("brn-validate-piped")  # VER-37: so does a pipe
+def _():
+    return brn_validated(VALIDATE + " | tail -3"), plugin_only(), {}
+
+
+@case("brn-validate-background")  # VER-37: and a background &
+def _():
+    return brn_validated(VALIDATE + " &"), plugin_only(), {}
+
+
+@case("brn-validate-and")  # VER-37: && keeps the validator's status: evidence
+def _():
+    return brn_validated(VALIDATE + " && echo ok"), plugin_only(), {}
+
+
+@case("brn-validate-redirect")  # VER-37: so does a redirection such as 2>&1
+def _():
+    return brn_validated(VALIDATE + " 2>&1"), plugin_only(), {}
+
+
+@case("brn-validate-read")  # VER-37 (review): a pipe that only reads the script ran nothing: the usual message
+def _():
+    return brn_validated("cat .claude/skills/devforgeai/skills/brainstorm/scripts/validate_brn.py | head -40"), plugin_only(), {}
+
+
+@case("brn-validate-continued")  # VER-37 (review): a line continuation joins nothing: evidence
+def _():
+    return brn_validated(VALIDATE.replace(" docs/specs/", " \\\n  docs/specs/", 1)), plugin_only(), {}
+
+
+@case("steps-report-event")  # VER-37: the report gate fires on a done step event for the report step
+def _():
+    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").done(1).worked(2, 3, 4)
+    log.started(5).answer().done(5).started(6).write(BRN_PATH, brn(PROMOTED)).done(6)
+    return log.started(7).bash(VALIDATE).done(7).started(8).done(8), plugin_only(), {}
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():

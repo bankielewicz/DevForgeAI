@@ -117,7 +117,7 @@ function world(on: Any, over: Over = {}): World {
   on('session.surfaces', () => ({ value: over.surfaces ?? ['terminal'] }))
   // The session's tools: by default the task tools are among them, as with the opt-in (SPEC-013 §9).
   on('tool.list', () => (over.toolList === 'reject'
-    ? { deny: 'tool list unavailable' }
+    ? { deny: 'tool list unavailable\nsecond line of the reason' }
     : { value: (over.toolList ?? ['Read', 'Write', 'TaskCreate', 'TaskUpdate', 'ToolSearch']).map(name => ({ name, description: '', mcp: false })) }))
   on('session.start', (_$: Any, e: Any) => ({ cwd: e.cwd }))
   on('classic.SessionStart', () => ({}))
@@ -878,10 +878,12 @@ test('BEH-15: a .gitignore deleted during a run is written again before the next
 
 const TAGGED = `${CHECKLIST}\nKeep this checklist in your task list: one task per step, subject '<N>. <title>', metadata devforgeai_step: N.`
 const QUESTION = { tool: 'AskUserQuestion', questions: [{ question: 'Pick one?', header: 'Pick', options: [], multiSelect: false }] }
-const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (enforce mode): no step is marked in progress in your "
-  + "task list. If you haven't, first turn the skill's checklist into your task list as the skill says (one task per "
-  + 'step, subject <N>. <title>, metadata devforgeai_step: N); then mark the step this question belongs to in_progress '
-  + '(TaskUpdate, or TodoWrite), and ask again.'
+// SPEC-013 v6's text (VER-26): an earlier run's tasks don't count.
+const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (enforce mode): no step of this run is marked in "
+  + "progress in your task list. Tasks from an earlier run don't count: if this run's checklist isn't in your task list "
+  + 'yet, turn it into tasks first as the skill says (one task per step, subject <N>. <title>, metadata '
+  + 'devforgeai_step: N). Then mark the step this question belongs to in_progress (TaskUpdate, or TodoWrite), and ask '
+  + 'again.'
 
 /** Claude Code's task tools: TaskCreate numbers tasks in order; a few calls fail or answer without an ID. */
 function taskTools() {
@@ -1158,4 +1160,70 @@ test('VER-20 / ERR-13: a task subject of several lines gives one adapter.log lin
   const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n')
   expect(log.filter(l => l.includes(' task: ')).length).toBe(1)
   expect(log.some(l => l.includes('refused: forged'))).toBe(false)
+})
+
+// ---- version 6 (VER-26) ----
+
+/** Every adapter.log line is one entry: '<UTC time> <run or -> <kind>: <text>' (DM-02). */
+function oneLineEntries(w: World): boolean {
+  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(Boolean)
+  return lines.length > 0 && lines.every(l => /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ \S+ [a-z-]+: /.test(l))
+}
+
+test('VER-26: a TodoWrite is compared with the list it replaced, so an earlier run\'s completed todo claims nothing', async ($, on) => {
+  const w = world(on, { tool: (e: Any) => (e.tool === 'TodoWrite'
+    ? { result: { oldTodos: e.todos.map((x: Any) => ({ ...x, status: x.content === '3. Draft' ? 'pending' : x.status })), newTodos: e.todos } }
+    : bottomTool(e)) })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'TodoWrite', todos: [
+    { content: '2. Pick', status: 'completed', activeForm: 'x' },
+    { content: '3. Draft', status: 'completed', activeForm: 'x' },
+  ] } as Any)
+  expect(stepsOf(eventsOf(w))).toEqual([[3, 'done']])
+})
+
+// The kit's $ fires events only, so it can't read $.state or play a reload; `claude plugin validate` lists
+// devforgeai.adhered among the module's state writes, and this checks the behaviour that value drives.
+test('VER-26: the adherence notice is once per run, keyed by the run; another run gets its own', async ($, on) => {
+  const w = world(on, { evaluate: stateWith('report', null, 0, 1) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await w.clock.advance(600)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === ADHERENCE(0, 1)).length).toBe(1)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === ADHERENCE(0, 1)).length).toBe(2)
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' adherence: '))
+  expect(new Set(log.map(l => l.split(' ')[1])).size).toBe(2)
+})
+
+test('VER-26: task, adherence, tools and tools-hint lines are one line each, whatever the text', async ($, on) => {
+  const w = world(on, { tool: taskTools(), evaluate: stateWith('report', null, 0, 1) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call({ tool: 'TaskCreate', subject: 'Tidy up\nand a second line', description: 'd' } as Any)
+  await w.clock.advance(600)
+  const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+  expect(log.includes(' task: ')).toBe(true)
+  expect(log.includes(' adherence: ')).toBe(true)
+  expect(oneLineEntries(w)).toBe(true)
+})
+
+test('VER-26: the tools and tools-hint lines are one line each', async ($, on) => {
+  const w = world(on, { toolList: 'reject' })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' tools: ')).toBe(true)
+  expect(oneLineEntries(w)).toBe(true)
+})
+
+test('VER-26: the tools-hint line is one line', async ($, on) => {
+  const w = world(on, { toolList: ['Read'] })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' tools-hint: ')).toBe(true)
+  expect(oneLineEntries(w)).toBe(true)
 })

@@ -1,4 +1,4 @@
-// The progress tracker adapter's $.state contract (SPEC-013 v5 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v6 DM-03). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
@@ -50,6 +50,8 @@ declare module 'claude-code' {
       todos: Record<string, string>
       /** The task-tools hint was shown this session (BEH-23). */
       hinted: boolean
+      /** The run given the adherence notice (BEH-22), so a reload doesn't repeat it. */
+      adhered: string | null
     }
   }
 }

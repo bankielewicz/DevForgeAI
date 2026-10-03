@@ -45,14 +45,14 @@ SKL-008 is reserved for the story skill (SPEC-009).
   in `docs/runbooks/git-v3-checks.md`. The candidate plugin is 0.10.1; native evaluation, manual
   checks, owner approval and deployment are pending. Retain v2's failures and results above.
 - `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; v5 and v6, step
-  events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 approved
-  2026-10-03, not built; ADR-006
+  events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 and v8
+  approved 2026-10-03 (v8 withdrew v7's stale step) and built on `feat/step-events-v7-build` (0.16.0), not merged; ADR-006
   accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
   windows open after two plugin-validator reviews; §13 names what windows still guess.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03, not built): it records each tracked
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03 and built on `feat/step-events-v7-build` (0.16.0), not merged): it records each tracked
   skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
   `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves

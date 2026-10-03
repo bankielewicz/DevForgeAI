@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v6).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v8).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -47,6 +47,15 @@ EVENT_FIELDS = {  # the fields each kind of event must carry (DM-02)
 }
 STEP_STATES = ("started", "done")
 TASK_TAG = "devforgeai_step"  # a skill whose text names it follows the task-list convention (§4, BEH-18)
+# A command whose exit status isn't its script's: ;, |, a line break, or a & that sends a command to the background
+# (&& and redirections such as 2>&1, &> and >& are fine) (BEH-06, version 7).
+JOINED = re.compile(r"[;|\n]|(?<![&<>])&(?![&>])")
+
+
+def joined(command):
+    """Whether a command joins its parts so its exit status may be another command's (BEH-06); a backslash line
+    continuation splits one command over two lines and joins nothing."""
+    return bool(JOINED.search(command.replace("\\\n", " ")))
 UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
             "mark the step it belongs to in progress, then ask")
 CHAIN = ("brainstorm", "prd", "architecture", "context", "epic", "story")
@@ -316,6 +325,7 @@ class Step:
         self.evidence = []      # dicts: seq, type, strength, detail
         self.claims = []        # dicts: seq, state, reason, in seq order
         self.event_claims = set()  # seqs of the claims that are done step events (BEH-05)
+        self.joined = []        # (seq, script file name): runs of its script joined to another command (BEH-06)
         self.gate_state = None  # set by a gate: skipped, not-applicable, unconfirmed
         self.gate_note = ""     # the note that goes with not-applicable
         self.sticky = None      # a gate result later evidence can't undo: skipped, rule-broken
@@ -445,7 +455,7 @@ class Run:
                 return None
             tokens = command.split()
             hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
-            if hit is None or e.get("exit") != rule.get("exit", 0):
+            if hit is None or joined(command) or e.get("exit") != rule.get("exit", 0):
                 return None
             if rule.get("target") == "written" and not any(names_a(t, self.written_before(e["seq"])) for t in tokens):
                 return None
@@ -476,6 +486,24 @@ class Run:
             return "%s %s" % (tool, path)
         return None
 
+    def joined_run(self, rule, e):
+        """The script's file name when a Bash command names a script rule's script but joins it to another command,
+        which hides its exit status (BEH-06, version 7); else None. With target written, a token must also name a
+        written file, as for evidence, so a read of the script (cat … | head) isn't reported as a run."""
+        command = e.get("command")
+        if rule["type"] != "script" or e.get("tool") != "Bash" or not isinstance(command, str) \
+                or e.get("error") is True or not joined(command):
+            return None
+        tokens = command.split()
+        hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
+        if hit is None:
+            return None
+        if rule.get("target") == "written":
+            written = self.written_before(e["seq"])
+            if not any(names_a(t.strip("'\";()|&"), written) for t in tokens):
+                return None
+        return PurePosixPath(hit).name
+
     def take_tool(self, e):
         if self.write_gate is not None:
             for rule in self.write_gate.rules:
@@ -493,6 +521,9 @@ class Run:
                     step.evidence.append({"seq": e["seq"], "type": rule["type"], "strength": strength,
                                           "detail": detail})
                     break
+                joined = self.joined_run(rule, e)
+                if joined:
+                    step.joined.append((e["seq"], joined))
 
     def take_reply(self, e):
         for line in e["text"].splitlines():
@@ -530,7 +561,7 @@ class Run:
 
     def in_progress(self, upto=INFINITY):
         """The step in progress before `upto`: the step whose latest step event is started, the latest started when
-        several are (BEH-07, BEH-18); None when no step is."""
+        several are (BEH-07, BEH-18); None when no step is. A mark stands until a step event ends it (version 8)."""
         latest = {}
         for seq, n, state in self.step_events:
             if seq >= upto:
@@ -538,6 +569,7 @@ class Run:
             latest[n] = (state, seq)
         started = [(seq, n) for n, (state, seq) in latest.items() if state == "started"]
         return max(started)[1] if started else None
+
 
     # -- gates' positions --
 
@@ -652,17 +684,21 @@ class Run:
                     step.gate_state, step.gate_note = "not-applicable", "no answer; left open"
                 continue
             state = step.base_state(seq)
+            joined = [name for s, name in step.joined if s < seq]
+            # A run of the step's script whose exit status another command hid: the flag names it (BEH-08, version 7).
+            hidden = ("step %d (%s): %s ran, but the command joined it to another, which hides its exit status: run it "
+                      "as a command of its own" % (step.n, step.title, joined[-1])) if joined else None
             if state == "pending":
                 if step.need == "required":
                     step.gate_state = "skipped"
-                    self.flag(new, gate, seq, step, "skipped", "step %d (%s) has no evidence or tick before %s: expected %s"
+                    self.flag(new, gate, seq, step, "skipped", hidden or "step %d (%s) has no evidence or tick before %s: expected %s"
                               % (step.n, step.title, GATE_WORDS[gate], step.skipped_expectation()))
                 elif step.need == "conditional":
                     step.gate_state, step.gate_note = "not-applicable", step.when or ""
                 else:
                     step.gate_state = "unconfirmed"
             elif state == "claimed":
-                self.flag(new, gate, seq, step, "claimed-not-evidenced", "step %d (%s) is ticked, but %s wasn't seen"
+                self.flag(new, gate, seq, step, "claimed-not-evidenced", hidden or "step %d (%s) is ticked, but %s wasn't seen"
                           % (step.n, step.title, step.expected_evidence()))
 
     def content_of(self, e):
