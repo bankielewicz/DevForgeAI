@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v2).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v3).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -376,7 +376,8 @@ class Run:
 
     def __init__(self, events, manifest, manifest_state, root):
         self.events, self.root = events, root
-        # The --root prefixes a Bash read token may carry: as given, and absolute (BEH-06).
+        # The --root prefixes a Bash read token may carry: as given, and absolute (BEH-06); each event's tokens once.
+        self.token_cache = {}
         self.roots = sorted({r.rstrip("/") for r in (root, os.path.abspath(root))}, key=len, reverse=True) if root else []
         self.tracked = manifest_state in ("matched", "unverified")
         loaded = events[0]
@@ -425,7 +426,9 @@ class Run:
             command = e.get("command")
             if not isinstance(command, str) or e.get("exit") != rule.get("exit", 0) or not bash_readable(rule["pattern"]):
                 return None
-            for token in read_tokens(command, self.roots):
+            if e["seq"] not in self.token_cache:
+                self.token_cache[e["seq"]] = read_tokens(command, self.roots)
+            for token in self.token_cache[e["seq"]]:
                 if not rule_path_matches(token, rule):
                     continue
                 if rule.get("target") == "written" and not names_a(token, self.written_before(e["seq"])):
@@ -437,7 +440,11 @@ class Run:
             return None
         if kind == "write" and tool in ("Write", "Edit") and path_matches(path, rule["pattern"]):
             return "%s %s" % (tool, path)
-        if kind == "read" and tool in ("Read", "Glob", "Grep") and rule_path_matches(path, rule):
+        if kind == "read" and tool in ("Read", "Glob", "Grep"):
+            # An adapter can record a Glob at the project root as ./<pattern>: read like the rest (BEH-06, version 3).
+            path = path[2:] if path.startswith("./") else path
+            if not rule_path_matches(path, rule):
+                return None
             if rule.get("target") == "written" and not names_a(path, self.written_before(e["seq"])):
                 return None
             return "%s %s" % (tool, path)
@@ -520,7 +527,10 @@ class Run:
         hard = min([self.gate_seq_for(step)] + after)
         # "Over the whole log" is bounded by the window's own close: evidence of an earlier step that
         # comes after the gate (a re-read, say) mustn't move the opening past the close.
-        before = [seq for s in self.steps if s.n < step.n for seq in s.signals() if seq < hard]
+        # BEH-09 (version 3): each earlier step's first signal, so a re-read, re-listing or re-tick after the answer
+        # doesn't move the opening; a conditional step that isn't the user's (an inspection) can come at any time.
+        before = [min(s.signals()) for s in self.steps if s.n < step.n and s.signals() and min(s.signals()) < hard
+                  and not (s.need == "conditional" and not s.user_owned)]
         opens = max(before) if before else self.events[0]["seq"]
         return opens, min([hard] + [c["seq"] for c in step.claims]), hard
 
