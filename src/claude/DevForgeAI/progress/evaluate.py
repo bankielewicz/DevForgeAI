@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v2).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -120,6 +120,9 @@ def check_manifest_shape(m, path):
                 bad("step %s has an evidence rule of unknown type" % n)
             if rule["type"] != "answer" and not isinstance(rule.get("pattern"), str):
                 bad("step %s has a %s rule with no pattern" % (n, rule["type"]))
+            if "exclude" in rule and (rule["type"] != "read" or not isinstance(rule["exclude"], list)
+                                      or not all(isinstance(x, str) for x in rule["exclude"])):
+                bad("step %s has an exclude that isn't a list of patterns on a read rule" % n)
     for rule in m.get("contentRules", []):
         if not isinstance(rule, dict) or any(k not in rule for k in ("step", "path", "field", "scope", "allowed")):
             bad("a content rule lacks step, path, field, scope or allowed")
@@ -253,6 +256,38 @@ def path_matches(path, pattern):
     return fnmatchcase(path, pattern)
 
 
+def rule_path_matches(path, rule):
+    """A path or read token against a rule (BEH-06): patterns are relative to the project root, so one still starting
+    with / or ../ matches none; then the pattern, as text or as a folder, and none of the rule's exclude patterns."""
+    if path.startswith("/") or path.startswith("../"):
+        return False
+    return path_matches(path, rule["pattern"]) and not any(path_matches(path, x) for x in rule.get("exclude", ()))
+
+
+def bash_readable(pattern):
+    """Whether a read rule takes Bash evidence: no wildcard in its pattern's first path segment (BEH-06), since a
+    token such as cat would match a pattern of *."""
+    first = pattern.split("/", 1)[0]
+    return bool(first) and not any(c in first for c in "*?[")
+
+
+def read_tokens(command, roots):
+    """A Bash command's read tokens (BEH-06): its words split at whitespace, every quote character removed, the
+    characters ; ( ) stripped from both ends, a leading ./ removed, and a --root prefix and its / removed."""
+    tokens = []
+    for word in command.split():
+        token = word.replace("'", "").replace('"', "").strip(";()")
+        if token.startswith("./"):
+            token = token[2:]
+        for root in roots:
+            if token.startswith(root + "/"):
+                token = token[len(root) + 1:]
+                break
+        if token:
+            tokens.append(token)
+    return tokens
+
+
 def names_a(candidate, written):
     """Whether a path or command token names one of the written files."""
     return any(candidate == w or candidate.endswith("/" + w) for w in written)
@@ -309,8 +344,18 @@ class Step:
             elif rule["type"] == "answer":
                 what.append("an answer from you")
             else:
-                what.append("a %s of %s" % (rule["type"], rule["pattern"]))
-        return " or ".join(what) or "evidence"
+                text = "a %s of %s" % (rule["type"], rule["pattern"])
+                if rule.get("exclude"):
+                    text += " except " + ", ".join(rule["exclude"])
+                what.append(text)
+        return " or ".join(what)
+
+    def skipped_expectation(self):
+        """What a skipped flag says the step expected (BEH-08): its evidence, or a tick when no rule is strong."""
+        if not self.rules:
+            return "a tick in the reply text"
+        expected = self.expected_evidence()
+        return expected if self.strong else expected + ", or a tick in the reply text"
 
 
 def field_values(text, field, scope):
@@ -331,6 +376,8 @@ class Run:
 
     def __init__(self, events, manifest, manifest_state, root):
         self.events, self.root = events, root
+        # The --root prefixes a Bash read token may carry: as given, and absolute (BEH-06).
+        self.roots = sorted({r.rstrip("/") for r in (root, os.path.abspath(root))}, key=len, reverse=True) if root else []
         self.tracked = manifest_state in ("matched", "unverified")
         loaded = events[0]
         if self.tracked:
@@ -374,12 +421,23 @@ class Run:
             if rule.get("target") == "written" and not any(names_a(t, self.written_before(e["seq"])) for t in tokens):
                 return None
             return "%s exit %d" % (PurePosixPath(hit).name, e["exit"])
+        if kind == "read" and tool == "Bash":
+            command = e.get("command")
+            if not isinstance(command, str) or e.get("exit") != rule.get("exit", 0) or not bash_readable(rule["pattern"]):
+                return None
+            for token in read_tokens(command, self.roots):
+                if not rule_path_matches(token, rule):
+                    continue
+                if rule.get("target") == "written" and not names_a(token, self.written_before(e["seq"])):
+                    continue
+                return "Bash %s" % token
+            return None
         path = e.get("path")
         if not isinstance(path, str):
             return None
         if kind == "write" and tool in ("Write", "Edit") and path_matches(path, rule["pattern"]):
             return "%s %s" % (tool, path)
-        if kind == "read" and tool in ("Read", "Glob", "Grep") and path_matches(path, rule["pattern"]):
+        if kind == "read" and tool in ("Read", "Glob", "Grep") and rule_path_matches(path, rule):
             if rule.get("target") == "written" and not names_a(path, self.written_before(e["seq"])):
                 return None
             return "%s %s" % (tool, path)
@@ -513,8 +571,8 @@ class Run:
             if state == "pending":
                 if step.need == "required":
                     step.gate_state = "skipped"
-                    self.flag(new, gate, seq, step, "skipped", "step %d (%s) has no evidence or tick before %s"
-                              % (step.n, step.title, GATE_WORDS[gate]))
+                    self.flag(new, gate, seq, step, "skipped", "step %d (%s) has no evidence or tick before %s: expected %s"
+                              % (step.n, step.title, GATE_WORDS[gate], step.skipped_expectation()))
                 elif step.need == "conditional":
                     step.gate_state, step.gate_note = "not-applicable", step.when or ""
                 else:

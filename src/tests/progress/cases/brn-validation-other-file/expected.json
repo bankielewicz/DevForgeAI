@@ -53,6 +53,12 @@
           "seq": 2,
           "strength": "medium",
           "type": "read"
+        },
+        {
+          "detail": "Bash docs/specs/brainstorm/BRN-001.md",
+          "seq": 5,
+          "strength": "medium",
+          "type": "read"
         }
       ],
       "kind": "read",
