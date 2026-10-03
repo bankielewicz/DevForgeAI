@@ -212,9 +212,13 @@ def read_events(path):
             counts["malformed"] += 1
             continue
         if well_formed(e):
-            if e["kind"] == "tool" and isinstance(e.get("path"), str) and e["path"].startswith("./"):
-                # Every tool's ./ path is read like the rest (BEH-06): a Glob at the root, or a Write's relative path.
-                e["path"] = e["path"][2:]
+            if e["kind"] == "tool" and isinstance(e.get("path"), str):
+                # Every tool's path is read like the rest (BEH-06): a leading ./ removed, as from a Glob at the root
+                # or a Write's relative path, after repeated slashes collapse (a build departure, SPEC-012 §9).
+                tool_path = re.sub(r"/{2,}", "/", e["path"])
+                while tool_path.startswith("./"):
+                    tool_path = tool_path[2:]
+                e["path"] = tool_path
             valid.append(e)
         else:
             counts["malformed"] += 1

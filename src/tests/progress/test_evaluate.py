@@ -540,10 +540,13 @@ class SpecRules(Base):
 
     # VER-29: a Write's ./ path reaches the write gate.
     def test_ver29_a_dot_write_reaches_the_gate(self):
-        state, _, _, _ = self.run_case("write-dot-path")
         cut, _, _, _ = self.run_case("brn-unconfirmed-cut")
-        self.assertEqual([(f["step"], f["type"]) for f in state["flags"]], [(f["step"], f["type"]) for f in cut["flags"]])
-        self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", True))
+        for name in ("write-dot-path", "write-double-slash"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual([(f["step"], f["type"]) for f in state["flags"]],
+                                 [(f["step"], f["type"]) for f in cut["flags"]])
+                self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", True))
 
 
 class SpecRulesUnderS(SpecRules):

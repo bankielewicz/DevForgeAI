@@ -515,6 +515,11 @@ def _():
     return brn_start(Log("brainstorm")).write("./" + BRN_PATH, brn(PROMOTED)), plugin_only(), {}
 
 
+@case("write-double-slash")  # VER-29, a build departure: repeated slashes collapse, so this Write reaches the gate too
+def _():
+    return brn_start(Log("brainstorm")).write(".//docs/specs//brainstorm/BRN-002.md", brn(PROMOTED)), plugin_only(), {}
+
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():
