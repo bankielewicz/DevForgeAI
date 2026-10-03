@@ -30,7 +30,8 @@
         "prompt",
         "reply",
         "turn",
-        "run-end"
+        "run-end",
+        "step"
       ]
     }
   },
@@ -63,6 +64,10 @@
           "host": {
             "type": "string",
             "description": "for example claude-code 2.1.287"
+          },
+          "taskList": {
+            "type": "boolean",
+            "description": "the host offers a task list the skill can keep its steps in (version 5)"
           }
         }
       }
@@ -141,6 +146,33 @@
         "properties": {
           "text": {
             "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "step"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "step",
+          "state"
+        ],
+        "properties": {
+          "step": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "state": {
+            "enum": [
+              "started",
+              "done"
+            ]
           }
         }
       }

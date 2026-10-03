@@ -548,6 +548,93 @@ class SpecRules(Base):
                                  [(f["step"], f["type"]) for f in cut["flags"]])
                 self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", True))
 
+    # ---- versions 5 and 6 ----
+
+    @staticmethod
+    def events_of(name, kind=None):
+        lines = (mc.CASES / name / "events.jsonl").read_text(encoding="utf-8").splitlines()
+        return [e for e in map(json.loads, lines) if kind is None or e["kind"] == kind]
+
+    def answer_seqs(self, step):
+        return [e["seq"] for e in step["evidence"] if e["type"] == "answer"]
+
+    # VER-30: step events place a brainstorm's answers: the intake answer is step 1's own, the confirmation step 5's.
+    def test_ver30_steps_brainstorm(self):
+        state, _, _, _ = self.run_case("steps-brainstorm")
+        intake, confirmation = [e["seq"] for e in self.events_of("steps-brainstorm", "answer")]
+        self.assertEqual(state["flags"], [])
+        self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", False))
+        s5 = self.step(state, 5)
+        self.assertEqual(s5["state"], "done")
+        self.assertEqual([(e["seq"], e["strength"]) for e in s5["evidence"]], [(confirmation, "strong")])
+        self.assertNotIn(intake, [e["seq"] for s in state["steps"] for e in s["evidence"]])
+        self.assertEqual(state["counts"]["stepEvents"], len(self.events_of("steps-brainstorm", "step")))
+        self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
+
+    # VER-31: with step events, step 7 keeps its two answers and step 8 its typed prompt, re-ticks or not.
+    def test_ver31_steps_arch(self):
+        state, _, _, _ = self.run_case("steps-arch")
+        answers = [e["seq"] for e in self.events_of("steps-arch", "answer")]
+        prompt = [e["seq"] for e in self.events_of("steps-arch", "prompt")]
+        self.assertEqual(state["flags"], [])
+        self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", False))
+        s7, s8 = self.step(state, 7), self.step(state, 8)
+        self.assertEqual((s7["state"], self.answer_seqs(s7)), ("done", answers))
+        self.assertEqual((s8["state"], self.answer_seqs(s8)), ("done", prompt))
+        self.assertEqual([e["detail"] for e in s8["evidence"]], ["prompt"])
+
+    # VER-32: a question asked while no step is in progress is a question gate; a prompt there raises nothing.
+    def test_ver32_unmarked_question(self):
+        message = ("a question was asked while no step was marked in progress in the task list: "
+                   "mark the step it belongs to in progress, then ask")
+        cut, _, _, _ = self.run_case("steps-unmarked-question-cut")
+        seq = self.events_of("steps-unmarked-question-cut", "answer")[0]["seq"]
+        self.assertEqual(cut["flags"], [{"gate": "question", "seq": seq, "step": 7, "type": "unmarked-question",
+                                         "message": message}])
+        self.assertEqual(cut["gate"], {"kind": "question", "seq": seq, "refuse": True, "reason": message})
+        self.assertNotIn(seq, [e["seq"] for s in cut["steps"] for e in s["evidence"]])
+        self.assertEqual(cut["counts"]["unmarkedQuestions"], 1)
+        self.assertEqual(cut["counts"]["stepEvents"], len(self.events_of("steps-unmarked-question-cut", "step")))
+        full, _, _, _ = self.run_case("steps-unmarked-question")
+        self.assertEqual(sorted((f["step"], f["type"]) for f in full["flags"]),
+                         [(7, "unmarked-question"), (8, "skipped"), (9, "rule-broken")])
+        self.assertEqual((full["gate"]["kind"], full["gate"]["refuse"]), ("write", True))
+        prompt, _, _, _ = self.run_case("steps-unmarked-prompt")
+        self.assertEqual(prompt["flags"], [])
+        self.assertEqual(prompt["gate"], {"kind": None, "seq": None, "refuse": False, "reason": None})
+        self.assertEqual(prompt["counts"]["unmarkedQuestions"], 0)
+        self.assertNotIn(self.events_of("steps-unmarked-prompt", "prompt")[0]["seq"],
+                         [e["seq"] for s in prompt["steps"] for e in s["evidence"]])
+
+    # VER-33: current follows step events; a conditional step done with no evidence doesn't apply; step 40 is unknown.
+    def test_ver33_current_and_step_events(self):
+        state, _, _, _ = self.run_case("steps-current")
+        answer = self.events_of("steps-current", "answer")[0]["seq"]
+        manifest = json.loads((PROGRESS / "manifests/architecture.json").read_text(encoding="utf-8"))
+        self.assertEqual(state["current"], 8)
+        self.assertEqual(self.answer_seqs(self.step(state, 8)), [answer])
+        self.assertEqual(self.answer_seqs(self.step(state, 7)), [])
+        s5 = self.step(state, 5)
+        self.assertEqual((s5["state"], s5["note"]), ("not-applicable", manifest["steps"]["5"]["when"]))
+        self.assertEqual(state["counts"]["unknownClaims"], 1)
+        self.assertEqual(state["flags"], [])
+
+    # VER-34 and SPEC-013 VER-24: without the tag, or without a task list, nothing changes and nothing is refused;
+    # step events Claude kept unasked still place answers, and an answer with no step in progress goes to the windows.
+    def test_ver34_rollout(self):
+        base, _, _, _ = self.run_case("arch-outcome-confirmed")
+        for name in ("rollout-untagged", "tasklist-false-tagged"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(state, base)
+        state, _, _, _ = self.run_case("rollout-unasked-steps")
+        first, second = [e["seq"] for e in self.events_of("rollout-unasked-steps", "answer")]
+        self.assertEqual(state["flags"], [])
+        self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", False))
+        self.assertEqual(self.answer_seqs(self.step(state, 7)), [first])
+        self.assertEqual(self.answer_seqs(self.step(state, 8)), [second])
+        self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
+
 
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
