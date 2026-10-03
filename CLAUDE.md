@@ -45,8 +45,8 @@ SKL-008 is reserved for the story skill (SPEC-009).
   in `docs/runbooks/git-v3-checks.md`. The candidate plugin is 0.10.1; native evaluation, manual
   checks, owner approval and deployment are pending. Retain v2's failures and results above.
 - `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; v5 and v6, step
-  events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 approved
-  2026-10-03 and built on `feat/step-events-v7-build` (0.16.0), not merged; ADR-006
+  events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 and v8
+  approved 2026-10-03 (v8 withdrew v7's stale step) and built on `feat/step-events-v7-build` (0.16.0), not merged; ADR-006
   accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
