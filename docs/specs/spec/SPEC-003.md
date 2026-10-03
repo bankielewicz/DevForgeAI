@@ -3,9 +3,9 @@ id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
 status: approved
-version: 5
+version: 6
 created: 2026-09-23
-updated: 2026-10-01
+updated: 2026-10-03
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "388b2532-f519-4deb-b4ce-3e294d7e3b10"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-01
+approved_on: 2026-10-03
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
@@ -24,6 +24,7 @@ upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
+  - {id: SPEC-012, relation: constrains, version: 5, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -51,6 +52,12 @@ Three rules shape everything else:
   insufficient evidence is stated as unknown.
 
 The skill is recorded as `SKL-003` in its `provenance.yaml`.
+
+**Version 6** (2026-10-03) has the skill keep its workflow checklist in Claude Code's task list when the session
+has one, as the progress tracker's task-list convention asks (SPEC-012 §4), so that each decision and the
+outcome are credited to the step that asked for them (BEH-17). It also confirms the outcome at step 8, once the
+change is known, before it writes to an existing ARCH: a reuse or amend chosen at step 4 picks the direction,
+and step 8 approves the result (BEH-08).
 
 ## 2. Constraints
 
@@ -195,7 +202,9 @@ metadata:
   - code inspection: read-only, and every path read, listed or searched is inside the inspection scope. Read, Glob and Grep when available, otherwise read-only shell commands (ls, find, grep, cat, head) with explicit paths inside the scope; never a whole-repository listing or search. The project documents read by contract (docs/specs/prd/, arch/, adr/, policy/ and .claude/devforgeai.local.md) are outside this rule, and validating the documents written (BEH-14) is separate from inspection;
   - Write and Edit for the ARCH and ADRs;
   - Bash only to run `python3` with the shared policy validation script (SPEC-002 §5), and to run the read-only commands ls, find, grep, cat, head and test -f with explicit paths in the documents read by contract, the skill's own files or the inspection scope: no writes, no redirection, and no running, installing or building project code. Claude Code may provide no Glob or Grep tool, so listing these folders can need Bash;
-  - AskUserQuestion, with at most 4 questions per call.
+  - AskUserQuestion, with at most 4 questions per call;
+  - when the session has them, the task-list tools (TaskCreate and TaskUpdate, or TodoWrite) for the workflow
+    checklist (BEH-17).
 - **Downstream contract (consumed by the epic workflow, and by the context and story steps):**
   - the ARCH path and stable CMP, DEC and EVD IDs;
   - epics may be written only for requirements that the readiness rule reports ready;
@@ -231,7 +240,7 @@ behaviors:
     rule: "Resolve each question only by one of three means. (1) An approved, active mandated-platform setting that answers exactly this question: resolved_by POL-NNN#SET-NN, applied as policy, not a user decision. (2) An existing accepted, non-superseded ADR that the user confirms answers exactly this question. (3) The user's explicit decision among the options presented with trade-offs, which is written as a new ADR with status accepted and approved_by the user. Anything else stays open. A deferred decision may be written as a proposed ADR that resolves nothing. When the user later decides a question that has a proposed ADR, the decision is a new accepted ADR that supersedes the proposed one; the user's decision is the approval. A DEC reopened because its mandated platform changed (§4) is resolved again by that setting only when the user confirms that the setting as it now stands answers it, as for an existing ADR in (2); with no user it stays open. While the DEC's most recent transition in the Change Log is that reopening (BEH-09), no run resolves it by that setting without the user's confirmation. An ADR or setting resolves only the question it answers, never every question that cites the same requirement."
   - id: BEH-08
     status: active
-    rule: "Propose the outcome with reasons: reuse (the existing ARCH links this PRD and covers it unchanged, and this run changes no DEC), amend (the existing ARCH needs new or changed questions or components, or this run records a decision on an existing DEC or reopens one) or create (no ARCH covers the system). Offer reuse only as BEH-04 allows. Reusing one platform or component is not a reuse outcome. When any DEC's state or resolved_by changes in this run, the outcome is amend: if reuse was chosen earlier, say why and ask again. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When reuse is proposed, and in the handoff when it is confirmed, name every active requirement of the PRD that no active blocking DEC cites, and say that it is reported ready with no architectural question holding it back. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing."
+    rule: "Propose the outcome with reasons: reuse (the existing ARCH links this PRD and covers it unchanged, and this run changes no DEC), amend (the existing ARCH needs new or changed questions or components, or this run records a decision on an existing DEC or reopens one) or create (no ARCH covers the system). Offer reuse only as BEH-04 allows. Reusing one platform or component is not a reuse outcome. When any DEC's state or resolved_by changes in this run, the outcome is amend: if reuse was chosen earlier, say why and ask again. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When reuse is proposed, and in the handoff when it is confirmed, name every active requirement of the PRD that no active blocking DEC cites, and say that it is reported ready with no architectural question holding it back. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing. A reuse or amend chosen at step 4 (BEH-04), in an answer or the request, picks the direction but doesn't confirm the outcome when the run will write to the existing ARCH (an amendment, or reuse's review record): step 8 then asks for confirmation once the change is known, naming what will change, such as the DEC, CMP and EVD items added, the DECs whose state or resolver changes, the ADRs accepted or superseded, the new version, and an approved ARCH's return to in-review. A request that explicitly confirms the outcome confirms it, and step 8 asks nothing more; so does a request to proceed without questions, which asks nothing at all (Bryan, 2026-10-03)."
   - id: BEH-09
     status: active
     rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review. Those transitions are a decision recorded on an existing DEC (BEH-07), and reopening a DEC whose resolver no longer counts: a superseded ADR, or a mandated platform that changed (§4). The Change Log row that reopens a DEC for a changed mandated platform names the DEC, the setting, and the platform recorded before and now. A review record, written when the user confirms reuse against a newer PRD version, makes exactly three changes: the frontmatter PRD link moves to the reviewed version, outcome becomes reuse, and one Change Log row is added, 'Reviewed against PRD-NNN vN: reuse confirmed, no architectural change', ending with the policy resolution line. Everything else stays byte-identical, including version, updated, status, the approval fields and every item with its links, which still show as suspect. It is a relink, not an amendment, so an approved ARCH stays approved. With no user, nothing is confirmed and nothing is written."
@@ -256,6 +265,9 @@ behaviors:
   - id: BEH-16
     status: active
     rule: "Never modify a PRD, BRN or policy document, and never modify an existing ADR other than to record a supersession the user explicitly approved."
+  - id: BEH-17
+    status: active
+    rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: which PRD to step 2, reuse, amend or create to step 4, going outside the inspection scope to step 5, every decision question to step 7, and the outcome to step 8. So step 7 is completed and step 8 in progress before the outcome question is asked, alone in its own form. Never put two steps' questions in one question form. Mark each step completed as soon as it is done, one at a time, a step with nothing to do included (step 5 with no scope, step 7 with no open question). Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
 ```
 
 ## 7. Errors and edge cases
@@ -595,12 +607,42 @@ verifications:
     upstream:
       - {id: STORY-003, item: AC-02, relation: verifies, version: 3, hash: null}
       - {id: STORY-003, item: AC-06, relation: verifies, version: 3, hash: null}
+  - id: VER-26
+    status: active
+    obligation: "With the task-list tools allowed, VER-01's fixture and prompt give a task list kept by the convention: at least 11 TaskCreate calls whose input carries devforgeai_step, one of them with the subject '8. Propose and confirm the outcome'; the first TaskCreate before the first Write; at least 11 TaskUpdate calls to completed; and ARCH-001 still written. Eval case keeps-task-list, generated by make_evals.py: allowed_tools adds TaskCreate, TaskUpdate, TaskList and TaskGet; tool_used graders with input_match, tool_order, file_exists. A TaskUpdate's input names only a task ID and a status, so which task is which step, and the marking before a question, are checked live by VER-27."
+    level: e2e
+    covers:
+      - BEH-17
+    upstream:
+      - {id: STORY-003, item: AC-01, relation: verifies, version: 3, hash: null}
+  - id: VER-27
+    status: active
+    obligation: "Live, in a session with the task tools, with SPEC-013's VER-22: an architecture run in which the user answers keeps its list, with step 7 in progress for every decision form, step 7 completed and step 8 in progress before the outcome question, asked alone, and each step completed in order; the tracker records step events for all 11 steps and flags no question gate (counts.unmarkedQuestions 0). Recorded in §9."
+    level: manual
+    covers:
+      - BEH-17
+    upstream:
+      - {id: STORY-003, item: AC-03, relation: verifies, version: 3, hash: null}
+  - id: VER-28
+    status: active
+    obligation: "Confirming an amendment at step 8: an approved ARCH-001 links PRD-001 version 1, and PRD-001 version 2 adds a requirement that raises a new question. The prompt runs the skill for PRD-001, chooses to amend ARCH-001 without confirming the outcome, and defers every new question (decide later). Nothing is written to ARCH-001 before the outcome is confirmed: it is byte-identical, and the final reply asks to confirm amend, naming what amending changes: at least the new DEC, the new version and ARCH-001's return to in-review. Eval case confirms-amend-at-step-8, generated by make_evals.py: regex on the file, llm grader on last_message."
+    level: e2e
+    covers:
+      - BEH-08
+    upstream:
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
 
 The skill and the ARCH type are new; removing the skill directory rolls it back. The schema change is
 additive: the `ARCH` document prefix and the `CMP`, `DEC` and `EVD` item prefixes.
+
+Version 6 (SKL-003 v7) ships in a plugin version no earlier than the one that builds SPEC-012 version 5 and
+SPEC-013 version 5, so a session without the task tools is never held to a task list. The checklist's lines
+don't change, so the tracker's architecture manifest stays matched. Rolling back is returning to SKL-003 v6; the
+tracker then places the run's answers by its windows again (SPEC-012 BEH-09). The Codex architecture skill
+isn't changed: the tracker's adapter is Claude Code's (SPEC-013).
 
 ## 11. Implementation plan
 
@@ -633,6 +675,19 @@ follows the same contract.
 3. Evaluate the whole suite, cheapest first, then run VER-12 (a), (j) and (k), VER-19 and VER-20 by
    hand. The Codex architecture skill follows the same contract, through a Codex session.
 
+**Version 6** (after approval), through `/plugin-dev:create-plugin` and Anthropic's two skill guides:
+1. In `src/tests/architecture/make_evals.py`, add the cases `keeps-task-list` (VER-26) and
+   `confirms-amend-at-step-8` (VER-28); regenerating must leave the existing cases unchanged. Run both on SKL-003
+   v6 with `--runs 1 --ablation none`; they fail, since v6's text names no `devforgeai_step` and takes step 4's
+   amend as the confirmation.
+2. Build SKL-003 v7: the Workflow section takes BEH-17's wording and step 8 BEH-08's confirmation, `provenance.yaml` and
+   `metadata.devforgeai-version` go to 7, skill-reviewer reviews it, and `evaluate.py check` (SPEC-012 IF-02)
+   reports the architecture manifest matched.
+3. Evaluate cheapest first: `keeps-task-list` with `--runs 1 --ablation none`, then the suite with `--runs 1`,
+   then 3 runs with the baseline. A trace with no TaskCreate call means the case's `allowed_tools` didn't give
+   the eval's model the task tools: record it in §9 and bring it to the owner before the full suite.
+4. Once the plugin version that builds SPEC-012 version 5 and SPEC-013 version 5 is deployed, run VER-27 live.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -642,10 +697,21 @@ follows the same contract.
 | Require the user to name every file to inspect | Too much friction. Named components or directories, with read-only discovery inside them, instead |
 | Crawl the whole codebase | Unbounded cost, and it mixes observed practice with decisions. Bounded inspection and EVD classification instead |
 | Require an approved PRD first | Makes architectural exploration expensive. Drafts are allowed with a warning, and product questions are never turned into decisions |
+| Tick the checklist in the reply only | The tracker can't tell which step a question belongs to when Claude asks before it ticks: a live run asked step 7's and 8's questions under step 6 (SPEC-012 §9); ticks stay the fallback without a task list |
 | Let the skill amend PRD requirements | Downstream never edits upstream, and the PRD's extension mode is append-only. Proposed changes go to the PRD owner (BEH-12) |
 
 ## 13. Open questions
 
+- Resolved (Bryan, 2026-10-03): step 4's reuse-or-amend answer used to confirm the outcome for step 8 as well,
+  but SPEC-012's architecture manifest lets `outcome` take a value only with an answer counted for step 8, so
+  the tracker flagged such a run's ARCH write (refused in enforce mode). Step 8 now confirms the outcome once the
+  change is known (BEH-08): the question guards an existing ARCH, and the tracker needs no change.
+- Open (2026-10-03): whether declining at step 8 should leave an existing ARCH untouched. Today an unconfirmed
+  amendment is still written, with `outcome: null` (the skill's output rules), so the question shows the change
+  before it is written but doesn't stop it.
+- Resolved (Bryan, 2026-10-03, with SPEC-012 version 5): tracked skills keep their checklist in the task list,
+  and a question asked with no step in progress is refused in enforce mode; a skill whose runs don't keep the
+  list is fixed through its spec (SPEC-012 §4).
 - Resolved (decision D4, 2026-10-01): the description needs no "Not for…" clause. Bryan ran a
   near-miss trigger probe from a plain terminal (Claude Code 2.1.286, the plugin loaded with
   `--plugin-dir`, an empty folder). The skill didn't load for "monolith or microservices for my Flask
@@ -674,3 +740,5 @@ follows the same contract.
 | 5 | 2026-10-01 | Bryan | Approved | status |
 | 5 | 2026-10-01 | claude-code (session 388b2532-f519-4deb-b4ce-3e294d7e3b10) | Record-only update, with no version bump: §9 records SKL-003 v6's evaluation (the five new cases on v5 and on v6; one run 21 of 21 at 1.00; the 3-run qualification, 21 of 21 at 1.00, across two folders bound to one commit and digest), the manual VER-12 (a), (j), (k) and (l), VER-19 and VER-20 passes, and Bryan's approval of SKL-003 v6 on 2026-10-01. No item changed | §9 |
 | 5 | 2026-10-01 | claude-code (session 388b2532-f519-4deb-b4ce-3e294d7e3b10) | Record-only update, with no version bump: §9 records SKL-003 v6's merge in PR #54 and deployment (plugin 0.10.0), and corrects the paths of the two 2026-09-29 runs, whose folders were renamed with an `arch-stray-` prefix when they were moved to `tmp/eval-results/`. No item changed | §9 |
+| 6 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 5's task-list convention (Bryan, 2026-10-03): BEH-17 keeps the workflow checklist in the session's task list, when it has one, with each question asked under its step and the outcome asked alone under step 8; new VER-26 (eval case keeps-task-list) and VER-27 (live); §5 lists the task tools; SPEC-012 link. Bryan's decision of 2026-10-03: BEH-08 confirms the outcome at step 8 once the change is known whenever the run writes to an existing ARCH, since step 4's choice picks only the direction (which also closes a gap in SPEC-012's outcome rule); new VER-28 (eval case confirms-amend-at-step-8); §13 | frontmatter, §1, §5, BEH-08, BEH-17, VER-26, VER-27, VER-28, §10, §11, §12, §13 |
+| 6 | 2026-10-03 | Bryan | Approved, with step 8 confirming the outcome once the change is known (BEH-08) | status, BEH-08, §13 |

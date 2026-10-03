@@ -3,9 +3,9 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: approved
-version: 10
+version: 11
 created: 2026-09-22
-updated: 2026-09-27
+updated: 2026-10-03
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,13 +14,14 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-09-27
+approved_on: 2026-10-03
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
+  - {id: SPEC-012, relation: constrains, version: 5, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -43,6 +44,10 @@ extension point and one default framework. The catalog is chosen later (PRD-001 
 adding a framework never changes `SKILL.md`.
 
 This skill implements the spec and is recorded as `SKL-001` in its `provenance.yaml`.
+
+**Version 11** (2026-10-03) has the skill keep its workflow checklist in Claude Code's task list when the session
+has one, as the progress tracker's task-list convention asks (SPEC-012 §4), so that each answer is credited to
+the step that asked for it (BEH-12).
 
 ## 2. Constraints
 
@@ -121,7 +126,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "4"
+  devforgeai-version: "6"
 ```
 
 - **Arguments:** `$ARGUMENTS` is the topic, and may be empty (BEH-01).
@@ -132,7 +137,8 @@ metadata:
   user-confirmed values (BEH-06); `status: converged` only after the user confirms convergence. The
   PRD skill cites BRN items through `upstream` links such as `{id: BRN-001, item: IDEA-03, relation: derives}`,
   so the brainstorm skill must never change an item's meaning under an existing ID.
-- **Tools:** Read, Glob, Write and Edit for files, and AskUserQuestion for confirmations.
+- **Tools:** Read, Glob, Write and Edit for files, and AskUserQuestion for confirmations; when the session has
+  them, the task-list tools (TaskCreate and TaskUpdate, or TodoWrite) for the workflow checklist (BEH-12).
   No `allowed-tools` pre-approval in the MVP, so writes go through normal permission prompts.
 
 ## 6. Behavior
@@ -172,6 +178,9 @@ behaviors:
   - id: BEH-11
     status: active
     rule: "When extending an existing BRN, keep every existing item ID and its meaning. Give new items the next free number in their collection. Retire an item by setting status deprecated, never by deleting or renumbering it, because PRD requirements cite these IDs. Set generated_by.session to the extending session and add a Change Log row naming it; never edit earlier Change Log rows, which keep the sessions that wrote earlier versions."
+  - id: BEH-12
+    status: active
+    rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, the question asking for a topic included, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: the topic, clarifying and extend-or-new questions belong to step 1, the confirmation of dispositions and convergence to step 5. Never put two steps' questions in one question form. Mark each step completed as soon as it is done, one at a time, a step with nothing to do included. Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
 ```
 
 ## 7. Errors and edge cases
@@ -329,12 +338,33 @@ verifications:
       - BEH-10
     upstream:
       - {id: STORY-001, item: AC-07, relation: verifies, version: 4, hash: null}
+  - id: VER-11
+    status: active
+    obligation: "With the task-list tools allowed, VER-01's prompt in an empty workspace gives a task list kept by the convention: at least 8 TaskCreate calls whose input carries devforgeai_step, one of them with the subject '5. Propose dispositions and ask the user to confirm'; the first TaskCreate before the first Write; at least 8 TaskUpdate calls to completed; and the BRN still written. Eval case keeps-task-list: allowed_tools adds TaskCreate, TaskUpdate, TaskList and TaskGet; tool_used graders with input_match, tool_order, file_exists. A TaskUpdate's input names only a task ID and a status, so which task is which step, and the marking before a question, are checked live by VER-12."
+    level: e2e
+    covers:
+      - BEH-12
+    upstream:
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
+  - id: VER-12
+    status: active
+    obligation: "Live, in a session with the task tools, with SPEC-013's VER-22: a brainstorm run in which the user answers keeps its list, with step 1 in progress for the intake questions, step 5 in progress for the disposition question asked alone, and each step completed in order; the tracker records step events for all 8 steps and flags no question gate (counts.unmarkedQuestions 0). Recorded in §9."
+    level: manual
+    covers:
+      - BEH-12
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
 
 The skill is new, so there is nothing to migrate. Removing the plugin, or the skill directory within
 it, rolls it back. BRN documents it wrote stay valid because they depend only on the template and schema.
+
+Version 11 (SKL-001 v6) ships in a plugin version no earlier than the one that builds SPEC-012 version 5 and
+SPEC-013 version 5, so a session without the task tools is never held to a task list. The checklist's lines
+don't change, so the tracker's brainstorm manifest stays matched. Rolling back is returning to SKL-001 v5; the
+tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 
 ## 11. Implementation plan
 
@@ -346,6 +376,17 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 6. Write the eval cases for VER-01 to VER-04, VER-06 to VER-08 and VER-10 from the skill template's `evals/` (implements QR-03).
 7. Deploy and validate per ADR-001 steps 2–5, iterating until each eval case scores at least 0.8. Perform VER-05 and VER-09 by hand.
 
+**Version 11** (after approval), through `/plugin-dev:create-plugin` and Anthropic's two skill guides:
+1. Write the eval case `keeps-task-list` (hand-written, like the other brainstorm cases) and run it on SKL-001 v5
+   with `--runs 1 --ablation none`; it fails, since v5's text names no `devforgeai_step`.
+2. Build SKL-001 v6: the Workflow section takes BEH-12's wording, `provenance.yaml` and
+   `metadata.devforgeai-version` go to 6, skill-reviewer reviews it, and `evaluate.py check` (SPEC-012 IF-02)
+   reports the brainstorm manifest matched.
+3. Evaluate cheapest first: `keeps-task-list` with `--runs 1 --ablation none`, then the suite with `--runs 1`,
+   then 3 runs with the baseline. A trace with no TaskCreate call means the case's `allowed_tools` didn't give
+   the eval's model the task tools: record it in §9 and bring it to the owner before the full suite.
+4. Once the plugin version that builds SPEC-012 version 5 and SPEC-013 version 5 is deployed, run VER-12 live.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -355,10 +396,15 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 | Name `devforgeai-brainstorm` or the gerund `brainstorming` | The plugin namespace already supplies `devforgeai:`. A short verb keeps later skills consistent (`prd`, `epic`, `story`, `spec`) |
 | A shared templates folder (such as `src/templates/`) at runtime | That path doesn't exist in other projects or in eval workspaces, and a second copy would drift. Each template lives only in the skill that produces its document |
 | Frameworks listed in SKILL.md | Every addition would change SKILL.md and grow it; the index keeps SKILL.md fixed (FR-002) |
+| Ticking the checklist in the reply only | The tracker can't tell which step a question belongs to when Claude asks before it ticks (SPEC-012 §13); ticks stay the fallback without a task list |
+| Printing a step marker before each question | Claude's narration before a question was in thinking blocks, which no hook records (SPEC-012 §12) |
 | Letting the skill set dispositions itself | Idea selection is a user decision (FR-003); unconfirmed AI dispositions would pass structural checks while being unjustified |
 
 ## 13. Open questions
 
+- Resolved (Bryan, 2026-10-03, with SPEC-012 version 5): tracked skills keep their checklist in the task list,
+  and a question asked with no step in progress is refused in enforce mode; a skill whose runs don't keep the
+  list is fixed through its spec (SPEC-012 §4).
 - Resolved: the eval pass threshold is 0.8, a DevForgeAI framework requirement (PRD-001#NFR-003; ADR-003 A2, accepted by Bryan 2026-09-23).
 
 ## Change Log
@@ -380,3 +426,5 @@ it, rolls it back. BRN documents it wrote stay valid because they depend only on
 | 9 | 2026-09-27 | Bryan | Approved | status |
 | 10 | 2026-09-27 | claude-code (session 86470fb4-119e-49d1-8adc-0f575bcc5b9a) | Housekeeping after the 2026-09-27 reorganisation, no behaviour change: templates are in src/templates/ (was src/staging/templates/) and schemas are cited as src/schemas/ | §4, §5, §11, §12 |
 | 10 | 2026-09-27 | Bryan | Approved | status |
+| 11 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 5's task-list convention (Bryan, 2026-10-03): BEH-12 keeps the workflow checklist in the session's task list, when it has one, with each question asked under its step; new VER-11 (eval case keeps-task-list) and VER-12 (live); §5 lists the task tools and shows SKL-001 v6; SPEC-012 link | frontmatter, §1, §5, BEH-12, VER-11, VER-12, §10, §11, §12, §13 |
+| 11 | 2026-10-03 | Bryan | Approved | status |
