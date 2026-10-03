@@ -3,9 +3,9 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 4
+version: 5
 created: 2026-10-02
-updated: 2026-10-02
+updated: 2026-10-03
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-02
+approved_on: 2026-10-03
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
@@ -72,6 +72,14 @@ only after the answer, and wrote the BRN with promoted ideas. An earlier step no
 tool evidence and its first tick, so a step Claude finishes after the answer still moves the window, while a
 re-read, re-listing or re-tick of a finished step doesn't. Every tool's `./` path is read like the rest, Write and
 Edit included (BEH-06).
+
+**Version 5** (2026-10-03) stops inferring which step an answer belongs to when the host can say. Live runs showed
+Claude narrating in thinking, which no hook sees, and ticking late or in bursts, so versions 2 to 4 still guessed;
+but with Claude Code's task list, kept with explicit wording, every step's start and end was a tool call the
+adapter records, and it held through a `/compact` (§9). A tracked skill now keeps its checklist in the host's task
+list (§4, the task-list convention); an adapter records the list's changes as step events (DM-02); an answer counts
+for the step in progress (BEH-18); and a question asked while no step is in progress is flagged at a new gate, the
+question gate, which enforce mode refuses (BEH-08, BEH-11). Runs without a task list keep version 4's windows.
 
 ## 2. Constraints
 
@@ -194,14 +202,15 @@ flowchart LR
     "run": {"type": "string", "pattern": "^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$"},
     "seq": {"type": "integer", "minimum": 1},
     "time": {"type": "string", "format": "date-time"},
-    "kind": {"enum": ["skill-loaded", "tool", "answer", "prompt", "reply", "turn", "run-end"]}
+    "kind": {"enum": ["skill-loaded", "tool", "answer", "prompt", "reply", "turn", "run-end", "step"]}
   },
   "allOf": [
     {"if": {"properties": {"kind": {"const": "skill-loaded"}}},
      "then": {"required": ["format", "skill", "checklist"],
               "properties": {"format": {"const": "devforgeai-events/1"}, "skill": {"type": "string"},
                              "checklist": {"type": "string", "description": "the skill's prompt as loaded, or at least its checklist block"},
-                             "host": {"type": "string", "description": "for example claude-code 2.1.287"}}}},
+                             "host": {"type": "string", "description": "for example claude-code 2.1.287"},
+                             "taskList": {"type": "boolean", "description": "the host offers a task list the skill can keep its steps in (version 5)"}}}},
     {"if": {"properties": {"kind": {"const": "tool"}}},
      "then": {"required": ["tool"],
               "properties": {"tool": {"type": "string"},
@@ -212,6 +221,9 @@ flowchart LR
      "then": {"required": ["answered"], "properties": {"answered": {"type": "boolean", "description": "false when the question was dismissed"}}}},
     {"if": {"properties": {"kind": {"const": "reply"}}},
      "then": {"required": ["text"], "properties": {"text": {"type": "string"}}}},
+    {"if": {"properties": {"kind": {"const": "step"}}},
+     "then": {"required": ["step", "state"],
+              "properties": {"step": {"type": "integer", "minimum": 1}, "state": {"enum": ["started", "done"]}}}},
     {"if": {"properties": {"kind": {"const": "turn"}}},
      "then": {"required": ["phase"], "properties": {"phase": {"enum": ["start", "end"]}}}},
     {"if": {"properties": {"kind": {"const": "run-end"}}},
@@ -253,9 +265,11 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     "phases": {"description": "copied from --phases unchanged; a later spec defines it"},
     "counts": {
       "type": "object", "additionalProperties": false,
-      "required": ["events", "malformed", "outOfOrder", "duplicates", "unknownClaims", "afterEnd"],
+      "required": ["events", "malformed", "outOfOrder", "duplicates", "unknownClaims", "afterEnd", "stepEvents", "unmarkedQuestions"],
       "properties": {"events": {"type": "integer"}, "malformed": {"type": "integer"}, "outOfOrder": {"type": "integer"}, "duplicates": {"type": "integer"},
-                     "unknownClaims": {"type": "integer"}, "afterEnd": {"type": "integer"}}
+                     "unknownClaims": {"type": "integer"}, "afterEnd": {"type": "integer"},
+                     "stepEvents": {"type": "integer", "description": "the run's valid step events (version 5)"},
+                     "unmarkedQuestions": {"type": "integer", "description": "answer events at a question gate (version 5)"}}
     }
   },
   "$defs": {
@@ -280,11 +294,11 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     "flag": {
       "type": "object", "additionalProperties": false, "required": ["gate", "seq", "step", "type", "message"],
       "properties": {"gate": {"enum": ["write", "report", "end"]}, "seq": {"type": "integer"}, "step": {"type": "integer"},
-                     "type": {"enum": ["skipped", "claimed-not-evidenced", "rule-broken"]}, "message": {"type": "string"}}
+                     "type": {"enum": ["skipped", "claimed-not-evidenced", "rule-broken", "unmarked-question"]}, "message": {"type": "string"}}
     },
     "gate": {
       "type": "object", "additionalProperties": false, "required": ["kind", "seq", "refuse", "reason"],
-      "properties": {"kind": {"enum": ["write", "report", "end", null]}, "seq": {"type": ["integer", "null"]},
+      "properties": {"kind": {"enum": ["write", "report", "end", "question", null]}, "seq": {"type": ["integer", "null"]},
                      "refuse": {"type": "boolean"}, "reason": {"type": ["string", "null"]}}
     }
   }
@@ -324,6 +338,33 @@ Content rules:
 
 Architecture's step 10 is weak evidence: ERR-05 comes from the skill's own self-check, which has no script, so reading each written file back, with Read or a Bash command naming it (BEH-06), is the only trace it leaves. Step 5's rule takes a read of any path outside `docs/specs/`, `.claude/` (Claude Code's settings and the local preference file) and `devforgeai/` (the tracker's own files). Its pattern begins with a wildcard, so a Read, Glob or Grep meets it but a Bash token never does (BEH-06); a tick still does too.
 
+**The task-list convention** (version 5; Bryan, 2026-10-03). A tracked skill keeps its checklist in the host's task
+list when the host has one:
+- one task per checklist step, titled `<N>. <title>` and, where the host allows, tagged `devforgeai_step: N`;
+- before it asks the user any question, it marks the step the question belongs to as in progress;
+- it never puts two steps' questions in one question form;
+- it marks each step done as soon as the step is done, one at a time.
+
+Without a task list it ticks steps in its reply text as before (BEH-05). An adapter turns the list's changes into
+step events (DM-02); how it reads them is its own spec's business (SPEC-013 for Claude Code). The skill's text names
+the tag `devforgeai_step`, which tells the evaluator the skill follows the convention (BEH-18). Each tracked skill's
+spec cites this paragraph; skills without a manifest needn't follow it.
+
+**When a run doesn't keep its list** (version 5; Bryan, 2026-10-03: don't let Claude go on; flag it and fix the
+skill). The tracker answers at three levels:
+1. *In the run.* Each question asked while no step is in progress is a question gate (BEH-18): flagged, and in
+   enforce mode refused, with a refusal that says how to recover: turn the skill's checklist into the task list if
+   there is none, mark the question's step in progress, and ask again (SPEC-013 for Claude Code).
+2. *At the run's end.* The state counts the run's step events and unmarked questions (DM-03 `counts`), so a run
+   that followed the convention but kept no list, or asked unmarked questions, is visible however the run ended; an
+   adapter tells the user so once, in either mode, and recommends that the user fix the skill (Bryan, 2026-10-03).
+3. *Across runs.* A tracked skill whose runs break the convention has a defect in its own text, not in the run: the
+   user fixes the skill so it keeps the task list. A project's own skill is the user's to edit; one of DevForgeAI's
+   skills is fixed through the plugin's skill-change process (its spec, a version bump of the skill, and
+   requalification). Each tracked skill's eval suite holds a case that checks the convention where the eval
+   host offers a task list, so a fix is proven and a regression caught before it ships. Each skill's spec names
+   that case.
+
 **Operational files.** A host adapter writes a run's files under the project root's `devforgeai/` folder:
 - `devforgeai/progress/runs/<run>/events.jsonl`: the event log (DM-02), appended by the adapter;
 - `devforgeai/progress/runs/<run>/state.json`: the evaluator's output (DM-03), written through `--out`;
@@ -360,25 +401,25 @@ behaviors:
     rule: "The evaluator loads <manifests>/<skill>.json. When its checklistHash equals the event's, manifest.state is matched and every rule below applies. When they differ, it is stale; with no manifest file, none; with no checklist lines in the event, unverified, which uses the manifest and notes that the checklist wasn't seen. In stale and none, the steps come from the event's checklist with kind null and need text-only, and are tracked by claims only: no gates, no flags, and a note on the first step saying the manifest is out of date or missing."
   - id: BEH-05
     status: active
-    rule: "Claims come from reply events. A line matching ^\\s*[-*]\\s*\\[[xX]\\]\\s*(\\d+)\\. claims step N done. A line matching ^\\s*[-*]\\s*\\[[ xX]\\]\\s*(\\d+)\\..*\\(skipped:\\s*(.+?)\\)\\s*$ claims step N skipped, with that reason. A line that matches both patterns is a skipped claim. A later claim for a step replaces an earlier one. An unticked box claims nothing."
+    rule: "Claims come from reply events. A line matching ^\\s*[-*]\\s*\\[[xX]\\]\\s*(\\d+)\\. claims step N done. A line matching ^\\s*[-*]\\s*\\[[ xX]\\]\\s*(\\d+)\\..*\\(skipped:\\s*(.+?)\\)\\s*$ claims step N skipped, with that reason. A line that matches both patterns is a skipped claim. A later claim for a step replaces an earlier one. An unticked box claims nothing. A step event (DM-02) with state done claims its step done, as a tick does, and a later tick or done step event replaces an earlier claim."
   - id: BEH-06
     status: active
     rule: "A tool event is evidence for a step's rule when: script: the tool is Bash, a token of the command (a word split at whitespace) has a file name matching the pattern, and exit equals the rule's exit (0 by default); write: the tool is Write or Edit and path matches the pattern; read: the tool is Read, Glob or Grep and path matches the pattern, or the tool is Bash, exit equals the rule's exit (0 by default) and a read token of the command matches the pattern; and, with target written, the path, the matching read token or, for a script, any token names a file written at the run's write gate. A path or token matches a pattern when it matches it as text, so a Glob of docs/specs/prd/PRD-*.md matches that same pattern, or lies inside it when the pattern ends in /, and matches none of the rule's exclude patterns. Every tool event's path is read with a leading ./ removed, as a token is, since an adapter can record a Glob at the project root as ./<pattern> and a host may pass a Write's relative path as written; a Write or Edit so read reaches the write gate and the content rules. Patterns are relative to the project root, so a path or token that, after --root's prefix is removed from a token, still starts with / or ../ matches none: an adapter records a file outside the root, such as the plugin's own references, with its absolute path. A command's read tokens are its words split at whitespace, with every quote character removed, the characters ; ( ) stripped from both ends, a leading ./ removed and, with --root, the root's path and the / after it removed from the start. Only a rule whose pattern has no wildcard (*, ? or [) in its first path segment takes Bash read evidence, since a token such as cat matches a pattern of *. Any command that names the path counts, rm and a > redirect too: the tracker judges whether a step's files were looked at, not what the command did. A tool event with error true is never evidence. An answer event with answered true, or a prompt event, inside the step's answer window (BEH-09) is answer evidence. Script and answer evidence are strong; write and read are medium. One event can be evidence for several steps."
   - id: BEH-07
     status: active
-    rule: "While the run is open, a step is done when it has evidence, or when it is claimed done and has no strong rule; claimed when it is claimed done, has a strong rule and has no evidence yet; skipped-with-reason when it is claimed skipped; otherwise pending. A step is reached when it has evidence or a claim, whatever its state. current is the step after the highest-numbered reached step (step 1 when none is reached), or null once the last step is reached or the run has ended; it shows as current, or as your-turn when it is user-owned, has no answer in its window, and the last event is a turn end. A step before current that is still pending keeps the note 'not seen yet' and raises no flag."
+    rule: "While the run is open, a step is done when it has evidence, or when it is claimed done and has no strong rule; claimed when it is claimed done, has a strong rule and has no evidence yet; skipped-with-reason when it is claimed skipped; otherwise pending. A step is reached when it has evidence or a claim, whatever its state. current is the step after the highest-numbered reached step (step 1 when none is reached), or null once the last step is reached or the run has ended; it shows as current, or as your-turn when it is user-owned, has no answer counted for it (BEH-09 or BEH-18), and the last event is a turn end. A step before current that is still pending keeps the note 'not seen yet' and raises no flag. In a run with step events (BEH-18), current is the step whose latest step event is started, the latest started when several are; when none is, the rule above applies. A conditional step marked done by a step event with no evidence is not-applicable, with its when text as the note, since the skill found it didn't apply."
   - id: BEH-08
     status: active
-    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'."
+    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'. In a run that follows the task list (BEH-18), each answer event at which no step is in progress is also a gate, the question gate: it checks no step and raises only its own unmarked-question flag reading 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask', one per such answer."
   - id: BEH-09
     status: active
-    rule: "A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest start of any step before it, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none), where a step's start is the later of its first tool evidence and its first claim, counting only those before that close (whichever it has, when it has one). So a re-read, a re-listing or a re-tick of a finished earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move the opening, while an earlier step Claude ticks only after the answer does, since the answer came while that step was under way; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
+    rule: "Answers that BEH-18 doesn't place are placed as follows. A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest start of any step before it, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none), where a step's start is the later of its first tool evidence and its first claim, counting only those before that close (whichever it has, when it has one). So a re-read, a re-listing or a re-tick of a finished earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move the opening, while an earlier step Claude ticks only after the answer does, since the answer came while that step was under way; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
   - id: BEH-10
     status: active
-    rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer in its window, the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open', unless its content couldn't be checked: then it keeps its state and ERR-05's note."
+    rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer counted for it (BEH-09 or BEH-18), the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open', unless its content couldn't be checked: then it keeps its state and ERR-05's note."
   - id: BEH-11
     status: active
-    rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself."
+    rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
   - id: BEH-12
     status: active
     rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged."
@@ -397,6 +438,9 @@ behaviors:
   - id: BEH-17
     status: active
     rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09)."
+  - id: BEH-18
+    status: active
+    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event at which no step is in progress counts for no step and is a question gate (BEH-08, BEH-11), and a prompt there counts for no step and raises nothing, since a typed message isn't known to be an answer. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's valid step events and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
 ```
 
 ## 7. Errors and edge cases
@@ -430,7 +474,7 @@ errors:
     user_result: "The step shows the note instead of a flag."
   - id: ERR-06
     status: active
-    condition: "A reply claims a step number the checklist doesn't have."
+    condition: "A reply claims, or a step event names, a step number the checklist doesn't have."
     handling: "Ignore the claim and count it in counts.unknownClaims."
     user_result: "The state is written; the count shows the claims ignored."
   - id: ERR-07
@@ -485,9 +529,11 @@ quality_responses:
 | Kind | Status |
 | --- | --- |
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12. v2 re-checked on 2026-10-02 with the same helpers: passes, 25 VER items cover every BEH, ERR and QR item, and the changed DM-01 is valid JSON Schema 2020-12; the architecture manifest with step 5's `exclude` rule validates against it, and a write rule carrying `exclude` fails |
-| Build (v2) | Built on branch `feat/spec-012-v2-build` (worktree), not merged, through `/plugin-dev:create-plugin`, tests first: records `f4a7fd4`, the failing cases and tests `cac7331`, the evaluator, schema and manifest `69570f5`. Baseline at `f4a7fd4`: `src/tests/progress` 137 passed, 181 subtests. Results at `69570f5`: `src/tests/progress` 147 passed, 226 subtests (the new VER-22 to VER-24 tests, and a test that the three schemas equal DM-01 to DM-03); full `src/tests` 624 passed, 597 subtests; `make_cases.py --check` clean; `claude plugin validate` passed. Expected states moved only in the five brainstorm cases §10 names (step 1 gains the validator run); none of architecture's, since `manifestHash` is the manifest's `checklistHash` (§10 corrected). VER-19: 500 events in 60 ms (`-B`) and 61 ms (`-S -B`), against v1's 36 and 31 and the 200 ms target. Readings: VER-22's absolute root is a test of its own, since a generated case can't hold a machine's absolute path; `arch-inspect` fixes a Grep with path `.` as step 5's evidence, which no `exclude` pattern covers. plugin-validator (agent, read-only): the code matches the spec, but the spec's BEH-09 then refuses writes the user approved (reproduced: v1 accepts, v2 refuses), which version 3 changes; warnings: `./` tool paths (version 3), layers and `exclude`, Bash glob tokens (§13) |
+| Build (v2) | Built on branch `feat/spec-012-v2-build` (worktree), merged with versions 3 and 4 in PR #66 and deployed as plugin 0.14.0 (2026-10-02), through `/plugin-dev:create-plugin`, tests first: records `f4a7fd4`, the failing cases and tests `cac7331`, the evaluator, schema and manifest `69570f5`. Baseline at `f4a7fd4`: `src/tests/progress` 137 passed, 181 subtests. Results at `69570f5`: `src/tests/progress` 147 passed, 226 subtests (the new VER-22 to VER-24 tests, and a test that the three schemas equal DM-01 to DM-03); full `src/tests` 624 passed, 597 subtests; `make_cases.py --check` clean; `claude plugin validate` passed. Expected states moved only in the five brainstorm cases §10 names (step 1 gains the validator run); none of architecture's, since `manifestHash` is the manifest's `checklistHash` (§10 corrected). VER-19: 500 events in 60 ms (`-B`) and 61 ms (`-S -B`), against v1's 36 and 31 and the 200 ms target. Readings: VER-22's absolute root is a test of its own, since a generated case can't hold a machine's absolute path; `arch-inspect` fixes a Grep with path `.` as step 5's evidence, which no `exclude` pattern covers. plugin-validator (agent, read-only): the code matches the spec, but the spec's BEH-09 then refuses writes the user approved (reproduced: v1 accepts, v2 refuses), which version 3 changes; warnings: `./` tool paths (version 3), layers and `exclude`, Bash glob tokens (§13) |
 | Build (v3) | Built on the same branch: the failing cases and tests `f0509e3`, the evaluator `f23f50e` (the window's opening, `./` read paths, read tokens cached per event). Results at `f23f50e`: `src/tests/progress` 151 passed, 259 subtests; full `src/tests` 628 passed, 630 subtests; `make_cases.py --check` clean; `claude plugin validate` passed; no existing expected state moved, five cases added. VER-19: 36 ms (`-B`), 32 ms (`-S -B`); a harsher log of 500 Bash commands with 80 paths each takes 231 and 226 ms, under VER-19's 1 second. QR-02: 41 cases under three hash seeds, normal and `-S`, byte-identical (the review's check). plugin-validator's second review (agent, read-only, 6,000 generated logs): no defect in the code, but version 3 credits answers the user never gave (the intake-then-tick shape, and an answer followed by a re-tick of the step that asked), which version 4 narrows; a Write's `./` path never reached the write gate in any version (version 4) |
 | Build (v4) | Built on the same branch: the failing cases and tests `2ec73dc`, the evaluator `e28a883` (a step's start for the opening; `./` read at load for every tool's path), then the departure below. Results at the branch's head: `src/tests/progress` 155 passed, 283 subtests; full `src/tests` 632 passed, 654 subtests; `make_cases.py --check` clean; `claude plugin validate` passed; no existing expected state moved, four cases added. VER-19: 36 ms (`-B`), 33 ms (`-S -B`). Checked by running the built evaluator (`e28a883`) against the second review's refinement copy on that review's own harness: over its 6,000 generated logs, the same credited answers and the same flags, every answer version 2 credits, and nothing version 3 doesn't. Not reviewed again by plugin-validator, since version 4 is that review's own tested rule. `arch-retick-after-answer`'s expected state equals the committed version 3's output on it (`f23f50e`), as VER-28 says. Plugin version: 0.14.0, the next free minor after 0.13.0, set for the merge on Bryan's instruction (2026-10-02) |
+| Task-list evidence (v5) | Three live runs in a cmux tab, Claude Code 2.1.288, plugin 0.14.0, with the convention's wording added to the prompt (2026-10-03). A brainstorm, wording that asked only to keep the list current: 8 tasks created with the tag, each marked in progress before its step's work and its questions, step 5 in progress before the confirmation question, and the typed answer to an intake question given while step 1 was in progress. An architecture run with the same wording: every decision question asked while step 6 was in progress, and steps 6 to 8 completed in a burst after the answers, which You Should Know also flagged. An architecture run with the explicit wording (before any question, mark its step in progress; never two steps in one form; done one at a time): step 7 in progress for both question forms, step 8 in progress for the outcome question asked alone, and after a `/compact` with step 8 in progress, Claude reloaded the task tools itself, took the typed confirmation, and carried on in order. One run stands behind the explicit wording; VER-35 checks both skills again once built |
+| Build (v5) | Not built; §11 lists the steps |
 | Build | Built on branch `feat/spec-012-progress-core` (worktree), not merged. Commits: schemas `5eb2034`; manifests, generated cases and tests `ea3ccdb`; `evaluate.py` in stages `6507c9a`, `b095c13`, `bb47cd5` and `9eb1895`; expected states `fcf1d0d`; records in the next commit. Results at `fcf1d0d` plus the added VER-09 assertion: `src/tests/progress` 51 passed, 173 subtests (SpecRules 25; SpecRulesUnderS 25, every rule with the evaluator under `python3 -S`; Goldens 1, over 29 cases); full `src/tests` 528 passed, 544 subtests, against the baseline at `4100614` of 477 and 371, so nothing earlier broke. VER-19 (QR-03): a 500-event log evaluates in 36 ms (`-B`) and 31 ms (`-S -B`) on the owner's machine, against 200 ms. QR-04 by review: `evaluate.py` opens only `--events`, the manifest files, `--phases`, `--checklist`, and with `--root` the written files under its realpath; it writes only a temporary file beside `--out`, renamed over it; it opens no network connection and starts no process. plugin-validator (2026-10-02): PASS, 0 critical, 0 warnings, 6 informational notes; the one real note, a temporary file left beside `--out` when the rename fails, fixed in `f4260a3`. Two notes pass to the adapter's spec: run the evaluator as `python3 ${CLAUDE_PLUGIN_ROOT}/progress/evaluate.py` (the file isn't executable). Plugin version: 0.12.0, the next free minor at merge (§10) |
 
 Each case is a folder in `src/tests/progress/cases/` with `events.jsonl` and `expected.json`; a test runs IF-01 on it and compares the output with `expected.json` byte for byte. "The prototype's moment N" means the five moments of the design proposal's prototype.
@@ -751,6 +797,50 @@ verifications:
     covers:
       - BEH-06
       - BEH-08
+  - id: VER-30
+    status: active
+    obligation: "Case steps-brainstorm: skill-loaded with taskList true and a checklist naming devforgeai_step; step events start step 1, an answer (an intake question), step 1 done, steps 2 to 4 started and done, step 5 started, an answer, step 5 done, then a Write of BRN-002 with promoted dispositions. The intake answer counts for no user-owned step, step 5 is done with the second answer as strong evidence, and nothing is flagged."
+    level: unit
+    covers:
+      - BEH-18
+      - BEH-05
+  - id: VER-31
+    status: active
+    obligation: "Case steps-arch: an architecture run with step events: step 7 started with two answers, step 7 done, step 8 started, a typed prompt, then a reply ticking steps 1 to 8 as after a compaction, step 8 done, then Writes of ADR-004 accepted and ARCH-001 with outcome: create. Step 7 is done with its two answers, step 8 with the prompt, and nothing is flagged, where version 4 flags step 8 skipped and step 9 rule-broken on the same log (checked on the deployed evaluator, 2026-10-03)."
+    level: unit
+    covers:
+      - BEH-18
+      - BEH-09
+  - id: VER-32
+    status: active
+    obligation: "Case steps-unmarked-question: a run that follows the task list, step 6 done and no step in progress, then an answer: an unmarked-question flag at that seq, gate kind question with refuse true; the answer counts for no step, so a later ARCH-001 Write with outcome: create flags step 8 skipped and step 9 rule-broken. A prompt in the same position raises nothing. The state counts 1 unmarked question and the run's step events."
+    level: unit
+    covers:
+      - BEH-08
+      - BEH-11
+      - BEH-18
+  - id: VER-33
+    status: active
+    obligation: "Case steps-current: with steps 7 and 8 both started and neither done, current is 8 and an answer counts for step 8; the conditional step 5 started and done with no evidence is not-applicable with its when text; a step event naming step 40 is counted in counts.unknownClaims."
+    level: unit
+    covers:
+      - BEH-07
+      - BEH-18
+      - ERR-06
+  - id: VER-34
+    status: active
+    obligation: "Rollout: a log whose skill-loaded event has taskList true but whose checklist text doesn't name devforgeai_step, and which has no step event, gives the same state as the same log without taskList; the same log with step events Claude kept unasked places answers by them, and an answer at which no step is in progress is placed by version 4's windows with no question gate; every case's events.jsonl, the step kind included, validates against events.schema.json (VER-02)."
+    level: unit
+    covers:
+      - BEH-18
+      - DM-02
+  - id: VER-35
+    status: active
+    obligation: "Live, once the skills' wording ships: a brainstorm and an architecture run in Claude Code with enforce mode, each keeping its task list as the convention says, give step events for every step, every answer counted for its step, and no unmarked-question flag; a run where Claude is told to ask before marking the step is refused at the question gate, and goes on once the step is marked. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-18
+      - BEH-11
   - id: VER-19
     status: active
     obligation: "A generated 500-event architecture log evaluates in under 1 second; the test prints the time, and §9 records it on the owner's machine against QR-03's 200 ms target."
@@ -775,6 +865,13 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 5.** Built after approval with SPEC-013 version 4, the adapter that writes step events; the evaluator
+  and the adapter ship in one plugin version, so the deployed pair never disagrees on the step kind. Until a
+  skill's text names `devforgeai_step` (SKL-001 version 6, SKL-003 version 7, each its own build and
+  requalification), its runs don't follow the task list and keep version 4's windows, so shipping the evaluator
+  first refuses nothing new. A reader of `devforgeai-events/1` from before version 5, such as the Codex port's fork,
+  counts a step line as malformed and goes on (ERR-01). Every existing expected state gains counts.stepEvents and
+  counts.unmarkedQuestions, both 0, and nothing else in it moves: no current case has a step event or taskList.
 
 ## 11. Implementation plan
 
@@ -806,6 +903,16 @@ Version 4's build, on the same branch:
 3. Regenerate the expected states, check that only the new cases are new, run the tests normally and under
    `python3 -S`, and record the results in §9.
 
+Version 5's build, after approval, with SPEC-013 version 4:
+
+1. Write the cases of VER-30 to VER-34 and their tests, and see them fail; update `events.schema.json` and
+   `progress.schema.json` from DM-02 and DM-03.
+2. Change `evaluate.py`: step events as claims (BEH-05), current (BEH-07), placement and the question gate (BEH-18,
+   BEH-08, BEH-11), unknown step numbers (ERR-06).
+3. Regenerate the expected states, check that only the new cases are new, run the tests normally and under
+   `python3 -S`, and record the results in §9; SPEC-013's VER-04 expected lines gain `taskList`, which
+   `test_adapter_structure.py` validates against the new schema. VER-35 waits for the skills' wording.
+
 The specs that follow, in the design proposal's order: the Claude Code adapter (events, status line, band, observe and enforce modes), the pane and its graphics, `progress.html`, `chain_state.py` and the phases, manifests for the other skills, and the Codex port's copy.
 
 ## 12. Alternatives considered
@@ -817,6 +924,13 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **An evaluator that keeps state between calls, or reads a clock for idle runs.** It would save re-reading the log, but results would depend on call timing. Idle detection stays with the adapter, which sends run-end.
 - **A list of reading commands (`ls`, `cat`, `grep`…) for Bash read evidence** (v2). It would leave out `rm` and redirects, but a list is brittle and every shell idiom would need adding. Rejected: any command naming the path counts, and read evidence is medium.
 - **A negated pattern (`!docs/specs/`) for architecture's step 5** (v2). It would change the meaning of every existing pattern's text; a separate `exclude` field only adds (BEH-17).
+- **Step markers in reply text** (`▶ Step N`, the design proposal's open question 4; version 5). Live runs showed
+  Claude's narration before its questions was thinking, which no hook records; a marker there would often never
+  be seen.
+- **A step tag in each question's header** (version 5). The question tool always carries it, but it needs fixed
+  headers in every skill and misses typed answers; the task list covers both.
+- **Placing an answer by version 4's windows when no step is in progress** (version 5). Friendlier to a forgotten
+  update, but Bryan chose to stop and flag it, so a skill that doesn't keep its list is found and fixed.
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
@@ -836,7 +950,18 @@ conditional step that isn't the user's; `./` tool paths are read like the rest. 
 Decided by Bryan on 2026-10-02, for version 4: an earlier step counts from the later of its first tool evidence and
 its first tick; every tool's `./` path is read like the rest. Versions 2, 3 and 4 ship together.
 
+Decided by Bryan on 2026-10-03, for version 5: skills keep their checklist in the host's task list (§4); a question
+asked while no step is in progress doesn't let Claude go on: it is flagged, and refused in enforce mode, so a skill
+that doesn't keep its list is fixed, and the user is told to fix it (§4); the step event joins `devforgeai-events/1`; the Claude Code adapter reads both
+of its task tools.
+
 Still open, or notes:
+- **Version 5 rests on one run with the explicit wording** (§9); VER-35 repeats it on both skills once their wording
+  ships. If Claude still batches questions across steps, the question gate refuses the first question asked with no
+  step in progress, and the refusal says what to do.
+- **The validator run written `validate_brn.py <file>; echo "exit=$?"`** still gets step 7 a false skipped flag in a
+  live brainstorm (the task-list runs in §9): the task list doesn't change script evidence (the raw-token
+  note below). A separate fix.
 - **Answer windows still guess, in both directions** (the reviews of versions 2 and 3). An answer is lost when Claude
   reaches the earlier steps only after it, as in SPEC-013 VER-15's architecture run, which ticked nothing before the
   user's answer. An answer goes to the next user-owned step when Claude ticks the step that asked, the user answers,
@@ -877,3 +1002,5 @@ Still open, or notes:
 | 4 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the version 4 build and its check against the review's generated logs | §9 |
 | 4 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records a build departure (repeated slashes in a tool's path collapse) and how the version 4 build was checked against the review's refinement | §9 |
 | 4 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records Bryan's approval of the doubled-slash departure and plugin 0.14.0 for the merge | §9 |
+| 5 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After three live task-list runs and Bryan's decisions of 2026-10-03: the task-list convention (§4); `skill-loaded` gains `taskList` and a `step` event kind joins `devforgeai-events/1` (DM-02); `unmarked-question` flags and a `question` gate (DM-03); a step event done is a claim (BEH-05); current follows step events, and a conditional step done with no evidence is not-applicable (BEH-07); what happens when a run doesn't keep its list, in the run, at its end and across runs (§4), with counts.stepEvents and counts.unmarkedQuestions (DM-03); answers go to the step in progress, and a question asked with none in progress is flagged and refused in enforce mode (BEH-18, BEH-08, BEH-11); BEH-09 places only what step events don't; ERR-06 covers step events; new VER-30 to VER-35; §9's version 2 build row records the merge (PR #66) | frontmatter, §1, DM-02, DM-03, §4, BEH-05, BEH-07, BEH-08, BEH-09, BEH-11, BEH-18, ERR-06, VER-30 to VER-35, §9, §10, §11, §12, §13 |
+| 5 | 2026-10-03 | Bryan | Approved, with the user told to fix a skill that doesn't keep its task list (§4) | status, §4, §13 |
