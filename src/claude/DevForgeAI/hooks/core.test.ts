@@ -216,6 +216,10 @@ test('the task list: which sessions have one, which runs follow it, and how task
   const second = todoSteps([{ content: '2. B', status: 'completed' }, { content: '3. C', status: 'in_progress' }], first.statuses)
   expect(second.events).toEqual([{ step: 2, state: 'done' }, { step: 3, state: 'started' }])
   expect(second.statuses).toEqual({ 1: 'completed', 2: 'completed', 3: 'in_progress' })
+  // Version 6: the list the call replaced decides, so a todo already completed there claims nothing.
+  const replaced = todoSteps([{ content: '2. B', status: 'completed' }, { content: '4. D', status: 'in_progress' }], {},
+    [{ content: '2. B', status: 'completed' }, { content: '4. D', status: 'pending' }])
+  expect(replaced.events).toEqual([{ step: 4, state: 'started' }])
 })
 
 test('the question gate refuses at its own seq; the adherence notice needs a report or an end, and the counts', () => {

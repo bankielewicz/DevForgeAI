@@ -1,4 +1,4 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v5).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v6).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
@@ -34,6 +34,7 @@ const OFF = atom({ plugin: 'devforgeai', key: 'off' } as const, null as string |
 const TASKS = atom({ plugin: 'devforgeai', key: 'tasks' } as const, {} as Record<string, number>)
 const TODOS = atom({ plugin: 'devforgeai', key: 'todos' } as const, {} as Record<string, string>)
 const HINTED = atom({ plugin: 'devforgeai', key: 'hinted' } as const, false)
+const ADHERED = atom({ plugin: 'devforgeai', key: 'adhered' } as const, null as string | null)
 
 const EVALUATOR_TIMEOUT = 5000
 const START_TIMEOUT = 3000
@@ -72,8 +73,7 @@ const noticed = new Set<string>()
 // The session IDs and roots already pruned (BEH-19), and the retentionDays setting (DM-06).
 const pruned = new Set<string>()
 let retentionDays = 30
-// The runs already given the adherence notice (BEH-22), and whether the open run follows the task list.
-const adhered = new Set<string>()
+// Whether the open run follows the task list, read once per run from its skill-loaded line.
 let followsFor: { id: string; value: boolean } | null = null
 // The open run's task map and TodoWrite statuses (BEH-20): kept here so task-tool hooks that overlap, as a batch of
 // TaskCreate calls does, see each other's changes; $.state keeps a copy for a reload (DM-03).
@@ -150,7 +150,8 @@ async function adapterLog($: E, kind: string, text: string): Promise<void> {
   const step = logChain.then(async () => {
     const run = await read($, RUN)
     const now = new Date(await $.clock.now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
-    const line = `${now} ${run?.id ?? '-'} ${kind}: ${text}\n`
+    // One line per entry, whatever the text: model text can't add lines of its own (DM-02).
+    const line = `${now} ${run?.id ?? '-'} ${kind}: ${text.replace(/\s*[\r\n]+\s*/g, ' ')}\n`
     if (logRoot === null) {
       // The first lines are kept (the early notices are the ones that matter); past 200, newer ones are dropped.
       if (early.length < 200) early = [...early, line]
@@ -444,7 +445,8 @@ async function taskSteps($: E, tool: string, input: Fields, outcome: ToolOutcome
     const state = stepStateOf(input.status)
     if (step !== undefined && state !== null) await record($, 'step', { step, state })
   } else if (tool === 'TodoWrite') {
-    const got = todoSteps(input.todos, maps.todos)
+    const result = (outcome as Fields).result
+    const got = todoSteps(input.todos, maps.todos, result && typeof result === 'object' ? (result as Fields).oldTodos : undefined)
     maps.todos = got.statuses
     await update($, TODOS, () => ({ ...got.statuses }))
     for (const e of got.events) await record($, 'step', e)
@@ -472,8 +474,9 @@ async function absorb($: E, run: ProgressRun, got: { state: ProgressState; text:
   }
   // SPEC-012 §4's second level: a run that follows the task list and didn't keep it is told so once (BEH-22).
   const adherence = adherenceText(got.state)
-  if (adherence !== null && !adhered.has(run.id) && (await follows($, run))) {
-    adhered.add(run.id)
+  // $.state's adhered decides, so a reload of the module doesn't repeat the notice (version 6).
+  if (adherence !== null && (await read($, ADHERED)) !== run.id && (await follows($, run))) {
+    await update($, ADHERED, () => run.id)
     await notify($, adherence)
     await adapterLog($, 'adherence', adherence)
   }

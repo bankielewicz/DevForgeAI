@@ -1,4 +1,4 @@
-// Pure helpers of the progress tracker adapter (SPEC-013 v5). No `$` here: claude plugin validate lets `$` reach
+// Pure helpers of the progress tracker adapter (SPEC-013 v6). No `$` here: claude plugin validate lets `$` reach
 // only top-level functions of hooks/progress.tsx, so this file turns plain data into plain data, and its tests
 // (core.test.ts) call it directly.
 import type { ProgressMode, ProgressSummary } from '../types'
@@ -335,12 +335,28 @@ export function stepStateOf(status: unknown): 'started' | 'done' | null {
   return status === 'in_progress' ? 'started' : status === 'completed' ? 'done' : null
 }
 
-/** A TodoWrite's step events, against each step's last status, and the statuses to keep (BEH-20): becoming
- *  in_progress starts a step, becoming completed ends it; straight from pending to completed gives done only. */
-export function todoSteps(todos: unknown, last: Readonly<Record<string, string>>): {
+/** The step statuses of a todo list: '<N>.' todos only, by step number. */
+function todoStatuses(todos: unknown): Record<string, string> | null {
+  if (!Array.isArray(todos)) return null
+  const out: Record<string, string> = {}
+  for (const todo of todos) {
+    if (!todo || typeof todo !== 'object') continue
+    const { content, status } = todo as Fields
+    const m = typeof content === 'string' ? content.match(/^\s*(\d+)\./) : null
+    if (m && typeof status === 'string' && Number(m[1]) >= 1) out[String(Number(m[1]))] = status
+  }
+  return out
+}
+
+/** A TodoWrite's step events and the statuses to keep (BEH-20): each '<N>.' todo is compared with its status in the
+ *  list the call replaced (the result's oldTodos), or with the kept statuses when the result has none, so an earlier
+ *  run's completed todos left in the list claim nothing. Becoming in_progress starts a step, becoming completed ends
+ *  it; straight from pending to completed gives done only. */
+export function todoSteps(todos: unknown, last: Readonly<Record<string, string>>, oldTodos?: unknown): {
   events: Array<{ step: number; state: 'started' | 'done' }>
   statuses: Record<string, string>
 } {
+  const replaced = todoStatuses(oldTodos)
   const statuses: Record<string, string> = { ...last }
   const events: Array<{ step: number; state: 'started' | 'done' }> = []
   if (!Array.isArray(todos)) return { events, statuses }
@@ -350,7 +366,7 @@ export function todoSteps(todos: unknown, last: Readonly<Record<string, string>>
     const m = typeof content === 'string' ? content.match(/^\s*(\d+)\./) : null
     if (!m || typeof status !== 'string' || Number(m[1]) < 1) continue
     const step = Number(m[1])
-    const before = statuses[String(step)]
+    const before = replaced !== null ? replaced[String(step)] : statuses[String(step)]
     if (status === 'in_progress' && before !== 'in_progress') events.push({ step, state: 'started' })
     if (status === 'completed' && before !== 'completed') events.push({ step, state: 'done' })
     statuses[String(step)] = status
@@ -359,10 +375,11 @@ export function todoSteps(todos: unknown, last: Readonly<Record<string, string>>
 }
 
 /** The refusal of a question asked with no step in progress (BEH-21), with how to recover. */
-export const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (enforce mode): no step is marked in "
-  + "progress in your task list. If you haven't, first turn the skill's checklist into your task list as the skill says "
-  + '(one task per step, subject <N>. <title>, metadata devforgeai_step: N); then mark the step this question belongs '
-  + 'to in_progress (TaskUpdate, or TodoWrite), and ask again.'
+export const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (enforce mode): no step of this run "
+  + "is marked in progress in your task list. Tasks from an earlier run don't count: if this run's checklist isn't in "
+  + 'your task list yet, turn it into tasks first as the skill says (one task per step, subject <N>. <title>, metadata '
+  + 'devforgeai_step: N). Then mark the step this question belongs to in_progress (TaskUpdate, or TodoWrite), and ask '
+  + 'again.'
 
 /** The question refusal when the provisional state's question gate refuses at seq, else null (BEH-21). */
 export function questionRefusal(state: ProgressState, seq: number): string | null {

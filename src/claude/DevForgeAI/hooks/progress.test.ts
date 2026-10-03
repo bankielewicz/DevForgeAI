@@ -1183,21 +1183,21 @@ test('VER-26: a TodoWrite is compared with the list it replaced, so an earlier r
   expect(stepsOf(eventsOf(w))).toEqual([[3, 'done']])
 })
 
-test('VER-26: $.state.adhered holds the run given the adherence notice; another run gets its own', async ($, on) => {
+// The kit's $ fires events only, so it can't read $.state or play a reload; `claude plugin validate` lists
+// devforgeai.adhered among the module's state writes, and this checks the behaviour that value drives.
+test('VER-26: the adherence notice is once per run, keyed by the run; another run gets its own', async ($, on) => {
   const w = world(on, { evaluate: stateWith('report', null, 0, 1) })
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await w.clock.advance(600)
-  const first = (await ($ as Any).state.get({ plugin: 'devforgeai', key: 'adhered' })).value
-  expect(first).toMatch(/-brainstorm-[0-9a-f]{8}$/)
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
   await w.clock.advance(600)
   expect(w.toasts.filter(t => t === ADHERENCE(0, 1)).length).toBe(1)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await w.clock.advance(600)
-  const second = (await ($ as Any).state.get({ plugin: 'devforgeai', key: 'adhered' })).value
-  expect(second).not.toBe(first)
   expect(w.toasts.filter(t => t === ADHERENCE(0, 1)).length).toBe(2)
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' adherence: '))
+  expect(new Set(log.map(l => l.split(' ')[1])).size).toBe(2)
 })
 
 test('VER-26: task, adherence, tools and tools-hint lines are one line each, whatever the text', async ($, on) => {
