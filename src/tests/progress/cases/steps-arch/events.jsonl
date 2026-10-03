@@ -4,8 +4,8 @@
 {"kind": "tool", "path": "docs/specs/prd/PRD-001.md", "run": "20261002T120000Z-architecture-0000abcd", "seq": 4, "time": "2026-10-02T12:00:04Z", "tool": "Read"}
 {"kind": "tool", "path": "docs/specs/arch/ARCH-*.md", "run": "20261002T120000Z-architecture-0000abcd", "seq": 5, "time": "2026-10-02T12:00:05Z", "tool": "Glob"}
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 6, "state": "started", "step": 7, "time": "2026-10-02T12:00:06Z"}
-{"answered": true, "kind": "answer", "run": "20261002T120000Z-architecture-0000abcd", "seq": 7, "time": "2026-10-02T12:00:07Z"}
-{"answered": true, "kind": "answer", "run": "20261002T120000Z-architecture-0000abcd", "seq": 8, "time": "2026-10-02T12:00:08Z"}
+{"answered": true, "kind": "answer", "run": "20261002T120000Z-architecture-0000abcd", "seq": 7, "step": 7, "time": "2026-10-02T12:00:07Z"}
+{"answered": true, "kind": "answer", "run": "20261002T120000Z-architecture-0000abcd", "seq": 8, "step": 7, "time": "2026-10-02T12:00:08Z"}
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 9, "state": "done", "step": 7, "time": "2026-10-02T12:00:09Z"}
 {"kind": "step", "run": "20261002T120000Z-architecture-0000abcd", "seq": 10, "state": "started", "step": 8, "time": "2026-10-02T12:00:10Z"}
 {"kind": "prompt", "run": "20261002T120000Z-architecture-0000abcd", "seq": 11, "time": "2026-10-02T12:00:11Z"}
