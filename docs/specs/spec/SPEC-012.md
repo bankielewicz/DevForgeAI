@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 1
+version: 2
 created: 2026-10-02
 updated: 2026-10-02
 owner: "Bryan"
@@ -56,6 +56,8 @@ This spec builds the part of that tracker that depends on no host:
 - `chain_state.py`, which reports the project's phases from `docs/specs/`;
 - manifests for prd, epic, context, git and documents-updater (the formats already cover them);
 - adapters for Codex and other tools.
+
+**Version 2** (2026-10-02) makes rules of the build decisions §9 recorded, which Bryan adopted on 2026-10-02, and adds what the first live runs of the Claude Code adapter showed (SPEC-013 VER-15). In those sessions Claude Code offered no Glob or Grep tool, and Claude read files with Bash (`ls`, `cat`, `for f in …`) even where the Read tool was there, so read rules could be met only by ticks. Now a Bash command that names a read rule's path is read evidence (BEH-06), a skipped flag names the evidence its step expected (BEH-08), and architecture's step 5 gets an evidence rule through a new `exclude` field (DM-01).
 
 ## 2. Constraints
 
@@ -144,10 +146,12 @@ flowchart LR
       "properties": {
         "type": {"enum": ["script", "answer", "write", "read"]},
         "pattern": {"type": "string", "description": "script: a file-name pattern; write and read: a path pattern relative to the project root, and a pattern ending in / means anything inside that folder"},
+        "exclude": {"type": "array", "items": {"type": "string"}, "minItems": 1, "description": "read rules only: path patterns, written as pattern is; a path or token that matches any of them is no evidence for the rule"},
         "exit": {"type": "integer", "default": 0},
         "target": {"const": "written", "description": "the path or command must name a file written at the run's write gate"}
       },
-      "allOf": [{"if": {"properties": {"type": {"enum": ["script", "write", "read"]}}}, "then": {"required": ["pattern"]}}]
+      "allOf": [{"if": {"properties": {"type": {"enum": ["script", "write", "read"]}}}, "then": {"required": ["pattern"]}},
+                {"if": {"properties": {"type": {"enum": ["script", "answer", "write"]}}}, "then": {"not": {"required": ["exclude"]}}}]
     },
     "contentRule": {
       "type": "object",
@@ -287,7 +291,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
 | | 2 | read, required | read `docs/specs/prd/` | |
 | | 3 | read, required | read `docs/specs/prd/PRD-*.md` | |
 | | 4 | read, required | read `docs/specs/arch/` | |
-| | 5 | read, conditional: "the user named paths to inspect" | read outside `docs/specs/` | |
+| | 5 | read, conditional: "the user named paths to inspect" | read `*` except `docs/specs/`, `.claude/` and `devforgeai/` | |
 | | 6 | think, text-only | none | |
 | | 7 | ask, conditional: "a question isn't settled by mandated policy or an accepted ADR" | answer | user-owned |
 | | 8 | ask, required | answer | user-owned |
@@ -304,7 +308,7 @@ Content rules:
 | architecture | 7 | `docs/specs/adr/ADR-*.md` | `status`, frontmatter | `proposed` |
 | architecture | 8 | `docs/specs/arch/ARCH-*.md` | `outcome`, frontmatter | `null` |
 
-Architecture's step 10 is weak evidence: ERR-05 comes from the skill's own self-check, which has no script, so reading each written file back is the only trace it leaves.
+Architecture's step 10 is weak evidence: ERR-05 comes from the skill's own self-check, which has no script, so reading each written file back, with Read or a Bash command naming it (BEH-06), is the only trace it leaves. Step 5's rule takes a read of any path outside `docs/specs/`, `.claude/` (Claude Code's settings and the local preference file) and `devforgeai/` (the tracker's own files). Its pattern begins with a wildcard, so a Read, Glob or Grep meets it but a Bash token never does (BEH-06); a tick still does too.
 
 **Operational files.** A host adapter writes a run's files under the project root's `devforgeai/` folder:
 - `devforgeai/progress/runs/<run>/events.jsonl`: the event log (DM-02), appended by the adapter;
@@ -345,19 +349,19 @@ behaviors:
     rule: "Claims come from reply events. A line matching ^\\s*[-*]\\s*\\[[xX]\\]\\s*(\\d+)\\. claims step N done. A line matching ^\\s*[-*]\\s*\\[[ xX]\\]\\s*(\\d+)\\..*\\(skipped:\\s*(.+?)\\)\\s*$ claims step N skipped, with that reason. A line that matches both patterns is a skipped claim. A later claim for a step replaces an earlier one. An unticked box claims nothing."
   - id: BEH-06
     status: active
-    rule: "A tool event is evidence for a step's rule when: script: the tool is Bash, a token of the command has a file name matching the pattern, and exit equals the rule's exit (0 by default); write: the tool is Write or Edit and path matches the pattern; read: the tool is Read, Glob or Grep and path matches the pattern, or lies inside it when the pattern ends in /; and, with target written, the path or a command token names a file written at the run's write gate. A tool event with error true is never evidence. An answer event with answered true, or a prompt event, inside the step's answer window (BEH-09) is answer evidence. Script and answer evidence are strong; write and read are medium. One event can be evidence for several steps."
+    rule: "A tool event is evidence for a step's rule when: script: the tool is Bash, a token of the command (a word split at whitespace) has a file name matching the pattern, and exit equals the rule's exit (0 by default); write: the tool is Write or Edit and path matches the pattern; read: the tool is Read, Glob or Grep and path matches the pattern, or the tool is Bash, exit equals the rule's exit (0 by default) and a read token of the command matches the pattern; and, with target written, the path, the matching read token or, for a script, any token names a file written at the run's write gate. A path or token matches a pattern when it matches it as text, so a Glob of docs/specs/prd/PRD-*.md matches that same pattern, or lies inside it when the pattern ends in /, and matches none of the rule's exclude patterns. Patterns are relative to the project root, so a path or token that, after --root's prefix is removed from a token, still starts with / or ../ matches none: an adapter records a file outside the root, such as the plugin's own references, with its absolute path. A command's read tokens are its words split at whitespace, with every quote character removed, the characters ; ( ) stripped from both ends, a leading ./ removed and, with --root, the root's path and the / after it removed from the start. Only a rule whose pattern has no wildcard (*, ? or [) in its first path segment takes Bash read evidence, since a token such as cat matches a pattern of *. Any command that names the path counts, rm and a > redirect too: the tracker judges whether a step's files were looked at, not what the command did. A tool event with error true is never evidence. An answer event with answered true, or a prompt event, inside the step's answer window (BEH-09) is answer evidence. Script and answer evidence are strong; write and read are medium. One event can be evidence for several steps."
   - id: BEH-07
     status: active
     rule: "While the run is open, a step is done when it has evidence, or when it is claimed done and has no strong rule; claimed when it is claimed done, has a strong rule and has no evidence yet; skipped-with-reason when it is claimed skipped; otherwise pending. A step is reached when it has evidence or a claim, whatever its state. current is the step after the highest-numbered reached step (step 1 when none is reached), or null once the last step is reached or the run has ended; it shows as current, or as your-turn when it is user-owned, has no answer in its window, and the last event is a turn end. A step before current that is still pending keeps the note 'not seen yet' and raises no flag."
   - id: BEH-08
     status: active
-    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag; a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag."
+    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'."
   - id: BEH-09
     status: active
-    rule: "A user-owned step's answer window opens at the latest tool evidence or claim of any step before it, over the whole log (at skill-loaded when there is none); answers don't move it. The window closes at the first of: the gate that checks the step, a claim of the step itself, and any tool evidence or claim of a later step. Answers and prompts are assigned in seq order, each to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question), and a tick of that step hands the next answer to the following one."
+    rule: "A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest tool evidence or claim of any step before it that comes before that close (at skill-loaded when there is none), so a later re-read of an earlier step's files doesn't move it, and answers don't move it either. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
   - id: BEH-10
     status: active
-    rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer in its window, the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open'."
+    rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer in its window, the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open', unless its content couldn't be checked: then it keeps its state and ERR-05's note."
   - id: BEH-11
     status: active
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself."
@@ -378,7 +382,7 @@ behaviors:
     rule: "IF-02 computes the checklist hash of its file by §4's function and compares it with the manifest's checklistHash; it reads nothing else."
   - id: BEH-17
     status: active
-    rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09)."
+    rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09)."
 ```
 
 ## 7. Errors and edge cases
@@ -408,7 +412,7 @@ errors:
   - id: ERR-05
     status: active
     condition: "A content rule must be checked, but the event has no content, --root wasn't given, or the file isn't there."
-    handling: "Leave the user-owned step's state as BEH-07 sets it, add the note 'content not available; rule not checked', and raise no flag."
+    handling: "Leave the user-owned step's state as BEH-07 sets it, add the note 'content not available; rule not checked', and raise no flag. The step keeps that state and note at the report gate and the run's end, rather than BEH-10's 'no answer; left open', because its content wasn't seen."
     user_result: "The step shows the note instead of a flag."
   - id: ERR-06
     status: active
@@ -466,13 +470,15 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
-| Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12 |
+| Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12. v2 re-checked on 2026-10-02 with the same helpers: passes, 25 VER items cover every BEH, ERR and QR item, and the changed DM-01 is valid JSON Schema 2020-12; the architecture manifest with step 5's `exclude` rule validates against it, and a write rule carrying `exclude` fails |
+| Build (v2) | Not built; §11 lists the steps. v2's rules describe the v1 build except BEH-06's Bash reads, DM-01's `exclude`, architecture's step 5 rule and BEH-08's flag messages; VER-22 to VER-24 are new, and VER-25 states the tests of two recorded departures |
 | Build | Built on branch `feat/spec-012-progress-core` (worktree), not merged. Commits: schemas `5eb2034`; manifests, generated cases and tests `ea3ccdb`; `evaluate.py` in stages `6507c9a`, `b095c13`, `bb47cd5` and `9eb1895`; expected states `fcf1d0d`; records in the next commit. Results at `fcf1d0d` plus the added VER-09 assertion: `src/tests/progress` 51 passed, 173 subtests (SpecRules 25; SpecRulesUnderS 25, every rule with the evaluator under `python3 -S`; Goldens 1, over 29 cases); full `src/tests` 528 passed, 544 subtests, against the baseline at `4100614` of 477 and 371, so nothing earlier broke. VER-19 (QR-03): a 500-event log evaluates in 36 ms (`-B`) and 31 ms (`-S -B`) on the owner's machine, against 200 ms. QR-04 by review: `evaluate.py` opens only `--events`, the manifest files, `--phases`, `--checklist`, and with `--root` the written files under its realpath; it writes only a temporary file beside `--out`, renamed over it; it opens no network connection and starts no process. plugin-validator (2026-10-02): PASS, 0 critical, 0 warnings, 6 informational notes; the one real note, a temporary file left beside `--out` when the rename fails, fixed in `f4260a3`. Two notes pass to the adapter's spec: run the evaluator as `python3 ${CLAUDE_PLUGIN_ROOT}/progress/evaluate.py` (the file isn't executable). Plugin version: 0.12.0, the next free minor at merge (§10) |
 
 Each case is a folder in `src/tests/progress/cases/` with `events.jsonl` and `expected.json`; a test runs IF-01 on it and compares the output with `expected.json` byte for byte. "The prototype's moment N" means the five moments of the design proposal's prototype.
 
 **Build decisions and departures (2026-10-02), for Bryan to approve or reverse.** Each names its case; a SPEC-012 v2
-could adopt the wording.
+could adopt the wording. Bryan adopted all of them on 2026-10-02, and v2 states them as rules: BEH-08, BEH-09,
+BEH-10, BEH-17, ERR-05, VER-06, VER-09 and VER-25, and for step 5, DM-01's `exclude` and the architecture manifest.
 
 - **Departure, BEH-09: a step's own tick hands answers on instead of losing them.** As written, BEH-09 closes a
   user-owned step's window at the step's own claim. Claude often ticks brainstorm's step 5 in the same reply that
@@ -557,7 +563,7 @@ verifications:
       - BEH-09
   - id: VER-06
     status: active
-    obligation: "Case arch-outcome-unconfirmed (moment 4, as the architecture skill's rules have it): answers inside step 7's window, then a Write of docs/specs/arch/ARCH-001.md whose content has outcome: create, with no answer after step 7's. Step 8 is skipped with a skipped flag at the write gate; step 9 is rule-broken with a flag naming ARCH-001, outcome and create; gate.refuse is true. A Write of an ADR with status: accepted in the same run raises nothing, because step 7 has its answers. A variant with answers at step 7, a reply ticking step 7, one more answer, and then the same ARCH-001 Write gives step 8 done with strong answer evidence and no flag."
+    obligation: "Case arch-outcome-unconfirmed (moment 4, as the architecture skill's rules have it): answers inside step 7's window, then a Write of docs/specs/arch/ARCH-001.md whose content has outcome: create, with no answer after step 7's. Step 8 is skipped with a skipped flag at the write gate; step 9 is rule-broken with a flag naming ARCH-001, outcome and create; gate.refuse is true. A Write of an ADR with status: accepted in the same run raises nothing, because step 7 has its answers. The ADR is written before the ARCH, the order of SKL-003 step 9: gate holds the most recent check (BEH-11), so refuse is true while the ARCH's check is the latest. A variant with answers at step 7, a reply ticking step 7, one more answer, and then the same ARCH-001 Write gives step 8 done with strong answer evidence and no flag."
     level: unit
     covers:
       - BEH-08
@@ -580,9 +586,10 @@ verifications:
       - BEH-13
   - id: VER-09
     status: active
-    obligation: "Case brn-unconfirmed: as brn-left-open, but nine ideas have disposition: promoted. Step 5 is skipped, step 6 rule-broken, gate.refuse is true at the Write, and the flag names BRN-002, disposition and promoted. A variant whose only change is frontmatter status: converged raises the same pair of flags for status."
+    obligation: "Case brn-unconfirmed: as brn-left-open, but nine ideas have disposition: promoted. Step 5 is skipped, step 6 rule-broken, gate.refuse is true at the Write, and the flag names BRN-002, disposition and promoted. A variant whose only change is frontmatter status: converged raises the same pair of flags for status. The whole log, which goes on to the report gate, has the same two flags: that gate adds none (BEH-08)."
     level: unit
     covers:
+      - BEH-08
       - BEH-10
       - BEH-11
   - id: VER-10
@@ -622,7 +629,7 @@ verifications:
       - BEH-12
   - id: VER-15
     status: active
-    obligation: "Case messy-log: one line that isn't JSON, one without seq, one event whose run differs from the first event's, one event placed before the event it follows, a repeated seq, a claim of step 40, a Write with no content and no --root, and two events after run-end. The state counts 3 malformed, 1 out of order, 1 duplicate, 1 unknown claim and 2 after end; the content rule's step has the note 'content not available; rule not checked' and no flag. The test's temporary folder holds only --out afterwards."
+    obligation: "Case messy-log: one line that isn't JSON, one without seq, one event whose run differs from the first event's, one event placed before the event it follows, a repeated seq, a claim of step 40, a Write with no content and no --root, and two events after run-end. The state counts 3 malformed, 1 out of order, 1 duplicate, 1 unknown claim and 2 after end; the content rule's step has the note 'content not available; rule not checked' and no flag, and at the run's end it keeps its state, pending, rather than not-applicable with 'no answer; left open'. The test's temporary folder holds only --out afterwards."
     level: unit
     covers:
       - BEH-02
@@ -674,6 +681,31 @@ verifications:
     covers:
       - BEH-17
       - ERR-09
+  - id: VER-22
+    status: active
+    obligation: "Case bash-reads (brainstorm, evaluated with --root /work/proj): the Bash command 'for f in docs/specs/brainstorm/*.md; do head -3 $f; done' with exit 0 makes step 1 done with medium read evidence. In variants, the same command with exit 2, or with error true, leaves step 1 pending and the write gate flags it; 'cat /work/proj/docs/specs/brainstorm/BRN-001.md', 'ls ./docs/specs/brainstorm/' and the folder in quotes each count. An architecture variant: 'cat docs/specs/prd/PRD-001.md' gives steps 2 and 3 their read evidence, and after the Write of ARCH-001, 'grep -n outcome docs/specs/arch/ARCH-001.md' gives step 10 its evidence (target written), while the same command naming ARCH-002.md, which wasn't written, doesn't."
+    level: unit
+    covers:
+      - BEH-06
+  - id: VER-23
+    status: active
+    obligation: "Case arch-inspect (architecture): a Read of src/booking/service.py makes step 5 done with medium read evidence. Reads of docs/specs/prd/PRD-001.md, .claude/devforgeai.local.md and devforgeai/progress/current.json, the Bash command 'cat src/booking/service.py', and a Read of an absolute path outside the root (the skill's own references/output-rules.md, as a live run read it) give step 5 no evidence. architecture.json, whose step 5 rule is a read of * with exclude docs/specs/, .claude/ and devforgeai/, validates against manifest.schema.json, and a write rule that carries exclude fails it."
+    level: unit
+    covers:
+      - DM-01
+      - BEH-06
+  - id: VER-24
+    status: active
+    obligation: "Flag messages: in bash-reads' variant with exit 2, the write gate's flag reads exactly 'step 1 (Intake: topic, existing BRNs, clarifying questions) has no evidence or tick before the write gate: expected a read of docs/specs/brainstorm/, or a tick in the reply text'. A case with its own manifest whose required step 2 has no evidence rule and is never ticked gives that step a flag ending 'expected a tick in the reply text'. brn-validation-claimed's flag reads 'step 7 (Validate the BRN) is ticked, but a successful run of validate_brn.py on a written file wasn't seen'."
+    level: unit
+    covers:
+      - BEH-08
+  - id: VER-25
+    status: active
+    obligation: "Case brn-ticked-then-answered: a reply that proposes the dispositions, ticks step 5 and asks, then the user's answer, then a Write of BRN-002 with promoted dispositions: step 5 is done with strong answer evidence, and nothing is flagged. Case evidence-only: step 10's Read of ARCH-001, which also matches step 4's docs/specs/arch/ rule, comes after step 7's two answers and doesn't move step 7's window, so step 7 is done with both."
+    level: unit
+    covers:
+      - BEH-09
   - id: VER-19
     status: active
     obligation: "A generated 500-event architecture log evaluates in under 1 second; the test prints the time, and §9 records it on the owner's machine against QR-03's 200 ms target."
@@ -690,6 +722,7 @@ verifications:
 - **Nothing reads it yet.** No skill changes, and no hook calls the evaluator until the adapter's spec is built. Rolling back means deleting `progress/` and `src/tests/progress/`.
 - **Repository records.** `CLAUDE.md`'s Commands section gains `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/progress -p 'test_*.py'`. The skills table gains no row, because the tracker isn't a skill.
 - **The design proposal** points its build order's step 2 at this spec.
+- **Version 2.** Built on its own branch after approval, with the next free plugin version at merge. Two kinds of expected state move, with no step state, note or flag changing: every architecture case's `manifest.manifestHash`, from the manifest change; and the brainstorm cases whose `validate_brn.py` run names a BRN and exits 0 (`brn-left-open`, `brn-unconfirmed`, `brn-unconfirmed-status`, `brn-validation-other-file`, `phases`), where that run is also step 1's read evidence, since any command naming the folder counts. In each, step 1 already has a Glob's evidence, and the run comes after step 5's window has closed. No skill changes. SPEC-013, whose adapter runs this evaluator, needs no change: its upstream link moves to v2 when v2 is approved, and its refusal text's advice to read the step's files stays true. The Codex port's fork takes the change when Codex sessions next build it.
 
 ## 11. Implementation plan
 
@@ -700,6 +733,13 @@ verifications:
 5. Run the tests normally and under `python3 -S`; time VER-19; record the results in §9.
 6. Update `CLAUDE.md`'s Commands, the plugin version and the design proposal's pointer (§10).
 
+Version 2's build, on its own branch:
+
+1. Write the new cases (bash-reads and its variants, arch-inspect, the no-rule manifest case) and their tests, and see VER-22 to VER-24 fail; VER-25's tests already pass.
+2. Add `exclude` to `manifest.schema.json`, and step 5's rule to `architecture.json` (VER-23, VER-01).
+3. Change `evaluate.py`: Bash read tokens and `exclude` (BEH-06), and the flag messages (BEH-08).
+4. Regenerate the expected states, check that only the new cases and the changes §10 lists moved, and run the tests normally and under `python3 -S`; record the results in §9.
+
 The specs that follow, in the design proposal's order: the Claude Code adapter (events, status line, band, observe and enforce modes), the pane and its graphics, `progress.html`, `chain_state.py` and the phases, manifests for the other skills, and the Codex port's copy.
 
 ## 12. Alternatives considered
@@ -709,6 +749,8 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **YAML manifests.** Easier to write by hand, but they need PyYAML. JSON was Bryan's choice (2026-10-02).
 - **Adapters parsing ticks themselves.** Each adapter would carry its own copy of the tick rules. The evaluator parses reply text, so the rules have one copy (BEH-05).
 - **An evaluator that keeps state between calls, or reads a clock for idle runs.** It would save re-reading the log, but results would depend on call timing. Idle detection stays with the adapter, which sends run-end.
+- **A list of reading commands (`ls`, `cat`, `grep`…) for Bash read evidence** (v2). It would leave out `rm` and redirects, but a list is brittle and every shell idiom would need adding. Rejected: any command naming the path counts, and read evidence is medium.
+- **A negated pattern (`!docs/specs/`) for architecture's step 5** (v2). It would change the meaning of every existing pattern's text; a separate `exclude` field only adds (BEH-17).
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
@@ -720,8 +762,12 @@ Decided by Bryan on 2026-10-02:
 - The plugin version is set at merge time (§10).
 - Project and organization manifests live in `devforgeai/manifests/` (ADR-006 D4).
 
+Decided by Bryan on 2026-10-02, for version 2: every build decision recorded in §9 becomes a rule, with an `exclude` field for architecture's step 5; a Bash command naming a read rule's path is read evidence; a skipped flag names the evidence expected. The live step-8 case below stays a known limit for now, with the architecture skill kept in observe mode until skills print step markers.
+
 Still open, or notes:
-- **A known limit of answer windows (BEH-09).** Windows are placed by tool evidence and ticks. When Claude doesn't tick the steps before a user-owned step, an earlier answer can be counted for it: a brainstorm intake answer for step 5, or every architecture answer for step 7 and none for step 8, which flags step 8 although the user answered. The skills tell Claude to tick its checklist, and VER-04 and VER-14 cover runs without ticks; markers that skills print at each step (the design proposal's open question 4) would remove the guess.
+- **Ticks that stay in Claude's thinking are invisible** (SPEC-013 VER-15): only reply text is logged, so a step ticked only while thinking has no claim. The skills could say to tick in the reply text; that is a change to each skill's wording, outside this spec.
+- **A script rule's tokens are raw words** (v2 keeps them so). A validator run written as `validate_brn.py docs/specs/brainstorm/BRN-002.md; echo $?` has the token `docs/specs/brainstorm/BRN-002.md;`, which names no written file, so it isn't step 7's evidence. Stripping `;` as read tokens do would make it count, but the command's exit is then echo's, 0, even when the validator failed.
+- **A known limit of answer windows (BEH-09).** Windows are placed by tool evidence and ticks. When Claude doesn't tick the steps before a user-owned step, an earlier answer can be counted for it: a brainstorm intake answer for step 5, or every architecture answer for step 7 and none for step 8, which flags step 8 although the user answered. The skills tell Claude to tick its checklist, and VER-04 and VER-14 cover runs without ticks; markers that skills print at each step (the design proposal's open question 4) would remove the guess. Seen live on 2026-10-02 in SPEC-013 VER-15's architecture run: the session ticked nothing before step 8's question and read only with Bash, so step 7 took the user's confirmation too, and the ARCH-001 Write was flagged with refuse true. Version 2's Bash read evidence doesn't close step 7's window; a tick or a later step's tool evidence before step 8's question would.
 - The idle limit that ends a run belongs to the adapter's spec (the design proposal's open question 6).
 - This spec adds the state `unconfirmed` (a text-only step with no tick, never flagged) to the design proposal's list; the proposal is updated to match.
 
@@ -736,3 +782,5 @@ Still open, or notes:
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build on `feat/spec-012-progress-core`, its results, and the build decisions and departures for Bryan's review | §9 |
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9's build row adds the plugin-validator result and the fix in `f4260a3` | §9 |
 | 1 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records plugin 0.12.0, set for the merge on Bryan's instruction | §9 |
+| 2 | 2026-10-02 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-02 after SPEC-013's live check (VER-15): every build decision §9 recorded becomes a rule (BEH-09's two passes and its bounded opening, BEH-08's one flag per step and type, BEH-17's full restatement, ERR-05's kept state, VER-06's ADRs before the ARCH); architecture's step 5 gets a read rule through DM-01's new `exclude`; a Bash command naming a read rule's path is read evidence (BEH-06), since the sessions observed had no Glob or Grep tool and read with Bash; skipped and claimed-not-evidenced flags name the evidence expected (BEH-08). New VER-22 to VER-25; status in-review | frontmatter, §1, DM-01, §4, BEH-06, BEH-08, BEH-09, BEH-10, BEH-17, ERR-05, VER-06, VER-09, VER-15, VER-22 to VER-25, §9, §10, §11, §12, §13 |
+| 2 | 2026-10-02 | Bryan | Approved | status |
