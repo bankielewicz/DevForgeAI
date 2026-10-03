@@ -1,0 +1,67 @@
+{
+  "format": "devforgeai-manifest/1",
+  "skill": "decide",
+  "checklistHash": "sha256:107054479ad340d29804a85a92ad73d023e693d672aa129e744bd62093466b6f",
+  "steps": {
+    "1": {
+      "title": "Gather",
+      "kind": "read",
+      "need": "required",
+      "evidence": [
+        {
+          "type": "read",
+          "pattern": "notes/"
+        }
+      ]
+    },
+    "2": {
+      "title": "Decide",
+      "kind": "think",
+      "need": "required"
+    },
+    "3": {
+      "title": "Inspect",
+      "kind": "read",
+      "need": "required",
+      "evidence": [
+        {
+          "type": "read",
+          "pattern": "*",
+          "exclude": [
+            "notes/",
+            "out/"
+          ]
+        }
+      ]
+    },
+    "4": {
+      "title": "Check",
+      "kind": "inspect",
+      "need": "required",
+      "evidence": [
+        {
+          "type": "script",
+          "pattern": "check.sh"
+        }
+      ]
+    },
+    "5": {
+      "title": "Write",
+      "kind": "forge",
+      "need": "required",
+      "gate": "write",
+      "evidence": [
+        {
+          "type": "write",
+          "pattern": "out/*.md"
+        }
+      ]
+    },
+    "6": {
+      "title": "Report",
+      "kind": "report",
+      "need": "required",
+      "gate": "report"
+    }
+  }
+}

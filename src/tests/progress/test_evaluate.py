@@ -12,6 +12,7 @@ Run from the repository root:
     PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
 """
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -414,6 +415,89 @@ class SpecRules(Base):
         proc = subprocess.run([sys.executable, "-B", str(HERE / "make_cases.py"), "--check"], cwd=ROOT,
                               capture_output=True, text=True)
         self.assertEqual(proc.returncode, 0, proc.stdout)
+
+
+    # ---- version 2 ----
+
+    # The schemas are DM-01 to DM-03 as the spec writes them.
+    def test_schemas_equal_the_spec_blocks(self):
+        text = (ROOT / "docs/specs/spec/SPEC-012.md").read_text(encoding="utf-8")
+        blocks = re.findall(r"```json\n(.*?)```", text, re.S)
+        for block, name in zip(blocks, ("manifest", "events", "progress")):
+            with self.subTest(name):
+                self.assertEqual(json.loads((SCHEMAS / (name + ".schema.json")).read_text(encoding="utf-8")),
+                                 json.loads(block))
+
+    # VER-22: a Bash command naming a read rule's path is read evidence.
+    def test_ver22_bash_reads(self):
+        state, _, _, _ = self.run_case("bash-reads")
+        s1 = self.step(state, 1)
+        self.assertEqual(s1["state"], "done")
+        self.assertEqual([(e["type"], e["strength"], e["detail"]) for e in s1["evidence"]],
+                         [("read", "medium", "Bash docs/specs/brainstorm/*.md")])
+        self.assertEqual(self.flags(state, 1), [])
+        for name in ("bash-reads-failed", "bash-reads-error"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(self.step(state, 1)["evidence"], [])
+                self.assertEqual([f["gate"] for f in self.flags(state, 1, "skipped")], ["write"])
+        state, _, _, _ = self.run_case("bash-reads-forms")
+        self.assertEqual([e["seq"] for e in self.step(state, 1)["evidence"]], [2, 3, 4])
+        arch, _, _, _ = self.run_case("arch-bash-reads")
+        for n in (2, 3):
+            self.assertIn("Bash docs/specs/prd/PRD-001.md", [e["detail"] for e in self.step(arch, n)["evidence"]])
+        s10 = self.step(arch, 10)
+        self.assertEqual([e["detail"] for e in s10["evidence"]], ["Bash docs/specs/arch/ARCH-001.md"])
+        self.assertEqual(s10["state"], "done")
+
+    # VER-22: with --root, a token under the root counts; without it, an absolute token matches nothing.
+    def test_ver22_bash_reads_under_an_absolute_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "proj"
+            root.mkdir()
+            log = mc.Log("brainstorm").bash("cat %s/docs/specs/brainstorm/BRN-001.md" % root)
+            events = Path(tmp) / "events.jsonl"
+            events.write_text("\n".join(log.lines()) + "\n", encoding="utf-8")
+            out = Path(tmp) / "state.json"
+            base = ["evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", out]
+            proc = self.run_cli(*base, "--root", root)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertEqual([e["detail"] for e in self.step(json.loads(out.read_text()), 1)["evidence"]],
+                             ["Bash docs/specs/brainstorm/BRN-001.md"])
+            proc = self.run_cli(*base)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertEqual(self.step(json.loads(out.read_text()), 1)["evidence"], [])
+
+    # VER-23: exclude, and architecture's step 5.
+    def test_ver23_exclude_and_step_5(self):
+        state, _, _, _ = self.run_case("arch-inspect")
+        self.assertEqual([e["detail"] for e in self.step(state, 5)["evidence"]],
+                         ["Grep .", "Read src/booking/service.py"])
+        manifest = json.loads((PROGRESS / "manifests/architecture.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["steps"]["5"]["evidence"],
+                         [{"type": "read", "pattern": "*", "exclude": ["docs/specs/", ".claude/", "devforgeai/"]}])
+        validator = schema_validator("manifest")
+        self.assertEqual([e.message for e in validator.iter_errors(manifest)], [])
+        bad = json.loads(json.dumps(manifest))
+        bad["steps"]["9"]["evidence"][0]["exclude"] = ["x/"]
+        self.assertNotEqual(list(validator.iter_errors(bad)), [])
+
+    # VER-24: the flag messages name the evidence expected.
+    def test_ver24_flag_messages(self):
+        state, _, _, _ = self.run_case("bash-reads-failed")
+        self.assertEqual([f["message"] for f in self.flags(state, 1, "skipped")], [
+            "step 1 (Intake: topic, existing BRNs, clarifying questions) has no evidence or tick before the "
+            "write gate: expected a read of docs/specs/brainstorm/, or a tick in the reply text"])
+        state, _, _, _ = self.run_case("no-rule-step")
+        self.assertEqual([f["message"] for f in state["flags"]], [
+            "step 2 (Decide) has no evidence or tick before the write gate: expected a tick in the reply text",
+            "step 3 (Inspect) has no evidence or tick before the write gate: expected a read of * except "
+            "notes/, out/, or a tick in the reply text",
+            "step 4 (Check) has no evidence or tick before the write gate: expected a successful run of check.sh"])
+        state, _, _, _ = self.run_case("brn-validation-claimed")
+        self.assertEqual([f["message"] for f in self.flags(state, 7, "claimed-not-evidenced")], [
+            "step 7 (Validate the BRN) is ticked, but a successful run of validate_brn.py on a written file "
+            "wasn't seen"])
 
 
 class SpecRulesUnderS(SpecRules):
