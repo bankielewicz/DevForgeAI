@@ -1,8 +1,9 @@
 import { expect, test } from 'claude-code/testing'
 import {
-  bandRows, editResult, eventLine, finalTimeout, exitOf, fit, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked,
-  keptContent, newFlagToasts, refusalText, relPath, replyText, reportContext, retentionOf, runId, skillName, statusText,
-  summaryOf, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT,
+  adherenceText, bandRows, editResult, eventLine, finalTimeout, exitOf, fit, followsTaskList, hasTaskList, isAnswered,
+  isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
+  replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, summaryOf, taskIdOf,
+  todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
 
@@ -185,4 +186,54 @@ test('the refusal names what clears each flag, and the decision line only for de
     ] }, 4) ?? ''
   expect(decision).toContain("The decisions at step 5, 6 are the user's: ask the user, or leave those fields open.")
   expect(decision.includes('To clear step')).toBe(false)
+})
+
+// ---- the task list (SPEC-013 v4 and v5) ----
+
+test('the task list: which sessions have one, which runs follow it, and how tasks map to steps', () => {
+  expect(hasTaskList(['Read', 'TaskCreate', 'TaskUpdate'])).toBe(true)
+  expect(hasTaskList(['TodoWrite'])).toBe(true)
+  expect(hasTaskList(['TaskCreate'])).toBe(false)
+  expect(hasTaskList(['TaskStop', 'ToolSearch'])).toBe(false)
+  const loaded = (taskList: unknown, checklist: string) => JSON.stringify({ kind: 'skill-loaded', taskList, checklist })
+  expect(followsTaskList(loaded(true, '- [ ] 1. A\nmetadata devforgeai_step: N'))).toBe(true)
+  expect(followsTaskList(loaded(false, 'devforgeai_step'))).toBe(false)
+  expect(followsTaskList(loaded(true, '- [ ] 1. A'))).toBe(false)
+  expect(followsTaskList('not json')).toBe(false)
+  expect(taskIdOf('Task #12 created successfully: 3. Evaluate')).toBe('12')
+  expect(taskIdOf('Created.')).toBe(null)
+  expect(stepOfTask({ subject: 'Anything', metadata: { devforgeai_step: 4 } })).toBe(4)
+  expect(stepOfTask({ subject: '7. Resolve', metadata: { devforgeai_step: 2.5 } })).toBe(7)
+  expect(stepOfTask({ subject: 'Tidy up' })).toBe(null)
+  expect(stepOfTask({ subject: '0. Nothing' })).toBe(null)
+  expect([stepStateOf('in_progress'), stepStateOf('completed'), stepStateOf('pending'), stepStateOf('deleted')])
+    .toEqual(['started', 'done', null, null])
+  const first = todoSteps([
+    { content: '1. A', status: 'completed' }, { content: '2. B', status: 'in_progress' },
+    { content: 'Notes', status: 'in_progress' }, { content: '3. C', status: 'pending' },
+  ], {})
+  expect(first.events).toEqual([{ step: 1, state: 'done' }, { step: 2, state: 'started' }])
+  const second = todoSteps([{ content: '2. B', status: 'completed' }, { content: '3. C', status: 'in_progress' }], first.statuses)
+  expect(second.events).toEqual([{ step: 2, state: 'done' }, { step: 3, state: 'started' }])
+  expect(second.statuses).toEqual({ 1: 'completed', 2: 'completed', 3: 'in_progress' })
+})
+
+test('the question gate refuses at its own seq; the adherence notice needs a report or an end, and the counts', () => {
+  const question = { ...STATE, gate: { kind: 'question', seq: 9, refuse: true, reason: 'x' } }
+  expect(questionRefusal(question, 9)).toBe(QUESTION_REFUSAL)
+  expect(questionRefusal(question, 8)).toBe(null)
+  expect(questionRefusal({ ...question, gate: { ...question.gate, refuse: false } }, 9)).toBe(null)
+  expect(questionRefusal(STATE, 4)).toBe(null)
+  const report = { ...STATE, gate: { kind: 'report', seq: 9, refuse: false, reason: null } }
+  expect(adherenceText({ ...report, counts: { stepEvents: 5, unmarkedQuestions: 1 } }))
+    .toBe("brainstorm didn't keep its task list: 5 step events, 1 questions asked with no step in progress. "
+      + 'Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)')
+  expect(adherenceText({ ...report, counts: { stepEvents: 5, unmarkedQuestions: 0 } })).toBe(null)
+  expect(adherenceText({ ...STATE, counts: { stepEvents: 0, unmarkedQuestions: 0 } })).toBe(null)
+  expect(adherenceText({ ...STATE, ended: 'session-end', counts: { stepEvents: 0, unmarkedQuestions: 0 } })).not.toBe(null)
+  expect(adherenceText({ ...STATE, ended: 'session-end' })).toBe(null)
+  // The report reached, though a later write moved the gate on before the timer evaluated.
+  const reported = { ...STATE, steps: STATE.steps.map(s => (s.n === 8 ? { ...s, kind: 'report', state: 'done' } : s)),
+    counts: { stepEvents: 0, unmarkedQuestions: 0 } }
+  expect(adherenceText(reported)).not.toBe(null)
 })

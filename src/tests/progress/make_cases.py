@@ -56,12 +56,12 @@ def checklist_hash(text):
 class Log:
     """Builds one run's events with fixed run ID, seq and times."""
 
-    def __init__(self, skill, checklist=None, run_suffix="0000abcd"):
+    def __init__(self, skill, checklist=None, run_suffix="0000abcd", task_list=None):
         self.run = "20261002T120000Z-%s-%s" % (skill, run_suffix)
         self.events = []
         self.add("skill-loaded", format="devforgeai-events/1", skill=skill,
                  checklist=checklist if checklist is not None else checklist_block(skill),
-                 host="claude-code 2.1.287")
+                 host="claude-code 2.1.287", taskList=task_list)
 
     def add(self, kind, **fields):
         seq = len(self.events) + 1
@@ -101,6 +101,17 @@ class Log:
 
     def turn(self, phase):
         return self.add("turn", phase=phase)
+
+    def started(self, n):
+        return self.add("step", step=n, state="started")
+
+    def done(self, n):
+        return self.add("step", step=n, state="done")
+
+    def worked(self, *steps):
+        for n in steps:
+            self.started(n).done(n)
+        return self
 
     def end(self, reason):
         return self.add("run-end", reason=reason)
@@ -518,6 +529,90 @@ def _():
 @case("write-double-slash")  # VER-29, a build departure: repeated slashes collapse, so this Write reaches the gate too
 def _():
     return brn_start(Log("brainstorm")).write(".//docs/specs//brainstorm/BRN-002.md", brn(PROMOTED)), plugin_only(), {}
+
+
+# ---- versions 5 and 6 ----------------------------------------------------------------------------
+
+TASK_LIST = ("Keep this checklist in your task list: one task per step, subject '<N>. <title>', "
+             "metadata devforgeai_step: N.")
+
+
+def tasked(skill):
+    """A skill's checklist with a line naming the convention's tag, as a skill that follows it has (§4); the hash
+    reads only the checklist lines, so the manifest still matches."""
+    return checklist_block(skill) + "\n" + TASK_LIST
+
+
+def following(skill):
+    return Log(skill, checklist=tasked(skill), task_list=True)
+
+
+def arch_steps_to_six(log):
+    """Steps 1 to 6 marked in the task list, each with its tool evidence; step 5 doesn't apply."""
+    log.started(1).bash(POLICY).done(1).started(2).glob("docs/specs/prd/PRD-*.md").done(2)
+    log.started(3).read("docs/specs/prd/PRD-001.md").done(3).started(4).glob("docs/specs/arch/ARCH-*.md").done(4)
+    return log.worked(5, 6)
+
+
+@case("steps-brainstorm")  # VER-30: the intake answer is step 1's, the confirmation step 5's
+def _():
+    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").answer().done(1).worked(2, 3, 4)
+    log.started(5).answer().done(5).started(6)
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("steps-arch")  # VER-31: the shape version 4 flags (checked 2026-10-03), with step events
+def _():
+    log = arch_start(following("architecture")).glob("docs/specs/arch/ARCH-*.md")
+    log.started(7).answer().answer().done(7).started(8).prompt().tick(1, 2, 3, 4, 5, 6, 7, 8).done(8)
+    return log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create")), plugin_only(), {}
+
+
+@case("steps-unmarked-question-cut")  # VER-32, cut after the question asked with no step in progress
+def _():
+    return arch_steps_to_six(following("architecture")).answer(), plugin_only(), {}
+
+
+@case("steps-unmarked-question")  # VER-32: the unmarked answer counts for no step
+def _():
+    log = arch_steps_to_six(following("architecture")).answer().started(9)
+    return log.write(ARCH_PATH, arch("create")), plugin_only(), {}
+
+
+@case("steps-unmarked-prompt")  # VER-32: a typed prompt in the same position raises nothing
+def _():
+    return arch_steps_to_six(following("architecture")).prompt(), plugin_only(), {}
+
+
+@case("steps-current")  # VER-33: the latest started step is current; step 5 doesn't apply; step 40 is unknown
+def _():
+    return arch_steps_to_six(following("architecture")).started(7).started(8).answer().started(40), plugin_only(), {}
+
+
+@case("steps-retick")  # VER-33: a conditional step a step event marked done stays not-applicable after a re-tick
+def _():
+    return arch_steps_to_six(following("architecture")).tick(1, 2, 3, 4, 5, 6), plugin_only(), {}
+
+
+@case("rollout-untagged")  # VER-34: taskList true, but a checklist without the tag and no step event
+def _():
+    log = arch_to_six(Log("architecture", task_list=True)).answer().answer().answer().tick(7).answer()
+    log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create"))  # arch-outcome-confirmed's log
+    return log, plugin_only(), {}
+
+
+@case("rollout-unasked-steps")  # VER-34: step events Claude kept unasked place answers; the rest go to the windows
+def _():
+    log = arch_to_six(Log("architecture", task_list=True)).answer().started(8).answer().done(8)
+    return log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create")), plugin_only(), {}
+
+
+@case("tasklist-false-tagged")  # SPEC-013 VER-24: no task tools, a tagged checklist, answers: no question gate
+def _():
+    log = arch_to_six(Log("architecture", checklist=tasked("architecture"), task_list=False))
+    log.answer().answer().answer().tick(7).answer()
+    log.write(ADR_PATH, adr("accepted")).write(ARCH_PATH, arch("create"))  # arch-outcome-confirmed's log
+    return log, plugin_only(), {}
 
 
 # ---- writing ------------------------------------------------------------------------------------

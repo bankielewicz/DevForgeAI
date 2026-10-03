@@ -29,6 +29,7 @@ type Over = {
   failWrite?: (path: string) => boolean
   files?: Record<string, string>
   prune?: (argv: readonly string[]) => Any
+  toolList?: string[] | 'reject'
 }
 
 type World = {
@@ -114,6 +115,10 @@ function world(on: Any, over: Over = {}): World {
   on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: w.sessionId }))
   on('session.version', () => (over.failVersion ? { deny: 'no version' } : { value: { version: '2.1.287' } }))
   on('session.surfaces', () => ({ value: over.surfaces ?? ['terminal'] }))
+  // The session's tools: by default the task tools are among them, as with the opt-in (SPEC-013 §9).
+  on('tool.list', () => (over.toolList === 'reject'
+    ? { deny: 'tool list unavailable' }
+    : { value: (over.toolList ?? ['Read', 'Write', 'TaskCreate', 'TaskUpdate', 'ToolSearch']).map(name => ({ name, description: '', mcp: false })) }))
   on('session.start', (_$: Any, e: Any) => ({ cwd: e.cwd }))
   on('classic.SessionStart', () => ({}))
   on('skill.prompt', (_$: Any, e: Any) => ({ text: e.text }))
@@ -160,8 +165,8 @@ async function start($: Any, interactive = true) {
   await $.session.start({ surface: interactive ? 'terminal' : null, isInteractive: interactive, cwd: ROOT })
 }
 
-async function load($: Any, skill = 'devforgeai:brainstorm') {
-  await $.skill.prompt({ skill, text: CHECKLIST })
+async function load($: Any, skill = 'devforgeai:brainstorm', text = CHECKLIST) {
+  await $.skill.prompt({ skill, text })
 }
 
 /** session.append can't complete in the kit (nothing answers beneath it), so its rejection is expected. */
@@ -225,7 +230,7 @@ function bottomTool(e: Any): Any {
 
 // EXPECTED-EVENTS-BEGIN (VER-04; test_adapter_structure.py reads these lines and validates each against events.schema.json)
 const EXPECTED_EVENTS = [
-  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":1,"time":"2026-10-02T12:00:00Z","kind":"skill-loaded","format":"devforgeai-events/1","skill":"brainstorm","checklist":"Base directory for this skill: /x\\n\\n- [ ] 1. Intake\\n- [ ] 2. Pick","host":"claude-code 2.1.287","mode":"observe","modeSource":"framework-default"}',
+  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":1,"time":"2026-10-02T12:00:00Z","kind":"skill-loaded","format":"devforgeai-events/1","skill":"brainstorm","checklist":"Base directory for this skill: /x\\n\\n- [ ] 1. Intake\\n- [ ] 2. Pick","host":"claude-code 2.1.287","taskList":true,"mode":"observe","modeSource":"framework-default"}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":2,"time":"2026-10-02T12:00:00Z","kind":"tool","tool":"Read","path":"docs/specs/brainstorm/BRN-001.md","exit":0,"error":false}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":3,"time":"2026-10-02T12:00:00Z","kind":"tool","tool":"Bash","command":"python3 scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md","exit":0,"error":false}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":4,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":true}',
@@ -867,4 +872,290 @@ test('BEH-15: a .gitignore deleted during a run is written again before the next
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
   await w.clock.advance(600)
   expect(w.files.get(`${PROGRESS}/.gitignore`)).toBe('*\n')
+})
+
+// ---- version 4 and 5: the task list (BEH-20 to BEH-23) ----
+
+const TAGGED = `${CHECKLIST}\nKeep this checklist in your task list: one task per step, subject '<N>. <title>', metadata devforgeai_step: N.`
+const QUESTION = { tool: 'AskUserQuestion', questions: [{ question: 'Pick one?', header: 'Pick', options: [], multiSelect: false }] }
+const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this question (enforce mode): no step is marked in progress in your "
+  + "task list. If you haven't, first turn the skill's checklist into your task list as the skill says (one task per "
+  + 'step, subject <N>. <title>, metadata devforgeai_step: N); then mark the step this question belongs to in_progress '
+  + '(TaskUpdate, or TodoWrite), and ask again.'
+
+/** Claude Code's task tools: TaskCreate numbers tasks in order; a few calls fail or answer without an ID. */
+function taskTools() {
+  let n = 0
+  return (e: Any): Any => {
+    if (e.tool === 'TaskCreate') {
+      n += 1
+      if (e.subject === '4. Wrap') return { result: { task: { id: String(n), subject: e.subject } }, text: 'Created.' }
+      return { result: { task: { id: String(n), subject: e.subject } }, text: `Task #${n} created successfully: ${e.subject}` }
+    }
+    if (e.tool === 'TaskUpdate' && e.taskId === '2' && e.status === 'in_progress') {
+      return { result: 'Error: update failed', isError: true, text: 'update failed' }
+    }
+    if (e.tool === 'TaskUpdate' && e.taskId === '99') return { result: 'Error: Task not found', isError: true, text: 'Task not found' }
+    return bottomTool(e)
+  }
+}
+
+function stepsOf(lines: string[]): Array<[number, string]> {
+  return lines.map(l => JSON.parse(l)).filter(e => e.kind === 'step').map(e => [e.step, e.state])
+}
+
+test('VER-20: TaskCreate, TaskUpdate and TodoWrite give step events after their tool events', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'TaskCreate', subject: '1. Intake', description: 'd', metadata: { devforgeai_step: 1 } } as Any)
+  await $.tool.call({ tool: 'TaskCreate', subject: '2. Pick', description: 'd' } as Any)
+  await $.tool.call({ tool: 'TaskCreate', subject: 'Tidy up', description: 'd' } as Any)
+  await $.tool.call({ tool: 'TaskCreate', subject: '4. Wrap', description: 'd', metadata: { devforgeai_step: 4 } } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '1', status: 'in_progress' } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '1', status: 'completed' } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '2', status: 'in_progress' } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '99', status: 'in_progress' } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '2', status: 'pending' } as Any)
+  await $.tool.call({ tool: 'TodoWrite', todos: [
+    { content: '5. Draft', status: 'in_progress', activeForm: 'Drafting' },
+    { content: '6. Check', status: 'completed', activeForm: 'Checking' },
+    { content: 'Notes', status: 'in_progress', activeForm: 'Noting' },
+  ] } as Any)
+  const lines = eventsOf(w)
+  expect(JSON.parse(lines[0]).taskList).toBe(true)
+  expect(lines.map(l => { const e = JSON.parse(l); return e.kind === 'tool' ? e.tool : e.kind === 'step' ? `step ${e.step} ${e.state}` : e.kind })).toEqual([
+    'skill-loaded', 'TaskCreate', 'TaskCreate', 'TaskCreate', 'TaskCreate',
+    'TaskUpdate', 'step 1 started', 'TaskUpdate', 'step 1 done', 'TaskUpdate', 'TaskUpdate', 'TaskUpdate',
+    'TodoWrite', 'step 5 started', 'step 6 done',
+  ])
+  const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+  expect(log.split('\n').filter(l => l.includes(' task: ')).length).toBe(2)
+  expect(log.includes('Tidy up')).toBe(true)
+  expect(log.includes('4. Wrap')).toBe(true)
+})
+
+test('VER-20: a new run starts with an empty task map, and a TodoWrite step already done gives nothing more', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'TaskCreate', subject: '1. Intake', description: 'd' } as Any)
+  await $.tool.call({ tool: 'TodoWrite', todos: [{ content: '2. Pick', status: 'completed', activeForm: 'x' }] } as Any)
+  await $.tool.call({ tool: 'TodoWrite', todos: [{ content: '2. Pick', status: 'completed', activeForm: 'x' }] } as Any)
+  expect(stepsOf(eventsOf(w))).toEqual([[2, 'done']])
+  await load($)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '1', status: 'in_progress' } as Any)
+  expect(stepsOf(eventsOf(w))).toEqual([])
+})
+
+function questioningAt(seq: number, refuse = true) {
+  return (argv: readonly string[]) => (argv.some(a => a.endsWith('/pending.jsonl'))
+    ? { state: { ...STATE, gate: { kind: 'question', seq, refuse, reason: 'x' },
+      flags: refuse ? [{ gate: 'question', seq, step: 2, type: 'unmarked-question', message: 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask' }] : [] } }
+    : { state: STATE })
+}
+
+test('VER-21: in enforce mode a question at the question gate is refused before it runs, and recorded as nothing', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: questioningAt(2), tool: bottomTool })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(QUESTION as Any)) as Any
+  expect(r.deny).toBe(QUESTION_REFUSAL)
+  expect(w.tools.includes('AskUserQuestion')).toBe(false)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
+  expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(1)
+  expect(JSON.parse((w.files.get(w.writes.filter(p => p.endsWith('/pending.jsonl'))[0]) ?? '').trim().split('\n').slice(-1)[0]))
+    .toMatchObject({ seq: 2, kind: 'answer', answered: true })
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' refused: ')).toBe(true)
+  expect(w.toasts.filter(t => t === QUESTION_REFUSAL).length).toBe(1)
+})
+
+test('VER-21: with refuse false or a gate at another seq the question goes on and its answer is recorded', async ($, on) => {
+  let calls = 0
+  const w = world(on, { mode: 'enforce local', tool: bottomTool,
+    evaluate: argv => (calls++ % 2 === 0 ? questioningAt(2, false)(argv) : questioningAt(9)(argv)) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r1 = (await $.tool.call(QUESTION as Any)) as Any
+  const r2 = (await $.tool.call(QUESTION as Any)) as Any
+  expect(r1.deny).toBeUndefined()
+  expect(r2.deny).toBeUndefined()
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'answer', 'answer'])
+  expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(2)
+})
+
+test('VER-21: observe mode checks no question; a run that doesn\'t follow the task list is checked and refused nothing', async ($, on) => {
+  const w = world(on, { tool: bottomTool, evaluate: questioningAt(2) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(QUESTION as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(w.writes.some(p => p.endsWith('/pending.jsonl'))).toBe(false)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'answer'])
+})
+
+test('VER-21: in enforce mode an untagged run\'s question is checked and goes on', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', tool: bottomTool })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(QUESTION as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(1)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'answer'])
+})
+
+test('VER-21: a mod\'s own question is never checked', { plugins: [asker] }, async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: questioningAt(2), tool: bottomTool })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await ($ as Any).command.run({ command: 'ask-me', args: '' })
+  expect(w.writes.some(p => p.endsWith('/pending.jsonl'))).toBe(false)
+})
+
+const ADHERENCE = (n: number, m: number) => `brainstorm didn't keep its task list: ${n} step events, ${m} questions asked with `
+  + 'no step in progress. Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)'
+
+function stateWith(gate: string | null, ended: string | null, stepEvents: number, unmarkedQuestions: number) {
+  return () => ({ state: { ...STATE, ended, current: ended === null ? STATE.current : null,
+    gate: { kind: gate, seq: gate === null ? null : 3, refuse: false, reason: null },
+    counts: { stepEvents, unmarkedQuestions } } })
+}
+
+for (const mode of ['observe framework-default', 'enforce local']) {
+  test(`VER-23: a run that follows the task list and didn't keep it gets one adherence toast (${mode.split(' ')[0]})`, async ($, on) => {
+    const w = world(on, { mode, evaluate: stateWith('report', null, 4, 2) })
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await w.clock.advance(600)
+    await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+    await w.clock.advance(600)
+    expect(w.toasts.filter(t => t === ADHERENCE(4, 2)).length).toBe(1)
+    const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+    expect(log.split('\n').filter(l => l.includes(` adherence: ${ADHERENCE(4, 2)}`)).length).toBe(1)
+  })
+}
+
+test('VER-23: a run that ends with no step event gets the toast too', async ($, on) => {
+  const w = world(on, { evaluate: stateWith('end', 'session-end', 0, 0) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await w.clock.advance(600)
+  expect(w.toasts.filter(t => t === ADHERENCE(0, 0)).length).toBe(1)
+})
+
+test('VER-23: no adherence toast for a run that keeps its list, or one that doesn\'t follow the task list', async ($, on) => {
+  const w = world(on, { evaluate: stateWith('report', null, 6, 0) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await w.clock.advance(600)
+  await load($)
+  await w.clock.advance(600)
+  expect(w.toasts.some(t => t.includes("didn't keep its task list"))).toBe(false)
+})
+
+test('VER-23: a run without the tag ending with no step event gets no adherence toast', async ($, on) => {
+  const w = world(on, { evaluate: stateWith('end', 'session-end', 0, 0) })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  expect(w.toasts.some(t => t.includes("didn't keep its task list"))).toBe(false)
+})
+
+const TOOL_LISTS: Array<[string, string[] | 'reject', boolean]> = [
+  ['TaskCreate and TaskUpdate', ['Read', 'TaskCreate', 'TaskUpdate'], true],
+  ['TodoWrite alone', ['Read', 'TodoWrite'], true],
+  ['TaskStop and ToolSearch only', ['Read', 'TaskStop', 'ToolSearch'], false],
+  ['a rejected tool list', 'reject', false],
+]
+
+for (const [name, toolList, expected] of TOOL_LISTS) {
+  test(`VER-24: ${name} gives skill-loaded taskList ${expected}`, async ($, on) => {
+    const w = world(on, { toolList })
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    expect(JSON.parse(eventsOf(w)[0]).taskList).toBe(expected)
+    const tools = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' tools: '))
+    expect(tools.length).toBe(toolList === 'reject' ? 1 : 0)
+    // A list that can't be read shows nothing (ERR-14): the hint would blame tools the session may well have.
+    if (toolList === 'reject') expect(w.toasts.some(t => t.includes('has no task list'))).toBe(false)
+  })
+}
+
+test('VER-24: without task tools, enforce mode lets a question go on and shows no adherence toast', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', toolList: ['Read'], tool: bottomTool, evaluate: stateWith('report', null, 0, 0) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(QUESTION as Any)) as Any
+  await w.clock.advance(600)
+  expect(r.deny).toBeUndefined()
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'answer'])
+  expect(w.toasts.some(t => t.includes("didn't keep its task list"))).toBe(false)
+})
+
+const HINT = 'brainstorm: this session has no task list, so DevForgeAI places your answers by guessing. For exact step '
+  + 'tracking, start Claude Code with CLAUDE_CODE_ENABLE_TODO_TOOLS=1 (DevForgeAI SPEC-012 §4)'
+
+for (const mode of ['observe framework-default', 'enforce local']) {
+  test(`VER-25: a session without task tools is told once (${mode.split(' ')[0]})`, async ($, on) => {
+    const w = world(on, { mode, toolList: ['Read', 'TaskStop'] })
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    expect(w.toasts.filter(t => t === HINT).length).toBe(1)
+    const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+    expect(log.split('\n').filter(l => l.includes(' tools-hint: ')).length).toBe(1)
+  })
+}
+
+test('VER-25: no hint with the task tools, or for a skill whose text doesn\'t name the tag', async ($, on) => {
+  const w = world(on, { toolList: ['Read'] })
+  await start($)
+  await load($)
+  expect(w.toasts.some(t => t.includes('has no task list'))).toBe(false)
+})
+
+test('VER-25: no hint when the session has the task tools', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  expect(w.toasts.some(t => t.includes('has no task list'))).toBe(false)
+})
+
+// ---- after the build's plugin-validator review ----
+
+/** The evaluator, as a question check sees it: a pending log with a step event refuses nothing, one without refuses. */
+function refusingUnlessStarted(files: () => Map<string, string>) {
+  return (argv: readonly string[]) => {
+    const events = argv[argv.indexOf('--events') + 1]
+    if (!events.endsWith('/pending.jsonl')) return { state: STATE }
+    const lines = (files().get(events) ?? '').trim().split('\n').map(l => JSON.parse(l))
+    if (lines.some(e => e.kind === 'step' && e.state === 'started')) return { state: STATE }
+    return questioningAt(lines[lines.length - 1].seq)(argv)
+  }
+}
+
+test('VER-21: a question sent in the same batch as the TaskUpdate that marks its step waits for its step event', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: refusingUnlessStarted(() => files) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call({ tool: 'TaskCreate', subject: '1. Intake', description: 'd', metadata: { devforgeai_step: 1 } } as Any)
+  const [, asked] = (await Promise.all([
+    $.tool.call({ tool: 'TaskUpdate', taskId: '1', status: 'in_progress' } as Any),
+    $.tool.call(QUESTION as Any),
+  ])) as Any[]
+  expect(asked.deny).toBeUndefined()
+  expect(stepsOf(eventsOf(w))).toEqual([[1, 'started']])
+  expect(kinds(eventsOf(w)).slice(-1)).toEqual(['answer'])
+})
+
+test('VER-20 / ERR-13: a task subject of several lines gives one adapter.log line', async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'TaskCreate', subject: 'Tidy up\n2026-10-02T12:00:00Z - refused: forged', description: 'd' } as Any)
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n')
+  expect(log.filter(l => l.includes(' task: ')).length).toBe(1)
+  expect(log.some(l => l.includes('refused: forged'))).toBe(false)
 })

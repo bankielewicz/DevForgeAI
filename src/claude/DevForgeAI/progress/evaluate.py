@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v4).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v6).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -43,7 +43,12 @@ EVENT_FIELDS = {  # the fields each kind of event must carry (DM-02)
     "reply": {"text": str},
     "turn": {"phase": str},
     "run-end": {"reason": str},
+    "step": {"step": int, "state": str},
 }
+STEP_STATES = ("started", "done")
+TASK_TAG = "devforgeai_step"  # a skill whose text names it follows the task-list convention (§4, BEH-18)
+UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
+            "mark the step it belongs to in progress, then ask")
 CHAIN = ("brainstorm", "prd", "architecture", "context", "epic", "story")
 NOT_BUILT = {"story": "the story skill isn't built yet (SPEC-009)"}
 
@@ -196,6 +201,9 @@ def well_formed(e):
     fields = EVENT_FIELDS.get(e.get("kind"))
     if fields is None:
         return False
+    if e["kind"] == "step" and (isinstance(e.get("step"), bool) or not isinstance(e.get("step"), int)
+                                or e["step"] < 1 or e.get("state") not in STEP_STATES):
+        return False
     return all(isinstance(e.get(k), t) for k, t in fields.items())
 
 
@@ -307,6 +315,7 @@ class Step:
         self.strong = any(r["type"] in ("script", "answer") for r in self.rules)
         self.evidence = []      # dicts: seq, type, strength, detail
         self.claims = []        # dicts: seq, state, reason, in seq order
+        self.event_claims = set()  # seqs of the claims that are done step events (BEH-05)
         self.gate_state = None  # set by a gate: skipped, not-applicable, unconfirmed
         self.gate_note = ""     # the note that goes with not-applicable
         self.sticky = None      # a gate result later evidence can't undo: skipped, rule-broken
@@ -341,6 +350,14 @@ class Step:
         if claim["state"] == "skipped":
             return "skipped-with-reason"
         return "claimed" if self.strong else "done"
+
+    def not_applicable_by_event(self, upto=INFINITY):
+        """A conditional step a done step event marked with no evidence: the skill found it didn't apply (BEH-07). A
+        later done tick, as a checklist restated after a compaction gives, doesn't undo that; a skipped one does."""
+        claims = [c for c in self.claims if c["seq"] < upto]
+        return (self.need == "conditional" and bool(claims) and claims[-1]["state"] == "done"
+                and any(c["seq"] in self.event_claims for c in claims)
+                and not any(x["seq"] < upto for x in self.evidence))
 
     def expected_evidence(self):
         what = []
@@ -403,6 +420,10 @@ class Run:
         self.unknown_claims = 0
         self.flags = []
         self.flagged = set()        # (step, type) already flagged
+        # A run follows the task list when its host has one and its skill names the convention's tag (BEH-18).
+        self.follows = loaded.get("taskList") is True and TASK_TAG in loaded["checklist"]
+        self.step_events = []       # (seq, step, state) of the step events naming a known step, in seq order
+        self.unmarked = []          # seqs of the answer events at a question gate (BEH-08)
         self.gate = {"kind": None, "seq": None, "refuse": False, "reason": None}
         notes = {"stale": "manifest out of date; tracking ticks only",
                  "none": "no manifest for this skill; tracking ticks only",
@@ -488,12 +509,35 @@ class Run:
             else:
                 self.by_n[n].claims.append(claim)
 
+    def take_step(self, e):
+        step = self.by_n.get(e["step"])
+        if step is None:  # ERR-06
+            self.unknown_claims += 1
+            return
+        self.step_events.append((e["seq"], step.n, e["state"]))
+        if e["state"] == "done":  # a claim, as a tick is (BEH-05)
+            step.claims.append({"seq": e["seq"], "state": "done", "reason": None})
+            step.event_claims.add(e["seq"])
+
     def collect(self):
         for e in self.events:
             if e["kind"] == "tool":
                 self.take_tool(e)
             elif e["kind"] == "reply":
                 self.take_reply(e)
+            elif e["kind"] == "step":
+                self.take_step(e)
+
+    def in_progress(self, upto=INFINITY):
+        """The step in progress before `upto`: the step whose latest step event is started, the latest started when
+        several are (BEH-07, BEH-18); None when no step is."""
+        latest = {}
+        for seq, n, state in self.step_events:
+            if seq >= upto:
+                break
+            latest[n] = (state, seq)
+        started = [(seq, n) for n, (state, seq) in latest.items() if state == "started"]
+        return max(started)[1] if started else None
 
     # -- gates' positions --
 
@@ -549,10 +593,27 @@ class Run:
 
     def assign_answers(self):
         owned = [s for s in self.steps if s.user_owned]
+        answers = []
+        for e in self.events:
+            if e["kind"] not in ("answer", "prompt"):
+                continue
+            counts = e["kind"] == "prompt" or e["answered"]
+            # BEH-18: step events place answers: the step in progress takes each one; a step that isn't the user's
+            # keeps it as its own exchange, such as an intake question, so it counts for no user-owned step.
+            n = self.in_progress(e["seq"]) if self.step_events else None
+            if n is not None:
+                if counts and self.by_n[n].user_owned:
+                    self.by_n[n].evidence.append(self.answer_evidence(e))
+            elif self.follows and self.tracked:
+                # No step in progress in a run that follows the task list: a question there is a question gate
+                # (BEH-08); a typed prompt counts for no step and raises nothing.
+                if e["kind"] == "answer":
+                    self.unmarked.append(e["seq"])
+            elif counts:
+                answers.append(e)  # BEH-09's windows place the rest
         if not owned:
             return
         windows = {s.n: self.window(s) for s in owned}
-        answers = [e for e in self.events if (e["kind"] == "answer" and e["answered"]) or e["kind"] == "prompt"]
         unplaced = []
         for e in answers:
             step = next((s for s in owned if windows[s.n][0] < e["seq"] < windows[s.n][1]), None)
@@ -584,7 +645,7 @@ class Run:
 
     def check_steps(self, new, gate, seq, steps):
         for step in steps:
-            if step.sticky:
+            if step.sticky or step.not_applicable_by_event(seq):
                 continue
             if step.user_owned:
                 if gate in ("report", "end") and not step.answered(seq) and not step.unverifiable:
@@ -653,9 +714,14 @@ class Run:
                         and e.get("error") is not True and isinstance(e.get("path"), str) \
                         and any(path_matches(e["path"], rule["path"]) for rule in self.content_rules):
                     content[e["seq"]] = e
-        points = sorted({p for p in (w, r, end) if p is not None} | set(content))
+        unmarked = set(self.unmarked)
+        points = sorted({p for p in (w, r, end) if p is not None} | set(content) | unmarked)
         for seq in points:
             new = []
+            if seq in unmarked:
+                # The question gate checks no step: its flag names the step the run would reach next (version 6).
+                self.flag(new, "question", seq, self.by_n[self.next_to_reach(seq)], "unmarked-question", UNMARKED,
+                          once=False)
             if seq == w:
                 self.check_steps(new, "write", seq, [s for s in self.steps if s.n < self.write_gate.n])
             if seq in content:
@@ -666,7 +732,7 @@ class Run:
                 highest = self.highest_reached()
                 if highest is not None:
                     self.check_steps(new, "end", seq, [s for s in self.steps if s.n <= highest])
-            kind = "end" if seq == end else "report" if seq == r else "write"
+            kind = "end" if seq == end else "report" if seq == r else "question" if seq in unmarked else "write"
             self.gate = {"kind": kind, "seq": seq, "refuse": bool(new), "reason": new[0]["message"] if new else None}
 
     # -- positions --
@@ -675,9 +741,19 @@ class Run:
         reached = [s.n for s in self.steps if s.reached(upto)]
         return max(reached) if reached else None
 
+    def next_to_reach(self, upto):
+        """The step after the highest reached before `upto`, or the last step when every step is reached."""
+        highest = self.highest_reached(upto)
+        later = [s.n for s in self.steps if highest is None or s.n > highest]
+        return later[0] if later else self.steps[-1].n
+
     def current(self):
         if self.end_seq() is not None or not self.steps:
             return None
+        if self.step_events:
+            n = self.in_progress()
+            if n is not None:
+                return n
         highest = self.highest_reached()
         if highest is None:
             return self.steps[0].n
@@ -702,6 +778,8 @@ class Run:
     def final_state(self, step):
         if step.sticky:
             return step.sticky
+        if step.not_applicable_by_event():
+            return "not-applicable"
         base = step.base_state()
         if base == "claimed" and step.gate_state == "not-applicable":
             return "not-applicable"
@@ -717,7 +795,7 @@ class Run:
             if step.unverifiable and not step.sticky and state != "not-applicable":
                 note = "content not available; rule not checked"
             elif state == "not-applicable":
-                note = step.gate_note
+                note = (step.when or "") if step.not_applicable_by_event() else step.gate_note
             else:
                 first = step.first_signal()
                 if first is not None:
@@ -769,7 +847,8 @@ def build_state(events, counts, manifest, layers, root=None):
     run.collect()
     run.assign_answers()
     run.check_gates()
-    counts = dict(counts, unknownClaims=run.unknown_claims)
+    counts = dict(counts, unknownClaims=run.unknown_claims, unmarkedQuestions=len(run.unmarked),
+                  stepEvents=len(run.step_events))  # the step events naming a step the checklist has
     current = run.current()
     run.step_notes(current)
     state = {

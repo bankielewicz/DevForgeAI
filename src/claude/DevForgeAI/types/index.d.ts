@@ -1,4 +1,4 @@
-// The progress tracker adapter's $.state contract (SPEC-013 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v5 DM-03). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
@@ -44,6 +44,12 @@ declare module 'claude-code' {
       shown: string[]
       contextSent: number[]
       off: string | null
+      /** The open run's task IDs and their step numbers (BEH-20); a new run starts empty. */
+      tasks: Record<string, number>
+      /** TodoWrite: each step's last status, by step number (BEH-20). */
+      todos: Record<string, string>
+      /** The task-tools hint was shown this session (BEH-23). */
+      hinted: boolean
     }
   }
 }
