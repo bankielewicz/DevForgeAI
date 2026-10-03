@@ -17,7 +17,7 @@ export const FORMAT = 'devforgeai-events/1'
 const ORDER: Record<string, readonly string[]> = {
   'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource'],
   tool: ['tool', 'path', 'command', 'exit', 'error', 'content'],
-  answer: ['answered'],
+  answer: ['answered', 'step', 'outside'],
   prompt: [],
   reply: ['text'],
   turn: ['phase'],
@@ -236,14 +236,16 @@ export function flagKey(f: StateFlag): string {
 }
 
 /** Flags not shown yet, and the toast text of each (BEH-12). */
-export function newFlagToasts(state: ProgressState, shown: readonly string[], marked: number | null = null): { keys: string[]; toasts: string[] } {
+export function newFlagToasts(state: ProgressState, shown: readonly string[], lines: readonly string[] | null = null): { keys: string[]; toasts: string[] } {
   const fresh = state.flags.filter(f => !shown.includes(flagKey(f)))
   return {
     keys: fresh.map(flagKey),
-    // A decision's flag while the task list marks an earlier step says why, in both modes (BEH-12, version 7).
+    // Written for the user (BEH-12, version 8): a decision whose typed answers went to another marked step says so,
+    // and a question gate's answer counted for nothing. `lines` is the run's, when it follows the task list.
     toasts: fresh.map(f => {
-      const mark = forgottenMark(state, [f], marked)
-      return `✗ Step ${f.step} ${f.type}: ${f.message}` + (mark ? ' ' + markSentence(state.steps, mark.n, mark.m) : '')
+      const typed = lines === null ? null : typedTo(state, f, lines)
+      return `✗ Step ${f.step} ${f.type}: ${f.message}` + (typed ? ' ' + typed : '')
+        + (QUESTION_GATES.includes(f.type) ? ' Its answer, if any, counts for no step.' : '')
     }),
   }
 }
@@ -251,28 +253,28 @@ export function newFlagToasts(state: ProgressState, shown: readonly string[], ma
 /** The refusal text at the write gate (BEH-08), or null when the provisional state doesn't refuse at seq. It names
  *  what clears each flag: a step's own evidence or a tick in reply text, or for a decision the user's answer (the
  *  VER-15 dogfood run showed a refusal that only said "the user decides" sent Claude into the tracker's code). */
-export function refusalText(state: ProgressState, seq: number, marked: number | null = null): string | null {
+export function refusalText(state: ProgressState, seq: number, runLines: readonly string[] | null = null): string | null {
   const g = state.gate
   if (g.kind !== 'write' || g.seq !== seq || !g.refuse) return null
   const flags = state.flags.filter(f => f.seq === seq)
   const owned = new Set(state.steps.filter(s => s.userOwned).map(s => s.n))
   const decisions = flags.filter(f => f.type === 'rule-broken' || owned.has(f.step))
   const steps = flags.filter(f => f.type !== 'rule-broken' && !owned.has(f.step)).map(f => f.step)
-  const lines = ["DevForgeAI's progress tracker refused this write at the write gate (enforce mode):", ...flags.map(f => `- ${f.message}`)]
+  const said = ["DevForgeAI's progress tracker refused this write at the write gate (enforce mode):", ...flags.map(f => `- ${f.message}`)]
   if (steps.length) {
     const list = [...new Set(steps)].join(', ')
-    lines.push(`To clear step ${list}: do the step with a tool call the run log can see (Read the files it names), `
+    said.push(`To clear step ${list}: do the step with a tool call the run log can see (Read the files it names), `
       + `or, if you did it, tick it as \`- [x] N.\` in your reply text. A tick only in your thinking doesn't count.`)
   }
   if (decisions.length) {
-    lines.push('The decisions at step ' + [...new Set(decisions.map(f => f.step))].join(', ')
+    said.push('The decisions at step ' + [...new Set(decisions.map(f => f.step))].join(', ')
       + " are the user's: ask the user, or leave those fields open.")
   }
-  // A forgotten mark: the answers went to the marked step, so asking again alone would loop (BEH-08, version 7).
-  const mark = forgottenMark(state, flags, marked)
-  if (mark) lines.push(markSentence(state.steps, mark.n, mark.m))
-  lines.push('Then write again.' + (state.run ? ` The run's log and state are in devforgeai/progress/runs/${state.run}/.` : ''))
-  return lines.join('\n')
+  // How a decision's answer counts, whichever step the task list marks (BEH-08, version 8): `runLines` is the run's
+  // lines, when it follows the task list.
+  if (runLines !== null) said.push(...decisionLines(state, flags, runLines))
+  said.push('Then write again.' + (state.run ? ` The run's log and state are in devforgeai/progress/runs/${state.run}/.` : ''))
+  return said.join('\n')
 }
 
 /** The report gate's flags for the model (BEH-09), or null when there are none to give. */
@@ -388,10 +390,48 @@ export const QUESTION_REFUSAL = "DevForgeAI's progress tracker refused this ques
   + 'devforgeai_step: N). Then mark the step this question belongs to in_progress (TaskUpdate, or TodoWrite), and ask '
   + 'again.'
 
-/** The question refusal when the provisional state's question gate refuses at seq, else null (BEH-21). */
-export function questionRefusal(state: ProgressState, seq: number): string | null {
+/** What an unmarked question with no step tag is also told (BEH-21, version 8). */
+export const QUESTION_TAG = ' Tag the question too: add metadata: {"source": "devforgeai_step:N"} to the AskUserQuestion '
+  + "call, N being its step. If the question isn't part of this skill's checklist, give it a source of its own instead; "
+  + 'it then needs no step and counts for none.'
+
+/** SPEC-012's question-gate flag types (version 9). */
+export const QUESTION_GATES = ['unmarked-question', 'untagged-question', 'mismatched-question']
+
+/** The question refusal when the provisional state's question gate refuses at seq, else null (BEH-21). The text follows
+ *  the type of the gate's flag, never its message: `marked` is the step the task list marks, `tagged` whether the
+ *  question names a step (version 8). */
+export function questionRefusal(state: ProgressState, seq: number, marked: number | null = null, tagged = false): string | null {
   const g = state.gate
-  return g.kind === 'question' && g.seq === seq && g.refuse ? QUESTION_REFUSAL : null
+  if (g.kind !== 'question' || g.seq !== seq || !g.refuse) return null
+  const flag = state.flags.find(f => f.gate === 'question' && f.seq === seq)
+  const head = "DevForgeAI's progress tracker refused this question (enforce mode): "
+  if (flag?.type === 'mismatched-question') {
+    const n = flag.step
+    const k = marked ?? n
+    return head + `it is tagged for step ${n}, but your task list marks step ${k} in progress. If the question belongs `
+      + `to step ${n}, mark step ${n} in_progress (TaskUpdate, or TodoWrite) and ask again; if it belongs to step ${k}, `
+      + `tag it devforgeai_step:${k} and ask again.`
+  }
+  if (flag?.type === 'untagged-question') {
+    return head + "it doesn't name a step of this skill's checklist. Add metadata: {\"source\": \"devforgeai_step:N\"} to "
+      + `the AskUserQuestion call, N being the step it belongs to; your task list marks step ${marked ?? flag.step} in `
+      + 'progress, so if the question belongs to another step, mark that step in_progress first. If the question '
+      + "isn't part of this skill's checklist, give it a source of its own instead; it then counts for no step. Then ask "
+      + 'again.'
+  }
+  return QUESTION_REFUSAL + (tagged ? '' : QUESTION_TAG)
+}
+
+/** A question's step tag from its input's metadata.source (DM-01, version 8): `step` for devforgeai_step:N, `outside`
+ *  for a source naming something else, nothing for no source or a malformed tag. */
+export function questionTag(input: Fields): { step?: number; outside?: true } {
+  const meta = input.metadata
+  const source = meta !== null && typeof meta === 'object' ? (meta as Fields).source : undefined
+  if (typeof source !== 'string') return {}
+  const m = /^devforgeai_step:([1-9][0-9]*)$/.exec(source)
+  if (m) return { step: Number(m[1]) }
+  return source.startsWith(TASK_TAG) ? {} : { outside: true }
 }
 
 /** The adherence notice for a run that follows the task list, once it ends or reaches its report gate with no step
@@ -404,7 +444,7 @@ export function adherenceText(state: ProgressState): string | null {
   const n = state.counts?.stepEvents
   const m = state.counts?.unmarkedQuestions
   if (typeof n !== 'number' || typeof m !== 'number' || (n > 0 && m === 0)) return null
-  return `${state.skill} didn't keep its task list: ${n} step events, ${m} questions asked with no step in progress. `
+  return `${state.skill} didn't keep its task list: ${n} step events, ${m} questions asked without their step marked and tagged. `
     + 'Recommended: fix the skill so it keeps its checklist in the task list (DevForgeAI SPEC-012 §4)'
 }
 
@@ -414,24 +454,42 @@ export function hintText(skill: string): string {
     + 'tracking, start Claude Code with CLAUDE_CODE_ENABLE_TODO_TOOLS=1 (DevForgeAI SPEC-012 §4)'
 }
 
-// ---- a forgotten mark (SPEC-013 v7) ----
+// ---- the task list's mark (SPEC-013 v7 and v8) ----
 
-/** The step the task list marks in progress, from a run's event lines: the step whose latest step event is started,
- *  the latest started when several are (SPEC-012 BEH-18); null when none is. */
-export function markedStep(lines: readonly string[]): number | null {
-  const latest = new Map<number, { state: unknown; seq: number }>()
+function parsed(lines: readonly string[]): Fields[] {
+  const out: Fields[] = []
   for (const line of lines) {
-    let e: Fields
     try {
-      e = JSON.parse(line) as Fields
+      out.push(JSON.parse(line) as Fields)
     } catch {
-      continue
+      // a line that isn't JSON says nothing about the mark
     }
-    if (e.kind === 'step' && typeof e.step === 'number' && typeof e.seq === 'number') latest.set(e.step, { state: e.state, seq: e.seq })
+  }
+  return out
+}
+
+/** The step the task list marks in progress, from a run's event lines before seq `upto`: the step whose latest step
+ *  event is started, the latest started when several are (SPEC-012 BEH-18); null when none is. With `steps`, a step
+ *  the state doesn't have counts as none (BEH-24, version 8). */
+export function markedStep(lines: readonly string[], upto = Infinity, steps: readonly StateStep[] | null = null): number | null {
+  const latest = new Map<number, { state: unknown; seq: number }>()
+  for (const e of parsed(lines)) {
+    if (typeof e.seq !== 'number' || e.seq >= upto) continue
+    if (e.kind === 'step' && typeof e.step === 'number') latest.set(e.step, { state: e.state, seq: e.seq })
   }
   let best: { n: number; seq: number } | null = null
   for (const [n, v] of latest) if (v.state === 'started' && (best === null || v.seq > best.seq)) best = { n, seq: v.seq }
-  return best === null ? null : best.n
+  if (best === null || (steps !== null && !steps.some(s => s.n === best!.n))) return null
+  return best.n
+}
+
+/** Whether the user typed a prompt after step n's latest started event and before seq `upto` (BEH-08, BEH-12). */
+export function typedSince(lines: readonly string[], n: number, upto = Infinity): boolean {
+  const events = parsed(lines).filter(e => typeof e.seq === 'number' && e.seq < upto)
+  const starts = events.filter(e => e.kind === 'step' && e.step === n && e.state === 'started').map(e => e.seq as number)
+  if (!starts.length) return false
+  const from = Math.max(...starts)
+  return events.some(e => e.kind === 'prompt' && (e.seq as number) > from)
 }
 
 /** 'step N (<title>)', or 'step N' when the state has no title for it. */
@@ -440,20 +498,57 @@ export function stepLabel(steps: readonly StateStep[], n: number): string {
   return s ? `step ${n} (${s.title})` : `step ${n}`
 }
 
-/** A forgotten mark among flags: a skipped flag for a user-owned step M while the task list marks an earlier step N
- *  (BEH-08, BEH-12); null otherwise. M comes from the flag's step and the state's userOwned, never from message text. */
-export function forgottenMark(state: ProgressState, flags: readonly StateFlag[], marked: number | null): { n: number; m: number } | null {
-  if (marked === null) return null
+/** The first skipped flag for a user-owned step among flags: the decision's step, from the flag's step and the state's
+ *  userOwned, never from message text (BEH-08, BEH-12). */
+function decisionFlag(state: ProgressState, flags: readonly StateFlag[]): StateFlag | null {
   const owned = new Set(state.steps.filter(s => s.userOwned).map(s => s.n))
-  const flag = flags.find(f => f.type === 'skipped' && owned.has(f.step) && marked < f.step)
-  return flag ? { n: marked, m: flag.step } : null
+  return flags.find(f => f.type === 'skipped' && owned.has(f.step)) ?? null
 }
 
-/** What clears a forgotten mark (BEH-08, BEH-12). */
-export function markSentence(steps: readonly StateStep[], n: number, m: number): string {
-  return `Your task list marks ${stepLabel(steps, n)} in progress, so your answers since then counted for step ${n}. `
-    + `If you've moved on, mark step ${n} done and mark ${stepLabel(steps, m)} in progress, then ask the user again.`
+/** The write refusal's lines for a decision (BEH-08, version 8): how step M's answer counts, whichever step is marked,
+ *  and before it, when another marked step N took what the user typed, that step; none when step M itself is marked. */
+export function decisionLines(state: ProgressState, flags: readonly StateFlag[], lines: readonly string[]): string[] {
+  const flag = decisionFlag(state, flags)
+  if (flag === null) return []
+  const m = flag.step
+  const n = markedStep(lines, Infinity, state.steps)
+  if (n === m) return []
+  const label = stepLabel(state.steps, m)
+  const out: string[] = []
+  if (n !== null && typedSince(lines, n)) {
+    out.push(`Your task list marks ${stepLabel(state.steps, n)} in progress, so what the user typed since then counted for step ${n}.`)
+  }
+  out.push(`${label[0].toUpperCase()}${label.slice(1)} is the user's decision: an answer counts for it only while step ${m} `
+    + `is marked in progress, and an answer to a question only when the question is also tagged devforgeai_step:${m}. `
+    + `Mark step ${m} in_progress, ask the user with the question tagged devforgeai_step:${m}, and mark step ${m} completed.`)
+  return out
 }
+
+/** The user's sentence on a decision's flag toast (BEH-12, version 8), judged at the flag's seq: another marked step N
+ *  took what the user typed; null otherwise. */
+function typedTo(state: ProgressState, flag: StateFlag, lines: readonly string[]): string | null {
+  if (decisionFlag(state, [flag]) === null) return null
+  const n = markedStep(lines, flag.seq, state.steps)
+  if (n === null || n === flag.step || !typedSince(lines, n, flag.seq)) return null
+  return `What you typed since ${stepLabel(state.steps, n)} was marked in progress counted for step ${n}: the `
+    + `${state.skill} skill didn't keep its task list in step with its work (DevForgeAI SPEC-012 §4).`
+}
+
+/** The cause of a refusal, for the stuck notice (BEH-25, version 8): the gate's kind and the first flag raised at seq. */
+export function refusalCause(state: ProgressState, seq: number): { key: string; step: number; message: string } | null {
+  const flag = state.flags.find(f => f.seq === seq)
+  if (flag === undefined || state.gate.kind === null) return null
+  return { key: `${state.gate.kind}:${flag.type}:${flag.step}`, step: flag.step, message: flag.message }
+}
+
+/** The notice for the user when the same refusal comes twice in a run (BEH-25, version 8). */
+export function stuckText(skill: string, step: number, message: string): string {
+  return `${skill}: the progress tracker refused Claude twice at step ${step} for the same reason: ${message}. Help `
+    + "Claude bring its task list in step, or switch to observe mode with the band's button."
+}
+
+/** The start of the note a compaction ends with (BEH-24), by which an earlier one is found and removed (version 8). */
+export const NOTE_START = "DevForgeAI's progress tracker: when this conversation was compacted"
 
 /** What a compaction keeps and the note it ends with (BEH-24); `label` is 'step N (<title>)', or null for none. */
 export function compactTexts(skill: string, label: string | null): { instruction: string; note: string } {

@@ -1435,7 +1435,7 @@ for (const [name, setup, opts, lines] of [
 }
 
 /** A state with step 8's decision skipped at seq 99, after everything the test records, and a question gate's flag. */
-const OBSERVED = { ...STATE, steps: DECISION_STEPS, gate: { kind: 'write', seq: 99, refuse: true, reason: 'x' },
+const OBSERVED = { ...STATE, skill: 'architecture', steps: DECISION_STEPS, gate: { kind: 'write', seq: 99, refuse: true, reason: 'x' },
   flags: [
     { gate: 'write', seq: 99, step: 8, type: 'skipped', message: 'step 8 had no answer from you' },
     { gate: 'question', seq: 98, step: 2, type: 'untagged-question', message: MESSAGES['untagged-question'] },
