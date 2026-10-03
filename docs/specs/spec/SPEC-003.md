@@ -719,6 +719,12 @@ follows the same contract.
 
 ## 13. Open questions
 
+- Recorded (Bryan, 2026-10-03, while building SKL-003 v7; accepted): a request that names amend or reuse and says
+  to proceed without questions has the skill write that outcome without asking (BEH-08), but the progress tracker
+  never sees the request's text, so it counts no answer for step 8. SPEC-012's architecture manifest then flags the
+  ARCH write in observe mode and refuses it in enforce mode, whose refusal says to ask the user or leave the outcome
+  open. Enforce mode needs an answer the tracker can see; a recorded waiver (a "proceed without questions" answer,
+  specified next) is the planned way to make the user's choice visible.
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
   metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
   question's header, which the user sees; an answer counts for a step only when the two agree.
@@ -768,3 +774,4 @@ follows the same contract.
 | 7 | 2026-10-03 | Bryan | Approved | status |
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 9 (Bryan, 2026-10-03): BEH-17 tags each question form with its step, AskUserQuestion's metadata source devforgeai_step:N, which the tracker checks against the step marked in progress, and each question's header 'Step N', which the user sees; VER-27 checks both live; SKL-003 v7 implements versions 6 to 8 and ships with SPEC-012 version 9 and SPEC-013 version 8; SPEC-012 link moved to version 9 | frontmatter, §1, BEH-17, VER-27, §10, §11, §13 |
 | 8 | 2026-10-03 | Bryan | Approved, with the step shown in each question's header | status |
+| 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of the tracker refusing an outcome named in a request to proceed without questions | §13 |

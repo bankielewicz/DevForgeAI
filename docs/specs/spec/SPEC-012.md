@@ -1057,6 +1057,11 @@ conditional step that isn't the user's; `./` tool paths are read like the rest. 
 Decided by Bryan on 2026-10-02, for version 4: an earlier step counts from the later of its first tool evidence and
 its first tick; every tool's `./` path is read like the rest. Versions 2, 3 and 4 ship together.
 
+Recorded (Bryan, 2026-10-03, while building SKL-003 v7; accepted): the architecture manifest's step-8 rule counts
+only an answer the log holds, and a request's text is never logged (SPEC-013 BEH-04), so an outcome the request
+named while saying to proceed without questions (SPEC-003 BEH-08) is flagged, and refused in enforce mode. No
+exception is made: an unseen claim never counts. A recorded waiver answer, specified next, is the planned fix.
+
 Decided by Bryan on 2026-10-03, for version 10, after the version 9 build's plugin-validator review showed every
 question after a finished run refused: no question gate once every step is reached. And, on a skill written to
 the earlier convention that doesn't tag its questions: accepted and recorded (§10); each skill takes the tags in
@@ -1169,3 +1174,4 @@ Still open, or notes:
 | 10 | 2026-10-03 | Bryan | Approved | status |
 | 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build of versions 9 and 10 | §9 |
 | 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #71's merge and the deploy of plugin 0.17.0 | §9 |
+| 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance that an outcome named in a request to proceed without questions is flagged, and refused in enforce mode | §13 |
