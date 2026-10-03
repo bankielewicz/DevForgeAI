@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v3).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v4).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -212,6 +212,9 @@ def read_events(path):
             counts["malformed"] += 1
             continue
         if well_formed(e):
+            if e["kind"] == "tool" and isinstance(e.get("path"), str) and e["path"].startswith("./"):
+                # Every tool's ./ path is read like the rest (BEH-06): a Glob at the root, or a Write's relative path.
+                e["path"] = e["path"][2:]
             valid.append(e)
         else:
             counts["malformed"] += 1
@@ -441,8 +444,6 @@ class Run:
         if kind == "write" and tool in ("Write", "Edit") and path_matches(path, rule["pattern"]):
             return "%s %s" % (tool, path)
         if kind == "read" and tool in ("Read", "Glob", "Grep"):
-            # An adapter can record a Glob at the project root as ./<pattern>: read like the rest (BEH-06, version 3).
-            path = path[2:] if path.startswith("./") else path
             if not rule_path_matches(path, rule):
                 return None
             if rule.get("target") == "written" and not names_a(path, self.written_before(e["seq"])):
@@ -527,10 +528,18 @@ class Run:
         hard = min([self.gate_seq_for(step)] + after)
         # "Over the whole log" is bounded by the window's own close: evidence of an earlier step that
         # comes after the gate (a re-read, say) mustn't move the opening past the close.
-        # BEH-09 (version 3): each earlier step's first signal, so a re-read, re-listing or re-tick after the answer
-        # doesn't move the opening; a conditional step that isn't the user's (an inspection) can come at any time.
-        before = [min(s.signals()) for s in self.steps if s.n < step.n and s.signals() and min(s.signals()) < hard
-                  and not (s.need == "conditional" and not s.user_owned)]
+        # BEH-09 (version 4): each earlier step's start, the later of its first tool evidence and its first claim
+        # before the close. A re-read, re-listing or re-tick of a finished step doesn't move the opening; a step ticked
+        # only after the answer does. A conditional step that isn't the user's (an inspection) can come at any time.
+        before = []
+        for s in self.steps:
+            if s.n >= step.n or (s.need == "conditional" and not s.user_owned):
+                continue
+            evidence = [x["seq"] for x in s.evidence if x["type"] != "answer" and x["seq"] < hard]
+            claims = [c["seq"] for c in s.claims if c["seq"] < hard]
+            firsts = ([min(evidence)] if evidence else []) + ([min(claims)] if claims else [])
+            if firsts:
+                before.append(max(firsts))
         opens = max(before) if before else self.events[0]["seq"]
         return opens, min([hard] + [c["seq"] for c in step.claims]), hard
 
