@@ -500,6 +500,32 @@ class SpecRules(Base):
             "wasn't seen"])
 
 
+    # ---- version 3 ----
+
+    # VER-26: work on earlier steps after the user's answer doesn't lose it.
+    def test_ver26_answers_survive_later_work_on_earlier_steps(self):
+        for name, owned in (("answer-then-listing", 5), ("answer-then-reticks", 5),
+                            ("arch-answer-then-listing", 8), ("arch-answer-then-inspection", 8)):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(state["flags"], [])
+                self.assertFalse(state["gate"]["refuse"])
+                s = self.step(state, owned)
+                self.assertEqual(s["state"], "done")
+                self.assertIn("answer", [e["type"] for e in s["evidence"]])
+        early, _, _, _ = self.run_case("brn-answer-early")
+        self.assertEqual(sorted((f["step"], f["type"]) for f in early["flags"]), [(5, "skipped"), (6, "rule-broken")])
+
+    # VER-27: ./ tool paths are read like the rest.
+    def test_ver27_dot_paths(self):
+        state, _, _, _ = self.run_case("arch-dot-paths")
+        self.assertEqual([e["detail"] for e in self.step(state, 2)["evidence"]],
+                         ["Glob docs/specs/prd/PRD-*.md", "Read docs/specs/prd/PRD-001.md"])
+        self.assertEqual([e["detail"] for e in self.step(state, 3)["evidence"]],
+                         ["Glob docs/specs/prd/PRD-*.md", "Read docs/specs/prd/PRD-001.md"])
+        self.assertEqual(self.step(state, 5)["evidence"], [])
+
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

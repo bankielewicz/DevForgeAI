@@ -455,6 +455,46 @@ def _():
         "manifests/decide.json": json.dumps(manifest, indent=2) + "\n"}
 
 
+# ---- version 3 -----------------------------------------------------------------------------------
+
+def brn_answered():
+    return Log("brainstorm").glob("docs/specs/brainstorm/BRN-*.md").tick(1, 2, 3, 4).reply("Confirm these?").answer()
+
+
+def arch_answered():
+    return arch_to_six(Log("architecture")).answer().answer().tick(7).answer()
+
+
+@case("answer-then-listing")  # VER-26: a listing to pick the ID, after step 5's answer, doesn't lose it
+def _():
+    log = brn_answered().bash("ls docs/specs/brainstorm/").write(BRN_PATH, brn(PROMOTED))
+    return log, plugin_only(), {}
+
+
+@case("answer-then-reticks")  # VER-26: a checklist ticked again after the answer doesn't lose it
+def _():
+    log = brn_answered().tick(1, 2, 3, 4, 5).write(BRN_PATH, brn(PROMOTED))
+    return log, plugin_only(), {}
+
+
+@case("arch-answer-then-listing")  # VER-26: architecture's listing to pick the ID, after step 8's answer
+def _():
+    log = arch_answered().bash("ls docs/specs/arch/ docs/specs/adr/").write(ARCH_PATH, arch("create"))
+    return log, plugin_only(), {}
+
+
+@case("arch-answer-then-inspection")  # VER-26: step 5's inspection after step 8's answer
+def _():
+    log = arch_answered().read("README.md").tool("Grep", path=".").write(ARCH_PATH, arch("create"))
+    return log, plugin_only(), {}
+
+
+@case("arch-dot-paths")  # VER-27: ./ tool paths read like the rest
+def _():
+    log = Log("architecture").bash(POLICY).glob("./docs/specs/prd/PRD-*.md").read("./docs/specs/prd/PRD-001.md")
+    return log, plugin_only(), {}
+
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():
