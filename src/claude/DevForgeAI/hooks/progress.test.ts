@@ -1313,6 +1313,9 @@ test('VER-27: in observe mode the decision flag\'s toast carries the same senten
   expect(w.toasts.filter(t => t.startsWith('✗ Step 8 skipped') && t.includes(MARK)).length).toBe(1)
 })
 
+// A compaction always holds at least one message: the engine refuses a hook's rewrite with none.
+const TALK = [{ role: 'user', text: 'earlier talk', toolUses: [] }]
+
 const NOTE = (step: string) => `DevForgeAI's progress tracker: when this conversation was compacted, your task list marked ${step} in `
   + "progress. Before you ask anything or go on, check your task list and bring it in step with the work: mark each "
   + "finished step done and the step you're on in_progress."
@@ -1323,7 +1326,7 @@ test('VER-28: a compaction keeps the marked step in the summary and ends with th
   await load($, 'devforgeai:architecture', TAGGED)
   await markStep($, 2, 'Pick')
   await w.clock.advance(600)
-  const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep the plan', messages: [] })) as Any
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep the plan', messages: TALK })) as Any
   expect(w.compactIn[0].instructions).toBe("keep the plan\n\nKeep, for DevForgeAI's progress tracker: in the architecture run, the task list marks step 2 (Pick) in progress.")
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 2 (Pick)')])
   expect(out.messages[1].role).toBe('user')
@@ -1334,7 +1337,7 @@ test('VER-28: with no step marked the note says so', async ($, on) => {
   const w = world(on, { tool: taskTools() })
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
-  const out = (await ($ as Any).session.compact({ trigger: 'auto', messages: [] })) as Any
+  const out = (await ($ as Any).session.compact({ trigger: 'auto', messages: TALK })) as Any
   expect(w.compactIn[0].instructions).toBe("Keep, for DevForgeAI's progress tracker: in the architecture run, the task list marks no step in progress.")
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('no step')])
 })
@@ -1344,14 +1347,14 @@ test('VER-28: a run that does not follow the task list, a subagent\'s compaction
   const w = world(on, { tool: taskTools(), compact: () => (skip ? { skip: 'off' } : undefined) })
   await start($)
   await load($, 'devforgeai:architecture', CHECKLIST)
-  const plain = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep', messages: [] })) as Any
+  const plain = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep', messages: TALK })) as Any
   expect(w.compactIn[0].instructions).toBe('keep')
   expect(plain.messages.map((m: Any) => m.text)).toEqual(['the summary'])
   await load($, 'devforgeai:architecture', TAGGED)
-  const sub = (await ($ as Any).session.compact({ trigger: 'manual', agentId: 'a1', messages: [] })) as Any
+  const sub = (await ($ as Any).session.compact({ trigger: 'manual', agentId: 'a1', messages: TALK })) as Any
   expect(w.compactIn[1].instructions).toBeUndefined()
   expect(sub.messages.map((m: Any) => m.text)).toEqual(['the summary'])
   skip = true
-  const skipped = (await ($ as Any).session.compact({ trigger: 'manual', messages: [] })) as Any
+  const skipped = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
   expect(skipped).toEqual({ skip: 'off' })
 })

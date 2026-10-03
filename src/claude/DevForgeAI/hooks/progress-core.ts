@@ -1,4 +1,4 @@
-// Pure helpers of the progress tracker adapter (SPEC-013 v6). No `$` here: claude plugin validate lets `$` reach
+// Pure helpers of the progress tracker adapter (SPEC-013 v7). No `$` here: claude plugin validate lets `$` reach
 // only top-level functions of hooks/progress.tsx, so this file turns plain data into plain data, and its tests
 // (core.test.ts) call it directly.
 import type { ProgressMode, ProgressSummary } from '../types'
@@ -236,15 +236,22 @@ export function flagKey(f: StateFlag): string {
 }
 
 /** Flags not shown yet, and the toast text of each (BEH-12). */
-export function newFlagToasts(state: ProgressState, shown: readonly string[]): { keys: string[]; toasts: string[] } {
+export function newFlagToasts(state: ProgressState, shown: readonly string[], marked: number | null = null): { keys: string[]; toasts: string[] } {
   const fresh = state.flags.filter(f => !shown.includes(flagKey(f)))
-  return { keys: fresh.map(flagKey), toasts: fresh.map(f => `✗ Step ${f.step} ${f.type}: ${f.message}`) }
+  return {
+    keys: fresh.map(flagKey),
+    // A decision's flag while the task list marks an earlier step says why, in both modes (BEH-12, version 7).
+    toasts: fresh.map(f => {
+      const mark = forgottenMark(state, [f], marked)
+      return `✗ Step ${f.step} ${f.type}: ${f.message}` + (mark ? ' ' + markSentence(state.steps, mark.n, mark.m) : '')
+    }),
+  }
 }
 
 /** The refusal text at the write gate (BEH-08), or null when the provisional state doesn't refuse at seq. It names
  *  what clears each flag: a step's own evidence or a tick in reply text, or for a decision the user's answer (the
  *  VER-15 dogfood run showed a refusal that only said "the user decides" sent Claude into the tracker's code). */
-export function refusalText(state: ProgressState, seq: number): string | null {
+export function refusalText(state: ProgressState, seq: number, marked: number | null = null): string | null {
   const g = state.gate
   if (g.kind !== 'write' || g.seq !== seq || !g.refuse) return null
   const flags = state.flags.filter(f => f.seq === seq)
@@ -261,6 +268,9 @@ export function refusalText(state: ProgressState, seq: number): string | null {
     lines.push('The decisions at step ' + [...new Set(decisions.map(f => f.step))].join(', ')
       + " are the user's: ask the user, or leave those fields open.")
   }
+  // A forgotten mark: the answers went to the marked step, so asking again alone would loop (BEH-08, version 7).
+  const mark = forgottenMark(state, flags, marked)
+  if (mark) lines.push(markSentence(state.steps, mark.n, mark.m))
   lines.push('Then write again.' + (state.run ? ` The run's log and state are in devforgeai/progress/runs/${state.run}/.` : ''))
   return lines.join('\n')
 }
@@ -402,4 +412,56 @@ export function adherenceText(state: ProgressState): string | null {
 export function hintText(skill: string): string {
   return `${skill}: this session has no task list, so DevForgeAI places your answers by guessing. For exact step `
     + 'tracking, start Claude Code with CLAUDE_CODE_ENABLE_TODO_TOOLS=1 (DevForgeAI SPEC-012 §4)'
+}
+
+// ---- a forgotten mark (SPEC-013 v7) ----
+
+/** The step the task list marks in progress, from a run's event lines: the step whose latest step event is started,
+ *  the latest started when several are (SPEC-012 BEH-18); null when none is. */
+export function markedStep(lines: readonly string[]): number | null {
+  const latest = new Map<number, { state: unknown; seq: number }>()
+  for (const line of lines) {
+    let e: Fields
+    try {
+      e = JSON.parse(line) as Fields
+    } catch {
+      continue
+    }
+    if (e.kind === 'step' && typeof e.step === 'number' && typeof e.seq === 'number') latest.set(e.step, { state: e.state, seq: e.seq })
+  }
+  let best: { n: number; seq: number } | null = null
+  for (const [n, v] of latest) if (v.state === 'started' && (best === null || v.seq > best.seq)) best = { n, seq: v.seq }
+  return best === null ? null : best.n
+}
+
+/** 'step N (<title>)', or 'step N' when the state has no title for it. */
+export function stepLabel(steps: readonly StateStep[], n: number): string {
+  const s = steps.find(x => x.n === n)
+  return s ? `step ${n} (${s.title})` : `step ${n}`
+}
+
+/** A forgotten mark among flags: a skipped flag for a user-owned step M while the task list marks an earlier step N
+ *  (BEH-08, BEH-12); null otherwise. M comes from the flag's step and the state's userOwned, never from message text. */
+export function forgottenMark(state: ProgressState, flags: readonly StateFlag[], marked: number | null): { n: number; m: number } | null {
+  if (marked === null) return null
+  const owned = new Set(state.steps.filter(s => s.userOwned).map(s => s.n))
+  const flag = flags.find(f => f.type === 'skipped' && owned.has(f.step) && marked < f.step)
+  return flag ? { n: marked, m: flag.step } : null
+}
+
+/** What clears a forgotten mark (BEH-08, BEH-12). */
+export function markSentence(steps: readonly StateStep[], n: number, m: number): string {
+  return `Your task list marks ${stepLabel(steps, n)} in progress, so your answers since then counted for step ${n}. `
+    + `If you've moved on, mark step ${n} done and mark ${stepLabel(steps, m)} in progress, then ask the user again.`
+}
+
+/** What a compaction keeps and the note it ends with (BEH-24); `label` is 'step N (<title>)', or null for none. */
+export function compactTexts(skill: string, label: string | null): { instruction: string; note: string } {
+  const marked = label ?? 'no step'
+  return {
+    instruction: `Keep, for DevForgeAI's progress tracker: in the ${skill} run, the task list marks ${marked} in progress.`,
+    note: `DevForgeAI's progress tracker: when this conversation was compacted, your task list marked ${marked} in `
+      + "progress. Before you ask anything or go on, check your task list and bring it in step with the work: mark each "
+      + "finished step done and the step you're on in_progress.",
+  }
 }
