@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 5
+version: 6
 created: 2026-10-02
 updated: 2026-10-03
 owner: "Bryan"
@@ -80,6 +80,10 @@ adapter records, and it held through a `/compact` (§9). A tracked skill now kee
 list (§4, the task-list convention); an adapter records the list's changes as step events (DM-02); an answer counts
 for the step in progress (BEH-18); and a question asked while no step is in progress is flagged at a new gate, the
 question gate, which enforce mode refuses (BEH-08, BEH-11). Runs without a task list keep version 4's windows.
+
+**Version 6** (2026-10-03) completes version 5's flag: DM-03 required every flag to name a write, report or end
+gate and a step, which an unmarked-question flag has neither of. Its gate is now `question`, and its step is the
+step the run would reach next, the one Claude most likely meant to start (BEH-08). Found while building version 5.
 
 ## 2. Constraints
 
@@ -293,7 +297,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     },
     "flag": {
       "type": "object", "additionalProperties": false, "required": ["gate", "seq", "step", "type", "message"],
-      "properties": {"gate": {"enum": ["write", "report", "end"]}, "seq": {"type": "integer"}, "step": {"type": "integer"},
+      "properties": {"gate": {"enum": ["write", "report", "end", "question"]}, "seq": {"type": "integer"}, "step": {"type": "integer"},
                      "type": {"enum": ["skipped", "claimed-not-evidenced", "rule-broken", "unmarked-question"]}, "message": {"type": "string"}}
     },
     "gate": {
@@ -410,7 +414,7 @@ behaviors:
     rule: "While the run is open, a step is done when it has evidence, or when it is claimed done and has no strong rule; claimed when it is claimed done, has a strong rule and has no evidence yet; skipped-with-reason when it is claimed skipped; otherwise pending. A step is reached when it has evidence or a claim, whatever its state. current is the step after the highest-numbered reached step (step 1 when none is reached), or null once the last step is reached or the run has ended; it shows as current, or as your-turn when it is user-owned, has no answer counted for it (BEH-09 or BEH-18), and the last event is a turn end. A step before current that is still pending keeps the note 'not seen yet' and raises no flag. In a run with step events (BEH-18), current is the step whose latest step event is started, the latest started when several are; when none is, the rule above applies. A conditional step marked done by a step event with no evidence is not-applicable, with its when text as the note, since the skill found it didn't apply."
   - id: BEH-08
     status: active
-    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'. In a run that follows the task list (BEH-18), each answer event at which no step is in progress is also a gate, the question gate: it checks no step and raises only its own unmarked-question flag reading 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask', one per such answer."
+    rule: "Flags are raised only at gates. The write gate is the first tool event that is write evidence for the step with gate write; the report gate is the first reply claiming the step with gate report done; the run's end is the run-end event. At a gate, for every step before the gate's step (at run end, every step up to the highest reached): a required step still pending becomes skipped, with a skipped flag (its message is below); a claimed step keeps its state and gets a claimed-not-evidenced flag; a conditional step still pending becomes not-applicable, with its when text as the note; a text-only step still pending becomes unconfirmed, with no flag; a user-owned step follows BEH-10. A step whose evidence arrives after a later step's is noted 'seen late (after step K)' and never flagged. Flags record what each gate found: evidence that arrives later changes the step's state, not an earlier flag. A step gets at most one skipped and one claimed-not-evidenced flag in a run, so a later gate that finds the same raises no second one (rule-broken flags stay one per write and rule, BEH-10). The skipped flag's message is 'step N (<title>) has no evidence or tick before <G>: expected <E>', where <G> is the write gate, the report or the run ended; a claimed-not-evidenced flag's is 'step N (<title>) is ticked, but <E> wasn't seen'. <E> lists the step's evidence rules joined by ' or ': 'a read of <pattern>' (with ' except ' and its exclude patterns joined by ', ' when it has them), 'a write of <pattern>', 'a successful run of <pattern>' (with ' on a written file' for target written) and 'an answer from you'. In a skipped flag, ', or a tick in the reply text' follows <E> when the step has no strong rule, and a step with no rule has the <E> 'a tick in the reply text'. In a run that follows the task list (BEH-18), each answer event at which no step is in progress is also a gate, the question gate: it checks no step and raises only its own unmarked-question flag reading 'a question was asked while no step was marked in progress in the task list: mark the step it belongs to in progress, then ask', one per such answer. Its gate is question, and its step is the step after the highest reached at that seq, or the last step when every step is reached (version 6)."
   - id: BEH-09
     status: active
     rule: "Answers that BEH-18 doesn't place are placed as follows. A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest start of any step before it, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none), where a step's start is the later of its first tool evidence and its first claim, counting only those before that close (whichever it has, when it has one). So a re-read, a re-listing or a re-tick of a finished earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move the opening, while an earlier step Claude ticks only after the answer does, since the answer came while that step was under way; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
@@ -813,7 +817,7 @@ verifications:
       - BEH-09
   - id: VER-32
     status: active
-    obligation: "Case steps-unmarked-question: a run that follows the task list, step 6 done and no step in progress, then an answer: an unmarked-question flag at that seq, gate kind question with refuse true; the answer counts for no step, so a later ARCH-001 Write with outcome: create flags step 8 skipped and step 9 rule-broken. A prompt in the same position raises nothing. The state counts 1 unmarked question and the run's step events."
+    obligation: "Case steps-unmarked-question: a run that follows the task list, step 6 done and no step in progress, then an answer: an unmarked-question flag at that seq, gate kind question with refuse true; the answer counts for no step, so a later ARCH-001 Write with outcome: create flags step 8 skipped and step 9 rule-broken. A prompt in the same position raises nothing. The flag's gate is question and its step 7, the step after the highest reached. The state counts 1 unmarked question and the run's step events."
     level: unit
     covers:
       - BEH-08
@@ -865,6 +869,8 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 6.** Built with version 5, in its place: version 5 is never built alone. Only the unmarked-question
+  flag, new in version 5, carries the question gate.
 - **Version 5.** Built after approval with SPEC-013 version 4, the adapter that writes step events; the evaluator
   and the adapter ship in one plugin version, so the deployed pair never disagrees on the step kind. Until a
   skill's text names `devforgeai_step` (SKL-001 version 6, SKL-003 version 7, each its own build and
@@ -903,7 +909,7 @@ Version 4's build, on the same branch:
 3. Regenerate the expected states, check that only the new cases are new, run the tests normally and under
    `python3 -S`, and record the results in §9.
 
-Version 5's build, after approval, with SPEC-013 version 4:
+Version 5's build, after approval, with SPEC-013 version 4 (and version 6's flag shape, with SPEC-013 version 5):
 
 1. Write the cases of VER-30 to VER-34 and their tests, and see them fail; update `events.schema.json` and
    `progress.schema.json` from DM-02 and DM-03.
@@ -1005,3 +1011,5 @@ Still open, or notes:
 | 5 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | After three live task-list runs and Bryan's decisions of 2026-10-03: the task-list convention (§4); `skill-loaded` gains `taskList` and a `step` event kind joins `devforgeai-events/1` (DM-02); `unmarked-question` flags and a `question` gate (DM-03); a step event done is a claim (BEH-05); current follows step events, and a conditional step done with no evidence is not-applicable (BEH-07); what happens when a run doesn't keep its list, in the run, at its end and across runs (§4), with counts.stepEvents and counts.unmarkedQuestions (DM-03); answers go to the step in progress, and a question asked with none in progress is flagged and refused in enforce mode (BEH-18, BEH-08, BEH-11); BEH-09 places only what step events don't; ERR-06 covers step events; new VER-30 to VER-35; §9's version 2 build row records the merge (PR #66) | frontmatter, §1, DM-02, DM-03, §4, BEH-05, BEH-07, BEH-08, BEH-09, BEH-11, BEH-18, ERR-06, VER-30 to VER-35, §9, §10, §11, §12, §13 |
 | 5 | 2026-10-03 | Bryan | Approved, with the user told to fix a skill that doesn't keep its task list (§4) | status, §4, §13 |
 | 5 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9's task-list evidence notes that its three sessions had the task tools through the owner's opt-in, which Opus 5.5 needs (found after approval; SPEC-013 version 5 makes taskList follow the session's tools) | §9 |
+| 6 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Found while building version 5: DM-03 required every flag to name a write, report or end gate and a step, which an unmarked-question flag has neither of. A flag's gate may be question, and an unmarked-question flag's step is the step after the highest reached at its seq, or the last step when every step is reached (Bryan's choice, 2026-10-03); VER-32 checks both | frontmatter, §1, DM-03, BEH-08, VER-32, §10, §11 |
+| 6 | 2026-10-03 | Bryan | Approved | status |
