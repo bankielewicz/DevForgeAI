@@ -14,9 +14,9 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 
 | Skill | Record | Spec | State |
 |---|---|---|---|
-| `brainstorm` | SKL-001 v5 | SPEC-001 v10 | Built; 8 eval cases |
+| `brainstorm` | SKL-001 v5 | SPEC-001 v11, approved 2026-10-03 (the checklist in the task list, BEH-12) | SKL-001 v5 built for SPEC-001 v10; 8 eval cases. SKL-001 v6 (v11) not built |
 | `prd` | SKL-002 v5, approved | SPEC-002 v5, approved 2026-10-01 (issue #39, the `[NEEDS ADR]` rule) | SKL-002 v5 (plugin 0.11.0) requalified 2026-10-02: 35 of 35 at ≥ 0.8 over 3 runs, 34 at 1.00 (mean Δ +0.57); approved by Bryan 2026-10-02; merged in PR #57 (`0011267`) and deployed (0.11.0) 2026-10-02. 35 eval cases; VER-37 (`needs-adr-handoff`) and VER-38 (`unlinked-signal-keeps-target`) are new and failed on v4 |
-| `architecture` | SKL-003 v6, approved | SPEC-003 v5, approved 2026-10-01 | Approved by Bryan 2026-10-01; merged in PR #54, deployed (0.10.0); 21 eval cases, 3-run 21 of 21 at 1.00 (mean Δ +0.63); manual VER-12 (a), (f), (i), (j), (k), (l), VER-19 and VER-20 pass (runbook `docs/runbooks/architecture-v6-checks.md`) |
+| `architecture` | SKL-003 v6, approved | SPEC-003 v6, approved 2026-10-03 (the checklist in the task list, BEH-17; step 8 confirms the outcome, BEH-08) | SKL-003 v7 (v6) not built. SKL-003 v6 implements SPEC-003 v5: approved by Bryan 2026-10-01; merged in PR #54, deployed (0.10.0); 21 eval cases, 3-run 21 of 21 at 1.00 (mean Δ +0.63); manual VER-12 (a), (f), (i), (j), (k), (l), VER-19 and VER-20 pass (runbook `docs/runbooks/architecture-v6-checks.md`) |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved 2026-10-01 | SKL-004 v4 (plugin 0.12.1) qualified 2026-10-02: 25 of 25 at ≥ 0.8 over 3 runs, 23 at 1.00 (mean Δ +0.58); approved by Bryan 2026-10-02, not merged or deployed. SKL-004 v3 (SPEC-004 v3) is approved, merged in PR #47 and deployed (0.8.1). 25 eval cases; VER-20 to VER-26 are new (failed on v3 as predicted); offline grader check `src/tests/epic/check_graders.py`; VER-13 not run (runbook `docs/runbooks/epic-ver-13-checks.md`; (k) automated by VER-20) |
 | `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
 | `git` | SKL-006 v3, in-review | SPEC-007 v3, in-review | v3 prepared with ERR-04 routing, all-branch carry checks and marked Compose password warnings; native/manual qualification pending (`docs/runbooks/git-v3-checks.md`). v2 remains approved and deployed; its 3-run 19 of 19 at ≥ 0.8 qualifies v2 only |
@@ -44,13 +44,14 @@ SKL-008 is reserved for the story skill (SPEC-009).
 - `git` v3's local checks, new VER-32..35 cases and remaining qualification are recorded separately
   in `docs/runbooks/git-v3-checks.md`. The candidate plugin is 0.10.1; native evaluation, manual
   checks, owner approval and deployment are pending. Retain v2's failures and results above.
-- `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; ADR-006
+- `progress/` (SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; v5, step events
+  from the task list, approved 2026-10-03 and not built; ADR-006
   accepted) is the progress tracker's core, not a skill:
   `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
   log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
   SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
   windows open after two plugin-validator reviews; §13 names what windows still guess.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0): it records each tracked
+- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v5, which reads the task list, approved 2026-10-03 and not built): it records each tracked
   skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
   `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
   above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
