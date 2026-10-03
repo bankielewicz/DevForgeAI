@@ -56,9 +56,9 @@ The ARCH records decisions; it never makes them. These are the user's:
 Write a decision only when the user made it explicitly, in an answer or in the request. The request
 can answer only these:
 - which PRD;
-- which ARCH, and the outcome, but only by naming the outcome for that ARCH ("amend ARCH-001",
+- which ARCH, and the direction of the outcome, only by naming it for that ARCH ("amend ARCH-001",
   "reuse ARCH-001; I confirm reuse", "create a new ARCH"). Asking to define or update the
-  architecture, or to reuse a component or service, confirms no outcome. The outcome the request named
+  architecture, or to reuse a component or service, names no outcome. The outcome the request named
   only picks the direction: step 8 still asks once the change is known (a reuse that writes nothing
   excepted), unless the request says to proceed without questions;
 - the inspection scope, and that a question is non-blocking;
@@ -75,7 +75,7 @@ without asking.
 each, with the recommended option first and marked "(Recommended)", each form tagged with its step
 (Workflow, item 4). Otherwise ask in plain text and end your turn. Use at most `interview.max_calls`
 calls (step 1; default 8) unless the user asks for more; questions left when the budget runs out
-stay open. Keep one call for step 8's question. Write
+stay open. When step 8 will ask, keep one call for its question; a gate still comes first. Write
 nothing that a pending answer affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask
@@ -91,7 +91,8 @@ gate (below):
 - read nothing outside the inspection scope, and record the gap as an unknown.
 
 A request that only defers decisions ("leave the questions open", "I'll decide them later") is not
-this rule: those questions are *Decide later* at step 7, and step 8 still asks.
+this rule: those questions take *Decide later* at step 7, with no question asked, and step 8 still
+asks.
 
 Every other step still runs, and a new ARCH is still written when none covers the system. This
 never answers the two gates: **which PRD**, and **reuse, amend or create when an existing ARCH covers
@@ -194,7 +195,8 @@ existing items keep theirs. Never edit the PRD.
 Read the frontmatter of each `docs/specs/arch/ARCH-*.md`: `system`, `status`, `version`, `outcome` and
 its PRD links. An ARCH **covers this system** when its frontmatter links this PRD, or its `system`
 names the product this PRD's title names.
-- **None covers this system:** a new ARCH is created at step 9, with the next free ID. No question.
+- **None covers this system:** a new ARCH is created at step 9, with the next free ID. No question
+  here; step 8 confirms create.
 - **One covers it:** compare what it was defined against with the PRD now: the PRD version it cites,
   new or changed requirements and `[NEEDS ADR]` markers, resolvers that were superseded, and
   mandated platforms that changed (readiness.md). Offer **reuse** only when its frontmatter already
@@ -205,14 +207,14 @@ names the product this PRD's title names.
   baseline automatically, and write nothing until the user answers.
 - **Several could apply** (ERR-04): list them with their systems and ask. Never pick one silently.
 
-A choice of reuse or amend, in the request or an answer, picks the direction. It confirms the outcome
-only when the run will write nothing to the existing ARCH (a reuse whose PRD link already equals the
-PRD's version); otherwise step 8 asks for confirmation once the change is known, unless the request
-says to proceed without questions (step 8). A reuse that step 4
-can't offer answers nothing: say why (naming the DEC, the setting and both
-platforms when a mandated platform changed), offer amend or create, and write nothing until the
-user answers. Otherwise the choice stands unless step 8 finds another outcome is needed, such as a
-DEC changing in a reuse run: then say why and ask again.
+A choice of reuse or amend, in the request or an answer, picks the direction. It confirms the
+outcome only when the run will write nothing to the existing ARCH (a reuse whose PRD link already
+equals the PRD's version); otherwise step 8 asks for confirmation once the change is known, unless
+the request says to proceed without questions (step 8). A reuse that step 4 can't offer answers
+nothing: say why (naming the DEC, the setting and both platforms when a mandated platform changed),
+offer amend or create, and write nothing until the user answers. Otherwise the choice is what step 8
+proposes, unless step 8 finds another outcome is needed, such as a DEC changing in a reuse run: then
+say why and ask again.
 
 ### 5. Inspect within the scope
 
@@ -290,21 +292,21 @@ Propose one outcome, with reasons:
 
 Using a mandated or existing platform or component is not a reuse outcome. When the request says to
 proceed without questions, ask nothing: write the outcome the request named for this ARCH, otherwise
-`null`. Otherwise ask the user to confirm the outcome now that the change is known, alone in its own
-question form, even when step 4 or the request already chose or confirmed it: a confirmation given
-before the change is known only picks the direction.
-- **The run will write to the existing ARCH** (an amendment, or reuse's review record): name what will
-  change: the DEC, CMP and EVD items added, the DECs whose state or resolver changes, the ADRs accepted
-  or superseded, the new version, and an approved ARCH's return to in-review.
+`null`. Otherwise, unless the outcome is a reuse that writes nothing (its PRD link already equals
+the PRD's version: step 4's choice, in the request or an answer, confirms that), ask the user to
+confirm the outcome now that the change is known, alone in its own question form, even when step 4
+or the request already chose or confirmed it: a confirmation given before the change is known only
+picks the direction.
+- **The run will write to the existing ARCH** (an amendment, or reuse's review record): name what
+  will change: the DEC, CMP and EVD items added, the DECs whose state or resolver changes, the ADRs
+  accepted or superseded, the new version, and an approved ARCH's return to in-review.
 - **Create:** name the new ARCH's ID and what it records.
-- **A reuse that writes nothing** (its PRD link already equals the PRD's version) needs no question:
-  step 4's choice confirms it.
 
-Write `outcome` only when it is confirmed; otherwise it stays `null`. Confirming the outcome accepts
-no decision. When proposing reuse, and in the report
-when it is confirmed, name each active requirement no active blocking DEC cites: it is reported
-ready with no architectural question holding it back (readiness.md, "Reuse, and deciding a question
-later").
+Write `outcome` only when it is confirmed at step 8, or the request named it and said to proceed
+without questions; otherwise it stays `null`. Confirming the outcome accepts no decision. When
+proposing reuse, and in the report when it is confirmed, name each active requirement no active
+blocking DEC cites: it is reported ready with no architectural question holding it back
+(readiness.md, "Reuse, and deciding a question later").
 - **Reuse confirmed and the ARCH's PRD link is older than the PRD's version:** write the review record
   (output-rules.md), and nothing else.
 - **Reuse confirmed and the link already equals the PRD's version:** write nothing; go to step 11.

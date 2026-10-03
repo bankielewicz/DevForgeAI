@@ -62,7 +62,7 @@ Keep exactly these keys, in this order. Unknown or misspelled keys are errors.
 | `superseded_by` | `null` |
 | `blocked_by` | `[]` |
 | `system` | Quoted name of the system or product the description covers |
-| `outcome` | `reuse`, `amend`, `create` or `null`. Non-null only when the user confirmed it |
+| `outcome` | `reuse`, `amend`, `create` or `null`. Non-null only when the user confirmed it at step 8, or the request named it and said to proceed without questions |
 | `inspection_scope` | Block list of quoted repository-relative paths the user named, or `[]` |
 
 Keep the `# --- arch-specific ---` comment line before `system`. Delete the template's trailing

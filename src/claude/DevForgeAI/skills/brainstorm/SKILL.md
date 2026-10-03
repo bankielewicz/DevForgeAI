@@ -32,10 +32,10 @@ Propose both, then ask. Anything the user has not explicitly confirmed stays `di
 confirmed* and continue with those values. This happens when the user said to proceed without
 questions or no user is there to answer. Record your proposals in section 6 prose so nothing is
 lost. When the user confirms them later, after the BRN is written, don't edit from that message
-alone: mark step 5 in_progress (with a task list), ask the step-5 question, tagged, then edit the
-BRN and validate it again (step 7). An unconfirmed disposition looks valid to every structural
-check, and a PRD would build on a choice nobody made. That is why this rule matters more than any
-other in this skill.
+alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 question,
+tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
+report. An unconfirmed disposition looks valid to every structural check, and a PRD would build on a
+choice nobody made. That is why this rule matters more than any other in this skill.
 
 ## Workflow
 
@@ -66,8 +66,8 @@ question form, its tag names that step:
    final reply, so nothing follows the hand-off.
 3. Before asking any question, mark the step it belongs to in_progress: the topic, clarifying and
    extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
-   5; any other question (the framework's own, saving a draft) belongs to the step in progress.
-   Never put two steps' questions in one question form.
+   5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
+   it. Never put two steps' questions in one question form.
 4. Tag each question form with its step: AskUserQuestion's
    `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
    on each of its questions, which the user does.
@@ -242,9 +242,10 @@ Do not start writing a PRD.
 5. The validator prints OK, and the skill reports and hands off.
 
 **User says to proceed without questions.** The skill asks nothing and records unknowns as
-`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and
-puts its proposals in section 6. Its final reply says the user can confirm them later; when the user
-replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN.
+`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
+its proposals in section 6. Its final reply says the user can confirm them later; when the user
+replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN, validates it
+again and reports.
 
 **A BRN on the topic already exists.** The skill shows it and asks: extend it or create a new
 one. It writes nothing until the user answers.
