@@ -2,7 +2,7 @@
 id: SPEC-014
 type: spec
 title: "Spec lookup skill: cite the project's specifications or ask, never invent"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-10-04
 updated: 2026-10-04
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-04
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
@@ -32,7 +32,7 @@ components: ["src/claude/DevForgeAI/skills/spec-lookup", "src/claude/DevForgeAI/
 
 # SPEC-014 — Spec lookup skill: cite the project's specifications or ask, never invent
 
-> **Status:** version 2 in review (version 1 approved by Bryan on 2026-10-04); not built. The drafting plan and its checkpoints are in
+> **Status:** version 2 approved by Bryan on 2026-10-04; not built. The drafting plan and its checkpoints are in
 > `tmp/plans/2026-10-04-spec-014-spec-lookup.md` (local).
 
 ## 1. Overview
@@ -285,7 +285,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| All | Not built. Approved by Bryan on 2026-10-04 |
+| All | Not built. Versions 1 and 2 approved by Bryan on 2026-10-04 |
 
 Each automated VER item has one eval case under `evals/spec-lookup/`, tagged `spec-lookup` and `ver-NN` and generated
 by `src/tests/spec-lookup/make_evals.py`. Eval runs offer no AskUserQuestion (`claude plugin eval` child runs, verified
@@ -447,3 +447,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 1 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval: the cp8 review's fixes (a query is a document ID only when it equals a file's frontmatter id; a qualified ID prints its definition first, then the lines naming it; no Grep fallback; superseded_by read; the tracker question left open), then Bryan's answer to §13's first question: a lookup during another skill's workflow runs in a subagent that runs the script (BEH-01, description, VER-08 (d), §2, §10, §13) | BEH-01, BEH-03, BEH-05, BEH-06, BEH-07, ERR-02, VER-01, VER-04, VER-06, VER-08, §2, §4, §5, §10, §13 |
 | 1 | 2026-10-04 | Bryan | Approved, with lookups during another skill's workflow done by a subagent | status |
 | 2 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | At Bryan's request to follow Anthropic's subagent documentation (saved as docs/research/Claude/subagents.md): the out-of-band lookup uses a plugin-shipped agent, devforgeai:spec-lookup, with tools Bash and Read, model haiku and omitClaudeMd, a self-contained task message with the script's absolute path, a report of the script's output lines only, and citations taken only from path:line lines; the main conversation waits for the report; outside a workflow the skill runs in the main conversation (new BEH-09, BEH-01, §1, §3, §5, VER-07, VER-08, §12, §13); status in-review | frontmatter, §1, §3, §5, BEH-01, BEH-09, VER-07, VER-08, §12, §13 |
+| 2 | 2026-10-04 | Bryan | Approved, with the plugin-shipped lookup agent | status |
