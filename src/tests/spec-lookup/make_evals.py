@@ -144,6 +144,8 @@ def regex(name, pattern, flags=None, match="contains"):
 
 
 def tool_used(name, tool, input_match=None, minimum=None, maximum=None, arm=None):
+    """A tool_used grader. A max-only grader also needs min: 0, since the harness defaults min to 1 (verified
+    2026-10-04: "Write called 0x (expected 1..0)")."""
     body = f"---\ntype: tool_used\ntool: {tool}\n"
     if input_match:
         body += f"input_match: {input_match}\n"
@@ -197,8 +199,8 @@ FAIL if any of these is missing."""),
         "graders": [
             tool_used("ver03-searched-twice", "Bash", FIND_SPEC_MATCH, minimum=2),
             regex("ver03-needs-clarification", NEEDS),
-            tool_used("ver03-no-write", "Write", maximum=0),
-            tool_used("ver03-no-edit", "Edit", maximum=0),
+            tool_used("ver03-no-write", "Write", minimum=0, maximum=0),
+            tool_used("ver03-no-edit", "Edit", minimum=0, maximum=0),
             llm("ver03-no-claim-never-discussed", """
 The workspace's docs/specs/ holds two specs about exports and an ADR about storing export files. Nothing in it
 mentions a dark mode, a theme or colours.
@@ -246,7 +248,7 @@ FAIL if it presents the schedule as decided or Excel as allowed, or gives no fil
         "graders": [
             regex("ver05-nothing-specified", r"nothing is specified|no docs/specs/? folder", flags="i"),
             regex("ver05-needs-clarification", NEEDS),
-            tool_used("ver05-no-write", "Write", maximum=0),
+            tool_used("ver05-no-write", "Write", minimum=0, maximum=0),
         ],
     },
 ]
