@@ -2,99 +2,78 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This file covers where things really are, how the plugin is evaluated, and the traps. Detail needed
-for only one kind of work is in `.claude/rules/` and `AGENTS.md` (see "Loaded on demand" at the end).
+It holds what every session needs: what is built, where the source is, the commands, the rules and the
+traps. Detail for one kind of work is in `.claude/rules/` and `AGENTS.md` ("Loaded on demand", at the
+end). Everything here is the state of `main`, except "Future roadmap", which lists recorded, undecided
+work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai`, of spec-driven planning skills for the chain
-Brainstorm → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Each skill implements
-an approved spec in `docs/specs/`, and its eval suite, not a reading of its instructions, is the proof.
-Each spec's §9 table records its eval runs (scores, cost, bound commit) and which manual VER items ran.
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.20.0 in
+`src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
+Brainstorm → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
+Architecture and Epic are built; `context` writes the project context documents between Architecture
+and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
+suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
+bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
+Change Log holds the history. Read those, not this file, for any number or date.
 
-| Skill | Record | Spec | State |
-|---|---|---|---|
-| `brainstorm` | SKL-001 v7, approved | SPEC-001 v14, approved 2026-10-04 (the waiver question when the request says not to ask, BEH-13; built as SKL-001 v7 on `docs/waiver-menu-specs`, PR #77, plugin 0.20.0: single-arm evals 9 of 9 at ≥ 0.8, VER-14 passed live, 3-run qualification waived, approved by Bryan 2026-10-04; merged in PR #77 (`8eb431a`) and deployed (0.20.0) 2026-10-04); v13, approved 2026-10-03 (the checklist in the task list, BEH-12, each question tagged with its step and showing 'Step N' since v13; the validator as its own command, BEH-09) | SKL-001 v6 (v11 to v13) merged in PR #73 (`2f99a01`) and deployed (0.18.0) 2026-10-04: 9 eval cases, single-arm 9 of 9 at 1.00 (3-run qualification waived by Bryan 2026-10-04); VER-12 passed live; approved by Bryan 2026-10-04 |
-| `prd` | SKL-002 v5, approved | SPEC-002 v5, approved 2026-10-01 (issue #39, the `[NEEDS ADR]` rule) | SKL-002 v5 (plugin 0.11.0) requalified 2026-10-02: 35 of 35 at ≥ 0.8 over 3 runs, 34 at 1.00 (mean Δ +0.57); approved by Bryan 2026-10-02; merged in PR #57 (`0011267`) and deployed (0.11.0) 2026-10-02. 35 eval cases; VER-37 (`needs-adr-handoff`) and VER-38 (`unlinked-signal-keeps-target`) are new and failed on v4 |
-| `architecture` | SKL-003 v8, approved | SPEC-003 v9, approved 2026-10-04 (the waiver question after the policy script, its Proceed counted for step 8, BEH-18; built as SKL-003 v8 on `docs/waiver-menu-specs`, PR #77, plugin 0.20.0: single-arm evals 24 of 24 at ≥ 0.8, VER-31 passed live, 3-run qualification waived, approved by Bryan 2026-10-04; merged in PR #77 (`8eb431a`) and deployed (0.20.0) 2026-10-04); v8, approved 2026-10-03 (the checklist in the task list, BEH-17, each question tagged with its step and showing 'Step N' since v8; step 8 confirms the outcome, also after a request's confirmation, BEH-08) | SKL-003 v7 (v6 to v8) merged in PR #73 (`2f99a01`) and deployed (0.18.0) 2026-10-04: 24 eval cases, single-arm 24 of 24 at 1.00 before step 1 always ran the policy script (3-run qualification waived by Bryan 2026-10-04); VER-27 passed live in enforce mode with no policy folder; approved by Bryan 2026-10-04. SKL-003 v6 implemented SPEC-003 v5: approved by Bryan 2026-10-01; merged in PR #54, deployed (0.10.0); 21 eval cases, 3-run 21 of 21 at 1.00 (mean Δ +0.63); manual VER-12 (a), (f), (i), (j), (k), (l), VER-19 and VER-20 pass (runbook `docs/runbooks/architecture-v6-checks.md`) |
-| `epic` | SKL-004 v4, approved | SPEC-004 v4, approved 2026-10-01 | SKL-004 v4 (plugin 0.12.1) qualified 2026-10-02: 25 of 25 at ≥ 0.8 over 3 runs, 23 at 1.00 (mean Δ +0.58); approved by Bryan 2026-10-02, not merged or deployed. SKL-004 v3 (SPEC-004 v3) is approved, merged in PR #47 and deployed (0.8.1). 25 eval cases; VER-20 to VER-26 are new (failed on v3 as predicted); offline grader check `src/tests/epic/check_graders.py`; VER-13 not run (runbook `docs/runbooks/epic-ver-13-checks.md`; (k) automated by VER-20) |
-| `documents-updater` | SKL-005 v1 | SPEC-006 v1 | Built and deployed; 8 eval cases |
-| `git` | SKL-006 v3, in-review | SPEC-007 v3, in-review | v3 prepared with ERR-04 routing, all-branch carry checks and marked Compose password warnings; native/manual qualification pending (`docs/runbooks/git-v3-checks.md`). v2 remains approved and deployed; its 3-run 19 of 19 at ≥ 0.8 qualifies v2 only |
-| `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
-| `github-post` | SKL-009, reserved | SPEC-010 v3, in-review (v2 approved 2026-09-30) | v3 refreshes the SPEC-007 citation only; approval pending. Not built; its §11 lists the build steps |
-| `context` | SKL-010 v2, approved | SPEC-011 v3, approved 2026-10-01 | Approved by Bryan 2026-10-01; merged in PR #45 (plugin 0.8.1), deployed (0.9.0); v1 merged in PR #34. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run (`docs/runbooks/spec-011-manual-checks.md`) |
-| `spec-lookup` | SKL-011 v1, approved | SPEC-014 v3, approved 2026-10-04 (cite the project's specs or ask, never invent; a hit covers only when its line states the behaviour, BEH-03; a lookup during another skill's workflow goes through the `devforgeai:spec-lookup` agent, whose description names the task message, BEH-09) | Merged in PR #75 (`fae4f64`) and deployed (0.19.0) 2026-10-04: `find_spec.py` (VER-01, 22 tests), 9 eval cases; qualified 2026-10-04, 4 of 4 at 1.00 over 3 runs (mean Δ +0.69), triggers 4 of 5 at 3 of 3 (trigger-03 5 of 6); VER-08 (a) to (d) pass live; approved by Bryan 2026-10-04 |
+| Skill | Record (provenance) | Spec | Evals on the current version | Merged |
+|---|---|---|---|---|
+| `brainstorm` | SKL-001 v7, approved | SPEC-001 v14, approved | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
+| `prd` | SKL-002 v5, approved | SPEC-002 v5, approved | 3 runs, 35 of 35 at ≥ 0.8 | PR #57 (0.11.0) |
+| `architecture` | SKL-003 v8, approved | SPEC-003 v9, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
+| `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
+| `context` | SKL-010 v2, approved | SPEC-011 v3, approved | 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
+| `documents-updater` | SKL-005 v1, draft | SPEC-006 v1, approved | 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
+| `git` | SKL-006 v3, in-review | SPEC-007 v3, in-review | v3: not run. v2 (approved): 3 runs, 19 of 19 at ≥ 0.8 | PR #56 (0.10.1) |
+| `spec-lookup` | SKL-011 v1, approved | SPEC-014 v3, approved | 3 runs, 4 of 4 at 1.00 | PR #75 (0.19.0) |
+| `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
+| `story` | SKL-008, reserved | SPEC-009 v2, draft | not built | — |
+| `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
 
-SKL-008 is reserved for the story skill (SPEC-009).
-
-- Outside the chain: `documents-updater` updates a repository's README, CHANGELOG and guides from git
-  evidence. `git` (`/devforgeai:git <phase>`) covers worktree, commit, push, PR, merge (only with an
-  independent QA session's verdict for the head commit, the `merge-approved` label and the owner's
-  authorization), safe sync and prune. `github-post` (`/devforgeai:github-post [PR|Incident|Enhancement]`)
-  will write a GitHub post that a reader with no context can act on, check its references and quotes,
-  and post it with `gh` when authorized; it never commits, pushes or merges. Its templates are staged
-  in `src/templates/github/`.
-- `git` v1's results (also in SPEC-007 §9): 3 scripts (57 unit tests) and 16 eval cases; 3 runs: 16 of
-  16 at ≥ 0.8, 13 at 1.00, mean Δ +0.28, $18.22 (the misses are the eval's own `.git` write
-  refusals, which the skill reports). v2 (SPEC-007 §9): 76 unit tests, `src/tests/git/test_structure.py`
-  and 19 eval cases; 3 runs: 19 of 19 at ≥ 0.8, 16 at 1.00, mean Δ +0.32, $22.96. Its misses: the
-  same two harness refusals (`starts-worktree-from-fresh-base` can't exceed 0.88), and
-  `stops-on-unrelated-histories` recommending a merge of the histories instead of ERR-04's new branch
-  in 2 of 3 runs. Manual VER-18..22, VER-24, VER-26 and VER-31 not run
-  (`docs/runbooks/git-v2-checks.md`).
-- `git` v3's local checks, new VER-32..35 cases and remaining qualification are recorded separately
-  in `docs/runbooks/git-v3-checks.md`. The candidate plugin is 0.10.1; native evaluation, manual
-  checks, owner approval and deployment are pending. Retain v2's failures and results above.
-- `progress/` (SPEC-012 v11, the waiver, approved 2026-10-04, merged in PR #77 (`8eb431a`) and deployed as plugin 0.20.0 on 2026-10-04; SPEC-012 v4, approved 2026-10-02, with versions 2 to 4 built together, plugin 0.14.0; v5 and v6, step
-  events from the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v7 and v8
-  approved 2026-10-03 (v8 withdrew v7's stale step), merged in PR #70 and deployed as plugin 0.16.0; v9, questions
-  that name their step as a check on the task list's mark, and v10, no question gate once every step is reached,
-  approved 2026-10-03, merged in PR #71 and deployed as plugin 0.17.0; ADR-006
-  accepted) is the progress tracker's core, not a skill:
-  `evaluate.py` (standard library only) judges a skill run's checklist steps by evidence from an event
-  log, with the schemas and the brainstorm and architecture manifests. Its tests are in `src/tests/progress/`;
-  SPEC-012 v2 made the v1 build's departures rules and added Bash read evidence; v3 and v4 changed where answer
-  windows open after two plugin-validator reviews; §13 names what windows still guess.
-- `hooks/progress.tsx` is the Claude Code adapter that runs it (SPEC-013 v10, the waiver's recording and the end-of-run review, approved 2026-10-04, VER-36 passed live, merged in PR #77 (`8eb431a`) and deployed as plugin 0.20.0 on 2026-10-04; SPEC-013 v3, a mod; merged in PR #65, deployed 0.13.0; v4 and v5, which read the task list, approved 2026-10-03, merged in PR #68 and deployed as plugin 0.15.0; v6 approved 2026-10-03, merged in PR #70 and deployed as plugin 0.16.0; v7, a compaction hook, and v8, which records each question's step tag and refuses a missing or mismatched one, approved 2026-10-03, merged in PR #71 and deployed as plugin 0.17.0; VER-29 passed live; v9, the stuck notice's advice by cause, approved 2026-10-03 and merged in PR #73 and deployed as plugin 0.18.0 on 2026-10-04): it records each tracked
-  skill run in `devforgeai/progress/` of the root the run opened in (`runs/<run>/`, and the session's own
-  `sessions/<session-id>/current.json` and `adapter.log`), evaluates it, and shows it in the status line and a band
-  above the prompt; observe mode by default, enforce through the band's button (`progress/settings.py` saves
-  `progress.mode` in `.claude/devforgeai.local.md`). Every use of `$` stays in that file's top-level functions;
-  `hooks/progress-core.ts` is pure. Its kit tests are `hooks/*.test.ts` (not deployed); SPEC-013 §9 lists the
-  build's departures for Bryan. An installed plugin's mod loads only while Claude Code serves the hooks-modules
-  rollout flag, and reports load failures only in the debug log (`claude --debug`). When `claude plugin test` says
-  the switch was saved off, check `tengu_plugin_hooks_modules` in `~/.claude.json` and start one `claude -p` from a
-  plain shell: the sandbox can't refresh that file. `progress/prune.py` removes run and session folders older
-  than the `retentionDays` setting (30 days by default), started once per session at its first run.
+- The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
+  approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
+- `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
+  runs the lookup script for another skill's workflow.
+- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v11, the evaluator)
+  and `hooks/progress.tsx` (SPEC-013 v10, the Claude Code adapter). It records each tracked skill run
+  (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
+  a band above the prompt. Its detail is in `.claude/rules/progress.md`.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
-  the `merge-approved`/`qa-failed` labels. The review criteria are open.
+  the `merge-approved`/`qa-failed` labels.
+- ADR-001 to ADR-006 in `docs/specs/adr/` are accepted. PRD-001 (DevForgeAI itself) and PRD-002
+  (DevForgeAI CLI, draft) are in `docs/specs/prd/`.
 
-There is no build system or linter; the checks that exist are under Commands. The workspace is a git
-repository (remote `origin`). Everything was imported in one commit (PR #1, 2026-09-28), so git
-history doesn't show how the specs or the plugin evolved before then; each spec's Change Log does.
-Specs were written against another repository's layout: translate their paths with
-`.claude/rules/spec-paths.md`. `docs/research/Claude/` (saved Claude Code docs) and the skills-guide
-PDF in `docs/` are local only. `src/codex/devforgeai/` is the Codex port (its manifest and README say
-which skills it holds), built and kept by Codex sessions; its `*IMPORT-REPORT.md` files list the
-differences from the Claude skills. Don't edit it from Claude. `src/grok/` is empty.
+Other folders:
+- `src/templates/`: document templates not yet owned by a skill (story, spec, sprint, policy,
+  ambiguities, `github/`, `skill/`); a built skill's template is in its `assets/`.
+  `src/templates/brainstorm.md` is a leftover identical copy of brainstorm's asset.
+- `src/schemas/`: the documents' JSON Schemas. `src/staging/examples/`: example projects.
+- `src/codex/devforgeai/`: the Codex port (brainstorm, prd, architecture, documents-updater), built and
+  kept by Codex sessions; its README and `*IMPORT-REPORT.md` files give each skill's status. Don't
+  edit it from Claude. `src/grok/` is empty.
+- `src/tools/session-archive/`: user-level hooks that archive session transcripts (SPEC-005 v1,
+  draft). Not part of the plugin; the owner installs them into `~/.claude/`.
+- `docs/runbooks/`: manual VER checks. `docs/research/` and the skills-guide PDF in `docs/` are local
+  only (gitignored). `tmp/` is gitignored.
+
+There is no build system or linter. Everything before 2026-09-28 was imported in one commit (PR #1);
+each spec's Change Log has the earlier history. Specs name paths from another repository's layout:
+translate them with `.claude/rules/spec-paths.md`.
 
 ## Source and deployed copy
 
 - `src/claude/DevForgeAI/` is the source. Edit only here.
-- `.claude/skills/devforgeai/` is a byte-identical deployed copy, gitignored: after a fresh clone, run
-  the deploy command below once. The names differ on purpose: a skills-dir plugin must sit at
-  `.claude/skills/<name>/`, and the plugin's name is `devforgeai`. Claude Code loads it there, which
-  is where `/devforgeai:brainstorm` comes from, so edits to `src/` take effect only after redeploying.
-  Claude's sandbox denies writes to `.claude/skills/`, in the main checkout and in every worktree, so
-  deploying (ADR-001 steps 2 and 7) is the owner's step, from a plain shell. `--delete` also clears
-  stray files such as Windows `*:Zone.Identifier` copies and sandbox placeholders.
-- `.codex/devforgeai/` is the deployed Codex copy. All of `.codex/` is gitignored, since it also holds
-  local preferences such as `.codex/devforgeai.local.md`. The copy is built from the files `main`
-  tracks, never the working tree, so untracked Codex work and gitignored raw eval transcripts stay out.
-  The owner's local `tmp/deploy-main.sh` (ADR-001 step 7) pulls `main`, deploys both copies and diffs each.
+- `.claude/skills/devforgeai/` is the deployed copy, gitignored, which Claude Code loads as the
+  `devforgeai` plugin (`/devforgeai:brainstorm`). Edits to `src/` take effect only after a deploy.
+  Claude's sandbox denies writes to `.claude/skills/` in every checkout, so deploying (ADR-001 steps 2
+  and 7) is the owner's step, from a plain shell. After a fresh clone, deploy once.
+- `.codex/devforgeai/` is the deployed Codex copy, built from the files `main` tracks. All of
+  `.codex/` is gitignored.
 
 ```bash
-# Deploy the Claude plugin; the adapter's tests and the engine's generated files stay out
+# Deploy the Claude plugin; the adapter's tests and Claude Code's generated files stay out
 X=(--exclude=__pycache__ --exclude=results --exclude='*.test.ts' --exclude='*.test.tsx')
 X+=(--exclude=/tsconfig.json --exclude=/.claude-plugin/types/)
 rsync -a --delete "${X[@]}" src/claude/DevForgeAI/ .claude/skills/devforgeai/
@@ -103,45 +82,41 @@ T=$(mktemp -d) && git archive HEAD src/codex/devforgeai | tar -x -C "$T"
 mkdir -p .codex/devforgeai && rsync -a --delete "$T/src/codex/devforgeai/" .codex/devforgeai/
 ```
 
-- After a redeploy, an open session loads the new adapter with `/reload-plugins`. Whether mods can load at all:
-  `claude plugin test` in a folder with no mod prints "no hooks module to load" when they can.
-- `src/tools/session-archive/` is not part of the plugin and is never synced into `.claude/`. It holds
-  user-level hooks that archive session transcripts and record which session wrote each `docs/specs/`
-  document. The owner installs them into `~/.claude/` per `docs/specs/spec/SPEC-005.md` (draft).
+`--delete` also clears stray files such as Windows `*:Zone.Identifier` copies. After a deploy, an
+open session loads the new adapter with `/reload-plugins`.
 
 ## Commands
 
-Run from the repository root (see "Traps"). Per-skill eval generators and offline grader checks are in
-`.claude/rules/evals.md`.
+Run from the repository root. Eval generators and offline grader checks: `.claude/rules/evals.md`.
 
 ```bash
-# The deployed copy matches the source, apart from what the deploy command leaves out
+# The deployed copy matches the source, apart from what the deploy leaves out
 D=(-x '*.test.ts' -x '*.test.tsx' -x tsconfig.json -x __pycache__ -x results)
 diff -rq "${D[@]}" src/claude/DevForgeAI .claude/skills/devforgeai
+# Every Python test under src/tests except one file, then that file (see "Traps")
+P=(-q -p no:cacheprovider --ignore=src/tests/spec-lookup/test_structure.py)
+PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest "${P[@]}" src/tests
+python3 -B src/tests/spec-lookup/test_structure.py
+# One folder or one test file
+PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
+python3 -B src/tests/brainstorm/test_validate_brn.py
+python3 -B src/tests/prd/test_shared_files.py
 # Session-archive tests: all, or one by name
 python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py'
 python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py' -k test_scope_is_opt_in
-# documents-updater's Markdown checker tests (kept outside the plugin), and the git skill's script tests
-PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/documents-updater -p 'test_*.py'
-PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test_*.py'
-# The progress tracker's Python tests: the evaluator (SPEC-012: every rule, the same under python3 -S,
-# the goldens), settings.py, prune.py and the adapter's structure (SPEC-013)
-PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
-# The progress adapter (SPEC-013): its kit tests, and what Claude Code reads from the module
+# The progress adapter's kit tests, and what Claude Code reads from the plugin
 claude plugin test src/claude/DevForgeAI
 claude plugin validate src/claude/DevForgeAI
-# brainstorm's validator tests: each case runs the script with PyYAML and without it (python3 -S)
-python3 -B src/tests/brainstorm/test_validate_brn.py
-# prd and the shared policy script: its tests, the shared files' byte-identity, structure
-python3 -B src/tests/prd/test_validate_policy.py
-python3 -B src/tests/prd/test_shared_files.py
-python3 -B src/tests/prd/test_structure.py
 # The Codex port's tests, leaving no __pycache__ in the Codex tree
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'
-# Run a skill's checker on a real file
+# A skill's checker on a real file
 python3 src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md
 PYTHONDONTWRITEBYTECODE=1 python3 src/claude/DevForgeAI/skills/documents-updater/scripts/check_docs.py README.md
 ```
+
+`src/tests/<skill>/` holds the skills' tests and eval generators.
+`test_shared_files.py` checks that the prd, architecture and context skills' shared policy files are
+byte-identical.
 
 ## Evaluating a skill
 
@@ -158,67 +133,85 @@ claude plugin eval $P --tag prd $A --threshold 0.8 -j 4 --output-dir $O
 claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --output-dir $O-quick
 ```
 
-- The bar is ≥ 0.8 per case over 3 runs (the default run count) against the no-plugin baseline.
-  Go cheapest first: a few cases with `--runs 1 --ablation none`, then the whole suite with
-  `--runs 1`, then 3 runs with the baseline. For prd's 20 cases the last two cost about $8 and $41.
+- The bar is ≥ 0.8 per case over 3 runs (the default run count) against the no-plugin baseline, unless
+  Bryan records a waiver in the spec's §9. Go cheapest first: a few cases with
+  `--runs 1 --ablation none`, then the suite with `--runs 1`, then 3 runs with the baseline.
 - `record_revision.sh <results-dir> <tag>` refuses an existing folder and uncommitted changes in
-  `src/` or `docs/`, so commit first and use a new folder for every run. Keep results under
+  `src/` or `docs/`: commit first, and use a new folder for every run. Keep results under
   `tmp/eval-results/`, never the plugin's `evals/results/`, which would deploy.
 - Eval cases are generated: edit the generator in `src/tests/<skill>/` and regenerate, never the case
-  files (brainstorm's and prd's v1 cases are hand-written).
-- The eval sandbox masks `.git/config.lock` in a repository the scaffold built, as a session's
-  sandbox does: `git config`, `remote add` and `push -u` fail there.
-- Flags, grader pitfalls, reading results and the manual-check runbooks: `.claude/rules/evals.md`.
+  files. Brainstorm's cases and prd's v1 cases are hand-written.
+- The eval sandbox masks `.git/config.lock` in a repository the scaffold built: `git config`,
+  `remote add` and `push -u` fail there.
 
 ## Rules a change must not break
 
-- **Look it up before building it** (SPEC-014 BEH-08). Before proposing, designing or changing any DevForgeAI
-  behaviour, use `/devforgeai:spec-lookup` (or its script,
-  `src/claude/DevForgeAI/skills/spec-lookup/scripts/find_spec.py`) and cite what it finds, or ask Bryan;
-  never build what no spec, ADR or recorded decision covers. During another devforgeai skill's workflow, hand
-  the lookup to the `devforgeai:spec-lookup` agent instead of loading the skill, which would end that run.
+- **Look it up before building it** (SPEC-014 BEH-08). Before proposing, designing or changing any
+  DevForgeAI behaviour, use `/devforgeai:spec-lookup` (or
+  `src/claude/DevForgeAI/skills/spec-lookup/scripts/find_spec.py`) and cite what it finds, or ask
+  Bryan. Never build what no spec, ADR or recorded decision covers. During another devforgeai skill's
+  workflow, hand the lookup to the `devforgeai:spec-lookup` agent: loading the skill ends that run.
 - **Judgment calls are the user's.** In brainstorm, idea dispositions and convergence are written only
-  when the user confirmed them. Otherwise they stay `disposition: open`, `reason: null` and `status: draft`.
-  With no user present, VER-02 checks exactly this. Each later spec names its own user-owned decisions.
+  when the user confirmed them; otherwise they stay `disposition: open`, `reason: null` and
+  `status: draft` (VER-02). Each later spec names its own user-owned decisions.
 - Skills write documents as `docs/specs/<type>/<ID>.md` in the *user's* project and allocate the ID
-  themselves. They never take a file name from the user. documents-updater is the exception: it edits
-  the user's existing documentation (README, CHANGELOG, guides) in place.
+  themselves; they never take a file name from the user. documents-updater is the exception: it edits
+  the user's existing README, CHANGELOG and guides in place.
 - An approved document changes only with a `version` bump, a new `updated` date and two Change Log
   rows: the change, authored `claude-code (session <ID>)`, and the owner's approval. Then move every
   `upstream` link that cites it (other specs, `provenance.yaml`) to the new version. Never rewrite
-  earlier Change Log rows.
-- **Hand-offs to documents-updater.** The planning chain's last skill, whichever that turns out to be,
-  ends its Next step by recommending `/devforgeai:documents-updater` (SPEC-006 §13, decided by Bryan
-  on 2026-09-28). Put that in its spec and give it an eval grader. The `git` skill also recommends it
-  before opening a PR whose branch changes neither README nor CHANGELOG (SPEC-007 BEH-19, decided by
-  Bryan on 2026-09-28), and runs it only on the user's yes. No other skill hands off to
-  documents-updater, and documents-updater never starts itself.
+  earlier Change Log rows. A §9 status record (built, evaluated, merged) needs no version bump.
+- **Hand-offs to documents-updater** (decided by Bryan on 2026-09-28). The skill that ends the
+  planning chain ends its Next step by recommending `/devforgeai:documents-updater`, with an eval
+  grader for it (SPEC-006 §13); no built skill is that last step yet. The `git` skill recommends it
+  before opening a PR whose branch changes neither README nor CHANGELOG, and runs it only on the
+  user's yes (SPEC-007 BEH-19). No other skill hands off to documents-updater, and it never starts
+  itself.
 
 ## Traps
 
-- Keep the Bash working directory at the repository root. A sandboxed command whose working
-  directory is a subfolder leaves empty placeholders there (`.claude/.cc-writes/`, `.mcp.json`); remove
-  them with `rmdir`, which refuses anything that isn't empty.
-- Inside the sandbox, `.mcp.json` at the repository root shows as a character device (`/dev/null`,
-  owned by nobody). It is the sandbox's write mask, not a file; leave it alone. So are the other
-  character devices owned by nobody at the root and in `.claude/`: stage files by path, never `git add -A`.
-- Commands for the owner to paste into a plain shell must not start with `!`. That prefix runs a
-  command only in Claude Code's prompt; in bash it negates the exit status, so `! diff … && echo ok`
-  reports success when the copies differ. Don't use `\` line continuations either, and keep each line
-  under about 100 characters (put long flags in variables): copying from the terminal wraps lines.
-- `git push` and `gh pr` run outside the sandbox (`.claude/settings.local.json`, also in worktree sessions)
-  only when the command starts with them: run each as its own Bash call, and never pass `allowed_domains`,
-  which runs it sandboxed through a proxy that is often down. The auto-mode classifier can still block a
-  push; retry once after the owner confirms it in the conversation.
+- Keep the Bash working directory at the repository root. A sandboxed command run from a subfolder
+  leaves empty placeholders there (`.claude/.cc-writes/`, `.mcp.json`); remove them with `rmdir`.
+- Inside the sandbox, `.mcp.json` and other entries owned by nobody at the root and in `.claude/`
+  (character devices, dotfiles such as `.bashrc` and `.gitconfig`) are the sandbox's write masks, not
+  files. Leave them alone, and stage files by path, never `git add -A`.
+- `pytest src/tests` stops at collection with "import file mismatch":
+  `src/tests/prd/test_structure.py` and `src/tests/spec-lookup/test_structure.py` share a basename,
+  and neither folder has an `__init__.py`. Run it as the Commands section does.
+- Commands for the owner to paste into a plain shell never start with `!` (in bash it negates the exit
+  status, so `! diff … && echo ok` reports success when the copies differ), use no `\` continuations,
+  and keep each line under about 100 characters (put long flags in variables).
+- `git push` and `gh pr` run outside the sandbox (`.claude/settings.local.json`) only when the command
+  starts with them: run each as its own Bash call, and never pass `allowed_domains`, which routes it
+  through a proxy that is often down. If the auto-mode classifier blocks a push, retry once after the
+  owner confirms it in the conversation.
 - In a worktree session, the isolation guard refuses `python3 -m unittest`, heredocs that mention git,
-  and any command whose paths contain `git` in a form it can't verify (such as `skills/git/`). Run test
+  and commands whose paths contain `git` in a form it can't verify (such as `skills/git/`). Run test
   files directly (`python3 -B src/tests/git/test_repo_state.py`), and write scratch scripts with the
   Write tool before running them.
-- **Never investigate a failing test by changing the working tree** (ADR-005 D7; interim, until the
-  dev skill implements it). Record a baseline test run before the first change; compare old code only
-  in a disposable worktree (`git worktree add --detach <path> <commit>`) or with
-  `git show <commit>:<path>`; commit work in progress before each full test run. Never restore, check
-  out, stash, reset, clean or re-download files into the working tree to investigate.
+- **Never investigate a failing test by changing the working tree** (ADR-005 D7). Record a baseline
+  test run before the first change; compare old code only in a disposable worktree
+  (`git worktree add --detach <path> <commit>`) or with `git show <commit>:<path>`; commit work in
+  progress before each full test run. Never restore, check out, stash, reset, clean or re-download
+  files into the working tree to investigate.
+
+## Future roadmap
+
+Recorded and not decided; each needs Bryan's decision before any work (see "Look it up before
+building it"). The source of each item is named.
+
+- **Unbuilt skills:** `qa` (SPEC-008, a stub whose review criteria are open), `story` (SPEC-009,
+  draft), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
+  `src/templates/github/`), and the chain's final Spec step, which only PRD-001 FR-017 covers (no
+  spec, no reserved SKL ID).
+- **`git` SKL-006 v3:** native evaluation, the manual VER items and Bryan's approval
+  (SPEC-007 §9, §13; `docs/runbooks/git-v3-checks.md`).
+- **Progress tracker** (SPEC-012 §11): the progress pane and its graphics, `progress.html`,
+  `chain_state.py` and phases, manifests for the other skills, and a Codex copy.
+- **Open questions** in the §13 of SPEC-001, SPEC-003, SPEC-010, SPEC-012, SPEC-013 and SPEC-014
+  (for example, the waiver question's treatment of a dismissal, and whether a challenge in the
+  end-of-run review should do more than record).
+- **Manual VER items not run**, listed in each spec's §9.
 
 ## Loaded on demand
 
@@ -232,3 +225,4 @@ Claude Code doesn't load `AGENTS.md` in a project that has a CLAUDE.md; read it 
 | `.claude/rules/spec-paths.md` | `docs/specs/**`, `src/schemas/**` | following a path, file or tool a spec names |
 | `.claude/rules/evals.md` | `src/claude/DevForgeAI/evals/**`, `src/tests/**`, `tmp/eval-results/**` | writing, generating, running or diagnosing an eval |
 | `.claude/rules/skills.md` | `src/claude/DevForgeAI/skills/**`, `src/claude/DevForgeAI/.claude-plugin/**`, `src/templates/**` | changing a skill, its shared files or hand-offs, or building the next skill |
+| `.claude/rules/progress.md` | `src/claude/DevForgeAI/progress/**`, `src/claude/DevForgeAI/hooks/**`, `src/tests/progress/**` | changing or debugging the progress tracker or its adapter |

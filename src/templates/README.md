@@ -4,8 +4,9 @@
 > document is built. At that point the template moves into that skill's `assets/`. Documents made from
 > them are written under `docs/specs/` in the project.
 
-Templates for the planning chain **Brainstorm → PRD → Epic → Story → Specification**,
-with **Sprint** as a scheduling overlay and **ADR** for design decisions.
+Templates for the planning chain **Brainstorm → PRD → Architecture (ARCH) → Epic → Story → Specification**,
+with **Context** documents between Architecture and Story, **Sprint** as a scheduling overlay and **ADR**
+for design decisions.
 Every template conforms to the conventions in this file and to the JSON Schemas in
 [`src/schemas/`](../schemas/).
 
@@ -23,7 +24,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | [ambiguities.md](ambiguities.md) | Which small choices were made without stopping, for later review? | None; entries (`ENT-`) the owner accepts or rejects (ADR-004 D8; schema `ambiguities.schema.json`) |
 | [context/](../claude/DevForgeAI/skills/context/assets/) | Which stack, layout and layer conventions must stories and specs follow? | None; cited decisions, confirmed conventions and labelled observations that stories and specs obey (ADR-004: 12 documents, plus `detail.md` for detail files; schema `context.schema.json`) |
 | [skill/](skill/) | How does an AI agent carry out a workflow? | None; eval cases verify the spec's VER items |
-| [github/](github/) ([pr.md](github/pr.md), [incident.md](github/incident.md), [enhancement.md](github/enhancement.md)) | What do we post to GitHub, and what does a reader with no context need to act on it? | Acceptance criteria and verification commands in the post (incident, enhancement); checks run and not verified (PR). GitHub post bodies, not `docs/specs` documents: no frontmatter, IDs or schema. They move into `skills/github-post/assets/` when SKL-009 (SPEC-010, draft) is built |
+| [github/](github/) ([pr.md](github/pr.md), [incident.md](github/incident.md), [enhancement.md](github/enhancement.md)) | What do we post to GitHub, and what does a reader with no context need to act on it? | Acceptance criteria and verification commands in the post (incident, enhancement); checks run and not verified (PR). GitHub post bodies, not `docs/specs` documents: no frontmatter, IDs or schema. SPEC-010 (in review) places them in `skills/github-post/assets/`; SKL-009 is not built |
 
 Arrows show the direction of refinement (upstream → downstream). `upstream`
 records point the opposite way: each child names its parent.
