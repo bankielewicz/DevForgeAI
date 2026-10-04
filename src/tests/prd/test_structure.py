@@ -31,8 +31,8 @@ TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 7, 
 APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approved", "Bryan", "2026-10-04")}
 # SPEC-002 v5: issue #39, NEEDS ADR. SPEC-003 v6 to v8 (2026-10-03): the task list, step 8's confirmation and
 # question tags, which SKL-003 v7 implements (TARGETS).
-# SPEC-003 v9 (2026-10-04): the waiver question, in review until Bryan approves it.
-SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (9, "in-review")}
+# SPEC-003 v9 (2026-10-04): the waiver question, approved by Bryan; SKL-003 v8 builds it.
+SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (9, "approved")}
 
 
 class _Loader(yaml.SafeLoader):

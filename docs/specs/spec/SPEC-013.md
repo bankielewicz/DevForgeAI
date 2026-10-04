@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 10
 created: 2026-10-02
 updated: 2026-10-04
@@ -13,12 +13,12 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-04
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
-  - {id: SPEC-012, relation: constrains, version: 10, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
+  - {id: SPEC-012, relation: constrains, version: 11, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "progress tracking by evidence; this spec brings the core of SPEC-012 into Claude Code sessions"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions are the user's: enforce mode refuses a write that records a user-owned decision without the user's answer, and no button sends a prompt"}
 supersedes: []
@@ -1304,3 +1304,4 @@ Notes:
 | 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #73's merge and the deploy of plugin 0.18.0 | §9 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04: the waiver's answer recorded as one of two fixed labels and never checked at the question gate (DM-01, BEH-21); every refusal kept for the run (BEH-25, DM-03); the end-of-run review in the tracker's own dialog, one item at a time, recorded in review.jsonl and adapter.log, never sent to Claude (new BEH-26, ERR-15, DM-02); status in-review | frontmatter, §1, DM-01, DM-02, DM-03, BEH-21, BEH-25, BEH-26, ERR-15, VER-34, VER-35, VER-36, §10, §11, §12, §13 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: waiver on every answer to the waiver question, a dismissal's included, and only for a one-question call (DM-01, BEH-21); review items one per cause, a refusal and a later flag for one cause one item (BEH-26; Bryan to confirm); typed labels; why /clear can't repeat a review; how VER-36 gets a refusal | DM-01, DM-02, BEH-21, BEH-26, VER-34, VER-35, VER-36 |
+| 10 | 2026-10-04 | Bryan | Approved, with review items one per cause and a dismissal ending that run's review | status |

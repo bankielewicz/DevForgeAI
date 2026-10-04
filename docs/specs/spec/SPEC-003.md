@@ -2,7 +2,7 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: in-review
+status: approved
 version: 9
 created: 2026-09-23
 updated: 2026-10-04
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "388b2532-f519-4deb-b4ce-3e294d7e3b10"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-04
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
@@ -24,7 +24,7 @@ upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
-  - {id: SPEC-012, relation: constrains, version: 10, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
+  - {id: SPEC-012, relation: constrains, version: 11, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -842,3 +842,4 @@ follows the same contract.
 | 8 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #73's merge and the deploy of plugin 0.18.0 | §9 |
 | 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04: when the request says to proceed without questions, the skill asks the waiver once in step 1 after the policy script, with its own tag and two fixed labels, only with AskUserQuestion; after Proceed, step 8 writes the named outcome without asking and the tracker counts it (new BEH-18; BEH-08, VER-30, VER-31); status in-review | frontmatter, §1, BEH-08, BEH-18, VER-30, VER-31, §10, §11, §12, §13 |
 | 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: the waiver is named as the one question the tag rule leaves out, and the questions BEH-01 and BEH-04 ask whatever the request says are cited | BEH-18 |
+| 9 | 2026-10-04 | Bryan | Approved, with the waiver asked after the policy script and counted for step 8 | status |

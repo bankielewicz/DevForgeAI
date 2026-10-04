@@ -2,7 +2,7 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 11
 created: 2026-10-02
 updated: 2026-10-04
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-04
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
@@ -24,8 +24,8 @@ upstream:
   - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
   - {id: PRD-001, item: FR-011, relation: informed_by, version: 11, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
-  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 13, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
-  - {id: SPEC-003, relation: informed_by, version: 8, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
+  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 14, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
+  - {id: SPEC-003, relation: informed_by, version: 9, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill's checklist form for a legitimate skip, (skipped: <reason>); version 3 is in review"}
 supersedes: []
 superseded_by: null
@@ -1231,3 +1231,4 @@ Still open, or notes:
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records VER-35, run live with the skills' wording | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 for the waiver menu: a waiver answer on the answer event (DM-02), state.waiver (DM-03), waivable on a user-owned step (DM-01) and on architecture's step 8 only, the waiver's evidence (new BEH-19; BEH-10, BEH-17, BEH-18), no question gate for it; status in-review | frontmatter, §1, DM-01, DM-02, DM-03, §4, BEH-10, BEH-17, BEH-18, BEH-19, VER-39, VER-40, §10, §11, §12, §13 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: a waiver answer is placed by no window and is no question gate in every run, task list or not (BEH-06, BEH-09, BEH-18); the waiver field on every answer to the waiver question, a dismissal's included (DM-02); the waiver evidence counts at the gate that checks step 8 and doesn't make it reached early (BEH-19); VER-39's non-task-list, current and dismissal cases; §13 | DM-02, BEH-06, BEH-09, BEH-18, BEH-19, VER-39, §13 |
+| 11 | 2026-10-04 | Bryan | Approved, with a Proceed waiver counting for architecture's step 8 only | status |
