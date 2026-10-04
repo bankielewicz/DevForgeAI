@@ -127,6 +127,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/tests/git -p 'test
 # The progress tracker's Python tests: the evaluator (SPEC-012: every rule, the same under python3 -S,
 # the goldens), settings.py, prune.py and the adapter's structure (SPEC-013)
 PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
+# Every pytest test under src/tests (pytest.ini sets importlib mode for the shared test_structure.py names)
+PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests
 # The progress adapter (SPEC-013): its kit tests, and what Claude Code reads from the module
 claude plugin test src/claude/DevForgeAI
 claude plugin validate src/claude/DevForgeAI
