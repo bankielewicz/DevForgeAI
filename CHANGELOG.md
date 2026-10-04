@@ -81,7 +81,7 @@ Entries start with the epic skill. Earlier work is described in each specificati
 - `check_docs.py` (documents-updater) no longer reports footnote definitions as broken links,
   repeated sub-bullets as duplicate `Unreleased` entries, or an empty `Unreleased` section as an
   error, and no longer reads a leading horizontal rule as front matter.
-- Refreshed SPEC-008 and SPEC-010's SPEC-007 citations for the v3 candidate. SPEC-010 v3 awaits
+- Refreshed SPEC-008 and SPEC-010's SPEC-007 citations for SPEC-007 v3. SPEC-010 v3 awaits
   approval; its posting contract is unchanged. Git tests now collect alongside other skills' tests.
 - The `architecture` skill's final next step now tells you to run `/devforgeai:epic PRD-NNN`, instead
   of saying the epic workflow isn't built.
