@@ -1,4 +1,4 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v8).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v9).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
@@ -16,7 +16,7 @@ import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, keptContent, markedStep, newFlagToasts, questionRefusal,
   questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, runId, skillName, statusText, stepLabel,
-  stepOfTask, stepStateOf, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
+  stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
 import type { Fields, ProgressState, ToolOutcome } from './progress-core'
 
@@ -673,7 +673,7 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
       return { ...r, [cause.key]: count }
     })
     if (count !== 2) return
-    const text = stuckText(run.skill, cause.step, cause.message)
+    const text = stuckText(run.skill, cause.step, cause.message, stuckAdvice(cause.type, cause.userOwned))
     await notify($, text)
     await adapterLog($, 'stuck', text)
   } catch (err) {

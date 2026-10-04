@@ -537,17 +537,38 @@ function typedTo(state: ProgressState, flag: StateFlag, lines: readonly string[]
     + `${state.skill} skill didn't keep its task list in step with its work (DevForgeAI SPEC-012 §4).`
 }
 
-/** The cause of a refusal, for the stuck notice (BEH-25, version 8): the gate's kind and the first flag raised at seq. */
-export function refusalCause(state: ProgressState, seq: number): { key: string; step: number; message: string } | null {
+/** The cause of a refusal, for the stuck notice (BEH-25, versions 8 and 9): the gate's kind and the first flag raised
+ *  at seq, with that flag's type and whether its step is user-owned in the state's steps (a step it doesn't list isn't). */
+export function refusalCause(state: ProgressState, seq: number):
+  { key: string; step: number; message: string; type: string; userOwned: boolean } | null {
   const flag = state.flags.find(f => f.seq === seq)
   if (flag === undefined || state.gate.kind === null) return null
-  return { key: `${state.gate.kind}:${flag.type}:${flag.step}`, step: flag.step, message: flag.message }
+  const userOwned = state.steps.some(s => s.n === flag.step && s.userOwned === true)
+  return { key: `${state.gate.kind}:${flag.type}:${flag.step}`, step: flag.step, message: flag.message, type: flag.type,
+    userOwned }
 }
 
-/** The notice for the user when the same refusal comes twice in a run (BEH-25, version 8). */
-export function stuckText(skill: string, step: number, message: string): string {
-  return `${skill}: the progress tracker refused Claude twice at step ${step} for the same reason: ${message}. Help `
-    + "Claude bring its task list in step, or switch to observe mode with the band's button."
+/** The question gate's flag types (SPEC-012 BEH-08), whose stuck notice keeps the task-list advice. */
+const QUESTION_GATE_TYPES = new Set(['unmarked-question', 'untagged-question', 'mismatched-question'])
+
+/** The stuck notice's last sentence (BEH-25, version 9), chosen by the refused flag's type and whether its step is
+ *  user-owned, never by message text: the task list for a question gate, the decision for a user-owned step's skipped
+ *  flag or a rule-broken one, and otherwise the step's evidence. */
+export function stuckAdvice(type: string, userOwned: boolean): string {
+  if (QUESTION_GATE_TYPES.has(type)) {
+    return "Help Claude bring its task list in step, or switch to observe mode with the band's button."
+  }
+  if (type === 'rule-broken' || (type === 'skipped' && userOwned)) {
+    return "The refused write records a decision that needs your answer: answer Claude's question about it, or ask "
+      + "Claude to leave it open, or switch to observe mode with the band's button."
+  }
+  return "Claude hasn't done that step in a way the tracker can see: ask Claude to do it as the message says, or "
+    + "switch to observe mode with the band's button."
+}
+
+/** The notice for the user when the same refusal comes twice in a run (BEH-25, versions 8 and 9). */
+export function stuckText(skill: string, step: number, message: string, advice: string): string {
+  return `${skill}: the progress tracker refused Claude twice at step ${step} for the same reason: ${message}. ${advice}`
 }
 
 /** The start of the note a compaction ends with (BEH-24), by which an earlier one is found and removed (version 8). */
