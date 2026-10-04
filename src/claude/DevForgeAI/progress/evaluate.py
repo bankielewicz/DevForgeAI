@@ -353,7 +353,8 @@ class Step:
         return [x["seq"] for x in self.evidence if x["type"] not in ("answer", "waiver")] + [c["seq"] for c in self.claims]
 
     def first_signal(self):
-        seqs = [x["seq"] for x in self.evidence] + [c["seq"] for c in self.claims]
+        # The waiver's stamp is no signal: it gives no 'seen late' note (BEH-19).
+        seqs = [x["seq"] for x in self.evidence if x["type"] != "waiver"] + [c["seq"] for c in self.claims]
         return min(seqs) if seqs else None
 
     def reached(self, upto=INFINITY):
@@ -941,8 +942,7 @@ class Run:
         for step in self.steps:
             state = self.final_state(step)
             if step.n == current and state == "pending":
-                state = "your-turn" if step.user_owned and not step.answered() and not self.waived(step) and waiting \
-                    else "current"
+                state = "your-turn" if step.user_owned and not step.answered() and waiting else "current"
             claim = step.claims[-1] if step.claims else None
             records.append({"n": step.n, "title": step.title, "kind": step.kind, "need": step.need,
                             "userOwned": step.user_owned, "state": state,

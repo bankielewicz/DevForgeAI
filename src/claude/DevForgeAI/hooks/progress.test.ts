@@ -1908,3 +1908,16 @@ test('VER-35: a session where nothing draws gets no review', async ($, on) => {
   await turnEnd($)
   expect(asked.length).toBe(0)
 })
+
+test('VER-35 (review M1): a last step reached in the turn\'s final events is evaluated before the review decides', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, ['Accept'], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)  // evaluated: step 2 current, nothing to review yet
+  state = reached([FLAG8])     // the next evaluation will show every step reached
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/specs/arch/ARCH-001.md` } as Any)  // unevaluated
+  await turnEnd($)             // no timer tick in between
+  expect(asked.length).toBe(1)
+})

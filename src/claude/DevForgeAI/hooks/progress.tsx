@@ -52,6 +52,8 @@ let interactive: boolean | null = null
 let python: string | null | undefined
 let timerOn = false
 let evaluating = false
+// The timer's evaluation in flight, which the review waits for (BEH-26).
+let inFlight: Promise<void> | null = null
 let turnOpen = false
 let disabled = false
 let modeSession: string | null = null
@@ -528,9 +530,19 @@ async function tick($: E): Promise<void> {
   try {
     await refreshStatus($)
     if (evaluating || disabled || !(await read($, MARKED))) return
+    inFlight = evaluateMarked($)
+    await inFlight
+  } catch (err) {
+    await failOpen($, `timer: ${message(err)}`).catch(() => undefined)
+  }
+}
+
+/** One evaluation of the open run, as the timer runs it (BEH-06); the review waits for it (BEH-26). */
+async function evaluateMarked($: E): Promise<void> {
+  evaluating = true  // before any await, so the timer and the review never start two evaluations
+  try {
     const run = await read($, RUN)
     if (run === null) return
-    evaluating = true
     try {
       await update($, MARKED, () => false)
       // The folder's .gitignore may have gone with a `git clean` while the run went on (BEH-15).
@@ -544,8 +556,9 @@ async function tick($: E): Promise<void> {
     } finally {
       evaluating = false
     }
-  } catch (err) {
-    await failOpen($, `timer: ${message(err)}`).catch(() => undefined)
+  } finally {
+    evaluating = false
+    inFlight = null
   }
 }
 
@@ -693,10 +706,26 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
  *  where something draws, each item (one per cause) is asked in Claude Code's own dialog, Accept or Challenge, and the
  *  answers go to the run's review.jsonl and adapter.log. Nothing is sent to Claude. */
 async function review($: E): Promise<void> {
+  // The review judges the state the turn ended in: events still being written, an evaluation under way and events
+  // not yet evaluated come first, so a last step reached in the turn's final reply is seen (review M1).
+  await recordChain
+  if (inFlight !== null) await inFlight
+  if (!evaluating && !disabled && (await read($, MARKED))) {
+    inFlight = evaluateMarked($)
+    await inFlight
+  }
   const run = await read($, RUN)
   const summary = await read($, SUMMARY)
   if (run === null || summary === null || summary.current !== null || summary.ended !== null) return
-  if ((await read($, REVIEWED)) === run.id || !(await hasSurface($))) return
+  if ((await read($, REVIEWED)) === run.id) return
+  // Where nothing draws, or the surfaces can't be read, no dialog can be answered: no review (BEH-26).
+  let surfaces: readonly unknown[] = []
+  try {
+    surfaces = await $.session.surfaces()
+  } catch {
+    return
+  }
+  if (surfaces.length === 0) return
   let flags: ProgressState['flags'] = []
   try {
     flags = (JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState).flags ?? []

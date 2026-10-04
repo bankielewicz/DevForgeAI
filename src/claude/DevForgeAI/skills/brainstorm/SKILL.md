@@ -30,8 +30,8 @@ Two decisions are the user's, never yours:
 Propose both, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
 `reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
 confirmed* and continue with those values. This happens when the user said to proceed without
-questions (and picked "Proceed without questions" in the waiver question, Intake) or no user is there
-to answer. Record your proposals in section 6 prose so nothing is
+questions (and picked *Proceed without questions* in the waiver question, Intake, or it couldn't be
+asked) or no user is there to answer. Record your proposals in section 6 prose so nothing is
 lost. When the user confirms them later, after the BRN is written, don't edit from that message
 alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 question,
 tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
@@ -81,8 +81,9 @@ off (`- [x] N.`) in your reply text as you go.
 
 **The waiver comes first**, only when the request says to proceed without questions (or not to ask,
 or to skip questions) and AskUserQuestion is available. With step 1 marked in_progress and before any
-other question, ask it once, alone in its own form, with `metadata: {"source": "devforgeai_waiver"}`
-(not `devforgeai_step:1`: the progress tracker records it as the waiver, never as a step's answer),
+other question, ask it at most once in a run, alone in its own form, with
+`metadata: {"source": "devforgeai_waiver"}` (not `devforgeai_step:1`: the progress tracker records it
+as the waiver, never as a step's answer),
 `header: "Step 1"`, the question "Your request says to proceed without questions. Should I?" and
 exactly these two options, in this order:
 - `Proceed without questions`, description "I ask nothing more; decisions that need you stay open.";
@@ -259,7 +260,8 @@ Do not start writing a PRD.
 5. The validator prints OK, and the skill reports and hands off.
 
 **User says to proceed without questions.** The skill first asks the waiver question (with
-AskUserQuestion). On *Proceed without questions*, or with no question tool, it asks nothing more and records unknowns as
+AskUserQuestion); on *Ask me as usual* it asks as in the first example. On *Proceed without
+questions*, or with no question tool, it asks nothing more and records unknowns as
 `[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
 its proposals in section 6. Its final reply says the user can confirm them later; when the user
 replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN, validates it

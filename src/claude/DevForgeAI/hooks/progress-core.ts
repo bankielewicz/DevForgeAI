@@ -445,7 +445,7 @@ export function waiverAnswer(input: Fields, outcome: ToolOutcome): 'proceed' | '
   const question = (input.questions as Fields[])[0]?.question
   const answers = (outcome.result as { answers?: Record<string, unknown> }).answers ?? {}
   const answer = typeof question === 'string' ? answers[question] : undefined
-  return typeof answer === 'string' && answer in WAIVER_LABELS ? WAIVER_LABELS[answer] : 'other'
+  return typeof answer === 'string' && Object.hasOwn(WAIVER_LABELS, answer) ? WAIVER_LABELS[answer] : 'other'
 }
 
 /** A question's step tag from its input's metadata.source (DM-01, version 8): `step` for devforgeai_step:N, `outside`

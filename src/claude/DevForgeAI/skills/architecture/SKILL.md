@@ -134,7 +134,8 @@ question form, its tag names that step:
 2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
    time; a step with nothing to do is completed too (step 5 with no scope, step 7 with no open
    question). Mark step 11 completed just before writing the final reply.
-3. Before asking any question, mark the step it belongs to in_progress: the waiver → step 1; which PRD → step 2; reuse,
+3. Before asking any question, mark the step it belongs to in_progress: the waiver → step 1; which PRD →
+   step 2; reuse,
    amend or create → step 4; reading outside the inspection scope → step 5; every decision question
    → step 7; the outcome → step 8; any other question → the step whose work asks it (a component's
    kind → step 6). Complete step 7 and mark step 8 in_progress before the outcome question, and ask
@@ -181,7 +182,7 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
 5. **The waiver**, only when the request says to proceed without questions (or "don't ask me
    anything", "proceed without asking me anything else", "decide nothing") and AskUserQuestion is
    available: after the policy script and before any other question, with step 1 still in_progress,
-   ask it once, alone in its own form, with `metadata: {"source": "devforgeai_waiver"}` (not
+   ask it at most once in a run, alone in its own form, with `metadata: {"source": "devforgeai_waiver"}` (not
    `devforgeai_step:1`: the progress tracker records it as the waiver, never as a step's answer),
    `header: "Step 1"`, the question "Your request says to proceed without questions. Should I?" and
    exactly these two options, in this order:
@@ -455,7 +456,8 @@ says readiness wasn't validated, and never tells the user to run `/devforgeai:ep
 ## Examples
 
 **No user, no ARCH yet.** "Do the architecture for PRD-002. Proceed without questions." The skill
-runs the policy script (no folder, so defaults); with no question tool it asks no waiver, and reads PRD-002 (approved, version 3, with
+runs the policy script (no folder, so defaults); with no question tool it asks no waiver (with one,
+it asks the waiver first, and on *Ask me as usual* asks as usual). It reads PRD-002 (approved, version 3, with
 `[NEEDS ADR: calendar integration; affects FR-004]`). No ARCH exists, so it will create one. No scope
 was named, so no code is read. It records a DEC per shared question, each citing the requirements it
 affects, all open; writes no ADR; leaves `outcome: null`; validates; and reports FR-004 as blocked by
