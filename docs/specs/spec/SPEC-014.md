@@ -2,8 +2,8 @@
 id: SPEC-014
 type: spec
 title: "Spec lookup skill: cite the project's specifications or ask, never invent"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 1
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 2
 created: 2026-10-04
 updated: 2026-10-04
 owner: "Bryan"
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-04
+approved_by: ""
+approved_on: null
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
@@ -27,12 +27,12 @@ supersedes: []
 superseded_by: null
 blocked_by: []
 # --- spec-specific ---
-components: ["src/claude/DevForgeAI/skills/spec-lookup", "src/tests/spec-lookup", "CLAUDE.md"]
+components: ["src/claude/DevForgeAI/skills/spec-lookup", "src/claude/DevForgeAI/agents/spec-lookup.md", "src/tests/spec-lookup", "CLAUDE.md"]
 ---
 
 # SPEC-014 — Spec lookup skill: cite the project's specifications or ask, never invent
 
-> **Status:** approved by Bryan on 2026-10-04; not built. The drafting plan and its checkpoints are in
+> **Status:** version 2 in review (version 1 approved by Bryan on 2026-10-04); not built. The drafting plan and its checkpoints are in
 > `tmp/plans/2026-10-04-spec-014-spec-lookup.md` (local).
 
 ## 1. Overview
@@ -55,6 +55,11 @@ Bryan chose:
    before they design or change anything.
 
 The skill is recorded as `SKL-011` in its `provenance.yaml`. It reads and never writes.
+
+**Version 2** (2026-10-04, at Bryan's request to follow Anthropic's subagent documentation, saved in
+`docs/research/Claude/subagents.md`) specifies how the out-of-band lookup runs. The plugin ships a lookup agent,
+`agents/spec-lookup.md`, limited to Bash and Read and run on Haiku. The main conversation gives it a self-contained
+task message and waits for its report, which holds only the script's output lines (BEH-09).
 
 **What this can't guarantee** (research D, `tmp/plans/spec-014/research-guides.md`):
 - A skill loads when its description matches the request; nothing makes it fire on Claude's own intention to design
@@ -96,6 +101,7 @@ src/claude/DevForgeAI/skills/spec-lookup/
     └── citing.md            # citation forms, reading the output, examples
 src/claude/DevForgeAI/evals/spec-lookup/<case>/   # one case per automated VER item (§9)
 src/tests/spec-lookup/                            # find_spec.py's tests and make_evals.py (not deployed)
+src/claude/DevForgeAI/agents/spec-lookup.md       # the lookup agent for use during a tracked run (BEH-09)
 CLAUDE.md                                          # the pointer (this repository only)
 ```
 
@@ -149,6 +155,19 @@ metadata:
   at once; with none, it searches the terms of the request it was loaded for.
 - **Tools the instructions use** (there is no `allowed-tools` pre-approval, as for the other skills): Bash only to run `python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py`; Read to open a cited file at the
   cited line; AskUserQuestion for an uncovered item (BEH-05). No Write or Edit.
+- **The lookup agent** (BEH-09), `agents/spec-lookup.md`:
+
+  ```yaml
+  name: spec-lookup
+  description: Runs DevForgeAI's spec-lookup script for the queries it is given and returns the script's output lines unchanged. Used by the main conversation during another DevForgeAI skill's workflow, so the lookup doesn't end that workflow's tracked run.
+  tools: Bash, Read
+  model: haiku
+  omitClaudeMd: true
+  ```
+
+  Plugin agents ignore `permissionMode`, `hooks` and `mcpServers`, so the script's Bash call follows the main
+  conversation's permission mode and rules; in auto mode the classifier judges it with the main conversation's
+  rules (`subagents.md`, "Permission modes").
 - **Downstream contract:** a citation is `path:line (DOC vN, status)`, with the item's ID and status for an item, and
   any other skill or person can follow it to the line.
 
@@ -180,7 +199,7 @@ characters. A document with no frontmatter prints its path as its ID and `v?`. A
 behaviors:
   - id: BEH-01
     status: active
-    rule: "Look up before proposing, designing, planning or changing a feature or behaviour in a project that has a docs/specs/ folder, and whenever asked whether something was decided or specified: search each behaviour's key terms and every document or item ID the request names. While another devforgeai skill's workflow is in progress in the session, don't load this skill in the main conversation, since loading it there ends that run (SPEC-013 BEH-03): hand the lookup to a subagent (the Agent tool) that runs python3 ${CLAUDE_PLUGIN_ROOT}/skills/spec-lookup/scripts/find_spec.py with the query and returns its hit lines and coverage line unchanged. The progress tracker records no subagent's tool calls (SPEC-013 DM-01), so the run stays open (Bryan, 2026-10-04: 'Use subagents for the workflow/skill usage that's out of band')."
+    rule: "Look up before proposing, designing, planning or changing a feature or behaviour in a project that has a docs/specs/ folder, and whenever asked whether something was decided or specified: search each behaviour's key terms and every document or item ID the request names. While another devforgeai skill's workflow is in progress in the session, don't load this skill in the main conversation, since loading it there ends that run (SPEC-013 BEH-03): hand the lookup to the plugin's lookup agent, devforgeai:spec-lookup (BEH-09), and wait for its report before proposing or asking about the behaviour. The progress tracker records no subagent's tool calls (SPEC-013 DM-01), so the run stays open (Bryan, 2026-10-04: 'Use subagents for the workflow/skill usage that's out of band')."
   - id: BEH-02
     status: active
     rule: "Search only with the bundled script, python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py with the query, run as a command of its own; never decide coverage by listing or reading files instead. Read a cited file at the cited line when its excerpt isn't enough. Use one call per query."
@@ -202,6 +221,9 @@ behaviors:
   - id: BEH-08
     status: active
     rule: "This repository's CLAUDE.md says, in its rules for changes: before proposing, designing or changing any DevForgeAI behaviour, use /devforgeai:spec-lookup (or its script) and cite what it finds, or ask Bryan; never build what no spec, ADR or recorded decision covers."
+  - id: BEH-09
+    status: active
+    rule: "The plugin's lookup agent, agents/spec-lookup.md (name spec-lookup, so devforgeai:spec-lookup), has the tools Bash and Read only, so it can't load a skill, start another subagent or change a file; model haiku; and omitClaudeMd true. Its instructions: run the script once per query given, each as a command of its own; reply with the script's output lines exactly as printed, in one fenced block per query, and nothing else; never edit or write. The main conversation's task message is self-contained, since a subagent sees no conversation, skill or file the main conversation has: it gives the absolute path of the script (the running skill's base directory, then ../spec-lookup/scripts/find_spec.py) and the queries, one per line. The main conversation cites only lines of the form path:line from the report: the harness may prepend a line starting [harness: or escape text in a report, and those lines are no citations. Outside another skill's workflow the lookup runs in the main conversation through the skill (BEH-02), because a subagent adds a fresh context, a model call and a delay (Anthropic's subagent documentation, 'Choose between subagents and main conversation')."
 ```
 
 ## 7. Errors and edge cases
@@ -326,16 +348,17 @@ verifications:
       - BEH-01
   - id: VER-07
     status: active
-    obligation: "src/tests/spec-lookup/test_structure.py: SKILL.md is at most 500 lines and its description at most 1024 characters with no angle brackets; the frontmatter has only §5's fields; metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version; SKILL.md names neither Write nor Edit as a tool to use; this repository's CLAUDE.md holds BEH-08's pointer."
+    obligation: "src/tests/spec-lookup/test_structure.py: SKILL.md is at most 500 lines and its description at most 1024 characters with no angle brackets; the frontmatter has only §5's fields; metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version; SKILL.md names neither Write nor Edit as a tool to use; this repository's CLAUDE.md holds BEH-08's pointer; agents/spec-lookup.md's frontmatter is exactly §5's (tools Bash and Read only, no Skill or Agent, model haiku, omitClaudeMd true) and its body says to return the script's output lines unchanged and nothing else."
     level: unit
     covers:
       - QR-01
       - QR-02
       - BEH-06
       - BEH-08
+      - BEH-09
   - id: VER-08
     status: active
-    obligation: "Live, in Bryan's cmux tab with --plugin-dir on the build: (a) asked to add a feature no spec covers, Claude searches twice, says it's not in any spec, and asks with AskUserQuestion before building; (b) with python3 hidden from PATH, Claude says the script couldn't run and asks about each behaviour instead of citing; (c) in this repository, a session asked to change a DevForgeAI behaviour follows CLAUDE.md's pointer; (d) in enforce mode, during a tracked architecture run, a lookup through a subagent returns its citations and leaves the run open: no run-end another-skill, and the band keeps the architecture run. Recorded in §9."
+    obligation: "Live, in Bryan's cmux tab with --plugin-dir on the build: (a) asked to add a feature no spec covers, Claude searches twice, says it's not in any spec, and asks with AskUserQuestion before building; (b) with python3 hidden from PATH, Claude says the script couldn't run and asks about each behaviour instead of citing; (c) in this repository, a session asked to change a DevForgeAI behaviour follows CLAUDE.md's pointer; (d) in enforce mode, during a tracked architecture run, a lookup through devforgeai:spec-lookup, given a self-contained task message, returns the script's output lines and leaves the run open: no run-end another-skill, and the band keeps the architecture run. Recorded in §9."
     level: manual
     covers:
       - BEH-05
@@ -383,6 +406,9 @@ worktree (ADR-001):
 | A skill for this repository only | Offered on 2026-10-04; he chose the plugin, so every DevForgeAI project gets it |
 | A prebuilt index of IDs and decisions (like `llms.txt`) | A full scan takes about 3 ms (research C); an index goes stale, a failure Cline's memory bank reports (research B) |
 | Semantic or embedding search | Not standard-library, and its matches aren't reproducible; a literal search with a second form (BEH-04) is deterministic |
+| The built-in general-purpose subagent for the out-of-band lookup | It has every tool, Write, Edit and Skill included; the plugin's own agent is limited to Bash and Read (version 2) |
+| The built-in Explore subagent | Read-only, but the documentation doesn't say whether its tools include Bash, and its purpose is search, not running a script |
+| Loading the skill inside the subagent | Whether a skill loaded in a subagent opens a tracked run is unverified; the lookup agent has no Skill tool, so it can't |
 | Treating "no match" as "never discussed" | A search can miss (research B); a miss permits only asking (BEH-04) |
 
 ## 13. Open questions
@@ -395,6 +421,11 @@ For Bryan, in order. None of these is a requirement until he decides it.
    - Nobody has checked whether a skill loaded *inside* a subagent opens a tracked run (SPEC-013 §9's probe, P3, saw
      no subagent load), so the subagent runs the script rather than loading the skill. VER-08 (d) checks the run stays
      open.
+   - Unverified until VER-08 (d), each from `docs/research/Claude/subagents.md`:
+     - the Agent tool's `subagent_type` string for a plugin agent; the page gives `@agent-my-plugin:name` and the
+       typeahead name `my-plugin:name`, so `devforgeai:spec-lookup` is an inference;
+     - whether the main conversation can wait for a background subagent's report in the middle of a skill's
+       workflow (interactive sessions run subagents in the background by default).
    - The tracked skills' own texts (SKL-001, SKL-003) don't mention lookups; until a later version of them does, this
      skill's description carries the instruction.
 2. **Deterministic enforcement.** Only a hook guarantees the rule (research D). For example, a `UserPromptSubmit` or
@@ -415,3 +446,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 1 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Initial draft, on Bryan's decision of 2026-10-04 to ship a spec-lookup skill in the devforgeai plugin | all |
 | 1 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval: the cp8 review's fixes (a query is a document ID only when it equals a file's frontmatter id; a qualified ID prints its definition first, then the lines naming it; no Grep fallback; superseded_by read; the tracker question left open), then Bryan's answer to §13's first question: a lookup during another skill's workflow runs in a subagent that runs the script (BEH-01, description, VER-08 (d), §2, §10, §13) | BEH-01, BEH-03, BEH-05, BEH-06, BEH-07, ERR-02, VER-01, VER-04, VER-06, VER-08, §2, §4, §5, §10, §13 |
 | 1 | 2026-10-04 | Bryan | Approved, with lookups during another skill's workflow done by a subagent | status |
+| 2 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | At Bryan's request to follow Anthropic's subagent documentation (saved as docs/research/Claude/subagents.md): the out-of-band lookup uses a plugin-shipped agent, devforgeai:spec-lookup, with tools Bash and Read, model haiku and omitClaudeMd, a self-contained task message with the script's absolute path, a report of the script's output lines only, and citations taken only from path:line lines; the main conversation waits for the report; outside a workflow the skill runs in the main conversation (new BEH-09, BEH-01, §1, §3, §5, VER-07, VER-08, §12, §13); status in-review | frontmatter, §1, §3, §5, BEH-01, BEH-09, VER-07, VER-08, §12, §13 |
