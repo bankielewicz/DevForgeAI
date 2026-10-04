@@ -725,6 +725,16 @@ follows the same contract.
   ARCH write in observe mode and refuses it in enforce mode, whose refusal says to ask the user or leave the outcome
   open. Enforce mode needs an answer the tracker can see; a recorded waiver (a "proceed without questions" answer,
   specified next) is the planned way to make the user's choice visible.
+- Recorded (Bryan, 2026-10-03, while building SKL-003 v7; his choice "A + live run"): step 1 runs the shared
+  validation script whatever `docs/specs/policy/` holds, a missing folder included, as a command of its own.
+  SPEC-012's architecture manifest takes a successful run of `validate_policy.py` as step 1's evidence, and in a live
+  enforce-mode run with no policy folder the skill, which then skipped the script, had every ADR write refused, and
+  once more when it ran the script joined to other commands. With no approved policy the script prints `No policy
+  folder at …` or `OK: no approved policy document …` and exits 0, so the result is BEH-03's: the framework defaults
+  apply. The mechanics now differ from the prd skill's, which still skips the script when no `POL-*.md` exists; the
+  result is the same, and prd's step 1 takes the same change when prd gets a manifest. The shared `policy.md`,
+  `defaults.md` and script are unchanged. Evals can't show the refusals gone, since the tracker records nothing in
+  an eval's non-interactive runs (SPEC-013 BEH-01); a live enforce-mode run is the check.
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
   metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
   question's header, which the user sees; an answer counts for a step only when the two agree.
@@ -775,3 +785,4 @@ follows the same contract.
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | With SPEC-012 version 9 (Bryan, 2026-10-03): BEH-17 tags each question form with its step, AskUserQuestion's metadata source devforgeai_step:N, which the tracker checks against the step marked in progress, and each question's header 'Step N', which the user sees; VER-27 checks both live; SKL-003 v7 implements versions 6 to 8 and ships with SPEC-012 version 9 and SPEC-013 version 8; SPEC-012 link moved to version 9 | frontmatter, §1, BEH-17, VER-27, §10, §11, §13 |
 | 8 | 2026-10-03 | Bryan | Approved, with the step shown in each question's header | status |
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of the tracker refusing an outcome named in a request to proceed without questions | §13 |
+| 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's choice that step 1 runs the policy script with no policy too, as a command of its own, so the progress tracker sees step 1's evidence; the result is unchanged, the mechanics now differ from the prd skill's | §13 |

@@ -145,16 +145,20 @@ your reply text as you go.
 
 Follow [references/policy.md](references/policy.md) with the framework defaults in
 [references/defaults.md](references/defaults.md). This step comes first, before any question.
-1. If `docs/specs/policy/` holds no `POL-*.md`, use the framework defaults and go to item 4.
-2. Otherwise validate every document with the skill's script, using Bash:
+1. Run the skill's script with Bash, whatever `docs/specs/policy/` holds, a missing folder included:
 
    ```
    python3 ${CLAUDE_SKILL_DIR}/scripts/validate_policy.py docs/specs/policy
    ```
 
-   It skips and reports every document that isn't approved (SV-06), and checks each approved one in
-   full against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the documents by
-   reading them instead; reading their `status` for item 3's last case is fine.
+   Run it alone, on one line: never joined to another command with `;`, `|` (or `||`) or a
+   background `&`, and with no second command line (`&&` and `2>&1` are fine). Then its exit status
+   is the script's: the progress tracker credits no run whose status another command hides.
+2. With no folder, or no approved `POL-*.md` in it, it prints `No policy folder at …` or
+   `OK: no approved policy document …` and exits 0: there is no approved policy, so the framework
+   defaults apply. It skips and reports every document that isn't approved (SV-06), and checks each
+   approved one in full against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the
+   documents by reading them instead; reading their `status` for item 3's last case is fine.
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
