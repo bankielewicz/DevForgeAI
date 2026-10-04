@@ -2,10 +2,10 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: approved
-version: 8
+status: in-review
+version: 9
 created: 2026-09-23
-updated: 2026-10-03
+updated: 2026-10-04
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "388b2532-f519-4deb-b4ce-3e294d7e3b10"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-03
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-003, relation: specifies, version: 3, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
@@ -65,6 +65,14 @@ is known, so with a user present step 8 still asks; only a request to proceed wi
 **Version 8** (2026-10-03) tags each question with its step, as SPEC-012 version 9's convention asks: hidden in
 AskUserQuestion's metadata, where the progress tracker checks it against the step marked in progress, and shown
 in each question's header, where you see it (BEH-17).
+
+**Version 9** (2026-10-04) asks the waiver (Bryan, 2026-10-04). When your request says to proceed without questions,
+the skill first asks whether it should, in a question of its own with two fixed answers, "Proceed without questions"
+and "Ask me as usual" (BEH-18). Your answer is recorded, so the progress tracker sees the choice your request made:
+after "Proceed without questions", an outcome the request named is written at step 8 without asking, as BEH-08 says,
+and the tracker counts your answer for step 8 instead of refusing the ARCH in enforce mode (SPEC-012 version 11,
+BEH-19). Every other decision still needs your answer. Without the question tool, as in eval runs, nothing is asked
+and the request is followed as before.
 
 ## 2. Constraints
 
@@ -247,7 +255,7 @@ behaviors:
     rule: "Resolve each question only by one of three means. (1) An approved, active mandated-platform setting that answers exactly this question: resolved_by POL-NNN#SET-NN, applied as policy, not a user decision. (2) An existing accepted, non-superseded ADR that the user confirms answers exactly this question. (3) The user's explicit decision among the options presented with trade-offs, which is written as a new ADR with status accepted and approved_by the user. Anything else stays open. A deferred decision may be written as a proposed ADR that resolves nothing. When the user later decides a question that has a proposed ADR, the decision is a new accepted ADR that supersedes the proposed one; the user's decision is the approval. A DEC reopened because its mandated platform changed (§4) is resolved again by that setting only when the user confirms that the setting as it now stands answers it, as for an existing ADR in (2); with no user it stays open. While the DEC's most recent transition in the Change Log is that reopening (BEH-09), no run resolves it by that setting without the user's confirmation. An ADR or setting resolves only the question it answers, never every question that cites the same requirement."
   - id: BEH-08
     status: active
-    rule: "Propose the outcome with reasons: reuse (the existing ARCH links this PRD and covers it unchanged, and this run changes no DEC), amend (the existing ARCH needs new or changed questions or components, or this run records a decision on an existing DEC or reopens one) or create (no ARCH covers the system). Offer reuse only as BEH-04 allows. Reusing one platform or component is not a reuse outcome. When any DEC's state or resolved_by changes in this run, the outcome is amend: if reuse was chosen earlier, say why and ask again. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When reuse is proposed, and in the handoff when it is confirmed, name every active requirement of the PRD that no active blocking DEC cites, and say that it is reported ready with no architectural question holding it back. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing. A reuse or amend chosen at step 4 (BEH-04), in an answer or the request, picks the direction but doesn't confirm the outcome when the run will write to the existing ARCH (an amendment, or reuse's review record): step 8 then asks for confirmation once the change is known, naming what will change, such as the DEC, CMP and EVD items added, the DECs whose state or resolver changes, the ADRs accepted or superseded, the new version, and an approved ARCH's return to in-review. With a user present, step 8 asks even when the request confirmed the outcome: a confirmation given before the change is known picks the direction, as step 4's choice does (version 7). A request to proceed without questions keeps the request's confirmation and asks nothing at all (Bryan, 2026-10-03)."
+    rule: "Propose the outcome with reasons: reuse (the existing ARCH links this PRD and covers it unchanged, and this run changes no DEC), amend (the existing ARCH needs new or changed questions or components, or this run records a decision on an existing DEC or reopens one) or create (no ARCH covers the system). Offer reuse only as BEH-04 allows. Reusing one platform or component is not a reuse outcome. When any DEC's state or resolved_by changes in this run, the outcome is amend: if reuse was chosen earlier, say why and ask again. Write outcome only when the user confirms it, and keep it null otherwise. Confirming the outcome accepts no decision. When reuse is proposed, and in the handoff when it is confirmed, name every active requirement of the PRD that no active blocking DEC cites, and say that it is reported ready with no architectural question holding it back. When the user confirms reuse and the ARCH's frontmatter PRD link is older than the PRD's version, record the review (BEH-09); when that link already equals the PRD's version, confirming reuse writes nothing. A reuse or amend chosen at step 4 (BEH-04), in an answer or the request, picks the direction but doesn't confirm the outcome when the run will write to the existing ARCH (an amendment, or reuse's review record): step 8 then asks for confirmation once the change is known, naming what will change, such as the DEC, CMP and EVD items added, the DECs whose state or resolver changes, the ADRs accepted or superseded, the new version, and an approved ARCH's return to in-review. With a user present, step 8 asks even when the request confirmed the outcome: a confirmation given before the change is known picks the direction, as step 4's choice does (version 7). A request to proceed without questions keeps the request's confirmation and asks nothing at all (Bryan, 2026-10-03), once the waiver question (BEH-18) has been answered Proceed without questions or couldn't be asked; after any other answer, step 8 asks as with a user present (version 9)."
   - id: BEH-09
     status: active
     rule: "Write or amend the ARCH. A new ARCH starts as draft. Amending bumps the version, continues item numbering, keeps existing items unchanged except for DEC state and resolved_by transitions (each logged in the Change Log), and returns an approved ARCH to in-review. Those transitions are a decision recorded on an existing DEC (BEH-07), and reopening a DEC whose resolver no longer counts: a superseded ADR, or a mandated platform that changed (§4). The Change Log row that reopens a DEC for a changed mandated platform names the DEC, the setting, and the platform recorded before and now. A review record, written when the user confirms reuse against a newer PRD version, makes exactly three changes: the frontmatter PRD link moves to the reviewed version, outcome becomes reuse, and one Change Log row is added, 'Reviewed against PRD-NNN vN: reuse confirmed, no architectural change', ending with the policy resolution line. Everything else stays byte-identical, including version, updated, status, the approval fields and every item with its links, which still show as suspect. It is a relink, not an amendment, so an approved ARCH stays approved. With no user, nothing is confirmed and nothing is written."
@@ -275,6 +283,9 @@ behaviors:
   - id: BEH-17
     status: active
     rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: which PRD to step 2, reuse, amend or create to step 4, going outside the inspection scope to step 5, every decision question to step 7, and the outcome to step 8. So step 7 is completed and step 8 in progress before the outcome question is asked, alone in its own form. Never put two steps' questions in one question form. Tag each question form with its step: the AskUserQuestion call's metadata source 'devforgeai_step:N', which the user doesn't see and the progress tracker checks against the step marked in progress, and each of its questions' header 'Step N', which the user sees (SPEC-012 §4, version 9). Mark each step completed as soon as it is done, one at a time, a step with nothing to do included (step 5 with no scope, step 7 with no open question). Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
+  - id: BEH-18
+    status: active
+    rule: "The waiver (version 9; Bryan, 2026-10-04). When the request says to proceed without questions (or 'don't ask me anything', 'proceed without asking me anything else', 'decide nothing') and the session has AskUserQuestion, ask it once, in step 1, right after the policy script has run (BEH-03) and before any other question, with step 1 marked in_progress (BEH-17): one question, alone in its form, with metadata source devforgeai_waiver (not devforgeai_step:1, so the progress tracker records it as the waiver and never as a step's answer), header 'Step 1', the question 'Your request says to proceed without questions. Should I?' and exactly two options, in this order: 'Proceed without questions' (description: 'I ask nothing more; decisions that need you stay open, except the outcome your request named.') and 'Ask me as usual' (description: 'I ask about each decision as it comes up.'). On Proceed without questions, follow the request's no-question rules (BEH-07, BEH-08). On Ask me as usual, on anything typed instead, or on a dismissal, ask as if the request hadn't said so, step 8's confirmation included. The gates that no request answers (which PRD; reuse, amend or create) are still asked when open. Ask the waiver at most once in a run. Without AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request as before; when the request doesn't say to proceed without questions, never ask it."
 ```
 
 ## 7. Errors and edge cases
@@ -647,6 +658,23 @@ verifications:
       - BEH-08
     upstream:
       - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
+  - id: VER-30
+    status: active
+    obligation: "Without AskUserQuestion, no waiver question stops a run: every generated case whose prompt says to proceed without questions (or to proceed without asking anything else) still passes at 0.8 or above, with nothing asked; confirms-amend-at-step-8 and request-confirm-still-asks, whose prompts don't waive, still end by asking step 8's confirmation in the reply."
+    level: e2e
+    covers:
+      - BEH-18
+      - BEH-08
+    upstream:
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
+  - id: VER-31
+    status: active
+    obligation: "Live, in enforce mode, with SPEC-013's VER-36: an architecture run whose request chooses to amend ARCH-001 and says to proceed without questions runs the policy script, then asks the waiver alone, tagged devforgeai_waiver with header 'Step 1' and the two labels; 'Proceed without questions' gives no other question, an ARCH written with outcome: amend that the tracker doesn't refuse, every new DEC open and no ADR; in a second run, 'Ask me as usual' gives step 7's questions and step 8's confirmation. A request that doesn't waive shows no waiver question. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-18
+    upstream:
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -660,6 +688,11 @@ recorded and checked. The checklist's lines
 don't change, so the tracker's architecture manifest stays matched. Rolling back is returning to SKL-003 v6; the
 tracker then places the run's answers by its windows again (SPEC-012 BEH-09). The Codex architecture skill
 isn't changed: the tracker's adapter is Claude Code's (SPEC-013).
+
+Version 9 (SKL-003 v8) ships in the plugin version that builds SPEC-012 version 11 and SPEC-013 version 10 (0.20.0),
+so the waiver's answer is recorded and counted for step 8. The checklist's lines don't change, so the architecture
+manifest stays matched; its step 8 gains `waivable` (SPEC-012 DM-01). This spec's SPEC-012 link moves to version 11
+when that is approved.
 
 ## 11. Implementation plan
 
@@ -706,6 +739,13 @@ follows the same contract.
    the eval's model the task tools: record it in §9 and bring it to the owner before the full suite.
 4. Once the plugin version that builds SPEC-012 version 9 and SPEC-013 version 8 is deployed, run VER-27 live.
 
+**Version 9** (after approval), through `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`:
+1. Build SKL-003 v8: the waiver in step 1 after the policy script (BEH-18) and BEH-08's clause; `provenance.yaml` and
+   `metadata.devforgeai-version` go to 8; skill-reviewer reviews it; `evaluate.py check` reports the manifest matched.
+2. Evaluate cheapest first: a few waiving cases with `--runs 1 --ablation none`, then the suite with `--runs 1`
+   (VER-30).
+3. Once the plugin version that builds SPEC-012 version 11 and SPEC-013 version 10 is deployed, run VER-31 live.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -716,6 +756,7 @@ follows the same contract.
 | Crawl the whole codebase | Unbounded cost, and it mixes observed practice with decisions. Bounded inspection and EVD classification instead |
 | Require an approved PRD first | Makes architectural exploration expensive. Drafts are allowed with a warning, and product questions are never turned into decisions |
 | Tick the checklist in the reply only | The tracker can't tell which step a question belongs to when Claude asks before it ticks: a live run asked step 7's and 8's questions under step 6 (SPEC-012 §9); ticks stay the fallback without a task list |
+| Ask the waiver on every run, or in plain text without the question tool | Every run would open with a question, and eval runs, which have no question tool, would stop at it. Bryan chose to ask only when the request waives (2026-10-04) |
 | Let the skill amend PRD requirements | Downstream never edits upstream, and the PRD's extension mode is append-only. Proposed changes go to the PRD owner (BEH-12) |
 
 ## 13. Open questions
@@ -726,6 +767,10 @@ follows the same contract.
   ARCH write in observe mode and refuses it in enforce mode, whose refusal says to ask the user or leave the outcome
   open. Enforce mode needs an answer the tracker can see; a recorded waiver (a "proceed without questions" answer,
   specified next) is the planned way to make the user's choice visible.
+- Resolved (Bryan, 2026-10-04, version 9 with SPEC-012 version 11 and SPEC-013 version 10): the waiver question
+  (BEH-18) makes that choice visible, and a Proceed answer counts for step 8 only ("Step 8 only"). He accepted that the
+  tracker then can't tell whether the request really named the outcome written. Open: whether a dismissal or a typed
+  answer should mean anything other than "Ask me as usual" (version 9 reads both so, which keeps every decision asked).
 - Recorded (Bryan, 2026-10-03, while building SKL-003 v7; his choice "A + live run"): step 1 runs the shared
   validation script whatever `docs/specs/policy/` holds, a missing folder included, as a command of its own.
   SPEC-012's architecture manifest takes a successful run of `validate_policy.py` as step 1's evidence, and in a live
@@ -795,3 +840,4 @@ follows the same contract.
 | 8 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-003 v7, and §13 his acceptance of the policy script's handling of a POL file with no readable status | §9, §13 |
 | 8 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records plugin 0.18.0, set for the merge on Bryan's word | §9 |
 | 8 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #73's merge and the deploy of plugin 0.18.0 | §9 |
+| 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04: when the request says to proceed without questions, the skill asks the waiver once in step 1 after the policy script, with its own tag and two fixed labels, only with AskUserQuestion; after Proceed, step 8 writes the named outcome without asking and the tracker counts it (new BEH-18; BEH-08, VER-30, VER-31); status in-review | frontmatter, §1, BEH-08, BEH-18, VER-30, VER-31, §10, §11, §12, §13 |

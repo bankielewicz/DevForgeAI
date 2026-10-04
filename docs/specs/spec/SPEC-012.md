@@ -2,10 +2,10 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 10
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 11
 created: 2026-10-02
-updated: 2026-10-03
+updated: 2026-10-04
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-03
+approved_by: ""
+approved_on: null
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
@@ -113,6 +113,16 @@ another tracked skill loads or the session ends, so every later question, Claude
 skill's, was refused as asked with no step marked. Such a question's answer still counts for no step, so a
 decision written after it still needs an answer that counts (BEH-18).
 
+**Version 11** (2026-10-04) records the waiver: a tracked skill whose request says to proceed without questions asks
+once, at the start of the run, whether it should (SPEC-001 and SPEC-003), in a question tagged `devforgeai_waiver`
+whose answer the adapter records as one of two fixed labels (SPEC-013). Until now a decision the request named while
+saying to proceed without questions was flagged, and refused in enforce mode, because the request's text is never
+logged (§13). The waiver answer is the user's choice made visible. A manifest marks the user-owned steps it may answer
+(`waivable`, DM-01); only architecture's step 8, the outcome, is waivable (Bryan, 2026-10-04: "Step 8 only"). After a
+"Proceed without questions" answer, step 8 counts as answered and the outcome may be written (BEH-19). Every other
+user-owned decision still needs an answer. The evaluator can't tell whether the request really named the outcome:
+the skill's own rule (SPEC-003 BEH-08) is the only check of that, a trade-off Bryan accepted.
+
 ## 2. Constraints
 
 - **The chain's order** (ADR-002, and ADR-004 D5 for the context step) fixes the state's `next` step (BEH-13).
@@ -188,10 +198,12 @@ flowchart LR
         "need": {"enum": ["required", "conditional", "text-only"]},
         "when": {"type": "string", "description": "for a conditional step: when it applies, shown as the note when it doesn't"},
         "userOwned": {"type": "boolean", "default": false},
+        "waivable": {"type": "boolean", "default": false, "description": "version 11: a user-owned step that a recorded Proceed waiver answers (BEH-19)"},
         "gate": {"enum": ["write", "report"]},
         "evidence": {"type": "array", "items": {"$ref": "#/$defs/rule"}}
       },
-      "allOf": [{"if": {"properties": {"need": {"const": "conditional"}}}, "then": {"required": ["when"]}}]
+      "allOf": [{"if": {"properties": {"need": {"const": "conditional"}}}, "then": {"required": ["when"]}},
+                {"if": {"properties": {"waivable": {"const": true}}, "required": ["waivable"]}, "then": {"properties": {"userOwned": {"const": true}}, "required": ["userOwned"]}}]
     },
     "rule": {
       "type": "object",
@@ -250,7 +262,7 @@ flowchart LR
                              "command": {"type": "string"}, "exit": {"type": ["integer", "null"]}, "error": {"type": "boolean"},
                              "content": {"type": "string", "description": "a Write's content, or the file an Edit will leave; optional"}}}},
     {"if": {"properties": {"kind": {"const": "answer"}}},
-     "then": {"required": ["answered"], "properties": {"answered": {"type": "boolean", "description": "false when the question was dismissed"}, "step": {"type": "integer", "minimum": 1, "description": "the step the question named in its tag, devforgeai_step:N (version 9)"}, "outside": {"type": "boolean", "description": "true when the question's source names something other than the convention's tag: it isn't the checklist's (version 9)"}}}},
+     "then": {"required": ["answered"], "properties": {"answered": {"type": "boolean", "description": "false when the question was dismissed"}, "step": {"type": "integer", "minimum": 1, "description": "the step the question named in its tag, devforgeai_step:N (version 9)"}, "outside": {"type": "boolean", "description": "true when the question's source names something other than the convention's tag: it isn't the checklist's (version 9)"}, "waiver": {"enum": ["proceed", "ask", "other"], "description": "set only on the answer to the waiver question, tagged devforgeai_waiver: which of its two fixed labels was picked, proceed (Proceed without questions) or ask (Ask me as usual), or other for anything typed (version 11)"}}}},
     {"if": {"properties": {"kind": {"const": "reply"}}},
      "then": {"required": ["text"], "properties": {"text": {"type": "string"}}}},
     {"if": {"properties": {"kind": {"const": "step"}}},
@@ -272,7 +284,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Progress state (devforgeai-progress/1), state.json",
   "type": "object",
-  "required": ["format", "run", "skill", "manifest", "through", "ended", "current", "steps", "flags", "gate", "next", "counts"],
+  "required": ["format", "run", "skill", "manifest", "through", "ended", "current", "steps", "flags", "gate", "next", "counts", "waiver"],
   "additionalProperties": false,
   "properties": {
     "format": {"const": "devforgeai-progress/1"},
@@ -286,6 +298,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     },
     "through": {"type": "integer", "minimum": 0, "description": "the seq of the last event evaluated"},
     "ended": {"type": ["string", "null"], "description": "the run-end reason, or null while the run is open"},
+    "waiver": {"enum": ["proceed", "ask", "other", null], "description": "the run's waiver answer, the first answered one (BEH-19), or null when there is none (version 11)"},
     "current": {"type": ["integer", "null"]},
     "steps": {"type": "array", "items": {"$ref": "#/$defs/step"}},
     "flags": {"type": "array", "items": {"$ref": "#/$defs/flag"}},
@@ -316,7 +329,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
         "state": {"enum": ["pending", "current", "your-turn", "done", "claimed", "unconfirmed", "skipped-with-reason", "not-applicable", "skipped", "rule-broken"]},
         "evidence": {"type": "array", "items": {
           "type": "object", "additionalProperties": false, "required": ["seq", "type", "strength", "detail"],
-          "properties": {"seq": {"type": "integer"}, "type": {"enum": ["script", "answer", "write", "read"]},
+          "properties": {"seq": {"type": "integer"}, "type": {"enum": ["script", "answer", "write", "read", "waiver"]},
                          "strength": {"enum": ["strong", "medium"]}, "detail": {"type": "string"}}}},
         "claim": {"type": ["object", "null"], "additionalProperties": false, "required": ["seq", "state", "reason"],
                   "properties": {"seq": {"type": "integer"}, "state": {"enum": ["done", "skipped"]}, "reason": {"type": ["string", "null"]}}},
@@ -354,7 +367,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
 | | 5 | read, conditional: "the user named paths to inspect" | read `*` except `docs/specs/`, `.claude/` and `devforgeai/` | |
 | | 6 | think, text-only | none | |
 | | 7 | ask, conditional: "a question isn't settled by mandated policy or an accepted ADR" | answer | user-owned |
-| | 8 | ask, required | answer | user-owned |
+| | 8 | ask, required | answer | user-owned, waivable (version 11) |
 | | 9 | forge, required | write `docs/specs/arch/ARCH-*.md` or `docs/specs/adr/ADR-*.md` | write gate |
 | | 10 | inspect, required | read, target written | |
 | | 11 | report, required | none | report gate |
@@ -459,7 +472,7 @@ behaviors:
     rule: "Answers that BEH-18 doesn't place are placed as follows. A user-owned step's answer window closes at the first of: the gate that checks the step, and any tool evidence or claim of a later step. It opens at the latest start of any step before it, leaving out a conditional step that isn't user-owned (at skill-loaded when there is none), where a step's start is the later of its first tool evidence and its first claim, counting only those before that close (whichever it has, when it has one). So a re-read, a re-listing or a re-tick of a finished earlier step, as Claude makes when it picks a document's ID or restates its checklist, doesn't move the opening, while an earlier step Claude ticks only after the answer does, since the answer came while that step was under way; a conditional step's work, such as architecture's inspection, can come at any time and doesn't move it; and answers don't move it. Answers and prompts are assigned in seq order, in two passes. In the first, a claim of the step itself also closes its window, and each answer goes to the earliest user-owned step whose window holds it, so several answers can count for one step (architecture's step 7 takes one per question) and a tick of that step hands the next answer to the following one. In the second, each answer still unassigned goes to the earliest user-owned step whose window holds it without its own claim, so an answer that follows the reply in which Claude ticked the step and asked still counts for it."
   - id: BEH-10
     status: active
-    rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer counted for it (BEH-09 or BEH-18), the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open', unless its content couldn't be checked: then it keeps its state and ERR-05's note."
+    rule: "From the write gate on, every Write or Edit whose path matches a content rule is checked. When the rule's step has an answer counted for it (BEH-09 or BEH-18), or a Proceed waiver answers it (BEH-19), the step is done and the rule doesn't apply: an answer satisfies it whatever it said, because the evaluator can't read the decision. Otherwise the field's values are read from the event's content, else from the file under --root, else the check is unverifiable (ERR-05). When every value is allowed, or the field is absent, the step is not-applicable with the note 'no answer; left open', and nothing is flagged. When a value isn't allowed, the step becomes skipped with a skipped flag, and the gate's step becomes rule-broken with a rule-broken flag naming the file, the field and the value. At the report gate or the run's end, a user-owned step with no answer and no write that broke its rules is not-applicable, with the note 'no answer; left open', unless its content couldn't be checked: then it keeps its state and ERR-05's note."
   - id: BEH-11
     status: active
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
@@ -480,10 +493,13 @@ behaviors:
     rule: "IF-02 computes the checklist hash of its file by §4's function and compares it with the manifest's checklistHash; it reads nothing else."
   - id: BEH-17
     status: active
-    rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09)."
+    rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09). waivable true relaxes a user-owned step, so only the base manifest may set it: a later file must keep each step's waivable as the earlier layers set it, and one that sets it true where they didn't stops evaluation the same way (version 11)."
   - id: BEH-18
     status: active
-    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event counts for the step in progress only when it names that step (DM-02's step, from the question's tag): the tag is a check on the mark, never a placement of its own, since Claude writes both (version 9). A tag naming a step the checklist doesn't have is ERR-06's and counts as no tag. An answer event marked outside (DM-02: its question's source names something other than the convention's tag, as another command's question does) is no question gate and counts for no step, so it can't stand for a decision (version 9). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event, answered or not, since the question was asked, is a question gate (BEH-08, BEH-11), with exactly one of three flags, checked in this order: when no step is in progress (unmarked-question); when it is untagged (untagged-question); when it names a step other than the step in progress (mismatched-question) (version 9). An answer at a question gate counts for no step, so a decision it was meant for still needs an answer that counts (BEH-10). Once every step of the run is reached before the answer's seq (BEH-07's reached: evidence or a claim), an answer that fails the cross-check is no question gate and counts for no step: the checklist is finished, so a later question isn't the checklist's (version 10). A prompt at which no step is in progress counts for no step and raises nothing, since a typed message isn't known to be an answer. A tag in a run that doesn't follow the task list is ignored. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
+    rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event counts for the step in progress only when it names that step (DM-02's step, from the question's tag): the tag is a check on the mark, never a placement of its own, since Claude writes both (version 9). A tag naming a step the checklist doesn't have is ERR-06's and counts as no tag. An answer event marked outside (DM-02: its question's source names something other than the convention's tag, as another command's question does) is no question gate and counts for no step, so it can't stand for a decision (version 9). An answer event carrying waiver (DM-02) is likewise no question gate and counts for no step: BEH-19 reads it (version 11). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event, answered or not, since the question was asked, is a question gate (BEH-08, BEH-11), with exactly one of three flags, checked in this order: when no step is in progress (unmarked-question); when it is untagged (untagged-question); when it names a step other than the step in progress (mismatched-question) (version 9). An answer at a question gate counts for no step, so a decision it was meant for still needs an answer that counts (BEH-10). Once every step of the run is reached before the answer's seq (BEH-07's reached: evidence or a claim), an answer that fails the cross-check is no question gate and counts for no step: the checklist is finished, so a later question isn't the checklist's (version 10). A prompt at which no step is in progress counts for no step and raises nothing, since a typed message isn't known to be an answer. A tag in a run that doesn't follow the task list is ignored. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
+  - id: BEH-19
+    status: active
+    rule: "The waiver (version 11). An answer event with answered true and a waiver field (DM-02) is a waiver answer. Only the run's first waiver answer counts, since the skill asks once, at the start: a later one is ignored, and a dismissed one (answered false) is none. state.waiver holds the first waiver answer's value, or null. When it is proceed, each step with waivable true (DM-01) gets evidence of type waiver at that answer's seq, strong, with the detail 'your start-of-run answer: Proceed without questions': the step is done, and its content rules don't apply (BEH-10). An answer counted for the step (BEH-09 or BEH-18) is kept as well, so an actual answer always stands; the waiver fills only what no answer did. ask, other or no waiver answer changes nothing: the step needs an answer as before. A waiver answers no step that isn't waivable, so a decision of another user-owned step, written after a waiver, is flagged as with no answer (BEH-10). The evaluator doesn't read the request, so it can't tell whether the request named the decision written for a waived step: the skill's own rule is the check (SPEC-003 BEH-08; Bryan, 2026-10-04)."
 ```
 
 ## 7. Errors and edge cases
@@ -910,6 +926,21 @@ verifications:
       - BEH-18
       - BEH-08
       - ERR-06
+  - id: VER-39
+    status: active
+    obligation: "Architecture cases in a run that follows the task list (version 11): waiver-proceed (a waiver answer, answered true, waiver proceed, then the steps, and an ARCH Write with outcome: amend and no step-8 answer: no flag, step 8 done with one waiver evidence at the waiver answer's seq, state.waiver proceed); waiver-ask and waiver-other (the same log with waiver ask or other: step 8 skipped and step 9 rule-broken, as with no answer); waiver-dismissed (answered false: as waiver-ask, state.waiver null); waiver-second (a proceed waiver, then a later ask waiver: the first counts, state.waiver proceed); waiver-and-answer (a proceed waiver and a tagged step-8 answer: step 8 keeps both evidences, no flag); waiver-adr (a proceed waiver and an ADR Write with status: accepted and no step-7 answer: step 7 skipped and step 9 rule-broken, since step 7 isn't waivable); waiver-no-gate (no step marked when the waiver is answered: no question gate, counts.unmarkedQuestions 0). Brainstorm case waiver-brainstorm (a proceed waiver, then a BRN Write with disposition: promoted and no step-5 answer: step 5 skipped and step 6 rule-broken). Every earlier expected state gains waiver null and nothing else moves."
+    level: unit
+    covers:
+      - BEH-19
+      - BEH-10
+      - BEH-18
+  - id: VER-40
+    status: active
+    obligation: "manifest.schema.json rejects a step with waivable true and userOwned false or absent; architecture.json has waivable true on step 8 only, and brainstorm.json on no step; events.schema.json takes an answer with waiver proceed, ask or other and rejects any other value; progress.schema.json requires waiver; a later layer that sets waivable true on a step the base manifest left false stops evaluation (ERR-09), and one that restates it unchanged applies."
+    level: unit
+    covers:
+      - BEH-17
+      - BEH-19
   - id: VER-19
     status: active
     obligation: "A generated 500-event architecture log evaluates in under 1 second; the test prints the time, and §9 records it on the owner's machine against QR-03's 200 ms target."
@@ -934,6 +965,10 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 11.** Built after approval with SPEC-013 version 10 (the adapter that records the waiver), SPEC-001
+  version 14 and SPEC-003 version 9 (the skills that ask it), in one plugin version (0.20.0). Every existing expected
+  state gains `waiver: null` and nothing else moves: no earlier case has a waiver answer. Until a skill asks the
+  waiver, nothing records one and nothing changes.
 - **Version 10.** Approved during version 9's build, after its review, and built with it in the same plugin version,
   so version 9 alone is never deployed. No earlier expected state moves: no case has an answer after every step is
   reached.
@@ -1018,6 +1053,10 @@ that no other expected state moves, run every test, and record it in §9.
 Version 10's build, on version 9's branch before its merge: the case steps-after-done, seen failing; the rule in
 `evaluate.py`; no earlier expected state may move; §9.
 
+Version 11's build, with SPEC-013 version 10: VER-39's and VER-40's cases and tests, seen failing; the schemas from
+DM-01 to DM-03; `waivable` on architecture's step 8; `evaluate.py` (BEH-19, and BEH-10, BEH-17 and BEH-18's
+additions); every earlier expected state regenerated, with only `waiver: null` added; §9.
+
 Version 9's build, with SPEC-013 version 8: VER-38's cases and test, seen failing; the schemas from DM-02 and DM-03;
 `evaluate.py` (BEH-18's tag placement and gates, BEH-08's flags); no earlier expected state may move; §9.
 
@@ -1039,6 +1078,11 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
   headers in every skill and misses typed answers; the task list covers both.
 - **Placing an answer by version 4's windows when no step is in progress** (version 5). Friendlier to a forgotten
   update, but Bryan chose to stop and flag it, so a skill that doesn't keep its list is found and fixed.
+- **A waiver that answers every user-owned step** (version 11). Simplest, but the tracker would stop checking
+  decisions in a waived run. Bryan chose step 8 only (2026-10-04), the case the waiver was meant to fix.
+- **A waiver that only silences question flags** (version 11). It would leave §13's step-8 case refused; rejected.
+- **The waiver as a step-1 answer** (`devforgeai_step:1`, version 11). It would need the label read to tell it from
+  step 1's other questions; its own tag keeps it out of the question gate and the windows.
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
@@ -1062,6 +1106,14 @@ Recorded (Bryan, 2026-10-03, while building SKL-003 v7; accepted): the architect
 only an answer the log holds, and a request's text is never logged (SPEC-013 BEH-04), so an outcome the request
 named while saying to proceed without questions (SPEC-003 BEH-08) is flagged, and refused in enforce mode. No
 exception is made: an unseen claim never counts. A recorded waiver answer, specified next, is the planned fix.
+
+Decided by Bryan on 2026-10-04, for version 11 (the waiver menu, "Next cycle" of 2026-10-03): a skill asks the waiver
+once, at the start, only when the request says to proceed without questions ("Only when the request waives"); the
+adapter records which of two fixed labels was picked; a Proceed answer counts as the answer for architecture's step 8
+only ("Step 8 only"), unconditionally, and an actual answer always stands. He accepted the trade-off: after a waiver
+the tracker can't catch an outcome the request didn't name. Open, for later: whether brainstorm or architecture's
+step 7 should ever be waivable (both still need answers), and whether a project or organization layer may ever
+make a step waivable (version 11: never).
 
 Decided by Bryan on 2026-10-03, for version 10, after the version 9 build's plugin-validator review showed every
 question after a finished run refused: no question gate once every step is reached. And, on a skill written to
@@ -1177,3 +1229,4 @@ Still open, or notes:
 | 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #71's merge and the deploy of plugin 0.17.0 | §9 |
 | 10 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance that an outcome named in a request to proceed without questions is flagged, and refused in enforce mode | §13 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records VER-35, run live with the skills' wording | §9 |
+| 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 for the waiver menu: a waiver answer on the answer event (DM-02), state.waiver (DM-03), waivable on a user-owned step (DM-01) and on architecture's step 8 only, the waiver's evidence (new BEH-19; BEH-10, BEH-17, BEH-18), no question gate for it; status in-review | frontmatter, §1, DM-01, DM-02, DM-03, §4, BEH-10, BEH-17, BEH-18, BEH-19, VER-39, VER-40, §10, §11, §12, §13 |
