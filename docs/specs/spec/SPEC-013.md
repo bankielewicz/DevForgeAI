@@ -1124,6 +1124,14 @@ Decided by Bryan on 2026-10-02:
   BEH-01 assumes VS Code's chat panel starts with `isInteractive` true and no surface; that is untested until
   someone runs the adapter there.
 
+Accepted by Bryan on 2026-10-04, from the review of version 9's build: (1) when one refused Write both skips a step
+that isn't user-owned and records a decision without the user's answer, the stuck notice quotes only the first flag,
+the skipped step's, with the evidence advice, and doesn't mention the decision; the refusal Claude receives lists every
+flag, and with architecture's step 1 now running its script this is rare. (2) The decision advice asks the user to
+answer Claude's question, which reads oddly when the user did answer, by typing while another step was marked; the
+write refusal's line (BEH-08) explains that to Claude. He also asked for a summary at the end of a run, every refusal
+and flag with its cause, which the user accepts or challenges: a candidate for version 10, with the waiver menu.
+
 Decided by Bryan on 2026-10-03, for version 9: the stuck notice's advice follows its cause. In a live enforce-mode
 architecture run (SKL-003 v7 before its step-1 fix) Claude was refused twice for a policy script run the tracker
 hadn't seen, and the notice told the user to help Claude bring its task list in step. He chose to reword it now,
@@ -1224,3 +1232,4 @@ Notes:
 | 9 | 2026-10-03 | Bryan | Approved | status |
 | 9 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build of version 9 | §9 |
 | 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records VER-22, run live with the skills' wording | §9 |
+| 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of two notes from the review of version 9's build, and his end-of-run summary as a candidate for version 10 | §13 |

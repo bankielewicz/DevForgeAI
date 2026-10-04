@@ -28,7 +28,7 @@ TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 7, 
 # Each skill's (status, approved_by, approved_on): SKL-002 v5 was approved by Bryan on 2026-10-02, after its
 # requalification. SKL-003 v7 (built 2026-10-03, implementing SPEC-003 v6 to v8) is in review until Bryan approves it
 # after its evals and live check; SKL-003 v6 was approved on 2026-10-01.
-APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("in-review", "", None)}
+APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approved", "Bryan", "2026-10-04")}
 # SPEC-002 v5: issue #39, NEEDS ADR. SPEC-003 v6 to v8 (2026-10-03): the task list, step 8's confirmation and
 # question tags, which SKL-003 v7 implements (TARGETS).
 SPEC_STATE = {"SPEC-002": (5, "approved"), "SPEC-003": (8, "approved")}
