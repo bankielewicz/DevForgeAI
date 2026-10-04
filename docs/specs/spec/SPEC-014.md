@@ -457,6 +457,18 @@ For Bryan, in order. None of these is a requirement until he decides it.
 5. **A cap on questions.** spec-kit's `clarify` asks at most 5, ranked by impact and uncertainty, each with a
    recommended answer (research B). BEH-05 sets no cap.
 6. **A tracker manifest** for this skill, so its runs are judged by evidence like brainstorm's. Not requested.
+7. **Open after the build** (recorded on Bryan's word, 2026-10-04; none blocks version 3):
+   - No eval case exercises the lookup agent (no case allows the Agent tool); VER-08 (d) checks it live.
+   - The skill and the agent share the name `devforgeai:spec-lookup`, in the Skill and Agent namespaces. A model
+     told to "use devforgeai:spec-lookup" mid-workflow could call the Skill tool, which ends the run; renaming the
+     agent would be a spec change.
+   - Item IDs of 4 or more digits (`FR-1000`) are searched as terms (IF-01's `\d{2,3}`); they still match as text.
+   - §5's agent description holds "parts: 'Script:'", which isn't valid as a plain YAML value; the agent file
+     double-quotes it. Quote it in §5 at the next version.
+   - trigger-03 ("Plan the next feature for this project.") fired 2 of 3 in the qualification and 3 of 3 traced (5 of
+     6); accepted by Bryan as run-to-run variation.
+   - In VER-08 (d) the Haiku agent put a heading above its blocks; its body now says to start with the first fenced
+     block (Bryan, 2026-10-04).
 
 ## Change Log
 
@@ -470,3 +482,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 after the build's reviews: the agent's description names the task message's parts (Script, Project root, Queries), as a live prototype in worker1 showed the main conversation then builds it and the agent runs only the script (item 19: "Create a prototype and test in DevForgeAI-worker1 terminal"); a hit covers a behaviour only when its line states or decides it (the skill-reviewer's M5, "Add it to BEH-03"); VER-05's prompt loads the skill by its command, since the cheap eval pass showed the description doesn't fire it with no docs/specs/ (proposed); §13 records the prototype's verified facts; status in-review | §1, §5, BEH-03, BEH-09, VER-05, §13 |
 | 3 | 2026-10-04 | Bryan | Approved, with the agent's description naming the task message, coverage only by a line that states the behaviour, and VER-05 loading the skill | status |
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records SKL-011 v1's build and evaluation: the unit and structural tests, the reviews, the cheap pass, the live prototype, the one-run suite, the qualification (QR-03 met), the trigger cases and the manual VER-08 (pass) | §9, blockquote |
+| 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 item 7 records the build's open notes, as Bryan decided in the end-of-workflow review | §13 |

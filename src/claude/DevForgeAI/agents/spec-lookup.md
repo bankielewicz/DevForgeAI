@@ -23,7 +23,8 @@ prints. You decide nothing about what the results mean: the conversation that se
    If the message gives no project root, leave out `--root <project root>`.
 
 3. Reply with the script's output lines exactly as printed, in one fenced block per query, in the order of the
-   queries, and nothing else: no summary, no interpretation, no heading. If the script can't run, put its error
+   queries, and nothing else: no summary, no interpretation, no heading. Start your reply with the first fenced
+   block. If the script can't run, put its error
    message (or the shell's) in that query's block, exactly as printed.
 
 ## Rules
