@@ -1703,3 +1703,221 @@ test('VER-32 (review): the same flag type at another step is another cause', asy
   expect(w.toasts.some(t => t.includes('refused Claude twice'))).toBe(false)
   expect(stuckLines(w).length).toBe(0)
 })
+
+// ---- version 10: the waiver's recording (VER-34) and the end-of-run review (VER-35) ----
+
+const WAIVER_SOURCE = 'devforgeai_waiver'
+
+/** A waiver question: one question, tagged devforgeai_waiver, or another source / two questions when asked. */
+function waiverQuestion(question: string, source: unknown = WAIVER_SOURCE, two = false): Any {
+  const one = { question, header: 'Step 1', multiSelect: false,
+    options: [{ label: 'Proceed without questions', description: 'd' }, { label: 'Ask me as usual', description: 'd' }] }
+  return { tool: 'AskUserQuestion', questions: two ? [one, { ...one, question: 'And?' }] : [one], metadata: { source } }
+}
+
+/** The bottom of the world for questions: each question text's answer, a dismissal, or bottomTool. */
+function answering(answers: Record<string, string | null>) {
+  return (e: Any): Any => {
+    if (e.tool === 'AskUserQuestion') {
+      const q = e.questions?.[0]?.question ?? 'Q?'
+      if (q in answers) {
+        const a = answers[q]
+        if (a === null) return { result: "Error: The user doesn't want to proceed with this tool use.", isError: true, text: "The user doesn't want to proceed with this tool use." }
+        return { result: { questions: e.questions, answers: { [q]: a }, annotations: {} } }
+      }
+    }
+    return taskTools()(e)
+  }
+}
+
+test('VER-34: the waiver question\'s answer records which fixed label was picked, or other', async ($, on) => {
+  const w = world(on, { tool: answering({ 'P?': 'Proceed without questions', 'A?': 'Ask me as usual', 'T?': 'not sure',
+    'C?': 'proceed without questions', 'D?': null }) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  for (const q of ['P?', 'A?', 'T?', 'C?', 'D?']) await $.tool.call(waiverQuestion(q) as Any)
+  const answers = eventsOf(w).map(l => JSON.parse(l)).filter(e => e.kind === 'answer')
+  expect(answers.map(e => [e.answered, e.waiver ?? null, e.step ?? null, e.outside ?? null])).toEqual([
+    [true, 'proceed', null, null], [true, 'ask', null, null], [true, 'other', null, null],
+    [true, 'other', null, null], [false, 'other', null, null],
+  ])
+})
+
+test('VER-34: two questions with the waiver source, or a near-miss source, are recorded as outside', async ($, on) => {
+  const w = world(on, { tool: answering({ 'P?': 'Proceed without questions' }) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(waiverQuestion('P?', WAIVER_SOURCE, true) as Any)
+  await $.tool.call(waiverQuestion('P?', 'devforgeai_waiver ') as Any)
+  await $.tool.call(waiverQuestion('P?', 'devforgeai_waivers') as Any)
+  const answers = eventsOf(w).map(l => JSON.parse(l)).filter(e => e.kind === 'answer')
+  expect(answers.map(e => [e.waiver ?? null, e.outside ?? null])).toEqual([[null, true], [null, true], [null, true]])
+})
+
+test('VER-34: in enforce mode the waiver question isn\'t checked: no pending file, and it goes on', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: questioningAt(2),
+    tool: answering({ 'P?': 'Proceed without questions' }) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const r = (await $.tool.call(waiverQuestion('P?') as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(0)
+  expect(eventsOf(w).map(l => JSON.parse(l)).filter(e => e.kind === 'answer').map(e => e.waiver)).toEqual(['proceed'])
+})
+
+test('VER-34: a mod\'s own question isn\'t recorded', { plugins: [asker] }, async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  await ($ as Any).command.run({ command: 'ask-me', args: '' })
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
+})
+
+/** Every step reached and the run open: the state BEH-26 reviews, with these flags. */
+function reached(flags: Any[]) {
+  return { ...STATE, current: null, flags }
+}
+
+const FLAG8 = { gate: 'write', seq: 30, step: 8, type: 'skipped',
+  message: 'step 8 (Propose and confirm the outcome) had no answer from you before docs/specs/arch/ARCH-001.md was written' }
+
+/** Review answers in order (null: dismissed), recording each review question asked. */
+function reviewing(script: Array<string | null>, asked: string[]) {
+  const answers = [...script]
+  return (e: Any): Any => {
+    if (e.tool === 'AskUserQuestion' && e.questions?.[0]?.header === 'Review') {
+      const q = e.questions[0].question
+      asked.push(q)
+      const a = answers.shift()
+      if (a === null || a === undefined) return { result: "Error: The user doesn't want to proceed with this tool use.", isError: true, text: "The user doesn't want to proceed with this tool use." }
+      return { result: { questions: e.questions, answers: { [q]: a }, annotations: {} } }
+    }
+    return taskTools()(e)
+  }
+}
+
+/** A world whose question checks refuse an unmarked question at step 2, and whose other evaluations show `state`. */
+function reviewWorld(on: Any, state: () => Any, script: Array<string | null>, asked: string[], over: Over = {}) {
+  let files = new Map<string, string>()
+  const gate = questionGate(() => files, 'unmarked-question', 2)
+  const w = world(on, { mode: 'enforce local', tool: reviewing(script, asked),
+    evaluate: argv => (argv[argv.indexOf('--events') + 1].endsWith('/pending.jsonl') ? gate(argv) : { state: state() }), ...over })
+  files = w.files
+  return w
+}
+
+async function turnEnd($: Any) {
+  await $.turn.complete({ turnId: 't', answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage: null })
+}
+
+function reviewLines(w: World): Any[] {
+  const path = runFiles(w, 'review.jsonl').slice(-1)[0]
+  return path ? (w.files.get(path) ?? '').split('\n').filter(Boolean).map(l => JSON.parse(l)) : []
+}
+
+test('VER-35: a finished run with a refusal and a flag is reviewed, refusals first, answers recorded', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, ['Accept', 'I did answer it'], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(QUESTION as Any)  // refused: unmarked-question at step 2
+  state = reached([FLAG8])
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked).toEqual([
+    'architecture run, item 1 of 2: refused 1 time(s) at step 2 (question gate): ' + MESSAGES['unmarked-question'] + '. Accept it, or challenge it?',
+    'architecture run, item 2 of 2: flagged at step 8 (write gate): ' + FLAG8.message + '. Accept it, or challenge it?',
+  ])
+  expect(reviewLines(w).map(l => [l.item, l.gate, l.step, l.type, l.refused, l.answer, l.reason])).toEqual([
+    [1, 'question', 2, 'unmarked-question', 1, 'accept', null],
+    [2, 'write', 8, 'skipped', 0, 'challenge', 'I did answer it'],
+  ])
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' review: '))
+  expect(log.length).toBe(2)
+  expect(w.toasts.some(t => t.startsWith('architecture: your review is in devforgeai/progress/runs/'))).toBe(true)
+  // Nothing reaches Claude: the next prompt carries no added context.
+  await $.prompt.submit({ text: 'thanks', origin: { kind: 'composer' } } as Any)
+  expect(w.contexts.slice(-1)[0]).toEqual([])
+  // A later turn end asks nothing again.
+  await turnEnd($)
+  expect(asked.length).toBe(2)
+})
+
+test('VER-35: Challenge records no reason; three refusals and a flag for one cause are one item', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, ['Challenge'], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  for (let i = 0; i < 3; i++) await $.tool.call(QUESTION as Any)
+  state = reached([{ gate: 'question', seq: 40, step: 2, type: 'unmarked-question', message: MESSAGES['unmarked-question'] }])
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(1)
+  expect(asked[0].startsWith('architecture run, item 1 of 1: refused 3 time(s) at step 2 (question gate): ')).toBe(true)
+  expect(reviewLines(w).map(l => [l.refused, l.answer, l.reason])).toEqual([[3, 'challenge', null]])
+})
+
+test('VER-35: a dismissal records that item and the rest as dismissed and asks nothing more', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, [null], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(QUESTION as Any)
+  state = reached([FLAG8, { ...FLAG8, step: 9, type: 'rule-broken', message: 'docs/specs/arch/ARCH-001.md sets outcome: create, which needs your answer at step 8' }])
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(1)
+  expect(reviewLines(w).map(l => [l.item, l.answer])).toEqual([[1, 'dismissed'], [2, 'dismissed'], [3, 'dismissed']])
+})
+
+test('VER-35: no review for a run not every step of which is reached, nor for a run with no item', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = { ...STATE, flags: [FLAG8] }
+  const w = reviewWorld(on, () => state, ['Accept'], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(0)
+  state = reached([])
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(0)
+  expect(runFiles(w, 'review.jsonl').length).toBe(0)
+})
+
+test('VER-35: observe mode reviews a flagged run too; a session where nothing draws doesn\'t', async ($, on) => {
+  const asked: string[] = []
+  const w = reviewWorld(on, () => reached([FLAG8]), ['Accept'], asked, { mode: 'observe framework-default' })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(1)
+})
+
+test('VER-35: a session where nothing draws gets no review', async ($, on) => {
+  const asked: string[] = []
+  const w = reviewWorld(on, () => reached([FLAG8]), ['Accept'], asked, { surfaces: [] })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(0)
+})
+
+test('VER-35 (review M1): a last step reached in the turn\'s final events is evaluated before the review decides', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, ['Accept'], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)  // evaluated: step 2 current, nothing to review yet
+  state = reached([FLAG8])     // the next evaluation will show every step reached
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/specs/arch/ARCH-001.md` } as Any)  // unevaluated
+  await turnEnd($)             // no timer tick in between
+  expect(asked.length).toBe(1)
+})

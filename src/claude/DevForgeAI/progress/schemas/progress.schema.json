@@ -15,7 +15,8 @@
     "flags",
     "gate",
     "next",
-    "counts"
+    "counts",
+    "waiver"
   ],
   "additionalProperties": false,
   "properties": {
@@ -78,6 +79,15 @@
         "null"
       ],
       "description": "the run-end reason, or null while the run is open"
+    },
+    "waiver": {
+      "enum": [
+        "proceed",
+        "ask",
+        "other",
+        null
+      ],
+      "description": "the run's waiver answer, the first answered one (BEH-19), or null when there is none (version 11)"
     },
     "current": {
       "type": [
@@ -246,7 +256,8 @@
                   "script",
                   "answer",
                   "write",
-                  "read"
+                  "read",
+                  "waiver"
                 ]
               },
               "strength": {

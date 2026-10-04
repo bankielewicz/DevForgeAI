@@ -3,9 +3,9 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: approved
-version: 13
+version: 14
 created: 2026-09-22
-updated: 2026-10-03
+updated: 2026-10-04
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,14 +14,14 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-03
+approved_on: 2026-10-04
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
-  - {id: SPEC-012, relation: constrains, version: 10, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
+  - {id: SPEC-012, relation: constrains, version: 11, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -56,6 +56,13 @@ credits none (BEH-09; SPEC-012 BEH-06).
 **Version 13** (2026-10-03) tags each question with its step, as SPEC-012 version 9's convention asks: hidden in
 AskUserQuestion's metadata, where the progress tracker checks it against the step marked in progress, and shown
 in each question's header, where you see it (BEH-12).
+
+**Version 14** (2026-10-04) asks the waiver (Bryan, 2026-10-04). When your request says to proceed without questions,
+the skill first asks whether it should, in a question of its own with two fixed answers, "Proceed without questions"
+and "Ask me as usual". Your answer is recorded, so the progress tracker sees the choice your request made (SPEC-012
+version 11, SPEC-013 version 10). In a brainstorm it changes nothing the tracker checks: dispositions and convergence
+still need your confirmation either way (BEH-06). Without the question tool, as in eval runs, nothing is asked and the
+request is followed as before (BEH-13).
 
 ## 2. Constraints
 
@@ -155,7 +162,7 @@ metadata:
 behaviors:
   - id: BEH-01
     status: active
-    rule: "Take the topic from $ARGUMENTS or the conversation. If there is none, ask for it and write nothing until it is given. Ask at most three clarifying questions (trigger, affected users, constraints) before diverging, and skip any question the request already answers. When the request says to proceed without questions, ask none. Record anything still unknown as [NEEDS CLARIFICATION] markers, not guesses."
+    rule: "Take the topic from $ARGUMENTS or the conversation. If there is none, ask for it and write nothing until it is given. Ask at most three clarifying questions (trigger, affected users, constraints) before diverging, and skip any question the request already answers. When the request says to proceed without questions, ask none, once the waiver question (BEH-13) has been answered Proceed without questions or couldn't be asked. Record anything still unknown as [NEEDS CLARIFICATION] markers, not guesses."
   - id: BEH-02
     status: active
     rule: "Allocate the ID by scanning docs/specs/brainstorm/ for BRN-NNN.md files and using the highest number plus one (BRN-001 if none). Write the document to docs/specs/brainstorm/BRN-NNN.md. Never ask for or accept an output file name. Keep the descriptive topic in the title. Create the directory if it is missing."
@@ -189,6 +196,9 @@ behaviors:
   - id: BEH-12
     status: active
     rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, the question asking for a topic included, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: the topic, clarifying and extend-or-new questions belong to step 1, the confirmation of dispositions and convergence to step 5. Never put two steps' questions in one question form. Tag each question form with its step: the AskUserQuestion call's metadata source 'devforgeai_step:N', which the user doesn't see and the progress tracker checks against the step marked in progress, and each of its questions' header 'Step N', which the user sees (SPEC-012 §4, version 9). Mark each step completed as soon as it is done, one at a time, a step with nothing to do included. Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
+  - id: BEH-13
+    status: active
+    rule: "The waiver (version 14; Bryan, 2026-10-04). When the request says to proceed without questions (or not to ask, or to skip questions) and the session has AskUserQuestion, ask it once, at the start of step 1, before any other question, with step 1 marked in_progress (BEH-12): one question, alone in its form, the one question BEH-12's tag rule leaves out, with metadata source devforgeai_waiver (not devforgeai_step:1, so the progress tracker records it as the waiver and never as a step's answer), header 'Step 1', the question 'Your request says to proceed without questions. Should I?' and exactly two options, in this order: 'Proceed without questions' (description: 'I ask nothing more; decisions that need you stay open.') and 'Ask me as usual' (description: 'I ask about each decision as it comes up.'). On Proceed without questions, follow the request: ask no other question (BEH-01, BEH-06). On Ask me as usual, on anything typed instead, or on a dismissal, ask as if the request hadn't said so. Ask it at most once in a run. Without AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request as before; when the request doesn't say to proceed without questions, never ask it."
 ```
 
 ## 7. Errors and edge cases
@@ -250,6 +260,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
+| Version 14 (SKL-001 v7) | Built on branch `docs/waiver-menu-specs` (PR #77, `9366f46`, review fixes `505a4ba`); checklist unchanged, manifest matched. VER-13: `tmp/eval-results/waiver-suite1-20261004T120554-{brainstorm,architecture}` in the worktree, bound to `505a4ba`, 1 run, `--ablation none`: brainstorm 9 of 9 and architecture 24 of 24 at 0.8 or above ($4.65 and $17.74). VER-14 live, in Bryan's worker1 tab on 2026-10-04, enforce mode, `claude --plugin-dir` on a copy of `505a4ba`: the waiver menu alone in step 1, Proceed, no other question, 12 ideas open, status draft, state waiver proceed, no flags. Pass. The 3-run qualification was waived by Bryan on 2026-10-04, who approved SKL-001 v7 the same day |
 | Versions 11 to 13 (SKL-001 v6) | Built on branch `feat/skl-001-v6-skl-003-v7` (worktree, draft PR #73) through `/plugin-dev:create-plugin`, 2026-10-03: the eval cases first `1fe55f6` (`keeps-task-list`, hand-written, and `writes-valid-brn`'s grader `ran-validator-alone`), the skill `1d93c29`, the review fixes `aba1b04` and `7e6168d`, and Bryan's review decisions `edee883` (a confirmation typed after a run that asked nothing asks the step-5 question again and edits the BRN in place). **Evals**, in Bryan's cmux tab on his word: a pilot bound to `7e6168d`, `tmp/eval-results/pilot-brainstorm-20261003T185015/` (keeps-task-list, writes-valid-brn, asks-for-topic: 3 of 3 at 1.00); one single-arm run of the suite bound to `f1654d8`, `tmp/eval-results/suite1single-brainstorm-20261003T201734/`: 9 of 9 at 1.00, $4.57, 13 to 36 turns of 60. **Bryan waived the 3-run qualification with the baseline on 2026-10-04**, so these single-arm results are the record. Every eval run offered TaskCreate, TaskUpdate and ToolSearch and no AskUserQuestion, so the fallback without task tools isn't exercised; `max_turns` went to 60, and asks-for-topic's to 20. **VER-12: pass**, live in enforce mode on 2026-10-03, Claude Code 2.1.288 (session `f363357c`, run `20261004T004218Z-brainstorm-1d2db9f3`): 16 step events, every step started and done in order; the intake questions tagged step 1, the framework's own questions tagged step 3 (the step whose work asks them), and the disposition and convergence question asked alone under step 5, each with the header 'Step N'; the validator run on its own, passing at once; no flag, counts.unmarkedQuestions 0. A refusal check in the same tab (run `20261004T010506Z-brainstorm-024312d2`): a tagged question asked before step 1 was marked was refused with SPEC-013 BEH-21's text, and went through once the step was marked. Reading: twice a step was started before the previous step's done event (two TaskUpdates in one batch); the steps still finished in order. SKL-001 v6 was approved by Bryan on 2026-10-04; merged in PR #73 (`2f99a01`, 2026-10-04) and deployed as plugin 0.18.0 the same day in Bryan's cmux tab, where the deployed copy matched the source (`diff -rq` printed nothing) |
 
 Each automated VER item has exactly one eval case under `evals/brainstorm/`, tagged `brainstorm`
@@ -366,6 +377,23 @@ verifications:
       - BEH-12
     upstream:
       - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-13
+    status: active
+    obligation: "Without AskUserQuestion, no waiver question stops a run: the eval cases whose prompts say not to ask (writes-valid-brn, keeps-task-list, no-unconfirmed-dispositions, records-provenance, hands-off-to-prd, uses-named-framework) still pass at 0.8 or above, each writing its BRN with no question asked; asks-for-topic, existing-brn and ignores-unrelated-request, whose prompts don't waive, are unchanged."
+    level: e2e
+    covers:
+      - BEH-13
+      - BEH-01
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-14
+    status: active
+    obligation: "Live, in a session with the task tools, with SPEC-013's VER-36: a brainstorm whose request says to proceed without questions first marks step 1 and asks the waiver alone, tagged devforgeai_waiver with header 'Step 1' and the two labels; 'Proceed without questions' gives no other question and a BRN with every disposition open and status draft, and the tracker's state shows waiver proceed and no question gate; in a second run 'Ask me as usual' gives the topic or clarifying questions and step 5's question, as with a request that didn't waive. A request that doesn't waive shows no waiver question. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-13
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -378,6 +406,11 @@ SPEC-013 version 8, so a session without the task tools is never held to a task 
 recorded and checked. The checklist's lines
 don't change, so the tracker's brainstorm manifest stays matched. Rolling back is returning to SKL-001 v5; the
 tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
+
+Version 14 (SKL-001 v7) ships in the plugin version that builds SPEC-012 version 11 and SPEC-013 version 10 (0.20.0),
+so the waiver's answer is recorded and never refused. The checklist's lines don't change, so the brainstorm manifest
+stays matched; no brainstorm step is waivable (SPEC-012 BEH-19), so a waiver changes nothing the tracker checks here.
+This spec's SPEC-012 link moves to version 11 when that is approved.
 
 ## 11. Implementation plan
 
@@ -401,6 +434,12 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
    the eval's model the task tools: record it in §9 and bring it to the owner before the full suite.
 4. Once the plugin version that builds SPEC-012 version 9 and SPEC-013 version 8 is deployed, run VER-12 live.
 
+**Version 14** (after approval), through `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`:
+1. Build SKL-001 v7: the waiver in step 1 (BEH-13) and BEH-01's clause; `provenance.yaml` and
+   `metadata.devforgeai-version` go to 7; skill-reviewer reviews it; `evaluate.py check` reports the manifest matched.
+2. Evaluate cheapest first: the six waiving cases with `--runs 1`, then the suite with `--runs 1` (VER-13).
+3. Once the plugin version that builds SPEC-012 version 11 and SPEC-013 version 10 is deployed, run VER-14 live.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -412,9 +451,18 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 | Frameworks listed in SKILL.md | Every addition would change SKILL.md and grow it; the index keeps SKILL.md fixed (FR-002) |
 | Ticking the checklist in the reply only | The tracker can't tell which step a question belongs to when Claude asks before it ticks (SPEC-012 §13); ticks stay the fallback without a task list |
 | Printing a step marker before each question | Claude's narration before a question was in thinking blocks, which no hook records (SPEC-012 §12) |
+| Asking the waiver on every run, or in plain text without the question tool | Every run would open with a question, and eval runs, which have no question tool, would stop at it. Bryan chose to ask only when the request waives (2026-10-04) |
 | Letting the skill set dispositions itself | Idea selection is a user decision (FR-003); unconfirmed AI dispositions would pass structural checks while being unjustified |
 
 ## 13. Open questions
+
+- Resolved (Bryan, 2026-10-04, with SPEC-012 version 11 and SPEC-013 version 10): a request that says to proceed
+  without questions is confirmed by the waiver question, asked once at the start, only then; the tracker records
+  its answer. Open: whether a dismissal or a typed answer should mean anything other than "Ask me as usual" (version
+  14 reads both so, which keeps every decision asked).
+- Open (Bryan, 2026-10-04, recorded for a later version): after *Proceed without questions*, the skill still asks
+  for a missing topic (BEH-01) and extend-or-new (ERR-01), although the option's description says "I ask nothing
+  more"; architecture's BEH-18 says its gates are still asked, and BEH-13 has no such sentence.
 
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
   metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
@@ -453,3 +501,8 @@ tracker then places the run's answers by its windows again (SPEC-012 BEH-09).
 | 13 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-001 v6 | §9 |
 | 13 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records plugin 0.18.0, set for the merge on Bryan's word | §9 |
 | 13 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #73's merge and the deploy of plugin 0.18.0 | §9 |
+| 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04: when the request says to proceed without questions, the skill asks the waiver once at the start, with its own tag and two fixed labels, only with AskUserQuestion (new BEH-13; BEH-01, VER-13, VER-14); status in-review | frontmatter, §1, BEH-01, BEH-13, VER-13, VER-14, §10, §11, §12, §13 |
+| 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: the waiver is named as the one question the tag rule leaves out | BEH-13 |
+| 14 | 2026-10-04 | Bryan | Approved, with the waiver asked only when the request waives | status |
+| 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 14 | §9 |
+| 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: Bryan approved SKL-001 v7 and waived its 3-run qualification; §13 records an open item from the build's review | §9, §13 |

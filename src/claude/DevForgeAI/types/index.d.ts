@@ -54,6 +54,10 @@ declare module 'claude-code' {
       adhered: string | null
       /** The open run's enforce refusals by cause, '<gate kind>:<flag type>:<step>' (BEH-25); a new run starts empty. */
       refusals: Record<string, number>
+      /** The open run's refusals, each with its gate's kind, seq and first flag, for the review (BEH-25, BEH-26). */
+      refused: { gate: string; seq: number; step: number; type: string; message: string }[]
+      /** The run whose review was asked (BEH-26), so a reload doesn't repeat it. */
+      reviewed: string | null
     }
   }
 }

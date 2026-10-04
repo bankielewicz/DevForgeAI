@@ -46,6 +46,7 @@ EVENT_FIELDS = {  # the fields each kind of event must carry (DM-02)
     "step": {"step": int, "state": str},
 }
 STEP_STATES = ("started", "done")
+WAIVERS = ("proceed", "ask", "other")  # the waiver answer's values (DM-02, version 11)
 TASK_TAG = "devforgeai_step"  # a skill whose text names it follows the task-list convention (§4, BEH-18)
 # A command whose exit status isn't its script's: ;, |, a line break, or a & that sends a command to the background
 # (&& and redirections such as 2>&1, &> and >& are fine) (BEH-06, version 7).
@@ -133,6 +134,8 @@ def check_manifest_shape(m, path):
                 bad("step %s lacks %s" % (n, key))
         if step["kind"] not in STEP_KINDS or step["need"] not in NEEDS:
             bad("step %s has an unknown kind or need" % n)
+        if step.get("waivable") is True and step.get("userOwned") is not True:
+            bad("step %s is waivable but not user-owned" % n)  # version 11: a waiver answers only the user's step
         for rule in step.get("evidence", []):
             if not isinstance(rule, dict) or rule.get("type") not in RULE_TYPES:
                 bad("step %s has an evidence rule of unknown type" % n)
@@ -168,6 +171,9 @@ def relaxation(base, later):
             return "changes step %s's when" % n
         if b.get("userOwned") and not s.get("userOwned"):
             return "makes step %s no longer user-owned" % n
+        if bool(s.get("waivable")) != bool(b.get("waivable")):
+            # waivable true relaxes a user-owned step, so only the base manifest sets it (BEH-17, version 11)
+            return "changes step %s's waivable from %s to %s" % (n, bool(b.get("waivable")), bool(s.get("waivable")))
         if b.get("gate") and s.get("gate") != b["gate"]:
             return "removes step %s's %s gate" % (n, b["gate"])
         for rule in b.get("evidence", []):
@@ -322,8 +328,10 @@ def names_a(candidate, written):
 
 
 class Step:
-    def __init__(self, n, title, kind=None, need="text-only", user_owned=False, gate=None, rules=(), when=None):
+    def __init__(self, n, title, kind=None, need="text-only", user_owned=False, gate=None, rules=(), when=None,
+                 waivable=False):
         self.n, self.title, self.kind, self.need = n, title, kind, need
+        self.waivable = waivable
         self.user_owned, self.gate, self.rules, self.when = user_owned, gate, list(rules), when
         self.strong = any(r["type"] in ("script", "answer") for r in self.rules)
         self.evidence = []      # dicts: seq, type, strength, detail
@@ -342,10 +350,11 @@ class Step:
 
     def signals(self):
         """Seqs of this step's tool evidence and claims (answers excluded: they don't move windows)."""
-        return [x["seq"] for x in self.evidence if x["type"] != "answer"] + [c["seq"] for c in self.claims]
+        return [x["seq"] for x in self.evidence if x["type"] not in ("answer", "waiver")] + [c["seq"] for c in self.claims]
 
     def first_signal(self):
-        seqs = [x["seq"] for x in self.evidence] + [c["seq"] for c in self.claims]
+        # The waiver's stamp is no signal: it gives no 'seen late' note (BEH-19).
+        seqs = [x["seq"] for x in self.evidence if x["type"] != "waiver"] + [c["seq"] for c in self.claims]
         return min(seqs) if seqs else None
 
     def reached(self, upto=INFINITY):
@@ -421,7 +430,7 @@ class Run:
         loaded = events[0]
         if self.tracked:
             self.steps = [Step(int(n), m["title"], m["kind"], m["need"], bool(m.get("userOwned")),
-                               m.get("gate"), m.get("evidence", []), m.get("when"))
+                               m.get("gate"), m.get("evidence", []), m.get("when"), m.get("waivable") is True)
                           for n, m in sorted(manifest["steps"].items(), key=lambda kv: int(kv[0]))]
             self.content_rules = manifest.get("contentRules", [])
         else:
@@ -444,6 +453,11 @@ class Run:
                  "none": "no manifest for this skill; tracking ticks only",
                  "unverified": "the checklist wasn't seen in the skill-loaded event; using the manifest as is"}
         self.manifest_note = notes.get(manifest_state)
+        # The waiver (BEH-19, version 11): the run's first answered waiver answer; a later one and a dismissed one
+        # don't count.
+        self.waiver_event = next((e for e in events if e["kind"] == "answer" and e.get("answered") is True
+                                  and e.get("waiver") in WAIVERS), None)
+        self.waiver = self.waiver_event["waiver"] if self.waiver_event else None
 
     # -- evidence and claims (BEH-05, BEH-06) --
 
@@ -620,7 +634,7 @@ class Run:
         for s in self.steps:
             if s.n >= step.n or (s.need == "conditional" and not s.user_owned):
                 continue
-            evidence = [x["seq"] for x in s.evidence if x["type"] != "answer" and x["seq"] < hard]
+            evidence = [x["seq"] for x in s.evidence if x["type"] not in ("answer", "waiver") and x["seq"] < hard]
             claims = [c["seq"] for c in s.claims if c["seq"] < hard]
             firsts = ([min(evidence)] if evidence else []) + ([min(claims)] if claims else [])
             if firsts:
@@ -634,6 +648,8 @@ class Run:
         for e in self.events:
             if e["kind"] not in ("answer", "prompt"):
                 continue
+            if e["kind"] == "answer" and "waiver" in e:
+                continue  # in every run, a waiver answer is placed by no mark, tag or window, and gates nothing (BEH-18)
             counts = e["kind"] == "prompt" or e["answered"]
             # BEH-18: step events place answers: the step in progress takes each one; a step that isn't the user's
             # keeps it as its own exchange, such as an intake question, so it counts for no user-owned step.
@@ -695,6 +711,33 @@ class Run:
         self.unmarked.append(e["seq"])
         self.questions[e["seq"]] = (kind, named, n)
 
+    def waived(self, step, upto=INFINITY):
+        """A Proceed waiver, answered before `upto`, answers a waivable step (BEH-19, version 11)."""
+        return (step.waivable and self.waiver == "proceed" and self.tracked
+                and self.waiver_event["seq"] < upto)
+
+    def add_waiver_evidence(self):
+        """Stamp each waived step's evidence at the first gate or checked write after the waiver that checks it, so it
+        isn't reached, current or 'seen late' before then (BEH-19)."""
+        if not (self.waiver == "proceed" and self.tracked):
+            return
+        start = self.waiver_event["seq"]
+        w = self.write_gate_seq()
+        for step in self.steps:
+            if not step.waivable:
+                continue
+            points = [self.gate_seq_for(step)]
+            if w is not None:
+                points += [e["seq"] for e in self.events
+                           if e["kind"] == "tool" and e["seq"] >= w and e.get("tool") in ("Write", "Edit")
+                           and e.get("error") is not True and isinstance(e.get("path"), str)
+                           and any(int(rule["step"]) == step.n and path_matches(e["path"], rule["path"])
+                                   for rule in self.content_rules)]
+            points = [p for p in points if p != INFINITY and p > start]
+            if points:
+                step.evidence.append({"seq": min(points), "type": "waiver", "strength": "strong",
+                                      "detail": "your start-of-run answer: Proceed without questions"})
+
     @staticmethod
     def answer_evidence(e):
         return {"seq": e["seq"], "type": "answer", "strength": "strong",
@@ -716,7 +759,8 @@ class Run:
             if step.sticky or step.not_applicable_by_event(seq):
                 continue
             if step.user_owned:
-                if gate in ("report", "end") and not step.answered(seq) and not step.unverifiable:
+                if gate in ("report", "end") and not step.answered(seq) and not self.waived(step, seq) \
+                        and not step.unverifiable:
                     step.gate_state, step.gate_note = "not-applicable", "no answer; left open"
                 continue
             state = step.base_state(seq)
@@ -757,7 +801,7 @@ class Run:
             if not path_matches(e["path"], rule["path"]):
                 continue
             step = self.by_n[int(rule["step"])]
-            if step.answered(e["seq"]):
+            if step.answered(e["seq"]) or self.waived(step, e["seq"]):
                 continue
             text = self.content_of(e)
             if text is None:
@@ -922,6 +966,7 @@ def build_state(events, counts, manifest, layers, root=None):
     run = Run(events, manifest, manifest_state, root)
     run.collect()
     run.assign_answers()
+    run.add_waiver_evidence()
     run.check_gates()
     counts = dict(counts, unknownClaims=run.unknown_claims, unmarkedQuestions=len(run.unmarked),
                   stepEvents=len(run.step_events))  # the step events naming a step the checklist has
@@ -942,6 +987,7 @@ def build_state(events, counts, manifest, layers, root=None):
         "gate": run.gate,
         "next": run.next_step(skill),
         "counts": counts,
+        "waiver": run.waiver,
     }
     return state
 

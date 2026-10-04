@@ -721,6 +721,104 @@ class SpecRules(Base):
         self.assertEqual(report["flags"], [])
 
 
+    # ---- version 11: the waiver ----
+
+    def waiver_evidence(self, state, n):
+        return [e for e in self.step(state, n)["evidence"] if e["type"] == "waiver"]
+
+    # VER-39: a Proceed waiver answers architecture's step 8 only, never a question gate, placed by no window or mark.
+    def test_ver39_waiver(self):
+        control, _, _, _ = self.run_case("waiver-none")
+        self.assertEqual(sorted((f["step"], f["type"]) for f in control["flags"]), [(8, "skipped"), (9, "rule-broken")])
+        self.assertIsNone(control["waiver"])
+        proceed, _, _, _ = self.run_case("waiver-proceed")
+        write = [e["seq"] for e in self.events_of("waiver-proceed", "tool") if e["tool"] == "Write"][0]
+        self.assertEqual(proceed["flags"], [])
+        self.assertEqual(proceed["waiver"], "proceed")
+        self.assertEqual(self.step(proceed, 8)["state"], "done")
+        self.assertEqual(self.waiver_evidence(proceed, 8),
+                         [{"seq": write, "type": "waiver", "strength": "strong",
+                           "detail": "your start-of-run answer: Proceed without questions"}])
+        self.assertEqual(proceed["counts"]["unmarkedQuestions"], 0)
+        # Ask, typed and dismissed answers change nothing: the same flags as the control, no question gate.
+        for name, value in (("waiver-ask", "ask"), ("waiver-other", "other"), ("waiver-dismissed", None)):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(state["flags"], control["flags"])
+                self.assertEqual(state["waiver"], value)
+                self.assertEqual(state["counts"]["unmarkedQuestions"], 0)
+                self.assertEqual(self.waiver_evidence(state, 8), [])
+        second, _, _, _ = self.run_case("waiver-second")
+        self.assertEqual((second["flags"], second["waiver"]), ([], "proceed"))
+        both, _, _, _ = self.run_case("waiver-and-answer")
+        self.assertEqual(both["flags"], [])
+        self.assertEqual(sorted(e["type"] for e in self.step(both, 8)["evidence"]), ["answer", "waiver"])
+        adr_case, _, _, _ = self.run_case("waiver-adr")
+        self.assertEqual(sorted((f["step"], f["type"]) for f in adr_case["flags"]), [(7, "skipped"), (9, "rule-broken")])
+        nogate, _, _, _ = self.run_case("waiver-no-gate")
+        self.assertEqual((nogate["flags"], nogate["counts"]["unmarkedQuestions"]), ([], 0))
+        # The waiver doesn't make step 8 reached early: current is the next step to reach, and no 'seen late' note.
+        current, _, _, _ = self.run_case("waiver-current")
+        self.assertEqual(current["current"], 4)  # the PRD glob is steps 2 and 3's read evidence; the waiver moves nothing
+        self.assertEqual(self.waiver_evidence(current, 8), [])
+        self.assertFalse(any("seen late" in s["note"] for s in current["steps"]))
+        # Without a task list, the waiver answer is placed in no window.
+        notask, _, _, _ = self.run_case("waiver-no-tasklist")
+        waiver_seq = self.events_of("waiver-no-tasklist", "answer")[0]["seq"]
+        self.assertNotIn(waiver_seq, [e["seq"] for s in notask["steps"] for e in s["evidence"]])
+        self.assertEqual(sorted((f["step"], f["type"]) for f in notask["flags"]), [(7, "skipped"), (9, "rule-broken")])
+        notask_proceed, _, _, _ = self.run_case("waiver-no-tasklist-proceed")
+        self.assertEqual(notask_proceed["flags"], [])
+        self.assertEqual(len(self.waiver_evidence(notask_proceed, 8)), 1)
+        # Brainstorm has no waivable step.
+        for name in ("waiver-brainstorm", "waiver-brainstorm-windows"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(sorted((f["step"], f["type"]) for f in state["flags"]), [(5, "skipped"), (6, "rule-broken")])
+                self.assertEqual(state["waiver"], "proceed")
+        # Every earlier case's state has waiver null.
+        for name in mc.CASE_BUILDERS:
+            if not name.startswith("waiver-") and name != "messy-log":
+                with self.subTest(name):
+                    state, _, _, _ = self.run_case(name)
+                    self.assertIsNone(state["waiver"])
+
+    # VER-40: waivable only on a user-owned step, only architecture's step 8, and never set by a later layer.
+    def test_ver40_waivable(self):
+        manifest_v, events_v = schema_validator("manifest"), schema_validator("events")
+        arch = json.loads((PROGRESS / "manifests/architecture.json").read_text(encoding="utf-8"))
+        brn = json.loads((PROGRESS / "manifests/brainstorm.json").read_text(encoding="utf-8"))
+        self.assertEqual([n for n, s in arch["steps"].items() if s.get("waivable")], ["8"])
+        self.assertEqual([n for n, s in brn["steps"].items() if s.get("waivable")], [])
+        bad = json.loads(json.dumps(arch))
+        bad["steps"]["6"]["waivable"] = True  # step 6 isn't user-owned
+        self.assertNotEqual(list(manifest_v.iter_errors(bad)), [])
+        ok = json.loads(json.dumps(arch))
+        self.assertEqual([e.message for e in manifest_v.iter_errors(ok)], [])
+        base = {"run": "20261002T120000Z-architecture-0000abcd", "seq": 2, "time": "2026-10-02T12:00:02Z",
+                "kind": "answer", "answered": True}
+        for value in ("proceed", "ask", "other"):
+            self.assertEqual(list(events_v.iter_errors(dict(base, waiver=value))), [])
+        self.assertNotEqual(list(events_v.iter_errors(dict(base, waiver="yes"))), [])
+        progress = json.loads((SCHEMAS / "progress.schema.json").read_text(encoding="utf-8"))
+        self.assertIn("waiver", progress["required"])
+        events = mc.CASES / "waiver-proceed" / "events.jsonl"
+        for name, mutate, code in (
+                ("sets-waivable", lambda m: m["steps"]["7"].__setitem__("waivable", True), 2),
+                ("drops-waivable", lambda m: m["steps"]["8"].pop("waivable"), 2),
+                ("restates", lambda m: None, 0)):
+            with self.subTest(name), tempfile.TemporaryDirectory() as tmp:
+                project = Path(tmp) / "project"
+                project.mkdir()
+                layer = json.loads(json.dumps(arch))
+                mutate(layer)
+                (project / "architecture.json").write_text(json.dumps(layer, indent=2), encoding="utf-8")
+                out = Path(tmp) / "state.json"
+                proc = self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--manifests", project,
+                                    "--events", events, "--out", out)
+                self.assertEqual(proc.returncode, code, proc.stderr)
+
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

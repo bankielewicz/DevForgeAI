@@ -48,6 +48,7 @@
       "kind": "ask",
       "need": "required",
       "userOwned": true,
+      "waivable": true,
       "evidence": [{"type": "answer"}]
     },
     "9": {

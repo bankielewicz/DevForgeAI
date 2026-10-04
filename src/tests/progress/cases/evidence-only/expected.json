@@ -236,5 +236,6 @@
       "userOwned": false
     }
   ],
-  "through": 11
+  "through": 11,
+  "waiver": null
 }

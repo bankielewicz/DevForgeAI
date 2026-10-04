@@ -81,6 +81,11 @@
           "type": "boolean",
           "default": false
         },
+        "waivable": {
+          "type": "boolean",
+          "default": false,
+          "description": "version 11: a user-owned step that a recorded Proceed waiver answers (BEH-19)"
+        },
         "gate": {
           "enum": [
             "write",
@@ -106,6 +111,28 @@
           "then": {
             "required": [
               "when"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "waivable": {
+                "const": true
+              }
+            },
+            "required": [
+              "waivable"
+            ]
+          },
+          "then": {
+            "properties": {
+              "userOwned": {
+                "const": true
+              }
+            },
+            "required": [
+              "userOwned"
             ]
           }
         }

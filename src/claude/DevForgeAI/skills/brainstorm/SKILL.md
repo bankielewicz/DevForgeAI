@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "6"
+  devforgeai-version: "7"
 ---
 
 # Brainstorm
@@ -30,7 +30,8 @@ Two decisions are the user's, never yours:
 Propose both, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
 `reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
 confirmed* and continue with those values. This happens when the user said to proceed without
-questions or no user is there to answer. Record your proposals in section 6 prose so nothing is
+questions (and picked *Proceed without questions* in the waiver question, Intake, or it couldn't be
+asked) or no user is there to answer. Record your proposals in section 6 prose so nothing is
 lost. When the user confirms them later, after the BRN is written, don't edit from that message
 alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 question,
 tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
@@ -64,18 +65,34 @@ question form, its tag names that step:
 2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
    time; a step with nothing to do is completed too. Mark step 8 completed just before writing the
    final reply, so nothing follows the hand-off.
-3. Before asking any question, mark the step it belongs to in_progress: the topic, clarifying and
-   extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
+3. Before asking any question, mark the step it belongs to in_progress: the waiver, topic, clarifying
+   and extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
    5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
    it. Never put two steps' questions in one question form.
 4. Tag each question form with its step: AskUserQuestion's
    `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
-   on each of its questions, which the user does.
+   on each of its questions, which the user does. The one exception is the waiver question (Intake),
+   tagged `devforgeai_waiver`.
 
 Without task-list tools, copy the checklist into your response once you have a topic, and tick items
 off (`- [x] N.`) in your reply text as you go.
 
 ### 1. Intake
+
+**The waiver comes first**, only when the request says to proceed without questions (or not to ask,
+or to skip questions) and AskUserQuestion is available. With step 1 marked in_progress and before any
+other question, ask it at most once in a run, alone in its own form, with
+`metadata: {"source": "devforgeai_waiver"}` (not `devforgeai_step:1`: the progress tracker records it
+as the waiver, never as a step's answer),
+`header: "Step 1"`, the question "Your request says to proceed without questions. Should I?" and
+exactly these two options, in this order:
+- `Proceed without questions`, description "I ask nothing more; decisions that need you stay open.";
+- `Ask me as usual`, description "I ask about each decision as it comes up."
+
+On *Proceed without questions*, follow the request: ask nothing else. On *Ask me as usual*, on
+anything typed instead, or on a dismissal, ask as if the request hadn't said so. Without
+AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request; when the request
+doesn't say to proceed without questions, never ask it.
 
 1. **Topic.** Use `$ARGUMENTS`, or the topic stated in the conversation. If there is none, ask
    "What topic should we brainstorm?" and stop. Create no file and no directory until the user
@@ -86,7 +103,8 @@ off (`- [x] N.`) in your reply text as you go.
    and write nothing before it. Never overwrite an existing BRN silently.
 3. **Clarifying questions.** Ask at most three, in one message: what triggered this, who is
    affected, and what constraints apply. Skip any the request already answers. Ask none when
-   the request says to proceed without questions. Record anything still unknown as
+   the request says to proceed without questions and the waiver was answered *Proceed without
+   questions* or couldn't be asked. Record anything still unknown as
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
 
 Use AskUserQuestion for questions and confirmations when it is available, tagged with its step
@@ -241,7 +259,9 @@ Do not start writing a PRD.
 4. It writes `docs/specs/brainstorm/BRN-001.md` with those dispositions and `status: converged`.
 5. The validator prints OK, and the skill reports and hands off.
 
-**User says to proceed without questions.** The skill asks nothing and records unknowns as
+**User says to proceed without questions.** The skill first asks the waiver question (with
+AskUserQuestion); on *Ask me as usual* it asks as in the first example. On *Proceed without
+questions*, or with no question tool, it asks nothing more and records unknowns as
 `[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
 its proposals in section 6. Its final reply says the user can confirm them later; when the user
 replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN, validates it
