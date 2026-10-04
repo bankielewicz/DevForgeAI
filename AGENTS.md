@@ -2,14 +2,14 @@
 
 ## Project Structure & Module Organization
 
-DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic, documents-updater and git (SKL-006 v2 remains approved and deployed; SKL-006 v3 and SPEC-007 v3 are in-review candidates, with native and manual qualification pending). Codex contains brainstorm, architecture and documents-updater; PRD and epic are not yet ported. Codex architecture remains a draft with recorded evaluation failures and unrun manual checks; source presence does not establish acceptance.
+DevForgeAI provides specification-driven planning skills for Claude Code and a separate Codex source package. Claude implements brainstorm, PRD, architecture, epic, context, documents-updater, git and spec-lookup, plus a progress tracker (SPEC-012, SPEC-013). The git skill's source is SKL-006 v3, which with SPEC-007 v3 is in review: native and manual qualification are pending, and SKL-006 v2 is the last approved version. Codex contains brainstorm, PRD, architecture and documents-updater; epic, context, git and spec-lookup are not ported. The Codex PRD and architecture ports are drafts, not qualified; source presence does not establish acceptance.
 
-- `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-006.md` the documents updater, `SPEC-007.md` (in-review v3; v2 approved) the git workflow, `SPEC-008.md` (stub) the QA review, `SPEC-010.md` (in-review v3 citation update; v2 approved, not built) the GitHub post skill and `SPEC-011.md` (approved, version 3) the context skill, built as SKL-010 v2 (approved 2026-10-01; manual checks not run). Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
+- `docs/specs/spec/SPEC-001.md` through `SPEC-004.md` define the planning workflows, `SPEC-005.md` (draft) the session-archive hooks, `SPEC-006.md` the documents updater, `SPEC-007.md` (in-review v3; v2 approved) the git workflow, `SPEC-008.md` (stub) the QA review, `SPEC-009.md` (draft, not built) the story skill, `SPEC-010.md` (in-review v3; v2 approved, not built) the GitHub post skill, `SPEC-011.md` the context skill, `SPEC-012.md` and `SPEC-013.md` the progress tracker's core and Claude Code adapter, and `SPEC-014.md` the spec-lookup skill. Each spec's §9 records its build and evaluation results. Every document uses a typed folder, e.g. `docs/specs/prd/PRD-002.md`.
 - `src/templates/` holds staged document templates; `src/templates/skill/` contains skill, provenance, and evaluation examples.
 - `src/schemas/` holds document JSON Schemas.
-- `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `epic`, `documents-updater`, `git`, `context`), and their eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
+- `src/claude/DevForgeAI/` is the `devforgeai` plugin source: `.claude-plugin/plugin.json`, the built skills in `skills/` (`brainstorm`, `prd`, `architecture`, `epic`, `context`, `documents-updater`, `git`, `spec-lookup`), the `spec-lookup` agent in `agents/`, the progress tracker's core in `progress/` and its Claude Code adapter in `hooks/`, and the eval suites in `evals/<skill>/`. It deploys to `.claude/skills/devforgeai/`.
 - `src/codex/devforgeai/` holds the Codex manifest (`.codex-plugin/plugin.json`), skills, tests, evals and import reports. Its README and per-skill reports describe provider adaptations and qualification limits.
-- `src/tests/` holds Claude documents-updater checker tests, git script tests, and evaluation generators/graders for documents-updater, architecture, epic, git and context (with `context_check.py`'s tests). Codex tests and generators live in its package's `tests/`.
+- `src/tests/` holds the Claude plugin's tests, one folder per skill (script and structure tests, evaluation generators and graders) plus `progress/` for the progress tracker. Codex tests and generators live in its package's `tests/`.
 - `src/tools/session-archive/` holds separate user-level hooks (SPEC-005, draft).
 
 Some specs describe another layout. Verify paths against disk; see `.claude/rules/spec-paths.md` for mappings, `CLAUDE.md` for Claude workflows, and the Codex package README for its current contents. Edit the relevant provider's source; deployment is the owner's step. Keep historical import evidence intact.
@@ -24,6 +24,7 @@ No project-wide build system, formatter, or linter is configured. Run from the r
 - `python3 -B -m unittest discover -s src/tools/session-archive -p 'test_*.py'` runs archive tests.
 - `python3 -B -m unittest discover -s src/tests/documents-updater -p 'test_*.py'` runs Claude Markdown checker tests.
 - `python3 -B -m unittest discover -s src/tests/git -p 'test_*.py'` runs the Claude git skill's script tests.
+- `PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress` runs the progress tracker's tests.
 - `python3 -B -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'` runs Codex package tests.
 - `git diff --check` checks patch whitespace.
 
