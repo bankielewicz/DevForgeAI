@@ -5,7 +5,7 @@
   and devforgeai-version), metadata values quoted, and validates against skill-frontmatter.schema.json;
 - the description is the one SPEC-014 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version (QR-02), and provenance.yaml
-  validates against skill.schema.json and records SKL-011 implementing SPEC-014 v2;
+  validates against skill.schema.json and records SKL-011 implementing SPEC-014 v3;
 - SKILL.md names neither Write nor Edit as a tool to use, and says the skill writes and edits nothing (BEH-06);
 - this repository's CLAUDE.md holds BEH-08's pointer, and its skill table a spec-lookup row;
 - agents/spec-lookup.md's frontmatter is exactly SPEC-014 §5's (tools Bash and Read only, model haiku,
@@ -31,7 +31,7 @@ SKILL = PLUGIN / "skills/spec-lookup"
 AGENT = PLUGIN / "agents/spec-lookup.md"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-014.md"
-SKL, SPEC_VERSION = "SKL-011", 2
+SKL, SPEC_VERSION = "SKL-011", 3
 
 
 class _Loader(yaml.SafeLoader):
@@ -143,8 +143,11 @@ class Agent(unittest.TestCase):
         self.body = self.text.split("\n---\n", 1)[1]
 
     def test_frontmatter_is_the_one_spec_014_fixes(self):
+        # §5's block is read line by line, splitting at the first ": ", since v3's description holds "parts: 'Script:'",
+        # which isn't valid as a plain YAML value; the agent file quotes it, and the values must be equal.
         block = re.search(r"```yaml\n(  name: spec-lookup\n.*?)```", spec_section_5(), re.S).group(1)
-        fixed = yaml.load("\n".join(line[2:] for line in block.splitlines()), Loader=_Loader)
+        fixed = dict(line[2:].split(": ", 1) for line in block.splitlines() if line.strip())
+        fixed["omitClaudeMd"] = {"true": True, "false": False}[fixed["omitClaudeMd"]]
         self.assertEqual(self.fm, fixed)
         self.assertEqual(list(self.fm), ["name", "description", "tools", "model", "omitClaudeMd"])
 
@@ -170,7 +173,7 @@ class Claude(unittest.TestCase):
         self.assertRegex(rules, r"never build what no spec, ADR or recorded decision covers")
 
     def test_skill_table_row(self):
-        self.assertRegex(self.text, r"\n\| `spec-lookup` \| SKL-011[^|]*\| SPEC-014 v2")
+        self.assertRegex(self.text, r"\n\| `spec-lookup` \| SKL-011[^|]*\| SPEC-014 v3")
 
 
 class Spec(unittest.TestCase):

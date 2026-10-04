@@ -239,9 +239,9 @@ FAIL if it presents the schedule as decided or Excel as allowed, or gives no fil
     },
     {
         "name": "no-specs-folder", "ver": "VER-05", "fixture": False,
-        "description": "VER-05: with no docs/specs/ folder, nothing is specified: every behaviour is marked "
-                       "[NEEDS CLARIFICATION: not in any spec and nothing is written.",
-        "prompt": "Design a login screen for this project. Proceed without questions.",
+        "description": "VER-05: loaded by its command with no docs/specs/ folder, the skill says nothing is specified "
+                       "and marks every behaviour [NEEDS CLARIFICATION: not in any spec; nothing is written.",
+        "prompt": "/devforgeai:spec-lookup Design a login screen for this project. Proceed without questions.",
         "premise": [("login", 1, "no docs/specs/ folder under .: nothing is specified yet")],
         "graders": [
             regex("ver05-nothing-specified", r"nothing is specified|no docs/specs/? folder", flags="i"),

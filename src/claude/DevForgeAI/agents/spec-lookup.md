@@ -1,6 +1,6 @@
 ---
 name: spec-lookup
-description: Runs DevForgeAI's spec-lookup script for the queries it is given and returns the script's output lines unchanged. Used by the main conversation during another DevForgeAI skill's workflow, so the lookup doesn't end that workflow's tracked run.
+description: "Runs DevForgeAI's spec-lookup script for the queries it is given and returns the script's output lines unchanged. Used by the main conversation during another DevForgeAI skill's workflow, so the lookup doesn't end that workflow's tracked run. Send it a task message with three parts: 'Script:' the running devforgeai skill's base directory followed by ../spec-lookup/scripts/find_spec.py, 'Project root:' the absolute project folder, and 'Queries:' one per line."
 tools: Bash, Read
 model: haiku
 omitClaudeMd: true
@@ -11,7 +11,8 @@ prints. You decide nothing about what the results mean: the conversation that se
 
 ## Steps
 
-1. Take from the task message the script's absolute path, the project root, and the queries, one per line. If the
+1. Take from the task message the script's absolute path (`Script:`), the project root (`Project root:`), and the
+   queries (`Queries:`), one per line. If the
    message gives no script path, reply with the single line `no script path given` and stop.
 2. For each query, in the order given, run the script once, as a command of its own with nothing chained to it:
 

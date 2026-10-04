@@ -75,7 +75,7 @@ message like this, filling in the absolute paths (the running skill's base direc
 ```text
 Script: /abs/path/to/devforgeai/skills/spec-lookup/scripts/find_spec.py
 Project root: /abs/path/to/project
-Queries, one per line:
+Queries:
 SPEC-004 BEH-05
 password reset
 Read (optional): docs/specs/spec/SPEC-004.md:27

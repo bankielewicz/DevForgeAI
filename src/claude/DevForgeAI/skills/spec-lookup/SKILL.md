@@ -45,8 +45,8 @@ lookup to the plugin's lookup agent instead, `devforgeai:spec-lookup`, which run
 Read:
 
 1. Give it a self-contained task message, since a subagent sees none of this conversation, its skills or the files
-   already read: the script's absolute path (the running skill's base directory, then
-   `../spec-lookup/scripts/find_spec.py`), the project root, and the queries, one per line. The template is in
+   already read, in three parts: `Script:` the script's absolute path (the running skill's base directory, then
+   `../spec-lookup/scripts/find_spec.py`), `Project root:` the absolute project folder, and `Queries:` one per line. The template is in
    [references/citing.md](references/citing.md).
 2. Wait for its report before proposing or asking about the behaviour. A subagent may run in the background; don't
    go on without its report.
@@ -76,13 +76,15 @@ model call and a delay.
      uncovered (step 5), with no search and no citation;
    - `<n> more hits: narrow the query`: search again with a qualified ID or more words before citing.
 3. **Cite each covered behaviour** (BEH-03) as `path:line (DOC vN, status)`, adding the item's ID and status for an
-   item, in the reply before or with the proposal. A hit in a document that isn't approved or accepted, on a
+   item, in the reply before or with the proposal. A hit covers a behaviour only when its line states or decides it:
+   a shared word is no coverage (a search for `mode` that hits "enforce mode" says nothing about a dark mode). When
+   the excerpt doesn't settle it, Read the line before citing it. A hit in a document that isn't approved or accepted, on a
    deprecated item, or in a superseded document is cited with that status, so the reader sees that it isn't in
-   force. Follow the cited line with Read when the excerpt doesn't settle the question.
+   force.
 4. **Search a second time before treating anything as uncovered** (BEH-04). A search with no match permits asking,
    never a claim that something was never discussed. Search again with at least one other form: a synonym, the bare
    item ID, or the document ID. Report the coverage line of each search.
-5. **Hand uncovered behaviour to the user** (BEH-05). A behaviour with no hit after step 4 is "not in any spec: the
+5. **Hand uncovered behaviour to the user** (BEH-05). A behaviour with no covering hit after step 4 is "not in any spec: the
    user's decision". Ask the user about it, with AskUserQuestion when available and in plain text otherwise, and
    never build, write or plan it as decided until the user answers. When no user can answer, or the request says
    to proceed without questions, put this in the reply for each such behaviour, and build and write nothing for it:
