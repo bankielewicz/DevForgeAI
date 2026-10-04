@@ -24,11 +24,12 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 7, "SPEC-003", 8)}
+TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 8, "SPEC-003", 9)}
 # Each skill's (status, approved_by, approved_on): SKL-002 v5 was approved by Bryan on 2026-10-02, after its
 # requalification. SKL-003 v7 (built 2026-10-03, implementing SPEC-003 v6 to v8) is in review until Bryan approves it
 # after its evals and live check; SKL-003 v6 was approved on 2026-10-01.
-APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approved", "Bryan", "2026-10-04")}
+# SKL-003 v8 (the waiver, 2026-10-04) is in review until Bryan approves it.
+APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("in-review", "", None)}
 # SPEC-002 v5: issue #39, NEEDS ADR. SPEC-003 v6 to v8 (2026-10-03): the task list, step 8's confirmation and
 # question tags, which SKL-003 v7 implements (TARGETS).
 # SPEC-003 v9 (2026-10-04): the waiver question, approved by Bryan; SKL-003 v8 builds it.
