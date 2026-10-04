@@ -148,5 +148,6 @@
       "userOwned": false
     }
   ],
-  "through": 2
+  "through": 2,
+  "waiver": null
 }

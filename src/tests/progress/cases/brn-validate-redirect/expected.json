@@ -175,5 +175,6 @@
       "userOwned": false
     }
   ],
-  "through": 7
+  "through": 7,
+  "waiver": null
 }

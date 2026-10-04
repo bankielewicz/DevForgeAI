@@ -729,8 +729,7 @@ class SpecRules(Base):
     # VER-39: a Proceed waiver answers architecture's step 8 only, never a question gate, placed by no window or mark.
     def test_ver39_waiver(self):
         control, _, _, _ = self.run_case("waiver-none")
-        self.assertEqual(sorted((f["step"], f["type"]) for f in control["flags"]), [(8, "claimed-not-evidenced"), (8, "skipped"), (9, "rule-broken")]
-                         if any(f["type"] == "claimed-not-evidenced" for f in control["flags"]) else [(8, "skipped"), (9, "rule-broken")])
+        self.assertEqual(sorted((f["step"], f["type"]) for f in control["flags"]), [(8, "skipped"), (9, "rule-broken")])
         self.assertIsNone(control["waiver"])
         proceed, _, _, _ = self.run_case("waiver-proceed")
         write = [e["seq"] for e in self.events_of("waiver-proceed", "tool") if e["tool"] == "Write"][0]
@@ -760,7 +759,7 @@ class SpecRules(Base):
         self.assertEqual((nogate["flags"], nogate["counts"]["unmarkedQuestions"]), ([], 0))
         # The waiver doesn't make step 8 reached early: current is the next step to reach, and no 'seen late' note.
         current, _, _, _ = self.run_case("waiver-current")
-        self.assertEqual(current["current"], 3)
+        self.assertEqual(current["current"], 4)  # the PRD glob is steps 2 and 3's read evidence; the waiver moves nothing
         self.assertEqual(self.waiver_evidence(current, 8), [])
         self.assertFalse(any("seen late" in s["note"] for s in current["steps"]))
         # Without a task list, the waiver answer is placed in no window.
