@@ -171,7 +171,7 @@ class Claude(unittest.TestCase):
     def test_pointer_is_in_the_rules_for_changes(self):
         rules = self.text.split("## Rules a change must not break")[1].split("\n## ")[0]
         self.assertIn("/devforgeai:spec-lookup", rules)
-        self.assertRegex(rules, r"never build what no spec, ADR or recorded decision covers")
+        self.assertRegex(rules, r"(?i)never build what no spec, ADR or recorded decision covers")
 
     def test_skill_table_row(self):
         self.assertRegex(self.text, r"\n\| `spec-lookup` \| SKL-011[^|]*\| SPEC-014 v3")

@@ -93,10 +93,8 @@ Run from the repository root. Eval generators and offline grader checks: `.claud
 # The deployed copy matches the source, apart from what the deploy leaves out
 D=(-x '*.test.ts' -x '*.test.tsx' -x tsconfig.json -x __pycache__ -x results)
 diff -rq "${D[@]}" src/claude/DevForgeAI .claude/skills/devforgeai
-# Every Python test under src/tests except one file, then that file (see "Traps")
-P=(-q -p no:cacheprovider --ignore=src/tests/spec-lookup/test_structure.py)
-PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest "${P[@]}" src/tests
-python3 -B src/tests/spec-lookup/test_structure.py
+# Every Python test under src/tests (pytest.ini sets importlib mode; see "Traps")
+PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests
 # One folder or one test file
 PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/progress
 python3 -B src/tests/brainstorm/test_validate_brn.py
@@ -175,9 +173,10 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
 - Inside the sandbox, `.mcp.json` and other entries owned by nobody at the root and in `.claude/`
   (character devices, dotfiles such as `.bashrc` and `.gitconfig`) are the sandbox's write masks, not
   files. Leave them alone, and stage files by path, never `git add -A`.
-- `pytest src/tests` stops at collection with "import file mismatch":
-  `src/tests/prd/test_structure.py` and `src/tests/spec-lookup/test_structure.py` share a basename,
-  and neither folder has an `__init__.py`. Run it as the Commands section does.
+- Several test folders have a `test_structure.py`, and `src/tests/spec-lookup/` can't be a package
+  (pytest takes a folder as one only when its name is a Python identifier). The root `pytest.ini`
+  sets `--import-mode=importlib` so they don't clash; keep it, or `pytest src/tests` stops at
+  collection with "import file mismatch".
 - Commands for the owner to paste into a plain shell never start with `!` (in bash it negates the exit
   status, so `! diff … && echo ok` reports success when the copies differ), use no `\` continuations,
   and keep each line under about 100 characters (put long flags in variables).
