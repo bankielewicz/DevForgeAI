@@ -37,12 +37,26 @@ node src/tests/epic/grade_evals.mjs src/claude/DevForgeAI/evals/epic/<case> <wor
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/git/make_evals.py
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/git/simulate_runs.py
 node src/tests/git/check_patterns.mjs
+# context: regenerate; check the graders offline with good and bad simulated runs; check one offline
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/context/make_evals.py
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/context/check_graders.py
+node src/tests/context/grade_evals.mjs src/claude/DevForgeAI/evals/context/<case> <workspace> <reply.txt>
+# spec-lookup: regenerate (checks each case's premise with the skill's find_spec.py first)
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/spec-lookup/make_evals.py
 # before every paid run: bind a new results folder to the commit, plugin digest and cases
 bash src/tests/prd/record_revision.sh tmp/eval-results/<new-folder> <tag>
 ```
 
 The `make_evals.py` generators import `referencing`, which only the user site-packages' jsonschema
 has, so run them under your normal HOME.
+
+Running a generator rewrites its case files. To check fixtures without touching tracked files, load
+the generator with `importlib` and call its `validate()` over `FIXTURES`. Importing writes nothing,
+although epic's import already validates its PRD and ARCH (checked 2026-09-30). Point the module's
+`SCHEMAS` at a scratch copy to try a schema change first. The architecture, prd, epic and context
+generators and the policy script validate with jsonschema's `FormatChecker`, and
+`common.schema.json` gives dates `"format": "date"`, so an impossible date such as `2026-13-45` is
+a schema error.
 
 What each generator's scaffolds seed: every documents-updater case builds a small git repository with
 dated commits; every architecture case seeds a PRD, plus ARCHs, ADRs or a policy; every epic case
@@ -61,9 +75,11 @@ a scaffold that seeds the BRNs, PRDs, ADRs and policies the case reads.
 - `--threshold 0.8`: the default is 1.0. The framework bar is ≥ 0.8 per case over 3 runs, the default
   run count.
 - Narrow a run with `--case existing-brn`, or `--tag brainstorm`, `--tag prd`, `--tag architecture`,
-  `--tag epic` or `--tag git`. `ver-NN` tags repeat across skills (brainstorm, prd, architecture and
-  epic each have a `ver-08`), and so can case names (prd and architecture each have
-  `policy-bad-date`), so pair `--case` with care. `--case` takes one name; loop for several. Use
+  `--tag epic`, `--tag git`, `--tag context` or `--tag spec-lookup`. Trigger cases carry other tags:
+  context's 12 are tagged `trigger` and `ver-26`, spec-lookup's 5 `trigger`, `ver-06` and
+  `spec-lookup-trigger`, so `--tag trigger` selects both suites' trigger cases. `ver-NN` tags repeat
+  across skills (brainstorm, prd, architecture and epic each have a `ver-08`), and so can case names
+  (prd and architecture each have `policy-bad-date`), so pair `--case` with care. `--case` takes one name; loop for several. Use
   `--runs 1` for a quick pass.
 - A no-plugin baseline arm runs by default. `tool_used: Skill` graders then only indicate that the
   plugin fired and don't count toward the score.
@@ -102,3 +118,14 @@ Brainstorm's manual paths (user confirmation, the extend flow, VER-05, VER-09) f
 architecture v4's (VER-12 (f) and (i), VER-19) follow `docs/runbooks/prd-v2-architecture-v4-checks.md`;
 record results in its section 4. epic's VER-13 follows `docs/runbooks/epic-ver-13-checks.md`, with
 manual-only fixtures that `src/tests/epic/make_manual.py` generates into `src/tests/epic/manual/`.
+
+Other runbooks in `docs/runbooks/`:
+
+| Runbook | Covers |
+|---|---|
+| `architecture-v6-checks.md` | SKL-003 v6's paid evaluation and its manual items (VER-20, VER-12 (a), (j), (k), VER-19) |
+| `git-v2-checks.md` | SKL-006 v2's paid evaluation and manual items (VER-18 to VER-22, VER-24, VER-26, VER-31) |
+| `git-v3-checks.md` | SKL-006 v3's decisions, verification and remaining qualification |
+| `spec-011-manual-checks.md` | the context skill's evaluation and manual items VER-21 and VER-22 |
+| `spec-013-probe.md` | SPEC-013's runtime probe (VER-01), as run on 2026-10-02 |
+| `spec-002-v2-verification-plan.md` | SPEC-002 v2's verification plan |
