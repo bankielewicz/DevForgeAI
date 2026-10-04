@@ -153,12 +153,15 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
 
    Run it alone, on one line: never joined to another command with `;`, `|` (or `||`) or a
    background `&`, and with no second command line (`&&` and `2>&1` are fine). Then its exit status
-   is the script's: the progress tracker credits no run whose status another command hides.
+   is the script's: the progress tracker credits no run whose status another command hides. Don't
+   guard it with a folder check (`test -d docs/specs/policy &&`): the script reports a missing folder
+   itself, and the check's exit 1 would read as a policy error.
 2. With no folder, or no approved `POL-*.md` in it, it prints `No policy folder at …` or
    `OK: no approved policy document …` and exits 0: there is no approved policy, so the framework
    defaults apply. It skips and reports every document that isn't approved (SV-06), and checks each
    approved one in full against the policy schemas and SV-01 to SV-06 and SV-08. Never validate the
-   documents by reading them instead; reading their `status` for item 3's last case is fine.
+   documents by reading them instead. Reading them is still needed: their `status` for item 3's last
+   case and, once the script passes, each setting's values to resolve item 4 (R2).
 3. **Act on its exit code** (policy.md, R1):
    - **0:** continue. Its `ignored` lines go into the resolution line.
    - **1: stop (ERR-02).** Before asking or writing anything, name each error it printed: the
@@ -432,7 +435,7 @@ says readiness wasn't validated, and never tells the user to run `/devforgeai:ep
 ## Examples
 
 **No user, no ARCH yet.** "Do the architecture for PRD-002. Proceed without questions." The skill
-resolves policy (none, so defaults) and reads PRD-002 (approved, version 3, with
+runs the policy script (no folder, so defaults) and reads PRD-002 (approved, version 3, with
 `[NEEDS ADR: calendar integration; affects FR-004]`). No ARCH exists, so it will create one. No scope
 was named, so no code is read. It records a DEC per shared question, each citing the requirements it
 affects, all open; writes no ADR; leaves `outcome: null`; validates; and reports FR-004 as blocked by
