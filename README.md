@@ -128,8 +128,8 @@ Each implemented skill has an eval suite in `src/claude/DevForgeAI/evals/<skill>
 plain terminal, not inside a Claude Code session, at the repository root:
 
 ```bash
-claude plugin eval src/claude/DevForgeAI --tag prd --allow-tools Write Edit Bash --scaffold \
-  --judge-model sonnet --threshold 0.8 --output-dir tmp/eval-results/prd
+A="--allow-tools Write Edit Bash --scaffold --judge-model sonnet --threshold 0.8"
+claude plugin eval src/claude/DevForgeAI --tag prd $A --output-dir tmp/eval-results/prd
 ```
 
 The run prints a score per case; the bar is 0.8 per case over three runs. [CLAUDE.md](CLAUDE.md)
