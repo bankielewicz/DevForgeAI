@@ -2,8 +2,8 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved    # draft | in-review | approved | superseded | deprecated
-version: 8
+status: in-review   # draft | in-review | approved | superseded | deprecated
+version: 9
 created: 2026-10-02
 updated: 2026-10-03
 owner: "Bryan"
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-03
+approved_by: ""
+approved_on: null
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
@@ -85,6 +85,11 @@ Claude had marked a later step still looped; version 8's line names the decision
 whichever step is marked (BEH-08), and observe mode's toast now speaks to the user (BEH-12). When the same refusal
 comes twice, the user is told that Claude is stuck (BEH-25). The compaction note is never doubled, names only a
 step the checklist has, and is left out once every step is reached (BEH-24).
+
+**Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
+help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
+hasn't seen done, such as a script run it didn't see, or for a decision written without your answer: a live
+enforce-mode architecture run showed the first. The notice's last sentence now follows the refused flag's type.
 
 **Version 6** (2026-10-03) makes the build's review findings rules: the question refusal says that an earlier run's
 tasks don't count, a TodoWrite is compared with the list it replaced, a question check waits for task-tool calls
@@ -401,7 +406,7 @@ behaviors:
     rule: "When Claude Code compacts the main conversation (session.compact with no agentId) while a run that follows the task list (SPEC-012 BEH-18) is open, the adapter carries the task list's state through it. The marked step is the step whose latest step event in the run's own lines is started (the latest started when several are, SPEC-012 BEH-18); its title comes from the run's state.json, the last evaluation's steps. Before calling next(e), it adds to the summarizer's instructions: 'Keep, for DevForgeAI's progress tracker: in the <skill> run, the task list marks step N (<title>) in progress.' (or 'marks no step in progress'). After next(e) resolves with the compacted messages, it adds one user message at their end: 'DevForgeAI's progress tracker: when this conversation was compacted, your task list marked step N (<title>) in progress. Before you ask anything or go on, check your task list and bring it in step with the work: mark each finished step done and the step you're on in_progress.' (with 'no step' when none was). The note holds even when the summary was made ahead of time, since it asks Claude to check the list. Before adding it, the adapter removes every message among them whose text starts with 'DevForgeAI's progress tracker: when this conversation was compacted', so a summary made ahead of time, or a second compaction, never carries two notes or a stale one; the marked step counts only when the last evaluation's steps have it ('no step' otherwise, and the step's number alone when the run has no evaluation yet); and when the last evaluation shows every step reached (current null, the run not ended), the instruction is added but no note (version 8). A run that doesn't follow the task list, a subagent's compaction and a skipped compaction get nothing; the adapter never answers { skip }. adapter.log gets one line of kind compact. A failure leaves the compaction as the engine made it (BEH-14) (version 7)."
   - id: BEH-25
     status: active
-    rule: "In enforce mode the adapter counts its refusals in the open run by cause: the gate's kind and the type and step of the first flag raised at the refused seq ('<kind>:<type>:<step>'), in $.state's refusals (DM-03), which a new run empties. When a cause's count reaches 2, it shows the user one toast, '<skill>: the progress tracker refused Claude twice at step <step> for the same reason: <that flag's message>. Help Claude bring its task list in step, or switch to observe mode with the band's button.', writes the same to adapter.log as kind stuck, and, where nothing draws, to $.ui.log; a third refusal for the cause shows nothing more. The refusals themselves are unchanged: the notice is for the user, who can see what Claude can't (version 8; Bryan, 2026-10-03)."
+    rule: "In enforce mode the adapter counts its refusals in the open run by cause: the gate's kind and the type and step of the first flag raised at the refused seq ('<kind>:<type>:<step>'), in $.state's refusals (DM-03), which a new run empties. When a cause's count reaches 2, it shows the user one toast, '<skill>: the progress tracker refused Claude twice at step <step> for the same reason: <that flag's message>. <advice>', writes the same to adapter.log as kind stuck, and, where nothing draws, to $.ui.log; a third refusal for the cause shows nothing more. The advice is chosen by that flag's type and by whether its step is user-owned in the state's steps, never by message text (version 9): for unmarked-question, untagged-question or mismatched-question, 'Help Claude bring its task list in step, or switch to observe mode with the band's button.'; for skipped or claimed-not-evidenced on a step that isn't user-owned (a step the state doesn't list counts as not user-owned), 'Claude hasn't done that step in a way the tracker can see: ask Claude to do it as the message says, or switch to observe mode with the band's button.'; for skipped on a user-owned step, or rule-broken, 'The refused write records a decision that needs your answer: answer Claude's question about it, or ask Claude to leave it open, or switch to observe mode with the band's button.' The refusals themselves are unchanged: the notice is for the user, who can see what Claude can't (version 8; Bryan, 2026-10-03)."
 ```
 
 ## 7. Errors and edge cases
@@ -919,7 +924,7 @@ verifications:
       - BEH-12
   - id: VER-32
     status: active
-    obligation: "Kit tests, enforce mode: two question refusals for the same cause in one run give one toast naming the skill, the step and the flag's message, and one adapter.log line of kind stuck, written as one line; a third gives nothing more; two refusals for different causes (another flag type or step), or one in each of two runs, give none; two write refusals for the same cause give the notice too; observe mode gives none."
+    obligation: "Kit tests, enforce mode: two question refusals for the same cause in one run give one toast naming the skill, the step and the flag's message, and one adapter.log line of kind stuck, written as one line; a third gives nothing more; two refusals for different causes (another flag type or step), or one in each of two runs, give none; two write refusals for the same cause give the notice too; observe mode gives none. With version 9 the notice's last sentence follows the flag: two question refusals end with the task-list advice; two write refusals whose first flag is claimed-not-evidenced for a step that isn't user-owned (architecture's step 1, as in a live run of 2026-10-03) end with the evidence advice, and so do two whose flag is the joined-run skipped flag; two write refusals whose first flag is skipped for a user-owned step end with the decision advice; none ends with another variant's sentence."
     level: integration
     covers:
       - BEH-25
@@ -974,6 +979,9 @@ verifications:
   so the question gate never checks them and nothing new is refused; the skills' wording ships in their own builds.
 - **Version 7.** Built after approval, before the skills' wording (SKL-001 v6, SKL-003 v7) ships, so a run that
   follows the task list never meets the loop without the refusal's recovery line. Nothing new is refused.
+- **Version 9.** Built after approval on the branch of SKL-001 v6 and SKL-003 v7, in their plugin version
+  (Bryan, 2026-10-03). Only the stuck notice's last sentence changes: the refusals, their texts, the counting
+  and the causes stay as version 8 has them, so nothing new is refused.
 - **Version 8.** Built with SPEC-012 version 9, in one plugin version, after approval and before the skills' wording
   (SPEC-001 version 13, SPEC-003 version 8) ships. Until a skill's text names the tag, no run follows the task list
   and nothing new is refused; once one does, an untagged or mistagged question in such a run is refused in enforce
@@ -1035,6 +1043,11 @@ VER-33, seen failing, with VER-27's tests removed; (2) the tag on the answer eve
 (BEH-21), the write line and the toast sentence (BEH-08, BEH-12, replacing version 7's), the loop notice (BEH-25,
 DM-02, DM-03), the adherence wording (BEH-22) and the compaction fixes (BEH-24); (3) plugin-validator and every
 test; (4) VER-29 live, and §9.
+
+Version 9's build, through `/plugin-dev:create-plugin`, with the built-in `plugin-authoring` skill and the mods
+docs for the hooks module: (1) the kit tests of VER-32's version 9 clause, seen failing; (2) `stuckText` in
+`hooks/progress-core.ts` takes the flag's type and whether its step is user-owned, which `refusalCause` reads from
+the state; (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test; (4) §9.
 
 Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failing; then the refusal text and the wait
 (BEH-21), TodoWrite against oldTodos (BEH-20), adhered (BEH-22, DM-03); then plugin-validator and every test, and
@@ -1108,6 +1121,11 @@ Decided by Bryan on 2026-10-02:
 - VS Code: tracking only for now, with notices in the transcript (BEH-01); `progress.html` is a later spec.
   BEH-01 assumes VS Code's chat panel starts with `isInteractive` true and no surface; that is untested until
   someone runs the adapter there.
+
+Decided by Bryan on 2026-10-03, for version 9: the stuck notice's advice follows its cause. In a live enforce-mode
+architecture run (SKL-003 v7 before its step-1 fix) Claude was refused twice for a policy script run the tracker
+hadn't seen, and the notice told the user to help Claude bring its task list in step. He chose to reword it now,
+with SKL-001 v6 and SKL-003 v7, rather than with the waiver menu, whose adapter change becomes version 10.
 
 Decided by Bryan on 2026-10-03, for version 8: questions carry their step in AskUserQuestion's metadata and are
 checked when they are asked (his suggestion of the question's own hook; SPEC-012 version 9); and every remedy the
@@ -1200,3 +1218,4 @@ Notes:
 | 8 | 2026-10-03 | Bryan | Approved, with a question whose source names something else outside the checklist | status |
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the builds of versions 7 and 8 and the live check VER-29 | §9 |
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #71's merge and the deploy of plugin 0.17.0 | §9 |
+| 9 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03 ("Reword now"), after a live enforce-mode architecture run whose stuck notice gave task-list advice for a policy script run the tracker hadn't seen: the notice's last sentence is chosen by the refused flag's type and whether its step is user-owned (BEH-25): the task-list advice for a question gate, the evidence advice for a step the tracker hasn't seen done, the decision advice for a decision written without the user's answer; VER-32 checks each; the refusals and their counting are unchanged; status in-review | frontmatter, §1, BEH-25, VER-32, §10, §11, §13 |
