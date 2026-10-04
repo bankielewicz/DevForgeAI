@@ -283,10 +283,13 @@ def all_cases():
         grader = (tool_used("ver06-skill-fired", "Skill", SKILL_MATCH, minimum=1, arm="both") if positive else
                   tool_used("ver06-skill-not-fired", "Skill", SKILL_MATCH, minimum=0, maximum=0, arm="both"))
         cases.append({"name": name, "ver": "VER-06", "fixture": True, "premise": [],
-                      "prompt.md": prompt_md(description, ["trigger", "ver-06"], SHORT_LIMITS, prompt),
+                      "prompt.md": prompt_md(description, ["trigger", "ver-06", "spec-lookup-trigger"], SHORT_LIMITS, prompt),
                       "graders": [grader]})
     return cases
 
+
+# The trigger cases are named trigger-NN, as VER-06 says, and so are context's; their extra tag spec-lookup-trigger
+# selects exactly these five (--tag spec-lookup-trigger), since --case 'trigger-*' would match both suites.
 
 # --------------------------------------------------------------------------------------------------------
 # Premise checks, then writing
