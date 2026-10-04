@@ -11,7 +11,8 @@ metadata:
 
 Ground every proposal in what the project decided. The project's specifications, ADRs, PRDs and their recorded
 decisions live under `docs/specs/`. Before proposing, designing, planning or changing a feature or behaviour, search
-them, cite what covers it, and hand everything else to the user as their decision. Never build what nothing covers.
+them, cite what covers it, and hand everything else to the user as their decision. Never build what nothing covers
+until the user decides it.
 
 This skill reads and never changes a file: it writes and edits nothing.
 
@@ -24,8 +25,9 @@ This skill reads and never changes a file: it writes and edits nothing.
 
 ## Tools
 
-- **Bash**, only to run `python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "<query>"` from the project root, one query
-  per call, each call a command of its own with nothing chained to it.
+- **Bash**, only to run `python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "<query>"` from the project root (adding
+  `--root <project root>` when the working directory isn't it), one query per call, each call a command of its own
+  with nothing chained to it.
 - **Read**, to open a cited file at the cited line when its excerpt isn't enough.
 - **AskUserQuestion**, for a behaviour no spec covers.
 
@@ -64,11 +66,12 @@ model call and a delay.
    python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "SPEC-012 BEH-18"
    ```
 
-   Read its exit status and last line:
-   - exit 0: hits, then a coverage line `<n> hits; searched <k> files under docs/specs/ (<folders>)`;
-   - exit 1 with `no match: "<query>" is in none of …`: nothing matched this query;
-   - exit 1 with `no docs/specs/ folder under <DIR>: nothing is specified yet`: the project specifies nothing, so
-     every behaviour is the user's decision (go to step 5 for each);
+   Read its exit status and last line, the coverage line, which says what was searched in every case:
+   - exit 0: hits, then the coverage line `<n> hits; searched <k> files under docs/specs/ (<folders>)`;
+   - exit 1 with `no match: "<query>" is in none of …`: nothing matched this query; go to step 4 before treating the
+     behaviour as uncovered;
+   - exit 1 with `no docs/specs/ folder under <DIR>: nothing is specified yet`: the project specifies nothing. Say in
+     the reply that nothing is specified yet, and treat every behaviour as the user's decision (step 5 for each);
    - exit 2, or the script can't run (no `python3`): say so, quoting its message, and treat every behaviour as
      uncovered (step 5), with no search and no citation;
    - `<n> more hits: narrow the query`: search again with a qualified ID or more words before citing.
@@ -82,7 +85,7 @@ model call and a delay.
 5. **Hand uncovered behaviour to the user** (BEH-05). A behaviour with no hit after step 4 is "not in any spec: the
    user's decision". Ask the user about it, with AskUserQuestion when available and in plain text otherwise, and
    never build, write or plan it as decided until the user answers. When no user can answer, or the request says
-   to proceed without questions, put this in the reply for each such behaviour, and build nothing for it:
+   to proceed without questions, put this in the reply for each such behaviour, and build and write nothing for it:
 
    ```text
    [NEEDS CLARIFICATION: not in any spec: <behaviour>]
@@ -100,8 +103,8 @@ model call and a delay.
   it says, then the proposal it grounds.
 - Each search: its coverage line, so the reader sees what was searched.
 - Each uncovered behaviour: "not in any spec: the user's decision" and a question, or the
-  `[NEEDS CLARIFICATION: not in any spec: <behaviour>]` marker when nobody can answer. Never "this was never
-  discussed".
+  `[NEEDS CLARIFICATION: not in any spec: <behaviour>]` marker when nobody can answer or the request says to proceed
+  without questions. Never "this was never discussed".
 - No file is created or changed.
 
 ## Examples

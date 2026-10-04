@@ -78,7 +78,10 @@ Project root: /abs/path/to/project
 Queries, one per line:
 SPEC-004 BEH-05
 password reset
+Read (optional): docs/specs/spec/SPEC-004.md:27
 ```
+
+`Read` lines are optional: the agent returns the text of each named line after the query blocks.
 
 The agent runs `python3 <script> --root <project root> "<query>"` once per query and replies with the output lines
 exactly as printed, one fenced block per query. Wait for its report, then cite only its `path:line` lines.
@@ -88,21 +91,23 @@ exactly as printed, one fenced block per query. Wait for its report, then cite o
 Covered, in the main conversation:
 
 ```text
-$ python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "password reset"
-docs/specs/spec/SPEC-004.md:27  SPEC-004 v3 approved  BEH-05 active  "Reset links expire after 30 minutes and work once."
-1 hits; searched 9 files under docs/specs/ (adr, prd, spec)
+$ python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "audit log"
+docs/specs/spec/SPEC-007.md:58  SPEC-007 v2 approved  BEH-11 active  "Audit log entries are kept for 400 days, then deleted."
+docs/specs/adr/ADR-003.md:22  ADR-003 v1 accepted  "Chosen option: an append-only audit log table in the main database."
+2 hits; searched 9 files under docs/specs/ (adr, prd, spec)
 ```
 
-Reply: "SPEC-004 covers it: docs/specs/spec/SPEC-004.md:27 (SPEC-004 v3, approved; BEH-05 active) …"
+Reply: "Two records cover it: docs/specs/spec/SPEC-007.md:58 (SPEC-007 v2, approved; BEH-11 active) keeps entries
+for 400 days, and docs/specs/adr/ADR-003.md:22 (ADR-003 v1, accepted) puts them in an append-only table …"
 
 Uncovered, with no user to ask:
 
 ```text
-$ python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "offline mode"
-no match: "offline mode" is in none of 9 files under docs/specs/ (adr, prd, spec)
-$ python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "offline"
-no match: "offline" is in none of 9 files under docs/specs/ (adr, prd, spec)
+$ python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "push notifications"
+no match: "push notifications" is in none of 9 files under docs/specs/ (adr, prd, spec)
+$ python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py "notification"
+no match: "notification" is in none of 9 files under docs/specs/ (adr, prd, spec)
 ```
 
-Reply: both coverage lines, then `[NEEDS CLARIFICATION: not in any spec: offline mode]`. Nothing is built, and the
-reply doesn't say an offline mode was never discussed: a search can miss.
+Reply: both coverage lines, then `[NEEDS CLARIFICATION: not in any spec: push notifications]`. Nothing is built, and
+the reply doesn't say push notifications were never discussed: a search can miss.
