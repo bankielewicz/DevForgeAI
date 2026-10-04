@@ -1,7 +1,7 @@
 ---
 description: "VER-10 (shipped branch): the reply tells the user to run /devforgeai:prd BRN-001, with the BRN path as its input."
 tags: [brainstorm, ver-10]
-max_turns: 40
+max_turns: 60
 timeout_seconds: 900
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

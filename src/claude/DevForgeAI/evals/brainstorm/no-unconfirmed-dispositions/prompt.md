@@ -1,7 +1,7 @@
 ---
 description: "VER-02: with nobody to confirm, every idea stays open and status is not converged."
 tags: [brainstorm, ver-02]
-max_turns: 40
+max_turns: 60
 timeout_seconds: 900
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

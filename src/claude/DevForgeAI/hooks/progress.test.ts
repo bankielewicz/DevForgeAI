@@ -1466,9 +1466,14 @@ test('VER-31: with no typed answer since the mark, the decision\'s toast has no 
   expect(w.toasts.filter(t => t === '✗ Step 8 skipped: step 8 had no answer from you').length).toBe(1)
 })
 
-// VER-32: the same refusal twice in a run tells the user once.
-const STUCK = (skill: string, step: number, message: string) => `${skill}: the progress tracker refused Claude twice at step `
-  + `${step} for the same reason: ${message}. Help Claude bring its task list in step, or switch to observe mode with the band's button.`
+// VER-32: the same refusal twice in a run tells the user once; since version 9 its last sentence follows the cause.
+const TASK_ADVICE = "Help Claude bring its task list in step, or switch to observe mode with the band's button."
+const EVIDENCE_ADVICE = "Claude hasn't done that step in a way the tracker can see: ask Claude to do it as the message "
+  + "says, or switch to observe mode with the band's button."
+const DECISION_ADVICE = "The refused write records a decision that needs your answer: answer Claude's question about it, "
+  + "or ask Claude to leave it open, or switch to observe mode with the band's button."
+const STUCK = (skill: string, step: number, message: string, advice = TASK_ADVICE) => `${skill}: the progress tracker `
+  + `refused Claude twice at step ${step} for the same reason: ${message}. ${advice}`
 
 function stuckLines(w: World): string[] {
   return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' stuck: '))
@@ -1490,6 +1495,23 @@ test('VER-32: two question refusals for the same cause tell the user once; a thi
   expect(stuckLines(w).length).toBe(1)
   expect(oneLineEntries(w)).toBe(true)
 })
+
+for (const [type, step, question] of [
+  ['untagged-question', 2, QUESTION],
+  ['mismatched-question', 5, asked('devforgeai_step:5')],
+] as Array<[string, number, Any]>) {
+  test(`VER-32 (version 9): two ${type} refusals end with the task-list advice`, async ($, on) => {
+    let files = new Map<string, string>()
+    const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: questionGate(() => files, type, step) })
+    files = w.files
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await $.tool.call(question as Any)
+    await $.tool.call(question as Any)
+    expect(w.toasts.filter(t => t === STUCK('brainstorm', step, MESSAGES[type])).length).toBe(1)
+    expect(w.toasts.some(t => t.includes(EVIDENCE_ADVICE) || t.includes(DECISION_ADVICE))).toBe(false)
+  })
+}
 
 test('VER-32: refusals for different causes, or one in each of two runs, tell nothing', async ($, on) => {
   let files = new Map<string, string>()
@@ -1517,10 +1539,58 @@ test('VER-32: two write refusals for the same cause tell the user too; observe m
   await load($, 'devforgeai:architecture', TAGGED)
   await $.tool.call(ARCH_WRITE as Any)
   await $.tool.call(ARCH_WRITE as Any)
-  const notice = STUCK('architecture', 8, 'step 8 (Propose and confirm the outcome) had no answer from you before docs/specs/arch/ARCH-001.md was written')
+  const notice = STUCK('architecture', 8, 'step 8 (Propose and confirm the outcome) had no answer from you before docs/specs/arch/ARCH-001.md was written', DECISION_ADVICE)
   expect(w.toasts.filter(t => t === notice).length).toBe(1)
   expect(stuckLines(w).length).toBe(1)
 })
+
+test('VER-32 (version 9): a write refused for its rule-broken flag alone gets the decision advice too', async ($, on) => {
+  let files = new Map<string, string>()
+  const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: refusingDecision(() => files, false) })
+  files = w.files
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(ARCH_WRITE as Any)
+  await $.tool.call(ARCH_WRITE as Any)
+  const notice = STUCK('architecture', 9, 'docs/specs/arch/ARCH-001.md sets outcome: create, which needs your answer at step 8', DECISION_ADVICE)
+  expect(w.toasts.filter(t => t === notice).length).toBe(1)
+  expect(stuckLines(w).length).toBe(1)
+})
+
+/** A provisional state refusing the pending Write for one flag of `type` on `step`, a step that isn't user-owned
+ *  (DECISION_STEPS lists steps 1, 2, 8 and 9; only 8 is user-owned). */
+function refusingStep(files: () => Map<string, string>, type: string, step: number, message: string) {
+  return (argv: readonly string[]) => {
+    const events = argv[argv.indexOf('--events') + 1]
+    if (!events.endsWith('/pending.jsonl')) return { state: STATE }
+    const lines = (files().get(events) ?? '').trim().split('\n')
+    const seq = JSON.parse(lines[lines.length - 1]).seq
+    return { state: { ...STATE, steps: DECISION_STEPS, gate: { kind: 'write', seq, refuse: true, reason: message },
+      flags: [{ gate: 'write', seq, step, type, message }] } }
+  }
+}
+
+for (const [name, type, step, message] of [
+  ['a ticked step whose script run wasn\'t seen (live run 2)', 'claimed-not-evidenced', 1,
+    "step 1 (Resolve policy (R1, R2)) is ticked, but a successful run of validate_policy.py wasn't seen"],
+  ['a script run joined to another command', 'skipped', 1,
+    'step 1 (Resolve policy (R1, R2)): validate_policy.py ran, but the command joined it to another, which hides its exit status: run it as a command of its own'],
+  ['a skipped step the state doesn\'t list', 'skipped', 3,
+    'step 3 (Read the PRD) has no evidence or tick before the write gate: expected a read of docs/specs/prd/PRD-*.md'],
+] as Array<[string, string, number, string]>) {
+  test(`VER-32 (version 9): ${name} gets the evidence advice`, async ($, on) => {
+    let files = new Map<string, string>()
+    const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: refusingStep(() => files, type, step, message) })
+    files = w.files
+    await start($)
+    await load($, 'devforgeai:architecture', TAGGED)
+    await $.tool.call(ARCH_WRITE as Any)
+    await $.tool.call(ARCH_WRITE as Any)
+    expect(w.toasts.filter(t => t === STUCK('architecture', step, message, EVIDENCE_ADVICE)).length).toBe(1)
+    expect(w.toasts.some(t => t.includes(TASK_ADVICE) || t.includes(DECISION_ADVICE))).toBe(false)
+    expect(stuckLines(w).length).toBe(1)
+  })
+}
 
 test('VER-32: observe mode refuses nothing, so it tells nothing', async ($, on) => {
   let files = new Map<string, string>()

@@ -1,7 +1,7 @@
 ---
 description: "VER-04: an accepted logging ADR-001 that cites FR-001 resolves neither identity question; FR-001 stays blocked."
 tags: [architecture, ver-04]
-max_turns: 60
+max_turns: 90
 timeout_seconds: 1200
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

@@ -26,6 +26,7 @@ ROOT = Path("src/claude/DevForgeAI/evals/architecture")
 SCHEMAS = Path("src/schemas")
 POLICIES = Path("src/staging/examples/policy-two-orgs")
 TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
+TASK_TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash, TaskCreate, TaskUpdate, TaskList, TaskGet]"
 VALIDATE_POLICY = Path("src/claude/DevForgeAI/skills/architecture/scripts/validate_policy.py")
 
 # --- Fixtures -------------------------------------------------------------------------------------
@@ -656,6 +657,12 @@ PRD_ROSTER_V2 += ("| 2 | 2026-09-24 | Priya Nair | Added FR-003: the coordinator
                   "| 2 | 2026-09-24 | Priya Nair | Approved | status |\n")
 ARCH_BEFORE_ROSTER = replace(ARCH_TO_REVIEW, "sign in, book warehouse shifts, and the coordinator sees the roster.",
                              "sign in and book warehouse shifts.")
+# VER-28/29 (SPEC-003 v6/v7): the same PRD-001 version 2, whose FR-003 also carries a NEEDS ADR marker, so amending
+# ARCH-001 adds a new question; the approved ARCH-001 is ARCH_BEFORE_ROSTER.
+PRD_ROSTER_Q = replace(PRD_ROSTER_V2, "- [NEEDS ADR: identity provider for volunteer sign-in; affects FR-001]\n",
+                       "- [NEEDS ADR: identity provider for volunteer sign-in; affects FR-001]\n" f"- {MARKER_ROSTER}\n")
+PRD_ROSTER_Q = replace(PRD_ROSTER_Q, "| Added FR-003: the coordinator's daily roster | FR-003 |",
+                       "| Added FR-003: the coordinator's daily roster, with a NEEDS ADR marker: where the roster is served from | FR-003 |")
 
 # VER-24/25: ARCH-001's DEC-01 was resolved by POL-001#SET-01 at version 3, and its resolution line recorded
 # the platform; Organization A's policy is now at version 4 and mandates another platform for the same
@@ -852,7 +859,7 @@ FIXTURES = {
     "ARCH_BEFORE_ROSTER": (ARCH_BEFORE_ROSTER, "arch.schema.json"), "POL_A_V4": (POL_A_V4, "policy.schema.json"),
     "ARCH_PLATFORM": (ARCH_PLATFORM, "arch.schema.json"), "ARCH_DEFERRED": (ARCH_DEFERRED, "arch.schema.json"),
     "ADR_DEFERRED": (ADR_DEFERRED, "adr.schema.json"), "PRD_V3": (PRD_V3, "prd.schema.json"),
-    "ARCH_LINKS_V2": (ARCH_LINKS_V2, "arch.schema.json"),
+    "ARCH_LINKS_V2": (ARCH_LINKS_V2, "arch.schema.json"), "PRD_ROSTER_Q": (PRD_ROSTER_Q, "prd.schema.json"),
 }
 POLICY_SCRIPT = {"POL_A": None, "POL_B": None, "POL_BAD_DATE": "frontmatter: updated", "POL_A_V4": None}
 
@@ -897,6 +904,11 @@ def regex(target, match, pattern, flags=None):
 def lit(text):
     """A one-line regex that matches `text` literally, with newlines written as \\n."""
     return re.sub(r"([\\^$.|?*+()\[\]{}])", r"\\\1", text).replace("\n", r"\n")
+
+
+def used(tool, pattern, least=None):
+    """A tool_used grader: calls of `tool` whose JSON-encoded input matches `pattern`, at least `least` of them."""
+    return f"---\ntype: tool_used\ntool: {tool}\ninput_match: '{pattern}'\n" + (f"min: {least}\n" if least else "") + "---\n"
 
 
 def exists(path, value):
@@ -1355,6 +1367,79 @@ platform change.
                                                      r"[Bb]locked[\s\S]{0,200}?\bFR-001\b[^\n]{0,60}\bDEC-01\b"),
         },
     },
+    "keeps-task-list": {
+        "ver": "26", "files": SHARED, "prompt": PROMPT, "tools": TASK_TOOLS,
+        "description": "VER-26: with the task-list tools allowed, VER-01's fixture and prompt give a task list kept by the convention: a task per step carrying devforgeai_step, created before the first Write, step 8 among them, each completed; ARCH-001 still written.",
+        "graders": {
+            "skill-fired": FIRED,
+            "tasks-tagged": used("TaskCreate", r'"devforgeai_step"\s*:\s*\d', 11),
+            "step-8-task": used("TaskCreate", r'"subject"\s*:\s*"8\. Propose and confirm the outcome"'),
+            "tasks-before-write": "---\ntype: tool_order\nbefore: TaskCreate\nafter: Write\n---\n",
+            "steps-completed": used("TaskUpdate", r'"status"\s*:\s*"completed"', 11),
+            "arch-exists": ARCH_CREATED,
+        },
+    },
+    "confirms-amend-at-step-8": {
+        "ver": "28",
+        "files": dict(docs__specs__prd__PRD_001=PRD_ROSTER_Q, docs__specs__arch__ARCH_001=ARCH_BEFORE_ROSTER,
+                      docs__specs__adr__ADR_001=ADR_AUTH0),
+        "prompt": "PRD-001 is now at version 2: it adds FR-003, the coordinator's daily roster. Let's amend ARCH-001 for\n"
+                  "it. Leave every architectural question open for now, the existing DEC-02 included; I'll decide them\n"
+                  "later.\n",
+        "description": "VER-28: choosing to amend ARCH-001 without confirming the outcome, with every question deferred (the new one and the open DEC-02): nothing is written to ARCH-001 before the outcome is confirmed, and the final reply asks to confirm amend, naming the new DEC, the new version and the return to in-review.",
+        "graders": {
+            "skill-fired": FIRED,
+            "arch-001-unchanged": regex(ARCH, "contains", "^" + lit(ARCH_BEFORE_ROSTER) + "$"),
+            "no-arch-002": exists("docs/specs/arch/ARCH-002.md", False),
+            "asks-to-confirm-amend": """\
+---
+type: llm
+---
+
+Context the reply was written in: the workspace held PRD-001 version 2 (approved), which adds FR-003, the
+coordinator's daily roster, with a NEEDS ADR marker asking where the roster is served from, and ARCH-001, an
+approved architecture defined against PRD-001 version 1 with no question about the roster. The user asked to amend ARCH-001 for version 2 and to leave
+every architectural question open for later, the existing DEC-02 (session revocation) included. The user didn't confirm the amend outcome.
+
+Judge only the final reply. PASS if it asks the user to confirm amending ARCH-001 before anything is written
+to it, and names what amending will change: at least (1) a new architectural question (a DEC) about the
+roster or FR-003, (2) ARCH-001's new version, 2, and (3) that the approved ARCH-001 goes back to in-review.
+FAIL if it says it already amended, wrote or changed ARCH-001, if it treats the choice of amend as the
+confirmation, or if any of the three is missing.
+""",
+        },
+    },
+    "request-confirm-still-asks": {
+        "ver": "29",
+        "files": dict(docs__specs__prd__PRD_001=PRD_ROSTER_Q, docs__specs__arch__ARCH_001=ARCH_BEFORE_ROSTER,
+                      docs__specs__adr__ADR_001=ADR_AUTH0),
+        "prompt": "PRD-001 is now at version 2: it adds FR-003, the coordinator's daily roster. Amend ARCH-001 for it;\n"
+                  "I confirm the amend outcome. Leave every architectural question open for now, the existing DEC-02\n"
+                  "included; I'll decide them later.\n",
+        "description": "VER-29: a confirmation in the request still asks at step 8 with a user present: ARCH-001 is unchanged, and the final reply asks to confirm amend, naming what amending changes.",
+        "graders": {
+            "skill-fired": FIRED,
+            "arch-001-unchanged": regex(ARCH, "contains", "^" + lit(ARCH_BEFORE_ROSTER) + "$"),
+            "no-arch-002": exists("docs/specs/arch/ARCH-002.md", False),
+            "asks-to-confirm-amend": """\
+---
+type: llm
+---
+
+Context the reply was written in: the workspace held PRD-001 version 2 (approved), which adds FR-003, the
+coordinator's daily roster, with a NEEDS ADR marker asking where the roster is served from, and ARCH-001, an
+approved architecture defined against PRD-001 version 1 with no question about the roster. The user asked to amend ARCH-001 for version 2, wrote "I
+confirm the amend outcome", left every architectural question open for later, the existing DEC-02 (session revocation)
+included, and didn't ask to proceed without questions.
+
+Judge only the final reply. PASS if it asks the user to confirm amending ARCH-001 now that the change is known,
+before anything is written to it, and names what amending will change: at least (1) a new architectural
+question (a DEC) about the roster or FR-003, (2) ARCH-001's new version, 2, and (3) that the approved ARCH-001
+goes back to in-review. FAIL if it says it already amended, wrote or changed ARCH-001, if it treats the
+request's "I confirm the amend outcome" as the confirmation, or if any of the three is missing.
+""",
+        },
+    },
 }
 
 
@@ -1382,10 +1467,10 @@ def main():
         d = ROOT / name
         (d / "graders").mkdir(parents=True, exist_ok=True)
         tags = f"[architecture, ver-{case['ver']}" + (", negative-trigger]" if case.get("negative") else "]")
-        turns, timeout = ("15", "300") if case.get("negative") else ("60", "1200")
+        turns, timeout = ("15", "300") if case.get("negative") else ("90", "1200")
         (d / "prompt.md").write_text(
             f"---\ndescription: \"{case['description']}\"\ntags: {tags}\nmax_turns: {turns}\n"
-            f"timeout_seconds: {timeout}\nallowed_tools: {TOOLS}\n---\n{case['prompt']}")
+            f"timeout_seconds: {timeout}\nallowed_tools: {case.get('tools', TOOLS)}\n---\n{case['prompt']}")
         (d / "case.yaml").write_text(f"schema_version: \"1.1\"\nname: {name}\ncontext:\n  scaffold_script: scaffold.sh\n")
         (d / "scaffold.sh").write_text(scaffold(f"Seeds the fixtures for SPEC-003 VER-{case['ver']} ({name}).",
                                                 **files(**case["files"])))

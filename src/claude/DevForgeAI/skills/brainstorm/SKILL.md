@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "5"
+  devforgeai-version: "6"
 ---
 
 # Brainstorm
@@ -31,12 +31,15 @@ Propose both, then ask. Anything the user has not explicitly confirmed stays `di
 `reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
 confirmed* and continue with those values. This happens when the user said to proceed without
 questions or no user is there to answer. Record your proposals in section 6 prose so nothing is
-lost. An unconfirmed disposition looks valid to every structural check, and a PRD would build on
-a choice nobody made. That is why this rule matters more than any other in this skill.
+lost. When the user confirms them later, after the BRN is written, don't edit from that message
+alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 question,
+tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
+report. An unconfirmed disposition looks valid to every structural check, and a PRD would build on a
+choice nobody made. That is why this rule matters more than any other in this skill.
 
 ## Workflow
 
-Once you have a topic, copy this checklist into your response and tick items off as you go:
+Work through this checklist:
 
 ```
 - [ ] 1. Intake: topic, existing BRNs, clarifying questions
@@ -49,11 +52,34 @@ Once you have a topic, copy this checklist into your response and tick items off
 - [ ] 8. Report and hand off
 ```
 
+**Keep the checklist in the task list** when the session has task-list tools (TaskCreate and
+TaskUpdate, or TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress
+tracker credits an answer to a step only when the list marks that step in progress and, for a
+question form, its tag names that step:
+
+1. Before anything else, even before asking for a topic, create one task per step: subject
+   `<N>. <title>` (the step's line without the box), metadata `devforgeai_step: N`; with TodoWrite,
+   content `<N>. <title>`. Create them even when an earlier run's tasks are still in the list: those
+   don't count for this run.
+2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
+   time; a step with nothing to do is completed too. Mark step 8 completed just before writing the
+   final reply, so nothing follows the hand-off.
+3. Before asking any question, mark the step it belongs to in_progress: the topic, clarifying and
+   extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
+   5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
+   it. Never put two steps' questions in one question form.
+4. Tag each question form with its step: AskUserQuestion's
+   `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
+   on each of its questions, which the user does.
+
+Without task-list tools, copy the checklist into your response once you have a topic, and tick items
+off (`- [x] N.`) in your reply text as you go.
+
 ### 1. Intake
 
 1. **Topic.** Use `$ARGUMENTS`, or the topic stated in the conversation. If there is none, ask
    "What topic should we brainstorm?" and stop. Create no file and no directory until the user
-   gives a topic.
+   gives a topic (the task list is not a file).
 2. **Existing BRNs.** Glob `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one
    covers the same or a closely similar topic, show its ID, title and path and ask:
    *extend it* (version + 1, with a Change Log entry) or *create a new BRN*. Wait for the answer
@@ -63,8 +89,8 @@ Once you have a topic, copy this checklist into your response and tick items off
    the request says to proceed without questions. Record anything still unknown as
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
 
-Use AskUserQuestion for questions and confirmations when it is available; otherwise ask in plain
-text and end your turn.
+Use AskUserQuestion for questions and confirmations when it is available, tagged with its step
+(Workflow); otherwise ask in plain text and end your turn.
 
 ### 2. Select a framework
 
@@ -148,9 +174,12 @@ keys, ID patterns, item-block rules and allowed fields.
    python3 ${CLAUDE_SKILL_DIR}/scripts/validate_brn.py docs/specs/brainstorm/BRN-NNN.md
    ```
 
-   It prints one line per problem (`line N: message`) and exits 1, or prints `OK: path` and
-   exits 0. Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or
-   Python, check the file by hand against the *Validation checklist* in
+   Run it alone, on one line: never joined to another command with `;`, `|` (or `||`) or a
+   background `&`, and with no second command line (`&&` and `2>&1` are fine). Then its exit status
+   is the validator's: the progress tracker credits no run whose status another command hides. It
+   prints one line per problem (`line N: message`) and exits 1, or prints `OK: path` and exits 0.
+   Don't run any `devforgeai` command, even if one is on PATH. Only without a shell or Python, check
+   the file by hand against the *Validation checklist* in
    [output-rules.md](references/output-rules.md).
 2. The validator can't know what the user confirmed. After it passes, read the file back and
    check that every disposition other than `open`, and `status: converged`, is one the user
@@ -213,8 +242,10 @@ Do not start writing a PRD.
 5. The validator prints OK, and the skill reports and hands off.
 
 **User says to proceed without questions.** The skill asks nothing and records unknowns as
-`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and
-puts its proposals in section 6. It asks the user to confirm them in the final reply.
+`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
+its proposals in section 6. Its final reply says the user can confirm them later; when the user
+replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN, validates it
+again and reports.
 
 **A BRN on the topic already exists.** The skill shows it and asks: extend it or create a new
 one. It writes nothing until the user answers.
