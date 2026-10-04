@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 9
 created: 2026-10-02
 updated: 2026-10-03
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-03
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
@@ -1219,3 +1219,4 @@ Notes:
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the builds of versions 7 and 8 and the live check VER-29 | §9 |
 | 8 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #71's merge and the deploy of plugin 0.17.0 | §9 |
 | 9 | 2026-10-03 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-03 ("Reword now"), after a live enforce-mode architecture run whose stuck notice gave task-list advice for a policy script run the tracker hadn't seen: the notice's last sentence is chosen by the refused flag's type and whether its step is user-owned (BEH-25): the task-list advice for a question gate, the evidence advice for a step the tracker hasn't seen done, the decision advice for a decision written without the user's answer; VER-32 checks each; the refusals and their counting are unchanged; status in-review | frontmatter, §1, BEH-25, VER-32, §10, §11, §13 |
+| 9 | 2026-10-03 | Bryan | Approved | status |
