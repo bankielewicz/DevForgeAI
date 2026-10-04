@@ -2,8 +2,8 @@
 id: SPEC-014
 type: spec
 title: "Spec lookup skill: cite the project's specifications or ask, never invent"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 2
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 3
 created: 2026-10-04
 updated: 2026-10-04
 owner: "Bryan"
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-04
+approved_by: ""
+approved_on: null
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
@@ -32,7 +32,8 @@ components: ["src/claude/DevForgeAI/skills/spec-lookup", "src/claude/DevForgeAI/
 
 # SPEC-014 — Spec lookup skill: cite the project's specifications or ask, never invent
 
-> **Status:** version 2 approved by Bryan on 2026-10-04; not built. The drafting plan and its checkpoints are in
+> **Status:** version 3 in review (versions 1 and 2 approved by Bryan on 2026-10-04); built to version 2 on branch
+> `docs/spec-014-spec-lookup` (PR #75), not yet evaluated in full. The drafting plan and its checkpoints are in
 > `tmp/plans/2026-10-04-spec-014-spec-lookup.md` (local).
 
 ## 1. Overview
@@ -60,6 +61,13 @@ The skill is recorded as `SKL-011` in its `provenance.yaml`. It reads and never 
 `docs/research/Claude/subagents.md`) specifies how the out-of-band lookup runs. The plugin ships a lookup agent,
 `agents/spec-lookup.md`, limited to Bash and Read and run on Haiku. The main conversation gives it a self-contained
 task message and waits for its report, which holds only the script's output lines (BEH-09).
+
+**Version 3** (2026-10-04, Bryan's decisions after the build's reviews and a live prototype):
+- the agent's description names the task message's three parts, since during another skill's workflow the main
+  conversation sees only that description (BEH-09);
+- a hit covers a behaviour only when its line states or decides it (BEH-03);
+- VER-05's prompt loads the skill by its command, since the description doesn't fire it in a project with no
+  `docs/specs/`.
 
 **What this can't guarantee** (research D, `tmp/plans/spec-014/research-guides.md`):
 - A skill loads when its description matches the request; nothing makes it fire on Claude's own intention to design
@@ -159,7 +167,7 @@ metadata:
 
   ```yaml
   name: spec-lookup
-  description: Runs DevForgeAI's spec-lookup script for the queries it is given and returns the script's output lines unchanged. Used by the main conversation during another DevForgeAI skill's workflow, so the lookup doesn't end that workflow's tracked run.
+  description: Runs DevForgeAI's spec-lookup script for the queries it is given and returns the script's output lines unchanged. Used by the main conversation during another DevForgeAI skill's workflow, so the lookup doesn't end that workflow's tracked run. Send it a task message with three parts: 'Script:' the running devforgeai skill's base directory followed by ../spec-lookup/scripts/find_spec.py, 'Project root:' the absolute project folder, and 'Queries:' one per line.
   tools: Bash, Read
   model: haiku
   omitClaudeMd: true
@@ -205,7 +213,7 @@ behaviors:
     rule: "Search only with the bundled script, python3 ${CLAUDE_SKILL_DIR}/scripts/find_spec.py with the query, run as a command of its own; never decide coverage by listing or reading files instead. Read a cited file at the cited line when its excerpt isn't enough. Use one call per query."
   - id: BEH-03
     status: active
-    rule: "Cite every covered behaviour as path:line (DOC vN, status), adding the item's ID and status for an item, in the reply before or with the proposal. A hit in a document that isn't approved or accepted, or on a deprecated item or a superseded document, is cited with that status, so the reader sees it."
+    rule: "Cite every covered behaviour as path:line (DOC vN, status), adding the item's ID and status for an item, in the reply before or with the proposal. A hit covers a behaviour only when its line states or decides it; a shared word is no coverage, and when the excerpt doesn't settle it, Read the line before citing it. A hit in a document that isn't approved or accepted, or on a deprecated item or a superseded document, is cited with that status, so the reader sees it."
   - id: BEH-04
     status: active
     rule: "A search with no match permits asking, never a claim that something was never discussed. Before treating a behaviour as uncovered, search again with at least one other form of it: a synonym, the bare item ID, or the document ID. Report the coverage line of each search."
@@ -223,7 +231,7 @@ behaviors:
     rule: "This repository's CLAUDE.md says, in its rules for changes: before proposing, designing or changing any DevForgeAI behaviour, use /devforgeai:spec-lookup (or its script) and cite what it finds, or ask Bryan; never build what no spec, ADR or recorded decision covers."
   - id: BEH-09
     status: active
-    rule: "The plugin's lookup agent, agents/spec-lookup.md (name spec-lookup, so devforgeai:spec-lookup), has the tools Bash and Read only, so it can't load a skill, start another subagent or change a file; model haiku; and omitClaudeMd true. Its instructions: run the script once per query given, each as a command of its own; reply with the script's output lines exactly as printed, in one fenced block per query, and nothing else; never edit or write. The main conversation's task message is self-contained, since a subagent sees no conversation, skill or file the main conversation has: it gives the absolute path of the script (the running skill's base directory, then ../spec-lookup/scripts/find_spec.py) and the queries, one per line. The main conversation cites only lines of the form path:line from the report: the harness may prepend a line starting [harness: or escape text in a report, and those lines are no citations. Outside another skill's workflow the lookup runs in the main conversation through the skill (BEH-02), because a subagent adds a fresh context, a model call and a delay (Anthropic's subagent documentation, 'Choose between subagents and main conversation')."
+    rule: "The plugin's lookup agent, agents/spec-lookup.md (name spec-lookup, so devforgeai:spec-lookup), has the tools Bash and Read only, so it can't load a skill, start another subagent or change a file; model haiku; and omitClaudeMd true. Its instructions: run the script once per query given, each as a command of its own; reply with the script's output lines exactly as printed, in one fenced block per query, and nothing else; never edit or write. The main conversation's task message is self-contained, since a subagent sees no conversation, skill or file the main conversation has: it gives the absolute path of the script (the running skill's base directory, then ../spec-lookup/scripts/find_spec.py), the project root and the queries, one per line, as 'Script:', 'Project root:' and 'Queries:'. The agent's description names these three parts, because during another skill's workflow the main conversation sees the agent's description and not this skill's text. The main conversation cites only lines of the form path:line from the report: the harness may prepend a line starting [harness: or escape text in a report, and those lines are no citations. Outside another skill's workflow the lookup runs in the main conversation through the skill (BEH-02), because a subagent adds a fresh context, a model call and a delay (Anthropic's subagent documentation, 'Choose between subagents and main conversation')."
 ```
 
 ## 7. Errors and edge cases
@@ -335,7 +343,7 @@ verifications:
       - BEH-03
   - id: VER-05
     status: active
-    obligation: "No specs: a workspace with no docs/specs/ and a prompt to design a login screen, proceeding without questions. The reply says nothing is specified yet and marks the behaviours [NEEDS CLARIFICATION: not in any spec; no file is written. Eval case no-specs-folder: regex on last_message, tool_used Write max 0."
+    obligation: "No specs: a workspace with no docs/specs/ and a prompt that loads the skill by its command (/devforgeai:spec-lookup) and asks to design a login screen, proceeding without questions. The reply says nothing is specified yet and marks the behaviours [NEEDS CLARIFICATION: not in any spec; no file is written. Eval case no-specs-folder: regex on last_message, tool_used Write max 0."
     level: e2e
     covers:
       - ERR-01
@@ -421,11 +429,13 @@ For Bryan, in order. None of these is a requirement until he decides it.
    - Nobody has checked whether a skill loaded *inside* a subagent opens a tracked run (SPEC-013 §9's probe, P3, saw
      no subagent load), so the subagent runs the script rather than loading the skill. VER-08 (d) checks the run stays
      open.
-   - Unverified until VER-08 (d), each from `docs/research/Claude/subagents.md`:
-     - the Agent tool's `subagent_type` string for a plugin agent; the page gives `@agent-my-plugin:name` and the
-       typeahead name `my-plugin:name`, so `devforgeai:spec-lookup` is an inference;
-     - whether the main conversation can wait for a background subagent's report in the middle of a skill's
-       workflow (interactive sessions run subagents in the background by default).
+   - Verified in a live prototype (2026-10-04, worker1, two brainstorm runs in observe mode, plan §6 b6):
+     - the Agent tool's `subagent_type` for the plugin agent is `devforgeai:spec-lookup`;
+     - the main conversation waited for the background report before asking its first question;
+     - with version 2's agent description the task message had no script path, and the Haiku agent searched the
+       disk for it instead of replying `no script path given`; with version 3's description the main conversation
+       built `Script:`, `Project root:` and `Queries:`, and the agent ran only the script, once per query;
+     - both runs stayed open (no `run-end another-skill`), and the agent's tool calls weren't recorded.
    - The tracked skills' own texts (SKL-001, SKL-003) don't mention lookups; until a later version of them does, this
      skill's description carries the instruction.
 2. **Deterministic enforcement.** Only a hook guarantees the rule (research D). For example, a `UserPromptSubmit` or
@@ -448,3 +458,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 1 | 2026-10-04 | Bryan | Approved, with lookups during another skill's workflow done by a subagent | status |
 | 2 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | At Bryan's request to follow Anthropic's subagent documentation (saved as docs/research/Claude/subagents.md): the out-of-band lookup uses a plugin-shipped agent, devforgeai:spec-lookup, with tools Bash and Read, model haiku and omitClaudeMd, a self-contained task message with the script's absolute path, a report of the script's output lines only, and citations taken only from path:line lines; the main conversation waits for the report; outside a workflow the skill runs in the main conversation (new BEH-09, BEH-01, §1, §3, §5, VER-07, VER-08, §12, §13); status in-review | frontmatter, §1, §3, §5, BEH-01, BEH-09, VER-07, VER-08, §12, §13 |
 | 2 | 2026-10-04 | Bryan | Approved, with the plugin-shipped lookup agent | status |
+| 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 after the build's reviews: the agent's description names the task message's parts (Script, Project root, Queries), as a live prototype in worker1 showed the main conversation then builds it and the agent runs only the script (item 19: "Create a prototype and test in DevForgeAI-worker1 terminal"); a hit covers a behaviour only when its line states or decides it (the skill-reviewer's M5, "Add it to BEH-03"); VER-05's prompt loads the skill by its command, since the cheap eval pass showed the description doesn't fire it with no docs/specs/ (proposed); §13 records the prototype's verified facts; status in-review | §1, §5, BEH-03, BEH-09, VER-05, §13 |
