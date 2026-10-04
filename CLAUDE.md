@@ -23,6 +23,7 @@ Each spec's §9 table records its eval runs (scores, cost, bound commit) and whi
 | `qa` | SKL-007, reserved | SPEC-008 v1, stub | Not built; until it is, QA follows SPEC-008 §4 by hand |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review (v2 approved 2026-09-30) | v3 refreshes the SPEC-007 citation only; approval pending. Not built; its §11 lists the build steps |
 | `context` | SKL-010 v2, approved | SPEC-011 v3, approved 2026-10-01 | Approved by Bryan 2026-10-01; merged in PR #45 (plugin 0.8.1), deployed (0.9.0); v1 merged in PR #34. 18 eval cases and 12 trigger cases: full suite 18 of 18 at ≥ 0.8 over 3 runs, triggers 3 of 3 on Sonnet and Opus; manual VER-21 and VER-22 not run (`docs/runbooks/spec-011-manual-checks.md`) |
+| `spec-lookup` | SKL-011 v1, approved | SPEC-014 v3, approved 2026-10-04 (cite the project's specs or ask, never invent; a hit covers only when its line states the behaviour, BEH-03; a lookup during another skill's workflow goes through the `devforgeai:spec-lookup` agent, whose description names the task message, BEH-09) | Built on `docs/spec-014-spec-lookup` (PR #75), plugin 0.19.0: `find_spec.py` (VER-01, 22 tests), 9 eval cases; qualified 2026-10-04, 4 of 4 at 1.00 over 3 runs (mean Δ +0.69), triggers 4 of 5 at 3 of 3 (trigger-03 5 of 6); VER-08 (a) to (d) pass live; approved by Bryan 2026-10-04; not merged or deployed |
 
 SKL-008 is reserved for the story skill (SPEC-009).
 
@@ -171,6 +172,11 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
 
 ## Rules a change must not break
 
+- **Look it up before building it** (SPEC-014 BEH-08). Before proposing, designing or changing any DevForgeAI
+  behaviour, use `/devforgeai:spec-lookup` (or its script,
+  `src/claude/DevForgeAI/skills/spec-lookup/scripts/find_spec.py`) and cite what it finds, or ask Bryan;
+  never build what no spec, ADR or recorded decision covers. During another devforgeai skill's workflow, hand
+  the lookup to the `devforgeai:spec-lookup` agent instead of loading the skill, which would end that run.
 - **Judgment calls are the user's.** In brainstorm, idea dispositions and convergence are written only
   when the user confirmed them. Otherwise they stay `disposition: open`, `reason: null` and `status: draft`.
   With no user present, VER-02 checks exactly this. Each later spec names its own user-owned decisions.
