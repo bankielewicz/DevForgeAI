@@ -48,6 +48,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 Other folders:
 - `src/templates/`: document templates not yet owned by a skill (story, spec, sprint, policy,
   ambiguities, `github/`, `skill/`); a built skill's template is in its `assets/`.
+  `src/templates/brainstorm.md` is a leftover identical copy of brainstorm's asset.
 - `src/schemas/`: the documents' JSON Schemas. `src/staging/examples/`: example projects.
 - `src/codex/devforgeai/`: the Codex port (brainstorm, prd, architecture, documents-updater), built and
   kept by Codex sessions; its README and `*IMPORT-REPORT.md` files give each skill's status. Don't
@@ -113,7 +114,7 @@ python3 src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py docs/spe
 PYTHONDONTWRITEBYTECODE=1 python3 src/claude/DevForgeAI/skills/documents-updater/scripts/check_docs.py README.md
 ```
 
-`src/tests/<skill>/` holds each skill's script tests, structure tests and eval generator.
+`src/tests/<skill>/` holds the skills' tests and eval generators.
 `test_shared_files.py` checks that the prd, architecture and context skills' shared policy files are
 byte-identical.
 

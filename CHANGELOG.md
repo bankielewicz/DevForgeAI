@@ -51,7 +51,7 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Changed
 
-- Prepared git SKL-006 v3 (plugin 0.10.1 candidate): push and PR requests check the requested
+- Prepared git SKL-006 v3: push and PR requests check the requested
   branch for unrelated history before rebasing; carrying work from any branch asks before including
   commits outside the default branch, while reusing explicit inclusion; password assignments in
   explicitly named local/example Compose files warn and require confirmation. Other Compose
@@ -76,7 +76,8 @@ Entries start with the epic skill. Earlier work is described in each specificati
   that exists only in the index, catches `sk-proj-`, `sk-svcacct-` and `sk-admin-` keys, warns instead
   of blocking on credentials in local or example URLs, and always asks before deleting a remote branch,
   naming it.
-- An impossible date is an ordinary `schema` error in every validator and in the policy script.
+- An impossible date is an ordinary `schema` error in the prd, architecture and epic validators and in
+  the policy script.
 - `check_docs.py` (documents-updater) no longer reports footnote definitions as broken links,
   repeated sub-bullets as duplicate `Unreleased` entries, or an empty `Unreleased` section as an
   error, and no longer reads a leading horizontal rule as front matter.
