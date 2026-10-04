@@ -2,7 +2,8 @@ import { expect, test } from 'claude-code/testing'
 import {
   adherenceText, bandRows, editResult, eventLine, finalTimeout, exitOf, fit, followsTaskList, hasTaskList, isAnswered,
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
-  replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, summaryOf, taskIdOf,
+  refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
+  stuckText, summaryOf, taskIdOf,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -246,4 +247,34 @@ test('the question gate refuses at its own seq; the adherence notice needs a rep
   const reported = { ...STATE, steps: STATE.steps.map(s => (s.n === 8 ? { ...s, kind: 'report', state: 'done' } : s)),
     counts: { stepEvents: 0, unmarkedQuestions: 0 } }
   expect(adherenceText(reported)).not.toBe(null)
+})
+
+// SPEC-013 v9 (BEH-25): the stuck notice's last sentence follows the refused flag's type and whether its step is
+// user-owned, never its message text.
+const TASK_ADVICE = "Help Claude bring its task list in step, or switch to observe mode with the band's button."
+const EVIDENCE_ADVICE = "Claude hasn't done that step in a way the tracker can see: ask Claude to do it as the message "
+  + "says, or switch to observe mode with the band's button."
+const DECISION_ADVICE = "The refused write records a decision that needs your answer: answer Claude's question about it, "
+  + "or ask Claude to leave it open, or switch to observe mode with the band's button."
+
+test("the stuck notice's advice follows the refused flag's type and whether its step is user-owned (version 9)", () => {
+  for (const type of ['unmarked-question', 'untagged-question', 'mismatched-question']) {
+    expect(stuckAdvice(type, false)).toBe(TASK_ADVICE)
+    expect(stuckAdvice(type, true)).toBe(TASK_ADVICE)
+  }
+  expect(stuckAdvice('skipped', false)).toBe(EVIDENCE_ADVICE)
+  expect(stuckAdvice('claimed-not-evidenced', false)).toBe(EVIDENCE_ADVICE)
+  expect(stuckAdvice('skipped', true)).toBe(DECISION_ADVICE)
+  expect(stuckAdvice('rule-broken', false)).toBe(DECISION_ADVICE)
+  expect(stuckAdvice('rule-broken', true)).toBe(DECISION_ADVICE)
+  // The cause reads userOwned from the state's steps; a step the state doesn't list isn't user-owned.
+  const owned = { ...STATE, gate: { kind: 'write', seq: 7, refuse: true, reason: 'x' },
+    steps: STATE.steps.map(s => (s.n === 5 ? { ...s, userOwned: true } : s)),
+    flags: [{ gate: 'write', seq: 7, step: 5, type: 'skipped', message: 'm5' },
+      { gate: 'write', seq: 7, step: 6, type: 'rule-broken', message: 'm6' }] }
+  expect(refusalCause(owned, 7)).toEqual({ key: 'write:skipped:5', step: 5, message: 'm5', type: 'skipped', userOwned: true })
+  const unlisted = { ...owned, flags: [{ gate: 'write', seq: 7, step: 40, type: 'skipped', message: 'm40' }] }
+  expect(refusalCause(unlisted, 7)?.userOwned).toBe(false)
+  expect(stuckText('brainstorm', 5, 'm5', DECISION_ADVICE))
+    .toBe(`brainstorm: the progress tracker refused Claude twice at step 5 for the same reason: m5. ${DECISION_ADVICE}`)
 })
