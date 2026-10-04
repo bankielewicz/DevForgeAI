@@ -1181,7 +1181,9 @@ only when the request says to proceed without questions, recorded here as one of
 summary he asked for on 2026-10-04, as the tracker's own dialog, one item at a time, Accept or Challenge, recorded in
 the run's folder and never sent to Claude, in both modes, on flagged runs only, once every step is reached. Open, for
 later: whether a challenge should do more than record (an issue, a note for the next run); whether a run that ends
-before every step is reached should be reviewed at its end, when no one may be there to answer.
+before every step is reached should be reviewed at its end, when no one may be there to answer. Also open (Bryan,
+2026-10-04, recorded for a later version): turn.complete fires for an aborted turn (Esc) too, so the review can appear
+right after the user interrupts; BEH-26 allows it.
 
 Decided by Bryan on 2026-10-02:
 - The adapter lives in the plugin (`src/claude/DevForgeAI/hooks/`).
@@ -1307,3 +1309,4 @@ Notes:
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: waiver on every answer to the waiver question, a dismissal's included, and only for a one-question call (DM-01, BEH-21); review items one per cause, a refusal and a later flag for one cause one item (BEH-26; Bryan to confirm); typed labels; why /clear can't repeat a review; how VER-36 gets a refusal | DM-01, DM-02, BEH-21, BEH-26, VER-34, VER-35, VER-36 |
 | 10 | 2026-10-04 | Bryan | Approved, with review items one per cause and a dismissal ending that run's review | status |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 10 | §9 |
+| 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records an open item from the build's review (the review after an aborted turn) | §13 |
