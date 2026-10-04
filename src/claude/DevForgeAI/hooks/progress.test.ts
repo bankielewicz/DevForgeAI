@@ -1496,6 +1496,23 @@ test('VER-32: two question refusals for the same cause tell the user once; a thi
   expect(oneLineEntries(w)).toBe(true)
 })
 
+for (const [type, step, question] of [
+  ['untagged-question', 2, QUESTION],
+  ['mismatched-question', 5, asked('devforgeai_step:5')],
+] as Array<[string, number, Any]>) {
+  test(`VER-32 (version 9): two ${type} refusals end with the task-list advice`, async ($, on) => {
+    let files = new Map<string, string>()
+    const w = world(on, { mode: 'enforce local', tool: taskTools(), evaluate: questionGate(() => files, type, step) })
+    files = w.files
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await $.tool.call(question as Any)
+    await $.tool.call(question as Any)
+    expect(w.toasts.filter(t => t === STUCK('brainstorm', step, MESSAGES[type])).length).toBe(1)
+    expect(w.toasts.some(t => t.includes(EVIDENCE_ADVICE) || t.includes(DECISION_ADVICE))).toBe(false)
+  })
+}
+
 test('VER-32: refusals for different causes, or one in each of two runs, tell nothing', async ($, on) => {
   let files = new Map<string, string>()
   let type = 'unmarked-question'
