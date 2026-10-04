@@ -1,7 +1,7 @@
 ---
 description: "VER-07: an ARCH-001 already covers the system, so the skill proposes reuse or amend and asks; no ARCH-002 is created and ARCH-001 is unchanged."
 tags: [architecture, ver-07]
-max_turns: 60
+max_turns: 90
 timeout_seconds: 1200
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

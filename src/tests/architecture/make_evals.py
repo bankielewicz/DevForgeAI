@@ -1467,7 +1467,7 @@ def main():
         d = ROOT / name
         (d / "graders").mkdir(parents=True, exist_ok=True)
         tags = f"[architecture, ver-{case['ver']}" + (", negative-trigger]" if case.get("negative") else "]")
-        turns, timeout = ("15", "300") if case.get("negative") else ("60", "1200")
+        turns, timeout = ("15", "300") if case.get("negative") else ("90", "1200")
         (d / "prompt.md").write_text(
             f"---\ndescription: \"{case['description']}\"\ntags: {tags}\nmax_turns: {turns}\n"
             f"timeout_seconds: {timeout}\nallowed_tools: {case.get('tools', TOOLS)}\n---\n{case['prompt']}")

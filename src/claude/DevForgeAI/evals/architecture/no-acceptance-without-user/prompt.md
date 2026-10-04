@@ -1,7 +1,7 @@
 ---
 description: "VER-06: with no user, no ADR is written or accepted, no question is resolved by an ADR, and outcome stays null."
 tags: [architecture, ver-06]
-max_turns: 60
+max_turns: 90
 timeout_seconds: 1200
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

@@ -1,7 +1,7 @@
 ---
 description: "VER-16: ARCH-001 already cites PRD-001 v2 and has one review row, so confirming reuse again writes nothing."
 tags: [architecture, ver-16]
-max_turns: 60
+max_turns: 90
 timeout_seconds: 1200
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---

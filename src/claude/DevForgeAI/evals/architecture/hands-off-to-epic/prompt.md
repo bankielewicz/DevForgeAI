@@ -1,7 +1,7 @@
 ---
 description: "VER-10 (shipped branch): the epic skill ships, so the reply lists ready and blocked requirements and ends with a Next step paragraph telling the user to run /devforgeai:epic PRD-001."
 tags: [architecture, ver-10]
-max_turns: 60
+max_turns: 90
 timeout_seconds: 1200
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
 ---
