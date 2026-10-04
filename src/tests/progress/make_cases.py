@@ -87,13 +87,16 @@ class Log:
     def write(self, path, content=None):
         return self.tool("Write", path=path, content=content)
 
-    def answer(self, answered=True, step=None, outside=False):
-        """An answer event; step is its question's tag (devforgeai_step:N), outside a source naming something else."""
+    def answer(self, answered=True, step=None, outside=False, waiver=None):
+        """An answer event; step is its question's tag (devforgeai_step:N), outside a source naming something else,
+        waiver the label picked in the waiver question (version 11)."""
         fields = {"answered": answered}
         if step is not None:
             fields["step"] = step
         if outside:
             fields["outside"] = True
+        if waiver is not None:
+            fields["waiver"] = waiver
         return self.add("answer", **fields)
 
     def prompt(self):
@@ -737,6 +740,104 @@ def _():
 def _():
     log = brn_to_four(Log("brainstorm", checklist=tasked("brainstorm"), task_list=False)).worked(5).started(6)
     return log.answer(step=5).write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+# ---- version 11: the waiver ----------------------------------------------------------------------
+
+
+def arch_waived(waiver, answered=True, step8_answer=False, adr_status=None):
+    """An architecture run that follows the task list: the waiver question in step 1, after the policy script; step 7
+    finds nothing to ask; step 8 asks nothing unless step8_answer; then the ARCH Write with outcome: amend (and, with
+    adr_status, an ADR Write first). waiver None puts a reply where the waiver answer would be, so seqs match."""
+    log = following("architecture").started(1).bash(POLICY)
+    log = log.answer(answered=answered, waiver=waiver) if waiver else log.reply("Proceeding.")
+    log.done(1).started(2).glob("docs/specs/prd/PRD-*.md").done(2).started(3).read("docs/specs/prd/PRD-001.md").done(3)
+    log.started(4).glob("docs/specs/arch/ARCH-*.md").done(4).worked(5, 6, 7).started(8)
+    if step8_answer:
+        log.answer(step=8)
+    log.done(8).started(9)
+    if adr_status:
+        log.write(ADR_PATH, adr(adr_status))
+    return log.write(ARCH_PATH, arch("amend")), plugin_only(), {}
+
+
+@case("waiver-none")  # VER-39: the control, with a reply where the waiver answer would be: step 8 needs an answer
+def _():
+    return arch_waived(None)
+
+
+@case("waiver-proceed")  # VER-39: Proceed answers step 8 (waivable), so the amend outcome raises nothing
+def _():
+    return arch_waived("proceed")
+
+
+@case("waiver-ask")  # VER-39: Ask me as usual changes nothing
+def _():
+    return arch_waived("ask")
+
+
+@case("waiver-other")  # VER-39: a typed answer changes nothing
+def _():
+    return arch_waived("other")
+
+
+@case("waiver-dismissed")  # VER-39: a dismissed waiver question is no question gate and changes nothing
+def _():
+    return arch_waived("other", answered=False)
+
+
+@case("waiver-second")  # VER-39: only the first waiver answer counts
+def _():
+    log2 = following("architecture").started(1).bash(POLICY).answer(waiver="proceed").done(1).started(2)
+    log2.answer(waiver="ask").glob("docs/specs/prd/PRD-*.md").done(2).started(3).read("docs/specs/prd/PRD-001.md")
+    log2.done(3).started(4).glob("docs/specs/arch/ARCH-*.md").done(4).worked(5, 6, 7).started(8).done(8).started(9)
+    return log2.write(ARCH_PATH, arch("amend")), plugin_only(), {}
+
+
+@case("waiver-and-answer")  # VER-39: an actual step-8 answer stands beside the waiver
+def _():
+    return arch_waived("proceed", step8_answer=True)
+
+
+@case("waiver-adr")  # VER-39: step 7 isn't waivable, so an accepted ADR with no answer is flagged
+def _():
+    return arch_waived("proceed", adr_status="accepted")
+
+
+@case("waiver-no-gate")  # VER-39: the waiver answered before any step is marked is no question gate
+def _():
+    log = following("architecture").answer(waiver="proceed").started(1).bash(POLICY).done(1)
+    log.started(2).glob("docs/specs/prd/PRD-*.md").done(2).started(3).read("docs/specs/prd/PRD-001.md").done(3)
+    log.started(4).glob("docs/specs/arch/ARCH-*.md").done(4).worked(5, 6, 7).started(8).done(8).started(9)
+    return log.write(ARCH_PATH, arch("amend")), plugin_only(), {}
+
+
+@case("waiver-current")  # VER-39: no task list; a Proceed waiver doesn't make step 8 reached early
+def _():
+    return Log("architecture").bash(POLICY).answer(waiver="proceed").glob("docs/specs/prd/PRD-*.md"), plugin_only(), {}
+
+
+@case("waiver-no-tasklist")  # VER-39: no task list; an ask waiver inside step 7's window isn't placed there
+def _():
+    log = arch_to_six(Log("architecture")).answer(waiver="ask").tick(7)
+    return log.write(ADR_PATH, adr("accepted")), plugin_only(), {}
+
+
+@case("waiver-no-tasklist-proceed")  # VER-39: no task list; a Proceed waiver still answers step 8
+def _():
+    log = arch_start(Log("architecture")).answer(waiver="proceed").glob("docs/specs/arch/ARCH-*.md").tick(1, 2, 3, 4, 6)
+    return log.write(ARCH_PATH, arch("amend")), plugin_only(), {}
+
+
+@case("waiver-brainstorm")  # VER-39: brainstorm has no waivable step, so promoted dispositions are flagged
+def _():
+    log = following("brainstorm").started(1).glob("docs/specs/brainstorm/BRN-*.md").answer(waiver="proceed").done(1)
+    return brn_promote(log.worked(2, 3, 4, 5))
+
+
+@case("waiver-brainstorm-windows")  # VER-39: no task list; the waiver isn't placed in step 5's window
+def _():
+    return brn_start(Log("brainstorm")).answer(waiver="proceed").write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
 
 # ---- writing ------------------------------------------------------------------------------------
 
