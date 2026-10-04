@@ -2,7 +2,7 @@
 id: SPEC-014
 type: spec
 title: "Spec lookup skill: cite the project's specifications or ask, never invent"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 3
 created: 2026-10-04
 updated: 2026-10-04
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-04
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
@@ -32,7 +32,7 @@ components: ["src/claude/DevForgeAI/skills/spec-lookup", "src/claude/DevForgeAI/
 
 # SPEC-014 — Spec lookup skill: cite the project's specifications or ask, never invent
 
-> **Status:** version 3 in review (versions 1 and 2 approved by Bryan on 2026-10-04); built to version 2 on branch
+> **Status:** version 3 approved by Bryan on 2026-10-04 (as were versions 1 and 2); built to version 2 on branch
 > `docs/spec-014-spec-lookup` (PR #75), not yet evaluated in full. The drafting plan and its checkpoints are in
 > `tmp/plans/2026-10-04-spec-014-spec-lookup.md` (local).
 
@@ -459,3 +459,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 2 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | At Bryan's request to follow Anthropic's subagent documentation (saved as docs/research/Claude/subagents.md): the out-of-band lookup uses a plugin-shipped agent, devforgeai:spec-lookup, with tools Bash and Read, model haiku and omitClaudeMd, a self-contained task message with the script's absolute path, a report of the script's output lines only, and citations taken only from path:line lines; the main conversation waits for the report; outside a workflow the skill runs in the main conversation (new BEH-09, BEH-01, §1, §3, §5, VER-07, VER-08, §12, §13); status in-review | frontmatter, §1, §3, §5, BEH-01, BEH-09, VER-07, VER-08, §12, §13 |
 | 2 | 2026-10-04 | Bryan | Approved, with the plugin-shipped lookup agent | status |
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 after the build's reviews: the agent's description names the task message's parts (Script, Project root, Queries), as a live prototype in worker1 showed the main conversation then builds it and the agent runs only the script (item 19: "Create a prototype and test in DevForgeAI-worker1 terminal"); a hit covers a behaviour only when its line states or decides it (the skill-reviewer's M5, "Add it to BEH-03"); VER-05's prompt loads the skill by its command, since the cheap eval pass showed the description doesn't fire it with no docs/specs/ (proposed); §13 records the prototype's verified facts; status in-review | §1, §5, BEH-03, BEH-09, VER-05, §13 |
+| 3 | 2026-10-04 | Bryan | Approved, with the agent's description naming the task message, coverage only by a line that states the behaviour, and VER-05 loading the skill | status |
